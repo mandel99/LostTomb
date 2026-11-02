@@ -1,0 +1,8 @@
+#ifndef RESTORE_RELIGION_ADVISOR_RENDER_H
+#define RESTORE_RELIGION_ADVISOR_RENDER_H
+void FUN_005298e0(void);
+void FUN_00528f10(void);
+void FUN_005292b0(void);
+void FUN_00529320(void);
+void FUN_00529530(void);
+#endif

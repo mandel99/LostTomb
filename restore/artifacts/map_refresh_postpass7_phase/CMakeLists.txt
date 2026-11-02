@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.20)
+project(map_refresh_postpass7 C)
+get_filename_component(RESTORE "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+foreach(kind IN ITEMS trace plain)
+ add_executable(map_post7_${kind} postpass7_fixture.c unit_01267.c
+  "${RESTORE}/artifacts/map_refresh_postpass6_phase/unit_01194.c" "${RESTORE}/artifacts/map_refresh_postpass6_phase/unit_01195.c"
+  "${RESTORE}/artifacts/map_refresh_postpass6_phase/unit_01265.c" "${RESTORE}/artifacts/map_refresh_postpass6_phase/unit_01266.c"
+  "${RESTORE}/artifacts/map_refresh_postpass6_phase/unit_01268.c" "${RESTORE}/src/unit_01137.c")
+ target_include_directories(map_post7_${kind} PRIVATE "${RESTORE}/include" "${RESTORE}/artifacts/map_refresh_postpass6_phase")
+ target_compile_definitions(map_post7_${kind} PRIVATE _CRT_SECURE_NO_WARNINGS)
+ target_compile_options(map_post7_${kind} PRIVATE /W4 "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+ set_property(TARGET map_post7_${kind} PROPERTY MSVC_RUNTIME_LIBRARY MultiThreadedDebug)
+ target_link_libraries(map_post7_${kind} PRIVATE "${RESTORE}/build/c-only-debug/Debug/restore_data.lib" advapi32)
+ target_link_options(map_post7_${kind} PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED /MAP)
+endforeach()
+target_compile_definitions(map_post7_trace PRIVATE MAP_REFRESH_POSTPASS7_TRACE MAP_REFRESH_POSTPASS6_TRACE)
+enable_testing()
+add_test(NAME map_post7_trace_launch COMMAND map_post7_trace)
+add_test(NAME map_post7_plain_launch COMMAND map_post7_plain)

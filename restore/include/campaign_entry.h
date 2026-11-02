@@ -1,0 +1,4 @@
+#ifndef RESTORE_CAMPAIGN_ENTRY_H
+#define RESTORE_CAMPAIGN_ENTRY_H
+void FUN_004cb6a0(void);
+#endif

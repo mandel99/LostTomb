@@ -1,0 +1,4 @@
+#ifndef RESTORE_DRAG_QUEUE_PUBLISH_H
+#define RESTORE_DRAG_QUEUE_PUBLISH_H
+void FUN_004f6130(void);
+#endif

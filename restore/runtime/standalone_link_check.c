@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+#include "standalone_data.h"
+#include "text_templates.h"
+#include "flood_simulation.h"
+#include "mission_schema.h"
+#include "vegetation_farm_init.h"
+#ifdef RESTORE_GAME_LAUNCHER
+#include "game_launcher.h"
+#include "game_diagnostics.h"
+#endif
+#ifdef _DEBUG
+#include <crtdbg.h>
+#endif
+extern unsigned int FUN_00413ed0(HINSTANCE instance);
+int main(int argc,char **argv)
+{
+    int probe=argc==2&&!strcmp(argv[1],"--game-startup-probe");
+#ifdef RESTORE_GAME_LAUNCHER
+    if(argc==1)probe=1;
+#endif
+#ifdef _DEBUG
+    int report;
+    for(report=_CRT_WARN;report<=_CRT_ASSERT;++report){
+        _CrtSetReportMode(report,_CRTDBG_MODE_FILE|_CRTDBG_MODE_DEBUG);
+        _CrtSetReportFile(report,_CRTDBG_FILE_STDERR);
+    }
+#endif
+    if(argc>1&&!probe) {fputs("Usage: restore_link_check [--game-startup-probe]\n",stderr);return 2;}
+#ifdef RESTORE_GAME_LAUNCHER
+    {
+        int launch_code;
+        if(restore_game_prepare_launch(&launch_code))return launch_code;
+        restore_game_diagnostics_initialize();
+    }
+#endif
+    if(!restore_data_open()) return 1;
+    FUN_00486080();
+    FUN_00489940();
+    FUN_004bd310();
+    FUN_004d1340();
+    FUN_004d4a50();
+    if(probe) {
+        unsigned int result;
+        puts("Explicit C game-startup probe: entering restored 00413ed0; use a bounded debugger and isolated asset directory.");
+        fflush(stdout);
+        restore_text_templates_initialize();
+        FUN_004482f0();
+        result=FUN_00413ed0(GetModuleHandleA(NULL));
+#ifdef RESTORE_GAME_LAUNCHER
+        restore_game_trace("game loop returned result=%u ready=%u\n",result,*(unsigned char *)0xe38dd6u);
+#endif
+        {
+            unsigned int ready=*(unsigned char *)0x00e38dd6u;
+            FUN_004cbd70((RestoreMessageCatalog *)(uintptr_t)0x784f20u);
+            printf("Graphics state: game=%ux%u display=%ux%u fullscreen=%u depth=16 desktop-depth=%u.\n",
+                   *(unsigned int *)0xe38db0u,*(unsigned int *)0xe38dacu,
+                   *(unsigned int *)0xe38d9cu,*(unsigned int *)0xe38d98u,
+                   *(unsigned int *)0xe38e5cu,*(unsigned int *)0xe38e58u);
+            printf("Restored C startup returned %u; game-ready flag=%u. This alone does not establish playable behavior.\n",result,ready);
+            if(!ready) {restore_data_close();return 3;}
+        }
+        restore_data_close();
+        return (int)result;
+    }
+    puts("C-only whole-program link and data initialization check. This diagnostic does not start the game.");
+    restore_data_close();
+    return 0;
+}

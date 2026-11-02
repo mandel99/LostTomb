@@ -1,0 +1,4 @@
+#ifndef RESTORE_MAP_COMMIT_REFRESH_H
+#define RESTORE_MAP_COMMIT_REFRESH_H
+void FUN_004795e0(void);
+#endif

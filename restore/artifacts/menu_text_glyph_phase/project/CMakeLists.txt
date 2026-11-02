@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.25)
+project(MenuTextGlyph LANGUAGES C)
+get_filename_component(ROOT "../../.." ABSOLUTE)
+get_filename_component(PHASE ".." ABSOLUTE)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+add_library(menu_text_glyph_candidate STATIC
+  "${PHASE}/src/unit_01667.c" "${PHASE}/src/unit_01691.c" "${PHASE}/src/unit_01692.c"
+  "${PHASE}/src/unit_01693.c" "${PHASE}/src/unit_01694.c")
+target_include_directories(menu_text_glyph_candidate PRIVATE "${PHASE}/include" "${ROOT}/include")
+target_compile_options(menu_text_glyph_candidate PRIVATE /W4 /WX $<$<CONFIG:Debug>:/Od> $<$<CONFIG:Release>:/O2>)
+add_executable(restore_menu_text_glyph_verify "${PHASE}/tests/text_glyph.c")
+target_include_directories(restore_menu_text_glyph_verify PRIVATE "${PHASE}/include" "${PHASE}/tests" "${ROOT}/include")
+target_compile_definitions(restore_menu_text_glyph_verify PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_compile_options(restore_menu_text_glyph_verify PRIVATE /W4 /WX $<$<CONFIG:Debug>:/Od> $<$<CONFIG:Release>:/O2>)
+target_link_libraries(restore_menu_text_glyph_verify PRIVATE menu_text_glyph_candidate "$<IF:$<CONFIG:Debug>,${ROOT}/build/c-only-debug/Debug/restore_data.lib,${ROOT}/build/c-only/Release/restore_data.lib>" advapi32)
+target_link_options(restore_menu_text_glyph_verify PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED)
+enable_testing()
+add_test(NAME text_glyph_smoke COMMAND restore_menu_text_glyph_verify)

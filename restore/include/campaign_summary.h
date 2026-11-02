@@ -1,0 +1,4 @@
+#ifndef RESTORE_CAMPAIGN_SUMMARY_H
+#define RESTORE_CAMPAIGN_SUMMARY_H
+void FUN_004188f0(void);
+#endif

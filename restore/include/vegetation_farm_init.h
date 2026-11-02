@@ -1,0 +1,7 @@
+#ifndef RESTORE_VEGETATION_FARM_INIT_H
+#define RESTORE_VEGETATION_FARM_INIT_H
+void FUN_00486080(void);
+void FUN_00486090(void);
+void FUN_00489940(void);
+void FUN_00489950(void);
+#endif

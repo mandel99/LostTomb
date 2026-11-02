@@ -1,0 +1,61 @@
+#include "map_refresh_postpass7.h"
+void FUN_004877f0(int32_t xmin,int32_t ymin,int32_t xmax,int32_t ymax)
+{
+    uint32_t width,height,base,saved_tile,step,row_offset,tile,row,column,flags,clear;
+    uint32_t outer_tile,next_tile,xlo,xhi,ylo,yhi,substep,subtile,subrow,subcolumn,padding,remove;
+    if(xmin<0)xmin=0;if(ymin<0)ymin=0;
+    width=P7_R(0xbca2d0u,4);if(xmax>=(int32_t)width)xmax=(int32_t)(width-1u);
+    height=P7_R(0xbca2d4u,4);if(ymax>=(int32_t)height)ymax=(int32_t)(height-1u);
+    base=P7_R(0xbca2d8u,4);step=width-(uint32_t)xmax+(uint32_t)xmin-1u;saved_tile=P7_R(0xbc9768u,4);row_offset=(uint32_t)ymin*228u;tile=base+row_offset+(uint32_t)xmin;row=(uint32_t)ymin;
+    if(ymin<=ymax){do{
+        if(xmin<=xmax){
+            column=(uint32_t)xmin;
+            do{
+                flags=P7_R(p6_address(tile),4);
+                if((flags&0x80004u)==4u){
+                    clear=FUN_00481770((int32_t)column,(int32_t)row,2,4);
+                    if(!clear)clear=FUN_004816b0((int32_t)column,(int32_t)row,2,0x10000u);
+                    flags=P7_R(p6_address(tile),4);P7_W(p6_address(tile),4,clear?flags&0xfbffffffu:flags|0x4000000u);
+                }
+                ++column;++tile;
+            }while((int32_t)column<=xmax);
+            width=P7_R(0xbca2d0u,4);
+        }
+        padding=P7_R(0xbca2dcu,4);tile+=padding+step;++row;
+    }while((int32_t)row<=ymax);}
+    P7_PHASE(1);base=P7_R(0xbca2d8u,4);tile=base+row_offset+(uint32_t)xmin;row=(uint32_t)ymin;
+    if(ymin<=ymax){do{
+        if(xmin<=xmax){
+            outer_tile=tile;next_tile=tile+(uint32_t)xmax-(uint32_t)xmin+1u;column=(uint32_t)xmin;
+            do{
+                flags=P7_R(p6_address(outer_tile),4);
+                if(flags&0x4000000u){
+                    xlo=column-1u;if((int32_t)xlo<0)xlo=0;xhi=column+1u;if((int32_t)width<(int32_t)xhi)xhi=width;
+                    height=P7_R(0xbca2d4u,4);ylo=row-1u;if((int32_t)ylo<0)ylo=0;yhi=row+1u;if((int32_t)height<(int32_t)yhi)yhi=height;
+                    padding=P7_R(0xbca2dcu,4);substep=padding-xhi+width+xlo-1u;base=P7_R(0xbca2d8u,4);subtile=base+ylo*228u+xlo;subrow=ylo;
+                    if((int32_t)ylo<=(int32_t)yhi){do{
+                        if((int32_t)xlo<=(int32_t)xhi){
+                            subcolumn=xlo;
+                            do{
+                                flags=P7_R(p6_address(subtile),4);
+                                if(flags&0x4000000u){
+                                    remove=!FUN_00487790((int32_t)subcolumn,(int32_t)subrow,0x4000000u);
+                                    if(!remove)remove=!FUN_00487730((int32_t)subcolumn,(int32_t)subrow,0x4000000u);
+                                    if(!remove){P7_W(0xbc9768u,4,subtile);p6_gather(0x4000000u);remove=p6_has_two_run();}
+                                    if(remove){flags=P7_R(p6_address(subtile),4);P7_W(p6_address(subtile),4,flags&0xfbffffffu);FUN_00487b70((int32_t)subcolumn,(int32_t)subrow);}
+                                }
+                                ++subcolumn;++subtile;
+                            }while((int32_t)subcolumn<=(int32_t)xhi);
+                            width=P7_R(0xbca2d0u,4);
+                        }
+                        subtile+=substep;++subrow;
+                    }while((int32_t)subrow<=(int32_t)yhi);}
+                }
+                ++column;++outer_tile;
+            }while((int32_t)column<=xmax);
+            tile=next_tile;
+        }
+        padding=P7_R(0xbca2dcu,4);tile+=padding+step;++row;
+    }while((int32_t)row<=ymax);}
+    P7_PHASE(2);P7_W(0xbc9768u,4,saved_tile);
+}

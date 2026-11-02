@@ -1,0 +1,59 @@
+#include "restore_types.h"
+extern int FUN_00401f30();
+extern int FUN_0040f070();
+extern int FUN_004178e0();
+extern int FUN_00420350();
+extern int FUN_004e0c00();
+extern int FUN_004e5c00();
+extern int FUN_004e6e10();
+extern undefined4 FUN_004f0190();
+extern int FUN_00542a80();
+extern int FUN_00545be0();
+extern int FUN_0054fb40();
+extern int FUN_00556430();
+extern int FUN_005590c0();
+
+void FUN_004bc1e0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+
+{
+  int iVar1;
+  
+  iVar1 = FUN_004f0190(param_1,param_2,param_3);
+  if (iVar1 == 0) {
+    iVar1 = FUN_00420350(param_1,param_2,param_3);
+    if (iVar1 == 0) {
+      iVar1 = FUN_004e5c00(param_1,param_2,param_3);
+      if (iVar1 == 0) {
+        iVar1 = FUN_00542a80(param_1,param_2,param_3);
+        if (iVar1 == 0) {
+          iVar1 = FUN_0040f070(param_1,param_2,param_3);
+          if (iVar1 == 0) {
+            iVar1 = FUN_00401f30(param_1,param_2,param_3);
+            if (iVar1 == 0) {
+              iVar1 = FUN_004e6e10(param_1,param_2,param_3);
+              if (iVar1 == 0) {
+                iVar1 = FUN_00545be0(param_1,param_2,param_3);
+                if (iVar1 == 0) {
+                  iVar1 = FUN_005590c0(param_1,param_2,param_3);
+                  if (iVar1 == 0) {
+                    iVar1 = FUN_00556430(param_1,param_2,param_3);
+                    if (iVar1 == 0) {
+                      iVar1 = FUN_0054fb40(param_1,param_2,param_3);
+                      if (iVar1 == 0) {
+                        iVar1 = FUN_004178e0(param_1,param_2,param_3);
+                        if (iVar1 == 0) {
+                          FUN_004e0c00(param_1,param_2,param_3);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return;
+}

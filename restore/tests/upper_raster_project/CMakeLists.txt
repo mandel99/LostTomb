@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.25)
+project(UpperRaster LANGUAGES C)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+get_filename_component(RESTORE_ROOT "../.." ABSOLUTE)
+add_library(upper_rle_skip OBJECT "${RESTORE_ROOT}/src/unit_00149.c")
+target_compile_definitions(upper_rle_skip PRIVATE FUN_00410f20=upper_skip_impl)
+add_executable(restore_upper_raster_verify "${RESTORE_ROOT}/tests/upper_raster.c"
+ "${RESTORE_ROOT}/runtime/upper_raster.c" "${RESTORE_ROOT}/runtime/sprite_pixels.c"
+ $<TARGET_OBJECTS:upper_rle_skip>)
+foreach(n 00140 00141 00142 00143 00144 00145 00146 00147 00148)
+ target_sources(restore_upper_raster_verify PRIVATE "${RESTORE_ROOT}/src/unit_${n}.c")
+endforeach()
+target_include_directories(restore_upper_raster_verify PRIVATE "${RESTORE_ROOT}/include")
+target_compile_definitions(restore_upper_raster_verify PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_compile_options(restore_upper_raster_verify PRIVATE /W4 /Od)
+target_link_libraries(restore_upper_raster_verify PRIVATE "${RESTORE_ROOT}/build/c-only-debug/Debug/restore_data.lib")
+target_link_options(restore_upper_raster_verify PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED /MAP)

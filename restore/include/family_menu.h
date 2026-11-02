@@ -1,0 +1,20 @@
+#ifndef RESTORE_FAMILY_MENU_H
+#define RESTORE_FAMILY_MENU_H
+#include <stdint.h>
+void FUN_00516890(void);
+uint32_t FUN_005168e0(void);
+void FUN_00516990(void);
+char *FUN_005169c0(void);
+char *FUN_00516a20(void);
+void FUN_00516ab0(void);
+void FUN_00516bb0(void);
+void FUN_00516c10(void);
+void FUN_00516c60(void);
+void FUN_00516c80(void);
+void FUN_00516dd0(void);
+void FUN_004cb800(void);
+void FUN_004cb860(void);
+void FUN_004cb910(void);
+void FUN_004cb940(void);
+void FUN_004cb970(void);
+#endif

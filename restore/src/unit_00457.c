@@ -1,0 +1,13 @@
+#include "lookup_sentinel.h"
+
+void FUN_00430480(void)
+{
+    uint32_t sentinel=LOOKUP_SENTINEL_U32(0x00f56b44u)+0x0fff0000u;
+    uint32_t i;
+    LOOKUP_SENTINEL_U32(0x0070e424u)=230;
+    for(i=0;i<LOOKUP_SENTINEL_CELLS;++i)
+        LOOKUP_SENTINEL_U32(LOOKUP_SENTINEL_GRID+i*4u)=sentinel;
+    LOOKUP_SENTINEL_U32(0x0070e420u)=456;
+    LOOKUP_SENTINEL_U32(0x0070e42cu)=0;
+    LOOKUP_SENTINEL_U32(0x0070e428u)=0;
+}

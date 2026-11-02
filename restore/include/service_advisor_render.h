@@ -1,0 +1,6 @@
+#ifndef RESTORE_SERVICE_ADVISOR_RENDER_H
+#define RESTORE_SERVICE_ADVISOR_RENDER_H
+void FUN_00527bf0(void);
+void FUN_00528360(void);
+void FUN_00528950(void);
+#endif

@@ -1,0 +1,20 @@
+foreach(kind IN ITEMS trace plain)
+ if(kind STREQUAL "trace")
+  set(post1_target restore_map_refresh_postpass1_verify)
+ else()
+  set(post1_target restore_map_refresh_postpass1_plain_verify)
+ endif()
+ add_executable(${post1_target} "${CMAKE_CURRENT_LIST_DIR}/postpass1_fixture.c"
+  "${CMAKE_SOURCE_DIR}/src/unit_01048.c" "${CMAKE_SOURCE_DIR}/src/unit_01094.c"
+  "${CMAKE_SOURCE_DIR}/src/unit_01009.c" "${CMAKE_SOURCE_DIR}/src/unit_01011.c"
+  "${CMAKE_SOURCE_DIR}/runtime/map_refresh_fp.c" "${CMAKE_SOURCE_DIR}/runtime/map_x87_conversion.c")
+ target_include_directories(${post1_target} PRIVATE "${CMAKE_SOURCE_DIR}/include")
+ target_compile_definitions(${post1_target} PRIVATE _CRT_SECURE_NO_WARNINGS)
+ if(kind STREQUAL "trace")
+  target_compile_definitions(${post1_target} PRIVATE MAP_REFRESH_POSTPASS1_TRACE)
+ endif()
+ target_compile_options(${post1_target} PRIVATE /W4 "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+ target_link_libraries(${post1_target} PRIVATE restore_data advapi32)
+ target_link_options(${post1_target} PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED /MAP)
+ add_test(NAME ${post1_target} COMMAND ${post1_target})
+endforeach()

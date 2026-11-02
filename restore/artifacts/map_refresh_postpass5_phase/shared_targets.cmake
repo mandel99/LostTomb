@@ -1,0 +1,20 @@
+foreach(kind IN ITEMS trace plain)
+ if(kind STREQUAL "trace")
+  set(post5_target restore_map_refresh_postpass5_verify)
+ else()
+  set(post5_target restore_map_refresh_postpass5_plain_verify)
+ endif()
+ add_executable(${post5_target} "${CMAKE_CURRENT_LIST_DIR}/postpass5_fixture.c"
+  "${CMAKE_SOURCE_DIR}/src/unit_01107.c" "${CMAKE_SOURCE_DIR}/src/unit_01108.c" "${CMAKE_SOURCE_DIR}/src/unit_01110.c" "${CMAKE_SOURCE_DIR}/src/unit_02327.c"
+  "${CMAKE_SOURCE_DIR}/src/unit_01137.c" "${CMAKE_SOURCE_DIR}/src/unit_01237.c" "${CMAKE_SOURCE_DIR}/src/unit_02326.c"
+  "${CMAKE_SOURCE_DIR}/src/unit_01233.c" "${CMAKE_SOURCE_DIR}/src/unit_01149.c" "${CMAKE_SOURCE_DIR}/src/unit_01152.c" "${CMAKE_SOURCE_DIR}/src/unit_01153.c")
+ target_include_directories(${post5_target} PRIVATE "${CMAKE_SOURCE_DIR}/include")
+ target_compile_definitions(${post5_target} PRIVATE _CRT_SECURE_NO_WARNINGS)
+ if(kind STREQUAL "trace")
+  target_compile_definitions(${post5_target} PRIVATE MAP_REFRESH_POSTPASS5_TRACE MAP_REFRESH_POSTPASS2_TRACE MAP_REFRESH_POSTPASS4_TRACE)
+ endif()
+ target_compile_options(${post5_target} PRIVATE /W4 "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+ target_link_libraries(${post5_target} PRIVATE restore_data advapi32)
+ target_link_options(${post5_target} PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED /MAP)
+ add_test(NAME ${post5_target} COMMAND ${post5_target})
+endforeach()

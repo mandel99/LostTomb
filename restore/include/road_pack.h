@@ -1,0 +1,4 @@
+#ifndef RESTORE_MENU_DRAG_ROAD_PACK_H
+#define RESTORE_MENU_DRAG_ROAD_PACK_H
+void FUN_00475dc0(void);
+#endif

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.20)
+project(map_refresh_x87_component C)
+add_executable(map_refresh_x87_conversion x87_conversion_fixture.c map_x87_conversion.c)
+target_compile_definitions(map_refresh_x87_conversion PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_compile_options(map_refresh_x87_conversion PRIVATE /W4 "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+enable_testing()
+add_test(NAME map_refresh_x87_conversion_launch COMMAND map_refresh_x87_conversion)

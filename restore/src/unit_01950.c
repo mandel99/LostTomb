@@ -1,0 +1,37 @@
+#include "restore_types.h"
+#define DAT_00605a3c (*(undefined *)0x00605a3cu)
+#define DAT_0078d6cc (*(undefined *)0x0078d6ccu)
+#define DAT_00ea40d6 (*(undefined4 *)0x00ea40d6u)
+#define DAT_00ea61e0 (*(undefined4 *)0x00ea61e0u)
+#define DAT_00ea61e4 (*(undefined4 *)0x00ea61e4u)
+#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
+extern undefined4 FUN_00443950();
+extern undefined4 FUN_00443b90();
+extern void FUN_004e2970();
+
+void FUN_004e39d0(int param_1)
+
+{
+  int iVar1;
+  
+  if ((((DAT_00605a3c != 1) && (param_1 == 0xe9)) && (DAT_0078d6cc < 1)) &&
+     ((*(int *)(&DAT_00ea61e4 + DAT_00eaac28 * 0x49d8) < 1 &&
+      (*(int *)(&DAT_00ea61e0 + DAT_00eaac28 * 0x49d8) < 1)))) {
+    FUN_004e2970(0x105,0,0);
+    iVar1 = FUN_00443b90(0x20);
+    if (iVar1 != 0) {
+      FUN_004e2970(0x106,0,0);
+      return;
+    }
+    iVar1 = FUN_00443950(0x20);
+    if (iVar1 == 0) {
+      FUN_004e2970(0x108,0,0);
+    }
+    else if ((*(short *)(&DAT_00ea40d6 + DAT_00eaac28 * 0x49d8) != 1) &&
+            (*(short *)(&DAT_00ea40d6 + DAT_00eaac28 * 0x49d8) != 3)) {
+      FUN_004e2970(0x107,0,0);
+      return;
+    }
+  }
+  return;
+}

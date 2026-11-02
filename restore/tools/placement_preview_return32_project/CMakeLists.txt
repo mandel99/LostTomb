@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.20)
+project(placement_preview_return32 C)
+get_filename_component(RESTORE "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+set(SOURCES tests/placement_preview.c tests/placement_preview_helpers.c src/unit_00565.c
+  runtime/preview_footprint_seeds.c src/unit_00002.c src/unit_00099.c src/unit_00195.c src/unit_01993.c
+  src/unit_02563.c src/unit_02617.c src/unit_02604.c src/unit_02591.c src/unit_01965.c src/unit_01968.c)
+list(TRANSFORM SOURCES PREPEND "${RESTORE}/")
+add_executable(placement_preview_return32_verify ${SOURCES})
+target_include_directories(placement_preview_return32_verify PRIVATE "${RESTORE}/include")
+target_compile_definitions(placement_preview_return32_verify PRIVATE _CRT_SECURE_NO_WARNINGS RESTORE_PLACEMENT_PREVIEW_PRODUCTION)
+target_compile_options(placement_preview_return32_verify PRIVATE /W0 "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+set_property(TARGET placement_preview_return32_verify PROPERTY MSVC_RUNTIME_LIBRARY MultiThreadedDebug)
+target_link_libraries(placement_preview_return32_verify PRIVATE "${RESTORE}/build/c-only-debug/Debug/restore_data.lib")
+target_link_options(placement_preview_return32_verify PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED)
+enable_testing()
+add_test(NAME placement_preview_return32_smoke COMMAND placement_preview_return32_verify)
