@@ -1,92 +1,37 @@
-#include "restore_types.h"
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd608 (*(undefined4 *)0x00bcd608u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd660 (*(undefined4 *)0x00bcd660u)
-#define DAT_00eaac44 (*(undefined *)0x00eaac44u)
-#define DAT_00eaaf58 (*(undefined *)0x00eaaf58u)
-extern uint FUN_004eea10();
-extern void FUN_004ef450();
-extern void FUN_004f25c0();
-extern uint FUN_004f26a0();
-extern bool FUN_004f28b0();
-extern uint FUN_004f28e0();
-
-int FUN_004f29e0(int param_1,char param_2)
-
+#include "pyramid_worker_state.h"
+/* Whole native4F29E0:436 bytes,138 instructions. Keep the assigned actor
+   cached across claim validation. A missing paired piece returns-1 and
+   intentionally passes the native nonzero test here. */
+int32_t restore_pyramid_find_available_worker(int32_t building,uint8_t detach_waiting)
 {
-  bool bVar1;
-  bool bVar2;
-  char cVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  int *local_8;
-  int local_4;
-  
-  FUN_004ef450(param_1 - (short)(&DAT_007999ea)[param_1 * 0x84]);
-  FUN_004f25c0();
-  local_4 = 0;
-  if (0 < DAT_00eaaf58) {
-    local_8 = &DAT_00eaac44;
-    do {
-      iVar5 = *local_8;
-      cVar3 = FUN_004f28b0(iVar5);
-      if (cVar3 == '\0') {
-        iVar7 = (int)(short)(&DAT_00799a3c)[iVar5 * 0x84];
-        if (iVar7 != 0) {
-          cVar3 = FUN_004eea10(iVar5);
-          if (cVar3 == '\0') {
-            if ((&DAT_00799a3c)[iVar5 * 0x84] != 0) {
-              (&DAT_00799a3c)[iVar5 * 0x84] = 0;
-            }
-          }
-          else {
-            iVar4 = iVar7 * 0x184;
-            if ((((&DAT_00bcd602)[iVar4] == 'Q') && ((&DAT_00bcd630)[iVar4] == '\n')) ||
-               (((&DAT_00bcd602)[iVar4] == 'P' && ((&DAT_00bcd630)[iVar4] == '\v')))) {
-              bVar1 = false;
-              iVar6 = (int)*(short *)(&DAT_00bcd660 + iVar4);
-              bVar2 = false;
-              if (iVar6 == 0) {
-                if (*(short *)(&DAT_00bcd660 + iVar4) != 0) {
-                  *(undefined2 *)(&DAT_00bcd660 + iVar4) = 0;
-                }
-              }
-              else {
-                cVar3 = FUN_004f26a0(iVar6,iVar7);
-                if (cVar3 != '\0') {
-                  bVar1 = true;
-                  cVar3 = (&DAT_00bcd630)[iVar6 * 0x184];
-                  if ((cVar3 == '\x06') || (cVar3 == '\a')) {
-                    cVar3 = (&DAT_00bcd608)[iVar6 * 0x184];
-                  }
-                  if (((((cVar3 == '\x12') || (cVar3 == '\x13')) || (cVar3 == '\x14')) ||
-                      ((cVar3 == '\x1d' || (cVar3 == '\x11')))) || (cVar3 == '\x1e')) {
-                    bVar2 = true;
-                  }
-                }
-              }
-              iVar5 = FUN_004f28e0(iVar5);
-              if (iVar5 != 0) {
-                if (!bVar1) {
-                  return iVar7;
-                }
-                if ((!bVar2) && (param_2 != '\0')) {
-                  *(undefined2 *)(&DAT_00bcd660 + iVar7 * 0x184) = 0;
-                  return iVar7;
-                }
-              }
-            }
-          }
-        }
-      }
-      local_4 = local_4 + 1;
-      local_8 = local_8 + 1;
-    } while (local_4 < DAT_00eaaf58);
+ uint32_t i,record=restore_monument_worker_building(building),actor_record,linked_record,state;
+ int32_t piece,owner,linked;uint8_t has_link,busy;
+ restore_pyramid_collect_work_pieces(building-MW_H(record+18u));
+ restore_pyramid_sort_work_list();
+ for(i=0;(int32_t)i<(int32_t)MW_U(0xeaaf58u);++i){
+  piece=(int32_t)MW_U(0xeaac44u+i*4u);
+  if(restore_pyramid_is_second_work_piece(piece))continue;
+  record=restore_monument_worker_building(piece);owner=MW_H(record+100u);
+  if(!owner)continue;
+  if(!restore_pyramid_worker_claim_active(piece)){
+   if(MW_W(record+100u))MW_W(record+100u)=0;
+   continue;
   }
-  return 0;
+  actor_record=restore_monument_worker_record(owner);
+  if(!((MW_B(actor_record+MW_TYPE)==81u&&MW_B(actor_record+MW_STATE)==10u)||
+       (MW_B(actor_record+MW_TYPE)==80u&&MW_B(actor_record+MW_STATE)==11u)))continue;
+  linked=MW_H(actor_record+PS_LINKED_ACTOR);has_link=0;busy=0;
+  if(linked&&restore_pyramid_linked_worker_active(linked,owner)){
+   has_link=1;linked_record=restore_monument_worker_record(linked);
+   state=MW_B(linked_record+MW_STATE);if(state==6u||state==7u)state=MW_B(linked_record+PS_SAVED_STATE);
+   if(state==18u||state==19u||state==20u||state==29u||state==17u||state==30u)busy=1;
+  }
+  if(restore_pyramid_paired_worker(piece)!=0){
+   if(!has_link)return owner;
+   if(!busy&&detach_waiting){MW_W(actor_record+PS_LINKED_ACTOR)=0;return owner;}
+  }
+ }
+ return 0;
 }
+int32_t FUN_004f29e0(int32_t building,uint8_t detach_waiting)
+{return restore_pyramid_find_available_worker(building,detach_waiting);}

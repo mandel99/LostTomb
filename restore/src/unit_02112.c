@@ -1,175 +1,82 @@
-#include "restore_types.h"
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005f4b38 (*(undefined4 *)0x005f4b38u)
-#define DAT_005f5498 (*(undefined4 *)0x005f5498u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bcd5f9 (*(undefined4 *)0x00bcd5f9u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00bcd60c (*(undefined4 *)0x00bcd60cu)
-#define DAT_00bcd60e (*(undefined4 *)0x00bcd60eu)
-#define DAT_00bcd618 (*(undefined4 *)0x00bcd618u)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd646 (*(undefined4 *)0x00bcd646u)
-#define DAT_00bcd648 (*(undefined4 *)0x00bcd648u)
-#define DAT_00bcd64a (*(undefined4 *)0x00bcd64au)
-#define DAT_00bcd64c (*(undefined4 *)0x00bcd64cu)
-#define DAT_00bcd718 (*(undefined4 *)0x00bcd718u)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-#define DAT_00eaac44 (*(undefined *)0x00eaac44u)
-#define DAT_00eaaf58 (*(undefined *)0x00eaaf58u)
-extern void FUN_004b52f0();
-extern void FUN_004b5420();
-extern undefined4 FUN_004ef100();
-extern void FUN_004ef450();
-extern void FUN_004f02f0();
-extern bool FUN_004f1d10();
-extern int FUN_004f2190();
-
-void FUN_004f04d0(int param_1,int param_2,undefined1 param_3,undefined1 param_4)
-
+#include "pyramid_worker_state.h"
+extern void FUN_004b5420(int32_t),FUN_004b52f0(int32_t);
+/* Whole native4F04D0:999 bytes,293 instructions. The current target record
+   and layout table stay cached across grid callbacks. Mode is a full DWORD;
+   actor states are BYTEs and action/progress/position values are WORDs. */
+void restore_pyramid_worker_update_travel(int32_t actor,int32_t mode,uint8_t failed_state,uint8_t ready_state)
 {
-  short sVar1;
-  char cVar2;
-  int iVar3;
-  int iVar4;
-  int *piVar5;
-  undefined4 uVar6;
-  int iVar7;
-  int *piVar8;
-  int iVar9;
-  int local_c;
-  int *local_8;
-  int local_4;
-  
-  iVar9 = param_1 * 0x184;
-  iVar3 = (int)*(short *)(&DAT_00b4e6fc + *(int *)(&DAT_00bcd620 + iVar9) * 2);
-  if ((&DAT_007999e8)[iVar3 * 0x84] != 0xb7) {
-    (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;
-    return;
+ uint32_t record=restore_monument_worker_record(actor),building_record,table,limit,i,root,first=0,next_record;
+ int32_t building,destination;uint16_t old_target;uint8_t same;
+ building=MW_H(0xb4e6fcu+MW_U(record+MW_TARGET_CELL)*2u);
+ building_record=restore_monument_worker_building(building);
+ if(MW_W(building_record+16u)!=183u){
+  MW_B(restore_monument_worker_record((int32_t)MW_U(0xd056f8u))+PS_CLAIM_VALIDITY)=2;return;
+ }
+ if(restore_monument_worker_advance_travel(actor,1)!=1)return;
+ if(MW_U(0x5e4ef4u)==5u){limit=16;table=0x5f5498u+MW_B(building_record+84u)*128u;}
+ else{limit=60;table=0x5f4b38u+MW_B(building_record+84u)*480u;}
+ FUN_004b5420(actor);
+ MW_W(record+MW_X)=MW_W(record+MW_TARGET_X);MW_W(record+MW_Y)=MW_W(record+MW_TARGET_Y);
+ MW_U(record+MW_CELL)=MW_U(record+MW_TARGET_CELL);
+ FUN_004b52f0(actor);
+ if(mode==1){
+  if(MW_W(building_record+100u)==(uint16_t)actor){
+   if(restore_pyramid_available_worker_slot(building))goto ready;
+   goto failed;
   }
-  cVar2 = FUN_004f1d10(param_1,1);
-  if (cVar2 != '\x01') {
-    return;
+  root=(uint32_t)building-(uint32_t)MW_H(building_record+18u);
+  for(i=0;i<limit;++i){
+   destination=(int32_t)(root+MW_U(table+i*8u));
+   if(MW_W(restore_monument_worker_building(destination)+100u)==(uint16_t)actor&&restore_pyramid_available_worker_slot(destination))goto arrived;
   }
-  if (DAT_005e4ef4 == 5) {
-    local_c = 0x10;
-    piVar8 = (int *)(&DAT_005f5498 + (uint)*(byte *)(&DAT_00799a2c + iVar3 * 0x84) * 0x80);
+  goto failed;
+ }
+arrived:
+ if(MW_H(record+MW_MONUMENT_ACTION)==1){
+  restore_pyramid_collect_work_pieces(building-MW_H(building_record+18u));
+  if((int32_t)MW_U(0xeaaf58u)<1)goto failed;
+  next_record=restore_monument_worker_building((int32_t)MW_U(0xeaac44u));
+  if(MW_H(record+MW_TO_POSITION)>=(int32_t)(MW_B(next_record+86u)+MW_B(next_record+87u)*6u))goto ready;
+  i=0;goto next_leg;
+ }
+ if(mode==0||mode==2){
+  restore_pyramid_collect_work_pieces(building-MW_H(building_record+18u));
+  if((int32_t)MW_U(0xeaaf58u)<1)goto failed;
+  first=MW_U(0xeaac44u);next_record=restore_monument_worker_building((int32_t)first);
+  if(MW_H(record+MW_TO_POSITION)>=(int32_t)(MW_B(next_record+86u)+MW_B(next_record+87u)*6u))goto ready;
+ }
+ for(i=0;i<limit;++i){
+  if((int32_t)MW_U(table+i*8u)==MW_H(building_record+18u)&&
+     (int32_t)MW_U(table+i*8u+4u)==MW_H(record+MW_TO_POSITION))break;
+ }
+ if(i==limit)goto failed;
+ ++i;
+ /* The native code deliberately reads the next table row even when the
+    matching row was the last nominal entry. Do not add a different bound. */
+ if((int32_t)MW_U(table+i*8u)<0){
+  if(mode==1)goto failed;
+  if(mode==0&&MW_B(record+MW_TYPE)==81u&&MW_B(restore_monument_worker_building((int32_t)first)+85u)==1u){
+   MW_B(record+MW_STATE)=16;
+   destination=restore_pyramid_next_work_piece(MW_H(record+MW_TO_BUILDING));
+   restore_monument_worker_begin_travel(actor,destination,(uint16_t)MW_H(record+MW_TO_POSITION),0);return;
   }
-  else {
-    local_c = 0x3c;
-    piVar8 = (int *)(&DAT_005f4b38 + (uint)*(byte *)(&DAT_00799a2c + iVar3 * 0x84) * 0x1e0);
-  }
-  FUN_004b5420(param_1);
-  (&DAT_00bcd60c)[param_1 * 0xc2] = *(undefined2 *)(&DAT_00bcd61c + iVar9);
-  (&DAT_00bcd60e)[param_1 * 0xc2] = *(undefined2 *)(&DAT_00bcd61e + iVar9);
-  *(undefined4 *)(&DAT_00bcd618 + iVar9) = *(undefined4 *)(&DAT_00bcd620 + iVar9);
-  FUN_004b52f0(param_1);
-  if (param_2 == 1) {
-    if ((&DAT_00799a3c)[iVar3 * 0x84] == (short)param_1) {
-      iVar3 = FUN_004ef100(iVar3);
-      if (iVar3 != 0) goto LAB_004f06d6;
-    }
-    else {
-      sVar1 = (&DAT_007999ea)[iVar3 * 0x84];
-      local_4 = 0;
-      local_8 = piVar8;
-      if (local_c != 0) {
-        do {
-          iVar4 = (iVar3 - sVar1) + *local_8;
-          if (((&DAT_00799a3c)[iVar4 * 0x84] == (short)param_1) &&
-             (iVar4 = FUN_004ef100(iVar4), iVar4 != 0)) goto LAB_004f0671;
-          local_4 = local_4 + 1;
-          local_8 = local_8 + 2;
-        } while (local_4 < local_c);
-      }
-    }
-  }
-  else {
-LAB_004f0671: ;
-    if (*(short *)(&DAT_00bcd718 + iVar9) == 1) {
-      iVar4 = 0;
-      FUN_004ef450(iVar3 - (short)(&DAT_007999ea)[iVar3 * 0x84]);
-      if (0 < DAT_00eaaf58) {
-        if ((int)*(short *)(&DAT_00bcd648 + iVar9) <
-            (int)((uint)*(byte *)(&DAT_00799a2e + DAT_00eaac44 * 0x84) +
-                 (uint)*(byte *)((int)&DAT_00799a2e + DAT_00eaac44 * 0x108 + 1) * 6)) {
-LAB_004f083f: ;
-          iVar3 = (piVar8[iVar4 * 2] - (int)(short)(&DAT_007999ea)[iVar3 * 0x84]) + iVar3;
-          if ((param_2 == 2) && (iVar7 = FUN_004ef100(iVar3), iVar7 != 0)) {
-            (&DAT_00bcd5f9)[iVar9] = 0;
-            return;
-          }
-          sVar1 = *(short *)(&DAT_00bcd646 + iVar9);
-          FUN_004f02f0(param_1,iVar3,piVar8[iVar4 * 2 + 1],1);
-          if (iVar3 != sVar1) {
-            return;
-          }
-          (&DAT_00bcd64a)[param_1 * 0xc2] = (&DAT_00bcd64c)[param_1 * 0xc2];
-          return;
-        }
-LAB_004f06d6: ;
-        *(undefined2 *)(&DAT_00bcd718 + iVar9) = 4;
-        (&DAT_00bcd630)[iVar9] = param_4;
-        return;
-      }
-    }
-    else {
-      iVar4 = 0;
-      if ((param_2 == 0) || (param_2 == 2)) {
-        FUN_004ef450(iVar3 - (short)(&DAT_007999ea)[iVar3 * 0x84]);
-        if (DAT_00eaaf58 < 1) {
-          (&DAT_00bcd630)[iVar9] = param_3;
-          *(undefined2 *)(&DAT_00bcd718 + iVar9) = 0;
-          return;
-        }
-        local_4 = DAT_00eaac44;
-        if ((int)((uint)*(byte *)(&DAT_00799a2e + DAT_00eaac44 * 0x84) +
-                 (uint)*(byte *)((int)&DAT_00799a2e + DAT_00eaac44 * 0x108 + 1) * 6) <=
-            (int)*(short *)(&DAT_00bcd648 + iVar9)) goto LAB_004f06d6;
-      }
-      else {
-        local_4 = 0;
-      }
-      piVar5 = piVar8;
-      if (local_c != 0) {
-        do {
-          if ((*piVar5 == (int)(short)(&DAT_007999ea)[iVar3 * 0x84]) &&
-             (piVar5[1] == (int)*(short *)(&DAT_00bcd648 + iVar9))) {
-            iVar4 = iVar4 + 1;
-            if (-1 < iVar4) {
-              if (-1 < piVar8[iVar4 * 2]) goto LAB_004f083f;
-              if (param_2 == 1) {
-                (&DAT_00bcd630)[iVar9] = param_3;
-                *(undefined2 *)(&DAT_00bcd718 + iVar9) = 0;
-                return;
-              }
-              if (((param_2 == 0) && ((&DAT_00bcd602)[iVar9] == 'Q')) &&
-                 (*(char *)((int)&DAT_00799a2c + local_4 * 0x108 + 1) == '\x01')) {
-                (&DAT_00bcd630)[iVar9] = 0x10;
-                uVar6 = FUN_004f2190((int)*(short *)(&DAT_00bcd646 + iVar9));
-                FUN_004f02f0(param_1,uVar6,(int)*(short *)(&DAT_00bcd648 + iVar9),0);
-                return;
-              }
-              goto LAB_004f06d6;
-            }
-            break;
-          }
-          iVar4 = iVar4 + 1;
-          piVar5 = piVar5 + 2;
-        } while (iVar4 < local_c);
-      }
-    }
-  }
-  (&DAT_00bcd630)[iVar9] = param_3;
-  *(undefined2 *)(&DAT_00bcd718 + iVar9) = 0;
-  return;
+  goto ready;
+ }
+next_leg:
+ destination=(int32_t)((uint32_t)building-(uint32_t)MW_H(building_record+18u)+MW_U(table+i*8u));
+ if(mode==2&&restore_pyramid_available_worker_slot(destination)){
+  /* Exact native BYTE1 reset; its wider actor-state meaning is pending. */
+  MW_B(record+1u)=0;return;
+ }
+ old_target=MW_W(record+MW_TO_BUILDING);
+ same=(uint8_t)(destination==(int32_t)(int16_t)old_target);
+ restore_monument_worker_begin_travel(actor,destination,(uint16_t)MW_U(table+i*8u+4u),1);
+ if(same)MW_W(record+MW_TRAVEL_PROGRESS)=MW_W(record+MW_TRAVEL_LENGTH);
+ return;
+ready:
+ MW_W(record+MW_MONUMENT_ACTION)=4;MW_B(record+MW_STATE)=ready_state;return;
+failed:
+ MW_B(record+MW_STATE)=failed_state;MW_W(record+MW_MONUMENT_ACTION)=0;
 }
+void FUN_004f04d0(int32_t actor,int32_t mode,uint8_t failed_state,uint8_t ready_state)
+{restore_pyramid_worker_update_travel(actor,mode,failed_state,ready_state);}

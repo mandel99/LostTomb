@@ -1,26 +1,11 @@
-#include "restore_types.h"
-uint FUN_004f26a0(int param_1,uint param_2)
-
+#include "pyramid_worker_state.h"
+/* Whole native4F26A0:119 bytes,41 instructions. Return AL only. */
+uint8_t restore_pyramid_linked_worker_active(int32_t actor,int32_t owner)
 {
-  uint uVar1;
-  int iVar2;
-  
-  iVar2 = param_1 * 0x184;
-  uVar1 = CONCAT31((int3)((uint)param_1 >> 8),*(undefined1 *)(0x00bcd606u + (uint)iVar2));
-  if ((*(undefined1 *)(0x00bcd606u + (uint)iVar2) != '\0') &&
-      (*(undefined1 *)(0x00bcd602u + (uint)iVar2) == 'U')) {
-    uVar1 = (uint)*(byte *)(0x00bcd630u + (uint)iVar2);
-    if ((uVar1 == 6) || (uVar1 == 7)) {
-      uVar1 = (uint)*(byte *)(0x00bcd608u + (uint)iVar2);
-    }
-    if (((((uVar1 == 0xf) || (uVar1 == 0x10)) || (uVar1 == 0x11)) ||
-        ((uVar1 == 0x1e || (uVar1 == 0x12)))) ||
-       ((uVar1 == 0x13 || ((uVar1 == 0x1d || (uVar1 == 0x14)))))) {
-      uVar1 = (uint)*(short *)(0x00bcd660u + (uint)iVar2);
-      if (uVar1 == param_2) {
-        return CONCAT31((int3)(char)((ushort)*(short *)(0x00bcd660u + (uint)iVar2) >> 8),1);
-      }
-    }
-  }
-  return uVar1 & 0xffffff00;
+ uint32_t record=restore_monument_worker_record(actor),state;
+ if(!MW_B(record+PS_CLAIM_VALIDITY)||MW_B(record+MW_TYPE)!=85u)return 0;
+ state=MW_B(record+MW_STATE);if(state==6u||state==7u)state=MW_B(record+PS_SAVED_STATE);
+ switch(state){case 15:case 16:case 17:case 30:case 18:case 19:case 29:case 20:break;default:return 0;}
+ return (uint8_t)(MW_H(record+PS_LINKED_ACTOR)==owner);
 }
+uint8_t FUN_004f26a0(int32_t actor,int32_t owner){return restore_pyramid_linked_worker_active(actor,owner);}

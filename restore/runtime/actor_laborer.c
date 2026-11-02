@@ -1,4 +1,5 @@
 #include "actor_laborer.h"
+#include "pyramid_worker_state.h"
 #include "game_diagnostics.h"
 #include "actor_work.h"
 #include "animation_state.h"
@@ -388,3 +389,14 @@ void FUN_004ee630(int32_t building)
 {const uint32_t a[]={(uint32_t)building};(void)invoke(0x004ee630u,a,1);}
 void FUN_004ee5d0(int32_t building)
 {const uint32_t a[]={(uint32_t)building};(void)invoke(0x004ee5d0u,a,1);}
+
+/* Native qsort/comparator already have complete instruction-level C bodies.
+   Keep their exact comparisons, swaps and tie ordering behind a typed ABI. */
+void restore_pyramid_sort_entries(uint32_t count)
+{
+ uint32_t stack[1024],registers[8]={0},flags=2,sp=(uint32_t)(uintptr_t)(stack+800);
+ stack[800]=0;stack[801]=0xeaac44u;stack[802]=count;stack[803]=4;stack[804]=0x4f24b0u;
+ registers[4]=sp;
+ restore_actor_laborer_raw(0x562069u,registers,&flags);
+ if(registers[4]!=sp+4u||registers[3]||registers[5]||registers[6]||registers[7])abort();
+}

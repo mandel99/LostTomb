@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Reconstruct five complete pyramid-worker functions: arrival/travel states,
+  exact work-list sorting, linked-worker validation, paired-side queries and
+  worker recruitment. Correct field widths, cached ownership and detach rules;
+  retain the original sort's tie order through the existing C implementation.
+- Pass 428 native/C cases, including 51 combined movement/work/claim paths,
+  and all 355 Ferry Landing regressions on the same build. Live gameplay
+  remains untested.
 - Fix the Ferry Landing selection crash: a native switch table had been
   translated as a call through original code addresses. Recover every scan
   branch and the full first/second-bank preview, with exact field widths.
