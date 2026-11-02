@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Reconstruct chief-advisor advice selection/render calls and temple-complex
+  upgrade previews. Preserve full-width coordinates, player/table indices,
+  linked building records and tint fields; add descriptive C entry names.
+- Pass 448 focused native/C cases covering all twelve advice categories,
+  the actual trade iterator, both upgrade branches and the upgrade-bit query.
+  Physical rendering and live gameplay remain untested.
 - Reconstruct and name seven complete pyramid functions: footprint stamping,
   linked part creation, construction/worker images, whole refresh, special
   parts, finished phases and entrance creation. Correct the missing third
