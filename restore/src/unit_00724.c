@@ -1,9 +1,12 @@
-#include "restore_types.h"
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
+#include "earthquake_event.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 
-bool FUN_0044bd20(int param_1,int param_2)
-
+/* Whole44BD20: cell offset and terrain are DWORDs; all address arithmetic
+   wraps in32 bits. The native predicate defines the entire EAX result. */
+uint32_t restore_earthquake_tile_allowed(int32_t x,int32_t y)
 {
-  return ((&DAT_00af598c)[DAT_00bca2d8 + param_2 * 0xe4 + param_1] & 0x206) == 0;
+    uint32_t cell=U(0xbca2d8u)+(uint32_t)x+(uint32_t)y*228u;
+    return (U(0xaf598cu+cell*4u)&0x206u)==0u;
 }
+uint32_t FUN_0044bd20(int32_t x,int32_t y)
+{return restore_earthquake_tile_allowed(x,y);}

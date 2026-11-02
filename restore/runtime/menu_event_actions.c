@@ -228,6 +228,15 @@ static uint32_t invoke_words(uint32_t entry,uint32_t self,const uint32_t *words,
 static void invoke(uint32_t entry,uint32_t self)
 {(void)invoke_words(entry,self,0,0,0);}
 
+int32_t restore_event_message_kind_0044f660(uint32_t self)
+{return (int32_t)invoke_words(0x44f660u,self,0,0,0);}
+
+void restore_event_message_parameters_0044e6f0(uint32_t self,int16_t parameters[16])
+{
+    uint32_t argument=(uint32_t)(uintptr_t)parameters;
+    (void)invoke_words(0x44e6f0u,self,&argument,1,4);
+}
+
 /* Simulation4464F0 supplies a live124-byte record. Share the complete event
    member graph with the menu so all descendants retain their ECX receivers,
    native stack locals and RETn contracts (including44E6F0's RET4). */

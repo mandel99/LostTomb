@@ -90,6 +90,9 @@ struct RestoreTownRecord;
 /* Native nullary member451540 consumes the event record in ECX; RET0. */
 void restore_event_update_00451540(struct RestoreTownRecord *self);
 void restore_event_schedule_0044c490(struct RestoreTownRecord *self,int32_t template_id,int16_t reason);
+/* Existing complete member graphs, explicit ECX and native RET0/RET4. */
+int32_t restore_event_message_kind_0044f660(uint32_t self);
+void restore_event_message_parameters_0044e6f0(uint32_t self,int16_t parameters[16]);
 int restore_menu_event_action(uint32_t token);
 void restore_event_C_0044ba90(struct restore_event_actions_frame *);
 void restore_event_C_0044bc20(struct restore_event_actions_frame *);

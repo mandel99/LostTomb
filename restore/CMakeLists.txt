@@ -481,6 +481,10 @@ set_source_files_properties(runtime/model_loading.c PROPERTIES
 target_sources(pharaoh_restored PRIVATE runtime/preview_footprint_seeds.c)
 target_sources(pharaoh_restored PRIVATE runtime/placement_preview_members.c
   runtime/placement_preview_predicates.c runtime/placement_preview_platform.c)
+set_source_files_properties(src/unit_00722.c src/unit_00724.c src/unit_00725.c src/unit_00726.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_00180.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 target_include_directories(pharaoh_restored PUBLIC include)
 target_precompile_headers(pharaoh_restored PRIVATE include/restore_types.h)
 target_compile_options(pharaoh_restored PRIVATE /W0 /Od /bigobj /MP8)

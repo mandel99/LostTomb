@@ -22,6 +22,11 @@ videos, original executables and third-party media DLLs are not distributed
 with this project. The reconstructed launcher does not need the original EXE.
 Use a separate copy of your installation and saves while testing this WIP.
 
+Difficulty defaults to **Normal** when no settings file is present. An existing
+`Pharaoh.inf` retains your selected difficulty across launches; change it in
+Options and exit normally to save the choice. Family DAT files retain campaign
+progress and do not override this global setting.
+
 ## Tools used
 
 - **Rea and Ghidra:** examination of the original binary, function boundaries,

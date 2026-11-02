@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reconstruct four complete earthquake routines: event scanning, terrain
+  eligibility, tile destruction and all sixteen expansion choices. Restore
+  full map offsets, one-byte building state writes, callback-sensitive
+  reloads and explicit event/message receivers. Pass 338 offline native/C
+  cases; final demolition/refresh and message publication are controlled.
+- Restore the complete settings-save/shutdown routine, including full
+  allocation pointers and ordered cleanup. Pass 117 offline cases through
+  the real binary writer, startup/save/restart and family-profile loading.
+  Normal is the no-config default; existing Pharaoh.inf choices persist.
+  The family DAT loader restores campaign progress without changing that
+  selected difficulty. Host shutdown and physical gameplay remain untested.
 - Fix the new-campaign name picker terminating in the unresolved-callback
   handler. Restore its original open, choose and close actions, including
   text-editor reset, and reconstruct the full 42-row suggestion panel.

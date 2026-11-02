@@ -1,28 +1,21 @@
-#include "restore_types.h"
+#include "earthquake_event.h"
 #include "simulation_tick.h"
-#define DAT_00605a3c (*(int32_t *)0x00605a3cu)
-#define _DAT_00784c60 (*(int16_t *)0x00784c60u)
-#define _DAT_00784c62 (*(int16_t *)0x00784c62u)
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_0044bca0(int32_t *in_ECX)
-
+/* Whole44BCA0. A successful event stops this tick's scan; failed calls can
+   change the signed list count, which the native loop reloads each time. */
+void restore_earthquake_list_tick(int32_t *list)
 {
-  char cVar1;
-  int *piVar2;
-  int iVar3;
-  
-  if ((((DAT_00605a3c != 1) && (_DAT_00784c60 != -1)) && (_DAT_00784c62 != -1)) &&
-     (iVar3 = 0, 0 < *in_ECX)) {
-    piVar2 = in_ECX + 1;
-    while ((*(char *)((int)piVar2 + 2) != '\x03' || (cVar1 = FUN_0044be30((uintptr_t)piVar2), cVar1 == '\0'))) {
-      iVar3 = iVar3 + 1;
-      piVar2 = piVar2 + 0x1f;
-      if (*in_ECX <= iVar3) {
-        return;
-      }
-    }
-    *(undefined1 *)(in_ECX + 0x122d) = 1;
-    return;
-  }
-  return;
+    uint32_t self=(uint32_t)(uintptr_t)list,record=self+4u,index=0;
+    if(U(0x605a3cu)==1u||W(0x784c60u)==0xffffu||
+       W(0x784c62u)==0xffffu||(int32_t)U(self)<=0)return;
+    do{
+        if(B(record+2u)==3u&&FUN_0044be30(record)){
+            B(self+0x48b4u)=1;return;
+        }
+        ++index;record+=124u;
+    }while((int32_t)index<(int32_t)U(self));
 }
+void FUN_0044bca0(int32_t *list){restore_earthquake_list_tick(list);}
