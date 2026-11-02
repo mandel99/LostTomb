@@ -1,146 +1,68 @@
-#include "restore_types.h"
-#define DAT_005cfcf0 (*(undefined4 *)0x005cfcf0u)
-#define DAT_005d1184 (*(undefined *)0x005d1184u)
-#define DAT_005d1188 (*(undefined *)0x005d1188u)
-#define DAT_0070e120 (*(undefined *)0x0070e120u)
-#define DAT_0070e13c (*(undefined *)0x0070e13cu)
-#define DAT_0070e44c (*(undefined *)0x0070e44cu)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00799a82 (*(undefined4 *)0x00799a82u)
-#define DAT_00799a9c (*(undefined4 *)0x00799a9cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bc96e0 (*(undefined *)0x00bc96e0u)
-#define DAT_00bc96e4 (*(undefined *)0x00bc96e4u)
-#define DAT_00bc9800 (*(undefined *)0x00bc9800u)
-#define DAT_00bca300 (*(undefined *)0x00bca300u)
-#define DAT_00bca304 (*(undefined *)0x00bca304u)
-#define DAT_00bca308 (*(undefined *)0x00bca308u)
-#define DAT_00bca310 (*(undefined *)0x00bca310u)
-#define DAT_00bca314 (*(char *)0x00bca314u)
-#define DAT_00f55bb4 (*(undefined4 *)0x00f55bb4u)
-#define DAT_00f56be4 (*(undefined *)0x00f56be4u)
-extern int FUN_0043d010();
-extern uint FUN_0043d030();
-extern void FUN_0043dd70();
-extern int FUN_0047cbd0();
-extern int FUN_0047cc70();
-extern void FUN_0047f3e0();
-extern undefined4 FUN_00486a30();
-extern undefined4 FUN_00486cf0();
-extern void FUN_004f0ba0();
-extern int FUN_0053e590();
-extern undefined4 FUN_0053f250();
-extern int FUN_0053f4f0();
-
-void FUN_0043d300(void)
-
+#include "ferry_preview.h"
+#include "actor_coordinates.h"
+#include "map_commit_links.h"
+#include "footprint.h"
+#include "preview_geometry.h"
+#include "route_query_model.h"
+#include "sprite_render.h"
+#include "graphics_53f250.h"
+#include "placement_preview.h"
+static void invalid_outline(volatile int32_t *sx,volatile int32_t *sy)
 {
-  byte bVar1;
-  short sVar2;
-  bool bVar3;
-  char cVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  int iVar8;
-  int *piVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  int local_fb8;
-  int local_fb4;
-  int local_fb0 [3];
-  undefined4 local_fa4;
-  undefined4 local_fa0 [1000];
-  
-  DAT_00bca314 = 0;
-  bVar3 = false;
-  FUN_004f0ba0(DAT_00bca304,DAT_00bca308,&local_fb4,&local_fb8);
-  local_fb8 = local_fb8 + DAT_0070e44c;
-  if (DAT_00bca310 == 0) {
-    FUN_0047f3e0(DAT_00bca304,DAT_00bca308,0);
-    iVar6 = local_fb4;
-    iVar7 = DAT_00bc96e0;
-    if (DAT_00bc96e0 < 0) {
-      iVar7 = DAT_00bc96e0 + 8;
-    }
-    iVar10 = local_fb8 - DAT_0070e44c;
-    DAT_0070e13c = 0;
-    local_fb0[0] = FUN_0047cc70(DAT_00bca304,DAT_00bca308,1,0);
-    sVar2 = *(short *)(&DAT_00b4e6fc + DAT_00bca300 * 2);
-    iVar5 = FUN_00486cf0(DAT_00bca300);
-    if ((iVar5 != 0) && ((&DAT_00799a9c)[sVar2 * 0x42] == -1)) {
-      bVar3 = true;
-      FUN_0043d030(iVar7,DAT_00bca304,DAT_00bca308,iVar6,iVar10,DAT_00bc96e4);
-      DAT_0070e120 = 0x1fe3;
-      iVar8 = (&DAT_00f55bb4)[DAT_005d1184 * 2] + DAT_005d1188;
-      iVar5 = FUN_0043d010(iVar7);
-      iVar8 = iVar8 + iVar5;
-      FUN_0053e590(iVar8,local_fb4,local_fb8 - DAT_0070e44c);
-      FUN_0053f250(iVar8,local_fb4,local_fb8 - DAT_0070e44c);
-      DAT_0070e120 = 0;
-    }
-    if ((local_fb0[0] == 0) &&
-       (cVar4 = FUN_0043d030(iVar7,DAT_00bca304,DAT_00bca308,iVar6,iVar10,DAT_00bc96e4),
-       cVar4 != '\0')) {
-      DAT_00bca314 = 1;
-      FUN_0043dd70(0,0);
-      DAT_0070e120 = 0;
-      return;
-    }
-    if (!bVar3) {
-      DAT_00bca314 = 0;
-      piVar9 = &DAT_005cfcf0;
-      do {
-        FUN_0053f4f0(DAT_00f56be4,*piVar9 + local_fb4,(piVar9[1] - DAT_0070e44c) + local_fb8,
-                     0xfffff863);
-        piVar9 = piVar9 + 2;
-      } while ((int)piVar9 < 0x5cfd10);
-      return;
-    }
-  }
-  else {
-    puVar11 = local_fa0;
-    for (iVar6 = 0xfa; iVar6 != 0; iVar6 = iVar6 + -1) {
-      *puVar11 = 0xffffffff;
-      puVar11 = puVar11 + 1;
-    }
-    iVar6 = FUN_0047cbd0(DAT_00bca304,DAT_00bca308,0);
-    iVar7 = DAT_00bc9800 * 0x108;
-    local_fb0[1] = 0;
-    local_fb0[2] = (int)(byte)(&DAT_007999db)[iVar7];
-    bVar1 = *(byte *)(&DAT_00799a82 + DAT_00bc9800 * 0x84);
-    iVar10 = (int)*(short *)((int)&DAT_007999dc + iVar7 + 2);
-    iVar5 = (int)*(short *)(&DAT_007999e0 + iVar7);
-    iVar7 = FUN_00486cf0(DAT_00bca300);
-    if (((iVar7 != 0) && (*(short *)(&DAT_00b4e6fc + DAT_00bca300 * 2) != DAT_00bc9800)) &&
-       ((&DAT_00799a9c)[*(short *)(&DAT_00b4e6fc + DAT_00bca300 * 2) * 0x42] == -1)) {
-      DAT_0070e120 = 0x1fe3;
-      iVar7 = (&DAT_00f55bb4)[DAT_005d1184 * 2] + DAT_005d1188;
-      iVar6 = FUN_0043d010(iVar6 * 2);
-      iVar7 = iVar7 + iVar6;
-      FUN_0053e590(iVar7,local_fb4,local_fb8 - DAT_0070e44c);
-      FUN_0053f250(iVar7,local_fb4,local_fb8 - DAT_0070e44c);
-      DAT_0070e120 = 0;
-      return;
-    }
-    FUN_004f0ba0(iVar10,iVar5,&local_fa4,local_fb0);
-    FUN_0043d030((uint)bVar1 * 2,iVar10,iVar5,local_fa4,local_fb0[0],DAT_00bc96e4);
-    iVar6 = FUN_00486a30(DAT_00bca304,DAT_00bca308,iVar10,iVar5,local_fb0[2],iVar6 * 2,
-                         (uint)bVar1 * 2 + 4 & 0x80000007,local_fa0,local_fb0 + 1);
-    if (iVar6 == 1) {
-      DAT_00bca314 = 1;
-      FUN_0043dd70(0,0);
-      return;
-    }
-    DAT_00bca314 = 0;
-    piVar9 = &DAT_005cfcf0;
-    do {
-      FUN_0053f4f0(DAT_00f56be4,*piVar9 + local_fb4,(piVar9[1] - DAT_0070e44c) + local_fb8,
-                   0xfffff863);
-      piVar9 = piVar9 + 2;
-    } while ((int)piVar9 < 0x5cfd10);
-  }
-  return;
+ uint32_t i;
+ for(i=0;i<4u;++i)FUN_0053f4f0(FRY_I(FRY_U(0xf56be4u)),FRY_I(FRY_U(0x5cfcf0u+i*8u)+(uint32_t)*sx),
+  FRY_I(FRY_U(0x5cfcf4u+i*8u)+(uint32_t)*sy-FRY_U(0x70e44cu)),0xfffff863u);
 }
+static uint32_t landing_image(int32_t orientation)
+{
+ uint32_t image=FRY_U(0xf55bb4u+FRY_U(0x5d1184u)*8u)+FRY_U(0x5d1188u);
+ return image+(uint32_t)restore_ferry_image_orientation(orientation);
+}
+/* Whole native43D300:1041 bytes,312 instructions. The route array owns
+   1000 DWORDs; exactly its first250 are initialized by the original. */
+void restore_ferry_preview(void)
+{
+ volatile int32_t sx,sy,ex,ey;int32_t orientation,fit,start_x,start_y,cached_x,cached_y,path_count;
+ uint32_t image,building,record,layout,other_orientation,i,result,path[1000];uint8_t existing=0;
+ FRY_B(0xbca314u)=0;
+ FUN_004f0ba0(FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)),(int32_t *)&sx,(int32_t *)&sy);
+ sy=FRY_I((uint32_t)sy+FRY_U(0x70e44cu));
+ if(!FRY_U(0xbca310u)){
+  restore_ferry_scan_crossing(FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)));
+  orientation=FRY_I(FRY_U(0xbc96e0u));if(orientation<0)orientation=FRY_I((uint32_t)orientation+8u);
+  cached_x=sx;cached_y=FRY_I((uint32_t)sy-FRY_U(0x70e44cu));FRY_U(0x70e13cu)=0;
+  fit=FUN_0047cc70(FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)),1,0);
+  building=(uint32_t)FRY_H(0xb4e6fcu+FRY_U(0xbca300u)*2u);
+  if(FUN_00486cf0(FRY_U(0xbca300u))&&FRY_U(0x799a9cu+building*264u)==UINT32_MAX){
+   existing=1;
+   restore_ferry_highlight_approaches(orientation,FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)),cached_x,cached_y,FRY_I(FRY_U(0xbc96e4u)));
+   FRY_W(0x70e120u)=0x1fe3;image=landing_image(orientation);
+   FUN_0053e590(FRY_I(image),sx,FRY_I((uint32_t)sy-FRY_U(0x70e44cu)));
+   FUN_0053f250(FRY_I(image),sx,FRY_I((uint32_t)sy-FRY_U(0x70e44cu)));FRY_W(0x70e120u)=0;
+  }
+  if(fit==0&&restore_ferry_highlight_approaches(orientation,FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)),cached_x,cached_y,FRY_I(FRY_U(0xbc96e4u)))){
+   FRY_B(0xbca314u)=1;FUN_0043dd70(0,0);FRY_W(0x70e120u)=0;return;
+  }
+  if(!existing){FRY_B(0xbca314u)=0;invalid_outline(&sx,&sy);}return;
+ }
+ for(i=0;i<250u;++i)path[i]=UINT32_MAX;
+ orientation=FRY_I(FUN_0047cbd0(FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u))));
+ record=0x7999d8u+FRY_U(0xbc9800u)*264u;path_count=0;
+ layout=FRY_B(record+3u);other_orientation=(uint32_t)FRY_B(record+170u)*2u;
+ start_x=FRY_H(record+6u);start_y=FRY_H(record+8u);
+ if(FUN_00486cf0(FRY_U(0xbca300u))){
+  building=(uint32_t)FRY_H(0xb4e6fcu+FRY_U(0xbca300u)*2u);
+  if(building!=FRY_U(0xbc9800u)&&FRY_U(0x799a9cu+building*264u)==UINT32_MAX){
+   FRY_W(0x70e120u)=0x1fe3;image=landing_image(FRY_I((uint32_t)orientation*2u));
+   FUN_0053e590(FRY_I(image),sx,FRY_I((uint32_t)sy-FRY_U(0x70e44cu)));
+   FUN_0053f250(FRY_I(image),sx,FRY_I((uint32_t)sy-FRY_U(0x70e44cu)));FRY_W(0x70e120u)=0;return;
+  }
+ }
+ FUN_004f0ba0(start_x,start_y,(int32_t *)&ex,(int32_t *)&ey);
+ restore_ferry_highlight_approaches(FRY_I(other_orientation),start_x,start_y,ex,ey,FRY_I(FRY_U(0xbc96e4u)));
+ result=FUN_00486a30(FRY_I(FRY_U(0xbca304u)),FRY_I(FRY_U(0xbca308u)),start_x,start_y,layout,
+   FRY_I((uint32_t)orientation*2u),FRY_I((other_orientation+4u)&7u),path,&path_count);
+ if(result==1u){FRY_B(0xbca314u)=1;FUN_0043dd70(0,0);return;}
+ FRY_B(0xbca314u)=0;invalid_outline(&sx,&sy);
+}
+void FUN_0043d300(void){restore_ferry_preview();}

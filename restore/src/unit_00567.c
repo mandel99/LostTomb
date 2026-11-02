@@ -1,127 +1,48 @@
-#include "restore_types.h"
-#define DAT_005cfcf0 (*(undefined4 *)0x005cfcf0u)
-#define DAT_005d1184 (*(undefined *)0x005d1184u)
-#define DAT_005d1188 (*(undefined *)0x005d1188u)
-#define DAT_0070e120 (*(undefined *)0x0070e120u)
-#define DAT_00799a9c (*(undefined4 *)0x00799a9cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00f55bb4 (*(undefined4 *)0x00f55bb4u)
-#define DAT_00f56be4 (*(undefined *)0x00f56be4u)
-extern int FUN_0043d010();
-extern int FUN_0047cbd0();
-extern int FUN_0047cc70();
-extern undefined4 FUN_00486a30();
-extern undefined4 FUN_00486cf0();
-extern void FUN_004f0ba0();
-extern int FUN_0053e590();
-extern undefined4 FUN_0053f250();
-extern int FUN_0053f4f0();
-
-uint FUN_0043d030(int param_1,int param_2,int param_3,uint param_4,int param_5,int param_6)
-
+#include "ferry_preview.h"
+#include "actor_coordinates.h"
+#include "map_commit_links.h"
+#include "footprint.h"
+#include "preview_geometry.h"
+#include "route_query_model.h"
+#include "sprite_render.h"
+#include "graphics_53f250.h"
+#include "editor_brush_validation.h"
+/* Whole native43D030:709 bytes,228 instructions. Expand laterally to five
+   cells while scanning twice the supplied length. Preserve cached fit and
+   ownership values across provider calls and full WORD tint writes. */
+uint8_t restore_ferry_highlight_approaches(int32_t orientation,int32_t x,int32_t y,int32_t screen_x,int32_t screen_y,int32_t length)
 {
-  int iVar1;
-  short sVar2;
-  int iVar3;
-  int iVar4;
-  uint uVar5;
-  int iVar6;
-  int *piVar7;
-  int iVar8;
-  undefined1 local_39;
-  int local_38;
-  int local_30;
-  int local_2c;
-  undefined4 local_28;
-  undefined4 local_24;
-  uint local_20;
-  uint local_1c;
-  int local_18;
-  int local_14;
-  int local_10;
-  int local_c;
-  undefined4 local_8;
-  int local_4;
-  
-  local_1c = param_4;
-  local_18 = param_5;
-  iVar4 = param_6 * 2;
-  param_4 = param_4 & 0xffffff00;
-  local_38 = 0;
-  local_39 = 0;
-  local_8 = 0;
-  local_30 = 0;
-  if (-1 < iVar4) {
-    local_2c = 0;
-    local_4 = iVar4;
-    do {
-      param_6 = -local_38;
-      if (-local_38 == local_38 || param_6 < local_38) {
-        local_14 = param_2 + param_3 * 0xe4;
-        local_20 = param_1 + 4U & 0x80000007;
-        iVar4 = local_38;
-        if ((int)local_20 < 0) {
-          local_20 = (local_20 - 1 | 0xfffffff8) + 1;
-        }
-        do {
-          param_4 = local_1c;
-          param_5 = local_18;
-          iVar3 = param_6;
-          iVar6 = local_2c;
-          if (((param_1 != 0) && (iVar3 = local_30, iVar6 = iVar4, param_1 != 2)) &&
-             (iVar3 = iVar4, iVar6 = local_30, param_1 != 4)) {
-            iVar3 = local_2c;
-            iVar6 = param_6;
-          }
-          iVar6 = iVar6 + param_3;
-          iVar1 = iVar3 + param_2;
-          FUN_004f0ba0(iVar1,iVar6,&param_4,&param_5);
-          local_10 = local_14 + DAT_00bca2d8;
-          iVar8 = DAT_00bca2d8 + iVar6 * 0xe4 + iVar3 + param_2;
-          local_c = FUN_0047cc70(iVar1,iVar6,1,0);
-          sVar2 = *(short *)(&DAT_00b4e6fc + iVar8 * 2);
-          iVar3 = FUN_00486cf0(iVar8);
-          uVar5 = local_20;
-          if (((iVar3 != 0) && ((&DAT_00799a9c)[sVar2 * 0x42] == -1)) &&
-             ((iVar8 != local_10 &&
-              (*(short *)(&DAT_00b4e6fc + iVar8 * 2) != *(short *)(&DAT_00b4e6fc + local_10 * 2)))))
-          {
-            FUN_004f0ba0(iVar1,iVar6,&local_24,&local_28);
-            uVar5 = local_20;
-            DAT_0070e120 = 0x1fe3;
-            iVar8 = (&DAT_00f55bb4)[DAT_005d1184 * 2] + DAT_005d1188;
-            iVar3 = FUN_0043d010(local_20);
-            iVar8 = iVar8 + iVar3;
-            FUN_0053e590(iVar8,local_24,local_28);
-            FUN_0053f250(iVar8,local_24,local_28);
-            DAT_0070e120 = 0;
-            local_39 = 1;
-          }
-          iVar3 = FUN_0047cbd0(iVar1,iVar6,0);
-          if (((iVar3 * 2 - uVar5 == 0) && (local_c == 0)) &&
-             (iVar3 = FUN_00486a30(iVar1,iVar6,param_2,param_3,2,iVar3 * 2,uVar5,0,&local_8),
-             iVar3 != 0)) {
-            piVar7 = &DAT_005cfcf0;
-            do {
-              FUN_0053f4f0(DAT_00f56be4,*piVar7 + param_4,piVar7[1] + param_5,0x1fe3);
-              piVar7 = piVar7 + 2;
-            } while ((int)piVar7 < 0x5cfd10);
-            local_39 = 1;
-          }
-          param_6 = param_6 + 1;
-          iVar4 = iVar4 + -1;
-        } while (param_6 <= local_38);
-        param_4 = CONCAT31((int3)((uint)param_6 >> 8),local_39);
-        iVar4 = local_4;
-      }
-      local_38 = local_38 + 1;
-      if (5 < local_38) {
-        local_38 = 5;
-      }
-      local_30 = local_30 + 1;
-      local_2c = local_2c + -1;
-    } while (local_30 <= iVar4);
+ int32_t depth,radius=0,lateral,dx,dy,near_x,near_y,fit,wanted,path_count=0,maximum=FRY_I((uint32_t)length*2u);
+ volatile int32_t px,py,hx,hy;uint32_t base,cell,building,image,i;uint8_t found=0;
+ if(maximum<0)return 0;
+ for(depth=0;depth<=maximum;++depth){
+  base=(uint32_t)x+(uint32_t)y*228u;wanted=FRY_I((uint32_t)orientation+4u)%8;
+  for(lateral=-radius;lateral<=radius;++lateral){
+   switch(orientation){case 0:dx=lateral;dy=-depth;break;case 2:dx=depth;dy=-lateral;break;
+   case 4:dx=-lateral;dy=depth;break;default:dx=-depth;dy=lateral;break;}
+   near_x=FRY_I((uint32_t)x+(uint32_t)dx);near_y=FRY_I((uint32_t)y+(uint32_t)dy);
+   px=screen_x;py=screen_y;FUN_004f0ba0(near_x,near_y,(int32_t *)&px,(int32_t *)&py);
+   base=FRY_U(0xbca2d8u)+(uint32_t)x+(uint32_t)y*228u;
+   cell=FRY_U(0xbca2d8u)+(uint32_t)near_y*228u+(uint32_t)near_x;
+   fit=FUN_0047cc70(near_x,near_y,1,0);building=(uint32_t)FRY_H(0xb4e6fcu+cell*2u);
+   if(FUN_00486cf0(cell)&&FRY_U(0x799a9cu+building*264u)==UINT32_MAX&&cell!=base&&
+      FRY_W(0xb4e6fcu+cell*2u)!=FRY_W(0xb4e6fcu+base*2u)){
+    FUN_004f0ba0(near_x,near_y,(int32_t *)&hx,(int32_t *)&hy);
+    FRY_W(0x70e120u)=0x1fe3;
+    image=FRY_U(0xf55bb4u+FRY_U(0x5d1184u)*8u)+FRY_U(0x5d1188u);
+    image+=(uint32_t)restore_ferry_image_orientation(wanted);
+    FUN_0053e590(FRY_I(image),hx,hy);FUN_0053f250(FRY_I(image),hx,hy);
+    FRY_W(0x70e120u)=0;found=1;
+   }
+   image=FUN_0047cbd0(near_x,near_y)*2u;
+   if(image==(uint32_t)wanted&&fit==0&&FUN_00486a30(near_x,near_y,x,y,2,FRY_I(image),wanted,0,&path_count)){
+    for(i=0;i<4u;++i)FUN_0053f4f0(FRY_I(FRY_U(0xf56be4u)),FRY_I(FRY_U(0x5cfcf0u+i*8u)+(uint32_t)px),FRY_I(FRY_U(0x5cfcf4u+i*8u)+(uint32_t)py),0x1fe3u);
+    found=1;
+   }
   }
-  return param_4;
+  if(radius<5)++radius;
+ }
+ return found;
 }
+uint8_t FUN_0043d030(int32_t orientation,int32_t x,int32_t y,int32_t screen_x,int32_t screen_y,int32_t length)
+{return restore_ferry_highlight_approaches(orientation,x,y,screen_x,screen_y,length);}

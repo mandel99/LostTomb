@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Fix the Ferry Landing selection crash: a native switch table had been
+  translated as a call through original code addresses. Recover every scan
+  branch and the full first/second-bank preview, with exact field widths.
+- Pass 355 native/C cases covering crossing scans, opposite-bank highlights,
+  route-buffer setup and complete preview compositions. Reproduce the old
+  null instruction fetch offline. Live gameplay remains untested.
 - Reconstruct the complete monument footprint writer and both resource/refresh
   loops. Recover the explicit object receiver, cached footprint size and virtual
   image flags. Correct map field widths, shape masks and eight old caller arguments.
