@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Remove ten obsolete duplicate unit-control bodies. Their public address
+  entries now share the same complete C providers as button/keyboard actions,
+  including building selection, actor return and formation changes.
+- Eliminate the old unit-command jump through native code addresses. Pass
+  309 native/C cases, including real search, assignment, route release and
+  map-neighbor compositions. Live gameplay remains untested.
 - Fix garbled mission countdown text: preserve full font IDs, calendar values,
   viewport origins and mode flags. Reconstruct the complete status renderer,
   including both timer modes, outlines, victory/tomb-placement notices and pause.
