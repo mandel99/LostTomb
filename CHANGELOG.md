@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Fix the public farm terrain query reading Y from another building record.
+  Floodplain farms now skip the surplus generic building animation.
+- Pass 280 offline native/C farm cases, including 24 actual city framebuffer
+  comparisons with installed sprites. Fig and barley crops remain distinct
+  across six growth stages; live gameplay is not certified.
 - Reconstruct four auxiliary sprite/cache lifetime methods with explicit
   owner receivers, reverse record destruction and callback-sensitive
   pointer reloads. Fix a shared scratch pointer truncated to one byte.

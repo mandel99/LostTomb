@@ -1,11 +1,13 @@
-#include "restore_types.h"
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-extern uint FUN_00489470();
+#include <stdint.h>
+extern uint32_t FUN_00489470(int32_t x,int32_t y,int32_t width,int32_t height);
 
-uint FUN_004894a0(int param_1)
-
+/* Whole4894A0: both signed-WORD coordinates use the same264-byte record.
+   Adding a byte offset to &DAT_7999E0 as a DWORD pointer read record4*id.
+   Preserve the genuine query's full EAX, including its non-boolean high bits. */
+uint32_t FUN_004894a0(int32_t building)
 {
-  return FUN_00489470((int)*(short *)((int)&DAT_007999dc + param_1 * 0x108 + 2),
-               (int)*(short *)(&DAT_007999e0 + param_1 * 0x108),3,3);
+    uint32_t offset=(uint32_t)building*264u;
+    int32_t y=*(volatile int16_t *)(uintptr_t)(0x7999e0u+offset);
+    int32_t x=*(volatile int16_t *)(uintptr_t)(0x7999deu+offset);
+    return FUN_00489470(x,y,3,3);
 }
