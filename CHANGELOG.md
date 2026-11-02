@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Remove three obsolete public C bodies for building allocation, repair slots
+  and god effects. Their address entries now share the same complete typed C
+  providers as simulation/construction callers.
+- Pass 668 native/C cases covering all 241 building kinds, contiguous search,
+  reservations, all repair slots and god-effect branches. Preserve unspecified
+  bytes in the original 30-byte message scratch rather than inventing defaults.
 - Reconstruct chief-advisor advice selection/render calls and temple-complex
   upgrade previews. Preserve full-width coordinates, player/table indices,
   linked building records and tint fields; add descriptive C entry names.

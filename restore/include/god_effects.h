@@ -6,6 +6,7 @@
    the publisher copies all thirty bytes, including its unspecified prestate. */
 void restore_god_effect_core_004c47a0(int32_t god,uint32_t source,int32_t effect,uint8_t scratch[30]);
 void restore_god_effect_004c47a0(int32_t god,uint32_t source,int32_t effect);
+void FUN_004c47a0(int32_t god,uint32_t source,int32_t effect);
 void restore_god_city_004e6eb0(void);
 void restore_god_city_004e6ed0(void);
 void restore_god_city_004e70b0(int32_t duration);

@@ -370,6 +370,8 @@ set_source_files_properties(src/unit_02091.c src/unit_02092.c src/unit_02096.c s
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_01589.c src/unit_01606.c src/unit_02462.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_00960.c src/unit_00963.c src/unit_01601.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(runtime/actor_bazaar_targets.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(runtime/actor_weighted_search.c runtime/actor_goal_route.c PROPERTIES
