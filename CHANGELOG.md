@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Fix the new-campaign name picker terminating in the unresolved-callback
+  handler. Restore its original open, choose and close actions, including
+  text-editor reset, and reconstruct the full 42-row suggestion panel.
+- Pass 315 offline native/C cases covering real catalog names, every
+  original button identity, right/no-click behavior, all resolution modes
+  and full font/hover selection. Final drawing endpoints are controlled.
+- Reconstruct the complete event-detail renderer and three rectangle-text
+  helpers. Preserve explicit event receivers, cached ranges and records,
+  delayed arguments, dependency rows and full 32-bit positions/fonts.
+- Pass 406 native/C cases, including actual query graphs, record erasure
+  and rectangle helpers. Physical rendering remains untested.
 - Reconstruct the complete event-description formatter and its twelve-row
   editor list, with explicit event receivers, signed ranges and IDs,
   dependency indices, native text-selection restoration and 40-character

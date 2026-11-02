@@ -1,13 +1,15 @@
-#include "restore_types.h"
-#define DAT_00e38da4 (*(undefined *)0x00e38da4u)
-#define DAT_00e38da8 (*(undefined *)0x00e38da8u)
-extern void FUN_004cce90();
-
-void FUN_004cd2e0(undefined4 param_1,undefined4 param_2,undefined4 param_3,short *param_4,
-                 undefined4 param_5,undefined4 param_6,int param_7,int param_8)
-
+#include "ui_rect_text.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+extern void FUN_004cce90(uint32_t,uint32_t,const char *,uint32_t,uint32_t,int32_t,uint32_t,uint32_t);
+/* Complete4CD2E0: signed WORD width; all position arithmetic is32-bit. */
+void restore_ui_clipped_number_at_rect(uint32_t value,uint32_t separator,const char *suffix,
+    const int16_t *point,uint32_t font,uint32_t color,int32_t dx,int32_t dy)
 {
-  FUN_004cce90(param_1,param_2,param_3,*param_4 + DAT_00e38da8 + param_7,
-               param_4[1] + DAT_00e38da4 + param_8,(int)param_4[2] - (int)*param_4,param_5,param_6);
-  return;
+    int32_t width=(int32_t)point[2]-(int32_t)point[0];
+    uint32_t y=(uint32_t)(int32_t)point[1]+U(0xe38da4u)+(uint32_t)dy;
+    uint32_t x=(uint32_t)(int32_t)point[0]+U(0xe38da8u)+(uint32_t)dx;
+    FUN_004cce90(value,separator,suffix,x,y,width,font,color);
 }
+void FUN_004cd2e0(uint32_t value,uint32_t separator,const char *suffix,
+    const int16_t *point,uint32_t font,uint32_t color,int32_t dx,int32_t dy)
+{restore_ui_clipped_number_at_rect(value,separator,suffix,point,font,color,dx,dy);}

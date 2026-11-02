@@ -390,6 +390,10 @@ set_source_files_properties(src/unit_01587.c src/unit_01588.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_00680.c src/unit_00689.c src/unit_00690.c src/unit_00706.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_00715.c src/unit_01707.c src/unit_01710.c src/unit_01711.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_02363.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_00054.c src/unit_00055.c src/unit_00056.c src/unit_00057.c
  src/unit_00058.c src/unit_00059.c src/unit_00060.c src/unit_00061.c src/unit_01370.c src/unit_01527.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
@@ -774,7 +778,8 @@ target_link_options(restore_campaign_profile_verify PRIVATE /BASE:0x10000 /DYNAM
 add_test(NAME standalone_campaign_profile COMMAND restore_campaign_profile_verify)
 set_tests_properties(standalone_campaign_profile PROPERTIES LABELS source-only)
 add_executable(restore_family_menu_verify tests/family_menu.c runtime/family_menu.c src/unit_00244.c src/unit_00418.c
-  src/unit_02279.c src/unit_02280.c src/unit_02281.c src/unit_02282.c src/unit_02283.c src/unit_02284.c src/unit_02286.c src/unit_02287.c)
+  src/unit_02279.c src/unit_02280.c src/unit_02281.c src/unit_02282.c src/unit_02283.c src/unit_02284.c src/unit_02286.c src/unit_02287.c
+  src/unit_01672.c runtime/text_selection.c)
 target_include_directories(restore_family_menu_verify PRIVATE include)
 target_link_libraries(restore_family_menu_verify PRIVATE restore_data)
 target_link_options(restore_family_menu_verify PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED)

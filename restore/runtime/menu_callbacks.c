@@ -175,6 +175,9 @@ void restore_menu_callback(uint32_t address)
     if(address==0x00516ab0u) {FUN_00516ab0();return;}
     if(address==0x00516990u) {FUN_00516990();return;}
     if(address==0x00516c10u) {FUN_00516c10();return;}
+    if(address==0x0040c890u) {restore_family_open_name_choices();return;}
+    if(address==0x0040c810u) {restore_family_close_name_choices();return;}
+    if(address==0x0040c830u) {restore_family_choose_name();return;}
     if(address==0x00516c60u) {FUN_00516c60();return;}
     if(address==0x00516dd0u) {FUN_00516dd0();return;}
     if(address==0x004cb800u) {FUN_004cb800();return;}
