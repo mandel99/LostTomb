@@ -1,8 +1,8 @@
 # LostTomb
 
-**Work in progress â€” experimental C reconstruction of Pharaoh + Cleopatra 2.1.**
+**Work in progress - experimental C reconstruction of Pharaoh + Cleopatra 2.1.**
 
-LostTomb reconstructs the behavior of the 1999â€“2000 game in C. The current
+LostTomb reconstructs the behavior of the 1999-2000 game in C. The current
 Windows x86 build contains a game launcher, menus, rendering and simulation
 paths, but reconstruction and validation are ongoing. Crashes, graphical
 issues and incomplete gameplay behavior are still possible.
