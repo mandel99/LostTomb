@@ -1,17 +1,13 @@
-#include "restore_types.h"
-extern void FUN_0055d8b0();
-extern void FUN_00561a2b();
-
-void FUN_0055d960(int *param_1)
-
+#include "sprite_auxiliary.h"
+#include "sprite_shutdown.h"
+/* Whole55D960. Free the captured object even if a callback replaces the slot. */
+void restore_sprite_auxiliary_release_slot(int32_t *slot)
 {
-  int iVar1;
-  
-  iVar1 = *param_1;
-  if (iVar1 != 0) {
-    FUN_0055d8b0();
-    FUN_00561a2b(iVar1);
-    *param_1 = 0;
-  }
-  return;
+    uint32_t saved=(uint32_t)*(volatile int32_t *)slot;
+    if(saved){
+        FUN_0055d8b0((RestoreSpriteAuxiliary *)(uintptr_t)saved);
+        restore_sprite_shutdown_free((void *)(uintptr_t)saved);
+        *(volatile int32_t *)slot=0;
+    }
 }
+void FUN_0055d960(int32_t *slot){restore_sprite_auxiliary_release_slot(slot);}

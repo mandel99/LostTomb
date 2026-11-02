@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Reconstruct four auxiliary sprite/cache lifetime methods with explicit
+  owner receivers, reverse record destruction and callback-sensitive
+  pointer reloads. Fix a shared scratch pointer truncated to one byte.
+  Allow non-null auxiliary slots to reach their restored cleanup logic.
+- Pass 145 offline native/C cases, including actual global sprite cleanup
+  composition, plus the 227-check compiled manager fixture and link check.
+  Free and child virtual-delete endpoints are controlled. The child virtual
+  destructor remains unreconstructed; full non-null child cleanup, physical
+  rendering and injected exception unwinding are not certified.
 - Reconstruct all eight monument-class constructors, four shared record/base
   methods, eight static receiver thunks and a previously unlisted record
   initializer. Restore complete costs, phases, flags, links and animation

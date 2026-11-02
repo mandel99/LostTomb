@@ -161,6 +161,9 @@ for flag,kind,sentinel in itertools.product([0,1,2,255,256,257],[0,1,2],[0,HEAP+
 for status,op in itertools.product([0,1,255,0x80000000,0xffffffff],[4,11,12]):add(p0=op,p11=status)
 cases=sorted(set(cases),key=lambda p:(p[1],p));process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 report={'format':1,'passed':False,'checked':0,'production':args.production,'native_sha256':SHA,'compiled_C_sha256':sha(exe.read_bytes()),'original_game_executed':False,'unicorn_version':__version__,'method':'Full207-instruction normal lifecycle graph: reset84, shutdown19, manager ctor28/dtor23, global ctor2/register4/cleanup2, library ctor8/dtor18 and unchanged pointer-release19. Actual native leaf callbacks execute within controlled fixed30 vector iteration. Compare both complete0x30f5d8 objects and guards, globals/object/vtable/heap canaries, ordered frees/mutations/library iteration, receiver/argument contracts, native constructor pointer/reset1/registration EAX, stack/saved registers and restored native SEH chain. Compiled C uses explicit receiver APIs and compiled cleanup callback.','limitations':['Normal nonthrowing domain only. Generic CRT vector iteration61441/61363 is controlled fixed30 forward/reverse scaffolding that executes actual native library constructors/destructors; generic unwind/exception algorithms are not proved. Native manager SEH setup/restoration is executed and checked; C uses ordinary nonthrowing control flow.','Host free is a controlled typed endpoint. Fake pointer/alias/mutation fixtures prove original free ordering and field effects, not real allocator ownership validity or safe double-free behavior. Separate C smoke uses the actual host allocation/free boundary.','Optional virtual destructors are controlled oracle endpoints to prove controller receiver/flag1/order/reloads/clearing only. Production rejects unsupported non-null objects explicitly; no actual virtual destructor algorithm or original-code pointer is provided.','AuxiliaryEA1368 is null in successful scenarios. Actual unchanged2678 C executes only its null branch; a fail-fast private link boundary makes55D8B0 unreachable. Production rejects non-null before that known unreconstructed receiver path. No nested auxiliary cleanup is claimed.','Atexit is a controlled registration endpoint for status/callback scheduling comparison. Production registers a compiled C cleanup pointer through host atexit; C smoke checks actual registration. Raw callback addresses occur only in original-instruction oracle data, never product calls.']}
+if args.production:
+ report['limitations'][3]='AuxiliaryEA1368 stays null in this legacy manager fixture; its record/owner lifetime and non-null slot are checked separately by direct_c/verify_sprite_auxiliary.py against the whole compiled game. Child virtual deletion remains a controlled endpoint there.'
+
 def exact(n):
  b=process.stdout.read(n);assert len(b)==n,'C stopped: '+process.stderr.read().decode(errors='replace');return b
 started=time.monotonic();p=None
@@ -174,7 +177,9 @@ try:
   if report['checked']%500==0:print(json.dumps({'checked':report['checked'],'total':len(cases)}),flush=True)
  assert hits==allowed_set,'Uncovered native instructions: '+repr([hex(a) for a in sorted(allowed_set-hits)])
  negative=[]
- for option,message in [('--unsupported-delete','Unsupported sprite-shutdown virtual destructor'),('--unsupported-slot','Unsupported sprite-shutdown auxiliary object')]:
+ negative_cases=[('--unsupported-delete','Unsupported sprite-shutdown virtual destructor')]
+ if not args.production:negative_cases.append(('--unsupported-slot','Unsupported sprite-shutdown auxiliary object'))
+ for option,message in negative_cases:
   r=subprocess.run([str(exe),option],capture_output=True,timeout=15);assert r.returncode!=0 and message in r.stderr.decode(errors='replace'),(option,r.returncode,r.stderr)
   negative.append({'option':option,'exit_code':r.returncode,'diagnostic_matched':True})
  report['unsupported_boundaries_fail_closed']=negative;report['passed']=True

@@ -1525,6 +1525,8 @@ add_test(NAME standalone_dropdown_tiler COMMAND restore_dropdown_tiler_verify)
 set_tests_properties(standalone_dropdown_tiler PROPERTIES LABELS source-only)
 include("${CMAKE_CURRENT_SOURCE_DIR}/tools/map_cells_shared_targets.cmake")
 target_sources(pharaoh_restored PRIVATE runtime/sprite_shutdown_lifecycle.c runtime/sprite_shutdown_boundaries.c)
+set_source_files_properties(src/unit_02677.c src/unit_02678.c src/unit_02679.c src/unit_02681.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 add_library(sprite_shutdown_release OBJECT "src/unit_02529.c")
 target_compile_definitions(sprite_shutdown_release PRIVATE FUN_0053f790=sprite_shutdown_release_real)
 add_library(sprite_shutdown_library_destroy OBJECT src/unit_02533.c)

@@ -1,18 +1,15 @@
-#include "restore_types.h"
-extern undefined4 FUN_0055d990();
-extern void FUN_00561a2b();
-
-void FUN_0055db90(void)
-
+#include "sprite_auxiliary.h"
+#include "sprite_shutdown.h"
+/* Whole55DB90. Reload owner/index after releasing the record's allocation. */
+void restore_sprite_auxiliary_destroy_record(RestoreSpriteAuxiliaryRecord *object)
 {
-  int in_ECX;
-  
-  if (*(int *)(in_ECX + 8) != 0) {
-    FUN_00561a2b(*(int *)(in_ECX + 8));
-    *(undefined4 *)(in_ECX + 8) = 0;
-  }
-  if ((*(int *)(in_ECX + 4) != 0) && (-1 < *(int *)(in_ECX + 0x10))) {
-    FUN_0055d990(*(int *)(in_ECX + 0x10));
-  }
-  return;
+    volatile RestoreSpriteAuxiliaryRecord *self=object;
+    uint32_t allocation=self->allocation;
+    if(allocation){
+        restore_sprite_shutdown_free((void *)(uintptr_t)allocation);
+        self->allocation=0;
+    }
+    if(self->owner&&self->index>=0)
+        (void)FUN_0055d990((RestoreSpriteAuxiliary *)(uintptr_t)self->owner,self->index);
 }
+void FUN_0055db90(RestoreSpriteAuxiliaryRecord *self){restore_sprite_auxiliary_destroy_record(self);}

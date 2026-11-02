@@ -1,4 +1,5 @@
 #include "sprite_shutdown.h"
+#include "sprite_auxiliary.h"
 #include "standalone_data.h"
 #include "host_allocator.h"
 #include <windows.h>
@@ -55,7 +56,7 @@ int restore_sprite_shutdown_register(void (*callback)(void)){CHECK(callback==FUN
 void FUN_0053f790(int *slot,char flag){event(0x53f790,(uint32_t)(uintptr_t)slot,(uint8_t)flag,0);sprite_shutdown_release_real(slot,flag);event(0x8053f790,(uint32_t)(uintptr_t)slot,(uint8_t)flag,0);}
 RestoreSpriteLibrary *FUN_005404e0(RestoreSpriteLibrary *s){RestoreSpriteLibrary *r;event(0x5404e0,(uint32_t)(uintptr_t)s,0,0);r=sprite_shutdown_library_construct_real(s);event(0x805404e0,(uint32_t)(uintptr_t)s,(uint32_t)(uintptr_t)r,0);return r;}
 void FUN_00540500(RestoreSpriteLibrary *s){event(0x540500,(uint32_t)(uintptr_t)s,0,0);sprite_shutdown_library_destroy_real(s);event(0x80540500,(uint32_t)(uintptr_t)s,0,0);}
-void FUN_0055d8b0(void){fputs("Unreachable non-null auxiliary destructor in private proof.\n",stderr);ExitProcess(7);}
+void FUN_0055d8b0(RestoreSpriteAuxiliary *self){(void)self;fputs("Unreachable non-null auxiliary destructor in private proof.\n",stderr);ExitProcess(7);}
 static uint32_t pointer_kind(uint32_t kind,uint32_t heap,uint32_t alternate){return kind==0?0:kind==2?p[6]:kind==3?alternate:heap;}
 static void manager_fields(uint32_t address)
 {
@@ -177,7 +178,6 @@ int main(int argc,char **argv)
  uint32_t i,result;uint8_t hash[32];CHECK(restore_data_open());SetErrorMode(SEM_FAILCRITICALERRORS|SEM_NOGPFAULTERRORBOX);_set_abort_behavior(0,_WRITE_ABORT_MSG|_CALL_REPORTFAULT);
  CHECK(VirtualAlloc((void *)(uintptr_t)(PRIVATE_SELF-64),SIZE_MANAGER+128,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE)!=NULL);CHECK(VirtualAlloc((void *)(uintptr_t)HEAP_BASE,0x10000,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE)!=NULL);CHECK(VirtualAlloc((void *)(uintptr_t)OBJECT_BASE,0x3000,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE)!=NULL);
  if(argc>1&&!strcmp(argv[1],"--unsupported-delete")){sprite_shutdown_delete_real((void *)(uintptr_t)OBJECT_BASE,1);return 0;}
- if(argc>1&&!strcmp(argv[1],"--unsupported-slot")){int nonnull=0x12345678;sprite_shutdown_slot_real(&nonnull);return 0;}
  CHECK(CryptAcquireContextW(&provider,NULL,NULL,PROV_RSA_AES,CRYPT_VERIFYCONTEXT));
  if(argc>1&&!strcmp(argv[1],"--oracle-batch")){uint32_t ready=0x53485554;_setmode(_fileno(stdout),_O_BINARY);fwrite(&ready,4,1,stdout);fflush(stdout);for(;;){for(i=0;i<FIELDS;++i)if(scanf("%u",&p[i])!=1)return 0;prepare();result=invoke();digest(hash);fwrite(&result,4,1,stdout);fwrite(hash,32,1,stdout);fwrite(&event_count,4,1,stdout);fwrite(events,64,event_count,stdout);fflush(stdout);}}
  {uint32_t q[FIELDS]={0,123,0,0x3fffffff,1,1,HEAP_BASE+0x7000,0,0,0,0,0,0,0,0,HEAP_BASE+0x8000,HEAP_BASE+0x9000,0,0,0,0,1,0,0};memcpy(p,q,sizeof(p));}
