@@ -1,0 +1,45 @@
+name: Tagged Windows release
+
+on:
+  push:
+    tags:
+      - '**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: losttomb-releases
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event.deleted == false && github.ref_type == 'tag'
+    runs-on: windows-2022
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out the tagged sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check release publication and retention logic
+        run: node --test .github/scripts/release.test.mjs
+
+      - name: Build Windows x86 Release
+        run: ./restore/build.ps1 -Configuration Release -BuildGame
+
+      - name: Check linking and data initialization
+        run: |
+          & ./restore/build/c-only/Release/restore_link_check.exe
+          if ($LASTEXITCODE -ne 0) { throw 'Link/data diagnostic failed.' }
+
+      - name: Publish EXE and keep the newest three releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node .github/scripts/release.mjs

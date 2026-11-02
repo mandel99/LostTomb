@@ -9,8 +9,9 @@ issues and incomplete gameplay behavior are still possible.
 
 ## Download and run
 
-Download the Windows x86 ZIP from [Releases](https://github.com/mandel99/LostTomb/releases).
-Extract it into your own Pharaoh + Cleopatra 2.1 installation, beside
+New tagged builds publish `PharaohRestoreC.exe` directly in
+[Releases](https://github.com/mandel99/LostTomb/releases), without a runtime ZIP.
+Place it into your own Pharaoh + Cleopatra 2.1 installation, beside
 `Pharaoh.inf`, `Language.inf` and the `Data` directory, and run
 `PharaohRestoreC.exe`. Keep the original installation's supporting files and
 media DLLs available there. The launcher applies 16-bit color compatibility
@@ -55,11 +56,33 @@ arguments checks linking and data initialization and does not start the game.
 Native comparison scripts need their separate local reference binary and
 Python tooling; those inputs are not included in the release.
 
+## Automatic tagged releases
+
+GitHub Actions builds a Windows x86 Release **only when a Git tag is pushed**.
+Branch pushes and pull requests do not trigger a build. Create each release
+from a commit that includes the release workflow:
+
+```powershell
+git tag -a v0.1.2-wip.20261102 -m "Next WIP build"
+git push origin v0.1.2-wip.20261102
+```
+
+The workflow builds the C sources, runs the link/data diagnostic and publishes
+the EXE, run instructions, build identification and SHA-256 checksums directly
+as release assets. Game data and third-party DLLs are not included.
+Releases remain marked as work in progress / prerelease.
+
+After successful publication, only the **three most recently published
+releases** are kept, including prereleases. Older releases and their assets are
+deleted; Git tags and source history are preserved. Drafts are not pruned.
+The workflow uses the repository's automatic `GITHUB_TOKEN`; no personal token
+is required. GitHub's automatic source ZIP/TAR links remain available.
+
 ## Current status
 
 This is a **WIP prerelease**, not a finished reconstruction. Recent work covers
 campaign progression, terrain and overlay rendering, building previews,
-monument previews, saved-state handling and event dispatch. Version 0.1.1 fixes
+monument previews, saved-state handling and event dispatch. The current sources fix
 the mausoleum placement-preview crash caused by an undersized geometry buffer,
 incorrect table indexing and truncated coordinates. It also retains the fix
 for the missing event-object receiver in the simulation path.
