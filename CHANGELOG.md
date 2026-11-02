@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Fix queued messages overwriting their month and body-template index when
+  marked as opened. Restore byte writes, 48-byte event addressing and full
+  UI fields throughout the queue opener. Population milestones retain their
+  own text instead of becoming an unrelated attack notice.
+- Pass 220 offline native/C queue cases, including actual event publication
+  and panel setup for all ten population milestones. Retain the original
+  999-slot scan boundary. Already damaged saved history is not repaired.
 - Fix the public farm terrain query reading Y from another building record.
   Floodplain farms now skip the surplus generic building animation.
 - Pass 280 offline native/C farm cases, including 24 actual city framebuffer
