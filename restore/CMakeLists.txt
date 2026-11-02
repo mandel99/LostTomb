@@ -479,6 +479,10 @@ set_source_files_properties(runtime/dynamic_history.c PROPERTIES
 set_source_files_properties(runtime/model_loading.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 target_sources(pharaoh_restored PRIVATE runtime/preview_footprint_seeds.c)
+target_sources(pharaoh_restored PRIVATE runtime/monument_constructor.c)
+set_source_files_properties(runtime/monument_constructor.c src/unit_00000.c src/unit_00097.c
+ src/unit_00193.c src/unit_01991.c src/unit_02561.c src/unit_02615.c src/unit_02602.c src/unit_02589.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 target_sources(pharaoh_restored PRIVATE runtime/placement_preview_members.c
   runtime/placement_preview_predicates.c runtime/placement_preview_platform.c)
 set_source_files_properties(src/unit_00722.c src/unit_00724.c src/unit_00725.c src/unit_00726.c PROPERTIES

@@ -1,113 +1,21 @@
-#include "restore_types.h"
-#define LAB_004e50f0 (*(undefined1 *)0x004e50f0u)
-#define LAB_0056b47e (*(undefined1 *)0x0056b47eu)
-#define PTR_FUN_0056f438 (*(unsigned char * *)0x0056f438u)
-extern void FUN_004e5120();
-extern void FUN_004e5140();
-extern void FUN_004e5210();
-extern void FUN_0051f780();
-extern void FUN_00561441();
+#include "monument_constructor.h"
+extern uint32_t FUN_00562348(void);
 
-void FUN_00401030(void)
-
+/* Complete normal constructor00401030; reuse the existing ordered seed set. */
+__declspec(noinline) void *restore_monument_construct_body_00401030(void *object,RestoreMonumentConstructorScratch *scratch)
 {
-  undefined4 uVar1;
-  undefined4 *in_ECX;
-  CRect local_40 [52];
-  void *local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_0056b47e;
-  local_c = ExceptionList;
-  ExceptionList = &local_c;
-  FUN_004e5210();
-  local_4 = 0;
-  FUN_00561441(in_ECX + 0x13,0x34,0x10,&LAB_004e50f0,FUN_0051f780);
-  RESTORE_SLICE1(local_4,0) = 1;
-  *in_ECX = &PTR_FUN_0056f438;
-  uVar1 = (FUN_004e5120(local_40,1,7,3,5), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 2;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,1,-0xb,3,6), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 3;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,4,3,0), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 4;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,1,3,0), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 5;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,-2,3,0), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 6;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,-5,3,0), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 7;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,-8,3,0), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 8;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-2,7,3,1), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 9;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-2,-0xb,3,2), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 10;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,7,3,3), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0xb;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-5,-0xb,3,4), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0xc;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-2,-2,3,7), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0xd;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,1,-2,3,8), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0xe;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,4,-2,3,9), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0xf;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-2,1,6,10), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0x10;
-  FUN_004e5140(uVar1);
-  RESTORE_SLICE1(local_4,0) = 1;
-  FUN_0051f780();
-  uVar1 = (FUN_004e5120(local_40,-2,-8,6,0xb), restore_pointer32_checked(local_40, 0x004e5120u));
-  RESTORE_SLICE1(local_4,0) = 0x11;
-  FUN_004e5140(uVar1);
-  local_4 = CONCAT31(RESTORE_SLICE3(local_4,1),1);
-  FUN_0051f780();
-  in_ECX[1] = 0;
-  ExceptionList = local_c;
-  return;
+  volatile uint32_t *fields=object;
+  restore_monument_class_base(object,&scratch->base,0);
+  restore_monument_class_clear(object,1u);
+  *fields = 0x0056f438u;
+
+  restore_monument_class_seed(object,1u,&scratch->part);
+
+  fields[1] = 0;
+    return object;
+}
+void *FUN_00401030(void *object)
+{
+  RestoreMonumentConstructorScratch scratch={0};
+  return restore_monument_construct_body_00401030(object,&scratch);
 }

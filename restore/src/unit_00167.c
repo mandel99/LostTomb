@@ -1,9 +1,2 @@
-#include "restore_types.h"
-extern void FUN_005567d0();
-
-void FUN_00413d40(void)
-
-{
-  FUN_005567d0();
-  return;
-}
+#include "monument_constructor.h"
+void *FUN_00413d40(void){return FUN_005567d0((void *)0x6f5648u);}

@@ -1365,3 +1365,11 @@ void restore_preview_footprint_seeds_initialize(void)
         record[2]=(uint32_t)seed->size;record[3]=(uint32_t)seed->type;
     }
 }
+uint32_t restore_preview_footprint_seed(uint32_t class_index,uint32_t piece,int32_t output[4])
+{
+    const PreviewSeed *seed;
+    if(class_index>=8u||piece>=sets[class_index].count)return 0;
+    seed=&sets[class_index].seeds[piece];
+    output[0]=seed->x;output[1]=seed->y;output[2]=seed->size;output[3]=seed->type;
+    return 1;
+}

@@ -1,13 +1,5 @@
-#include "restore_types.h"
-#define PTR_LAB_005701a0 (*(unsigned char * *)0x005701a0u)
-extern void FUN_004e5210();
-
-void FUN_00545f80(void)
-
+#include "monument_constructor.h"
+void *FUN_00545f80(void *object)
 {
-  undefined4 *in_ECX;
-  
-  FUN_004e5210();
-  *in_ECX = &PTR_LAB_005701a0;
-  return;
+ RestoreMonumentRecord temporary={0};restore_monument_class_base(object,&temporary,1);return object;
 }

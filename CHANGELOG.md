@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Reconstruct all eight monument-class constructors, four shared record/base
+  methods, eight static receiver thunks and a previously unlisted record
+  initializer. Restore complete costs, phases, flags, links and animation
+  variants. Use the existing 1,327 footprint tuples without duplicating data.
+- Run these constructors during standalone data initialization, before
+  restored WinMain and geometry, in the original CRT-table order. Replace
+  the production path's partial seed/vtable setup. The eight constructor
+  sources shrink from 8,451 to 1,686 lines plus shared C helpers.
+- Pass 122 offline native/C constructor/helper cases, including real RNG
+  and geometry compositions, and the existing footprint/ABI fixture.
+  Explicit body comparisons preserve native private input; public wrappers
+  zero only native-uninitialized temporary words. Those words are masked
+  in wrapper comparisons until geometry defines each piece's derived fields.
+  Physical rendering, full startup and gameplay remain untested.
 - Reconstruct eleven complete spatial-sound methods in C: provider selection,
   channel defaults, cache lookup/reference counts/loading, EAX preference,
   playback, position, orientation and active-voice updates. Replace missing

@@ -1,11 +1,6 @@
-#include "restore_types.h"
-
-void FUN_004e5120(CRect *this,int param_1,int param_2,int param_3,int param_4)
-
+#include "monument_constructor.h"
+void *FUN_004e5120(void *object,int32_t x,int32_t y,int32_t size,int32_t type)
 {
-  *(int *)this = param_1;
-  *(int *)(this + 4) = param_2;
-  *(int *)(this + 8) = param_3;
-  *(int *)(this + 0xc) = param_4;
-  return;
+ volatile uint32_t *p=object;p[0]=(uint32_t)x;p[1]=(uint32_t)y;p[2]=(uint32_t)size;p[3]=(uint32_t)type;
+ return object;
 }

@@ -199,7 +199,6 @@ undefined4 FUN_00413ed0(undefined4 param_1)
                 DAT_00605a00 = 0;
                 DAT_006059fc = 0xffffffff;
                 FUN_00540b50();
-                restore_preview_footprint_seeds_initialize();
                 FUN_004013f0((void *)0x6de650u);
                 FUN_0040d7e0((void *)0x6fd5d8u);
                 FUN_00416f60((void *)0x6fd368u);
@@ -208,7 +207,6 @@ undefined4 FUN_00413ed0(undefined4 param_1)
                 FUN_00558b40((void *)0x6f5648u);
                 FUN_00555de0((void *)0x6de9e0u);
                 FUN_0054f3d0((void *)0x6e9188u);
-                restore_placement_preview_initialize_classes();
                 restore_monument_base_initialize();
                 FUN_00541d50();
                 FUN_004dee10();

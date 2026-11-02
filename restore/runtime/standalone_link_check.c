@@ -6,6 +6,7 @@
 #include "flood_simulation.h"
 #include "mission_schema.h"
 #include "vegetation_farm_init.h"
+#include "monument_constructor.h"
 #ifdef RESTORE_GAME_LAUNCHER
 #include "game_launcher.h"
 #include "game_diagnostics.h"
@@ -41,6 +42,9 @@ int main(int argc,char **argv)
     FUN_004bd310();
     FUN_004d1340();
     FUN_004d4a50();
+    /* Original CRT table57600C..576028 constructs these classes before
+       WinMain. Keep this before the restored startup and its geometry pass. */
+    restore_monument_constructors_initialize();
     if(probe) {
         unsigned int result;
         puts("Explicit C game-startup probe: entering restored 00413ed0; use a bounded debugger and isolated asset directory.");
