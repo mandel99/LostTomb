@@ -1,58 +1,32 @@
-#include "restore_types.h"
-extern void FUN_0055fa1c();
-
-int FUN_0055fca4(undefined4 *param_1,int param_2)
-
+#include "sound_3d.h"
+#include "media_bindings.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+/* Whole55FCA4. Cache slot and output channel are distinct. Preserve request
+   reloads and the seven ordered field copies, including overlapping input. */
+int32_t restore_sound_load_3d_file(RestoreSound *sound,const int32_t *request,int32_t channel)
 {
-  undefined4 uVar1;
-  int in_ECX;
-  int local_10;
-  int local_c;
-  
-  local_c = -1;
-  if (*(int *)(*(int *)(in_ECX + 8) + param_1[1] * 8) == 0) {
-    local_c = -1;
-  }
-  else if (**(char **)(*(int *)(in_ECX + 8) + param_1[1] * 8) == '\0') {
-    local_c = -1;
-  }
-  else if (*(int *)(in_ECX + 0x200) == 0) {
-    for (local_10 = 0; local_10 < *(int *)(in_ECX + 0x1e4); local_10 = local_10 + 1) {
-      if (*(int *)(*(int *)(in_ECX + 0x1f8) + 8 + local_10 * 0xc) == 0) {
-        local_c = local_10;
-        break;
-      }
+    static const uint8_t fields[7]={0,1,2,4,7,8,9};
+    volatile RestoreSound *self=sound;const volatile int32_t *r=request;
+    uint32_t name=U(self->files.entries+(uint32_t)r[1]*8u),field,data;
+    int32_t slot;
+    if(!name||!B(name)||self->disabled)return -1;
+    for(slot=0;slot<self->count3d;++slot)
+        if(!U(self->cache3d+(uint32_t)slot*12u+8u))break;
+    if(slot>=self->count3d)return -1;
+    if(U(self->cache3d+(uint32_t)slot*12u+4u)){
+        (void)_AIL_mem_free_lock_4(U(self->cache3d+(uint32_t)slot*12u+4u));
+        FUN_0055fa1c(sound,channel);
     }
-    if (local_c == -1) {
-      local_c = -1;
+    for(field=0;field<7u;++field){
+        uint32_t offset=(uint32_t)fields[field]*4u;
+        U(self->samples3d+(uint32_t)channel*40u+offset)=(uint32_t)r[fields[field]];
     }
-    else {
-      if (*(int *)(*(int *)(in_ECX + 0x1f8) + 4 + local_c * 0xc) != 0) {
-        _AIL_mem_free_lock_4(*(undefined4 *)(*(int *)(in_ECX + 0x1f8) + 4 + local_c * 0xc));
-        FUN_0055fa1c(param_2);
-      }
-      *(undefined4 *)(*(int *)(in_ECX + 500) + param_2 * 0x28) = *param_1;
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 4 + param_2 * 0x28) = param_1[1];
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 8 + param_2 * 0x28) = param_1[2];
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 0x10 + param_2 * 0x28) = param_1[4];
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 0x1c + param_2 * 0x28) = param_1[7];
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 0x20 + param_2 * 0x28) = param_1[8];
-      *(undefined4 *)(*(int *)(in_ECX + 500) + 0x24 + param_2 * 0x28) = param_1[9];
-      uVar1 = _AIL_file_read_8(*(undefined4 *)(*(int *)(in_ECX + 8) + param_1[1] * 8),0);
-      *(undefined4 *)(*(int *)(in_ECX + 0x1f8) + 4 + local_c * 0xc) = uVar1;
-      if (*(int *)(*(int *)(in_ECX + 0x1f8) + 4 + local_c * 0xc) == 0) {
-        local_c = -1;
-      }
-      else {
-        *(undefined4 *)(*(int *)(in_ECX + 0x1f8) + local_c * 0xc) = param_1[1];
-        _AIL_set_3D_sample_file_8
-                  (*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + param_2 * 4),
-                   *(undefined4 *)(*(int *)(in_ECX + 0x1f8) + 4 + local_c * 0xc));
-      }
-    }
-  }
-  else {
-    local_c = -1;
-  }
-  return local_c;
+    data=(uint32_t)_AIL_file_read_8(U(self->files.entries+(uint32_t)r[1]*8u),0);
+    U(self->cache3d+(uint32_t)slot*12u+4u)=data;
+    if(!U(self->cache3d+(uint32_t)slot*12u+4u))return -1;
+    U(self->cache3d+(uint32_t)slot*12u)=(uint32_t)r[1];
+    (void)_AIL_set_3D_sample_file_8(U(self->handles3d+(uint32_t)channel*4u),U(self->cache3d+(uint32_t)slot*12u+4u));
+    return slot;
 }
+int32_t FUN_0055fca4(RestoreSound *self,const int32_t *request,int32_t channel){return restore_sound_load_3d_file(self,request,channel);}

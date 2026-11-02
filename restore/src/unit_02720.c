@@ -1,66 +1,36 @@
-#include "restore_types.h"
-extern int FUN_0055faf7();
-extern int FUN_0055fb6f();
-extern void FUN_0055fbd8();
-extern int FUN_0055fca4();
-
-int FUN_0055ff20(int *param_1)
-
+#include "sound_3d.h"
+#include "media_bindings.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+/* Whole55FF20. Channel and cache results are narrowed to signed BYTEs exactly
+   where the native stack locals do so;3D positions retain raw DWORD bits. */
+int32_t restore_sound_play_3d(RestoreSound *sound,const int32_t *request)
 {
-  char cVar1;
-  int iVar2;
-  int in_ECX;
-  char local_14;
-  int local_10;
-  char local_8;
-  
-  if (*(int *)(in_ECX + 0x200) == 0) {
-    if ((param_1[1] < 0) || (*(int *)(in_ECX + 4) + -1 < param_1[1])) {
-      iVar2 = -1;
+    volatile RestoreSound *self=sound;const volatile int32_t *r=request;
+    int32_t i,loaded;int8_t channel,cache;
+    if(self->disabled)return -1;
+    if(r[1]<0||r[1]>(int32_t)((uint32_t)self->files.count-1u))return -1;
+    for(i=0;i<self->count3d;++i){
+        if(_AIL_3D_sample_status_4(U(self->handles3d+(uint32_t)i*4u))==4&&
+           r[0]==(int32_t)U(self->samples3d+(uint32_t)i*40u)&&
+           r[1]==(int32_t)U(self->samples3d+(uint32_t)i*40u+4u))return -1;
     }
-    else {
-      for (local_10 = 0; local_10 < *(int *)(in_ECX + 0x1e4); local_10 = local_10 + 1) {
-        iVar2 = _AIL_3D_sample_status_4(*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + local_10 * 4));
-        if (((iVar2 == 4) && (*param_1 == *(int *)(*(int *)(in_ECX + 500) + local_10 * 0x28))) &&
-           (param_1[1] == *(int *)(*(int *)(in_ECX + 500) + 4 + local_10 * 0x28))) {
-          return -1;
-        }
-      }
-      cVar1 = FUN_0055faf7();
-      if (cVar1 == -1) {
-        iVar2 = -1;
-      }
-      else {
-        FUN_0055fbd8();
-        local_14 = FUN_0055fb6f(param_1);
-        if (local_14 == -1) {
-          iVar2 = FUN_0055fca4(param_1,(int)cVar1);
-          if (iVar2 == -1) {
-            return -1;
-          }
-          local_8 = (char)iVar2;
-          local_14 = local_8;
-        }
-        else {
-          _AIL_set_3D_sample_file_8
-                    (*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + cVar1 * 4),
-                     *(undefined4 *)(*(int *)(in_ECX + 0x1f8) + 4 + local_14 * 0xc));
-        }
-        _AIL_set_3D_sample_loop_count_8
-                  (*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + cVar1 * 4),param_1[4]);
-        _AIL_set_3D_sample_volume_8
-                  (*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + cVar1 * 4),param_1[2]);
-        _AIL_set_3D_position_16
-                  (*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + cVar1 * 4),param_1[7],param_1[8],
-                   param_1[9]);
-        *(int *)(*(int *)(in_ECX + 500) + 0x18 + cVar1 * 0x28) = (int)local_14;
-        _AIL_start_3D_sample_4(*(undefined4 *)(*(int *)(in_ECX + 0x1f0) + cVar1 * 4));
-        iVar2 = (int)cVar1;
-      }
+    channel=(int8_t)FUN_0055faf7(sound);
+    if(channel==-1)return -1;
+    FUN_0055fbd8(sound);
+    cache=(int8_t)FUN_0055fb6f(sound,request);
+    if(cache==-1){
+        loaded=FUN_0055fca4(sound,request,channel);
+        if(loaded==-1)return -1;
+        cache=(int8_t)loaded;
+    }else{
+        (void)_AIL_set_3D_sample_file_8(U(self->handles3d+(uint32_t)(int32_t)channel*4u),
+            U(self->cache3d+(uint32_t)(int32_t)cache*12u+4u));
     }
-  }
-  else {
-    iVar2 = -1;
-  }
-  return iVar2;
+    (void)_AIL_set_3D_sample_loop_count_8(U(self->handles3d+(uint32_t)(int32_t)channel*4u),(uint32_t)r[4]);
+    (void)_AIL_set_3D_sample_volume_8(U(self->handles3d+(uint32_t)(int32_t)channel*4u),(uint32_t)r[2]);
+    (void)_AIL_set_3D_position_16(U(self->handles3d+(uint32_t)(int32_t)channel*4u),(uint32_t)r[7],(uint32_t)r[8],(uint32_t)r[9]);
+    U(self->samples3d+(uint32_t)(int32_t)channel*40u+24u)=(uint32_t)(int32_t)cache;
+    (void)_AIL_start_3D_sample_4(U(self->handles3d+(uint32_t)(int32_t)channel*4u));
+    return channel;
 }
+int32_t FUN_0055ff20(RestoreSound *self,const int32_t *request){return restore_sound_play_3d(self,request);}

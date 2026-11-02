@@ -1,18 +1,12 @@
-#include "restore_types.h"
-
-void FUN_0055fa1c(int param_1)
-
+#include "sound_3d.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+/* Whole55FA1C. The cache-index DWORD at+24 is intentionally untouched. */
+void restore_sound_reset_3d_channel(RestoreSound *sound,int32_t channel)
 {
-  int in_ECX;
-  
-  *(undefined4 *)(*(int *)(in_ECX + 500) + param_1 * 0x28) = 0xffffffff;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 4 + param_1 * 0x28) = 0xffffffff;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 8 + param_1 * 0x28) = 100;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0xc + param_1 * 0x28) = 0x40;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0x10 + param_1 * 0x28) = 1;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0x14 + param_1 * 0x28) = 0;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0x1c + param_1 * 0x28) = 0;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0x20 + param_1 * 0x28) = 0;
-  *(undefined4 *)(*(int *)(in_ECX + 500) + 0x24 + param_1 * 0x28) = 0;
-  return;
+    volatile RestoreSound *self=sound;uint32_t offset=(uint32_t)channel*40u;
+    U(self->samples3d+offset)=UINT32_MAX;U(self->samples3d+offset+4u)=UINT32_MAX;
+    U(self->samples3d+offset+8u)=100;U(self->samples3d+offset+12u)=64;
+    U(self->samples3d+offset+16u)=1;U(self->samples3d+offset+20u)=0;
+    U(self->samples3d+offset+28u)=0;U(self->samples3d+offset+32u)=0;U(self->samples3d+offset+36u)=0;
 }
+void FUN_0055fa1c(RestoreSound *self,int32_t channel){restore_sound_reset_3d_channel(self,channel);}

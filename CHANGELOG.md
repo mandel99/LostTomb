@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct eleven complete spatial-sound methods in C: provider selection,
+  channel defaults, cache lookup/reference counts/loading, EAX preference,
+  playback, position, orientation and active-voice updates. Replace missing
+  controller receivers, retain original signed-byte index conversions,
+  raw coordinate bits and callback-sensitive reloads.
+- Compare provider private-frame prestate explicitly where the original
+  leaves absent categories or failed attribute outputs uninitialized.
+  Public-wrapper comparisons define those outputs; physical audio and
+  hardware-provider behavior remain untested.
+- Pass 379 offline native/C cases for the new spatial-sound bodies and
+  97 sound-lifecycle regressions, with Miles/file/allocation boundaries
+  controlled, plus the link check and 60 multimedia forwarding checks.
 - Fix media DLL loading when the launcher selects game data separately from
   the EXE. Check executable-local DLLs first, then the selected data folder;
   this addresses the observed Preview abort resolving mss32.dll startup.

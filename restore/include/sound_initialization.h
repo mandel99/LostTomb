@@ -16,7 +16,7 @@ typedef struct RestoreSound {
     int32_t rate,bits,channels,sample_count;
     uint32_t handles,auxiliary,reserved1a4,samples,cache;
     int32_t settings[10];uint32_t streams[3];
-    int32_t count3d;uint32_t device3d,reserved1ec,handles3d,samples3d,cache3d,reserved1fc,disabled;
+    int32_t count3d;uint32_t device3d,eax_supported,handles3d,samples3d,cache3d,eax_environment,disabled;
 } RestoreSound;
 typedef char restore_sound_size[(sizeof(RestoreSound)==0x204)?1:-1];
 typedef char restore_sound_digital[(offsetof(RestoreSound,digital)==0x178)?1:-1];

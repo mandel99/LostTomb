@@ -1,16 +1,11 @@
-#include "restore_types.h"
-#define s_EAX_environment_selection_006047e8 (*(char (*)[26])0x006047e8u)
-
-void FUN_0055fec8(undefined4 param_1)
-
+#include "sound_3d.h"
+#include "media_bindings.h"
+/* Whole55FEC8: publish first; the DLL receives the mutable argument copy. */
+void restore_sound_set_eax_environment(RestoreSound *sound,uint32_t environment)
 {
-  int in_ECX;
-  
-  *(undefined4 *)(in_ECX + 0x1fc) = param_1;
-  if (((*(int *)(in_ECX + 0x200) == 0) && (*(int *)(in_ECX + 0x1e8) != 0)) &&
-     (*(int *)(in_ECX + 0x1ec) != 0)) {
-    _AIL_set_3D_provider_preference_12
-              (*(undefined4 *)(in_ECX + 0x1e8),s_EAX_environment_selection_006047e8,&param_1);
-  }
-  return;
+    volatile RestoreSound *self=sound;
+    self->eax_environment=environment;
+    if(!self->disabled&&self->device3d&&self->eax_supported)
+        (void)_AIL_set_3D_provider_preference_12(self->device3d,0x6047e8u,(uintptr_t)&environment);
 }
+void FUN_0055fec8(RestoreSound *self,uint32_t environment){restore_sound_set_eax_environment(self,environment);}
