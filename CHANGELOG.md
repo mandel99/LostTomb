@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Add bounded difficulty diagnostics at settings load and mission setup,
+  including asset-directory selection and selected versus serialized PAK
+  difficulty. This investigates the reported Normal-to-Very-Easy change;
+  it does not force a difficulty or claim the underlying issue is fixed.
+- Pass 60 offline native/C cases for the real persisted-settings reader,
+  PAK difficulty preservation and actual language-catalog labels. Full
+  startup and live gameplay reproduction remain outside these checks.
 - Reconstruct the complete temple-complex placement preview and library-kind
   query. Recover all 32 missing paint arms as a shared C traversal, preserving
   rotation, 91-cell terrain checks, sprite order and 16-bit tint.

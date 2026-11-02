@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "game_diagnostics.h"
 /* Native 4147F0 uses DWORD settings and WORD menu labels. A label DWORD
  * would overwrite the low half of the adjacent callback address. */
 #define DAT_00e38e58 (*(uint32_t *)0x00e38e58u)
@@ -90,6 +91,8 @@ undefined4 FUN_004147f0(void)
   FUN_00417dd0(0);
   _DAT_00e38ea4 = 1;
   FUN_004ceb10(s_Pharaoh_inf_00579274,&DAT_00e38e58);
+  restore_game_trace("settings loaded difficulty=%u (0=VeryEasy 1=Easy 2=Normal 3=Hard 4=VeryHard)\n",
+                     DAT_00e39080);
   DAT_00e39089 = 1;
   FUN_00414a90();
   _DAT_00e36c6c = 1;

@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "mission_loaders.h"
+#include "game_diagnostics.h"
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
@@ -45,6 +46,8 @@ void FUN_005405b0(char *name,char force_campaign)
     uint32_t end,saved_mode,saved_intro,offset,value,loaded,table,index;
     int8_t mission,kind;uint8_t branch,variant,previous;
     end=copy_name((uint32_t)(uintptr_t)path,0x57626cu);
+    restore_game_trace("mission setup begin difficulty=%u custom=%u scene=%d\n",
+        U(0xe39080u),U(0xe38ebcu),(int8_t)B(0xe38ea8u));
     saved_mode=U(0xe38eb4u);
     (void)copy_name(end,(uint32_t)(uintptr_t)name);
     mission=(int8_t)B(0xe38ea8u);branch=B(0xe38ea9u);
@@ -114,4 +117,7 @@ void FUN_005405b0(char *name,char force_campaign)
     U(0xea6018u+offset)=U(0xe39080u);
     B(0x784cbdu)=(uint8_t)(B(0x784cbdu)==1);
     FUN_00489b40();
+    restore_game_trace("mission setup ready difficulty=%u player=%u scene=%d funds=%u\n",
+        U(0xe39080u),U(0xeaac28u),(int8_t)B(0xe38ea8u),
+        U(0xea187cu+U(0xeaac28u)*0x49d8u));
 }

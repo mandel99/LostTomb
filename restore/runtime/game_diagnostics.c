@@ -206,6 +206,8 @@ void restore_game_diagnostics_initialize(void)
     SetUnhandledExceptionFilter(report_crash);
     (void)atexit(normal_exit);
     restore_game_trace("build COFF=%08lx pid=%lu\n",header->FileHeader.TimeDateStamp,GetCurrentProcessId());
+    length=GetCurrentDirectoryW(MAX_PATH,path);
+    if(length&&length<MAX_PATH)restore_game_trace("game data directory=%ls\n",path);
 }
 
 void restore_game_trace_save_complete(void)

@@ -39,8 +39,9 @@ uint32_t FUN_004d58b0(int param_1,int param_2)
   }
   FUN_005662e3(iVar2,local_4,0);
   FUN_004d41e0(iVar2);
-  restore_game_trace("mission PAK loaded scene=%d year=%d version=%u\n",(int)DAT_00e38ea8,
-      (int)*(int16_t *)(uintptr_t)0x7848d8u,*(uint32_t *)(uintptr_t)0xe945c0u);
+  restore_game_trace("mission PAK loaded scene=%d year=%d version=%u selected-difficulty=%u stored-difficulty=%u\n",
+      (int)DAT_00e38ea8,(int)*(int16_t *)(uintptr_t)0x7848d8u,
+      *(uint32_t *)(uintptr_t)0xe945c0u,uVar1,(uint32_t)DAT_00e39080);
   FUN_005647eb(iVar2);
   DAT_00e39080 = uVar1;
   *(undefined4 *)(uintptr_t)(0xea5d10u + DAT_00eaac28 * 0x49d8u) = 0;
