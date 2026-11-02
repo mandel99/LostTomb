@@ -1,34 +1,18 @@
-#include "restore_types.h"
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00bcd60c (*(undefined4 *)0x00bcd60cu)
-#define DAT_00bcd60e (*(undefined4 *)0x00bcd60eu)
-#define DAT_00bcd618 (*(undefined4 *)0x00bcd618u)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
-#define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
-#define DAT_00bcd646 (*(undefined4 *)0x00bcd646u)
-#define DAT_00bcd648 (*(undefined4 *)0x00bcd648u)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-extern void FUN_004b52f0();
-extern void FUN_004b5420();
-
-void FUN_004f2410(int param_1)
-
+#include "monument_worker_motion.h"
+extern void FUN_004b5420(int32_t),FUN_004b52f0(int32_t);
+/* Whole native 4F2410:147 bytes,37 instructions. The source of the target
+   coordinates is the current actor global, reloaded after grid unlink. */
+void restore_monument_worker_snap_to_target(int32_t actor)
 {
-  int iVar1;
-  int iVar2;
-  
-  FUN_004b5420(param_1);
-  iVar1 = DAT_00d056f8 * 0x184;
-  iVar2 = param_1 * 0x184;
-  (&DAT_00bcd60c)[param_1 * 0xc2] = *(undefined2 *)(&DAT_00bcd61c + iVar1);
-  (&DAT_00bcd60e)[param_1 * 0xc2] = *(undefined2 *)(&DAT_00bcd61e + iVar1);
-  *(undefined4 *)(&DAT_00bcd618 + iVar2) = *(undefined4 *)(&DAT_00bcd620 + iVar1);
-  FUN_004b52f0(param_1);
-  *(ushort *)(&DAT_00bcd648 + iVar2) =
-       (ushort)*(byte *)(&DAT_00799a2e + *(short *)(&DAT_00bcd646 + iVar2) * 0x84) +
-       (ushort)*(byte *)((int)&DAT_00799a2e + *(short *)(&DAT_00bcd646 + iVar2) * 0x108 + 1) * 6;
-  *(undefined2 *)(&DAT_00bcd62e + iVar2) = 0;
-  return;
+ uint32_t record=restore_monument_worker_record(actor),current,building;
+ FUN_004b5420(actor);
+ current=restore_monument_worker_record((int32_t)MW_U(0xd056f8u));
+ MW_W(record+MW_X)=MW_W(current+MW_TARGET_X);
+ MW_W(record+MW_Y)=MW_W(current+MW_TARGET_Y);
+ MW_U(record+MW_CELL)=MW_U(current+MW_TARGET_CELL);
+ FUN_004b52f0(actor);
+ building=restore_monument_worker_building(MW_H(record+MW_TO_BUILDING));
+ MW_W(record+MW_TO_POSITION)=(uint16_t)(MW_B(building+86u)+MW_B(building+87u)*6u);
+ MW_W(record+MW_ACTION_CLOCK)=0;
 }
+void FUN_004f2410(int32_t actor){restore_monument_worker_snap_to_target(actor);}

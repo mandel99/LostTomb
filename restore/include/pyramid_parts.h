@@ -6,14 +6,14 @@
 #define PY_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define PY_I(v) ((int32_t)(uint32_t)(v))
 /* Offsets inside the 264-byte building record, proved by the native loads.
-   State word64 is reset here; its wider gameplay interpretation is pending. */
+   4F2230 identifies WORD64 as the actor reserving this work piece. */
 enum RestorePyramidField {
  PY_SIZE=3,PY_X=6,PY_Y=8,PY_CELL=12,PY_BUILDING_KIND=16,PY_PIECE_INDEX=18,
  PY_PREVIOUS=56,PY_NEXT=58,PY_LAYOUT_KIND=84,PY_RENDER_PHASE=85,
  PY_SPRITE_STEP=86,PY_LAYER_INDEX=87,PY_TEMPLATE_HEIGHT=88,
  PY_WORKER_POSITION_A=89,PY_WORKER_POSITION_B=90,PY_CELL_PHASE_MASK=91,
  PY_WORKER_X_A=92,PY_WORKER_Y_A=94,PY_WORKER_X_B=96,PY_WORKER_Y_B=98,
- PY_STATE_WORD_64=100,PY_WORKER_IMAGE=104,PY_TRANSIENT_IMAGE=108,PY_CONSTRUCTION_AMOUNT=200
+ PY_ASSIGNED_WORKER=100,PY_WORKER_IMAGE=104,PY_TRANSIENT_IMAGE=108,PY_CONSTRUCTION_AMOUNT=200
 };
 static __inline uint32_t restore_pyramid_record(int32_t building)
 {return 0x7999d8u+(uint32_t)building*264u;}

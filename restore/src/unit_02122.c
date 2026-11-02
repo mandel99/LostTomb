@@ -1,97 +1,51 @@
-#include "restore_types.h"
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd646 (*(undefined4 *)0x00bcd646u)
-#define DAT_00bcd648 (*(undefined4 *)0x00bcd648u)
-#define DAT_00bcd718 (*(undefined4 *)0x00bcd718u)
-#define DAT_00eaac44 (*(undefined *)0x00eaac44u)
-#define DAT_00eaaf58 (*(undefined *)0x00eaaf58u)
-extern void FUN_004ef450();
-extern void FUN_004f02f0();
-extern bool FUN_004f1d10();
-extern int FUN_004f2190();
-extern void FUN_004f2410();
-
-void FUN_004f2230(int param_1)
-
+#include "monument_worker_motion.h"
+/* Whole native 4F2230:467 bytes,155 instructions. The CALL4F2190 only
+   consumes one argument. Its two delayed stack values are the remaining
+   position/select_action arguments for the subsequent CALL4F02F0. */
+static uint8_t available(int32_t building)
 {
-  short sVar1;
-  int iVar2;
-  char cVar3;
-  int iVar4;
-  undefined4 uVar5;
-  int iVar6;
-  int iVar7;
-  int iVar8;
-  int *piVar9;
-  int local_8;
-  
-  iVar7 = param_1 * 0x184;
-  if (*(short *)(&DAT_00bcd718 + iVar7) < 1) {
-    (&DAT_00bcd630)[iVar7] = 0xc;
-    return;
-  }
-  cVar3 = FUN_004f1d10(param_1,1);
-  if (cVar3 != '\x01') {
-    return;
-  }
-  FUN_004f2410(param_1);
-  iVar6 = (int)*(short *)(&DAT_00bcd646 + iVar7);
-  FUN_004ef450(iVar6 - (short)(&DAT_007999ea)[iVar6 * 0x84]);
-  iVar8 = 0;
-  local_8 = iVar6;
-  if (0 < DAT_00eaaf58) {
-    piVar9 = &DAT_00eaac44;
-    do {
-      iVar2 = *piVar9;
-      if (iVar2 == iVar6) {
-        if ((short)(&DAT_00799a3c)[iVar2 * 0x84] < 1) {
-LAB_004f2308: ;
-          (&DAT_00bcd630)[iVar7] = 0xb;
-          *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;
-          (&DAT_00799a3c)[iVar2 * 0x84] = (undefined2)param_1;
-          return;
-        }
-        iVar4 = (short)(&DAT_00799a3c)[iVar2 * 0x84] * 0x184;
-        if ((((&DAT_00bcd602)[iVar4] != 'Q') || ((&DAT_00bcd630)[iVar4] != '\v')) &&
-           (((&DAT_00bcd602)[iVar4] != 'P' || ((&DAT_00bcd630)[iVar4] != '\f')))) goto LAB_004f2308;
-      }
-      iVar8 = iVar8 + 1;
-      piVar9 = piVar9 + 1;
-    } while (iVar8 < DAT_00eaaf58);
-  }
-  do {
-    iVar8 = 0;
-    if (0 < DAT_00eaaf58) {
-      piVar9 = &DAT_00eaac44;
-      do {
-        iVar2 = *piVar9;
-        if (iVar2 == local_8) {
-          if ((short)(&DAT_00799a3c)[iVar2 * 0x84] < 1) {
-LAB_004f23c7: ;
-            sVar1 = *(short *)(&DAT_00bcd648 + iVar7);
-            (&DAT_00799a3c)[iVar2 * 0x84] = (undefined2)param_1;
-            uVar5 = FUN_004f2190(iVar6,(int)sVar1,1);
-            FUN_004f02f0(param_1,uVar5);
-            return;
-          }
-          iVar4 = (short)(&DAT_00799a3c)[iVar2 * 0x84] * 0x184;
-          if ((((&DAT_00bcd602)[iVar4] != 'Q') || ((&DAT_00bcd630)[iVar4] != '\v')) &&
-             (((&DAT_00bcd602)[iVar4] != 'P' || ((&DAT_00bcd630)[iVar4] != '\f'))))
-          goto LAB_004f23c7;
-        }
-        iVar8 = iVar8 + 1;
-        piVar9 = piVar9 + 1;
-      } while (iVar8 < DAT_00eaaf58);
-    }
-    local_8 = FUN_004f2190(local_8);
-    if (local_8 == iVar6) {
-      (&DAT_00bcd630)[iVar7] = 0xc;
-      *(undefined2 *)(&DAT_00bcd718 + iVar7) = 0;
-      return;
-    }
-  } while( true );
+ int32_t owner=MW_H(restore_monument_worker_building(building)+100u);
+ uint32_t record;uint8_t type;
+ if(owner<=0)return 1;
+ record=restore_monument_worker_record(owner);type=MW_B(record+MW_TYPE);
+ if(type==81&&MW_B(record+MW_STATE)==11)return 0;
+ if(type==80&&MW_B(record+MW_STATE)==12)return 0;
+ return 1;
 }
+void restore_monument_worker_find_work(int32_t actor)
+{
+ uint32_t record=restore_monument_worker_record(actor),i,count,piece;
+ int32_t original,current,next;
+ uint16_t position;
+ if(MW_H(record+MW_MONUMENT_ACTION)<1){MW_B(record+MW_STATE)=12;return;}
+ if(restore_monument_worker_advance_travel(actor,1)!=1)return;
+ restore_monument_worker_snap_to_target(actor);
+ original=MW_H(record+MW_TO_BUILDING);
+ restore_pyramid_collect_work_pieces(original-MW_H(restore_monument_worker_building(original)+18u));
+ count=MW_U(0xeaaf58u);
+ for(i=0;(int32_t)i<(int32_t)count;++i){
+  piece=MW_U(0xeaac44u+i*4u);
+  if((int32_t)piece==original&&available((int32_t)piece)){
+   MW_B(record+MW_STATE)=11;MW_W(record+MW_ACTION_CLOCK)=0;
+   MW_W(restore_monument_worker_building((int32_t)piece)+100u)=(uint16_t)actor;return;
+  }
+ }
+ current=original;
+ for(;;){
+  count=MW_U(0xeaaf58u);
+  for(i=0;(int32_t)i<(int32_t)count;++i){
+   piece=MW_U(0xeaac44u+i*4u);
+   if((int32_t)piece==current&&available((int32_t)piece)){
+    position=(uint16_t)MW_H(record+MW_TO_POSITION);
+    MW_W(restore_monument_worker_building((int32_t)piece)+100u)=(uint16_t)actor;
+    /* Native starts this leg from the original piece, even when the
+       reservation was found later in the ring. Preserve that choice. */
+    next=restore_pyramid_next_work_piece(original);
+    restore_monument_worker_begin_travel(actor,next,position,1);return;
+   }
+  }
+  current=restore_pyramid_next_work_piece(current);
+  if(current==original){MW_B(record+MW_STATE)=12;MW_W(record+MW_MONUMENT_ACTION)=0;return;}
+ }
+}
+void FUN_004f2230(int32_t actor){restore_monument_worker_find_work(actor);}

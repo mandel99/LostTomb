@@ -1,45 +1,27 @@
-#include "restore_types.h"
-#define DAT_005f5ca8 (*(undefined4 *)0x005f5ca8u)
-#define DAT_005f5cb4 (*(undefined4 *)0x005f5cb4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-
-int FUN_004f2190(int param_1)
-
+#include "monument_worker_motion.h"
+/* Whole native 4F2190:157 bytes,74 instructions. Six fixed perimeter
+   descriptors encode two opposing runs and alternating interior links. */
+int32_t restore_pyramid_next_work_piece(int32_t building)
 {
-  int iVar1;
-  uint uVar2;
-  int *piVar3;
-  int iVar4;
-  
-  piVar3 = &DAT_005f5cb4;
-  uVar2 = (uint)(int)*(short *)(0x007999eau + (uint)param_1 * 0x108u);
-  iVar4 = 0;
-  while (((int)uVar2 < piVar3[-3] || (*piVar3 < (int)uVar2))) {
-    piVar3 = piVar3 + 4;
-    iVar4 = iVar4 + 1;
-    if (0x5f5d13 < (int)piVar3) {
-      return param_1;
-    }
+ int32_t piece=MW_H(restore_monument_worker_building(building)+18u),i;
+ uint32_t root=(uint32_t)building-(uint32_t)piece;
+ for(i=0;i<6;++i){
+  uint32_t descriptor=0x5f5ca8u+(uint32_t)i*16u;
+  int32_t low=(int32_t)MW_U(descriptor),high=(int32_t)MW_U(descriptor+12u);
+  int32_t end,start;
+  if(piece<low||piece>high)continue;
+  end=(int32_t)MW_U(descriptor+4u);
+  if(piece>=low&&piece<=end){
+   if(piece==low)return (int32_t)(root+(uint32_t)end+1u);
+   return (int32_t)((uint32_t)building-1u);
   }
-  if (iVar4 < 6) {
-    if (((int)(&DAT_005f5ca8)[iVar4 * 4] <= (int)uVar2) &&
-       (iVar1 = *(int *)(iVar4 * 0x10 + 0x5f5cac), (int)uVar2 <= iVar1)) {
-      if (uVar2 == (&DAT_005f5ca8)[iVar4 * 4]) {
-        return iVar1 + 1 + (param_1 - uVar2);
-      }
-      return param_1 + -1;
-    }
-    iVar1 = *(int *)(iVar4 * 0x10 + 0x5f5cb0);
-    if ((iVar1 <= (int)uVar2) && ((int)uVar2 <= (int)(&DAT_005f5cb4)[iVar4 * 4])) {
-      if (uVar2 == (&DAT_005f5cb4)[iVar4 * 4]) {
-        return iVar1 + -1 + (param_1 - uVar2);
-      }
-      return param_1 + 1;
-    }
-    if ((uVar2 & 1) != 0) {
-      return param_1 + -2;
-    }
-    param_1 = param_1 + 2;
+  start=(int32_t)MW_U(descriptor+8u);
+  if(piece>=start&&piece<=high){
+   if(piece==high)return (int32_t)(root+(uint32_t)start-1u);
+   return (int32_t)((uint32_t)building+1u);
   }
-  return param_1;
+  return (int32_t)((uint32_t)building+((piece&1)?0xfffffffeu:2u));
+ }
+ return building;
 }
+int32_t FUN_004f2190(int32_t building){return restore_pyramid_next_work_piece(building);}

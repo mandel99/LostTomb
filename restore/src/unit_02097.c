@@ -7,7 +7,7 @@ static void initialize_piece(int32_t building,uint32_t kind,uint32_t mode,uint32
 {
     uint32_t r=restore_pyramid_record(building),entry=piece+kind*(mode==5u?36u:144u);
     PY_B(r+PY_LAYOUT_KIND)=(uint8_t)kind;PY_B(r+PY_RENDER_PHASE)=2;
-    PY_B(r+PY_SPRITE_STEP)=0;PY_W(r+PY_STATE_WORD_64)=0;PY_B(r+PY_LAYER_INDEX)=0;
+    PY_B(r+PY_SPRITE_STEP)=0;PY_W(r+PY_ASSIGNED_WORKER)=0;PY_B(r+PY_LAYER_INDEX)=0;
     PY_B(r+PY_TEMPLATE_HEIGHT)=PY_B((mode==5u?0x5e657cu:0x5e4efcu)+entry*8u);
     PY_B(r+PY_WORKER_POSITION_A)=0;PY_B(r+PY_WORKER_POSITION_B)=0;PY_B(r+PY_CELL_PHASE_MASK)=15;
     PY_W(r+PY_WORKER_X_A)=0;PY_W(r+PY_WORKER_Y_A)=0;PY_W(r+PY_WORKER_X_B)=0;PY_W(r+PY_WORKER_Y_B)=0;

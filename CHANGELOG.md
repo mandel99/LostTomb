@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Reconstruct and name seven complete pyramid-worker functions: travel setup,
+  movement, target snapping, work-list ranking, perimeter traversal and work
+  reservations. Recover the missing distance expression and delayed arguments
+  at the next-travel call; identify the previously unnamed assigned-worker field.
+- Pass 687 focused native/C cases, including real work-selection and movement
+  compositions. Actor-grid endpoints are controlled; live gameplay is untested.
 - Remove three obsolete public C bodies for building allocation, repair slots
   and god effects. Their address entries now share the same complete typed C
   providers as simulation/construction callers.

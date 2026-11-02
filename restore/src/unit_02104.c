@@ -1,74 +1,36 @@
-#include "restore_types.h"
-#define DAT_0056f7d8 (*(undefined4 *)0x0056f7d8u)
-#define DAT_0056f7ec (*(undefined4 *)0x0056f7ecu)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00eaac44 (*(undefined *)0x00eaac44u)
-#define DAT_00eaaf58 (*(undefined *)0x00eaaf58u)
-
-void FUN_004ef450(int param_1)
-
+#include "monument_worker_motion.h"
+/* Whole native 4EF450:256 bytes,86 instructions. Choose all tied work
+   pieces at the preferred phase/row/column; phase0 sorts ascending and
+   the other phases sort descending. Table counts are DWORD values. */
+void restore_pyramid_collect_work_pieces(int32_t building)
 {
-  byte bVar1;
-  byte bVar2;
-  byte bVar3;
-  byte bVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  byte *pbVar8;
-  
-  iVar7 = 0;
-  DAT_00eaaf58 = 0;
-  bVar1 = *(byte *)(&DAT_00799a2c + param_1 * 0x84);
-  param_1 = param_1 - (short)(&DAT_007999ea)[param_1 * 0x84];
-  pbVar8 = (byte *)(&DAT_00799a2e + param_1 * 0x84);
-  iVar6 = param_1;
-  do {
-    if (DAT_005e4ef4 == 5) {
-      iVar5 = *(int *)(&DAT_0056f7ec + (uint)bVar1 * 4);
-    }
-    else {
-      iVar5 = *(int *)(&DAT_0056f7d8 + (uint)bVar1 * 4);
-    }
-    if (iVar5 + param_1 <= iVar6) {
-      return;
-    }
-    bVar2 = pbVar8[-1];
-    if ((bVar2 != 0) && (((*pbVar8 == 0 || (DAT_005e4ef4 == 3)) || (DAT_005e4ef4 == 5))))
-    goto LAB_004ef53b;
-    if (iVar7 == 0) {
-LAB_004ef51d: ;
-      DAT_00eaaf58 = 0;
-      iVar7 = iVar6;
-LAB_004ef529: ;
-      (&DAT_00eaac44)[DAT_00eaaf58] = iVar6;
-      DAT_00eaaf58 = DAT_00eaaf58 + 1;
-    }
-    else {
-      if (bVar2 != *(byte *)((int)&DAT_00799a2c + iVar7 * 0x108 + 1)) {
-        if (bVar2 != 0) goto LAB_004ef53b;
-        goto LAB_004ef51d;
-      }
-      bVar3 = *(byte *)((int)&DAT_00799a2e + iVar7 * 0x108 + 1);
-      bVar4 = pbVar8[1];
-      if (bVar2 != 0) {
-        if (bVar3 < bVar4) goto LAB_004ef51d;
-        if (bVar4 != bVar3) goto LAB_004ef53b;
-        if (*(byte *)(&DAT_00799a2e + iVar7 * 0x84) < *pbVar8) goto LAB_004ef51d;
-        if (*pbVar8 != *(byte *)(&DAT_00799a2e + iVar7 * 0x84)) goto LAB_004ef53b;
-        goto LAB_004ef529;
-      }
-      if (bVar4 < bVar3) goto LAB_004ef51d;
-      if (bVar4 == bVar3) {
-        if (*pbVar8 < *(byte *)(&DAT_00799a2e + iVar7 * 0x84)) goto LAB_004ef51d;
-        if (*pbVar8 == *(byte *)(&DAT_00799a2e + iVar7 * 0x84)) goto LAB_004ef529;
-      }
-    }
-LAB_004ef53b: ;
-    iVar6 = iVar6 + 1;
-    pbVar8 = pbVar8 + 0x108;
-  } while( true );
+ uint32_t record=restore_monument_worker_building(building),kind,best=0,current;
+ uint32_t root,index,best_record,table,count,phase,column,row,old_phase,old_column,old_row;
+ int32_t mode;
+ MW_U(0xeaaf58u)=0;
+ kind=MW_B(record+84u);root=(uint32_t)building-(uint32_t)MW_H(record+18u);
+ index=root;
+ for(;;++index){
+  mode=(int32_t)MW_U(0x5e4ef4u);table=mode==5?0x56f7ecu:0x56f7d8u;
+  if((int32_t)index>=(int32_t)(root+MW_U(table+kind*4u)))return;
+  current=restore_monument_worker_building((int32_t)index);
+  phase=MW_B(current+85u);column=MW_B(current+86u);row=MW_B(current+87u);
+  if(phase&&(column==0||mode==3||mode==5))continue;
+  if(best){
+   best_record=restore_monument_worker_building((int32_t)best);
+   old_phase=MW_B(best_record+85u);old_column=MW_B(best_record+86u);old_row=MW_B(best_record+87u);
+   if(phase!=old_phase){if(phase)continue;}
+   else if(phase){
+    if(row<old_row||(row==old_row&&column<old_column))continue;
+    if(row==old_row&&column==old_column)goto append;
+   }else{
+    if(row>old_row||(row==old_row&&column>old_column))continue;
+    if(row==old_row&&column==old_column)goto append;
+   }
+  }
+  MW_U(0xeaaf58u)=0;best=index;
+append:
+  count=MW_U(0xeaaf58u);MW_U(0xeaac44u+count*4u)=index;MW_U(0xeaaf58u)=count+1u;
+ }
 }
+void FUN_004ef450(int32_t building){restore_pyramid_collect_work_pieces(building);}

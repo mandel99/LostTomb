@@ -1,19 +1,16 @@
-#include "restore_types.h"
-void FUN_004f1cb0(int param_1)
-
+#include "monument_worker_motion.h"
+/* Whole native 4F1CB0:87 bytes,16 instructions. */
+void restore_monument_worker_reset_travel(int32_t actor)
 {
-  undefined2 uVar1;
-  int iVar2;
-  
-  iVar2 = param_1 * 0x184;
-  *(undefined2 *)(0x00bcd718u + (uint)iVar2) = 1;
-  uVar1 = *(undefined2 *)(0x00b4e6fcu +
-      (uint)*(int *)(0x00bcd620u + (uint)iVar2) * 2u);
-  *(undefined2 *)(0x00bcd642u + (uint)iVar2) = uVar1;
-  *(undefined2 *)(0x00bcd644u + (uint)iVar2) = 0;
-  *(undefined2 *)(0x00bcd646u + (uint)iVar2) = uVar1;
-  *(undefined2 *)(0x00bcd648u + (uint)iVar2) = 0;
-  *(undefined2 *)(0x00bcd64au + (uint)iVar2) = 1;
-  *(undefined2 *)(0x00bcd64cu + (uint)iVar2) = 0xf;
-  return;
+ uint32_t record=restore_monument_worker_record(actor);
+ uint16_t building;
+ MW_W(record+MW_MONUMENT_ACTION)=1;
+ building=MW_W(0xb4e6fcu+MW_U(record+MW_TARGET_CELL)*2u);
+ MW_W(record+MW_FROM_BUILDING)=building;
+ MW_W(record+MW_FROM_POSITION)=0;
+ MW_W(record+MW_TO_BUILDING)=building;
+ MW_W(record+MW_TO_POSITION)=0;
+ MW_W(record+MW_TRAVEL_PROGRESS)=1;
+ MW_W(record+MW_TRAVEL_LENGTH)=15;
 }
+void FUN_004f1cb0(int32_t actor){restore_monument_worker_reset_travel(actor);}
