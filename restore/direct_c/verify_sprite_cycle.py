@@ -25,11 +25,13 @@ def case(token,args=(),frame=0.0,length=7,remaining=2,mode=4,repeats=3,cw=0x37f,
         byte(u,DESC,mode);byte(u,DESC+3,repeats);put(u,DESC+12,VARIANTS)
         for i in range(8):word(u,VARIANTS+i*8+2,length)
         for reg,value in [(UC_X86_REG_FPCW,cw),(UC_X86_REG_FPSW,0),(UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
-        value=run(c,u,token,args,receiver=SELF,cleanup=len(args)*4 if not c else 0)
+        explicit_only=c and not re.search(r'\s_FUN_%08x\s'%token,symbols)
+        if explicit_only:value=run(0,u,sym('restore_sprite_cycle_'+NAMES[token]),[SELF,*args])
+        else:value=run(c,u,token,args,receiver=SELF,cleanup=len(args)*4 if not c else 0)
         assert u.reg_read(UC_X86_REG_FPCW)==cw
         assert ((u.reg_read(UC_X86_REG_FPSW)>>11)&7)==0
         results.append((value if token in BOOL else None,bytes(u.mem_read(S,0x5000)),snapshot(u)))
-        if c:
+        if c and not explicit_only:
             expected=results[-1]
             # Replay the same operation through the named explicit C API.
             reset(u,state);u.mem_write(S,results[0][1])
@@ -62,5 +64,5 @@ if __name__=='__main__':
     for token in [0x55d480,0x55d4c0]:
         for frame,step in [(6.5,.5),(-.5,.5),(100,-120)]:
             case(token,[bits(step)],frame=frame);n+=1
-    print('PASS seven whole sprite-cycle methods, captured and explicit receivers:',n,flush=True)
+    print('PASS seven whole sprite-cycle methods; explicit API and linked legacy adapters:',n,flush=True)
     print('Verified target SHA256:',target_sha,flush=True)

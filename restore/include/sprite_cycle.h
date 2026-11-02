@@ -3,9 +3,12 @@
 #include <stdint.h>
 #include <stddef.h>
 typedef struct RestoreSpriteCycle {
-    uint8_t prefix[0x40];
+    uint8_t prefix[0x34];
+    uint32_t flags,source;
+    uint16_t action,reserved3e;
     uint32_t descriptor,variant,frame;
-    uint8_t unknown4c[0x2c];
+    uint32_t playback_rate,action_rate;
+    uint8_t unknown54[0x24];
     uint16_t remaining;
 } RestoreSpriteCycle;
 typedef char restore_sprite_cycle_frame_offset[offsetof(RestoreSpriteCycle,frame)==0x48?1:-1];
@@ -17,6 +20,10 @@ uint32_t restore_sprite_cycle_add_forward(RestoreSpriteCycle *,uint32_t);
 uint32_t restore_sprite_cycle_add_reverse(RestoreSpriteCycle *,uint32_t);
 uint32_t restore_sprite_cycle_wrap_forward(RestoreSpriteCycle *);
 uint32_t restore_sprite_cycle_wrap_reverse(RestoreSpriteCycle *);
+uint32_t restore_sprite_cycle_tick(RestoreSpriteCycle *);
+uint32_t restore_sprite_cycle_finished(RestoreSpriteCycle *);
+uint32_t restore_sprite_cycle_stop_when_finished(RestoreSpriteCycle *);
+uint32_t restore_sprite_cycle_hold_last_frame(RestoreSpriteCycle *);
 
 /* Legacy C entries keep their existing stack arguments and cdecl cleanup,
    but capture the member receiver from ECX before any compiler-generated C.

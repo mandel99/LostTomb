@@ -1,23 +1,17 @@
-#include "restore_types.h"
-extern void FUN_0055d290();
-extern void FUN_0055d4f0();
-extern longlong FUN_0056133c();
-
-bool FUN_0055d7b0(void)
-
+#include "sprite_cycle_numeric.h"
+#include "map_x87_conversion.h"
+uint32_t restore_sprite_cycle_hold_last_frame(RestoreSpriteCycle *self)
 {
-  short sVar1;
-  int iVar2;
-  int in_ECX;
-  
-  sVar1 = FUN_0056133c();
-  if ((int)sVar1 == *(ushort *)(*(int *)(in_ECX + 0x44) + 2) - 1) {
-    *(uint *)(in_ECX + 0x34) = *(uint *)(in_ECX + 0x34) | 0x100;
-    return true;
-  }
-  iVar2 = (FUN_0055d4f0(), restore_unresolved_return(0x0055d4f0u));
-  if (iVar2 != 0) {
-    FUN_0055d290(*(short *)(*(int *)(in_ECX + 0x44) + 2) + -1);
-  }
-  return iVar2 != 0;
+    uint8_t frame80[10];
+    int32_t frame;
+    __asm { mov eax,self }
+    __asm { fld dword ptr[eax+48h] }
+    __asm { lea eax,frame80 }
+    __asm { fstp tbyte ptr[eax] }
+    frame=(int16_t)(uint32_t)restore_map_trunc80(frame80);
+    if(frame==(int32_t)CY_W(self->variant+2u)-1){self->flags|=0x100u;return 1;}
+    if(!restore_sprite_cycle_tick(self))return 0;
+    restore_sprite_cycle_set_frame(self,(uint16_t)(CY_W(self->variant+2u)-1u));
+    return 1;
 }
+RESTORE_CYCLE_ENTRY0(FUN_0055d7b0,restore_sprite_cycle_hold_last_frame)

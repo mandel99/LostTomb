@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Reconstruct complete animation timing, completion, stop and last-frame
+  methods. Replace unknown return values and receivers; retain unsigned
+  elapsed time, full-width timing mode, extended precision and signed FTOL
+  conversion before integer division.
+- Pass 347 offline native/C timing compositions without substituted
+  endpoints, and 375 lower cycle regressions. Test all precision/rounding
+  modes and inherited x87 stack values. Action/direction selection and
+  complete animation playback remain unfinished.
 - Reconstruct seven animation frame/variant/cycle methods with named C
   interfaces and explicit object receivers. Preserve signed frame wrapping,
   repeat counts, x87 precision and comparison before binary32 rounding.
