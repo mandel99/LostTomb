@@ -1,194 +1,78 @@
-#include "restore_types.h"
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005f4b38 (*(undefined4 *)0x005f4b38u)
-#define DAT_005f5498 (*(undefined4 *)0x005f5498u)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd618 (*(undefined4 *)0x00bcd618u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd644 (*(undefined4 *)0x00bcd644u)
-#define DAT_00bcd648 (*(undefined4 *)0x00bcd648u)
-#define DAT_00bcd718 (*(undefined4 *)0x00bcd718u)
-#define DAT_00eaac44 (*(undefined *)0x00eaac44u)
-#define DAT_00eaaf58 (*(undefined *)0x00eaaf58u)
-extern uint FUN_004eea10();
-extern void FUN_004ef450();
-extern int FUN_004efd90();
-extern void FUN_004f02f0();
-extern int FUN_004f27b0();
-extern uint FUN_004f28e0();
-
-void FUN_004f0ef0(int param_1,char param_2,undefined1 param_3,undefined1 param_4,undefined1 param_5)
-
+#include "pyramid_work_selection.h"
+/* Whole native4F0EF0:1030 bytes,322 instructions. Selection first favors
+   an unclaimed piece over one owned by another actor, then the larger
+   signed wrapped distance score; ties use paired-worker and pair flags. */
+static int32_t squared_distance(int32_t x,int32_t y,uint32_t record)
 {
-  short sVar1;
-  bool bVar2;
-  bool bVar3;
-  bool bVar4;
-  char cVar5;
-  int *piVar6;
-  uint uVar7;
-  int iVar8;
-  int iVar9;
-  uint uVar10;
-  int iVar11;
-  int iVar12;
-  int iVar13;
-  int iVar14;
-  undefined1 local_1d;
-  int local_1c;
-  int local_18;
-  int *local_14;
-  int local_10;
-  int local_c;
-  int local_8;
-  int local_4;
-  
-  iVar11 = param_1 * 0x184;
-  iVar12 = (int)*(short *)(&DAT_00b4e6fc + *(int *)(&DAT_00bcd618 + iVar11) * 2);
-  if ((&DAT_007999e8)[iVar12 * 0x84] == 0xb7) {
-    iVar12 = iVar12 - (short)(&DAT_007999ea)[iVar12 * 0x84];
-    local_1c = iVar11;
-    FUN_004ef450(iVar12);
-    iVar8 = DAT_00eaac44;
-    if (DAT_00eaaf58 < 1) {
-      (&DAT_00bcd630)[iVar11] = param_3;
-      *(undefined2 *)(&DAT_00bcd718 + iVar11) = 0;
-      return;
-    }
-    iVar14 = DAT_00eaac44 - (short)(&DAT_007999ea)[DAT_00eaac44 * 0x84];
-    iVar9 = (uint)*(byte *)(&DAT_00799a2e + DAT_00eaac44 * 0x84) +
-            (uint)*(byte *)((int)&DAT_00799a2e + DAT_00eaac44 * 0x108 + 1) * 6;
-    if (param_2 != '\0') {
-      *(short *)(&DAT_00bcd648 + iVar11) = (short)iVar9;
-    }
-    if (iVar9 == *(short *)(&DAT_00bcd648 + iVar11)) {
-      iVar11 = 0;
-      local_8 = 0;
-      bVar2 = false;
-      bVar4 = false;
-      if (DAT_005e4ef4 == 5) {
-        iVar13 = 0x10;
-        piVar6 = (int *)(&DAT_005f5498 + (uint)*(byte *)(&DAT_00799a2c + iVar12 * 0x84) * 0x80);
-      }
-      else {
-        iVar13 = 0x3c;
-        piVar6 = (int *)(&DAT_005f4b38 + (uint)*(byte *)(&DAT_00799a2c + iVar12 * 0x84) * 0x1e0);
-      }
-      iVar12 = 0;
-      if (iVar13 != 0) {
-        do {
-          iVar8 = iVar14 + *piVar6;
-          if (iVar9 <= piVar6[1]) break;
-          iVar12 = iVar12 + 1;
-          piVar6 = piVar6 + 2;
-        } while (iVar12 < iVar13);
-      }
-      local_18 = 0;
-      local_4 = 0;
-      local_10 = (int)*(short *)((int)&DAT_007999dc + iVar8 * 0x108 + 2);
-      local_c = (int)*(short *)(&DAT_007999e0 + iVar8 * 0x108);
-      if (0 < DAT_00eaaf58) {
-        local_14 = &DAT_00eaac44;
-        do {
-          iVar12 = *local_14;
-          cVar5 = FUN_004efd90(iVar12);
-          switch((int)(DAT_005e4ef4)) {
-          case 1: ;
-          case 3: ;
-          case 4: ;
-          case 5: ;
-switchD_004f10a3_caseD_1: ;
-            uVar7 = local_10 - *(short *)((int)&DAT_007999dc + iVar12 * 0x108 + 2);
-            uVar10 = (int)uVar7 >> 0x1f;
-            iVar9 = (uVar7 ^ uVar10) - uVar10;
-            uVar7 = local_c - *(short *)(&DAT_007999e0 + iVar12 * 0x108) >> 0x1f;
-            iVar8 = (local_c - *(short *)(&DAT_007999e0 + iVar12 * 0x108) ^ uVar7) - uVar7;
-            iVar8 = iVar8 * iVar8 + iVar9 * iVar9;
-            iVar9 = FUN_004f27b0(iVar12,&local_1d);
-            if (iVar9 < 1) {
-              bVar3 = false;
-            }
-            else {
-              uVar7 = local_10 - *(short *)((int)&DAT_007999dc + iVar9 * 0x108 + 2);
-              uVar10 = (int)uVar7 >> 0x1f;
-              iVar14 = (uVar7 ^ uVar10) - uVar10;
-              uVar7 = local_c - *(short *)(&DAT_007999e0 + iVar9 * 0x108) >> 0x1f;
-              iVar11 = (local_c - *(short *)(&DAT_007999e0 + iVar9 * 0x108) ^ uVar7) - uVar7;
-              iVar9 = iVar14 * iVar14 + iVar11 * iVar11;
-              if (iVar9 < iVar8) {
-                iVar9 = iVar8;
-              }
-              bVar3 = true;
-              iVar11 = local_18;
-              iVar8 = iVar9;
-            }
-            iVar8 = iVar8 * 2;
-            iVar9 = FUN_004f28e0(iVar12);
-            if (iVar11 != 0) {
-              sVar1 = (&DAT_00799a3c)[iVar11 * 0x84];
-              if (sVar1 < 1) {
-LAB_004f11ca: ;
-                if (((&DAT_00799a3c)[iVar12 * 0x84] != 0) &&
-                   ((short)(&DAT_00799a3c)[iVar12 * 0x84] != param_1)) break;
-              }
-              else {
-                if ((sVar1 != param_1) &&
-                   (((&DAT_00799a3c)[iVar12 * 0x84] == 0 ||
-                    ((short)(&DAT_00799a3c)[iVar12 * 0x84] == param_1)))) goto LAB_004f1207;
-                iVar11 = local_18;
-                if ((sVar1 < 1) || (sVar1 == param_1)) goto LAB_004f11ca;
-              }
-              if ((iVar8 <= local_8) &&
-                 ((iVar8 != local_8 || (((0 >= iVar9 || (bVar2)) && ((!bVar3 || (bVar4))))))))
-              break;
-            }
-LAB_004f1207: ;
-            iVar11 = iVar12;
-            local_18 = iVar12;
-            local_8 = iVar8;
-            bVar2 = 0 < iVar9;
-            bVar4 = bVar3;
-            break;
-          case 2: ;
-            if ((&DAT_00bcd602)[local_1c] == 'P') {
-              if (cVar5 != '\0') goto switchD_004f10a3_caseD_1;
-            }
-            else if (cVar5 == '\0') goto switchD_004f10a3_caseD_1;
-          }
-          local_4 = local_4 + 1;
-          local_14 = local_14 + 1;
-        } while (local_4 < DAT_00eaaf58);
-        if (iVar11 != 0) {
-          if ((((&DAT_00799a3c)[iVar11 * 0x84] == 0) ||
-              ((short)(&DAT_00799a3c)[iVar11 * 0x84] == param_1)) ||
-             (cVar5 = FUN_004eea10(iVar11), cVar5 == '\0')) {
-            if (*(char *)((int)&DAT_00799a2c + iVar11 * 0x108 + 1) != '\x01') {
-              (&DAT_00799a3c)[iVar11 * 0x84] = (short)param_1;
-              *(undefined2 *)(&DAT_00bcd718 + local_1c) = 4;
-              (&DAT_00bcd630)[local_1c] = param_5;
-              FUN_004f02f0(param_1,iVar11,(int)*(short *)((int)&DAT_00bcd644 + local_1c),0);
-              return;
-            }
-            (&DAT_00799a3c)[iVar11 * 0x84] = 0;
-            (&DAT_00bcd630)[local_1c] = param_4;
-            return;
-          }
-        }
-      }
-      (&DAT_00bcd630)[local_1c] = param_3;
-      *(undefined2 *)(&DAT_00bcd718 + local_1c) = 0;
-      return;
-    }
-  }
-  (&DAT_00bcd630)[iVar11] = param_3;
-  *(undefined2 *)(&DAT_00bcd718 + iVar11) = 0;
-  return;
+ uint32_t dx=(uint32_t)x-(uint32_t)MW_H(record+6u),dy=(uint32_t)y-(uint32_t)MW_H(record+8u);
+ return (int32_t)(dx*dx+dy*dy);
 }
+void restore_pyramid_worker_select_piece(int32_t actor,uint8_t refresh_position,
+ uint8_t failed_state,uint8_t ready_state,uint8_t travelling_state)
+{
+ uint32_t record=restore_monument_worker_record(actor),building_record,table,count,i,kind;
+ int32_t building,root,anchor,position,x,y,candidate,best=0,best_score=0,score,pair,paired_score;
+ int32_t owner,best_owner,mode;uint8_t best_pair=0,best_worker=0,has_pair,has_worker,second;
+ building=MW_H(0xb4e6fcu+MW_U(record+MW_CELL)*2u);
+ building_record=restore_monument_worker_building(building);
+ if(MW_W(building_record+16u)!=183u)goto failed;
+ root=building-MW_H(building_record+18u);
+ restore_pyramid_collect_work_pieces(root);
+ if((int32_t)MW_U(0xeaaf58u)<1)goto failed;
+ anchor=(int32_t)MW_U(0xeaac44u);
+ building_record=restore_monument_worker_building(anchor);
+ anchor=(int32_t)((uint32_t)anchor-(uint32_t)MW_H(building_record+18u));
+ position=(int32_t)(MW_B(building_record+86u)+MW_B(building_record+87u)*6u);
+ if(refresh_position)MW_W(record+MW_TO_POSITION)=(uint16_t)position;
+ if(position!=MW_H(record+MW_TO_POSITION))goto failed;
+ kind=MW_B(restore_monument_worker_building(root)+84u);
+ if(MW_U(0x5e4ef4u)==5u){table=0x5f5498u+kind*128u;count=16;}
+ else{table=0x5f4b38u+kind*480u;count=60;}
+ root=anchor;
+ for(i=0;i<count;++i){
+  anchor=(int32_t)((uint32_t)root+MW_U(table+i*8u));
+  if((int32_t)MW_U(table+i*8u+4u)>=position)break;
+ }
+ building_record=restore_monument_worker_building(anchor);x=MW_H(building_record+6u);y=MW_H(building_record+8u);
+ for(i=0;(int32_t)i<(int32_t)MW_U(0xeaaf58u);++i){
+  candidate=(int32_t)MW_U(0xeaac44u+i*4u);
+  has_pair=restore_pyramid_piece_has_pending_work(candidate);
+  mode=(int32_t)MW_U(0x5e4ef4u);
+  if(mode==2){
+   if(MW_B(record+MW_TYPE)==80u){if(!has_pair)continue;}
+   else if(has_pair)continue;
+  }else if(mode!=1&&mode!=3&&mode!=4&&mode!=5)continue;
+  building_record=restore_monument_worker_building(candidate);
+  score=squared_distance(x,y,building_record);
+  pair=restore_pyramid_find_paired_work_piece(candidate,&second);has_pair=(uint8_t)(pair>0);
+  if(has_pair){
+   paired_score=squared_distance(x,y,restore_monument_worker_building(pair));
+   if(score<paired_score)score=paired_score;
+  }
+  score=(int32_t)((uint32_t)score*2u);
+  has_worker=(uint8_t)(restore_pyramid_paired_worker(candidate)>0);
+  if(best){
+   best_owner=MW_H(restore_monument_worker_building(best)+100u);owner=MW_H(building_record+100u);
+   if(best_owner>0&&best_owner!=actor){
+    if(owner==0||owner==actor)goto choose;
+   }else if(owner!=0&&owner!=actor)continue;
+   if(score<best_score)continue;
+   if(score==best_score&&!((has_worker&&!best_worker)||(has_pair&&!best_pair)))continue;
+  }
+choose:
+  best=candidate;best_score=score;best_worker=has_worker;best_pair=has_pair;
+ }
+ if(!best)goto failed;
+ building_record=restore_monument_worker_building(best);owner=MW_H(building_record+100u);
+ if(owner!=0&&owner!=actor&&restore_pyramid_worker_claim_active(best))goto failed;
+ if(MW_B(building_record+85u)==1u){
+  MW_W(building_record+100u)=0;MW_B(record+MW_STATE)=ready_state;return;
+ }
+ MW_W(building_record+100u)=(uint16_t)actor;
+ MW_W(record+MW_MONUMENT_ACTION)=4;MW_B(record+MW_STATE)=travelling_state;
+ restore_monument_worker_begin_travel(actor,best,(uint16_t)MW_H(record+MW_FROM_POSITION),0);return;
+failed:
+ MW_B(record+MW_STATE)=failed_state;MW_W(record+MW_MONUMENT_ACTION)=0;
+}
+void FUN_004f0ef0(int32_t actor,uint8_t refresh_position,uint8_t failed_state,uint8_t ready_state,uint8_t travelling_state)
+{restore_pyramid_worker_select_piece(actor,refresh_position,failed_state,ready_state,travelling_state);}

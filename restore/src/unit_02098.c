@@ -1,72 +1,32 @@
-#include "restore_types.h"
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00bcd608 (*(undefined4 *)0x00bcd608u)
-#define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-extern undefined4 FUN_004ef100();
-
-uint FUN_004eea10(int param_1)
-
+#include "pyramid_work_selection.h"
+/* Whole native4EEA10:306 bytes,121 instructions. Only AL is a logical
+   return. Unused claims are cleared; unrelated live actor states retain
+   the claim WORD while returning false, as in the original. */
+uint8_t restore_pyramid_worker_claim_active(int32_t building)
 {
-  short sVar1;
-  uint uVar2;
-  uint uVar3;
-  char cVar4;
-  int iVar5;
-  
-  sVar1 = (&DAT_00799a3c)[param_1 * 0x84];
-  uVar2 = 0;
-  if (sVar1 == 0) goto switchD_004eea79_caseD_3;
-  iVar5 = sVar1 * 0x184;
-  uVar2 = CONCAT31((int3)(char)((ushort)sVar1 >> 8),(&DAT_00bcd606)[iVar5]);
-  if ((&DAT_00bcd606)[iVar5] == '\0') {
-LAB_004eeac2: ;
-    (&DAT_00799a3c)[param_1 * 0x84] = 0;
+ uint32_t record=restore_monument_worker_building(building),actor_record;
+ int32_t owner=MW_H(record+100u);uint32_t state,type;
+ if(!owner)return 0;
+ actor_record=restore_monument_worker_record(owner);
+ if(!MW_B(actor_record+PS_CLAIM_VALIDITY))goto clear;
+ state=MW_B(actor_record+MW_STATE);
+ if(state==6u||state==7u)state=MW_B(actor_record+PS_SAVED_STATE);
+ type=MW_B(actor_record+MW_TYPE);
+ switch(type){
+ case 79:return (uint8_t)(state==9u||state==12u||state==10u);
+ case 80:return (uint8_t)(state==10u||state==13u||state==15u||state==12u||state==14u||state==11u);
+ case 81:
+  if(restore_pyramid_available_worker_slot(building))goto clear;
+  if(state==9u||state==13u||state==15u||state==11u||state==14u||state==16u)return 1;
+  if(state==10u){
+   if(MW_H(0xb4e6fcu+MW_U(actor_record+MW_TARGET_CELL)*2u)==building)return 1;
+   goto clear;
   }
-  else {
-    cVar4 = (&DAT_00bcd630)[iVar5];
-    if ((cVar4 == '\x06') || (cVar4 == '\a')) {
-      cVar4 = (&DAT_00bcd608)[iVar5];
-    }
-    uVar2 = (byte)(&DAT_00bcd602)[iVar5] - 0x4f;
-    switch((int)(uVar2)) {
-    case 0: ;
-      uVar3 = uVar2;
-      if (((cVar4 == '\t') || (cVar4 == '\f')) || (cVar4 == '\n')) {
-LAB_004eeadd: ;
-        return CONCAT31((int3)(uVar3 >> 8),1);
-      }
-      break;
-    case 1: ;
-      if (((cVar4 == '\n') || (cVar4 == '\r')) ||
-         ((cVar4 == '\x0f' || (((cVar4 == '\f' || (cVar4 == '\x0e')) || (cVar4 == '\v')))))) {
-LAB_004eeb3b: ;
-        return CONCAT31((int3)(uVar2 >> 8),1);
-      }
-      break;
-    case 2: ;
-      uVar2 = FUN_004ef100(param_1);
-      if (uVar2 == 0) {
-        uVar3 = 0;
-        if (((((cVar4 == '\t') || (cVar4 == '\r')) || (cVar4 == '\x0f')) ||
-            ((cVar4 == '\v' || (cVar4 == '\x0e')))) || (cVar4 == '\x10')) goto LAB_004eeadd;
-        if (cVar4 != '\n') break;
-        uVar2 = *(uint *)(&DAT_00bcd620 + iVar5);
-        if (*(short *)(&DAT_00b4e6fc + uVar2 * 2) == param_1) goto LAB_004eeb3b;
-      }
-      goto LAB_004eeac2;
-    case 6: ;
-      if (((((cVar4 == '\x0f') || (cVar4 == '\x10')) || (cVar4 == '\x11')) ||
-          ((((cVar4 == '\x1e' || (cVar4 == '\x12')) ||
-            ((cVar4 == '\x13' || ((cVar4 == '\x14' || (cVar4 == '\x15')))))) || (cVar4 == '\x1d'))))
-         || (cVar4 == '\x16')) {
-        return CONCAT31((int3)(uVar2 >> 8),1);
-      }
-    }
-  }
-switchD_004eea79_caseD_3: ;
-  return uVar2 & 0xffffff00;
+  return 0;
+ case 85:return (uint8_t)(state==15u||state==16u||state==17u||state==30u||state==18u||state==19u||state==20u||state==21u||state==29u||state==22u);
+ default:return 0;
+ }
+clear:
+ MW_W(record+100u)=0;return 0;
 }
+uint8_t FUN_004eea10(int32_t building){return restore_pyramid_worker_claim_active(building);}

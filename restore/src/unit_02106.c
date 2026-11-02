@@ -1,33 +1,15 @@
-#include "restore_types.h"
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005e68d8 (*(undefined4 *)0x005e68d8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-
-int FUN_004efd90(int param_1)
-
+#include "pyramid_work_selection.h"
+/* Whole native4EFD90:146 bytes,48 instructions. Shape1 has an alternate
+   three-column row; the root of family5 has a one-column row. */
+uint8_t restore_pyramid_piece_has_pending_work(int32_t building)
 {
-  byte bVar1;
-  uint3 uVar2;
-  uint uVar3;
-  
-  bVar1 = *(byte *)((int)&DAT_00799a2e + param_1 * 0x108 + 1);
-  uVar2 = (uint3)((uint)(param_1 * 0x108) >> 8);
-  if (bVar1 < *(byte *)(&DAT_00799a30 + param_1 * 0x42)) {
-    if (DAT_005e4ef4 == 1) {
-      uVar3 = (-(uint)((&DAT_005e68d8)
-                       [(uint)*(byte *)(&DAT_00799a2c + param_1 * 0x84) * 6 + (uint)bVar1] != '\0')
-              & 0xfffffffd) + 6;
-    }
-    else if ((DAT_005e4ef4 != 5) || (uVar3 = 1, (&DAT_007999ea)[param_1 * 0x84] != 0)) {
-      uVar3 = 6;
-    }
-    if ((*(byte *)(&DAT_00799a2e + param_1 * 0x84) != uVar3) ||
-       (bVar1 + 1 != (uint)*(byte *)(&DAT_00799a30 + param_1 * 0x42))) {
-      return CONCAT31(uVar2,1);
-    }
-  }
-  return (uint)uVar2 << 8;
+ uint32_t record=restore_monument_worker_building(building),row=MW_B(record+87u),height=MW_B(record+88u),columns,mode;
+ if(row>=height)return 0;
+ mode=MW_U(0x5e4ef4u);
+ if(mode==1u)columns=MW_B(0x5e68d8u+MW_B(record+84u)*6u+row)?3u:6u;
+ else if(mode==5u&&MW_H(record+18u)==0)columns=1u;
+ else columns=6u;
+ if(MW_B(record+86u)==columns&&row+1u==height)return 0;
+ return 1;
 }
+uint8_t FUN_004efd90(int32_t building){return restore_pyramid_piece_has_pending_work(building);}

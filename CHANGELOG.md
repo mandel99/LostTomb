@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Reconstruct seven complete pyramid-work selection functions: worker-slot
+  thresholds, claim cleanup, pending work, paired pieces/workers, route gaps
+  and destination selection. Preserve native claim priorities, signed distance
+  scoring, field widths and state transitions; add descriptive C names.
+- Pass 766 focused native/C cases, including 85 complete selection/travel
+  compositions. Fix the old public route-gap query accepting overlapping
+  linked workers. Host gameplay remains untested.
 - Reconstruct and name seven complete pyramid-worker functions: travel setup,
   movement, target snapping, work-list ranking, perimeter traversal and work
   reservations. Recover the missing distance expression and delayed arguments

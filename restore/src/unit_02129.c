@@ -1,28 +1,15 @@
-#include "restore_types.h"
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-extern int FUN_004f27b0();
-
-uint FUN_004f28e0(undefined4 param_1)
-
+#include "pyramid_work_selection.h"
+/* Whole native4F28E0:120 bytes,49 instructions. A missing paired piece
+   returns-1. A pair without an active worker returns0. */
+int32_t restore_pyramid_paired_worker(int32_t building)
 {
-  int iVar1;
-  uint uVar2;
-  
-  iVar1 = FUN_004f27b0(param_1,&param_1);
-  if (iVar1 < 1) {
-    return 0xffffffff;
-  }
-  uVar2 = (uint)(short)(&DAT_00799a3c)[iVar1 * 0x84];
-  if (uVar2 != 0) {
-    iVar1 = uVar2 * 0x184;
-    if ((&DAT_00bcd602)[iVar1] == 'P') {
-      return ((&DAT_00bcd630)[iVar1] != '\v') - 1 & uVar2;
-    }
-    if ((&DAT_00bcd602)[iVar1] == 'Q') {
-      return ((&DAT_00bcd630)[iVar1] != '\n') - 1 & uVar2;
-    }
-  }
-  return 0;
+ uint8_t second;int32_t pair=restore_pyramid_find_paired_work_piece(building,&second),owner;
+ uint32_t record,type,state;
+ if(pair<=0)return -1;
+ owner=MW_H(restore_monument_worker_building(pair)+100u);
+ if(!owner)return 0;
+ record=restore_monument_worker_record(owner);type=MW_B(record+MW_TYPE);state=MW_B(record+MW_STATE);
+ if((type==80u&&state==11u)||(type==81u&&state==10u))return owner;
+ return 0;
 }
+int32_t FUN_004f28e0(int32_t building){return restore_pyramid_paired_worker(building);}
