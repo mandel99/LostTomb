@@ -1,44 +1,20 @@
-#include "restore_types.h"
-#define DAT_0056f7d8 (*(undefined4 *)0x0056f7d8u)
-#define DAT_0056f7ec (*(undefined4 *)0x0056f7ecu)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005f5d08 (*(undefined4 *)0x005f5d08u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-extern bool FUN_004ecea0();
-extern void FUN_004ed360();
-extern void FUN_004edf50();
+#include "pyramid_parts.h"
+#include "editor_brush_validation.h"
 
-void FUN_004ee4a0(int param_1)
-
+/* Whole4EE4A0: cache root kind and rotation, reload the active count family
+   between parts, and pass all three image-selection arguments. */
+void restore_pyramid_refresh_all_parts(int32_t root)
 {
-  char cVar1;
-  uint uVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
-  
-  uVar2 = (uint)*(byte *)(&DAT_00799a2c + param_1 * 0x84);
-  iVar4 = DAT_00bca2e0 / 2;
-  iVar5 = param_1;
-  while( true ) {
-    if (DAT_005e4ef4 == 5) {
-      iVar3 = *(int *)(&DAT_0056f7ec + uVar2 * 4);
+    uint32_t r=restore_pyramid_record(root),kind=PY_B(r+PY_LAYOUT_KIND),current=(uint32_t)root,limit;
+    int32_t rotation=PY_I(PY_U(0xbca2e0u))/2,relative;
+    for(;;){
+        limit=PY_U((PY_U(0x5e4ef4u)==5u?0x56f7ecu:0x56f7d8u)+kind*4u)+(uint32_t)root;
+        if(PY_I(current)>=PY_I(limit))break;
+        restore_pyramid_update_piece_image(PY_I(current),rotation,PY_I(kind));++current;
     }
-    else {
-      iVar3 = *(int *)(&DAT_0056f7d8 + uVar2 * 4);
+    if(FUN_004ecea0(PY_I(kind))){
+        relative=PY_I(PY_U(0x5f5d08u+kind*4u)+PY_U(r+PY_CELL)-PY_U(0xbca2d8u));
+        FUN_004ed360(relative%228,relative/228,4,0);
     }
-    if (iVar3 + param_1 <= iVar5) break;
-    FUN_004edf50(iVar5,iVar4);
-    iVar5 = iVar5 + 1;
-  }
-  cVar1 = FUN_004ecea0(uVar2);
-  if (cVar1 != '\0') {
-    iVar5 = (*(int *)(&DAT_005f5d08 + uVar2 * 4) + *(int *)(&DAT_007999e4 + param_1 * 0x108)) -
-            DAT_00bca2d8;
-    FUN_004ed360(iVar5 % 0xe4,iVar5 / 0xe4,4,0);
-  }
-  return;
 }
+void FUN_004ee4a0(int32_t root){restore_pyramid_refresh_all_parts(root);}

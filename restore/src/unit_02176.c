@@ -1,42 +1,23 @@
-#include "restore_types.h"
-#define DAT_005700d4 (*(undefined4 *)0x005700d4u)
-#define DAT_005700e8 (*(undefined4 *)0x005700e8u)
-#define DAT_005d17a8 (*(undefined *)0x005d17a8u)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00bca2e8 (*(undefined *)0x00bca2e8u)
-#define DAT_00bca2ec (*(undefined *)0x00bca2ecu)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
-extern int FUN_0046a400();
-extern void FUN_00470990();
-extern undefined4 FUN_00485100();
+#include "pyramid_parts.h"
+#include "building_allocator.h"
+#include "building_create_model.h"
+#include "editor_brush_validation.h"
 
-void FUN_004f5f10(int param_1)
-
+/* Whole4F5F10: create the kind215 entrance associated with a kind183
+   pyramid root. Model size is cached before allocation; owner is reloaded
+   after the allocation/update callbacks, exactly as in the native routine. */
+void restore_pyramid_create_entrance(int32_t building)
 {
-  undefined4 uVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  
-  uVar1 = DAT_005d17a8;
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0xb7) {
-    param_1 = param_1 - (short)(&DAT_007999ea)[param_1 * 0x84];
-    if (DAT_005e4ef4 == 5) {
-      iVar2 = *(int *)(&DAT_005700e8 + (uint)*(byte *)(&DAT_00799a2c + param_1 * 0x84) * 4);
-    }
-    else {
-      iVar2 = *(int *)(&DAT_005700d4 + (uint)*(byte *)(&DAT_00799a2c + param_1 * 0x84) * 4);
-    }
-    iVar3 = (*(int *)(&DAT_007999e4 + param_1 * 0x108) + iVar2) % 0xe4 - DAT_00bca2e8;
-    iVar4 = (*(int *)(&DAT_007999e4 + param_1 * 0x108) + iVar2) / 0xe4 - DAT_00bca2ec;
-    iVar2 = FUN_0046a400(DAT_00eaac28,0xd7,iVar3,iVar4,0,0);
-    FUN_00485100(iVar2);
-    FUN_00470990(DAT_00eaac28,0xd7,iVar2,iVar3,iVar4,uVar1,0,0);
-    (&DAT_007999ea)[iVar2 * 0x84] = (short)param_1;
-  }
-  return;
+    uint32_t r=restore_pyramid_record(building),root,kind,tile,model_size,owner;
+    int32_t x,y,created;
+    if(PY_W(r+PY_BUILDING_KIND)!=183u)return;
+    root=(uint32_t)building-(uint32_t)(int32_t)(int16_t)PY_W(r+PY_PIECE_INDEX);r=restore_pyramid_record(PY_I(root));
+    kind=PY_B(r+PY_LAYOUT_KIND);
+    tile=PY_U(r+PY_CELL)+PY_U((PY_U(0x5e4ef4u)==5u?0x5700e8u:0x5700d4u)+kind*4u);
+    x=PY_I((uint32_t)(PY_I(tile)%228)-PY_U(0xbca2e8u));y=PY_I((uint32_t)(PY_I(tile)/228)-PY_U(0xbca2ecu));
+    model_size=PY_U(0x5d17a8u);owner=PY_U(0xeaac28u);
+    created=restore_building_allocate_0046a400(owner,215,x,y,0,0);(void)FUN_00485100(created);
+    restore_placement_create_00470990(PY_U(0xeaac28u),215,created,x,y,PY_I(model_size),0,0);
+    PY_W(restore_pyramid_record(created)+PY_PIECE_INDEX)=(uint16_t)root;
 }
+void FUN_004f5f10(int32_t building){restore_pyramid_create_entrance(building);}

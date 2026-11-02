@@ -1,103 +1,35 @@
-#include "restore_types.h"
-#define DAT_0056f840 (*(undefined4 *)0x0056f840u)
-#define DAT_0056f880 (*(undefined4 *)0x0056f880u)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00acf85c (*(undefined4 *)0x00acf85cu)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b285cc (*(undefined4 *)0x00b285ccu)
-#define DAT_00b7482c (*(undefined4 *)0x00b7482cu)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-#define DAT_00f57364 (*(undefined *)0x00f57364u)
-#define DAT_00f5736c (*(undefined *)0x00f5736cu)
-#define PTR_DAT_005f6cd0 (*(unsigned char * *)0x005f6cd0u)
-#define PTR_DAT_005f6d58 (*(unsigned char * *)0x005f6d58u)
-extern void FUN_0047bf50();
-extern char FUN_004f3f70();
+#include "pyramid_parts.h"
+#include "road_place.h"
+#include "building_graph.h"
 
-void FUN_004f4160(int param_1,undefined4 param_2,int param_3)
-
+/* Whole4F4160: special-part paving, per-cell phase mask, and final sprite. */
+void restore_pyramid_update_finished_piece(int32_t building,int32_t rotation,int32_t kind)
 {
-  int iVar1;
-  byte bVar2;
-  uint uVar3;
-  byte bVar4;
-  int iVar5;
-  undefined **ppuVar6;
-  int *piVar7;
-  
-  ppuVar6 = &PTR_DAT_005f6d58;
-  if (DAT_005e4ef4 != 5) {
-    ppuVar6 = &PTR_DAT_005f6cd0;
-  }
-  iVar5 = param_1 * 0x108;
-  switch(*(undefined1 *)((int)&DAT_00799a2c + iVar5 + 1)) {
-  case 3: ;
-    iVar1 = 0;
-    if (0 < (int)ppuVar6[param_3 * 2 + 1]) {
-      piVar7 = (int *)ppuVar6[param_3 * 2];
-      while ((int)(short)(&DAT_007999ea)[param_1 * 0x84] != *piVar7) {
-        iVar1 = iVar1 + 1;
-        piVar7 = piVar7 + 2;
-        if ((int)ppuVar6[param_3 * 2 + 1] <= iVar1) {
-          return;
+    uint32_t r=restore_pyramid_record(building),descriptor=(PY_U(0x5e4ef4u)==5u?0x5f6d58u:0x5f6cd0u)+(uint32_t)kind*8u;
+    uint32_t phase=PY_B(r+PY_RENDER_PHASE),i,tile,mask,table,count;int32_t piece;
+    (void)rotation;
+    if(phase==3u){
+        table=PY_U(descriptor);count=PY_U(descriptor+4u);piece=(int32_t)(int16_t)PY_W(r+PY_PIECE_INDEX);
+        for(i=0;PY_I(i)<PY_I(count);++i)if(PY_I(PY_U(table+i*8u))==piece){
+            tile=PY_U(r+PY_CELL)+PY_U(table+i*8u+4u);PY_U(0xb7482cu+tile*4u)=PY_U(0xf5736cu);
+            if(PY_B(0xacf85cu+tile)&1u)PY_B(0xb285ccu+tile)|=0x20u;
+            return;
         }
-      }
-      iVar5 = *(int *)((int)ppuVar6[param_3 * 2] + (iVar1 * 2 + 1) * 4) +
-              *(int *)(&DAT_007999e4 + iVar5);
-      (&DAT_00b7482c)[iVar5] = DAT_00f5736c;
-      if (((&DAT_00acf85c)[iVar5] & 1) != 0) {
-        (&DAT_00b285cc)[iVar5] = (&DAT_00b285cc)[iVar5] | 0x20;
-        return;
-      }
+    }else if(phase==4u){
+        tile=PY_U(r+PY_CELL);mask=PY_B(r+PY_CELL_PHASE_MASK);
+        for(i=0;i<4u;++i)if(mask&(1u<<i))PY_U(0xaf598cu+(tile+PY_U(0x56f880u+i*4u))*4u)&=0xffffff6eu;
+    }else if(phase>=5u&&phase<=10u){
+        for(i=0;i<4u;++i){
+            tile=PY_U(r+PY_CELL)+PY_U(0x56f880u+i*4u);phase=PY_B(r+PY_RENDER_PHASE);
+            (void)FUN_004f3f70(building,tile,PY_I(phase-((PY_B(r+PY_CELL_PHASE_MASK)&(1u<<i))?0u:1u)),1);
+        }
+    }else if(phase==11u){
+        uint32_t orientation=(uint32_t)(PY_I(PY_U(0xbca2e0u))/2),image;
+        piece=(int32_t)(int16_t)PY_W(r+PY_PIECE_INDEX);
+        image=PY_U(0x56f840u+((uint32_t)piece+orientation*4u)*4u)+PY_U(0xf57364u);
+        FUN_0047bf50((uint16_t)building,(int32_t)(int16_t)PY_W(r+PY_X),(int32_t)(int16_t)PY_W(r+PY_Y),
+            (int32_t)PY_B(r+PY_SIZE),(int32_t)PY_B(r+PY_SIZE),image,8);
     }
-    break;
-  case 4: ;
-    iVar1 = *(int *)(&DAT_007999e4 + iVar5);
-    bVar2 = 0;
-    piVar7 = &DAT_0056f880;
-    bVar4 = *(byte *)((int)&DAT_00799a30 + iVar5 + 3);
-    do {
-      if (((uint)bVar4 & 1 << (bVar2 & 0x1f)) != 0) {
-        (&DAT_00af598c)[iVar1 + *piVar7] = (&DAT_00af598c)[iVar1 + *piVar7] & 0xffffff6e;
-      }
-      piVar7 = piVar7 + 1;
-      bVar2 = bVar2 + 1;
-    } while ((int)piVar7 < 0x56f890);
-    return;
-  case 5: ;
-  case 6: ;
-  case 7: ;
-  case 8: ;
-  case 9: ;
-  case 10: ;
-    bVar4 = 0;
-    piVar7 = &DAT_0056f880;
-    do {
-      if ((*(byte *)((int)&DAT_00799a30 + iVar5 + 3) & (byte)(1 << (bVar4 & 0x1f))) == 0) {
-        uVar3 = *(byte *)((int)&DAT_00799a2c + iVar5 + 1) - 1;
-      }
-      else {
-        uVar3 = (uint)*(byte *)((int)&DAT_00799a2c + iVar5 + 1);
-      }
-      FUN_004f3f70(param_1,*piVar7 + *(int *)(&DAT_007999e4 + iVar5),uVar3,1);
-      piVar7 = piVar7 + 1;
-      bVar4 = bVar4 + 1;
-    } while ((int)piVar7 < 0x56f890);
-    return;
-  case 0xb: ;
-    FUN_0047bf50(param_1,(int)*(short *)((int)&DAT_007999dc + iVar5 + 2),
-                 (int)*(short *)(&DAT_007999e0 + iVar5),(&DAT_007999db)[iVar5],
-                 (&DAT_007999db)[iVar5],
-                 *(int *)(&DAT_0056f840 +
-                         ((int)(short)(&DAT_007999ea)[param_1 * 0x84] + (DAT_00bca2e0 / 2) * 4) * 4)
-                 + DAT_00f57364,8);
-  }
-  return;
 }
+void FUN_004f4160(int32_t building,int32_t rotation,int32_t kind)
+{restore_pyramid_update_finished_piece(building,rotation,kind);}

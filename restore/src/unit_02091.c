@@ -1,249 +1,76 @@
-#include "restore_types.h"
-#define DAT_0056f840 (*(undefined4 *)0x0056f840u)
-#define DAT_0056f880 (*(undefined4 *)0x0056f880u)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005e4ef8 (*(undefined4 *)0x005e4ef8u)
-#define DAT_005e6578 (*(undefined4 *)0x005e6578u)
-#define DAT_005e68d8 (*(undefined4 *)0x005e68d8u)
-#define DAT_005f5618 (*(undefined4 *)0x005f5618u)
-#define DAT_005f561c (*(undefined4 *)0x005f561cu)
-#define DAT_005f57c8 (*(undefined4 *)0x005f57c8u)
-#define DAT_005f57cc (*(undefined4 *)0x005f57ccu)
-#define DAT_005f5b28 (*(undefined4 *)0x005f5b28u)
-#define DAT_005f5b2c (*(undefined4 *)0x005f5b2cu)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00799a34 (*(undefined4 *)0x00799a34u)
-#define DAT_00799a36 (*(undefined4 *)0x00799a36u)
-#define DAT_00799a38 (*(undefined4 *)0x00799a38u)
-#define DAT_00799a3a (*(undefined4 *)0x00799a3au)
-#define DAT_00799a40 (*(undefined4 *)0x00799a40u)
-#define DAT_00799a44 (*(undefined4 *)0x00799a44u)
-#define DAT_00acf85c (*(undefined4 *)0x00acf85cu)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00f57334 (*(undefined *)0x00f57334u)
-#define DAT_00f57364 (*(undefined *)0x00f57364u)
-#define DAT_00f5738c (*(undefined *)0x00f5738cu)
-extern void FUN_0047bf50();
-extern char FUN_004f3f70();
-extern void FUN_004f4160();
+#include "pyramid_parts.h"
+#include "road_place.h"
+#include "building_graph.h"
 
-void FUN_004edf50(int param_1,int param_2,int param_3)
-
+static void worker_offset(uint32_t record,uint32_t field,uint32_t position,uint32_t shape,uint32_t style)
 {
-  byte bVar1;
-  byte bVar2;
-  undefined2 uVar3;
-  short sVar4;
-  short sVar5;
-  bool bVar6;
-  uint uVar7;
-  int iVar8;
-  int iVar9;
-  uint uVar10;
-  uint uVar11;
-  int iVar12;
-  int iVar13;
-  int *piVar14;
-  undefined4 uVar15;
-  uint local_4;
-  
-  uVar10 = 0;
-  iVar13 = param_1 * 0x108;
-  *(undefined4 *)(&DAT_00799a44 + param_1 * 0x84) = 0;
-  if (1 < *(byte *)((int)&DAT_00799a2c + iVar13 + 1)) {
-    FUN_004f4160(param_1,param_2,param_3);
-    return;
-  }
-  iVar12 = (int)(short)(&DAT_007999ea)[param_1 * 0x84];
-  if (DAT_005e4ef4 == 5) {
-    uVar7 = *(uint *)(&DAT_005e6578 + (iVar12 + param_3 * 0x24) * 8);
-  }
-  else {
-    uVar7 = *(uint *)(&DAT_005e4ef8 + (param_3 * 0x90 + iVar12) * 8);
-  }
-  if ((int)uVar7 < 4) {
-    uVar7 = uVar7 + param_2;
-    if (3 < (int)uVar7) {
-      uVar7 = uVar7 - 4;
+    uint32_t index,table,dx,dy;
+    if(style==2u){
+        index=shape*6u+((position-1u)%6u>=3u?3u:0u);table=0x5f57c8u+index*16u;
+        dx=PY_W(table);dy=PY_W(table+4u);
+    }else{
+        index=shape*6u+(style==1u?(position*2u-2u)%6u:(position-1u)%6u);
+        table=0x5f5618u+index*8u;
+        dx=PY_W(0x5f5b28u+shape*8u)+PY_W(table);
+        dy=PY_W(0x5f5b2cu+shape*8u)+(style==1u?(uint32_t)(PY_I(PY_U(table+4u))/2):PY_W(table+4u));
     }
-  }
-  else if ((int)uVar7 < 8) {
-    uVar7 = uVar7 + param_2;
-    if (7 < (int)uVar7) {
-      uVar7 = uVar7 - 4;
-    }
-  }
-  else if (uVar7 == 9) {
-    uVar7 = param_2 + 9;
-  }
-  if (DAT_005e4ef4 == 5) {
-    local_4 = 0;
-    uVar11 = uVar10;
-  }
-  else {
-    uVar11 = uVar7;
-    if (uVar7 == 5) {
-      local_4 = DAT_00f57334 + 0x6d;
-    }
-    else if (uVar7 == 6) {
-      if (DAT_005e4ef4 == 3) {
-        local_4 = DAT_00f57334 + 0x70;
-      }
-      else {
-        local_4 = DAT_00f57334 + 0x6e;
-      }
-    }
-    else {
-      local_4 = uVar10;
-      if (DAT_005e4ef4 == 3) {
-        if (uVar7 == 1) {
-          local_4 = DAT_00f57334 + 0x73;
-        }
-        else if (uVar7 == 2) {
-          local_4 = DAT_00f57334 + 0x77;
-        }
-        else if (uVar7 == 3) {
-          local_4 = DAT_00f57334 + 0x7b;
-        }
-      }
-    }
-  }
-  bVar6 = false;
-  if ((*(char *)((int)&DAT_00799a2c + iVar13 + 1) == '\0') || (DAT_005e4ef4 == 5)) {
-    bVar2 = *(byte *)(&DAT_00799a2e + param_1 * 0x84);
-    if (bVar2 == 0) {
-      if (((short)(&DAT_007999ea)[param_1 * 0x84] < 4) && (DAT_005e4ef4 != 5)) {
-        iVar12 = *(int *)(&DAT_0056f840 + (iVar12 + param_2 * 4) * 4) + DAT_00f57364;
-      }
-      else {
-        iVar12 = 0;
-        bVar6 = true;
-      }
-    }
-    else {
-      bVar1 = *(byte *)((int)&DAT_00799a2e + iVar13 + 1);
-      if ((bVar1 < *(byte *)(&DAT_00799a30 + param_1 * 0x42)) || (uVar7 == 8)) {
-        iVar12 = DAT_00f57334 + (uint)bVar2 + 0x5f +
-                 ((byte)(&DAT_00acf85c)[*(int *)(&DAT_007999e4 + iVar13)] & 1) * 6;
-      }
-      else if (DAT_005e4ef4 == 1) {
-        if ((&DAT_005e68d8)[param_3 * 6 + (uint)bVar1] == '\0') {
-LAB_004ee179: ;
-          iVar12 = DAT_00f57334 + (uint)bVar2 * 8 + -8 + uVar7;
-        }
-        else {
-          iVar12 = DAT_00f5738c + (uint)bVar2 * 8 + -8 + uVar7;
-        }
-      }
-      else {
-        if ((int)uVar7 < 8) goto LAB_004ee179;
-        iVar12 = (uVar7 & 1) + 0x6d + DAT_00f57334;
-      }
-    }
-  }
-  else if ((DAT_005e4ef4 == 1) &&
-          ((&DAT_005e68d8)[param_3 * 6 + (uint)*(byte *)((int)&DAT_00799a2e + iVar13 + 1)] != '\0'))
-  {
-    iVar12 = DAT_00f5738c + (5 - (uint)*(byte *)(&DAT_00799a2e + param_1 * 0x84)) * 8 + uVar7;
-  }
-  else {
-    iVar12 = DAT_00f57334 + (0xb - (uint)*(byte *)(&DAT_00799a2e + param_1 * 0x84)) * 8 + uVar7;
-  }
-  bVar2 = *(byte *)((int)&DAT_00799a30 + iVar13 + 1);
-  if (((bVar2 == 0) && (*(char *)((int)&DAT_00799a30 + iVar13 + 2) == '\0')) || (local_4 == 0)) {
-    *(undefined4 *)(&DAT_00799a40 + param_1 * 0x84) = 0;
-    goto LAB_004ee400;
-  }
-  if (DAT_005e4ef4 == 1) {
-    if ((&DAT_005e68d8)[param_3 * 6 + (uint)*(byte *)((int)&DAT_00799a2e + iVar13 + 1)] == '\0') {
-LAB_004ee35a: ;
-      if (bVar2 != 0) {
-        iVar9 = ((int)(bVar2 - 1) % 6 + uVar11 * 6) * 8;
-        *(short *)(&DAT_00799a34 + iVar13) =
-             *(short *)(&DAT_005f5b28 + uVar11 * 8) + *(short *)(&DAT_005f5618 + iVar9);
-        *(short *)(&DAT_00799a36 + iVar13) =
-             *(short *)(&DAT_005f5b2c + uVar11 * 8) + *(short *)(&DAT_005f561c + iVar9);
-      }
-      bVar2 = *(byte *)((int)&DAT_00799a30 + iVar13 + 2);
-      if (bVar2 != 0) {
-        sVar4 = *(short *)(&DAT_005f5b2c + uVar11 * 8);
-        iVar9 = ((int)(bVar2 - 1) % 6 + uVar11 * 6) * 8;
-        sVar5 = *(short *)(&DAT_005f561c + iVar9);
-        *(short *)(&DAT_00799a38 + iVar13) =
-             *(short *)(&DAT_005f5b28 + uVar11 * 8) + *(short *)(&DAT_005f5618 + iVar9);
-        *(short *)(&DAT_00799a3a + iVar13) = sVar4 + sVar5;
-      }
-    }
-    else {
-      if (bVar2 != 0) {
-        iVar8 = ((int)((uint)bVar2 * 2 + -2) % 6 + uVar11 * 6) * 8;
-        iVar9 = *(int *)(&DAT_005f561c + iVar8);
-        *(short *)(&DAT_00799a34 + iVar13) =
-             *(short *)(&DAT_005f5b28 + uVar11 * 8) + *(short *)(&DAT_005f5618 + iVar8);
-        *(short *)(&DAT_00799a36 + iVar13) =
-             (short)(iVar9 / 2) + *(short *)(&DAT_005f5b2c + uVar11 * 8);
-      }
-      bVar2 = *(byte *)((int)&DAT_00799a30 + iVar13 + 2);
-      if (bVar2 != 0) {
-        iVar8 = ((int)((uint)bVar2 * 2 + -2) % 6 + uVar11 * 6) * 8;
-        iVar9 = *(int *)(&DAT_005f561c + iVar8);
-        *(short *)(&DAT_00799a38 + iVar13) =
-             *(short *)(&DAT_005f5b28 + uVar11 * 8) + *(short *)(&DAT_005f5618 + iVar8);
-        *(short *)(&DAT_00799a3a + iVar13) =
-             (short)(iVar9 / 2) + *(short *)(&DAT_005f5b2c + uVar11 * 8);
-        *(uint *)(&DAT_00799a40 + param_1 * 0x84) = local_4;
-        goto LAB_004ee400;
-      }
-    }
-  }
-  else {
-    if (DAT_005e4ef4 != 3) goto LAB_004ee35a;
-    if (bVar2 != 0) {
-      iVar9 = (((2 < (int)(bVar2 - 1) % 6) - 1 & 0xfffffffd) + 3 + uVar11 * 6) * 0x10;
-      uVar3 = *(undefined2 *)(&DAT_005f57cc + iVar9);
-      *(undefined2 *)(&DAT_00799a34 + iVar13) = *(undefined2 *)(&DAT_005f57c8 + iVar9);
-      *(undefined2 *)(&DAT_00799a36 + iVar13) = uVar3;
-    }
-    bVar2 = *(byte *)((int)&DAT_00799a30 + iVar13 + 2);
-    if (bVar2 != 0) {
-      iVar9 = (((2 < (int)(bVar2 - 1) % 6) - 1 & 0xfffffffd) + 3 + uVar11 * 6) * 0x10;
-      uVar3 = *(undefined2 *)(&DAT_005f57cc + iVar9);
-      *(undefined2 *)(&DAT_00799a38 + iVar13) = *(undefined2 *)(&DAT_005f57c8 + iVar9);
-      *(undefined2 *)(&DAT_00799a3a + iVar13) = uVar3;
-      *(uint *)(&DAT_00799a40 + param_1 * 0x84) = local_4;
-      goto LAB_004ee400;
-    }
-  }
-  *(uint *)(&DAT_00799a40 + param_1 * 0x84) = local_4;
-LAB_004ee400: ;
-  if (!bVar6) {
-    FUN_0047bf50(param_1,(int)*(short *)((int)&DAT_007999dc + iVar13 + 2),
-                 (int)*(short *)(&DAT_007999e0 + iVar13),(&DAT_007999db)[iVar13],
-                 (&DAT_007999db)[iVar13],iVar12,8);
-    return;
-  }
-  piVar14 = &DAT_0056f880;
-  do {
-    iVar12 = *(int *)(&DAT_007999e4 + iVar13) + *piVar14;
-    uVar10 = (&DAT_00af598c)[iVar12];
-    *(short *)(&DAT_00b4e6fc + iVar12 * 2) = (short)param_1;
-    (&DAT_00af598c)[iVar12] = uVar10 & 0xefffffff | 8;
-    if (DAT_005e4ef4 == 5) {
-      uVar15 = 5;
-    }
-    else {
-      uVar15 = 10;
-    }
-    FUN_004f3f70(param_1,iVar12,uVar15,1);
-    piVar14 = piVar14 + 1;
-  } while ((int)piVar14 < 0x56f890);
-  return;
+    PY_W(record+field)=(uint16_t)dx;PY_W(record+field+2u)=(uint16_t)dy;
 }
+
+/* Whole4EDF50: template shape, construction sprite and both worker offsets.
+   Every fixed-address table is indexed in bytes exactly once. */
+void restore_pyramid_update_piece_image(int32_t building,int32_t rotation,int32_t kind)
+{
+    uint32_t r=restore_pyramid_record(building),mode,shape,work_shape,work_image=0,image=0,base_sprite;
+    uint32_t entry,step,layer,position,style,i,tile;int32_t piece;int ground_only=0;
+    PY_U(r+PY_TRANSIENT_IMAGE)=0;
+    if(PY_B(r+PY_RENDER_PHASE)>1u){restore_pyramid_update_finished_piece(building,rotation,kind);return;}
+    mode=PY_U(0x5e4ef4u);piece=(int32_t)(int16_t)PY_W(r+PY_PIECE_INDEX);
+    entry=(uint32_t)piece+(uint32_t)kind*(mode==5u?36u:144u);
+    shape=PY_U((mode==5u?0x5e6578u:0x5e4ef8u)+entry*8u);
+    if(PY_I(shape)<4){shape+=(uint32_t)rotation;if(PY_I(shape)>=4)shape-=4u;}
+    else if(PY_I(shape)<8){shape+=(uint32_t)rotation;if(PY_I(shape)>=8)shape-=4u;}
+    else if(shape==9u)shape=9u+(uint32_t)rotation;
+    base_sprite=PY_U(0xf57334u);work_shape=mode==5u?0u:shape;
+    if(mode!=5u){
+        if(shape==5u)work_image=base_sprite+109u;
+        else if(shape==6u)work_image=base_sprite+(mode==3u?112u:110u);
+        else if(mode==3u){
+            if(shape==1u)work_image=base_sprite+115u;
+            else if(shape==2u)work_image=base_sprite+119u;
+            else if(shape==3u)work_image=base_sprite+123u;
+        }
+    }
+    step=PY_B(r+PY_SPRITE_STEP);layer=PY_B(r+PY_LAYER_INDEX);
+    if(!PY_B(r+PY_RENDER_PHASE)||mode==5u){
+        if(!step){
+            if(piece<4&&mode!=5u)image=PY_U(0xf57364u)+PY_U(0x56f840u+((uint32_t)piece+(uint32_t)rotation*4u)*4u);
+            else ground_only=1;
+        }else if(layer<PY_B(r+PY_TEMPLATE_HEIGHT)||shape==8u){
+            image=base_sprite+step+95u+(PY_B(0xacf85cu+PY_U(r+PY_CELL))&1u)*6u;
+        }else if(mode==1u){
+            image=PY_U(PY_B(0x5e68d8u+(uint32_t)kind*6u+layer)?0xf5738cu:0xf57334u)+step*8u-8u+shape;
+        }else if(PY_I(shape)<8)image=base_sprite+step*8u-8u+shape;
+        else image=base_sprite+109u+(shape&1u);
+    }else if(mode==1u&&PY_B(0x5e68d8u+(uint32_t)kind*6u+layer)){
+        image=PY_U(0xf5738cu)+(5u-step)*8u+shape;
+    }else image=base_sprite+(11u-step)*8u+shape;
+    if((!PY_B(r+PY_WORKER_POSITION_A)&&!PY_B(r+PY_WORKER_POSITION_B))||!work_image)PY_U(r+PY_WORKER_IMAGE)=0;
+    else{
+        style=mode==1u&&PY_B(0x5e68d8u+(uint32_t)kind*6u+PY_B(r+PY_LAYER_INDEX))?1u:(mode==3u?2u:0u);
+        position=PY_B(r+PY_WORKER_POSITION_A);if(position)worker_offset(r,PY_WORKER_X_A,position,work_shape,style);
+        position=PY_B(r+PY_WORKER_POSITION_B);if(position)worker_offset(r,PY_WORKER_X_B,position,work_shape,style);
+        PY_U(r+PY_WORKER_IMAGE)=work_image;
+    }
+    if(!ground_only){
+        int32_t size=(int32_t)PY_B(r+PY_SIZE);
+        FUN_0047bf50((uint16_t)building,(int32_t)(int16_t)PY_W(r+PY_X),(int32_t)(int16_t)PY_W(r+PY_Y),size,size,image,8);return;
+    }
+    for(i=0;i<4u;++i){
+        tile=PY_U(r+PY_CELL)+PY_U(0x56f880u+i*4u);
+        PY_W(0xb4e6fcu+tile*2u)=(uint16_t)building;PY_U(0xaf598cu+tile*4u)=(PY_U(0xaf598cu+tile*4u)&0xefffffffu)|8u;
+        (void)FUN_004f3f70(building,tile,PY_U(0x5e4ef4u)==5u?5:10,1);
+    }
+}
+void FUN_004edf50(int32_t building,int32_t rotation,int32_t kind)
+{restore_pyramid_update_piece_image(building,rotation,kind);}

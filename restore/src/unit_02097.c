@@ -1,153 +1,50 @@
-#include "restore_types.h"
-#define DAT_0056f7d8 (*(undefined4 *)0x0056f7d8u)
-#define DAT_0056f7ec (*(undefined4 *)0x0056f7ecu)
-#define DAT_0056f898 (*(undefined4 *)0x0056f898u)
-#define DAT_0056f89c (*(undefined4 *)0x0056f89cu)
-#define DAT_0056fd18 (*(undefined4 *)0x0056fd18u)
-#define DAT_0056fd1c (*(undefined4 *)0x0056fd1cu)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005e4efc (*(undefined4 *)0x005e4efcu)
-#define DAT_005e657c (*(undefined4 *)0x005e657cu)
-#define DAT_005e6970 (*(undefined *)0x005e6970u)
-#define DAT_005f5c40 (*(undefined4 *)0x005f5c40u)
-#define DAT_005f5c54 (*(undefined4 *)0x005f5c54u)
-#define DAT_005f5c68 (*(undefined4 *)0x005f5c68u)
-#define DAT_005f5c7c (*(undefined4 *)0x005f5c7cu)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a10 (*(undefined4 *)0x00799a10u)
-#define DAT_00799a12 (*(undefined4 *)0x00799a12u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a2e (*(undefined4 *)0x00799a2eu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00799a34 (*(undefined4 *)0x00799a34u)
-#define DAT_00799a36 (*(undefined4 *)0x00799a36u)
-#define DAT_00799a38 (*(undefined4 *)0x00799a38u)
-#define DAT_00799a3a (*(undefined4 *)0x00799a3au)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00799a40 (*(undefined4 *)0x00799a40u)
-#define DAT_00799aa0 (*(undefined4 *)0x00799aa0u)
-extern int FUN_0046a400();
-extern undefined4 FUN_00485100();
-extern void FUN_004ee6c0();
-extern void FUN_004f3c90();
-extern int FUN_004f4f80();
-extern void FUN_004f5f10();
+#include "pyramid_parts.h"
+#include "building_allocator.h"
+#include "building_support.h"
+#include "editor_brush_validation.h"
 
-void FUN_004ee780(undefined4 param_1,int param_2,int param_3,undefined4 param_4,int param_5)
-
+static void initialize_piece(int32_t building,uint32_t kind,uint32_t mode,uint32_t piece)
 {
-  short sVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  undefined2 uVar5;
-  undefined1 uVar6;
-  int iVar7;
-  int iVar8;
-  
-  iVar8 = param_5;
-  iVar3 = DAT_005e6970;
-  iVar7 = DAT_005e4ef4;
-  iVar2 = param_5 * 0x108;
-  *(undefined2 *)(&DAT_00799a10 + iVar2) = 0;
-  *(char *)(&DAT_00799a2c + param_5 * 0x84) = (char)iVar3;
-  *(undefined1 *)((int)&DAT_00799a2c + iVar2 + 1) = 2;
-  *(undefined1 *)(&DAT_00799a2e + param_5 * 0x84) = 0;
-  (&DAT_00799a3c)[param_5 * 0x84] = 0;
-  *(undefined1 *)((int)&DAT_00799a2e + iVar2 + 1) = 0;
-  if (iVar7 == 5) {
-    uVar6 = (&DAT_005e657c)[iVar3 * 0x120];
-  }
-  else {
-    uVar6 = (&DAT_005e4efc)[iVar3 * 0x480];
-  }
-  *(undefined1 *)(&DAT_00799a30 + param_5 * 0x42) = uVar6;
-  *(undefined1 *)((int)&DAT_00799a30 + iVar2 + 1) = 0;
-  *(undefined1 *)((int)&DAT_00799a30 + iVar2 + 2) = 0;
-  *(undefined1 *)((int)&DAT_00799a30 + iVar2 + 3) = 0xf;
-  *(undefined2 *)(&DAT_00799a34 + iVar2) = 0;
-  *(undefined2 *)(&DAT_00799a36 + iVar2) = 0;
-  *(undefined2 *)(&DAT_00799a38 + iVar2) = 0;
-  *(undefined2 *)(&DAT_00799a3a + iVar2) = 0;
-  *(undefined4 *)(&DAT_00799a40 + param_5 * 0x84) = 0;
-  switch((int)(iVar7)) {
-  case 1: ;
-    uVar5 = (undefined2)*(undefined4 *)(&DAT_005f5c68 + iVar3 * 4);
-    break;
-  case 2: ;
-  case 4: ;
-    uVar5 = (undefined2)*(undefined4 *)(&DAT_005f5c40 + iVar3 * 4);
-    break;
-  case 3: ;
-    uVar5 = (undefined2)*(undefined4 *)(&DAT_005f5c54 + iVar3 * 4);
-    break;
-  case 5: ;
-    uVar5 = (undefined2)*(undefined4 *)(&DAT_005f5c7c + iVar3 * 4);
-    break;
-default: ;
-    uVar5 = 0;
-  }
-  *(undefined2 *)(&DAT_00799aa0 + param_5 * 0x42) = uVar5;
-  (&DAT_007999ea)[param_5 * 0x84] = 0;
-  (&DAT_007999db)[iVar2] = 2;
-  FUN_004ee6c0(param_5);
-  FUN_004f4f80(param_5);
-  iVar7 = 1;
-  param_5 = 0;
-  while( true ) {
-    if (DAT_005e4ef4 == 5) {
-      iVar3 = *(int *)(&DAT_0056f7ec + DAT_005e6970 * 4);
-    }
-    else {
-      iVar3 = *(int *)(&DAT_0056f7d8 + DAT_005e6970 * 4);
-    }
-    if (iVar3 <= iVar7) break;
-    if (DAT_005e4ef4 == 5) {
-      iVar3 = *(int *)((int)&DAT_0056fd18 + param_5);
-      iVar2 = *(int *)((int)&DAT_0056fd1c + param_5);
-    }
-    else {
-      iVar3 = *(int *)((int)&DAT_0056f898 + param_5);
-      iVar2 = *(int *)((int)&DAT_0056f89c + param_5);
-    }
-    iVar2 = FUN_0046a400(param_1,0xb7,iVar3 + param_2,iVar2 + param_3,0,iVar8 + 1);
-    FUN_00485100(iVar2);
-    iVar3 = DAT_005e4ef4;
-    iVar4 = iVar2 * 0x108;
-    *(short *)(&DAT_00799a10 + iVar4) = (short)iVar8;
-    *(short *)(&DAT_00799a12 + iVar8 * 0x108) = (short)iVar2;
-    iVar8 = DAT_005e6970;
-    *(undefined2 *)(&DAT_00799a12 + iVar4) = 0;
-    (&DAT_007999ea)[iVar2 * 0x84] = (short)iVar7;
-    (&DAT_007999db)[iVar4] = 2;
-    *(char *)(&DAT_00799a2c + iVar2 * 0x84) = (char)iVar8;
-    *(undefined1 *)((int)&DAT_00799a2c + iVar4 + 1) = 2;
-    *(undefined1 *)(&DAT_00799a2e + iVar2 * 0x84) = 0;
-    (&DAT_00799a3c)[iVar2 * 0x84] = 0;
-    *(undefined1 *)((int)&DAT_00799a2e + iVar4 + 1) = 0;
-    if (iVar3 == 5) {
-      uVar6 = (&DAT_005e657c)[(iVar7 + iVar8 * 0x24) * 8];
-    }
-    else {
-      uVar6 = (&DAT_005e4efc)[(iVar8 * 0x90 + iVar7) * 8];
-    }
-    *(undefined1 *)(&DAT_00799a30 + iVar2 * 0x42) = uVar6;
-    *(undefined1 *)((int)&DAT_00799a30 + iVar4 + 1) = 0;
-    *(undefined1 *)((int)&DAT_00799a30 + iVar4 + 2) = 0;
-    *(undefined1 *)((int)&DAT_00799a30 + iVar4 + 3) = 0xf;
-    *(undefined2 *)(&DAT_00799a34 + iVar4) = 0;
-    *(undefined2 *)(&DAT_00799a36 + iVar4) = 0;
-    *(undefined2 *)(&DAT_00799a38 + iVar4) = 0;
-    *(undefined2 *)(&DAT_00799a3a + iVar4) = 0;
-    *(undefined4 *)(&DAT_00799a40 + iVar2 * 0x84) = 0;
-    FUN_004ee6c0(iVar2);
-    iVar7 = iVar7 + 1;
-    param_5 = param_5 + 8;
-    iVar8 = iVar2;
-  }
-  sVar1 = (&DAT_007999ea)[iVar8 * 0x84];
-  FUN_004f3c90(iVar8 - sVar1);
-  FUN_004f5f10(iVar8 - sVar1);
-  return;
+    uint32_t r=restore_pyramid_record(building),entry=piece+kind*(mode==5u?36u:144u);
+    PY_B(r+PY_LAYOUT_KIND)=(uint8_t)kind;PY_B(r+PY_RENDER_PHASE)=2;
+    PY_B(r+PY_SPRITE_STEP)=0;PY_W(r+PY_STATE_WORD_64)=0;PY_B(r+PY_LAYER_INDEX)=0;
+    PY_B(r+PY_TEMPLATE_HEIGHT)=PY_B((mode==5u?0x5e657cu:0x5e4efcu)+entry*8u);
+    PY_B(r+PY_WORKER_POSITION_A)=0;PY_B(r+PY_WORKER_POSITION_B)=0;PY_B(r+PY_CELL_PHASE_MASK)=15;
+    PY_W(r+PY_WORKER_X_A)=0;PY_W(r+PY_WORKER_Y_A)=0;PY_W(r+PY_WORKER_X_B)=0;PY_W(r+PY_WORKER_Y_B)=0;
+    PY_U(r+PY_WORKER_IMAGE)=0;PY_W(r+PY_PIECE_INDEX)=(uint16_t)piece;PY_B(r+PY_SIZE)=2;
 }
+
+/* Whole4EE780. The fourth native argument is unused. Capture root mode/kind,
+   then reload them after callbacks for child records and loop bounds. */
+void restore_pyramid_create_parts(uint32_t owner,int32_t x,int32_t y,uint32_t unused,int32_t building)
+{
+    uint32_t r=restore_pyramid_record(building),kind=PY_U(0x5e6970u),mode=PY_U(0x5e4ef4u),amount=0;
+    uint32_t previous=(uint32_t)building,current,entry=0,delta,root;int32_t piece=1,count;
+    (void)unused;PY_W(r+PY_PREVIOUS)=0;
+    initialize_piece(building,kind,mode,0);
+    if(mode==1u)amount=PY_U(0x5f5c68u+kind*4u);
+    else if(mode==2u||mode==4u)amount=PY_U(0x5f5c40u+kind*4u);
+    else if(mode==3u)amount=PY_U(0x5f5c54u+kind*4u);
+    else if(mode==5u)amount=PY_U(0x5f5c7cu+kind*4u);
+    PY_W(r+PY_CONSTRUCTION_AMOUNT)=(uint16_t)amount;
+    restore_pyramid_stamp_footprint(building);(void)FUN_004f4f80(building);
+    for(;;){
+        mode=PY_U(0x5e4ef4u);kind=PY_U(0x5e6970u);
+        count=PY_I(PY_U((mode==5u?0x56f7ecu:0x56f7d8u)+kind*4u));
+        if(piece>=count)break;
+        delta=(mode==5u?0x56fd18u:0x56f898u)+entry;
+        current=(uint32_t)restore_building_allocate_0046a400(owner,183,
+            PY_I((uint32_t)x+PY_U(delta)),PY_I((uint32_t)y+PY_U(delta+4u)),0,PY_I(previous+1u));
+        (void)FUN_00485100(PY_I(current));
+        r=restore_pyramid_record(PY_I(current));
+        mode=PY_U(0x5e4ef4u);
+        PY_W(r+PY_PREVIOUS)=(uint16_t)previous;PY_W(restore_pyramid_record(PY_I(previous))+PY_NEXT)=(uint16_t)current;
+        kind=PY_U(0x5e6970u);PY_W(r+PY_NEXT)=0;
+        initialize_piece(PY_I(current),kind,mode,(uint32_t)piece);
+        previous=current;restore_pyramid_stamp_footprint(PY_I(current));++piece;entry+=8u;
+    }
+    root=previous-(uint32_t)(int32_t)(int16_t)PY_W(restore_pyramid_record(PY_I(previous))+PY_PIECE_INDEX);
+    restore_pyramid_mark_special_parts(PY_I(root));restore_pyramid_create_entrance(PY_I(root));
+}
+void FUN_004ee780(uint32_t owner,int32_t x,int32_t y,uint32_t unused,int32_t building)
+{restore_pyramid_create_parts(owner,x,y,unused,building);}

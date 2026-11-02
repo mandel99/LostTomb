@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Reconstruct and name seven complete pyramid functions: footprint stamping,
+  linked part creation, construction/worker images, whole refresh, special
+  parts, finished phases and entrance creation. Correct the missing third
+  argument in the old image-refresh caller.
+- Pass 368 focused native/C cases, including 35 complete seven-function
+  placement compositions. Preserve BYTE/WORD/DWORD field widths and table
+  reloads after callbacks. Physical rendering and live gameplay remain untested.
 - Reconstruct five complete mausoleum functions: placement, tile/image update,
   part/worker repositioning, instant completion and whole-monument refresh.
 - Preserve all 116 parts, linked allocation order, terrain map field widths and
