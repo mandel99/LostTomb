@@ -1,68 +1,22 @@
-#include "restore_types.h"
-#define DAT_005d2c48 (*(undefined4 *)0x005d2c48u)
-#define DAT_00784e78 (*(undefined4 *)0x00784e78u)
-#define DAT_0078d790 (*(undefined *)0x0078d790u)
-#define DAT_00799af0 (*(undefined4 *)0x00799af0u)
-extern uint FUN_004ea930();
-extern void FUN_005468d0();
-
-void FUN_00492fc0(void)
-
+#include "monument_footprint.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+extern uint32_t FUN_004ea930(void);
+/* Whole native492FC0:198 bytes,70 instructions. Consume one available
+   eligible material with the greatest positive cost; earliest ties win. */
+void restore_monument_consume_resource(void)
 {
-  short sVar1;
-  char cVar2;
-  int iVar3;
-  int *piVar4;
-  int iVar5;
-  int *piVar6;
-  int iVar7;
-  short *psVar8;
-  
-  iVar7 = 0;
-  iVar5 = 0;
-  iVar3 = 0;
-  piVar6 = (int *)&DAT_005d2c48;
-  piVar4 = &DAT_00784e78;
-  do {
-    switch((int)(iVar3)) {
-    case 1: ;
-    case 8: ;
-    case 10: ;
-    case 0xd: ;
-    case 0xf: ;
-    case 0x11: ;
-    case 0x12: ;
-    case 0x13: ;
-    case 0x14: ;
-    case 0x17: ;
-    case 0x18: ;
-    case 0x19: ;
-    case 0x1a: ;
-    case 0x1c: ;
-    case 0x1e: ;
-      if ((*piVar4 != 0) && (iVar7 < *piVar6)) {
-        iVar5 = iVar3;
-        iVar7 = *piVar6;
-      }
-    }
-    piVar4 = piVar4 + 1;
-    iVar3 = iVar3 + 1;
-    piVar6 = piVar6 + 2;
-  } while ((int)piVar4 < 0x784f08);
-  if (0 < iVar5) {
-    (&DAT_00784e78)[iVar5] = (&DAT_00784e78)[iVar5] + -1;
-  }
-  cVar2 = FUN_004ea930();
-  if ((cVar2 == '\0') && (iVar5 = 1, 1 < DAT_0078d790)) {
-    psVar8 = &DAT_00799af0;
-    do {
-      sVar1 = *psVar8;
-      if ((((sVar1 == 0xe5) || (sVar1 == 0xea)) || (sVar1 == 0xeb)) || (sVar1 == 0xec)) {
-        FUN_005468d0(iVar5);
-      }
-      iVar5 = iVar5 + 1;
-      psVar8 = psVar8 + 0x84;
-    } while (iVar5 < DAT_0078d790);
-  }
-  return;
+ uint32_t i,best=0,self;int32_t best_cost=0,cost;
+ for(i=0;i<36u;++i){
+  switch(i){case 1:case 8:case 10:case 13:case 15:case 17:case 18:case 19:
+  case 20:case 23:case 24:case 25:case 26:case 28:case 30:break;default:continue;}
+  cost=(int32_t)U(0x5d2c48u+i*8u);
+  if(U(0x784e78u+i*4u)&&cost>best_cost){best=i;best_cost=cost;}
+ }
+ if(best)U(0x784e78u+best*4u)-=1u;
+ if((uint8_t)FUN_004ea930())return;
+ for(i=1;(int32_t)i<(int32_t)U(0x78d790u);++i){
+  self=restore_monument_receiver(W(0x7999e8u+i*264u));
+  if(self)restore_monument_commit_footprint(self,(int32_t)i);
+ }
 }

@@ -7,7 +7,7 @@
 #define DAT_00799a44 (*(undefined4 *)0x00799a44u)
 extern uint FUN_004ea930();
 extern undefined4 FUN_00545740();
-extern void FUN_005468d0();
+#include "monument_footprint.h"
 extern undefined4 FUN_0054f470();
 extern undefined4 FUN_00555e80();
 extern undefined4 FUN_00558be0();
@@ -62,7 +62,7 @@ void FUN_00547870(int param_1,int param_2)
       iVar6 = FUN_00545740(iVar5,0);
       if (iVar6 == 100) {
         (&DAT_00799a30)[iVar5 * 0x42] = 1;
-        FUN_005468d0(iVar5);
+        FUN_005468d0(0x6f9320u,iVar5);
         return;
       }
       break;
@@ -70,7 +70,7 @@ void FUN_00547870(int param_1,int param_2)
       iVar6 = FUN_00558be0(iVar5,0);
       if (iVar6 == 100) {
         (&DAT_00799a30)[iVar5 * 0x42] = 1;
-        FUN_005468d0(iVar5);
+        FUN_005468d0(0x6f5648u,iVar5);
         return;
       }
       break;
@@ -78,7 +78,7 @@ void FUN_00547870(int param_1,int param_2)
       iVar6 = FUN_00555e80(iVar5,0);
       if (iVar6 == 100) {
         (&DAT_00799a30)[iVar5 * 0x42] = 1;
-        FUN_005468d0(iVar5);
+        FUN_005468d0(0x6de9e0u,iVar5);
         return;
       }
       break;
@@ -86,7 +86,7 @@ void FUN_00547870(int param_1,int param_2)
       iVar6 = FUN_0054f470(iVar5,0);
       if (iVar6 == 100) {
         (&DAT_00799a30)[iVar5 * 0x42] = 1;
-        FUN_005468d0(iVar5);
+        FUN_005468d0(0x6e9188u,iVar5);
       }
     }
   }

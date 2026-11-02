@@ -1,4 +1,5 @@
 #include "actor_civic.h"
+#include "monument_footprint.h"
 #include "actor_predicate.h"
 #include "actor_laborer.h"
 #include "actor_routing.h"
@@ -644,7 +645,7 @@ int32_t FUN_00459ff0(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00459ff0u,args,1);}
 
 void FUN_00492fc0(void)
-{(void)invoke(0x00492fc0u,0,0);}
+{restore_monument_consume_resource();}
 
 void FUN_004b22e0(int32_t p0,int32_t p1,int32_t p2)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2};(void)invoke(0x004b22e0u,args,3);}

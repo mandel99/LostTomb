@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Reconstruct the complete monument footprint writer and both resource/refresh
+  loops. Recover the explicit object receiver, cached footprint size and virtual
+  image flags. Correct map field widths, shape masks and eight old caller arguments.
+- Pass 376 native/C cases covering all shape/orientation branches, finished tiles,
+  material selection and real image/activity/map-write compositions. Physical
+  rendering and live gameplay remain untested.
 - Reconstruct seven complete pyramid-work selection functions: worker-slot
   thresholds, claim cleanup, pending work, paired pieces/workers, route gaps
   and destination selection. Preserve native claim priorities, signed distance

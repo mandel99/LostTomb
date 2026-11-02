@@ -218,7 +218,7 @@ extern void FUN_0053d850();
 extern void FUN_005417b0();
 extern void FUN_00541920();
 extern void FUN_00545c30();
-extern void FUN_005468d0();
+#include "monument_footprint.h"
 extern void FUN_0054fba0();
 extern void FUN_00556480();
 extern void FUN_00559130();
@@ -1108,7 +1108,7 @@ LAB_00472422: ;
     return;
   case 0xe5: ;
     if (param_7 == 0) {
-      FUN_005468d0(param_3);
+      FUN_005468d0(0x6f9320u,param_3);
       return;
     }
     FUN_00545c30(param_4,param_5,param_3,uVar6);
@@ -1142,7 +1142,7 @@ LAB_00472378: ;
     return;
   case 0xea: ;
     if (param_7 == 0) {
-      FUN_005468d0(param_3);
+      FUN_005468d0(0x6f5648u,param_3);
       return;
     }
     FUN_00559130(param_4,param_5,param_3,uVar6);
@@ -1151,7 +1151,7 @@ LAB_00472378: ;
     return;
   case 0xeb: ;
     if (param_7 == 0) {
-      FUN_005468d0(param_3);
+      FUN_005468d0(0x6de9e0u,param_3);
       return;
     }
     FUN_00556480(param_4,param_5,param_3,uVar6);
@@ -1160,7 +1160,7 @@ LAB_00472378: ;
     return;
   case 0xec: ;
     if (param_7 == 0) {
-      FUN_005468d0(param_3);
+      FUN_005468d0(0x6e9188u,param_3);
       return;
     }
     FUN_0054fba0(param_4,param_5,param_3,0);
