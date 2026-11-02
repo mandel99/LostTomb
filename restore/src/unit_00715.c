@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "event_description.h"
 #define DAT_0057c048 (*(undefined4 *)0x0057c048u)
 #define DAT_005d9e20 (*(undefined4 *)0x005d9e20u)
 #define DAT_005d9e3c (*(undefined4 *)0x005d9e3cu)
@@ -76,7 +77,6 @@ extern undefined4 FUN_004495c0();
 extern undefined1 FUN_004495d0();
 extern undefined1 FUN_004495f0();
 extern undefined1 FUN_00449600();
-extern undefined1 FUN_00449620();
 extern bool FUN_00449630();
 extern undefined1 FUN_00449640();
 extern ushort FUN_00449660();
@@ -219,7 +219,7 @@ void FUN_0044aaf0(void)
         FUN_004cd1a0(0,&PTR_DAT_005d9f54,DAT_007056c8 == 0xc,0,0);
         FUN_004cd2e0((int)sVar10,0x40,&DAT_0057c048,&PTR_DAT_005d9f54,DAT_00f56f8c,0,4,7);
       }
-      cVar3 = FUN_00449620();
+      cVar3 = (char)FUN_00449620((const RestoreTownRecord *)(uintptr_t)(0x785d74u+(uint32_t)iVar1));
       if (cVar3 != '\0') {
         sVar10 = *(short *)(&DAT_00785d82 + iVar1);
         if (sVar10 < 0) {

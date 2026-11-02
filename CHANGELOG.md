@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Reconstruct the complete event-description formatter and its twelve-row
+  editor list, with explicit event receivers, signed ranges and IDs,
+  dependency indices, native text-selection restoration and 40-character
+  display truncation. Restore the kind-label and quantity-table queries.
+- Pass 642 offline native/C cases, including real catalog/member-query
+  composition, all 256 quantity-table indices, callback-sensitive list
+  state and 40-character truncation. Reproduce the old formatter read
+  fault offline. Final drawing/scrollbar endpoints remain controlled.
 - Add bounded difficulty diagnostics at settings load and mission setup,
   including asset-directory selection and selected versus serialized PAK
   difficulty. This investigates the reported Normal-to-Very-Easy change;

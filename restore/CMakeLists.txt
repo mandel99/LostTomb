@@ -388,6 +388,8 @@ set_source_files_properties(src/unit_02352.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_01587.c src/unit_01588.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_00680.c src/unit_00689.c src/unit_00690.c src/unit_00706.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_00054.c src/unit_00055.c src/unit_00056.c src/unit_00057.c
  src/unit_00058.c src/unit_00059.c src/unit_00060.c src/unit_00061.c src/unit_01370.c src/unit_01527.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")

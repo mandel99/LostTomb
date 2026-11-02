@@ -1,10 +1,8 @@
-#include "restore_types.h"
-#define PTR_DAT_005d9e00 (*(unsigned char * *)0x005d9e00u)
-
-undefined1 FUN_00449620(void)
-
+#include "event_description.h"
+/* Whole449620: ECX is the124-byte event; EAX is zero extended. */
+uint32_t restore_event_has_quantity_range(const RestoreTownRecord *event)
 {
-  int in_ECX;
-  
-  return *(undefined1 *)((int)&PTR_DAT_005d9e00 + (uint)*(byte *)(in_ECX + 2));
+    return *(const uint8_t *)(uintptr_t)(0x5d9e00u+event->bytes[2]);
 }
+uint32_t FUN_00449620(const RestoreTownRecord *event)
+{return restore_event_has_quantity_range(event);}
