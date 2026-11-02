@@ -1,86 +1,42 @@
-#include "restore_types.h"
-#define DAT_00702798 (*(undefined *)0x00702798u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a10 (*(undefined4 *)0x00799a10u)
-#define DAT_00799a12 (*(undefined4 *)0x00799a12u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00799a34 (*(undefined4 *)0x00799a34u)
-#define DAT_00799a38 (*(undefined4 *)0x00799a38u)
-#define DAT_00799a40 (*(undefined4 *)0x00799a40u)
-#define DAT_00799a44 (*(undefined4 *)0x00799a44u)
-#define DAT_00799a48 (*(undefined4 *)0x00799a48u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
-extern int FUN_0046a400();
-extern undefined4 FUN_00485100();
-extern void FUN_004ded50();
-extern void FUN_004dfbb0();
-extern int FUN_004f4f80();
+#include "mausoleum.h"
+#include "city_footprint_validation.h"
+#include "building_allocator.h"
+#include "building_support.h"
+#include "editor_brush_validation.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define I(v) ((int32_t)(uint32_t)(v))
 
-void FUN_004df9d0(int param_1,int param_2,int param_3,char param_4)
-
+/* Whole4DF9D0: 116 geometry records, a root and 115 linked allocations.
+   Geometry size is a BYTE, piece/link indices are WORDs; progress, origin
+   and saved orientation occupy DWORDs in each 264-byte building record. */
+void FUN_004df9d0(int32_t origin_x,int32_t origin_y,int32_t building,uint8_t loaded)
 {
-  uint uVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  undefined4 local_38;
-  int local_34;
-  int local_30;
-  undefined1 local_2c;
-  
-  local_38 = 0;
-  if (param_4 == '\0') {
-    local_38 = FUN_004f4f80(param_3);
-    uVar1 = DAT_00bca2e0;
-  }
-  else {
-    uVar1 = (DAT_00702798 & 0xffff) >> 0xd;
-  }
-  FUN_004ded50(&local_34,0,DAT_00bca2e0,uVar1);
-  iVar2 = param_3 * 0x108;
-  *(short *)((int)&DAT_007999dc + iVar2 + 2) = (short)local_34 + (short)param_1;
-  *(short *)(&DAT_007999e0 + iVar2) = (short)local_30 + (short)param_2;
-  *(int *)(&DAT_007999e4 + iVar2) = DAT_00bca2d8 + (local_30 + param_2) * 0xe4 + local_34 + param_1;
-  (&DAT_007999ea)[param_3 * 0x84] = 0;
-  (&DAT_007999db)[iVar2] = local_2c;
-  *(undefined2 *)(&DAT_00799a10 + iVar2) = 0;
-  *(undefined4 *)(&DAT_00799a2c + param_3 * 0x84) = local_38;
-  (&DAT_00799a30)[param_3 * 0x42] = 0;
-  *(undefined4 *)(&DAT_00799a38 + iVar2) = 1;
-  *(undefined4 *)(&DAT_00799a34 + iVar2) = 0;
-  *(int *)(&DAT_00799a40 + param_3 * 0x84) = param_1;
-  *(int *)(&DAT_00799a44 + param_3 * 0x84) = param_2;
-  *(uint *)(&DAT_00799a48 + iVar2) = uVar1;
-  FUN_004dfbb0(param_3);
-  FUN_00485100(param_3);
-  iVar2 = 1;
-  do {
-    FUN_004ded50(&local_34,iVar2,DAT_00bca2e0,uVar1);
-    iVar3 = FUN_0046a400(DAT_00eaac28,0xde,local_34 + param_1,local_30 + param_2,0,param_3 + 1);
-    iVar4 = iVar3 * 0x108;
-    *(short *)(&DAT_00799a10 + iVar4) = (short)param_3;
-    *(undefined2 *)(&DAT_00799a12 + iVar4) = 0;
-    *(short *)(&DAT_00799a12 + param_3 * 0x108) = (short)iVar3;
-    (&DAT_007999ea)[iVar3 * 0x84] = (short)iVar2;
-    (&DAT_007999db)[iVar4] = local_2c;
-    *(undefined4 *)(&DAT_00799a2c + iVar3 * 0x84) = local_38;
-    (&DAT_00799a30)[iVar3 * 0x42] = 0;
-    *(undefined4 *)(&DAT_00799a38 + iVar4) = 0;
-    *(undefined4 *)(&DAT_00799a34 + iVar4) = 0;
-    *(int *)(&DAT_00799a40 + iVar3 * 0x84) = param_1;
-    *(int *)(&DAT_00799a44 + iVar3 * 0x84) = param_2;
-    *(uint *)(&DAT_00799a48 + iVar4) = uVar1;
-    FUN_004dfbb0(iVar3);
-    FUN_00485100(iVar3);
-    iVar2 = iVar2 + 1;
-    param_3 = iVar3;
-  } while (iVar2 < 0x74);
-  return;
+    int32_t geometry[13],piece;
+    uint32_t slot=0,orientation,offset,previous=(uint32_t)building,current,x,y;
+    if(!loaded){slot=(uint32_t)FUN_004f4f80(building);orientation=U(0xbca2e0u);}
+    else orientation=(U(0x702798u)&0xffffu)>>13;
+    restore_city_geometry_004ded50(geometry,0,I(U(0xbca2e0u)),I(orientation));
+    offset=(uint32_t)building*264u;x=(uint32_t)origin_x+(uint32_t)geometry[0];y=(uint32_t)origin_y+(uint32_t)geometry[1];
+    W(0x7999deu+offset)=(uint16_t)x;W(0x7999e0u+offset)=(uint16_t)y;
+    U(0x7999e4u+offset)=U(0xbca2d8u)+y*228u+x;
+    W(0x7999eau+offset)=0;B(0x7999dbu+offset)=(uint8_t)geometry[2];
+    W(0x799a10u+offset)=0;U(0x799a2cu+offset)=slot;U(0x799a30u+offset)=0;
+    U(0x799a38u+offset)=1;U(0x799a34u+offset)=0;
+    U(0x799a40u+offset)=(uint32_t)origin_x;U(0x799a44u+offset)=(uint32_t)origin_y;U(0x799a48u+offset)=orientation;
+    FUN_004dfbb0(building);(void)FUN_00485100(building);
+    for(piece=1;piece<116;++piece){
+        restore_city_geometry_004ded50(geometry,piece,I(U(0xbca2e0u)),I(orientation));
+        current=(uint32_t)restore_building_allocate_0046a400(U(0xeaac28u),222,
+            I((uint32_t)origin_x+(uint32_t)geometry[0]),I((uint32_t)origin_y+(uint32_t)geometry[1]),0,I(previous+1u));
+        offset=current*264u;
+        W(0x799a10u+offset)=(uint16_t)previous;W(0x799a12u+offset)=0;
+        W(0x799a12u+previous*264u)=(uint16_t)current;
+        W(0x7999eau+offset)=(uint16_t)piece;B(0x7999dbu+offset)=(uint8_t)geometry[2];
+        U(0x799a2cu+offset)=slot;U(0x799a30u+offset)=0;
+        U(0x799a38u+offset)=0;U(0x799a34u+offset)=0;
+        U(0x799a40u+offset)=(uint32_t)origin_x;U(0x799a44u+offset)=(uint32_t)origin_y;U(0x799a48u+offset)=orientation;
+        previous=current;FUN_004dfbb0(I(current));(void)FUN_00485100(I(current));
+    }
 }

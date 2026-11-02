@@ -1,21 +1,12 @@
-#include "restore_types.h"
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-extern void FUN_004dfbb0();
+#include "mausoleum.h"
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_004e0c80(int param_1)
-
+/* Whole4E0C80: refresh every part, but only when the selected building's
+   full WORD kind is 222. Piece index is a signed WORD, not a DWORD. */
+void FUN_004e0c80(int32_t building)
 {
-  short sVar1;
-  int iVar2;
-  
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0xde) {
-    sVar1 = (&DAT_007999ea)[param_1 * 0x84];
-    iVar2 = 0;
-    do {
-      FUN_004dfbb0(iVar2 + (param_1 - sVar1));
-      iVar2 = iVar2 + 1;
-    } while (iVar2 < 0x74);
-  }
-  return;
+    uint32_t root,part,offset=(uint32_t)building*264u;
+    if(W(0x7999e8u+offset)!=222u)return;
+    root=(uint32_t)building-(uint32_t)(int32_t)(int16_t)W(0x7999eau+offset);
+    for(part=0;part<116u;++part)FUN_004dfbb0((int32_t)(root+part));
 }

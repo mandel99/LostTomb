@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Reconstruct five complete mausoleum functions: placement, tile/image update,
+  part/worker repositioning, instant completion and whole-monument refresh.
+- Preserve all 116 parts, linked allocation order, terrain map field widths and
+  distinct worker retarget/reset/restart paths. Fix complete geometry buffers
+  in the remaining public C entries.
+- Pass 192 focused native/C emulation cases, including all 14 part image
+  subtypes. Host gameplay and physical rendering were not exercised.
+- These source updates will be built and released only after a new tag is pushed.
+
 ## v0.1.1-wip.20261102
 
 - Fix the crash when previewing placement of the mausoleum. Use the complete

@@ -1,132 +1,50 @@
-#include "restore_types.h"
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_007999fe (*(undefined4 *)0x007999feu)
-#define DAT_00799a00 (*(undefined4 *)0x00799a00u)
-#define DAT_00799a34 (*(undefined4 *)0x00799a34u)
-#define DAT_00799a40 (*(undefined4 *)0x00799a40u)
-#define DAT_00799a44 (*(undefined4 *)0x00799a44u)
-#define DAT_00799a48 (*(undefined4 *)0x00799a48u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd60c (*(undefined4 *)0x00bcd60cu)
-#define DAT_00bcd60e (*(undefined4 *)0x00bcd60eu)
-#define DAT_00bcd618 (*(undefined4 *)0x00bcd618u)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd63c (*(undefined4 *)0x00bcd63cu)
-#define DAT_00bcd660 (*(undefined4 *)0x00bcd660u)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-extern void FUN_004b3250();
-extern void FUN_004b52f0();
-extern void FUN_004b5420();
-extern void FUN_004ded50();
-extern void FUN_004dfbb0();
-extern undefined4 FUN_004e0c50();
+#include "mausoleum.h"
+#include "city_footprint_validation.h"
+#include "actor_walking.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define I(v) ((int32_t)(uint32_t)(v))
 
-void FUN_004dfd90(int param_1)
-
+/* Whole4DFD90: reposition one part and its builder/carrier. Preserve the
+   actor type/state BYTE tests, signed WORD related actor and post-callback
+   reloads; route reset and movement restart have distinct native branches. */
+void FUN_004dfd90(int32_t building)
 {
-  char cVar1;
-  undefined4 uVar2;
-  int iVar3;
-  undefined2 uVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  int local_38;
-  int local_34;
-  int local_30;
-  
-  iVar3 = param_1;
-  iVar6 = param_1 * 0x108;
-  FUN_004ded50(&local_34,(int)(short)(&DAT_007999ea)[param_1 * 0x84],DAT_00bca2e0,
-               *(undefined4 *)(&DAT_00799a48 + iVar6));
-  local_38 = *(int *)(&DAT_00799a44 + iVar3 * 0x84) + local_30;
-  param_1 = *(int *)(&DAT_00799a40 + iVar3 * 0x84) + local_34;
-  *(short *)((int)&DAT_007999dc + iVar6 + 2) = (short)param_1;
-  *(short *)(&DAT_007999e0 + iVar6) = (short)local_38;
-  *(int *)(&DAT_007999e4 + iVar6) = DAT_00bca2d8 + local_38 * 0xe4 + param_1;
-  FUN_004e0c50(iVar3,&param_1,&local_38);
-  (&DAT_007999fe)[iVar3 * 0x84] = (undefined2)param_1;
-  uVar4 = (undefined2)local_38;
-  (&DAT_00799a00)[iVar3 * 0x84] = uVar4;
-  iVar5 = *(int *)(&DAT_00799a34 + iVar6);
-  if (iVar5 == 0) goto LAB_004e003b;
-  iVar7 = iVar5 * 0x184;
-  cVar1 = (&DAT_00bcd602)[iVar7];
-  if (cVar1 == 'O') {
-    if ((&DAT_00bcd630)[iVar7] == '\t') {
-      *(undefined2 *)(&DAT_00bcd61c + iVar7) = (&DAT_007999fe)[iVar3 * 0x84];
-      *(undefined2 *)(&DAT_00bcd61e + iVar7) = uVar4;
-      *(undefined4 *)(&DAT_00bcd620 + iVar7) = *(undefined4 *)(&DAT_007999e4 + iVar6);
-      goto LAB_004dfee3;
+    int32_t geometry[13],x,y;
+    uint32_t offset=(uint32_t)building*264u,worker,actor,type,state,tile,related;
+    restore_city_geometry_004ded50(geometry,(int32_t)(int16_t)W(0x7999eau+offset),
+        I(U(0xbca2e0u)),I(U(0x799a48u+offset)));
+    x=I(U(0x799a40u+offset)+(uint32_t)geometry[0]);y=I(U(0x799a44u+offset)+(uint32_t)geometry[1]);
+    W(0x7999deu+offset)=(uint16_t)x;W(0x7999e0u+offset)=(uint16_t)y;
+    U(0x7999e4u+offset)=U(0xbca2d8u)+(uint32_t)y*228u+(uint32_t)x;
+    (void)FUN_004e0c50(building,&x,&y);
+    W(0x7999feu+offset)=(uint16_t)x;W(0x799a00u+offset)=(uint16_t)y;
+    worker=U(0x799a34u+offset);
+    if(!worker)goto refresh;
+    actor=worker*388u;type=B(0xbcd602u+actor);state=B(0xbcd630u+actor);
+    if((type==79u&&state==9u)||(type==81u&&state==9u)||(type==85u&&state==27u)){
+        W(0xbcd61cu+actor)=W(0x7999feu+offset);W(0xbcd61eu+actor)=(uint16_t)y;
+        U(0xbcd620u+actor)=U(0x7999e4u+offset);
+        goto retarget;
     }
-    if ((&DAT_00bcd630)[iVar7] != '\n') goto LAB_004e003b;
-    FUN_004b5420(iVar5);
-    uVar4 = *(undefined2 *)(&DAT_007999e0 + iVar6);
-    uVar2 = *(undefined4 *)(&DAT_007999e4 + iVar6);
-    (&DAT_00bcd60c)[iVar5 * 0xc2] = *(undefined2 *)((int)&DAT_007999dc + iVar6 + 2);
-    (&DAT_00bcd60e)[iVar5 * 0xc2] = uVar4;
-    *(undefined4 *)(&DAT_00bcd618 + iVar7) = uVar2;
-LAB_004e0032: ;
-    FUN_004b52f0(iVar5);
-LAB_004e003b: ;
-    FUN_004dfbb0(iVar3);
-    return;
-  }
-  if (cVar1 == 'Q') {
-    cVar1 = (&DAT_00bcd630)[iVar7];
-    if (cVar1 != '\t') {
-      if ((cVar1 == '\v') || (cVar1 == '\n')) {
-        FUN_004b5420(iVar5);
-        uVar4 = *(undefined2 *)(&DAT_007999e0 + iVar6);
-        (&DAT_00bcd60c)[iVar5 * 0xc2] = *(undefined2 *)((int)&DAT_007999dc + iVar6 + 2);
-        uVar2 = *(undefined4 *)(&DAT_007999e4 + iVar6);
-        (&DAT_00bcd60e)[iVar5 * 0xc2] = uVar4;
-        *(undefined4 *)(&DAT_00bcd618 + iVar7) = uVar2;
-        *(undefined4 *)(&DAT_00bcd620 + iVar7) = uVar2;
-        FUN_004b52f0(iVar5);
-        if (((&DAT_00bcd630)[iVar7] == '\n') &&
-           (((iVar5 = (int)*(short *)(&DAT_00bcd660 + DAT_00d056f8 * 0x184), iVar5 != 0 &&
-             (iVar7 = iVar5 * 0x184, (&DAT_00bcd602)[iVar7] == 'U')) &&
-            ((&DAT_00bcd630)[iVar7] == '\x1a')))) {
-          uVar4 = (&DAT_00799a00)[iVar3 * 0x84];
-          *(undefined2 *)(&DAT_00bcd61c + iVar7) = (&DAT_007999fe)[iVar3 * 0x84];
-          uVar2 = *(undefined4 *)(&DAT_007999e4 + iVar6);
-          *(undefined2 *)(&DAT_00bcd61e + iVar7) = uVar4;
-          *(undefined4 *)(&DAT_00bcd620 + iVar7) = uVar2;
-          goto LAB_004dfee3;
-        }
-      }
-      goto LAB_004e003b;
+    if((type==79u&&state==10u)||(type==85u&&state==28u)||(type==81u&&(state==10u||state==11u))){
+        FUN_004b5420(I(worker));
+        W(0xbcd60cu+actor)=W(0x7999deu+offset);W(0xbcd60eu+actor)=W(0x7999e0u+offset);
+        tile=U(0x7999e4u+offset);U(0xbcd618u+actor)=tile;
+        if(type==81u)U(0xbcd620u+actor)=tile;
+        FUN_004b52f0(I(worker));
+        if(type!=81u||B(0xbcd630u+actor)!=10u)goto refresh;
+        related=(uint32_t)(int32_t)(int16_t)W(0xbcd660u+U(0xd056f8u)*388u);
+        if(!related)goto refresh;
+        actor=related*388u;
+        if(B(0xbcd602u+actor)!=85u||B(0xbcd630u+actor)!=26u)goto refresh;
+        worker=related;
+        W(0xbcd61cu+actor)=W(0x7999feu+offset);W(0xbcd61eu+actor)=W(0x799a00u+offset);
+        U(0xbcd620u+actor)=U(0x7999e4u+offset);
+retarget:
+        FUN_004b3250(I(worker));W(0xbcd63cu+actor)=0;
     }
-  }
-  else {
-    if (cVar1 != 'U') goto LAB_004e003b;
-    if ((&DAT_00bcd630)[iVar7] != '\x1b') {
-      if ((&DAT_00bcd630)[iVar7] != '\x1c') goto LAB_004e003b;
-      FUN_004b5420(iVar5);
-      uVar4 = *(undefined2 *)(&DAT_007999e0 + iVar6);
-      uVar2 = *(undefined4 *)(&DAT_007999e4 + iVar6);
-      (&DAT_00bcd60c)[iVar5 * 0xc2] = *(undefined2 *)((int)&DAT_007999dc + iVar6 + 2);
-      (&DAT_00bcd60e)[iVar5 * 0xc2] = uVar4;
-      *(undefined4 *)(&DAT_00bcd618 + iVar7) = uVar2;
-      goto LAB_004e0032;
-    }
-  }
-  uVar2 = *(undefined4 *)(&DAT_007999e4 + iVar6);
-  *(undefined2 *)(&DAT_00bcd61c + iVar7) = (&DAT_007999fe)[iVar3 * 0x84];
-  *(undefined2 *)(&DAT_00bcd61e + iVar7) = uVar4;
-  *(undefined4 *)(&DAT_00bcd620 + iVar7) = uVar2;
-LAB_004dfee3: ;
-  FUN_004b3250(iVar5);
-  *(undefined2 *)(&DAT_00bcd63c + iVar7) = 0;
-  FUN_004dfbb0(iVar3);
-  return;
+refresh:
+    FUN_004dfbb0(building);
 }
