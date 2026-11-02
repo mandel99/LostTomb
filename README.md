@@ -59,14 +59,16 @@ Python tooling; those inputs are not included in the release.
 
 This is a **WIP prerelease**, not a finished reconstruction. Recent work covers
 campaign progression, terrain and overlay rendering, building previews,
-monument previews, saved-state handling and event dispatch. The latest binary
-includes the fix for the missing event-object receiver in the simulation path.
+monument previews, saved-state handling and event dispatch. Version 0.1.1 fixes
+the mausoleum placement-preview crash caused by an undersized geometry buffer,
+incorrect table indexing and truncated coordinates. It also retains the fix
+for the missing event-object receiver in the simulation path.
 
 Passing a focused native/C comparison does not establish full-game fidelity.
 Remaining work includes checking legacy function contracts and field widths,
 finishing gameplay behavior, and broader visual and gameplay validation.
-The latest event fix was checked in offline emulation, including a read-only
-saved-state fixture; live gameplay confirmation remains pending.
+The mausoleum fix passed 44 focused native/C emulation cases covering all four
+rotations and placement acceptance. Live gameplay confirmation remains pending.
 
 Please report reproducible steps, the release tag, Windows version and the
 mission involved. Logs and crash dumps can contain local or saved-game data;
