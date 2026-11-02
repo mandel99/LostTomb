@@ -1,4 +1,5 @@
 #include "building_support.h"
+#include "actor_ring_queue.h"
 #include "building_allocator.h"
 #include "clear_footprint.h"
 #include "road_place.h"
@@ -81,10 +82,7 @@ int32_t FUN_004f4f80(int32_t building)
 
 uint32_t restore_ring_004f6520(void *self)
 {
- uint32_t object=(uint32_t)(uintptr_t)self,i=0,p;
- U(object+4u)=0;U(object+8u)=0;U(object+12u)=50;p=object+20u;
- do{U(p)=0;++i;p+=4u;}while((int32_t)i<(int32_t)U(object+12u));
- return 1;
+ return restore_actor_ring_initialize(self);
 }
 
 void FUN_0046cea0(int32_t building,int16_t kind)

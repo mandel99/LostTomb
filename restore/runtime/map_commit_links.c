@@ -1,4 +1,5 @@
 #include "map_commit_links.h"
+#include "actor_ring_queue.h"
 #include "menu_window_cursor_consumer.h"
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
@@ -40,26 +41,19 @@ uint32_t FUN_004806c0(int32_t x,int32_t y,uint32_t layout)
 }
 void restore_ring_004f6560(uint32_t self)
 {
- U(self+8u)=0;U(self+4u)=0;
+ (void)restore_actor_ring_clear((void *)(uintptr_t)self);
 }
 uint32_t restore_ring_004f65f0(uint32_t self,uint32_t *index)
 {
- uint32_t tail=U(self+8u),position=U((uint32_t)(uintptr_t)index),value=0,capacity;
- if(position!=tail){
-  value=U(self+position*4u+20u);++position;U((uint32_t)(uintptr_t)index)=position;
-  capacity=U(self+12u);if((int32_t)position>=(int32_t)capacity)U((uint32_t)(uintptr_t)index)=0;
- }
- return value;
+ return restore_actor_ring_next((const void *)(uintptr_t)self,index);
 }
 uint32_t restore_ring_004f6620(uint32_t self)
 {
- return restore_ring_004f65f0(self,(uint32_t *)(uintptr_t)(self+4u));
+ return restore_actor_ring_pop((void *)(uintptr_t)self);
 }
 uint32_t restore_ring_004f6630(uint32_t self)
 {
- uint32_t tail=U(self+8u),head=U(self+4u),difference=tail-head;
- if((int32_t)difference<0)return U(self+12u)+difference;
- return difference;
+ return restore_actor_ring_count((const void *)(uintptr_t)self);
 }
 void FUN_004a3630(int32_t building)
 {

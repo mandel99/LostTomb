@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Reconstruct all eight legacy actor-ring queue entries with explicit object
+  receivers and named C methods. Share one implementation across building,
+  map and walker callers, removing duplicate queue algorithms and undefined
+  receiver locals. Preserve cursor aliases and full-queue source refusal.
+- Pass 3,744 offline native/C queue cases in the game and diagnostic builds.
+  Cover all104 original instructions and all20 conditional edges; the
+  diagnostic also retains all eight legacy adapters and ten caller facades.
+  Global queue construction and complete actor simulation are outside this
+  comparison; gameplay reconstruction remains ongoing.
 - Reconstruct the complete angle-to-sprite direction mapper with a named C
   interface, correct return pointer and mirrored/unmirrored sector rules.
   Preserve extended precision, binary32 spills, inherited output padding and

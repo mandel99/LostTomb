@@ -1,4 +1,5 @@
 #include "actor_create.h"
+#include "actor_ring_queue.h"
 #include "actor_walking.h"
 #include "actor_profile_model.h"
 extern uint32_t FUN_00562348(void);
@@ -9,14 +10,7 @@ extern void FUN_0040f8f0(uint32_t *,uint32_t,uint8_t);
 /* Original queue receiver is ECX and RET4 removes the actor slot. */
 uint32_t restore_ring_004f6570(const void *queue,int32_t actor)
 {
- uint32_t base=(uint32_t)(uintptr_t)queue,index=U(base+4u),end=U(base+8u),capacity;
- if(index==end)return 0;
- do {
-  if(U(base+20u+index*4u)==(uint32_t)actor)return 1;
-  capacity=U(base+12u);index++;
-  if((int32_t)index>=(int32_t)capacity)index=0;
- }while(index!=end);
- return 0;
+ return restore_actor_ring_contains(queue,(uint32_t)actor);
 }
 /* Only AL is defined by the original boolean return. */
 uint8_t FUN_004b47a0(int32_t actor)

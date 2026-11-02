@@ -1,5 +1,6 @@
 /* Original 50-slot object, including untouched words 0 and 4 and exact alias order. */
 #include "ring_queue.h"
+#include "../include/actor_ring_queue.h"
 #include <string.h>
 
 static uint32_t load(const void *memory,unsigned int index)
@@ -14,7 +15,7 @@ static void store(void *memory,unsigned int index,uint32_t value)
     memcpy((unsigned char *)memory+index*4,&value,4);
 }
 
-uint32_t restore_004f6520(void *queue)
+uint32_t restore_actor_ring_initialize(void *queue)
 {
     unsigned int i;
     store(queue,1,0);
@@ -24,14 +25,14 @@ uint32_t restore_004f6520(void *queue)
     return 1;
 }
 
-uint32_t restore_004f6560(void *queue)
+uint32_t restore_actor_ring_clear(void *queue)
 {
     store(queue,2,0);
     store(queue,1,0);
     return 0;
 }
 
-uint32_t restore_004f6570(const void *queue,uint32_t value)
+uint32_t restore_actor_ring_contains(const void *queue,uint32_t value)
 {
     uint32_t index=load(queue,1),tail=load(queue,2);
     while (index!=tail) {
@@ -42,7 +43,7 @@ uint32_t restore_004f6570(const void *queue,uint32_t value)
     return 0;
 }
 
-uint32_t restore_004f65b0(void *queue,const void *value)
+uint32_t restore_actor_ring_push(void *queue,const void *value)
 {
     uint32_t tail=load(queue,2),capacity=load(queue,3),next=tail+1;
     if ((int32_t)next>=(int32_t)capacity) next=0;
@@ -52,7 +53,7 @@ uint32_t restore_004f65b0(void *queue,const void *value)
     return 1;
 }
 
-uint32_t restore_004f65f0(const void *queue,void *cursor)
+uint32_t restore_actor_ring_next(const void *queue,void *cursor)
 {
     uint32_t tail=load(queue,2),index=load(cursor,0),value=0;
     if (index!=tail) {
@@ -65,8 +66,21 @@ uint32_t restore_004f65f0(const void *queue,void *cursor)
     return value;
 }
 
-uint32_t restore_004f6630(const void *queue)
+uint32_t restore_actor_ring_count(const void *queue)
 {
     uint32_t difference=load(queue,2)-load(queue,1);
     return difference&0x80000000u ? load(queue,3)+difference : difference;
 }
+
+uint32_t restore_actor_ring_pop(void *queue)
+{return restore_actor_ring_next(queue,(unsigned char *)queue+4);}
+uint32_t restore_actor_ring_full(const void *queue)
+{return restore_actor_ring_count(queue)==load(queue,3)-1u;}
+
+/* Compatibility names for the older independent verification target. */
+uint32_t restore_004f6520(void *q){return restore_actor_ring_initialize(q);}
+uint32_t restore_004f6560(void *q){return restore_actor_ring_clear(q);}
+uint32_t restore_004f6570(const void *q,uint32_t v){return restore_actor_ring_contains(q,v);}
+uint32_t restore_004f65b0(void *q,const void *v){return restore_actor_ring_push(q,v);}
+uint32_t restore_004f65f0(const void *q,void *v){return restore_actor_ring_next(q,v);}
+uint32_t restore_004f6630(const void *q){return restore_actor_ring_count(q);}
