@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Reconstruct seven animation frame/variant/cycle methods with named C
+  interfaces and explicit object receivers. Preserve signed frame wrapping,
+  repeat counts, x87 precision and comparison before binary32 rounding.
+- Pass 375 offline native/C cases through the C interfaces and legacy
+  receiver adapters, plus the link check. The higher animation controller,
+  direction selection and complete playback remain unfinished.
 - Fix queued messages overwriting their month and body-template index when
   marked as opened. Restore byte writes, 48-byte event addressing and full
   UI fields throughout the queue opener. Population milestones retain their

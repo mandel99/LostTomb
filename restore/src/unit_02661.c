@@ -1,12 +1,6 @@
-#include "restore_types.h"
-
-void FUN_0055d2e0(uint param_1)
-
+#include "sprite_cycle_numeric.h"
+void restore_sprite_cycle_select_variant(RestoreSpriteCycle *self,uint32_t variant)
 {
-  int in_ECX;
-  
-  if (*(int *)(in_ECX + 0x40) != 0) {
-    *(uint *)(in_ECX + 0x44) = *(int *)(*(int *)(in_ECX + 0x40) + 0xc) + (param_1 & 0xffff) * 8;
-  }
-  return;
+    if(self->descriptor)self->variant=CY_U(self->descriptor+12u)+(variant&0xffffu)*8u;
 }
+RESTORE_CYCLE_ENTRY1(FUN_0055d2e0,restore_sprite_cycle_select_variant)

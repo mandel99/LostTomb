@@ -1,22 +1,12 @@
-#include "restore_types.h"
-
-void FUN_0055d290(short param_1)
-
+#include "sprite_cycle_numeric.h"
+void restore_sprite_cycle_set_frame(RestoreSpriteCycle *self,int32_t input)
 {
-  int iVar1;
-  int in_ECX;
-  
-  iVar1 = *(int *)(in_ECX + 0x44);
-  if (iVar1 != 0) {
-    if (param_1 < 0) {
-      do {
-        param_1 = param_1 + *(short *)(iVar1 + 2);
-      } while (param_1 < 0);
-    }
-    for (; (int)(uint)*(ushort *)(iVar1 + 2) <= (int)param_1;
-        param_1 = (short)((int)param_1 % (int)(uint)*(ushort *)(iVar1 + 2))) {
-    }
-    *(float *)(in_ECX + 0x48) = (float)(int)param_1;
-  }
-  return;
+    int16_t frame=(int16_t)input;
+    uint16_t count_value;
+    if(!self->variant)return;
+    count_value=CY_W(self->variant+2u);
+    while(frame<0)frame=(int16_t)((uint16_t)frame+count_value);
+    while((int32_t)frame>=count_value)frame=(int16_t)((int32_t)frame%count_value);
+    cycle_integer_frame(self,frame);
 }
+RESTORE_CYCLE_ENTRY1(FUN_0055d290,restore_sprite_cycle_set_frame)

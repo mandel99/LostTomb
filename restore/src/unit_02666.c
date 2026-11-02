@@ -1,11 +1,6 @@
-#include "restore_types.h"
-
-bool FUN_0055d4c0(float param_1)
-
+#include "sprite_cycle_numeric.h"
+uint32_t restore_sprite_cycle_add_reverse(RestoreSpriteCycle *self,uint32_t step)
 {
-  int in_ECX;
-  
-  param_1 = param_1 + *(float *)(in_ECX + 0x48);
-  *(float *)(in_ECX + 0x48) = param_1;
-  return param_1 < 0.0;
+    return cycle_sum(self,step,0,0.0f);
 }
+RESTORE_CYCLE_ENTRY1(FUN_0055d4c0,restore_sprite_cycle_add_reverse)
