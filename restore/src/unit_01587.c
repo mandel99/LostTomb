@@ -1,25 +1,8 @@
-#include "restore_types.h"
-
-undefined4 FUN_004c0ed0(undefined4 param_1)
-
+#include "temple_upgrade.h"
+/* Complete50-byte native4C0ED0, including its ten-entry jump table. */
+int32_t restore_temple_complex_library_kind(int32_t tool)
 {
-  switch((int)(param_1)) {
-  case 0x3c: ;
-  case 0x41: ;
-    return 0;
-  case 0x3d: ;
-  case 0x42: ;
-    return 1;
-  case 0x3e: ;
-  case 0x43: ;
-    return 2;
-  case 0x3f: ;
-  case 0x44: ;
-    return 3;
-  case 0x40: ;
-  case 0x45: ;
-    return 4;
-default: ;
-    return 0xffffffff;
-  }
+ uint32_t index=(uint32_t)tool-60u;
+ return index<10u?(int32_t)(index<5u?index:index-5u):-1;
 }
+int32_t FUN_004c0ed0(int32_t tool){return restore_temple_complex_library_kind(tool);}

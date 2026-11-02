@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Reconstruct the complete temple-complex placement preview and library-kind
+  query. Recover all 32 missing paint arms as a shared C traversal, preserving
+  rotation, 91-cell terrain checks, sprite order and 16-bit tint.
+- Pass 328 native/C cases covering every paint arm, dynamic library selection,
+  key cycling, blocked footprints and callback-sensitive values. Reproduce
+  the old null instruction fetch offline. Live rendering remains untested.
 - Remove ten obsolete duplicate unit-control bodies. Their public address
   entries now share the same complete C providers as button/keyboard actions,
   including building selection, actor return and formation changes.
