@@ -1,9 +1,4 @@
-#include "restore_types.h"
-
-int FUN_004dd920(void)
-
-{
-  int in_ECX;
-  
-  return (int)*(short *)(in_ECX + 0x13e);
-}
+#include "world_route_geometry.h"
+#include "menu_full_input_routes.h"
+int32_t FUN_004dd920(const volatile RestoreWorldRoute *self)
+{return restore_menu_route_end_city((uint32_t)(uintptr_t)self);}

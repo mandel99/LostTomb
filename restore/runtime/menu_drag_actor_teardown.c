@@ -27,19 +27,6 @@ uint32_t restore_actor_building_gate(int32_t building)
  if((uint8_t)FUN_00488030((uint32_t)building)==0)return 0;
  return restore_actor_building_query(building)!=0;
 }
-uint8_t restore_ring_004f6a10(void *self,volatile uint32_t *index)
-{
- uint32_t q=(uint32_t)(uintptr_t)self,capacity=U(q+16u),value;
- if(capacity==0)return 0;
- if((int32_t)*index<0){
-  do {capacity=U(q+16u);value=*index+capacity;*index=value;}while((int32_t)value<0);
- }
- capacity=U(q+16u);value=*index;
- if((int32_t)value>=(int32_t)capacity){
-  do {value=*index-capacity;*index=value;capacity=U(q+16u);}while((int32_t)value>=(int32_t)capacity);
- }
- return 1;
-}
 /* Native 4F6A50 grows through 4F66C0/6700/6790/66F0. Its final copy reads
    the destination capacity from a smaller temporary allocation and loses
    wrapped FIFO entries. Preserve the logical entries without that overread. */

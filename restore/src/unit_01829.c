@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "world_route_geometry.h"
 #define DAT_005e17c4 (*(undefined4 *)0x005e17c4u)
 #define DAT_005e17cc (*(undefined4 *)0x005e17ccu)
 #define DAT_005e17d8 (*(undefined *)0x005e17d8u)
@@ -16,7 +17,6 @@
 #define DAT_00e945c4 (*(undefined *)0x00e945c4u)
 #define DAT_00f565dc (*(undefined *)0x00f565dcu)
 #define DAT_00f569d4 (*(undefined *)0x00f569d4u)
-extern undefined4 FUN_00407f90();
 extern int FUN_00445d10();
 extern void FUN_004771c0();
 extern void FUN_00478420();
@@ -182,7 +182,7 @@ undefined4 FUN_004d5520(byte *param_1)
         } while (iVar8 < (int)(uint)*param_1);
       }
       *(int *)(param_1 + -0xd) = iVar12;
-      FUN_00407f90();
+      FUN_00407f90((RestoreWorldRoute *)(param_1-0x141));
     }
     else {
       param_1[-0xffffffff0000000d] = 0;

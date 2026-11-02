@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "world_route_geometry.h"
 #define LAB_0056b65b (*(undefined1 *)0x0056b65bu)
 #define DAT_00776fb0 (*(undefined4 *)0x00776fb0u)
 #define DAT_00776fb4 (*(undefined4 *)0x00776fb4u)
@@ -10,7 +11,6 @@
 #define PTR_DAT_005d2ec0 (*(unsigned char * *)0x005d2ec0u)
 #define PTR_s_Pharaoh2_emp_005d2a28 (*(unsigned char * *)0x005d2a28u)
 #define PTR_s_Pharaoh_emp_005d2a24 (*(unsigned char * *)0x005d2a24u)
-extern undefined4 FUN_00407f90();
 extern void FUN_0040f8f0();
 extern void FUN_00442660();
 extern void FUN_004426c0();
@@ -183,7 +183,7 @@ void FUN_00443ea0(int param_1)
         } while (iVar2 < (int)(uint)*pbVar9);
       }
       *(int *)(pbVar9 + -0xd) = iVar4;
-      FUN_00407f90();
+      FUN_00407f90((RestoreWorldRoute *)(pbVar9-0x141));
     }
     else {
       pbVar9[-0xffffffff0000000d] = 0;

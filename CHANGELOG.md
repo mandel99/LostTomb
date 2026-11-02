@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Connect eight legacy world-route entries to the editor's existing complete
+  C methods, with explicit receivers and the original six-byte point layout.
+  Share exact numeric primitives, city endpoints and diagonal-capacity
+  planning with the mission-load route rebuild. Remove duplicate methods.
+- Check 383 offline native/C route cases, including hit selection, city
+  binding, removal, loading and x87 rounding/stack preservation, plus three
+  C-only loader capacity/failure cases. Allocation endpoints are controlled;
+  physical world-map editing remains untested.
+- Repair missing source-only route/history fixture link dependencies.
 - Reconstruct four complete earthquake routines: event scanning, terrain
   eligibility, tile destruction and all sixteen expansion choices. Restore
   full map offsets, one-byte building state writes, callback-sensitive

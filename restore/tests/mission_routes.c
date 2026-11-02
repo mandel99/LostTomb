@@ -81,9 +81,11 @@ int main(int argc,char **argv)
         for(;;){for(i=0;i<12;++i)if(scanf("%u",p+i)!=1)goto done;result=run(p);output(p,result);}
     } else {
         REQUIRE(argc==1);REQUIRE(run(p)==1&&D(ROUTE,308)==2&&H(HEAP,0)==0&&H(HEAP,6)==5);
-        p[2]=7;p[1]=1;REQUIRE(run(p)==0&&requested==551*6&&HEAP[requested]==0xcc);
-        p[6]=1;REQUIRE(run(p)==0);p[0]=51;REQUIRE(run(p)==0&&!event_count);
-        puts("Mission routes: explicit receiver, native interpolation, full-width graphics metadata and bounded buffers.");
+        p[2]=7;p[1]=5;REQUIRE(run(p)==1&&requested==551*6&&D(ROUTE,308)==142&&HEAP[requested]==0xcc);
+        p[6]=1;REQUIRE(run(p)==0);p[6]=0;
+        p[0]=0;REQUIRE(run(p)==1&&!event_count&&D(ROUTE,308)==0);
+        p[0]=50;p[2]=0;REQUIRE(run(p)==1&&D(ROUTE,308)==98);
+        puts("Mission routes: explicit receiver, native interpolation, full-width graphics metadata and empty/full routes.");
     }
 done:VirtualFree((void *)BASE,0,MEM_RELEASE);restore_data_close();return 0;
 }

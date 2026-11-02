@@ -486,6 +486,11 @@ set_source_files_properties(src/unit_00722.c src/unit_00724.c src/unit_00725.c s
 set_source_files_properties(src/unit_00180.c PROPERTIES
  SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 target_include_directories(pharaoh_restored PUBLIC include)
+target_sources(pharaoh_restored PRIVATE runtime/world_route_geometry.c runtime/history_ring_index.c)
+set_source_files_properties(runtime/world_route_geometry.c src/unit_00068.c src/unit_01822.c
+ src/unit_01869.c src/unit_01870.c src/unit_01871.c src/unit_01872.c
+ src/unit_01873.c src/unit_01874.c src/unit_01875.c PROPERTIES
+ SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 target_precompile_headers(pharaoh_restored PRIVATE include/restore_types.h)
 target_compile_options(pharaoh_restored PRIVATE /W0 /Od /bigobj /MP8)
 set_target_properties(pharaoh_restored PROPERTIES OUTPUT_NAME pharaoh_restored)
@@ -912,6 +917,13 @@ add_executable(restore_mission_save_verify tests/mission_save.c runtime/compress
   src/unit_02199.c src/unit_02200.c src/unit_02640.c src/unit_02642.c src/unit_02644.c src/unit_02652.c
   src/unit_02653.c src/unit_02654.c src/unit_02655.c src/unit_02656.c src/unit_02657.c src/unit_02658.c src/unit_02659.c)
 target_include_directories(restore_mission_save_verify PRIVATE include)
+foreach(_world_route_fixture IN ITEMS restore_mission_routes_verify restore_mission_map_verify restore_mission_save_verify)
+  target_sources(${_world_route_fixture} PRIVATE runtime/world_route_geometry.c src/unit_00068.c
+    runtime/menu_full_input_routes.c runtime/menu_full_input_numeric.c runtime/menu_route_capacity.c)
+endforeach()
+foreach(_history_fixture IN ITEMS restore_mission_save_verify restore_legacy_mission_verify)
+  target_sources(${_history_fixture} PRIVATE runtime/dynamic_history.c runtime/history_ring_index.c)
+endforeach()
 target_link_libraries(restore_mission_save_verify PRIVATE restore_data advapi32)
 target_link_options(restore_mission_save_verify PRIVATE /BASE:0x10000 /DYNAMICBASE:NO /FIXED)
 add_test(NAME standalone_mission_save COMMAND restore_mission_save_verify)

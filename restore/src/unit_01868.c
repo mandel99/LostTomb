@@ -1,5 +1,6 @@
 #include "menu_timers.h"
 #include "restore_types.h"
+#include "world_route_geometry.h"
 extern void restore_selection_popup_input(void); /* Keep other1868legacy prototypes unchanged. */
 extern void restore_display_confirmation_input(void);
 extern void restore_menu_modal_input(void);
@@ -246,7 +247,6 @@ extern void FUN_004072c0();
 extern void FUN_00407620();
 extern int FUN_00407870();
 extern void FUN_00407a10();
-extern undefined4 FUN_00407f90();
 extern void FUN_00409520();
 extern void FUN_004099b0();
 extern undefined4 FUN_00409e40();
@@ -306,13 +306,6 @@ extern void FUN_004cc500();
 extern void FUN_004cf1c0();
 extern int FUN_004cf660();
 extern int FUN_004d6740();
-extern int FUN_004dd8d0();
-extern undefined4 FUN_004dd8e0();
-extern void FUN_004dd900();
-extern int FUN_004dd910();
-extern int FUN_004dd920();
-extern undefined4 FUN_004dd930();
-extern uint FUN_004ddbd0();
 extern void FUN_004ddde0();
 extern void FUN_004e1e10();
 extern void FUN_004e2ab0();
@@ -1975,13 +1968,13 @@ LAB_004daba1: ;
           goto LAB_004db028;
         }
         if (DAT_00e38e00 == '\0') {
-          if (((DAT_00e38df8 == '\0') || (iVar5 = FUN_004ddbd0(uVar18,fVar16,&local_79), iVar5 < 0))
+          if (((DAT_00e38df8 == '\0') || (iVar5 = FUN_004ddbd0(restore_world_route_at(*(uint32_t *)0x5d2a30u),(int32_t)uVar18,(int32_t)fVar16,&local_79), iVar5 < 0))
              || (local_79 == '\0')) goto LAB_004db028;
-          FUN_004dd930(iVar5);
-          iVar5 = FUN_004dd8d0();
+          FUN_004dd930(restore_world_route_at(*(uint32_t *)0x5d2a30u),iVar5);
+          iVar5 = FUN_004dd8d0(restore_world_route_at(*(uint32_t *)0x5d2a30u));
           if (0 < iVar5) goto LAB_004db028;
-          FUN_004dd900(0);
-          FUN_004dd8e0();
+          FUN_004dd900(restore_world_route_at(*(uint32_t *)0x5d2a30u),0);
+          FUN_004dd8e0(restore_world_route_at(*(uint32_t *)0x5d2a30u));
         }
         else {
           if ((int)DAT_005e1db0 < 0) goto LAB_004db028;
@@ -2476,12 +2469,12 @@ LAB_004da333: ;
 LAB_004db01e: ;
       _DAT_005d2a2c = 0;
 LAB_004db028: ;
-      iVar5 = FUN_004dd910();
+      iVar5 = FUN_004dd910(restore_world_route_at(*(uint32_t *)0x5d2a30u));
       if (local_54 != iVar5) {
         DAT_00e38dca = 1;
         return;
       }
-      iVar5 = FUN_004dd920();
+      iVar5 = FUN_004dd920(restore_world_route_at(*(uint32_t *)0x5d2a30u));
       if (local_50 == (float)iVar5) {
         return;
       }
@@ -2777,7 +2770,7 @@ LAB_004db185: ;
         }
 LAB_004db88c: ;
         *(float *)(pbVar21 + 0x134) = local_78;
-        FUN_00407f90();
+        FUN_00407f90((RestoreWorldRoute *)pbVar21);
       }
     }
     else {
@@ -2971,7 +2964,7 @@ LAB_004db899: ;
       }
 LAB_004dbdff: ;
       *(float *)(pbVar21 + 0x134) = local_78;
-      FUN_00407f90();
+      FUN_00407f90((RestoreWorldRoute *)pbVar21);
     }
   }
 LAB_004dbe0c: ;
