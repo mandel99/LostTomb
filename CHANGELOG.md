@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Fix garbled mission countdown text: preserve full font IDs, calendar values,
+  viewport origins and mode flags. Reconstruct the complete status renderer,
+  including both timer modes, outlines, victory/tomb-placement notices and pause.
+- Pass 417 native/C cases, including actual language-catalog and number
+  composition producing the original mission label and 144/143/133 months.
+  Physical glyph rendering and live gameplay remain untested.
 - Reconstruct five complete pyramid-worker functions: arrival/travel states,
   exact work-list sorting, linked-worker validation, paired-side queries and
   worker recruitment. Correct field widths, cached ownership and detach rules;
