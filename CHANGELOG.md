@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Reconstruct the complete angle-to-sprite direction mapper with a named C
+  interface, correct return pointer and mirrored/unmirrored sector rules.
+  Preserve extended precision, binary32 spills, inherited output padding and
+  native writes to by-value argument slots without uninitialized C locals.
+- Pass 9,419 offline native/C cases covering all256 direction counts,
+  adjacent sector edges, precision/rounding modes, descriptor/output aliases
+  and inherited x87 values, plus the link check. Higher action dispatch and
+  its virtual angle getter remain unfinished; full playback is not certified.
 - Reconstruct complete animation timing, completion, stop and last-frame
   methods. Replace unknown return values and receivers; retain unsigned
   elapsed time, full-width timing mode, extended precision and signed FTOL
