@@ -1,7 +1,7 @@
 #include "restore_types.h"
+#include "sound_initialization.h"
 #define LAB_0056e171 (*(undefined1 *)0x0056e171u)
 extern void FUN_0055dbf8();
-extern undefined4 FUN_0055e92b();
 
 void FUN_0055e58a(CAtlWinModule *this)
 
@@ -14,7 +14,7 @@ void FUN_0055e58a(CAtlWinModule *this)
   local_10 = ExceptionList;
   local_8 = 0;
   ExceptionList = &local_10;
-  FUN_0055e92b(this);
+  FUN_0055e92b((RestoreSound *)this);
   local_8 = 0xffffffff;
   FUN_0055dbf8();
   ExceptionList = local_10;

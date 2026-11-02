@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "sound_initialization.h"
 #define DAT_00604794 (*(undefined4 *)0x00604794u)
 #define DAT_00604798 (*(undefined4 *)0x00604798u)
 #define DAT_0060479c (*(undefined4 *)0x0060479cu)
@@ -10,17 +11,16 @@
 #define s_Intel_006047a0 (*(char (*)[6])0x006047a0u)
 #define s_hardware_006047ac (*(char (*)[9])0x006047acu)
 #define s_software_006047bc (*(char (*)[9])0x006047bcu)
-extern undefined4 FUN_0055e14f();
 extern void FUN_0055fa1c();
 extern void FUN_0055fec8();
 extern undefined4 FUN_00561a36();
 extern uint * FUN_005632a0();
 
-void FUN_0055f697(void)
+void FUN_0055f697(RestoreSound *self)
 
 {
   int iVar1;
-  int in_ECX;
+  uintptr_t in_ECX=(uintptr_t)self;
   undefined4 local_22c;
   undefined4 local_228;
   int local_224 [4];
@@ -80,7 +80,7 @@ void FUN_0055f697(void)
       if (local_224[0] != -1) {
         *(undefined4 *)(in_ECX + 0x1ec) = 1;
       }
-      iVar1 = FUN_0055e14f(5);
+      iVar1 = FUN_0055e14f(self,5);
       if (iVar1 != 0) {
         for (local_224[2] = 0; local_224[2] < *(int *)(in_ECX + 0x1e4);
             local_224[2] = local_224[2] + 1) {

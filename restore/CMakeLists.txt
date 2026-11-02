@@ -511,6 +511,8 @@ endforeach()
 unset(_ring_entry)
 add_executable(restore_game EXCLUDE_FROM_ALL runtime/standalone_link_check.c runtime/game_launcher.c generated/pharaoh_resources.res)
 set_source_files_properties(runtime/game_launcher.c PROPERTIES COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(runtime/media_loader.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
+set_source_files_properties(src/unit_02688.c src/unit_02693.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")
 set_source_files_properties(src/unit_02482.c src/unit_02704.c src/unit_00237.c src/unit_02537.c
   src/unit_02639.c src/unit_02641.c src/unit_02645.c src/unit_00134.c src/unit_00135.c PROPERTIES
   SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX")

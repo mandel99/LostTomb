@@ -17,6 +17,9 @@ Place it into your own Pharaoh + Cleopatra 2.1 installation, beside
 media DLLs available there. The launcher applies 16-bit color compatibility
 when needed.
 
+Media DLLs are searched beside the EXE first, then in the game data directory
+selected by the launcher.
+
 The runtime uses the original game's data files. Game data archives, music,
 videos, original executables and third-party media DLLs are not distributed
 with this project. The reconstructed launcher does not need the original EXE.

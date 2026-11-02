@@ -28,6 +28,11 @@ typedef char restore_sound_disabled[(offsetof(RestoreSound,disabled)==0x200)?1:-
 RestoreSound *FUN_0055e38b(RestoreSound *self);
 int FUN_0055e6c4(RestoreSound *self);
 int FUN_0055dea2(RestoreSound *self,int count);
+int FUN_0055e14f(RestoreSound *self,int32_t count);
+uint32_t FUN_0055e92b(RestoreSound *self);
+int restore_sound_resize_3d(RestoreSound *self,int32_t count);
+uint32_t restore_sound_shutdown(RestoreSound *self);
+void FUN_0055f697(RestoreSound *self);
 void FUN_0055e5d2(RestoreSound *self,int channel);
 void FUN_0055ec7c(RestoreSound *self);
 void FUN_0055ecf3(uintptr_t self);

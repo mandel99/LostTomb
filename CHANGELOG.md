@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Fix media DLL loading when the launcher selects game data separately from
+  the EXE. Check executable-local DLLs first, then the selected data folder;
+  this addresses the observed Preview abort resolving mss32.dll startup.
+  Media DLLs remain external installation files.
+- Restore complete 3D sound-pool resizing and sound shutdown with explicit
+  controller receivers, original failure/partial-handle behavior and ordered,
+  callback-sensitive cleanup. Pass 97 offline native/C cases with audio and
+  allocation endpoints controlled, plus 74 compiled media-loader cases.
+  Live audio, provider selection and full startup remain untested.
 - Connect eight legacy world-route entries to the editor's existing complete
   C methods, with explicit receivers and the original six-byte point layout.
   Share exact numeric primitives, city endpoints and diagonal-capacity

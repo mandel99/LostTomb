@@ -1,4 +1,5 @@
 #include "game_launcher.h"
+#include "media_loader.h"
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,6 +67,11 @@ int restore_game_prepare_launch(int *code)
     if(!buffer){fputs("Not enough memory for game startup.\n",stderr);return 1;}
     length=GetModuleFileNameW(NULL,buffer->executable,LAUNCH_PATH_CAPACITY);
     if(!length||length>=LAUNCH_PATH_CAPACITY||!select_assets(buffer)){free(buffer);return 1;}
+    length=GetCurrentDirectoryW(LAUNCH_PATH_CAPACITY,buffer->directory);
+    if(!length||length>=LAUNCH_PATH_CAPACITY||!restore_media_set_game_directory(buffer->directory)){
+        fputs("Cannot select media libraries from the game data directory.\n",stderr);
+        free(buffer);return 1;
+    }
     screen=GetDC(NULL);
     depth=screen?GetDeviceCaps(screen,BITSPIXEL)*GetDeviceCaps(screen,PLANES):0;
     if(screen)ReleaseDC(NULL,screen);
