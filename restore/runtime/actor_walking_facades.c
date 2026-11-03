@@ -1,3 +1,4 @@
+#include "storage_transactions.h"
 #include "actor_walking.h"
 /* Native BAA10 ignores the extra literal-zero caller slot. */
 void restore_actor_walking_service(int32_t actor,int32_t unused)
@@ -146,8 +147,8 @@ void FUN_004690f0(int32_t tile,int32_t limit)
 void FUN_004b21d0(int32_t actor)
 {const uint32_t a[]={(uint32_t)actor};(void)routing_invoke(0x004b21d0u,a,1);}
 int32_t FUN_0045bb50(int32_t building,int32_t resource,char require_stock)
-{const uint32_t a[]={(uint32_t)building,(uint32_t)resource,(uint32_t)require_stock};return (int32_t)routing_invoke(0x0045bb50u,a,3);}
+{return restore_storage_find_source(building,resource,require_stock);}
 uint32_t FUN_0047e340(int32_t tile,uint32_t actor)
 {const uint32_t a[]={(uint32_t)tile,(uint32_t)actor};return (uint32_t)routing_invoke(0x0047e340u,a,2);}
 int32_t FUN_0045dc50(int32_t x1,int32_t y1,int32_t x2,int32_t y2,int32_t region1,int32_t region2)
-{const uint32_t a[]={(uint32_t)x1,(uint32_t)y1,(uint32_t)x2,(uint32_t)y2,(uint32_t)region1,(uint32_t)region2};return (int32_t)routing_invoke(0x0045dc50u,a,6);}
+{return restore_storage_distance(x1,y1,x2,y2,region1,region2);}

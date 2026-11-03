@@ -1,3 +1,4 @@
+#include "storage_transactions.h"
 #include "storage_trade.h"
 #include "storage_delivery.h"
 #include "actor_transport.h"
@@ -25,7 +26,7 @@ uint32_t FUN_0045acf0(int32_t param_1,uint32_t param_2,int32_t param_3,uint32_t 
 
 void FUN_0045b880(int32_t param_1,int32_t *param_2,int32_t *param_3,int32_t *param_4,int32_t *param_5,int32_t *param_6,
                  int32_t *param_7)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4,(uint32_t)(uintptr_t)param_5,(uint32_t)(uintptr_t)param_6,(uint32_t)(uintptr_t)param_7};(void)invoke(0x45b880u,a,7);}
+{restore_storage_rank_gathering(param_1,param_2,param_3,param_4,param_5,param_6,param_7);}
 
 int32_t FUN_0045d510(int32_t param_1,int32_t param_2)
 {return restore_storage_resource_amount(param_1,param_2);}

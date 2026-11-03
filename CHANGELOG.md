@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- Reconstruct warehouse export/import transactions, import charging, gathering
+  priorities, supply-source selection and distance scoring as ordinary C.
+  Replace 1484 register-model body lines with a shared 154-line module and
+  thin canonical/frame adapters.
+- Preserve the final eligible export resource and immediate rejection of any
+  eligible undersized pile, real withdrawals and 150-percent price snapshots,
+  independent import cursors, current-city delivery versus passed-player billing,
+  partial effects of failed transfers and separate cash/trade-ledger stores.
+  Supply queries retain native kind/policy/network rules, signed stocks, eight
+  links through nonpositive records, live slot bounds, first distance ties and
+  selected coordinates. Gathering retains cached lists/slots, fresh amount/capacity
+  reads, resource-zero percentage carry, ordered aliased outputs and coordinate
+  restoration. Distance globals and arithmetic retain wrapped signed behavior.
+- Pass 554 offline original/C scenarios per diagnostic/game build: all
+  694 native instructions, 153 reachable conditional outcomes and all
+  three switch targets. One counter-limit edge is analytically impossible.
+  Actual permission, withdrawal, delivery, pricing, source and distance children
+  execute. Compare full nonvoid DWORD results, ordered owned stores, child inputs,
+  all original static data, aliased output values and saved ABI. Gathering lists
+  use valid resource indices 0..35, initialized members across both passes and
+  nonzero ratio divisors. Incidental caller-saved state, undefined private scratch,
+  concurrent access and host game/UI fidelity are excluded.
+
 - Reconstruct trade import/export permissions, warehouse admission and granary
   food-delivery destination selection as ordinary C. Replace 1318 register-model
   body lines with a shared 127-line module, direct canonical providers and thin

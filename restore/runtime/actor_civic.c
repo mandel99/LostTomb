@@ -1,3 +1,4 @@
+#include "storage_transactions.h"
 #include "actor_civic.h"
 #include "monument_footprint.h"
 #include "actor_predicate.h"
@@ -582,13 +583,13 @@ int32_t FUN_004450c0(int32_t p0,uint32_t p1,uint32_t p2,int32_t p3,uint32_t p4)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4};return (int32_t)invoke(0x004450c0u,args,5);}
 
 int32_t FUN_0045d010(int32_t p0,int32_t p1,uint32_t p2)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2};return (int32_t)invoke(0x0045d010u,args,3);}
+{return restore_storage_export(p0,p1,p2);}
 
 int32_t FUN_0045d370(int32_t p0,int32_t p1,uint32_t p2)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2};return (int32_t)invoke(0x0045d370u,args,3);}
+{return restore_storage_import(p0,p1,p2);}
 
 void FUN_0045d4d0(int32_t p0,uint32_t p1,int32_t p2)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2};(void)invoke(0x0045d4d0u,args,3);}
+{restore_trade_charge_import(p0,p1,p2);}
 
 void FUN_00491a90(void)
 {(void)invoke(0x00491a90u,0,0);}
