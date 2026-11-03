@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Reconstruct drag input and the 40-route construction-preview controller as
+  ordinary C; retire 1,712 register-model lines and the virtual-stack runner.
+  Preserve drag-start coordinates, editor tool exceptions, money gates, DWORD
+  model sizes, cost multiplication/discount order, early exits, footprint gates
+  and the complete dock-link state machine with actual path queries.
+- Pass 317 original/C scenarios per diagnostic/game build, including all tool
+  IDs 5..236, actual constructors/region predicates, zero-cost shores, editor
+  input, discount exits and successful dock linking. Compare owned ordered
+  stores, genuine helper inputs, all final original data and ABI; no substituted
+  returns. Execute 758/761 native instructions, 91 conditional edges and all
+  40 switch targets. Three signed-remainder repair instructions and one edge are
+  unreachable after an unsigned BYTE and AND7; this is an analytical exclusion.
+  No host game launch or whole-gameplay claim.
+
 - Reconstruct Booth, Bandstand, Pavilion and Festival Square creation and the
   bandstand image pair as ordinary C. Retire 2,005 register-model lines and
   both virtual-stack runners. Preserve preview-backup restoration, constructor

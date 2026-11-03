@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/menu_drag_preview_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_family.c runtime/menu_drag_world_offset.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_scan.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -246,7 +247,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/menu_drag_construction_parent.c
  runtime/construction_lines.c runtime/construction_refresh.c runtime/building_allocator.c runtime/building_rect_commit.c
  runtime/menu_drag_construction_family.c
- runtime/menu_drag_preview_parent.c runtime/menu_drag_preview_parent_model.c runtime/menu_drag_input_model.c
+ runtime/menu_drag_preview_parent.c
  runtime/construction_controller.c runtime/construction_brush.c
  runtime/placement_support.c runtime/placement_support_model.c runtime/monument_placement_queries.c
  runtime/placement_context.c runtime/general_placement.c
@@ -2015,3 +2016,4 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_00559480" "/INCLUD
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0043f250" "/INCLUDE:_FUN_0043f3a0" "/INCLUDE:_FUN_00441040" "/INCLUDE:_FUN_004413b0")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0043f410" "/INCLUDE:_FUN_00441130")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004405c0" "/INCLUDE:_FUN_00440700" "/INCLUDE:_FUN_00440850" "/INCLUDE:_FUN_00440b10" "/INCLUDE:_FUN_00440ed0")
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046fef0" "/INCLUDE:_FUN_00405d90")
