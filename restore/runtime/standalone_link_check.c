@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <windows.h>
 #include "standalone_data.h"
@@ -7,6 +8,7 @@
 #include "mission_schema.h"
 #include "vegetation_farm_init.h"
 #include "monument_constructor.h"
+#include "actor_ring_queue.h"
 #ifdef RESTORE_GAME_LAUNCHER
 #include "game_launcher.h"
 #include "game_diagnostics.h"
@@ -37,6 +39,9 @@ int main(int argc,char **argv)
     }
 #endif
     if(!restore_data_open()) return 1;
+    /* Register the arena owner first: later game destructors run before its
+       pages become inaccessible. Every normal return below uses this order. */
+    if(atexit(restore_data_close)!=0){restore_data_close();return 1;}
     FUN_00486080();
     FUN_00489940();
     FUN_004bd310();
@@ -45,6 +50,7 @@ int main(int argc,char **argv)
     /* Original CRT table57600C..576028 constructs these classes before
        WinMain. Keep this before the restored startup and its geometry pass. */
     restore_monument_constructors_initialize();
+    (void)FUN_004f64a0();
     if(probe) {
         unsigned int result;
         puts("Explicit C game-startup probe: entering restored 00413ed0; use a bounded debugger and isolated asset directory.");
@@ -63,12 +69,10 @@ int main(int argc,char **argv)
                    *(unsigned int *)0xe38d9cu,*(unsigned int *)0xe38d98u,
                    *(unsigned int *)0xe38e5cu,*(unsigned int *)0xe38e58u);
             printf("Restored C startup returned %u; game-ready flag=%u. This alone does not establish playable behavior.\n",result,ready);
-            if(!ready) {restore_data_close();return 3;}
+            if(!ready) return 3;
         }
-        restore_data_close();
         return (int)result;
     }
     puts("C-only whole-program link and data initialization check. This diagnostic does not start the game.");
-    restore_data_close();
     return 0;
 }

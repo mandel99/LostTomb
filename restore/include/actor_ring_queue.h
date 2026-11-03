@@ -18,6 +18,12 @@ uint32_t restore_actor_ring_next(const void *,void *);
 uint32_t restore_actor_ring_pop(void *);
 uint32_t restore_actor_ring_count(const void *);
 uint32_t restore_actor_ring_full(const void *);
+void *restore_actor_ring_construct(void *);
+uint32_t restore_actor_ring_destroy(void *);
+void FUN_004f64b0(void);
+int FUN_004f64d0(void);
+int FUN_004f64a0(void);
+void FUN_004f64e0(void);
 /* Generated legacy C callers use cdecl cleanup; capture ECX before C. */
 #define RESTORE_RING_ENTRY0(name,body) \
  __declspec(naked) void name(void) { \

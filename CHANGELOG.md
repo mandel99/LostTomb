@@ -2,12 +2,21 @@
 
 ## Unreleased
 
+- Restore construction and reverse destruction of all 50 global actor queues,
+  their exit registration and four previously uncatalogued native entries.
+  Replace original constructor/destructor code-address arguments with C
+  calls; preserve capacity and the other untouched queue fields.
+- Keep the standalone data arena alive until registered C destructors have
+  finished. Pass 58 lifecycle cases using real native vector iterators, all 26
+  lifecycle instructions, the 3,744 queue regressions and normal diagnostic
+  exit. C++ exception unwinding and the full CRT startup catalogue remain
+  outside this comparison.
 - Reconstruct all eight legacy actor-ring queue entries with explicit object
   receivers and named C methods. Share one implementation across building,
   map and walker callers, removing duplicate queue algorithms and undefined
   receiver locals. Preserve cursor aliases and full-queue source refusal.
 - Pass 3,744 offline native/C queue cases in the game and diagnostic builds.
-  Cover all104 original instructions and all20 conditional edges; the
+  Cover all 104 original instructions and all 20 conditional edges; the
   diagnostic also retains all eight legacy adapters and ten caller facades.
   Global queue construction and complete actor simulation are outside this
   comparison; gameplay reconstruction remains ongoing.
@@ -15,7 +24,7 @@
   interface, correct return pointer and mirrored/unmirrored sector rules.
   Preserve extended precision, binary32 spills, inherited output padding and
   native writes to by-value argument slots without uninitialized C locals.
-- Pass 9,419 offline native/C cases covering all256 direction counts,
+- Pass 9,419 offline native/C cases covering all 256 direction counts,
   adjacent sector edges, precision/rounding modes, descriptor/output aliases
   and inherited x87 values, plus the link check. Higher action dispatch and
   its virtual angle getter remain unfinished; full playback is not certified.

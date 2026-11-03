@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/actor_ring_lifecycle.c src/unit_02183.c src/unit_02184.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/ring_queue.c src/unit_02185.c src/unit_02186.c src/unit_02187.c src/unit_02188.c src/unit_02189.c src/unit_02190.c src/unit_02191.c src/unit_02192.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(src/unit_02680.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(src/unit_02667.c src/unit_02672.c src/unit_02673.c src/unit_02674.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -296,6 +297,7 @@ add_library(pharaoh_restored STATIC ${_restore_compiled_units} $<TARGET_OBJECTS:
 target_sources(pharaoh_restored PRIVATE runtime/terrain_diamond.c runtime/upper_raster.c runtime/message_panel_input.c)
 target_sources(pharaoh_restored PRIVATE runtime/model_loading.c)
 target_sources(pharaoh_restored PRIVATE runtime/ring_queue.c)
+target_sources(pharaoh_restored PRIVATE runtime/actor_ring_lifecycle.c)
 target_sources(pharaoh_restored PRIVATE runtime/dynamic_history.c)
 target_sources(pharaoh_restored PRIVATE runtime/game_diagnostics.c)
 target_sources(pharaoh_restored PRIVATE runtime/flood_cell.c)
@@ -516,7 +518,7 @@ target_link_libraries(restore_link_check PRIVATE pharaoh_restored restore_data k
 target_link_options(restore_link_check PRIVATE "/WHOLEARCHIVE:$<TARGET_FILE:pharaoh_restored>" /MAP /BASE:0x10000 /DYNAMICBASE:NO /FIXED)
 # Keep normalized member APIs available for offline ABI checks in the existing
 # diagnostic. The game can still discard unused public ring wrappers.
-foreach(_ring_entry IN ITEMS 004f6520 004f6560 004f6570 004f65b0 004f65f0 004f6620 004f6630 004f6650 004f6670 004f6690 004f66c0 004f66f0 004f6700 004f6760 004f6790 004f6a50 00451a70 004f68a0 004f68b0 004f68f0 004f6900 004f6950 004f6a10)
+foreach(_ring_entry IN ITEMS 004f64a0 004f64b0 004f64d0 004f64e0 004f6500 004f6510 004f6520 004f6560 004f6570 004f65b0 004f65f0 004f6620 004f6630 004f6650 004f6670 004f6690 004f66c0 004f66f0 004f6700 004f6760 004f6790 004f6a50 00451a70 004f68a0 004f68b0 004f68f0 004f6900 004f6950 004f6a10)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_ring_entry}")
 endforeach()
 unset(_ring_entry)
