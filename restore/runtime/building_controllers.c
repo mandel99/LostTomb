@@ -79,6 +79,8 @@ static void boundary(uint32_t site,uint32_t target,struct restore_building_contr
  case 0x517370u:FUN_00517370();goto done;
  case 0x517660u:FUN_00517660();goto done;
  case 0x4c0be0u:restore_building_control_C_004c0be0(f);return;
+ case 0x4c0d50u:restore_building_control_C_004c0d50(f);return;
+ case 0x4c3420u:restore_building_control_C_004c3420(f);return;
  case 0x4c0860u:restore_building_control_C_004c0860(f);return;
  case 0x4c53d0u:restore_building_control_C_004c53d0(f);return;
  case 0x4c52d0u:restore_building_control_C_004c52d0(f);return;
@@ -158,14 +160,10 @@ int32_t FUN_004b6e10(int32_t building)
 {uint32_t a[1]={(uint32_t)building};return (int32_t)execute(restore_building_control_C_004b6e10,a,1);}
 void FUN_004bfb30(int32_t building)
 {uint32_t a[1]={(uint32_t)building};(void)execute(restore_building_control_C_004bfb30,a,1);}
-void FUN_004c0d50(int32_t building,int32_t image_offset)
-{uint32_t a[2]={(uint32_t)building,(uint32_t)image_offset};(void)execute(restore_building_control_C_004c0d50,a,2);}
-void FUN_004c3420(int32_t building,int32_t x,int32_t y,uint32_t owner,int32_t kind,uint32_t initialize)
-{uint32_t a[6]={(uint32_t)building,(uint32_t)x,(uint32_t)y,owner,(uint32_t)kind,initialize};(void)execute(restore_building_control_C_004c3420,a,6);}
-void FUN_004c0be0(int32_t building)
-{uint32_t a[1]={(uint32_t)building};(void)execute(restore_building_control_C_004c0be0,a,1);}
-void FUN_004c0860(int32_t x,int32_t y,int32_t group,uint32_t image_offset)
-{uint32_t a[4]={(uint32_t)x,(uint32_t)y,(uint32_t)group,image_offset};(void)execute(restore_building_control_C_004c0860,a,4);}
+
+
+
+
 int32_t FUN_004c53d0(int32_t category)
 {uint32_t a[1]={(uint32_t)category};return (int32_t)execute(restore_building_control_C_004c53d0,a,1);}
 void FUN_004b7c80(void)

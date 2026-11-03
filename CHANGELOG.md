@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct temple-complex construction, linked-part redraw, decoration and
+  individual tile stamping as ordinary C. Bind their four canonical entries,
+  reuse the existing upgrade predicate and remove 1,130 register-model lines.
+  Preserve all three linked parts, seven rows of thirteen decoration cells,
+  orientation/view rules, upgrade image selection, undo capture and Bast bonus.
+- Pass 201 original/C scenarios per diagnostic/game build, all
+  527 native instructions, 88 conditional edges and 3 switch targets.
+  Compare owned ordered stores, immediate child inputs and all final original
+  data, with actual allocation, undo, map and terrain providers. Include a full
+  building table and mutations of links, geometry, view, images and player.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct the complete housing update owner, map-position repair and
   goods consumption as ordinary C. Remove 710 register-model lines, bind
   all three public ABI entries and dispatch the twenty level callbacks
