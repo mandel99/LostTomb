@@ -1,0 +1,780 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x44bc20",
+      "evidence": "ev_67560c16c27aed0eb5290aa3b422c4dc2f1d45e2223a0ee0cb4bdd606c440159",
+      "result": {
+        "procedure": {
+          "address": "0x44bc20",
+          "name": "FUN_0044bc20",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44bc20",
+                "end": "0x44bc92"
+              }
+            ],
+            "total_bytes": 115,
+            "span_bytes": 115,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44bc20: PUSH EBX",
+          "0x44bc21: MOV EBX, ECX",
+          "0x44bc23: PUSH EDI",
+          "0x44bc24: XOR EDI, EDI",
+          "0x44bc26: CMP dword ptr [EBX], 0x0",
+          "0x44bc29: JLE 0x0044bc90",
+          "0x44bc2b: PUSH ESI",
+          "0x44bc2c: LEA ESI, [EBX + 0x2c]",
+          "0x44bc2f: MOV EAX, dword ptr [ESI]",
+          "0x44bc31: MOV ECX, EAX",
+          "0x44bc33: SHR ECX, 0x2",
+          "0x44bc36: TEST CL, 0x1",
+          "0x44bc39: JZ 0x0044bc85",
+          "0x44bc3b: MOV CL, byte ptr [ESI + 0xa]",
+          "0x44bc3e: TEST CL, CL",
+          "0x44bc40: JNZ 0x0044bc85",
+          "0x44bc42: TEST AL, 0x2",
+          "0x44bc44: JZ 0x0044bc66",
+          "0x44bc46: AND AL, 0xfb",
+          "0x44bc48: LEA ECX, [ESI + -0x28]",
+          "0x44bc4b: MOV dword ptr [ESI], EAX",
+          "0x44bc4d: CALL 0x00448a90",
+          "0x44bc52: MOV EDX, dword ptr [0x0078d7bc]",
+          "0x44bc58: MOV ECX, dword ptr [0x007848d8]",
+          "0x44bc5e: SUB EDX, ECX",
+          "0x44bc60: ADD word ptr [ESI + -0x14], DX",
+          "0x44bc64: JMP 0x0044bc85",
+          "0x44bc66: SHR EAX, 0x4",
+          "0x44bc69: TEST AL, 0x1",
+          "0x44bc6b: JZ 0x0044bc85",
+          "0x44bc6d: MOV AL, byte ptr [ESI + -0x25]",
+          "0x44bc70: DEC AL",
+          "0x44bc72: MOV byte ptr [ESI + -0x25], AL",
+          "0x44bc75: JNZ 0x0044bc85",
+          "0x44bc77: MOV EAX, dword ptr [ESI]",
+          "0x44bc79: LEA ECX, [ESI + -0x28]",
+          "0x44bc7c: AND AL, 0xfb",
+          "0x44bc7e: MOV dword ptr [ESI], EAX",
+          "0x44bc80: CALL 0x00448a90",
+          "0x44bc85: MOV EAX, dword ptr [EBX]",
+          "0x44bc87: INC EDI",
+          "0x44bc88: ADD ESI, 0x7c",
+          "0x44bc8b: CMP EDI, EAX",
+          "0x44bc8d: JL 0x0044bc2f",
+          "0x44bc8f: POP ESI",
+          "0x44bc90: POP EDI",
+          "0x44bc91: POP EBX",
+          "0x44bc92: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44c430",
+      "evidence": "ev_74e37cd23021c82e2232c75b06d17085b0efa9720f999d45031082c977690526",
+      "result": {
+        "procedure": {
+          "address": "0x44c430",
+          "name": "FUN_0044c430",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44c430",
+                "end": "0x44c484"
+              }
+            ],
+            "total_bytes": 85,
+            "span_bytes": 85,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44c430: MOV EDX, dword ptr [0x005d9a40]",
+          "0x44c436: TEST EDX, EDX",
+          "0x44c438: JGE 0x0044c43f",
+          "0x44c43a: XOR AL, AL",
+          "0x44c43c: RET 0x4",
+          "0x44c43f: MOV EAX, dword ptr [ESP + 0x4]",
+          "0x44c443: CMP EDX, EAX",
+          "0x44c445: JLE 0x0044c44c",
+          "0x44c447: XOR AL, AL",
+          "0x44c449: RET 0x4",
+          "0x44c44c: TEST EAX, EAX",
+          "0x44c44e: JL 0x0044c463",
+          "0x44c450: CMP EAX, dword ptr [ECX]",
+          "0x44c452: JGE 0x0044c463",
+          "0x44c454: MOV EDX, EAX",
+          "0x44c456: SHL EDX, 0x5",
+          "0x44c459: SUB EDX, EAX",
+          "0x44c45b: LEA EAX, [ECX + EDX*0x4 + 0x4]",
+          "0x44c45f: TEST EAX, EAX",
+          "0x44c461: JNZ 0x0044c468",
+          "0x44c463: XOR AL, AL",
+          "0x44c465: RET 0x4",
+          "0x44c468: MOV CL, byte ptr [EAX + 0x2]",
+          "0x44c46b: MOV AL, [0x0078a634]",
+          "0x44c470: CMP CL, 0x2",
+          "0x44c473: JNZ 0x0044c47d",
+          "0x44c475: TEST AL, AL",
+          "0x44c477: SETNZ AL",
+          "0x44c47a: RET 0x4",
+          "0x44c47d: TEST AL, AL",
+          "0x44c47f: SETZ AL",
+          "0x44c482: RET 0x4"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44c490",
+      "evidence": "ev_13115ea6a31f538373d770e97885d49ea5a67e120077478398d6c46f118200dc",
+      "result": {
+        "procedure": {
+          "address": "0x44c490",
+          "name": "FUN_0044c490",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44c490",
+                "end": "0x44c65c"
+              }
+            ],
+            "total_bytes": 461,
+            "span_bytes": 461,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44c490: MOV EAX, dword ptr [ESP + 0x4]",
+          "0x44c494: PUSH EBX",
+          "0x44c495: PUSH EBP",
+          "0x44c496: PUSH ESI",
+          "0x44c497: MOV EBP, ECX",
+          "0x44c499: PUSH EAX",
+          "0x44c49a: CALL 0x0044c0d0",
+          "0x44c49f: MOV ESI, EAX",
+          "0x44c4a1: TEST ESI, ESI",
+          "0x44c4a3: JZ 0x0044c657",
+          "0x44c4a9: PUSH 0x0",
+          "0x44c4ab: MOV ECX, 0x785d70",
+          "0x44c4b0: CALL 0x00448d10",
+          "0x44c4b5: MOV EBX, EAX",
+          "0x44c4b7: TEST EBX, EBX",
+          "0x44c4b9: JZ 0x0044c657",
+          "0x44c4bf: MOVSX EAX, word ptr [EBX]",
+          "0x44c4c2: PUSH EDI",
+          "0x44c4c3: MOV ECX, 0x1f",
+          "0x44c4c8: MOV EDI, EBX",
+          "0x44c4ca: MOVSD.REP ES:EDI, ESI",
+          "0x44c4cc: MOV ECX, EBX",
+          "0x44c4ce: MOV word ptr [EBX], AX",
+          "0x44c4d1: CALL 0x00448a90",
+          "0x44c4d6: MOV ECX, EBX",
+          "0x44c4d8: MOV dword ptr [EBX + 0x28], 0x8",
+          "0x44c4df: CALL 0x00449390",
+          "0x44c4e4: MOV DL, AL",
+          "0x44c4e6: MOV ECX, EBP",
+          "0x44c4e8: MOV byte ptr [ESP + 0x14], DL",
+          "0x44c4ec: CALL 0x00449390",
+          "0x44c4f1: MOV CL, byte ptr [ESP + 0x14]",
+          "0x44c4f5: POP EDI",
+          "0x44c4f6: CMP CL, AL",
+          "0x44c4f8: JNZ 0x0044c539",
+          "0x44c4fa: CMP word ptr [EBX + 0x1e], 0x0",
+          "0x44c4ff: LEA ESI, [EBX + 0x1c]",
+          "0x44c502: JGE 0x0044c50e",
+          "0x44c504: MOV AX, word ptr [ESI + 0x4]",
+          "0x44c508: MOV DX, word ptr [ESI + 0x6]",
+          "0x44c50c: JMP 0x0044c528",
+          "0x44c50e: MOV ECX, ESI",
+          "0x44c510: CALL 0x0044c960",
+          "0x44c515: CMP EAX, 0x1",
+          "0x44c518: JNZ 0x0044c522",
+          "0x44c51a: MOV AX, word ptr [ESI + 0x2]",
+          "0x44c51e: MOV EDX, EAX",
+          "0x44c520: JMP 0x0044c528",
+          "0x44c522: OR EDX, 0xffffffff",
+          "0x44c525: OR EAX, 0xffffffff",
+          "0x44c528: MOV CX, word ptr [EBP + 0x1c]",
+          "0x44c52c: CMP CX, AX",
+          "0x44c52f: JL 0x0044c539",
+          "0x44c531: CMP CX, DX",
+          "0x44c534: JG 0x0044c539",
+          "0x44c536: MOV word ptr [ESI], CX",
+          "0x44c539: MOV ECX, EBX",
+          "0x44c53b: CALL 0x004493c0",
+          "0x44c540: TEST AL, AL",
+          "0x44c542: JZ 0x0044c59e",
+          "0x44c544: MOV ECX, EBP",
+          "0x44c546: CALL 0x004493c0",
+          "0x44c54b: TEST AL, AL",
+          "0x44c54d: JZ 0x0044c59e",
+          "0x44c54f: MOVSX EDX, word ptr [EBP + 0x4]",
+          "0x44c553: PUSH EDX",
+          "0x44c554: MOV ECX, EBX",
+          "0x44c556: CALL 0x00449550",
+          "0x44c55b: TEST AL, AL",
+          "0x44c55d: JZ 0x0044c59e",
+          "0x44c55f: CMP word ptr [EBX + 0x6], 0x0",
+          "0x44c564: LEA ESI, [EBX + 0x4]",
+          "0x44c567: JGE 0x0044c573",
+          "0x44c569: MOV AX, word ptr [ESI + 0x4]",
+          "0x44c56d: MOV DX, word ptr [ESI + 0x6]",
+          "0x44c571: JMP 0x0044c58d",
+          "0x44c573: MOV ECX, ESI",
+          "0x44c575: CALL 0x0044c960",
+          "0x44c57a: CMP EAX, 0x1",
+          "0x44c57d: JNZ 0x0044c587",
+          "0x44c57f: MOV AX, word ptr [ESI + 0x2]",
+          "0x44c583: MOV EDX, EAX",
+          "0x44c585: JMP 0x0044c58d",
+          "0x44c587: OR EDX, 0xffffffff",
+          "0x44c58a: OR EAX, 0xffffffff",
+          "0x44c58d: MOV CX, word ptr [EBP + 0x4]",
+          "0x44c591: CMP CX, AX",
+          "0x44c594: JL 0x0044c59e",
+          "0x44c596: CMP CX, DX",
+          "0x44c599: JG 0x0044c59e",
+          "0x44c59b: MOV word ptr [ESI], CX",
+          "0x44c59e: MOV CX, word ptr [ESP + 0x14]",
+          "0x44c5a3: MOV AX, word ptr [EBP]",
+          "0x44c5a7: MOV word ptr [EBX + 0x64], CX",
+          "0x44c5ab: MOV ECX, EBP",
+          "0x44c5ad: MOV word ptr [EBX + 0x34], AX",
+          "0x44c5b1: CALL 0x00449390",
+          "0x44c5b6: TEST AL, AL",
+          "0x44c5b8: JZ 0x0044c5c2",
+          "0x44c5ba: MOV DL, byte ptr [EBP + 0x1c]",
+          "0x44c5bd: MOV byte ptr [EBX + 0x63], DL",
+          "0x44c5c0: JMP 0x0044c5c6",
+          "0x44c5c2: MOV byte ptr [EBX + 0x63], 0x0",
+          "0x44c5c6: MOV AX, word ptr [EBP + 0xc]",
+          "0x44c5ca: MOVSX ESI, word ptr [EBX + 0x14]",
+          "0x44c5ce: MOV word ptr [EBX + 0x68], AX",
+          "0x44c5d2: MOV CX, word ptr [EBP + 0x4]",
+          "0x44c5d6: MOV word ptr [EBX + 0x66], CX",
+          "0x44c5da: MOV DL, byte ptr [EBP + 0x36]",
+          "0x44c5dd: MOV byte ptr [EBX + 0x37], DL",
+          "0x44c5e0: MOV EAX, [0x0078d7c0]",
+          "0x44c5e5: ADD EAX, ESI",
+          "0x44c5e7: MOV ECX, 0xc",
+          "0x44c5ec: CDQ",
+          "0x44c5ed: IDIV ECX",
+          "0x44c5ef: MOV EAX, 0x2aaaaaab",
+          "0x44c5f4: MOV ECX, EDX",
+          "0x44c5f6: IMUL ESI",
+          "0x44c5f8: SAR EDX, 0x1",
+          "0x44c5fa: MOV EAX, EDX",
+          "0x44c5fc: MOV byte ptr [EBX + 0x3], CL",
+          "0x44c5ff: SHR EAX, 0x1f",
+          "0x44c602: ADD EDX, EAX",
+          "0x44c604: MOV EAX, [0x0078d7c0]",
+          "0x44c609: AND ECX, 0xff",
+          "0x44c60f: CMP ECX, EAX",
+          "0x44c611: JGE 0x0044c614",
+          "0x44c613: INC EDX",
+          "0x44c614: MOV ECX, dword ptr [0x0078d7bc]",
+          "0x44c61a: MOV EBP, dword ptr [0x007848d8]",
+          "0x44c620: SUB ECX, EBP",
+          "0x44c622: ADD ECX, EDX",
+          "0x44c624: TEST ESI, ESI",
+          "0x44c626: MOV word ptr [EBX + 0x14], CX",
+          "0x44c62a: JNZ 0x0044c657",
+          "0x44c62c: MOVSX EDX, word ptr [EBX]",
+          "0x44c62f: PUSH EDX",
+          "0x44c630: MOV ECX, 0x785d70",
+          "0x44c635: CALL 0x0044c430",
+          "0x44c63a: TEST AL, AL",
+          "0x44c63c: JNZ 0x0044c657",
+          "0x44c63e: MOV AL, byte ptr [EBX + 0x2]",
+          "0x44c641: MOV ECX, EBX",
+          "0x44c643: CMP AL, 0x2",
+          "0x44c645: JNZ 0x0044c652",
+          "0x44c647: CALL 0x00451540",
+          "0x44c64c: POP ESI",
+          "0x44c64d: POP EBP",
+          "0x44c64e: POP EBX",
+          "0x44c64f: RET 0x8",
+          "0x44c652: CALL 0x0044c660",
+          "0x44c657: POP ESI",
+          "0x44c658: POP EBP",
+          "0x44c659: POP EBX",
+          "0x44c65a: RET 0x8"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44c960",
+      "evidence": "ev_dd864825b2b0aee9b514810604b528226bf65cdccdb11802cbe9309192f30d35",
+      "result": {
+        "procedure": {
+          "address": "0x44c960",
+          "name": "FUN_0044c960",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44c960",
+                "end": "0x44c99f"
+              }
+            ],
+            "total_bytes": 64,
+            "span_bytes": 64,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44c960: CMP word ptr [ECX + 0x2], 0x0",
+          "0x44c965: JL 0x0044c981",
+          "0x44c967: CMP word ptr [ECX + 0x4], 0x0",
+          "0x44c96c: JGE 0x0044c974",
+          "0x44c96e: MOV EAX, 0x1",
+          "0x44c973: RET",
+          "0x44c974: XOR EAX, EAX",
+          "0x44c976: CMP word ptr [ECX + 0x6], AX",
+          "0x44c97a: SETGE AL",
+          "0x44c97d: ADD EAX, 0x2",
+          "0x44c980: RET",
+          "0x44c981: MOV DX, word ptr [ECX + 0x4]",
+          "0x44c985: TEST DX, DX",
+          "0x44c988: JL 0x0044c99d",
+          "0x44c98a: MOV CX, word ptr [ECX + 0x6]",
+          "0x44c98e: TEST CX, CX",
+          "0x44c991: JL 0x0044c99d",
+          "0x44c993: MOVSX EAX, CX",
+          "0x44c996: MOVSX ECX, DX",
+          "0x44c999: SUB EAX, ECX",
+          "0x44c99b: INC EAX",
+          "0x44c99c: RET",
+          "0x44c99d: XOR EAX, EAX",
+          "0x44c99f: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    }
+  ],
+  "scheduler_caller_windows": [
+    {
+      "procedure": "0x4460b0",
+      "evidence": "ev_098379c4454a462977e58c4bdf9efdd33b506f64f11384fc57dce36cf3a5bc41",
+      "windows": [
+        [
+          "0x446246: CALL 0x0044c490",
+          "0x44624b: MOV ECX, ESI",
+          "0x44624d: CALL 0x0044ef90",
+          "0x446252: MOV byte ptr [ESI + 0x3], 0xc",
+          "0x446256: POP EDI",
+          "0x446257: POP ESI",
+          "0x446258: POP EBX",
+          "0x446259: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44c7e0",
+      "evidence": "ev_14ce4780a34749c101c3943ee88931f220fd0d5ce1a9b4832e9a8aff44ae2c9b",
+      "windows": [
+        [
+          "0x44c890: CALL 0x0044c490",
+          "0x44c895: POP ESI",
+          "0x44c896: ADD ESP, 0x20",
+          "0x44c899: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44c8a0",
+      "evidence": "ev_b5d66482c1321204f9751c102dfa6c3936e86042bdfab5bfded36e1517167e20",
+      "windows": [
+        [
+          "0x44c94e: CALL 0x0044c490",
+          "0x44c953: POP ESI",
+          "0x44c954: ADD ESP, 0x20",
+          "0x44c957: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44c9e0",
+      "evidence": "ev_1896847716d0cbbe38223b473b6222ae67b548740444102056bdc88840e97cff",
+      "windows": [
+        [
+          "0x44cae0: CALL 0x0044c490",
+          "0x44cae5: MOV ECX, ESI",
+          "0x44cae7: MOV word ptr [ESI + 0x30], 0x7",
+          "0x44caed: CALL 0x0044c110",
+          "0x44caf2: SUB AX, word ptr [ESI + 0x2e]",
+          "0x44caf6: JMP 0x0044cb3b",
+          "0x44caf8: MOVSX EDX, word ptr [ESI]",
+          "0x44cafb: PUSH EDX"
+        ],
+        [
+          "0x44cb29: CALL 0x0044c490",
+          "0x44cb2e: MOV ECX, ESI",
+          "0x44cb30: MOV word ptr [ESI + 0x30], 0x6",
+          "0x44cb36: CALL 0x0044c110",
+          "0x44cb3b: MOV word ptr [ESI + 0x2e], AX",
+          "0x44cb3f: CMP AX, BX",
+          "0x44cb42: JGE 0x0044cd92",
+          "0x44cb48: MOV word ptr [ESI + 0x2e], BX"
+        ],
+        [
+          "0x44cb75: CALL 0x0044c490",
+          "0x44cb7a: MOV word ptr [ESI + 0x30], 0x8",
+          "0x44cb80: MOV byte ptr [ESI + 0x32], 0x0",
+          "0x44cb84: POP EDI",
+          "0x44cb85: POP ESI",
+          "0x44cb86: POP EBP",
+          "0x44cb87: POP EBX",
+          "0x44cb88: ADD ESP, 0x20"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44cdc0",
+      "evidence": "ev_b1e6891d4a3a47632f9e162aee39aa38a7f7f96589cf44bc62a8d64ff5d82759",
+      "windows": [
+        [
+          "0x44d0a7: CALL 0x0044c490",
+          "0x44d0ac: MOV word ptr [ESI + 0x30], 0x4",
+          "0x44d0b2: MOV byte ptr [ESI + 0x32], 0x0",
+          "0x44d0b6: MOV EAX, [0x00eaac28]",
+          "0x44d0bb: MOV CL, byte ptr [ESI + 0x33]",
+          "0x44d0be: TEST CL, CL",
+          "0x44d0c0: JNZ 0x0044d3cc",
+          "0x44d0c6: MOV CX, word ptr [ESI + 0x4]"
+        ],
+        [
+          "0x44d3b5: CALL 0x0044c490",
+          "0x44d3ba: MOV EAX, dword ptr [ESI + 0x28]",
+          "0x44d3bd: MOV word ptr [ESI + 0x30], 0x8",
+          "0x44d3c3: OR AL, 0x4",
+          "0x44d3c5: MOV byte ptr [ESI + 0x32], 0x0",
+          "0x44d3c9: MOV dword ptr [ESI + 0x28], EAX",
+          "0x44d3cc: POP EDI",
+          "0x44d3cd: POP ESI"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44d780",
+      "evidence": "ev_c5e6a2eb53a781775d365cefe55bd9e1809c997a5477576b40929236cac45b75",
+      "windows": [
+        [
+          "0x44d866: CALL 0x0044c490",
+          "0x44d86b: POP ESI",
+          "0x44d86c: ADD ESP, 0x20",
+          "0x44d86f: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44d870",
+      "evidence": "ev_d5a7397f530aebab9410591872b503c930fdbb186d703244ca469878bd6a0d57",
+      "windows": [
+        [
+          "0x44d958: CALL 0x0044c490",
+          "0x44d95d: POP ESI",
+          "0x44d95e: ADD ESP, 0x20",
+          "0x44d961: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44d970",
+      "evidence": "ev_818ba0d940bd8bb372a57ab20d509d3edb556be3e94dbf9feaa69d7ba8291463",
+      "windows": [
+        [
+          "0x44da21: CALL 0x0044c490",
+          "0x44da26: POP ESI",
+          "0x44da27: ADD ESP, 0x20",
+          "0x44da2a: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44da30",
+      "evidence": "ev_e497a72ee77f731948f41680d8019a6ec3d9a95cc4f090d2e4ec0a32f00208bd",
+      "windows": [
+        [
+          "0x44db0a: CALL 0x0044c490",
+          "0x44db0f: POP EDI",
+          "0x44db10: POP ESI",
+          "0x44db11: POP EBX",
+          "0x44db12: ADD ESP, 0x20",
+          "0x44db15: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44db20",
+      "evidence": "ev_36f423db484b83b5248526f0cd38cfce256d6cee425f9b5df9559893b92ce98f",
+      "windows": [
+        [
+          "0x44dbc5: CALL 0x0044c490",
+          "0x44dbca: POP ESI",
+          "0x44dbcb: ADD ESP, 0x20",
+          "0x44dbce: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44dbd0",
+      "evidence": "ev_35b8d8b7815e76107f9462b9d10ae8c439a845e6afed82b4769f1a377f1a61da",
+      "windows": [
+        [
+          "0x44dc8e: CALL 0x0044c490",
+          "0x44dc93: POP ESI",
+          "0x44dc94: ADD ESP, 0x20",
+          "0x44dc97: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44dca0",
+      "evidence": "ev_ce2b15699bd43d07a576af31e6754d5795cae76fc64f2e439f01e2095708310a",
+      "windows": [
+        [
+          "0x44dd54: CALL 0x0044c490",
+          "0x44dd59: POP ESI",
+          "0x44dd5a: ADD ESP, 0x20",
+          "0x44dd5d: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44dd60",
+      "evidence": "ev_b2f039146133040d77ecb27c6f3cd75a8dbb25ca33ad5dd834e9af0383da8275",
+      "windows": [
+        [
+          "0x44de14: CALL 0x0044c490",
+          "0x44de19: POP ESI",
+          "0x44de1a: ADD ESP, 0x20",
+          "0x44de1d: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44de20",
+      "evidence": "ev_9d2a5fbb4f617435db264df23b46822ef05cd8217fc828dadf565f3dc35f0a37",
+      "windows": [
+        [
+          "0x44ded4: CALL 0x0044c490",
+          "0x44ded9: POP ESI",
+          "0x44deda: ADD ESP, 0x20",
+          "0x44dedd: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44dee0",
+      "evidence": "ev_98deaf39cf2aaf6a7c377582d4ab4b2135d232c2ca8e5882102a040f9a3db0c5",
+      "windows": [
+        [
+          "0x44df7b: CALL 0x0044c490",
+          "0x44df80: POP ESI",
+          "0x44df81: ADD ESP, 0x20",
+          "0x44df84: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44df90",
+      "evidence": "ev_c6b204ce56fb897469456d242185aa5d895b2628eb1d8e68d65c937828a4d951",
+      "windows": [
+        [
+          "0x44dff4: CALL 0x0044c490",
+          "0x44dff9: POP ESI",
+          "0x44dffa: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e000",
+      "evidence": "ev_02aa6dce28656126bb93639b51f8910646b21de5e595fde114f161c2dcfbeae6",
+      "windows": [
+        [
+          "0x44e05b: CALL 0x0044c490",
+          "0x44e060: POP ESI",
+          "0x44e061: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e070",
+      "evidence": "ev_e5d61247b2a46040dd46afe18b1c95981b17c42ef1b86db4376de3ad7181ab39",
+      "windows": [
+        [
+          "0x44e0d1: CALL 0x0044c490",
+          "0x44e0d6: POP ESI",
+          "0x44e0d7: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e0e0",
+      "evidence": "ev_4481b88284f06f70954120010737b4524b27888869a9d5eeb913bf36820361d9",
+      "windows": [
+        [
+          "0x44e13b: CALL 0x0044c490",
+          "0x44e140: POP ESI",
+          "0x44e141: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e150",
+      "evidence": "ev_f81cde1b929125a5087a3fea0ffc8aa000640595c7428dfcc81e03f319125a5d",
+      "windows": [
+        [
+          "0x44e1b1: CALL 0x0044c490",
+          "0x44e1b6: POP ESI",
+          "0x44e1b7: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e1c0",
+      "evidence": "ev_9a355d50655d037abd4ed0f45c6e102f50517b50b241d2f06931af4ff45b32d6",
+      "windows": [
+        [
+          "0x44e221: CALL 0x0044c490",
+          "0x44e226: POP ESI",
+          "0x44e227: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e230",
+      "evidence": "ev_58a272a7d802c4a02e9b6422d57297d92e48a41b4e3a6e68a59552a244803296",
+      "windows": [
+        [
+          "0x44e291: CALL 0x0044c490",
+          "0x44e296: POP ESI",
+          "0x44e297: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e2a0",
+      "evidence": "ev_e7d8683c81405b0886380c4b7bebcef8b680d24023bf7b5aa03bd0931b9bed67",
+      "windows": [
+        [
+          "0x44e5b1: CALL 0x0044c490",
+          "0x44e5b6: POP EBX",
+          "0x44e5b7: ADD ESP, 0x2c",
+          "0x44e5ba: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e5d0",
+      "evidence": "ev_650155f819a0d98a63b52adc09452970098adeddd9b190257138dd307fec69d5",
+      "windows": [
+        [
+          "0x44e6d3: CALL 0x0044c490",
+          "0x44e6d8: POP ESI",
+          "0x44e6d9: ADD ESP, 0x20",
+          "0x44e6dc: RET"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e7b0",
+      "evidence": "ev_a911a90c07ef21d5ff2efce648d61fe45681f4b23ae2efa248c95f1cb1342ff8",
+      "windows": [
+        [
+          "0x44e880: CALL 0x0044c490",
+          "0x44e885: POP ESI",
+          "0x44e886: ADD ESP, 0x20",
+          "0x44e889: RET 0x4"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x44e890",
+      "evidence": "ev_763fdd6e8a3a5cecd26ddea7cc79a0440b3e135a30baf9f14fa17e76fb1f16a2",
+      "windows": [
+        [
+          "0x44edac: CALL 0x0044c490",
+          "0x44edb1: MOV EAX, dword ptr [ESI + 0x28]",
+          "0x44edb4: MOV word ptr [ESI + 0x30], DI",
+          "0x44edb8: OR AL, 0x4",
+          "0x44edba: MOV byte ptr [ESI + 0x32], 0x0",
+          "0x44edbe: MOV dword ptr [ESI + 0x28], EAX",
+          "0x44edc1: POP EDI",
+          "0x44edc2: POP ESI"
+        ]
+      ]
+    },
+    {
+      "procedure": "0x451540",
+      "evidence": "ev_468db94503ee807e6b4a01247df2666235a98054eb5f7a7a47097d305aa7e71c",
+      "windows": [
+        [
+          "0x451791: CALL 0x0044c490",
+          "0x451796: POP EDI",
+          "0x451797: POP ESI",
+          "0x451798: POP EBX",
+          "0x451799: ADD ESP, 0x20",
+          "0x45179c: RET",
+          "0x45179d: XOR EBX, EBX",
+          "0x45179f: CMP EDI, 0x18"
+        ]
+      ]
+    }
+  ],
+  "scope": "Scheduler and rearm are void logical/state interfaces. Native scheduler scratch writes to its copied argument slot are not outputs consumed by its callers. Full caller methods are not approved here."
+}

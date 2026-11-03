@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reconstruct the event scheduler, completed-event rearm, parameter count
+  and dispatch-deferral predicate as named C providers. Replace four generated
+  entries with explicit receiver/argument bridges and retire 434 duplicate
+  frame-model lines. Preserve forward record copies, signed inheritance,
+  full DWORD calendar inputs and the phase byte at record offset 0x32.
+- Pass 915 native/C cases per diagnostic/game build, covering all 259 native
+  instructions and 71 conditional edges, plus 12 complete event-iterator
+  compositions and two recursive chains of 59 immediate follow-ups. Actual
+  gameplay dependencies run; only the diagnostic-file sink is captured for
+  event-pool exhaustion. Request/invasion simulation beyond the closed
+  eligibility window and unrelated event behavior remain unfinished.
 - Share one C parameter selector and event reset between mission loading and
   simulation. Replace two generated entry points with explicit ECX/EAX
   bridges, preserve native ECX outputs and the complete EAX result, and retire 590 duplicate

@@ -31,6 +31,7 @@
 #include "actor_mission_init.h"
 #include "event_packet.h"
 #include "event_parameters.h"
+#include "event_schedule.h"
 #include <stdlib.h>
 #include <string.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -43,12 +44,11 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
 #define A(n) U(sp+4u*(n))
 #define RAW(address) case 0x##address##u:restore_event_C_##address(f);return
     switch(target){
-    RAW(0044ba90);RAW(0044bc20);
+    RAW(0044ba90);
     RAW(00446260);
     RAW(004496d0);
     RAW(0044c0d0);
     RAW(0044c430);
-    RAW(0044c490);
     RAW(0044c660);
     RAW(0044c7e0);
     RAW(0044c8a0);
@@ -141,6 +141,9 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
        allocates a loop-counter local; the final POP ECX publishes zero. */
     case 0x4487f0u:f->r[0]=restore_event_parameter_choose(f->r[1],f->r[0]);break;
     case 0x448a90u:f->r[0]=restore_event_record_reset(f->r[1]);f->r[1]=0;break;
+    /* Only state is consumed after these native void methods. */
+    case 0x44bc20u:restore_event_rearm_completed(f->r[1]);break;
+    case 0x44c490u:restore_event_schedule_apply(f->r[1],(int32_t)A(1),(int16_t)A(2),f);cleanup=8;break;
     case 0x448d10u:
         f->r[0]=restore_event_list_append_00448d10(f->r[1],A(1));cleanup=4;break;
     case 0x44d680u:
@@ -251,6 +254,16 @@ static uint32_t invoke_child_words(uint32_t entry,uint32_t self,const uint32_t *
     if(child.r[4]!=sp+4u+cleanup)abort();
     return child.r[0];
 }
+uint32_t restore_event_graph_query_context(uint32_t target,uint32_t self,int32_t argument,struct restore_event_actions_frame *context)
+{
+    uint32_t word=(uint32_t)argument,count;
+    switch(target){
+    case 0x449390u:case 0x451540u:case 0x44c660u:count=0;break;
+    case 0x449550u:count=1;break;
+    default:abort();
+    }
+    return invoke_child_words(target,self,&word,count,count*4u,context);
+}
 int32_t restore_event_followup_message_context(uint32_t self,uint32_t slot,struct restore_event_actions_frame *context)
 {return (int32_t)invoke_child_words(0x44fd30u,self,&slot,1,4,context);}
 int32_t restore_event_followup_message(uint32_t self,uint32_t slot)
@@ -267,9 +280,7 @@ void restore_event_schedule_context(uint32_t self,int32_t template_id,int16_t re
 void restore_event_update_00451540(RestoreTownRecord *self)
 {invoke(0x451540u,(uint32_t)(uintptr_t)self);}
 
-/* The debt controller supplies the native event receiver and both arguments.
-   Reuse the complete existing155-instruction body and its actual event graph;
-   this member's RET8 differs from the nullary/cdecl facades below. */
+/* The explicit scheduling API shares the event stack with its descendants. */
 void restore_event_schedule_0044c490(RestoreTownRecord *self,int32_t template_id,int16_t reason)
 {
     uint32_t words[2]={(uint32_t)template_id,(uint32_t)(int32_t)reason};
