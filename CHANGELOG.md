@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Reconstruct building release and temple-complex clearing as ordinary C; retire
+  1,117 register-model lines and two virtual-stack runners. Preserve ordered
+  slot unlinking, player monuments and landmark records, phase-triggered redraw,
+  saved parent links, record zeroing and the tool-9 undo transition.
+- Clear the native 7-by-13 temple mask with exact orientation transforms, signed
+  building/root ownership, ruined-building kind publication, water handling,
+  duplicate terrain stores and the original ordered region refresh passes.
+- Pass 168 original/C scenarios per diagnostic/game build: all 500 native
+  instructions, 54 conditional outcomes and all 20 switch targets.
+  Execute actual helpers and compare ordered owned stores, helper inputs, all
+  original static data and saved ABI. Genuine phase/position/kind/player input
+  changes exercise fresh reads; the authenticated forwarding helper 4E5830 is
+  normalized with 4F4AE0 where MSVC folds their equivalent C bodies. Synthetic
+  resident text/font data, disabled sound and genuine no-image guards qualify
+  this offline verification; no pixel/audio/UI or whole-gameplay fidelity claim.
+
 - Reconstruct demolition requests and application as ordinary C, replacing the
   1,910-line register/frame module with 192 lines. Preserve confirmation
   priorities and original callback coordinates, preview/undo policy, terrain and

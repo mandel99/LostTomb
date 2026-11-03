@@ -12,5 +12,6 @@ struct restore_menu_input_frame { uint32_t r[8],flags; restore_menu_input_frame_
 #endif
 void FUN_0046ac10(int32_t building);
 void FUN_0046ac50(int32_t building);
-void restore_C_0046ac50(struct restore_menu_input_frame *frame);
+void restore_building_release_links(int32_t building);
+void restore_building_release(int32_t building);
 #endif

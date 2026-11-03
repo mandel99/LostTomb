@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/menu_drag_building_release.c runtime/menu_drag_monument_clear.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/construction_controller.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_preview_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_family.c runtime/menu_drag_world_offset.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -231,8 +232,8 @@ add_library(restore_menu_selection OBJECT runtime/menu_group_selection.c runtime
  runtime/menu_drag_actor_create.c runtime/menu_drag_actor_spawn.c runtime/menu_drag_building_cleanup.c runtime/menu_drag_group_clear.c
  runtime/menu_drag_actor_walk_link.c runtime/menu_drag_actor_walk_unlink.c runtime/actor_walking_facades.c
  runtime/map_commit_population.c runtime/city_footprint_validation.c
- runtime/menu_drag_monument_unlink.c runtime/menu_drag_monument_clear.c runtime/menu_drag_monument_clear_model.c
- runtime/menu_drag_building_release.c runtime/menu_drag_building_release_model.c runtime/menu_drag_commit.c runtime/menu_drag_commit_model.c
+ runtime/menu_drag_monument_unlink.c runtime/menu_drag_monument_clear.c
+ runtime/menu_drag_building_release.c runtime/menu_drag_commit.c runtime/menu_drag_commit_model.c
  runtime/menu_drag_paint_region.c runtime/menu_drag_paving_region_model.c runtime/menu_drag_vegetation_region_model.c runtime/menu_drag_route_footprint.c)
 target_include_directories(restore_menu_selection PRIVATE include)
 target_sources(restore_menu_selection PRIVATE
@@ -2019,3 +2020,5 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0043f410" "/INCLUD
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004405c0" "/INCLUDE:_FUN_00440700" "/INCLUDE:_FUN_00440850" "/INCLUDE:_FUN_00440b10" "/INCLUDE:_FUN_00440ed0")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046fef0" "/INCLUDE:_FUN_00405d90")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004743f0" "/INCLUDE:_FUN_00474700")
+
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046ac10" "/INCLUDE:_FUN_0046ac50" "/INCLUDE:_FUN_004c0920")
