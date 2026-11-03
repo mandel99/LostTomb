@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Reconstruct housing desirability, full service/goods requirements and the
+  global-mode guard as ordinary C. Retire 1,203 model/ROM lines. Preserve
+  signed service bytes, small-house goods rounding, cached model/player
+  values, exact ordered statistics counters and native food-ID behavior.
+- Pass 3,299 original/C cases per diagnostic/game build, all 562 native
+  instructions, 108 conditional edges and 13 switch targets, plus 40 actual
+  housing-controller compositions per build. Mode-guard image changes and
+  map stamping execute without substituted providers. No gameplay launch
+  or complete-gameplay claim.
+
 - Reconstruct all four complex-monument image-selection members as ordinary C
   phase/orientation and image-bank rules. Remove 2,750 remaining frame-model
   lines and private ROM readers from placement_queries.c. Preserve ordered

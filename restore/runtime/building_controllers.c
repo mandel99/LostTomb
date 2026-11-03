@@ -1,4 +1,5 @@
 #include "building_controllers.h"
+#include "house_evolution.h"
 #include "resource_availability.h"
 #include "actor_create.h"
 #include "actor_order_path.h"
@@ -149,11 +150,11 @@ void FUN_00454b40(int32_t building)
 void FUN_0046b740(int32_t building)
 {const uint32_t a[]={(uint32_t)building};(void)execute(restore_building_control_C_0046b740,a,1);}
 uint32_t FUN_004539a0(void)
-{return execute(restore_building_control_C_004539a0,0,0);}
+{return restore_house_check_global_mode();}
 uint32_t FUN_00453af0(int32_t building)
-{const uint32_t a[]={(uint32_t)building};return execute(restore_building_control_C_00453af0,a,1);}
+{return (uint32_t)restore_house_compare_desirability((uint32_t)building);}
 uint32_t FUN_00453b40(int32_t building,int32_t level)
-{const uint32_t a[]={(uint32_t)building,(uint32_t)level};return execute(restore_building_control_C_00453b40,a,2);}
+{return restore_house_check_requirements((uint32_t)building,(uint32_t)level);}
 void FUN_00472790(int32_t count,int32_t group,int32_t x,int32_t y)
 {uint32_t a[4]={(uint32_t)count,(uint32_t)group,(uint32_t)x,(uint32_t)y};(void)execute(restore_building_control_C_00472790,a,4);}
 int32_t FUN_004b6e10(int32_t building)
