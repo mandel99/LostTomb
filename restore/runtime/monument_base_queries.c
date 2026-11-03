@@ -6,6 +6,8 @@
 extern __declspec(noreturn) void restore_monument_progress_invalid(uint32_t token);
 void restore_monument_base_initialize(void)
 {MB_U(0x6fd5dcu)=2;MB_U(0x6fd36cu)=2;MB_U(0x6de54cu)=3;}
+uint32_t restore_monument_base_worker_result(uint32_t token,uint32_t building,uint32_t incoming_eax)
+{return (incoming_eax&0xffffff00u)|restore_monument_base_worker(token,building);}
 uint8_t restore_monument_base_worker(uint32_t token,uint32_t building)
 {
  uint32_t slot,worker,actor,state;uint8_t type;

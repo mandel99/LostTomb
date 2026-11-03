@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Route six monument base progress/worker entries through shared C providers.
+  Capture the progress receiver and both native stack arguments; preserve
+  complete EAX across worker predicates that define only AL. Remove ambiguous
+  generated register, return-address and output-buffer bindings.
+- Pass 966 native/C cases per diagnostic/game build, covering 482 reachable
+  instructions and 134 conditional edges with actual worker predicates and
+  x87 conversion. Check output canaries/aliases, stale worker links, signed
+  stages, cost wrapping and inherited x87 control/guards. The 21 defensive
+  instructions require different callbacks or concurrent mutation and are
+  unreachable with the three shipped worker predicates. Other monument
+  simulation, placement and full gameplay remain outside this comparison.
 - Reconstruct the event scheduler, completed-event rearm, parameter count
   and dispatch-deferral predicate as named C providers. Replace four generated
   entries with explicit receiver/argument bridges and retire 434 duplicate
