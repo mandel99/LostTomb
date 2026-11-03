@@ -38,7 +38,6 @@ void restore_event_C_0044e230(struct restore_event_actions_frame *);
 void restore_event_C_0044e2a0(struct restore_event_actions_frame *);
 void restore_event_C_0044e5d0(struct restore_event_actions_frame *);
 void restore_event_C_0044e6f0(struct restore_event_actions_frame *);
-void restore_event_C_0044e7b0(struct restore_event_actions_frame *);
 void restore_event_C_0044e890(struct restore_event_actions_frame *);
 void restore_event_C_0044edd0(struct restore_event_actions_frame *);
 void restore_event_C_0044ee30(struct restore_event_actions_frame *);

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reconstruct seven event/resource methods with named C interfaces: signed
+  record lookup, linked-event predicates, remaining months, message selection,
+  the 30-byte message packet and flood-event execution. Correct the event
+  record stride/count width and unsigned extension commodity IDs.
+- Share the event graph stack for immediate flood follow-ups, preserving
+  caller-owned packet fields and avoiding a fresh 64 KB arena at each step.
+- Pass 3,182 native/C cases per diagnostic/game build, covering all 316
+  instructions and 42 conditional edges of these seven methods, actual
+  nonmodal message publication, and immediate/delayed chains of up to 59
+  follow-ups through the complete event iterator. No dependency algorithms
+  are substituted. Live gameplay and unrelated event kinds remain unverified.
 - Restore ten flood-setting/effect methods with explicit receivers and shared
   C implementations. Preserve the ninth state DWORD, annual RNG/history write
   order, signed clamps and the world-to-settings offset used by random effects.

@@ -29,6 +29,7 @@
 #include "mission_unlock.h"
 #include "resource_availability.h"
 #include "actor_mission_init.h"
+#include "event_packet.h"
 #include <stdlib.h>
 #include <string.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -76,7 +77,6 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
     RAW(0044e2a0);
     RAW(0044e5d0);
     RAW(0044e6f0);
-    RAW(0044e7b0);
     RAW(0044e890);
     RAW(0044edd0);
     RAW(0044ee30);
@@ -143,6 +143,11 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
     case 0x44d680u:
         f->r[0]=(f->r[0]&0xffffff00u)|restore_event_record_due_0044d680(f->r[1],A(1));
         cleanup=4;break;
+    /* The flood handler and its scheduler return void. Their only native
+       dispatcher continuations RET; the simulation loop then reloads EAX
+       and replaces flags before testing. No volatile GPR output is consumed. */
+    case 0x44e7b0u:
+        restore_flood_event_apply_context(f->r[1],A(1),f);cleanup=4;break;
     case 0x4493c0u:
         f->r[0]=(f->r[0]&0xffffff00u)|FUN_004493c0((const RestoreTownRecord *)(uintptr_t)f->r[1]);break;
     case 0x40b5e0u:f->r[0]=FUN_0040b5e0((int32_t)A(1));break;
@@ -228,13 +233,29 @@ static uint32_t invoke_words(uint32_t entry,uint32_t self,const uint32_t *words,
 static void invoke(uint32_t entry,uint32_t self)
 {(void)invoke_words(entry,self,0,0,0);}
 
-int32_t restore_event_message_kind_0044f660(uint32_t self)
-{return (int32_t)invoke_words(0x44f660u,self,0,0,0);}
-
-void restore_event_message_parameters_0044e6f0(uint32_t self,int16_t parameters[16])
+/* Reuse the current event graph's stack for nested logical providers. A
+   fresh64KB arena at every immediate follow-up would grow the host stack
+   much faster than the original. Reserve the flood handler's48-byte call
+   area below its native entry; modeled descendants own the lower area. */
+static uint32_t invoke_child_words(uint32_t entry,uint32_t self,const uint32_t *words,
+    uint32_t count,uint32_t cleanup,struct restore_event_actions_frame *parent)
 {
-    uint32_t argument=(uint32_t)(uintptr_t)parameters;
-    (void)invoke_words(0x44e6f0u,self,&argument,1,4);
+    struct restore_event_actions_frame child;uint32_t sp,i;
+    if(!parent)return invoke_words(entry,self,words,count,cleanup);
+    child=*parent;sp=parent->r[4]-48u;child.r[4]=sp;child.r[1]=self;child.boundary=dispatch;
+    U(sp)=0;for(i=0;i<count;++i)U(sp+4u+i*4u)=words[i];
+    dispatch(0,entry,&child);
+    if(child.r[4]!=sp+4u+cleanup)abort();
+    return child.r[0];
+}
+int32_t restore_event_followup_message_context(uint32_t self,uint32_t slot,struct restore_event_actions_frame *context)
+{return (int32_t)invoke_child_words(0x44fd30u,self,&slot,1,4,context);}
+int32_t restore_event_followup_message(uint32_t self,uint32_t slot)
+{return restore_event_followup_message_context(self,slot,0);}
+void restore_event_schedule_context(uint32_t self,int32_t template_id,int16_t reason,struct restore_event_actions_frame *context)
+{
+    uint32_t words[2]={(uint32_t)template_id,(uint32_t)(int32_t)reason};
+    (void)invoke_child_words(0x44c490u,self,words,2,8,context);
 }
 
 /* Simulation4464F0 supplies a live124-byte record. Share the complete event
