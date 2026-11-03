@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Reconstruct complete actor release 4B4980 as ordinary C; remove 897 lines of
+  register simulation and its virtual stack runner. Preserve city counters, building and
+  formation slots, FIFO membership, route/cell unlinking and all 97 final DWORD
+  clears, including genuine BYTE/WORD wraparound and signed building IDs.
+- Preserve the distinct global update cursor for delivery reservations: derive
+  its resource/amount from that actor while updating the destroyed actor's target,
+  or the cursor's destination for the separate kind-71 fallback. Keep all native
+  resource mappings, skip kinds and fresh late binding reads.
+- Pass 507 original/C scenarios per diagnostic/game build: all 384 native
+  instructions, 132 conditional outcomes and all 27 targets across two switches.
+  Execute actual gate/query, FIFO, route and walking-list children; compare
+  ordered owned writes, helper inputs, all original static data, FIFO memory and
+  saved ABI. Check the native 488050 receiver against its explicit C adapter and
+  authenticated receiver-independent query closure. No injected results, host
+  game launch, concurrent access or whole-gameplay fidelity claim.
+
 - Reconstruct building release and temple-complex clearing as ordinary C; retire
   1,117 register-model lines and two virtual-stack runners. Preserve ordered
   slot unlinking, player monuments and landmark records, phase-triggered redraw,

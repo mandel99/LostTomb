@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/menu_drag_actor_teardown.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_building_release.c runtime/menu_drag_monument_clear.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/construction_controller.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_preview_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -228,7 +229,7 @@ add_library(restore_menu_selection OBJECT runtime/menu_group_selection.c runtime
  runtime/menu_drag_map_gates.c runtime/menu_drag_gate_query_model.c runtime/menu_drag_gate_publish_model.c
  runtime/menu_drag_canal_region.c runtime/menu_drag_canal_region_model.c runtime/menu_drag_redraw_dispatch.c runtime/menu_drag_redraw_dispatch_model.c
  runtime/menu_drag_preview_geometry.c runtime/menu_drag_route_query.c runtime/menu_drag_route_query_model.c
- runtime/menu_drag_actor_teardown.c runtime/menu_drag_actor_teardown_model.c runtime/menu_drag_actor_profile.c runtime/menu_drag_actor_profile_model.c
+ runtime/menu_drag_actor_teardown.c runtime/menu_drag_actor_profile.c runtime/menu_drag_actor_profile_model.c
  runtime/menu_drag_actor_create.c runtime/menu_drag_actor_spawn.c runtime/menu_drag_building_cleanup.c runtime/menu_drag_group_clear.c
  runtime/menu_drag_actor_walk_link.c runtime/menu_drag_actor_walk_unlink.c runtime/actor_walking_facades.c
  runtime/map_commit_population.c runtime/city_footprint_validation.c
@@ -2022,3 +2023,4 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046fef0" "/INCLUD
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004743f0" "/INCLUDE:_FUN_00474700")
 
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046ac10" "/INCLUDE:_FUN_0046ac50" "/INCLUDE:_FUN_004c0920")
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004b4980")

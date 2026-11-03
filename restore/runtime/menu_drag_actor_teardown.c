@@ -115,27 +115,87 @@ uint8_t FUN_004a43a0(int32_t actor)
  (void)restore_ring_004f6950((void *)(uintptr_t)(0x9783a4u+(uint32_t)list*28u),actor);
  return 1;
 }
-static void boundary(uint32_t site,uint32_t target,struct restore_menu_input_frame *f)
+#define H(a) ((int32_t)(int16_t)W(a))
+static int actor_releases_reservation(int32_t kind)
 {
- uint32_t sp=f->r[4],actor=U(sp+4u);(void)site;
- switch(target){
- case 0x488050u:f->r[0]=restore_actor_building_gate((int32_t)actor);f->r[4]=sp+8u;return;
- case 0x4a43a0u:f->r[0]=(f->r[0]&UINT32_C(0xffffff00))|FUN_004a43a0((int32_t)actor);break;
- case 0x4b3250u:FUN_004b3250((int32_t)actor);break;
- case 0x4b5420u:FUN_004b5420((int32_t)actor);break;
- default:abort();
+ if(kind>=110&&kind<=114)return 1;
+ switch(kind){
+ case 32:case 47:case 51:case 53:case 74:case 177:case 178:case 187:case 188:case 189:
+ case 194:case 203:case 204:case 205:case 226:case 231:case 232:case 233:return 1;
+ default:return 0;
  }
- f->r[4]=sp+4u;
 }
-void FUN_004b4980(int32_t actor)
+static uint32_t actor_reservation_resource(int32_t kind)
 {
- uint32_t stack[32];struct restore_menu_input_frame f;unsigned i;
- for(i=0;i<32;++i)stack[i]=SENTRY;
- for(i=0;i<8;++i)f.r[i]=0;
- f.flags=2;f.boundary=boundary;f.r[4]=(uint32_t)(uintptr_t)(stack+16);stack[17]=(uint32_t)actor;
- restore_C_004b4980(&f);
- if(f.r[4]!=(uint32_t)(uintptr_t)(stack+17)||stack[16]!=SENTRY||f.r[3]||f.r[5]||f.r[6]||f.r[7])abort();
- for(i=0;i<9;++i)if(stack[i]!=SENTRY)abort();
- for(i=18;i<32;++i)if(stack[i]!=SENTRY)abort();
+ static const int32_t resource[26]={16,-1,24,20,11,25,12,10,14,18,22,23,9,28,21,17,29,30,-1,32,2,8,31,13,33,34};
+ uint32_t index=(uint32_t)kind-1u;
+ return index<26u?(uint32_t)resource[index]:UINT32_MAX;
 }
-
+void restore_actor_release(int32_t actor)
+{
+ uint32_t player=U(0xeaac28u)*0x49d8u,record=(uint32_t)actor*388u,home,target,current,resource,slot,index,group;
+ int32_t kind=B(0xbcd602u+record),value,building_kind;
+ if(kind==57)U(0xea5f04u+player)=U(0xea5f04u+player)+1u;
+ if(kind==93||kind==100)U(0xea6210u+player)=U(0xea6210u+player)-1u;
+ if(kind==92||kind==101||kind==77){slot=B(0xbcd68au+record);if(slot)U(0xbcba4cu+slot*144u)=0;}
+ if(kind==5||kind==39){
+  home=(uint32_t)H(0xbcd652u+record);if(home)W(0x799a04u+home*264u)=0;goto common;
+ }
+ if(kind==78||kind==77){(void)FUN_004a43a0(actor);goto common;}
+ if(kind==62){home=(uint32_t)H(0xbcd652u+record);W(0x799a08u+home*264u)=0;goto common;}
+ switch(kind){
+ case 6:case 14:case 59:case 60:case 61:case 71:case 65:case 68:case 82:
+ case 70:case 84:case 83:case 103:case 104:case 102:case 109:case 66:case 40:goto common;
+ default:break;
+ }
+ if(kind==75||kind==90||(kind==73&&B(0x799a7eu+(uint32_t)H(0xbcd652u+record)*264u))){
+  home=(uint32_t)H(0xbcd652u+record);B(0x799a7eu+home*264u)=(uint8_t)(B(0x799a7eu+home*264u)-1u);goto common;
+ }
+ if(kind==98){value=(int32_t)U(0xea61f0u+player);U(0xea61f0u+player)=value>0?(uint32_t)value-1u:0;goto common;}
+ if(kind==15||kind==16||kind==17){
+  home=(uint32_t)H(0xbcd652u+record);W(0x799a76u+home*264u+(uint32_t)(kind-15)*2u)=0;goto common;
+ }
+ if(kind==85){
+  target=(uint32_t)H(0xbcd656u+record);
+  if((uint8_t)restore_actor_building_gate((int32_t)target))W(0x799a8cu+target*264u)=0;
+  goto common;
+ }
+ home=(uint32_t)H(0xbcd652u+record);
+ if(kind==38){
+  for(index=0;index<3u;++index)if(H(0x799a86u+home*264u+index*2u)==actor)W(0x799a86u+home*264u+index*2u)=0;
+  goto common;
+ }
+ if(!home)goto common;
+ if(H(0x799a02u+home*264u)==actor)W(0x799a02u+home*264u)=0;
+ else if(H(0x799a8eu+home*264u)==actor)W(0x799a8eu+home*264u)=0;
+ if(kind!=4&&kind!=9)goto common;
+ target=(uint32_t)H(0xbcd656u+record);building_kind=H(0x7999e8u+target*264u);
+ /* The reservation belongs to the global update cursor, which can differ
+    from the actor being destroyed. Cache that cursor once as the native does. */
+ current=U(0xd056f8u)*388u;
+ if(actor_releases_reservation(building_kind)&&W(0xbcd66cu+current)){
+  resource=actor_reservation_resource(H(0x799aa6u+(uint32_t)H(0xbcd656u+current)*264u));
+  if(W(0x7999e8u+target*264u)==204u&&(uint32_t)B(0xbcd603u+record)==resource)
+   W(0x799adeu+target*264u)=(uint16_t)(W(0x799adeu+target*264u)-1u);
+  else W(0x799adcu+target*264u)=(uint16_t)(W(0x799adcu+target*264u)-1u);
+  goto common;
+ }
+ target=(uint32_t)H(0xbcd656u+current);
+ if(W(0x7999e8u+target*264u)==71u&&W(0xbcd66cu+current)){
+  W(0x799adcu+target*264u)=(uint16_t)(W(0x799adcu+target*264u)-1u);
+  W(0x799adeu+target*264u)=(uint16_t)(W(0x799adeu+target*264u)-W(0xbcd66cu+current));
+ }
+common:
+ slot=B(0xbcd666u+record);
+ if(slot){
+  group=slot*106u;W(0x77de54u+group)=0;
+  if(H(0x77de5au+group)==actor)W(0x77de5au+group)=0;
+  else if(H(0x77de5cu+group)==actor)W(0x77de5cu+group)=0;
+  else if(H(0x77de5eu+group)==actor)W(0x77de5eu+group)=0;
+ }
+ slot=U(0xbcd714u+record);if(slot)B(0x9784d8u+slot*44u)=0;
+ if(W(0xbcd654u+record)){home=(uint32_t)H(0xbcd652u+record);W(0x799a06u+home*264u)=0;}
+ FUN_004b3250(actor);FUN_004b5420(actor);
+ for(index=0;index<97u;++index)U(0xbcd5f8u+record+index*4u)=0;
+}
+void FUN_004b4980(int32_t actor){restore_actor_release(actor);}

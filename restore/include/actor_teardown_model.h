@@ -10,7 +10,7 @@ struct restore_menu_input_frame;
 typedef void (*restore_menu_input_frame_call)(uint32_t,uint32_t,struct restore_menu_input_frame *);
 struct restore_menu_input_frame { uint32_t r[8],flags; restore_menu_input_frame_call boundary; };
 #endif
-void restore_C_004b4980(struct restore_menu_input_frame *frame);
+void restore_actor_release(int32_t actor);
 void FUN_004b4980(int32_t actor);
 uint32_t restore_actor_building_gate(int32_t building);
 uint8_t restore_actor_building_query(int32_t building);
