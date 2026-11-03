@@ -66,7 +66,6 @@ undefined4 FUN_00414420(void)
     bytes=DAT_00e38dac*DAT_00e38db0*2u;
     if((int32_t)bytes<=1200000)bytes=1200000;
     DAT_00e92e1c=(uint32_t)(uintptr_t)FUN_00561b68(bytes);
-    restore_sprite_libraries_initialize(RESTORE_SPRITE_LIBRARIES);
     FUN_0053dd10(RESTORE_SPRITE_LIBRARIES,names);
     FUN_00520b20(0);FUN_004cc110(11,7);FUN_004cf7b0(DAT_00e20768);FUN_004d0280(1);FUN_004cf7b0(DAT_00e20768);
     if(!DAT_00e92e1c)return 1;

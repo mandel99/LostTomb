@@ -10,6 +10,7 @@
 #include "monument_constructor.h"
 #include "actor_ring_queue.h"
 #include "file_list.h"
+#include "sprite_shutdown.h"
 #ifdef RESTORE_GAME_LAUNCHER
 #include "game_launcher.h"
 #include "game_diagnostics.h"
@@ -43,7 +44,7 @@ int main(int argc,char **argv)
     /* Register the arena owner first: later game destructors run before its
        pages become inaccessible. Every normal return below uses this order. */
     if(atexit(restore_data_close)!=0){restore_data_close();return 1;}
-    /* Restored subset in the original576008..576074 CRT-table order. */
+    /* Restored subset in the original576008..576078 CRT-table order. */
     (void)FUN_00402360();
     restore_monument_constructors_initialize();
     (void)FUN_0041e050();
@@ -54,6 +55,7 @@ int main(int argc,char **argv)
     FUN_004d4a50();
     (void)FUN_004f64a0();
     (void)FUN_00516570();
+    (void)FUN_0053da50();
     if(probe) {
         unsigned int result;
         puts("Explicit C game-startup probe: entering restored 00413ed0; use a bounded debugger and isolated asset directory.");

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Restore the final sprite-manager CRT startup entry and registered cleanup.
+  Remove the extra blanket clear during graphics loading so fields preserved
+  by the original constructors stay intact.
+- Reconstruct both sprite-library array cleanup callbacks with an explicit
+  parent-frame receiver and reverse destruction of all 30 library records.
+- Pass 146 native/C lifetime cases per diagnostic/game build, covering all
+  187 instructions across 11 entries, plus 22 graphics-startup orchestration
+  cases covering all 180 caller instructions and four conditional edges.
+  Loader/render backends are controlled in the orchestration comparison;
+  generic C++ exception unwinding and virtual destruction remain unfinished.
 - Restore file-list constructors, destructors and deleting destructors with
   explicit ECX/EBP inputs and named C interfaces. Connect save, mission and
   family globals to startup/exit in the original CRT order. Preserve pointer
