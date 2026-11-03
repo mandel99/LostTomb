@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Reconstruct building/storage record bounds and monthly warehouse stock
+  summaries as ordinary C. Replace 400 register-model body lines and the
+  decompiled warehouse-summary unit with a 49-line module and direct
+  canonical/frame adapters.
+- Preserve the two warehouse passes, actual orientation/fallback road lookups,
+  inherited bin access, stale flags under disabled roots, 36-resource stock/free
+  arrays, signed quantities/types and unclamped capacity arithmetic. Keep
+  interleaved array clearing and the tutorial milestones for resources 13/15/12.
+  Bounds retain the last nonzero building/storage record and the cached previous
+  high-water value in the original publication order.
+- Pass 127 offline original/C scenarios per diagnostic/game build:
+  all 183 native instructions and 66 conditional
+  outcomes. Rea authenticates code bytes/instructions. Actual road, root and
+  tutorial/event children execute; occupied real message slots keep notifications
+  offline. Named/canonical/three frame adapters, ordered stores, child inputs,
+  original static data and saved ABI match. Caller-saved state, private scratch,
+  concurrent access and host game/UI fidelity are excluded. The 12-case city-supply
+  smoke also passes on both new builds.
+
 - Reconstruct warehouse-bin delivery destinations and city food/industrial stock
   summaries, including their monthly callers, as ordinary C. Replace 1863
   register-model body lines and the old decompiled industry-summary unit with a

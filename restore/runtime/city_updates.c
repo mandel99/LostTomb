@@ -1,3 +1,4 @@
+#include "warehouse_stock.h"
 #include "city_supply.h"
 #include "granary.h"
 #include "city_updates.h"
@@ -351,11 +352,11 @@ void FUN_004e92f0(int32_t player,int32_t group,int32_t amount)
 void FUN_0045e040(void)
 {restore_granary_rebuild_supply();}
 void FUN_0045aa30(void)
-{(void)invoke(0x0045aa30u,0,0);}
+{restore_building_rebuild_bounds();}
 void FUN_004558b0(void)
 {(void)invoke(0x004558b0u,0,0);}
 void FUN_0045aaa0(void)
-{(void)invoke(0x0045aaa0u,0,0);}
+{restore_warehouse_update_stock();}
 void FUN_0045d5d0(void)
 {restore_city_update_food();}
 void FUN_0045e6c0(void)
