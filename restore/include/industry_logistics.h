@@ -1,6 +1,8 @@
 #ifndef RESTORE_INDUSTRY_LOGISTICS_H
 #define RESTORE_INDUSTRY_LOGISTICS_H
 #include <stdint.h>
+int32_t restore_industry_capacity(int32_t kind);
+int restore_industry_accepts_goods(int32_t kind);
 int32_t restore_industry_delivery_destination(uint32_t actor,int32_t resource,uint32_t network);
 int32_t restore_industry_producer_destination(uint32_t actor,int32_t resource,uint32_t network);
 int32_t restore_industry_city_destination(uint32_t unused1,uint32_t unused2,int32_t resource,uint32_t network);

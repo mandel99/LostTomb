@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- Reconstruct warehouse-bin delivery destinations and city food/industrial stock
+  summaries, including their monthly callers, as ordinary C. Replace 1863
+  register-model body lines and the old decompiled industry-summary unit with a
+  shared 128-line module and direct canonical/frame adapters.
+- Preserve warehouse policies, fresh capacity/staffing checks, repeated root
+  resolution, road access, genuine routing and candidate publication order.
+  Keep granary staffing thresholds, food-type presence versus city totals,
+  signed consumption and editor overrides. Tutorial milestones run through the
+  actual tutorial/event pipeline. Industrial summaries preserve interleaved
+  clearing, type/capacity rules and cached secondary types with fresh quantities.
+- Pass 231 offline original/C scenarios per diagnostic/game build:
+  587 of 596 native instructions, 149 conditional outcomes and
+  18 reachable computed targets across four switch sites. Rea
+  authenticates native code/tables. Nine instructions, one conditional outcome
+  and five food-switch targets are analytically unreachable because the loop
+  only indexes 0..7. Actual root, stock, road, route, staffing, consumption and
+  tutorial children execute; an occupied real message queue keeps notifications
+  offline. Compare named/canonical/seven frame adapters, ordered owned stores,
+  child inputs, final original static data, saved ABI and destination DWORD
+  returns. Incidental caller-saved state, private scratch, concurrent access and
+  host game/UI fidelity are excluded. The nine-case industrial-logistics smoke
+  also passes on both builds after exposing its shared capacity/admission helpers.
+
 - Reconstruct industrial delivery destinations, producer destinations, the city's
   selected destination for resources 10/28 and industrial stock delivery as ordinary C.
   Replace 1985 register-model body lines with a shared 121-line module, common

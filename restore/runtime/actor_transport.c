@@ -1,3 +1,4 @@
+#include "city_supply.h"
 #include "industry_logistics.h"
 #include "granary.h"
 #include "storage_transactions.h"
@@ -24,7 +25,7 @@ int32_t FUN_00496640(int32_t actor)
 {const uint32_t a[]={(uint32_t)actor};return (int32_t)invoke(0x00496640u,a,1);}
 
 uint32_t FUN_0045acf0(int32_t param_1,uint32_t param_2,int32_t param_3,uint32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (uint32_t)invoke(0x45acf0u,a,4);}
+{return restore_storage_delivery_destination(param_1,param_2,param_3,param_4);}
 
 void FUN_0045b880(int32_t param_1,int32_t *param_2,int32_t *param_3,int32_t *param_4,int32_t *param_5,int32_t *param_6,
                  int32_t *param_7)

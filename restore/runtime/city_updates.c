@@ -1,3 +1,4 @@
+#include "city_supply.h"
 #include "granary.h"
 #include "city_updates.h"
 #include "actor_civic.h"
@@ -342,7 +343,7 @@ int32_t FUN_00458f00(int32_t player,int32_t requested)
 void FUN_004e8650(void){(void)invoke(0x4e8650u,0,0);}
 void FUN_004e8720(void){(void)invoke(0x4e8720u,0,0);}
 void FUN_0045d630(int32_t player)
-{const uint32_t a[]={(uint32_t)player};(void)invoke(0x45d630u,a,1);}
+{restore_city_rebuild_food(player);}
 int32_t FUN_004e92c0(int32_t player,int32_t group)
 {const uint32_t a[]={(uint32_t)player,(uint32_t)group};return (int32_t)invoke(0x4e92c0u,a,2);}
 void FUN_004e92f0(int32_t player,int32_t group,int32_t amount)
@@ -356,9 +357,9 @@ void FUN_004558b0(void)
 void FUN_0045aaa0(void)
 {(void)invoke(0x0045aaa0u,0,0);}
 void FUN_0045d5d0(void)
-{(void)invoke(0x0045d5d0u,0,0);}
+{restore_city_update_food();}
 void FUN_0045e6c0(void)
-{(void)invoke(0x0045e6c0u,0,0);}
+{restore_city_update_industry();}
 void FUN_00457a40(void)
 {(void)invoke(0x00457a40u,0,0);}
 void FUN_00457af0(void)

@@ -18,7 +18,7 @@ static int32_t resource_of(int32_t type)
  static const int8_t resources[27]={-1,16,-1,24,20,11,25,12,10,14,18,22,23,9,28,21,17,29,30,-1,32,2,8,31,13,33,34};
  return (uint32_t)type<27u?resources[type]:-1;
 }
-static int32_t capacity(int32_t kind)
+int32_t restore_industry_capacity(int32_t kind)
 {
  switch(kind){
  case 32:case 51:return 300;
@@ -27,7 +27,7 @@ static int32_t capacity(int32_t kind)
  default:return 200;
  }
 }
-static int accepts_goods(int32_t kind)
+int restore_industry_accepts_goods(int32_t kind)
 {
  if(kind>=110&&kind<=114)return 1;
  switch(kind){
@@ -46,13 +46,13 @@ int32_t restore_industry_delivery_destination(uint32_t actor,int32_t resource,ui
   record=id*264u;if(B(0x7999d8u+record)!=1u)continue;
   if(FUN_00459240(I(id)))goto rejected;
   kind=H(0x7999e8u+record);
-  if(!accepts_goods(kind)||!B(0x799a1cu+record)||H(0x7999f8u+record)<=0)goto rejected;
+  if(!restore_industry_accepts_goods(kind)||!B(0x799a1cu+record)||H(0x7999f8u+record)<=0)goto rejected;
   if(H(0x7999eau+record)!=type&&H(0x799aa6u+record)!=type)goto rejected;
   if(B(0x7999ecu+record)!=network)goto rejected;
   if((kind==187||kind==188||kind==189)&&!W(0x799a18u+record))goto rejected;
   if(W(0x799aa6u+record)&&H(0x799aa6u+record)==type){stock=H(0x799aa4u+record);pending=H(0x799adeu+record);}
   else{stock=H(0x799a14u+record);pending=H(0x799adcu+record);}
-  limit=capacity(kind);if(stock+100>limit||(pending>0&&limit-pending*100-stock<=0))goto rejected;
+  limit=restore_industry_capacity(kind);if(stock+100>limit||(pending>0&&limit-pending*100-stock<=0))goto rejected;
   if(pending>best_pending||stock>best_stock)goto rejected;
   if(stock<best_stock){count=0;best_stock=stock;best_pending=pending;}else count=U(0x96e6b0u);
   y=H(0x799a00u+record);origin=U(0xbca2d8u);U(0x972534u+count*4u)=id;
@@ -76,7 +76,7 @@ int32_t restore_industry_producer_destination(uint32_t actor,int32_t resource,ui
  bound=I(U(0x78d790u));U(0x96e6b0u)=0;if(bound<1)return 0;
  for(id=1;;++id){
   record=id*264u;
-  if(B(0x7999d8u+record)==1u&&accepts_goods(H(0x7999e8u+record))&&B(0x799a1cu+record)&&H(0x7999f8u+record)>0&&H(0x7999eau+record)==type&&B(0x7999ecu+record)==network){
+  if(B(0x7999d8u+record)==1u&&restore_industry_accepts_goods(H(0x7999e8u+record))&&B(0x799a1cu+record)&&H(0x7999f8u+record)>0&&H(0x7999eau+record)==type&&B(0x7999ecu+record)==network){
    y=H(0x7999e0u+record);origin=U(0xbca2d8u);U(0x972534u+count*4u)=id;
    tile=origin+(uint32_t)H(0x7999deu+record)+(uint32_t)y*228u;++count;U(0x96e6b0u+count*4u)=tile;
   }
@@ -94,12 +94,12 @@ int32_t restore_industry_city_destination(uint32_t unused1,uint32_t unused2,int3
  if(resource!=10&&resource!=28)return 0;
  if(U(0xea42f8u+U(0xeaac28u)*0x49d8u+(uint32_t)resource*4u)||I(U(0x7058b8u))<=0)return 0;
  if(H(0x7999eau+record)==type){
-  limit=capacity(H(0x7999e8u+record));stock=H(0x799a14u+record);if(stock>=limit)return 0;
-  pending=H(0x799adcu+record);if(pending>0&&capacity(H(0x7999e8u+record))-pending*100-stock<=0)return 0;
+  limit=restore_industry_capacity(H(0x7999e8u+record));stock=H(0x799a14u+record);if(stock>=limit)return 0;
+  pending=H(0x799adcu+record);if(pending>0&&restore_industry_capacity(H(0x7999e8u+record))-pending*100-stock<=0)return 0;
  }
  if(H(0x799aa6u+record)==type){
-  limit=capacity(H(0x7999e8u+record));stock=H(0x799aa4u+record);if(stock>=limit)return 0;
-  pending=H(0x799adeu+record);if(pending>0&&capacity(H(0x7999e8u+record))-pending*100-stock<=0)return 0;
+  limit=restore_industry_capacity(H(0x7999e8u+record));stock=H(0x799aa4u+record);if(stock>=limit)return 0;
+  pending=H(0x799adeu+record);if(pending>0&&restore_industry_capacity(H(0x7999e8u+record))-pending*100-stock<=0)return 0;
  }
  if(I(U(0xbcb9b4u))<=0)return 0;
  if(!FUN_00480180(H(0x7999deu+record),H(0x7999e0u+record),B(0x7999dbu+record)))return 0;
@@ -113,7 +113,7 @@ int32_t restore_industry_deliver(int32_t building,int32_t amount,int32_t resourc
  uint32_t record=(uint32_t)building*264u,at=resource==10?0x799a14u:0x799aa4u,counter=resource==10?0x799adcu:0x799adeu;
  int32_t limit,stock;
  if(building<1)return 1;
- limit=capacity(H(0x7999e8u+record));stock=H(at+record);if(stock>=limit)return 0;
+ limit=restore_industry_capacity(H(0x7999e8u+record));stock=H(at+record);if(stock>=limit)return 0;
  /* Native returns/adds the excess after this wrapped sum, rather than space. */
  if(I((uint32_t)stock+(uint32_t)amount)>limit)amount=I((uint32_t)amount+(uint32_t)stock-(uint32_t)limit);
  W(at+record)=(uint16_t)((uint32_t)stock+(uint32_t)amount);W(counter+record)=(uint16_t)(W(counter+record)-1u);return amount;
