@@ -5,6 +5,8 @@ check receiver/flags and callback lifetimes; compositions also use actual image
 queries, activity and rectangle stamping. No host game or renderer runs.
 """
 from verify_options_startup import *
+import json
+from capstone import Cs,CS_ARCH_X86,CS_MODE_32
 
 receivers=[0x6f9320,0x6f5648,0x6de9e0,0x6e9188]
 image_queries=[0x545760,0x558c00,0x555ea0,0x54f490]
@@ -39,6 +41,15 @@ def endpoint(c,state,token,name,n,action,cleanup=0):
 
 
 def commit(c,u,self,id):
+    if c and '--frame' in sys.argv:
+        frame,sp=S+0x30000,S+0x40000
+        u.mem_write(sp-128,b'\x6b'*192);put(u,sp,STOP);put(u,sp+4,id)
+        u.mem_write(frame,struct.pack('<10I',0x89abcdef,self,0x98765432,saved[0],sp,*saved[1:],0x202,sym('restore_building_create_dispatch')))
+        run(0,u,sym('restore_building_create_dispatch'),[0,0x5468d0,frame])
+        assert get(u,frame+16)==sp+8
+        assert [get(u,frame+i*4) for i in [3,5,6,7]]==saved
+        assert bytes(u.mem_read(sp-128,64))==b'\x6b'*64 and bytes(u.mem_read(sp+8,56))==b'\x6b'*56
+        return
     return run(c,u,0x5468d0,[self,id] if c else [id],cleanup=0 if c else 4,receiver=None if c else self)
 
 
@@ -138,6 +149,23 @@ def refresh(resource=False,count=6,mutate=False,real=False,query=0,material=0):
     compare(values,('refresh',resource,count,mutate,real,query,material))
 
 
+if '--frame' in sys.argv:
+    dossier=json.loads((ROOT/'metadata/monument-complex-create-native.json').read_text())
+    definition=next(f for f in dossier['functions'] if f['address']=='0x5468d0')
+    first=int(definition['address'],16);raw=bytes.fromhex(definition['bytes_hex'])
+    assert raw==bytes(images[0].data[first-images[0].base:first-images[0].base+len(raw)])
+    decoder=Cs(CS_ARCH_X86,CS_MODE_32)
+    foot_points={int(a,16) for a in definition['instruction_addresses'].split()}
+    foot_branches={};foot_hits=set();foot_edges=set();foot_last=[None]
+    for at in sorted(foot_points):
+        ins=next(decoder.disasm(raw[at-first:at-first+16],at,count=1))
+        if ins.mnemonic.startswith('j') and ins.mnemonic!='jmp':foot_branches[at]={int(ins.op_str,16),at+ins.size}
+    def coverage(uc,pc,size,data):
+        foot_hits.add(pc)
+        if foot_last[0] in foot_branches:foot_edges.add((foot_last[0],pc))
+        foot_last[0]=pc
+    machines[0][1].hook_add(UC_HOOK_CODE,coverage,begin=min(foot_points),end=max(foot_points))
+
 if __name__=='__main__':
     n=0
     for shape,rotation in itertools.product(list(range(31))+[257],[0,1,2,3,4,256]):
@@ -169,3 +197,19 @@ if __name__=='__main__':
     for material,query in itertools.product([1,2,3,4],[0,1]):refresh(True,query=query,material=material);n+=1
     print('PASS resource and whole-refresh loops: %d native/C bounds, classes, material ranking and compositions'%n,flush=True)
     print('target SHA256',target_sha)
+
+    if '--frame' in sys.argv:
+        missing=foot_points-foot_hits
+        missing_edges={(a,b) for a,targets in foot_branches.items() for b in targets if (a,b) not in foot_edges}
+        assert not missing,('unexecuted footprint instructions',[hex(a) for a in sorted(missing)])
+        assert not missing_edges,('unexecuted footprint edges',[(hex(a),hex(b)) for a,b in sorted(missing_edges)])
+        sources=['src/unit_02581.c','runtime/building_methods.c','direct_c/verify_monument_footprint.py','metadata/monument-complex-create-native.json','CMakeLists.txt']
+        proof=dict(native_sha256=hashlib.sha256(original.read_bytes()).hexdigest(),compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,
+                   passed=True,checked=376,native_instructions=len(foot_points),conditional_edges=len(foot_edges),
+                   source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},
+                   limitations=['Existing provider-controlled corpus retains image/activity/stamp callbacks in isolated cases; named actual image/activity/stamp compositions also run.',
+                                'Native/C whole creation compositions are verified separately without substituted endpoints.',
+                                'Full global snapshots, native frame balance and callee-saved registers are checked; no full-gameplay approval.'],commit=None)
+        suffix='diagnostic' if target.stem=='restore_link_check' else 'game'
+        (ROOT/f'metadata/monument-footprint-frame-{suffix}.json').write_text(json.dumps(proof,indent=2)+'\n')
+        print('PASS native footprint frame binding/instructions/edges:',len(foot_points),len(foot_edges),flush=True)

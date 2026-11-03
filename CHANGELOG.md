@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- Reconstruct four complex-monument creation methods as shared C for
+  167/158/437/513-part classes. Recover orientation, shape, six-DWORD and
+  three-DWORD streams plus packed bytes; replace erroneous generated WORD
+  copies. Preserve class-specific write order, undo-before-map sequencing,
+  dynamic vtable reads and final root+ordinal redraw addresses.
+- Bind native5468D0 frames to the existing complete named C footprint
+  provider with explicit receiver and RET4. Retire the remaining 3,608
+  frame-model lines and unused CPU helpers from building_methods.c; all
+  entries in that file now delegate to semantic C providers.
+- Pass 376 footprint/refresh scenarios per diagnostic/game build, all 882
+  native footprint instructions and all 44 conditional edges. Isolated
+  cases retain documented provider controls; actual image/activity/stamping
+  compositions execute as well.
+
+- Pass 13 whole construction scenarios and four copy-prefix scenarios per
+  diagnostic/game build, all 842 creation instructions and all 56 conditional
+  edges. Original constructors/geometry generate all fixtures; registration,
+  allocation, undo, virtual footprint and final refresh execute without
+  substituted endpoints. Prefix cases stop before map use of synthetic high
+  DWORD values. Complete gameplay remains outside these checks.
+
 - Reconstruct Sun Temple creation and map writes as named C. Retire 465
   frame-model lines and replace ambiguous generated bindings. Use the actual
   100-part layout and ordinary cdecl arguments, with 99 linked allocations,
