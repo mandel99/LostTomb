@@ -1,3 +1,4 @@
+#include "storage_delivery.h"
 /* Whole integer actor-message controller and genuine dependency bodies.
  * Pinned PE SHA256 fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d.
  * Code-address tokens below are readonly table data or dispatcher keys, never native code pointers. */
@@ -788,84 +789,7 @@ mi_004592c2:;
 
 void restore_actor_message_C_0045b230(struct restore_actor_message_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0045b230 */
-    f->r[2]=MI_U32((0x00000004u+f->r[4]));
-    /* 0045b234 */
-    a=f->r[1];b=f->r[1];t=mi_alu(f,a,b,32,5);f->r[1]=t;
-    /* 0045b236 */
-    f->r[0]=f->r[2];
-    /* 0045b238 */
-    a=f->r[3];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045b239 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0045b23c */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0045b23e */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045b23f */
-    f->r[1]=(f->r[1]&0xffffff00u)|(((MI_U8((0x00799a99u+f->r[0]*8u)))&0xffu)<<0);
-    /* 0045b246 */
-    f->r[0]=f->r[1];
-    /* 0045b248 */
-    f->r[1]=MI_U32((0x00000014u+f->r[4]));
-    /* 0045b24c */
-    f->r[6]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 0045b24f */
-    a=f->r[6];b=0x00000004u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0045b252 */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[6]=t;
-    /* 0045b254 */
-    f->r[3]=(f->r[3]&0xffffff00u)|(((MI_U8((0x007900c2u+f->r[1]+f->r[6]*4u)))&0xffu)<<0);
-    /* 0045b25b */
-    f->r[6]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 0045b25e */
-    a=(f->r[3]&0xffu);b=(f->r[3]&0xffu);t=mi_alu(f,a,b,8,3);
-    /* 0045b260 */
-    if((f->flags&MI_ZF))goto mi_0045b274;
-    /* 0045b262 */
-    a=f->r[6];b=0x00000004u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0045b265 */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[6]=t;
-    /* 0045b267 */
-    f->r[0]=(0x00000000u+f->r[1]+f->r[6]*2u);
-    /* 0045b26a */
-    f->r[6]=(uint32_t)(int32_t)(int16_t)MI_U16((0x00790134u+f->r[0]*2u));
-    /* 0045b272 */
-    goto mi_0045b284;
-mi_0045b274:;
-    /* 0045b274 */
-    a=f->r[6];b=0x00000004u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0045b277 */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[6]=t;
-    /* 0045b279 */
-    f->r[0]=(0x00000000u+f->r[1]+f->r[6]*2u);
-    /* 0045b27c */
-    f->r[6]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007900ecu+f->r[0]*2u));
-mi_0045b284:;
-    /* 0045b284 */
-    a=f->r[1];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045b285 */
-    a=f->r[2];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045b286 */
-    f->r[4]-=4;MI_U32(f->r[4])=0x0045b28bu;f->boundary(0x0045b286u,0x0045d510u,f);
-    /* 0045b28b */
-    f->r[2]=MI_U32((0x00000018u+f->r[4]));
-    /* 0045b28f */
-    a=f->r[4];b=0x00000008u;t=mi_alu(f,a,b,32,0);f->r[4]=t;
-    /* 0045b292 */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0045b294 */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,1);
-    /* 0045b296 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0045b297 */
-    t=(mi_signed_less(f->flags))?1u:0u;f->r[0]=(f->r[0]&0xffffff00u)|(((t)&0xffu)<<0);
-    /* 0045b29a */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[3]=a;
-    /* 0045b29b */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];f->r[0]=restore_storage_limit_exceeded((int32_t)MI_U32(sp+4u),(int32_t)MI_U32(sp+8u),(int32_t)MI_U32(sp+12u));f->r[4]=sp+4u;
 }
 
 void restore_actor_message_C_0045cf50(struct restore_actor_message_frame *f)
@@ -1352,85 +1276,7 @@ mi_0045d357:;
 
 void restore_actor_message_C_0045d510(struct restore_actor_message_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0045d510 */
-    f->r[2]=MI_U32((0x00000004u+f->r[4]));
-    /* 0045d514 */
-    a=f->r[3];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d515 */
-    f->r[3]=MI_U32((0x0000000cu+f->r[4]));
-    /* 0045d519 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d51a */
-    a=f->r[7];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d51b */
-    a=f->r[7];b=f->r[7];t=mi_alu(f,a,b,32,5);f->r[7]=t;
-    /* 0045d51d */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-mi_0045d51f:;
-    /* 0045d51f */
-    f->r[1]=f->r[2];
-    /* 0045d521 */
-    a=f->r[1];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d524 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0045d526 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)MI_U16((0x00799a12u+f->r[1]*8u));
-    /* 0045d52e */
-    a=f->r[2];b=f->r[2];t=mi_alu(f,a,b,32,3);
-    /* 0045d530 */
-    if((f->flags&MI_ZF)||mi_signed_less(f->flags))goto mi_0045d562;
-    /* 0045d532 */
-    f->r[1]=f->r[2];
-    /* 0045d534 */
-    a=f->r[1];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d537 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0045d539 */
-    a=f->r[1];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d53c */
-    f->r[6]=(f->r[6]&0xffff0000u)|(((MI_U16((0x007999eau+f->r[1])))&0xffffu)<<0);
-    /* 0045d543 */
-    a=(f->r[6]&0xffffu);b=(f->r[6]&0xffffu);t=mi_alu(f,a,b,16,3);
-    /* 0045d546 */
-    if((f->flags&MI_ZF))goto mi_0045d558;
-    /* 0045d548 */
-    f->r[6]=(uint32_t)(int32_t)(int16_t)(f->r[6]&0xffffu);
-    /* 0045d54b */
-    a=f->r[6];b=f->r[3];t=mi_alu(f,a,b,32,1);
-    /* 0045d54d */
-    if(!(f->flags&MI_ZF))goto mi_0045d558;
-    /* 0045d54f */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x00799a14u+f->r[1]));
-    /* 0045d556 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-mi_0045d558:;
-    /* 0045d558 */
-    a=f->r[7];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,0);f->flags=(f->flags&~MI_CF)|b;f->r[7]=t;
-    /* 0045d559 */
-    a=f->r[7];b=0x00000008u;t=mi_alu(f,a,b,32,1);
-    /* 0045d55c */
-    if(mi_signed_less(f->flags))goto mi_0045d51f;
-    /* 0045d55e */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 0045d55f */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0045d560 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[3]=a;
-    /* 0045d561 */
-    f->r[4]+=4;return;
-mi_0045d562:;
-    /* 0045d562 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 0045d563 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0045d564 */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-    /* 0045d566 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[3]=a;
-    /* 0045d567 */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];f->r[0]=(uint32_t)restore_storage_resource_amount((int32_t)MI_U32(sp+4u),(int32_t)MI_U32(sp+8u));f->r[4]=sp+4u;
 }
 
 void restore_actor_message_C_004893c0(struct restore_actor_message_frame *f)

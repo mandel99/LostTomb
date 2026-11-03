@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- Reconstruct storage delivery, resource totals, capacity checks and pile frames
+  as ordinary C. Replace five register-model bodies (614 lines) with a shared
+  68-line C implementation and thin legacy adapters. These public storage calls
+  and their transport/god aliases now use normal C calls.
+- Preserve the eight-link sum's zero result on a broken chain, signed phases and
+  quantities, SETL AL with untouched upper EAX bytes, the cached policy slot and
+  limit snapshots, most-filled-bin selection with first ties, 400-unit caps,
+  partial side effects on failure, resource counters and cached sprite inputs.
+- Pass 344 original/C scenarios per diagnostic/game build through named,
+  canonical and five compatibility adapters, including full 3,200-unit fills,
+  arithmetic wraparound and genuine rule/slot/image/chain input changes. Execute
+  all 246 native instructions and 49 conditional outcomes; branch 45B4B5
+  to 45B4B7 is analytically impossible after signed amount > 400 then CMP300.
+  Compare full DWORD returns, ordered owned writes, helper inputs, all original
+  static data and saved ABI with actual children. Incidental caller-saved state,
+  concurrent access and host game/UI fidelity are outside this offline check.
+
 - Reconstruct all five building-information functions as ordinary C, replacing
   the 2,442-line register/frame module with 136 lines. Preserve the 525-link
   parent cap, eight-member status and signed material sums, formation filtering,

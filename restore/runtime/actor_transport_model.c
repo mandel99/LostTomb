@@ -1,3 +1,4 @@
+#include "storage_delivery.h"
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 #include "actor_transport.h"
 #include <stdlib.h>
@@ -1036,85 +1037,7 @@ mi_0045bb19:;
 
 void restore_transport_C_0045d510(struct restore_transport_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0045d510 */
-    f->r[2]=MI_U32((0x00000004u+f->r[4]));
-    /* 0045d514 */
-    a=f->r[3];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d515 */
-    f->r[3]=MI_U32((0x0000000cu+f->r[4]));
-    /* 0045d519 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d51a */
-    a=f->r[7];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0045d51b */
-    a=f->r[7];b=f->r[7];t=mi_alu(f,a,b,32,5);f->r[7]=t;
-    /* 0045d51d */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-mi_0045d51f:;
-    /* 0045d51f */
-    f->r[1]=f->r[2];
-    /* 0045d521 */
-    a=f->r[1];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d524 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0045d526 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)MI_U16((0x00799a12u+f->r[1]*8u));
-    /* 0045d52e */
-    a=f->r[2];b=f->r[2];t=mi_alu(f,a,b,32,3);
-    /* 0045d530 */
-    if((f->flags&MI_ZF)||mi_signed_less(f->flags))goto mi_0045d562;
-    /* 0045d532 */
-    f->r[1]=f->r[2];
-    /* 0045d534 */
-    a=f->r[1];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d537 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0045d539 */
-    a=f->r[1];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 0045d53c */
-    f->r[6]=(f->r[6]&0xffff0000u)|(((MI_U16((0x007999eau+f->r[1])))&0xffffu)<<0);
-    /* 0045d543 */
-    a=(f->r[6]&0xffffu);b=(f->r[6]&0xffffu);t=mi_alu(f,a,b,16,3);
-    /* 0045d546 */
-    if((f->flags&MI_ZF))goto mi_0045d558;
-    /* 0045d548 */
-    f->r[6]=(uint32_t)(int32_t)(int16_t)(f->r[6]&0xffffu);
-    /* 0045d54b */
-    a=f->r[6];b=f->r[3];t=mi_alu(f,a,b,32,1);
-    /* 0045d54d */
-    if(!(f->flags&MI_ZF))goto mi_0045d558;
-    /* 0045d54f */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x00799a14u+f->r[1]));
-    /* 0045d556 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-mi_0045d558:;
-    /* 0045d558 */
-    a=f->r[7];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,0);f->flags=(f->flags&~MI_CF)|b;f->r[7]=t;
-    /* 0045d559 */
-    a=f->r[7];b=0x00000008u;t=mi_alu(f,a,b,32,1);
-    /* 0045d55c */
-    if(mi_signed_less(f->flags))goto mi_0045d51f;
-    /* 0045d55e */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 0045d55f */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0045d560 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[3]=a;
-    /* 0045d561 */
-    f->r[4]+=4;return;
-mi_0045d562:;
-    /* 0045d562 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 0045d563 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0045d564 */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-    /* 0045d566 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[3]=a;
-    /* 0045d567 */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];f->r[0]=(uint32_t)restore_storage_resource_amount((int32_t)MI_U32(sp+4u),(int32_t)MI_U32(sp+8u));f->r[4]=sp+4u;
 }
 
 void restore_transport_C_0045d9e0(struct restore_transport_frame *f)

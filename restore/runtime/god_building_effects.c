@@ -1,3 +1,4 @@
+#include "storage_delivery.h"
 #include "god_building_effects.h"
 #include "menu_actor_message.h"
 #include "menu_prepare_integer.h"
@@ -128,7 +129,7 @@ uint32_t restore_god_building_004c41b0(void){return invoke(0x4c41b0u,0,0);}
 void restore_god_building_004c42b0(void){(void)invoke(0x4c42b0u,0,0);}
 void restore_god_building_004c45e0(void){(void)invoke(0x4c45e0u,0,0);}
 int32_t restore_god_building_0045b2a0(int32_t p,int32_t b,int32_t r,int32_t n)
-{uint32_t a[]={(uint32_t)p,(uint32_t)b,(uint32_t)r,(uint32_t)n};return (int32_t)invoke(0x45b2a0u,a,4);}
+{return restore_storage_deliver(p,b,r,n);}
 void restore_god_building_0045b700(int32_t b,int32_t n)
 {uint32_t a[]={(uint32_t)b,(uint32_t)n};(void)invoke(0x45b700u,a,2);}
 int32_t restore_god_building_0045fe20(int32_t b,int32_t n,int32_t r)

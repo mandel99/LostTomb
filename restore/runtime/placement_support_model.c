@@ -1,3 +1,4 @@
+#include "storage_delivery.h"
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 #include "placement_support.h"
 #include <stdlib.h>
@@ -1717,46 +1718,5 @@ mi_0045b6f2:;
 
 void restore_placement_support_C_0045b490(struct restore_placement_support_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0045b490 */
-    f->r[0]=MI_U32((0x00000004u+f->r[4]));
-    /* 0045b494 */
-    a=f->r[0];b=0x00000190u;t=mi_alu(f,a,b,32,1);
-    /* 0045b499 */
-    if(!(f->flags&MI_ZF))goto mi_0045b4a1;
-    /* 0045b49b */
-    f->r[0]=0x00000003u;
-    /* 0045b4a0 */
-    f->r[4]+=4;return;
-mi_0045b4a1:;
-    /* 0045b4a1 */
-    if(!mi_signed_less(f->flags))goto mi_0045b4b0;
-    /* 0045b4a3 */
-    a=f->r[0];b=0x0000012cu;t=mi_alu(f,a,b,32,1);
-    /* 0045b4a8 */
-    if(mi_signed_less(f->flags))goto mi_0045b4b7;
-    /* 0045b4aa */
-    f->r[0]=0x00000002u;
-    /* 0045b4af */
-    f->r[4]+=4;return;
-mi_0045b4b0:;
-    /* 0045b4b0 */
-    a=f->r[0];b=0x0000012cu;t=mi_alu(f,a,b,32,1);
-    /* 0045b4b5 */
-    if(!mi_signed_less(f->flags))goto mi_0045b4c4;
-mi_0045b4b7:;
-    /* 0045b4b7 */
-    a=f->r[0];b=0x000000c8u;t=mi_alu(f,a,b,32,1);
-    /* 0045b4bc */
-    if(mi_signed_less(f->flags))goto mi_0045b4c4;
-    /* 0045b4be */
-    f->r[0]=0x00000001u;
-    /* 0045b4c3 */
-    f->r[4]+=4;return;
-mi_0045b4c4:;
-    /* 0045b4c4 */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-    /* 0045b4c6 */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];f->r[0]=(uint32_t)restore_storage_pile_frame((int32_t)MI_U32(sp+4u));f->r[4]=sp+4u;
 }

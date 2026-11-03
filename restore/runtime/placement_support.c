@@ -1,3 +1,4 @@
+#include "storage_delivery.h"
 #include "placement_support.h"
 #include "actor_order_flood.h"
 #include "terrain_redraw.h"
@@ -65,4 +66,4 @@ uint32_t FUN_00459ef0(int32_t building)
 int32_t FUN_0045b570(int32_t player,int32_t building,int32_t resource,int32_t amount)
 {uint32_t a[4]={(uint32_t)player,(uint32_t)building,(uint32_t)resource,(uint32_t)amount};return (int32_t)execute(restore_placement_support_C_0045b570,a,4);}
 int32_t FUN_0045b490(int32_t amount)
-{uint32_t a[1]={(uint32_t)amount};return (int32_t)execute(restore_placement_support_C_0045b490,a,1);}
+{return restore_storage_pile_frame(amount);}
