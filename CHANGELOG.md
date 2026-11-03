@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct event-backed resource supply, compound-resource dependencies and
+  resource/food list rebuilding as ordinary C. Replace the 716-line register
+  model and virtual-stack runner with 104 lines of providers and ABI adapters;
+  bind both canonical C entries. Preserve full legacy EAX in addition to its
+  Boolean AL, reverse event traversal, helper order, WORD gates and the cached
+  player shared by both remembered-availability publications.
+- Pass 255 original/C scenarios and 5 actual storage-allocation compositions
+  per diagnostic/game build. Execute 284/288 native instructions, 90 conditional
+  edges and nine switch targets with real trade, fee/training and recursive
+  supply helpers. Four food-index recovery instructions are unreachable; six
+  guard outcomes are documented invariant exclusions within mapped event counts
+  0..258. No forced helper returns, host game launch or whole-gameplay claim.
+
 - Reconstruct the final building-controller model methods: storage-settings
   allocation, gatehouse redraw and signed god-status lookup. Bind their public
   C entries, retire the complete 660-line building_controllers_model.c and its
