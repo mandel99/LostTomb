@@ -10,9 +10,8 @@ struct restore_construction_frame;
 typedef void (*restore_construction_frame_call)(uint32_t,uint32_t,struct restore_construction_frame *);
 struct restore_construction_frame { uint32_t r[8],flags; restore_construction_frame_call boundary; };
 #endif
-void restore_construction_C_00474700(struct restore_construction_frame *frame);
-void restore_construction_C_004743f0(struct restore_construction_frame *frame);
-void restore_construction_dispatch(uint32_t site,uint32_t target,struct restore_construction_frame *frame);
+void restore_demolition_apply(int32_t preview,int32_t x1,int32_t y1,int32_t x2,int32_t y2);
+void restore_demolition_request(int32_t preview,int32_t x1,int32_t y1,int32_t x2,int32_t y2);
 void FUN_00474700(int32_t preview,int32_t x1,int32_t y1,int32_t x2,int32_t y2);
 void FUN_004743f0(int32_t preview,int32_t x1,int32_t y1,int32_t x2,int32_t y2);
 #endif

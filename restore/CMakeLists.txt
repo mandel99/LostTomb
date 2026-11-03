@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/construction_controller.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_preview_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_family.c runtime/menu_drag_world_offset.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_construction_parent.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -2017,3 +2018,4 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0043f250" "/INCLUD
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0043f410" "/INCLUDE:_FUN_00441130")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004405c0" "/INCLUDE:_FUN_00440700" "/INCLUDE:_FUN_00440850" "/INCLUDE:_FUN_00440b10" "/INCLUDE:_FUN_00440ed0")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046fef0" "/INCLUDE:_FUN_00405d90")
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004743f0" "/INCLUDE:_FUN_00474700")

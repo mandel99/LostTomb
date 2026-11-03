@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Reconstruct demolition requests and application as ordinary C, replacing the
+  1,910-line register/frame module with 192 lines. Preserve confirmation
+  priorities and original callback coordinates, preview/undo policy, terrain and
+  canal edits, slot release, displaced residents, transient state 6, both linked
+  chains with the native 525-step cap and the complete refresh/redraw sequence.
+- Preserve the Bandstand redraw's native incoming ECX as next-link ID*33 through
+  its explicit C adapter, including invalid-view/image fallbacks. Genuine input
+  changes verify post-query state and confirmation rereads without fake returns.
+- Pass 155 original/C scenarios per diagnostic/game build: all 843 native
+  instructions and 262 conditional outcomes, with real confirmation,
+  terrain, population, undo and rendering/refresh children. Compare ordered owned
+  stores, helper inputs, all final original data and saved ABI. Resident synthetic
+  text/font metadata, disabled audio and genuine no-image guards qualify this
+  offline check; no pixel/audio/UI fidelity or host game launch claim.
+
 - Reconstruct drag input and the 40-route construction-preview controller as
   ordinary C; retire 1,712 register-model lines and the virtual-stack runner.
   Preserve drag-start coordinates, editor tool exceptions, money gates, DWORD
