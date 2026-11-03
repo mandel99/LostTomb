@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct formation creation, recruitment and full member/statistics refresh
+  as ordinary C. Bind all three canonical entries and remove 1,054 register-model
+  lines. Preserve colour selection, both ingress path searches, actor allocation,
+  the separate BYTE count and sixteen-member list, readiness, chariot totals,
+  city counters and deduplicated removal of event-linked nonmilitary groups.
+- Pass 137 original/C scenarios per diagnostic/game build, all
+  497 native instructions and 132 conditional edges. Compare owned ordered
+  stores, immediate child inputs and all final original data. Actual path,
+  actor/RNG/profile/walking, classification and status providers execute, with
+  full tables and selected input mutations; no replaced algorithm/platform
+  returns, host game launch or complete-gameplay claim.
+
 - Reconstruct temple-complex construction, linked-part redraw, decoration and
   individual tile stamping as ordinary C. Bind their four canonical entries,
   reuse the existing upgrade predicate and remove 1,130 register-model lines.

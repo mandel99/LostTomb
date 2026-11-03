@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/formation_control.c src/unit_01021.c src/unit_01471.c src/unit_01490.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/temple_complex.c src/unit_01583.c src/unit_01585.c src/unit_01586.c src/unit_01590.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/housing_cycle.c src/unit_00798.c src/unit_00804.c src/unit_00970.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_split.c src/unit_00978.c src/unit_00979.c src/unit_00980.c src/unit_00981.c src/unit_00982.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -139,7 +140,7 @@ unset(_score_unit)
  01119 01127 01129 01274 01270 01271 01272
  00043 00983 00984 01002 01201 02153 02158
  01949 01951 01953 01954 01955 01956 01958 01959 01961 01962
- 00967 01021 01471 01574 01609 01490
+ 00967 01574 01609
  00316 00322 00323 00338 00345 00352 00359 00366 01982 01900 02155
  01020 00046 01022 02247 02367 02440 02450 01848
  00127 00640 01713 01714 01715 01716 01718 01719 01720 01721 01722 01723 01727 02414 02415 02416 02417 00233
@@ -248,7 +249,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/placement_support.c runtime/placement_support_model.c runtime/monument_placement_queries.c
  runtime/placement_context.c runtime/general_placement.c
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
- runtime/temple_complex.c runtime/housing_cycle.c runtime/house_split.c runtime/house_layout.c runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
+ runtime/formation_control.c runtime/temple_complex.c runtime/housing_cycle.c runtime/house_split.c runtime/house_layout.c runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
  runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c runtime/monument_complex_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
@@ -1994,3 +1995,9 @@ foreach(_temple_complex IN ITEMS 004c0860 004c0be0 004c0d50 004c3420 004c52d0)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_temple_complex}")
 endforeach()
 unset(_temple_complex)
+
+# Retain canonical formation providers for offline native/C comparison.
+foreach(_formation_control IN ITEMS 00472790 004b6e10 004b7c80)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_formation_control}")
+endforeach()
+unset(_formation_control)

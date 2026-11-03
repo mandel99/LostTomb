@@ -73,6 +73,8 @@ static void boundary(uint32_t site,uint32_t target,struct restore_building_contr
  case 0x00453740u:restore_building_control_C_00453740(f);return;
  case 0x00453840u:restore_building_control_C_00453840(f);return;
  case 0x00453900u:restore_building_control_C_00453900(f);return;
+ case 0x472790u:restore_building_control_C_00472790(f);return;
+ case 0x4b6e10u:restore_building_control_C_004b6e10(f);return;
  case 0x4b7c80u:restore_building_control_C_004b7c80(f);return;
  case 0x454d70u:FUN_00454d70();goto done;
  case 0x476530u:FUN_00476530();goto done;
@@ -154,10 +156,8 @@ uint32_t FUN_00453af0(int32_t building)
 {return (uint32_t)restore_house_compare_desirability((uint32_t)building);}
 uint32_t FUN_00453b40(int32_t building,int32_t level)
 {return restore_house_check_requirements((uint32_t)building,(uint32_t)level);}
-void FUN_00472790(int32_t count,int32_t group,int32_t x,int32_t y)
-{uint32_t a[4]={(uint32_t)count,(uint32_t)group,(uint32_t)x,(uint32_t)y};(void)execute(restore_building_control_C_00472790,a,4);}
-int32_t FUN_004b6e10(int32_t building)
-{uint32_t a[1]={(uint32_t)building};return (int32_t)execute(restore_building_control_C_004b6e10,a,1);}
+
+
 void FUN_004bfb30(int32_t building)
 {uint32_t a[1]={(uint32_t)building};(void)execute(restore_building_control_C_004bfb30,a,1);}
 
@@ -166,6 +166,5 @@ void FUN_004bfb30(int32_t building)
 
 int32_t FUN_004c53d0(int32_t category)
 {uint32_t a[1]={(uint32_t)category};return (int32_t)execute(restore_building_control_C_004c53d0,a,1);}
-void FUN_004b7c80(void)
-{(void)execute(restore_building_control_C_004b7c80,0,0);}
+
 
