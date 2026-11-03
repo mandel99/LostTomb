@@ -1,5 +1,6 @@
 #include "building_controllers.h"
 #include "house_evolution.h"
+#include "house_levels.h"
 #include "resource_availability.h"
 #include "actor_create.h"
 #include "actor_order_path.h"
@@ -173,3 +174,34 @@ int32_t FUN_004c53d0(int32_t category)
 {uint32_t a[1]={(uint32_t)category};return (int32_t)execute(restore_building_control_C_004c53d0,a,1);}
 void FUN_004b7c80(void)
 {(void)execute(restore_building_control_C_004b7c80,0,0);}
+
+/* Typed access to genuine layout helpers while their separate model bodies
+   remain pending. All callees and nested frame boundaries still execute. */
+void restore_house_merge_neighbours(uint32_t building)
+{const uint32_t a[]={building};(void)execute(restore_building_control_C_0046b840,a,1);}
+uint32_t restore_house_can_expand(uint32_t building,uint32_t area)
+{const uint32_t a[]={building,area};return execute(restore_building_control_C_0046b480,a,2);}
+void restore_house_clear_expansion(uint32_t building,uint32_t area)
+{const uint32_t a[]={building,area};(void)execute(restore_building_control_C_0046b940,a,2);}
+uint32_t restore_house_prepare_expansion(uint32_t building,uint32_t area)
+{const uint32_t a[]={building,area};return execute(restore_building_control_C_0046b9e0,a,2);}
+void restore_house_expand(uint32_t building,uint32_t layout,uint32_t parcels)
+{
+ const uint32_t a[]={building,parcels};
+ switch(layout){
+ case 0x46bab0u:(void)execute(restore_building_control_C_0046bab0,a,2);break;
+ case 0x46bbc0u:(void)execute(restore_building_control_C_0046bbc0,a,2);break;
+ case 0x46bcb0u:(void)execute(restore_building_control_C_0046bcb0,a,2);break;
+ default:abort();
+ }
+}
+void restore_house_reduce(uint32_t building,uint32_t layout)
+{
+ const uint32_t a[]={building};
+ switch(layout){
+ case 0x46c1c0u:(void)execute(restore_building_control_C_0046c1c0,a,1);break;
+ case 0x46cb30u:(void)execute(restore_building_control_C_0046cb30,a,1);break;
+ case 0x46ccf0u:(void)execute(restore_building_control_C_0046ccf0,a,1);break;
+ default:abort();
+ }
+}

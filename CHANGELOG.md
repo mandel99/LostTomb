@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct all twenty housing-level update callbacks as shared ordinary C
+  rules, retaining vacant-hut checks, three-failure downgrade delays,
+  per-level footprint transitions and fresh current-house reads. Remove
+  2,615 callback model lines. The genuine layout-helper model bodies remain
+  separate reconstruction work behind typed facades.
+- Pass 1,281 original/C cases per diagnostic/game build, all 1,190 native
+  callback instructions and 246 conditional edges, plus two whole housing
+  owner compositions per build. Actual queries, allocation, parcel changes
+  and map stamping execute without substituted endpoints. Preserve the
+  void callback contract: the native owner reloads EAX after dispatch.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct housing desirability, full service/goods requirements and the
   global-mode guard as ordinary C. Retire 1,203 model/ROM lines. Preserve
   signed service bytes, small-house goods rounding, cached model/player

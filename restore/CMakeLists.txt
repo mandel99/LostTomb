@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/house_levels.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_evolution.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_complex_images.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_complex_positions.c src/unit_02569.c src/unit_02623.c src/unit_02610.c src/unit_02597.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -243,7 +244,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/placement_support.c runtime/placement_support_model.c runtime/monument_placement_queries.c
  runtime/placement_context.c runtime/general_placement.c
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
- runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
+ runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
  runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c runtime/monument_complex_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
@@ -1962,3 +1963,5 @@ endforeach()
 unset(_complex_image)
 
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_house_check_global_mode" "/INCLUDE:_restore_house_compare_desirability" "/INCLUDE:_restore_house_check_requirements")
+
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_house_update_level")
