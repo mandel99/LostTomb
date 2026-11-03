@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/monument_complex_positions.c src/unit_02569.c src/unit_02623.c src/unit_02610.c src/unit_02597.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_complex_create.c src/unit_02572.c src/unit_02600.c src/unit_02613.c src/unit_02627.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/sun_temple.c src/unit_02546.c src/unit_02547.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_images.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -242,7 +243,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
  runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
- runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c
+ runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
  runtime/map_commit_controller_model.c runtime/map_commit_complete.c
  runtime/menu_render_list_queries.c runtime/menu_building_overlay.c runtime/menu_building_overlay_model.c
@@ -1945,3 +1946,10 @@ foreach(_complex_create IN ITEMS 00545c30 00559130 00556480 0054fba0)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_complex_create}")
 endforeach()
 unset(_complex_create)
+
+foreach(_complex_position IN ITEMS 00545a30 00558f00 00556230 0054f8a0)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_complex_position}")
+endforeach()
+unset(_complex_position)
+
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_placement_position_query")

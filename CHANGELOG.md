@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Reconstruct four complex-monument position members as shared C offset
+  rules. Retire 1,019 frame-model lines and four private ROM readers. Keep
+  signed WORD selectors, ordered X/Y stores, no-write arms and complete EAX:
+  only AL is fixed to one; higher bits retain Y, the output pointer or the
+  building-record offset according to the original switch arm.
+
+- Pass 3,053 native/C position scenarios per diagnostic/game build, all
+  441 native instructions, eight conditional edges and 46 switch targets.
+  Include signed coordinate boundaries, DWORD record-index wrap, overlapping
+  outputs and record aliases through actual placement/building/civic/city
+  routes. Retain the otherwise unused position facade in the diagnostic
+  target for additional verification; the game keeps its natural linked scope.
+  No complete-gameplay claim.
+
 - Reconstruct four complex-monument creation methods as shared C for
   167/158/437/513-part classes. Recover orientation, shape, six-DWORD and
   three-DWORD streams plus packed bytes; replace erroneous generated WORD
