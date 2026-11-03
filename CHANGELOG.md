@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct four construction helpers as ordinary C: road access around a
+  footprint, footprint masks, the 5x5 occupancy grid and empty-slot enumeration.
+  Retire 878 lines of register models and the virtual-stack runner. Keep
+  native AL/full-EAX results, live map/table reads, clear/fill order, rectangular
+  candidate order and the final count publication, including empty results.
+- Pass 1,429 original/C scenarios and 12 occupancy/slot compositions per
+  diagnostic/game build. Compare ordered game/output writes, all original data,
+  explicit buffers and preserved ABI. Coverage: 312/312 native instructions,
+  79 conditional edges and 4 switch targets. Native private argument-slot
+  scratch and volatile registers/flags are outside the typed facade contract.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct event-backed resource supply, compound-resource dependencies and
   resource/food list rebuilding as ordinary C. Replace the 716-line register
   model and virtual-stack runner with 104 lines of providers and ABI adapters;

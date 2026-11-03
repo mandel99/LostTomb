@@ -15,8 +15,8 @@ uint32_t FUN_0043f250(uint32_t x,int32_t y,int32_t origin_x,int32_t origin_y,int
 uint32_t FUN_0043f3a0(int32_t x,int32_t y,int32_t extent);
 uint32_t FUN_00441040(int32_t extent,int32_t rows,int32_t columns,uint32_t *count,int32_t *locations);
 void FUN_004413b0(int32_t x,int32_t y,int32_t kind);
-void restore_C_0043f3a0(struct restore_menu_input_frame *frame);
-void restore_C_00441040(struct restore_menu_input_frame *frame);
-void restore_C_004413b0(struct restore_menu_input_frame *frame);
-void restore_C_0043f250(struct restore_menu_input_frame *frame);
+uint32_t restore_construction_road_access(uint32_t x,int32_t y,int32_t origin_x,int32_t origin_y,int32_t extent);
+uint32_t restore_construction_footprint_mask(int32_t x,int32_t y,int32_t extent);
+uint32_t restore_construction_empty_slots(int32_t extent,int32_t rows,int32_t columns,uint32_t *count,int32_t *locations);
+void restore_construction_occupancy(int32_t x,int32_t y,int32_t kind);
 #endif
