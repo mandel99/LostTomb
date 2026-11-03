@@ -5,8 +5,6 @@ struct restore_event_actions_frame;
 typedef void (*restore_event_actions_call)(uint32_t,uint32_t,struct restore_event_actions_frame *);
 struct restore_event_actions_frame {uint32_t r[8],flags;restore_event_actions_call boundary;};
 void restore_event_C_00446260(struct restore_event_actions_frame *);
-void restore_event_C_004487f0(struct restore_event_actions_frame *);
-void restore_event_C_00448a90(struct restore_event_actions_frame *);
 void restore_event_C_004496d0(struct restore_event_actions_frame *);
 void restore_event_C_0044c0d0(struct restore_event_actions_frame *);
 void restore_event_C_0044c430(struct restore_event_actions_frame *);

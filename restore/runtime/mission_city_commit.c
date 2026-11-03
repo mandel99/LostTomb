@@ -1,4 +1,5 @@
 #include "mission_city_commit.h"
+#include "event_parameters.h"
 #include "city_prepare.h"
 #include "mission_loaders.h"
 #include "camera_bounds.h"
@@ -18,121 +19,11 @@ extern void FUN_004e59a0(void);
 extern void FUN_00442660(void);
 extern void FUN_004d4040(void);
 
-static void remember_random(void)
-{
-    uint32_t index=U(0xd3b1c4u);
-    U(0xd3b1c8u+index*4u)=U(0xd3b374u);
-    ++index;
-    U(0xd3b1c4u)=index;
-    if((int32_t)index>=100)U(0xd3b1c4u)=0;
-}
-
-static void shift_random(uint32_t *high,uint32_t *low)
-{
-    uint32_t a=*high,b=*low,i;
-    for(i=0;i<31u;++i){
-        uint32_t feedback_a=((a>>4)^a)&1u;
-        uint32_t feedback_b=((b>>4)^b)&1u;
-        a>>=1;b>>=1;
-        if(feedback_a)a|=0x40000000u;
-        if(feedback_b)b|=0x40000000u;
-    }
-    *high=a;*low=b;
-}
-
-/* Complete 123-instruction range selector. Negative parameter words are
-   native sentinels. An actual zero IDIV divisor remains an explicit fault;
-   no successful replacement value is manufactured for that native #DE. */
+/* Mission loading and simulation share the explicit C providers. */
 void restore_mission_range_004487f0(uint32_t self)
-{
-    int32_t first=S16(self+2u),second,third;
-    uint32_t a,b;
-    if(first>=0){
-        if(S16(self+4u)<0){W(self)=(uint16_t)first;return;}
-    }else{
-        second=S16(self+4u);
-        if(second>=0){
-            third=S16(self+6u);
-            if(third>=0&&third-second+1==1){W(self)=(uint16_t)first;return;}
-        }
-    }
-    remember_random();
-    a=U(0xd3b384u);b=U(0xd3b380u);
-    shift_random(&a,&b);
-    U(0xd3b384u)=a;
-    U(0xd3b378u)=a&7u;
-    U(0xd3b380u)=b;
-    U(0xd3b364u)=b&0x7fffu;
-    U(0xd3b370u)=a&0x7fffu;
-    U(0xd3b374u)=a&0x7fu;
-    U(0xd3b368u)=b&0x7fu;
-    U(0xd3b36cu)=b&7u;
-    first=S16(self+2u);
-    if(first<0){
-        int32_t divisor,remainder;
-        second=S16(self+4u);third=S16(self+6u);
-        divisor=third-second;
-        if(divisor==0)abort();
-        remainder=(int32_t)(a&0x7fffu)%divisor;
-        W(self)=(uint16_t)(remainder+(uint32_t)second);
-        return;
-    }
-    second=S16(self+4u);
-    third=second<0?1:(S16(self+6u)>=0?3:2);
-    switch((a&0x7fffu)%(uint32_t)third){
-    case 0: W(self)=(uint16_t)first;return;
-    case 1: W(self)=(uint16_t)second;return;
-    default: W(self)=W(self+6u);return;
-    }
-}
-
-/* Complete 155-instruction ECX method. Keep its first RNG update partial:
-   the other derived RNG globals are written only after the second shift. */
+{(void)restore_event_parameter_choose(self,0);}
 void restore_mission_record_00448a90(uint32_t self)
-{
-    uint32_t a,b,i;
-    U(self+0x28u)&=0xfffffffbu;
-    restore_mission_range_004487f0(self+4u);
-    restore_mission_range_004487f0(self+12u);
-    restore_mission_range_004487f0(self+20u);
-    restore_mission_range_004487f0(self+28u);
-    restore_mission_range_004487f0(self+88u);
-    a=(uint16_t)(B(self+3u)+W(self+20u));
-    B(self+0x57u)=0;
-    W(self+0x30u)=0;
-    W(self+0x2eu)=(uint16_t)a;
-    W(self+0x34u)=0xffffu;
-    W(self+0x64u)=0xffffu;
-    a=B(self+2u);
-    B(self+0x32u)=0;
-    B(self+0x33u)=0;
-    B(self+0x63u)=0;
-    if(a==3u){
-        for(i=0;i<4u;++i){
-            W(self+0x40u+i*4u)=W(0x784c60u);
-            W(self+0x42u+i*4u)=W(0x784c62u);
-        }
-    }
-    remember_random();
-    a=U(0xd3b384u);b=U(0xd3b380u);
-    shift_random(&a,&b);
-    U(0xd3b384u)=a;
-    U(0xd3b374u)=a&0x7fu;
-    U(0xd3b380u)=b;
-    B(self+0x61u)=(uint8_t)((a&0x7fffu)%5u+4u);
-    remember_random();
-    a=U(0xd3b384u);b=U(0xd3b380u);
-    shift_random(&a,&b);
-    U(0xd3b384u)=a;
-    U(0xd3b378u)=a&7u;
-    U(0xd3b364u)=b&0x7fffu;
-    U(0xd3b370u)=a&0x7fffu;
-    U(0xd3b380u)=b;
-    U(0xd3b374u)=a&0x7fu;
-    U(0xd3b368u)=b&0x7fu;
-    U(0xd3b36cu)=b&7u;
-    B(self+0x62u)=(uint8_t)(a&1u);
-}
+{(void)restore_event_record_reset(self);}
 
 /* Complete 29-instruction leaf: snapshot signed DWORD row count once. */
 void restore_mission_terrain_004771c0(void)

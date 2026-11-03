@@ -30,6 +30,7 @@
 #include "resource_availability.h"
 #include "actor_mission_init.h"
 #include "event_packet.h"
+#include "event_parameters.h"
 #include <stdlib.h>
 #include <string.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -44,8 +45,6 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
     switch(target){
     RAW(0044ba90);RAW(0044bc20);
     RAW(00446260);
-    RAW(004487f0);
-    RAW(00448a90);
     RAW(004496d0);
     RAW(0044c0d0);
     RAW(0044c430);
@@ -138,6 +137,10 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_event_actions_
         restore_diplomacy_input_raw(target,f->r,&f->flags);return;
     case 0x4c38f0u:
         restore_advisor_raw(target,f->r,&f->flags);return;
+    /* Reset's callers replace flags/EDX before consuming them. Its PUSH ECX
+       allocates a loop-counter local; the final POP ECX publishes zero. */
+    case 0x4487f0u:f->r[0]=restore_event_parameter_choose(f->r[1],f->r[0]);break;
+    case 0x448a90u:f->r[0]=restore_event_record_reset(f->r[1]);f->r[1]=0;break;
     case 0x448d10u:
         f->r[0]=restore_event_list_append_00448d10(f->r[1],A(1));cleanup=4;break;
     case 0x44d680u:

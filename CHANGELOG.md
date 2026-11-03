@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Share one C parameter selector and event reset between mission loading and
+  simulation. Replace two generated entry points with explicit ECX/EAX
+  bridges, preserve native ECX outputs and the complete EAX result, and retire 590 duplicate
+  register-frame lines. Keep signed WORD sentinels, RNG history and partial
+  versus complete generator updates in their original write order.
+- Pass 882 native/C cases per diagnostic/game build and 12 complete event
+  iterator compositions, including 59 immediate follow-ups. Execute all 275
+  reachable instructions; three signed-remainder fixup instructions are
+  unreachable after the native 15-bit mask. No dependency algorithms or
+  platform endpoints are substituted; unrelated mission/event behavior
+  remains outside this comparison.
 - Reconstruct seven event/resource methods with named C interfaces: signed
   record lookup, linked-event predicates, remaining months, message selection,
   the 30-byte message packet and flood-event execution. Correct the event
