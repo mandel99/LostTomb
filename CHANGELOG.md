@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+- Reconstruct the monthly migration controller, immigrant/emigrant allocation
+  and both figure-creation functions as ordinary C. Replace 1138
+  register-model body lines and four decompiled canonical units with a shared
+  101-line module, direct canonical entries and five frame adapters.
+- Preserve pending-figure cleanup, separate vacancy passes, live list cursors,
+  rank-ordered departures, captured quantities and BYTE figure payloads. Keep
+  allocation-failure writes through record zero, the original cumulative-counter
+  arithmetic, fresh versus captured players, small migration backlogs, yearly
+  demographic calls and all nine population milestones.
+- Pass 163 offline original/C scenarios per diagnostic/game build:
+  all 505 reachable native instructions and 116 conditional
+  outcomes. Rea authenticates all 535 instructions; the 30-instruction empty-house
+  block and 12 outcomes are analytically unreachable because positive requests
+  exhaust cleanup while nonpositive requests fail its remaining gate.
+  Actual actor allocation/RNG/linking, house cleanup, population/demand,
+  demographic and notification providers execute with no substituted results.
+  Includes actual notification insertion into empty and last-free-slot queues,
+  with sound disabled and the UI inactive. Named/canonical/frame routes,
+  consumed helper inputs, ordered owned stores, final original static data and
+  saved ABI match. A supplementary full-pool 300-person case also preserves the
+  counter and truncated record-zero payload on both builds. The 14-case
+  demographic smoke passes on both builds. Private scratch, caller-saved state,
+  concurrent access and host game/UI fidelity remain outside this comparison.
+
 - Reconstruct nine population functions as ordinary C: house births/deaths,
   age-group sums/removal, aging and mortality, births, population totals/history,
   working-age population and housing/workforce composition. Replace 808

@@ -1,3 +1,4 @@
+#include "migration_flow.h"
 #include "population_demography.h"
 #include "housing_capacity.h"
 #include "warehouse_stock.h"
@@ -372,7 +373,7 @@ void FUN_00457af0(void)
 void FUN_00458440(void)
 {restore_housing_rebuild_capacity();}
 void FUN_00458540(void)
-{(void)invoke(0x00458540u,0,0);}
+{restore_migration_update();}
 void FUN_00459070(void)
 {(void)invoke(0x00459070u,0,0);}
 void FUN_00459100(void)
