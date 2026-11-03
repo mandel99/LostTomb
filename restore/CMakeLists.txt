@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/monument_entrance.c src/unit_00108.c src/unit_00202.c src/unit_02002.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_create.c src/unit_00106.c src/unit_00201.c src/unit_02000.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_base_queries.c src/unit_00105.c src/unit_00109.c src/unit_00200.c src/unit_00203.c src/unit_01999.c src/unit_02003.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/event_schedule.c src/unit_00721.c src/unit_00731.c src/unit_00732.c src/unit_00737.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -237,7 +238,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
  runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
- runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c
+ runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
  runtime/map_commit_controller_model.c runtime/map_commit_complete.c
  runtime/menu_render_list_queries.c runtime/menu_building_overlay.c runtime/menu_building_overlay_model.c
@@ -1918,3 +1919,8 @@ foreach(_monument_create IN ITEMS 0040da90 00417180 004e6840)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_monument_create}")
 endforeach()
 unset(_monument_create)
+
+foreach(_monument_entrance IN ITEMS 0040eb90 00417490 004e6ae0)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_monument_entrance}")
+endforeach()
+unset(_monument_entrance)

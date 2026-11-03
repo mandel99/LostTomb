@@ -1,5 +1,6 @@
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 #include "actor_laborer.h"
+#include "monument_entrance.h"
 #include <stdlib.h>
 
 #define MI_U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
@@ -12104,95 +12105,7 @@ mi_0040ed66:;
 
 void restore_laborer_C_0040eb90(struct restore_laborer_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0040eb90 */
-    f->r[0]=mi_read((0x00000004u+f->r[4]),4u);
-    /* 0040eb94 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0040eb95 */
-    f->r[6]=f->r[0];
-    /* 0040eb97 */
-    a=f->r[6];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9a */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9c */
-    a=f->r[6];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9f */
-    a=mi_read((0x00799a30u+f->r[6]),4u);b=0x00000003u;t=mi_alu(f,a,b,32,1);
-    /* 0040eba6 */
-    if(!mi_signed_less(f->flags))goto mi_0040ebe2;
-    /* 0040eba8 */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999eau+f->r[6]),2u);
-    /* 0040ebaf */
-    f->r[2]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 0040ebb2 */
-    f->r[0]=(0x00000000u+f->r[0]+f->r[2]*4u);
-    /* 0040ebb5 */
-    f->r[0]=mi_read((0x00000054u+f->r[1]+f->r[0]*4u),4u);
-    /* 0040ebb9 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999deu+f->r[6]),2u);
-    /* 0040ebc0 */
-    f->r[2]=(f->r[0]&0x80000000u)?0xffffffffu:0;
-    /* 0040ebc1 */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebc3 */
-    f->r[2]=mi_read((0x0000000cu+f->r[4]),4u);
-    /* 0040ebc7 */
-    a=f->r[0];b=0x00000001u;t=mi_shift(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebc9 */
-    a=f->r[1];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0040ebcb */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 0040ebcd */
-    f->r[2]=mi_read((0x00000010u+f->r[4]),4u);
-    /* 0040ebd1 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999e0u+f->r[6]),2u);
-    /* 0040ebd8 */
-    a=f->r[1];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0040ebda */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 0040ebdc */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 0040ebde */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0040ebdf */
-    f->r[4]+=16;return;
-mi_0040ebe2:;
-    /* 0040ebe2 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999eau+f->r[6]),2u);
-    /* 0040ebe9 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebeb */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0040ebec */
-    f->r[1]=f->r[0];
-    /* 0040ebee */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebf1 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebf3 */
-    f->r[1]=mi_read((0x00000008u+f->r[4]),4u);
-    /* 0040ebf7 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebfa */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999deu+f->r[0]),2u);
-    /* 0040ec01 */
-    a=f->r[2];b=0x00000003u;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 0040ec04 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[2]);
-    /* 0040ec06 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)mi_read((0x007999e0u+f->r[0]),2u);
-    /* 0040ec0d */
-    f->r[0]=mi_read((0x0000000cu+f->r[4]),4u);
-    /* 0040ec11 */
-    a=f->r[2];b=0x0000000bu;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 0040ec14 */
-    MI_U32((0x00000000u+f->r[0]))=(uint32_t)(f->r[2]);
-    /* 0040ec16 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 0040ec18 */
-    f->r[4]+=16;return;
+ uint32_t sp=f->r[4];f->r[0]=restore_monument_entrance_0040eb90(f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;
 }
 
 void restore_laborer_C_0040ed70(struct restore_laborer_frame *f)

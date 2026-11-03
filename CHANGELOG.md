@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct three monument access-position queries as shared typed C.
+  Preserve full EAX when only AL is set, signed DWORD rotation/half-size,
+  root normalization and ordered coordinate writes with overlapping outputs.
+  Replace two generated full-DWORD true returns and an unresolved receiver;
+  retire 364 frame-model lines, including the duplicate laborer query.
+- Pass 1,103 native/C scenarios per diagnostic/game build: all 127 native
+  instructions, four conditional edges and all four rotation arms. Compare
+  complete return values, exact ordered stores, signed boundaries, record
+  aliases and address wrapping through actual placement/building/city/laborer
+  dispatchers. Pass 21 whole monument-creation compositions per build with
+  real allocation, undo and map routines. Full gameplay remains outside scope.
+
 - Reconstruct the three multipart monument creation members (25, 9 and 2
   parts) as typed C. Retire 748 instruction/frame-model lines and replace
   ambiguous generated entry bindings with explicit receiver/argument bridges.

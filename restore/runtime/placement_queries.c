@@ -1,4 +1,5 @@
 #include "placement_queries.h"
+#include "monument_entrance.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "monument_progress.h"
@@ -5916,98 +5917,7 @@ void restore_placement_query_C_00401af0(struct restore_menu_input_frame *f)
 
 
 
-void restore_placement_query_C_0040eb90(struct restore_menu_input_frame *f)
-{
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 0040eb90 */
-    f->r[0]=MI_U32((0x00000004u+f->r[4]));
-    /* 0040eb94 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0040eb95 */
-    f->r[6]=f->r[0];
-    /* 0040eb97 */
-    a=f->r[6];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9a */
-    a=f->r[6];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9c */
-    a=f->r[6];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[6]=t;
-    /* 0040eb9f */
-    a=MI_U32((0x00799a30u+f->r[6]));b=0x00000003u;t=mi_alu(f,a,b,32,1);
-    /* 0040eba6 */
-    if(!mi_signed_less(f->flags))goto mi_0040ebe2;
-    /* 0040eba8 */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999eau+f->r[6]));
-    /* 0040ebaf */
-    f->r[2]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 0040ebb2 */
-    f->r[0]=(0x00000000u+f->r[0]+f->r[2]*4u);
-    /* 0040ebb5 */
-    f->r[0]=MI_U32((0x00000054u+f->r[1]+f->r[0]*4u));
-    /* 0040ebb9 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999deu+f->r[6]));
-    /* 0040ebc0 */
-    f->r[2]=(f->r[0]&0x80000000u)?0xffffffffu:0;
-    /* 0040ebc1 */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebc3 */
-    f->r[2]=MI_U32((0x0000000cu+f->r[4]));
-    /* 0040ebc7 */
-    a=f->r[0];b=0x00000001u;t=mi_shift(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebc9 */
-    a=f->r[1];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0040ebcb */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 0040ebcd */
-    f->r[2]=MI_U32((0x00000010u+f->r[4]));
-    /* 0040ebd1 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999e0u+f->r[6]));
-    /* 0040ebd8 */
-    a=f->r[1];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0040ebda */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 0040ebdc */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 0040ebde */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0040ebdf */
-    f->r[4]+=16;return;
-mi_0040ebe2:;
-    /* 0040ebe2 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999eau+f->r[6]));
-    /* 0040ebe9 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 0040ebeb */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 0040ebec */
-    f->r[1]=f->r[0];
-    /* 0040ebee */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebf1 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebf3 */
-    f->r[1]=MI_U32((0x00000008u+f->r[4]));
-    /* 0040ebf7 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0040ebfa */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999deu+f->r[0]));
-    /* 0040ec01 */
-    a=f->r[2];b=0x00000003u;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 0040ec04 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[2]);
-    /* 0040ec06 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999e0u+f->r[0]));
-    /* 0040ec0d */
-    f->r[0]=MI_U32((0x0000000cu+f->r[4]));
-    /* 0040ec11 */
-    a=f->r[2];b=0x0000000bu;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 0040ec14 */
-    MI_U32((0x00000000u+f->r[0]))=(uint32_t)(f->r[2]);
-    /* 0040ec16 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 0040ec18 */
-    f->r[4]+=16;return;
-}
+
 
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 
@@ -6015,164 +5925,9 @@ mi_0040ebe2:;
 
 
 
-static const uint8_t mi_rom_00417578[]={0xbf,0x74,0x41,0x00,0xee,0x74,0x41,0x00,0x1b,0x75,0x41,0x00,0x48,0x75,0x41,0x00};
-static __inline uint32_t pq_read_00417490(uint32_t address,uint32_t width)
-{
- uint32_t offset,k,result;
- if(address>=0x00417578u&&width<=16u&&(offset=address-0x00417578u)<=16u-width){
-  result=0;for(k=0;k<width;++k)result|=(uint32_t)mi_rom_00417578[offset+k]<<(k*8u);return result;
- }
- if(width==1)return MI_U8(address);if(width==2)return MI_U16(address);return MI_U32(address);
-}
 
-void restore_placement_query_C_00417490(struct restore_menu_input_frame *f)
-{
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 00417490 */
-    f->r[1]=pq_read_00417490((0x00000004u+f->r[4]),4u);
-    /* 00417494 */
-    f->r[0]=f->r[1];
-    /* 00417496 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00417499 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0041749b */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999eau+f->r[0]*8u),2u);
-    /* 004174a3 */
-    f->r[0]=pq_read_00417490((0x00bca2e0u),4u);
-    /* 004174a8 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,1);f->r[1]=t;
-    /* 004174aa */
-    f->r[2]=(f->r[0]&0x80000000u)?0xffffffffu:0;
-    /* 004174ab */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 004174ad */
-    a=f->r[0];b=0x00000001u;t=mi_shift(f,a,b,32,1);f->r[0]=t;
-    /* 004174af */
-    a=f->r[0];b=0x00000003u;t=mi_alu(f,a,b,32,1);
-    /* 004174b2 */
-    if(!(f->flags&(MI_CF|MI_ZF)))goto mi_00417572;
-    /* 004174b8 */
-    switch(pq_read_00417490((0x00417578u+f->r[0]*4u),4u)){case 0x004174bfu:goto mi_004174bf;case 0x004174eeu:goto mi_004174ee;case 0x0041751bu:goto mi_0041751b;case 0x00417548u:goto mi_00417548;default:abort();}
-mi_004174bf:;
-    /* 004174bf */
-    f->r[0]=f->r[1];
-    /* 004174c1 */
-    f->r[2]=pq_read_00417490((0x00000008u+f->r[4]),4u);
-    /* 004174c5 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004174c8 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 004174ca */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004174cd */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999deu+f->r[0]),2u);
-    /* 004174d4 */
-    a=f->r[1];b=0x00000008u;t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 004174d7 */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 004174d9 */
-    f->r[1]=pq_read_00417490((0x0000000cu+f->r[4]),4u);
-    /* 004174dd */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999e0u+f->r[0]),2u);
-    /* 004174e4 */
-    a=f->r[0];b=0x0000000fu;t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 004174e7 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[0]);
-    /* 004174e9 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 004174eb */
-    f->r[4]+=16;return;
-mi_004174ee:;
-    /* 004174ee */
-    f->r[0]=f->r[1];
-    /* 004174f0 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004174f3 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 004174f5 */
-    f->r[1]=pq_read_00417490((0x00000008u+f->r[4]),4u);
-    /* 004174f9 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004174fc */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999deu+f->r[0]),2u);
-    /* 00417503 */
-    a=f->r[2];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,1);f->flags=(f->flags&~MI_CF)|b;f->r[2]=t;
-    /* 00417504 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[2]);
-    /* 00417506 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999e0u+f->r[0]),2u);
-    /* 0041750d */
-    f->r[0]=pq_read_00417490((0x0000000cu+f->r[4]),4u);
-    /* 00417511 */
-    a=f->r[2];b=0x00000008u;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 00417514 */
-    MI_U32((0x00000000u+f->r[0]))=(uint32_t)(f->r[2]);
-    /* 00417516 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 00417518 */
-    f->r[4]+=16;return;
-mi_0041751b:;
-    /* 0041751b */
-    f->r[0]=f->r[1];
-    /* 0041751d */
-    f->r[2]=pq_read_00417490((0x00000008u+f->r[4]),4u);
-    /* 00417521 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00417524 */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 00417526 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00417529 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999deu+f->r[0]),2u);
-    /* 00417530 */
-    a=f->r[1];b=0x00000006u;t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 00417533 */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 00417535 */
-    f->r[1]=pq_read_00417490((0x0000000cu+f->r[4]),4u);
-    /* 00417539 */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999e0u+f->r[0]),2u);
-    /* 00417540 */
-    a=f->r[0];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,1);f->flags=(f->flags&~MI_CF)|b;f->r[0]=t;
-    /* 00417541 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[0]);
-    /* 00417543 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 00417545 */
-    f->r[4]+=16;return;
-mi_00417548:;
-    /* 00417548 */
-    f->r[0]=f->r[1];
-    /* 0041754a */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 0041754d */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 0041754f */
-    f->r[1]=pq_read_00417490((0x00000008u+f->r[4]),4u);
-    /* 00417553 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00417556 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999deu+f->r[0]),2u);
-    /* 0041755d */
-    a=f->r[2];b=0x0000000fu;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 00417560 */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[2]);
-    /* 00417562 */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)pq_read_00417490((0x007999e0u+f->r[0]),2u);
-    /* 00417569 */
-    f->r[0]=pq_read_00417490((0x0000000cu+f->r[4]),4u);
-    /* 0041756d */
-    a=f->r[2];b=0x00000006u;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 00417570 */
-    MI_U32((0x00000000u+f->r[0]))=(uint32_t)(f->r[2]);
-mi_00417572:;
-    /* 00417572 */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 00417574 */
-    f->r[4]+=16;return;
-}
+
+
 
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 
@@ -7205,41 +6960,7 @@ mi_0054fa93:;
 
 
 
-void restore_placement_query_C_004e6ae0(struct restore_menu_input_frame *f)
-{
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 004e6ae0 */
-    f->r[1]=MI_U32((0x00000004u+f->r[4]));
-    /* 004e6ae4 */
-    f->r[2]=MI_U32((0x00000008u+f->r[4]));
-    /* 004e6ae8 */
-    f->r[0]=f->r[1];
-    /* 004e6aea */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004e6aed */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 004e6aef */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 004e6af2 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999deu+f->r[0]));
-    /* 004e6af9 */
-    a=f->r[1];b=0x00000002u;t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 004e6afc */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 004e6afe */
-    f->r[1]=MI_U32((0x0000000cu+f->r[4]));
-    /* 004e6b02 */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999e0u+f->r[0]));
-    /* 004e6b09 */
-    a=f->r[0];b=0x00000006u;t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 004e6b0c */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[0]);
-    /* 004e6b0e */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 004e6b10 */
-    f->r[4]+=16;return;
-}
+
 
 static __declspec(noreturn) void query_failure(uint32_t target)
 {fprintf(stderr,"Unreconstructed placement query %08lx\n",(unsigned long)target);abort();}
@@ -7280,13 +7001,13 @@ void restore_placement_queries_dispatch(uint32_t site,uint32_t target,struct res
  case 0x54f490u:restore_placement_query_C_0054f490(f);break;
  case 0x4e6a70u:restore_placement_query_C_004e6a70(f);break;
  case 0x401af0u:restore_placement_query_C_00401af0(f);break;
- case 0x40eb90u:restore_placement_query_C_0040eb90(f);break;
- case 0x417490u:restore_placement_query_C_00417490(f);break;
+ case 0x40eb90u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;break;
+ case 0x417490u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;break;
  case 0x545a30u:restore_placement_query_C_00545a30(f);break;
  case 0x558f00u:restore_placement_query_C_00558f00(f);break;
  case 0x556230u:restore_placement_query_C_00556230(f);break;
  case 0x54f8a0u:restore_placement_query_C_0054f8a0(f);break;
- case 0x4e6ae0u:restore_placement_query_C_004e6ae0(f);break;
+ case 0x4e6ae0u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;break;
  case 0x547ba0u:f->r[0]=restore_placement_activity_00547ba0(f->r[1],(int32_t)MI_U32(sp+4u));f->r[4]=sp+8u;break;
  /* Exact no-argument tail adapter545FB0 -> genuine23-instruction4EA930. */
  case 0x545fb0u:f->r[0]=FUN_004ea930();f->r[4]=sp+4u;break;
