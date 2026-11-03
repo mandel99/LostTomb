@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/monument_images.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_map.c src/unit_00009.c src/unit_00107.c src/unit_02001.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_entrance.c src/unit_00108.c src/unit_00202.c src/unit_02002.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_create.c src/unit_00106.c src/unit_00201.c src/unit_02000.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -239,7 +240,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
  runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
- runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c
+ runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
  runtime/map_commit_controller_model.c runtime/map_commit_complete.c
  runtime/menu_render_list_queries.c runtime/menu_building_overlay.c runtime/menu_building_overlay_model.c
@@ -1930,3 +1931,8 @@ foreach(_monument_map IN ITEMS 004017a0 0040dca0 004e69c0)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_monument_map}")
 endforeach()
 unset(_monument_map)
+
+foreach(_monument_image IN ITEMS 00401800 0040de80 00417310 004e6a70)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_monument_image}")
+endforeach()
+unset(_monument_image)

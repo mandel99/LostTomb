@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct four monument image members as typed C and shared phase/
+  orientation rules. Retire 2,979 frame-model lines and two private ROM
+  dispatch readers. Preserve LibMain/LibExtra asset selection, AbuSimbel
+  rotations, full DWORD stages, ordered flag writes and post-load image reads.
+  Keep the nine-part member's inherited native-frame words for effective
+  indices outside its 36-entry table; do not substitute a guessed zero.
+
+- Pass 3,397 native/C image scenarios per diagnostic/game build, all 1,393
+  native instructions, 356 conditional edges and 65 indirect switch edges.
+  Include 27 map-consumer and three whole-creation compositions per build,
+  actual resident-library matching, output/flag aliases and inherited frame
+  words. Cold-file loading and complete gameplay remain outside this check.
+
 - Reconstruct three monument map-update members as named C, including four
   genuine vtables. Replace ambiguous receiver/BL/building bindings and retire
   495 frame-model lines. Preserve byte-vs-DWORD terrain writes, component
