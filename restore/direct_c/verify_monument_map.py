@@ -45,7 +45,7 @@ for c,pe in enumerate(images):
 
 def fixture(u,table,index,extra,stage,size,rotation,zero,x,y,cached):
     u.mem_write(OBJ,bytes(0x1000));put(u,OBJ,table)
-    for i in range({0x56f438:12,0x56f48c:25,0x56f4dc:9,0x56f6e8:2}[table]):
+    for i in range({0x56f438:16,0x56f48c:25,0x56f4dc:9,0x56f6e8:2}[table]):
         put(u,OBJ+0x54+i*52,size);put(u,OBJ+0x58+i*52,i)
     put(u,OBJ+0x58+index*52,extra)
     u.mem_write(S+0x5000,b'monument-fixture\0')
@@ -140,7 +140,7 @@ if __name__=='__main__':
         exercise(0x56f48c,index=index,extra=21,stage=0,rotation=rotation,size=size)
     for size in [0,-1,-2147483648]:exercise(0x56f48c,index=13,extra=21,size=size)
     for stage in [0,2,16,21]:exercise(0x56f48c,index=13,extra=21,stage=stage,zero=True)
-    for table,limit in [(0x56f438,12),(0x56f4dc,9)]:
+    for table,limit in [(0x56f438,16),(0x56f4dc,9)]:
         for index,rotation in itertools.product(range(limit),[0,2,4,6]):exercise(table,index=index,stage=index%4,rotation=rotation)
     for index,extra,stage in itertools.product([0,1],[0,1,2,0xffffffff],[0,3,9]):exercise(0x56f6e8,index=index,extra=extra,stage=stage)
     for table in TABLES:

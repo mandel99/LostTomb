@@ -5,6 +5,7 @@
    Outputs are ordered DWORD stores to physical 32-bit addresses. */
 uint32_t restore_monument_entrance_0040eb90(uint32_t self,uint32_t building,uint32_t out_x,uint32_t out_y);
 uint32_t restore_monument_entrance_00417490(uint32_t building,uint32_t out_x,uint32_t out_y);
+uint32_t restore_monument_entrance_00401af0(uint32_t building,uint32_t out_x,uint32_t out_y);
 uint32_t restore_monument_entrance_004e6ae0(uint32_t building,uint32_t out_x,uint32_t out_y);
 uint32_t restore_monument_entrance_query(uint32_t target,uint32_t self,uint32_t building,uint32_t out_x,uint32_t out_y);
 /* Native 40EB90: ECX receiver + three stack arguments, RET12.

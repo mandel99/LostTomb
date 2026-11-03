@@ -5,6 +5,13 @@
 #define H(a) ((uint32_t)(int32_t)(int16_t)W(a))
 static uint32_t yes(uint32_t eax){return(eax&0xffffff00u)|1u;}
 
+uint32_t restore_monument_entrance_00401af0(uint32_t building,uint32_t out_x,uint32_t out_y)
+{
+    uint32_t r=(building-H(0x7999eau+building*264u))*264u,y;
+    U(out_x)=H(0x7999deu+r)+6u;
+    y=H(0x7999e0u+r)-8u;U(out_y)=y;return yes(y);
+}
+
 uint32_t restore_monument_entrance_0040eb90(uint32_t self,uint32_t building,uint32_t out_x,uint32_t out_y)
 {
     uint32_t r=building*264u,half;
@@ -42,6 +49,7 @@ uint32_t restore_monument_entrance_004e6ae0(uint32_t building,uint32_t out_x,uin
 uint32_t restore_monument_entrance_query(uint32_t target,uint32_t self,uint32_t building,uint32_t out_x,uint32_t out_y)
 {
     switch(target){
+    case 0x401af0u:return restore_monument_entrance_00401af0(building,out_x,out_y);
     case 0x40eb90u:return restore_monument_entrance_0040eb90(self,building,out_x,out_y);
     case 0x417490u:return restore_monument_entrance_00417490(building,out_x,out_y);
     case 0x4e6ae0u:return restore_monument_entrance_004e6ae0(building,out_x,out_y);

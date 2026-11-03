@@ -64,9 +64,40 @@ static void initialize_part(uint32_t building,uint16_t index,uint8_t size,uint32
     U(0x799a2cu+r)=registration;U(0x799a30u+r)=stage;
     U(0x799a38u+r)=root_active;U(0x799a34u+r)=0;
 }
+static void clear_abu_workers(uint32_t building)
+{
+    uint32_t r=building*264u;
+    /* Native unaligned DWORD stores preserve the byte at record+0x60. */
+    U(0x799a39u+r)=0;U(0x799a3du+r)=0;U(0x799a41u+r)=0;
+}
+static void create_abu_simbel(uint32_t self,uint32_t x,uint32_t y,uint32_t root,uint8_t skip,struct restore_menu_input_frame *context)
+{
+    uint32_t dx,dy,r=root*264u,index,piece,building,previous=root;
+    /* Registration has side effects, but its return is not stored here. */
+    if(!skip)(void)call_one(context,0x4015bau,0x4f4f80u,0,root,0);
+    dx=U(self+0x4cu);dy=U(self+0x50u);
+    W(0x7999deu+r)=(uint16_t)(x+dx);W(0x7999e0u+r)=(uint16_t)(y+dy);
+    U(0x7999e4u+r)=U(0xbca2d8u)+(y+dy)*228u+dx+x;
+    W(0x7999eau+r)=0;B(0x7999dbu+r)=B(self+0x54u);W(0x799a10u+r)=0;
+    U(0x799a2cu+r)=0;U(0x799a34u+r)=0;U(0x799a30u+r)=0;
+    entrance(context,0x401652u,self,root,&dx,&dy);clear_abu_workers(root);
+    draw_part(context,0x401683u,self,root);remember_part(context,0x401687u,root);
+    U(self+8u)=0;
+    for(index=1;index<16u;++index){
+        piece=self+0x4cu+index*52u;dx=U(piece);dy=U(piece+4u);
+        building=allocate_part(context,0x4016cbu,0xe6u,x+dx,y+dy,previous);
+        link_part(previous,building);previous=building;r=building*264u;
+        W(0x7999eau+r)=(uint16_t)index;B(0x7999dbu+r)=B(piece+8u);
+        U(0x799a2cu+r)=0;U(0x799a34u+r)=0;U(0x799a30u+r)=0;
+        entrance(context,0x40173du,self,building,&dx,&dy);clear_abu_workers(building);
+        draw_part(context,0x40176eu,self,building);remember_part(context,0x401772u,building);
+    }
+    (void)invoke(context,0x40178fu,0x4dea50u,0,0,0,0);
+}
 static void create_parts(uint32_t target,uint32_t self,uint32_t x,uint32_t y,uint32_t root,uint8_t skip,struct restore_menu_input_frame *context)
 {
     uint32_t registration=0,building,previous=root,piece,index,dx,dy,count,stage,kind;
+    if(target==0x4015a0u){create_abu_simbel(self,x,y,root,skip,context);return;}
     if(target!=0x40da90u&&target!=0x417180u&&target!=0x4e6840u)abort();
     if(!skip)registration=call_one(context,target==0x40da90u?0x40dab2u:target==0x417180u?0x41719du:0x4e6860u,0x4f4f80u,0,root,0);
     stage=target==0x40da90u?1u:0u;
@@ -108,5 +139,6 @@ void restore_monument_create_frame(uint32_t target,struct restore_menu_input_fra
 void restore_monument_create_##token(uint32_t self,int32_t x,int32_t y,uint32_t root,uint8_t skip) \
 {create_parts(0x##token##u,self,(uint32_t)x,(uint32_t)y,root,skip,0);}
 PUBLIC_ENTRY(0040da90)
+PUBLIC_ENTRY(004015a0)
 PUBLIC_ENTRY(00417180)
 PUBLIC_ENTRY(004e6840)

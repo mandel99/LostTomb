@@ -4,6 +4,7 @@
 /* Native members: ECX receiver, x/y/root/skip_registration, RET16.
    Public C entries use explicit receivers and ordinary caller cleanup. */
 void restore_monument_create_0040da90(uint32_t self,int32_t x,int32_t y,uint32_t root,uint8_t skip_registration);
+void restore_monument_create_004015a0(uint32_t self,int32_t x,int32_t y,uint32_t root,uint8_t skip_registration);
 void restore_monument_create_00417180(uint32_t self,int32_t x,int32_t y,uint32_t root,uint8_t skip_registration);
 void restore_monument_create_004e6840(uint32_t self,int32_t x,int32_t y,uint32_t root,uint8_t skip_registration);
 void restore_monument_create_frame(uint32_t target,struct restore_menu_input_frame *frame);

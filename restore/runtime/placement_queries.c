@@ -2844,51 +2844,7 @@ mi_0054f81b:;
 
 
 
-void restore_placement_query_C_00401af0(struct restore_menu_input_frame *f)
-{
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 00401af0 */
-    f->r[0]=MI_U32((0x00000004u+f->r[4]));
-    /* 00401af4 */
-    f->r[1]=f->r[0];
-    /* 00401af6 */
-    a=f->r[1];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 00401af9 */
-    a=f->r[1];b=f->r[0];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 00401afb */
-    f->r[2]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999eau+f->r[1]*8u));
-    /* 00401b03 */
-    a=f->r[0];b=f->r[2];t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 00401b05 */
-    f->r[2]=MI_U32((0x00000008u+f->r[4]));
-    /* 00401b09 */
-    f->r[1]=f->r[0];
-    /* 00401b0b */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00401b0e */
-    a=f->r[0];b=f->r[1];t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 00401b10 */
-    a=f->r[0];b=0x00000003u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00401b13 */
-    f->r[1]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999deu+f->r[0]));
-    /* 00401b1a */
-    a=f->r[1];b=0x00000006u;t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 00401b1d */
-    MI_U32((0x00000000u+f->r[2]))=(uint32_t)(f->r[1]);
-    /* 00401b1f */
-    f->r[1]=MI_U32((0x0000000cu+f->r[4]));
-    /* 00401b23 */
-    f->r[0]=(uint32_t)(int32_t)(int16_t)MI_U16((0x007999e0u+f->r[0]));
-    /* 00401b2a */
-    a=f->r[0];b=0x00000008u;t=mi_alu(f,a,b,32,1);f->r[0]=t;
-    /* 00401b2d */
-    MI_U32((0x00000000u+f->r[1]))=(uint32_t)(f->r[0]);
-    /* 00401b2f */
-    f->r[0]=(f->r[0]&0xffffff00u)|(((0x00000001u)&0xffu)<<0);
-    /* 00401b31 */
-    f->r[4]+=16;return;
-}
+
 
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 
@@ -3978,7 +3934,7 @@ void restore_placement_queries_dispatch(uint32_t site,uint32_t target,struct res
  case 0x555ea0u:restore_placement_query_C_00555ea0(f);break;
  case 0x54f490u:restore_placement_query_C_0054f490(f);break;
  case 0x4e6a70u:f->r[0]=restore_monument_image_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),f);f->r[4]=sp+12u;break;
- case 0x401af0u:restore_placement_query_C_00401af0(f);break;
+ case 0x401af0u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(f->r[4]+4u),MI_U32(f->r[4]+8u),MI_U32(f->r[4]+12u));f->r[4]+=16u;break;
  case 0x40eb90u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;break;
  case 0x417490u:f->r[0]=restore_monument_entrance_query(target,f->r[1],MI_U32(sp+4u),MI_U32(sp+8u),MI_U32(sp+12u));f->r[4]=sp+16u;break;
  case 0x545a30u:restore_placement_query_C_00545a30(f);break;

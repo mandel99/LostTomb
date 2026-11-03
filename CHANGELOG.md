@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Reconstruct Abu Simbel creation and entrance positioning as typed C.
+  Replace 351 frame-model lines and ambiguous generated receiver/local
+  bindings. Allocate and link all 16 parts, retain registration side effects
+  without storing its return, clear exactly twelve unaligned work bytes,
+  preserve the adjacent byte and refresh the map after the final part.
+- Pass 1,276 entrance scenarios per diagnostic/game build, all 147 native
+  instructions, four conditional edges and four switch targets. Include
+  aliasing outputs, signed piece offsets, complete EAX and 29 whole-creation
+  compositions per build, with shipped Abu Simbel geometry and dirty records.
+
+- Pass 324 complete creation scenarios per diagnostic/game build, all 513
+  native instructions and all 14 conditional edges. Actual allocation,
+  registration, undo, map callbacks and resident-library loading execute
+  without replacement endpoints. No complete-gameplay claim.
+
 - Reconstruct four monument image members as typed C and shared phase/
   orientation rules. Retire 2,979 frame-model lines and two private ROM
   dispatch readers. Preserve LibMain/LibExtra asset selection, AbuSimbel

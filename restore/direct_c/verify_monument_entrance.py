@@ -6,7 +6,7 @@ import json
 
 OBJ,OUT,FRAME,VSP=S+0x1000,S+0x3000,S+0x8000,S+0x18000
 BID=64
-METHODS={0x40eb90:0x56f48c,0x417490:0x56f4dc,0x4e6ae0:0x56f6e8}
+METHODS={0x401af0:0x56f438,0x40eb90:0x56f48c,0x417490:0x56f4dc,0x4e6ae0:0x56f6e8}
 NAMES={t:'restore_monument_entrance_%08x'%t for t in METHODS}
 available=lambda name:bool(re.search(r'\s_'+re.escape(name)+r'\s',symbols))
 catalogue=json.loads((ROOT/'metadata/monument-entrance-native.json').read_text())
@@ -14,6 +14,8 @@ assert catalogue['native_sha256']==hashlib.sha256(original.read_bytes()).hexdige
 owned={};branches={};hits=set();edges=set();jump_edges=set();previous=[None];checked=0;invocations=0
 for f in catalogue['functions']:
     a=int(f['address'],16);n=f['result']['procedure']['body']['total_bytes']
+    if 'rea_bytes' in f:
+        evidence=f['rea_bytes'];assert evidence['complete'] and bytes.fromhex(evidence['bytes_hex'])==bytes(images[0].data[a-images[0].base:a-images[0].base+n])
     code=list(Cs(CS_ARCH_X86,CS_MODE_32).disasm(bytes(images[0].data[a-images[0].base:a-images[0].base+n]),a))
     assert sum(i.size for i in code)==n
     assert [hex(i.address) for i in code]==[x.split(':')[0] for x in f['result']['instructions']]
@@ -128,10 +130,11 @@ if __name__=='__main__':
         construction.exercise(0x40da90,rotation=rotation,skip=skip,size=size)
     for root in [0,3975]:construction.exercise(0x40da90,root=root)
     for occupied in [1,12,24]:construction.exercise(0x40da90,occupied=occupied)
+    for rotation,skip in itertools.product([0,2,4,6],[0,1]):construction.exercise(0x4015a0,rotation=rotation,skip=skip,layout=True,dirty=True)
     sources=['include/monument_entrance.h','runtime/monument_entrance.c','runtime/placement_queries.c',
              'runtime/actor_laborer_model.c','CMakeLists.txt','direct_c/verify_monument_entrance.py',
              'metadata/monument-entrance-native.json','direct_c/verify_monument_create.py',
-             'runtime/monument_create.c','runtime/building_methods.c','include/monument_create.h']+[f'src/unit_{i:05d}.c' for i in [108,202,2002]]
+             'runtime/monument_create.c','runtime/building_methods.c','include/monument_create.h']+[f'src/unit_{i:05d}.c' for i in [10,108,202,2002]]
     proof=dict(native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,
                passed=True,checked=checked,invocations=invocations,
                coverage={hex(a):dict(instructions=len(v),executed=len(v&hits)) for a,v in owned.items()},conditional_edges=len(edges),
@@ -145,7 +148,7 @@ if __name__=='__main__':
                             'Actual placement/building/city/laborer dispatchers execute, without substituted endpoints; no full-gameplay approval.'],commit=None)
     suffix='diagnostic' if target.stem=='restore_link_check' else 'game'
     (ROOT/f'metadata/monument-entrance-{suffix}.json').write_text(json.dumps(proof,indent=2)+'\n')
-    print('PASS three whole entrance methods:',checked,'cases',invocations,'invocations',flush=True)
+    print('PASS four whole entrance methods:',checked,'cases',invocations,'invocations',flush=True)
     print('Native instructions/conditional edges/indirect targets:',len(hits&points),len(edges),len(jump_edges),flush=True)
-    print('Complete 25-part creation compositions:',construction.checked,'invocations:',construction.invocations,flush=True)
+    print('Complete monument creation compositions:',construction.checked,'invocations:',construction.invocations,flush=True)
     print('Verified target SHA256:',target_sha,flush=True)

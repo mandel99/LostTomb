@@ -2,6 +2,70 @@
   "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
   "functions": [
     {
+      "address": "0x401af0",
+      "evidence_id": "ev_146044290d7d2eb5c66d74e43835e8aaab99cf772ee2efeff8c1aa9686138c99",
+      "result": {
+        "procedure": {
+          "address": "0x401af0",
+          "name": "FUN_00401af0",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x401af0",
+                "end": "0x401b33"
+              }
+            ],
+            "total_bytes": 68,
+            "span_bytes": 68,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x401af0: MOV EAX, dword ptr [ESP + 0x4]",
+          "0x401af4: MOV ECX, EAX",
+          "0x401af6: SHL ECX, 0x5",
+          "0x401af9: ADD ECX, EAX",
+          "0x401afb: MOVSX EDX, word ptr [ECX*0x8 + 0x7999ea]",
+          "0x401b03: SUB EAX, EDX",
+          "0x401b05: MOV EDX, dword ptr [ESP + 0x8]",
+          "0x401b09: MOV ECX, EAX",
+          "0x401b0b: SHL EAX, 0x5",
+          "0x401b0e: ADD EAX, ECX",
+          "0x401b10: SHL EAX, 0x3",
+          "0x401b13: MOVSX ECX, word ptr [EAX + 0x7999de]",
+          "0x401b1a: ADD ECX, 0x6",
+          "0x401b1d: MOV dword ptr [EDX], ECX",
+          "0x401b1f: MOV ECX, dword ptr [ESP + 0xc]",
+          "0x401b23: MOVSX EAX, word ptr [EAX + 0x7999e0]",
+          "0x401b2a: SUB EAX, 0x8",
+          "0x401b2d: MOV dword ptr [ECX], EAX",
+          "0x401b2f: MOV AL, 0x1",
+          "0x401b31: RET 0xc"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      },
+      "rea_bytes": {
+        "evidence_id": "ev_ff3d86c2011dc8eb64549056201ca38416fca452c9ff5a22aa52a848456532a6",
+        "address": "0x401af0",
+        "requested_bytes": 68,
+        "returned_bytes": 68,
+        "bytes_hex": "8b4424048bc8c1e10503c80fbf14cdea9979002bc28b5424088bc8c1e00503c1c1e0030fbf88de99790083c106890a8b4c240c0fbf80e099790083e8088901b001c20c00",
+        "complete": true
+      }
+    },
+    {
       "address": "0x40eb90",
       "evidence_id": "ev_a40a2ac7ab8a01944f0ad22c0a5cb1557f5964584f3224d462ff9bec2b79becc",
       "analysis_evidence_id": "ev_3fad8950cb2ade3bc88289ffade9d1d6508aacf62fee3a70ebb89bc18151868b",
