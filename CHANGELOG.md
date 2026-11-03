@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct the three multipart monument creation members (25, 9 and 2
+  parts) as typed C. Retire 748 instruction/frame-model lines and replace
+  ambiguous generated entry bindings with explicit receiver/argument bridges.
+  Preserve component links, registration, coordinate truncation, entrance
+  queries, initialization flags and each method's undo/map update order.
+- Pass 229 native/C scenarios per diagnostic/game build, covering all 364
+  native instructions and 10 conditional edges. Execute actual allocation,
+  entrance queries, undo copies, footprint writes, resident-library queries
+  and whole-map refresh; compare game globals and child-entry record states.
+  Check stack canaries and normal C/member bridges. Full gameplay remains
+  outside this comparison.
+
 - Route six monument base progress/worker entries through shared C providers.
   Capture the progress receiver and both native stack arguments; preserve
   complete EAX across worker predicates that define only AL. Remove ambiguous
