@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/storage_trade.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/storage_delivery.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_prepare_integer.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_actor_teardown.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -2037,3 +2038,13 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0045b570" "/INCLUD
 target_link_options(restore_game PRIVATE "/INCLUDE:_FUN_0045b570" "/INCLUDE:_FUN_0045b700" "/INCLUDE:_FUN_0045b4d0" "/INCLUDE:_restore_placement_support_C_0045b570" "/INCLUDE:_restore_placement_support_C_0045b4d0" "/INCLUDE:_restore_god_C_0045b700")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_god_building_0045b700")
 target_link_options(restore_game PRIVATE "/INCLUDE:_restore_god_building_0045b700")
+
+target_sources(pharaoh_restored PRIVATE runtime/storage_trade.c)
+foreach(_storage_trade_target IN ITEMS restore_link_check restore_game)
+ foreach(_storage_trade_entry IN ITEMS FUN_004434e0 FUN_004435f0 FUN_0045cf50 FUN_0045d180 FUN_0045d9e0
+   restore_actor_message_C_004434e0 restore_actor_message_C_004435f0 restore_actor_message_C_0045cf50 restore_actor_message_C_0045d180 restore_transport_C_0045d9e0)
+  target_link_options(${_storage_trade_target} PRIVATE "/INCLUDE:_${_storage_trade_entry}")
+ endforeach()
+endforeach()
+unset(_storage_trade_entry)
+unset(_storage_trade_target)

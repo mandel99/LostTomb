@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Reconstruct trade import/export permissions, warehouse admission and granary
+  food-delivery destination selection as ordinary C. Replace 1318 register-model
+  body lines with a shared 127-line module, direct canonical providers and thin
+  compatibility adapters.
+- Preserve signed stock thresholds, real trade quotas, fresh trader templates,
+  byte versus word actor cargo, all 35 admission checks, independent current-city
+  and passed-player cursors, two-store cursor wrap, eight-hop invalid-link
+  continuation and refreshed bin phases. Granaries retain live scan bounds,
+  staffing/policy/stock/reservation gates, road access and the actual route query;
+  selected coordinates and wrapping word reservations follow the original.
+- Pass 439 offline original/C scenarios per diagnostic/game build: all
+  623 native instructions and 155 reachable conditional outcomes.
+  One additional policy-branch edge is analytically impossible after the prior
+  0-or-2 policy gate. Compare full DWORD results, ordered owned stores, helper
+  inputs, all original static data and saved ABI across named/canonical/frame
+  adapters. Actual quota, capacity, road and route children execute, including
+  walkable-map selection and real input mutations. Incidental caller-saved state,
+  private scratch, concurrent access and host game/UI fidelity are excluded.
+
 - Reconstruct resource-specific withdrawal, ordered removal and city-wide
   withdrawal as ordinary C, replacing 594 register-model body lines with
   shared storage functions and thin compatibility adapters. Public canonical,

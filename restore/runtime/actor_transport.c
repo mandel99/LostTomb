@@ -1,3 +1,4 @@
+#include "storage_trade.h"
 #include "storage_delivery.h"
 #include "actor_transport.h"
 #include <stdlib.h>
@@ -30,7 +31,7 @@ int32_t FUN_0045d510(int32_t param_1,int32_t param_2)
 {return restore_storage_resource_amount(param_1,param_2);}
 
 int32_t FUN_0045d9e0(int32_t param_1,int32_t param_2,int32_t param_3,uint32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x45d9e0u,a,4);}
+{return restore_food_delivery_destination(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_0045e360(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
 {const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x45e360u,a,4);}
