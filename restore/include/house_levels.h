@@ -4,8 +4,8 @@
 /* Twenty nullary native callbacks. The owning4528B0 dispatcher discards
    volatile return registers; these callbacks have a void contract. */
 void restore_house_update_level(uint32_t level);
-/* Existing genuine layout bodies, through typed facades, remain separate
-   reconstruction work. No layout algorithm is replaced by these facades. */
+/* Layout providers; remaining split/reduction bodies retain genuine
+   algorithms through explicit typed facades while reconstruction continues. */
 void restore_house_merge_neighbours(uint32_t building);
 uint32_t restore_house_can_expand(uint32_t building,uint32_t area);
 void restore_house_clear_expansion(uint32_t building,uint32_t area);

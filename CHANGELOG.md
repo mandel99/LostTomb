@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Reconstruct eight housing-layout methods as ordinary C: ordered expansion
+  search, neighbour merging, overlapping-house preparation, signed stock
+  and population collection, three upgrades and merged-house application.
+  Remove 1,357 model lines and bind all eight legacy public C entries to
+  the same reviewed providers. Preserve duplicate-owner behavior, cached
+  images, fresh relocation reads and WORD stock/population wrap.
+- Pass 1,161 original/C layout cases per diagnostic/game build, all 639
+  native instructions and 118 conditional edges, with actual clearing,
+  stamping, allocation and split methods. The diagnostic additionally retains
+  and verifies all eight canonical C entries; the game keeps its natural
+  linked scope. The remaining five split and
+  reduction models stay explicitly tracked for reconstruction.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct all twenty housing-level update callbacks as shared ordinary C
   rules, retaining vacant-hut checks, three-failure downgrade delays,
   per-level footprint transitions and fresh current-house reads. Remove

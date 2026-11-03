@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/house_layout.c src/unit_00969.c src/unit_00971.c src/unit_00972.c src/unit_00973.c src/unit_00974.c src/unit_00975.c src/unit_00976.c src/unit_00977.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_levels.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_evolution.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/monument_complex_images.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -244,7 +245,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/placement_support.c runtime/placement_support_model.c runtime/monument_placement_queries.c
  runtime/placement_context.c runtime/general_placement.c
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
- runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
+ runtime/house_layout.c runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
  runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c runtime/monument_complex_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
@@ -1965,3 +1966,10 @@ unset(_complex_image)
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_house_check_global_mode" "/INCLUDE:_restore_house_compare_desirability" "/INCLUDE:_restore_house_check_requirements")
 
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_house_update_level")
+
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_house_try_merge" "/INCLUDE:_restore_house_apply_layout")
+
+foreach(_house_layout IN ITEMS 0046b480 0046b840 0046b940 0046b9e0 0046bab0 0046bbc0 0046bcb0 0046bda0)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_house_layout}")
+endforeach()
+unset(_house_layout)
