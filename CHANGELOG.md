@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reconstruct all four complex-monument image-selection members as ordinary C
+  phase/orientation and image-bank rules. Remove 2,750 remaining frame-model
+  lines and private ROM readers from placement_queries.c. Preserve ordered
+  output aliases, signed terminal-piece comparisons and late field reads.
+- Pass 4,200 original/C image scenarios per diagnostic/game build, all
+  1,253 native instructions, 206 conditional edges and 64 switch targets.
+  Actual material and x87/worker progress providers execute, together with
+  96 footprint/image/activity/stamping compositions per build. Native
+  boundaries are inferred from RET8 and adjacent switch data, with REA
+  bytes checked against the pinned original. No full-gameplay claim.
+
 - Reconstruct four complex-monument position members as shared C offset
   rules. Retire 1,019 frame-model lines and four private ROM readers. Keep
   signed WORD selectors, ordered X/Y stores, no-write arms and complete EAX:
