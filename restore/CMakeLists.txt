@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/housing_cycle.c src/unit_00798.c src/unit_00804.c src/unit_00970.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_split.c src/unit_00978.c src/unit_00979.c src/unit_00980.c src/unit_00981.c src/unit_00982.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_layout.c src/unit_00969.c src/unit_00971.c src/unit_00972.c src/unit_00973.c src/unit_00974.c src/unit_00975.c src/unit_00976.c src/unit_00977.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/house_levels.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -172,7 +173,7 @@ unset(_score_unit)
 endforeach()
 unset(_construction_unit)
 # Typed irrigation controller, intake, propagation and terrain-area implementations.
-foreach(_irrigation_unit IN ITEMS 00317 00326 00328 00330 00348 00349 00350 00355 00356 00362 00363 00792 00793 00798 00799 00801 00802 00804 00805 00812 00937 00938 00956 00957 00970 01196 01197 01200 01273 01520 01564 01565 01978 01980 01981 01983 01984 02102 02103 02110)
+foreach(_irrigation_unit IN ITEMS 00317 00326 00328 00330 00348 00349 00350 00355 00356 00362 00363 00792 00793 00799 00801 00802 00805 00812 00937 00938 00956 00957 01196 01197 01200 01273 01520 01564 01565 01978 01980 01981 01983 01984 02102 02103 02110)
  list(REMOVE_ITEM _restore_compiled_units "${CMAKE_CURRENT_SOURCE_DIR}/src/unit_${_irrigation_unit}.c")
 endforeach()
 unset(_irrigation_unit)
@@ -246,7 +247,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/placement_support.c runtime/placement_support_model.c runtime/monument_placement_queries.c
  runtime/placement_context.c runtime/general_placement.c
  runtime/building_footprint.c runtime/building_support.c runtime/remaining_warnings.c
- runtime/house_split.c runtime/house_layout.c runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
+ runtime/housing_cycle.c runtime/house_split.c runtime/house_layout.c runtime/house_levels.c runtime/house_evolution.c runtime/building_controllers.c runtime/building_controllers_model.c runtime/building_widgets.c runtime/placement_queries.c
  runtime/building_image.c runtime/building_image_model.c
  runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c runtime/monument_complex_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
@@ -1980,3 +1981,9 @@ foreach(_house_split IN ITEMS 0046be90 0046c1c0 0046c500 0046cb30 0046ccf0)
  target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_house_split}")
 endforeach()
 unset(_house_split)
+
+# Retain canonical housing-cycle ABI entries in the offline diagnostic target.
+foreach(_housing_cycle IN ITEMS 004528b0 00454b40 0046b740)
+ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_${_housing_cycle}")
+endforeach()
+unset(_housing_cycle)

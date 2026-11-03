@@ -145,12 +145,7 @@ static uint32_t execute(void (*body)(struct restore_building_control_frame *),co
 
 int32_t FUN_0046b100(int32_t building)
 {uint32_t a[1]={(uint32_t)building};return (int32_t)execute(restore_building_control_C_0046b100,a,1);}
-void FUN_004528b0(void)
-{(void)execute(restore_building_control_C_004528b0,0,0);}
-void FUN_00454b40(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)execute(restore_building_control_C_00454b40,a,1);}
-void FUN_0046b740(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)execute(restore_building_control_C_0046b740,a,1);}
+
 uint32_t FUN_004539a0(void)
 {return restore_house_check_global_mode();}
 uint32_t FUN_00453af0(int32_t building)

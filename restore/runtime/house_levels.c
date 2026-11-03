@@ -8,6 +8,17 @@
 #define H(a) ((int32_t)(int16_t)*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 extern void FUN_00476530(void);
 static uint32_t current(void){return U(0x78d838u);}
+void restore_house_update_by_entry(uint32_t native_entry)
+{
+ static const uint32_t entries[20]={
+  0x452980u,0x452a20u,0x452b00u,0x452bd0u,0x452ca0u,
+  0x452d70u,0x452e40u,0x452f10u,0x452fe0u,0x4530b0u,
+  0x4531c0u,0x453280u,0x453340u,0x453400u,0x453500u,
+  0x4535c0u,0x453680u,0x453740u,0x453840u,0x453900u};
+ uint32_t i;
+ for(i=0;i<20u;++i)if(entries[i]==native_entry){restore_house_update_level(i);return;}
+ abort();
+}
 static void change(uint32_t building,uint32_t kind)
 {FUN_0046cea0((int32_t)building,(int16_t)kind);}
 

@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reconstruct the complete housing update owner, map-position repair and
+  goods consumption as ordinary C. Remove 710 register-model lines, bind
+  all three public ABI entries and dispatch the twenty level callbacks
+  through their actual native table tokens. Preserve fresh phase/current
+  record reads, signed map-owner comparisons, row padding, caller-argument
+  mutation and inherited stack inputs through a small x86 ABI shim.
+- Pass 3,104 original/C scenarios per diagnostic/game build, covering all
+  305 native instructions, 72 conditional edges and three switch targets.
+  Actual callbacks, goods use, position repair, expansion and both full
+  road rebuilds execute without substituted algorithm/platform endpoints.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct the five remaining housing subdivision/reduction methods as
   shared ordinary C, and bind their legacy public C entries. Remove
   2,411 model lines. Preserve signed WORD snapshots, native divisors,
