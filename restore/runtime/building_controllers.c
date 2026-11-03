@@ -176,26 +176,3 @@ int32_t FUN_004c53d0(int32_t category)
 void FUN_004b7c80(void)
 {(void)execute(restore_building_control_C_004b7c80,0,0);}
 
-void restore_house_reduce(uint32_t building,uint32_t layout)
-{
- const uint32_t a[]={building};
- switch(layout){
- case 0x46c1c0u:(void)execute(restore_building_control_C_0046c1c0,a,1);break;
- case 0x46cb30u:(void)execute(restore_building_control_C_0046cb30,a,1);break;
- case 0x46ccf0u:(void)execute(restore_building_control_C_0046ccf0,a,1);break;
- default:abort();
- }
-}
-
-/* Actual split methods used when a selected footprint overlaps a house.
-   These remaining model bodies retain their original nested callees. */
-void restore_house_split_for_expansion(uint32_t building,uint32_t target)
-{
- const uint32_t a[]={building};
- switch(target){
- case 0x46be90u:(void)execute(restore_building_control_C_0046be90,a,1);break;
- case 0x46c1c0u:(void)execute(restore_building_control_C_0046c1c0,a,1);break;
- case 0x46c500u:(void)execute(restore_building_control_C_0046c500,a,1);break;
- default:abort();
- }
-}

@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct the five remaining housing subdivision/reduction methods as
+  shared ordinary C, and bind their legacy public C entries. Remove
+  2,411 model lines. Preserve signed WORD snapshots, native divisors,
+  quotient/remainder distribution, allocation order, cached image/position
+  values and ordered road-edge writes with the repeated corner store.
+- Pass 316 original/C cases per diagnostic/game build, all 1,177 native
+  instructions and 64 conditional edges. Actual allocation, clearing,
+  stamping and road refresh/connect/cost providers execute, including
+  full-table allocation failure. Recheck all 1,161 layout scenarios and
+  1,281 level-update scenarios plus two complete housing-owner cases per
+  build. These thirteen layout methods now use semantic C providers.
+  No host game launch or complete-gameplay claim.
+
 - Reconstruct eight housing-layout methods as ordinary C: ordered expansion
   search, neighbour merging, overlapping-house preparation, signed stock
   and population collection, three upgrades and merged-house application.
