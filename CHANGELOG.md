@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- Reconstruct industrial delivery destinations, producer destinations, the city's
+  selected destination for resources 10/28 and industrial stock delivery as ordinary C.
+  Replace 1985 register-model body lines with a shared 121-line module, common
+  resource/capacity tables and direct canonical/frame adapters.
+- Preserve the distinct consumer/producer kind gates, fresh production permission,
+  primary versus secondary stock and reservation rules, monotone candidate ranking,
+  live bounds and each selector's own publication order. Consumers route through
+  access coordinates; producers build their goal list from building origins.
+  Keep the exceptional inverse mappings, current-city target snapshot, genuine
+  road lookup and fresh post-query types/network. Stock delivery preserves signed
+  word storage, wrapped sum comparison, the native excess adjustment and ordered
+  reservation decrements.
+- Pass 629 offline original/C scenarios per diagnostic/game build: all
+  875 native instructions, 170 conditional outcomes and 163 targets across
+  20 switch sites. Rea authenticates code and table bytes; bounded switch-flow
+  decoding covers the producer missing from Listing metadata, and the stock
+  delivery includes its trailing RET beyond the truncated Listing extent.
+  Actual production-permission, route and road children execute with real maps
+  and input mutations. Compare full DWORD returns, ordered owned stores, helper
+  inputs, all original static data and saved ABI. Incidental caller-saved state,
+  private scratch, concurrent access and host game/UI fidelity are excluded.
+
 - Reconstruct six granary functions as ordinary C: gathering destination/source
   selection, city supply rebuilding, gathered-food withdrawal, delivery and
   resource-specific withdrawal. Replace 1261 register-model body lines with

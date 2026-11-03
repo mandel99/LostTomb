@@ -1,3 +1,4 @@
+#include "industry_logistics.h"
 #include "granary.h"
 #include "storage_transactions.h"
 #include "storage_trade.h"
@@ -39,13 +40,13 @@ int32_t FUN_0045e360(int32_t param_1,int32_t param_2,int32_t param_3,int32_t par
 {return restore_granary_withdraw(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_0045eab0(uint32_t param_1,int32_t param_2,uint32_t param_3)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3};return (int32_t)invoke(0x45eab0u,a,3);}
+{return restore_industry_delivery_destination(param_1,param_2,param_3);}
 
 int32_t FUN_0045f7b0(uint32_t param_1,uint32_t param_2,int32_t param_3,uint32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x45f7b0u,a,4);}
+{return restore_industry_city_destination(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_00460890(int32_t param_1,int32_t param_2,int32_t param_3)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3};return (int32_t)invoke(0x460890u,a,3);}
+{return restore_industry_deliver(param_1,param_2,param_3);}
 
 void FUN_0048ae50(int32_t param_1,uint32_t param_2)
 {const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2};(void)invoke(0x48ae50u,a,2);}
