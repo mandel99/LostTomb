@@ -28,12 +28,13 @@ extern int32_t FUN_004ea9c0(int32_t kind);
 extern uint32_t FUN_0047d350(void);
 extern int32_t FUN_00475b50(int32_t building);
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
-#define SENTINEL UINT32_C(0x8e47b123)
 
 static void boundary(uint32_t site,uint32_t target,struct restore_building_control_frame *f)
 {
  uint32_t sp=f->r[4],a,b,c,d;(void)site;
  switch(target){
+ case 0x46b100u:restore_building_control_C_0046b100(f);return;
+ case 0x4bfb30u:restore_building_control_C_004bfb30(f);return;
  case 0x004528b0u:restore_building_control_C_004528b0(f);return;
  case 0x00454b40u:restore_building_control_C_00454b40(f);return;
  case 0x0046b740u:restore_building_control_C_0046b740(f);return;
@@ -109,7 +110,7 @@ static void boundary(uint32_t site,uint32_t target,struct restore_building_contr
  case 0x40f8f0u:
   FUN_0040f8f0((uint32_t *)(uintptr_t)a,b,(uint8_t)c);
   /* Native REP fill leaves its replicated byte in EAX, length in EDX and
-   * exhausted count in ECX. 4B7C80 can retain EAX's high bytes across a loop. */
+   * exhausted count in ECX for legacy frame callers. */
   f->r[0]=(uint32_t)(uint8_t)c*UINT32_C(0x01010101);f->r[1]=0;f->r[2]=b;goto done;
  case 0x47afd0u:FUN_0047afd0((int32_t)a,(int32_t)b,(int32_t)c);goto done;
  case 0x4746d0u:FUN_004746d0((int32_t)a,(int32_t)b,(int32_t)c);goto done;
@@ -135,36 +136,10 @@ void restore_building_control_raw(uint32_t target,uint32_t registers[8],uint32_t
  memcpy(registers,f.r,sizeof(f.r));*flags=f.flags;
 }
 
-static uint32_t execute(void (*body)(struct restore_building_control_frame *),const uint32_t *args,unsigned count)
-{
- uint32_t stack[256];struct restore_building_control_frame f;unsigned i;
- for(i=0;i<256;++i)stack[i]=SENTINEL;for(i=0;i<8;++i)f.r[i]=0;
- for(i=0;i<count;++i)stack[129+i]=args[i];
- f.flags=2;f.boundary=boundary;f.r[4]=(uint32_t)(uintptr_t)(stack+128);body(&f);
- if(f.r[4]!=(uint32_t)(uintptr_t)(stack+129)||stack[128]!=SENTINEL||f.r[3]||f.r[5]||f.r[6]||f.r[7])abort();
- for(i=0;i<32;++i)if(stack[i]!=SENTINEL)abort();
- for(i=129+count;i<256;++i)if(stack[i]!=SENTINEL)abort();
- return f.r[0];
-}
-
-int32_t FUN_0046b100(int32_t building)
-{uint32_t a[1]={(uint32_t)building};return (int32_t)execute(restore_building_control_C_0046b100,a,1);}
-
 uint32_t FUN_004539a0(void)
 {return restore_house_check_global_mode();}
 uint32_t FUN_00453af0(int32_t building)
 {return (uint32_t)restore_house_compare_desirability((uint32_t)building);}
 uint32_t FUN_00453b40(int32_t building,int32_t level)
 {return restore_house_check_requirements((uint32_t)building,(uint32_t)level);}
-
-
-void FUN_004bfb30(int32_t building)
-{uint32_t a[1]={(uint32_t)building};(void)execute(restore_building_control_C_004bfb30,a,1);}
-
-
-
-
-int32_t FUN_004c53d0(int32_t category)
-{uint32_t a[1]={(uint32_t)category};return (int32_t)execute(restore_building_control_C_004c53d0,a,1);}
-
 

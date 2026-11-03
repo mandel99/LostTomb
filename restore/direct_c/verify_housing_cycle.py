@@ -192,7 +192,7 @@ if __name__=='__main__':
     missing={(a,b) for a,targets in branches.items() for b in targets if (a,b) not in edges}
     assert not missing,('unexecuted conditional edges',[(hex(a),hex(b)) for a,b in sorted(missing)])
     assert expected_switch<=switch_edges
-    sources=['CMakeLists.txt','include/housing_cycle.h','runtime/housing_cycle.c','include/house_levels.h','runtime/house_levels.c','runtime/building_controllers.c','runtime/building_controllers_model.c','direct_c/verify_housing_cycle.py','metadata/housing-cycle-native.json','src/unit_00798.c','src/unit_00804.c','src/unit_00970.c']
+    sources=['CMakeLists.txt','include/housing_cycle.h','runtime/housing_cycle.c','include/house_levels.h','runtime/house_levels.c','runtime/building_controllers.c','runtime/storage_settings.c','runtime/gatehouse_display.c','direct_c/verify_housing_cycle.py','metadata/housing-cycle-native.json','src/unit_00798.c','src/unit_00804.c','src/unit_00970.c']
     proof=dict(native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,passed=True,checked=checked,invocations=invocations,
                coverage={hex(a):dict(instructions=len(p),executed=len(p&hits)) for a,p in owned.items()},conditional_edges=len(edges),switch_edges=len(switch_edges),
                controlled_algorithm_endpoints=[],controlled_platform_endpoints=[],source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},commit=None,

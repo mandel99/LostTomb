@@ -149,7 +149,7 @@ if __name__=='__main__':
     missing={(a,b) for a,targets in branches.items() for b in targets if (a,b) not in edges}
     assert not missing,('unexecuted conditional edges',[(hex(a),hex(b)) for a,b in sorted(missing)])
     assert expected_jumps<=jump_edges,('unexecuted switch targets',expected_jumps-jump_edges)
-    sources=['include/house_evolution.h','runtime/house_evolution.c','runtime/building_controllers.c','runtime/building_controllers_model.c','runtime/building_support.c','CMakeLists.txt','direct_c/verify_house_evolution.py','metadata/house-evolution-native.json']
+    sources=['include/house_evolution.h','runtime/house_evolution.c','runtime/building_controllers.c','runtime/storage_settings.c','runtime/gatehouse_display.c','runtime/building_support.c','CMakeLists.txt','direct_c/verify_house_evolution.py','metadata/house-evolution-native.json']
     proof=dict(native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,passed=True,checked=checked,invocations=invocations,
                coverage={hex(a):dict(instructions=len(p),executed=len(p&hits)) for a,p in owned.items()},conditional_edges=len(edges),indirect_jump_edges=len(jump_edges),
                actual_housing_controller_compositions=compositions,controlled_algorithm_endpoints=[],controlled_platform_endpoints=[],source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},commit=None,

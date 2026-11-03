@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct the final building-controller model methods: storage-settings
+  allocation, gatehouse redraw and signed god-status lookup. Bind their public
+  C entries, retire the complete 660-line building_controllers_model.c and its
+  synthetic-stack executor. Every method from that model now has semantic C.
+  Preserve resource-limit writes, fresh versus cached list counts, the native
+  single camera correction, deity preference and per-piece orientation reads.
+- Pass 152 original/C scenarios per diagnostic/game build, all
+  261 native instructions, 52 conditional edges and 6 switch targets.
+  Actual resource availability/predicates, clearing, map stamps and terrain
+  refresh execute; owned ordered writes and all final original data match.
+  Update only source-provenance paths in seven existing verifiers after removing
+  the model. No host game launch, visual or complete-gameplay claim.
+
 - Reconstruct formation creation, recruitment and full member/statistics refresh
   as ordinary C. Bind all three canonical entries and remove 1,054 register-model
   lines. Preserve colour selection, both ingress path searches, actor allocation,

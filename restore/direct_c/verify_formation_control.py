@@ -206,7 +206,7 @@ if __name__=='__main__':
     assert points<=hits,('unexecuted instructions',[hex(a) for a in sorted(points-hits)])
     missing={(a,b) for a,targets in branches.items() for b in targets if (a,b) not in edges}
     assert not missing,('unexecuted conditional edges',[(hex(a),hex(b)) for a,b in sorted(missing)])
-    sources=['CMakeLists.txt','include/formation_control.h','runtime/formation_control.c','runtime/building_controllers.c','runtime/building_controllers_model.c','runtime/menu_drag_actor_create.c','direct_c/verify_formation_control.py','metadata/formation-control-native.json']+[f'src/unit_{i:05d}.c' for i in [1021,1471,1490]]
+    sources=['CMakeLists.txt','include/formation_control.h','runtime/formation_control.c','runtime/building_controllers.c','runtime/storage_settings.c','runtime/gatehouse_display.c','runtime/menu_drag_actor_create.c','direct_c/verify_formation_control.py','metadata/formation-control-native.json']+[f'src/unit_{i:05d}.c' for i in [1021,1471,1490]]
     proof=dict(native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,passed=True,checked=checked,invocations=invocations,
                coverage={hex(a):dict(instructions=len(p),executed=len(p&hits)) for a,p in owned.items()},conditional_edges=len(edges),
                controlled_algorithm_endpoints=[],controlled_platform_endpoints=[],source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},commit=None,
