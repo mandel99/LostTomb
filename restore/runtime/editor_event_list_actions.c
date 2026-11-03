@@ -1,6 +1,7 @@
 #include "editor_event_list_actions.h"
 #include "actor_mission_init.h"
 #include "map_file_load.h"
+#include "town_record_queries.h"
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
@@ -28,13 +29,7 @@ void restore_event_record_reset_004489c0(uint32_t self)
    Both calendar globals are DWORD; event/base years are signed WORD. */
 uint8_t restore_event_record_due_0044d680(uint32_t self,uint32_t ignore_flags)
 {
- int32_t year,base_year;uint32_t current_year,month,current_month;
- if((uint8_t)ignore_flags==0&&(B(self+0x28u)&5u)!=0)return 0;
- year=S16(self+0x14u);base_year=S16(0x7848d8u);
- current_year=U(0x78d7bcu);
- if(current_year!=(uint32_t)year+(uint32_t)base_year)return 0;
- month=B(self+3u);current_month=U(0x78d7c0u);
- return (uint8_t)(current_month==month);
+ return (uint8_t)restore_event_due_result(self,ignore_flags,0);
 }
 static int event_referenced(uint32_t index)
 {

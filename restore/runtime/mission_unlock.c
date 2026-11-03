@@ -4,6 +4,7 @@
 #include "tool_selector.h"
 #include "event_publisher.h"
 #include "sound_initialization.h"
+#include "town_record_queries.h"
 #include <stdlib.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
@@ -16,9 +17,7 @@ uint32_t FUN_00403ef0(void)
 /* Native533E70 selects ECX=785D70; no stack arguments, full EAX count. */
 int32_t FUN_0044bd00(void)
 {
- int32_t count=(int32_t)U(0x785d70u);uint32_t a=0x785d76u,result=0;
- if(count>0)do{if(B(a)==3)++result;a+=124u;}while(--count);
- return(int32_t)result;
+ return(int32_t)restore_event_list_count_kind3(0x785d70u);
 }
 void FUN_0053b090(int32_t sound)
 {

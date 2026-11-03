@@ -1,17 +1,3 @@
-#include "restore_types.h"
-
-void FUN_00448a60(void)
-
-{
-  int in_ECX;
-  
-  *(undefined2 *)(in_ECX + 0x3a) = 0;
-  *(undefined2 *)(in_ECX + 0x3c) = 0;
-  *(undefined2 *)(in_ECX + 0x3e) = 0;
-  *(undefined2 *)(in_ECX + 0x40) = 0;
-  *(undefined2 *)(in_ECX + 0x42) = 0;
-  *(undefined2 *)(in_ECX + 0x44) = 0;
-  *(undefined2 *)(in_ECX + 0x46) = 0;
-  *(undefined2 *)(in_ECX + 0x4a) = 0;
-  return;
-}
+#include "town_record_queries.h"
+#include "actor_mission_init.h"
+RESTORE_RECORD_ENTRY0(FUN_00448a60,restore_town_actor_links_00448a60)

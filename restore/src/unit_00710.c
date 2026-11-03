@@ -1,14 +1,2 @@
-#include "restore_types.h"
-
-undefined1 FUN_00449690(void)
-
-{
-  undefined1 uVar1;
-  int in_ECX;
-  
-  uVar1 = 1;
-  if ((*(char *)(in_ECX + 2) != '\x01') || (*(char *)(in_ECX + 0x60) != '\x03')) {
-    uVar1 = 0;
-  }
-  return uVar1;
-}
+#include "town_record_queries.h"
+RESTORE_RECORD_EAX_ENTRY0(FUN_00449690,restore_event_kind1_mode3)

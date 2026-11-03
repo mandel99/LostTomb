@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Reconstruct nine event/town record methods with explicit C receivers,
+  inherited EAX inputs, signed WORD year/range fields and full DWORD calendar
+  values. Share due-date/count implementations with existing gameplay facades.
+- Pass 1,517 diagnostic cases covering all 151 instructions and 44 conditional
+  edges, plus 545 cases for the five methods retained in the game build.
+  Preserve the native raw lookup fault separately from the existing guarded
+  global facade. Caller register-frame models and full event simulation
+  remain outside this comparison.
 - Correct the sprite-frame clock and F2/F5/F6 controls: keep full DWORD
   timestamps/flags, unsigned timer wrap and floating-point speed limits.
   Preserve original x87 rounding and unordered comparisons.
