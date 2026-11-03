@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct three monument map-update members as named C, including four
+  genuine vtables. Replace ambiguous receiver/BL/building bindings and retire
+  495 frame-model lines. Preserve byte-vs-DWORD terrain writes, component
+  ownership, corner masks, ground-image variation and existing images when
+  the native path only marks a cell for redraw. Retain per-row stage and
+  per-cell origin/global sprite-base reloads.
+- Pass 390 native/C scenarios per diagnostic/game build, all 232 native
+  instructions and all 42 conditional edges. Actual image members, resident
+  library matching, footprint and terrain routines execute; compare all game
+  globals, ordered writes and footprint calls. Include mapped raster/global
+  aliases and ten whole creation compositions per build. Pixel decoding and
+  full gameplay remain outside this comparison.
+
 - Reconstruct three monument access-position queries as shared typed C.
   Preserve full EAX when only AL is set, signed DWORD rotation/half-size,
   root normalization and ordered coordinate writes with overlapping outputs.
