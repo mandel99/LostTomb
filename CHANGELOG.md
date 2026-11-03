@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Restore file-list constructors, destructors and deleting destructors with
+  explicit ECX/EBP inputs and named C interfaces. Connect save, mission and
+  family globals to startup/exit in the original CRT order. Preserve pointer
+  reloads after allocator callbacks and the defined return values.
+- Pass 450 diagnostic cases covering all 20 lifetime entries, 91 native
+  instructions and eight conditional edges, plus 170 cases in the game build
+  and normal diagnostic exit. Heap/exit-list mechanisms are platform
+  boundaries; general C++ exception dispatch/unwinding remains unverified.
 - Restore construction and reverse destruction of all 50 global actor queues,
   their exit registration and four previously uncatalogued native entries.
   Replace original constructor/destructor code-address arguments with C

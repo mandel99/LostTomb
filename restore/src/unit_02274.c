@@ -1,9 +1,2 @@
-#include "restore_types.h"
-extern void FUN_0041c6d0();
-
-void FUN_00516580(void)
-
-{
-  FUN_0041c6d0();
-  return;
-}
+#include "file_list.h"
+RestoreFileList *FUN_00516580(void){return restore_file_list_construct(RESTORE_FAMILY_FILES);}

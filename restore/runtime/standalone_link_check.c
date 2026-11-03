@@ -9,6 +9,7 @@
 #include "vegetation_farm_init.h"
 #include "monument_constructor.h"
 #include "actor_ring_queue.h"
+#include "file_list.h"
 #ifdef RESTORE_GAME_LAUNCHER
 #include "game_launcher.h"
 #include "game_diagnostics.h"
@@ -42,15 +43,17 @@ int main(int argc,char **argv)
     /* Register the arena owner first: later game destructors run before its
        pages become inaccessible. Every normal return below uses this order. */
     if(atexit(restore_data_close)!=0){restore_data_close();return 1;}
+    /* Restored subset in the original576008..576074 CRT-table order. */
+    (void)FUN_00402360();
+    restore_monument_constructors_initialize();
+    (void)FUN_0041e050();
     FUN_00486080();
     FUN_00489940();
     FUN_004bd310();
     FUN_004d1340();
     FUN_004d4a50();
-    /* Original CRT table57600C..576028 constructs these classes before
-       WinMain. Keep this before the restored startup and its geometry pass. */
-    restore_monument_constructors_initialize();
     (void)FUN_004f64a0();
+    (void)FUN_00516570();
     if(probe) {
         unsigned int result;
         puts("Explicit C game-startup probe: entering restored 00413ed0; use a bounded debugger and isolated asset directory.");

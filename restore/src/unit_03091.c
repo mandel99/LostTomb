@@ -1,9 +1,2 @@
-#include "restore_types.h"
-extern void FUN_0041c710();
-
-void FUN_0056b690(void)
-
-{
-  FUN_0041c710();
-  return;
-}
+#include "file_list.h"
+RESTORE_FILE_FRAME(FUN_0056b690,12ch)
