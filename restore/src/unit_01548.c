@@ -1,10 +1,2 @@
-#include "restore_types.h"
-
-void FUN_004bd5d0(void)
-
-{
-  int in_ECX;
-  
-  *(undefined4 *)(in_ECX + 0x1c) = *(undefined4 *)(in_ECX + 8);
-  return;
-}
+#include "flood_settings.h"
+RESTORE_FLOOD_ENTRY0(FUN_004bd5d0,restore_flood_settings_reset_quality)

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Restore ten flood-setting/effect methods with explicit receivers and shared
+  C implementations. Preserve the ninth state DWORD, annual RNG/history write
+  order, signed clamps and the world-to-settings offset used by random effects.
+  Connect legacy save migration and event callers to the correct receivers.
+- Pass 678 native/C cases per diagnostic/game build with actual random
+  generators and building classification, all 99 annual rolls and eight
+  effect magnitudes. Compile all five affected helper targets and pass normal
+  diagnostic exit. Full mission/event callers and flood simulation remain
+  outside this comparison.
 - Reconstruct nine event/town record methods with explicit C receivers,
   inherited EAX inputs, signed WORD year/range fields and full DWORD calendar
   values. Share due-date/count implementations with existing gameplay facades.

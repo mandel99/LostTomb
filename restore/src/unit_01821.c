@@ -1,5 +1,6 @@
 #include "restore_types.h"
 #include "mission_loaders.h"
+#include "flood_settings.h"
 #include "chunk_io.h"
 #include "mission_routes.h"
 #include "mission_schema.h"
@@ -38,7 +39,6 @@ extern void FUN_004209e0();
 extern void FUN_00420d10();
 extern void FUN_00421010();
 extern void FUN_004212f0();
-extern void FUN_004bd5d0();
 extern void FUN_004d0a40();
 extern void FUN_004d17e0();
 extern void FUN_004d1840();
@@ -208,7 +208,7 @@ void FUN_004d41e0(int param_1)
     iVar9 = DAT_00e945c0;
   }
   if (iVar9 < 0x84) {
-    FUN_004bd5d0();
+    restore_flood_settings_reset_quality((uintptr_t)RESTORE_LOAD_SETTINGS);
   }
   FUN_004d0a40(1);
   if (DAT_00e945c0 < 0x7f) {
