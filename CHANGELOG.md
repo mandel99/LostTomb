@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Reconstruct Sun Temple creation and map writes as named C. Retire 465
+  frame-model lines and replace ambiguous generated bindings. Use the actual
+  100-part layout and ordinary cdecl arguments, with 99 linked allocations,
+  initial root/child values, registration and draw-before-undo snapshots.
+  Preserve DWORD terrain flags, WORD cell ownership, corner masks and
+  per-cell origin/ground-tag reads.
+- Pass 484 map scenarios and 27 complete creation scenarios per diagnostic/
+  game build, all 221 native instructions and all 26 conditional edges.
+  Actual allocation, undo, resident-library loading and footprint routines
+  execute; compare all globals, child record snapshots and ordered stores
+  from these members, including mapped aliases and input changes at actual
+  child entries. Complete gameplay remains outside this check.
+
 - Reconstruct Abu Simbel creation and entrance positioning as typed C.
   Replace 351 frame-model lines and ambiguous generated receiver/local
   bindings. Allocate and link all 16 parts, retain registration side effects
