@@ -1,3 +1,4 @@
+#include "population_demography.h"
 #include "housing_capacity.h"
 #include "warehouse_stock.h"
 #include "city_supply.h"
@@ -339,17 +340,19 @@ void FUN_00468860(void)
 /* Canonical population entries reuse the existing complete city models.
    Keep the full EAX counts; the old void declarations lost these results. */
 int32_t FUN_00458e20(int32_t player,int32_t requested)
-{const uint32_t a[]={(uint32_t)player,(uint32_t)requested};return (int32_t)invoke(0x458e20u,a,2);}
+{return restore_population_add_births(player,requested);}
 int32_t FUN_00458f00(int32_t player,int32_t requested)
-{const uint32_t a[]={(uint32_t)player,(uint32_t)requested};return (int32_t)invoke(0x458f00u,a,2);}
-void FUN_004e8650(void){(void)invoke(0x4e8650u,0,0);}
-void FUN_004e8720(void){(void)invoke(0x4e8720u,0,0);}
+{return restore_population_remove_deaths(player,requested);}
+void FUN_004e8650(void)
+{restore_population_age_and_deaths();}
+void FUN_004e8720(void)
+{restore_population_births();}
 void FUN_0045d630(int32_t player)
 {restore_city_rebuild_food(player);}
 int32_t FUN_004e92c0(int32_t player,int32_t group)
-{const uint32_t a[]={(uint32_t)player,(uint32_t)group};return (int32_t)invoke(0x4e92c0u,a,2);}
+{return restore_population_age_group(player,group);}
 void FUN_004e92f0(int32_t player,int32_t group,int32_t amount)
-{const uint32_t a[]={(uint32_t)player,(uint32_t)group,(uint32_t)amount};(void)invoke(0x4e92f0u,a,3);}
+{restore_population_remove_age_group(player,group,amount);}
 void FUN_0045e040(void)
 {restore_granary_rebuild_supply();}
 void FUN_0045aa30(void)

@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- Reconstruct nine population functions as ordinary C: house births/deaths,
+  age-group sums/removal, aging and mortality, births, population totals/history,
+  working-age population and housing/workforce composition. Replace 808
+  register-model body lines and three decompiled canonical units with a shared
+  103-line module, direct canonical entries and nine frame adapters.
+- Preserve the distinct DWORD/WORD cursors, 3,999/15,999 scan limits, cached
+  quantities versus fresh capacity, signed age bins, wrapped counts and actual
+  returned totals. Retain age rotation, live-player coefficient queries,
+  captured owner publication, household vacancy updates, cumulative history,
+  population maxima and housing-share/workforce calculation order.
+- Pass 172 offline original/C scenarios per diagnostic/game build:
+  all 369 native instructions and 60 conditional outcomes.
+  Rea authenticates code and coefficient tables. Actual demographic/numeric
+  children execute; no algorithm or platform results are substituted. Compare
+  DWORD returns, ordered owned stores, child inputs, all original static data,
+  returning-call saved ABI and named/canonical/frame routes. Includes counts
+  above 255 and both scan-limit returns. The current MSVC/x86 build also matches
+  divide-by-zero and signed-overflow CPU interrupts and all pre-fault data;
+  each fault route runs on a fresh emulated CPU.
+  Private scratch, incidental caller-saved state, fault-time register/stack
+  layout, concurrent access and host game/UI fidelity are excluded. The 16-case
+  housing/migration smoke passes on both new builds.
+
 - Reconstruct building timer decay, the housing list, monthly migration reset,
   housing capacity and migration demand as ordinary C. Replace 565
   register-model body lines with a 65-line module and six frame adapters.
