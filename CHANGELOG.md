@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+- Reconstruct six granary functions as ordinary C: gathering destination/source
+  selection, city supply rebuilding, gathered-food withdrawal, delivery and
+  resource-specific withdrawal. Replace 1261 register-model body lines with
+  a 120-line shared module and direct canonical/frame adapters.
+- Preserve full staffing and gather-policy gates, live scan bounds, center-tile
+  candidate construction and publication order, actual route selection, cached
+  source slots, the native repeated-X distance input and doubled scores for
+  small stocks. Supply rebuilding keeps signed food totals, DWORD clears, its
+  98-entry limit and the repeatedly overwritten sentinel. Transfers retain
+  first maximum ties, the 800/free-space limits and the ignored withdrawal result.
+  Delivery retains nonstandard policy acceptance, signed amounts, production
+  accounting before capacity clipping and fresh free-space returns. Withdrawal
+  preserves resource-zero aliasing, cached/fresh counters and word wrapping.
+- Pass 319 offline original/C scenarios per diagnostic/game build: all
+  575 reachable instructions and 126 reachable conditional outcomes.
+  Sixteen additional instructions in four nonpositive-index recovery paths are
+  analytically impossible because their counters run from 1 through 8.
+  Rea authenticates every native byte; a matching Ghidra Listing supplements
+  missing procedure metadata. DCC0's complete bounded control flow is independently
+  decoded from those bytes. Actual percentage, distance, route and withdrawal
+  children execute, including real routing and supply-rebuild composition.
+  Compare full nonvoid DWORD returns, ordered owned stores, helper inputs,
+  all original static data and saved ABI. Incidental caller-saved state,
+  private scratch, concurrent access and host game/UI fidelity are excluded.
+
 - Reconstruct warehouse export/import transactions, import charging, gathering
   priorities, supply-source selection and distance scoring as ordinary C.
   Replace 1484 register-model body lines with a shared 154-line module and

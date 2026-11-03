@@ -1,3 +1,4 @@
+#include "granary.h"
 #include "city_updates.h"
 #include "actor_civic.h"
 #include "actor_predicate.h"
@@ -347,7 +348,7 @@ int32_t FUN_004e92c0(int32_t player,int32_t group)
 void FUN_004e92f0(int32_t player,int32_t group,int32_t amount)
 {const uint32_t a[]={(uint32_t)player,(uint32_t)group,(uint32_t)amount};(void)invoke(0x4e92f0u,a,3);}
 void FUN_0045e040(void)
-{(void)invoke(0x0045e040u,0,0);}
+{restore_granary_rebuild_supply();}
 void FUN_0045aa30(void)
 {(void)invoke(0x0045aa30u,0,0);}
 void FUN_004558b0(void)
