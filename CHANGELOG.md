@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Correct the sprite-frame clock and F2/F5/F6 controls: keep full DWORD
+  timestamps/flags, unsigned timer wrap and floating-point speed limits.
+  Preserve original x87 rounding and unordered comparisons.
+- Pass 160 native/C cases per diagnostic/game build, covering all 48 clock/key
+  prefix instructions and 12 conditional edges, including five compositions
+  with the actual animation tick. Optional object animation/render dispatch
+  after this prefix remains unfinished; this is not a whole-function approval.
 - Restore the final sprite-manager CRT startup entry and registered cleanup.
   Remove the extra blanket clear during graphics loading so fields preserved
   by the original constructors stay intact.
