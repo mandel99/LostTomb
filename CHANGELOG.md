@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Reconstruct construction-site validation and sub-building slot selection as
+  ordinary C; retire 779 register-model lines and the virtual-stack runner.
+  Preserve complete scans, terrain/occupancy gates, cached selection coordinates,
+  refreshed map origins, ranking tables, first-best ties, rotation retry and
+  ordered reservations. A small x86 ABI capture preserves inherited failure
+  coordinates for unknown secondary kinds; the algorithms are C.
+- Fix candidate-buffer capacity: native storage holds 16 coordinate pairs while
+  an empty 5x5 grid yields 20 or 25. Native prefix checks demonstrate return-address
+  corruption; the C buffer holds all 25 pairs and both C ABI routes return safely.
+- Pass 200 native/C scenarios, 3 actual footprint/placement compositions and
+  2 separate capacity checks per diagnostic/game build. Real helper inputs and
+  outputs, ordered game/output stores, all original data and full EAX/ABI match
+  on supported native inputs. Execute 323/323 instructions and 75 conditional
+  edges; the redundant nonpositive-count edge is an analytical invariant exclusion.
+  No host game launch or whole-gameplay claim.
+
 - Reconstruct four construction helpers as ordinary C: road access around a
   footprint, footprint masks, the 5x5 occupancy grid and empty-slot enumeration.
   Retire 878 lines of register models and the virtual-stack runner. Keep
