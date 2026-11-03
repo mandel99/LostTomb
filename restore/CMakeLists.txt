@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(PharaohRestore LANGUAGES C)
+set_source_files_properties(runtime/menu_prepare_integer.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_actor_teardown.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/menu_drag_building_release.c runtime/menu_drag_monument_clear.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/construction_controller.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
@@ -2024,3 +2025,6 @@ target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004743f0" "/INCLUD
 
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_0046ac10" "/INCLUDE:_FUN_0046ac50" "/INCLUDE:_FUN_004c0920")
 target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_004b4980")
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_FUN_00454190" "/INCLUDE:_FUN_0045d570" "/INCLUDE:_FUN_00475b50" "/INCLUDE:_FUN_004b7590" "/INCLUDE:_FUN_0050f0f0")
+target_link_options(restore_link_check PRIVATE "/INCLUDE:_restore_god_building_0045b2a0" "/INCLUDE:_restore_god_building_0046d0f0")
+target_link_options(restore_game PRIVATE "/INCLUDE:_restore_god_building_0045b2a0" "/INCLUDE:_restore_god_building_0046d0f0")

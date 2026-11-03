@@ -59,11 +59,8 @@ static void dispatch(uint32_t site,uint32_t target,struct restore_god_building_f
   else restore_placement_support_C_0045b490(&m);
   memcpy(f->r,m.r,sizeof(m.r));f->flags=m.flags;return;
  }
- if(target==0x475b50u){
-  struct restore_prepare_integer_frame m;
-  memcpy(m.r,f->r,sizeof(m.r));m.flags=f->flags;m.boundary=restore_prepare_integer_dispatch;
-  restore_prepare_C_00475b50(&m);memcpy(f->r,m.r,sizeof(m.r));f->flags=m.flags;return;
- }
+ /* The authenticated native callers consume only EAX from the root query. */
+ if(target==0x475b50u){f->r[0]=FUN_00475b50(U(sp+4u));f->r[4]=sp+4u;return;}
 #define A(n) U(sp+(uint32_t)(n)*4u)
  switch(target){
  case 0x562348u:f->r[0]=FUN_00562348();break;

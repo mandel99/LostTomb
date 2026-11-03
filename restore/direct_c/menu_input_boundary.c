@@ -112,19 +112,11 @@ void restore_menu_input_boundary_dispatch(uint32_t site,uint32_t target,struct r
   restore_actor_message_C_0053c100(&actor);
   memcpy(f->r,actor.r,sizeof(f->r));f->flags=actor.flags;return;
  }
- case 0x454190:case 0x45d570:case 0x475b50:case 0x4b7590:case 0x50f0f0:{
-  struct restore_prepare_integer_frame prepared;
-  memcpy(prepared.r,f->r,sizeof(prepared.r));prepared.flags=f->flags;
-  prepared.boundary=restore_prepare_integer_dispatch;
-  switch(target){
-  case 0x454190:restore_prepare_C_00454190(&prepared);break;
-  case 0x45d570:restore_prepare_C_0045d570(&prepared);break;
-  case 0x475b50:restore_prepare_C_00475b50(&prepared);break;
-  case 0x4b7590:restore_prepare_C_004b7590(&prepared);break;
-  default:restore_prepare_C_0050f0f0(&prepared);break;
-  }
-  memcpy(f->r,prepared.r,sizeof(f->r));f->flags=prepared.flags;return;
- }
+ case 0x454190:FUN_00454190(A(1));break;
+ case 0x45d570:f->r[0]=FUN_0045d570(A(1));break;
+ case 0x475b50:f->r[0]=FUN_00475b50(A(1));break;
+ case 0x4b7590:f->r[0]=FUN_004b7590();break;
+ case 0x50f0f0:FUN_0050f0f0();break;
  case 0x401540:f->r[0]=(uint32_t)FUN_00401540(A(1),(int32_t *)(uintptr_t)A(2));cleanup=8;break;
  case 0x402720:FUN_00402720();break;
  case 0x4029d0:f->r[0]=FUN_004029d0();break;

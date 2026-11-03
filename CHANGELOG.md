@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- Reconstruct all five building-information functions as ordinary C, replacing
+  the 2,442-line register/frame module with 136 lines. Preserve the 525-link
+  parent cap, eight-member status and signed material sums, formation filtering,
+  nearby negative influence and the full current/next house-evolution reasons.
+- Preserve reason priority, signed service fields, unsigned BYTE/WORD checks,
+  cached food availability, invalid-resource fallback, merged-house quantity
+  rounding, highest-level guard, influence ties and the final double reason
+  store. Normalize the menu and god-effect adapters to actual C call contracts;
+  authenticated native callers consume only the documented return/data effects.
+- Wire canonical delivery 45B2A0 to the existing complete C delivery graph; the
+  stale decompiled provider lost real deliveries. Compare both root queries,
+  material/stock changes and return values through canonical and raw adapters.
+- Pass 644 original/C scenarios per diagnostic/game build, including the
+  public menu adapter and real native/C caller compositions. Execute all 1,102
+  native instructions, 278 conditional outcomes and all 13 food-switch targets.
+  Compare ordered owned stores, helper inputs, all final original static data,
+  full DWORD nonvoid outputs and saved ABI; no substituted results or host game
+  launch. Incidental registers/flags, private scratch, concurrent access and
+  whole-game/UI fidelity are outside this offline verification.
+
 - Reconstruct complete actor release 4B4980 as ordinary C; remove 897 lines of
   register simulation and its virtual stack runner. Preserve city counters, building and
   formation slots, FIFO membership, route/cell unlinking and all 97 final DWORD
