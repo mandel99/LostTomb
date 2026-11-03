@@ -10,10 +10,10 @@ struct restore_menu_input_frame;
 typedef void (*restore_menu_input_frame_call)(uint32_t,uint32_t,struct restore_menu_input_frame *);
 struct restore_menu_input_frame { uint32_t r[8],flags; restore_menu_input_frame_call boundary; };
 #endif
-void restore_C_00440700(struct restore_menu_input_frame *frame);
-void restore_C_00440850(struct restore_menu_input_frame *frame);
-void restore_C_00440b10(struct restore_menu_input_frame *frame);
-void restore_C_00440ed0(struct restore_menu_input_frame *frame);
+uint32_t restore_build_booth(uint32_t preview,int32_t x,int32_t y);
+uint32_t restore_build_bandstand(uint32_t preview,int32_t x,int32_t y);
+uint32_t restore_build_pavilion(uint32_t preview,int32_t x,int32_t y);
+uint32_t restore_build_festival_square(uint32_t preview,int32_t x,int32_t y);
 uint32_t FUN_00440700(uint32_t preview,uint32_t ignored_a,uint32_t ignored_b,int32_t x,int32_t y);
 uint32_t FUN_00440850(uint32_t preview,uint32_t ignored_a,uint32_t ignored_b,int32_t x,int32_t y);
 uint32_t FUN_00440b10(uint32_t preview,uint32_t ignored_a,uint32_t ignored_b,int32_t x,int32_t y);

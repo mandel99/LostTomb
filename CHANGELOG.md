@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Reconstruct Booth, Bandstand, Pavilion and Festival Square creation and the
+  bandstand image pair as ordinary C. Retire 2,005 register-model lines and
+  both virtual-stack runners. Preserve preview-backup restoration, constructor
+  check/reservation order, upper-only coordinate clamps, fresh player/image reads,
+  root/part fields, stamps, WORD links and festival coordinate/flag publication.
+  Native allocation failure still continues with record 0 in the original order.
+- Pass 120 original/C scenarios per diagnostic/game build, with actual site/slot
+  queries, preview restore, full/partially full allocators, map stamps, undo and
+  footprint commit. Compare full EAX, ordered owned writes, actual child inputs
+  and outputs, all final original data and ABI. Coverage:
+  852/852 native instructions, 66 conditional edges and 5 switch targets.
+  Constructor views are 0/2/4/6; the direct image helper also covers invalid
+  inputs and output/base aliases. No host game launch or whole-gameplay claim.
+
 - Reconstruct construction-site validation and sub-building slot selection as
   ordinary C; retire 779 register-model lines and the virtual-stack runner.
   Preserve complete scans, terrain/occupancy gates, cached selection coordinates,

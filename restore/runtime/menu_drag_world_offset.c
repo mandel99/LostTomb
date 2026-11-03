@@ -1,12 +1,13 @@
 #include "world_offset_model.h"
-#include <stdlib.h>
-#define SENTRY UINT32_C(0x8e47b123)
-void FUN_004405c0(int32_t direction,int32_t *out_x,int32_t *out_y)
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+void restore_bandstand_images(int32_t direction,int32_t *first,int32_t *second)
 {
- uint32_t stack[32];struct restore_menu_input_frame f;unsigned i;
- for(i=0;i<32;++i)stack[i]=SENTRY;for(i=0;i<8;++i)f.r[i]=0;
- stack[17]=(uint32_t)direction;stack[18]=(uint32_t)(uintptr_t)out_x;stack[19]=(uint32_t)(uintptr_t)out_y;
- f.flags=2;f.boundary=0;f.r[4]=(uint32_t)(uintptr_t)(stack+16);restore_C_004405c0(&f);
- if(f.r[4]!=(uint32_t)(uintptr_t)(stack+17)||stack[16]!=SENTRY||f.r[3]||f.r[5]||f.r[6]||f.r[7])abort();
- for(i=0;i<16;++i)if(stack[i]!=SENTRY)abort();for(i=20;i<32;++i)if(stack[i]!=SENTRY)abort();
+ static const uint8_t offsets[4][2][2]={{{0,1},{3,2}},{{3,2},{1,0}},{{1,0},{2,3}},{{2,3},{0,1}}};
+ uint32_t view=U(0xbca2e0u),d=(uint32_t)direction;
+ if(view>6u||(view&1u)||d>1u)return;
+ U((uint32_t)(uintptr_t)second)=U(0xf566fcu)+offsets[view/2u][d][0];
+ /* Keep the second bank read after the first output store, including aliasing. */
+ U((uint32_t)(uintptr_t)first)=U(0xf566fcu)+offsets[view/2u][d][1];
 }
+void FUN_004405c0(int32_t direction,int32_t *first,int32_t *second)
+{restore_bandstand_images(direction,first,second);}
