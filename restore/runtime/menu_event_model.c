@@ -1,3 +1,4 @@
+#include "housing_capacity.h"
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 #include "menu_event_actions.h"
 #include <stdlib.h>
@@ -12620,61 +12621,7 @@ mi_004519a8:;
 
 void restore_event_C_004583f0(struct restore_event_actions_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 004583f0 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 004583f1 */
-    a=f->r[7];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 004583f2 */
-    f->r[7]=MI_U32((0x0078d790u));
-    /* 004583f8 */
-    f->r[0]=0x00000001u;
-    /* 004583fd */
-    a=f->r[6];b=f->r[6];t=mi_alu(f,a,b,32,5);f->r[6]=t;
-    /* 004583ff */
-    a=f->r[7];b=f->r[0];t=mi_alu(f,a,b,32,1);
-    /* 00458401 */
-    MI_U32((0x0078d83cu))=(uint32_t)(f->r[6]);
-    /* 00458407 */
-    if(mi_signed_less(f->flags))goto mi_00458436;
-    /* 00458409 */
-    f->r[2]=0x0078e178u;
-    /* 0045840e */
-    f->r[1]=0x00799ae5u;
-mi_00458413:;
-    /* 00458413 */
-    a=MI_U8((0xfffffffbu+f->r[1]));b=0x00000001u;t=mi_alu(f,a,b,8,1);
-    /* 00458417 */
-    if(!(f->flags&MI_ZF))goto mi_00458425;
-    /* 00458419 */
-    a=MI_U8((0x00000000u+f->r[1]));b=0x00000000u;t=mi_alu(f,a,b,8,1);
-    /* 0045841c */
-    if((f->flags&MI_ZF))goto mi_00458425;
-    /* 0045841e */
-    MI_U16((0x00000000u+f->r[2]))=(uint16_t)((f->r[0]&0xffffu));
-    /* 00458421 */
-    a=f->r[6];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,0);f->flags=(f->flags&~MI_CF)|b;f->r[6]=t;
-    /* 00458422 */
-    a=f->r[2];b=0x00000002u;t=mi_alu(f,a,b,32,0);f->r[2]=t;
-mi_00458425:;
-    /* 00458425 */
-    a=f->r[0];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,0);f->flags=(f->flags&~MI_CF)|b;f->r[0]=t;
-    /* 00458426 */
-    a=f->r[1];b=0x00000108u;t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 0045842c */
-    a=f->r[0];b=f->r[7];t=mi_alu(f,a,b,32,1);
-    /* 0045842e */
-    if((f->flags&MI_ZF)||mi_signed_less(f->flags))goto mi_00458413;
-    /* 00458430 */
-    MI_U32((0x0078d83cu))=(uint32_t)(f->r[6]);
-mi_00458436:;
-    /* 00458436 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 00458437 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 00458438 */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];restore_housing_rebuild_list();f->r[4]=sp+4u;
 }
 
 void restore_event_C_0045aac0(struct restore_event_actions_frame *f)

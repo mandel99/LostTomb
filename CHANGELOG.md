@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+- Reconstruct building timer decay, the housing list, monthly migration reset,
+  housing capacity and migration demand as ordinary C. Replace 565
+  register-model body lines with a 65-line module and six frame adapters.
+  Consolidate the canonical migration warning with its existing recovered C
+  provider instead of retaining a second decompiled implementation.
+- Preserve captured record/list bounds and publication order, signed house IDs,
+  expanded capacity, cumulative city totals, blocked-house vacancies, fresh peak
+  occupancy, sentiment thresholds, wrapped shortage totals, migration delays
+  and the distinction between passed and active players. Keep all native warning
+  selections and their command/tool suppression conditions.
+- Pass 258 offline original/C scenarios per diagnostic/game build:
+  all 324 native instructions and 106 conditional outcomes,
+  with no unexecuted instructions/outcomes or substituted algorithm/platform
+  results. Actual list, reset, percentage, warning and pending-message children
+  execute; a real full five-slot queue keeps warning rendering offline. Compare
+  named/canonical/six frame adapters, ordered stores, child inputs, all original
+  static data and saved ABI. Caller-saved state, private scratch, concurrent
+  access and host game/UI fidelity are excluded.
+- Add a reproducible structural reconstruction inventory. Count each of the
+  4,402 catalogue entries once, resolve active canonical objects/providers, keep
+  generated decompiler/model/unknown code separate and identify 1,372 compiler
+  unwind helpers using compact Rea metadata. This metric describes source
+  structure, including work in progress; it is not behavioral completion or
+  whole-game validation.
+
 - Reconstruct building/storage record bounds and monthly warehouse stock
   summaries as ordinary C. Replace 400 register-model body lines and the
   decompiled warehouse-summary unit with a 49-line module and direct

@@ -1,3 +1,4 @@
+#include "housing_capacity.h"
 #include "warehouse_stock.h"
 #include "city_supply.h"
 #include "granary.h"
@@ -354,7 +355,7 @@ void FUN_0045e040(void)
 void FUN_0045aa30(void)
 {restore_building_rebuild_bounds();}
 void FUN_004558b0(void)
-{(void)invoke(0x004558b0u,0,0);}
+{restore_building_decay_timers();}
 void FUN_0045aaa0(void)
 {restore_warehouse_update_stock();}
 void FUN_0045d5d0(void)
@@ -366,7 +367,7 @@ void FUN_00457a40(void)
 void FUN_00457af0(void)
 {(void)invoke(0x00457af0u,0,0);}
 void FUN_00458440(void)
-{(void)invoke(0x00458440u,0,0);}
+{restore_housing_rebuild_capacity();}
 void FUN_00458540(void)
 {(void)invoke(0x00458540u,0,0);}
 void FUN_00459070(void)
