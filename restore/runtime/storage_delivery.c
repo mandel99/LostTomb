@@ -66,3 +66,78 @@ int32_t restore_storage_deliver(int32_t player,int32_t building,int32_t resource
  }while(I(delivered)<remaining);
  return remaining;
 }
+
+extern uint32_t FUN_0047d350(void); /* Native XOR EAX,EAX; RET ignores pushed slots. */
+int32_t restore_storage_withdraw(int32_t player,int32_t building,int32_t resource,int32_t amount)
+{
+ uint32_t root=(uint32_t)building,node,chosen,index,record,counter,tile,image;int32_t best,stock,remaining=amount,phase,frame;int more;
+ if(amount<=0)return 0;
+ phase=H(0x7999e8u+root*264u);if(phase!=72&&phase!=193)return amount;
+ do{
+  node=root;chosen=0;best=401;
+  for(index=0;index<8u;++index){
+   node=(uint32_t)H(0x799a12u+node*264u);if(I(node)<=0)continue;
+   record=node*264u;if(H(0x7999eau+record)!=resource)continue;
+   stock=H(0x799a14u+record);if(stock>0&&stock<best){best=stock;chosen=node;}
+  }
+  if(!chosen)return remaining;
+  record=chosen*264u;stock=H(0x799a14u+record);more=0;
+  counter=((uint32_t)player*0x1276u+(uint32_t)resource)*4u;
+  if(stock<=remaining){
+   remaining=I((uint32_t)remaining-(uint32_t)stock);W(0x799a14u+record)=0;W(0x7999eau+record)=0;
+   U(0xea60d0u+counter)=U(0xea60d0u+counter)+(uint32_t)stock;U(0xea6160u+counter)=U(0xea6160u+counter)-(uint32_t)stock;
+   more=remaining>0;
+  }else{
+   W(0x799a14u+record)=(uint16_t)(W(0x799a14u+record)-(uint32_t)remaining);
+   U(0xea60d0u+counter)=U(0xea60d0u+counter)+(uint32_t)remaining;
+   U(0xea6160u+counter)=U(0xea6160u+counter)-(uint32_t)remaining;remaining=0;
+  }
+  tile=U(0x7999e4u+record);stock=H(0x799a14u+record);
+  if(stock>0){
+   image=U(resource<31?0xf566bcu:0xf57204u)+(uint32_t)resource*4u-(resource<31?4u:124u);
+   frame=FUN_0045b490(stock);image+=(uint32_t)frame;
+  }else image=U(0xf566b4u);
+  U(0xb7482cu+tile*4u)=image;
+ }while(more);
+ return remaining;
+}
+void restore_storage_remove_any(int32_t building,int32_t amount)
+{
+ uint32_t node=(uint32_t)building,index,record,counter,tile,image,extra;int32_t phase,stock,player,remaining=amount,frame;
+ phase=H(0x7999e8u+node*264u);if(phase!=72&&phase!=193)return;
+ player=I(U(0xeaac28u));
+ for(index=0;index<8u;++index){
+  if(remaining<=0)return;
+  node=(uint32_t)H(0x799a12u+node*264u);if(I(node)<=0)continue;
+  record=node*264u;stock=H(0x799a14u+record);if(stock<=0)continue;
+  phase=H(0x7999eau+record);counter=((uint32_t)player*0x1276u+(uint32_t)phase)*4u;
+  if(stock<=remaining){
+   remaining=I((uint32_t)remaining-(uint32_t)stock);
+   U(0xea60d0u+counter)=U(0xea60d0u+counter)+(uint32_t)stock;U(0xea6160u+counter)=U(0xea6160u+counter)-(uint32_t)stock;
+   W(0x799a14u+record)=0;W(0x7999eau+record)=0;
+  }else{
+   W(0x799a14u+record)=(uint16_t)(W(0x799a14u+record)-(uint32_t)remaining);
+   U(0xea60d0u+counter)=U(0xea60d0u+counter)+(uint32_t)remaining;
+   U(0xea6160u+counter)=U(0xea6160u+counter)-(uint32_t)remaining;remaining=0;
+  }
+  tile=U(0x7999e4u+record);
+  if(H(0x799a14u+record)>0){
+   image=U(phase<31?0xf566bcu:0xf57204u)+(uint32_t)phase*4u-(phase<31?4u:124u);
+   extra=FUN_0047d350();stock=H(0x799a14u+record);frame=FUN_0045b490(stock);
+   player=I(U(0xeaac28u));image+=extra+(uint32_t)frame;
+  }else image=U(0xf566b4u);
+  U(0xb7482cu+tile*4u)=image;
+ }
+}
+int32_t restore_storage_withdraw_city(int32_t player,int32_t resource,int32_t amount)
+{
+ uint32_t at=0xea3fc2u+(uint32_t)player*0x49d8u,index;int32_t cursor=H(at),remaining=amount,kind;
+ for(index=1;index<4000u;++index){
+  if(remaining<=0)break;
+  ++cursor;if(cursor>=4000)cursor=1;
+  if(B(0x7999d8u+(uint32_t)cursor*264u)!=1u)continue;
+  kind=H(0x7999e8u+(uint32_t)cursor*264u);if(kind!=72&&kind!=193)continue;
+  W(at)=(uint16_t)cursor;remaining=FUN_0045b570(player,cursor,resource,remaining);
+ }
+ return I((uint32_t)amount-(uint32_t)remaining);
+}

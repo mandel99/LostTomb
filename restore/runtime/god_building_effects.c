@@ -131,7 +131,7 @@ void restore_god_building_004c45e0(void){(void)invoke(0x4c45e0u,0,0);}
 int32_t restore_god_building_0045b2a0(int32_t p,int32_t b,int32_t r,int32_t n)
 {return restore_storage_deliver(p,b,r,n);}
 void restore_god_building_0045b700(int32_t b,int32_t n)
-{uint32_t a[]={(uint32_t)b,(uint32_t)n};(void)invoke(0x45b700u,a,2);}
+{restore_storage_remove_any(b,n);}
 int32_t restore_god_building_0045fe20(int32_t b,int32_t n,int32_t r)
 {uint32_t a[]={(uint32_t)b,(uint32_t)n,(uint32_t)r};return (int32_t)invoke(0x45fe20u,a,3);}
 void restore_god_building_004695d0(int32_t b,int32_t destroy)

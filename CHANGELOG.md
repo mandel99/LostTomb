@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Reconstruct resource-specific withdrawal, ordered removal and city-wide
+  withdrawal as ordinary C, replacing 594 register-model body lines with
+  shared storage functions and thin compatibility adapters. Public canonical,
+  placement and god aliases now call the same C algorithms directly.
+- Preserve least-filled first ties, signed phases/quantities and the 401 sentinel,
+  eight-hop traversal through nonpositive links, unfulfilled versus removed
+  return contracts, distinct counter/field write ordering and cached image inputs.
+  Ordered removal retains the player until its native refresh point and reloads
+  quantity after the real zero-return helper. The city scan caches its cursor,
+  wraps at 4000 and visits at most 3999 candidates.
+- Pass 267 original/C scenarios per diagnostic/game build: all 276 native
+  instructions and 58 conditional outcomes. Exercise named/canonical/legacy
+  adapters, full cursor cycles, mixed stock and invalid-link recovery, plus
+  genuine quantity/image/player/cursor/kind changes. Compare full DWORD nonvoid
+  results, ordered owned stores, helper inputs, all original static data and
+  saved ABI with actual children. Authenticate 47D350 as XOR EAX,EAX; RET and
+  normalize its unused pushed slots to a nullary C call. Incidental caller-saved
+  state, private scratch, concurrent access and host game/UI fidelity are excluded.
+
 - Reconstruct storage delivery, resource totals, capacity checks and pile frames
   as ordinary C. Replace five register-model bodies (614 lines) with a shared
   68-line C implementation and thin legacy adapters. These public storage calls

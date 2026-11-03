@@ -52,7 +52,7 @@ uint32_t FUN_00457ac0(int32_t x,int32_t y)
 uint32_t FUN_00459fa0(void)
 {return execute(restore_placement_support_C_00459fa0,0,0);}
 int32_t FUN_0045b4d0(int32_t player,int32_t resource,int32_t amount)
-{uint32_t a[3]={(uint32_t)player,(uint32_t)resource,(uint32_t)amount};return (int32_t)execute(restore_placement_support_C_0045b4d0,a,3);}
+{return restore_storage_withdraw_city(player,resource,amount);}
 void FUN_0047f530(int32_t x,int32_t y,int32_t mode)
 {uint32_t a[3]={(uint32_t)x,(uint32_t)y,(uint32_t)mode};(void)execute(restore_placement_support_C_0047f530,a,3);}
 uint32_t FUN_004bff60(int32_t x,int32_t y,int32_t mode)
@@ -64,6 +64,6 @@ uint32_t FUN_00481420(int32_t x,int32_t y,int32_t mode)
 uint32_t FUN_00459ef0(int32_t building)
 {uint32_t a[1]={(uint32_t)building};return execute(restore_placement_support_C_00459ef0,a,1);}
 int32_t FUN_0045b570(int32_t player,int32_t building,int32_t resource,int32_t amount)
-{uint32_t a[4]={(uint32_t)player,(uint32_t)building,(uint32_t)resource,(uint32_t)amount};return (int32_t)execute(restore_placement_support_C_0045b570,a,4);}
+{return restore_storage_withdraw(player,building,resource,amount);}
 int32_t FUN_0045b490(int32_t amount)
 {return restore_storage_pile_frame(amount);}
