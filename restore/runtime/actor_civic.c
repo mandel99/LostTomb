@@ -50,6 +50,15 @@
 #pragma comment(linker, "/include:_FUN_0049e8b0")
 #pragma comment(linker, "/include:_FUN_0049d0f0")
 #pragma comment(linker, "/include:_FUN_0049dc50")
+#pragma comment(linker, "/include:_FUN_00499010")
+#pragma comment(linker, "/include:_FUN_00498c60")
+#pragma comment(linker, "/include:_FUN_004991a0")
+#pragma comment(linker, "/include:_FUN_00498a10")
+#pragma comment(linker, "/include:_FUN_004988b0")
+#pragma comment(linker, "/include:_FUN_00498ad0")
+#pragma comment(linker, "/include:_FUN_004987f0")
+#pragma comment(linker, "/include:_FUN_00498750")
+#pragma comment(linker, "/include:_FUN_004986b0")
 #pragma comment(linker, "/include:_FUN_00498590")
 #pragma comment(linker, "/include:_FUN_004984a0")
 #pragma comment(linker, "/include:_FUN_00498370")
@@ -237,15 +246,7 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(00494800);
     RAW(00494b30);
     RAW(00498160);
-    RAW(004986b0);
-    RAW(00498750);
-    RAW(004987f0);
-    RAW(004988b0);
-    RAW(00498a10);
-    RAW(00498ad0);
-    RAW(00498c60);
     RAW(00498df0);
-    RAW(00499010);
     RAW(004991a0);
     RAW(004998f0);
     RAW(00499e50);
@@ -294,6 +295,14 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     case 0x498370u:f->r[0]=restore_actor_update_enemy_kind46();break;
     case 0x4984a0u:f->r[0]=restore_actor_update_enemy_kind47();break;
     case 0x498590u:f->r[0]=restore_actor_update_enemy_kind48();break;
+    case 0x4986b0u:f->r[0]=restore_actor_update_barbarian_kind49();break;
+    case 0x498750u:f->r[0]=restore_actor_update_barbarian_kind50();break;
+    case 0x4987f0u:f->r[0]=restore_actor_update_barbarian_kind51();break;
+    case 0x498ad0u:f->r[0]=restore_actor_update_egyptian_infantry();break;
+    case 0x4988b0u:f->r[0]=restore_actor_update_barbarian_kind52();break;
+    case 0x498a10u:f->r[0]=restore_actor_update_enemy_kind53();break;
+    case 0x498c60u:f->r[0]=restore_actor_update_egyptian_archers();break;
+    case 0x499010u:f->r[0]=restore_actor_update_enemy_kind57();break;
     case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
     case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
     case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
@@ -546,16 +555,25 @@ __declspec(noinline) void FUN_004984a0(void)
 {(void)restore_actor_update_enemy_kind47();}
 __declspec(noinline) void FUN_00498590(void)
 {(void)restore_actor_update_enemy_kind48();}
-void FUN_004986b0(void){(void)invoke(0x004986b0u,0,0);}
-void FUN_00498750(void){(void)invoke(0x00498750u,0,0);}
-void FUN_004987f0(void){(void)invoke(0x004987f0u,0,0);}
-void FUN_004988b0(void){(void)invoke(0x004988b0u,0,0);}
-void FUN_00498a10(void){(void)invoke(0x00498a10u,0,0);}
-void FUN_00498ad0(void){(void)invoke(0x00498ad0u,0,0);}
-void FUN_00498c60(void){(void)invoke(0x00498c60u,0,0);}
+__declspec(noinline) void FUN_004986b0(void)
+{(void)restore_actor_update_barbarian_kind49();}
+__declspec(noinline) void FUN_00498750(void)
+{(void)restore_actor_update_barbarian_kind50();}
+__declspec(noinline) void FUN_004987f0(void)
+{(void)restore_actor_update_barbarian_kind51();}
+__declspec(noinline) void FUN_004988b0(void)
+{(void)restore_actor_update_barbarian_kind52();}
+__declspec(noinline) void FUN_00498a10(void)
+{(void)restore_actor_update_enemy_kind53();}
+__declspec(noinline) void FUN_00498ad0(void)
+{(void)restore_actor_update_egyptian_infantry();}
+__declspec(noinline) void FUN_00498c60(void)
+{(void)restore_actor_update_egyptian_archers();}
 void FUN_00498df0(void){(void)invoke(0x00498df0u,0,0);}
-void FUN_00499010(void){(void)invoke(0x00499010u,0,0);}
-void FUN_004991a0(void){(void)invoke(0x4991a0u,0,0);}
+__declspec(noinline) void FUN_00499010(void)
+{(void)restore_actor_update_enemy_kind57();}
+__declspec(noinline) void FUN_004991a0(void)
+{(void)restore_actor_update_enemy_group();}
 int32_t FUN_004998f0(int32_t x,int32_t y)
 {const uint32_t a[]={(uint32_t)x,(uint32_t)y};return (int32_t)invoke(0x4998f0u,a,2);}
 int32_t FUN_00499e50(int32_t actor,int32_t max_distance)

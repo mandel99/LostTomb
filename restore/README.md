@@ -6,14 +6,15 @@ Connected blocks are being written into ordinary C with immediate compilation
 and focused interface checks, followed by joint main/native comparison at a
 larger milestone. Verification totals below describe the last accepted
 checkpoint; they are not a current-main proof for the new source blocks.
-Twenty-three functions across three source-first blocks are now transcribed
-and linked:22 registry callbacks and one shared state handler. See the
+Thirty-two functions across four source-first blocks are now transcribed
+and linked: 30 registry callbacks and two shared state handlers. See the
 [six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md),
 [eleven-service record](metadata/SERVICE_TRANSLATION_BATCH.md) and
-[six-function combat/state record](metadata/COMBAT_TRANSLATION_BATCH.md).
-These scopes total7,361 static native instructions. Joint native verification
-and broad regressions remain pending; unresolved Enemy45 keeps its original
-canonical/frame implementation.
+[six-function combat/state record](metadata/COMBAT_TRANSLATION_BATCH.md) and
+[nine-function army/state record](metadata/ARMY_TRANSLATION_BATCH.md).
+These scopes total 8,493 static native instructions. Joint native verification
+and broad regressions remain pending; unresolved Enemy45 and Egyptian Chariots
+keep their original canonical/frame implementations.
 
 Crocodile/hyena updates, kind cues, weighted state selection and state entry
 now use five named C bodies. Both Release images pass4,951 scenarios /

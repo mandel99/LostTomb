@@ -3213,6 +3213,517 @@ __declspec(noinline) uint32_t restore_actor_update_enemy_kind48(void)
     U(0xbcd5fcu+o)=graphic;return graphic;
 }
 
+extern void FUN_004991a0(void);
+static uint32_t barbarian49_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_barbarian_kind49(void)
+{
+    uint32_t id=U(0xd056f8u),actor=barbarian49_actor(id),heading;
+    uint8_t animation=(uint8_t)(B(actor-7u)+1u),direction;
+    B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    U(actor+0x178u)=0;B(actor+0x51u)=2;
+    FUN_004991a0();id=U(0xd056f8u);actor=barbarian49_actor(id);
+    if(B(actor+0x30u)==5)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    else {
+        direction=B(actor+9u);
+        if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);
+        else heading=(uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    return heading;
+}
+
+extern void FUN_004991a0(void);
+static uint32_t barbarian50_actor(uint32_t id)
+{
+    return 0xbcd600u + id * 388u;
+}
+
+/* Shipped Figure_model ordinal 50 is Barbarian. Native returns the heading. */
+__declspec(noinline) uint32_t restore_actor_update_barbarian_kind50(void)
+{
+    uint32_t actor = barbarian50_actor(U(0xd056f8u));
+    uint32_t heading;
+    uint8_t animation = (uint8_t)(B(actor - 7u) + 1u);
+
+    B(actor - 7u) = animation;
+    if (animation >= 12u)
+        B(actor - 7u) = 0;
+    U(actor + 0x178u) = 0;
+    B(actor + 0x51u) = 1;
+    FUN_004991a0();
+
+    actor = barbarian50_actor(U(0xd056f8u));
+    if (B(actor + 0x30u) == 5u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 11u);
+    } else {
+        int32_t direction = (int8_t)B(actor + 9u);
+        if (direction >= 8)
+            heading = (uint32_t)(int32_t)(int8_t)B(actor + 10u);
+        else
+            heading = (uint32_t)direction;
+    }
+    heading -= U(0xbca2e0u);
+    U(0xe94e00u) = heading;
+    if ((int32_t)heading < 0) {
+        heading += 8u;
+        U(0xe94e00u) = heading;
+    }
+    return heading;
+}
+
+extern void FUN_004991a0(void);
+__declspec(noinline) uint32_t restore_actor_update_barbarian_kind51(void)
+{
+    uint32_t actor=U(0xd056f8u),offset=actor*388u,direction;
+    uint8_t animation=B(0xbcd5f9u+offset);
+    int32_t group=(int16_t)W(0xbcd658u+offset),facing;
+    ++animation;B(0xbcd5f9u+offset)=animation;
+    if(animation>=12u)B(0xbcd5f9u+offset)=0;
+    U(0xbcd778u+offset)=0;B(0xbcd651u+offset)=2;
+    FUN_004991a0();
+    actor=U(0xd056f8u);offset=actor*388u;
+    if(B(0xbcd630u+offset)==5u){
+        facing=(int8_t)B(0xbcd60bu+offset);
+    }else if(W(0xbcba24u+(uint32_t)group*144u)!=0u){
+        facing=(int8_t)B(0xbcd609u+offset);
+    }else{
+        facing=(int8_t)B(0xbcd609u+offset);
+        if(facing>=8)facing=(int8_t)B(0xbcd60au+offset);
+    }
+    direction=(uint32_t)facing-U(0xbca2e0u);U(0xe94e00u)=direction;
+    if(direction&0x80000000u){direction+=8u;U(0xe94e00u)=direction;}
+    return direction;
+}
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+extern void FUN_0053b4a0(int32_t actor,int32_t sound,int32_t mode);
+#define RESTORE_ACTOR_UPDATE_EGYPTIAN_INFANTRY_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t infantry_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_egyptian_infantry(void)
+{
+    uint32_t id=U(0xd056f8u),actor=infantry_actor(id),grid=U(actor+0x18u),heading,base,image;
+    uint8_t animation,state,direction,timer;
+    if((U(0xaf598cu+grid*4u)&0x10004u)==0x10004u){FUN_004bd250((int32_t)id);return id;}
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    U(actor+0x178u)=0;B(actor+0x51u)=2;
+    FUN_004991a0();id=U(0xd056f8u);actor=infantry_actor(id);
+    if(B(actor+0x30u)==5) {
+        FUN_0053b4a0((int32_t)id,12,2);id=U(0xd056f8u);actor=infantry_actor(id);
+        heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    } else {
+        direction=B(actor+9u);
+        if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);
+        else heading=(uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    state=B(actor+0x30u);
+    if(state==5) {
+        timer=B(actor+0x62u);base=U(0xf5702cu);
+        if(timer<12){U(actor-4u)=base+heading;return (id&0xffffff00u)|timer;}
+        image=base+heading+((uint32_t)(timer-12u)/2u)*8u;U(actor-4u)=image;return image;
+    }
+    if(state==4) {
+        int32_t half=(int32_t)RESTORE_ACTOR_UPDATE_EGYPTIAN_INFANTRY_H(actor+0x2eu)/2;
+        uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        base=U(0xf57024u);U(actor-4u)=base+frame;return base;
+    }
+    if(B(actor+9u)==11) {
+        base=U(0xf5702cu);animation=B(actor-7u);image=base+(uint32_t)(animation>>1)*8u+heading;
+        U(actor-4u)=image;return image;
+    }
+    base=U(0xf5701cu);animation=B(actor-7u);U(actor-4u)=base+(uint32_t)animation*8u+heading;return base;
+}
+
+#undef RESTORE_ACTOR_UPDATE_EGYPTIAN_INFANTRY_H
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+#define RESTORE_ACTOR_UPDATE_BARBARIAN_KIND52_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t barbarian52_actor(uint32_t id)
+{
+    return 0xbcd600u + id * 388u;
+}
+
+/* Figure_model ordinal52 is Barbarian. The early child physically returns id. */
+__declspec(noinline) uint32_t restore_actor_update_barbarian_kind52(void)
+{
+    uint32_t id = U(0xd056f8u), actor = barbarian52_actor(id);
+    uint32_t grid = U(actor + 0x18u), heading, base, image;
+    uint8_t animation, state, direction;
+    int32_t group;
+
+    if ((U(0xaf598cu + grid * 4u) & 0x10004u) == 0x10004u) {
+        FUN_004bd250((int32_t)id);
+        return id;
+    }
+    animation = B(actor - 7u);
+    group = RESTORE_ACTOR_UPDATE_BARBARIAN_KIND52_H(actor + 0x58u);
+    animation = (uint8_t)(animation + 1u);
+    B(actor - 7u) = animation;
+    if (animation >= 12u)
+        B(actor - 7u) = 0;
+    U(actor + 0x178u) = 0;
+    B(actor + 0x51u) = 3;
+    FUN_004991a0();
+
+    actor = barbarian52_actor(U(0xd056f8u));
+    state = B(actor + 0x30u);
+    if (state == 5u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 11u);
+    } else if (W(0xbcba24u + (uint32_t)group * 144u) != 0u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 9u);
+    } else {
+        int32_t signed_direction = (int8_t)B(actor + 9u);
+        if (signed_direction >= 8)
+            heading = (uint32_t)(int32_t)(int8_t)B(actor + 10u);
+        else
+            heading = (uint32_t)signed_direction;
+    }
+    heading -= U(0xbca2e0u);
+    U(0xe94e00u) = heading;
+    if ((int32_t)heading < 0) {
+        heading += 8u;
+        U(0xe94e00u) = heading;
+    }
+
+    direction = B(actor + 9u);
+    base = U(0xf563bcu);
+    if (direction == 11u) {
+        animation = B(actor - 7u);
+        image = heading + (uint32_t)animation * 8u + base;
+    } else if (state == 5u) {
+        image = heading + base;
+    } else if (state == 9u) {
+        uint32_t frame;
+        uint8_t timer = B(actor + 0x62u);
+        frame = B(0x5d058cu + (uint32_t)(timer >> 1));
+        image = heading + frame * 8u + 0x60u + base;
+    } else if (state == 4u) {
+        int32_t half = (int32_t)RESTORE_ACTOR_UPDATE_BARBARIAN_KIND52_H(actor + 0x2eu) / 2;
+        uint32_t frame = B(0x5d048cu + (uint32_t)half);
+        image = base + frame + 0x90u;
+    } else {
+        animation = B(actor - 7u);
+        image = heading + (uint32_t)animation * 8u + base;
+    }
+    U(actor - 4u) = image;
+    return image;
+}
+
+#undef RESTORE_ACTOR_UPDATE_BARBARIAN_KIND52_H
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+static uint32_t enemy53_actor(uint32_t id)
+{
+    return 0xbcd600u + id * 388u;
+}
+
+/* Figure_model ordinal53 is Enemy. The early child physically returns id. */
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind53(void)
+{
+    uint32_t id = U(0xd056f8u), actor = enemy53_actor(id);
+    uint32_t grid = U(actor + 0x18u), heading;
+    uint8_t animation;
+
+    if ((U(0xaf598cu + grid * 4u) & 0x10004u) == 0x10004u) {
+        FUN_004bd250((int32_t)id);
+        return id;
+    }
+    animation = (uint8_t)(B(actor - 7u) + 1u);
+    B(actor - 7u) = animation;
+    if (animation >= 12u)
+        B(actor - 7u) = 0;
+    U(actor + 0x178u) = 0;
+    B(actor + 0x51u) = 1;
+    FUN_004991a0();
+
+    actor = enemy53_actor(U(0xd056f8u));
+    if (B(actor + 0x30u) == 5u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 11u);
+    } else {
+        int32_t direction = (int8_t)B(actor + 9u);
+        if (direction >= 8)
+            heading = (uint32_t)(int32_t)(int8_t)B(actor + 10u);
+        else
+            heading = (uint32_t)direction;
+    }
+    heading -= U(0xbca2e0u);
+    U(0xe94e00u) = heading;
+    if ((int32_t)heading < 0) {
+        heading += 8u;
+        U(0xe94e00u) = heading;
+    }
+    return heading;
+}
+
+extern void FUN_004b17d0(int32_t),FUN_004b1d50(int32_t),FUN_004b53b0(int32_t),FUN_004b3250(int32_t);
+extern void FUN_004a5da0(int32_t,uint32_t);
+extern uint32_t FUN_0051cba0(int32_t,int32_t,int32_t,int32_t);
+extern uint8_t FUN_0051cd80(int32_t,int32_t,int32_t,int32_t);
+extern int32_t FUN_00499e50(int32_t,int32_t),FUN_004998f0(int32_t,int32_t);
+extern int32_t FUN_004b45c0(int32_t,int32_t,int32_t,int32_t,int32_t,int32_t);
+extern uint32_t FUN_0047d350(void);
+static uint32_t enemy_group_offset(uint32_t actor){return actor*388u;}
+/* The authenticated original47D350 is the three-byte XOR EAX,EAX;RET leaf.
+   Its original one/three pushed argument forms are unused by the callee. */
+static void enemy_group_legacy_signal(uint32_t sample)
+{(void)sample;(void)FUN_0047d350();}
+
+__declspec(noinline) void restore_actor_update_enemy_group(void)
+{
+    uint32_t actor=U(0xd056f8u),o=enemy_group_offset(actor),kind=B(0xbcd602u+o);
+    int32_t group=(int16_t)W(0xbcd658u+o);
+    uint32_t g=(uint32_t)group*144u,cohort,speed,count,index;
+    int32_t formation,x,y,tx,ty,linked,found;uint16_t gx,gy,ox,new_y,group_mode;
+    uint8_t state,ordinal,direction,counter,signal,phase;
+    B(0xbcd66au+o)=2;
+    cohort=U(0xeaac28u)*0x49d8u;speed=U(0x7090ecu+kind*56u);
+    count=U(0xea5ea4u+cohort);U(0xea5ea4u+cohort)=count+1u;
+    formation=(int16_t)W(0xbcb9f2u+g);index=(uint32_t)formation*16u;
+    ordinal=B(0xbcd65au+o);ox=W(0x5cd6f8u+(index+ordinal)*8u);W(0xbcd628u+o)=ox;
+    ordinal=B(0xbcd65au+o);gy=W(0x5cd6fcu+(index+ordinal)*8u);W(0xbcd62au+o)=gy;
+    state=B(0xbcd630u+o);
+    if(state==5u){FUN_004b17d0((int32_t)actor);return;}
+    if(state==4u){FUN_004b1d50((int32_t)actor);return;}
+    if(state==14u){W(0xbcd62eu+o)=0;return;}
+    if(state==9u){
+        FUN_004b53b0((int32_t)actor);actor=U(0xd056f8u);o=enemy_group_offset(actor);
+        B(0xbcd5f9u+o)=0;FUN_004b3250((int32_t)actor);
+        actor=U(0xd056f8u);o=enemy_group_offset(actor);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            W(0xbcd62eu+o)=50;signal=B(0xbcd65du+o);
+            if(signal!=0u && B(0xbcd65au+o)==0u){
+                uint16_t type=W(0xbcb9f2u+g);
+                enemy_group_legacy_signal(type==8u?0x5df6d8u:(type==12u?0x5df6c8u:0x5df6b8u));
+                actor=U(0xd056f8u);
+            }
+            o=enemy_group_offset(actor);group_mode=W(0xbcba18u+g);B(0xbcd65du+o)=0;
+            if(group_mode!=0u)B(0xbcd630u+o)=12;
+            else{
+                gx=W(0xbcba02u+g);gy=W(0xbcba04u+g);
+                ox=W(0xbcd628u+o);W(0xbcd61cu+o)=(uint16_t)(gx+ox);
+                new_y=(uint16_t)(gy+W(0xbcd62au+o));W(0xbcd61eu+o)=new_y;
+                tx=(int16_t)W(0xbcd61cu+o);ty=(int16_t)new_y;
+                y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+                direction=(uint8_t)FUN_0051cba0(x,y,tx,ty);actor=U(0xd056f8u);
+                if(direction<8u)B(0xbcd630u+enemy_group_offset(actor))=11;
+            }
+        }
+        o=enemy_group_offset(actor);kind=B(0xbcd602u+o);
+        if(kind!=43u && kind!=46u && kind!=51u && kind!=52u && kind!=55u)return;
+        counter=(uint8_t)(B(0xbcd663u+o)+1u);B(0xbcd663u+o)=counter;
+        kind=B(0xbcd602u+o);
+        if((int32_t)(uint32_t)counter>(int32_t)U(0x7090e8u+kind*56u)){
+            B(0xbcd663u+o)=0;kind=B(0xbcd602u+o);count=U(0x7090e4u+kind*56u);
+            found=FUN_00499e50((int32_t)actor,(int32_t)count);
+            if(found!=0){
+                actor=U(0xd056f8u);o=enemy_group_offset(actor);ty=(int32_t)U(0xd3b4e4u);
+                B(0xbcd662u+o)=1;tx=(int32_t)U(0xd3b4e0u);
+                y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+                direction=FUN_0051cd80(x,y,ty,tx);actor=U(0xd056f8u);
+                B(0xbcd609u+o)=direction; /* cached actor before direction child */
+            }else{
+                actor=U(0xd056f8u);o=enemy_group_offset(actor);B(0xbcd662u+o)=0;
+            }
+        }
+        phase=B(0xbcd662u+o);if(phase==0u)return;
+        if(phase==1u){
+            tx=(int32_t)U(0xd3b4e0u);ty=(int32_t)U(0xd3b4e4u);
+            y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+            (void)FUN_004b45c0((int32_t)actor,x,y,ty,tx,71);
+            actor=U(0xd056f8u);W(0xbcba24u+g)=6;
+        }
+        o=enemy_group_offset(actor);counter=(uint8_t)(B(0xbcd662u+o)+1u);B(0xbcd662u+o)=counter;
+        if(counter>100u)B(0xbcd662u+o)=0;
+        return;
+    }
+    if(state==3u){
+        gx=W(0xbcd624u+o);W(0xbcd61cu+o)=gx;gy=W(0xbcd626u+o);W(0xbcd61eu+o)=gy;
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=enemy_group_offset(actor);
+        direction=B(0xbcd609u+o);if(direction==9u || direction==10u || direction==8u)B(0xbcd606u+o)=2;
+        return;
+    }
+    if(state==10u){FUN_004b53b0((int32_t)actor);return;}
+    if(state==11u){
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            gx=W(0xbcba02u+g);W(0xbcd62eu+o)=50;ox=W(0xbcd628u+o);
+            tx=(int16_t)gx+(int16_t)ox;x=(int16_t)W(0xbcd61cu+o);
+            if(x!=tx)goto enemy_group_target_changed;
+            gy=W(0xbcba04u+g);new_y=W(0xbcd62au+o);ty=(int16_t)gy+(int16_t)new_y;
+            y=(int16_t)W(0xbcd61eu+o);if(y==ty)goto enemy_group_move;
+enemy_group_target_changed:
+            gy=W(0xbcba04u+g);W(0xbcd61cu+o)=(uint16_t)(gx+ox);
+            new_y=(uint16_t)(gy+W(0xbcd62au+o));W(0xbcd61eu+o)=new_y;
+            tx=(int16_t)W(0xbcd61cu+o);ty=(int16_t)new_y;
+            y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+            direction=(uint8_t)FUN_0051cba0(x,y,tx,ty);actor=U(0xd056f8u);
+            if(direction==8u){B(0xbcd630u+enemy_group_offset(actor))=9;return;}
+            gx=W(0xbcba06u+g);W(0xbcd656u+enemy_group_offset(actor))=gx;
+            FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+        }
+enemy_group_move:
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=enemy_group_offset(actor);
+        direction=B(0xbcd609u+o);if(direction==9u || direction==10u || direction==8u)B(0xbcd630u+o)=9;
+        return;
+    }
+    if(state==12u){
+        if(W(0xbcba18u+g)==0u)B(0xbcd630u+o)=9;
+        kind=B(0xbcd602u+o);
+        if(kind!=46u && kind!=47u){
+            uint32_t timer=(kind==52u || kind==48u)?0xea5ef0u:0xea5eefu;
+            counter=(uint8_t)(B(timer+cohort)-1u);B(timer+cohort)=counter;
+            if((int8_t)counter<=0){B(timer+cohort)=200;enemy_group_legacy_signal(timer==0xea5ef0u?23u:27u);actor=U(0xd056f8u);}
+        }
+        o=enemy_group_offset(actor);linked=(int16_t)W(0xbcd67au+o);index=enemy_group_offset((uint32_t)linked);
+        if(B(0xbcd606u+index)!=1u){W(0xbcd67au+o)=0;linked=0;}
+        index=enemy_group_offset((uint32_t)linked);
+        if(B(0xbcd630u+index)==4u)W(0xbcd67au+o)=0;
+        else if(linked>0)goto enemy_group_follow;
+        y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);found=FUN_004998f0(x,y);
+        if(found!=0){
+            actor=U(0xd056f8u);o=enemy_group_offset(actor);index=enemy_group_offset((uint32_t)found);
+            gx=W(0xbcd60cu+index);W(0xbcd61cu+o)=gx;
+            gy=W(0xbcd60eu+index);W(0xbcd61eu+o)=gy;
+            W(0xbcd67au+o)=(uint16_t)found;W(0xbcd67cu+index)=(uint16_t)actor;
+            gx=W(0xbcd67eu+index);W(0xbcd680u+o)=gx;FUN_004b3250((int32_t)actor);
+            if(found>0){actor=U(0xd056f8u);goto enemy_group_follow;}
+        }
+        actor=U(0xd056f8u);o=enemy_group_offset(actor);B(0xbcd630u+o)=9;W(0xbcd62eu+o)=50;return;
+enemy_group_follow:
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=enemy_group_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u || direction==10u){B(0xbcd630u+o)=9;W(0xbcd67au+o)=0;return;}
+        if(direction==8u){
+            linked=(int16_t)W(0xbcd67au+o);index=enemy_group_offset((uint32_t)linked);
+            gx=W(0xbcd60cu+index);W(0xbcd61cu+o)=gx;
+            gy=W(0xbcd60eu+index);W(0xbcd61eu+o)=gy;FUN_004b3250((int32_t)actor);
+        }
+        return;
+    }
+    if(state!=13u)B(0xbcd630u+o)=9;
+}
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+extern void FUN_0053b4a0(int32_t actor,int32_t sound,int32_t mode);
+#define RESTORE_ACTOR_UPDATE_EGYPTIAN_ARCHERS_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t archers_actor(uint32_t id){return 0xbcd600u+id*388u;}
+__declspec(noinline) uint32_t restore_actor_update_egyptian_archers(void)
+{
+    uint32_t id=U(0xd056f8u),actor=archers_actor(id),grid=U(actor+0x18u),heading,base,image;
+    uint8_t animation,state,direction,timer;
+    if((U(0xaf598cu+grid*4u)&0x10004u)==0x10004u){FUN_004bd250((int32_t)id);return id;}
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    U(actor+0x178u)=0;B(actor+0x51u)=2;
+    FUN_004991a0();id=U(0xd056f8u);actor=archers_actor(id);state=B(actor+0x30u);
+    if(state==5)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    else {direction=B(actor+9u);if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);else heading=(uint32_t)(int32_t)(int8_t)direction;}
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    if(state==5) {
+        FUN_0053b4a0((int32_t)id,11,2);id=U(0xd056f8u);base=U(0xf5700cu);actor=archers_actor(id);
+        timer=B(actor+0x62u);heading=U(0xe94e00u);image=base+heading;
+        if(timer>=12)image+=((uint32_t)(timer-12u)/2u)*8u;
+        U(actor-4u)=image;return image;
+    }
+    if(state==4) {int32_t half=(int32_t)RESTORE_ACTOR_UPDATE_EGYPTIAN_ARCHERS_H(actor+0x2eu)/2;uint32_t frame=B(0x5d048cu+(uint32_t)half);base=U(0xf57004u);U(actor-4u)=base+frame;return base;}
+    if(B(actor+9u)==11){base=U(0xf5700cu);animation=B(actor-7u);U(actor-4u)=base+(uint32_t)(animation>>1)*8u+heading;return heading;}
+    base=U(0xf56ffcu);animation=B(actor-7u);U(actor-4u)=base+(uint32_t)animation*8u+heading;return heading;
+}
+
+#undef RESTORE_ACTOR_UPDATE_EGYPTIAN_ARCHERS_H
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+#define RESTORE_ACTOR_UPDATE_ENEMY_KIND57_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t enemy57_actor(uint32_t id)
+{
+    return 0xbcd600u + id * 388u;
+}
+
+/* Kind57 Enemy; full physical results are defined, including two BYTE hybrids. */
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind57(void)
+{
+    uint32_t id = U(0xd056f8u), actor = enemy57_actor(id);
+    uint32_t grid = U(actor + 0x18u), context, counter;
+    uint32_t heading, base, image, return_prefix;
+    uint8_t animation, direction, state;
+
+    if ((U(0xaf598cu + grid * 4u) & 0x10004u) == 0x10004u) {
+        FUN_004bd250((int32_t)id);
+        return id;
+    }
+    context = U(0xeaac28u);
+    counter = 0xea5eb4u + context * 0x49d8u;
+    U(counter) = U(counter) + 1u;
+    animation = (uint8_t)(B(actor - 7u) + 1u);
+    B(actor - 7u) = animation;
+    if (animation >= 12u)
+        B(actor - 7u) = 0;
+    U(actor + 0x178u) = 0;
+    B(actor + 0x51u) = 1;
+    FUN_004991a0();
+
+    id = U(0xd056f8u);
+    actor = enemy57_actor(id);
+    if (B(actor + 0x30u) == 5u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 11u);
+    } else {
+        int32_t signed_direction = (int8_t)B(actor + 9u);
+        if (signed_direction >= 8)
+            heading = (uint32_t)(int32_t)(int8_t)B(actor + 10u);
+        else
+            heading = (uint32_t)signed_direction;
+    }
+    heading -= U(0xbca2e0u);
+    U(0xe94e00u) = heading;
+    if ((int32_t)heading < 0) {
+        heading += 8u;
+        U(0xe94e00u) = heading;
+    }
+
+    direction = B(actor + 9u);
+    base = U(0xf563bcu);
+    return_prefix = id & 0xffffff00u;
+    if (direction == 11u) {
+        int32_t half = ((int32_t)B(actor + 0x62u) - 12) / 2;
+        return_prefix = (uint32_t)half & 0xffffff00u;
+        U(actor - 4u) = base + (uint32_t)half * 8u + heading;
+    }
+
+    /* State is fresh after the direction11 store, even if it overwrites it. */
+    state = B(actor + 0x30u);
+    if (state == 5u) {
+        uint8_t timer = B(actor + 0x62u);
+        if (timer < 12u) {
+            U(actor - 4u) = base + heading;
+            return return_prefix | timer;
+        }
+        image = base + ((uint32_t)timer - 12u) / 2u * 8u + heading;
+    } else if (state == 12u) {
+        uint32_t alternate = U(0xf55f04u);
+        U(actor - 4u) = alternate + heading;
+        return return_prefix | 12u;
+    } else if (state == 4u) {
+        int32_t half = (int32_t)RESTORE_ACTOR_UPDATE_ENEMY_KIND57_H(actor + 0x2eu) / 2;
+        uint32_t frame = B(0x5d048cu + (uint32_t)half);
+        image = base + frame + 0x98u;
+    } else {
+        animation = B(actor - 7u);
+        image = base + (uint32_t)animation * 8u + 0x30u + heading;
+    }
+    U(actor - 4u) = image;
+    return image;
+}
+
+#undef RESTORE_ACTOR_UPDATE_ENEMY_KIND57_H
+
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct
    RNG publication phases and the post-probe vector advance literally. */
 __declspec(noinline) void restore_actor_command_spawn_hippos(void)
