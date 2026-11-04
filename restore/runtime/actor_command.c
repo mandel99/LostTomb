@@ -2956,6 +2956,263 @@ __declspec(noinline) uint32_t restore_actor_update_sentry(void)
 
 #undef RESTORE_ACTOR_UPDATE_SENTRY_H
 
+extern void FUN_004b17d0(int32_t actor),FUN_004b1d50(int32_t actor),FUN_004b3250(int32_t actor);
+extern void FUN_004a5da0(int32_t actor,uint32_t speed),FUN_004b1ef0(int32_t actor,int32_t steps);
+extern uint32_t FUN_0047fe60(int32_t x,int32_t y,uint32_t size,int32_t distance);
+static uint32_t service_state_offset(uint32_t actor){return actor*388u;}
+
+/* Exact noarg API: callers' pushed1 is unused. Physical EAX is unpromised. */
+__declspec(noinline) void restore_actor_update_service_state(void)
+{
+    uint32_t actor,o,kind,speed;uint8_t state;int32_t home;
+    actor=U(0xd056f8u);o=service_state_offset(actor);kind=B(0xbcd602u+o);
+    state=B(0xbcd630u+o);speed=U(0x7090ecu+kind*56u);home=(int16_t)W(0xbcd652u+o);
+    if(state==5u){FUN_004b17d0((int32_t)actor);return;}
+    if(state==4u){FUN_004b1d50((int32_t)actor);return;}
+    if(state==1u){
+        int32_t count,limit;
+        B(0xbcd65du+o)=0;W(0xbcd63cu+o)=(uint16_t)(W(0xbcd63cu+o)+1u);
+        count=(int16_t)W(0xbcd63cu+o);limit=(int16_t)W(0xbcd63au+o);
+        if(count>=limit){
+            uint32_t building=(uint32_t)home*264u,size,found;int32_t y,x;
+            size=B(0x7999dbu+building);y=(int16_t)W(0x7999e0u+building);x=(int16_t)W(0x7999deu+building);
+            found=FUN_0047fe60(x,y,size,2);actor=U(0xd056f8u);o=service_state_offset(actor);
+            if(!found){B(0xbcd606u+o)=2;FUN_004b1ef0((int32_t)actor,1);return;}
+            {
+                uint16_t target_x=W(0xd3b4e4u);
+                B(0xbcd630u+o)=2;W(0xbcd61cu+o)=target_x;W(0xbcd61eu+o)=W(0xd3b4e0u);
+            }
+            FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);W(0xbcd63cu+service_state_offset(actor))=0;
+        }
+        FUN_004b1ef0((int32_t)actor,1);return;
+    }
+    if(state==2u){
+        uint8_t direction;
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=service_state_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u||direction==10u||direction==8u)B(0xbcd606u+o)=2;
+        return;
+    }
+    B(0xbcd630u+o)=1;W(0xbcd63cu+o)=W(0xbcd63au+o);
+}
+
+extern void FUN_004bd250(int32_t);
+extern void FUN_004991a0(void);
+static uint32_t enemy43_offset(uint32_t actor){return actor*388u;}
+static uint32_t enemy43_sprite_base(uint32_t first,uint32_t alternate)
+{
+    uint8_t style=B(0x784cbdu);uint32_t base=U(first);
+    if(style==0u)base=U(alternate);
+    return base;
+}
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind43(void)
+{
+    uint32_t actor=U(0xd056f8u),o=enemy43_offset(actor),tile=U(0xbcd618u+o),terrain=U(0xaf598cu+tile*4u);
+    int32_t group,facing;uint32_t direction,rotation,base,graphic;uint8_t animation,state,current;
+    if((terrain&0x10004u)==0x10004u){
+        /* Exact native21B child loads full actor argument into EAX and never
+           changes it. Actual existing void C performs the status store; return
+           the cached argument rather than guessing the void C scratch EAX. */
+        FUN_004bd250((int32_t)actor);return actor;
+    }
+    animation=B(0xbcd5f9u+o);group=(int16_t)W(0xbcd658u+o);++animation;B(0xbcd5f9u+o)=animation;
+    if(animation>=12u)B(0xbcd5f9u+o)=0;
+    U(0xbcd778u+o)=0;B(0xbcd651u+o)=1;FUN_004991a0();
+    actor=U(0xd056f8u);o=enemy43_offset(actor);state=B(0xbcd630u+o);
+    if(state==5u)facing=(int8_t)B(0xbcd60bu+o);
+    else if(W(0xbcba24u+(uint32_t)group*144u)!=0u)facing=(int8_t)B(0xbcd609u+o);
+    else{
+        facing=(int8_t)B(0xbcd609u+o);
+        if(facing>=8)facing=(int8_t)B(0xbcd60au+o);
+    }
+    rotation=U(0xbca2e0u);direction=(uint32_t)facing-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    if(state==5u){
+        uint8_t counter;base=enemy43_sprite_base(0xf55ee4u,0xf563acu);counter=B(0xbcd662u+o);
+        if(counter<12u){U(0xbcd5fcu+o)=base+direction;return (actor&0xffffff00u)|(uint32_t)counter;}
+        graphic=base+direction+((uint32_t)(counter-12u)/2u)*8u;U(0xbcd5fcu+o)=graphic;return graphic;
+    }
+    if(state==9u){
+        uint32_t frame;base=enemy43_sprite_base(0xf55ee4u,0xf563acu);
+        frame=B(0x5d058cu+((uint32_t)B(0xbcd662u+o)>>1));U(0xbcd5fcu+o)=base+frame*8u+direction;return base;
+    }
+    if(state==4u){
+        int32_t half;uint32_t frame;base=enemy43_sprite_base(0xf55edcu,0xf563a4u);
+        half=(int16_t)W(0xbcd62eu+o)/2;frame=B(0x5d048cu+(uint32_t)half);
+        U(0xbcd5fcu+o)=base+frame;return (uint32_t)half;
+    }
+    current=B(0xbcd609u+o);
+    if(current==11u){
+        base=enemy43_sprite_base(0xf55ee4u,0xf563acu);animation=B(0xbcd5f9u+o);
+        graphic=base+((uint32_t)animation>>1)*8u+direction;
+    }else{
+        base=enemy43_sprite_base(0xf55ed4u,0xf5639cu);animation=B(0xbcd5f9u+o);
+        graphic=base+(uint32_t)animation*8u+direction;
+    }
+    U(0xbcd5fcu+o)=graphic;return base;
+}
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004991a0(void);
+#define RESTORE_ACTOR_UPDATE_ENEMY_KIND44_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t enemy44_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind44(void)
+{
+    uint32_t id=U(0xd056f8u),actor=enemy44_actor(id),grid=U(actor+0x18u),heading,base,image;
+    uint8_t animation,state,direction,theme,timer;
+    if((U(0xaf598cu+grid*4u)&0x10004u)==0x10004u){FUN_004bd250((int32_t)id);return id;}
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    U(actor+0x178u)=0;B(actor+0x51u)=1;
+    FUN_004991a0();id=U(0xd056f8u);actor=enemy44_actor(id);state=B(actor+0x30u);
+    if(state==5)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    else {
+        direction=B(actor+9u);
+        if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);
+        else heading=(uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    if(state==5) {
+        theme=B(0x784cbdu);base=U(0xf55efcu);if(theme==0)base=U(0xf563ccu);
+        timer=B(actor+0x62u);
+        if(timer<12){U(actor-4u)=base+heading;return (id&0xffffff00u)|timer;}
+        image=base+heading+((uint32_t)(timer-12u)/2u)*8u;U(actor-4u)=image;return image;
+    }
+    if(state==4) {
+        int32_t half;
+        uint32_t frame;
+        theme=B(0x784cbdu);base=U(0xf55ef4u);if(theme==0)base=U(0xf563c4u);
+        half=(int32_t)RESTORE_ACTOR_UPDATE_ENEMY_KIND44_H(actor+0x2eu)/2;frame=B(0x5d048cu+(uint32_t)half);
+        U(actor-4u)=base+frame;return (uint32_t)half;
+    }
+    direction=B(actor+9u);theme=B(0x784cbdu);
+    if(direction==11) {
+        base=U(0xf55efcu);if(theme==0)base=U(0xf563ccu);
+        animation=B(actor-7u);U(actor-4u)=base+heading+(uint32_t)(animation>>1)*8u;return base;
+    }
+    base=U(0xf55eecu);if(theme==0)base=U(0xf563bcu);
+    animation=B(actor-7u);U(actor-4u)=base+heading+(uint32_t)animation*8u;return base;
+}
+
+#undef RESTORE_ACTOR_UPDATE_ENEMY_KIND44_H
+
+extern void FUN_004991a0(void);
+#define RESTORE_ACTOR_UPDATE_ENEMY_KIND46_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t enemy46_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind46(void)
+{
+    uint32_t id=U(0xd056f8u),actor=enemy46_actor(id),heading,base,image;
+    uint8_t animation=B(actor-7u),state,direction;
+    int32_t group=RESTORE_ACTOR_UPDATE_ENEMY_KIND46_H(actor+0x58u);
+    animation=(uint8_t)(animation+1u);B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    U(actor+0x178u)=0;B(actor+0x51u)=1;
+    FUN_004991a0();id=U(0xd056f8u);actor=enemy46_actor(id);state=B(actor+0x30u);
+    if(state==5)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    else if(RESTORE_ACTOR_UPDATE_ENEMY_KIND46_H(0xbcba24u+(uint32_t)group*144u)!=0)heading=(uint32_t)(int32_t)(int8_t)B(actor+9u);
+    else {
+        direction=B(actor+9u);
+        if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);
+        else heading=(uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    direction=B(actor+9u);base=U(0xf563bcu);
+    if(direction==11){animation=B(actor-7u);image=base+heading+(uint32_t)animation*8u;}
+    else if(state==5)image=base+heading;
+    else if(state==9) {
+        uint32_t frame=B(0x5d058cu+(uint32_t)(B(actor+0x62u)>>1));
+        image=base+heading+0x60u+frame*8u;
+    } else if(state==4) {
+        int32_t half=(int32_t)RESTORE_ACTOR_UPDATE_ENEMY_KIND46_H(actor+0x2eu)/2;
+        uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        image=base+0x90u+frame;
+    } else {animation=B(actor-7u);image=base+heading+(uint32_t)animation*8u;}
+    U(actor-4u)=image;return image;
+}
+
+#undef RESTORE_ACTOR_UPDATE_ENEMY_KIND46_H
+
+extern void FUN_004991a0(void);
+#define RESTORE_ACTOR_UPDATE_ENEMY_KIND47_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t enemy47_actor(uint32_t id)
+{
+    return 0xbcd600u + id * 388u;
+}
+
+/* Figure_model ordinal 47 is named Enemy. Both native exits return the image. */
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind47(void)
+{
+    uint32_t actor = enemy47_actor(U(0xd056f8u));
+    uint32_t heading, base, image;
+    uint8_t animation, state, direction;
+
+    animation = (uint8_t)(B(actor - 7u) + 1u);
+    B(actor - 7u) = animation;
+    if (animation >= 12u)
+        B(actor - 7u) = 0;
+    U(actor + 0x178u) = 0;
+    B(actor + 0x51u) = 1;
+    FUN_004991a0();
+
+    actor = enemy47_actor(U(0xd056f8u));
+    state = B(actor + 0x30u);
+    if (state == 5u) {
+        heading = (uint32_t)(int32_t)(int8_t)B(actor + 11u);
+    } else {
+        direction = B(actor + 9u);
+        if ((int8_t)direction >= 8)
+            heading = (uint32_t)(int32_t)(int8_t)B(actor + 10u);
+        else
+            heading = (uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading -= U(0xbca2e0u);
+    U(0xe94e00u) = heading;
+    if ((int32_t)heading < 0) {
+        heading += 8u;
+        U(0xe94e00u) = heading;
+    }
+
+    base = U(0xf563bcu);
+    direction = B(actor + 9u);
+    if (direction != 11u && state != 5u && state == 4u) {
+        int32_t half = (int32_t)RESTORE_ACTOR_UPDATE_ENEMY_KIND47_H(actor + 0x2eu) / 2;
+        uint32_t frame = B(0x5d048cu + (uint32_t)half);
+        image = base + frame + 0x68u;
+    } else {
+        animation = B(actor - 7u);
+        image = heading + (uint32_t)animation * 8u + base;
+    }
+    U(actor - 4u) = image;
+    return image;
+}
+
+#undef RESTORE_ACTOR_UPDATE_ENEMY_KIND47_H
+
+extern void FUN_004991a0(void);
+__declspec(noinline) uint32_t restore_actor_update_enemy_kind48(void)
+{
+    uint32_t actor=U(0xd056f8u),o=actor*388u,direction,rotation,base,graphic;
+    int32_t facing;uint8_t animation=B(0xbcd5f9u+o),state,current;
+    ++animation;B(0xbcd5f9u+o)=animation;if(animation>=12u)B(0xbcd5f9u+o)=0;
+    U(0xbcd778u+o)=0;B(0xbcd651u+o)=3;FUN_004991a0();
+    actor=U(0xd056f8u);o=actor*388u;state=B(0xbcd630u+o);
+    if(state==5u)facing=(int8_t)B(0xbcd60bu+o);
+    else{facing=(int8_t)B(0xbcd609u+o);if(facing>=8)facing=(int8_t)B(0xbcd60au+o);}
+    rotation=U(0xbca2e0u);direction=(uint32_t)facing-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    base=U(0xf56404u);current=B(0xbcd609u+o);
+    if(current==11u || state==5u){
+        animation=B(0xbcd5f9u+o);graphic=base+direction+((uint32_t)animation>>1)*8u+0x60u;
+    }else if(state==4u){
+        int32_t half=(int16_t)W(0xbcd62eu+o)/2;uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        graphic=base+frame+0x90u;
+    }else{
+        animation=B(0xbcd5f9u+o);graphic=base+direction+(uint32_t)animation*8u;
+    }
+    U(0xbcd5fcu+o)=graphic;return graphic;
+}
+
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct
    RNG publication phases and the post-probe vector advance literally. */
 __declspec(noinline) void restore_actor_command_spawn_hippos(void)

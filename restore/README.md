@@ -2,13 +2,18 @@
 
 Source translation is in progress beyond verified checkpoint
 [1683857](https://github.com/mandel99/LostTomb/commit/168385711131ca23708013c5303218b7ea5d8bb1).
-The next connected animal block is being written into ordinary C before one
-combined main build and detailed comparison. Verification totals below describe
-that last accepted checkpoint; they are not a current-main proof for this block.
-Seventeen callbacks across two source-first blocks are now transcribed and
-linked; see the [six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md) and
-the [current eleven-callback status](metadata/SERVICE_TRANSLATION_BATCH.md).
-Joint native verification of these source-first blocks remains pending.
+Connected blocks are being written into ordinary C with immediate compilation
+and focused interface checks, followed by joint main/native comparison at a
+larger milestone. Verification totals below describe the last accepted
+checkpoint; they are not a current-main proof for the new source blocks.
+Twenty-three functions across three source-first blocks are now transcribed
+and linked:22 registry callbacks and one shared state handler. See the
+[six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md),
+[eleven-service record](metadata/SERVICE_TRANSLATION_BATCH.md) and
+[six-function combat/state record](metadata/COMBAT_TRANSLATION_BATCH.md).
+These scopes total7,361 static native instructions. Joint native verification
+and broad regressions remain pending; unresolved Enemy45 keeps its original
+canonical/frame implementation.
 
 Crocodile/hyena updates, kind cues, weighted state selection and state entry
 now use five named C bodies. Both Release images pass4,951 scenarios /
