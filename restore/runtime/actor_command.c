@@ -2060,6 +2060,902 @@ __declspec(noinline) void restore_actor_update_ostrich(void)
 
 #undef OSTRICH_H
 
+extern void FUN_004b17d0(int32_t),FUN_004b1d50(int32_t),FUN_004b3250(int32_t);
+extern void FUN_004a5da0(int32_t,uint32_t);
+extern int32_t FUN_004450c0(int32_t,uint32_t,uint32_t,int32_t,uint32_t);
+extern int32_t FUN_0045cf50(int32_t,int32_t,int32_t,int32_t);
+extern int32_t FUN_0045d010(int32_t,int32_t,uint32_t);
+extern void FUN_00444bd0(int32_t,int32_t);
+static uint32_t native_trader_offset(uint32_t actor){return actor*388u;}
+static void native_trader_take_destination(uint32_t actor,uint32_t building)
+{
+    uint32_t o=native_trader_offset(actor);uint16_t x;
+    W(0xbcd656u+o)=(uint16_t)building;x=W(0xd3b4e4u);
+    B(0xbcd630u+o)=8;W(0xbcd62eu+o)=0;W(0xbcd61cu+o)=x;
+    W(0xbcd61eu+o)=W(0xd3b4e0u);B(0xbcd5f9u+o)=0;
+}
+static uint32_t native_trader_render(uint32_t actor)
+{
+    uint32_t o=native_trader_offset(actor),direction,rotation,base,overlay,variant;
+    int32_t facing=(int8_t)B(0xbcd609u+o);
+    if(facing>=8)facing=(int8_t)B(0xbcd60au+o);
+    rotation=U(0xbca2e0u);direction=(uint32_t)facing-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    if(B(0xbcd630u+o)==4u){
+        int32_t half=(int16_t)W(0xbcd62eu+o)/2;
+        uint32_t frame=B(0x5d048cu+(uint32_t)half);base=U(0xf55e4cu);
+        U(0xbcd5fcu+o)=base+frame;U(0xbcd778u+o)=0;
+    }else{
+        uint32_t animation;base=U(0xf55e44u);animation=B(0xbcd5f9u+o);
+        U(0xbcd5fcu+o)=base+animation*8u+direction;
+    }
+    base=U(0xf55d5cu);variant=B(0xbcd603u+o);overlay=base+variant*8u+8u;
+    U(0xbcd778u+o)=overlay;
+    if(overlay!=0u){
+        uint8_t x=B(0x5dc23cu+direction*2u),y;
+        overlay+=direction;U(0xbcd778u+o)=overlay;
+        y=B(0x5dc23du+direction*2u);B(0xbcd664u+o)=x;B(0xbcd665u+o)=y;
+        return (overlay&0xffffff00u)|(uint32_t)y;
+    }
+    return 0;
+}
+__declspec(noinline) uint32_t restore_actor_update_native_trader(void)
+{
+    uint32_t actor=U(0xd056f8u),o=native_trader_offset(actor),kind=B(0xbcd602u+o),speed;
+    uint8_t animation,state,direction;
+    B(0xbcd65du+o)=0;B(0xbcd66au+o)=0;animation=B(0xbcd5f9u+o);++animation;
+    speed=U(0x7090ecu+kind*56u);B(0xbcd5f9u+o)=animation;if(animation>=12u)B(0xbcd5f9u+o)=0;
+    U(0xbcd778u+o)=0;state=B(0xbcd630u+o);
+    switch(state){
+    case 5:FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 10:
+        B(0xbcd65du+o)=1;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>10){
+            int32_t y,x,result;W(0xbcd62eu+o)=0;y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+            result=FUN_004450c0((int32_t)actor,(uint32_t)x,(uint32_t)y,0,0xffffffffu);
+            actor=U(0xd056f8u);o=native_trader_offset(actor);
+            if(result!=0){native_trader_take_destination(actor,(uint32_t)result);break;}
+            B(0xbcd606u+o)=2;
+        }
+        B(0xbcd5f9u+o)=0;break;
+    case 8:{
+        int32_t linked;
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=native_trader_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==8u)B(0xbcd630u+o)=11;
+        else if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u){B(0xbcd606u+o)=2;B(0xbcd65du+o)=1;}
+        o=native_trader_offset(actor);linked=(int16_t)W(0xbcd656u+o);
+        if(B(0x7999d8u+(uint32_t)linked*264u)!=1u)B(0xbcd606u+o)=2;
+        break;}
+    case 11:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>10){
+            int32_t linked,player,success;
+            W(0xbcd62eu+o)=0;linked=(int16_t)W(0xbcd656u+o);player=B(0xbcd607u+o);
+            success=FUN_0045cf50((int32_t)actor,player,linked,0);actor=U(0xd056f8u);o=native_trader_offset(actor);
+            if(success!=0){
+                int32_t amount;uint8_t count;
+                linked=(int16_t)W(0xbcd656u+o);player=B(0xbcd607u+o);
+                amount=FUN_0045d010(player,linked,0);actor=U(0xd056f8u);
+                FUN_00444bd0((int32_t)actor,amount);actor=U(0xd056f8u);o=native_trader_offset(actor);
+                count=B(0xbcd667u+o);count=(uint8_t)(count+3u);B(0xbcd667u+o)=count;
+                B(0xbcd5f9u+o)=0;break;
+            }else{
+                int32_t y=(int16_t)W(0xbcd60eu+o),x=(int16_t)W(0xbcd60cu+o),result;
+                result=FUN_004450c0((int32_t)actor,(uint32_t)x,(uint32_t)y,0,0xffffffffu);
+                actor=U(0xd056f8u);o=native_trader_offset(actor);
+                if(result!=0){native_trader_take_destination(actor,(uint32_t)result);break;}
+                B(0xbcd630u+o)=9;W(0xbcd62eu+o)=0;W(0xbcd61cu+o)=W(0xbcd624u+o);
+                W(0xbcd61eu+o)=W(0xbcd626u+o);
+            }
+        }
+        B(0xbcd5f9u+o)=0;break;
+    case 9:
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=native_trader_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==8u || direction==10u)B(0xbcd606u+o)=2;
+        else if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        break;
+    default:B(0xbcd630u+o)=10;break;
+    }
+    return native_trader_render(actor);
+}
+
+extern int32_t FUN_004b3ff0(int32_t actor,int32_t mode);
+extern int32_t FUN_004b5770(int32_t actor);
+extern uint32_t FUN_004b1d10(int32_t direction,int32_t other);
+extern void FUN_004b5050(int32_t actor),FUN_004b7ab0(int32_t group);
+extern uint32_t FUN_0047d350(void);
+static uint32_t arrow_offset(uint32_t actor){return actor*388u;}
+
+/* Ordinary native721-byte callback. All additions/products are wrapped DWORD
+ * arithmetic; only the two explicit small signed quotients use C division. */
+__declspec(noinline) uint32_t restore_actor_update_arrow(void)
+{
+    uint32_t actor=U(0xd056f8u),o=arrow_offset(actor),target;int32_t advanced;
+    uint8_t age;
+    B(0xbcd604u+o)=1;age=(uint8_t)(B(0xbcd631u+o)+1u);B(0xbcd631u+o)=age;
+    if((int8_t)age>120)B(0xbcd606u+o)=2;
+    advanced=FUN_004b3ff0((int32_t)actor,4);actor=U(0xd056f8u);
+    target=(uint32_t)FUN_004b5770((int32_t)actor);
+    if(target){
+        uint32_t t=arrow_offset(target),context=U(0xeaac28u),kind,g,limit,resistance,strength,damage,count;
+        uint8_t target_context=B(0xbcd607u+t);int32_t group=(int16_t)W(0xbcd658u+t),bonus=0;
+        uint16_t formation_enabled;
+        if((uint32_t)target_context==context){
+            int32_t value=(int32_t)(int16_t)W(0xbcba42u+(uint32_t)group*144u)+10;
+            bonus=value/20;
+        }
+        kind=B(0xbcd602u+t);limit=U(0x7090d0u+kind*56u);resistance=U(0x7090dcu+kind*56u)+(uint32_t)bonus;
+        if((int32_t)resistance>=20)resistance=20;
+        actor=U(0xd056f8u);o=arrow_offset(actor);g=(uint32_t)group*144u;kind=B(0xbcd602u+o);
+        formation_enabled=W(0xbcba22u+g);strength=U(0x7090e0u+kind*56u);
+        if(formation_enabled){
+            int32_t formation=(int16_t)W(0xbcb9ccu+g);
+            if(formation>=11&&formation<=13){
+                int32_t direction=(int8_t)B(0xbcd60bu+t);uint8_t facing=B(0xbcba33u+g);
+                uint32_t aligned=FUN_004b1d10(direction,(int32_t)facing);
+                if(!aligned)resistance-=4u;
+                else if(formation==13){if(W(0xbcb9f2u+g)==6u)resistance-=2u;}
+                else{
+                    int32_t subtype=(int16_t)W(0xbcb9f2u+g);
+                    if(subtype==3||subtype==4)resistance+=4u;else if(subtype==6)resistance-=2u;
+                }
+            }
+        }
+        if((int32_t)resistance<0)resistance=0;if((int32_t)resistance>20)resistance=20;
+        damage=0;
+        if(strength){damage=((30u-resistance)/20u)*strength;if((int32_t)damage<0)damage=0;}
+        count=(uint32_t)B(0xbcd615u+t)+damage;
+        if((int32_t)count>(int32_t)limit){
+            B(0xbcd615u+t)=(uint8_t)(limit+1u);B(0xbcd630u+t)=4;W(0xbcd62eu+t)=0;
+            FUN_004b5050((int32_t)target);FUN_004b7ab0(group);
+        }else B(0xbcd615u+t)=(uint8_t)count;
+        actor=U(0xd056f8u);o=arrow_offset(actor);B(0xbcd606u+o)=2;
+        if(group){
+            int32_t linked=(int16_t)W(0xbcd652u+o);
+            W(0xbcba26u+g)=6;W(0xbcba28u+g)=W(0xbcd658u+arrow_offset((uint32_t)linked));
+        }
+        (void)FUN_0047d350();actor=U(0xd056f8u);
+    }else{
+        actor=U(0xd056f8u);if(advanced)B(0xbcd606u+arrow_offset(actor))=2;
+    }
+    {
+        uint32_t rotation,direction,base;
+        o=arrow_offset(actor);rotation=U(0xbca2e0u)*2u;
+        direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;U(0xe94e00u)=direction;
+        if((int32_t)direction<0){direction+=16u;U(0xe94e00u)=direction;}
+        base=U(0xf56424u);U(0xbcd5fcu+o)=base+direction+16u;
+    }
+    return o;
+}
+
+extern int32_t FUN_004b3ff0(int32_t actor,int32_t mode);
+extern int32_t FUN_004b56d0(int32_t actor);
+extern void FUN_004b5050(int32_t actor);
+extern void FUN_004b7ab0(int32_t group);
+extern int32_t FUN_004ea9c0(int32_t kind);
+extern uint32_t FUN_004ea9a0(int32_t kind);
+extern void restore_actor_combat_sound(int32_t event);
+#define RESTORE_ACTOR_UPDATE_JAVELIN_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t javelin_actor(uint32_t id){return 0xbcd600u+id*388u;}
+static uint32_t javelin_group(int32_t id){return 0xbcb9c8u+(uint32_t)id*144u;}
+
+__declspec(noinline) uint32_t restore_actor_update_javelin(void)
+{
+    uint32_t id=U(0xd056f8u),actor=javelin_actor(id),owner,target,owner_group,hit_group,kind,attack_kind;
+    uint32_t limit,armour,attack,damage,heading,base;
+    int32_t collision,hit;uint8_t age,owner_kind;int special;
+    B(actor+4u)=1;
+    age=(uint8_t)(B(actor+0x31u)+1u);B(actor+0x31u)=age;
+    if((int8_t)age>120)B(actor+6u)=2;
+    collision=FUN_004b3ff0((int32_t)id,4);
+    id=U(0xd056f8u);hit=FUN_004b56d0((int32_t)id);
+    id=U(0xd056f8u);actor=javelin_actor(id);
+    owner=javelin_actor((uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_JAVELIN_H(actor+0x52u));
+    owner_group=(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_JAVELIN_H(owner+0x58u);
+    if(hit!=0) {
+        target=javelin_actor((uint32_t)hit);
+        hit_group=(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_JAVELIN_H(target+0x58u);
+        owner_kind=B(owner+2u);
+        if(owner_kind==62u)attack_kind=62;
+        else if(owner_kind==78u) {
+            if(B(owner+6u)==2)goto consume;
+            attack_kind=78;
+        } else attack_kind=(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_JAVELIN_H(javelin_group((int32_t)owner_group)+4u);
+        kind=B(target+2u);
+        special=kind==93u||kind==92u||kind==100u||kind==101u;
+        limit=special?U(target+0x124u):U(0x7090d0u+kind*56u);
+        armour=U(0x7090dcu+kind*56u);if((int32_t)armour>=20)armour=20;
+        attack=U(0x7090e0u+attack_kind*56u);
+        damage=0;
+        if((int32_t)attack>0) {
+            uint32_t product=(20u-armour)*attack;
+            int32_t quotient=(int32_t)product/20;
+            if(quotient>=0)damage=(uint32_t)quotient;
+        }
+        if(!special) {
+            uint32_t accumulated=(uint32_t)B(target+0x15u)+damage;
+            if((int32_t)accumulated>(int32_t)limit) {
+                B(target+0x15u)=(uint8_t)(limit+1u);
+                B(target+0x30u)=4;W(target+0x2eu)=0;
+                FUN_004b5050(hit);
+                FUN_004b7ab0((int32_t)hit_group);
+                if(((uint32_t)FUN_004ea9c0((int32_t)B(target+2u))&255u)==0) {
+                    if((FUN_004ea9a0((int32_t)B(target+2u))&255u)==0) {
+                        if(B(target+2u)!=23u) {
+                            uint32_t profile=U(0xeaac28u);
+                            uint32_t owner_profile=B(owner+7u);
+                            if(owner_profile==profile) {
+                                uint32_t address=javelin_group((int32_t)owner_group)+0x7au;
+                                int32_t value=(int32_t)RESTORE_ACTOR_UPDATE_JAVELIN_H(address)+1;
+                                if(value>=100)value=100;
+                                W(address)=(uint16_t)value;
+                            }
+                        }
+                    }
+                }
+            } else B(target+0x15u)=(uint8_t)accumulated;
+        } else {
+            uint32_t remaining=U(target+0x120u)-damage;
+            if((int32_t)remaining>0)U(target+0x120u)=remaining;
+            else {
+                U(target+0x120u)=0;B(target+0x30u)=4;W(target+0x2eu)=0;
+                FUN_004b5050(hit);FUN_004b7ab0((int32_t)hit_group);
+            }
+        }
+        if(hit_group!=0) {
+            uint32_t group=javelin_group((int32_t)hit_group);
+            W(group+0x5eu)=6;W(group+0x60u)=(uint16_t)owner_group;
+        }
+        restore_actor_combat_sound(24);
+        id=U(0xd056f8u);actor=javelin_actor(id);
+consume:
+        B(actor+6u)=2;
+    } else if(collision!=0)B(actor+6u)=2;
+    heading=(uint32_t)(int32_t)(int8_t)B(actor+9u);
+    heading-=U(0xbca2e0u)*4u;U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=32u;U(0xe94e00u)=heading;}
+    owner_kind=B(owner+2u);
+    if(owner_kind==42u||owner_kind==62u) {
+        base=U(0xf56f1cu);U(actor-4u)=base+heading;
+        base=U(0xf56f14u);U(actor+0x178u)=base+heading;
+    } else {
+        base=U(0xf55cecu);U(actor-4u)=base+heading;
+        base=U(0xf55cf4u);U(actor+0x178u)=base+heading;
+    }
+    return id*388u;
+}
+
+#undef RESTORE_ACTOR_UPDATE_JAVELIN_H
+
+extern int32_t FUN_004b3ff0(int32_t,int32_t),FUN_004b56d0(int32_t);
+extern uint32_t FUN_004b1d10(int32_t,int32_t);
+extern void FUN_004b5050(int32_t),FUN_004b7ab0(int32_t);
+extern uint32_t FUN_0047d350(void);
+static uint32_t bolt_offset(uint32_t actor){return actor*388u;}
+static uint32_t bolt_apply_hit(uint32_t target)
+{
+    uint32_t o=bolt_offset(target),profile=U(0xeaac28u),owner,kind,guard,limit,model,attacker,power,damage,sum,g;
+    int32_t group=(int16_t)W(0xbcd658u+o),bonus=0;uint16_t formation_active;
+    owner=B(0xbcd607u+o);g=(uint32_t)group*144u;
+    if(owner==profile)bonus=((int32_t)(int16_t)W(0xbcba42u+g)+10)/20;
+    kind=B(0xbcd602u+o);model=kind*56u;guard=U(0x7090dcu+model);limit=U(0x7090d0u+model);
+    guard+=(uint32_t)bonus;if((int32_t)guard>=20)guard=20;
+    attacker=U(0xd056f8u);kind=B(0xbcd602u+bolt_offset(attacker));
+    formation_active=W(0xbcba22u+g);power=U(0x7090e0u+kind*56u);
+    if(formation_active!=0u){
+        int32_t formation=(int16_t)W(0xbcb9ccu+g);
+        if(formation==13){
+            int32_t direction=(int8_t)B(0xbcd60bu+o),other=B(0xbcba33u+g);
+            if(FUN_004b1d10(direction,other)==0u)guard-=4u;
+            else if(W(0xbcb9f2u+g)==6u)guard-=2u;
+        }else if(formation==11 || formation==12){
+            int32_t direction=(int8_t)B(0xbcd60bu+o),other=B(0xbcba33u+g);
+            if(FUN_004b1d10(direction,other)==0u)guard-=4u;
+            else{
+                int32_t state=(int16_t)W(0xbcb9f2u+g);
+                if(state==3 || state==4)guard+=4u;
+                else if(state==6)guard-=2u;
+            }
+        }
+    }
+    if((int32_t)guard<0)guard=0;if((int32_t)guard>20)guard=20;
+    damage=0;
+    if(power!=0u){damage=(uint32_t)((30-(int32_t)guard)/20)*power;if((int32_t)damage<0)damage=0;}
+    sum=(uint32_t)B(0xbcd615u+o)+damage;
+    if((int32_t)sum>(int32_t)limit){
+        B(0xbcd615u+o)=(uint8_t)(limit+1u);B(0xbcd630u+o)=4;W(0xbcd62eu+o)=0;
+        FUN_004b5050((int32_t)target);FUN_004b7ab0(group);
+    }else B(0xbcd615u+o)=(uint8_t)sum;
+    /* Native pushes unused15 here (14 on the miss/movement branch). The
+       authenticated47D350 is XOR EAX,EAX;RET and reads no argument slots. */
+    (void)FUN_0047d350();attacker=U(0xd056f8u);B(0xbcd606u+bolt_offset(attacker))=2;
+    return attacker;
+}
+__declspec(noinline) uint32_t restore_actor_update_bolt(void)
+{
+    uint32_t actor=U(0xd056f8u),o=bolt_offset(actor),rotation,direction,base;int32_t movement,hit;uint8_t age;
+    B(0xbcd604u+o)=1;age=B(0xbcd631u+o);++age;B(0xbcd631u+o)=age;
+    if((int8_t)age>120)B(0xbcd606u+o)=2;
+    movement=FUN_004b3ff0((int32_t)actor,4);actor=U(0xd056f8u);hit=FUN_004b56d0((int32_t)actor);
+    if(hit!=0)actor=bolt_apply_hit((uint32_t)hit);
+    else{
+        if(movement!=0){actor=U(0xd056f8u);B(0xbcd606u+bolt_offset(actor))=2;(void)FUN_0047d350();}
+        actor=U(0xd056f8u);
+    }
+    o=bolt_offset(actor);rotation=U(0xbca2e0u)*2u;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=16u;U(0xe94e00u)=direction;}
+    base=U(0xf56424u);U(0xbcd5fcu+o)=base+direction+32u;
+    return o;
+}
+
+extern void FUN_004b5420(int32_t actor);
+extern void FUN_004b52f0(int32_t actor);
+extern int32_t FUN_00499b50(int32_t actor,int32_t range);
+extern uint8_t FUN_0051cd80(int32_t x,int32_t y,int32_t target_x,int32_t target_y);
+extern int32_t FUN_004b45c0(int32_t actor,int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t kind);
+extern void restore_actor_combat_sound(int32_t event);
+#define RESTORE_ACTOR_UPDATE_BALLISTA_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t ballista_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_ballista(void)
+{
+    uint32_t id=U(0xd056f8u),actor=ballista_actor(id),building,rotation,grid,kind,heading;
+    uint8_t state,ready=0,timer;
+    B(actor+0x6au)=4;B(actor+4u)=0;B(actor+0x5du)=1;B(actor+0x6fu)=10;B(actor+0x70u)=45;
+    building=0x7999d8u+(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_BALLISTA_H(actor+0x52u)*264u;
+    if(B(building)!=1)B(actor+6u)=2;
+    else if((uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_BALLISTA_H(building+0x30u)!=id)B(actor+6u)=2;
+    if(RESTORE_ACTOR_UPDATE_BALLISTA_H(building+0x40u)<=0)B(actor+6u)=2;
+    if(RESTORE_ACTOR_UPDATE_BALLISTA_H(building+0x2au)<=0)B(actor+6u)=2;
+    FUN_004b5420((int32_t)id);
+    rotation=U(0xbca2e0u);id=U(0xd056f8u);actor=ballista_actor(id);
+    switch(rotation) {
+    case 0:W(actor+12u)=W(building+6u);W(actor+14u)=W(building+8u);break;
+    case 2:W(actor+12u)=(uint16_t)(W(building+6u)+1u);W(actor+14u)=W(building+8u);break;
+    case 4:W(actor+12u)=(uint16_t)(W(building+6u)+1u);W(actor+14u)=(uint16_t)(W(building+8u)+1u);break;
+    case 6:W(actor+12u)=W(building+6u);W(actor+14u)=(uint16_t)(W(building+8u)+1u);break;
+    default:break;
+    }
+    grid=U(0xbca2d8u);
+    {int32_t y=RESTORE_ACTOR_UPDATE_BALLISTA_H(actor+14u),x=RESTORE_ACTOR_UPDATE_BALLISTA_H(actor+12u);U(actor+0x18u)=grid+(uint32_t)x+(uint32_t)y*228u;}
+    FUN_004b52f0((int32_t)id);id=U(0xd056f8u);actor=ballista_actor(id);
+    state=B(actor+0x30u);
+    if(state==4)B(actor+6u)=2;
+    else if(state==8) {
+        W(actor+0x2eu)=(uint16_t)(W(actor+0x2eu)+1u);
+        if(RESTORE_ACTOR_UPDATE_BALLISTA_H(actor+0x2eu)>20) {
+            int32_t range;
+            W(actor+0x2eu)=0;kind=B(actor+2u);range=(int32_t)U(0x7090e4u+kind*56u);
+            if(FUN_00499b50((int32_t)id,range)!=0) {
+                id=U(0xd056f8u);actor=ballista_actor(id);B(actor+0x30u)=9;
+                kind=B(actor+2u);timer=B(0x7090e8u+kind*56u);B(actor+0x63u)=timer;
+            } else {id=U(0xd056f8u);actor=ballista_actor(id);}
+        }
+    } else if(state==9) {
+        int32_t threshold;
+        timer=(uint8_t)(B(actor+0x63u)+1u);B(actor+0x63u)=timer;
+        kind=B(actor+2u);threshold=(int32_t)U(0x7090e8u+kind*56u);
+        if((int32_t)timer>threshold) {
+            int32_t range=(int32_t)U(0x7090e4u+kind*56u);
+            ready=1;
+            {int32_t found=FUN_00499b50((int32_t)id,range);
+             id=U(0xd056f8u);actor=ballista_actor(id);
+             if(found==0)B(actor+0x30u)=8;
+             else {
+                uint32_t cached_actor=actor,target_x=U(0xd3b4e4u),target_y=U(0xd3b4e0u);
+                int32_t x,y;uint8_t direction;int16_t delay;
+                W(cached_actor+0x2eu)=(uint16_t)(W(cached_actor+0x2eu)+1u);
+                y=RESTORE_ACTOR_UPDATE_BALLISTA_H(cached_actor+14u);x=RESTORE_ACTOR_UPDATE_BALLISTA_H(cached_actor+12u);
+                direction=FUN_0051cd80(x,y,(int32_t)target_x,(int32_t)target_y);
+                B(cached_actor+9u)=direction;
+                delay=RESTORE_ACTOR_UPDATE_BALLISTA_H(cached_actor+0x2eu);
+                if(delay==10) {
+                    target_y=U(0xd3b4e0u);target_x=U(0xd3b4e4u);
+                    y=RESTORE_ACTOR_UPDATE_BALLISTA_H(cached_actor+14u);x=RESTORE_ACTOR_UPDATE_BALLISTA_H(cached_actor+12u);id=U(0xd056f8u);
+                    (void)FUN_004b45c0((int32_t)id,x,y,(int32_t)target_x,(int32_t)target_y,60);
+                    restore_actor_combat_sound(13);
+                } else if(delay>=24) {W(cached_actor+0x2eu)=0;B(cached_actor+0x63u)=0;}
+                id=U(0xd056f8u);actor=ballista_actor(id);
+             }}
+        }
+    } else B(actor+0x30u)=8;
+    rotation=U(0xbca2e0u);
+    heading=(uint32_t)(int32_t)(int8_t)B(actor+9u)-rotation;U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    if(B(actor+0x30u)==9) {
+        if(ready) {
+            int32_t delay=(int32_t)RESTORE_ACTOR_UPDATE_BALLISTA_H(actor+0x2eu);
+            uint32_t base=U(0xf56e54u);
+            uint32_t image=base+(uint32_t)(delay/2)*8u+heading;
+            U(actor-4u)=image;return image;
+        }
+        U(actor-4u)=U(0xf56e44u)+heading;
+        return rotation&0xffffff00u;
+    }
+    U(actor-4u)=U(0xf56e44u)+heading;return rotation;
+}
+
+#undef RESTORE_ACTOR_UPDATE_BALLISTA_H
+
+extern void FUN_004b5420(int32_t actor);
+extern int32_t FUN_00480e90(int32_t actor);
+extern void FUN_004b52f0(int32_t actor);
+#define RESTORE_ACTOR_UPDATE_SHIPWRECK_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t shipwreck_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_shipwreck(void)
+{
+    uint32_t id=U(0xd056f8u),actor=shipwreck_actor(id),base;uint8_t animation;
+    B(actor+0x5du)=0;B(actor+0x6fu)=0;B(actor+0x6eu)=1;
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;
+    if(animation>=36)B(actor+6u)=2;
+    if(RESTORE_ACTOR_UPDATE_SHIPWRECK_H(actor+0x2eu)<1000) {
+        int32_t found;
+        FUN_004b5420((int32_t)id);id=U(0xd056f8u);
+        found=FUN_00480e90((int32_t)id);id=U(0xd056f8u);
+        if(found!=0) {
+            uint16_t target_x=W(0xd3b4e4u),target_y;uint32_t grid=U(0xbca2d8u);
+            int32_t x,y;
+            actor=shipwreck_actor(id);
+            W(actor+12u)=target_x;
+            target_y=W(0xd3b4e0u);W(actor+14u)=target_y;
+            y=(int32_t)(int16_t)target_y;x=RESTORE_ACTOR_UPDATE_SHIPWRECK_H(actor+12u);
+            U(actor+0x18u)=grid+(uint32_t)x+(uint32_t)y*228u;
+            W(actor+0x42u)=(uint16_t)((uint32_t)W(actor+12u)*15u);
+            W(actor+0x44u)=(uint16_t)((uint32_t)W(actor+14u)*15u);
+            W(actor+0x42u)=(uint16_t)(W(actor+0x42u)+7u);
+            W(actor+0x44u)=(uint16_t)(W(actor+0x44u)+7u);
+        }
+        FUN_004b52f0((int32_t)id);id=U(0xd056f8u);actor=shipwreck_actor(id);
+        W(actor+0x2eu)=1000;
+    }
+    base=U(0xf56dbcu);animation=B(actor-7u);U(actor-4u)=base+animation;
+    return id*388u;
+}
+
+#undef RESTORE_ACTOR_UPDATE_SHIPWRECK_H
+
+extern void FUN_00493610(void);
+__declspec(noinline) uint32_t restore_actor_update_creature(void)
+{
+    uint32_t actor=U(0xd056f8u),sprite=U(0xf55da4u);
+    U(0xbcd5fcu+animal_offset(actor))=sprite;
+    return actor;
+}
+
+extern void FUN_00493610(void);
+__declspec(noinline) uint32_t restore_actor_update_missionary(void)
+{
+    uint32_t actor=U(0xd056f8u),o=animal_offset(actor),building,rotation,direction;
+    int32_t linked;uint8_t frame;
+    B(0xbcd66au+o)=1;B(0xbcd604u+o)=0;W(0xbcd63au+o)=192;
+    linked=(int16_t)W(0xbcd652u+o);building=(uint32_t)linked*264u;
+    if(B(0x7999d8u+building)!=1u||(uint32_t)(int32_t)(int16_t)W(0x799a02u+building)!=actor)B(0xbcd606u+o)=2;
+    frame=(uint8_t)(B(0xbcd5f9u+o)+1u);B(0xbcd5f9u+o)=frame;if(frame>=12u)B(0xbcd5f9u+o)=0;
+    FUN_00493610();actor=U(0xd056f8u);rotation=U(0xbca2e0u);o=animal_offset(actor);
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    if(B(0xbcd630u+o)==4u){
+        int32_t timer=(int16_t)W(0xbcd62eu+o),index=timer/2;uint32_t base;
+        frame=B(0x5d048cu+(uint32_t)index);base=U(0xf56364u);U(0xbcd5fcu+o)=base+(uint32_t)frame;
+        return base;
+    }else{
+        uint32_t base=U(0xf5635cu);frame=B(0xbcd5f9u+o);U(0xbcd5fcu+o)=base+(uint32_t)frame*8u+direction;
+        return direction;
+    }
+}
+
+extern void FUN_004b17d0(int32_t),FUN_004b1d50(int32_t),FUN_004b3250(int32_t),FUN_0048b4a0(int32_t);
+extern void FUN_004a5da0(int32_t,uint32_t);
+extern int32_t FUN_00495840(int32_t),FUN_00495950(int32_t);
+extern int32_t FUN_00445980(int32_t,int32_t,int32_t,int32_t),FUN_00445e50(int32_t,int32_t,int32_t,int32_t);
+extern uint32_t FUN_004a35e0(int32_t);
+static uint32_t docker_offset(uint32_t actor){return actor*388u;}
+static void docker_set_home_target(uint32_t actor)
+{
+    uint32_t o=docker_offset(actor);
+    B(0xbcd630u+o)=14;W(0xbcd62eu+o)=0;
+    W(0xbcd61cu+o)=W(0xbcd624u+o);W(0xbcd61eu+o)=W(0xbcd626u+o);
+}
+static uint32_t docker_move(uint32_t actor,uint32_t speed)
+{
+    FUN_0048b4a0((int32_t)actor);actor=U(0xd056f8u);
+    FUN_004a5da0((int32_t)actor,speed);return U(0xd056f8u);
+}
+static uint32_t docker_render(uint32_t actor)
+{
+    uint32_t o=docker_offset(actor),direction,rotation,base,overlay,offset_direction;
+    int32_t facing=(int8_t)B(0xbcd609u+o);uint8_t state,cargo,x,y;
+    if(facing>=8)facing=(int8_t)B(0xbcd60au+o);
+    rotation=U(0xbca2e0u);direction=(uint32_t)facing-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);
+    if(state==4u){
+        int32_t half=(int16_t)W(0xbcd62eu+o)/2;uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        base=U(0xf560e4u);U(0xbcd5fcu+o)=base+frame;U(0xbcd778u+o)=0;
+    }else if(state!=6u){
+        uint32_t animation;base=U(0xf560dcu);animation=B(0xbcd5f9u+o);
+        U(0xbcd5fcu+o)=base+animation*8u+direction;
+    }
+    overlay=U(0xbcd778u+o);
+    if(overlay==0u){U(0xbcd5fcu+o)=0;return 0;}
+    overlay+=direction;U(0xbcd778u+o)=overlay;cargo=B(0xbcd603u+o);offset_direction=direction;
+    switch(cargo){
+    case 12:case 24:case 25:case 26:case 30:case 35:
+        offset_direction+=4u;if((int32_t)offset_direction>=8)offset_direction-=8u;break;
+    default:break;
+    }
+    x=B(0x5dc23cu+offset_direction*2u);y=B(0x5dc23du+offset_direction*2u);
+    B(0xbcd664u+o)=x;B(0xbcd665u+o)=y;
+    return (overlay&0xffffff00u)|(uint32_t)x;
+}
+__declspec(noinline) uint32_t restore_actor_update_docker(void)
+{
+    uint32_t actor=U(0xd056f8u),o=docker_offset(actor),kind=B(0xbcd602u+o),speed,home;
+    int32_t home_id,boat;uint8_t animation,cooldown,state,direction;uint16_t type;
+    animation=B(0xbcd5f9u+o);++animation;B(0xbcd5f9u+o)=animation;
+    speed=U(0x7090ecu+kind*56u);if(animation>=12u)B(0xbcd5f9u+o)=0;
+    U(0xbcd778u+o)=0;B(0xbcd65du+o)=0;home_id=(int16_t)W(0xbcd652u+o);home=(uint32_t)home_id*264u;
+    if(B(0x7999d8u+home)!=1u)B(0xbcd606u+o)=2;
+    type=W(0x7999e8u+home);if(type!=75u && type!=76u && type!=192u)B(0xbcd606u+o)=2;
+    cooldown=B(0x799a7fu+home);if(cooldown!=0u)B(0x799a7fu+home)=(uint8_t)(cooldown-1u);
+    boat=(int16_t)W(0x799a8cu+home);
+    if(boat!=0){
+        uint32_t linked=docker_offset((uint32_t)boat);
+        if(B(0xbcd606u+linked)!=1u || B(0xbcd602u+linked)!=20u || B(0xbcd630u+linked)==13u)W(0x799a8cu+home)=0;
+    }
+    B(0xbcd66au+o)=1;state=B(0xbcd630u+o);
+    switch(state){
+    case 5:FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 8:
+        B(0xbcd603u+o)=0;U(0xbcd778u+o)=0;
+        if(FUN_00495840(home_id)==0)(void)FUN_00495950(home_id);
+        actor=U(0xd056f8u);o=docker_offset(actor);B(0xbcd5f9u+o)=0;
+        {uint32_t tile=U(0xbcd618u+o);if((B(0xaf598cu+tile*4u)&64u)==0u)B(0xbcd606u+o)=2;}
+        break;
+    case 9:{
+        int16_t queued=(int16_t)W(0x799a2cu+home);uint32_t i;uint8_t found=0;
+        U(0xbcd778u+o)=0;B(0xbcd5f9u+o)=0;
+        if(queued<=0){W(0x799a2cu+home)=(uint16_t)actor;W(0xbcd62eu+o)=0;}
+        queued=(int16_t)W(0x799a2cu+home);
+        if((uint32_t)(int32_t)queued==actor){
+            int16_t elapsed;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);elapsed=(int16_t)W(0xbcd62eu+o);
+            B(0x799a7fu+home)=120;
+            if(elapsed>=80){B(0xbcd630u+o)=11;W(0xbcd62eu+o)=0;FUN_0048b4a0((int32_t)actor);W(0x799a2cu+home)=0;actor=U(0xd056f8u);}
+        }else{
+            for(i=0;i<3u;++i){
+                int32_t id=(int16_t)W(0x799a86u+home+i*2u);
+                if(id!=0){
+                    uint32_t linked=docker_offset((uint32_t)id);
+                    if(B(0xbcd606u+linked)==1u){
+                        uint8_t phase=B(0xbcd630u+linked);
+                        if(phase==9u || phase==10u){int32_t owner=(int16_t)W(0x799a2cu+home);if(owner==id)found=1;}
+                    }
+                }
+            }
+            if(!found)W(0x799a2cu+home)=0;
+        }
+        break;}
+    case 10:
+        FUN_0048b4a0((int32_t)actor);actor=U(0xd056f8u);o=docker_offset(actor);
+        if((int16_t)W(0x799a2cu+home)<=0){W(0x799a2cu+home)=(uint16_t)actor;W(0xbcd62eu+o)=0;}
+        if((uint32_t)(int32_t)(int16_t)W(0x799a2cu+home)==actor){
+            B(0x799a7fu+home)=120;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+            if((int16_t)W(0xbcd62eu+o)>=80){B(0xbcd630u+o)=8;W(0xbcd62eu+o)=0;U(0xbcd5fcu+o)=0;U(0xbcd778u+o)=0;W(0x799a2cu+home)=0;}
+        }
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>=20){B(0xbcd630u+o)=8;W(0xbcd62eu+o)=0;}
+        B(0xbcd5f9u+o)=0;break;
+    case 11:case 12:case 13:{
+        int32_t destination;
+        actor=docker_move(actor,speed);o=docker_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==8u){B(0xbcd630u+o)=(uint8_t)(state==11u?15u:state==12u?16u:10u);if(state==13u)W(0xbcd62eu+o)=0;}
+        else if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u)B(0xbcd606u+o)=2;
+        o=docker_offset(actor);destination=(int16_t)W(0xbcd656u+o);
+        if(B(0x7999d8u+(uint32_t)destination*264u)!=1u)B(0xbcd606u+o)=2;
+        break;}
+    case 15:
+        FUN_0048b4a0((int32_t)actor);actor=U(0xd056f8u);o=docker_offset(actor);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>10){
+            int32_t amount=0,destination;boat=(int16_t)W(0x799a8cu+home);
+            if(boat!=0)amount=B(0xbcd666u+docker_offset((uint32_t)boat));
+            destination=(int16_t)W(0xbcd656u+o);type=W(0x7999e8u+(uint32_t)destination*264u);
+            if(type==72u || type==193u){
+                int32_t cargo=B(0xbcd603u+o),result=FUN_00445980(destination,cargo,amount,boat);
+                actor=U(0xd056f8u);
+                if(result!=0){docker_set_home_target(actor);B(0xbcd603u+docker_offset(actor))=0;(void)FUN_00495950(home_id);actor=U(0xd056f8u);}
+                else docker_set_home_target(actor);
+            }else docker_set_home_target(actor);
+            o=docker_offset(actor);W(0xbcd62eu+o)=0;
+        }
+        B(0xbcd5f9u+o)=0;break;
+    case 16:{
+        int32_t amount=0;
+        FUN_0048b4a0((int32_t)actor);boat=(int16_t)W(0x799a8cu+home);
+        if(boat!=0)amount=B(0xbcd666u+docker_offset((uint32_t)boat));
+        actor=U(0xd056f8u);o=docker_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>10){
+            int32_t destination,cargo,result;
+            docker_set_home_target(actor);W(0xbcd62eu+o)=0;
+            destination=(int16_t)W(0xbcd656u+o);cargo=B(0xbcd603u+o);
+            result=FUN_00445e50(destination,cargo,amount,boat);
+            if(result!=0){actor=U(0xd056f8u);B(0xbcd630u+docker_offset(actor))=13;}
+            else{(void)FUN_00495950(home_id);actor=U(0xd056f8u);}
+            o=docker_offset(actor);
+        }
+        B(0xbcd5f9u+o)=0;break;}
+    case 14:
+        actor=docker_move(actor,speed);o=docker_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==8u)B(0xbcd630u+o)=8;
+        else if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u)B(0xbcd606u+o)=2;
+        break;
+    case 7:{
+        uint32_t old_direction=U(0xe94e00u),base=U(0xf560dcu);
+        U(0xbcd5fcu+o)=base+old_direction+1u;B(0xbcd5f9u+o)=0;FUN_0048b4a0((int32_t)actor);
+        actor=U(0xd056f8u);o=docker_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>100){
+            uint32_t result;W(0xbcd62eu+o)=0;result=FUN_004a35e0((int32_t)actor);actor=U(0xd056f8u);
+            if((uint8_t)result==0u)B(0xbcd630u+docker_offset(actor))=8;
+        }
+        break;}
+    case 6:U(0xbcd5fcu+o)=0;if(U(0xbcd778u+o)!=0u)U(0xbcd778u+o)=0;break;
+    default:B(0xbcd630u+o)=8;break;
+    }
+    return docker_render(actor);
+}
+
+extern void FUN_004bd250(int32_t actor);
+extern void FUN_004b17d0(int32_t actor);
+extern void FUN_004b1d50(int32_t actor);
+extern void FUN_004a5da0(int32_t actor,uint32_t speed);
+extern void FUN_004b3250(int32_t actor);
+extern int32_t FUN_004807d0(int32_t x,int32_t y,int32_t kind);
+#define RESTORE_ACTOR_UPDATE_BARBARIAN_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t barbarian_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+static uint32_t barbarian_render(uint32_t id)
+{
+    uint32_t actor=barbarian_actor(id),heading,base,image;uint8_t state=B(actor+0x30u),direction,timer;
+    if(state==5)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+    else {
+        direction=B(actor+9u);
+        if(direction==11)heading=(uint32_t)(int32_t)(int8_t)B(actor+11u);
+        else if((int8_t)direction>=8)heading=(uint32_t)(int32_t)(int8_t)B(actor+10u);
+        else heading=(uint32_t)(int32_t)(int8_t)direction;
+    }
+    heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    base=U(0xf563bcu);
+    if(state==5) {
+        timer=B(actor+0x62u);
+        if(timer<12){image=base+0xc0u+heading;U(actor-4u)=image;return image;}
+        timer=(uint8_t)(timer-12u);
+        image=base+0xc0u+heading+(uint32_t)(timer/2u)*8u;U(actor-4u)=image;return timer/2u;
+    }
+    if(state==4) {
+        int32_t half=(int32_t)RESTORE_ACTOR_UPDATE_BARBARIAN_H(actor+0x2eu)/2;
+        uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        image=base+0xf0u+frame;U(actor-4u)=image;return image;
+    }
+    if(B(actor+9u)==11)image=base+0xc0u+heading+(uint32_t)(B(actor-7u)>>1)*8u;
+    else if(state==11)image=base+0x60u+heading+(uint32_t)B(actor-7u)*8u;
+    else image=base+heading+(uint32_t)B(actor-7u)*8u;
+    U(actor-4u)=image;return image;
+}
+
+__declspec(noinline) uint32_t restore_actor_update_barbarian(void)
+{
+    uint32_t id=U(0xd056f8u),actor=barbarian_actor(id),grid=U(actor+0x18u),kind,speed,building;
+    uint8_t animation,state,direction;
+    if((U(0xaf598cu+grid*4u)&0x10004u)==0x10004u) {
+        FUN_004bd250((int32_t)id);
+        /* Native21-byte child returns its untouched argument in EAX. */
+        return id;
+    }
+    kind=B(actor+2u);B(actor+0x6au)=0;B(actor+4u)=0;W(actor+0x3au)=800;
+    building=0x7999d8u+(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_BARBARIAN_H(actor+0x52u)*264u;
+    speed=U(0x7090ecu+kind*56u);
+    if(B(building)!=1)B(actor+6u)=2;
+    else if((uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_BARBARIAN_H(building+0x2au)!=id)B(actor+6u)=2;
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;
+    if(animation>=12)B(actor-7u)=0;
+    state=B(actor+0x30u);
+    switch(state) {
+    case 5:FUN_004b17d0((int32_t)id);id=U(0xd056f8u);break;
+    case 4:FUN_004b1d50((int32_t)id);id=U(0xd056f8u);break;
+    case 11:
+    {
+        uint32_t profile=U(0xeaac28u)*0x49d8u;
+        B(actor+0x6au)=2;U(0xea5db4u+profile)=10;
+        U(0xea5f98u+profile)=U(0xea5f98u+profile)+1u;
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=barbarian_actor(id);
+        direction=B(actor+9u);if(direction==9||direction==10||direction==8)B(actor+0x30u)=10;
+        break;
+    }
+    case 10:
+    {
+        B(actor-7u)=0;W(actor+0x2eu)=(uint16_t)(W(actor+0x2eu)+1u);
+        if((int32_t)RESTORE_ACTOR_UPDATE_BARBARIAN_H(actor+0x2eu)>(int32_t)((id&3u)+10u)) {
+            int32_t linked_building=RESTORE_ACTOR_UPDATE_BARBARIAN_H(building+0x12u);
+            uint32_t profile=U(0xeaac28u)*0x49d8u;
+            W(actor+0x2eu)=0;
+            if(U(0xea5e04u+profile)!=0) {
+                uint16_t value=W(0xbcba02u);
+                B(actor+0x30u)=11;W(actor+0x1cu)=value;
+                value=W(0xbcba04u);W(actor+0x1eu)=value;
+                value=W(0xbcba06u);W(actor+0x56u)=value;
+            } else {
+                uint32_t target_building=0x7999d8u+(uint32_t)linked_building*264u;
+                int32_t target_kind=B(target_building+3u),target_y=RESTORE_ACTOR_UPDATE_BARBARIAN_H(target_building+8u),target_x=RESTORE_ACTOR_UPDATE_BARBARIAN_H(target_building+6u);
+                int32_t found=FUN_004807d0(target_x,target_y,target_kind);
+                id=U(0xd056f8u);
+                if(found!=0) {
+                    uint16_t value=W(0xd3b4e4u);
+                    actor=barbarian_actor(id);B(actor+0x30u)=8;W(actor+0x1cu)=value;
+                    value=W(0xd3b4e0u);W(actor+0x1eu)=value;
+                }
+            }
+            FUN_004b3250((int32_t)id);id=U(0xd056f8u);
+        }
+        break;
+    }
+    case 8:
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=barbarian_actor(id);
+        direction=B(actor+9u);
+        if(direction==9||direction==10)B(actor+6u)=2;
+        else if(direction==8) {
+            B(actor+0x30u)=9;W(actor+0x1cu)=W(actor+0x24u);W(actor+0x1eu)=W(actor+0x26u);
+        }
+        break;
+    case 9:
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=barbarian_actor(id);
+        direction=B(actor+9u);if(direction==9||direction==10)B(actor+6u)=2;
+        if(B(actor+9u)==8)B(actor+6u)=2;
+        break;
+    default:B(actor+0x30u)=10;break;
+    }
+    return barbarian_render(id);
+}
+
+#undef RESTORE_ACTOR_UPDATE_BARBARIAN_H
+
+extern int32_t FUN_00497cf0(int32_t actor);
+extern int32_t FUN_00497a30(int32_t actor);
+extern void FUN_0053b4a0(int32_t actor,int32_t sound,int32_t mode);
+extern void FUN_004b17d0(int32_t actor);
+extern void FUN_004b1d50(int32_t actor);
+extern void FUN_004a5da0(int32_t actor,uint32_t speed);
+extern void FUN_004b5420(int32_t actor);
+extern void FUN_004b52f0(int32_t actor);
+extern void FUN_004b3250(int32_t actor);
+extern void FUN_004b28a0(int32_t actor,int32_t mode);
+extern int32_t FUN_00499b50(int32_t actor,int32_t range);
+extern uint8_t FUN_0051cd80(int32_t x,int32_t y,int32_t tx,int32_t ty);
+extern int32_t FUN_004b45c0(int32_t actor,int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t kind);
+extern uint32_t FUN_004a35e0(int32_t actor);
+#define RESTORE_ACTOR_UPDATE_SENTRY_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t sentry_actor(uint32_t id){return 0xbcd600u+id*388u;}
+
+__declspec(noinline) uint32_t restore_actor_update_sentry(void)
+{
+    uint32_t id=U(0xd056f8u),actor=sentry_actor(id),kind=B(actor+2u),building,speed,heading,base,flags;
+    uint8_t state,animation,direction,timer;
+    B(actor+0x6au)=4;B(actor+4u)=0;B(actor+0x5du)=1;B(actor+0x6fu)=10;W(actor+0x3au)=800;
+    building=0x7999d8u+(uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_SENTRY_H(actor+0x52u)*264u;
+    speed=U(0x7090ecu+kind*56u);
+    if(B(building)!=1)B(actor+6u)=2;
+    else if((uint32_t)(int32_t)RESTORE_ACTOR_UPDATE_SENTRY_H(building+0x2au)!=id)B(actor+6u)=2;
+    animation=(uint8_t)(B(actor-7u)+1u);B(actor-7u)=animation;if(animation>=12)B(actor-7u)=0;
+    state=B(actor+0x30u);
+    if(state!=12&&state!=7&&state!=6){(void)FUN_00497cf0((int32_t)id);id=U(0xd056f8u);actor=sentry_actor(id);}
+    state=B(actor+0x30u);
+    switch(state) {
+    case 5:
+        FUN_0053b4a0((int32_t)id,9,2);id=U(0xd056f8u);FUN_004b17d0((int32_t)id);id=U(0xd056f8u);break;
+    case 4:FUN_004b1d50((int32_t)id);id=U(0xd056f8u);break;
+    case 8:
+        B(actor-7u)=0;W(actor+0x2eu)=(uint16_t)(W(actor+0x2eu)+1u);
+        if(RESTORE_ACTOR_UPDATE_SENTRY_H(actor+0x2eu)>40) {
+            int32_t found;
+            W(actor+0x2eu)=0;found=FUN_00497a30((int32_t)id);
+            if(found!=0) {
+                uint16_t value;
+                id=U(0xd056f8u);value=W(0xd3b4e4u);actor=sentry_actor(id);
+                B(actor+0x30u)=9;W(actor+0x1cu)=value;value=W(0xd3b4e0u);W(actor+0x1eu)=value;
+                FUN_004b3250((int32_t)id);
+            }
+            id=U(0xd056f8u);
+        }
+        break;
+    case 12:
+        B(actor+0x6au)=10;B(actor+0x5du)=0;B(actor+0x6fu)=0;
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=sentry_actor(id);direction=B(actor+9u);
+        if(direction==9||direction==10)B(actor+6u)=2;
+        else if(direction==8) {
+            uint16_t x,y;uint32_t grid;
+            FUN_004b5420((int32_t)id);id=U(0xd056f8u);
+            x=W(building+6u);y=W(building+8u);grid=U(0xbca2d8u);actor=sentry_actor(id);
+            W(actor+12u)=x;W(actor+0x24u)=x;W(actor+14u)=y;W(actor+0x26u)=y;
+            {int32_t fresh_y=RESTORE_ACTOR_UPDATE_SENTRY_H(actor+14u),fresh_x=RESTORE_ACTOR_UPDATE_SENTRY_H(actor+12u);U(actor+0x18u)=grid+(uint32_t)fresh_x+(uint32_t)fresh_y*228u;}
+            FUN_004b52f0((int32_t)id);id=U(0xd056f8u);actor=sentry_actor(id);B(actor+0x30u)=8;
+            FUN_004b3250((int32_t)id);id=U(0xd056f8u);
+        }
+        break;
+    case 9:
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=sentry_actor(id);direction=B(actor+9u);
+        if(direction==9||direction==10)B(actor+0x30u)=8;
+        else if(direction==8) {
+            B(actor+0x30u)=11;W(actor+0x1cu)=W(actor+0x24u);W(actor+0x1eu)=W(actor+0x26u);
+            FUN_004b3250((int32_t)id);id=U(0xd056f8u);
+        }
+        break;
+    case 11:
+        FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);actor=sentry_actor(id);direction=B(actor+9u);
+        if(direction==9||direction==10)B(actor+6u)=2;
+        else if(direction==8)B(actor+0x30u)=8;
+        break;
+    case 10:
+        FUN_004b28a0((int32_t)id,1);id=U(0xd056f8u);actor=sentry_actor(id);
+        timer=(uint8_t)(B(actor+0x63u)+1u);B(actor+0x63u)=timer;kind=B(actor+2u);
+        if((int32_t)timer>(int32_t)U(0x7090e8u+kind*56u)) {
+            int32_t range=(int32_t)U(0x7090e4u+kind*56u);
+            if(FUN_00499b50((int32_t)id,range)!=0) {
+                uint32_t cached_actor,tx,ty;int32_t x,y;uint8_t aimed_direction;
+                id=U(0xd056f8u);FUN_0053b4a0((int32_t)id,9,2);id=U(0xd056f8u);
+                ty=U(0xd3b4e0u);tx=U(0xd3b4e4u);cached_actor=sentry_actor(id);
+                y=RESTORE_ACTOR_UPDATE_SENTRY_H(cached_actor+14u);x=RESTORE_ACTOR_UPDATE_SENTRY_H(cached_actor+12u);
+                aimed_direction=FUN_0051cd80(x,y,(int32_t)tx,(int32_t)ty);
+                tx=U(0xd3b4e4u);B(cached_actor+9u)=aimed_direction;
+                ty=U(0xd3b4e0u);B(cached_actor+0x63u)=0;
+                y=RESTORE_ACTOR_UPDATE_SENTRY_H(cached_actor+14u);x=RESTORE_ACTOR_UPDATE_SENTRY_H(cached_actor+12u);id=U(0xd056f8u);
+                (void)FUN_004b45c0((int32_t)id,x,y,(int32_t)tx,(int32_t)ty,60);
+                id=U(0xd056f8u);
+            } else {
+                id=U(0xd056f8u);actor=sentry_actor(id);B(actor+0x30u)=11;
+                W(actor+0x1cu)=W(actor+0x24u);W(actor+0x1eu)=W(actor+0x26u);
+                FUN_004b3250((int32_t)id);id=U(0xd056f8u);
+            }
+        }
+        break;
+    case 6:B(actor+0x6au)=10;U(actor-4u)=0;U(actor+0x178u)=0;break;
+    case 7:
+        B(actor+0x6au)=10;B(actor-7u)=0;W(actor+0x2eu)=(uint16_t)(W(actor+0x2eu)+1u);
+        if(RESTORE_ACTOR_UPDATE_SENTRY_H(actor+0x2eu)>100) {
+            uint32_t result;
+            W(actor+0x2eu)=0;result=FUN_004a35e0((int32_t)id);id=U(0xd056f8u);
+            if((result&255u)==0){actor=sentry_actor(id);B(actor+6u)=2;}
+        }
+        break;
+    default:B(actor+0x30u)=8;break;
+    }
+    actor=sentry_actor(id);flags=U(0xaf598cu+U(actor+0x18u)*4u);
+    if(flags&0x4000u)B(actor+0x70u)=18;
+    else if(flags&0x8000u)B(actor+0x38u)=24;
+    else {state=B(actor+0x30u);if(state!=12&&state!=7&&state!=6)B(actor+6u)=2;}
+    timer=B(actor+0x38u);if(timer!=0){B(actor+0x38u)=(uint8_t)(timer-1u);B(actor+0x6fu)=0;}
+    heading=(uint32_t)(int32_t)(int8_t)B(actor+9u);heading-=U(0xbca2e0u);U(0xe94e00u)=heading;
+    if((int32_t)heading<0){heading+=8u;U(0xe94e00u)=heading;}
+    state=B(actor+0x30u);
+    if(state==4) {
+        int32_t half=(int32_t)RESTORE_ACTOR_UPDATE_SENTRY_H(actor+0x2eu)/2;uint32_t frame=B(0x5d048cu+(uint32_t)half);
+        base=U(0xf55ea4u);U(actor-4u)=base+frame;return base;
+    }
+    if(state==10) {
+        uint32_t frame=B(0x5d050cu+(uint32_t)(B(actor+0x63u)>>1));
+        base=U(0xf55eacu);U(actor-4u)=base+frame*8u+heading;return heading;
+    }
+    base=U(0xf55e9cu);animation=B(actor-7u);U(actor-4u)=base+(uint32_t)animation*8u+heading;return heading;
+}
+
+#undef RESTORE_ACTOR_UPDATE_SENTRY_H
+
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct
    RNG publication phases and the post-probe vector advance literally. */
 __declspec(noinline) void restore_actor_command_spawn_hippos(void)

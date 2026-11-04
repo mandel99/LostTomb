@@ -50,6 +50,17 @@
 #pragma comment(linker, "/include:_FUN_0049e8b0")
 #pragma comment(linker, "/include:_FUN_0049d0f0")
 #pragma comment(linker, "/include:_FUN_0049dc50")
+#pragma comment(linker, "/include:_FUN_00497450")
+#pragma comment(linker, "/include:_FUN_00497010")
+#pragma comment(linker, "/include:_FUN_00494f70")
+#pragma comment(linker, "/include:_FUN_0049b2a0")
+#pragma comment(linker, "/include:_FUN_0049b280")
+#pragma comment(linker, "/include:_FUN_0049b610")
+#pragma comment(linker, "/include:_FUN_0049aeb0")
+#pragma comment(linker, "/include:_FUN_0049ac00")
+#pragma comment(linker, "/include:_FUN_0049a880")
+#pragma comment(linker, "/include:_FUN_0049a5a0")
+#pragma comment(linker, "/include:_FUN_0049a150")
 #pragma comment(linker, "/include:_FUN_0049bd40")
 #pragma comment(linker, "/include:_FUN_0049c750")
 #pragma comment(linker, "/include:_FUN_0049b750")
@@ -162,16 +173,6 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004f6900);
     RAW(0049bd40);
     RAW(0049c750);
-    RAW(00494f70);
-    RAW(00497010);
-    RAW(00497450);
-    RAW(0049a150);
-    RAW(0049a5a0);
-    RAW(0049a880);
-    RAW(0049ac00);
-    RAW(0049aeb0);
-    RAW(0049b280);
-    RAW(0049b610);
     RAW(00495840);
     RAW(00495950);
     RAW(00445980);
@@ -262,7 +263,6 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004ac450);
     RAW(004941b0);
     RAW(004947a0);
-    RAW(0049b2a0);
     RAW(0048c200);
     RAW(00493610);
     RAW(004b4220);
@@ -277,6 +277,17 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     case 0x4a04d0u:f->r[0]=restore_actor_update_lion();break;
     case 0x4a1130u:f->r[0]=restore_actor_update_asp();break;
     case 0x49b750u:f->r[0]=restore_actor_update_birds();break;
+    case 0x49a150u:f->r[0]=restore_actor_update_native_trader();break;
+    case 0x49a5a0u:f->r[0]=restore_actor_update_arrow();break;
+    case 0x49a880u:f->r[0]=restore_actor_update_javelin();break;
+    case 0x49ac00u:f->r[0]=restore_actor_update_bolt();break;
+    case 0x49aeb0u:f->r[0]=restore_actor_update_ballista();break;
+    case 0x49b610u:f->r[0]=restore_actor_update_shipwreck();break;
+    case 0x49b280u:f->r[0]=restore_actor_update_creature();break;
+    case 0x49b2a0u:f->r[0]=restore_actor_update_missionary();break;
+    case 0x494f70u:f->r[0]=restore_actor_update_docker();break;
+    case 0x497010u:f->r[0]=restore_actor_update_barbarian();break;
+    case 0x497450u:f->r[0]=restore_actor_update_sentry();break;
     case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
     case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
     case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
@@ -490,7 +501,8 @@ void FUN_0048c6a0(void){(void)invoke(0x0048c6a0u,0,0);}
 void FUN_004ac450(void){(void)invoke(0x004ac450u,0,0);}
 void FUN_004941b0(void){(void)invoke(0x004941b0u,0,0);}
 void FUN_004947a0(void){(void)invoke(0x004947a0u,0,0);}
-void FUN_0049b2a0(void){(void)invoke(0x0049b2a0u,0,0);}
+__declspec(noinline) void FUN_0049b2a0(void)
+{(void)restore_actor_update_missionary();}
 void FUN_0048c200(void){(void)invoke(0x0048c200u,0,0);}
 void FUN_00493610(void){(void)invoke(0x493610u,0,0);}
 void FUN_004b4220(int32_t actor,int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t mode)
@@ -668,35 +680,35 @@ void FUN_004b22e0(int32_t p0,int32_t p1,int32_t p2)
 void FUN_004f6420(int32_t p0,int32_t * p1,int32_t * p2)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)(uintptr_t)p1,(uint32_t)(uintptr_t)p2};(void)invoke(0x004f6420u,args,3);}
 
-void FUN_00494f70(void)
-{(void)invoke(0x00494f70u,0,0);}
+__declspec(noinline) void FUN_00494f70(void)
+{(void)restore_actor_update_docker();}
 
-void FUN_00497010(void)
-{(void)invoke(0x00497010u,0,0);}
+__declspec(noinline) void FUN_00497010(void)
+{(void)restore_actor_update_barbarian();}
 
-void FUN_00497450(void)
-{(void)invoke(0x00497450u,0,0);}
+__declspec(noinline) void FUN_00497450(void)
+{(void)restore_actor_update_sentry();}
 
-void FUN_0049a150(void)
-{(void)invoke(0x0049a150u,0,0);}
+__declspec(noinline) void FUN_0049a150(void)
+{(void)restore_actor_update_native_trader();}
 
-void FUN_0049a5a0(void)
-{(void)invoke(0x0049a5a0u,0,0);}
+__declspec(noinline) void FUN_0049a5a0(void)
+{(void)restore_actor_update_arrow();}
 
-void FUN_0049a880(void)
-{(void)invoke(0x0049a880u,0,0);}
+__declspec(noinline) void FUN_0049a880(void)
+{(void)restore_actor_update_javelin();}
 
-void FUN_0049ac00(void)
-{(void)invoke(0x0049ac00u,0,0);}
+__declspec(noinline) void FUN_0049ac00(void)
+{(void)restore_actor_update_bolt();}
 
-void FUN_0049aeb0(void)
-{(void)invoke(0x0049aeb0u,0,0);}
+__declspec(noinline) void FUN_0049aeb0(void)
+{(void)restore_actor_update_ballista();}
 
-void FUN_0049b280(void)
-{(void)invoke(0x0049b280u,0,0);}
+__declspec(noinline) void FUN_0049b280(void)
+{(void)restore_actor_update_creature();}
 
-void FUN_0049b610(void)
-{(void)invoke(0x0049b610u,0,0);}
+__declspec(noinline) void FUN_0049b610(void)
+{(void)restore_actor_update_shipwreck();}
 
 int32_t FUN_00495840(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00495840u,args,1);}

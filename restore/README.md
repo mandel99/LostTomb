@@ -5,9 +5,10 @@ Source translation is in progress beyond verified checkpoint
 The next connected animal block is being written into ordinary C before one
 combined main build and detailed comparison. Verification totals below describe
 that last accepted checkpoint; they are not a current-main proof for this block.
-Six callbacks are now transcribed and linked; see the explicit
-[C-first source status](metadata/ANIMAL_TRANSLATION_BATCH.md). Joint native
-verification of that block remains pending.
+Seventeen callbacks across two source-first blocks are now transcribed and
+linked; see the [six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md) and
+the [current eleven-callback status](metadata/SERVICE_TRANSLATION_BATCH.md).
+Joint native verification of these source-first blocks remains pending.
 
 Crocodile/hyena updates, kind cues, weighted state selection and state entry
 now use five named C bodies. Both Release images pass4,951 scenarios /
