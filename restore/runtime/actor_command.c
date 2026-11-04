@@ -3,6 +3,7 @@
 #include "actor_combat.h"
 #include "editor_validation.h"
 #include "building_nearest_search.h"
+#include "actor_routing.h"
 #include <stdlib.h>
 #include <string.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -11,6 +12,8 @@
 #define SENTRY UINT32_C(0x41cd0a17)
 typedef char actor_command_pointer32[sizeof(void*)==4?1:-1];
 extern int32_t FUN_004eada0(int32_t kind);
+extern uint8_t FUN_0051cd80(int32_t,int32_t,int32_t,int32_t);
+extern void FUN_004b3250(int32_t actor);
 /* Audited whole native45-instruction leaf; low WORD kind/X/Y consumed. */
 extern int32_t FUN_004b6ff0(uint16_t kind,int32_t mode,int32_t orientation,uint16_t x,uint16_t y);
 
@@ -205,6 +208,221 @@ __declspec(noinline) uint32_t restore_actor_seek_other_kind(int32_t actor)
   return result;
  }
  return restore_actor_choose_command_state(actor);
+}
+
+__declspec(noinline) uint32_t restore_actor_random_seed(uint32_t seed)
+{U(0x604950u)=seed;return seed;}
+
+__declspec(noinline) uint32_t restore_actor_try_periodic_target(int32_t actor)
+{
+ uint32_t offset=(uint32_t)actor*388u;
+ uint32_t value=(uint32_t)FUN_004ea9c0(B(0xbcd602u+offset)),scene,table_offset,radius;
+ uint8_t state,counter;
+ if(!(value&255u))return value&0xffffff00u;
+ if(!B(0xbcd606u+offset))return value&0xffffff00u;
+ state=B(0xbcd630u+offset);
+ if(state==12u || state==4u || state==5u || state==21u)return value&0xffffff00u;
+ counter=B(0xbcd663u+offset);scene=U(0x784cb0u);
+ ++counter;B(0xbcd663u+offset)=counter;
+ table_offset=((uint32_t)(int32_t)(int16_t)W(0x784b94u)+(scene&255u)*2u)*48u;
+ if((int32_t)counter<(int32_t)U(0x5e4cd0u+table_offset))return table_offset&0xffffff00u;
+ radius=U(0x5e4cd4u+table_offset);B(0xbcd663u+offset)=0;
+ FUN_0056233e(timeGetTime());
+ {
+  int32_t y=(int16_t)W(0xbcd60eu+offset),x=(int16_t)W(0xbcd60cu+offset);
+  int32_t out_x=0,out_y=actor;
+  value=FUN_004ec0f0(x,y,&out_x,&out_y,(int32_t)radius,(uint32_t)actor,restore_actor_find_other_kind_on_tile);
+ }
+ if(!value)return 0;
+ W(0xbcd61cu+offset)=W(0xbcd60cu+value*388u);
+ W(0xbcd61eu+offset)=W(0xbcd60eu+value*388u);
+ B(0xbcd630u+offset)=21;
+ W(0xbcd62eu+offset)=(uint16_t)(radius*18u);
+ W(0xbcd656u+offset)=(uint16_t)value;
+ return (value&0xffffff00u)|1u;
+}
+
+/* Native EBC90 caches the tile head once and the requested kind once per
+   chain. Terrain fallback exists only on its east segment. */
+static uint8_t actor_state_search_point(int32_t count,const uint32_t *types,uint32_t mask,
+ volatile int32_t *out_x,volatile int32_t *out_y,int32_t excluded,uint32_t state,
+ uint32_t east,uint32_t *result)
+{
+ int32_t x=*out_x,y;uint32_t i;
+ if(x<0)return 0;
+ y=*out_y;if(y<0 || x>=(int32_t)U(0xbca2d0u) || y>=(int32_t)U(0xbca2d4u))return 0;
+ if(count>0){
+  uint32_t head=(uint32_t)(int32_t)(int16_t)W(0xb350dcu+U(0xbc9768u)*2u);
+  for(i=0;(int32_t)i<count;++i){
+   uint32_t candidate=head;
+   if(candidate){
+    uint32_t kind=U((uint32_t)(uintptr_t)types+i*4u);
+    do{
+     uint32_t offset=candidate*388u;
+     if((uint32_t)B(0xbcd602u+offset)==kind && candidate!=(uint32_t)excluded &&
+        (uint32_t)B(0xbcd630u+offset)==state){*result=candidate;return 1;}
+     candidate=(uint32_t)(int32_t)(int16_t)W(0xbcd600u+offset);
+    }while(candidate);
+   }
+  }
+ }
+ if(east){
+  uint32_t flags=U(0xaf598cu+U(0xbc9768u)*4u);
+  if(!(flags&0x80000u) && (mask&flags)){*result=(uint32_t)count+1u;return 1;}
+ }
+ return 0;
+}
+
+__declspec(noinline) int32_t restore_actor_find_state_nearby(int32_t x,int32_t y,int32_t count,
+ const uint32_t *types,uint32_t mask,volatile int32_t *out_x,volatile int32_t *out_y,
+ int32_t rings,int32_t excluded,uint32_t state)
+{
+ uint32_t base=U(0xbca2d8u)+(uint32_t)y*228u+(uint32_t)x;
+ uint32_t span=1,completed=0,remaining=(uint32_t)rings;
+ static const uint32_t tile_step[4]={1u,228u,UINT32_MAX,0u-228u};
+ *out_x=x;*out_y=y;
+ for(;;){
+  uint32_t side;
+  U(0xbc9768u)=base;
+  for(side=0;side<4u;++side){
+   uint32_t n,result,coordinate_step=side<2u?1u:UINT32_MAX;
+   volatile int32_t *coordinate=(side&1u)?out_y:out_x;
+   for(n=0;n<span;++n){
+    if(actor_state_search_point(count,types,mask,out_x,out_y,excluded,state,side==0,&result))return (int32_t)result;
+    U(0xbc9768u)=U(0xbc9768u)+tile_step[side];
+    *coordinate=(int32_t)((uint32_t)*coordinate+coordinate_step);
+   }
+   if(side==1u){
+    uint32_t tile=U(0xbc9768u),legacy_y=U(0xd3b4e0u);
+    /* This absolute global store replaces an output-Y correction natively. */
+    U(0xbc9768u)=tile-228u;U(0xd3b4e0u)=legacy_y-1u;
+   }else{
+    U(0xbc9768u)=U(0xbc9768u)-tile_step[side];
+    *coordinate=(int32_t)((uint32_t)*coordinate-coordinate_step);
+   }
+  }
+  if(!remaining)return 0;
+  ++completed;span+=2u;base-=229u;
+  *out_x=(int32_t)((uint32_t)*out_x-1u);
+  *out_y=(int32_t)((uint32_t)*out_y-1u);
+  --remaining;
+  if(completed>=228u)return 0;
+ }
+}
+
+__declspec(noinline) uint8_t restore_actor_choose_clear_step(int32_t x,int32_t y,
+ int32_t from_x,int32_t from_y,volatile int32_t *out_x,volatile int32_t *out_y)
+{
+ static const int32_t dy[8]={-1,-1,0,1,1,1,0,-1};
+ static const int32_t dx[8]={0,-1,-1,-1,0,1,1,1};
+ static const int32_t probe[8]={-228,-227,1,229,228,227,-1,-229};
+ uint32_t direction=FUN_0051cd80(from_x,from_y,x,y),stop=direction-1u;
+ uint32_t base=U(0xbca2d8u)+(uint32_t)y*228u+(uint32_t)x;
+ if((int32_t)stop<0)stop+=8u;
+ /* The actual direction provider yields 0..7. The previous direction is
+    deliberately excluded: seven candidates, distinct probe/output tables. */
+ while(direction!=stop){
+  uint32_t tile=base+(uint32_t)probe[direction];
+  if(!B(0xac2d4cu+tile)){
+   uint32_t flags=U(0xaf598cu+tile*4u);
+   if(!(flags&0x80000u) && (FUN_004ec410(flags,1)&255u)){
+    int32_t target_y=(int32_t)((uint32_t)y+(uint32_t)dy[direction]);
+    *out_x=(int32_t)((uint32_t)x+(uint32_t)dx[direction]);
+    *out_y=target_y;
+    if(FUN_005181c0(x,y,*out_x,target_y))return 1;
+   }
+  }
+  ++direction;if((int32_t)direction>=8)direction-=8u;
+ }
+ return 0;
+}
+
+static struct command_random_pair actor_group_step_pair(struct command_random_pair pair)
+{
+ uint32_t i;
+ for(i=0;i<31u;++i){
+  uint32_t a=(pair.first^(pair.first>>4))&1u,b=(pair.second^(pair.second>>4))&1u;
+  pair.first=(pair.first>>1)|(a<<30);pair.second=(pair.second>>1)|(b<<30);
+ }
+ return pair;
+}
+
+__declspec(noinline) uint8_t restore_actor_update_group_target(int32_t actor)
+{
+ uint32_t offset=(uint32_t)actor*388u,found;uint8_t state;
+ int32_t out_x=0,out_y=0,x,y;
+ if(!((uint32_t)FUN_004ea9a0(B(0xbcd602u+offset))&255u))return 0;
+ if(!B(0xbcd606u+offset))return 0;
+ state=B(0xbcd630u+offset);
+ if(state==12u || state==4u)return 0;
+ if(state==16u || state==17u)return 1;
+ FUN_0056233e(timeGetTime());
+ y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+ found=(uint32_t)FUN_004ebc90(x,y,3,(const uint32_t *)(uintptr_t)0x5e4df0u,0,&out_x,&out_y,1,actor,16);
+ if(found){
+  FUN_004b3250(actor);
+  state=B(0xbcd630u+offset);
+  if(state!=14u && state!=15u){B(0xbcd630u+offset)=15;B(0xbcd68au+offset)=0;return 1;}
+  {
+   uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),target=found*388u;
+   struct command_random_pair pair;
+   uint16_t target_x,target_y;
+   B(0xbcd630u+offset)=16;
+   pair=command_random_advance(index,sample);
+   target_x=(uint16_t)(W(0xbcd61cu+target)+(pair.first&3u)-2u);
+   index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=pair.first&127u;
+   ++index;W(0xbcd61cu+offset)=target_x;U(0xd3b1c4u)=index;
+   if((int32_t)index>=100)U(0xd3b1c4u)=0;
+   /* The second advance continues the unpublished local pair, even when
+      that history/target write aliases one of the global random states. */
+   pair=actor_group_step_pair(pair);
+   U(0xd3b384u)=pair.first;U(0xd3b378u)=pair.first&7u;
+   U(0xd3b380u)=pair.second;U(0xd3b364u)=pair.second&32767u;
+   U(0xd3b370u)=pair.first&32767u;U(0xd3b36cu)=pair.second&7u;
+   target_y=(uint16_t)(W(0xbcd61eu+target)+(pair.first&3u)-2u);
+   W(0xbcd61eu+offset)=target_y;
+   U(0xd3b374u)=pair.first&127u;U(0xd3b368u)=pair.second&127u;
+   return 1;
+  }
+ }
+ state=B(0xbcd630u+offset);
+ if(state!=14u){
+  y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+  if(FUN_004ebc90(x,y,3,(const uint32_t *)(uintptr_t)0x5e4df0u,0,&out_x,&out_y,3,actor,14)){
+   B(0xbcd630u+offset)=15;B(0xbcd68au+offset)=0;return 1;
+  }
+  y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+  if(restore_building_nearest_search(x,y,4,(const uint32_t *)(uintptr_t)0x5e4dd0u,0,&out_x,&out_y,6,actor)){
+   B(0xbcd630u+offset)=14;B(0xbcd68au+offset)=0;return 1;
+  }
+  return 0;
+ }
+ y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+ found=(uint32_t)restore_building_nearest_search(x,y,4,(const uint32_t *)(uintptr_t)0x5e4dd0u,0,&out_x,&out_y,2,actor);
+ if(found){
+  uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u);
+  struct command_random_pair pair=command_random_advance(index,sample);
+  U(0xd3b384u)=pair.first;U(0xd3b378u)=pair.first&7u;
+  U(0xd3b380u)=pair.second;U(0xd3b364u)=pair.second&32767u;
+  U(0xd3b370u)=pair.first&32767u;U(0xd3b374u)=pair.first&127u;
+  U(0xd3b368u)=pair.second&127u;U(0xd3b36cu)=pair.second&7u;
+  if(!(pair.first&3u)){
+   int32_t target_y=(int16_t)W(0xbcd60eu+found*388u);
+   int32_t target_x=(int16_t)W(0xbcd60cu+found*388u);
+   int32_t current_y=(int16_t)W(0xbcd60eu+offset),current_x=(int16_t)W(0xbcd60cu+offset);
+   int32_t step_x=0,step_y=0;
+   if(FUN_004eabf0(current_x,current_y,target_x,target_y,&step_x,&step_y)){
+    W(0xbcd61cu+offset)=(uint16_t)step_x;W(0xbcd61eu+offset)=(uint16_t)step_y;
+    B(0xbcd630u+offset)=16;return 1;
+   }
+  }
+ }
+ state=B(0xbcd630u+offset);
+ if(state==14u || state==15u){
+  uint8_t progress=B(0xbcd68au+offset);++progress;B(0xbcd68au+offset)=progress;
+  if(progress>20u){FUN_004b3250(actor);B(0xbcd630u+offset)=8;}
+ }
+ return 0;
 }
 
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct

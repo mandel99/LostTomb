@@ -45,6 +45,8 @@
 #include "legacy_format.h"
 #include <stdlib.h>
 #include <string.h>
+/* Keep the legacy byte-return entry available to native-address lookup. */
+#pragma comment(linker, "/include:_FUN_004eaec0")
 extern void FUN_0040f8f0(uint32_t *,uint32_t,uint8_t);
 extern void FUN_004e96c0(int32_t);
 extern void FUN_004e0cc0(int32_t,int32_t *,int32_t *);
@@ -159,13 +161,8 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004a1130);
     RAW(004eaac0);
     RAW(004eab10);
-    RAW(004eb000);
-    RAW(004ebc90);
-    RAW(004eabf0);
-    RAW(004eaec0);
     RAW(004ecd40);
     RAW(004eca70);
-    RAW(0056233e);
     RAW(00494f70);
     RAW(00497010);
     RAW(00497450);
@@ -273,6 +270,13 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004b46b0);
     RAW(0048ded0);RAW(0048e5e0);RAW(00469a50);
     RAW(0048a720);RAW(00458c30);RAW(004e91e0);
+    case 0x4eaec0u:f->r[0]=restore_actor_try_periodic_target((int32_t)A(1));break;
+    case 0x4eb000u:f->r[0]=FUN_004eb000((int32_t)A(1));break;
+    case 0x4ebc90u:f->r[0]=(uint32_t)FUN_004ebc90((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),
+        (const uint32_t *)(uintptr_t)A(4),A(5),(int32_t *)(uintptr_t)A(6),(int32_t *)(uintptr_t)A(7),(int32_t)A(8),(int32_t)A(9),(int32_t)A(10));break;
+    case 0x4eabf0u:f->r[0]=FUN_004eabf0((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),
+        (int32_t *)(uintptr_t)A(5),(int32_t *)(uintptr_t)A(6));break;
+    case 0x56233eu:f->r[0]=restore_actor_random_seed(A(1));break;
     case 0x48c2b0u:FUN_0048c2b0();break;
     case 0x4a5da0u:restore_actor_routing_raw(target,f->r,&f->flags);return;
     case 0x4b1ef0u:case 0x4b3ff0u:case 0x4b1df0u:case 0x4b3250u:
@@ -748,20 +752,20 @@ uint8_t FUN_004eaac0(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (uint8_t)invoke(0x004eaac0u,args,1);}
 int32_t FUN_004eab10(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t p4,int32_t p5)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4,(uint32_t)p5};return (int32_t)invoke(0x004eab10u,args,6);}
-uint8_t FUN_004eb000(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (uint8_t)invoke(0x004eb000u,args,1);}
-int32_t FUN_004ebc90(int32_t p0,int32_t p1,int32_t p2,const uint32_t * p3,uint32_t p4,int32_t * p5,int32_t * p6,int32_t p7,int32_t p8,int32_t p9)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)(uintptr_t)p3,(uint32_t)p4,(uint32_t)(uintptr_t)p5,(uint32_t)(uintptr_t)p6,(uint32_t)p7,(uint32_t)p8,(uint32_t)p9};return (int32_t)invoke(0x004ebc90u,args,10);}
-uint8_t FUN_004eabf0(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t * p4,int32_t * p5)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)(uintptr_t)p4,(uint32_t)(uintptr_t)p5};return (uint8_t)invoke(0x004eabf0u,args,6);}
-uint8_t FUN_004eaec0(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (uint8_t)invoke(0x004eaec0u,args,1);}
+__declspec(noinline) uint8_t FUN_004eb000(int32_t p0)
+{return restore_actor_update_group_target(p0);}
+__declspec(noinline) int32_t FUN_004ebc90(int32_t p0,int32_t p1,int32_t p2,const uint32_t * p3,uint32_t p4,int32_t * p5,int32_t * p6,int32_t p7,int32_t p8,int32_t p9)
+{return restore_actor_find_state_nearby(p0,p1,p2,p3,p4,p5,p6,p7,p8,(uint32_t)p9);}
+__declspec(noinline) uint8_t FUN_004eabf0(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t * p4,int32_t * p5)
+{return restore_actor_choose_clear_step(p0,p1,p2,p3,p4,p5);}
+__declspec(noinline) uint8_t FUN_004eaec0(int32_t p0)
+{return (uint8_t)restore_actor_try_periodic_target(p0);}
 void FUN_004ecd40(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004ecd40u,args,1);}
 void FUN_004eca70(int32_t p0,int32_t p1)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x004eca70u,args,2);}
-void FUN_0056233e(uint32_t p0)
-{const uint32_t args[]={(uint32_t)p0};(void)invoke(0x0056233eu,args,1);}
+__declspec(noinline) void FUN_0056233e(uint32_t p0)
+{(void)restore_actor_random_seed(p0);}
 
 void FUN_004a1ef0(void)
 {(void)invoke(0x004a1ef0u,0,0);}

@@ -1,0 +1,200 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "callback_candidate": {
+    "address": "0x49e8b0",
+    "observed_table_pointer": "0x5dc3dc",
+    "provider_procedure": null,
+    "provider_instruction": "SUB ESP,0x8",
+    "candidate_span_bytes": 3544,
+    "candidate_instruction_count": 935,
+    "candidate_last_instruction": {
+      "address": "0x49f687",
+      "mnemonic": "ret"
+    },
+    "candidate_boundary_basis": "Prior model labels and3544 authenticated bytes decode935 instructions. All direct and both bounded switch transfers remain in this candidate body. Ghidra still has no procedure extent; behavior/callee/ABI reconstruction remains unfinished.",
+    "external_noncall_transfers": [
+      {
+        "address": "0x49e9f0",
+        "instruction": "jmp dword ptr [edx*4 + 0x49f688]"
+      },
+      {
+        "address": "0x49f4f6",
+        "instruction": "jmp dword ptr [edx*4 + 0x49f6dc]"
+      }
+    ],
+    "switches": [
+      {
+        "site": "0x49e9f0",
+        "selector_address": "0x49f6c4",
+        "table_address": "0x49f688",
+        "selector_values": [
+          0,
+          1,
+          14,
+          14,
+          2,
+          3,
+          3,
+          14,
+          4,
+          5,
+          14,
+          14,
+          14,
+          14,
+          6,
+          7,
+          8,
+          9,
+          14,
+          10,
+          11,
+          12,
+          13
+        ],
+        "table_targets": [
+          "0x49ea1a",
+          "0x49e9f7",
+          "0x49f03b",
+          "0x49efe2",
+          "0x49f3d2",
+          "0x49f350",
+          "0x49eb4b",
+          "0x49eaf0",
+          "0x49eced",
+          "0x49f1f0",
+          "0x49ed01",
+          "0x49ea5a",
+          "0x49f04f",
+          "0x49ea95",
+          "0x49f411"
+        ],
+        "state_to_target": {
+          "4": "0x49ea1a",
+          "5": "0x49e9f7",
+          "6": "0x49f411",
+          "7": "0x49f411",
+          "8": "0x49f03b",
+          "9": "0x49efe2",
+          "10": "0x49efe2",
+          "11": "0x49f411",
+          "12": "0x49f3d2",
+          "13": "0x49f350",
+          "14": "0x49f411",
+          "15": "0x49f411",
+          "16": "0x49f411",
+          "17": "0x49f411",
+          "18": "0x49eb4b",
+          "19": "0x49eaf0",
+          "20": "0x49eced",
+          "21": "0x49f1f0",
+          "22": "0x49f411",
+          "23": "0x49ed01",
+          "24": "0x49ea5a",
+          "25": "0x49f04f",
+          "26": "0x49ea95"
+        },
+        "all_targets_are_candidate_instruction_boundaries": true
+      },
+      {
+        "site": "0x49f4f6",
+        "selector_address": "0x49f6f4",
+        "table_address": "0x49f6dc",
+        "selector_values": [
+          0,
+          5,
+          5,
+          5,
+          1,
+          2,
+          2,
+          5,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          2,
+          5,
+          2,
+          5,
+          1,
+          5,
+          3,
+          4
+        ],
+        "table_targets": [
+          "0x49f4fd",
+          "0x49f600",
+          "0x49f580",
+          "0x49f5c0",
+          "0x49f61e",
+          "0x49f65b"
+        ],
+        "state_to_target": {
+          "4": "0x49f4fd",
+          "5": "0x49f65b",
+          "6": "0x49f65b",
+          "7": "0x49f65b",
+          "8": "0x49f600",
+          "9": "0x49f580",
+          "10": "0x49f580",
+          "11": "0x49f65b",
+          "12": "0x49f4fd",
+          "13": "0x49f65b",
+          "14": "0x49f65b",
+          "15": "0x49f65b",
+          "16": "0x49f65b",
+          "17": "0x49f65b",
+          "18": "0x49f65b",
+          "19": "0x49f580",
+          "20": "0x49f65b",
+          "21": "0x49f580",
+          "22": "0x49f65b",
+          "23": "0x49f600",
+          "24": "0x49f65b",
+          "25": "0x49f5c0",
+          "26": "0x49f61e"
+        },
+        "all_targets_are_candidate_instruction_boundaries": true
+      }
+    ],
+    "statically_reachable_instructions": 935,
+    "normal_return_addresses": [
+      "0x49ea94",
+      "0x49efe1",
+      "0x49f467",
+      "0x49f498",
+      "0x49f4b1",
+      "0x49f52c",
+      "0x49f545",
+      "0x49f566",
+      "0x49f57f",
+      "0x49f5a6",
+      "0x49f5bf",
+      "0x49f5e6",
+      "0x49f5ff",
+      "0x49f61d",
+      "0x49f644",
+      "0x49f65a",
+      "0x49f687"
+    ],
+    "indirect_switch_closure": "Both bounded23-state selector maps and all21 table entries authenticated. CFG traversal from the callback reaches only candidate instruction boundaries or RETs, with CALL fallthrough assumed."
+  },
+  "next_helpers": [
+    {
+      "address": "0x4eaac0",
+      "bytes": 66,
+      "meaning": "Low-byte mode selects a scene/variant byte table. Full native EAX also retains the wrapped table offset upper bytes; byte C facade and actual raw consumers require separate audit."
+    },
+    {
+      "address": "0x4eab10",
+      "bytes": 224,
+      "meaning": "Try up to16 vector-table offsets, choose line provider by the actual table selector, require empty actor head, then low-byte terrain acceptance. Return chosen index or -1. Preserve full child line results, cached vector coordinates and native increment/wrap ordering."
+    }
+  ],
+  "C_sources_changed_for_next_scope": false,
+  "source_evidence": "metadata/actor-animal-parent-next-rea-records.json"
+}

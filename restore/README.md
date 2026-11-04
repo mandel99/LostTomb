@@ -1,5 +1,17 @@
 # Pharaoh restore
 
+Five more actor-target bodies now use named C: periodic target checks, group
+updates, state-filtered spiral search, clear-step selection and the game seed.
+Both Release executables pass789 scenarios, covering all905 native instructions through
+named, legacy and civic raw entries. Full return widths, cached reads, the
+south-segment global store and both RNG phases are preserved. See
+[animal target reconstruction](metadata/ACTOR_ANIMAL_TARGET_RECONSTRUCTION.md).
+
+The current aggregate passes62 paired reports:40,006 scenarios /133,082
+invocations. Per binary it owns13,174 native instructions:13,157 executed,
+seven proved dead and ten user-disabled CD instructions. The structural
+inventory and finite native comparisons do not establish complete gameplay.
+
 The Hippo Stomp action now creates its eight actors through named C, preserving
 both RNG phases, native vector advance, signed group guards and actor-zero
 stores. Both Release binaries pass169 scenarios covering all195 instructions
@@ -912,7 +924,7 @@ policy cases. Ten original CD-fallback instructions are retained in comments
 and intentionally disabled. All four retained insertion-guard mismatches now
 replay successfully against original/current named/canonical C.
 
-The current aggregate passes56 paired reports,35,384 scenarios /117,466
+The music checkpoint aggregate passed56 paired reports,35,384 scenarios /117,466
 invocations. Per binary it owns11,418 native instructions:11,404 executed,
 four proved dead actor-message instructions and ten user-disabled CD
 instructions. Debug/Release music, campaign and music-tick native corpora pass
@@ -941,10 +953,11 @@ Twelve additional actual adjacent initializer sequences per binary and four
 full-width/cached-count cases also pass.
 See [ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md](metadata/ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md).
 
-The structural inventory has1144 ordinary C bodies,216 instruction models
-and1106 decompiler-style bodies. The next pinned scope is the603-instruction
-command/state graph4EC990/4EC7C0/4EC0F0/4EC4A0. Full gameplay remains
-unfinished; no host game was launched during this recovery.
+The structural inventory now has1153 ordinary C bodies,214 instruction/frame
+models and1100 decompiler-style bodies, with3999 of4402 catalogue entries
+linked. The current aggregate includes31 paired families. The next larger
+pinned actor parent is49E8B0. Full gameplay remains unfinished; no host game
+was launched during this recovery.
 
 ## Verification scope
 
