@@ -1,0 +1,493 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T22:57:53.569964+00:00",
+  "read_only": true,
+  "owned_sources": [
+    {
+      "path": "src/unit_00086.c",
+      "before_sha256": "da4d9bccc4cdbbcc0827b213e58eeb7ac7a38615771087151a552f90ba337ffd",
+      "candidate_sha256": "9450867945dbae10683c30d4eecd93c54555187415dd449b869514f3dcf70fe2"
+    },
+    {
+      "path": "src/unit_00087.c",
+      "before_sha256": "ec6fc8236d69b5e8f6c5ce7b82c7b3030529b85dfa46256ce87b14c984f83c4a",
+      "candidate_sha256": "67feb03b1877f61db7ac026e6e38822458aff24f778472c4a6a5eda76622c6f2"
+    }
+  ],
+  "old_source_hash_records": [
+    {
+      "path": "metadata/debug-session.json",
+      "sha256": "168da230924316cfcc6d7d159bd349b9e225fa9b10e51e536b7fbaf3ca942722",
+      "passed": null,
+      "source_hashes": {
+        "src/unit_00086.c": "da4d9bccc4cdbbcc0827b213e58eeb7ac7a38615771087151a552f90ba337ffd",
+        "src/unit_00087.c": "ec6fc8236d69b5e8f6c5ce7b82c7b3030529b85dfa46256ce87b14c984f83c4a"
+      }
+    },
+    {
+      "path": "metadata/reconstruction-pattern-audit.json",
+      "sha256": "70ee6889d2dc955d887b29db6290a4d7d9d0549fce37ad35fb38320ea879da56",
+      "passed": null,
+      "source_hashes": {
+        "src/unit_00086.c": "da4d9bccc4cdbbcc0827b213e58eeb7ac7a38615771087151a552f90ba337ffd",
+        "src/unit_00087.c": "ec6fc8236d69b5e8f6c5ce7b82c7b3030529b85dfa46256ce87b14c984f83c4a"
+      }
+    },
+    {
+      "path": "metadata/startup-launch-repair.json",
+      "sha256": "168da230924316cfcc6d7d159bd349b9e225fa9b10e51e536b7fbaf3ca942722",
+      "passed": null,
+      "source_hashes": {
+        "src/unit_00086.c": "da4d9bccc4cdbbcc0827b213e58eeb7ac7a38615771087151a552f90ba337ffd",
+        "src/unit_00087.c": "ec6fc8236d69b5e8f6c5ce7b82c7b3030529b85dfa46256ce87b14c984f83c4a"
+      }
+    }
+  ],
+  "literal_reference_scan": {
+    "files": 748,
+    "matches": [
+      {
+        "path": "artifacts/menu_window_cursor_consumer_phase/include/menu_window_cursor_consumer.h",
+        "sha256": "e8e817530414053ce4c185731d203bad59c88f9e1498d2a21a0b383a51685037",
+        "matches": [
+          {
+            "line": 33,
+            "text": "int32_t FUN_0040c180(int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t *out_x,int32_t *out_y);"
+          },
+          {
+            "line": 34,
+            "text": "int32_t FUN_0040bda0(int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t *out_x,int32_t *out_y);"
+          }
+        ]
+      },
+      {
+        "path": "artifacts/menu_window_cursor_consumer_phase/src/unit_00085.c",
+        "sha256": "98c74e11da800aa358707f6a430985e5ed34f56601779b88c50aec412a705b56",
+        "matches": [
+          {
+            "line": 22,
+            "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+          },
+          {
+            "line": 26,
+            "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+          },
+          {
+            "line": 31,
+            "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+          },
+          {
+            "line": 35,
+            "text": "(void)FUN_0040bda0(I(0xbca2c8),I(0xbca2cc),x,y,&other_x,&other_y);"
+          },
+          {
+            "line": 45,
+            "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+          }
+        ]
+      },
+      {
+        "path": "artifacts/menu_window_cursor_consumer_phase/tests/menu_window_cursor_consumer.c",
+        "sha256": "f5e17d6e791754339a3aca827eadad90adc2066cf2a65c9c2533345cd22c13ab",
+        "matches": [
+          {
+            "line": 41,
+            "text": "int32_t FUN_0040c180(int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t *out_x,int32_t *out_y)"
+          },
+          {
+            "line": 43,
+            "text": "RestoreOrderActor *actor=restore_order_actor(original_id());uint32_t args[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty,0xabc00001,0xabc00002};CHECK(out_x!=out_y);restore_consumer_trace(0x40c180,6,args);*out_x=(int32_t)p[P_OUT_X];*out_y=(int32_t)p[P_OUT_Y];"
+          },
+          {
+            "line": 50,
+            "text": "int32_t FUN_0040bda0(int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t *out_x,int32_t *out_y)"
+          },
+          {
+            "line": 52,
+            "text": "uint32_t args[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty,0xabc00003,0xabc00004};CHECK(out_x!=out_y);restore_consumer_trace(0x40bda0,6,args);*out_x=(int32_t)p[P_OTHER_X];*out_y=(int32_t)p[P_OTHER_Y];"
+          }
+        ]
+      },
+      {
+        "path": "artifacts/menu_window_cursor_consumer_phase/tools/verify_menu_window_cursor_consumer_emulation.py",
+        "sha256": "493ea88098f7a4414f2c88d3e31278222b1ef00be0267d37c220d9883621c9b0",
+        "matches": [
+          {
+            "line": 45,
+            "text": "endpoints={0x40c180:6,0x40bda0:6,0x4b6400:4,TRAP:1};traced={0x4b3250:1,0x4b5520:1,0x51cd80:4,0x4cde60:2}"
+          },
+          {
+            "line": 66,
+            "text": "if address in [0x40c180,0x40bda0]:"
+          },
+          {
+            "line": 68,
+            "text": "normalized=argv[:4]+([0xabc00001,0xabc00002] if address==0x40c180 else [0xabc00003,0xabc00004]);event(address,normalized)"
+          },
+          {
+            "line": 69,
+            "text": "put(argv[4],p[P_OUT_X if address==0x40c180 else P_OTHER_X]);put(argv[5],p[P_OUT_Y if address==0x40c180 else P_OTHER_Y])"
+          },
+          {
+            "line": 70,
+            "text": "if address==0x40c180:"
+          }
+        ]
+      },
+      {
+        "path": "include/menu_window_cursor_consumer.h",
+        "sha256": "e8e817530414053ce4c185731d203bad59c88f9e1498d2a21a0b383a51685037",
+        "matches": [
+          {
+            "line": 33,
+            "text": "int32_t FUN_0040c180(int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t *out_x,int32_t *out_y);"
+          },
+          {
+            "line": 34,
+            "text": "int32_t FUN_0040bda0(int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t *out_x,int32_t *out_y);"
+          }
+        ]
+      },
+      {
+        "path": "src/units.cmake",
+        "sha256": "6e1df2daf731075e327a6d9aebaddb135b503c5c05981b41d524cfe91b24d42b",
+        "matches": [
+          {
+            "line": 88,
+            "text": "\"${CMAKE_CURRENT_SOURCE_DIR}/src/unit_00086.c\""
+          },
+          {
+            "line": 89,
+            "text": "\"${CMAKE_CURRENT_SOURCE_DIR}/src/unit_00087.c\""
+          }
+        ]
+      },
+      {
+        "path": "tests/menu_window_cursor_consumer.c",
+        "sha256": "f5e17d6e791754339a3aca827eadad90adc2066cf2a65c9c2533345cd22c13ab",
+        "matches": [
+          {
+            "line": 41,
+            "text": "int32_t FUN_0040c180(int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t *out_x,int32_t *out_y)"
+          },
+          {
+            "line": 43,
+            "text": "RestoreOrderActor *actor=restore_order_actor(original_id());uint32_t args[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty,0xabc00001,0xabc00002};CHECK(out_x!=out_y);restore_consumer_trace(0x40c180,6,args);*out_x=(int32_t)p[P_OUT_X];*out_y=(int32_t)p[P_OUT_Y];"
+          },
+          {
+            "line": 50,
+            "text": "int32_t FUN_0040bda0(int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t *out_x,int32_t *out_y)"
+          },
+          {
+            "line": 52,
+            "text": "uint32_t args[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty,0xabc00003,0xabc00004};CHECK(out_x!=out_y);restore_consumer_trace(0x40bda0,6,args);*out_x=(int32_t)p[P_OTHER_X];*out_y=(int32_t)p[P_OTHER_Y];"
+          }
+        ]
+      },
+      {
+        "path": "tools/verify_menu_window_cursor_consumer_emulation.py",
+        "sha256": "493ea88098f7a4414f2c88d3e31278222b1ef00be0267d37c220d9883621c9b0",
+        "matches": [
+          {
+            "line": 45,
+            "text": "endpoints={0x40c180:6,0x40bda0:6,0x4b6400:4,TRAP:1};traced={0x4b3250:1,0x4b5520:1,0x51cd80:4,0x4cde60:2}"
+          },
+          {
+            "line": 66,
+            "text": "if address in [0x40c180,0x40bda0]:"
+          },
+          {
+            "line": 68,
+            "text": "normalized=argv[:4]+([0xabc00001,0xabc00002] if address==0x40c180 else [0xabc00003,0xabc00004]);event(address,normalized)"
+          },
+          {
+            "line": 69,
+            "text": "put(argv[4],p[P_OUT_X if address==0x40c180 else P_OTHER_X]);put(argv[5],p[P_OUT_Y if address==0x40c180 else P_OTHER_Y])"
+          },
+          {
+            "line": 70,
+            "text": "if address==0x40c180:"
+          }
+        ]
+      }
+    ]
+  },
+  "staged_ownership": [
+    {
+      "path": "artifacts/actor_callbacks_chain_phase",
+      "files": 8,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_callbacks_human_phase",
+      "files": 5,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_callbacks_small_phase",
+      "files": 10,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_callback_496140_phase",
+      "files": 5,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_callback_bulk_preflight",
+      "files": 2,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_combat_phase",
+      "files": 11,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_coordinates_phase",
+      "files": 3,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_order_flood_phase",
+      "files": 10,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_render_phase",
+      "files": 2,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/actor_walking_phase",
+      "files": 8,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_130_audit_phase",
+      "files": 2,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_cursor_phase",
+      "files": 9,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_existing_actions_phase",
+      "files": 9,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_full_input_phase",
+      "files": 16,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_keyboard_modal_phase",
+      "files": 16,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_route_capacity_phase",
+      "files": 12,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_text_glyph_phase",
+      "files": 14,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    },
+    {
+      "path": "artifacts/menu_window_cursor_consumer_phase",
+      "files": 11,
+      "owned_filename_collisions": [],
+      "apply_map_collisions": []
+    }
+  ],
+  "ownership_collisions": [],
+  "frozen_phase_integrity": [
+    {
+      "path": "artifacts/menu_keyboard_modal_phase/metadata/freeze-manifest.json",
+      "sha256": "60da3f1f0314ffcafc27e9ed6cbe426bd29106fa5e8c94e749c9ca120c58d7fc",
+      "drift": []
+    },
+    {
+      "path": "artifacts/menu_cursor_phase/metadata/freeze-manifest.json",
+      "sha256": "0349ff17ecbf76a2b634cbbb9d23181ff171ff21d2d25bfe92419d87c35523dd",
+      "drift": []
+    },
+    {
+      "path": "artifacts/menu_window_cursor_consumer_phase/metadata/freeze-manifest.json",
+      "sha256": "17f9085908c29f0f53e0a3e7e757799f8b932a928fe158c2740b8db037e7daed",
+      "drift": []
+    },
+    {
+      "path": "artifacts/actor_order_flood_phase/metadata/freeze-manifest.json",
+      "sha256": "0a522b77312cc85b76677a8dc2ec704089cf622ceba52a8d6c6c3a48faab0f46",
+      "drift": []
+    },
+    {
+      "path": "artifacts/menu_full_input_phase/numeric-freeze.json",
+      "sha256": "b0921c1a86d6468c0bce576574d2be365ecf8ec8c862846f24f98213b2689cd1",
+      "drift": []
+    }
+  ],
+  "native_caller_windows": {
+    "count": 14,
+    "source": "metadata/native.json",
+    "sha256": "9a4db0cb069e60332bbe0e24bc168cf2e37987f6ee5b895d95976fc65e937fc6"
+  },
+  "current_C_callers": [
+    {
+      "path": "src/unit_00084.c",
+      "sha256": "a002805360442a42a2f0e4ae393f7760be9191f7adf23dae928676c1c3b1e3c2",
+      "matches": [
+        {
+          "line": 21,
+          "text": "extern int FUN_0040c180();"
+        },
+        {
+          "line": 53,
+          "text": "FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar1 * 0xc2],"
+        },
+        {
+          "line": 67,
+          "text": "FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar1 * 0xc2],"
+        }
+      ],
+      "qualified_only": true
+    },
+    {
+      "path": "src/unit_00085.c",
+      "sha256": "98c74e11da800aa358707f6a430985e5ed34f56601779b88c50aec412a705b56",
+      "matches": [
+        {
+          "line": 22,
+          "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+        },
+        {
+          "line": 26,
+          "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+        },
+        {
+          "line": 31,
+          "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+        },
+        {
+          "line": 35,
+          "text": "(void)FUN_0040bda0(I(0xbca2c8),I(0xbca2cc),x,y,&other_x,&other_y);"
+        },
+        {
+          "line": 45,
+          "text": "(void)FUN_0040c180(actor->x,actor->y,I(0xbca2c8),I(0xbca2cc),&x,&y);"
+        }
+      ],
+      "qualified_only": false
+    },
+    {
+      "path": "src/unit_01373.c",
+      "sha256": "1951e27cd8c05f41dd25b63267aefe328b78cfffead159f258c65d0b3142ab81",
+      "matches": [
+        {
+          "line": 4,
+          "text": "extern int FUN_0040c180();"
+        },
+        {
+          "line": 16,
+          "text": "iVar1 = FUN_0040c180((int)(short)(&DAT_00bcd60c)[param_9 * 0xc2],"
+        },
+        {
+          "line": 26,
+          "text": "iVar1 = FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar2 * 0xc2],"
+        },
+        {
+          "line": 35,
+          "text": "iVar2 = FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar2 * 0xc2],"
+        }
+      ],
+      "qualified_only": true
+    },
+    {
+      "path": "src/unit_01378.c",
+      "sha256": "4b184472adb5aac159df2b4b6da85a7c427f023f25a417511640bd587d9eb737",
+      "matches": [
+        {
+          "line": 17,
+          "text": "extern int FUN_0040bda0();"
+        },
+        {
+          "line": 41,
+          "text": "FUN_0040bda0((int)*(short *)(&DAT_00bcd628 + iVar4),(int)*(short *)(&DAT_00bcd62a + iVar4),"
+        }
+      ],
+      "qualified_only": true
+    },
+    {
+      "path": "src/unit_01395.c",
+      "sha256": "0a385724a213bc621306e5609c7cf5df29efcdbcd8b89a03c78179b70df8c21f",
+      "matches": [
+        {
+          "line": 16,
+          "text": "extern int FUN_0040c180();"
+        },
+        {
+          "line": 38,
+          "text": "FUN_0040c180((int)(short)(&DAT_00bcd60c)[param_1 * 0xc2],"
+        }
+      ],
+      "qualified_only": true
+    },
+    {
+      "path": "src/unit_01470.c",
+      "sha256": "f32ce09b9c6ee995b748057ec6064e8b99ade806f33ff783862ceac127c9f36b",
+      "matches": [
+        {
+          "line": 22,
+          "text": "extern int FUN_0040c180();"
+        },
+        {
+          "line": 54,
+          "text": "FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar7 * 0xc2],(int)(short)(&DAT_00bcd60e)[iVar7 * 0xc2]"
+        }
+      ],
+      "qualified_only": true
+    },
+    {
+      "path": "src/unit_01499.c",
+      "sha256": "3898275159eecb8ac17e22e72e99fe5287b7fb29f57bc5e18aa738b0a7038444",
+      "matches": [
+        {
+          "line": 23,
+          "text": "extern int FUN_0040c180();"
+        },
+        {
+          "line": 72,
+          "text": "FUN_0040c180((int)(short)(&DAT_00bcd60c)[iVar5 * 0xc2],"
+        }
+      ],
+      "qualified_only": true
+    }
+  ],
+  "actual_body_consumer_conclusion": "No earlier independent native proof lists either owned source as a compiled dependency. The accepted menu_window_cursor_consumer harness defines both functions as explicit typed six-argument deep boundaries; its CMake includes only85,1769 and three tiny actual helpers. That boundary proof remains valid and does not claim either old LOS body correct. Generic source hash recorders need refresh.",
+  "ABI": "Both are cdecl six DWORD arguments, four signed coordinates and two full output pointers; RET0, signed metric EAX. Existing caller85 prototype agrees. Other unowned generated actor callers retain field/stride deficiencies and are not made correct by replacing the callee.",
+  "root_requirements": "Add the new typed math runtime plus the unchanged independent numeric-only source once, replace86/87 exactly, build/replay the new oracle and normal source recorders. No registry/startup/input changes.",
+  "remaining": "4B6400 action/path closure and the frozen1768 FALSE GetCursorPos discrepancy remain open."
+}

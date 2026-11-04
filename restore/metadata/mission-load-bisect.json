@@ -1,0 +1,89 @@
+{
+  "format": 2,
+  "recorded_at": "2026-10-28T12:00:00+01:00",
+  "symptom": "Mission information loading terminated with candidate 223 active; startup also terminated with candidate 225 active.",
+  "isolated_reproduction": {
+    "game_directory": "build/smoke-game",
+    "copied_save_files": true,
+    "original_save_files_modified": false
+  },
+  "results": [
+    {
+      "experimental_limit": 221,
+      "quarantined_addresses": [],
+      "result": "mission-map-running",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 222,
+      "quarantined_addresses": [],
+      "result": "mission-information-loaded",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 223,
+      "quarantined_addresses": [],
+      "result": "process-terminated-during-mission-information-transition",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 224,
+      "quarantined_addresses": ["0x004d32d0"],
+      "result": "startup-running-after-12-seconds",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 225,
+      "quarantined_addresses": ["0x004d32d0"],
+      "result": "process-terminated-during-startup",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 225,
+      "quarantined_addresses": ["0x004d32d0", "0x004d3d00"],
+      "result": "mission-information-loaded-and-running",
+      "confidence": "observed"
+    },
+    {
+      "experimental_limit": 250,
+      "quarantined_addresses": ["0x004d32d0", "0x004d3d00"],
+      "result": "mission-information-loaded-and-running",
+      "confidence": "observed"
+    }
+  ],
+  "current_safe_default": {
+    "selected_prefix": 250,
+    "active_experimental_hooks": 248,
+    "quarantined_candidates": 2
+  },
+  "verified_hooks": 23,
+  "default_total_c_replacements": 271,
+  "quarantine": [
+    {
+      "position": 223,
+      "address": "0x004d32d0",
+      "name": "FUN_004d32d0",
+      "source": "src/unit_01806.c",
+      "reason": "mission-information-transition-termination"
+    },
+    {
+      "position": 225,
+      "address": "0x004d3d00",
+      "name": "FUN_004d3d00",
+      "source": "src/unit_01811.c",
+      "reason": "startup-termination"
+    }
+  ],
+  "diagnostic_override": "--experimental-limit N",
+  "build": {
+    "path": "artifacts/mission-stable-212/Release/PharaohRestore.exe",
+    "sha256": "9753ec3bac41795f817788bc90a432ac6ff8e816b4858f4e7521721efa39b6e5",
+    "runtime_path": "artifacts/mission-stable-212/Release/PharaohRestoreRuntime.dll",
+    "runtime_sha256": "c3140546acca0ac51592227d3a9b2af9aba43e4add43973899d0b4b359e0973d"
+  },
+  "tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "limitations": "The two quarantined C bodies match the visible original loop logic, but are not yet safe as entry-point replacements. Their original implementations remain active while later candidates can still be enabled."
+}

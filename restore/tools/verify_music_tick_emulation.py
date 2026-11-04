@@ -80,9 +80,9 @@ for tick,duration,clock in itertools.product([0,1,10,0xffffffff,0x7fffffff],[0,1
 for flags,volume in itertools.product([0,4,8,12,20,28,20|512,20|1024,20|512|1024],[0xffffffff,0,50,100,0x80000000,0x7fffffff]):case(p0=1,p14=volume,p15=flags)
 for seed,steps in itertools.product([0,1,255,256,0x7fffffff,0x80000000,0xffffffff],[0,1,2,10,100]):case(p0=2,p1=seed,p4=steps)
 for category,seed,count,flags in itertools.product([0,1,52],[0,1,255],[1,4,50],[3,7,31,67,515]):case(p0=3,p1=seed,p2=category,p4=count,p5=1,p7=0,p15=flags,p13=100000)
-exe=ROOT/'build/c-only-debug/Debug/restore_music_tick_verify.exe'
+exe=Path(sys.argv[1]) if len(sys.argv)>1 else ROOT/'build/c-only/Debug/restore_music_tick_verify.exe'
 process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
-report={'format':1,'original_game_executed':False,'native_sha256':digest,'compiled_C_sha256':sha(exe.read_bytes()),
+report={'format':1,'original_game_executed':False,'native_sha256':digest,'compiled_C_path':str(exe.resolve()),'compiled_C_sha256':sha(exe.read_bytes()),
  'method':'Complete 00539820 music state machine with actual 00539730/00539a50 selection, 0055f38d sound-volume method and 00562348 RNG. Global and alternate objects, full watched bytes/guards, ordered audio/time calls with intermediate state, RNG returns/state and native ABI compared.',
  'limitations':['Clock, stream playback and Miles status/volume API calls are controlled; physical audio output and codecs are not exercised.','Valid categories 0..52, track counts 0..50, ambient counts 0..10 and track indices through 50; malformed native pointers/counts are excluded.'],
  'checked':0};checked=0;p=None
@@ -100,6 +100,8 @@ except Exception as error:report.update(passed=False,checked=checked,case=p,erro
 finally:process.stdin.close();process.wait(timeout=10)
 sources=['include/music_manager.h','include/sound_streams.h','include/sound_initialization.h','runtime/music_manager.c','tests/music_tick.c','tools/verify_music_tick_emulation.py','metadata/music-tick-native.json']
 sources += [f'src/unit_{i:05d}.c' for i in [1864,2477,2478,2480,2705,2825]]
+sources += ['CMakeLists.txt','runtime/music_population_range.c','include/music_configuration.h']
+sources += ['tests/music_tick_streams.c','runtime/sound_streams.c','include/media_bindings.h']
 report['source_hashes']={s:sha((ROOT/s).read_bytes()) for s in sources};report['observed_native_branches']=sorted(hits)
-(ROOT/'metadata/music-tick-emulation.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/('metadata/music-tick-emulation-release.json' if 'Release' in str(exe) else 'metadata/music-tick-emulation.json')).write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='source_hashes'},indent=2));sys.exit(0 if report['passed'] else 1)

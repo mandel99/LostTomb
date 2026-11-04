@@ -1,0 +1,32 @@
+{
+  "status": "Farm rectangle query corrected and compiled; offline native/C checks pass. Host gameplay untested.",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entry": "0x4894a0",
+  "native_body_bytes": 42,
+  "rea_evidence": "ev_e8d4b9f4d4fa7b5396e9952fb0fa9d14d912b0352299c84879a196b886110a2f",
+  "cause": "Legacy public helper used DWORD-pointer arithmetic for a byte offset: Y came from record4*building, rather than the same264-byte building record as X. Natural city rendering consequently drew a generic animation on floodplain farms.",
+  "fix": "Use explicit signed16-bit X/Y reads at byte offsets; retain full EAX from the actual3x3 terrain query. No changes to crop IDs, images or farm gameplay.",
+  "baseline_reproduction": "Original city renderer has the farm base plus9 fig crop calls. Previous compiled city renderer added a generic image15413 at177,276. Fixed renderer matches native ordered calls and globals.",
+  "figs": "Native type196 selects tag384; barley type100 selects tag369. Installed data maps these to13955 and13949 respectively. Full city framebuffer bytes match native for both kinds, both terrains and six growth stages; the two crop outputs differ in every tested pair.",
+  "verification": {
+    "script": "direct_c/verify_farm_rendering.py",
+    "total": 280,
+    "rectangle_and_gate": 160,
+    "city_layer_composition": 96,
+    "actual_city_framebuffer": 24,
+    "controlled": "Only final sprite endpoints in96 selection cases. Pixel cases use actual SG3/555 records, crop selection and raster functions without sprite substitution. No host game launch or settings/assets/save changes.",
+    "noargument_link_check": "PASS"
+  },
+  "build": {
+    "path": "build/c-only/Preview/PharaohRestoreC.exe",
+    "sha256": "a7c28222b5515c04b5f9b298efa2a7be3947cd58ff8f1cbc7bc1de4a55334165"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "f75edd21208726fc19c5ecddaf39a04990c106ae1ce104c6fe47a2bbf942f190",
+    "src/unit_01297.c": "6f71d12317a178e2a1e25b9229a9a8673c8d379681e55317e80e168fb7557d8f",
+    "direct_c/verify_farm_rendering.py": "f2cd12749ba9a423729e21d8f37bda09794d52e81972c225be3ae1b91641c6ab"
+  },
+  "source_commit": "b813e71",
+  "latest_regression_build_sha256": "bfaa99386008d76ee22da1e3e96580d2e3de4aa70f965a397b627f97eb503e46",
+  "latest_regression_build_path": "build/c-only/Release/PharaohRestoreC.exe"
+}

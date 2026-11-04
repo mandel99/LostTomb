@@ -1,0 +1,50 @@
+{
+  "status": "Seven whole frame/variant/cycle bodies reconstructed and verified offline; higher controller and complete animation playback remain unfinished.",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": [
+    "0x55d290",
+    "0x55d2e0",
+    "0x55d300",
+    "0x55d480",
+    "0x55d4c0",
+    "0x55d590",
+    "0x55d630"
+  ],
+  "native_bytes": 623,
+  "native_instructions": 186,
+  "changes": [
+    "Replace uninitialized in_ECX with named C interfaces taking a typed animation-cycle receiver.",
+    "Canonical adapters capture ECX before C code and retain existing cdecl stack cleanup; new C callers must use the explicit interfaces.",
+    "Preserve signed16 frame normalization, low16 variant indexing, direct signed16 selected-frame assignment and finite-repeat counter reloads.",
+    "Small numeric x87 helpers preserve PC/RC, unordered comparison and comparison of extended intermediate before binary32 rounding; no original code executes."
+  ],
+  "verification": {
+    "script": "direct_c/verify_sprite_cycle.py",
+    "cases": 375,
+    "controlled_endpoints": 0,
+    "scope": "32 frame-normalization cases plus null variant;18 variant/frame and6 variant selections;216 forward/reverse cycle cases;96 step cases spanning PC24/53/64 and four rounding modes at sub-ULP boundaries;6 ordinary step cases. Every case compares original against canonical adapter and separately against named C API, memory, defined EAX, stack/nonvolatile registers, CW and balanced x87 TOP.",
+    "noargument_link_check": "PASS",
+    "limits": "Well-formed pointers and positive frame counts. Zero-length nonterminating native loops, unmasked traps and FPSW equivalence are outside the verified domain. Higher controller55D4F0, action/direction selection and unreconstructed upstream callers are not certified; no live-game/physical-animation claim."
+  },
+  "build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "c8e3b372936aedf64a3a36398d58e2aacf218181bfaefe08bb4a570e2065f9eb"
+  },
+  "next": "Reconstruct complete55D4F0 timing/return pipeline and its55D760/55D780/55D7B0/55D810 callers; Rea has already read their complete bodies.",
+  "source_sha256": {
+    "CMakeLists.txt": "57683b1e7e5ccff028c4bea176e6b7a55c30c77b69a9577bdfeb9075fd6681e1",
+    "include/sprite_cycle.h": "26d945676b8ae0162adae41f228a60bca9cafed62ef46a02d9a343b3e6499413",
+    "include/sprite_cycle_numeric.h": "3d259d10c9f8a61645ac577ef48f23aa7c3e06abcb2f3c2fd5c305b0c3132ca1",
+    "direct_c/verify_sprite_cycle.py": "f12c8ead22b2d2c1ed8f7fd5630a0251ab7a34d629259d8f399eb5961dec2b5d",
+    "src/unit_02660.c": "bf1cbd2d2497710f866cf44591a230bbfc094628d64118024460ec0dcc6c0b30",
+    "src/unit_02661.c": "dfcebeb561e9de1b16b73026c968de373cf7db77192d3d17c0a5108b2fde7bcc",
+    "src/unit_02662.c": "ac81fb854d354760eda7c3bd6d84723ceb8113a0380abee09855da8b5e96e099",
+    "src/unit_02665.c": "94fdb033e6be7b3bfe04abe0cf8d53e41fc50c4d9fd7c7de95613d4dabec247a",
+    "src/unit_02666.c": "9ff8b78a35994ca555da0678a6db4cccca9c409ed2978debfe76f4c32b52500c",
+    "src/unit_02668.c": "e85c42b7de3176e09a231076ef23fcf6beb48f58906eda51ade7d96f90cf77d7",
+    "src/unit_02669.c": "f2fe4d7b870ac320e03da34f5c7f906433b7bdb8831e4c806d5c929e92a55c30"
+  },
+  "source_commit": "28f5f0c5ad8d3fec4f04774beb7e0bcd673d805f",
+  "rea_snapshot": "metadata/rea-sprite-cycle-snapshot.json",
+  "publication": "Sources pushed to main; no tag or GitHub release created. Exact tested EXE promoted to local Release."
+}

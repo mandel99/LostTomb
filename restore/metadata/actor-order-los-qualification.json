@@ -1,0 +1,252 @@
+{
+  "format": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_export_sha256": "9a4db0cb069e60332bbe0e24bc168cf2e37987f6ee5b895d95976fc65e937fc6",
+  "excluded_instructions": [],
+  "excluded_edges": [
+    [
+      "0040be47",
+      "0040be4d"
+    ],
+    [
+      "0040c22e",
+      "0040c234"
+    ],
+    [
+      "0040beab",
+      "0040bf5e"
+    ],
+    [
+      "0040bf94",
+      "0040c04e"
+    ],
+    [
+      "0040c2a1",
+      "0040c337"
+    ],
+    [
+      "0040c369",
+      "0040c406"
+    ]
+  ],
+  "stepX_edges": {
+    "edges": [
+      [
+        "0040be47",
+        "0040be4d"
+      ],
+      [
+        "0040c22e",
+        "0040c234"
+      ]
+    ],
+    "dataflow": "The earlier dx==0 arm jumps around stepX sign selection. On reaching the sign block dx is nonzero and remains in ESI. Its JGE taken arm implies dx>=0; the immediately following JLE can therefore not be taken. No external call, ESI assignment, alias store or intervening integer flag change exists between the two contradictory guards.",
+    "evidence": [
+      {
+        "address": "0040bdec",
+        "bytes": "3bf2",
+        "instruction": "CMP ESI,EDX"
+      },
+      {
+        "address": "0040be03",
+        "bytes": "7514",
+        "instruction": "JNZ 0x0040be19"
+      },
+      {
+        "address": "0040be17",
+        "bytes": "eb34",
+        "instruction": "JMP 0x0040be4d"
+      },
+      {
+        "address": "0040be3d",
+        "bytes": "3bf2",
+        "instruction": "CMP ESI,EDX"
+      },
+      {
+        "address": "0040be3f",
+        "bytes": "7d06",
+        "instruction": "JGE 0x0040be47"
+      },
+      {
+        "address": "0040be47",
+        "bytes": "7e04",
+        "instruction": "JLE 0x0040be4d"
+      },
+      {
+        "address": "0040c1d3",
+        "bytes": "85f6",
+        "instruction": "TEST ESI,ESI"
+      },
+      {
+        "address": "0040c1ea",
+        "bytes": "7510",
+        "instruction": "JNZ 0x0040c1fc"
+      },
+      {
+        "address": "0040c1fa",
+        "bytes": "eb38",
+        "instruction": "JMP 0x0040c234"
+      },
+      {
+        "address": "0040c220",
+        "bytes": "85f6",
+        "instruction": "TEST ESI,ESI"
+      },
+      {
+        "address": "0040c222",
+        "bytes": "7d0a",
+        "instruction": "JGE 0x0040c22e"
+      },
+      {
+        "address": "0040c22e",
+        "bytes": "7e04",
+        "instruction": "JLE 0x0040c234"
+      }
+    ]
+  },
+  "ratio_equal_max_edges": {
+    "edges": [
+      [
+        "0040beab",
+        "0040bf5e"
+      ],
+      [
+        "0040bf94",
+        "0040c04e"
+      ],
+      [
+        "0040c2a1",
+        "0040c337"
+      ],
+      [
+        "0040c369",
+        "0040c406"
+      ]
+    ],
+    "initial_values": "dx==0 creates slope=exactFLT_MAX,inverse=0; dy==0 withdx!=0 creates slope=0,inverse=exactFLT_MAX. Nonzero dx/dy create retainedrounded dy/dx thenrounded1/slope.",
+    "zero_axis_contradiction": "Vertical loop count is signedabs(dy), so the inverseFLT_MAX case dy==0 never reaches its FCOM. Horizontal loop count is signedabs(dx), so the slopeFLT_MAX case dx==0 never reaches its FCOM. Both-zero endpoints return before slope creation.",
+    "finite_interval": "For nonzero signed32 integer differences, exactabs(dy/dx) is at least2^-31 and at most2^31. Every definedmaskedPC24/53/64 andRC mode rounds these finite normal results with relative error smaller than2^-23. A conservative bound for both stored slope and its rounded reciprocal is2^-33<abs(value)<2^33. Neither can equal exactbinary32FLT_MAX (~2^128), zero,Inf orNaN. ICbit0/1 does not change finite arithmetic.",
+    "retention": "The only loop callee is complete15-instruction56133C. It modifies only its own callerstack,CW temporarily, and the top intersection value popped byFISTP. It restores the savedCW and never modifies the underlying slope/inverse. No world-memory write or external mutation boundary is introduced in the loop. Explicit typed raw80 operations retain the same precision and do not introduce FSTP32.",
+    "FCOM_condition": "The consumedC3 bit is set for equal orunordered. Unordered is excluded here by the finite integer-derived range; direct primitive tests of equalmax remain separate from whole-function CFG coverage.",
+    "read_only_float_constants": {
+      "0056f480": {
+        "bytes": "00000000",
+        "bits": "00000000"
+      },
+      "0056f484": {
+        "bytes": "0000803f",
+        "bits": "3f800000"
+      },
+      "0056f488": {
+        "bytes": "ffff7f7f",
+        "bits": "7f7fffff"
+      }
+    },
+    "evidence": [
+      {
+        "address": "0040be2b",
+        "bytes": "db442420",
+        "instruction": "FILD dword ptr [ESP + 0x20]"
+      },
+      {
+        "address": "0040be2f",
+        "bytes": "db442434",
+        "instruction": "FILD dword ptr [ESP + 0x34]"
+      },
+      {
+        "address": "0040be33",
+        "bytes": "def9",
+        "instruction": "FDIVP"
+      },
+      {
+        "address": "0040be35",
+        "bytes": "d90584f45600",
+        "instruction": "FLD float ptr [0x0056f484]"
+      },
+      {
+        "address": "0040be3b",
+        "bytes": "d8f1",
+        "instruction": "FDIV ST0,ST1"
+      },
+      {
+        "address": "0040bea0",
+        "bytes": "d81588f45600",
+        "instruction": "FCOM float ptr [0x0056f488]"
+      },
+      {
+        "address": "0040bea6",
+        "bytes": "dfe0",
+        "instruction": "FNSTSW AX"
+      },
+      {
+        "address": "0040bea8",
+        "bytes": "f6c440",
+        "instruction": "TEST AH,0x40"
+      },
+      {
+        "address": "0040beab",
+        "bytes": "0f85ad000000",
+        "instruction": "JNZ 0x0040bf5e"
+      },
+      {
+        "address": "0040bf89",
+        "bytes": "d81588f45600",
+        "instruction": "FCOM float ptr [0x0056f488]"
+      },
+      {
+        "address": "0040bf94",
+        "bytes": "0f85b4000000",
+        "instruction": "JNZ 0x0040c04e"
+      },
+      {
+        "address": "0040c20e",
+        "bytes": "db442420",
+        "instruction": "FILD dword ptr [ESP + 0x20]"
+      },
+      {
+        "address": "0040c212",
+        "bytes": "db442438",
+        "instruction": "FILD dword ptr [ESP + 0x38]"
+      },
+      {
+        "address": "0040c216",
+        "bytes": "def9",
+        "instruction": "FDIVP"
+      },
+      {
+        "address": "0040c218",
+        "bytes": "d90584f45600",
+        "instruction": "FLD float ptr [0x0056f484]"
+      },
+      {
+        "address": "0040c21e",
+        "bytes": "d8f1",
+        "instruction": "FDIV ST0,ST1"
+      },
+      {
+        "address": "0040c296",
+        "bytes": "d81588f45600",
+        "instruction": "FCOM float ptr [0x0056f488]"
+      },
+      {
+        "address": "0040c2a1",
+        "bytes": "0f8590000000",
+        "instruction": "JNZ 0x0040c337"
+      },
+      {
+        "address": "0040c35e",
+        "bytes": "d81588f45600",
+        "instruction": "FCOM float ptr [0x0056f488]"
+      },
+      {
+        "address": "0040c369",
+        "bytes": "0f8597000000",
+        "instruction": "JNZ 0x0040c406"
+      }
+    ]
+  },
+  "CW_domain": "All24 definedmasked control words: PC24/53/64 xRCnearest/down/up/truncate xIC0/1. ReservedPC01, unmasked traps and callerFPUstack overflow are outside the declared native arithmetic domain.",
+  "loop_and_field_domain": "Valid mapped world arrays, fixed original read-only numeric constants, valid output objects and at leastthree free hardware x87 slots. The global flood workspace is exclusive during the synchronous producer call. Output same-pointer alias is tested; invalid pointers/array overruns are never converted to successful fallback.",
+  "preservation": "All538 native instructions and all guard algorithms are handwritten in the candidate. Only the six exact native coverage edges are qualified; no edge is silently dropped from the implementation.",
+  "remaining_claims": "Squared-distance overflow edges are not excluded: mapped synthetic target50002 fixtures execute signed32 overflow selection behavior."
+}

@@ -1,0 +1,193 @@
+{
+  "status": "Complete staged implementation and Debug/O2 native equivalence; product remains unchanged pending coordinator integration.",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": {
+    "new_native_instructions": 625,
+    "unchanged_composed_instructions": 19,
+    "total_native_instructions": 644,
+    "numbered_sources": [
+      397,
+      408,
+      409,
+      410,
+      411,
+      412,
+      413,
+      414,
+      415,
+      1843
+    ],
+    "new_callbacks": [
+      "00403410",
+      "00403490",
+      "00403500",
+      "00403540",
+      "0040c7d0"
+    ],
+    "unchanged_composed_source": "src/unit_01842.c"
+  },
+  "corrections": [
+    "Restore fullDWORD selectedbar/item pointers705724/705720, menu indices/count/state/latch and callback contexts; preserve_BYTE mouse/mode values and savedmode lowBYTE read fromDWORDslot.",
+    "Use true16-byte signedWORD bar/item layouts, DWORD itemptr+8, countWORD+12, item callbackDWORD+4, payloadDWORD+12.",
+    "Restore full397 renderer: signedWORDcount/position/group/entry, WORD panel dimensions,16byte item advance, live global itempointer reload after every raster endpoint, fullDWORD font IDs and highlight flag.",
+    "Restore24-byte square button countdown/repeat/kind andBYTE flags, signedWORDsquareextent+6, DWORD clock with native signedwrap comparison, full contexts and zero-arg callback ABI.",
+    "Restore1843 fullDWORD stride4 width lookup with native index0..4 bounds.",
+    "Five absent option callbacks restored as complete handwritten actual bodies: fullDWORD help/autosave, BYTE warnings/pyramid/city names, WORD live label updates, DWORDkeep-open latch.",
+    "Preserve411 initialselectedindex0->bar-16 ordering exactly; native hover transition establishes the currentbar before item hit/render in valid sequences."
+  ],
+  "proof": {
+    "configurations": {
+      "Debug": {
+        "report": "emulation-debug.json",
+        "sha256": "d610762147a7ab83556351f1c18bc14753dbc76a56726ab52f270e46b7278832",
+        "compiled_C_sha256": "42604d4b351749212fc0a3c9db7354ad2d27854a0be1443ee8b6d769c613dff0"
+      },
+      "O2": {
+        "report": "emulation-release.json",
+        "sha256": "47b66c062dfac513d85e6b290ac3c66be2caef9c2630d87e4c297f3b71f10e5b",
+        "compiled_C_sha256": "a6c5715f584d54558c100fdff77bf76fb2290f5562ce765a0dfa5f2df13b5a7b"
+      }
+    },
+    "cases_each": 17625,
+    "instructions_each": [
+      644,
+      644
+    ],
+    "conditional_outcomes_each": [
+      137,
+      138
+    ],
+    "feasible_conditional_outcomes_each": [
+      137,
+      137
+    ],
+    "computed_targets_each": [
+      7,
+      7
+    ],
+    "qualified_unreachable_edges": [
+      {
+        "from": "00425d38",
+        "to": "00425d44",
+        "reason": "EDI index is reset to0 at425CC4 after every first-pass callback. Each iteration reaches425D38 with0<=EDI<count and positive signedDWORD count. INC EDI425D68 followed by signedJL425D6B admits no negative index: index cannot overflow before reaching signed count<=INT_MAX. CMP EDI,-1 at425D30 therefore cannot takeJLE425D38. No external call or index-aliasing store lies between second-pass reset/loop guard and this comparison; callbacks in that pass return immediately from425C40 rather than reenter its loop.",
+        "instructions": [
+          "00425cc4",
+          "00425cc6",
+          "00425cc8",
+          "00425d2d",
+          "00425d30",
+          "00425d38",
+          "00425d65",
+          "00425d68",
+          "00425d69",
+          "00425d6b"
+        ]
+      }
+    ],
+    "memory_regions": [
+      [
+        "0x5c8f20",
+        944
+      ],
+      [
+        "0x705680",
+        192
+      ],
+      [
+        "0xe38dc0",
+        128
+      ],
+      [
+        "0xd3b188",
+        32
+      ],
+      [
+        "0xd3b508",
+        16
+      ],
+      [
+        "0xd3b5b0",
+        32
+      ],
+      [
+        "0xe945c8",
+        48
+      ],
+      [
+        "0xf56f80",
+        64
+      ],
+      [
+        "0x6efff8",
+        208
+      ],
+      [
+        "0x6f0ff8",
+        224
+      ],
+      [
+        "0x6f1ff8",
+        144
+      ],
+      [
+        "0xe38ea0",
+        96
+      ],
+      [
+        "0xe39080",
+        16
+      ],
+      [
+        "0x605a30",
+        32
+      ]
+    ],
+    "guards": "Nonuniform canaries across native globals,13item/8bar/8square fixture records; real table bytes restored everycase; exact native stack/callee-saved registers; ordered4/6rasterargs; callback payload/context snapshots and allowed mutation/reload fixtures.",
+    "native_data_alias": "5C9268 acceleration-table base overlaps finaleditorbar itemptr/count in first8bytes. Native repeatcode only readsindices8..47. Fixtures preserve first8bytes and control only actual repeatentries.",
+    "scope_of_timer": "Production clockshim forwards timeGetTime; deterministic proof uses matching clock seam/IAT. Clockshim is source-hashed platform adapter, not part of644 native instructions."
+  },
+  "limitations": [
+    "Actual536990 panel tiles and4CCBB0 localized text raster remain named controlled endpoints. Their exact4/6 arguments and memory/callback ordering are compared; this suite does not claim their pixel algorithms.",
+    "The five option callbacks are actual composed bodies; other25 unique table callback actions are controlled deep endpoints, including six existing C actions and19 missing callback bodies. No complete settings/editor/overseer/action semantics is claimed. Unsupported production tokens are diagnosed by the existing central callback router.",
+    "Clock is controlled at native timeGetTime IAT56F22C and matching C platform seam; real wall-clock timing and OS input delivery are outside deterministic equivalence.",
+    "Tables and full DWORD pointer targets are valid mapped native/fixture records. Null/invalid pointer or out-of-range selected-row native faults are outside equivalence, never converted to successful rendering.411 retains native selectedindex0->bar-16 ordering; sequence fixtures establish actual hover replacement before rendering.",
+    "Legacy construction1018/1022 callback-token gap remains outside this scope.",
+    "Known unchanged unit2446/FUN536990 defect: BYTE aliases ofF5683C/D3B5C0/DC/E0 truncateart IDs and cachedcoordinates; native55instrbody usesDWORD. This proofcontrols that tiler endpoint and establishes no dropdown-background pixels. Root informed; no unapproved edit introduced.",
+    "Existing root callback router contains4of6existing deep actions. Existing406090/40A0E0 remain unmapped and unproved here;19otheractions have no Cbody. The5new callbacks use explicit owned boundarydispatch. No missing action is replaced by a no-op or original pointer."
+  ],
+  "reference_readonly": {
+    "path": "../PharaohRewrite/src/Pharaoh.Engine/UI/LegacyCityTopMenu.cs",
+    "use": "Names and table-order hypotheses only; native pinned body/data bytes authoritative."
+  },
+  "native_evidence": {
+    "metadata/dropdown-menu-native.json": "cd35e51dcad8c29b40ba37507b69469c16ac79b128e68579510bfd7dd1de0882",
+    "metadata/dropdown-items-render-native.json": "ae7764a4d35cf8e858c35ba78f8497ffbbc87a83c8ace85bdace5dba2da9bd22",
+    "metadata/dropdown-menu-render-latches-native.json": "e22ca78f6ae935ad0fada1940ed8dad5a74359f785606863bde4240fc8e35fda",
+    "metadata/dropdown-latch-code-windows-native.json": "e94a83a75d48894ccc7175f66d6c43cd5d54ff67d3e9d1aca1ab895eeaff8a66"
+  },
+  "source_hashes": {
+    "artifacts/dropdown_menu_phase/include/dropdown_menu.h": "50e8c9c8d0d6cb32172ad778f8906567b47d9e580992b4bcf4f26be9f1670496",
+    "artifacts/dropdown_menu_phase/src/unit_00397.c": "9be72d0d5f6cb3f8bebba1e1476f52010618eaaee280a64f0fae5cd5c39e0e40",
+    "artifacts/dropdown_menu_phase/src/unit_00408.c": "e90a94ef3eb52617fb9abf0bf43723f2b4a2e6445609ddb31d580428b6b32616",
+    "artifacts/dropdown_menu_phase/src/unit_00409.c": "f8a6c0143976a6ff8df518461b8203942ac8bd3ce1c8a6c5d39b0e41a511c6eb",
+    "artifacts/dropdown_menu_phase/src/unit_00410.c": "d25248f0b111e449010072f4dd8cad59a9d0721047cefd10b622566247313874",
+    "artifacts/dropdown_menu_phase/src/unit_00411.c": "ea54fca6e1fe30c862fcdc31efdef3ead9c2801213ce5ee7246388ae15a2224d",
+    "artifacts/dropdown_menu_phase/src/unit_00412.c": "003dac5e7d5e70e3b6181347c6cf8346a19469b77b8557a8a3994e188651718e",
+    "artifacts/dropdown_menu_phase/src/unit_00413.c": "ee995ef50c6bde22bb56aaec15ce91ffaed8581825d4202a56c8b52de65e279b",
+    "artifacts/dropdown_menu_phase/src/unit_00414.c": "4e187b8d6e19021bdcb36229f947478f1cdba5b8bdb866ee19b0fafa928662b0",
+    "artifacts/dropdown_menu_phase/src/unit_00415.c": "62b35781496fe1636cc4ac9e001395baf79a4f806f3dfe1e30c0c5ef3bea1d0e",
+    "artifacts/dropdown_menu_phase/src/unit_01843.c": "ff1c9e4436efaca9c0f54c1107abe851f9177dbee4f433c3d09b22f272e97ab5",
+    "artifacts/dropdown_menu_phase/runtime/dropdown_menu_options.c": "a04c98b095488c04179f41f153fc59e094a3d62c4b0d88391c0032c7df735f2a",
+    "artifacts/dropdown_menu_phase/runtime/dropdown_menu_boundary.c": "64f5e0b2c5b2bfb03582c5394f4ece2e0265a4ed56b9d6e25135a64a89563055",
+    "artifacts/dropdown_menu_phase/runtime/dropdown_menu_clock.c": "a4b0de9a64e108b0e384f621e7550e8dde81005717d373ef5ee26f0e570ce14b",
+    "artifacts/dropdown_menu_phase/tests/dropdown_menu.c": "afb754af406f1071740412e6de4da0c11110be6b1b60ba1bcb22d1aa2d78aaa1",
+    "artifacts/dropdown_menu_phase/tests/dropdown_menu_helpers.c": "29c0c9633e1a0e36aeba15d9a756d32a95748cd80178248110aa2345f067e078",
+    "artifacts/dropdown_menu_phase/tools/verify_dropdown_menu_emulation.py": "d8246242a9ac1edb9657c38d88fcc141075cd6cef20cd225559bd035ea830b18",
+    "src/unit_01842.c": "fe8bcb4091e6b36b83835747d4b4a368751b7e71a325e1a6fffd0f4aef2af423"
+  },
+  "routing_contract": "callback-routing-contract.json",
+  "CMake_recipe": "integration-cmake.txt",
+  "retained_gap": "Legacy construction1018/1022 BYTE rule-token callers remain outside scope; no line patch.",
+  "original_game_process_executed": false,
+  "product_modified": false
+}

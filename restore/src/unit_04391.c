@@ -1,11 +1,3 @@
-#include "restore_types.h"
-extern void FUN_00561a2b();
-
-void FUN_0056e140(void)
-
-{
-  int unaff_EBP;
-  
-  FUN_00561a2b(*(undefined4 *)(unaff_EBP + -0x18));
-  return;
-}
+#include "sound_file_lookup.h"
+void FUN_0056e140(uint32_t frame)
+{restore_sound_file_allocation_cleanup_frame(frame);}

@@ -4,6 +4,7 @@
 #include "tool_selector.h"
 #include "event_publisher.h"
 #include "sound_initialization.h"
+#include "sound_banks.h"
 #include "town_record_queries.h"
 #include <stdlib.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -21,15 +22,7 @@ int32_t FUN_0044bd00(void)
 }
 void FUN_0053b090(int32_t sound)
 {
- uint32_t sample;
- if(U(0xf55b88u)&&sound<19&&B(0xe38e63u)){
-  sample=U(0xf543b8u+(uint32_t)sound*4u);
-  if((int32_t)sample>=0){
-   U(0xe92db0u)=U(0xe38ec4u);U(0xe92db4u)=0x40;U(0xe92dacu)=sample;
-   U(0xe92da8u)=0xffffffffu;U(0xe92db8u)=1;
-   FUN_0055f0e8(RESTORE_SOUND,(const int32_t *)0xe92da8u);
-  }
- }
+ restore_sound_play_ui_sample(sound);
 }
 void FUN_004051a0(void)
 {

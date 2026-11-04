@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": ["metadata/ground-render-next-native.json", "metadata/ground-render-helpers-native.json", "metadata/water-boundary-native.json", "metadata/world-render-sprite-core-native.json", "build/smoke-game/Pharaoh.exe"],
+  "functions": {
+    "00430e60": {"instructions": 28, "C_contract": "void cdecl(uint32_t x, uint32_t y, uint32_t mode, uint32_t actor_parameter)", "behavior": "Store full camera/mode DWORDs; copy clip DWORDs in original interleaved read/store order; call normal ground, world(actor_parameter), actors(0) in that order; freshly read screen width/height and restore full-screen clip.", "return": "No semantic return asserted; incidental EAX is not compared."},
+    "00430ef0": {"instructions": 477, "C_contract": "void cdecl(void)", "behavior": "Clear profiling counters; scan the original staggered 231 by 457 lookup grid with signed bounds and wrapped coordinate arithmetic; resolve complete art IDs, animation, footprint geometry, neighbor occlusion and profiling; preserve original reload timing after dependencies.", "return": "No semantic return asserted."},
+    "004316f0": {"instructions": 435, "C_contract": "void cdecl(void)", "behavior": "Scan the same lookup grid with its distinct native capture/reload order; dispatch all overlay prefixes and detailed terrain/building branches; retain sentinel, selection, special building and unsupported footprint behavior.", "return": "No semantic return asserted."},
+    "0053b670": {"instructions": 8, "C_contract": "void cdecl(void)", "behavior": "Clear exactly twelve DWORDs f55b50 through f55b7f and the DWORD at f55b84. Preserve the intervening f55b80 slot."}
+  },
+  "memory_contracts": {
+    "geometry": "70e440 through70e490 geometry/camera/scan state, d3b5c0 current image,6059d0 selected tile, e94e0c overlay mode,70e3c4 animation and f55b54/f55b84 counters use DWORD access.70e120 tint is WORD.",
+    "lookup": "70e494 is DWORD[457][231]; flat index scaling is exactly4.70e0f4/f8/fc neighbor views also scale flat index by4.",
+    "tile_arrays": "af598c terrain flags and b7482c image IDs use DWORD stride4; b67d1c edge flags and b285cc footprints use BYTE stride1; b4e6fc building IDs and b350dc actor heads use signed WORD stride2.",
+    "buildings": "264 byte records. Type WORD at7999e8; damage BYTE at799a97; occlusion active BYTE at799a2e, DWORD at799a40 and BYTE at799a31. Terrain0x20 writes WORD7999e8=39 before41d410(0,2).",
+    "actors": "388 byte records. Next signed WORD atbcd600; type BYTE atbcd602; hidden BYTE atbcd65d.",
+    "arithmetic": "Coordinates, offsets, images and counters wrap as uint32_t. Native signed comparisons explicitly reinterpret the result; central half-width/height uses signed division truncating toward zero."
+  },
+  "ordering_and_mutation": [
+    "Normal parity toggles before the cell neighbor decision. Its upper draw occurs when an eligible preceding neighbor occludes; this condition is distinct from the world pass.",
+    "A central building can invoke classifier53b830 three separate times. Each invocation freshly reads the WORD type; predicates are return1, then return2, then return4. Calls are not deduplicated.",
+    "After classifier/publication/lower-sprite endpoints, current tile and image reload only at the exact native points. Row/column and loop dimensions likewise retain original reload timing.",
+    "Both neighbor tile IDs are loaded before either neighbor actor/building walk. Actor chains remain native signed-positive walks without fabricated cycle or invalid-index fallbacks.",
+    "Water animation uses full image IDs and writes full DWORD image state; unsupported footprint6 through15 skips drawing and retains native tint clearing.",
+    "All overlay modes27,28,30,33 through42,45,49,51 and default are exercised, including special building types229,230,234,235,236."
+  ],
+  "composed_real_algorithms": ["0053e590 sprite dispatcher", "0053f250 upper dispatcher", "004cdad0 horizontal clip", "004cdb80 vertical clip", "0053b670 stats clear", "0053b830 classifier", "0047a1c0 boundary", "0051f780 legitimate one-instruction RET"],
+  "adapter_contracts": [
+    "Boundary callsite evaluates and pushes column,row; complete native47a1c0 consumes only column and caller uses AL. The production adapter passes column to the one-argument C function and evaluates row. The verification adapter observes both evaluated inputs; native caller cleanup is independently checked.",
+    "Mode30 callsite evaluates two coordinates, while51f780 is a genuine argument-free RET. Production adapter evaluates the inputs and invokes the real empty C function; verification observes them. Dispatcher no-op inputs are observed through a separate adapter."
+  ],
+  "proof": {
+    "report": "metadata/ground-render-emulation.json",
+    "cases": 5077,
+    "main_instruction_coverage": [940,940],
+    "helper_instruction_coverage": [43,43],
+    "composed_sprite_dispatch_instruction_coverage": [246,1076],
+    "upper_clip_executed_instruction_count": 171,
+    "mutated_endpoint_count": 19,
+    "observations": "Ordered endpoint arguments/receiver/state; full watched-memory SHA including canaries; full image/record/stride distinctions; native and C stack/saved registers; endpoint mutation/reload behavior; wrapping counter/coordinate boundaries.",
+    "fixture_validity": "Nonuniform adjacent grids and guarded image/frame buffers. Wide neighbor scenes begin on row1 so preceding-row IDs belong to the intended native grid. Loaded inline descriptors only; filesystem branches fail explicitly."
+  },
+  "limitations": [
+    "Final bitmap/RLE/terrain consumers and deeper overlay/world/actor/profile-publication algorithms remain controlled in this module proof. These controls exist only in the isolated test, not in production.",
+    "Complete940 instruction coverage is claimed for the three ground entry points, not for the entire composed sprite dispatcher. Independent sprite proofs remain separate evidence.",
+    "This bounded original-instruction comparison does not establish city pixel fidelity or arbitrary malformed-state behavior."
+  ]
+}

@@ -851,7 +851,7 @@ int32_t FUN_00489110(int32_t id){const uint32_t a[]={(uint32_t)id};return (int32
 
 uint8_t FUN_004a4300(int32_t id){const uint32_t a[]={(uint32_t)id};return (uint8_t)invoke(0x004a4300u,a,1);}
 
-int32_t FUN_0053d280(int32_t id){const uint32_t a[]={(uint32_t)id};return (int32_t)invoke(0x0053d280u,a,1);}
+
 
 int32_t FUN_00489050(int32_t x,int32_t y,int32_t columns,int32_t rows)
 {const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)columns,(uint32_t)rows};return (int32_t)invoke(0x489050u,a,4);}

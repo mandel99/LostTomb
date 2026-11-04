@@ -1,0 +1,211 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-29T01:56:21.831Z",
+  "scope": "User-authorized live debugging of independent reconstructed C",
+  "original_game_executed": false,
+  "hybrid_executed": false,
+  "restored_C_startup_executed": true,
+  "entry": "0x00413ed0",
+  "full_game_loop_reached": false,
+  "gameplay_tested": false,
+  "build": {
+    "architecture": "x86",
+    "configuration": "Debug",
+    "runtime_checks": "/RTC1: stack and uninitialized variables",
+    "symbols": "MSVC PDB and source lines",
+    "original_executable_required": false,
+    "original_machine_code_embedded": false,
+    "images": {
+      "debug": {
+        "file": "build/c-only-debug/Debug/restore_link_check.exe",
+        "sha256": "d3eca43ff72cd5b9d418bdce3ccc52d2d8095259425e0197cb77de2d5ffe124c",
+        "bytes": 4592640
+      },
+      "release": {
+        "file": "build/c-only/Release/restore_link_check.exe",
+        "sha256": "e9fda1241aa000cea85316a501f77a8fa14daa48e4487784c01f44097a3b898c",
+        "bytes": 2788352
+      },
+      "debugger": {
+        "file": "build/c-only-debug/Debug/restore_debug.exe",
+        "sha256": "a2afa79e39b098810c799400ecf08853fb5fc51a30cc553070d612d4c2e12d65",
+        "bytes": 966656
+      }
+    }
+  },
+  "reproduce": {
+    "working_directory": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\debug-startup-game",
+    "debugger": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only-debug\\Debug\\restore_debug.exe",
+    "arguments": [
+      "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only-debug\\Debug\\restore_link_check.exe",
+      "--game-startup-probe"
+    ],
+    "timeout_ms": 15000,
+    "asset_isolation": "30 copied root asset files, no original EXE/media DLLs/junctions; original installation unchanged"
+  },
+  "observations": [
+    {
+      "log": "artifacts/debug-final-restore_link_check.log",
+      "mode": "normal diagnostic",
+      "exit": "0x00000000",
+      "status": "passes; does not enter game loop"
+    },
+    {
+      "log": "artifacts/debug-startup-first.log",
+      "exception": "0xc0000005",
+      "read_address": "0x00000008",
+      "site": "RtlAllocateHeap <- FUN_00561ba6",
+      "source_before_fix": "metadata/debug-allocator-before.c",
+      "cause": "Independent entry skipped original CRT private-heap bootstrap; generated heap handle was also a byte",
+      "status": "fixed with one consistent host allocation family"
+    },
+    {
+      "log": "artifacts/debug-startup-after-allocator.log",
+      "exception": "0xc0000005",
+      "read_address": "0x00000028",
+      "site": "FUN_005668d5",
+      "source": "src/unit_02920.c:16",
+      "cause": "Descriptor pointer table and total count were represented as bytes",
+      "status": "fixed: 32 DWORD bindings in 18 files"
+    },
+    {
+      "log": "artifacts/debug-startup-final.log",
+      "exception": "0x80000003",
+      "site": "_RTC_UninitUse -> FUN_0041b920",
+      "source": "src/unit_00253.c:28",
+      "cause": "Campaign lookup C method has no explicit object receiver and reads uninitialized in_ECX",
+      "status": "open; debugger stops and terminates only its owned child"
+    }
+  ],
+  "last_startup_failure": {
+    "stage": "campaign selection during configuration, before game window initialization",
+    "function": "FUN_0041b920",
+    "address": "0x0041b920",
+    "source": "src/unit_00253.c:28",
+    "caller": "FUN_00417dd0",
+    "caller_source": "src/unit_00213.c:28",
+    "reason": "ECX object receiver is missing from the C signature",
+    "native_receiver_at_caller": "0x006fdd08",
+    "native_caller_evidence": "metadata/debug-campaign-caller-native.asm",
+    "kind": "MSVC uninitialized-variable runtime check",
+    "debugger_exit": "0x80000003",
+    "fixed": false
+  },
+  "fixes": {
+    "host_allocation_entries": [
+      "0x00561ba6",
+      "0x00561bdc",
+      "0x00563129",
+      "0x005645a0",
+      "0x005647c2"
+    ],
+    "allocator_policy": "Intentional host CRT service replacement, paired malloc/free/calloc/realloc/_msize; 16-byte block-size rounding, overflow rejection",
+    "hybrid_policy": "Original allocator forwarding only in explicitly configured historical hybrid, absent in both C-only projects",
+    "descriptor_bindings": 32,
+    "descriptor_files": 18
+  },
+  "tests": {
+    "Debug": {
+      "passed": 18,
+      "failed": 0
+    },
+    "Release": {
+      "passed": 18,
+      "failed": 0
+    },
+    "allocator_checks": 351357,
+    "real_NUL_handles_checked": 300,
+    "debugger_runs_passed": [
+      "normal diagnostic",
+      "host allocator test",
+      "descriptor lifecycle test"
+    ],
+    "normal_loader_breakpoint_is_not_a_bug": true,
+    "media_DLLs_loaded": false
+  },
+  "asset_hashes": {
+    "Pharaoh.ini": {
+      "probe": "483458b91b7298357426426186c52fb44fc71b3f0428ff3074ecd10488636647",
+      "copied_from": "483458b91b7298357426426186c52fb44fc71b3f0428ff3074ecd10488636647"
+    },
+    "Pharaoh.inf": {
+      "probe": "963c4f1738c2bb3638191227b72ac922c4a18db76597e5ef2ea619769c19b324",
+      "copied_from": "963c4f1738c2bb3638191227b72ac922c4a18db76597e5ef2ea619769c19b324"
+    },
+    "Pharaoh_Text.eng": {
+      "probe": "48a7c85b935ad79aadfe15a730e126cec186e1569b9fac9aaaa53d4c11af1f17",
+      "copied_from": "48a7c85b935ad79aadfe15a730e126cec186e1569b9fac9aaaa53d4c11af1f17"
+    },
+    "Pharaoh_MM.eng": {
+      "probe": "962bfcce8b2d82c37271d113813ccf3d1ef56d04489b786c68ab5347d8e783d7",
+      "copied_from": "962bfcce8b2d82c37271d113813ccf3d1ef56d04489b786c68ab5347d8e783d7"
+    }
+  },
+  "source_hashes": {
+    "runtime/standalone_link_check.c": "c8e4c2a3ee3816ab653c1a08feeb76d23d6ff864f87270158ee4fcb041dd1898",
+    "tools/debug_child.c": "60c640914ba0c562f052cf360f1d6ab3b28bdbc2b86806087f2be1f96ade5e79",
+    "runtime/host_allocator.c": "c49ef84fb08cec8d9adbbcd925eb7cc81d6653b8805280d73c36ef58bf6d1dd4",
+    "runtime/hybrid_allocator.c": "9027275dd5395b263bf438531c27448f248b86dcd58342eacf2b2dd604a247b2",
+    "include/host_allocator.h": "a5382a9aca268aa3f83971bba847d0c531c13dcc0f0d01f0773314be19a0fdb0",
+    "tests/host_allocator.c": "ec38d18555a372343523c294ad7107d36c8f59a2d51515b6b45fee1fc2a42ab3",
+    "tests/file_descriptors.c": "cf22ca84dfd1cf28f9307ded2a407c62d4f50bbc2979aef11658d6c558174cb3",
+    "CMakeLists.txt": "b87d1d64892e292f68fa9d37cf9ba7919ef3801aceeb36798e5e85cc2f5a2273",
+    "build.ps1": "34d5d814fab313cef2ed0d09cf5c7b8ef847bec8f776b9e848278378cff1aadc",
+    "tools/prepare_c.py": "88bd13b8e9021f1a643a528dbbb592bb339a9450b991f4dfc058d523160c11c4",
+    "src/unit_02809.c": "131f91d75c13689f2a8c89bb5326c5b95568350e84438eb98fbf8d89821bb07c",
+    "src/unit_02810.c": "46db3d2891adcb9d745bd3f5fa47221eb1f29f2cc85a1d4e52c4d2688a52813e",
+    "src/unit_02847.c": "654fe8e6654341e38a9d489b2624e5b64df9944e2dc0101df3b0c22617df6da3",
+    "src/unit_02882.c": "68ba0bf55952701c8554141459056cb8ad6ec00a21e38cc2803beb8868d5d61e",
+    "src/unit_02888.c": "7e6d0b41343da44fe807358c5748f1cd41e80ab2ee3c88f959cafd56dd7ecf57",
+    "src/unit_00177.c": "b71e349d59a894a63f942ce7e974015f6ba5d12454a2ac251598de1e6cd467ac",
+    "src/unit_00181.c": "25e6df918a6b94482dee47becb6884e7954d1caa98bd4e8d2b4c091c794bdd17",
+    "src/unit_00183.c": "bfb18fc7078c177d7f3d7825bda722b947ad5083b96b4aa3d59e03f35aa8d571",
+    "src/unit_00213.c": "07decd1df62c3a48ed870cb077890484d67a31b2f8e5ea710a157bb544548d0e",
+    "src/unit_00253.c": "204e1ebd924d17b0eb7b4f5ee20d90d5d4ff25bc5ec799cc36bdd4e1740f7f6e",
+    "src/unit_02830.c": "211c53aa233779858b88b0e6ba8ea8e363a490a1fe9ba447464d6b93993823af",
+    "src/unit_02889.c": "37235e3bf8a27016a372d0e2c527295105a5788e125588466e3c49d23f2ae883",
+    "src/unit_02919.c": "9c829739b5afcbb52546c703cc85044d973208eb853eae1ef40371814f9bb503",
+    "src/unit_02922.c": "618c2cb54e2711e1763d8be9c13c0dd21e7194b9bfac7a92a66917846219bc02",
+    "src/unit_02921.c": "bddf31c13101d26f8578bcd3435227b657a0e4e92e3082eebdf1e41973ec623d",
+    "src/unit_02893.c": "3c6f7aba00d36a2cc7e65ef23d1255613d46a804870933e00ef901861aab1ef7",
+    "src/unit_02920.c": "cb5b076f4143b70e8a04e115a299412c688e48ba19aa6cad3dedeb36d416992d",
+    "src/unit_02915.c": "c948e1bcfb7aaf48e67cdcf28bb9bcd2e90d8fc9adb5ad0ce464c424bbeb3b94",
+    "src/unit_02911.c": "25579ebafc031a177e9427cd886291f5dd6351d2811e19e46a233d9a0ebe6491",
+    "src/unit_02912.c": "c961a7f5efb4de41555585b5143eba914afe60f70a219dbcc7cffda2230e9278",
+    "src/unit_02914.c": "fff0c72b87f2eb91fc5f7572bfc0cf86288c74244438aeb3cd3506a5c8915f47",
+    "src/unit_02923.c": "59cf7adf38445f4e68b9da2f62a5d4708e160efc17c98d0ed1ab63d465be91f9",
+    "src/unit_02913.c": "dab9d6db8b096c57e65b3820cd503f2ab6dda435e3911a198eb5807dfd46a431",
+    "src/unit_02983.c": "5e788c8cd32bba3c7f992c8dd53170f5cb2b3bc4ff0ad1be941c3b5752156701",
+    "src/unit_02985.c": "19d03cca54a6c25906adae7a87ecbc58505016f7f37c7aca2af925dcee2cbcbc",
+    "src/unit_03011.c": "7a6430fbaf1bddfce7119200e97a4bdd62fdbdf801749c70b165d8b90519d84d",
+    "src/unit_03016.c": "29a87c0880819fda89eda168d05a7f1de0ef8f6b5d15cf8f80f76e9303f46262",
+    "src/unit_03025.c": "92d2e777313cec34f0b44249744be6be4b7b94d0a418ba0caf0d3c6f239ac373"
+  },
+  "evidence_hashes": {
+    "artifacts/debug-diagnostic-baseline.log": "bba34d7a5c19881d90d3a8778ffd49e394e7c8e62658b3d6398f1c569b3442be",
+    "artifacts/debug-startup-first.log": "8c2970b488d091871cd8798224bbd2bf141a50131d4ff16b536a58f7c1c3823c",
+    "artifacts/debug-startup-after-allocator.log": "9af9a60efe93d4e75dddf46d222b9546b15729f7ca288d7b11f1a0304d1fc406",
+    "artifacts/debug-startup-after-descriptors.log": "724d5958d10b91af4389f69eb3028d41da9c7dd8d84d0cdb74c53909c86443ff",
+    "artifacts/debug-startup-final.log": "f6fdba17ffa3c35eb6037597fc922c1efbe10cbf17cc580655c8f665ee5a509d",
+    "artifacts/debug-final-restore_link_check.log": "1525e2b2eeed789105f08f0b8aad1749a8c1f6e983d9de2581a3b90154bf1f25",
+    "artifacts/debug-final-restore_allocator_verify.log": "07dc728ff79eb80c9b6e162d079f54c7a048a1e9ecba2ea148904225fafd1ff7",
+    "artifacts/debug-final-restore_descriptors_verify.log": "f0107868f7d9909b6e2863d47664b73c9ba420689714583c7272c1b5d5a0cb63",
+    "artifacts/debug-c-build-final.log": "008ac78759797c83abbf10d7f08a7382ea8eff8202a9e8c5ecb3a91c78db6166",
+    "artifacts/debug-fix-release-build.log": "db2bc266b2df3a596dc440b7ec4833f1acdee433083a1dce6279f112709f5283",
+    "metadata/debug-allocator-before.c": "682bf24fc0e934cbc0537a4c3dbf531a2c0fd64a7534ec38b2003c6d3ff21bdd",
+    "metadata/file-descriptor-binding-repairs.json": "8f9c9a640e23bfa20f8c36be20e7ace4aebeee5e1dbfb0799ae9dbfe855f50cb",
+    "metadata/file-descriptors-native.asm": "9a94ed77c2cbc2e99d7ce98b85534f3e0d891c568aea5ded94d938f8b67af20b",
+    "metadata/debug-campaign-native.asm": "e06b51bf462c6606b98ff017c79e9aa8a16736691f03b685e037fd181a15dc5e",
+    "metadata/debug-campaign-caller-native.asm": "91f4b3a5f85ce9e11476f51c03e230f617611de7183497fc730ef0230b99f65c"
+  },
+  "additional_unresolved_observations": [
+    "Pharaoh.ini exists, yet the legacy FILE open path reports failure; stream/bootstrap handling still needs reconstruction.",
+    "Status logger timestamp/separator bytes remain malformed; descriptor repair does not establish its buffer layout.",
+    "Original exception-handler addresses, stream/TLS initialization and remaining game contracts still need reconstruction."
+  ],
+  "limitations": [
+    "Passing subsystem tests does not establish successful game startup or playability.",
+    "Older pre-fix debug binaries were replaced by later builds; raw logs and the allocator pre-fix model are retained.",
+    "No mission, complete game loop or real graphics/codecs were reached."
+  ]
+}

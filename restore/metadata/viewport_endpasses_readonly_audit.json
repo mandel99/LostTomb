@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "state": "Read-only findings. Only430480/430530 received a subsequent implementation release; all larger repairs remain pending.",
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "sources": ["metadata/viewport-endpasses-next-native.json", "metadata/lookup-sentinel-endpass-next-native.json", "metadata/startup-lookups-emulation.json", "metadata/viewport-controller-emulation.json", "build/smoke-game/Pharaoh.exe"],
+  "read_only_validation": "All3804 retained instructions of439f10/43b630/439740/43e300 matched pinned PE bytes. Additional camera-clamp and sentinel operands were independently disassembled directly from the pinned PE. No live process or original .text fallback was used.",
+  "observed_frame": "artifacts/city-message-dismiss-frame.bmp",
+  "attribution_limit": "The frame contains real desert, readable message text, red GUI panels over the world, repeated k-shaped glyphs and black map edges. Static defects identify possible producers; exact contribution of each pass requires coordinator-owned replay state. The5077-case proven ground module is not claimed to mismatch.",
+  "findings": [
+    {
+      "priority": 1,
+      "functions": ["00430480", "00430530"],
+      "sources": ["src/unit_00457.c", "src/unit_00459.c"],
+      "finding": "Upstream sentinel asset and lookup bounds are truncated to BYTE.430480 reads fullDWORDf56b44 at430480 and fills105567 lookup DWORDs with0x0fff0000+asset.430530 reloads fullDWORDf56b44 at4306fa for empty source cells. Existing C reads only the low asset byte. Both also read/store fullDWORD70e420/424/428/42c in native code.",
+      "effect": "For asset0x1234, old C produces sentinel0x0fff0034 instead of0x0fff1234. The proven ground renderer then faithfully draws asset52 rather than4660. This directly explains a mechanism for GUI assets at map edges, without establishing that this exact asset was present in the captured frame.",
+      "status": "Released separately as the bounded lookup-sentinel reconstruction. Do not fold other findings into that scope."
+    },
+    {
+      "priority": 2,
+      "functions": ["00439740", "00438e50"],
+      "sources": ["src/unit_00562.c", "src/unit_00561.c"],
+      "finding": "Native439740 writes DWORD70e488 at439827, reads signedWORD[b350dc+tile*2] at43982e, then uses a388-byte actor record, BYTEvisible marker atbcd66f and signedWORDnext atbcd600. Existing C562 truncates geometry/tile to BYTE and uses DWORD pointer bases, turning signed-WORD head stride2 into8 and actor byte offset388 into1552.438e50 likewise uses many incorrect DWORD pointer bases and BYTE asset limits/base selectors.",
+      "native_examples": ["438e6b reads DWORD actor upper asset atrecord388+bcd778", "438e75 reads BYTE actor type atrecord388+bcd602", "439008 reads DWORD126517c image limit", "439218 reads DWORDf56b1c", "43927e/4392dd read DWORDf56814"],
+      "scope_requirement": "A real actor drawing repair should compose the actual438e50 renderer with the scanner or explicitly qualify it as a controlled boundary. Repairing only the scanner cannot establish actor art fidelity."
+    },
+    {
+      "priority": 3,
+      "functions": ["0043b630"],
+      "sources": ["src/unit_00565.c"],
+      "finding": "1963-instruction placement-preview dispatcher has BYTE gates/selectors where native uses DWORD6059e8,bca300,e38dcc,605994,605a3c, full asset bases and WORD tint. It also has broken actual call/output contracts, so a macro-only width repair is insufficient.",
+      "native_examples": ["43c991..43c99a pushes four4f0ba0 arguments including two output pointers; C line256 supplies three", "43be14..43be26 passes two DWORD outputs and43be2b reads the output slot; C lines938/939 pass an artificial BYTE stack location then read unrelated uninitialized in_stack_fffffff0", "The analogous43c5c2 call reads its real output at43c5c7; C lines655/658 use detached in_stack_fffffff4", "43b800 pushes0x20b to43df10; C drops it", "43b81f/821 pushes0,1 to43dd70; C drops them", "43b8ac/ad and43b8bd/be pass the selector to4c2f50; C drops it", "43b76e/773 binds ECX=6fd5d8 before tailcalling40d870;43b77f/784 binds ECX=6de650 before401420"],
+      "scope_requirement": "Full handwritten dispatcher with explicit outgoing arity, receiver and real output locals, retaining all branches and helper contracts."
+    },
+    {
+      "priority": 4,
+      "functions": ["0043e300", "0043e420"],
+      "sources": ["src/unit_00574.c", "src/unit_00575.c"],
+      "finding": "Native43e300 gates the per-tile numeric/debug scan with DWORD78d7d4/d8/dc and uses fullDWORDscan state; C574 uses BYTE. Child43e420 consumes DWORD70e488 at43e420, native tile arrays use distinct BYTE/WORD/DWORD strides, and43e638 loads DWORDf56f84 for4cce00 while C575 uses BYTE.",
+      "attribution": "A candidate for repeated numeric/glyph overlays only when one of the debug flags is nonzero. Their captured live values are unknown in this audit."
+    },
+    {
+      "priority": 5,
+      "functions": ["0043e1a0"],
+      "sources": ["src/unit_00573.c"],
+      "finding": "Conditional post-viewport cost-label pass reads/stores fullDWORD clips at43e1e9..43e217 and restores fullDWORDscreen dimensions at43e2cb..43e2e7. Current C uses BYTE clip inputs/outputs/screen dimensions and font selector. It also inherits BYTE cursor/cost gates.",
+      "scope_requirement": "Verify the condition and two numeric draw calls plus full clip restoration independently. The proven430d30 controller can restore its clips correctly and this later caller can still corrupt them."
+    },
+    {
+      "priority": 6,
+      "functions": ["00439f10"],
+      "sources": ["src/unit_00564.c"],
+      "finding": "1601-instruction overlay world pass retains BYTE geometry/current image/base selectors and wrong pointer scaling. Native43a199/43a366 storeDWORDd3b5c0;43a149 loadsDWORDf56d34;43a327 usesBYTEedge grid and43a45a usesBYTEfootprint grid. Native actor chains and building words use the same distinct record/field widths as other restored passes.",
+      "path_limit": "The proven viewport controller bypasses439f10 when e94e0c==0. It cannot explain a frame confirmed to take that normal path. Nonzero overlay paths still need this full restoration."
+    },
+    {
+      "priority": 7,
+      "functions": ["004ddf90", "004de080"],
+      "sources": ["src/unit_01885.c", "src/unit_01886.c"],
+      "finding": "Upstream camera bound finder4ddf90 reads fullDWORD lookup anchors741b84/741f1c/70e660/774d08 and stores DWORDbounds e94dc4/c8/cc/d0. C1885 initially reads BYTE anchors and truncates bound outputs. Native4de080 clamps fullDWORDbca2bc/c0 at4de0bb/c3/ca/d2/df/f2 and4de0ff/130 against fullDWORDbounds; C1886 uses BYTE camera and bound fields.",
+      "effect": "Confirmed camera-clamping defect; exact contribution to visible black edges awaits replay values."
+    }
+  ],
+  "already_proven_upstream_clip_setup": {
+    "functions": ["004303a0", "004ddec0", "004ddf20", "004ddf70"],
+    "evidence": "24 native comparisons over all100 grid/geometry bytes in metadata/startup-lookups-emulation.json and tests/startup_grid.c",
+    "observation": "At1024 screen width the original wide/narrow setups select16/14 columns, yielding right clip958/838. These are verified original outputs and should not be changed merely because an edge occurs near839 in the frame."
+  },
+  "requested_replay_state": ["e94e0c", "6059e8", "bca300", "78d7d4", "78d7d8", "78d7dc", "e38e94", "f56f84", "f56b44", "bca2bc", "bca2c0", "e94dc4", "e94dc8", "e94dcc", "e94dd0"]
+}

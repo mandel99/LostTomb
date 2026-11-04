@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_process_executed": false,
+  "scope": {
+    "staged_units": [1387, 1423, 1431, 1433, 1434, 1451, 1453],
+    "native_entries": ["004a5da0", "004b27e0", "004b33d0", "004b3530", "004b3c60", "004b52f0", "004b5420"],
+    "owned_instruction_count": 1102,
+    "new_explicit_receiver_queue_entries": ["004f6650", "004f65b0", "004f6630"],
+    "new_queue_instruction_count": 39,
+    "composed_unchanged_entries": ["004b3f00", "004b3250", "0051cba0", "0051f780"],
+    "total_instruction_count": 1252,
+    "proof_report": "metadata/actor-walking-emulation.json"
+  },
+  "data_contract": {
+    "actor_logic_base": "00bcd600",
+    "actor_allocation_base": "00bcd5f8",
+    "actor_stride_bytes": 388,
+    "actor_fields": {
+      "00": "signed WORD next actor",
+      "02": "BYTE actor type",
+      "06": "BYTE lifecycle",
+      "08": "BYTE previous state",
+      "09": "signed BYTE direction",
+      "0a": "BYTE previous direction",
+      "0b": "BYTE blocked direction",
+      "0c/0e": "signed WORD tile coordinates",
+      "10/12": "WORD previous tile coordinates",
+      "18": "DWORD tile index",
+      "1c/1e": "signed WORD target coordinates",
+      "2e": "WORD owner field",
+      "30": "BYTE state",
+      "31": "signed BYTE animation phase, incremented with byte wrap",
+      "32/34/36": "signed WORD route id, position and length",
+      "39": "BYTE terrain flag",
+      "42/44": "WORD subpixel coordinates",
+      "5d": "BYTE height-active flag",
+      "6a": "BYTE usage classifier",
+      "6e": "BYTE water mode",
+      "6f/70/71": "BYTE height timer/current/target",
+      "82": "BYTE list depth, capped only after native byte wrap",
+      "158": "BYTE scheduler accumulator, absolute BCD758 + actor*388"
+    },
+    "buildings": "7999D8 + signed building id*264; signed WORD type+10, owner+2A, occupancy+40; DWORD paired building+C4; BYTE queue index+CA",
+    "grids": "B350DC actor head and B4E6FC building id are signed WORD grids with stride2; AF598C terrain and 5F80FC direction deltas are DWORD stride4; ADC36C/EC7630/EBAB20/EE0C50/ED4140 are byte grids",
+    "routes": "C8AD38 + signed route id*500 + signed position; owner WORD table D04E58 + route*2",
+    "queues": "EAAF68 + captured BYTE index*224; DWORD head+4, tail+8, capacity+12, payload+20 indexed at stride4",
+    "arithmetic": "Native DWORD wrap, signed comparisons, low-WORD coordinates/route fields and byte counters are preserved without added bounds/cycle guards."
+  },
+  "algorithms": {
+    "004a5da0": "Full 18-way scheduler. Speed is a DWORD unsigned selector; values above17 use3 substeps. Cases1/2 differ in whether the counter reset occurs after/before the deep step. Cases4/5/7..11/13..17 reload the held actor counter after the step before increment. Current-actor global mutations cannot redirect the captured counter pointer.",
+    "004b27e0": "Increment phase before each positive substep. Signed phase>=15 calls service(actor,0), stores literal15, builds a route if signed route<=0, obtains direction and applies the full gate. Invalid signed direction exits. Otherwise position increments, previous direction reloads, phase resets0. Phase8 commits the tile before subpixel motion. DWORD BCD5E8 is cleared on every return, including nonpositive substep count.",
+    "004b33d0": "Positive route reads a serialized byte or releases an exhausted route and selects8. Nonpositive route computes the actual eight-way heading from signed WORD actor/target coordinates, writes its AL to direction, then replaces direction with10 when AL!=8.",
+    "004b3530": "Full water/usage/terrain/building and bridge-gate logic. Preserves captured original neighbor, terrain mask, building, paired building and queue byte across declared helpers, while reloading fields at each original instruction boundary. Bridge result1 checks actual queue fullness and both signed occupancies, enqueues the address of the actor stack slot, reloads that actor after the call, sets state7, releases the route and clears the freshly loaded building owner's WORD. Unavailable bridge relocates after route release and changes actor state/lifecycle by the native type table. Result2 performs up to3 direction/position/commit iterations; other results block with direction9.",
+    "004b3c60": "Save old signed tile coordinates before unlink. Reload direction after unlink and dispatch the full8-way WORD coordinates/DWORD tile delta. Link first, then reload tile/terrain for terrain and height mapping. Call collision with the freshly read signed head except for the six native excluded actor kinds. Write previous coordinates after collision using the saved pre-unlink values.",
+    "004b52f0": "Real signed-WORD grid list append/deduplication. Clears depth, handles empty head, traverses next links and caps the wrapped BYTE depth at20 at native location. Preserves the native single-node self-append quirk when actor is already the initial head with next0.",
+    "004b5420": "Real signed-WORD list unlink. Handles negative tile, empty/head/middle/end/missing actor; preserves the actor0 next read on the missing path, and the absence of empty callbacks on that return. Successful internal unlink invokes empty(actor) and empty(captured predecessor) in order.",
+    "004f6630": "Wrapped tail-head count; if its signed DWORD result is negative, add the capacity DWORD and return the full raw EAX result.",
+    "004f6650": "Call actual queue count, then reload capacity; return full EAX0 or1 for count==capacity-1.",
+    "004f65b0": "Capture tail/capacity; signed next>=capacity wraps next to0. If next==head return0 without dereferencing the input pointer. Otherwise read full pointed DWORD, write payload before tail, return1."
+  },
+  "abi_and_receivers": {
+    "scheduler": "void cdecl(actor,speed DWORD). Reproducible original-bit audit of132 direct calls found129 without direct semantic consumption before overwrite, another direct call or return; partial AL/AX replacements and internal LEA transformations are tracked without treating them as full EAX kills. The other3 only repair stack/pop/return with untouched EAX through the same controller. Incidental EAX forwarding is not an invented semantic result. Detailed per-path instructions are in metadata/actor-walking-caller-audit.json; subsequent callees beyond each direct-call boundary are not part of that static audit.",
+    "scheduler_forwarding_call_sites": ["004a582c", "004a5840", "004a5872"],
+    "all_owned_functions": "cdecl, actor DWORD argument; step and scheduler have a second DWORD argument. Return values of the seven owned bodies are not consumed semantic results.",
+    "service": "Original step pushes actor plus an unused literal0 and cleans8. Actual 4BAA10 has one incoming actor argument. A new typed two-argument facade evaluates/drops the unused slot then calls the existing real one-argument body. Its broad algorithm is a controlled proof boundary.",
+    "shared_empty": "Original 51F780 is exactly C3 RET and ignores the pushed actor argument. A typed actor facade evaluates/drops the argument and calls the unchanged no-argument RET C implementation.",
+    "queues": "Original ECX this receivers become explicit C self arguments. Queue push is native RET4 and explicit C cdecl(self,value pointer); the proof verifies each actual ABI and normalizes logical arguments rather than asserting machine ABI identity.",
+    "heading_return": "Native 51CBA0 writes only AL. Its semantic direction is BYTE0..8 and its raw EAX retains the incoming Y coordinate's upper24 bits. For example (-1,-1,-1,-1) returns FFFFFF08. Owned1431 consumes only AL; the unchanged accepted2332 C helper returns the same BYTE as a widened constant. The comparator normalizes this consumed BYTE only; queue algorithms still compare full EAX. No full-register return equivalence is claimed for unchanged2332.",
+    "legacy_receiver_gaps": "Generated 4F6650/4F65B0/4F6630 member wrappers remain unchanged and may retain uninitialized receiver gaps for other callers. This walking chain uses the new real explicit-receiver implementations directly. Frozen 4F6570 queue-membership helper is unchanged."
+  },
+  "feasible_coverage_exclusion": {
+    "instructions": ["004b3e08", "004b3e0a", "004b3e10", "004b3af4", "004b3af5", "004b3af6", "004b3af7", "004b3afe", "004b3aff", "004b3b02"],
+    "edges": [["004b3dcb", "004b3e08"], ["004b3af2", "004b3af4"]],
+    "reason": "Height is a nonzero BYTE<=6 before zero extension and decrement; the result is0..5, so JA5 cannot select the three-instruction zero-height arm. Gate AND EBX,EEFEC75F clears bit1000, so TEST BH,10 is always zero and the seven-instruction fallthrough store/cleanup arm is unreachable. No original registers are forced to manufacture coverage."
+  },
+  "coverage_interventions": {
+    "secondary_bridge_dispatch": "004B3A27 -> 004B3B5C is covered only by a declared helper-exit actor-kind mutation, not ordinary fixture-graph execution. The real unchanged1427 route-release body cannot change actor kind. Its normal graph reaches the four state/lifecycle table targets; the fifth default table target is retained and stress-compared after the declared exit intervention sets kind5. No normal closed-graph reachability is inferred from this case.",
+    "exact_case": {"top_entry":"004b3530","initial_type":4,"terrain":8,"building_type":136,"lookahead_result":1,"occupancy":0,"mutation_entry":"004b3250","phase":"exit","mutation":"actor type becomes5"},
+    "coverage_label": "Complete corpus instruction/branch/computed-target coverage includes the explicitly listed helper-entry/exit memory interventions. Original instruction registers are never forced."
+  },
+  "limitations": [
+    "4B2D20 route builder, 4BAA10 broad service, 4AD880 relocation search, 4B3470 bridge lookahead, 4B1210 collision and 4690F0 terrain effect are explicit typed controlled oracle endpoints. Their production algorithms remain outside this phase; 4B3FF0 alternate movement is also outside scope.",
+    "Fixtures use prepared serialized routes, mapped records, queues and bounded initially acyclic grid lists. A direct single-operation case preserves the native self-append quirk. No path-finding completeness, actual service success, whole actor-controller correctness or city pixel fidelity is claimed.",
+    "Output pointers for relocation are distinct non-null locals, matching the actual caller. The actor stack slot passed to queue push may be changed by a declared helper-exit intervention to prove the native reload.",
+    "Private staged proof composes frozen combat unit1435 and its artifact header until root applies that exact candidate; production mode hashes the root equivalents."
+  ]
+}

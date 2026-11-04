@@ -1,0 +1,26 @@
+{
+  "native_address": "0x00410fb0",
+  "source": "src/unit_00151.c",
+  "source_sha256": "07144b94383b1f913d929c4c52cfe427a0b97dc6efacc8896049172dc324ef8e",
+  "abi": "cdecl void(const void *pixels); returned scratch EAX unused by both sprite dispatch callers.",
+  "algorithm": "Read full framebuffer pointer, x, y and pitch. Compute wrapped32-bit destination, reload/cache pitch, then copy8 ordered DWORDs per row for16 rows from a contiguous512-byte source. Keep individual volatile DWORD loads/stores so overlapping inputs retain native semantics.",
+  "native_instructions": 291,
+  "production_proof": "metadata/raw-tile-raster-emulation.json",
+  "cases_per_variant": 1000,
+  "variants": [
+    "Debug",
+    "Release /O2"
+  ],
+  "controlled_algorithm_endpoints": [],
+  "directed_domains": [
+    "unaligned source/destination",
+    "independent source and target",
+    "all overlap directions including same address",
+    "pitch0/1/2 and positive/negative row strides",
+    "full-width coordinates and32-bit wrap with valid final mappings",
+    "complete65536-byte arena+64 bytes of globals"
+  ],
+  "caller_precondition": "Source512 bytes and all destination32-byte rows must be mapped; clipping belongs to the callers.",
+  "found_by": "metadata/menu-load-raw-tile-failure.json",
+  "current_runtime_retest_required": true
+}

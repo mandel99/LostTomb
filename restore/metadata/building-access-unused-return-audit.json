@@ -1,0 +1,36 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source": "src/unit_02216.c",
+  "callers": [
+    {
+      "address": "0x512d3c",
+      "bytes_hex": "e8af4df4ffa16cddea008bc8c1e10503c866391ccdf8997900752d8b158cddea00a190ddea008b0d8c6ff5005250a188ddea0053518d04408d14805257566895",
+      "evidence_id": "ev_304a19013bb993b100ef3edb33acc31eedb905101be054eca0a7e30ce347907b"
+    },
+    {
+      "address": "0x5133c5",
+      "bytes_hex": "e82647f4ffa16cddea008bc8c1e10503c866833ccdf899790000752e8b158cddea00a190ddea008b0d8c6ff5005250a188ddea006a00518d04408d1480525657",
+      "evidence_id": "ev_8e81610bed0e589065cc163ac7395cc82df6af61137136512400b51097ae6bb6"
+    },
+    {
+      "address": "0x513757",
+      "bytes_hex": "e89443f4ffa16cddea008bc8c1e10503c866833ccdf899790000752e8b158cddea00a190ddea008b0d8c6ff5005250a188ddea006a00518d04408d1480525756",
+      "evidence_id": "ev_e46a7d94207bf2b066d181eef36c1824988ebc9e101343a865197e6692776515"
+    },
+    {
+      "address": "0x514082",
+      "bytes_hex": "e8693af4ffa16cddea008bd0c1e20503d066833cd5f8997900007533a18cddea008b0d90ddea008b158c6ff50050a188ddea00516a00528d04408d0480505756",
+      "evidence_id": "ev_719d0edaf6525cc94f71a7726555b59799d6f5e6fcde9b41798bce1c44ebda01"
+    },
+    {
+      "address": "0x51454e",
+      "bytes_hex": "e89d35f4ffa16cddea008bc8c1e10503c866833ccdf8997900007502b3018b44241483f8097c2e8b158cddea00a190ddea008b0d8c6ff5005250a188ddea006a",
+      "evidence_id": "ev_b2f8337381292dc8ad9f0c3c5291b5a6bb3c6f9e0445f2c6155388f3ede61908"
+    }
+  ],
+  "reason": "Each of these five native CALL instructions is immediately followed by MOV EAX,[00EADD6C]. The full EAX result is overwritten before use. The following WORD query reads building access at7999F8. The decompiler normalization had inserted a fail-closed abort into a discarded comma-expression operand; remove only those five unused-result placeholders.",
+  "removed_abort_placeholders": 5,
+  "source_only": true,
+  "canonical_linked_provider_changed": false,
+  "complete_render_reconstruction": false
+}

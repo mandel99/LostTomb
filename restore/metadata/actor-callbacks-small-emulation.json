@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 4545,
+  "production": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "f348eb27ad8f9bdfd2ad1466e853608760e0169a5e6c9b957acf909e2a6b94d1",
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "method": "Four complete global-current-actor callbacks plus actual493610 state helper,4578b0/4579d0 stock queries and unchanged4c5120 classifier execute in both native and C graphs. Compare full record/table/global guards bySHA256, exact ordered entry/exit/deep-call arguments and intermediate actor fields, current-actor reload mutations, full consumed query/classifier returns and native/C stack/saved registers. Original ignored stack word is observed at the named C state-adapter boundary.",
+  "limitations": [
+    "Six road/path/movement/death endpoints (47fe60,4a5da0,4b3250,4b1ef0,4b1d50,4b17d0) are controlled. Their production algorithms and complete actor simulation are not proved.",
+    "State/query/classifier wrappers may apply explicit test-only mutations after real function returns, to verify caller reload/caching contracts. These wrappers are not production stubs.",
+    "Mapped actor/building records and resource lists through512 entries are the input domain; malformed unmapped IDs/list extents are excluded. Signed WORD timer boundary cases use mapped lookup guards covering the complete native index range; all65536 timer values are not enumerated.",
+    "The four callbacks and state entry are void; actor dispatcher489c52 discards callback EAX. Consumed stock/classifier EAX is compared. No function in this bounded graph directly calls RNG."
+  ],
+  "source_hashes": {
+    "include/actor_callbacks_small.h": "eb27eda565e7a60d6403d9ba8d30c0134272972a6217bea537f94eccafff23a3",
+    "runtime/actor_callbacks_small.c": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828",
+    "runtime/actor_callbacks_small_state_adapter.c": "250df434d61f74b60c3310cb716140cbd870cd391c46d8ffe56cdc62732eb508",
+    "tests/actor_callbacks_small.c": "f5573b6a8a7f1311a75b73a657959235ce1f1187b8e7e7ed14bf188e912987ff",
+    "src/unit_01320.c": "dd0d6fb460065e8342d9ccd64f47572e26d136de831e0838d503a5d7b91a4f82",
+    "src/unit_00825.c": "bdb539bab39da13ab0a6ee87feab77e547639aed897cf0517851c3c698978390",
+    "src/unit_00826.c": "03e720597233c9114c73a5368d0e10bad3040c830da28fbceab2c1c0342e63fa",
+    "tools/verify_actor_callbacks_small_emulation.py": "ae6ffb6e59f7e26ec7d7362739fbf005dfbe400f8c7013178110dd141f2d4c56",
+    "metadata/actor-callbacks-small-native.json": "d7bf83a52500ce33b5faee9fb04d7eaf35116a3a6bf8822ac5888bda6c5ea1b5",
+    "artifacts/actor_callbacks_small_phase/CMakeLists.txt": "070002048f0de9e594ba7c39e91d326f40a372e3aa39de2f71eb3ce65b91ba37",
+    "src/unit_01602.c": "b7ff5d1ef0228715dfab70e57ada87f687eabcd0de55205c70855f212ab1230d"
+  },
+  "instruction_coverage": {
+    "0x49b390": {
+      "executed": 10,
+      "total": 10,
+      "missing": []
+    },
+    "0x496f20": {
+      "executed": 59,
+      "total": 59,
+      "missing": []
+    },
+    "0x493ec0": {
+      "executed": 89,
+      "total": 89,
+      "missing": []
+    },
+    "0x494010": {
+      "executed": 95,
+      "total": 95,
+      "missing": []
+    },
+    "0x493610": {
+      "executed": 117,
+      "total": 117,
+      "missing": []
+    },
+    "0x4578b0": {
+      "executed": 70,
+      "total": 70,
+      "missing": []
+    },
+    "0x4579d0": {
+      "executed": 33,
+      "total": 33,
+      "missing": []
+    },
+    "0x4c5120": {
+      "executed": 21,
+      "total": 21,
+      "missing": []
+    }
+  },
+  "instructions_executed": 494,
+  "instructions_total": 494,
+  "watched_bytes": 520648,
+  "elapsed_seconds": 120.984
+}

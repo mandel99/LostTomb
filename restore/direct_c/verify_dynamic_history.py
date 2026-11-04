@@ -3,7 +3,7 @@
 Controls only allocation/free with identical readable padded backing. The
 literal copy reads destination-capacity words, including padding. This proves
 normal-return behavior and allocation order; it does not certify memory safety
-or C++ exception unwinding. Gameplay keeps its existing repaired growth adapter.
+or C++ exception unwinding. Gameplay now shares this literal growth chain through its typed adapter.
 """
 import sys,struct
 sys.path.insert(0,'restore/direct_c')

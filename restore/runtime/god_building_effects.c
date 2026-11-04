@@ -1,4 +1,6 @@
+#include "building_destruction.h"
 #include "storage_delivery.h"
+#include "building_removal.h"
 #include "god_building_effects.h"
 #include "menu_actor_message.h"
 #include "menu_prepare_integer.h"
@@ -135,16 +137,16 @@ void restore_god_building_0045b700(int32_t b,int32_t n)
 int32_t restore_god_building_0045fe20(int32_t b,int32_t n,int32_t r)
 {uint32_t a[]={(uint32_t)b,(uint32_t)n,(uint32_t)r};return (int32_t)invoke(0x45fe20u,a,3);}
 void restore_god_building_004695d0(int32_t b,int32_t destroy)
-{uint32_t a[]={(uint32_t)b,(uint32_t)destroy};(void)invoke(0x4695d0u,a,2);}
+{restore_building_clear_linked_parts(b,destroy);}
 void restore_god_building_0046d100(int32_t b,uint8_t mode)
-{uint32_t a[]={(uint32_t)b,mode};(void)invoke(0x46d100u,a,2);}
+{restore_building_destroy(b,mode);}
 void restore_god_building_0043fd00(int32_t b,int32_t kind)
-{uint32_t a[]={(uint32_t)b,(uint32_t)kind};(void)invoke(0x43fd00u,a,2);}
+{restore_building_clear_farm_tiles(b,kind);}
 void restore_god_building_004c04a0(int32_t b)
-{uint32_t a[]={(uint32_t)b};(void)invoke(0x4c04a0u,a,1);}
+{restore_building_destroy_four_parts(b);}
 uint32_t restore_god_building_0046d0f0(uint32_t b)
-{uint32_t a[]={b};return invoke(0x46d0f0u,a,1);}
+{return restore_building_destruction_root(b);}
 void restore_god_building_004e9170(int32_t p,int32_t n)
-{uint32_t a[]={(uint32_t)p,(uint32_t)n};(void)invoke(0x4e9170u,a,2);}
+{restore_population_remove_destroyed(p,n);}
 void restore_god_building_004bfee0(int32_t b)
-{uint32_t a[]={(uint32_t)b};(void)invoke(0x4bfee0u,a,1);}
+{restore_building_clear_four_part_occupancy(b);}

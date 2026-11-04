@@ -1,0 +1,224 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-29T01:03:17.617Z",
+  "method": "Manual C reconstruction from original x86 instructions, with retained REA export identities and Ghidra inspection; independent Unicorn comparisons use controlled endpoints",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "computer_control_used": false,
+  "ollama_used": false,
+  "external_zip_bodies_used": false,
+  "functions": [
+    {
+      "address": "0x00426b40",
+      "symbol": "FUN_00426b40",
+      "source": "src/unit_00429.c",
+      "retained_export_evidence": {
+        "address": "0x426b40",
+        "status": "rea",
+        "evidence": "ev_77d39ead347e66a89f3f0b33224c0dec2ce3704131ebbda065201bfaec73b1fe"
+      }
+    },
+    {
+      "address": "0x00426ff0",
+      "symbol": "FUN_00426ff0",
+      "source": "src/unit_00432.c",
+      "retained_export_evidence": {
+        "address": "0x426ff0",
+        "status": "rea",
+        "evidence": "ev_77d39ead347e66a89f3f0b33224c0dec2ce3704131ebbda065201bfaec73b1fe"
+      }
+    },
+    {
+      "address": "0x00427480",
+      "symbol": "FUN_00427480",
+      "source": "src/unit_00433.c",
+      "retained_export_evidence": {
+        "address": "0x427480",
+        "status": "rea",
+        "evidence": "ev_77d39ead347e66a89f3f0b33224c0dec2ce3704131ebbda065201bfaec73b1fe"
+      }
+    },
+    {
+      "address": "0x00426ee0",
+      "symbol": "FUN_00426ee0",
+      "source": "src/unit_00430.c",
+      "retained_export_evidence": {
+        "address": "0x426ee0",
+        "status": "rea",
+        "evidence": "ev_77d39ead347e66a89f3f0b33224c0dec2ce3704131ebbda065201bfaec73b1fe"
+      }
+    },
+    {
+      "address": "0x00426f60",
+      "symbol": "FUN_00426f60",
+      "source": "src/unit_00431.c",
+      "retained_export_evidence": {
+        "address": "0x426f60",
+        "status": "rea",
+        "evidence": "ev_77d39ead347e66a89f3f0b33224c0dec2ce3704131ebbda065201bfaec73b1fe"
+      }
+    },
+    {
+      "address": "0x004d0480",
+      "symbol": "FUN_004d0480",
+      "source": "src/unit_01788.c",
+      "retained_export_evidence": {
+        "address": "0x4d0480",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d03f0",
+      "symbol": "FUN_004d03f0",
+      "source": "src/unit_01787.c",
+      "retained_export_evidence": {
+        "address": "0x4d03f0",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d0220",
+      "symbol": "FUN_004d0220",
+      "source": "src/unit_01785.c",
+      "retained_export_evidence": {
+        "address": "0x4d0220",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d01e0",
+      "symbol": "FUN_004d01e0",
+      "source": "src/unit_01784.c",
+      "retained_export_evidence": {
+        "address": "0x4d01e0",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d0040",
+      "symbol": "FUN_004d0040",
+      "source": "src/unit_01782.c",
+      "retained_export_evidence": {
+        "address": "0x4d0040",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d0060",
+      "symbol": "FUN_004d0060",
+      "source": "src/unit_01783.c",
+      "retained_export_evidence": {
+        "address": "0x4d0060",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    }
+  ],
+  "contract_repairs": [
+    {
+      "address": "0x00427480",
+      "native": "cdecl, four caller-provided stack slots (fourth unused); EAX is the created surface",
+      "C": "typed IDirectDrawSurface pointer return, real output storage and complete 108-byte DDSURFACEDESC"
+    },
+    {
+      "address": "0x004d0480",
+      "native": "ECX receiver, two surface arguments, ret 8",
+      "C": "explicit RestoreSurfaceContext receiver and two typed surface pointers; direct caller binds the original data object at 0x006de518"
+    },
+    {
+      "address": "0x004d0040",
+      "native": "DWORD timeGetTime delta modulo 2^32",
+      "C": "complete 32-bit prior tick storage and wrapping unsigned subtraction"
+    }
+  ],
+  "surface_context": {
+    "address": "0x006de518",
+    "size": 44,
+    "fields": {
+      "steps": 0,
+      "brightness": 4,
+      "width": 8,
+      "height": 12,
+      "format": 16,
+      "effect": 20,
+      "randomize_byte": 24,
+      "front": 28,
+      "back": 32,
+      "front_pixels": 36,
+      "back_pixels": 40
+    }
+  },
+  "verified_behavior": [
+    "Windowed/fullscreen selection, desktop color depth, cooperative flags and complete handles.",
+    "Mode-change retries in order: requested mode, mode 2, mode 1; return to previous mode after creation failure.",
+    "Primary/offscreen surface descriptors, actual returned pointer, lock/unlock sequence, clipper creation and attachment.",
+    "Native pixel-mask decisions, diagnostic messages and retention of the prior color mode during an active game.",
+    "Context pixel pointers, dimensions and format, including unsuccessful locks and retained prior pointer fields.",
+    "Clipper/back/front/device release order, optional device retention and auxiliary COM-object release.",
+    "Zero color fill, Blt/BltFast rectangle parameters and unsigned millisecond wraparound."
+  ],
+  "tests": {
+    "suite_passed": 15,
+    "suite_failed": 0,
+    "source_graphics_scenarios": 860,
+    "instruction_C_comparisons": 4110,
+    "observed_memory_fields": 40,
+    "ordered_COM_platform_and_game_calls_compared": true,
+    "unicorn_version": "2.1.4",
+    "original_exe_executed": false,
+    "real_window_created": false,
+    "real_graphics_device_used": false,
+    "media_DLLs_loaded": false
+  },
+  "source_hashes": {
+    "src/unit_00429.c": "37f2570aa31fc4feebdf6ec16659de187b11d9df0e2a662493ce2d61a6d0266e",
+    "src/unit_00432.c": "f7471f37ced82efdbb190a208faa773fefcdd5ae752c86901b854efffbe866e3",
+    "src/unit_00433.c": "416dcdb45184ee7fa5cc8e1771d7489ac72c893b8949eee202b5ef40b79b64df",
+    "src/unit_00430.c": "5c2bb5ee3c33ef28c4d1607b02e32a760dab5c4c43f01f4f4c4f640243455f08",
+    "src/unit_00431.c": "635725cf93cbf378683535f051d0eca11428579c57f9839942505773515bba97",
+    "src/unit_01788.c": "b2d7193517c1e366fdf505742393c15900b94e207eabe7eec301b9d5df942e6a",
+    "src/unit_01787.c": "0254d3dc11622c336db5de341521522f353773ab2a2dc0ee0a96a483f6e7a707",
+    "src/unit_01785.c": "fda9adaa9ded32921e28b0d46e6c94a7968e1a37ba53edc0a467b81a4c779fec",
+    "src/unit_01784.c": "25e236aa3bcdae60d087c8c6cef4210510d07ca7a7b7cacdcbcc73669d0bc114",
+    "src/unit_01782.c": "0614904b99f6d895b0750e77608d0c6b24c0a8c0263a61749c89a944a1f8ab4b",
+    "src/unit_01783.c": "4f33116d8131507246b85bf8aa1c315b29354b078f7849fc21f91041ff7f954b",
+    "include/graphics_session.h": "2e46b6c9578b3f643d3b84381807e3b61c6c1d6a748e15cdad62a8ef856e54d1",
+    "runtime/graphics_platform_win32.c": "2283c5d59cc5b85dbed76bdaeb44699e16d427c9601312c9d218ee6526e8cf75",
+    "runtime/window_platform_win32.c": "c0d29609b3abf8348a531e903ba33bfb9d7c6a8d2b1252fc01132a8539476489",
+    "tests/graphics_session.c": "867dc465940de45f65fc6d963099a422d76cd7a4753e4631f128cff4f890d52f",
+    "tools/verify_graphics_emulation.py": "4104e1de8c0246173ad8a0c58969cd2e5f07ec105ed8622685d1703f2ccf9636",
+    "CMakeLists.txt": "ecbb70c8374ef0c908187dd39f5bfe646e19f46a00b0b0d6c32bca1d9173126c"
+  },
+  "evidence_hashes": {
+    "metadata/directdraw-native.asm": "d2accf55414f530fa5fcf1c01f8d50b0325cbb42e4ebb96becaba0894bbe3647",
+    "metadata/graphics-session-native.asm": "203f03071f575a45fae81b085d127ae5fe774c9fb739d144dc1f76bf1302e47c",
+    "metadata/graphics-emulation.json": "04b1dae55f31089705313f821c91deb7cab287295acfbcd40149443154e6c853",
+    "metadata/string-binding-verification.json": "9ed56b49b1e0251a8d5083d040df7e310b0539e90b21eea46dc415d830dffd5c",
+    "artifacts/graphics-session-build.log": "ee1b0cfa2523a59c959e53a7c776d0c7cfcbffe7c9748f3e78faf59326fb94c7",
+    "build/c-only/Testing/Temporary/LastTest.log": "043294caf53b830e30b8699ded1a0543fd7c39a90b6d3fed4a281d2351a0e8b1"
+  },
+  "executable": "build\\c-only\\Release\\restore_link_check.exe",
+  "executable_sha256": "9c89a6ab6ca8d9fce6d194c68f63561acad4c8d884aca4dee113c80a400a36a4",
+  "original_executable_required_for_build": false,
+  "original_machine_code_embedded": false,
+  "external_C_runtime_required": false,
+  "recovered_procedure_sources": 4402,
+  "recovered_public_entries_present": 4402,
+  "remaining_unresolved_return_sites": 439,
+  "remaining_return_or_register_procedures": 558,
+  "unreviewed_data_code_pointer_candidates": 4361,
+  "playable_game": false,
+  "previous_window_report": "metadata/window-reconstruction.json",
+  "limitations": [
+    "COM/Windows endpoints, game notifications, logging and asset/layout refresh are controlled in comparisons; their real behavior is outside this verification.",
+    "The original unmodified EXE is read only as optional offline analysis data. It is not an input to the default C build or source-only tests.",
+    "Image-effect methods 0x004d05f0 and 0x004d0650 and the frame controller 0x004d0280 still require object/register/return restoration.",
+    "Other callbacks, exception frames, data code pointers, remaining contracts and the complete C game entry remain unfinished.",
+    "Real graphics/codecs and full gameplay have not been exercised; finite comparison cases do not establish a playable independent game."
+  ]
+}

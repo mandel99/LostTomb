@@ -105,7 +105,7 @@ for i in range(160):
  add(data,rng.choice([0,0x5a,0xa5]))
 asset=ROOT/'build/debug-startup-game/campaign.txt'
 if asset.exists():add(asset.read_bytes())
-exe=ROOT/'build/c-only-debug/Debug/restore_campaign_parser_verify.exe'
+exe=Path(sys.argv[1]) if len(sys.argv)>1 else ROOT/'build/c-only/Debug/restore_campaign_parser_verify.exe'
 process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
 report={'format':1,'unicorn_version':unicorn_version,'original_game_executed':False,'native_entry':'0x0041ae40',
  'method':'Original parser, prefix constructor, reset, append, whitespace removal, numeric readers, tokenizer and campaign lookup versus compiled C; file IO, digit/atoi, comparison, formatting and logging endpoints controlled',
@@ -113,7 +113,7 @@ report={'format':1,'unicorn_version':unicorn_version,'original_game_executed':Fa
  'limitations':['Native frame padding/unused merge bytes are zero-seeded to match deterministic C initialization; those originally unspecified values are not equivalence claims.',
   'ASCII numeric and case-insensitive string endpoints are controlled; long error messages are safely truncated by C, and a negative append count is rejected.',
   'The enclosing save/load consumer still has separate unresolved receiver and argument contracts.'],
- 'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest(),
+ 'compiled_C_path':str(exe.resolve()),'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest(),
  'local_asset_included':asset.exists(),'local_asset_sha256':hashlib.sha256(asset.read_bytes()).hexdigest() if asset.exists() else None}
 checked=0;case=None;started=time.monotonic()
 try:
@@ -143,6 +143,7 @@ finally:
  process.stdin.close();process.wait(timeout=10)
 report['elapsed_seconds']=round(time.monotonic()-started,3)
 files=['src/unit_00241.c','src/unit_00242.c','src/unit_00243.c','src/unit_00245.c','src/unit_00246.c','src/unit_00247.c','src/unit_00248.c','src/unit_00249.c','src/unit_00253.c','src/unit_02815.c','include/campaign_parser.h','include/campaign_index.h','tests/campaign_parser.c','tools/verify_campaign_parser_emulation.py']
+files+=['CMakeLists.txt','runtime/byte_tokenizer.c','include/byte_tokenizer.h']
 report['source_hashes']={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in files}
-(ROOT/'metadata/campaign-parser-emulation.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/('metadata/campaign-parser-emulation-release.json' if 'Release' in str(exe) else 'metadata/campaign-parser-emulation.json')).write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='source_hashes'},indent=2));sys.exit(0 if report['passed'] else 1)

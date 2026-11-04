@@ -1,0 +1,45 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Pinned original x86 instructions. C# building layouts and the port's function labels are references, not behavioral authority.",
+  "functions": {
+    "004599a0": {"instructions": 16, "evidence": "ev_74261b7f7751ab877ddb574983fc836597074fcceb104fc91642f3be489b8e3d"},
+    "00484a90": {"instructions": 102, "evidence": "ev_220972e6976662eadb2e2e00885f8878b446d173f2faa2ead6e40b16853434c2"},
+    "0048c2b0": {
+      "instructions": 258,
+      "body_start": "0x0048c2b0",
+      "body_end_inclusive": "0x0048c69c",
+      "body_bytes": 1005,
+      "body_sha256": "6f4d58e34157ed4cee5fcdafa82b585410ee4605399b730a73fc1922335fe4f5",
+      "evidence": "Ghidra read_memory1008 bytes and pinned-PE Capstone5.0.7 disassembly agree on the complete1005-byte body. All258 reachable instructions reviewed, both RETs and internal direct jumps. Ghidra has no function definition here; no successful REA function dossier is claimed."
+    }
+  },
+  "changes": [
+    "One typed tax_collector.c provider replaces all three public instruction-frame facades. Active raw routing/civic/city boundaries call it. The game callback resolver still selects the actual48C2B0 public entry. Historical model bodies remain source-only and are absent from both final maps.",
+    "Coverage retains signed rectangle clipping, radius2, stride228 and origin, repeated cell counts, occupied/populated house gates, signed metric maximum, BYTE50 duration and exact published loop endpoint/tile globals, including empty rectangles. It does not add building-state or building-type filters.",
+    "Decay caches the entry high-water count and decrements only the nonzero coverage BYTE of state1 records, through the last record. Collector actions retain entry home/profile caching, post-callback current-actor reloads, signed and wrapping WORD timers, full road/movement query returns, geometry and native image/direction selection."
+  ],
+  "sources": {
+    "runtime/tax_collector.c": "657ce399fee89defe635860bd454b40378c1086005fb647f8ab2847c1860de15",
+    "include/tax_collector.h": "e9b4bf09393beeaaa891b369cbc5a88d1b57e80e5609d55bdb06a3c36a3a9498",
+    "runtime/actor_civic.c": "3922145e27d4ade93e3f1498b0507255bc37360aeb09aa4505d71278443149a9",
+    "runtime/actor_walking_facades.c": "2d9b2c318a77ed6803e95a582fd6c29aa197dc9ad9b369cc8cf12724ac80dedc",
+    "runtime/city_updates.c": "40fb1a26f2530bf8d46a375b84b17f6129d4ab1f01c91d657289eee3e2ad122d",
+    "CMakeLists.txt": "c90da1b8d0db7d2962a389e949a1315e34d45fd23db7317de0751c907c6f2c6d"
+  },
+  "verification": {
+    "script": "direct_c/verify_tax_collector.py",
+    "script_sha256": "49fd0e4e3f39307d1c9a44fbebb2a8d0803c53a209530e8496b47670238a7c68",
+    "cases": {"cell_coverage": 100, "decay": 60, "collector_actions": 203, "actual_service_expiry_and_tax": 16},
+    "total": 379,
+    "target_sha256": "e0c0aa066526cd79cc21284773e9a8cf4595fdfc6f8ace15216515a25d80c747",
+    "target_coff": "6ae7f308",
+    "target_bytes": 7894016,
+    "target_code_end": "0x0048db8c",
+    "diagnostic_sha256": "f8d0be531d77b4615e52277ba550be12b80201937f7269a434bd091ada090ec6",
+    "diagnostic_code_end": "0x0048d3dc",
+    "strict_release_build_and_no_argument_link_diagnostic_exit": 0,
+    "method": "Offline Unicorn compares full mapped game data, ordered controlled movement/road call arguments and entry state, stack and nonvolatile ABI. Coverage compares full EAX; void collector/decay entries do not claim unspecified EAX/flags. Actual C callback resolver executes. Sixteen compositions run genuine4BAA10 through its routing boundary (its public facade is inlined), actual coverage and packed cell service, home service count, genuine city phase48 across expiry, optional service refresh and monthly tax with actual percentage providers. No game process or save is changed.",
+    "link_audit": "All three public symbols have exactly one tax_collector.obj provider in game/diagnostic maps; their obsolete model bodies and broad world_dispatch_model.obj are absent. Both main code segments end below original data560000. New provider uses W4/WX."
+  },
+  "limitations": "Finite mapped-state comparisons, not exhaustive or live-game certification. Isolated collector cases control eight named movement/road endpoints; the separate service/expiry/tax compositions execute their stated genuine providers. Full routing, all simulation functions and complete game behavior remain reconstruction obligations. The reported live workplace graphics issue also remains open pending a current reproduction."
+}

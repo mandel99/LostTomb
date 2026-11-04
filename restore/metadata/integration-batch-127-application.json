@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "complete_menu_reconstruction": false,
+  "predecessor": "metadata/integration-batch-126-applied.json",
+  "predecessor_sha256": "0c8f9767a3936d894875669b93e9f714209d53ae811f720f951cb6cb1b1e4f95",
+  "apply_map_sha256": "6c41db12039c0b0ec2dceb016fac38224d4b1d1e3c3455f4327d10f4ee9d37ae",
+  "written": {
+    "include/replay_mission.h": "4c69ef54913e6da4473e7b0c34cce5671cc771a464489159fbebb2492ed0ce09",
+    "runtime/replay_mission.c": "642b89db205a5665d71e40b93b78b3a1163eded53c736553d266545e74eb9a67",
+    "src/unit_00222.c": "6164d16417b42afca5df5c77d759d4050f8bdc6b9f3a578ea2137fce98797b62",
+    "runtime/menu_callbacks.c": "9a2eba29c04765b6e6fda8458887d75b4a501b09de2989008bcd517c8225b1d9",
+    "CMakeLists.txt": "c998ec873c4f0b4986d30f81c518995fae846cefc9bbbec31e00222f5ce917d5"
+  },
+  "registry_insertions": [
+    {
+      "anchor": "#include \"display_confirmation.h\"\n",
+      "inserted": "#include \"replay_mission.h\"\n"
+    },
+    {
+      "anchor": "    if(restore_display_confirmation_action(address))return;\n",
+      "inserted": "    if(address==0x00418510u){FUN_00418510();return;}\n"
+    }
+  ],
+  "validation": "Applied only; actual product build and native replay required."
+}

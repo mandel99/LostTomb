@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-03",
+  "function": "0x55d9c0",
+  "name": "restore_sprite_direction_from_angle",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_bytes": 450,
+  "native_instructions": 130,
+  "body_evidence": "ev_42c9942bfbf72c5bb8ffb6462fe2cd3087fb455e5a5b5e69344000563e0f8528",
+  "constants_evidence": "ev_b9f187f694625d6b6087162034bc3aac6dcece7541f9b4eb0071ed8c65ed39a7",
+  "constants": [
+    360,
+    180,
+    225,
+    135
+  ],
+  "source": "src/unit_02680.c",
+  "header": "include/sprite_direction.h",
+  "verifier": "direct_c/verify_sprite_direction.py",
+  "tested_build_sha256": "ce45dd585eb64bc89ac7bf625faf912ae9f3bdd64985212997fb616d65ca91a0",
+  "cases": 9419,
+  "passed": true,
+  "link_check_passed": true,
+  "breakdown": {
+    "all_counts_and_flags": 5120,
+    "adjacent_binary32_sector_edges": 3825,
+    "precision_rounding": 384,
+    "padding_alias_inherited_fp_stack": 72,
+    "terminating_nonfinite_paths": 18
+  },
+  "contracts": [
+    "Explicit output pointer, descriptor, angle, inherited padding and optional argument-slot outputs",
+    "Legacy cdecl bridge captures native private WORD at entryESP-6 before any stack write",
+    "Full EAX, eight output bytes, native by-value argument writes, callee-saved registers and stack cleanup compared",
+    "Twelve masked x87 PC/RC profiles, CW/TOP/tags and two inherited live FP guards checked",
+    "No substituted callees; original FTOL and compiled C raw80 converter execute",
+    "No original executable or original code required by compiled C mapper"
+  ],
+  "limits": [
+    "Mapped valid descriptor/output memory; inherited x87 stack depth0 or2 compared",
+    "Mirrored normalization finite bounded inputs; native loops do not terminate on NaN/Inf",
+    "FPSW exception/condition bits, hardware traps, concurrent memory observation and stack-output aliasing not certified",
+    "Higher action/direction object controller and virtual angle getter remain unreconstructed",
+    "No live game playback certification"
+  ],
+  "commit": "9480f68fe705705de1ab01852f04e3a4d4d85e84",
+  "source_sha256": {
+    "src/unit_02680.c": "29296da0ced6b92faaa16db0769e9fbc3b4fc70173aef276cb0361f10eeaa37e",
+    "include/sprite_direction.h": "3846db8cb2056e98549da92163ccc66aecacb902639e7279dba780723d26c3bc",
+    "direct_c/verify_sprite_direction.py": "e7579279526768571341b1ffa86ade77ce4e0fbf0764ded5ccacfa3e3d94ce24",
+    "CMakeLists.txt": "148da98273e92f067bd4a47bfc55095347930e8da9f702650b07a83c388d706f"
+  }
+}

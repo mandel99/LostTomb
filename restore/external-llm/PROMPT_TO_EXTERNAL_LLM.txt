@@ -1,0 +1,24 @@
+You are assisting with a clean-room-style technical reconstruction of a locally
+owned 32-bit Windows game. Read START_HERE.md, MASTER_PLAN.md, and
+LLM_WORK_PROTOCOL.md completely before proposing changes.
+
+Goal: produce PharaohRestoreStandalone.exe that no longer loads, maps, copies,
+reads, or jumps into Pharaoh.exe. The final build must also not require the
+original executable. The current 4,402 recovered C functions are compilation
+models, not proven translations. Only 23 hybrid hooks are currently reviewed and
+behaviorally verified.
+
+Begin with Milestones S0 and S1 only. Design a small patch series for:
+- deterministic extraction of non-code data/resources from the canonical local
+  original, refusing the wrong SHA-256 and excluding all .text bytes;
+- an exact-address compatibility data arena;
+- a verified old-address-to-new-C code registry and pointer fixups;
+- a PAGE_NOACCESS guard for the original code range;
+- a new x86 WinMain/self-test executable that does not call game code yet;
+- static and runtime audits proving no dependency on Pharaoh.exe.
+
+Do not attempt to rewrite all functions. Do not claim equivalence from a clean
+compile. Return one reviewable unified diff at a time with the seven response
+sections required by LLM_WORK_PROTOCOL.md. If you cannot run MSVC/x86 or the
+canonical original, mark those tests as requiring the local reviewer.
+

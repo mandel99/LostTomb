@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "bcb75fd0822cb5ab2660c05441bcba600912a1c941861668d7e49fe33ee246f8",
+  "method": "Actual original 004d4720 interpolation, FSQRT and 0056133c float-to-integer conversion instructions. Only malloc/free controlled. Full route plus guards, complete old/new buffers plus guards, allocator events, AL result and saved-register/stack ABI compared.",
+  "safety_differences": [
+    "C rejects more than 50 route control points, missing sample buffers and failed allocations. It checks each sample against capacity; the native estimate can underallocate long diagonals. Native comparisons use geometries within allocated storage; C-only selftests verify those failure paths without native overflow."
+  ],
+  "C_safety_selftest": {
+    "passed": true,
+    "stdout": "Mission routes: explicit receiver, native interpolation, full-width graphics metadata and bounded buffers."
+  },
+  "limitations": [
+    "Bounded route/city fixtures establish this function contract. Actual top-level map/save loading and post-load initialization are separate checks."
+  ],
+  "passed": true,
+  "checked": 938,
+  "source_hashes": {
+    "include/mission_routes.h": "84d633c0463d163af4077a9446f6030539b7daac2010f5d39b100206224f258d",
+    "src/unit_01822.c": "62427eb246619e6b48875416368510c0680285bf6a43a15d017489590726cde8",
+    "src/unit_01821.c": "5c1a0ef01d568b3c6be7ecc2f49e2d1940517bfe845bda3652349548d0d98b62",
+    "src/unit_01823.c": "16d3dfa2760d59b3470ffab7cc47d278894abca7fd57ef7c7a6baf19ba0deb04",
+    "tests/mission_routes.c": "865266c46f82d66eee0506c557567090a09e6b437297162404666a95a59b9582",
+    "tools/verify_mission_routes_emulation.py": "9d35a5d61059a41b4430f6d5700f96c379da0ce9b0a70f4e1299271dccc565da",
+    "metadata/mission-route-builder-native.json": "6b7aaefe93425596757de00e0476336f29369e626c558586cf3183021b170e64"
+  },
+  "subsequent_refinement": "Historical bounded-loader checks; see world-route-public-entries.json for shared exact x87/capacity implementation and final public-entry validation."
+}

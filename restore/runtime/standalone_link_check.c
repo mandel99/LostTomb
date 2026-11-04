@@ -11,6 +11,7 @@
 #include "actor_ring_queue.h"
 #include "file_list.h"
 #include "sprite_shutdown.h"
+#include "audio_global_lifecycle.h"
 #ifdef RESTORE_GAME_LAUNCHER
 #include "game_launcher.h"
 #include "game_diagnostics.h"
@@ -51,6 +52,7 @@ int main(int argc,char **argv)
     FUN_00486080();
     FUN_00489940();
     FUN_004bd310();
+    if(probe){restore_sound_initialize_owned();restore_music_initialize_owned();}
     FUN_004d1340();
     FUN_004d4a50();
     (void)FUN_004f64a0();

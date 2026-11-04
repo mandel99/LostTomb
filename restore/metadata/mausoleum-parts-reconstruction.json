@@ -1,0 +1,117 @@
+{
+  "status": "whole native functions reconstructed as typed C; focused offline checks passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "004df9d0",
+      "file": "src/unit_01901.c",
+      "purpose": "placement",
+      "cases": 20,
+      "evidence_id": "ev_7268528ad315f2ceb83c5b08350a93a712d7d57fcc071c20238ef7a407840779",
+      "instructions": 132,
+      "native_bytes": 478,
+      "native_body_sha256": "8257a7baf8d63c999b5bc02c5ec3326544779daff54e513350a4b4009330a611",
+      "source_sha256": "3bfac9d951dafb8936cd90abae8e78f7a283053cc780173cada0448c174e5ac3"
+    },
+    {
+      "entry": "004dfbb0",
+      "file": "src/unit_01902.c",
+      "purpose": "map/image update",
+      "cases": 48,
+      "evidence_id": "ev_4ed39e7ea8a3302412f3155bf76e46760f9d1d9b3be304764489840a228c47f7",
+      "instructions": 144,
+      "native_bytes": 471,
+      "native_body_sha256": "5c5c292af77d03450dad55500b96c8b7ef0898b849d5986a1709e6ef31039180",
+      "source_sha256": "79a9f1822751308e7d6a0e7e3c68dad12d3881a1e754ac3f967aaed9152d43eb"
+    },
+    {
+      "entry": "004dfd90",
+      "file": "src/unit_01903.c",
+      "purpose": "part and worker repositioning",
+      "cases": 50,
+      "evidence_id": "ev_6cf9e0d29f4b7d467402815ae3ba9913c93fbc3cb949a0143969c1d04f5d7e70",
+      "instructions": 170,
+      "native_bytes": 700,
+      "native_body_sha256": "2bfb58f60b29a3c372d23fd38f010144481ba6819d10417bd4645cb154226e9d",
+      "source_sha256": "6d040040e76f1e9749e9dc3da32e7b64dc15c5a47d2aa1b18a0722befba1449e"
+    },
+    {
+      "entry": "004df2c0",
+      "file": "src/unit_01899.c",
+      "purpose": "instant completion",
+      "cases": 9,
+      "evidence_id": "ev_7f0fb2f58ff4a3b254717d6266f65574266d87ae90d1d73afe8d65714a05a466",
+      "instructions": 38,
+      "native_bytes": 146,
+      "native_body_sha256": "1745a142e6ec5ab297ed6183022ef96e73148177b93d2473135d36634cb043b7",
+      "source_sha256": "a7f1cae17e23fe82877b6a63297aca2fc71ba023ab09416c815626e7be756f2a"
+    },
+    {
+      "entry": "004e0c80",
+      "file": "src/unit_01909.c",
+      "purpose": "whole-monument refresh",
+      "cases": 9,
+      "evidence_id": "ev_552be5f3a7560922204db2b483fb887cd412313654d1a9b6181d865673ff8cd4",
+      "instructions": 22,
+      "native_bytes": 59,
+      "native_body_sha256": "ab53a5c9a3a93c10cad29c686006fad2cef70ba0809dea6d62d309c000b2e52e",
+      "source_sha256": "218ccc87351adc75d6ab8685e4431adba5f5aa11efceeaf04be180acba331142"
+    }
+  ],
+  "native_bytes": 1854,
+  "native_instructions": 506,
+  "changes": [
+    "Use complete 13-DWORD geometry records in placement, image update and repositioning.",
+    "Use BYTE actor states/sizes/maps, WORD building kinds/links/ownership, and DWORD origins/progress/map flags.",
+    "Preserve all 116 parts, native linked-allocation order, and route reset/retarget/restart branches.",
+    "Keep existing raw instruction-C dispatch graphs intact: these entries replace faulty public legacy bodies."
+  ],
+  "verification": {
+    "script": "direct_c/verify_mausoleum_parts.py",
+    "cases": 192,
+    "placement": 20,
+    "image_update": 48,
+    "actual_image_selector_compositions": 56,
+    "worker_repositioning": 50,
+    "completion_refresh": 18,
+    "actual_helpers": [
+      "4DED50 geometry transformation",
+      "4DF360 image selector (56 compositions)",
+      "4E0C50 part position output",
+      "4E0C80 refresh wrapper (instant-completion cases)"
+    ],
+    "controlled_boundaries": [
+      "46A400 allocation",
+      "4F4F80 slot",
+      "485100 flags update",
+      "47BF50 tile commit",
+      "475BF0/4767D0/477500 terrain refresh",
+      "4B5420/4B52F0/4B3250 actor routing",
+      "53DD90 sprite library load (compositions)"
+    ],
+    "diagnostic": "restore_link_check.exe no arguments passed",
+    "regression_before_fix": "Whole-monument refresh: native calls 116 image updates, old public C calls zero for kind222 and piece7.",
+    "live_gameplay": "Not run; no pixel/renderer or whole-game fidelity claim."
+  },
+  "build": {
+    "configuration": "Release Win32",
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "f678b8b1cf6a24a5f483898aef69c3cbcaecec460a856b499eeb9434bff86a4e"
+  },
+  "remaining": "Full game reconstruction remains unfinished. Heuristic width candidates require native review, not blanket edits.",
+  "source_commit": "df9130dfb3c80d3824e505c60bc6c03f8da07d35",
+  "publication": {
+    "branch": "main",
+    "tag_created": false,
+    "release_created": false,
+    "actions_runs_after_push": 0
+  },
+  "next_review": {
+    "entries": [
+      "004edf50",
+      "004ee6c0",
+      "004ee780"
+    ],
+    "scope": "pyramid part image, terrain footprint and linked construction; validate actual native bodies before replacing legacy C"
+  }
+}

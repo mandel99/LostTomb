@@ -1,10 +1,3 @@
-#include "restore_types.h"
-
-void FUN_0055f67e(undefined4 param_1)
-
-{
-  int in_ECX;
-  
-  *(undefined4 *)(in_ECX + 0x150) = param_1;
-  return;
-}
+#include "sound_streams.h"
+void FUN_0055f67e(RestoreSound *self,int32_t volume)
+{restore_sound_set_sample_volume(self,volume);}

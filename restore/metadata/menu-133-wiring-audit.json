@@ -1,0 +1,257 @@
+{
+  "format": 1,
+  "passed": true,
+  "generated_at": "2026-10-30T22:30:41.789569+00:00",
+  "complete_menu_reconstruction": false,
+  "source_only_build": true,
+  "original_game_executed": false,
+  "text": {
+    "cases": 3062,
+    "comparisons": 6124,
+    "instructions": [
+      367,
+      367
+    ],
+    "conditional_outcomes": [
+      78,
+      78
+    ],
+    "mutated_fields_and_phases": 54,
+    "watched_bytes": 148289,
+    "sprite_boundary": "53E590;ECX=F55BB0;3args;RET12;actual pixels remain outside this proof"
+  },
+  "actor_distance": {
+    "cases": 174,
+    "comparisons": 348,
+    "retained_instructions": 187,
+    "feasible_instructions": [
+      185,
+      185
+    ],
+    "feasible_edges": [
+      62,
+      62
+    ],
+    "qualified_excluded_instructions": [
+      "0051cf79",
+      "0051d13e"
+    ],
+    "qualified_excluded_edges": [
+      [
+        "0051cf73",
+        "0051cf79"
+      ],
+      [
+        "0051d13c",
+        "0051d13e"
+      ]
+    ],
+    "tail_wrap_sites": [
+      "east",
+      "north",
+      "retry",
+      "south",
+      "west"
+    ],
+    "actual_fill_instructions": [
+      22,
+      22
+    ],
+    "controlled_boundaries": [],
+    "bytes_per_full_distance_case": 520000
+  },
+  "C_sharp_used_as_exact_behavior": false,
+  "configurations": {
+    "Debug": {
+      "CTest_passed": 138,
+      "targets": [
+        {
+          "target": "restore_menu_text_glyph_verify",
+          "path": "build/c-only-debug/Debug/restore_menu_text_glyph_verify.exe",
+          "sha256": "8087441255282a163a8e7e502862ff8bb58dd32ade6ede8844322ce4ce520efe",
+          "runtime": "MultiThreadedDebug",
+          "optimization": "Disabled",
+          "sources": [
+            "artifacts/menu_text_glyph_phase/tests/text_glyph.c",
+            "src/unit_01667.c",
+            "src/unit_01691.c",
+            "src/unit_01692.c",
+            "src/unit_01693.c",
+            "src/unit_01694.c"
+          ]
+        },
+        {
+          "target": "restore_actor_order_flood_verify",
+          "path": "build/c-only-debug/Debug/restore_actor_order_flood_verify.exe",
+          "sha256": "c2afe5dd00e1c0a0c194767ea7fac8289b067d0ce7ad98332f105104d035f2d2",
+          "runtime": "MultiThreadedDebug",
+          "optimization": "Disabled",
+          "sources": [
+            "src/unit_02335.c",
+            "tests/actor_order_flood.c",
+            "tests/actor_order_flood_actual.c"
+          ]
+        }
+      ],
+      "product_sha256": "c9c6bb31b9c2c166fa69edfe6329895e96a8a458a47074ad40058be21f8d5f27",
+      "link_check_sha256": "7b5cc00c75b0fcd6fbb378cba38a3df19d818d338faa4bf03916a21d4b4d47a4"
+    },
+    "Release": {
+      "CTest_passed": 138,
+      "targets": [
+        {
+          "target": "restore_menu_text_glyph_verify",
+          "path": "build/c-only/Release/restore_menu_text_glyph_verify.exe",
+          "sha256": "8d2c1fa95aaa7e92725939d0fc01fad7a7fd7077f42c572a4bb2082defbbc403",
+          "runtime": "MultiThreaded",
+          "optimization": "MaxSpeed",
+          "sources": [
+            "artifacts/menu_text_glyph_phase/tests/text_glyph.c",
+            "src/unit_01667.c",
+            "src/unit_01691.c",
+            "src/unit_01692.c",
+            "src/unit_01693.c",
+            "src/unit_01694.c"
+          ]
+        },
+        {
+          "target": "restore_actor_order_flood_verify",
+          "path": "build/c-only/Release/restore_actor_order_flood_verify.exe",
+          "sha256": "927c6ebcf5322f87f1621dac19385ab9ce8932a4190d9de72c30da624f870138",
+          "runtime": "MultiThreaded",
+          "optimization": "MaxSpeed",
+          "sources": [
+            "src/unit_02335.c",
+            "tests/actor_order_flood.c",
+            "tests/actor_order_flood_actual.c"
+          ]
+        }
+      ],
+      "product_sha256": "ed5b7205d437893704241f3276679cd139d7c3c98c2a8012a12368924f8123b1",
+      "link_check_sha256": "94b5795ec6749553263a903e5edc862aed9de2bf01ee793b94f117820addfd81"
+    }
+  },
+  "limitations": {
+    "text": [
+      "All five367-instruction text algorithms execute actual C/native bodies. Only the deeper53E590 sprite engine is controlled with exact ECX receiver/three arguments/RET12 and declared state mutations; no font pixels or physical rendering are claimed.",
+      "Full watched RAM and guards, ordered sprite args/global snapshots, consumed fullEAX returns and saved registers/ESP are compared. Ordinary C data-read ordering and unobservable intermediate stores are not claimed.",
+      "Finite mapped text/substitution/metric buffers are required. Rendering has no invented scan cutoff; only measurement has the native10000-byte limit. Negative/wrapped image probes are synthetic mapped-memory tests, not a claim that invalid fonts are ordinary game resources."
+    ],
+    "distance": [
+      "Valid51984-cell map workspace and blocked outer boundary are native prerequisites. Out-of-range nodes or concurrent scratch-buffer aliasing are not made successful by a fallback.",
+      "Private C profiler results identify candidate fixtures only; they are not native equivalence evidence until the full byte/ABI comparison passes.",
+      "Frozen1768 FALSE GetCursorPos discrepancy remains open and unrelated; this phase contains no cursor or OS API.",
+      "Two original head-wrap instructions/edges are qualified infeasible by the exact50000-pop/noalias invariant in native.json. Full wrap code is preserved in the candidate. All five tail-wrap sites must execute on real valid boxed fixtures.",
+      "No physical GUI, cursor or OS effect is performed. This closes the distance-field producer only, not the still-unreconstructed LOS/action algorithms that consume its workspace."
+    ]
+  },
+  "source_and_evidence_hashes": {
+    "../PharaohRewrite/src/Pharaoh.Desktop/LegacyBitmapFont.cs": "cdf8d67e3ec59fbd1ee32a0eea72eed3390a417904d4ce1dad27708dc9b7cdf6",
+    "CMakeLists.txt": "d671db1a2127dbb7e579281fa5587226ed09d713330b26d6b4b06268158e04db",
+    "artifacts/actor_order_flood_phase/build/CMakeLists.txt": "2bbb11f9455b9a251c3f7f6da22c5edb25e98fad46b333e8cdaea2adc455efc7",
+    "artifacts/actor_order_flood_phase/include/actor_order_flood.h": "3f5baf30c5184aec23dc12abeaffe5d725a1e35f255c14b98813c5271aa0f48e",
+    "artifacts/actor_order_flood_phase/metadata/actor-order-flood-emulation.json": "0b3cf0576b18100df44465dfc80d536d87b3bce211525b290d206f040b75e477",
+    "artifacts/actor_order_flood_phase/metadata/apply-map.json": "3f65fb812f94643bc354537e7abceba6b4d74b053f610904a66737529d7829f5",
+    "artifacts/actor_order_flood_phase/metadata/existing-consumers-audit.json": "91328d6c2075529a922984ef33d08ab7dde822aab74d666c7994011d4e0d0ec1",
+    "artifacts/actor_order_flood_phase/metadata/freeze-manifest.json": "0a522b77312cc85b76677a8dc2ec704089cf622ceba52a8d6c6c3a48faab0f46",
+    "artifacts/actor_order_flood_phase/metadata/integration-recipe.json": "6fcf08edbe1209a4a3bc519e6390d68bb8154b2517da38fb2b2bb469a01bb68d",
+    "artifacts/actor_order_flood_phase/metadata/native-0051ce90.txt": "e7b6045a7d24d1a51a1146dc6168ffe24b181b95050193fbae69d5173f0eabb3",
+    "artifacts/actor_order_flood_phase/metadata/native.json": "bb73b9c0ffdc9c316ef77625fd8ecba3110f8aa65c88b83f5820d38cf191b6bf",
+    "artifacts/actor_order_flood_phase/metadata/private-C-htree-profile.txt": "c53bc0d2468d80c36f6413c54a65e72db10899c21e6e0986314c45df99044208",
+    "artifacts/actor_order_flood_phase/metadata/private-C-profile.txt": "dd12b32fb3eb87b75228f63ee4fb96700233398dea8378b1d0337e34c97b4a23",
+    "artifacts/actor_order_flood_phase/metadata/reconstruction.json": "af30e3ce3a733fc4b8a0304ed0fde676b8728f1112802528c1d5acd44ecbb8b8",
+    "artifacts/actor_order_flood_phase/src/unit_02335.c": "a759ef182f5b43e73e97b327a6dc050c0ccdd7e427dfee7ce6d7314c287f497b",
+    "artifacts/actor_order_flood_phase/tests/actor_order_flood.c": "916d0c24ade4c8b328429e43993480fb7558d72638f0d5abe14d224c2675cddc",
+    "artifacts/actor_order_flood_phase/tests/actor_order_flood_actual.c": "6b802d9dda2d3f8df88a1aaa2df83f4c74efdbe88cac5d907cd3b685fd0a97f5",
+    "artifacts/actor_order_flood_phase/tests/actor_order_flood_case.h": "452df43fce05787d7c2ac6ebffa4a65ad767f15289d4ed39219ec41a40ec5006",
+    "artifacts/actor_order_flood_phase/tools/audit_actor_order_flood_consumers.py": "319e60021889c6aba4188261c535ca4c1a071aa39831cb3f64b4374459a1267b",
+    "artifacts/actor_order_flood_phase/tools/extract_actor_order_flood_native.py": "afa4b43a7af886f5dfb0168d4ea6ded9f38438add3d750d10e269f6bca3cf871",
+    "artifacts/actor_order_flood_phase/tools/freeze_actor_order_flood_phase.py": "81accd2b76d8cc3dc26d2c5ffd242c8b70d5a7ef2d09275e6351c736925d6a53",
+    "artifacts/actor_order_flood_phase/tools/verify_actor_order_flood_emulation.py": "efb3046e89ddf1e51b132ef4eb243aee3b2d0ef968103291419966a9c03512cf",
+    "artifacts/integration-batch-133-before/src/unit_01667.c": "0b0bc990f70eba9e83797b0f692e6fe2a504efbffcf539c5d9f6a6f7b39872b2",
+    "artifacts/integration-batch-133-before/src/unit_01691.c": "945aa495225f15a38ab974b6eff96869f9355b579314feb553a9d2652e07362e",
+    "artifacts/integration-batch-133-before/src/unit_01692.c": "e7cdf0455c09b4ab55bb06a47141ea7365a225f800eee607c8eb7218d135dcd1",
+    "artifacts/integration-batch-133-before/src/unit_01693.c": "801050e7a1e206b718b33d3996442a2d46ef9eaaee2b3238a8e8b9690361e50c",
+    "artifacts/integration-batch-133-before/src/unit_01694.c": "d496709075a809c1210a6412e5733cb51cd3dfe495f4748cb52e7e63dec03d87",
+    "artifacts/integration-batch-133-before/src/unit_02335.c": "52b9bbf6f36367e46a5ffa5ad174706605464de4bd51b65e8a8541ae93340dad",
+    "artifacts/menu-133-debug-build.log": "3bf11d0a3c27e978c08f4167453b78a2b8ebefd1f67bfdd6847b92a761d500c7",
+    "artifacts/menu-133-release-build.log": "b7f08a69825818d14372918892bd41143470e8d0a22313498c0b70443a3f2df4",
+    "artifacts/menu_text_glyph_phase/abi-reference-review.json": "af04cd8809f1c95a1551a0585c724d784fdc5d84bee84bb4ce4c440a88b40e2f",
+    "artifacts/menu_text_glyph_phase/apply-map.json": "6657f35afebe1f6bc0bf5e8fcdee204b566b752a58bff4c86b29063064812d05",
+    "artifacts/menu_text_glyph_phase/audit_native.py": "324f652dc6bdd7a0927c462c5586e49ac161c9e8c913097ab740a1c367d35024",
+    "artifacts/menu_text_glyph_phase/configure.log": "a18eb5e79d25daf565d0e969a7d6cfe3960408bbf67791f4b20751d6e36e6fd5",
+    "artifacts/menu_text_glyph_phase/coverage-gap-first-emulation.json": "9dad009b08622326e5ddf0677afe228fce3f1cb927dc0627a86ef1bf55de7541",
+    "artifacts/menu_text_glyph_phase/coverage-gap-first-oracle.py": "c411ac69b921ff826b34d15845ac4696c23f51417fdffebbc1d73c3424fb4f61",
+    "artifacts/menu_text_glyph_phase/coverage-gap-first.log": "22bffc93ea9fb8e7349934ce10d3d63cb81b138dd8ef7043e823cc73eb4cc5cb",
+    "artifacts/menu_text_glyph_phase/debug-build.log": "91a7efbdc576f44a1361aa2b95c7778474cde927f3b3a451b9f576a1b0663463",
+    "artifacts/menu_text_glyph_phase/fixture-schema.json": "923f84c35f8ba58ad1f466f2022656272821bd0e032c6ebb9a4321f1e94cbc0c",
+    "artifacts/menu_text_glyph_phase/freeze-manifest.json": "89f505c7c42416485a368859662455b50af7c219ce9992bd869d986fb1509544",
+    "artifacts/menu_text_glyph_phase/full-comparison.log": "fc737ce39645c74efd59a308a4f324fcd2c85a6bd0dd888f2ef8028ec1029d24",
+    "artifacts/menu_text_glyph_phase/include/menu_text_glyph.h": "969dc5eedff51e8f3b6f6c9fb25a45f0b0a008f51d4f83094c26de6bed3cecbf",
+    "artifacts/menu_text_glyph_phase/include/menu_text_glyph_memory.h": "26c42479234523a654945c5f3e6ccb5f2b4dbfc585ac187f767a3077c4409f7d",
+    "artifacts/menu_text_glyph_phase/native.json": "2a248e961dfad324637fe1a4bff0f96ef30bf7adf2f4d075f14b3572fc520e44",
+    "artifacts/menu_text_glyph_phase/partial-emulation.json": "cf9c993ffb78f9039ea7dc7ad9527a307a71c8fab4e6f1a4ac213f04c23a2eaa",
+    "artifacts/menu_text_glyph_phase/pilot.log": "e816d1250444a2f33d9fe7fa541c13b4318002f1c8e6eba6abfe4bcc1137d102",
+    "artifacts/menu_text_glyph_phase/prepare_fixture.py": "35c5d270cb529365431d52a1f1f6017bdf8a8d82e8ca68bd861a6bb5a7310ed8",
+    "artifacts/menu_text_glyph_phase/private-emulation.json": "6ed3ab4cafdcba2bdff8cd891bb18485e7af8faad58246b9b21259ed17537098",
+    "artifacts/menu_text_glyph_phase/project/CMakeLists.txt": "0e6670b9f0c16ee6dd3215fe581043f93455121d47a57ac0c56bdf0ad495eef5",
+    "artifacts/menu_text_glyph_phase/release-build.log": "fdf517337e61687ab9bdbf4f87817d9e87703e56ea46950ecae999d185081d88",
+    "artifacts/menu_text_glyph_phase/src/unit_01667.c": "c5cdeaabd04047490c71a1a8910f9977075c9a2c9f9e0cf5ca5afb6aa205297e",
+    "artifacts/menu_text_glyph_phase/src/unit_01691.c": "bf14ee71af867359490a832e4a08e6624177e4fdbd6e1d2323b4a847d3956aeb",
+    "artifacts/menu_text_glyph_phase/src/unit_01692.c": "8ab6f9f387e2b201be32398cf61093be9eea9d00a2fabc7233527a6a5a48109b",
+    "artifacts/menu_text_glyph_phase/src/unit_01693.c": "aba2095d403dba1d99efa64f3e171efddcc28a66826ba83067c57406130f3cec",
+    "artifacts/menu_text_glyph_phase/src/unit_01694.c": "3186bfc5ab5b74003d9e1fb5f326a71c700cb77592ed8bde85c060e3b525c7ad",
+    "artifacts/menu_text_glyph_phase/stage-state.json": "75d365048d008a472827be4b28b2b2786c5ba45ee372c25922e69b5017c66324",
+    "artifacts/menu_text_glyph_phase/tests/text_case.h": "c33aa7dfb761cc8b26c0a2aa6680d6cf00dec96f7c52ec61709646dcc49131f6",
+    "artifacts/menu_text_glyph_phase/tests/text_glyph.c": "419db5d6853acc6efbfdec2d7bbaf51427e204e1e1ab004bed2c8658190eed8a",
+    "artifacts/menu_text_glyph_phase/verify_text.py": "6112bc2b80359d74e19b166ceac727a5b21fdc9cb1be78b97ec1ead3e642c780",
+    "build/c-only-debug/CMakeCache.txt": "3d4681bd806ea06e75bc5c1b812bced40ec45f367c9d5c9c3b2c9305b92f4439",
+    "build/c-only-debug/Debug/pharaoh_restored.lib": "c9c6bb31b9c2c166fa69edfe6329895e96a8a458a47074ad40058be21f8d5f27",
+    "build/c-only-debug/Debug/restore_actor_order_flood_verify.exe": "c2afe5dd00e1c0a0c194767ea7fac8289b067d0ce7ad98332f105104d035f2d2",
+    "build/c-only-debug/Debug/restore_link_check.exe": "7b5cc00c75b0fcd6fbb378cba38a3df19d818d338faa4bf03916a21d4b4d47a4",
+    "build/c-only-debug/Debug/restore_menu_text_glyph_verify.exe": "8087441255282a163a8e7e502862ff8bb58dd32ade6ede8844322ce4ce520efe",
+    "build/c-only-debug/pharaoh_restored.vcxproj": "5a81b8608943874e3b372a44720da31066226b03e1a38faa33b70603ff3a489f",
+    "build/c-only-debug/restore_actor_order_flood_verify.vcxproj": "fb4ce7ea7c444434ff21aeeeaa61eddc235363118db3b9e98fd46d5b4f7b1377",
+    "build/c-only-debug/restore_menu_text_glyph_verify.vcxproj": "6d8814c4db93c09c372f1813c66ac43677ec11e2bc9c3d57529b8ca17458368f",
+    "build/c-only/CMakeCache.txt": "340c7a0df56d44ce70706105bd975eadd0c7a200eadd0e77ce79f12141385cc5",
+    "build/c-only/Release/pharaoh_restored.lib": "ed5b7205d437893704241f3276679cd139d7c3c98c2a8012a12368924f8123b1",
+    "build/c-only/Release/restore_actor_order_flood_verify.exe": "927c6ebcf5322f87f1621dac19385ab9ce8932a4190d9de72c30da624f870138",
+    "build/c-only/Release/restore_link_check.exe": "94b5795ec6749553263a903e5edc862aed9de2bf01ee793b94f117820addfd81",
+    "build/c-only/Release/restore_menu_text_glyph_verify.exe": "8d2c1fa95aaa7e92725939d0fc01fad7a7fd7077f42c572a4bb2082defbbc403",
+    "build/c-only/pharaoh_restored.vcxproj": "dfbc8f62afa8090530b8e6146fff007c6911e642b7ac6edf51b1207694b126d5",
+    "build/c-only/restore_actor_order_flood_verify.vcxproj": "cc30f33bf64367612e90b70c36f53119227bb96b44ca8d267bb8dc571c28e14a",
+    "build/c-only/restore_menu_text_glyph_verify.vcxproj": "b1cb6f39ebddb252af776e09e364d485f0db4f097fe39ee47c44e6fe39a1ac24",
+    "include/actor_order_flood.h": "3f5baf30c5184aec23dc12abeaffe5d725a1e35f255c14b98813c5271aa0f48e",
+    "include/menu_text_glyph.h": "969dc5eedff51e8f3b6f6c9fb25a45f0b0a008f51d4f83094c26de6bed3cecbf",
+    "include/menu_text_glyph_memory.h": "26c42479234523a654945c5f3e6ccb5f2b4dbfc585ac187f767a3077c4409f7d",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "metadata/actor-order-flood-audit.json": "91328d6c2075529a922984ef33d08ab7dde822aab74d666c7994011d4e0d0ec1",
+    "metadata/actor-order-flood-emulation.json": "f1608336ce7a795775bf67de65e5ca3e83fb55a335cfbd46e061baf7b7a7e60c",
+    "metadata/actor-order-flood-native.json": "bb73b9c0ffdc9c316ef77625fd8ecba3110f8aa65c88b83f5820d38cf191b6bf",
+    "metadata/integration-batch-133-application.json": "0ddc080630d51e8227bbead7f551eb68874818db122f25f6942c31f2f2325c86",
+    "metadata/menu-text-glyph-emulation.json": "af6f66492478b1bd1d355ec64f125b9bd3853a67120aa2a565ad89d6f1abd0b1",
+    "metadata/native-function-audit-cache/batch-2624.json": "70e409824d29c7b2747bcda649bcc0cd3480020eccb65e2fe520b0e7f618a58b",
+    "runtime/menu_callbacks.c": "a16d47b04bbeaf2bf3eb0dc0f4b581d3217f880fa92a355282565270c95ecc58",
+    "src/unit_00085.c": "98c74e11da800aa358707f6a430985e5ed34f56601779b88c50aec412a705b56",
+    "src/unit_00119.c": "d0e4bff37c823dce4c214a9250b4b01a49672a778c4ab945ea656f5ffdd8aa63",
+    "src/unit_01455.c": "1f489207a9987ccb31aa6865e402541cd26616a5a335820494242033b609b312",
+    "src/unit_01667.c": "c5cdeaabd04047490c71a1a8910f9977075c9a2c9f9e0cf5ca5afb6aa205297e",
+    "src/unit_01691.c": "bf14ee71af867359490a832e4a08e6624177e4fdbd6e1d2323b4a847d3956aeb",
+    "src/unit_01692.c": "8ab6f9f387e2b201be32398cf61093be9eea9d00a2fabc7233527a6a5a48109b",
+    "src/unit_01693.c": "aba2095d403dba1d99efa64f3e171efddcc28a66826ba83067c57406130f3cec",
+    "src/unit_01694.c": "3186bfc5ab5b74003d9e1fb5f326a71c700cb77592ed8bde85c060e3b525c7ad",
+    "src/unit_01866.c": "d015d60257be478d7546912ae726cb8322949829f32817cf6053c3aa9388c1c5",
+    "src/unit_01867.c": "2dd54a82c4e55452b95ea4d5b4ac0f076a73eea536e3104e7c4c6790303846bd",
+    "src/unit_01868.c": "4fbce40a590974acf0f5afcfa9490960e20cca7733a7540b2b33bade3f743422",
+    "src/unit_02335.c": "a759ef182f5b43e73e97b327a6dc050c0ccdd7e427dfee7ce6d7314c287f497b",
+    "tests/actor_order_flood.c": "916d0c24ade4c8b328429e43993480fb7558d72638f0d5abe14d224c2675cddc",
+    "tests/actor_order_flood_actual.c": "6b802d9dda2d3f8df88a1aaa2df83f4c74efdbe88cac5d907cd3b685fd0a97f5",
+    "tests/actor_order_flood_case.h": "452df43fce05787d7c2ac6ebffa4a65ad767f15289d4ed39219ec41a40ec5006",
+    "tools/audit_menu_batch_133.py": "010fea8c5a11988ea1b5ca89a612871b3491d2876d3b48ef1b0b0c79781623fc",
+    "tools/verify_actor_order_flood_emulation.py": "efb3046e89ddf1e51b132ef4eb243aee3b2d0ef968103291419966a9c03512cf",
+    "tools/verify_menu_text_glyph_emulation.py": "f7f5170a998c551e7028d86115bd16aa4891ec657e37ff4bbaf809b0b4e2e2e8"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "status": "Four complete functions reconstructed and verified in the compiled standalone C build",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x448F60",
+      "native_bytes": 1025,
+      "native_instructions": 330,
+      "name": "restore_event_description",
+      "source": "src/unit_00690.c",
+      "rea": "ev_746f0e67f00f59425850b4d82b02c5c9fc1251c39182bc3452ae1bf1199f2f63",
+      "native_body_sha256": "e7049c60f82cdb06d2cbcc090b5ef329ef5dcb1c1f1f48fb296dc8da6ac45606",
+      "source_sha256": "6bd892a38d3e4ffca2507c0916f7adf41f38f028616553152de1d9136e06e2d2"
+    },
+    {
+      "entry": "0x448640",
+      "native_bytes": 429,
+      "native_instructions": 137,
+      "name": "restore_editor_event_list_draw",
+      "source": "src/unit_00680.c",
+      "rea": "ev_801dbef84fc412fe68139c9628a5c20848d95c916cd4c7a05747390a1cf85ca4",
+      "native_body_sha256": "f5b24c10b56d18d330d02822bb72064733796a6cb5282ee16d42c8f5331ca608",
+      "source_sha256": "ee4458675217f7a2c30da93776eaca48657dd0b05bba6311ced0b08bb2837447"
+    },
+    {
+      "entry": "0x448F20",
+      "native_bytes": 53,
+      "native_instructions": 17,
+      "name": "restore_event_kind_label",
+      "source": "src/unit_00689.c",
+      "rea": "ev_f870456f74644999c3d21596b6f2a86cf945f0342771f947411b932ecdfe3b10",
+      "native_body_sha256": "bc386aa17da47f727057403170860e3d677e41911d42fddda527c638b0356fa8",
+      "source_sha256": "647143094284cf977503c190660d45407172bf7796fb6ff9fd875c1b42257bd0"
+    },
+    {
+      "entry": "0x449620",
+      "native_bytes": 12,
+      "native_instructions": 4,
+      "name": "restore_event_has_quantity_range",
+      "source": "src/unit_00706.c",
+      "rea": "ev_46b2b4e21375222459f82bc0e0de58e8ab8b6ad9a565ddced607168edd054154",
+      "native_body_sha256": "638b8111907d48713e93aaacd29452b403e85b320eb7aaaaff5288a5712fa497",
+      "source_sha256": "fc099902c1d953418894d1b517cd5eb5635288f2026691ce25c11b67b241f02d"
+    }
+  ],
+  "total_native_bytes": 1519,
+  "total_native_instructions": 488,
+  "integration": "Only448640 calls448F60 and now passes the actual124-byte record. The second449620 caller44AAF0 now passes the record derived from its cached byte offset, matching native ESI. Its remaining old renderer is not claimed reconstructed. The six supporting predicates/table queries reuse the existing complete C detail graph.",
+  "preserved": "Three signed WORD selections, signed date/quantity ranges, dependency-index formatting and short circuit order, selected-text pointer restoration, byte-table result,40-character display cap,12 rows, full DWORD fonts/origins/scroll/count and signed WORD IDs.",
+  "baseline": {
+    "sha256": "e11755d872d61fe8f1ecd28b96f709d434f7ed5e8f504d7f269ddc7b9ea7958e",
+    "command": "verify_event_description.py <baseline.exe> --one",
+    "result": "Native formatter returns normally; old C formatter faults with UC_ERR_READ_UNMAPPED at00402D64, within old448F60+54, due to its missing receiver."
+  },
+  "verification": {
+    "script": "direct_c/verify_event_description.py",
+    "scope": "Native/C ordered meaningful format and draw arguments, actual output bytes, full seeded global state, selection restoration, ABI stack cleanup and nonvolatile registers. Real helper leaves and real catalog selection compose with the formatter.",
+    "limitations": [
+      "sprintf is a controlled formatting boundary. Final panel/button/text draw and scrollbar endpoints are controlled; physical pixels and host gameplay are not certified.",
+      "No host game or original executable was launched. The existing user run log has not changed since the difficulty diagnostic build.",
+      "44AAF0 remains a legacy renderer outside this four-function reconstruction."
+    ],
+    "cases": 642,
+    "labels_and_quantity_query": 291,
+    "formatter": 272,
+    "list_renderer": 79,
+    "result": "PASS",
+    "difficulty_regression_cases": 60,
+    "noargument_link_check": "PASS"
+  },
+  "build": {
+    "sha256": "46d4be99b39b074e307f16053a03781c52f0c6244f5413e535231642abbc597a",
+    "bytes": 7613440,
+    "local_time": "2026-11-02T18:46:58",
+    "strict_sources": "All four reconstructed units compiled /W4 /WX with PCH disabled.",
+    "release_path": "build/c-only/Release/PharaohRestoreC.exe",
+    "release_sha256": "46d4be99b39b074e307f16053a03781c52f0c6244f5413e535231642abbc597a"
+  },
+  "source_commit": "c75f78e68920632295164b855b827bf5503f4739"
+}

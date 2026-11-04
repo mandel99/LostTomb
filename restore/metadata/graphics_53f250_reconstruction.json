@@ -1,0 +1,703 @@
+{
+  "format": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "restored_native_function_count": 1,
+  "native_function": "FUN_0053f250",
+  "body": {
+    "available": true,
+    "provenance": "ghidra-function-body-address-set",
+    "ranges": [
+      {
+        "start": "0x53f250",
+        "end": "0x53f49f"
+      }
+    ],
+    "total_bytes": 592,
+    "span_bytes": 592,
+    "non_contiguous": false,
+    "contains_entry": true
+  },
+  "rea_evidence_id": "ev_8b4eaba04233a541f8d5433cfc1e5da293fedf2e9b2b452d42754db76f41546c",
+  "analysis_profile": "b684df70afe2dee9c13a2fed492b18668e22aa7dad59affa7f5ab6af74bc610f",
+  "evidence_files": [
+    "metadata/city-draw-next-native.json",
+    "metadata/graphics_53f250_rea_function.json",
+    "metadata/graphics_53f250_rea_snapshot.json",
+    "metadata/graphics_53f250_callers.json",
+    "metadata/graphics-53f250-emulation.json"
+  ],
+  "source_files": [
+    "src/unit_02525.c",
+    "include/graphics_53f250.h"
+  ],
+  "receiver": {
+    "native": "ECX; thiscall RET 0x0c",
+    "source_facade": "int FUN_0053f250(int image,int x,int y)",
+    "explicit_receiver": "int restore_sprite_draw_upper(RestoreSpriteLibraries *self,int image,int x,int y)",
+    "global_manager": "0x00f55bb0",
+    "proved_call_sites": 123,
+    "all_same_global": true
+  },
+  "contract": {
+    "image_range": "1..25499 inclusive",
+    "next_image": "signed dword at receiver+0x30f5cc",
+    "selection": "image < signed next_image selects image; otherwise record zero. Count fallback is not failure by itself.",
+    "record": "64 bytes at receiver+0x180e48+64*selected_index",
+    "enabled": "byte at record+0x35; any nonzero byte",
+    "pixels": "dword at record+0; stored to 0x00d3b5b8 before signed >0 test; add record+8 dword with x86 wraparound",
+    "width": "record+0x14 word copied to 0x00d3b5be; clipping treats that word as signed",
+    "height": "record+0x16 word; y expression sign-extends it; upper-height subtraction wraps to word",
+    "geometry": [
+      {
+        "width": 58,
+        "x_sub": 0,
+        "y_add": 30,
+        "upper_height_sub": 16
+      },
+      {
+        "width": 118,
+        "x_sub": 30,
+        "y_add": 60,
+        "upper_height_sub": 31
+      },
+      {
+        "width": 178,
+        "x_sub": 60,
+        "y_add": 90,
+        "upper_height_sub": 46
+      },
+      {
+        "width": 238,
+        "x_sub": 90,
+        "y_add": 120,
+        "upper_height_sub": 61
+      },
+      {
+        "width": 298,
+        "x_sub": 120,
+        "y_add": 150,
+        "upper_height_sub": 76
+      },
+      {
+        "width": 358,
+        "x_sub": 150,
+        "y_add": 180,
+        "upper_height_sub": 91
+      }
+    ],
+    "unknown_width": "Preserve existing 0x00d3b5e0/0x00d3b5dc/0x00d3b5bc before clipping; width and pixels still update.",
+    "clipping_order": [
+      "FUN_004cdad0",
+      "FUN_004cdb80"
+    ],
+    "raster_dispatch": {
+      "horizontal_1": "FUN_004105c0 then optional FUN_004109d0",
+      "horizontal_2": "FUN_00410660 then optional FUN_00410a70",
+      "other": "FUN_00410230 then optional FUN_00410700"
+    },
+    "color": "word at 0x0070e120; reload after base raster, along with horizontal byte and pixel pointer; zero skips color pass",
+    "returns": "EAX=0 for invalid ID, disabled selected record, or signed nonpositive initial pixel pointer; EAX=1 after the clipping/raster path even when fully clipped"
+  },
+  "return_flow": {
+    "direct_semantic_consumers_found": 0,
+    "native_forwarding_candidates": 37,
+    "forwarding": [
+      {
+        "call": "004322b2",
+        "caller": {
+          "name": "FUN_004321a0",
+          "address": "004321a0"
+        },
+        "endpoints": [
+          {
+            "address": "004322c4",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043236f",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "0043237a",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004323a2",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "004323ad",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004323d5",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "004323e0",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "00432408",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "00432413",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043243b",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "00432446",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "00432482",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "0043248d",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004324cb",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "004324d6",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004325e9",
+        "caller": {
+          "name": "FUN_00432320",
+          "address": "00432320"
+        },
+        "endpoints": [
+          {
+            "address": "004325fb",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "00432854",
+        "caller": {
+          "name": "FUN_00432820",
+          "address": "00432820"
+        },
+        "endpoints": [
+          {
+            "address": "0043285a",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004328fb",
+        "caller": {
+          "name": "FUN_00432820",
+          "address": "00432820"
+        },
+        "endpoints": [
+          {
+            "address": "00432904",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004350b6",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "004350bb",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004350e3",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "004350e8",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "00435110",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "00435115",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043513d",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "00435142",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043516a",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "0043516f",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004351ab",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "004351b0",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043525c",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "00435261",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043527f",
+        "caller": {
+          "name": "FUN_00435050",
+          "address": "00435050"
+        },
+        "endpoints": [
+          {
+            "address": "00435284",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043c2a3",
+        "caller": {
+          "name": "FUN_0043b630",
+          "address": "0043b630"
+        },
+        "endpoints": [
+          {
+            "address": "0043c2b8",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043c546",
+        "caller": {
+          "name": "FUN_0043b630",
+          "address": "0043b630"
+        },
+        "endpoints": [
+          {
+            "address": "0043c566",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043c764",
+        "caller": {
+          "name": "FUN_0043b630",
+          "address": "0043b630"
+        },
+        "endpoints": [
+          {
+            "address": "0043c779",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043d620",
+        "caller": {
+          "name": "FUN_0043d300",
+          "address": "0043d300"
+        },
+        "endpoints": [
+          {
+            "address": "0043d638",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043dd5a",
+        "caller": {
+          "name": "FUN_0043d720",
+          "address": "0043d720"
+        },
+        "endpoints": [
+          {
+            "address": "0043dd6f",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043e135",
+        "caller": {
+          "name": "FUN_0043e090",
+          "address": "0043e090"
+        },
+        "endpoints": [
+          {
+            "address": "0043e149",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "00441f66",
+        "caller": {
+          "name": "FUN_00441490",
+          "address": "00441490"
+        },
+        "endpoints": [
+          {
+            "address": "00441f7b",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0044225b",
+        "caller": {
+          "name": "FUN_00441f80",
+          "address": "00441f80"
+        },
+        "endpoints": [
+          {
+            "address": "00442270",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004bfe98",
+        "caller": {
+          "name": "FUN_004bfcd0",
+          "address": "004bfcd0"
+        },
+        "endpoints": [
+          {
+            "address": "004bfebc",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043deb8",
+        "caller": {
+          "name": "FUN_0043dd70",
+          "address": "0043dd70"
+        },
+        "endpoints": [
+          {
+            "address": "0043decc",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "0043e033",
+        "caller": {
+          "name": "FUN_0043df10",
+          "address": "0043df10"
+        },
+        "endpoints": [
+          {
+            "address": "0043e047",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c3405",
+        "caller": {
+          "name": "FUN_004c2f50",
+          "address": "004c2f50"
+        },
+        "endpoints": [
+          {
+            "address": "004c341a",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004339b4",
+        "caller": {
+          "name": "FUN_004339a0",
+          "address": "004339a0"
+        },
+        "endpoints": [
+          {
+            "address": "004339b9",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c23a5",
+        "caller": null,
+        "endpoints": [
+          {
+            "address": "004c23d8",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c22fd",
+        "caller": null,
+        "endpoints": [
+          {
+            "address": "004c2330",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c2696",
+        "caller": null,
+        "endpoints": [
+          {
+            "address": "004c26d7",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c28e9",
+        "caller": null,
+        "endpoints": [
+          {
+            "address": "004c291b",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      },
+      {
+        "call": "004c2993",
+        "caller": null,
+        "endpoints": [
+          {
+            "address": "004c29c5",
+            "instruction": "ret ",
+            "live_eax_bits": "ffffffff",
+            "kind": "forward_to_caller_return"
+          }
+        ]
+      }
+    ],
+    "caveat": "Forwarding through a native drawing epilogue does not establish a meaningful return contract of that caller. No caller C interfaces changed."
+  },
+  "verification": {
+    "passed": true,
+    "cases": 1829,
+    "instruction_coverage": {
+      "total": 165,
+      "executed": 165,
+      "missing": []
+    },
+    "C_smoke": "106 checks in 12 scenarios",
+    "method": "Full original 165-instruction function and both original clipping bodies versus compiled actual C function and clipping bodies; exact 224 global/guard bytes, 0/1 return, color word, ordered endpoint arguments and clipping-entry state. Native thiscall cleanup and compiled C caller cleanup, stack guards and saved registers checked.",
+    "compiled_C_sha256": "25a655d384d5b63e250fe544409d3de98a321f01c2988da3b1f748b57ea9eb45",
+    "memory_guards": "Exact manager memcmp in C and Unicorn; source and frame pages read-only with full unchanged verification; all 224 draw-state/guard bytes compared.",
+    "ABI": "C inline-assembly measurement only in test boundary checks ESP/EBP and EBX/ESI/EDI preservation. Native emulation checks RET 12, all four saved registers, and distant stack guards."
+  },
+  "integration": {
+    "production": "unit_02525.c already belongs to RESTORE_UNITS; no runtime or shared sprite-header changes needed.",
+    "test_target": "restore_graphics_53f250_verify",
+    "test_sources": [
+      "tests/graphics_53f250.c",
+      "src/unit_02525.c"
+    ],
+    "clipper_object_sources": [
+      "src/unit_01725.c",
+      "src/unit_01726.c"
+    ],
+    "clipper_only_definitions": [
+      "FUN_004cdad0=graphics_53f250_hclip_impl",
+      "FUN_004cdb80=graphics_53f250_vclip_impl"
+    ],
+    "include": "include",
+    "link": [
+      "restore_data",
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "configure": "cmake -S tests/graphics_53f250_project -B build/agent-graphics -G \"Visual Studio 18 2026\" -A Win32",
+    "build": "cmake --build build/agent-graphics --config Debug --parallel 2",
+    "smoke": "build/agent-graphics/Debug/graphics_53f250_verify.exe",
+    "differential": "python tools/verify_graphics_53f250_emulation.py --exe build/agent-graphics/Debug/graphics_53f250_verify.exe",
+    "caller_audit": "python tools/graphics_53f250_callers.py"
+  },
+  "limitations": [
+    "Raster bodies are controlled endpoints in this differential. Pixel and frame regions are read-only and verified unchanged; this does not establish raster pixel correctness.",
+    "Original PUSH ECX color argument has an undefined caller-volatile upper half after the preceding raster call. Only its low 16 bits are semantic: all three color consumers read the word. No production raster stub is added.",
+    "This offline comparison does not execute an original game process or validate live map rendering."
+  ],
+  "source_hashes": {
+    "src/unit_02525.c": "7593ad8430d545124f633c4da4939ed1feb0891768d4a1d1313aa6a577542a24",
+    "include/graphics_53f250.h": "bf532d4ec532fdbe38efdadd9bfb00cfaec2a3f47845a332dddf5a8ba582d677",
+    "tests/graphics_53f250.c": "b4377c12ccaff4692fdbdff888e7cd2ceef67237fd79b9b1648c7dff5565f475",
+    "tools/verify_graphics_53f250_emulation.py": "68bbcfccb05c3797309f4a45b5b6d424c9ad3ee87bc1931ab4aa0ffb5bc148ac",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40"
+  }
+}

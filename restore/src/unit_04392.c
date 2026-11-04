@@ -1,9 +1,3 @@
-#include "restore_types.h"
-extern void FUN_005602b0();
-
-void FUN_0056e155(void)
-
-{
-  FUN_005602b0();
-  return;
-}
+#include "owned_buffer.h"
+void FUN_0056e155(uint32_t frame)
+{restore_owned_buffer_cleanup_frame(frame);}

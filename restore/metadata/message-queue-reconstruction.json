@@ -1,0 +1,34 @@
+{
+  "status": "Reconstructed and verified offline; exact tested EXE promoted to Release, sources pushed to main. Existing damaged history remains unchanged.",
+  "entry": "0x4e1320",
+  "native_body_bytes": 389,
+  "rea_evidence": "ev_e4fd73be03a4bac7b867bfaab2c0a7af39480ea4c995a960b4efe22c124a1bf3",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "cause": "Legacy opened DWORD write overwrote the adjacent month BYTE and body-template WORD. At slot0, FF FF became00 00: template0 is the attack title. Other record references also multiplied byte offsets by4, and several full UI fields were truncated to bytes.",
+  "baseline": "Original opened/month/templates bytes0109ffffffffffff; previous compiled C01000000ffffffff. Existing autosave_history.sav contains milestone101 with templates(0,-1,-1), matching the screenshot.",
+  "existing_save_sha256": "08fd9637ff0f0bcbe914f6a5247925a4d085af33a47353fc7cf8d0cbaa01b6d1",
+  "changes": [
+    "Use typed48-byte event records and exact BYTE/WORD/DWORD fields.",
+    "Preserve signed sequence/year/template behavior, actual callback reloads, full EAX media-existence predicate and ordered panel setup.",
+    "Match the native exclusive scan end:999 records, not1000.",
+    "Do not edit or heuristically repair existing damaged save history."
+  ],
+  "verification": {
+    "script": "direct_c/verify_message_queue.py",
+    "cases": 220,
+    "scope": "180 queue/record/template/media/panel combinations,4 callback mutations,20 screen/delay cases,4 signed/missing keys,2 empty/gap cases,10 real population-publisher-to-queue-to-panel compositions. Compare seeded globals, complete event table, ordered calls, stack and nonvolatile registers; incidental EAX is void.",
+    "controlled": "Refresh, media-file existence and fallback sound. Isolated cases control panel setup; composed cases execute panel setup/reset. Population compositions control alert sound and use actual publication/allocation/action/setup/reset. No host game launch or save/settings/assets mutation.",
+    "farm_regression": 280,
+    "noargument_link_check": "PASS"
+  },
+  "build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "bfaa99386008d76ee22da1e3e96580d2e3de4aa70f965a397b627f97eb503e46"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "09413724cb1d441d2643775a4a5b03082a85f111868009636f048aeb3f26ac6f",
+    "src/unit_01913.c": "ed3e4988cc34e79d9fd218fea2ba0c56d3bcb53541e0afdae86545882434e713",
+    "direct_c/verify_message_queue.py": "292a8abd47a0cc7860f67529c50582d1a134dfa822f74c82401b7900e591f0a7"
+  },
+  "source_commit": "016d858"
+}

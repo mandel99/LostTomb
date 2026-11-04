@@ -1,0 +1,91 @@
+{
+  "status": "Five complete native bodies reconstructed as typed named C functions",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x4f04d0",
+      "file": "src/unit_02112.c",
+      "name": "restore_pyramid_worker_update_travel",
+      "rea": "ev_47738881b178a473518a4c21207520144a9c7d840fb79f430321d184cfc4c6f6",
+      "native_bytes": 999,
+      "instructions": 293,
+      "native_body_sha256": "7a4a567469fe6bb69479c7cd67e76fe779eb7af17dfe7a599b5bb932fd00253a",
+      "source_sha256": "a22cc68da9b5c725e11b50500916ca07fb327af4e50071e566057cc23cc777d1"
+    },
+    {
+      "entry": "0x4f25c0",
+      "file": "src/unit_02124.c",
+      "name": "restore_pyramid_sort_work_list",
+      "rea": "ev_f4b7c8c7a010083d30043a9c081421cb96af0b72500af9bdc0ac8d4b0f85263d",
+      "native_bytes": 218,
+      "instructions": 69,
+      "native_body_sha256": "177c91b1b26992d2573709e36f8e11b7fa688b231f2fc2b50a743000a1860cb8",
+      "source_sha256": "e969be7594504352b5094b80e2604c8b069309ef270d419420df19ec021bd45c"
+    },
+    {
+      "entry": "0x4f26a0",
+      "file": "src/unit_02125.c",
+      "name": "restore_pyramid_linked_worker_active",
+      "rea": "ev_a1b24a0fac05c432b7be8da55f165e155099f93299afcf6d5a5ae8e3f63b6ecb",
+      "native_bytes": 119,
+      "instructions": 41,
+      "native_body_sha256": "54d59f58516c6f1a231ee4ab2fba04b719ba0dc5ad91d4e9949a85adbf59d453",
+      "source_sha256": "1e603921ebc47883aa68f256214e02f5b0e77fa37ee7d91202b2c30ddba35213"
+    },
+    {
+      "entry": "0x4f28b0",
+      "file": "src/unit_02128.c",
+      "name": "restore_pyramid_is_second_work_piece",
+      "rea": "ev_ef142da6411c62dc480a695696a95257153ea075884c709c3d14e2ad47c9d569",
+      "native_bytes": 35,
+      "instructions": 14,
+      "native_body_sha256": "919a7018f4d6e488746a8947d6300b7fc4b5b1aa047c2855644ccd7b274d92e4",
+      "source_sha256": "0d80e31fce7f20a542c063a09ee758bf7e59296d503f9e12fc7a034acafccf64"
+    },
+    {
+      "entry": "0x4f29e0",
+      "file": "src/unit_02131.c",
+      "name": "restore_pyramid_find_available_worker",
+      "rea": "ev_c1a57a69d5d7c3f1e454d303bd6f50f678b23b76c9d36e26bef21f3e50d50079",
+      "native_bytes": 436,
+      "instructions": 138,
+      "native_body_sha256": "1cd96e797472ffeabe798725e401bbabac83e29384b8fce3635481dd5c623751",
+      "source_sha256": "4fc40de02b3a22052afb2435c5203c277f623351cc8780b5cc5abc02d0938ff3"
+    }
+  ],
+  "native_bytes": 1807,
+  "native_instructions": 555,
+  "changes": [
+    "Recover the complete arrival/travel state machine, BYTE state and WORD progress fields, full DWORD mode and global current actor.",
+    "Preserve cached target records/tables and callback-sensitive loads, including the native read past the nominal final layout row.",
+    "Sort full DWORD work counts and signed WORD anchor coordinates; use a typed facade over the existing complete C qsort/comparator graph to preserve tie ordering.",
+    "Recover linked/saved actor state, owned paired-side output BYTE and recruitment ownership/detach rules; retain the native nonzero comparison accepting paired-worker result -1."
+  ],
+  "routing": "Public C bodies are replaced; the pre-existing instruction-level C frame graphs retain their register/flags ABI. The sort facade calls that existing C graph with a private stack and a comparator dispatch token, never original executable code.",
+  "remaining_semantics": "The BYTE at actor offset1 reset by travel mode2 has exact reconstructed behavior; its wider semantic name is still unresolved.",
+  "verification": {
+    "script": "direct_c/verify_pyramid_worker_state.py",
+    "cases": 428,
+    "travel_state": 92,
+    "linked_worker": 54,
+    "paired_side": 36,
+    "exact_sort": 66,
+    "recruitment": 129,
+    "actual_compositions": 51,
+    "sort": "Counts 0..196, both layout families, DWORD family257, duplicate scores and exact tie order. An initial20M C instruction cap was insufficient at count65; the bounded200M no-callback run completes and matches native state. No source workaround was added for that harness limit.",
+    "actual_compositions_scope": "Real C movement, work collection/selection, claims, pairing and sort. Actor-grid endpoints are controlled.",
+    "comparison": "Full seeded native globals, defined DWORD/AL returns, ordered controlled calls, stack cleanup and nonvolatile registers.",
+    "regression": "355 Ferry Landing cases passed on the same new executable; no-argument link/data diagnostic passed.",
+    "live_gameplay": "Not run; no host game or physical rendering."
+  },
+  "build": {
+    "executable": "build/c-only/Preview/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "6e9fb9149784869e4c2d54d0a605d408a873797d98b256d3e67e77699ac7dbd0",
+    "bytes": 7618048,
+    "compile": "Five source units strict MSVC /W4 /WX; complete build and no-argument Preview link/data diagnostic passed.",
+    "release_status": "Verified Ferry Landing Release SHA256a31f65a17a4b736550c60fbaa5b9cde479c956653ffe3e4c34baef0d32bfc6f2 remains unchanged because user game processes are running from Release. The new verified executable and map are available in Preview."
+  },
+  "publication": "Source update only; no tag or GitHub release created.",
+  "source_commit": "833eaebca7da0150cb6c2c8cbea27a447c91c585"
+}

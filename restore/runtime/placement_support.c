@@ -1,3 +1,4 @@
+#include "building_access.h"
 #include "storage_delivery.h"
 #include "placement_support.h"
 #include "actor_order_flood.h"
@@ -60,7 +61,7 @@ uint32_t FUN_004bff60(int32_t x,int32_t y,int32_t mode)
 int32_t FUN_004c3730(int32_t x,int32_t y)
 {uint32_t a[2]={(uint32_t)x,(uint32_t)y};return (int32_t)execute(restore_placement_support_C_004c3730,a,2);}
 uint32_t FUN_00481420(int32_t x,int32_t y,int32_t mode)
-{uint32_t a[3]={(uint32_t)x,(uint32_t)y,(uint32_t)mode};return execute(restore_placement_support_C_00481420,a,3);}
+{return restore_building_has_access_neighbor(x,y,mode);}
 uint32_t FUN_00459ef0(int32_t building)
 {uint32_t a[1]={(uint32_t)building};return execute(restore_placement_support_C_00459ef0,a,1);}
 int32_t FUN_0045b570(int32_t player,int32_t building,int32_t resource,int32_t amount)

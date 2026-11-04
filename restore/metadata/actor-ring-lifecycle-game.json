@@ -1,0 +1,75 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Preview\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "bd0efe21711f8158cdc851f013f0e64e560fa5d50ba3a59ff50ee56d2970bcc9",
+  "source_hashes": {
+    "runtime/actor_ring_lifecycle.c": "fa530b44c8311c68ef42b0da014d60cd4f53cf0b5dfa8d580c16506bad120dac",
+    "src/unit_02183.c": "d338e0ceb0d636f7787fc235cea04e258467a6bfc2b50c2975787945f267b870",
+    "src/unit_02184.c": "88dc1b7317463c9b56f7e3d7cbdf1f7cd2ee98ad56fbe51be312c94820083808",
+    "runtime/ring_queue.c": "0416e684253918cfe0a56b8c5e5d7fd336da8649baac8d64cff40821e4616f3e",
+    "include/actor_ring_queue.h": "5df70c43795607fdc72d3218e7d8dd4d8e273d2c87667e557b28f1b170ad86b3",
+    "runtime/standalone_link_check.c": "98cabe5b64d803a4087123afef89472e4feddb9a37c9e610a15d8d08f9bd9693",
+    "CMakeLists.txt": "f54b57b1a5396f1ac535cec60e819901660e55f5beb7c83b2818de80c1c9d646",
+    "direct_c/verify_actor_ring_lifecycle.py": "468d4293c103e76a62166c98b029f35bf1d64bbd1788b435490ffe4c06534ff6"
+  },
+  "passed": true,
+  "checked": 58,
+  "invocations": 164,
+  "legacy_entries_tested": [
+    "0x4f64a0",
+    "0x4f64b0",
+    "0x4f64d0",
+    "0x4f64e0"
+  ],
+  "coverage": {
+    "0x4f64a0": {
+      "bytes": 10,
+      "instructions": 2,
+      "executed": 2
+    },
+    "0x4f64b0": {
+      "bytes": 28,
+      "instructions": 7,
+      "executed": 7
+    },
+    "0x4f64d0": {
+      "bytes": 12,
+      "instructions": 4,
+      "executed": 4
+    },
+    "0x4f64e0": {
+      "bytes": 23,
+      "instructions": 6,
+      "executed": 6
+    },
+    "0x4f6500": {
+      "bytes": 13,
+      "instructions": 6,
+      "executed": 6
+    },
+    "0x4f6510": {
+      "bytes": 5,
+      "instructions": 1,
+      "executed": 1
+    }
+  },
+  "controlled_algorithm_endpoints": [],
+  "controlled_platform_endpoints": [
+    "Native5618E6 (_onexit)",
+    "Hosted C atexit"
+  ],
+  "scope": [
+    "Six complete lifecycle entries; 50 forward constructors and50 reverse destructors",
+    "Actual native vector iterators, normal finally paths and ring-clear dependency execute",
+    "Exact field-write order, unaligned members, registration success/failure and repeated exit callbacks",
+    "Original SEH chain restored on normal return; no C++ exception-unwind certification"
+  ],
+  "limitations": [
+    "Valid mapped field-only objects; no exceptions or concurrent mutation.",
+    "Does not certify the entire original CRT initializer/destructor catalogue or gameplay."
+  ],
+  "commit": "da4556cdf672311105bbbbaee8c15c5bdae119b1",
+  "link_check_passed": true,
+  "promoted_to_release": true,
+  "native_evidence": "metadata/actor-ring-lifecycle-native.json"
+}

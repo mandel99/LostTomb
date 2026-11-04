@@ -1,0 +1,91 @@
+{
+  "native_entry": "0x0053f250",
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "60c4d9a61519ed773255c638360554411271f415af316a9fb98fbfe44b04b20b",
+  "method": "Full original 165-instruction function and both original clipping bodies versus compiled actual C function and clipping bodies; exact 224 global/guard bytes, 0/1 return, color word, ordered endpoint arguments and clipping-entry state. Native thiscall cleanup and compiled C caller cleanup, stack guards and saved registers checked.",
+  "limitations": [
+    "Raster bodies are controlled endpoints in this differential. Pixel and frame regions are read-only and verified unchanged; this does not establish raster pixel correctness.",
+    "Original PUSH ECX color argument has an undefined caller-volatile upper half after the preceding raster call. Only its low 16 bits are semantic: all three color consumers read the word. No production raster stub is added.",
+    "This offline comparison does not execute an original game process or validate live map rendering."
+  ],
+  "passed": true,
+  "checked": 1829,
+  "elapsed_seconds": 46.953,
+  "function_instruction_coverage": {
+    "total": 165,
+    "executed": 165,
+    "missing": []
+  },
+  "native_global_write_widths": [
+    {
+      "address": "00d3b530",
+      "bytes": 1
+    },
+    {
+      "address": "00d3b531",
+      "bytes": 1
+    },
+    {
+      "address": "00d3b534",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b538",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b53c",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b540",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b544",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b548",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b54c",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b5b8",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b5bc",
+      "bytes": 2
+    },
+    {
+      "address": "00d3b5be",
+      "bytes": 2
+    },
+    {
+      "address": "00d3b5d4",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b5dc",
+      "bytes": 4
+    },
+    {
+      "address": "00d3b5e0",
+      "bytes": 4
+    }
+  ],
+  "source_hashes": {
+    "src/unit_02525.c": "7593ad8430d545124f633c4da4939ed1feb0891768d4a1d1313aa6a577542a24",
+    "include/graphics_53f250.h": "bf532d4ec532fdbe38efdadd9bfb00cfaec2a3f47845a332dddf5a8ba582d677",
+    "tests/graphics_53f250.c": "b4377c12ccaff4692fdbdff888e7cd2ceef67237fd79b9b1648c7dff5565f475",
+    "tools/verify_graphics_53f250_emulation.py": "68bbcfccb05c3797309f4a45b5b6d424c9ad3ee87bc1931ab4aa0ffb5bc148ac",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40"
+  }
+}

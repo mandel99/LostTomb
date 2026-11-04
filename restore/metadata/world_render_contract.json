@@ -1,0 +1,343 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_function": "00436b60",
+  "native_instruction_count": 1400,
+  "native_bytes": 5174,
+  "staged_source": "artifacts/world_render_phase/unit_00547.c",
+  "production_applied": false,
+  "algorithm": "Four isometric passes per in-bounds row: building bases and occlusion; priority-mask actors; building upper animation/details; complementary actors. Actor links are read after their draw callback. Coordinates use modulo32-bit arithmetic with native signed bounds and comparisons.",
+  "row_bounds": "Initial visibleRows+18 must be signed positive. Tail continues while rowsDone < signed(visibleRows+extra+14). Extra starts4 and is assigned32 on type183 or80 on type230; assignments can increase or decrease the current bound.",
+  "widths": {
+    "counter775688": "WORD increment modulo65536",
+    "geometry70e440..490": "DWORD fields, signed comparisons and wrapped arithmetic",
+    "lookup70e494": "DWORD grid,231 columns x457 rows, signed sentinel comparison against0x0fff0000",
+    "terrainaf598c": "DWORD grid",
+    "edge b67d1c/footprint b285cc/extra adc36c": "BYTE grids; footprint low4 bits",
+    "actorhead b350dc/building b4e6fc": "signed WORD grids, stride2",
+    "image b7482c": "DWORD grid, stride4",
+    "building": "stride0x108; type WORD+0x10,state WORD+0x12; active BYTE+5,warning BYTE+0x87,highlight BYTE+0xbf; occluder BYTE+0x56,DWORD+0x68,BYTE+0x59; related actor DWORD+0x5c; presence DWORD+0x64; worker WORD+0xb4",
+    "actor": "stride0x184; next signed WORD+0,type BYTE+2,state BYTE+9,action BYTE+0x30,hidden BYTE+0x5d,extra WORD+0x118",
+    "descriptor": "stride64; animation frame count WORD+0x1e, clamped using signed WORD; placement offsets signed WORD+0x22/+0x24 and height signed WORD+0x16",
+    "highlight70e120": "WORD",
+    "overlaye94e0c/directionbca2e0/art tags": "DWORD",
+    "special6de515": "BYTE"
+  },
+  "return_consumption": {
+    "00436b60": "void; one cdecl DWORD actor parameter propagated unchanged to438e50",
+    "00438180": "full EAX record address, native thiscall RET4; signed index>=signed next_image substitutes index0; no lower bound added",
+    "004381a0": "full EAX tag image DWORD, native thiscall RET4; self+group*8+4, no invented validation",
+    "00488030/00488050": "caller tests AL only",
+    "0040f2c0": "caller tests full signed EAX>0 then clamps against signed descriptor frame WORD",
+    "0053f250": "return is unconsumed by world; real native thiscall RET12 and source cdecl facade independently compared",
+    "00489500": "legitimate empty native RET16; source C adapter evaluates four arguments, then invokes unchanged empty C body",
+    "other drawing returns": "unconsumed; no semantic EAX result invented"
+  },
+  "receiver_binding_evidence": "metadata/world_render_member_binding_audit.json proves all48 recovered438180/4381a0 calls bind global managerf55bb0; explicit-self methods also preserve reusable native behavior.",
+  "endpoints": [
+    {
+      "address": "00401f70",
+      "stack_dwords": 3,
+      "native_receiver": "0x6de650",
+      "native_callee_cleanup": 12,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "0040f2c0",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00410230",
+      "stack_dwords": 1,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004105c0",
+      "stack_dwords": 1,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00410660",
+      "stack_dwords": 1,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00410700",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004109d0",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00410a70",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "0041fff0",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00420050",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004206f0",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00420a30",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00420d60",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00421060",
+      "stack_dwords": 2,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00421920",
+      "stack_dwords": 3,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00436310",
+      "stack_dwords": 3,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438180",
+      "stack_dwords": 1,
+      "native_receiver": "0xf55bb0",
+      "native_callee_cleanup": 4,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "004381a0",
+      "stack_dwords": 1,
+      "native_receiver": "0xf55bb0",
+      "native_callee_cleanup": 4,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "004381b0",
+      "stack_dwords": 5,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438210",
+      "stack_dwords": 5,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438350",
+      "stack_dwords": 5,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438470",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004384d0",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438590",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438650",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004386b0",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438710",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438770",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00438e50",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00442280",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00488030",
+      "stack_dwords": 1,
+      "native_receiver": "0xbca350",
+      "native_callee_cleanup": 4,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00488050",
+      "stack_dwords": 1,
+      "native_receiver": "0xbca350",
+      "native_callee_cleanup": 4,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00488c20",
+      "stack_dwords": 4,
+      "native_receiver": "0xbca350",
+      "native_callee_cleanup": 16,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "00489500",
+      "stack_dwords": 4,
+      "native_receiver": "0xbca350",
+      "native_callee_cleanup": 16,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "004c0160",
+      "stack_dwords": 3,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004cdad0",
+      "stack_dwords": 0,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "004cdb80",
+      "stack_dwords": 0,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "004e5e90",
+      "stack_dwords": 3,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "004ef550",
+      "stack_dwords": 4,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "0053e590",
+      "stack_dwords": 3,
+      "native_receiver": "0xf55bb0",
+      "native_callee_cleanup": 12,
+      "algorithm_in_oracle": "controlled endpoint"
+    },
+    {
+      "address": "0053f250",
+      "stack_dwords": 3,
+      "native_receiver": "0xf55bb0",
+      "native_callee_cleanup": 12,
+      "algorithm_in_oracle": "real original instructions and C body"
+    },
+    {
+      "address": "00542e10",
+      "stack_dwords": 3,
+      "native_receiver": null,
+      "native_callee_cleanup": 0,
+      "algorithm_in_oracle": "controlled endpoint"
+    }
+  ],
+  "proof_boundaries": [
+    "Real535f250 upper-sprite algorithm and both real clipping algorithms compose inside the world pass; final raster consumers remain controlled. No city pixel fidelity is claimed.",
+    "Other large draw/classifier algorithms remain explicit controlled boundaries with ordered arguments/receiver/state checks. Synthetic mutations and adversarial return values expose caller reloads and width consumption; they do not claim those behaviors occur in the original deep algorithms.",
+    "Source facade and explicit-self C ABIs are checked separately from original thiscall stack cleanup."
+  ],
+  "ownership": [
+    "src/unit_00547.c after coordinator application release",
+    "src/unit_00548.c after coordinator application release",
+    "src/unit_00549.c after coordinator application release",
+    "new world_render files only"
+  ]
+}

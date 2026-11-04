@@ -1,0 +1,144 @@
+{
+  "status": "Eleven spatial-sound bodies reconstructed, compiled and verified offline; promoted to Release and pushed to main",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x55f697",
+      "bytes": 901,
+      "instructions": 199,
+      "rea": "ev_638480e4875969a580741643cfe3f25a0ca5eb620f7e47e97121dc08dc9435aa"
+    },
+    {
+      "entry": "0x55fa1c",
+      "bytes": 219,
+      "instructions": 52,
+      "rea": "ev_471f92164979af2c77972bfa8e222f6bd04c3c8b96c42272591c2f06faceb0e7"
+    },
+    {
+      "entry": "0x55faf7",
+      "bytes": 120,
+      "instructions": 39,
+      "rea": "ev_b0875f5e2e8f23597e8ba7bc482fb453dff4d9fe98f1ec2062f141ba6414a495"
+    },
+    {
+      "entry": "0x55fb6f",
+      "bytes": 105,
+      "instructions": 34,
+      "rea": "ev_7d4e2d2d8bbb574330c0d575db97fd76826a6648939795d8158160d69781f151"
+    },
+    {
+      "entry": "0x55fbd8",
+      "bytes": 204,
+      "instructions": 59,
+      "rea": "ev_b41c0e7da348b22e4371e949cdea5374c8b6943631712b8e2340938772b1863c"
+    },
+    {
+      "entry": "0x55fca4",
+      "bytes": 548,
+      "instructions": 161,
+      "rea": "ev_35a5738daaff12319d35c0323d8df4042c2c15f2fd36f1fe1229bf6e55f683a1"
+    },
+    {
+      "entry": "0x55fec8",
+      "bytes": 88,
+      "instructions": 27,
+      "rea": "ev_0e91c43a9d60d817f052e3361470a181cf7e8040f9d208d703cf1fcb6772189f"
+    },
+    {
+      "entry": "0x55ff20",
+      "bytes": 499,
+      "instructions": 151,
+      "rea": "ev_02ad9fcb2a881a81c5f6f47860d0c54e2ae02b7d078a72ca1ca6dbabee974139"
+    },
+    {
+      "entry": "0x560113",
+      "bytes": 61,
+      "instructions": 23,
+      "rea": "ev_6627a4e483c2e1a4b94a5ea40ffa367ca2089db18a266cf37dc5d68b08acbe34"
+    },
+    {
+      "entry": "0x560150",
+      "bytes": 73,
+      "instructions": 29,
+      "rea": "ev_195acb48fa98e97ded51222958ab50338ee9b4eaee58d2e63a641aded5eccf10"
+    },
+    {
+      "entry": "0x560199",
+      "bytes": 112,
+      "instructions": 36,
+      "rea": "ev_40f3af4619408c06e79466e3e25beabca7fa76cfe4c5bd6e6d084bbca6f81cfd"
+    }
+  ],
+  "totals": {
+    "functions": 11,
+    "bytes": 2930,
+    "instructions": 810
+  },
+  "changes": [
+    "Replace inherited uninitialized ECX receivers with typed RestoreSound arguments for all eleven methods; no assembly added.",
+    "Provider priority EAX/A3D/Intel/hardware/software, last match per category, independent substring matches, original five attempts and stale EAX-support behavior.",
+    "Exact 556-byte provider private-frame input contract. Original does not initialize candidates absent from enumeration or an unwritten attribute result. Explicit-body tests seed and compare this prestate; public wrapper cases define all these outputs.",
+    "Reset nine channel DWORDs, retaining cache index. Preserve cache reference counting, distinct output-channel/cache-slot identities and ordered request copies including aliasing.",
+    "Playback retains signed-byte narrowing of channel/cache indices, full-EAX load failure check, original duplicate detection and callback-sensitive table/request reloads.",
+    "Position/orientation preserve raw coordinate bits; active-voice update reloads the table and count after Miles calls."
+  ],
+  "verification": {
+    "spatial_script": "direct_c/verify_sound_3d.py",
+    "provider_script": "direct_c/verify_sound_providers.py",
+    "comparison": "Original EXE and compiled C under offline Unicorn: return values only where defined, ordered Miles/helper calls, all seeded globals and shared controller/table/request memory; native RETn versus explicit C receiver, nonvolatile registers. Explicit provider frame additionally compared byte-for-byte.",
+    "controlled": "Miles APIs and file/allocation endpoints. Playback cases compose real cache/reset helpers; provider cases include real pool resize/stop/default functions. Separate playback boundary cases explicitly substitute helper results for signed-byte checks.",
+    "limits": "No host game, physical audio/provider selection, media DLL execution or full gameplay. Native absent-provider/attribute prestate remains unspecified; no deterministic public-wrapper equivalence is claimed when those native locals are undefined.",
+    "spatial_cases": 259,
+    "provider_cases": 120,
+    "new_native_c_total": 379,
+    "sound_lifecycle_regressions": 97,
+    "media_forwarding_cases": 60,
+    "noargument_link_check": "PASS",
+    "result": "All passed on the exact final Preview EXE; identical verified bytes promoted to Release."
+  },
+  "sources": [
+    "CMakeLists.txt",
+    "include/sound_initialization.h",
+    "include/sound_3d.h",
+    "src/unit_02713.c",
+    "src/unit_02714.c",
+    "src/unit_02715.c",
+    "src/unit_02716.c",
+    "src/unit_02717.c",
+    "src/unit_02718.c",
+    "src/unit_02719.c",
+    "src/unit_02720.c",
+    "src/unit_02721.c",
+    "src/unit_02722.c",
+    "src/unit_02723.c",
+    "direct_c/verify_sound_3d.py",
+    "direct_c/verify_sound_providers.py"
+  ],
+  "source_commit": "cd583d904fb760896709b351d2cdc6881fbdf691",
+  "source_sha256": {
+    "src/unit_02719.c": "fd37110865706aa0e7abe9fc42f6f936c343536c4d4e05c4a36b5c0380b522dc",
+    "CMakeLists.txt": "01cb383cdb6194cfe21a0d6efca38865270cee7d2d3458848e907ee66de2fd21",
+    "src/unit_02718.c": "4717c1a29ae6eee9e549b25cc14350a47bc276a782a1a198461ddb7c91847ba3",
+    "src/unit_02716.c": "26df3a4f5a1797ded6d12439b58ff6a70a7d8368075569fd891ef3d3a6a77ff3",
+    "direct_c/verify_sound_3d.py": "378f1666353f687a793c915621b7affa5982d993eaf1f8de4423687e0336d198",
+    "src/unit_02717.c": "6827da840e66222ed8d60672023017f239f5d9d7200ec596575aaca2b21550ac",
+    "src/unit_02723.c": "57882280de6e25f2f109447fe14c2e1bae08e50f6d72274bd5ff22387018824c",
+    "src/unit_02714.c": "2fc87076df159cc10f66a822d405510f4973ac125c71a627b7fa59a0b017ab10",
+    "src/unit_02722.c": "69f95393f35342d40685f72dbdcff34bd0424c9829bb7131329ec71281203f9c",
+    "direct_c/verify_sound_providers.py": "679f8d9e3fa1eadabc4074a4d0affb5241144ffe188ce79ff81bfdd67ebaeb2e",
+    "include/sound_3d.h": "271c253b6e476255543c7d8f1fb71673598288417fdac6ff80789e2b397e92c0",
+    "src/unit_02715.c": "0feee70317cdd0bf35775a0e5ae050daefa1edcb10f22ee0e116bb8c825e63b5",
+    "src/unit_02721.c": "a422cc600363a5bcef13a73900b3303e5ec2231cf71d3236f5c7c30a5ba834b3",
+    "src/unit_02713.c": "110fe1a155c76b6198883958878fdb019e6863b51801b9b4720b0269d4bc661d",
+    "src/unit_02720.c": "839c6721241d63f4e110278e4c7c4604b91fd209fd6ecfe0cef98ce3cf2e66db",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10"
+  },
+  "build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "30101f2505498a0ee0d8951df7d23600fc1d456a92cdcd90e64f83779bbc3d68",
+    "bytes": 7610880,
+    "local_time": "2026-11-02T21:01:23.9714554+01:00",
+    "promotion": "Only EXE/map and link-check EXE/map copied after no PharaohRestoreC process was observed. No game assets, settings, saves, DLLs or logs copied.",
+    "publication": "Main source commit only; no tag or release created."
+  }
+}

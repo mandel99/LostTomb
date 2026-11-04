@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: reported simulation event crash root fixed; full-game reconstruction remains incomplete",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x4464f0",
+      "evidence_id": "ev_e595369f2256af51fa4eb8de2389e5ff3018c359a7755aebe33f4823360b99c6",
+      "native_bytes": 59,
+      "complete_decoded_instructions": 22,
+      "native_body_sha256": "501e077e3a106da99c24ccd9d53681ac09cf5fa42828261518e9b86749c7f073"
+    },
+    {
+      "address": "0x44e6f0",
+      "evidence_id": "ev_232d7d6e326af8d7945ee9069efca918f7a117cca14fcdb1b2ae7a911026aa51",
+      "native_bytes": 191,
+      "complete_decoded_instructions": 57,
+      "native_body_sha256": "e14e825a3f7d8698494cb2f816e9396ad8a156739f8cfa9b8beb0d48ce1982dd"
+    },
+    {
+      "address": "0x451540",
+      "evidence_id": "ev_b41c088f5cf56ce945a26a2a5a8fc1e37ff6d3a4f281c979c72be69c2c6aa414",
+      "native_bytes": 1135,
+      "complete_decoded_instructions": 310,
+      "native_body_sha256": "849c9c616a65f6e0af2ece041b86d024d9aa4b6f4b3962416fff71b5550d0f65"
+    }
+  ],
+  "crash": {
+    "dump": "build\\c-only\\Release\\PharaohRestoreC-crash.dmp",
+    "sha256": "7980a12a54ce1c9772ae3a78e8954578a28a0cd364f92cf6805e08f0cfedd3c7",
+    "local_time": "2026-11-02T11:48:45",
+    "source_build_sha256": "7af9e867be8725d85ff5c85b5d6cf2fd8ea2a51925b24ec6232d61b7b13403e4",
+    "source_COFF": "6ae86939",
+    "EIP": "004001c9",
+    "source_provider": "FUN_0044e6f0",
+    "access": "read address00000030 from uninitialized local receiver00000014",
+    "chain": [
+      "calendar_updates:4464F0",
+      "legacy451540 without ECX",
+      "legacy44E6F0 without ECX"
+    ],
+    "active_record": "00785f64"
+  },
+  "fix": [
+    "Whole4464F0 now uses DWORD editor state and supplies each real record explicitly to restore_event_update_00451540.",
+    "New member facade shares existing complete C451540/event graph and explicit native receivers, stack locals and RETn contracts. No null-pointer guard, skipped event, dummy return or exception swallowing was added.",
+    "The observed191-byte44E6F0 effect writer now executes through that graph with the actual124-byte event object. Its existing C graph was unchanged."
+  ],
+  "verification": {
+    "script": "direct_c/verify_simulation_events.py",
+    "enumeration_cases": 32,
+    "packet_cases": 32,
+    "actual_saved_record_cases": 1,
+    "fixture": "build\\debug-startup-game\\Save\\Restore\\autosave.sav",
+    "fixture_sha256": "0cc4cfe20386d6fadcb199b9c977d106f15a0d7a6938482c35b88f8fe1deb0a3",
+    "fixture_local_time": "2026-11-02T11:48:25",
+    "saved_active_record": "00785f64",
+    "noarg_link_exit": 0,
+    "scope": "Whole native/C4464F0 enumeration and451540/44E6F0 packet path in Unicorn. Actual iterator and packet writes execute. Effect/extension queries are controlled and execution stops via the native disabled-event predicate after packet creation. Saved fixture precedes crash by about20seconds; it is not the crash-time heap. Invasion creation, dated message publication, host gameplay and rendered pixels are not certified."
+  },
+  "build": {
+    "output": "Release",
+    "preview": "Same verified EXE/map copied to Preview to prevent accidental recopy of the preceding crashing build."
+  },
+  "artifacts": {
+    "build/c-only/Release/PharaohRestoreC.exe": {
+      "sha256": "ec9071ceb63bee0b2df1b177b43a75416b3c99ad4bb11fcf265587e67cc9e363",
+      "bytes": 7631872,
+      "COFF": "6ae86d27",
+      "local_time": "2026-11-02T11:59:51"
+    },
+    "build/c-only/Preview/PharaohRestoreC.exe": {
+      "sha256": "ec9071ceb63bee0b2df1b177b43a75416b3c99ad4bb11fcf265587e67cc9e363",
+      "bytes": 7631872,
+      "COFF": "6ae86d27",
+      "local_time": "2026-11-02T11:59:51"
+    },
+    "build/c-only/Release/restore_link_check.exe": {
+      "sha256": "c3dd97cf08264f04e8e889f206dad0e8a7ae99de59e83060c5d0b6f770e68720",
+      "bytes": 7628288,
+      "COFF": "6ae86c11",
+      "local_time": "2026-11-02T11:55:13"
+    }
+  },
+  "source_sha256": {
+    "src/unit_00661.c": "b4eb1512b50750b7978d23922874972193091bf66ebb45f5bb7c40fb14db5ada",
+    "include/menu_event_actions.h": "3499609b79f723b92eaed5f7b08e86c13a5cd36435dde040033475a1ff5c5fe6",
+    "runtime/menu_event_actions.c": "ea02cbdd4134de50421f46166efa18a56c90ea0f03914bdf63cea81f66b3e432",
+    "runtime/menu_event_model.c": "b6e93c460f6e952635ce61f85dab6c579f96e68368b0eed53c3c952dc97307d7",
+    "CMakeLists.txt": "3472fb90a2ef964a3bb90715c3c5d50accb3c417c3cf7d74bfb8a6b1fc014dec",
+    "direct_c/verify_simulation_events.py": "bcf677e47007f65fda3515226b2b7e1714c2973450bb14e1427d30f82c2c7f53"
+  },
+  "triage": {
+    "report": "metadata/linked-width-audit.json",
+    "linked_legacy_bodies_scanned": 3323,
+    "candidate_functions": 583,
+    "functions_by_pattern": {
+      "scaled_address": 308,
+      "byte_scalar": 486
+    }
+  }
+}

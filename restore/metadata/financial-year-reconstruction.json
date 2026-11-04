@@ -1,0 +1,36 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Complete pinned REA/Ghidra instructions; port names and the C# city/HUD layout are references only.",
+  "sources": ["runtime/financial_updates.c", "include/financial_updates.h", "runtime/calendar_updates.c", "include/calendar_updates.h", "runtime/menu_economy_actions.c", "CMakeLists.txt"],
+  "functions": {
+    "0045a350": {"instructions": 47, "evidence": "ev_c7541db570394eadde09e7d62c13c420030aa4b9dc63a1e05a3c6d76dc9b0d03"},
+    "0045a5d0": {"instructions": 102, "evidence": "ev_c69ac4115f45efff9cc8fc6552410a6e79b722cf71561a6bf2a3cea715a48d03"},
+    "0045a8c0": {"instructions": 27, "evidence": "ev_4a36afeec0d2454e52bc56ad423501ae12d7ba0ee231124f032f2abde534409c"},
+    "0045a930": {"instructions": 13, "evidence": "ev_b5bd7c7f795b6357a691aeecf2ec310d8c3a7fa967c75162d5de22ff9d7cd5bc"},
+    "0045a970": {"instructions": 5, "evidence": "ev_ff5b4c0048a9109ef7bb9b335ac3b6c76ebf2f4d53c0581795cf047999bfd010"}
+  },
+  "changes": [
+    "Replace the active45A350/45A5D0 instruction-frame facades with direct typed C, retaining the complete native interest and annual tribute calculations. Their historical model source remains but both old model bodies are absent from the final Release maps.",
+    "Preserve cached annual totals around percentage/reserve calls, current-city payment after the percentage query, a further owner reload for closing snapshots, signed comparisons of wrapped totals, the mode10 waiver, debt-year counter and exact population thresholds.",
+    "Rewrite wage/interest/salary projection entries with full DWORD owner/month, WORD temple gate, the ignored-but-executed optional query, fresh owner after that query and signed low32-bit product divisions. Monthly interest caches its rate before the temple query and tests the full result against1.",
+    "Menu donation/tax actions and their refresh facades now share the canonical45A990/45A7B0 providers; remove duplicate typed bodies. Retire legacy00873/00874/00875. Other calendar rollovers and the existing calendar controller remain unchanged.",
+    "All five public entries are unique financial_updates.obj providers in both final maps. The whole module retains W4/WX. The earlier scoped finance record remains historical; its then-open yearly45A5D0 item is addressed here."
+  ],
+  "verification": {
+    "script": "direct_c/verify_financial_year.py",
+    "script_sha256": "8be15a9b8e831a5d68d5f2ebc1bc1f828f6ab01df61acb2ab992ee369c3ce8eb",
+    "cases": {"annual_closing": 157, "wage_interest_salary_projection": 113, "monthly_interest": 83, "calendar_and_menu_compositions": 14},
+    "new_cases_total": 367,
+    "regression": {"script": "direct_c/verify_financial_updates.py", "script_sha256": "70d2d9ada3b1949097549819ea9f480cf7bbf11b4c9f5376e2f9c5203734efce", "entry": "verify_ledgers", "cases": 157},
+    "total": 524,
+    "target_sha256": "806f61fa4d3518e0ce768e550b4c4b5f700f9d6a3474e6ed51361d784de0f12b",
+    "target_coff": "6ae7ebd5",
+    "target_bytes": 7907328,
+    "target_code_end": "0x0048f79c",
+    "diagnostic_sha256": "cbcf9d8423a56e5b41eaf76a4327f82e1fe65af7e57ffdff26cedcee5ae06daa",
+    "diagnostic_code_end": "0x0048efec",
+    "build_and_no_argument_link_diagnostic_exit": 0,
+    "method": "All524 comparisons use this final Release in offline Unicorn. Compare mapped game state, native stack/nonvolatiles, ordered controlled endpoint calls and callback-visible finance fields. Genuine percentage and reserve helpers execute outside explicit callback fixtures. The actual452370 calendar crosses the year boundary with real monthly wages, interest, salary, debt-month handling and all annual finance rollovers; unrelated simulation endpoints and the file-save endpoint are observed/controlled. MSVC-inlined helpers execute through their actual caller; the remaining4599D0 tax-model endpoint is explicitly controlled. Menu donation routing executes the real donation and shared canonical ledger/reserve providers."
+  },
+  "limitations": "Finite defined-state comparisons, not exhaustive branch or live-game proof. The calendar composition does not certify unrelated simulation or actual file saving. Monthly tax collection4599D0 still uses its existing instruction model and is a declared controlled boundary in that composition. The other calendar models, private diplomacy45A970 body and whole game remain outside this scoped conversion."
+}

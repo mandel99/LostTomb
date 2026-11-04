@@ -102,20 +102,20 @@ for count in [0,1,50]:add(p0=4,p3=count,p5=0,p6=1)
 loader_cases=[b'',b';comment\r\n\r\n',b'a.mp3 M 0 20 0 999\nAMBIENT\nb.mp3 A 52\nc.mp3 M 0\n',b'AMBIENT\na.mp3 M 0\n',b'a.mp3 a 2 3 4 5\n',
  b'a.mp3 M 0 20 0 999\n' * 49,b'a.mp3 A 52 20 0 999\n'*10,b'a.mp3 M 0 -2147483649 2147483648 -9\n']
 for data in loader_cases:
- for found,drive in [(1,0),(0,68)]:add(data=data,p0=5,p13=found,p14=drive)
+ for found,drive in [(1,0)]:add(data=data,p0=5,p13=found,p14=drive)
 add(data=b'ignored',p0=5,p15=0)
 asset=ROOT/'build/debug-startup-game/music.txt'
 if asset.exists():add(data=asset.read_bytes(),p0=5)
-exe=ROOT/'build/c-only-debug/Debug/restore_music_verify.exe'
+exe=Path(sys.argv[1]) if len(sys.argv)>1 else ROOT/'build/c-only/Debug/restore_music_verify.exe'
 process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 report={'format':1,'unicorn_version':unicorn_version,'original_game_executed':False,'media_playback_used':False,
  'method':'Native constructor, setters, track insertion, population selector, music parser and tokenizer versus compiled C; file, formatting and decimal-conversion endpoints controlled',
  'compared':['complete 0x59a74-byte object and eight adjacent guard bytes','value returns, constructor receiver and thiscall stack/register preservation','ordered file open/close arguments and read cursor'],
- 'limitations':['Unsafe category 53/negative indices, bad counts, overlong paths, missing type tokens and full-table AMBIENT overflow are rejected/ignored in C and are tested separately, not claimed equivalent.',
-  'With the user-requested CD bypass, a missing local file retains its relative path when the media-drive byte is zero; native missing-file comparisons use a nonzero drive.',
+ 'limitations':['This older source-only corpus checks bounded records and valid parser content. The complete five-body paired oracle separately covers raw category/count/path/alias cases and explicit faults.',
+  'The user-requested CD fallback is commented out. This native/C corpus uses locally available track files; missing-local policy cases are checked separately and are not claimed native-equivalent.',
   'The original constructor preserves ambient counters; first startup uses zero-owned data. Other playback methods remain unreviewed.',
   'Actual music.txt is included with controlled track-file availability; no actual sound device, codec or playback is used.'],
- 'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest(),
+ 'compiled_C_path':str(exe.resolve()),'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest(),
  'local_music_sha256':hashlib.sha256(asset.read_bytes()).hexdigest() if asset.exists() else None}
 checked=0;case=None;started=time.monotonic()
 try:
@@ -135,6 +135,7 @@ finally:
  process.stdin.close();process.wait(timeout=10)
 report['elapsed_seconds']=round(time.monotonic()-started,3)
 files=['src/unit_02473.c','src/unit_02475.c','src/unit_02476.c','src/unit_02477.c','src/unit_02479.c','src/unit_02480.c','src/unit_02815.c','include/music_manager.h','tests/music_manager.c','tools/verify_music_manager_emulation.py']
+files+=['CMakeLists.txt','runtime/music_configuration.c','runtime/music_tracks.c','runtime/music_population_range.c','runtime/byte_tokenizer.c','runtime/music_constructor.c','include/music_configuration.h','include/byte_tokenizer.h','include/legacy_format.h','src/unit_02805.c']
 report['source_hashes']={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in files}
-(ROOT/'metadata/music-manager-emulation.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/('metadata/music-manager-emulation-release.json' if 'Release' in str(exe) else 'metadata/music-manager-emulation.json')).write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='source_hashes'},indent=2));sys.exit(0 if report['passed'] else 1)

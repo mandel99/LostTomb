@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "frozen": true,
+  "frozen_utc": "2026-10-30T14:17:05.539349+00:00",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "production_modified_by_agent": false,
+  "repaired_native_functions": 3,
+  "new_callback_functions": {
+    "004a2e90": 74,
+    "0049b400": 66
+  },
+  "repaired_generated_units": {
+    "01352": "0049b3c0"
+  },
+  "unchanged_composed_functions": {
+    "01462": {
+      "address": "004b57e0",
+      "sha256": "5d08124033b4c25c64b468d724783a8f710f0e961b1e65838e37ecb0a60b60bc",
+      "instructions": 24
+    }
+  },
+  "unchanged_C_only_sound_endpoint": {
+    "unit": "01130",
+    "address": "0047d350",
+    "sha256": "c80c09e0e8ac43653f4f98ce615bd25b1c91e3c2ac3c1cc957ad9f9aa404a5a9",
+    "native_instructions_claimed": 0,
+    "contract": "Current no-argument no-op. A named event adapter explicitly discards the native event word at this deeper boundary. Sound reconstruction is excluded."
+  },
+  "native_instructions": {
+    "projectile": 122,
+    "carrier": 144,
+    "chain": 18,
+    "unchanged_tile_query": 24,
+    "total": 308
+  },
+  "proofs": {
+    "debug": {
+      "report": "artifacts/actor_callbacks_chain_phase/metadata/emulation-debug.json",
+      "sha256": "ef42318e12dbc893dca03b1263aa2bfb7a321ec431b70787d3f586377a0b91fb",
+      "passed": true,
+      "checked": 1487,
+      "instructions": 308,
+      "compiled_C_sha256": "c31586048d7fffeeb963dff28c2f95778eec28ca95e2749d3bf0d7dc1327da6b",
+      "C_smoke_checks": 25,
+      "flags": "/Od /Ob0 /MTd"
+    },
+    "release": {
+      "report": "artifacts/actor_callbacks_chain_phase/metadata/emulation-release.json",
+      "sha256": "e1840c2bc9afb532bc58597f3671104b0cdba0e6b4ab5701f705761be467ded9",
+      "passed": true,
+      "checked": 1487,
+      "instructions": 308,
+      "compiled_C_sha256": "46aa93447dbaeccf54db7e54a5a1accdfaa263f213bee08adc2b6cf345b2fea3",
+      "C_smoke_checks": 25,
+      "flags": "/O2 /Ob2 /DNDEBUG /MT"
+    }
+  },
+  "validation": "Compare765268 watched bytes including nonuniform guards in every case, ordered helper entry/exit/deep endpoint args/intermediate fields, full consumed queryEAX and movement control, cached/reloaded actor/home/predecessor/root/orientation/art mutations, native stack/canary/saved registers, C stack balance/saved registers. All308 original instructions execute. Both variants use1487 independently initialized cases.",
+  "key_contracts": [
+    "Callbacks are void(void), global-current-actor DWORD d056f8. Original-address aliases support direct resolver registration.",
+    "Native actor physical address is bcd600+DWORDid*388 with32-bit wrap; signedWORD home/predecessor links extend before address math. Tile head/next use signedWORD and type comparison uses fullDWORD target.",
+    "Projectile signedBYTE age wraps and compares against104; deletion flag does not end callback. BYTE animation wraps before unsigned>=5 reset.",
+    "Search order70,68,69 stops at first nonzero ID; excluded action4/12 does not trigger later query. HomeWORD52 identifies a shooter actor in projectile, building in carrier.",
+    "Carrier caches original signed predecessor/home and returned root across calls. It marks deletion but continues hidden/image work on invalid predecessor. It may add100 withWORD wrap at799a2e+home*264+resourceBYTE*2 without extra validation.",
+    "Native direction subtractsDWORD orientation, shifts orientation by2 for arrow, and adds8/32 once when signed-negative. No extra normalization/clamp. Primary/secondary art and bases areDWORD. Carrier death frame indexesBYTE bysignedWORD timer/2 towardzero, with base+96.",
+    "No raw native function pointer is introduced. No RNG is called directly in this graph."
+  ],
+  "reference_only": [
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/Walkers.Hunting.cs",
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/Walkers.Bazaar.cs",
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/LegacyWalkerAnimationCatalog.cs"
+  ],
+  "native_over_reference": [
+    "Use original signedBYTE lifetime comparison and one-step orientation correction, not rewritten bounds/modulo.",
+    "Preserve native owner/predecessor/action side effects and absence of C#-specific validity/activation/type guards."
+  ],
+  "limitations": [
+    "4b3ff0 movement,4b22e0 following and47d350 sound are controlled native endpoints. Full algorithms/actual movement and sound are excluded. Production keeps these existing entries; the named sound adapter passes through the current no-argument C sound no-op, with the native event retained only at the adapter boundary.",
+    "Real helper return wrappers apply explicit test-only mutations after the unchanged/rewritten function returns, to expose caller caching/reloads. These are not product behaviors or production stubs.",
+    "Mapped bounded actor chains/tile lists are the input domain. Original unchecked malformed/cyclic tile lists and unmapped IDs are excluded; chain helper retains its exact8-iteration limit and signed WORD links. Signed timer boundary cases use a full mapped lookup range, without enumerating all65536 values.",
+    "Callback EAX is discarded by the native dispatcher; complete chain/query EAX and movement-arrival control are compared. No RNG is called directly in this graph.",
+    "Private optimized target links the existing Debug restore_data.lib, producing LNK4098. All handwritten candidate/test/query objects are compiled /O2; shared target should link configuration-matching restore_data.",
+    "Central resolver, actor registry/inventory and all other callback bodies are coordinator integration work. No live fixture or original process is launched here."
+  ],
+  "integration": {
+    "target": "restore_actor_callbacks_chain_verify",
+    "test": "standalone_actor_callbacks_chain",
+    "recipe": "artifacts/actor_callbacks_chain_phase/integration.cmake",
+    "recipe_sha256": "f0196b0705508ddaeafc6dddac33a8ce7e59e7c8dd55dcdb28dcfe72d2a833af",
+    "product_runtime_additions": [
+      "runtime/actor_callbacks_chain.c",
+      "runtime/actor_callbacks_chain_sound.c"
+    ],
+    "resolver_include": "actor_callbacks_chain.h",
+    "dispatch_aliases": {
+      "004a2e90": 74,
+      "0049b400": 66
+    },
+    "proof": "Python312/python.exe tools/verify_actor_callbacks_chain_emulation.py --production --exe <shared executable>",
+    "private_project": "artifacts/actor_callbacks_chain_phase/CMakeLists.txt",
+    "private_project_sha256": "5d7b64272fa50454d519619083bf62557ae81813a77921e73b0f416f777247b4",
+    "note": "The isolated prey oracle also compiling the registry needs corresponding explicit fail-fast link-only boundaries, while production registry cases resolve real callbacks."
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/src/unit_01352.c",
+      "target": "src/unit_01352.c",
+      "sha256": "fd1817574cfa9d09e7725d2c0eb872d7114c1f83c8bf0003e6139c51dfaaf259"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/include/actor_callbacks_chain.h",
+      "target": "include/actor_callbacks_chain.h",
+      "sha256": "67f4e34f45f4578e2b0c7bed7dddac8dedfc57c97828581e23f5b5314b596d23"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/runtime/actor_callbacks_chain.c",
+      "target": "runtime/actor_callbacks_chain.c",
+      "sha256": "dd778bd95d4b7af77143fc77412cc96ff66ab6d7535a686f12559e7e4573b2f0"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/runtime/actor_callbacks_chain_sound.c",
+      "target": "runtime/actor_callbacks_chain_sound.c",
+      "sha256": "042c387650451e9c0fc04f07a8c24bee2f6bd02b1ad852f3960c86c501660e23"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/tests/actor_callbacks_chain.c",
+      "target": "tests/actor_callbacks_chain.c",
+      "sha256": "d5cf6f8c2ba5bba938dc42e4b5f20307bb57be7acb5968d82432948ca4bfa905"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/tools/verify_actor_callbacks_chain_emulation.py",
+      "target": "tools/verify_actor_callbacks_chain_emulation.py",
+      "sha256": "d3775bc51aa09cebed10aa6553177f51a36f622a7e8609c91013406297579483"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/metadata/native.json",
+      "target": "metadata/actor-callbacks-chain-native.json",
+      "sha256": "c409a0dc8254f039bf7c9d0241498bc46723991e33cde736d1228a28428820a5"
+    },
+    {
+      "source": "artifacts/actor_callbacks_chain_phase/metadata/caller-contracts.json",
+      "target": "metadata/actor-callbacks-chain-caller-contracts.json",
+      "sha256": "ce2568144ffe6c621200318b44bffef54dd4d501dda595c769ab355ee7ace67a"
+    }
+  ]
+}

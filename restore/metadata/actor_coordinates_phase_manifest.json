@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "state": "Three candidates applied by coordinator with unchanged body hashes. Header, five test files, verifier and private project frozen after the refreshed 4771 cases against private Debug and optimized C with current placement_preview.h.",
+  "staged_sources": [
+    {
+      "from": "artifacts/actor_coordinates_phase/unit_02113.c",
+      "to": "src/unit_02113.c",
+      "sha256": "13f9d7fdc5c8a0b848f034e884851615692027998d20ad16e1cec30b9ee6f763"
+    },
+    {
+      "from": "artifacts/actor_coordinates_phase/unit_02114.c",
+      "to": "src/unit_02114.c",
+      "sha256": "b809ab4a64727f71597da06f6a861c11add5bd004fe98289ce3a9cf2e3b7d29f"
+    },
+    {
+      "from": "artifacts/actor_coordinates_phase/unit_02116.c",
+      "to": "src/unit_02116.c",
+      "sha256": "3944ad2b2cbc3799cb3eb25e9cb3faedbca20440306fe07a3d38e77d96db7282"
+    }
+  ],
+  "new_header": "include/actor_coordinates.h",
+  "accepted_dependency_preserved": [
+    "src/unit_02115.c",
+    "include/placement_preview.h"
+  ],
+  "shared_target": {
+    "name": "restore_actor_coordinates_verify",
+    "sources": [
+      "tests/actor_coordinates.c",
+      "tests/actor_coordinates_real_offset.c",
+      "tests/actor_coordinates_real_inverse.c",
+      "tests/actor_coordinates_real_world.c",
+      "tests/actor_coordinates_real_actor.c"
+    ],
+    "include_directories": [
+      "include"
+    ],
+    "compile_definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "excluded_shared_definition": "ACTOR_COORDINATES_STAGED is private-only.",
+    "compile_options": [
+      "/W4"
+    ],
+    "link_libraries": [
+      "restore_data",
+      "advapi32"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test_command": "restore_actor_coordinates_verify",
+    "note": "The four real-function wrappers include the respective actual 2113/2114/2115/2116 bodies under aliases. Do not add the four procedure files directly to this oracle. Product restore_procedures compiles the applied trio normally; production bodies have no trace hooks."
+  },
+  "shared_full_proof": "python tools/verify_actor_coordinates_emulation.py --production --exe <absolute shared Debug restore_actor_coordinates_verify.exe> --optimized-exe <absolute shared Release restore_actor_coordinates_verify.exe>",
+  "single_variant_note": "An explicit --exe without --optimized-exe checks that one compiled variant; comparison_checked is then 0. The main checked count still must be 4771 with complete 403+113 coverage.",
+  "private_project": "tools/actor_coordinates_project/CMakeLists.txt",
+  "private_target": "actor_coordinates_verify",
+  "private_build": "build/agent-actor-coordinates",
+  "private_variants": {
+    "Debug": {
+      "compile": "/Od /W4",
+      "sha256": "e4433d03373cfce67d581e162b61c7e68e8965c57be6cab9ac7ce581be18302e",
+      "smoke": "1/1 passed"
+    },
+    "Release": {
+      "compile": "/O2 /W4",
+      "sha256": "d456fb5c6e4a638d3c9a447c824b215711efde97e509c3b363a21c9ce8688159",
+      "smoke": "1/1 passed"
+    }
+  },
+  "final_private_result": {
+    "passed": true,
+    "checked": 4771,
+    "comparison_checked": 4771,
+    "owned_coverage": [
+      403,
+      403
+    ],
+    "accepted_helper_coverage": [
+      113,
+      113
+    ],
+    "mutated_helper_phases": 8,
+    "controlled_algorithm_endpoints": [],
+    "elapsed_seconds": 76.52
+  },
+  "source_hash_authority": "All 17 source hashes in metadata/actor-coordinates-emulation.json. Archive the private report before a shared --production rerun overwrites its default path.",
+  "contract": "metadata/actor_coordinates_contract.json",
+  "limits": "Mapped bounded tables/records, nonfaulting signed division, supported world rotations 0/2/4/6. Explicit native-default fixtures belong to direct inverse/offset tests; refreshed generic report wording agrees with the precise contract. No larger rendering pixel claim."
+}

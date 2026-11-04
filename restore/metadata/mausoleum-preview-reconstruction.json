@@ -1,0 +1,58 @@
+{
+  "function": "0x004debe0",
+  "name": "mausoleum construction preview",
+  "kind": 222,
+  "source": "src/unit_01894.c",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_range": [
+    "0x004debe0",
+    "0x004ded49"
+  ],
+  "native_bytes": 362,
+  "native_instructions": 122,
+  "native_body_sha256": "dae2aad055b49e6505e3b755ae5eab8205afd6405b2f203ab0ed2d5270049329",
+  "rea_evidence": "ev_f81ada11d60bfc9f6c55e8b62c10cc83660d5a8a2192bdfd07e5820368b16f1b",
+  "crash": {
+    "dump": "build/c-only/Release/PharaohRestoreC-crash.dmp",
+    "sha256": "8b6fc710532de81df551795127b66c62ac23b065127dd0c0705eb78b10636d5b",
+    "exception": "0xc0000005",
+    "exception_address": "0x3bd95d",
+    "access": 0,
+    "invalid_address": "0x4746e54",
+    "eip": "0x3bd95d",
+    "mapped_function": "FUN_004debe0+0xfd",
+    "crashed_build_COFF": "6ae86d27",
+    "instruction": "MOV EDX,dword ptr [ECX*4+0x5cfcd4]; ECX is already size*4",
+    "limitation": "Dump predates public v0.1.0, but its affected source body is identical; the public binary also fails the new differential test."
+  },
+  "corrections": [
+    "Use a contiguous 13-DWORD geometry output record instead of an 8-byte buffer and unrelated uninitialized locals.",
+    "Address size/count tables in bytes with a single scaling factor.",
+    "Use DWORD tile, map and screen coordinates, orientation, dimensions and image identifiers.",
+    "Preserve cached rotation index, dimensions, painter order and native reload points."
+  ],
+  "verification": {
+    "script": "direct_c/verify_monument_preview.py",
+    "passed": 44,
+    "whole_preview_cases": 36,
+    "actual_placement_compositions": 8,
+    "real_helpers": [
+      "4DEE10 geometry initialization",
+      "4DED50 geometry copy/rotation",
+      "4DEF00 placement acceptance (8 composed cases)"
+    ],
+    "controlled_endpoints": [
+      "4F0BA0 projection",
+      "53F4F0 masked drawing",
+      "4DEF00 acceptance (36 cases)",
+      "46F9A0 bounds (8 compositions)"
+    ],
+    "old_release_regression": "v0.1.0 EXE passes tile 48 instead of 30000 to placement acceptance; test fails before malformed output record use.",
+    "diagnostic": "restore_link_check.exe passed without arguments",
+    "live_gameplay": "Not run."
+  },
+  "local_build_sha256": "6ef56cce949ca46baee16c1790103a877cdff44e87dfa1c4d02f89d4f0bbd73f",
+  "release_build_sha256": "ba7a4fb952f6e8d8a8f3daa43a221a3d7e677b7bc62b048b296cb5c01fa1cf92",
+  "release_source_commit": "72c74f084a1d912fa2c54b9df68550a7715ff854",
+  "release_tag": "v0.1.1-wip.20261102"
+}

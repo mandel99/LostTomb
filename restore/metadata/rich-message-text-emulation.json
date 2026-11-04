@@ -1,0 +1,2459 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T10:28:19.644345+00:00",
+  "stage": "production",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "build/c-only-debug/Debug/restore_rich_message_text_verify.exe",
+  "compiled_C_sha256": "0861def0c964a3f2c57e2ce69a7794f1e395364c89b841b42d0cf861fcbd2a77",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "method": "Six complete native rich-message bodies (593instructions), actual glyph-width and decimal helpers versus handwritten C; full state/line/link buffers, ordered sprite arguments, consumed metric returns, WORD colors, native stack/saved registers. Pixel cases compose actual native/C sprite dispatch, clipping and raw copies and compare full framebuffer bytes including padded rows.",
+  "limitations": [
+    "Raw glyph fixtures use controlled5x7 deterministic sprite pixels and actual immutable character map; asset identity and compressed sprites are separate proofs. Sprite endpoint is controlled in nonpixel cases to test consumed metadata reloads and deep side effects.",
+    "Native unchecked text copies require assembled lines to fit the200byte scratch buffer and linked IDs/font image records to be valid. Numeric link markers require their native following delimiter/text; an isolated marker immediately at NUL makes the original scanner consume beyond that NUL and is excluded. Word/line budget guards are exercised separately without overflowing the native scratch buffer. Negative image indices are outside the valid font domain; no new production guard is inserted.",
+    "The existing read-only glyph measurement and decimal parser are composed. Native decimal input remains within its power-table capacity; tests include signed32bit bounds. Windows32bit compiled arithmetic is compared, with explicit unsigned wrap in the rewritten six bodies.",
+    "Completed city rendering, actual font payload identity and other downstream renderer paths require root integration replay."
+  ],
+  "passed": true,
+  "checked": 4106,
+  "complete_case_set": true,
+  "terminal_marker_native_audit": {
+    "format": 1,
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "fixture_hex": "40313700",
+    "following_guard_byte": 90,
+    "case": [
+      2,
+      27,
+      335,
+      1024,
+      18765,
+      25500,
+      33,
+      5,
+      7,
+      10,
+      20,
+      200,
+      0,
+      0,
+      0,
+      20,
+      40,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0
+    ],
+    "native_instruction_budget": 3000000,
+    "native_budget_exhausted": true,
+    "native_eip": "0x4c852f",
+    "native_partial_y_advance": 320,
+    "C_completed": true,
+    "C_sprite_calls": 0,
+    "C_y_advance": 320,
+    "native_equivalence_claimed": false,
+    "production_guard_added": false,
+    "explanation": "The numeric link has no following delimiter/text. Native scanner consumes its NUL inside markup and then scans following90guard bytes; layout retries the oversized token. C preserves that behavior and completes its999line guard; bounded native observation is retained separately and does not assert complete equivalence. Actual MM terminal numeric selectors occur only media field60; no such markers occur in title/caption/body fields."
+  },
+  "branch_probes": {
+    "0x4c7fd7": {
+      "name": "signed50link capacity",
+      "reached": true
+    },
+    "0x4c8027": {
+      "name": "fullDWORD link cursor increment",
+      "reached": true
+    },
+    "0x4c805f": {
+      "name": "fullDWORD link reset",
+      "reached": true
+    },
+    "0x4c80aa": {
+      "name": "fullDWORD measurement reset",
+      "reached": true
+    },
+    "0x4c80d4": {
+      "name": "999line guard",
+      "reached": true
+    },
+    "0x4c81a4": {
+      "name": "paragraph indent",
+      "reached": true
+    },
+    "0x4c81b6": {
+      "name": "linebreak",
+      "reached": true
+    },
+    "0x4c81c8": {
+      "name": "embedded sprite directive",
+      "reached": true
+    },
+    "0x4c81d7": {
+      "name": "partial text before sprite",
+      "reached": true
+    },
+    "0x4c8229": {
+      "name": "64byte signedWORD embedded height",
+      "reached": true
+    },
+    "0x4c8276": {
+      "name": "reserved sprite lines",
+      "reached": true
+    },
+    "0x4c82e7": {
+      "name": "visible or measured line",
+      "reached": true
+    },
+    "0x4c830d": {
+      "name": "WORD shadow color",
+      "reached": true
+    },
+    "0x4c8318": {
+      "name": "mode2 WORD shadow color",
+      "reached": true
+    },
+    "0x4c834b": {
+      "name": "WORD shadow restore",
+      "reached": true
+    },
+    "0x4c8372": {
+      "name": "deferred embedded sprite",
+      "reached": true
+    },
+    "0x4c83b5": {
+      "name": "64byte signedWORD embedded width",
+      "reached": true
+    },
+    "0x4c83f2": {
+      "name": "scroll crossing sprite",
+      "reached": true
+    },
+    "0x4c8411": {
+      "name": "embedded sprite receiver",
+      "reached": true
+    },
+    "0x4c842d": {
+      "name": "maximum fullDWORD width",
+      "reached": true
+    },
+    "0x4c8444": {
+      "name": "fullDWORD measured lines",
+      "reached": true
+    },
+    "0x4c8534": {
+      "name": "1999word guard",
+      "reached": true
+    },
+    "0x4c8540": {
+      "name": "word break directive",
+      "reached": true
+    },
+    "0x4c8553": {
+      "name": "word image directive",
+      "reached": true
+    },
+    "0x4c85f3": {
+      "name": "link bounds insertion",
+      "reached": true
+    },
+    "0x4c860f": {
+      "name": "highlight font",
+      "reached": true
+    },
+    "0x4c862e": {
+      "name": "BYTE glyph map",
+      "reached": true
+    },
+    "0x4c8661": {
+      "name": "missing glyph6pixel advance",
+      "reached": true
+    },
+    "0x4c8698": {
+      "name": "DWORD current glyph",
+      "reached": true
+    },
+    "0x4c86a0": {
+      "name": "empty glyph return",
+      "reached": true
+    },
+    "0x4c86c7": {
+      "name": "64byte metadata with alternate baseline",
+      "reached": true
+    },
+    "0x4c86dc": {
+      "name": "64byte metadata with normal baseline",
+      "reached": true
+    },
+    "0x4c86ea": {
+      "name": "negative baseline clamp",
+      "reached": true
+    },
+    "0x4c86fd": {
+      "name": "extended glyph baseline exception",
+      "reached": true
+    },
+    "0x4c8719": {
+      "name": "global glyph sprite receiver",
+      "reached": true
+    },
+    "0x4c871e": {
+      "name": "post-sprite glyph reload",
+      "reached": true
+    },
+    "0x4c873a": {
+      "name": "signedWORD glyph advance",
+      "reached": true
+    },
+    "0x40fb60": {
+      "name": "actual opaque pixels",
+      "reached": true
+    },
+    "0x40ffd0": {
+      "name": "actual transparent pixels",
+      "reached": true
+    },
+    "0x410090": {
+      "name": "actual clipped transparent pixels",
+      "reached": true
+    }
+  },
+  "native_byte_audit": {
+    "004c7fd0": {
+      "instructions": 26,
+      "bytes": 100
+    },
+    "004c8040": {
+      "instructions": 13,
+      "bytes": 44
+    },
+    "004c8070": {
+      "instructions": 301,
+      "bytes": 1036
+    },
+    "004c8480": {
+      "instructions": 96,
+      "bytes": 264
+    },
+    "004c8590": {
+      "instructions": 88,
+      "bytes": 233
+    },
+    "004c8680": {
+      "instructions": 69,
+      "bytes": 194
+    },
+    "004cc020": {
+      "instructions": 27,
+      "bytes": 78
+    },
+    "004cc070": {
+      "instructions": 49,
+      "bytes": 106
+    }
+  },
+  "native_instructions_verified": 669,
+  "native_bytes_verified": 2055,
+  "pixel_cases": 216,
+  "pixel_bytes_compared": 133608960,
+  "pixel_observations": [
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "be8d64c6a86ee90ab41fd9dd03fe65e196ca90cf8374678cdcfec11723bda351",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1b7c2d067b9420f35c3d0141c4d74e1fe8240bf213b9826b9cedd84ee1d8e3af",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "266ed8d9eb0e02c69b25740641bde0a04b46c5ab9348932490a31acf9fd14519",
+      "native_padding_bytes_written": 60
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "92f52ba7af8c247320d82827fd9fc9c241971a700424a5c462f209ee545398be",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a1e6e78cbb1bf0f60ee1c4f393652f08437a7e30958b7a63143cdb0a13fe2127",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1b7c2d067b9420f35c3d0141c4d74e1fe8240bf213b9826b9cedd84ee1d8e3af",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "686cc359e8ed646234c9e19b724e77eaa874fa2354dbd9ba9e187b743cab9a83",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "92f52ba7af8c247320d82827fd9fc9c241971a700424a5c462f209ee545398be",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "d40221c284feb2121c2b93cd6d9932e3d77081d01b2d162c036273390b6738d4",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "01aaef64d98449bd0c3b79c937912e6e5186173e8f7f497de86c0b92076c7fb5",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "071e9c27785af65bbb8e2834263b332495231cd275a1be82f4feae90714ea0da",
+      "native_padding_bytes_written": 78
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "713e358df0c629495d454efcc19058525871790a31a0ef38293e06f7c3c7649c",
+      "native_padding_bytes_written": 42
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "5f3356e491b047f309c0a52e32c27a59bcb3b02d6e30c1ea8bcb6bcb5bff3e9c",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "01aaef64d98449bd0c3b79c937912e6e5186173e8f7f497de86c0b92076c7fb5",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "59253b565861f7f28180745df012a9f3bb25d283a480d601b093a4facd68d2ad",
+      "native_padding_bytes_written": 68
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "713e358df0c629495d454efcc19058525871790a31a0ef38293e06f7c3c7649c",
+      "native_padding_bytes_written": 42
+    },
+    {
+      "operation": 2,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7120eb8b6c526eb2f23b7bf200b6f0b37793fd6c9a85acb60ab5b68c6a049619",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7c741c32624fcf5afea883617f2076535296c864fae50afc8d231eb8c648060a",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "b9e69f177ef670d75d41179b888fc9abd88b6248929a6311f465156dcd3afbea",
+      "native_padding_bytes_written": 64
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "304bfd046f85583f28a7fd82f00f05b57d372756413296a07e59dc96e8e95480",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "ef61386d04fc1c4a1b2191ea3bb371b529d2677e65651c3b133d1a4f50c9e25f",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7c741c32624fcf5afea883617f2076535296c864fae50afc8d231eb8c648060a",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "bdd885e54937c1aefba707a87fb346dcc829d5ce6e5728fb011ccda46be85c53",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "304bfd046f85583f28a7fd82f00f05b57d372756413296a07e59dc96e8e95480",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "b46aea39bb904143af8b6dacea5e8e2db2b1ece83ac2808a18ab995e4669e049",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "bd45c3b5b19a35fe1014091c4010c75ddf9aa77fcfec2f9129cea40378737827",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "725784ece749f647fcd6619629b5978aceda422f2f4d7f0338318b4455806ac1",
+      "native_padding_bytes_written": 82
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fc7e4d43fc925092b9d749f670b1bc217c1b27539d9efee9ee8bd9ded5360d69",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "8d4b49f3c02b62d427caec9bbb6f5b27da4bcadeec838ba985deb3538f853c33",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "bd45c3b5b19a35fe1014091c4010c75ddf9aa77fcfec2f9129cea40378737827",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "30744d704acf99b67f2e627e2277ea1b43bb31e96c0bdecef24e6d10391fab36",
+      "native_padding_bytes_written": 76
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fc7e4d43fc925092b9d749f670b1bc217c1b27539d9efee9ee8bd9ded5360d69",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 2,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "fff4407fcd2007708ac40436a69bbc7a31b3191101b3500eb6e9fe92ed30575e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1e51f83b242605dccbd62597c2b85e5ce3a9a65e4b41eba53d768248005f42de",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "0fae8b155d7c82e1b9c290ad409205ea375cbaaa6f5b28b40e099d337d5f2930",
+      "native_padding_bytes_written": 60
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fe6ab6f5eae3313e4440af67c1c413367356681b5bed54ff90792f0a07d47493",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d3f40a57754d746287ea62b976a6b941361e4e89c02fdf5e8d7b0b716e08f54",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1e51f83b242605dccbd62597c2b85e5ce3a9a65e4b41eba53d768248005f42de",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "4dc6041546d8204dab10de039b47700c13087249d51ae0064443df892358e6fc",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fe6ab6f5eae3313e4440af67c1c413367356681b5bed54ff90792f0a07d47493",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "5644ec116309e9091a4696b046b6d95d5a1fa71c443b7043e46ddeb6d3a2ecf6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "daeccfa56f77d04646503fa66a2fcf1c47fb37525cf9c77f9fbdc8b81150292d",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "7070ac490173b4f4e7dc595e307d32b44c97b5ec0b9d3e97cf310e014e28fb37",
+      "native_padding_bytes_written": 78
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "e7b0c1a13af8662c31b740e60fdba9bd024b64340a26d367ccda1383dd118837",
+      "native_padding_bytes_written": 42
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a506a6edc857a33856dcbe8ab7226427f13cb5b21d2c7b98cbbdba0680aac81f",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "daeccfa56f77d04646503fa66a2fcf1c47fb37525cf9c77f9fbdc8b81150292d",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "362d2e5496712c439956364523b4627d4e31089024079dcdbe96851a88d40689",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "2fb1cadb5a4fc5f93313c6774b02e4f1351b67580e32f3657aeadb78e42f05e8",
+      "native_padding_bytes_written": 66
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "e7b0c1a13af8662c31b740e60fdba9bd024b64340a26d367ccda1383dd118837",
+      "native_padding_bytes_written": 42
+    },
+    {
+      "operation": 2,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ec9dc7423d51d2550594d24f9b0a1a6f3be81001a7c959dac4cf3109fe2abf8",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "be8d64c6a86ee90ab41fd9dd03fe65e196ca90cf8374678cdcfec11723bda351",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1b7c2d067b9420f35c3d0141c4d74e1fe8240bf213b9826b9cedd84ee1d8e3af",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "266ed8d9eb0e02c69b25740641bde0a04b46c5ab9348932490a31acf9fd14519",
+      "native_padding_bytes_written": 60
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "92f52ba7af8c247320d82827fd9fc9c241971a700424a5c462f209ee545398be",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a1e6e78cbb1bf0f60ee1c4f393652f08437a7e30958b7a63143cdb0a13fe2127",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1b7c2d067b9420f35c3d0141c4d74e1fe8240bf213b9826b9cedd84ee1d8e3af",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "686cc359e8ed646234c9e19b724e77eaa874fa2354dbd9ba9e187b743cab9a83",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "92f52ba7af8c247320d82827fd9fc9c241971a700424a5c462f209ee545398be",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "111a34f2cb84c21074749a44b8d568be76144f76aad8f576b0abb24a54c539e4",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "5357080782c23dedbb7e146452fa03b3a038411dfb8bf47a462c6285ba6b3719",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "a9b62e0c767b35f6790368f2c91fbf7eecdac35d3134d2d9dce70bf99449920f",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "074e6f27f42154f4a57240aa11f7069bbbe543889614a4d632ee7553b0a45046",
+      "native_padding_bytes_written": 34
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "18a7f1b34dd7c3dc327884befc58327e0904f2cde58c510658846e13fb8c532c",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "5357080782c23dedbb7e146452fa03b3a038411dfb8bf47a462c6285ba6b3719",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "51848d1d88a89aae05843384353c17d89af9def3c9560c50abae059f3259cd94",
+      "native_padding_bytes_written": 44
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "074e6f27f42154f4a57240aa11f7069bbbe543889614a4d632ee7553b0a45046",
+      "native_padding_bytes_written": 34
+    },
+    {
+      "operation": 4,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7120eb8b6c526eb2f23b7bf200b6f0b37793fd6c9a85acb60ab5b68c6a049619",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7c741c32624fcf5afea883617f2076535296c864fae50afc8d231eb8c648060a",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "b9e69f177ef670d75d41179b888fc9abd88b6248929a6311f465156dcd3afbea",
+      "native_padding_bytes_written": 64
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "304bfd046f85583f28a7fd82f00f05b57d372756413296a07e59dc96e8e95480",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "ef61386d04fc1c4a1b2191ea3bb371b529d2677e65651c3b133d1a4f50c9e25f",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "7c741c32624fcf5afea883617f2076535296c864fae50afc8d231eb8c648060a",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "bdd885e54937c1aefba707a87fb346dcc829d5ce6e5728fb011ccda46be85c53",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "304bfd046f85583f28a7fd82f00f05b57d372756413296a07e59dc96e8e95480",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "f140417c1851e730e5875beeca16d72753a51cf5cc6ccb6b06b6a154f492bee9",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6680cf577beeeefc0163708698ff52711c842a60afb0484c417e346065c86218",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "85731aa00fe9e445de86e5b6aaa468ad9eaa79b9f39a188f514f11af8f2de78f",
+      "native_padding_bytes_written": 64
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "720607299aada826d22445759be2b2399c7c2e951939a7b9a559483bc2a41df8",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "db780bb7fd3664537533726b0594dc02e1df79aca60b29fd8c69fdd9b3d67325",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6680cf577beeeefc0163708698ff52711c842a60afb0484c417e346065c86218",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "6ee5d58428a7b332ca9391e00743fe8261591f8f017c7816f91afc69b33bb07b",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "720607299aada826d22445759be2b2399c7c2e951939a7b9a559483bc2a41df8",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "fff4407fcd2007708ac40436a69bbc7a31b3191101b3500eb6e9fe92ed30575e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1e51f83b242605dccbd62597c2b85e5ce3a9a65e4b41eba53d768248005f42de",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "0fae8b155d7c82e1b9c290ad409205ea375cbaaa6f5b28b40e099d337d5f2930",
+      "native_padding_bytes_written": 60
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fe6ab6f5eae3313e4440af67c1c413367356681b5bed54ff90792f0a07d47493",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d3f40a57754d746287ea62b976a6b941361e4e89c02fdf5e8d7b0b716e08f54",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "1e51f83b242605dccbd62597c2b85e5ce3a9a65e4b41eba53d768248005f42de",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "4dc6041546d8204dab10de039b47700c13087249d51ae0064443df892358e6fc",
+      "native_padding_bytes_written": 54
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "fe6ab6f5eae3313e4440af67c1c413367356681b5bed54ff90792f0a07d47493",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "ff25c1d57cdeaef152074e76b2df4ee1c2d9333d544647571b5f32a30c221933",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "8c8bfd90982fbc5e4029c71c040d2bdf56e11398f521c522341b8caf90c9a95b",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "920438b7cce355d49fb54fcb0925ac68bc3c42911b0d1668788e4513d938b36c",
+      "native_padding_bytes_written": 48
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c7b4f2309735937f52813970b67bcebe7582a7bad4e1a3035848d046789f8abd",
+      "native_padding_bytes_written": 32
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "877cb42bd5ce22823308590048da6916cfce410e719b1d16e4dfe2f41b00543c",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "8c8bfd90982fbc5e4029c71c040d2bdf56e11398f521c522341b8caf90c9a95b",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "38e1cab904c613d4704d2b08a2b090de8a08b7f0420ec9ca84544ae46d37661f",
+      "native_padding_bytes_written": 42
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c7b4f2309735937f52813970b67bcebe7582a7bad4e1a3035848d046789f8abd",
+      "native_padding_bytes_written": 32
+    },
+    {
+      "operation": 4,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 1,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 6,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 335,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "e6afa4607ff244aa0a29c92928754c845cfc8251c7f5eb552f45da16a00e1c22",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "229da03ae19d3611c82f6eac24a4253a9b84a48302971ce8c126f29935edc623",
+      "native_padding_bytes_written": 10
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "a9c1294bfbcc85605e4b61f0959e32805934de5d3948d45db285a019259a34f6",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "c6b880d78d7e119e2ed789aea2d2afe1b97e6a0696827f656e535295f8d8222e",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1280,
+      "bytes": 614720,
+      "sha256": "6d502d46607dbbe949890fa1fc068585a807a329f35d1e8d17af93090bb2e987",
+      "native_padding_bytes_written": 0
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "f89fbbc0c46144225124ce0f25fccf34a8c3cd8ef813bc338a68da2f84b6fccd",
+      "native_padding_bytes_written": 8
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "c010565487c7b15b90dcfcc4902dd79c5b17d0e00d787e0e434d642be7ca7d9a",
+      "native_padding_bytes_written": 4
+    },
+    {
+      "operation": 5,
+      "text": 16,
+      "font": 18765,
+      "calculate": 0,
+      "pitch": 1296,
+      "bytes": 622400,
+      "sha256": "8192b0574f7b6866b446e7cb482d9798792f4cfc48b07656c860f815b6cbc3ec",
+      "native_padding_bytes_written": 0
+    }
+  ],
+  "smoke": {
+    "passed": true,
+    "output": "Rich message text: measurement, hyperlink, typed counters and glyph metrics passed."
+  },
+  "source_hashes": {
+    "include/rich_message_text.h": "35d05825be27753d8bf21db91b251f92ba1d4478fdf421488a03a5329f2f52fd",
+    "src/unit_01630.c": "3394b8b30f99b2cd796cb69da412a190c5a298b7ace71a2cc577e1c37a8c75d8",
+    "src/unit_01631.c": "1a0e9879d24828c039c5bc5ef6a990435d3050463c8e752956b7d3257a9ca2f0",
+    "src/unit_01632.c": "7dd7a6c452bf11aee4cc754667436382d2dd9f7b648fc08c68dbc3c4e12f745a",
+    "src/unit_01633.c": "d54145190a8f26e9f52c82896fc64b105cb87991c387f3220c2d0cac8cf97e74",
+    "src/unit_01634.c": "49201d55d485cebcfcc3c1e2f43bbaeadea2b50983c2f05e05df1b8850c221cc",
+    "src/unit_01635.c": "a3b6aa61f13024fbc0244c02ce2b5ae9715f83c3b0d9cdd4dce7f61794e23d4e",
+    "tests/rich_message_text.c": "449e2d145a5fa7ec790193b04107c080c15a36eb83dd501e5de285acd2a6c948",
+    "tests/rich_message_text_raster.c": "e8071008a2ad20f08ba0137b497af745f279c3fa42fd5f822f33323e80140a50",
+    "tools/verify_rich_message_text_emulation.py": "d41ad2012cf7e6130d2b042b8612fd30449828d053d04ef732f7955541b41c17",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "runtime/sprite_pixels.c": "04296c8136d82b147f3d03416b6d1d08cfd81f7925f04c1364c31b861cd43844",
+    "src/unit_01669.c": "9823a26a7bd29d4355fb84e8010159ce5fc47e35f0114b2825905edfe6ad3991",
+    "src/unit_01670.c": "313db42a6e1b505063f4f2464f9d614dab778d8bafde8514e34e2aeb336bc3ca",
+    "src/unit_02524.c": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40",
+    "src/unit_00128.c": "0c7730f15ac3e342e80cfc6a6c8cb63be15871b322b1c9c818cd1fc2eb997e65",
+    "src/unit_00136.c": "51099d2b4f7018fc6bb13d7e4a5aa2d3b16cbff106724455247571df292f29c6",
+    "src/unit_00137.c": "5335ac2184d91d904bc460d524670939bb40bcf785f5f139ba2efc434e65a4ca",
+    "src/unit_00140.c": "24116a943999c96ac24bab87458e4b6e6f066586a37cec843321c680430dc8db",
+    "src/unit_00146.c": "0a66a5c6adfdf96da4daa52e9ba12e23985cfdf0e79bea157362efd1b5dc5b7b",
+    "src/unit_00149.c": "1379f6416ee2e3ad5c96a49d45ca3b10e30ae87a1ccc875298f512a20e49a34c"
+  },
+  "native_exports": {
+    "metadata/rich-message-text-next-native.json": "1c10c7875932be06310655861b4b9422eeac4f8a68fbdebb431c68672d7fb6c5",
+    "metadata/rich-message-text-helpers-native.json": "4f2359bc1f582ed8febf667bc67223abde0c76acf61fdbd6d3b329d7ad0b4b87"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x5631b0",
+      "evidence_id": "ev_8c2143d93f3a91c9769e0317db5928acfac761673217defdfbc660f414d7e2b0",
+      "bytes_evidence_id": "ev_0c8c2016b2fd1c364044a44c3eed859984a24e2dad7685350a09878a71f3519f",
+      "requested_bytes": 132,
+      "returned_bytes": 132,
+      "bytes_hex": "8b5424048b4c2408f7c203000000753c8b023a01752e0ac074263a610175250ae4741dc1e8103a410275190ac074113a6103751083c10483c2040ae475d28bff33c0c3901bc0d1e040c38bfff7c20100000074148a02423a0175e9410ac074e0f7c20200000074a8668b0283c2023a0175d20ac074ca3a610175c90ae474c183c102eb8c",
+      "complete": true,
+      "instruction_count": 54,
+      "assembly": "0x5631b0: MOV EDX, dword ptr [ESP + 0x4]\n0x5631b4: MOV ECX, dword ptr [ESP + 0x8]\n0x5631b8: TEST EDX, 0x3\n0x5631be: JNZ 0x005631fc\n0x5631c0: MOV EAX, dword ptr [EDX]\n0x5631c2: CMP AL, byte ptr [ECX]\n0x5631c4: JNZ 0x005631f4\n0x5631c6: OR AL, AL\n0x5631c8: JZ 0x005631f0\n0x5631ca: CMP AH, byte ptr [ECX + 0x1]\n0x5631cd: JNZ 0x005631f4\n0x5631cf: OR AH, AH\n0x5631d1: JZ 0x005631f0\n0x5631d3: SHR EAX, 0x10\n0x5631d6: CMP AL, byte ptr [ECX + 0x2]\n0x5631d9: JNZ 0x005631f4\n0x5631db: OR AL, AL\n0x5631dd: JZ 0x005631f0\n0x5631df: CMP AH, byte ptr [ECX + 0x3]\n0x5631e2: JNZ 0x005631f4\n0x5631e4: ADD ECX, 0x4\n0x5631e7: ADD EDX, 0x4\n0x5631ea: OR AH, AH\n0x5631ec: JNZ 0x005631c0\n0x5631ee: MOV EDI, EDI\n0x5631f0: XOR EAX, EAX\n0x5631f2: RET\n0x5631f4: SBB EAX, EAX\n0x5631f6: SHL EAX, 0x1\n0x5631f8: INC EAX\n0x5631f9: RET\n0x5631fc: TEST EDX, 0x1\n0x563202: JZ 0x00563218\n0x563204: MOV AL, byte ptr [EDX]\n0x563206: INC EDX\n0x563207: CMP AL, byte ptr [ECX]\n0x563209: JNZ 0x005631f4\n0x56320b: INC ECX\n0x56320c: OR AL, AL\n0x56320e: JZ 0x005631f0\n0x563210: TEST EDX, 0x2\n0x563216: JZ 0x005631c0\n0x563218: MOV AX, word ptr [EDX]\n0x56321b: ADD EDX, 0x2\n0x56321e: CMP AL, byte ptr [ECX]\n0x563220: JNZ 0x005631f4\n0x563222: OR AL, AL\n0x563224: JZ 0x005631f0\n0x563226: CMP AH, byte ptr [ECX + 0x1]\n0x563229: JNZ 0x005631f4\n0x56322b: OR AH, AH\n0x56322d: JZ 0x005631f0\n0x56322f: ADD ECX, 0x2\n0x563232: JMP 0x005631c0",
+      "raw_disassembly_instruction_count": 56,
+      "padding_instruction_addresses": [
+        "0x5631f3",
+        "0x5631fa"
+      ],
+      "padding_note": "Ghidra omits unreachable NOP/MOV EDI,EDI bytes after early RETs. The contiguous authenticated byte range includes them;54 analyzed instructions and56 raw disassembly entries must not be conflated.",
+      "instruction_addresses": "0x5631b0 0x5631b4 0x5631b8 0x5631be 0x5631c0 0x5631c2 0x5631c4 0x5631c6 0x5631c8 0x5631ca 0x5631cd 0x5631cf 0x5631d1 0x5631d3 0x5631d6 0x5631d9 0x5631db 0x5631dd 0x5631df 0x5631e2 0x5631e4 0x5631e7 0x5631ea 0x5631ec 0x5631ee 0x5631f0 0x5631f2 0x5631f4 0x5631f6 0x5631f8 0x5631f9 0x5631fc 0x563202 0x563204 0x563206 0x563207 0x563209 0x56320b 0x56320c 0x56320e 0x563210 0x563216 0x563218 0x56321b 0x56321e 0x563220 0x563222 0x563224 0x563226 0x563229 0x56322b 0x56322d 0x56322f 0x563232"
+    }
+  ],
+  "padding_instruction_addresses": [
+    "0x5631f3",
+    "0x5631fa"
+  ],
+  "status": "Native compare procedure;54 analyzed instructions and two unreachable padding entries in the132-byte contiguous range."
+}

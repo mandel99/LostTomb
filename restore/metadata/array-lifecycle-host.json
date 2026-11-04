@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "variants": {
+    "Debug": {
+      "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Debug\\restore_array_lifecycle_verify.exe",
+      "compiled_C_sha256": "20517a7c8f915b66fc4808ee9d18336d44d3983efc4b125b8f18c8e575e0d151",
+      "normal_exit": 0,
+      "controlled_terminate_exit": 77,
+      "contracts": 6
+    },
+    "Release": {
+      "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_array_lifecycle_verify.exe",
+      "compiled_C_sha256": "bdc06fef65a5a916c1250f708c7f55b7c59fd87807a048ce484e364a528212d5",
+      "normal_exit": 0,
+      "controlled_terminate_exit": 77,
+      "contracts": 6
+    }
+  },
+  "source_hashes": {
+    "CMakeLists.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "tests/array_lifecycle_exceptions.c": "e1ce516816ea91ccffc344fd81c367e9b35ceb13f8cddf4030af0f25bac09e1d",
+    "runtime/array_lifecycle.c": "9377f5394e519d9c308d808a2c2861f64dafedd68913838985b6f60409997609",
+    "runtime/owned_buffer_lifecycle.c": "efb36461069ed3ce266191bfe943b70a02d8c437bddc332c44c7d975a6786884",
+    "runtime/owned_buffer.c": "d999ceeba52fc346d0be172693e4f5cc30a50532bbd4e865e0f23e7e45904a35",
+    "runtime/sound_file_lifecycle.c": "03c2d8fbeda34193837f317571317956a89fadd6c867b9a9260c833a19d06f0b",
+    "include/array_lifecycle.h": "0451edba399e54c314f2c1d6cc3336f99653120a76e7df0c6e517d760d86f8d0",
+    "include/owned_buffer.h": "0956c92bfa0b44a747d54a8e8f21191f1e0aedf606c3c5b59a63b0b3f6e21f8e",
+    "include/sound_file_lookup.h": "1458054312e14fc007b53ed67af3c9ee6df98251f7e7147f2d5849f35ed8bcb8",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "direct_c/verify_array_lifecycle_host.py": "83271fadfa3b573ea49c2cf2e124fcf04bab2bce09cce26178785f72dbc79776",
+    "src/unit_02682.c": "891593a8e0c1c2a8cf12c58fe267cd31c8f5ef2d600d4b14b5ae979ba435867e",
+    "src/unit_02683.c": "a9c5478062dd80441ed9f983978b8975b7fd14a7a480e316f2ae4cb9ef4279c3",
+    "src/unit_02684.c": "1fb5a2dfbb2cc13472e0504ab049106715155843149e9acc5d9297535800bd11",
+    "src/unit_02685.c": "64bed27d59e50f1923b7964f72280f6f2fe0dba49715d65635f121ce30fb0a95",
+    "src/unit_02724.c": "65a13301be1eefb3ec02fe2cdfc437a0136b04543aa91323d446ee0e418fcdee",
+    "src/unit_02725.c": "9166731c92a5c419d620699eef915210703115a6266c726a69fdd0d2ff72a9c4",
+    "src/unit_02726.c": "aae16c60506dcaef53a2480cbcb5c26c0f86ff0ceda9617e1dfb84418fbc7b16",
+    "src/unit_02776.c": "26428be3cc08dd9e8c6e6f3a32c96adc6231a207fb5f5abb09d3b8876da4f721",
+    "src/unit_02778.c": "7f3297f24cbfd8e23e5810609c6147ea4743e0352db9734cd865f618303e9923",
+    "src/unit_02779.c": "a789854f5447b0c0b2fe6afe89782122434d5e457e6259a889ce21ebf4fd6d46"
+  },
+  "native_OS_exception_dispatch_proven": false,
+  "contracts": [
+    "normal forward constructor traversal",
+    "constructor interruption destroys only completed predecessors, in reverse order",
+    "destructor interruption finishes the remaining predecessors",
+    "non-C++ destructor exception propagates through the unwind filter",
+    "access violation during the allocation cookie store frees the raw allocation",
+    "C++ destructor exception reaches the controlled nonreturning terminate target"
+  ],
+  "limitations": [
+    "Actual Windows C SEH and callback cleanup execute in both configurations. The terminate implementation is a test-only exit77, not a reconstruction proof of5637EE.",
+    "Original native OS exception dispatch and its five exception-only5613E3 instructions remain outside this host test; explicit native frame cleanup seams are covered separately by the paired lifecycle oracle."
+  ]
+}

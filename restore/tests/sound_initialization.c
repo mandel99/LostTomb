@@ -11,6 +11,7 @@
 static uint32_t events[256][6],event_count,cursor,allocations,handles,free_count,live_count,checks,scenarios;
 static uint32_t current[16],live[64];
 #define REQUIRE(x) do{++checks;if(!(x)){fprintf(stderr,"Sound initialization failure at %d\n",__LINE__);ExitProcess(1);}}while(0)
+void FUN_005637ee(void){REQUIRE(0);}
 static void event(uint32_t id,unsigned int n,uint32_t a,uint32_t b,uint32_t c,uint32_t d)
 {uint32_t *p;REQUIRE(event_count<256);p=events[event_count++];p[0]=id;p[1]=n;p[2]=a;p[3]=b;p[4]=c;p[5]=d;}
 static uint32_t hash(const char *s) {uint32_t v=2166136261u;while(*s)v=(v^(uint8_t)*s++)*16777619u;return v;}
@@ -94,15 +95,23 @@ int main(int argc,char **argv)
         p[3]=4;REQUIRE(run(p)==0&&s->disabled==1&&event_count==1);p[3]=10;
         p[4]=0;REQUIRE(run(p)==0&&event_count==1);p[4]=1;
         p[5]=1;REQUIRE(run(p)==0&&event_count==6&&live_count==0);p[5]=0;
-        for(i=1;i<=4;++i) {p[11]=i;REQUIRE(run(p)==0&&live_count==0&&s->sample_count==0&&!s->handles&&!s->cache);}p[11]=0;
-        for(i=1;i<=5;++i) {p[12]=i;REQUIRE(run(p)==0&&live_count==0&&s->sample_count==0&&!s->samples);}p[12]=0;
+        for(i=1;i<=4;++i) {
+            p[11]=i;REQUIRE(run(p)==0&&live_count==i-1&&s->sample_count==0);
+            REQUIRE((s->handles!=0)==(i>1)&&(s->auxiliary!=0)==(i>2)&&(s->samples!=0)==(i>3)&&!s->cache);
+        }p[11]=0;
+        for(i=1;i<=5;++i) {
+            p[12]=i;REQUIRE(run(p)==1&&live_count==4&&s->sample_count==5&&s->samples);
+            REQUIRE(U(s->handles+(i-1)*4)==0);
+        }p[12]=0;
         p[0]=2;p[7]=1;REQUIRE(run(p)==1&&live_count==4&&free_count==4&&s->sample_count==5);
-        p[6]=0x7fffffff;REQUIRE(run(p)==0&&live_count==4&&event_count==0);
+        p[6]=0x7fffffff;p[11]=1;
+        REQUIRE(run(p)==0&&live_count==0&&free_count==4&&s->sample_count==2&&allocations==1);
+        REQUIRE(events[event_count-1][0]==0x561a1d&&events[event_count-1][2]==0xfffffffcu);p[11]=0;
         p[0]=3;p[6]=500;REQUIRE(run(p)==1&&s->files.capacity==500&&s->files.count==0&&live_count==1&&U(s->files.entries)==0);
         p[11]=1;REQUIRE(run(p)==0&&live_count==0);p[11]=0;
         p[0]=0;p[1]=0xa5;REQUIRE(run(p)==1&&s->rate==22050&&s->bits==16&&s->channels==2&&s->settings[9]==-1&&U(0x12663b0)==0x1020304c);
         REQUIRE(!memcmp(s->providers,(void *)0x604628u,sizeof(s->providers)));
-        printf("Sound initialization: %u checks across %u scenarios; format, receiver, channels, cache defaults, reallocation, owned files and allocation/handle failure cleanup verified without audio output.\n",checks,scenarios);
+        printf("Sound initialization: %u checks across %u scenarios; format, receiver, channels, cache defaults, reallocation, owned files and retained partial allocation/handle failure state verified without audio output.\n",checks,scenarios);
     }
     VirtualFree((void *)OBJECT,0,MEM_RELEASE);VirtualFree((void *)HEAP,0,MEM_RELEASE);restore_data_close();return 0;
 }

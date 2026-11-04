@@ -1,0 +1,482 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "0e71b1c485717282214f29f6d859088ad6e37d4577a1df87a178005e08aab32f",
+  "passed": true,
+  "checked": 9072,
+  "case_selection": {
+    "limit": null,
+    "start": 0,
+    "single_case": false
+  },
+  "method": "Complete walking scheduler/step/gate/tile/grid core plus actual subpixel, route release, heading, shared RET and explicit-receiver queue algorithms against compiled C. Original instructions, ordered meaningful arguments/results and state, full watched memory/guards, boundary mutations and native/C stack/saved registers compared.",
+  "limitations": [
+    "Route builder4B2D20, broad service4BAA10, relocation search4AD880, bridge lookahead4B3470, collision4B1210 and terrain effect4690F0 remain explicitly controlled deeper endpoints. Their production algorithms and alternate movement4B3FF0 are outside this proof.",
+    "Prepared serialized routes, valid mapped records/queues and bounded initially acyclic grid lists form the fixture domain. No path-finding completeness, full actor-controller behavior, actual service success or city pixel fidelity is claimed.",
+    "Native member receivers are mapped to explicit C arguments. Queue push native RET4 and the shared RET ignored actor slot are checked and normalized; C adapter machine ABIs are not claimed identical."
+  ],
+  "comparison_checked": 9072,
+  "comparison_C_sha256": "35b5961e95de8f2c7365f2c4acdf7acd2ced3d142bcd9841906d85419772b89b",
+  "elapsed_seconds": 555.03,
+  "native_instruction_coverage": [
+    1242,
+    1252
+  ],
+  "reachable_instruction_coverage": [
+    1242,
+    1242
+  ],
+  "owned_instruction_coverage": [
+    1092,
+    1102
+  ],
+  "owned_reachable_instruction_coverage": [
+    1092,
+    1092
+  ],
+  "function_instruction_coverage": {
+    "0x4a5da0": [
+      291,
+      291
+    ],
+    "0x4b3250": [
+      17,
+      17
+    ],
+    "0x4b27e0": [
+      58,
+      58
+    ],
+    "0x4b33d0": [
+      43,
+      43
+    ],
+    "0x4b3530": [
+      447,
+      454
+    ],
+    "0x4b3c60": [
+      136,
+      139
+    ],
+    "0x4b3f00": [
+      50,
+      50
+    ],
+    "0x4b52f0": [
+      55,
+      55
+    ],
+    "0x4b5420": [
+      62,
+      62
+    ],
+    "0x51cba0": [
+      43,
+      43
+    ],
+    "0x4f6650": [
+      11,
+      11
+    ],
+    "0x4f65b0": [
+      19,
+      19
+    ],
+    "0x4f6630": [
+      9,
+      9
+    ],
+    "0x51f780": [
+      1,
+      1
+    ]
+  },
+  "excluded_native_instructions": [
+    "0x4b3af4",
+    "0x4b3af5",
+    "0x4b3af6",
+    "0x4b3af7",
+    "0x4b3afe",
+    "0x4b3aff",
+    "0x4b3b02",
+    "0x4b3e08",
+    "0x4b3e0a",
+    "0x4b3e10"
+  ],
+  "exclusion_evidence": "Height BYTE is nonzero and<=6 before AND EAX,FF / DEC, so unsigned value0..5 cannot select JA5 zero-height arm (3 instructions). Gate AND EBX,EEFEC75F clears bit1000, so TEST BH,10 is always zero and its fallthrough cleanup/store arm is unreachable (7 instructions).",
+  "native_uncovered_instructions": [],
+  "owned_feasible_conditional_outcomes": [
+    222,
+    222
+  ],
+  "missing_owned_conditional_outcomes": [],
+  "computed_dispatch": [
+    {
+      "instruction": "0x4a5dae",
+      "table": "0x4a610c",
+      "sha256": "3fabc05661537601e84d1ea371399e1b6bfab9399b383f9b028d813979da8b68",
+      "covered": 18,
+      "targets": 18,
+      "uncovered": []
+    },
+    {
+      "instruction": "0x4b3890",
+      "table": "0x4b3b64",
+      "sha256": "db7a9c757e07f8870eb0c85c22b3079e4189161cef2e4bc3d3b6063aabbd0dca",
+      "covered": 3,
+      "targets": 3,
+      "uncovered": []
+    },
+    {
+      "instruction": "0x4b3a27",
+      "table": "0x4b3bdc",
+      "sha256": "b06f1781e8663a991cd54e793ebf24ea219a42377bc7d7314d7d48e8205b5177",
+      "covered": 5,
+      "targets": 5,
+      "uncovered": []
+    },
+    {
+      "instruction": "0x4b3ca8",
+      "table": "0x4b3ea4",
+      "sha256": "28280c5452e98186168e73b15d46fddfe6060f95fcf98763b79444c2bafaa0e0",
+      "covered": 8,
+      "targets": 8,
+      "uncovered": []
+    },
+    {
+      "instruction": "0x4b3dcd",
+      "table": "0x4b3ec4",
+      "sha256": "c5a2796dd574aec559093a57920bc37df0ca35bebf5b55564d5196661ec822cc",
+      "covered": 4,
+      "targets": 4,
+      "uncovered": []
+    },
+    {
+      "instruction": "0x4b3e72",
+      "table": "0x4b3edc",
+      "sha256": "815d53462b8d0c5a0e5786d81269f97f84dfa70d002eddc53d79164fc434e888",
+      "covered": 2,
+      "targets": 2,
+      "uncovered": []
+    }
+  ],
+  "controlled_algorithm_endpoints": [
+    "0x4baa10",
+    "0x4b2d20",
+    "0x4ad880",
+    "0x4b3470",
+    "0x4b1210",
+    "0x4690f0"
+  ],
+  "reached_controlled_endpoints": [
+    "0x4690f0",
+    "0x4ad880",
+    "0x4b1210",
+    "0x4b2d20",
+    "0x4b3470",
+    "0x4baa10"
+  ],
+  "mutated_helper_phases": [
+    [
+      "0x4690f0",
+      0
+    ],
+    [
+      "0x4690f0",
+      1
+    ],
+    [
+      "0x4a5da0",
+      0
+    ],
+    [
+      "0x4a5da0",
+      1
+    ],
+    [
+      "0x4ad880",
+      0
+    ],
+    [
+      "0x4ad880",
+      1
+    ],
+    [
+      "0x4b1210",
+      0
+    ],
+    [
+      "0x4b1210",
+      1
+    ],
+    [
+      "0x4b27e0",
+      0
+    ],
+    [
+      "0x4b27e0",
+      1
+    ],
+    [
+      "0x4b2d20",
+      0
+    ],
+    [
+      "0x4b2d20",
+      1
+    ],
+    [
+      "0x4b3250",
+      0
+    ],
+    [
+      "0x4b3250",
+      1
+    ],
+    [
+      "0x4b33d0",
+      0
+    ],
+    [
+      "0x4b33d0",
+      1
+    ],
+    [
+      "0x4b3470",
+      0
+    ],
+    [
+      "0x4b3470",
+      1
+    ],
+    [
+      "0x4b3530",
+      0
+    ],
+    [
+      "0x4b3530",
+      1
+    ],
+    [
+      "0x4b3c60",
+      0
+    ],
+    [
+      "0x4b3c60",
+      1
+    ],
+    [
+      "0x4b3f00",
+      0
+    ],
+    [
+      "0x4b3f00",
+      1
+    ],
+    [
+      "0x4b52f0",
+      0
+    ],
+    [
+      "0x4b52f0",
+      1
+    ],
+    [
+      "0x4b5420",
+      0
+    ],
+    [
+      "0x4b5420",
+      1
+    ],
+    [
+      "0x4baa10",
+      0
+    ],
+    [
+      "0x4baa10",
+      1
+    ],
+    [
+      "0x4f65b0",
+      0
+    ],
+    [
+      "0x4f65b0",
+      1
+    ],
+    [
+      "0x4f6630",
+      0
+    ],
+    [
+      "0x4f6630",
+      1
+    ],
+    [
+      "0x4f6650",
+      0
+    ],
+    [
+      "0x4f6650",
+      1
+    ],
+    [
+      "0x51cba0",
+      0
+    ],
+    [
+      "0x51cba0",
+      1
+    ],
+    [
+      "0x51f780",
+      0
+    ],
+    [
+      "0x51f780",
+      1
+    ]
+  ],
+  "source_hashes": {
+    "artifacts/actor_walking_phase/unit_01387.c": "15d576a9aae8d97776ac4c2e15ce43bdae0ae4f134c9fb48a4de8993a3296f46",
+    "artifacts/actor_walking_phase/unit_01423.c": "be59fb8972d8878f9ab2f73ab0f77a90801ea868c07a02b3ec0156c7172fc8f0",
+    "artifacts/actor_walking_phase/unit_01431.c": "8a6471a2ca51b7c35b165c80801f1a3cef289a44f1c59d587ecfa0c00d1af687",
+    "artifacts/actor_walking_phase/unit_01433.c": "5dffc8d8b5a3b729c96bc81be1bb401ce831dccb95f160634caa2686055072ac",
+    "artifacts/actor_walking_phase/unit_01434.c": "ec3266327298e90ca11713b4a498daa249f23144ecc0b0d258f08e3f8052c72c",
+    "artifacts/actor_walking_phase/unit_01451.c": "86586deeb6d9a1649a646104617eaf3c177af194889229525430ce6693b7e312",
+    "artifacts/actor_walking_phase/unit_01453.c": "3d104fa0829ef394a17e3cbdd025a7eebf40216f8f72ac6a5547a8f4b971f5ab",
+    "artifacts/actor_combat_phase/src/unit_01435.c": "a83d51c13941260e0c5209a11448eedff9aadcf71189a730dfa7a8b7159180c9",
+    "artifacts/actor_combat_phase/include/actor_combat.h": "bd562beba6e94835c2f64a13e690e09e90ffa4da5e5e31238ff7bc062fd6a352",
+    "src/unit_01427.c": "364d8206ec5a4be2f177519dcf2082e45b6e4a25df637b4f9b6cbe780826b493",
+    "src/unit_02332.c": "d6b29311897d46b71f5c601ff3b4669e955f3535569ba722741b1a562243c572",
+    "src/unit_02351.c": "1c97cf86ddeaa82b661b23b215ce53f5fd964d6fb633f4561d44672282fd050a",
+    "runtime/actor_walking_facades.c": "1ccbeac867b90957a0b19e36b8be9fad75d222e5bd3624e0dcdb7a4ad23c0b62",
+    "runtime/actor_walking_queue_count.c": "1e57e4b00bcba11ab4d1fb502af91eff32ddad6ead6ec4ab9c325fc6d0938c5e",
+    "runtime/actor_walking_queue_full.c": "6d4278e004fde27d18d31283ac44679458fb81aee951cab5671fe861bc7031da",
+    "runtime/actor_walking_queue_push.c": "8bcfb980ad4fdd5481500bd33ef1596e08892e501fa8cb02d5689f8ce100675f",
+    "include/actor_walking.h": "df5d7cdf0bccf6b2b09469b19525141322b06d1107f61a31bb9a938529909cd1",
+    "include/actor_callbacks_human.h": "cbb897d99446726d20ef1b38e6b0440e7bf73dacddea99e6805974036d0c03f6",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "tests/actor_walking.c": "bd3a25f1a9af1ab2cfb248394e008db1915d3ee5c3bcd73093960f1e385fb47b",
+    "tests/actor_walking_real.c": "e67270226e75e1f7790a79c44bb983ded0c407e9f4c7f7e1fdc56318de2bd70c",
+    "tests/actor_walking_case.h": "0a58d4dec7044f50d4323ad19eac898776d4894125eadafd1216853dbb871d95",
+    "tools/actor_walking_project/CMakeLists.txt": "4354b38f1a70db41f33056fe2d3eb3d9fc9ebb7d8b9b08b0887e7470400ca7dc",
+    "tools/verify_actor_walking_emulation.py": "3193a8715bcd41ece21bc7442cd370b795a4dc21fafade5e3b7d9de2302a64f8",
+    "metadata/actor-callback-human-queries-native.json": "7c2200a758e346e4c7f71919187ac2a7bb1c96d40f28e76256ec83c5d9dbc39b",
+    "metadata/actor-walking-step-native.json": "39da34953bd06a46bc725c13dd4cdb0ed7b8ac2361ca0fbb500c48391b4eb7de",
+    "metadata/actor-walking-grid-native.json": "75e08e83b07313f6df8304de3c264c08884baff7d1565ad5960991aaaff262f5",
+    "metadata/actor-walking-queue-native.json": "04b01b95105160afcf62240b59f74a27853d2a1e75056af3f1f21d9acfccc5b0",
+    "metadata/actor-empty-callback-native.json": "3f3ebf467750dd6187b25d4d448995e6b2cb39204b8b58178ea1dbaec3f6abde"
+  },
+  "heading_return_contract": {
+    "consumed": "AL BYTE0..8; unchanged2332 widened C result is compared only in this consumed domain",
+    "native_raw": "(Y & FFFFFF00) | direction",
+    "raw_domain_asserted_samples": 25,
+    "raw_samples": [
+      [
+        "0x0",
+        "0x0"
+      ],
+      [
+        "0x0",
+        "0x1"
+      ],
+      [
+        "0x0",
+        "0x2"
+      ],
+      [
+        "0x0",
+        "0x3"
+      ],
+      [
+        "0x0",
+        "0x4"
+      ],
+      [
+        "0x0",
+        "0x5"
+      ],
+      [
+        "0x0",
+        "0x6"
+      ],
+      [
+        "0x0",
+        "0x7"
+      ],
+      [
+        "0x0",
+        "0x8"
+      ],
+      [
+        "0x1",
+        "0x0"
+      ],
+      [
+        "0x1",
+        "0x1"
+      ],
+      [
+        "0x1",
+        "0x2"
+      ],
+      [
+        "0x1",
+        "0x6"
+      ],
+      [
+        "0x1",
+        "0x7"
+      ],
+      [
+        "0x1",
+        "0x8"
+      ],
+      [
+        "0x64",
+        "0x2"
+      ],
+      [
+        "0x64",
+        "0x8"
+      ],
+      [
+        "0x7fffffff",
+        "0x7fffff00"
+      ],
+      [
+        "0x80000000",
+        "0x80000004"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff02"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff03"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff04"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff05"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff06"
+      ],
+      [
+        "0xffffffff",
+        "0xffffff08"
+      ]
+    ]
+  }
+}

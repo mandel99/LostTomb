@@ -1,0 +1,177 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Original instructions and authenticated inline jump tables. C# and the supplied port are references only.",
+  "functions": {
+    "00456760": {
+      "end": "00456ebc",
+      "instructions": 495,
+      "body_bytes": 1885,
+      "body_sha256": "ecf2eee1257f4a2e8765f40f5bc0dbf1ff83461f318d0d315ffbee1d0e72f51f",
+      "rea_evidence": "ev_d815f9041e982c2bf244f5468eb324032495d3f318e4b26a59e05240ccee5f55"
+    },
+    "00495c10": {
+      "end": "00495cef",
+      "instructions": 60,
+      "body_bytes": 224,
+      "body_sha256": "d4408fb8762f77bbd484772f7ecb6cb98241a6556327ee3fb4a8a5e0b4131c87",
+      "rea_evidence": "ev_eceee38fc2e6b860ac19556ef050be397475c49ed2011699a3e4c378ea8d6c16"
+    },
+    "00495d30": {
+      "end": "00495d69",
+      "instructions": 14,
+      "body_bytes": 58,
+      "body_sha256": "dbb26be83426c157d7ea475b0db8e6947c058cfbb93feb3a1ea32270ec4b3991",
+      "rea_evidence": "ev_1b4607773af320d92aa6c1661f083db887d98ef65aeaabeb88a8429dfd78939b"
+    },
+    "00495d70": {
+      "end": "00495d98",
+      "instructions": 16,
+      "body_bytes": 41,
+      "body_sha256": "9ac1038a0f9647deab40a322d673b122833baf17d615be156b5fbfd0966c2eaf",
+      "rea_evidence": "ev_0fce98f15b4d51f6fb9c3c45894f90cb1837c00953412e9cde973f3d60584752"
+    },
+    "00495de0": {
+      "end": "00495e0e",
+      "instructions": 18,
+      "body_bytes": 47,
+      "body_sha256": "bd9f96618232608aa8e288a4315662ffe7b5538f694b22a61393de16e2871b15",
+      "rea_evidence": "ev_5f23ceda17d3fa4bb1e1e8c7876192ee447233753c5e55daddcacf6ead2b3518"
+    },
+    "00495e10": {
+      "end": "00495ef9",
+      "instructions": 81,
+      "body_bytes": 234,
+      "body_sha256": "d26e15aede8368a4f3518a562b7dd240dd0e36f0fbfe12f7507ad3507789ad5e",
+      "rea_evidence": "ev_26aae3994e9bda1d416385e72795ea8caa402e1c5b3ef533fccf99015752e4ee"
+    },
+    "00495f00": {
+      "end": "0049600a",
+      "instructions": 87,
+      "body_bytes": 267,
+      "body_sha256": "a3501aca70d321e416421e90ee437d0985edc7e933c1ad5c8e0fc8334fe72025",
+      "rea_evidence": "ev_eda0c4a0506fa95e9e8c844e8cda67a4315fe40c1fe942690a817c203f2337fa"
+    }
+  },
+  "native_instruction_total": 771,
+  "native_code_bytes": 2756,
+  "body_extent_note": "REA reports456760 as474 instructions in a noncontiguous1787-byte body, stopping before RET. Ghidra read_memory of456A3E/456B30/456EB0 authenticates missing table arms and RET. The pinned contiguous456760..456EBC physical code span has495 instructions/1885bytes. Its six inline tables at456EC0..456FB7 were separately read and hashed. No analysis function definitions were changed.",
+  "jump_tables": {
+    "address": "00456ec0",
+    "bytes": 248,
+    "sha256": "6de0d203228702808df5bf961b15cfced31ec95c94b998dbde3746f0c4adbf89"
+  },
+  "retained_selector": {
+    "address": "00495da0",
+    "instructions": 29,
+    "body_bytes": 58,
+    "rea_evidence": "ev_c68210ee75cfe1c511307aebb0d3e1e2a4fe061ebd311c3765f96fcfb7750c5a",
+    "note": "Existing source retained; genuine signed/100 selection runs inside buyer comparisons."
+  },
+  "changes": [
+    "Replace incomplete456760, including its former indirect-call placeholder, with typed source collection. Keep196-byte storage and264-byte building records, signed WORD stocks/coordinates/cooldowns, BYTE profile/flags, full DWORD owner/limits/counters and wrapped tile math.",
+    "Preserve granary/warehouse gates, the12 resource mappings,27 category lists,4000-entry category stride, cached profile/source/target versus live callback reads, source order and per-category selection/root calls. Keep native cooldown suppression/decrements.",
+    "Repair six complete buyer entries: goal/entrance fallback, home return with actual route cleanup, four-DWORD purchased-cargo predicate with its full pointer-derived EAX/AL, BYTE deletion state, demand thresholds, committed quantities, alternate sources and the escaped demand buffer.",
+    "Seven canonical providers link from actor_bazaar_targets.obj. Former00823/01326/01328/01329/01331/01332/01333 objects are excluded; historical source files are preserved."
+  ],
+  "references": {
+    "CSharp": "PharaohRewrite/src/Pharaoh.Engine/Walkers/Walkers.Bazaar.cs; its higher-level selection/route policies were not copied.",
+    "port_sha256": "f66a27e62a433e06bdb6b01651e632c8ff6cd1eb9070126f590d49c1bdf8fda1",
+    "port_labels": [
+      "building_market_update_buyer_storages",
+      "buyer_go_to_storage",
+      "buyer_return_home",
+      "buyer_has_bought",
+      "buyer_return_or_die",
+      "buyer_next_goods_storage",
+      "buyer_next_food_storage"
+    ],
+    "port_executed_or_linked": false
+  },
+  "verification": {
+    "script": "direct_c/verify_bazaar_targets.py",
+    "cases": {
+      "supplier_collection": 66,
+      "buyer_transitions_and_compositions": 159
+    },
+    "total": 225,
+    "method": "One complete invocation against the final Release. Original/current-C Unicorn compares full mapped game data, ordered controlled helper calls, caller-visible actor state, logical escaped-demand contents, full consumed EAX, SP and nonvolatile GPRs. All seven new providers plus actual495DA0/4B3250 compose. Availability, route query, root resolution and entrance query are declared controlled boundaries.",
+    "caller_audit": {
+      "direct_sites": 10,
+      "sites": {
+        "00456760": [
+          "00495e8e",
+          "00495f9c"
+        ],
+        "00495c10": [
+          "00495eea",
+          "00495ffc"
+        ],
+        "00495d30": [
+          "00495df3"
+        ],
+        "00495d70": [
+          "00495de6"
+        ],
+        "00495de0": [
+          "00495ed1",
+          "00495fe4"
+        ],
+        "00495e10": [
+          "00496118"
+        ],
+        "00495f00": [
+          "0049610a"
+        ]
+      },
+      "note": "Complete Ghidra direct xrefs; no supplied page has_more. The predicate caller tests AL; full pointer EAX is retained. C10 returns full0 on all paths. Void results are discarded or passed through496060 to the existing void callback. Nonvolatile registers/SP are checked. Exceptional/indirect caller control flow is not exhaustively certified."
+    },
+    "strict_release_build_exit": 0,
+    "no_argument_link_data_diagnostic_exit": 0,
+    "link_audit": "Unique expected providers in both maps; seven former unit objects, world_dispatch_model.obj and calendar_updates_model.obj absent. CODE remains below560000.",
+    "host_game_or_original_process_executed": false,
+    "limitations": [
+      "Finite offline comparisons, not exhaustive or live-game certification.",
+      "Tests use mapped valid storage/category/actor/building data; arbitrary corrupt indices, arrays beyond their native capacities and unsaved live loader state are not certified.",
+      "Saved-state diagnostic after this repair no longer reports the prior actor7 destination/action mismatches. Its first remaining difference is actor7 committed cargo at record+188 (native610,C10), followed by carrier allocation/state differences. Unsaved state is seeded; this is a lead for remaining transfer/creation functions, not proof of the reported hang's cause.",
+      "The post-year-save live hang remains unresolved pending its new hang dump. Full game reconstruction remains incomplete."
+    ]
+  },
+  "targets": {
+    "game": {
+      "sha256": "3154ca2c7c7c0ffb94d3246ce5dafdaa4df45b33212a2c58c3426c0ec9ec9150",
+      "bytes": 7677952,
+      "coff": "6ae82f40",
+      "code_end": "00458c7c",
+      "providers": {
+        "00456760": "0032dda0",
+        "00495c10": "0032e260",
+        "00495d30": "0032e350",
+        "00495d70": "0032e3a0",
+        "00495de0": "0032e400",
+        "00495e10": "0032e440",
+        "00495f00": "0032e460"
+      }
+    },
+    "diagnostic": {
+      "sha256": "a34ad2321ce8cb2a98b5b253ee6f010f70124bc17120d4e1208a1d5c17f95659",
+      "bytes": 7674368,
+      "coff": "6ae82f2b",
+      "code_end": "004584cc",
+      "providers": {
+        "00456760": "0032d9e0",
+        "00495c10": "0032dea0",
+        "00495d30": "0032df90",
+        "00495d70": "0032dfe0",
+        "00495de0": "0032e040",
+        "00495e10": "0032e080",
+        "00495f00": "0032e0a0"
+      }
+    }
+  },
+  "source_sha256": {
+    "runtime/actor_bazaar_targets.c": "3481cd2ff24110a8d32e318fa95866c81350fed185843fa7dacbd74c51bf3954",
+    "include/actor_bazaar_targets.h": "55005a6eec1ed5295be030105514ebcc8d18a13cb953309d336b76dda40d4abd",
+    "direct_c/verify_bazaar_targets.py": "24a4c9ae0025aab220d6dd591e670068619e418b02d4266909e3a80fd73dae79",
+    "CMakeLists.txt": "8befe6345b629c36d848e35714e7bf6b7c52b09f7f747d2a898ef4d243996122"
+  }
+}

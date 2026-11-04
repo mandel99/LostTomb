@@ -1,0 +1,44 @@
+{
+  "status": "Four complete timing/completion methods reconstructed and verified offline. Action/direction selection and full playback remain unfinished.",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": [
+    "0x55d4f0",
+    "0x55d760",
+    "0x55d780",
+    "0x55d7b0"
+  ],
+  "native_bytes": 303,
+  "native_instructions": 110,
+  "changes": [
+    "Preserve initial action-rate*playback-rate*binary32(1/6000) in raw80; timed mode multiplies by unsigned DWORD elapsed / signed lowDWORD of truncated1000/fps.",
+    "Use full DWORD timing flag at6044B0, not a BYTE. Compare the extended step against zero before binary32 argument rounding.",
+    "Real forward/reverse advancement and wrapping return the true completion flag. Complete bool/stop/hold callers no longer abort on unknown55D4F0 return.",
+    "Preserve signed low16 frame test, early last-frame flag0100 and later set-frame behavior. Keep cdecl normalized legacy adapters and named explicit receiver API."
+  ],
+  "verification": {
+    "script": "direct_c/verify_sprite_timing.py",
+    "timing_cases": 347,
+    "cycle_regressions": 375,
+    "controlled_endpoints": 0,
+    "scope": "Whole timing and all actual seven cycle callees; native FTOL versus existing exact raw80 conversion. All four methods through canonical and explicit API; full globals/object memory, defined EAX, stack, nonvolatile registers, CW, x87 TOP/tags.144 base cases;48 elapsed/fps cases including unsigned-high time;144 precision/rounding/profile cases;7 last-frame/conversion cases;4 inherited nonempty x87 stack cases.",
+    "limits": "Well-formed objects, positive frame counts and masked FP exceptions. FPSW/traps and complete action/direction or physical playback are not certified.",
+    "prior_target_sha256": "cf0d7407911ac70af8e19c1be7d2201c6fe2bc25fcb8f4ca6c5b578d86b8ba15",
+    "final_target": "PASS347 timing +375 cycle cases and noargument link check on this exact hash"
+  },
+  "next": "55D810 still depends on unfinished action/direction selection55D330/55D840/55D9C0;55D6D0 mode dispatcher remains unresolved.",
+  "source_sha256": {
+    "CMakeLists.txt": "ffa001281013308fcc3e25c4feafae9f11f3601cc3b30bd4a3d39a03faa4c627",
+    "include/sprite_cycle.h": "ec761d33f8e95262f3136ded1887195c86e1b8048ee01dcfaf46b7e66234eecf",
+    "src/unit_02667.c": "9dd9e815c85ab8a59e1782a34d4e091245efd90bc7aad68fa7234b3cfb065b84",
+    "src/unit_02672.c": "b223d4ab7514c011c58c55d8c151941592eb50b14a708e565dd65e9e3a1a4a1f",
+    "src/unit_02673.c": "5e12f95bd5b4b0dd7016e956741f938bbd9b4f6251d82e19604fa1a867f911c7",
+    "src/unit_02674.c": "6a88b84d1ce9497cb8e3a302e1741bc43eb9fcc3cdae0807cdc2acccdf51381f",
+    "direct_c/verify_sprite_timing.py": "80144d1d20f7d3de48f991241a885fda843cf8cd0bbe208df22f184079eaee26",
+    "direct_c/verify_sprite_cycle.py": "335621ce092131df7e28df122f1711139ffa253f323dac81b9091e2e7c98c906"
+  },
+  "build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "e4485afbd6840c02240252f7efcf0d225757ddee3a39b1efe1f2b06ec7726a8c"
+  },
+  "source_commit": "9f09bad7cb17d2d3eb80f03c77c25833b8448867"
+}

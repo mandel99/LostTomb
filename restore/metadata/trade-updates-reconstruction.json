@@ -1,0 +1,33 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Complete original REA/Ghidra instructions and PE-checked switch tables. C# production/trade layouts and supplied port labels are references only.",
+  "sources": ["runtime/trade_updates.c", "include/trade_updates.h", "runtime/city_tick.c", "src/unit_00617.c", "src/unit_00618.c", "src/unit_02632.c", "CMakeLists.txt"],
+  "functions": {
+    "00444c20": "ev_195d4cd73f55a2ed48662918ef0ff1ebbfee69dd1c1dfd5e7143da5fd2c91906",
+    "00443080": "ev_ed945f694cdf8ffe6fc9ce22f886c2c5e96fcf357127ffceca0ecdc984f6797d",
+    "00559c60": "ev_8efe88bade9939de10efb9a912af6ddae44025c5d7fb2d09253a243851995d57",
+    "00443330": "ev_7a6651fe4939317a308da778425de9d169060118610d786968a42619c2a3dfff"
+  },
+  "changes": [
+    "Replace legacy00649's mixed-width country/actor writes with whole444C20 in typed C. Preserve cached initial-city counters, live later owner reads, signed WORD cooldowns, per-country notification throttling, ceil-averaged resource weights, first free eligible trader slot, pre-gate timer reset and first-spawn exit.",
+    "Create one ship or one caravan leader plus two linked followers through the actual actor factory. Preserve every actor field width and the observable writes between factory calls, including the native zero-result behavior when the actor pool is exhausted.",
+    "Rewrite whole443080 with PE-derived resource/model and producer-kind tables, BYTE activity, signed WORD staffing and both model fields. Scan through the actual last building. Rewrite whole559C60 with explicit resource/value types and signed clamps.",
+    "Retain the already typed443330 calculation after original-instruction review and full composed comparison; bind its helpers through the shared typed header. Original mapped body count is136 instructions. Do not count it as a newly implemented function.",
+    "Compile these providers with W4/WX. The old00649 object is excluded and each public provider is unique in both Release maps."
+  ],
+  "verification": {
+    "script": "direct_c/verify_trade_updates.py",
+    "script_sha256": "2bfedbe13ee95bbcc94ff78ac820def3134cc5c9afff73b976d09163deb15930",
+    "cases": {"route_counters_cooldowns_weights_slots_gates": 164, "port_notices_order_AL_callbacks": 51, "genuine_creation_event_and_phase32_compositions": 22, "producer_and_stock_clamp_queries": 201, "export_reserves_and_phase2_compositions": 94},
+    "total": 532,
+    "target_sha256": "47294533f2e8b3432356be797c7dc633ea428ca97977af73ec651968759a258c",
+    "target_coff": "6ae7e655",
+    "target_bytes": 7910912,
+    "target_code_end": "0x004904bc",
+    "diagnostic_sha256": "8d8f9712c1c67dfc80d3ac34f57855c9a3b576e06577e784d37c84655ade75b8",
+    "diagnostic_code_end": "0x0048fd0c",
+    "build_and_no_argument_link_diagnostic_exit": 0,
+    "method": "Offline Unicorn compares complete mapped game state, ordered endpoint arguments and callback-visible actor/slot state, full query results, stack and nonvolatile ABI against this Release. Normal route cases execute actual luxury/eligibility queries. Factory compositions execute actual reservation rings/quarantine, record clearing, profiles, map insertion and trader-history allocation, with deterministic CRT randomness. Message compositions execute actual message316 filtering/allocation/publication in queued mode with sound disabled. Actual city-tick phases32 and2 reach the respective production providers. Export calculations compose genuine town-list/eligibility, producer count, planned-monument cost and stock-clamp providers; explicit callback cases separately exercise owner reloads and wrapped arithmetic."
+  },
+  "limitations": "Finite defined-state comparisons, not exhaustive branch coverage or full gameplay certification. Most route cases control actor-creation and message endpoints; the22 composition cases close selected actual paths. Queued-message tests exclude live presentation and active sound. Rendering, other city phases, other trading behaviors, open caller-frame obligations and overall reconstruction remain incomplete. Original and port EXEs are offline references, not new runtime dependencies."
+}

@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 3079,
+  "production": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "ca42301a6fb14c4df641ec584df58281a8ac50572460878ba96bbceddc0e51bb",
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "method": "Four complete original region validators and three actual rule predicates versus handwritten C with the unchanged accepted resolver/rules. Full terrain grid/global bytes and guards are SHA256 compared; ordered callback terrain/row/column/dimensions/origin/AL results, live counter mutations, cached bounds, raw EAX0/1, stack and saved registers checked.",
+  "limitations": [
+    "Callback mutation/return probes are controlled C/native endpoints. The three canonical rule predicates execute as real original and C instructions; no other algorithms are controlled.",
+    "Mapped, bounded scans are exercised. Native malformed dimensions/counters can wrap into unbounded traversal; such nonterminating/out-of-mapping cases are excluded without production bounds checks.",
+    "Callbacks must be real compiled C callables, such as pointers supplied by the accepted restore_placement_rule resolver. This suite does not repair other legacy token-producing callers, input, placement policy or rendering."
+  ],
+  "source_hashes": {
+    "src/unit_01202.c": "608a348d596333f7852fb0ba78bf8d94194e18e80aa3d4100d471845337a7622",
+    "src/unit_01203.c": "83c3e73b5a163ddf28eefafaf82d03b6444f67cbda56ba4bb7aa7677bd87bec6",
+    "src/unit_01205.c": "d07030e8f3c9225181c0e0a24303a2a8ecfaecf1134e687786fdf7782aac0157",
+    "src/unit_01206.c": "afce3126244816516fc189e62422fd0e0a48525651ab28173fc834dec4c603c9",
+    "include/region_validation.h": "5278f79b8ae00af049a4599646efa4dbfde9567eef48001d49112bd64f2a3de0",
+    "tests/region_validation.c": "f6ccbe343e7f63f5250173f1ce2d0f3f37223b0a865bbd45a35831f2804bd5ef",
+    "tools/verify_region_validation_emulation.py": "cc49f1df9701391f50b031d7cf0c91fac5da76189558522b3283c1c5e572d019",
+    "metadata/region-validation-native.json": "06f65bd846429857499fdd222093b8c1735adc977c1193c209ea22c2980a71c2",
+    "artifacts/region_validation_phase/CMakeLists.txt": "85795fbceefc0c6194601e23f329085ebc59b165218c295c22b71de1d47d26e3",
+    "runtime/placement_preview_predicates.c": "7ef1896493c850b2c88333171c1551018ef4b5f23c95cea3652974cc40ebd707",
+    "include/placement_preview.h": "de1ca5a02ca5ab2969b8528e562550c7d1ce43a13b8e20548b06256f02b26f5c",
+    "metadata/placement-preview-rule-predicates-native.json": "2fd56fa3c488ba032e329a8d26c54b6b667f901858c009f854e9138065f1e503"
+  },
+  "instruction_coverage": {
+    "0x482650": {
+      "executed": 75,
+      "total": 75,
+      "missing": []
+    },
+    "0x482720": {
+      "executed": 82,
+      "total": 82,
+      "missing": []
+    },
+    "0x4828e0": {
+      "executed": 75,
+      "total": 75,
+      "missing": []
+    },
+    "0x4829b0": {
+      "executed": 76,
+      "total": 76,
+      "missing": []
+    },
+    "0x405b40": {
+      "executed": 7,
+      "total": 7,
+      "missing": []
+    },
+    "0x405b60": {
+      "executed": 7,
+      "total": 7,
+      "missing": []
+    },
+    "0x405b80": {
+      "executed": 7,
+      "total": 7,
+      "missing": []
+    }
+  },
+  "instructions_executed": 329,
+  "instructions_total": 329,
+  "watched_grid_cells": 131072,
+  "elapsed_seconds": 44.093
+}

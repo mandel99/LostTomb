@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "state": "Implementation/header/tests/tool frozen after473-case complete staged proof; coordinator owns application and shared build.",
+  "staged_sources": [
+    {"from": "artifacts/lookup_sentinel_phase/unit_00457.c", "to": "src/unit_00457.c", "sha256": "1296dc3796b3f842dcf2f78d685b0ad9fcda3f1af50dfb9dc6ac797c889ee8cc"},
+    {"from": "artifacts/lookup_sentinel_phase/unit_00459.c", "to": "src/unit_00459.c", "sha256": "0efdc1c852146dc1dba7d079eb3a017d2b48d9ac68379bc0e4415df6005a9ef3"}
+  ],
+  "shared_target": {
+    "name": "restore_lookup_sentinel_verify",
+    "sources": ["tests/lookup_sentinel.c", "tests/lookup_sentinel_real_clear.c", "src/unit_00459.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS"],
+    "excluded_shared_definition": "LOOKUP_SENTINEL_STAGED is private-only. No verification macro is required by either product function.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_name": "standalone_lookup_sentinel",
+    "test_command": "restore_lookup_sentinel_verify",
+    "note": "Do not add457 separately to the oracle: lookup_sentinel_real_clear.c includes it under an alias, while the test observes the real helper entry/exit. Production restore_procedures compiles the applied457 normally."
+  },
+  "shared_full_proof": "python tools/verify_lookup_sentinel_emulation.py --production --exe <absolute shared restore_lookup_sentinel_verify.exe>",
+  "private_project": "tools/lookup_sentinel_project/CMakeLists.txt",
+  "private_executable_sha256": "e8689cfe16ff004fb322187a3b82607b4b2cfc61f1206e84af122749dfe01fb4",
+  "staged_proof": {"report": "metadata/lookup-sentinel-emulation.json", "passed": true, "checked": 473, "native_instruction_coverage": [178,178], "full_grid_cells": 105567, "source_image_cells": 51984, "controlled_algorithm_endpoints": []},
+  "source_hash_authority": "All8 hashes in the full report. Preserve the staged report before --production overwrites its default report path.",
+  "contract": "metadata/lookup_sentinel_contract.json",
+  "future_readonly_findings": "metadata/viewport_endpasses_readonly_audit.json",
+  "limitations": "No raster/descriptor/camera/endpass execution or city pixel-fidelity claim."
+}

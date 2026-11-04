@@ -1,0 +1,608 @@
+{
+  "evidence_id": "ev_ae4abf68f44a3fb361ac57e04d4dfc791434c14aac5272cf8e646572ab59be6e",
+  "subject": {
+    "name": "Pharaoh.exe",
+    "digest": {
+      "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+    },
+    "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+    "format": "pe",
+    "architecture": "x86"
+  },
+  "provider": {
+    "id": "rea-workflow",
+    "name": "REA composed investigation workflow",
+    "version": "1"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "rea-workflow",
+      "name": "REA composed investigation workflow",
+      "version": "1"
+    },
+    "parameters": {
+      "upstream_analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default+disabled:Decompiler Parameter ID",
+          "analysis_options": {
+            "disabled_analyzers": [
+              "Decompiler Parameter ID"
+            ]
+          },
+          "analysis_seeds": {
+            "format": "rea-ghidra-seeds-v1",
+            "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\actor-callback-seeds.tsv",
+            "configured_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\actor-callback-seeds.tsv",
+            "sha256": "8cadae0307ea8724b05fc9c7bfa8ed390b55423b413add9dba50f56bd725db45",
+            "entries": {
+              "function": 102,
+              "code": 0,
+              "label": 0
+            }
+          }
+        },
+        "digest": "791b5681a4fbf07c76c6b9fc00477224819636eefcf5d288a4ccf0efad4031f5"
+      },
+      "source_limitations": "provider-operation-caveats-v1",
+      "workflow_revision": 3
+    },
+    "digest": "c2698b1365dc58887859f24a122e995ac74d127c9da275da1f4f11181adc61ed"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "batch_decompile",
+  "parameters": {
+    "addresses": [
+      "0x494b30",
+      "0x494f70",
+      "0x496140",
+      "0x496f20",
+      "0x497010",
+      "0x497450",
+      "0x497dc0",
+      "0x497fc0",
+      "0x498160",
+      "0x498370",
+      "0x4984a0",
+      "0x498590",
+      "0x4986b0",
+      "0x498750",
+      "0x4987f0",
+      "0x4988b0",
+      "0x498a10",
+      "0x498ad0",
+      "0x498c60",
+      "0x498df0",
+      "0x499010",
+      "0x49a150",
+      "0x49a5a0",
+      "0x49a880",
+      "0x49ac00",
+      "0x49aeb0",
+      "0x49b280",
+      "0x49b2a0",
+      "0x49b390",
+      "0x49b400",
+      "0x49b610",
+      "0x49b750"
+    ]
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "items": [
+      {
+        "address": "0x494b30",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x494b30",
+          "name": "FUN_00494b30"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00494b30(void)\r\n\r\n{\r\n  char cVar1;\r\n  undefined4 uVar2;\r\n  ushort uVar3;\r\n  short sVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  \r\n  iVar6 = DAT_00d056f8;\r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66e)[iVar5] = 2;\r\n  uVar2 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar5] * 0x38);\r\n  if (DAT_00605a3c == 1) {\r\n    if (DAT_00784c90 == 0xffff) {\r\n      return;\r\n    }\r\n    if (DAT_00784c92 == 0xffff) {\r\n      return;\r\n    }\r\n  }\r\n  else {\r\n    if (DAT_00784c90 == 0xffff) {\r\n      return;\r\n    }\r\n    if (DAT_00784c92 == 0xffff) {\r\n      return;\r\n    }\r\n  }\r\n  (&DAT_00bcd65d)[iVar5] = 0;\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n  (&DAT_00bcd66a)[iVar5] = 0;\r\n  cVar1 = (&DAT_00bcd630)[iVar5];\r\n  if (cVar1 == '\\b') {\r\n    (&DAT_00bcd65d)[iVar5] = 1;\r\n    *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + -1;\r\n    iVar6 = DAT_00eaac28;\r\n    if (*(short *)(&DAT_00bcd62e + iVar5) < 1) {\r\n      (&DAT_00bcd630)[iVar5] = 9;\r\n      iVar7 = (&DAT_00ea5f70)[iVar6 * 0x1276];\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n      if ((iVar7 != 0) && ((&DAT_00bcd603)[iVar5] == '\\0')) {\r\n        (&DAT_00bcd65e)[iVar5] = 1;\r\n        (&DAT_00ea5f70)[iVar6 * 0x1276] = 0;\r\n      }\r\n      *(ushort *)(&DAT_00bcd61c + iVar5) = DAT_00784c90 & 0xff;\r\n      *(ushort *)(&DAT_00bcd61e + iVar5) = DAT_00784c92 & 0xff;\r\n    }\r\n  }\r\n  else if (cVar1 == '\\t') {\r\n    if ((&DAT_00bcd5fb)[iVar5] == '\\0') {\r\n      (&DAT_00bcd5fb)[iVar5] = 1;\r\n      *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + 1;\r\n      FUN_004a5da0(iVar6,uVar2);\r\n      iVar5 = DAT_00d056f8 * 0x184;\r\n      (&DAT_00bcd65d)[iVar5] = 0;\r\n      (&DAT_00bcd66f)[iVar5] = 0;\r\n      cVar1 = (&DAT_00bcd609)[iVar5];\r\n      if (cVar1 == '\\b') {\r\n        (&DAT_00bcd630)[iVar5] = 10;\r\n      }\r\n      else if (cVar1 == '\\t') {\r\n        (&DAT_00bcd630)[iVar5] = 10;\r\n      }\r\n      else if (cVar1 == '\\n') {\r\n        (&DAT_00bcd630)[iVar5] = 10;\r\n      }\r\n    }\r\n    else {\r\n      (&DAT_00bcd5fb)[iVar5] = 0;\r\n    }\r\n  }\r\n  else if (cVar1 == '\\n') {\r\n    (&DAT_00bcd65d)[iVar5] = 1;\r\n    (&DAT_00bcd65e)[iVar5] = 0;\r\n    (&DAT_00bcd630)[iVar5] = 8;\r\n    sVar4 = *(short *)(&DAT_00bcd62e + iVar5);\r\n    if (sVar4 < 400) {\r\n      if (sVar4 < 200) {\r\n        if (sVar4 < 100) {\r\n          if (sVar4 < 0x32) {\r\n            sVar4 = FUN_00562348();\r\n            uVar3 = sVar4 + 300;\r\n          }\r\n          else {\r\n            uVar3 = FUN_00562348();\r\n            uVar3 = (uVar3 & 0x3f) + 200;\r\n          }\r\n        }\r\n        else {\r\n          uVar3 = FUN_00562348();\r\n          uVar3 = (uVar3 & 0x1f) + 100;\r\n        }\r\n      }\r\n      else {\r\n        uVar3 = FUN_00562348();\r\n        uVar3 = (uVar3 & 0xf) + 0x32;\r\n      }\r\n    }\r\n    else {\r\n      uVar3 = FUN_00562348();\r\n      uVar3 = uVar3 & 7;\r\n    }\r\n    iVar6 = DAT_00d056f8;\r\n    *(ushort *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) = uVar3;\r\n    FUN_004b5420(iVar6);\r\n    iVar6 = DAT_00d056f8;\r\n    if (DAT_00605a3c == 1) {\r\n      (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = (ushort)DAT_00784c8c;\r\n    }\r\n    else {\r\n      (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = (ushort)DAT_00784c8c;\r\n    }\r\n    iVar5 = iVar6 * 0x184;\r\n    uVar3 = (ushort)DAT_00784c8e;\r\n    (&DAT_00bcd60e)[iVar6 * 0xc2] = uVar3;\r\n    *(int *)(&DAT_00bcd618 + iVar5) =\r\n         DAT_00bca2d8 + (short)(&DAT_00bcd60c)[iVar6 * 0xc2] + (short)uVar3 * 0xe4;\r\n    (&DAT_00bcd642)[iVar6 * 0xc2] = (&DAT_00bcd60c)[iVar6 * 0xc2] * 0xf;\r\n    (&DAT_00bcd644)[iVar6 * 0xc2] = (&DAT_00bcd60e)[iVar6 * 0xc2] * 0xf;\r\n  }\r\n  else {\r\n    (&DAT_00bcd630)[iVar5] = 8;\r\n  }\r\n  cVar1 = (&DAT_00bcd603)[iVar5];\r\n  if (cVar1 == '\\0') {\r\n    cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n    (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n    if (0xb < (byte)(cVar1 + 1U)) {\r\n      (&DAT_00bcd5f9)[iVar5] = 0;\r\n    }\r\n    if ((&DAT_00bcd65e)[iVar5] == '\\0') {\r\n      iVar6 = *(int *)(&DAT_005dc7ec + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 4);\r\n      iVar7 = DAT_00f568e4;\r\n    }\r\n    else {\r\n      iVar6 = *(int *)(&DAT_005dc7ec + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 4);\r\n      iVar7 = DAT_00f56934;\r\n    }\r\n  }\r\n  else if (cVar1 == '\\x01') {\r\n    cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n    (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n    if (0x17 < (byte)(cVar1 + 1U)) {\r\n      (&DAT_00bcd5f9)[iVar5] = 0;\r\n    }\r\n    iVar6 = *(int *)(&DAT_005dc81c + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 4);\r\n    iVar7 = DAT_00f568ec;\r\n  }\r\n  else if (cVar1 == '\\x02') {\r\n    cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n    (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n    if (0x17 < (byte)(cVar1 + 1U)) {\r\n      (&DAT_00bcd5f9)[iVar5] = 0;\r\n    }\r\n    iVar6 = *(int *)(&DAT_005dc81c + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 4);\r\n    iVar7 = DAT_00f568f4;\r\n  }\r\n  else {\r\n    if (cVar1 != '\\x03') goto LAB_00494f46;\r\n    cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n    (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n    if (0x17 < (byte)(cVar1 + 1U)) {\r\n      (&DAT_00bcd5f9)[iVar5] = 0;\r\n    }\r\n    iVar6 = *(int *)(&DAT_005dc87c + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 4);\r\n    iVar7 = DAT_00f568fc;\r\n    if (iVar6 == -1) {\r\n      *(undefined4 *)(&DAT_00bcd5fc + iVar5) = 0;\r\n      goto LAB_00494f46;\r\n    }\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar5) = iVar6 + iVar7;\r\nLAB_00494f46:\r\n  if ((DAT_00605a3c == 1) && (DAT_00784cb0._1_1_ == '\\0')) {\r\n    *(undefined4 *)(&DAT_00bcd5fc + iVar5) = 0;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x494f70",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x494f70",
+          "name": "FUN_00494f70"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00494f70(void)\r\n\r\n{\r\n  short sVar1;\r\n  undefined4 uVar2;\r\n  bool bVar3;\r\n  char cVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  int iVar8;\r\n  int iVar9;\r\n  undefined1 uVar10;\r\n  short *psVar11;\r\n  \r\n  iVar6 = DAT_00d056f8;\r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  cVar4 = (&DAT_00bcd5f9)[iVar5];\r\n  (&DAT_00bcd5f9)[iVar5] = cVar4 + 1U;\r\n  uVar2 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar5] * 0x38);\r\n  if (0xb < (byte)(cVar4 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n  (&DAT_00bcd65d)[iVar5] = 0;\r\n  iVar7 = (int)(short)(&DAT_00bcd652)[iVar6 * 0xc2];\r\n  iVar9 = iVar7 * 0x108;\r\n  if ((&DAT_007999d8)[iVar9] != '\\x01') {\r\n    (&DAT_00bcd606)[iVar5] = 2;\r\n  }\r\n  sVar1 = (&DAT_007999e8)[iVar7 * 0x84];\r\n  if (((sVar1 != 0x4b) && (sVar1 != 0x4c)) && (sVar1 != 0xc0)) {\r\n    (&DAT_00bcd606)[iVar5] = 2;\r\n  }\r\n  if ((&DAT_00799a7f)[iVar9] != '\\0') {\r\n    (&DAT_00799a7f)[iVar9] = (&DAT_00799a7f)[iVar9] + -1;\r\n  }\r\n  if ((*(short *)(&DAT_00799a8c + iVar9) != 0) &&\r\n     (((iVar8 = *(short *)(&DAT_00799a8c + iVar9) * 0x184, (&DAT_00bcd606)[iVar8] != '\\x01' ||\r\n       ((&DAT_00bcd602)[iVar8] != '\\x14')) || ((&DAT_00bcd630)[iVar8] == '\\r')))) {\r\n    *(undefined2 *)(&DAT_00799a8c + iVar9) = 0;\r\n  }\r\n  (&DAT_00bcd66a)[iVar5] = 1;\r\n  cVar4 = (&DAT_00bcd630)[iVar5];\r\n  if (cVar4 == '\\x05') {\r\n    FUN_004b17d0(iVar6);\r\n    iVar6 = DAT_00d056f8;\r\n  }\r\n  else if (cVar4 == '\\x04') {\r\n    FUN_004b1d50(iVar6);\r\n    iVar6 = DAT_00d056f8;\r\n  }\r\n  else if (cVar4 == '\\b') {\r\n    (&DAT_00bcd603)[iVar5] = 0;\r\n    *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n    iVar6 = FUN_00495840(iVar7);\r\n    if (iVar6 == 0) {\r\n      FUN_00495950(iVar7);\r\n    }\r\n    iVar6 = DAT_00d056f8;\r\n    iVar5 = DAT_00d056f8 * 0x184;\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n    if ((*(byte *)(&DAT_00af598c + *(int *)(&DAT_00bcd618 + iVar5)) & 0x40) == 0) {\r\n      (&DAT_00bcd606)[iVar5] = 2;\r\n    }\r\n  }\r\n  else if (cVar4 == '\\t') {\r\n    sVar1 = (&DAT_00799a2c)[iVar7 * 0x84];\r\n    *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n    if (sVar1 < 1) {\r\n      (&DAT_00799a2c)[iVar7 * 0x84] = (short)iVar6;\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n    }\r\n    if ((short)(&DAT_00799a2c)[iVar7 * 0x84] == iVar6) {\r\n      *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + 1;\r\n      sVar1 = *(short *)(&DAT_00bcd62e + iVar5);\r\n      (&DAT_00799a7f)[iVar9] = 0x78;\r\n      if (0x4f < sVar1) {\r\n        (&DAT_00bcd630)[iVar5] = 0xb;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n        FUN_0048b4a0(iVar6);\r\n        (&DAT_00799a2c)[iVar7 * 0x84] = 0;\r\n        iVar6 = DAT_00d056f8;\r\n      }\r\n    }\r\n    else {\r\n      bVar3 = false;\r\n      psVar11 = (short *)((int)&DAT_00799a84 + iVar9 + 2);\r\n      iVar5 = 3;\r\n      do {\r\n        iVar9 = (int)*psVar11;\r\n        if (((iVar9 != 0) && ((&DAT_00bcd606)[iVar9 * 0x184] == '\\x01')) &&\r\n           ((((&DAT_00bcd630)[iVar9 * 0x184] == '\\t' || ((&DAT_00bcd630)[iVar9 * 0x184] == '\\n')) &&\r\n            ((short)(&DAT_00799a2c)[iVar7 * 0x84] == iVar9)))) {\r\n          bVar3 = true;\r\n        }\r\n        psVar11 = psVar11 + 1;\r\n        iVar5 = iVar5 + -1;\r\n      } while (iVar5 != 0);\r\n      if (!bVar3) {\r\n        (&DAT_00799a2c)[iVar7 * 0x84] = 0;\r\n      }\r\n    }\r\n  }\r\n  else if (cVar4 == '\\n') {\r\n    FUN_0048b4a0(iVar6);\r\n    iVar6 = DAT_00d056f8;\r\n    if ((short)(&DAT_00799a2c)[iVar7 * 0x84] < 1) {\r\n      (&DAT_00799a2c)[iVar7 * 0x84] = (short)DAT_00d056f8;\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar6 * 0x184) = 0;\r\n    }\r\n    if ((short)(&DAT_00799a2c)[iVar7 * 0x84] == iVar6) {\r\n      (&DAT_00799a7f)[iVar9] = 0x78;\r\n      iVar5 = iVar6 * 0x184;\r\n      *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + 1;\r\n      if (0x4f < *(short *)(&DAT_00bcd62e + iVar5)) {\r\n        (&DAT_00bcd630)[iVar5] = 8;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n        *(undefined4 *)(&DAT_00bcd5fc + iVar5) = 0;\r\n        *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n        (&DAT_00799a2c)[iVar7 * 0x84] = 0;\r\n      }\r\n    }\r\n    iVar5 = iVar6 * 0x184;\r\n    *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + 1;\r\n    if (0x13 < *(short *)(&DAT_00bcd62e + iVar5)) {\r\n      (&DAT_00bcd630)[iVar5] = 8;\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n    }\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n  }\r\n  else {\r\n    if (cVar4 == '\\v') {\r\n      FUN_0048b4a0(iVar6);\r\n      FUN_004a5da0(DAT_00d056f8,uVar2);\r\n      iVar6 = DAT_00d056f8;\r\n      iVar5 = DAT_00d056f8 * 0x184;\r\n      cVar4 = (&DAT_00bcd609)[iVar5];\r\n      if (cVar4 == '\\b') {\r\n        (&DAT_00bcd630)[iVar5] = 0xf;\r\n      }\r\n      else if (cVar4 == '\\t') {\r\n        FUN_004b3250(DAT_00d056f8);\r\n        iVar6 = DAT_00d056f8;\r\n      }\r\n      else {\r\njoined_r0x004953fe:\r\n        DAT_00d056f8 = iVar6;\r\n        if (cVar4 == '\\n') {\r\n          (&DAT_00bcd606)[iVar5] = 2;\r\n        }\r\n      }\r\n    }\r\n    else if (cVar4 == '\\f') {\r\n      FUN_0048b4a0(iVar6);\r\n      FUN_004a5da0(DAT_00d056f8,uVar2);\r\n      iVar6 = DAT_00d056f8;\r\n      iVar5 = DAT_00d056f8 * 0x184;\r\n      cVar4 = (&DAT_00bcd609)[iVar5];\r\n      if (cVar4 == '\\b') {\r\n        (&DAT_00bcd630)[iVar5] = 0x10;\r\n      }\r\n      else {\r\n        if (cVar4 != '\\t') goto joined_r0x004953fe;\r\n        FUN_004b3250(DAT_00d056f8);\r\n        iVar6 = DAT_00d056f8;\r\n      }\r\n    }\r\n    else {\r\n      if (cVar4 != '\\r') {\r\n        if (cVar4 == '\\x0f') {\r\n          FUN_0048b4a0(iVar6);\r\n          iVar6 = DAT_00d056f8;\r\n          iVar5 = DAT_00d056f8 * 0x184;\r\n          *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + 1;\r\n          if (10 < *(short *)(&DAT_00bcd62e + iVar5)) {\r\n            iVar9 = (int)*(short *)(&DAT_00799a8c + iVar9);\r\n            if (iVar9 == 0) {\r\n              uVar10 = 0;\r\n            }\r\n            else {\r\n              uVar10 = (&DAT_00bcd666)[iVar9 * 0x184];\r\n            }\r\n            if ((((&DAT_007999e8)[(short)(&DAT_00bcd656)[iVar6 * 0xc2] * 0x84] == 0x48) ||\r\n                ((&DAT_007999e8)[(short)(&DAT_00bcd656)[iVar6 * 0xc2] * 0x84] == 0xc1)) &&\r\n               (iVar5 = FUN_00445980((int)(short)(&DAT_00bcd656)[iVar6 * 0xc2],\r\n                                     (&DAT_00bcd603)[iVar5],uVar10,iVar9), iVar6 = DAT_00d056f8,\r\n               iVar5 != 0)) {\r\n              iVar6 = DAT_00d056f8 * 0x184;\r\n              (&DAT_00bcd630)[iVar6] = 0xe;\r\n              *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n              *(undefined2 *)(&DAT_00bcd61c + iVar6) = *(undefined2 *)(&DAT_00bcd624 + iVar6);\r\n              *(undefined2 *)(&DAT_00bcd61e + iVar6) = *(undefined2 *)(&DAT_00bcd626 + iVar6);\r\n              (&DAT_00bcd603)[iVar6] = 0;\r\n              FUN_00495950(iVar7);\r\n              iVar6 = DAT_00d056f8;\r\n            }\r\n            else {\r\n              iVar5 = iVar6 * 0x184;\r\n              (&DAT_00bcd630)[iVar5] = 0xe;\r\n              *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n              *(undefined2 *)(&DAT_00bcd61c + iVar5) = *(undefined2 *)(&DAT_00bcd624 + iVar5);\r\n              *(undefined2 *)(&DAT_00bcd61e + iVar5) = *(undefined2 *)(&DAT_00bcd626 + iVar5);\r\n            }\r\n            iVar5 = iVar6 * 0x184;\r\n            *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n          }\r\n          (&DAT_00bcd5f9)[iVar5] = 0;\r\n        }\r\n        else if (cVar4 == '\\x10') {\r\n          FUN_0048b4a0(iVar6);\r\n          iVar6 = DAT_00d056f8;\r\n          iVar5 = (int)*(short *)(&DAT_00799a8c + iVar9);\r\n          if (iVar5 == 0) {\r\n            uVar10 = 0;\r\n          }\r\n          else {\r\n            uVar10 = (&DAT_00bcd666)[iVar5 * 0x184];\r\n          }\r\n          iVar9 = DAT_00d056f8 * 0x184;\r\n          *(short *)(&DAT_00bcd62e + iVar9) = *(short *)(&DAT_00bcd62e + iVar9) + 1;\r\n          if (10 < *(short *)(&DAT_00bcd62e + iVar9)) {\r\n            (&DAT_00bcd630)[iVar9] = 0xe;\r\n            *(undefined2 *)(&DAT_00bcd62e + iVar9) = 0;\r\n            *(undefined2 *)(&DAT_00bcd61c + iVar9) = *(undefined2 *)(&DAT_00bcd624 + iVar9);\r\n            *(undefined2 *)(&DAT_00bcd61e + iVar9) = *(undefined2 *)(&DAT_00bcd626 + iVar9);\r\n            *(undefined2 *)(&DAT_00bcd62e + iVar9) = 0;\r\n            iVar5 = FUN_00445e50((int)(short)(&DAT_00bcd656)[iVar6 * 0xc2],(&DAT_00bcd603)[iVar9],\r\n                                 uVar10,iVar5);\r\n            iVar6 = DAT_00d056f8;\r\n            if (iVar5 == 0) {\r\n              FUN_00495950(iVar7);\r\n              iVar6 = DAT_00d056f8;\r\n            }\r\n            else {\r\n              (&DAT_00bcd630)[DAT_00d056f8 * 0x184] = 0xd;\r\n            }\r\n          }\r\n          (&DAT_00bcd5f9)[iVar6 * 0x184] = 0;\r\n        }\r\n        else if (cVar4 == '\\x0e') {\r\n          FUN_0048b4a0(iVar6);\r\n          FUN_004a5da0(DAT_00d056f8,uVar2);\r\n          iVar6 = DAT_00d056f8;\r\n          iVar5 = DAT_00d056f8 * 0x184;\r\n          cVar4 = (&DAT_00bcd609)[iVar5];\r\n          if (cVar4 == '\\b') {\r\nLAB_00495662:\r\n            (&DAT_00bcd630)[iVar5] = 8;\r\n          }\r\n          else if (cVar4 == '\\t') {\r\n            FUN_004b3250(DAT_00d056f8);\r\n            iVar6 = DAT_00d056f8;\r\n          }\r\n          else if (cVar4 == '\\n') {\r\n            (&DAT_00bcd606)[iVar5] = 2;\r\n          }\r\n        }\r\n        else if (cVar4 == '\\a') {\r\n          *(int *)(&DAT_00bcd5fc + iVar5) = DAT_00f560dc + 1 + DAT_00e94e00;\r\n          (&DAT_00bcd5f9)[iVar5] = 0;\r\n          FUN_0048b4a0(iVar6);\r\n          iVar6 = DAT_00d056f8;\r\n          *(short *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) =\r\n               *(short *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) + 1;\r\n          if (100 < *(short *)(&DAT_00bcd62e + iVar6 * 0x184)) {\r\n            *(undefined2 *)(&DAT_00bcd62e + iVar6 * 0x184) = 0;\r\n            cVar4 = FUN_004a35e0(iVar6);\r\n            iVar6 = DAT_00d056f8;\r\n            if (cVar4 == '\\0') {\r\n              (&DAT_00bcd630)[DAT_00d056f8 * 0x184] = 8;\r\n            }\r\n          }\r\n        }\r\n        else {\r\n          if (cVar4 != '\\x06') goto LAB_00495662;\r\n          *(undefined4 *)(&DAT_00bcd5fc + iVar5) = 0;\r\n          if (*(int *)(&DAT_00bcd778 + iVar5) != 0) {\r\n            *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n          }\r\n        }\r\n        goto LAB_0049507b;\r\n      }\r\n      FUN_0048b4a0(iVar6);\r\n      FUN_004a5da0(DAT_00d056f8,uVar2);\r\n      iVar6 = DAT_00d056f8;\r\n      iVar5 = DAT_00d056f8 * 0x184;\r\n      cVar4 = (&DAT_00bcd609)[iVar5];\r\n      if (cVar4 == '\\b') {\r\n        (&DAT_00bcd630)[iVar5] = 10;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n      }\r\n      else {\r\n        if (cVar4 != '\\t') goto joined_r0x004953fe;\r\n        FUN_004b3250(DAT_00d056f8);\r\n        iVar6 = DAT_00d056f8;\r\n      }\r\n    }\r\n    if ((&DAT_007999d8)[(short)(&DAT_00bcd656)[iVar6 * 0xc2] * 0x108] != '\\x01') {\r\n      (&DAT_00bcd606)[iVar6 * 0x184] = 2;\r\n    }\r\n  }\r\nLAB_0049507b:\r\n  iVar6 = iVar6 * 0x184;\r\n  cVar4 = (&DAT_00bcd609)[iVar6];\r\n  if ('\\a' < cVar4) {\r\n    cVar4 = (&DAT_00bcd60a)[iVar6];\r\n  }\r\n  iVar5 = cVar4 - DAT_00bca2e0;\r\n  if (iVar5 < 0) {\r\n    iVar5 = iVar5 + 8;\r\n  }\r\n  DAT_00e94e00 = iVar5;\r\n  if ((&DAT_00bcd630)[iVar6] == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar6) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar6) / 2] + DAT_00f560e4;\r\n    *(undefined4 *)(&DAT_00bcd778 + iVar6) = 0;\r\n  }\r\n  else if ((&DAT_00bcd630)[iVar6] != '\\x06') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar6) = DAT_00f560dc + (uint)(byte)(&DAT_00bcd5f9)[iVar6] * 8 + iVar5\r\n    ;\r\n  }\r\n  if (*(int *)(&DAT_00bcd778 + iVar6) == 0) {\r\n    *(undefined4 *)(&DAT_00bcd5fc + iVar6) = 0;\r\n    return;\r\n  }\r\n  *(int *)(&DAT_00bcd778 + iVar6) = *(int *)(&DAT_00bcd778 + iVar6) + iVar5;\r\n  switch((&DAT_00bcd603)[iVar6]) {\r\n  case 0x18:\r\n  case 0x19:\r\n  case 0x1a:\r\n  case 0x1e:\r\n  case 0x23:\r\n    break;\r\n  default:\r\n    iVar7 = iVar5;\r\n    if ((&DAT_00bcd603)[iVar6] != '\\f') goto LAB_004957f4;\r\n  }\r\n  iVar7 = iVar5 + 4;\r\n  if (7 < iVar7) {\r\n    iVar7 = iVar5 + -4;\r\n  }\r\nLAB_004957f4:\r\n  uVar10 = (&DAT_005dc23d)[iVar7 * 2];\r\n  (&DAT_00bcd664)[iVar6] = (&DAT_005dc23c)[iVar7 * 2];\r\n  (&DAT_00bcd665)[iVar6] = uVar10;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x496140",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x496140",
+          "name": "FUN_00496140"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00496140(void)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  char cVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  \r\n  iVar5 = DAT_00d056f8;\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar3] = 1;\r\n  (&DAT_00bcd604)[iVar3] = 0;\r\n  *(undefined2 *)(&DAT_00bcd63a + iVar3) = 800;\r\n  uVar1 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar3] * 0x38);\r\n  iVar4 = (int)(short)(&DAT_00bcd652)[iVar5 * 0xc2];\r\n  if ((&DAT_007999d8)[iVar4 * 0x108] != '\\x01') {\r\n    (&DAT_00bcd606)[iVar3] = 2;\r\n  }\r\n  if (((short)(&DAT_00799a04)[iVar4 * 0x84] != iVar5) &&\r\n     (*(short *)(&DAT_00799a8e + iVar4 * 0x108) != iVar5)) {\r\n    (&DAT_00bcd606)[iVar3] = 2;\r\n  }\r\n  cVar2 = (&DAT_00bcd5f9)[iVar3];\r\n  (&DAT_00bcd5f9)[iVar3] = cVar2 + 1U;\r\n  if (0xb < (byte)(cVar2 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n  }\r\n  switch((&DAT_00bcd630)[iVar3]) {\r\n  case 4:\r\n    FUN_004b1d50(iVar5);\r\n    iVar5 = DAT_00d056f8;\r\n    break;\r\n  case 5:\r\n    FUN_004b17d0(iVar5);\r\n    iVar5 = DAT_00d056f8;\r\n    break;\r\n  case 6:\r\n    *(undefined4 *)(&DAT_00bcd5fc + iVar3) = 0;\r\n    break;\r\n  case 7:\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n    *(short *)(&DAT_00bcd62e + iVar3) = *(short *)(&DAT_00bcd62e + iVar3) + 1;\r\n    if (100 < *(short *)(&DAT_00bcd62e + iVar3)) {\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar3) = 0;\r\n      cVar2 = FUN_004a35e0(iVar5);\r\n      iVar5 = DAT_00d056f8;\r\n      if (cVar2 == '\\0') {\r\n        (&DAT_00bcd630)[DAT_00d056f8 * 0x184] = 9;\r\n      }\r\n    }\r\n    break;\r\n  case 8:\r\n    FUN_004a5da0(iVar5,uVar1);\r\n    iVar3 = DAT_00d056f8 * 0x184;\r\n    cVar2 = (&DAT_00bcd609)[iVar3];\r\n    if (cVar2 == '\\b') {\r\n      FUN_00496060(DAT_00d056f8,iVar4,(int)(short)(&DAT_00bcd656)[DAT_00d056f8 * 0xc2]);\r\n      iVar5 = DAT_00d056f8;\r\n      break;\r\n    }\r\n    iVar5 = DAT_00d056f8;\r\n    if ((cVar2 < '\\t') || ('\\n' < cVar2)) break;\r\n  default:\r\n    (&DAT_00bcd630)[iVar3] = 9;\r\n    *(undefined2 *)(&DAT_00bcd61c + iVar3) = *(undefined2 *)(&DAT_00bcd624 + iVar3);\r\n    *(undefined2 *)(&DAT_00bcd61e + iVar3) = *(undefined2 *)(&DAT_00bcd626 + iVar3);\r\nLAB_00496258:\r\n    FUN_004b3250(iVar5);\r\n    iVar5 = DAT_00d056f8;\r\n    break;\r\n  case 9:\r\n    FUN_004a5da0(iVar5,uVar1);\r\n    iVar5 = DAT_00d056f8;\r\n    cVar2 = (&DAT_00bcd609)[DAT_00d056f8 * 0x184];\r\n    if (cVar2 == '\\b') {\r\nLAB_0049630b:\r\n      (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\n      break;\r\n    }\r\n    if (cVar2 != '\\t') {\r\n      if (cVar2 != '\\n') break;\r\n      goto LAB_0049630b;\r\n    }\r\n    goto LAB_00496258;\r\n  }\r\n  iVar5 = iVar5 * 0x184;\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar5] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar5] != '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar5) =\r\n         DAT_00f55d6c + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 8 + DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar5) =\r\n       (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar5) / 2] + DAT_00f55d74;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x496f20",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x496f20",
+          "name": "FUN_00496f20"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00496f20(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar3 = DAT_00d056f8;\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar2] = 1;\r\n  (&DAT_00bcd604)[iVar2] = 0;\r\n  *(undefined2 *)(&DAT_00bcd63a + iVar2) = 0x80;\r\n  if ((&DAT_007999d8)[(short)(&DAT_00bcd652)[iVar3 * 0xc2] * 0x108] != '\\x01') {\r\n    (&DAT_00bcd606)[iVar2] = 2;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  FUN_00493610(1);\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar3] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar3] == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + DAT_00f5632c;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n       DAT_00f56324 + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x497010",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x497010",
+          "name": "FUN_00497010"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00497010(void)\r\n\r\n{\r\n  char cVar1;\r\n  char cVar2;\r\n  short sVar3;\r\n  undefined4 uVar4;\r\n  undefined2 uVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  uint uVar8;\r\n  int iVar9;\r\n  \r\n  uVar8 = DAT_00d056f8;\r\n  iVar7 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar7)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  (&DAT_00bcd66a)[iVar7] = 0;\r\n  (&DAT_00bcd604)[iVar7] = 0;\r\n  *(undefined2 *)(&DAT_00bcd63a + iVar7) = 800;\r\n  iVar9 = (int)(short)(&DAT_00bcd652)[uVar8 * 0xc2];\r\n  uVar4 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar7] * 0x38);\r\n  if (((&DAT_007999d8)[iVar9 * 0x108] != '\\x01') ||\r\n     ((int)(short)(&DAT_00799a02)[iVar9 * 0x84] != uVar8)) {\r\n    (&DAT_00bcd606)[iVar7] = 2;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar7];\r\n  (&DAT_00bcd5f9)[iVar7] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar7] = 0;\r\n  }\r\n  iVar6 = DAT_00eaac28;\r\n  cVar1 = (&DAT_00bcd630)[iVar7];\r\n  if (cVar1 == '\\x05') {\r\n    FUN_004b17d0(uVar8);\r\n    uVar8 = DAT_00d056f8;\r\n    goto LAB_0049715e;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    FUN_004b1d50(uVar8);\r\n    uVar8 = DAT_00d056f8;\r\n    goto LAB_0049715e;\r\n  }\r\n  if (cVar1 == '\\v') {\r\n    (&DAT_00bcd66a)[iVar7] = 2;\r\n    (&DAT_00ea5db4)[iVar6 * 0x1276] = 10;\r\n    (&DAT_00ea5f98)[iVar6 * 0x1276] = (&DAT_00ea5f98)[iVar6 * 0x1276] + 1;\r\n    FUN_004a5da0(uVar8,uVar4);\r\n    iVar7 = DAT_00d056f8 * 0x184;\r\n    cVar1 = (&DAT_00bcd609)[iVar7];\r\n    uVar8 = DAT_00d056f8;\r\n    if (((cVar1 != '\\t') && (cVar1 != '\\n')) && (cVar1 != '\\b')) goto LAB_0049715e;\r\nLAB_00497157:\r\n    (&DAT_00bcd630)[iVar7] = 10;\r\n  }\r\n  else {\r\n    if (cVar1 == '\\n') {\r\n      (&DAT_00bcd5f9)[iVar7] = 0;\r\n      *(short *)(&DAT_00bcd62e + iVar7) = *(short *)(&DAT_00bcd62e + iVar7) + 1;\r\n      iVar6 = DAT_00eaac28;\r\n      if ((int)((uVar8 & 3) + 10) < (int)*(short *)(&DAT_00bcd62e + iVar7)) {\r\n        sVar3 = (&DAT_007999ea)[iVar9 * 0x84];\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;\r\n        uVar5 = DAT_00bcba02;\r\n        if ((&DAT_00ea5e04)[iVar6 * 0x1276] == 0) {\r\n          iVar7 = sVar3 * 0x108;\r\n          iVar7 = FUN_004807d0((int)*(short *)((int)&DAT_007999dc + iVar7 + 2),\r\n                               (int)*(short *)(&DAT_007999e0 + iVar7),(&DAT_007999db)[iVar7]);\r\n          uVar5 = (undefined2)DAT_00d3b4e4;\r\n          uVar8 = DAT_00d056f8;\r\n          if (iVar7 != 0) {\r\n            iVar7 = DAT_00d056f8 * 0x184;\r\n            (&DAT_00bcd630)[iVar7] = 8;\r\n            *(undefined2 *)(&DAT_00bcd61c + iVar7) = uVar5;\r\n            *(undefined2 *)(&DAT_00bcd61e + iVar7) = (undefined2)DAT_00d3b4e0;\r\n          }\r\n          FUN_004b3250(uVar8);\r\n          uVar8 = DAT_00d056f8;\r\n        }\r\n        else {\r\n          (&DAT_00bcd630)[iVar7] = 0xb;\r\n          *(undefined2 *)(&DAT_00bcd61c + iVar7) = uVar5;\r\n          *(undefined2 *)(&DAT_00bcd61e + iVar7) = DAT_00bcba04;\r\n          (&DAT_00bcd656)[uVar8 * 0xc2] = DAT_00bcba06;\r\n          FUN_004b3250(uVar8);\r\n          uVar8 = DAT_00d056f8;\r\n        }\r\n      }\r\n      goto LAB_0049715e;\r\n    }\r\n    if (cVar1 == '\\b') {\r\n      FUN_004a5da0(uVar8,uVar4);\r\n      uVar8 = DAT_00d056f8;\r\n      iVar7 = DAT_00d056f8 * 0x184;\r\n      cVar1 = (&DAT_00bcd609)[iVar7];\r\n      if ((cVar1 != '\\t') && (cVar1 != '\\n')) {\r\n        if (cVar1 == '\\b') {\r\n          (&DAT_00bcd630)[iVar7] = 9;\r\n          *(undefined2 *)(&DAT_00bcd61c + iVar7) = *(undefined2 *)(&DAT_00bcd624 + iVar7);\r\n          *(undefined2 *)(&DAT_00bcd61e + iVar7) = *(undefined2 *)(&DAT_00bcd626 + iVar7);\r\n        }\r\n        goto LAB_0049715e;\r\n      }\r\n    }\r\n    else {\r\n      if (cVar1 != '\\t') goto LAB_00497157;\r\n      FUN_004a5da0(uVar8,uVar4);\r\n      uVar8 = DAT_00d056f8;\r\n      iVar7 = DAT_00d056f8 * 0x184;\r\n      if (((&DAT_00bcd609)[iVar7] == '\\t') || ((&DAT_00bcd609)[iVar7] == '\\n')) {\r\n        (&DAT_00bcd606)[iVar7] = 2;\r\n      }\r\n      if ((&DAT_00bcd609)[iVar7] != '\\b') goto LAB_0049715e;\r\n    }\r\n    (&DAT_00bcd606)[iVar7] = 2;\r\n  }\r\nLAB_0049715e:\r\n  iVar7 = uVar8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar7];\r\n  if (cVar1 == '\\x05') {\r\n    iVar9 = (int)(char)(&DAT_00bcd60b)[iVar7];\r\n  }\r\n  else {\r\n    cVar2 = (&DAT_00bcd609)[iVar7];\r\n    if (cVar2 == '\\v') {\r\n      iVar9 = (int)(char)(&DAT_00bcd60b)[iVar7];\r\n    }\r\n    else if (cVar2 < '\\b') {\r\n      iVar9 = (int)cVar2;\r\n    }\r\n    else {\r\n      iVar9 = (int)(char)(&DAT_00bcd60a)[iVar7];\r\n    }\r\n  }\r\n  DAT_00e94e00 = iVar9 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if (cVar1 == '\\x05') {\r\n    if ((byte)(&DAT_00bcd662)[iVar7] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar7) = DAT_00e94e00 + 0xc0 + DAT_00f563bc;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar7) =\r\n         DAT_00e94e00 + 0xc0 + ((int)((byte)(&DAT_00bcd662)[iVar7] - 0xc) / 2) * 8 + DAT_00f563bc;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar7) =\r\n         (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar7) / 2] + 0xf0 + DAT_00f563bc;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar7] == '\\v') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar7) =\r\n         DAT_00e94e00 + 0xc0 + (uint)((byte)(&DAT_00bcd5f9)[iVar7] >> 1) * 8 + DAT_00f563bc;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\v') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar7) =\r\n         DAT_00e94e00 + 0x60 + (uint)(byte)(&DAT_00bcd5f9)[iVar7] * 8 + DAT_00f563bc;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar7) =\r\n       DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar7] * 8 + DAT_00f563bc;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x497450",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x497450",
+          "name": "FUN_00497450"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00497450(void)\r\n\r\n{\r\n  undefined2 uVar1;\r\n  undefined2 uVar2;\r\n  undefined4 uVar3;\r\n  undefined4 uVar4;\r\n  undefined1 uVar5;\r\n  char cVar6;\r\n  int iVar7;\r\n  int iVar8;\r\n  int iVar9;\r\n  \r\n  iVar8 = DAT_00d056f8;\r\n  iVar7 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar7] = 4;\r\n  (&DAT_00bcd604)[iVar7] = 0;\r\n  (&DAT_00bcd65d)[iVar7] = 1;\r\n  (&DAT_00bcd66f)[iVar7] = 10;\r\n  *(undefined2 *)(&DAT_00bcd63a + iVar7) = 800;\r\n  uVar3 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar7] * 0x38);\r\n  iVar9 = (short)(&DAT_00bcd652)[iVar8 * 0xc2] * 0x108;\r\n  if (((&DAT_007999d8)[iVar9] != '\\x01') ||\r\n     ((short)(&DAT_00799a02)[(short)(&DAT_00bcd652)[iVar8 * 0xc2] * 0x84] != iVar8)) {\r\n    (&DAT_00bcd606)[iVar7] = 2;\r\n  }\r\n  cVar6 = (&DAT_00bcd5f9)[iVar7];\r\n  (&DAT_00bcd5f9)[iVar7] = cVar6 + 1U;\r\n  if (0xb < (byte)(cVar6 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar7] = 0;\r\n  }\r\n  cVar6 = (&DAT_00bcd630)[iVar7];\r\n  if (((cVar6 != '\\f') && (cVar6 != '\\a')) && (cVar6 != '\\x06')) {\r\n    FUN_00497cf0(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n  }\r\n  iVar7 = iVar8 * 0x184;\r\n  cVar6 = (&DAT_00bcd630)[iVar7];\r\n  if (cVar6 == '\\x05') {\r\n    FUN_0053b4a0(iVar8,9,2);\r\n    FUN_004b17d0(DAT_00d056f8);\r\n    iVar8 = DAT_00d056f8;\r\n    goto LAB_00497727;\r\n  }\r\n  if (cVar6 == '\\x04') {\r\n    FUN_004b1d50(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n    goto LAB_00497727;\r\n  }\r\n  if (cVar6 == '\\b') {\r\n    (&DAT_00bcd5f9)[iVar7] = 0;\r\n    *(short *)(&DAT_00bcd62e + iVar7) = *(short *)(&DAT_00bcd62e + iVar7) + 1;\r\n    if (*(short *)(&DAT_00bcd62e + iVar7) < 0x29) goto LAB_00497727;\r\n    *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;\r\n    iVar7 = FUN_00497a30(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n    if (iVar7 == 0) goto LAB_00497727;\r\n    uVar1 = (undefined2)DAT_00d3b4e4;\r\n    iVar7 = DAT_00d056f8 * 0x184;\r\n    (&DAT_00bcd630)[iVar7] = 9;\r\n    *(undefined2 *)(&DAT_00bcd61c + iVar7) = uVar1;\r\n    *(undefined2 *)(&DAT_00bcd61e + iVar7) = (undefined2)DAT_00d3b4e0;\r\nLAB_0049771a:\r\n    FUN_004b3250(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n  }\r\n  else {\r\n    if (cVar6 == '\\f') {\r\n      (&DAT_00bcd66a)[iVar7] = 10;\r\n      (&DAT_00bcd65d)[iVar7] = 0;\r\n      (&DAT_00bcd66f)[iVar7] = 0;\r\n      FUN_004a5da0(iVar8,uVar3);\r\n      iVar7 = DAT_00d056f8 * 0x184;\r\n      cVar6 = (&DAT_00bcd609)[iVar7];\r\n      if ((cVar6 != '\\t') && (cVar6 != '\\n')) {\r\n        iVar8 = DAT_00d056f8;\r\n        if (cVar6 == '\\b') {\r\n          FUN_004b5420(DAT_00d056f8);\r\n          iVar7 = DAT_00d056f8;\r\n          iVar8 = DAT_00bca2d8;\r\n          uVar1 = *(undefined2 *)((int)&DAT_007999dc + iVar9 + 2);\r\n          uVar2 = *(undefined2 *)(&DAT_007999e0 + iVar9);\r\n          iVar9 = DAT_00d056f8 * 0x184;\r\n          (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = uVar1;\r\n          *(undefined2 *)(&DAT_00bcd624 + iVar9) = uVar1;\r\n          (&DAT_00bcd60e)[iVar7 * 0xc2] = uVar2;\r\n          *(undefined2 *)(&DAT_00bcd626 + iVar9) = uVar2;\r\n          *(int *)(&DAT_00bcd618 + iVar9) =\r\n               iVar8 + (short)(&DAT_00bcd60c)[iVar7 * 0xc2] +\r\n               (short)(&DAT_00bcd60e)[iVar7 * 0xc2] * 0xe4;\r\n          FUN_004b52f0(iVar7);\r\n          iVar8 = DAT_00d056f8;\r\n          (&DAT_00bcd630)[DAT_00d056f8 * 0x184] = 8;\r\n          FUN_004b3250(iVar8);\r\n          iVar8 = DAT_00d056f8;\r\n        }\r\n        goto LAB_00497727;\r\n      }\r\nLAB_004976ad:\r\n      iVar8 = DAT_00d056f8;\r\n      (&DAT_00bcd606)[iVar7] = 2;\r\n      goto LAB_00497727;\r\n    }\r\n    if (cVar6 == '\\t') {\r\n      FUN_004a5da0(iVar8,uVar3);\r\n      iVar8 = DAT_00d056f8;\r\n      iVar7 = DAT_00d056f8 * 0x184;\r\n      cVar6 = (&DAT_00bcd609)[iVar7];\r\n      if ((cVar6 != '\\t') && (cVar6 != '\\n')) {\r\n        if (cVar6 != '\\b') goto LAB_00497727;\r\n        (&DAT_00bcd630)[iVar7] = 0xb;\r\n        *(undefined2 *)(&DAT_00bcd61c + iVar7) = *(undefined2 *)(&DAT_00bcd624 + iVar7);\r\n        *(undefined2 *)(&DAT_00bcd61e + iVar7) = *(undefined2 *)(&DAT_00bcd626 + iVar7);\r\n        goto LAB_0049771a;\r\n      }\r\n    }\r\n    else if (cVar6 == '\\v') {\r\n      FUN_004a5da0(iVar8,uVar3);\r\n      iVar7 = DAT_00d056f8 * 0x184;\r\n      cVar6 = (&DAT_00bcd609)[iVar7];\r\n      if ((cVar6 == '\\t') || (cVar6 == '\\n')) goto LAB_004976ad;\r\n      iVar8 = DAT_00d056f8;\r\n      if (cVar6 != '\\b') goto LAB_00497727;\r\n    }\r\n    else {\r\n      if (cVar6 == '\\n') {\r\n        FUN_004b28a0(iVar8,1);\r\n        iVar8 = DAT_00d056f8;\r\n        iVar7 = DAT_00d056f8 * 0x184;\r\n        cVar6 = (&DAT_00bcd663)[iVar7];\r\n        (&DAT_00bcd663)[iVar7] = cVar6 + 1U;\r\n        if ((int)(uint)(byte)(cVar6 + 1U) <=\r\n            *(int *)(&DAT_007090e8 + (uint)(byte)(&DAT_00bcd602)[iVar7] * 0x38)) goto LAB_00497727;\r\n        iVar7 = FUN_00499b50(iVar8,*(undefined4 *)\r\n                                    (&DAT_007090e4 + (uint)(byte)(&DAT_00bcd602)[iVar7] * 0x38));\r\n        iVar8 = DAT_00d056f8;\r\n        if (iVar7 != 0) {\r\n          FUN_0053b4a0(DAT_00d056f8,9,2);\r\n          iVar8 = DAT_00d056f8;\r\n          iVar7 = DAT_00d056f8 * 0x184;\r\n          uVar5 = FUN_0051cd80((int)(short)(&DAT_00bcd60c)[DAT_00d056f8 * 0xc2],\r\n                               (int)(short)(&DAT_00bcd60e)[DAT_00d056f8 * 0xc2],DAT_00d3b4e4,\r\n                               DAT_00d3b4e0);\r\n          uVar4 = DAT_00d3b4e4;\r\n          (&DAT_00bcd609)[iVar7] = uVar5;\r\n          uVar3 = DAT_00d3b4e0;\r\n          (&DAT_00bcd663)[iVar7] = 0;\r\n          FUN_004b45c0(DAT_00d056f8,(int)(short)(&DAT_00bcd60c)[iVar8 * 0xc2],\r\n                       (int)(short)(&DAT_00bcd60e)[iVar8 * 0xc2],uVar4,uVar3,0x3c);\r\n          iVar8 = DAT_00d056f8;\r\n          goto LAB_00497727;\r\n        }\r\n        iVar7 = DAT_00d056f8 * 0x184;\r\n        (&DAT_00bcd630)[iVar7] = 0xb;\r\n        *(undefined2 *)(&DAT_00bcd61c + iVar7) = *(undefined2 *)(&DAT_00bcd624 + iVar7);\r\n        *(undefined2 *)(&DAT_00bcd61e + iVar7) = *(undefined2 *)(&DAT_00bcd626 + iVar7);\r\n        goto LAB_0049771a;\r\n      }\r\n      if (cVar6 == '\\x06') {\r\n        (&DAT_00bcd66a)[iVar7] = 10;\r\n        *(undefined4 *)(&DAT_00bcd5fc + iVar7) = 0;\r\n        *(undefined4 *)(&DAT_00bcd778 + iVar7) = 0;\r\n        goto LAB_00497727;\r\n      }\r\n      if (cVar6 == '\\a') {\r\n        (&DAT_00bcd66a)[iVar7] = 10;\r\n        (&DAT_00bcd5f9)[iVar7] = 0;\r\n        *(short *)(&DAT_00bcd62e + iVar7) = *(short *)(&DAT_00bcd62e + iVar7) + 1;\r\n        if (100 < *(short *)(&DAT_00bcd62e + iVar7)) {\r\n          *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;\r\n          cVar6 = FUN_004a35e0(iVar8);\r\n          iVar8 = DAT_00d056f8;\r\n          if (cVar6 == '\\0') {\r\n            (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\n          }\r\n        }\r\n        goto LAB_00497727;\r\n      }\r\n    }\r\n    (&DAT_00bcd630)[iVar7] = 8;\r\n  }\r\nLAB_00497727:\r\n  iVar8 = iVar8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar8)] & 0x4000) == 0) {\r\n    if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar8)] & 0x8000) == 0) {\r\n      cVar6 = (&DAT_00bcd630)[iVar8];\r\n      if (((cVar6 != '\\f') && (cVar6 != '\\a')) && (cVar6 != '\\x06')) {\r\n        (&DAT_00bcd606)[iVar8] = 2;\r\n      }\r\n    }\r\n    else {\r\n      (&DAT_00bcd638)[iVar8] = 0x18;\r\n    }\r\n  }\r\n  else {\r\n    (&DAT_00bcd670)[iVar8] = 0x12;\r\n  }\r\n  if ((&DAT_00bcd638)[iVar8] != '\\0') {\r\n    (&DAT_00bcd638)[iVar8] = (&DAT_00bcd638)[iVar8] + -1;\r\n    (&DAT_00bcd66f)[iVar8] = 0;\r\n  }\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar8] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar8] != '\\x04') {\r\n    if ((&DAT_00bcd630)[iVar8] != '\\n') {\r\n      *(uint *)(&DAT_00bcd5fc + iVar8) =\r\n           DAT_00f55e9c + (uint)(byte)(&DAT_00bcd5f9)[iVar8] * 8 + DAT_00e94e00;\r\n      return;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar8) =\r\n         DAT_00f55eac + (uint)(byte)(&DAT_005d050c)[(byte)(&DAT_00bcd663)[iVar8] >> 1] * 8 +\r\n         DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar8) =\r\n       (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar8) / 2] + DAT_00f55ea4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x497dc0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x497dc0",
+          "name": "FUN_00497dc0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00497dc0(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  \r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar3)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar3];\r\n  sVar2 = (&DAT_00bcd658)[DAT_00d056f8 * 0xc2];\r\n  (&DAT_00bcd5f9)[iVar3] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar3) = 0;\r\n  (&DAT_00bcd651)[iVar3] = 1;\r\n  FUN_004991a0();\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar3];\r\n  if (cVar1 == '\\x05') {\r\n    iVar4 = (int)(char)(&DAT_00bcd60b)[iVar3];\r\n  }\r\n  else if (*(short *)(&DAT_00bcba24 + sVar2 * 0x90) == 0) {\r\n    if ((char)(&DAT_00bcd609)[iVar3] < '\\b') {\r\n      iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n    }\r\n    else {\r\n      iVar4 = (int)(char)(&DAT_00bcd60a)[iVar3];\r\n    }\r\n  }\r\n  else {\r\n    iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n  }\r\n  DAT_00e94e00 = iVar4 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if (cVar1 == '\\x05') {\r\n    iVar4 = DAT_00f55ee4;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar4 = DAT_00f563ac;\r\n    }\r\n    if ((byte)(&DAT_00bcd662)[iVar3] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar3) = DAT_00e94e00 + iVar4;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar3) =\r\n         DAT_00e94e00 + ((int)((byte)(&DAT_00bcd662)[iVar3] - 0xc) / 2) * 8 + iVar4;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\t') {\r\n    iVar4 = DAT_00f55ee4;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar4 = DAT_00f563ac;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         DAT_00e94e00 + (uint)(byte)(&DAT_005d058c)[(byte)(&DAT_00bcd662)[iVar3] >> 1] * 8 + iVar4;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    iVar4 = DAT_00f55edc;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar4 = DAT_00f563a4;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + iVar4;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar3] == '\\v') {\r\n    iVar4 = DAT_00f55ee4;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar4 = DAT_00f563ac;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         DAT_00e94e00 + (uint)((byte)(&DAT_00bcd5f9)[iVar3] >> 1) * 8 + iVar4;\r\n    return;\r\n  }\r\n  iVar4 = DAT_00f55ed4;\r\n  if (DAT_00784cbc._1_1_ == '\\0') {\r\n    iVar4 = DAT_00f5639c;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar3) = DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8 + iVar4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x497fc0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x497fc0",
+          "name": "FUN_00497fc0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00497fc0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar2)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 1;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar2];\r\n  if (cVar1 == '\\x05') {\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if (cVar1 == '\\x05') {\r\n    iVar3 = DAT_00f55efc;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar3 = DAT_00f563cc;\r\n    }\r\n    if ((byte)(&DAT_00bcd662)[iVar2] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar2) = DAT_00e94e00 + iVar3;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + ((int)((byte)(&DAT_00bcd662)[iVar2] - 0xc) / 2) * 8 + iVar3;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    iVar3 = DAT_00f55ef4;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar3 = DAT_00f563c4;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar2) / 2] + iVar3;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar2] == '\\v') {\r\n    iVar3 = DAT_00f55efc;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar3 = DAT_00f563cc;\r\n    }\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + (uint)((byte)(&DAT_00bcd5f9)[iVar2] >> 1) * 8 + iVar3;\r\n    return;\r\n  }\r\n  iVar3 = DAT_00f55eec;\r\n  if (DAT_00784cbc._1_1_ == '\\0') {\r\n    iVar3 = DAT_00f563bc;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar2) = DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar2] * 8 + iVar3;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498160",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498160",
+          "name": "FUN_00498160"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498160(void)\r\n\r\n{\r\n  char cVar1;\r\n  byte bVar2;\r\n  undefined1 uVar3;\r\n  undefined1 uVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  undefined1 local_10 [16];\r\n  \r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar5)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  local_10[5] = 0x11;\r\n  local_10[9] = 0x11;\r\n  local_10[0xc] = 0xef;\r\n  local_10[0xd] = 0xef;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n  local_10[0] = 0x16;\r\n  local_10[1] = 0xee;\r\n  local_10[2] = 0x1b;\r\n  local_10[3] = 0xfd;\r\n  local_10[4] = 0x17;\r\n  local_10[6] = 0;\r\n  local_10[7] = 0xb;\r\n  local_10[8] = 0xeb;\r\n  local_10[10] = 0xe7;\r\n  local_10[0xb] = 0xff;\r\n  local_10[0xe] = 0;\r\n  local_10[0xf] = 0xf4;\r\n  (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n  (&DAT_00bcd651)[iVar5] = 1;\r\n  FUN_004991a0();\r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar5];\r\n  if (cVar1 == '\\x05') {\r\n    iVar7 = (int)(char)(&DAT_00bcd60b)[iVar5];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar5] < '\\b') {\r\n    iVar7 = (int)(char)(&DAT_00bcd609)[iVar5];\r\n  }\r\n  else {\r\n    iVar7 = (int)(char)(&DAT_00bcd60a)[iVar5];\r\n  }\r\n  iVar7 = iVar7 - DAT_00bca2e0;\r\n  if (iVar7 < 0) {\r\n    iVar7 = iVar7 + 8;\r\n  }\r\n  DAT_00e94e00 = iVar7;\r\n  if (cVar1 == '\\x05') {\r\n    iVar6 = DAT_00f55f14;\r\n    if (DAT_00784cbc._1_1_ == '\\0') {\r\n      iVar6 = DAT_00f56414;\r\n    }\r\n    if ((byte)(&DAT_00bcd662)[iVar5] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar5) = iVar6 + iVar7;\r\n      goto LAB_00498330;\r\n    }\r\n    iVar6 = iVar6 + ((int)((byte)(&DAT_00bcd662)[iVar5] - 0xc) / 2) * 8;\r\n  }\r\n  else {\r\n    if (cVar1 == '\\x04') {\r\n      iVar6 = DAT_00f55f0c;\r\n      if (DAT_00784cbc._1_1_ == '\\0') {\r\n        iVar6 = DAT_00f5640c;\r\n      }\r\n      *(uint *)(&DAT_00bcd5fc + iVar5) =\r\n           (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar5) / 2] + iVar6;\r\n      goto LAB_00498330;\r\n    }\r\n    if ((&DAT_00bcd609)[iVar5] == '\\v') {\r\n      iVar6 = DAT_00f55f14;\r\n      if (DAT_00784cbc._1_1_ == '\\0') {\r\n        iVar6 = DAT_00f56414;\r\n      }\r\n      bVar2 = (byte)(&DAT_00bcd5f9)[iVar5] >> 1;\r\n    }\r\n    else {\r\n      iVar6 = DAT_00f55f04;\r\n      if (DAT_00784cbc._1_1_ == '\\0') {\r\n        iVar6 = DAT_00f56404;\r\n      }\r\n      bVar2 = (&DAT_00bcd5f9)[iVar5];\r\n    }\r\n    iVar6 = iVar6 + (uint)bVar2 * 8;\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar5) = iVar6 + iVar7;\r\nLAB_00498330:\r\n  uVar3 = local_10[iVar7 * 2];\r\n  *(uint *)(&DAT_00bcd778 + iVar5) = DAT_00f56074 + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 8 + iVar7;\r\n  uVar4 = local_10[iVar7 * 2 + 1];\r\n  (&DAT_00bcd664)[iVar5] = uVar3;\r\n  (&DAT_00bcd665)[iVar5] = uVar4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498370",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498370",
+          "name": "FUN_00498370"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498370(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  \r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar3];\r\n  sVar2 = (&DAT_00bcd658)[DAT_00d056f8 * 0xc2];\r\n  (&DAT_00bcd5f9)[iVar3] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar3) = 0;\r\n  (&DAT_00bcd651)[iVar3] = 1;\r\n  FUN_004991a0();\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar3];\r\n  if (cVar1 == '\\x05') {\r\n    iVar4 = (int)(char)(&DAT_00bcd60b)[iVar3];\r\n  }\r\n  else if (*(short *)(&DAT_00bcba24 + sVar2 * 0x90) == 0) {\r\n    if ((char)(&DAT_00bcd609)[iVar3] < '\\b') {\r\n      iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n    }\r\n    else {\r\n      iVar4 = (int)(char)(&DAT_00bcd60a)[iVar3];\r\n    }\r\n  }\r\n  else {\r\n    iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n  }\r\n  DAT_00e94e00 = iVar4 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar3] != '\\v') {\r\n    iVar4 = DAT_00e94e00;\r\n    if (cVar1 == '\\x05') goto LAB_00498492;\r\n    if (cVar1 == '\\t') {\r\n      *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n           DAT_00e94e00 + 0x60 + (uint)(byte)(&DAT_005d058c)[(byte)(&DAT_00bcd662)[iVar3] >> 1] * 8\r\n           + DAT_00f563bc;\r\n      return;\r\n    }\r\n    if (cVar1 == '\\x04') {\r\n      *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n           (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + 0x90 + DAT_00f563bc;\r\n      return;\r\n    }\r\n  }\r\n  iVar4 = DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8;\r\nLAB_00498492:\r\n  *(int *)(&DAT_00bcd5fc + iVar3) = iVar4 + DAT_00f563bc;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x4984a0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x4984a0",
+          "name": "FUN_004984a0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_004984a0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 1;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar2];\r\n  if (cVar1 == '\\x05') {\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((((&DAT_00bcd609)[iVar2] != '\\v') && (cVar1 != '\\x05')) && (cVar1 == '\\x04')) {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar2) / 2] + 0x68 + DAT_00f563bc;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n       DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar2] * 8 + DAT_00f563bc;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498590",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498590",
+          "name": "FUN_00498590"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498590(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 3;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar2];\r\n  if (cVar1 == '\\x05') {\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar2] == '\\v') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + 0x60 + (uint)((byte)(&DAT_00bcd5f9)[iVar2] >> 1) * 8 + DAT_00f56404;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x05') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + 0x60 + (uint)((byte)(&DAT_00bcd5f9)[iVar2] >> 1) * 8 + DAT_00f56404;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar2) / 2] + 0x90 + DAT_00f56404;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n       DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar2] * 8 + DAT_00f56404;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x4986b0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x4986b0",
+          "name": "FUN_004986b0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_004986b0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 2;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x05') {\r\n    iVar2 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar2 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar2 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar2 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498750",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498750",
+          "name": "FUN_00498750"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498750(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 1;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x05') {\r\n    iVar2 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar2 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar2 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar2 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x4987f0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x4987f0",
+          "name": "FUN_004987f0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_004987f0(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  \r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar3];\r\n  sVar2 = (&DAT_00bcd658)[DAT_00d056f8 * 0xc2];\r\n  (&DAT_00bcd5f9)[iVar3] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar3) = 0;\r\n  (&DAT_00bcd651)[iVar3] = 2;\r\n  FUN_004991a0();\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar3] == '\\x05') {\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar3];\r\n  }\r\n  else if (*(short *)(&DAT_00bcba24 + sVar2 * 0x90) == 0) {\r\n    if ((char)(&DAT_00bcd609)[iVar3] < '\\b') {\r\n      iVar3 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n    }\r\n    else {\r\n      iVar3 = (int)(char)(&DAT_00bcd60a)[iVar3];\r\n    }\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x4988b0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x4988b0",
+          "name": "FUN_004988b0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_004988b0(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  \r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar3)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar3];\r\n  sVar2 = (&DAT_00bcd658)[DAT_00d056f8 * 0xc2];\r\n  (&DAT_00bcd5f9)[iVar3] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar3] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar3) = 0;\r\n  (&DAT_00bcd651)[iVar3] = 3;\r\n  FUN_004991a0();\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar3];\r\n  if (cVar1 == '\\x05') {\r\n    iVar4 = (int)(char)(&DAT_00bcd60b)[iVar3];\r\n  }\r\n  else if (*(short *)(&DAT_00bcba24 + sVar2 * 0x90) == 0) {\r\n    if ((char)(&DAT_00bcd609)[iVar3] < '\\b') {\r\n      iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n    }\r\n    else {\r\n      iVar4 = (int)(char)(&DAT_00bcd60a)[iVar3];\r\n    }\r\n  }\r\n  else {\r\n    iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n  }\r\n  DAT_00e94e00 = iVar4 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar3] != '\\v') {\r\n    iVar4 = DAT_00e94e00;\r\n    if (cVar1 == '\\x05') goto LAB_004989f9;\r\n    if (cVar1 == '\\t') {\r\n      *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n           DAT_00e94e00 + 0x60 + (uint)(byte)(&DAT_005d058c)[(byte)(&DAT_00bcd662)[iVar3] >> 1] * 8\r\n           + DAT_00f563bc;\r\n      return;\r\n    }\r\n    if (cVar1 == '\\x04') {\r\n      *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n           (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + 0x90 + DAT_00f563bc;\r\n      return;\r\n    }\r\n  }\r\n  iVar4 = DAT_00e94e00 + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8;\r\nLAB_004989f9:\r\n  *(int *)(&DAT_00bcd5fc + iVar3) = iVar4 + DAT_00f563bc;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498a10",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498a10",
+          "name": "FUN_00498a10"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498a10(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar2)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 1;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x05') {\r\n    iVar2 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar2 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar2 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar2 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498ad0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498ad0",
+          "name": "FUN_00498ad0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498ad0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar2)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 2;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x05') {\r\n    FUN_0053b4a0(DAT_00d056f8,0xc,2);\r\n    iVar2 = DAT_00d056f8 * 0x184;\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x05') {\r\n    if ((byte)(&DAT_00bcd662)[iVar2] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar2) = DAT_00e94e00 + DAT_00f5702c;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + ((int)((byte)(&DAT_00bcd662)[iVar2] - 0xc) / 2) * 8 + DAT_00f5702c;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar2] == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar2) / 2] + DAT_00f57024;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar2] == '\\v') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00f5702c + (uint)((byte)(&DAT_00bcd5f9)[iVar2] >> 1) * 8 + DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n       DAT_00f5701c + (uint)(byte)(&DAT_00bcd5f9)[iVar2] * 8 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498c60",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498c60",
+          "name": "FUN_00498c60"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498c60(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar2)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 2;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar2];\r\n  if (cVar1 == '\\x05') {\r\n    iVar3 = (int)(char)(&DAT_00bcd60b)[iVar2];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar2] < '\\b') {\r\n    iVar3 = (int)(char)(&DAT_00bcd609)[iVar2];\r\n  }\r\n  else {\r\n    iVar3 = (int)(char)(&DAT_00bcd60a)[iVar2];\r\n  }\r\n  DAT_00e94e00 = iVar3 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if (cVar1 == '\\x05') {\r\n    FUN_0053b4a0(DAT_00d056f8,0xb,2);\r\n    iVar2 = DAT_00d056f8 * 0x184;\r\n    if ((byte)(&DAT_00bcd662)[iVar2] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar2) = DAT_00e94e00 + DAT_00f5700c;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00e94e00 + ((int)((byte)(&DAT_00bcd662)[iVar2] - 0xc) / 2) * 8 + DAT_00f5700c;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar2) / 2] + DAT_00f57004;\r\n    return;\r\n  }\r\n  if ((&DAT_00bcd609)[iVar2] == '\\v') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n         DAT_00f5700c + (uint)((byte)(&DAT_00bcd5f9)[iVar2] >> 1) * 8 + DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar2) =\r\n       DAT_00f56ffc + (uint)(byte)(&DAT_00bcd5f9)[iVar2] * 8 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x498df0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x498df0",
+          "name": "FUN_00498df0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00498df0(void)\r\n\r\n{\r\n  char cVar1;\r\n  char cVar2;\r\n  undefined1 uVar3;\r\n  undefined1 uVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  undefined1 local_10 [16];\r\n  \r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar5)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  local_10[5] = 0x11;\r\n  local_10[9] = 0x11;\r\n  local_10[0xc] = 0xef;\r\n  local_10[0xd] = 0xef;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n  local_10[0] = 0x16;\r\n  local_10[1] = 0xee;\r\n  local_10[2] = 0x1b;\r\n  local_10[3] = 0xfd;\r\n  local_10[4] = 0x17;\r\n  local_10[6] = 0;\r\n  local_10[7] = 0xb;\r\n  local_10[8] = 0xeb;\r\n  local_10[10] = 0xe7;\r\n  local_10[0xb] = 0xff;\r\n  local_10[0xe] = 0;\r\n  local_10[0xf] = 0xf4;\r\n  (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar5) = 0;\r\n  (&DAT_00bcd651)[iVar5] = 2;\r\n  FUN_004991a0();\r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar5];\r\n  if (cVar1 == '\\x05') {\r\n    DAT_00e94e00 = (char)(&DAT_00bcd60b)[iVar5] - DAT_00bca2e0;\r\n  }\r\n  else {\r\n    cVar2 = (&DAT_00bcd609)[iVar5];\r\n    if ('\\a' < cVar2) {\r\n      cVar2 = (&DAT_00bcd60a)[iVar5];\r\n    }\r\n    DAT_00e94e00 = cVar2 - DAT_00bca2e0;\r\n  }\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  iVar7 = DAT_00e94e00;\r\n  if (cVar1 == '\\x05') {\r\n    FUN_0053b4a0(DAT_00d056f8,0xd,2);\r\n    iVar7 = DAT_00e94e00;\r\n    iVar5 = DAT_00d056f8 * 0x184;\r\n    if ((byte)(&DAT_00bcd662)[iVar5] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar5) = DAT_00f57044 + DAT_00e94e00;\r\n    }\r\n    else {\r\n      *(int *)(&DAT_00bcd5fc + iVar5) =\r\n           DAT_00f57044 + ((int)((byte)(&DAT_00bcd662)[iVar5] - 0xc) / 2) * 8 + DAT_00e94e00;\r\n    }\r\n  }\r\n  else {\r\n    if (cVar1 == '\\x04') {\r\n      iVar6 = (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar5) / 2] + DAT_00f5703c\r\n      ;\r\n    }\r\n    else {\r\n      if ((&DAT_00bcd609)[iVar5] == '\\v') {\r\n        *(uint *)(&DAT_00bcd5fc + iVar5) =\r\n             DAT_00f57044 + (uint)((byte)(&DAT_00bcd5f9)[iVar5] >> 1) * 8 + DAT_00e94e00;\r\n        goto LAB_00498fd3;\r\n      }\r\n      iVar6 = DAT_00f57034 + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 8 + DAT_00e94e00;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar5) = iVar6;\r\n  }\r\nLAB_00498fd3:\r\n  uVar3 = local_10[iVar7 * 2];\r\n  *(uint *)(&DAT_00bcd778 + iVar5) = DAT_00f56074 + (uint)(byte)(&DAT_00bcd5f9)[iVar5] * 8 + iVar7;\r\n  uVar4 = local_10[iVar7 * 2 + 1];\r\n  (&DAT_00bcd664)[iVar5] = uVar3;\r\n  (&DAT_00bcd665)[iVar5] = uVar4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x499010",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x499010",
+          "name": "FUN_00499010"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_00499010(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  \r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  if (((&DAT_00af598c)[*(int *)(&DAT_00bcd618 + iVar2)] & 0x10004) == 0x10004) {\r\n    FUN_004bd250(DAT_00d056f8);\r\n    return;\r\n  }\r\n  (&DAT_00ea5eb4)[DAT_00eaac28 * 0x1276] = (&DAT_00ea5eb4)[DAT_00eaac28 * 0x1276] + 1;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar2) = 0;\r\n  (&DAT_00bcd651)[iVar2] = 1;\r\n  FUN_004991a0();\r\n  iVar2 = DAT_00f563bc;\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  if ((&DAT_00bcd630)[iVar3] == '\\x05') {\r\n    iVar4 = (int)(char)(&DAT_00bcd60b)[iVar3];\r\n  }\r\n  else if ((char)(&DAT_00bcd609)[iVar3] < '\\b') {\r\n    iVar4 = (int)(char)(&DAT_00bcd609)[iVar3];\r\n  }\r\n  else {\r\n    iVar4 = (int)(char)(&DAT_00bcd60a)[iVar3];\r\n  }\r\n  iVar4 = iVar4 - DAT_00bca2e0;\r\n  if (iVar4 < 0) {\r\n    iVar4 = iVar4 + 8;\r\n  }\r\n  DAT_00e94e00 = iVar4;\r\n  if ((&DAT_00bcd609)[iVar3] == '\\v') {\r\n    *(int *)(&DAT_00bcd5fc + iVar3) =\r\n         DAT_00f563bc + ((int)((byte)(&DAT_00bcd662)[iVar3] - 0xc) / 2) * 8 + iVar4;\r\n  }\r\n  cVar1 = (&DAT_00bcd630)[iVar3];\r\n  if (cVar1 == '\\x05') {\r\n    if ((byte)(&DAT_00bcd662)[iVar3] < 0xc) {\r\n      *(int *)(&DAT_00bcd5fc + iVar3) = iVar2 + iVar4;\r\n      return;\r\n    }\r\n    *(int *)(&DAT_00bcd5fc + iVar3) =\r\n         iVar2 + ((int)((byte)(&DAT_00bcd662)[iVar3] - 0xc) / 2) * 8 + iVar4;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\f') {\r\n    *(int *)(&DAT_00bcd5fc + iVar3) = DAT_00f55f04 + iVar4;\r\n    return;\r\n  }\r\n  if (cVar1 == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + 0x98 + iVar2;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar3) = iVar2 + 0x30 + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8 + iVar4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49a150",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49a150",
+          "name": "FUN_0049a150"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049a150(void)\r\n\r\n{\r\n  char cVar1;\r\n  undefined1 uVar2;\r\n  undefined1 uVar3;\r\n  undefined2 uVar4;\r\n  undefined4 uVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  int iVar8;\r\n  \r\n  iVar8 = DAT_00d056f8;\r\n  iVar6 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd65d)[iVar6] = 0;\r\n  (&DAT_00bcd66a)[iVar6] = 0;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar6];\r\n  uVar5 = *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar6] * 0x38);\r\n  (&DAT_00bcd5f9)[iVar6] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar6] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar6) = 0;\r\n  cVar1 = (&DAT_00bcd630)[iVar6];\r\n  if (cVar1 == '\\x05') {\r\n    FUN_004b17d0(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n  }\r\n  else if (cVar1 == '\\x04') {\r\n    FUN_004b1d50(iVar8);\r\n    iVar8 = DAT_00d056f8;\r\n  }\r\n  else if (cVar1 == '\\n') {\r\n    (&DAT_00bcd65d)[iVar6] = 1;\r\n    *(short *)(&DAT_00bcd62e + iVar6) = *(short *)(&DAT_00bcd62e + iVar6) + 1;\r\n    if (10 < *(short *)(&DAT_00bcd62e + iVar6)) {\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n      iVar6 = FUN_004450c0(iVar8,(int)(short)(&DAT_00bcd60c)[iVar8 * 0xc2],\r\n                           (int)(short)(&DAT_00bcd60e)[iVar8 * 0xc2],0,0xffffffff);\r\n      iVar8 = DAT_00d056f8;\r\n      if (iVar6 != 0) {\r\n        iVar7 = DAT_00d056f8 * 0x184;\r\n        (&DAT_00bcd656)[DAT_00d056f8 * 0xc2] = (short)iVar6;\r\n        uVar4 = (undefined2)DAT_00d3b4e4;\r\n        (&DAT_00bcd630)[iVar7] = 8;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;\r\n        *(undefined2 *)(&DAT_00bcd61c + iVar7) = uVar4;\r\n        *(undefined2 *)(&DAT_00bcd61e + iVar7) = (undefined2)DAT_00d3b4e0;\r\n        (&DAT_00bcd5f9)[iVar7] = 0;\r\n        goto LAB_0049a4d7;\r\n      }\r\n      iVar6 = DAT_00d056f8 * 0x184;\r\n      (&DAT_00bcd606)[iVar6] = 2;\r\n    }\r\n    (&DAT_00bcd5f9)[iVar6] = 0;\r\n  }\r\n  else if (cVar1 == '\\b') {\r\n    FUN_004a5da0(iVar8,uVar5);\r\n    iVar8 = DAT_00d056f8;\r\n    iVar6 = DAT_00d056f8 * 0x184;\r\n    cVar1 = (&DAT_00bcd609)[iVar6];\r\n    if (cVar1 == '\\b') {\r\n      (&DAT_00bcd630)[iVar6] = 0xb;\r\n    }\r\n    else if (cVar1 == '\\t') {\r\n      FUN_004b3250(DAT_00d056f8);\r\n      iVar8 = DAT_00d056f8;\r\n    }\r\n    else if (cVar1 == '\\n') {\r\n      (&DAT_00bcd606)[iVar6] = 2;\r\n      (&DAT_00bcd65d)[iVar6] = 1;\r\n    }\r\n    if ((&DAT_007999d8)[(short)(&DAT_00bcd656)[iVar8 * 0xc2] * 0x108] != '\\x01') {\r\n      (&DAT_00bcd606)[iVar8 * 0x184] = 2;\r\n    }\r\n  }\r\n  else if (cVar1 == '\\v') {\r\n    *(short *)(&DAT_00bcd62e + iVar6) = *(short *)(&DAT_00bcd62e + iVar6) + 1;\r\n    if (10 < *(short *)(&DAT_00bcd62e + iVar6)) {\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n      iVar8 = FUN_0045cf50(iVar8,(&DAT_00bcd607)[iVar6],(int)(short)(&DAT_00bcd656)[iVar8 * 0xc2],0)\r\n      ;\r\n      if (iVar8 != 0) {\r\n        uVar5 = FUN_0045d010((&DAT_00bcd607)[DAT_00d056f8 * 0x184],\r\n                             (int)(short)(&DAT_00bcd656)[DAT_00d056f8 * 0xc2],0);\r\n        FUN_00444bd0(DAT_00d056f8,uVar5);\r\n        iVar8 = DAT_00d056f8;\r\n        iVar6 = DAT_00d056f8 * 0x184;\r\n        (&DAT_00bcd667)[iVar6] = (&DAT_00bcd667)[iVar6] + '\\x03';\r\n        (&DAT_00bcd5f9)[iVar6] = 0;\r\n        goto LAB_0049a4d7;\r\n      }\r\n      iVar6 = FUN_004450c0(DAT_00d056f8,(int)(short)(&DAT_00bcd60c)[DAT_00d056f8 * 0xc2],\r\n                           (int)(short)(&DAT_00bcd60e)[DAT_00d056f8 * 0xc2],0,0xffffffff);\r\n      iVar8 = DAT_00d056f8;\r\n      if (iVar6 != 0) {\r\n        iVar7 = DAT_00d056f8 * 0x184;\r\n        (&DAT_00bcd656)[DAT_00d056f8 * 0xc2] = (short)iVar6;\r\n        uVar4 = (undefined2)DAT_00d3b4e4;\r\n        (&DAT_00bcd630)[iVar7] = 8;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar7) = 0;\r\n        *(undefined2 *)(&DAT_00bcd61c + iVar7) = uVar4;\r\n        *(undefined2 *)(&DAT_00bcd61e + iVar7) = (undefined2)DAT_00d3b4e0;\r\n        (&DAT_00bcd5f9)[iVar7] = 0;\r\n        goto LAB_0049a4d7;\r\n      }\r\n      iVar6 = DAT_00d056f8 * 0x184;\r\n      (&DAT_00bcd630)[iVar6] = 9;\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n      *(undefined2 *)(&DAT_00bcd61c + iVar6) = *(undefined2 *)(&DAT_00bcd624 + iVar6);\r\n      *(undefined2 *)(&DAT_00bcd61e + iVar6) = *(undefined2 *)(&DAT_00bcd626 + iVar6);\r\n    }\r\n    (&DAT_00bcd5f9)[iVar6] = 0;\r\n  }\r\n  else if (cVar1 == '\\t') {\r\n    FUN_004a5da0(iVar8,uVar5);\r\n    iVar8 = DAT_00d056f8;\r\n    iVar6 = DAT_00d056f8 * 0x184;\r\n    cVar1 = (&DAT_00bcd609)[iVar6];\r\n    if (cVar1 == '\\b') {\r\n      (&DAT_00bcd606)[iVar6] = 2;\r\n    }\r\n    else if (cVar1 == '\\t') {\r\n      FUN_004b3250(DAT_00d056f8);\r\n      iVar8 = DAT_00d056f8;\r\n    }\r\n    else if (cVar1 == '\\n') {\r\n      (&DAT_00bcd606)[iVar6] = 2;\r\n    }\r\n  }\r\n  else {\r\n    (&DAT_00bcd630)[iVar6] = 10;\r\n  }\r\nLAB_0049a4d7:\r\n  iVar8 = iVar8 * 0x184;\r\n  cVar1 = (&DAT_00bcd609)[iVar8];\r\n  if ('\\a' < cVar1) {\r\n    cVar1 = (&DAT_00bcd60a)[iVar8];\r\n  }\r\n  iVar6 = cVar1 - DAT_00bca2e0;\r\n  if (iVar6 < 0) {\r\n    iVar6 = iVar6 + 8;\r\n  }\r\n  DAT_00e94e00 = iVar6;\r\n  if ((&DAT_00bcd630)[iVar8] == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar8) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar8) / 2] + DAT_00f55e4c;\r\n    *(undefined4 *)(&DAT_00bcd778 + iVar8) = 0;\r\n  }\r\n  else {\r\n    *(uint *)(&DAT_00bcd5fc + iVar8) = DAT_00f55e44 + (uint)(byte)(&DAT_00bcd5f9)[iVar8] * 8 + iVar6\r\n    ;\r\n  }\r\n  iVar7 = DAT_00f55d5c + 8 + (uint)(byte)(&DAT_00bcd603)[iVar8] * 8;\r\n  *(int *)(&DAT_00bcd778 + iVar8) = iVar7;\r\n  if (iVar7 != 0) {\r\n    uVar2 = (&DAT_005dc23c)[iVar6 * 2];\r\n    *(int *)(&DAT_00bcd778 + iVar8) = iVar7 + iVar6;\r\n    uVar3 = (&DAT_005dc23d)[iVar6 * 2];\r\n    (&DAT_00bcd664)[iVar8] = uVar2;\r\n    (&DAT_00bcd665)[iVar8] = uVar3;\r\n  }\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49a5a0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49a5a0",
+          "name": "FUN_0049a5a0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049a5a0(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  uint uVar6;\r\n  int iVar7;\r\n  int iVar8;\r\n  int iVar9;\r\n  int iVar10;\r\n  \r\n  iVar9 = DAT_00d056f8;\r\n  iVar4 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd604)[iVar4] = 1;\r\n  cVar1 = (&DAT_00bcd631)[iVar4];\r\n  (&DAT_00bcd631)[iVar4] = cVar1 + '\\x01';\r\n  if ('x' < (char)(cVar1 + '\\x01')) {\r\n    (&DAT_00bcd606)[iVar4] = 2;\r\n  }\r\n  iVar4 = FUN_004b3ff0(iVar9,4);\r\n  iVar5 = FUN_004b5770(DAT_00d056f8);\r\n  iVar9 = DAT_00d056f8;\r\n  if (iVar5 == 0) {\r\n    if (iVar4 != 0) {\r\n      (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\n    }\r\n    goto LAB_0049a82e;\r\n  }\r\n  iVar4 = iVar5 * 0x184;\r\n  iVar9 = (int)(short)(&DAT_00bcd658)[iVar5 * 0xc2];\r\n  if ((byte)(&DAT_00bcd607)[iVar4] == DAT_00eaac28) {\r\n    iVar8 = (*(short *)(&DAT_00bcba42 + iVar9 * 0x90) + 10) / 0x14;\r\n  }\r\n  else {\r\n    iVar8 = 0;\r\n  }\r\n  iVar3 = *(int *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[iVar4] * 0x38);\r\n  uVar6 = *(int *)(&DAT_007090dc + (uint)(byte)(&DAT_00bcd602)[iVar4] * 0x38) + iVar8;\r\n  if (0x13 < (int)uVar6) {\r\n    uVar6 = 0x14;\r\n  }\r\n  iVar10 = iVar9 * 0x90;\r\n  iVar8 = *(int *)(&DAT_007090e0 + (uint)(byte)(&DAT_00bcd602)[DAT_00d056f8 * 0x184] * 0x38);\r\n  if ((*(short *)(&DAT_00bcba22 + iVar10) != 0) &&\r\n     (sVar2 = *(short *)(&DAT_00bcb9cc + iVar10), 10 < sVar2)) {\r\n    if (sVar2 < 0xd) {\r\n      iVar7 = FUN_004b1d10((int)(char)(&DAT_00bcd60b)[iVar4],(&DAT_00bcba33)[iVar10]);\r\n      if (iVar7 == 0) {\r\nLAB_0049a736:\r\n        uVar6 = uVar6 - 4;\r\n      }\r\n      else {\r\n        sVar2 = *(short *)(&DAT_00bcb9f2 + iVar10);\r\n        if (2 < sVar2) {\r\n          if (sVar2 < 5) {\r\n            uVar6 = uVar6 + 4;\r\n          }\r\n          else if (sVar2 == 6) {\r\n            uVar6 = uVar6 - 2;\r\n          }\r\n        }\r\n      }\r\n    }\r\n    else if (sVar2 == 0xd) {\r\n      iVar7 = FUN_004b1d10((int)(char)(&DAT_00bcd60b)[iVar4],(&DAT_00bcba33)[iVar10]);\r\n      if (iVar7 == 0) goto LAB_0049a736;\r\n      if (*(short *)(&DAT_00bcb9f2 + iVar10) == 6) {\r\n        uVar6 = uVar6 - 2;\r\n      }\r\n    }\r\n  }\r\n  uVar6 = ((int)uVar6 < 0) - 1 & uVar6;\r\n  if (0x14 < (int)uVar6) {\r\n    uVar6 = 0x14;\r\n  }\r\n  if (iVar8 == 0) {\r\nLAB_0049a776:\r\n    iVar8 = 0;\r\n  }\r\n  else {\r\n    iVar8 = ((int)(0x1e - uVar6) / 0x14) * iVar8;\r\n    if (iVar8 < 0) goto LAB_0049a776;\r\n  }\r\n  if (iVar3 < (int)((uint)(byte)(&DAT_00bcd615)[iVar4] + iVar8)) {\r\n    (&DAT_00bcd615)[iVar4] = (char)iVar3 + '\\x01';\r\n    (&DAT_00bcd630)[iVar4] = 4;\r\n    *(undefined2 *)(&DAT_00bcd62e + iVar4) = 0;\r\n    FUN_004b5050(iVar5);\r\n    FUN_004b7ab0(iVar9);\r\n  }\r\n  else {\r\n    (&DAT_00bcd615)[iVar4] = (char)((uint)(byte)(&DAT_00bcd615)[iVar4] + iVar8);\r\n  }\r\n  iVar4 = DAT_00d056f8;\r\n  (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\n  if (iVar9 != 0) {\r\n    sVar2 = (&DAT_00bcd652)[iVar4 * 0xc2];\r\n    *(undefined2 *)(&DAT_00bcba26 + iVar10) = 6;\r\n    *(undefined2 *)(&DAT_00bcba28 + iVar10) = (&DAT_00bcd658)[sVar2 * 0xc2];\r\n  }\r\n  FUN_0047d350(0xb);\r\n  iVar9 = DAT_00d056f8;\r\nLAB_0049a82e:\r\n  DAT_00e94e00 = (int)(char)(&DAT_00bcd609)[iVar9 * 0x184] + DAT_00bca2e0 * -2;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 0x10;\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar9 * 0x184) = DAT_00f56424 + 0x10 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49a880",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49a880",
+          "name": "FUN_0049a880"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049a880(void)\r\n\r\n{\r\n  byte bVar1;\r\n  short sVar2;\r\n  char cVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  int iVar8;\r\n  int iVar9;\r\n  int local_10;\r\n  int local_8;\r\n  \r\n  iVar5 = DAT_00d056f8;\r\n  iVar4 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd604)[iVar4] = 1;\r\n  cVar3 = (&DAT_00bcd631)[iVar4];\r\n  (&DAT_00bcd631)[iVar4] = cVar3 + '\\x01';\r\n  if ('x' < (char)(cVar3 + '\\x01')) {\r\n    (&DAT_00bcd606)[iVar4] = 2;\r\n  }\r\n  iVar5 = FUN_004b3ff0(iVar5,4);\r\n  iVar4 = FUN_004b56d0(DAT_00d056f8);\r\n  iVar6 = DAT_00d056f8 * 0x184;\r\n  iVar9 = (short)(&DAT_00bcd652)[DAT_00d056f8 * 0xc2] * 0x184;\r\n  sVar2 = (&DAT_00bcd658)[(short)(&DAT_00bcd652)[DAT_00d056f8 * 0xc2] * 0xc2];\r\n  if (iVar4 == 0) {\r\n    if (iVar5 == 0) goto LAB_0049ab86;\r\n  }\r\n  else {\r\n    iVar8 = iVar4 * 0x184;\r\n    iVar5 = (int)(short)(&DAT_00bcd658)[iVar4 * 0xc2];\r\n    if ((&DAT_00bcd602)[iVar9] == '>') {\r\n      local_10 = 0x3e;\r\n    }\r\n    else if ((&DAT_00bcd602)[iVar9] == 'N') {\r\n      if ((&DAT_00bcd606)[iVar9] == '\\x02') goto LAB_0049ab7f;\r\n      local_10 = 0x4e;\r\n    }\r\n    else {\r\n      local_10 = (int)*(short *)(&DAT_00bcb9cc + sVar2 * 0x90);\r\n    }\r\n    bVar1 = (&DAT_00bcd602)[iVar8];\r\n    if ((((bVar1 == 0x5d) || (bVar1 == 0x5c)) || (bVar1 == 100)) || (bVar1 == 0x65)) {\r\n      iVar6 = *(int *)(&DAT_00bcd724 + iVar8);\r\n    }\r\n    else {\r\n      iVar6 = *(int *)(&DAT_007090d0 + (uint)bVar1 * 0x38);\r\n    }\r\n    local_8 = *(int *)(&DAT_007090dc + (uint)bVar1 * 0x38);\r\n    if (0x13 < local_8) {\r\n      local_8 = 0x14;\r\n    }\r\n    iVar7 = *(int *)(&DAT_007090e0 + local_10 * 0x38);\r\n    if ((iVar7 < 0) || (iVar7 == 0)) {\r\n      iVar7 = 0;\r\n    }\r\n    else {\r\n      iVar7 = ((0x14 - local_8) * iVar7) / 0x14;\r\n      if (iVar7 < 0) {\r\n        iVar7 = 0;\r\n      }\r\n    }\r\n    if (((bVar1 == 0x5d) || (bVar1 == 0x5c)) || ((bVar1 == 100 || (bVar1 == 0x65)))) {\r\n      if (*(int *)(&DAT_00bcd720 + iVar8) - iVar7 < 1) {\r\n        *(undefined4 *)(&DAT_00bcd720 + iVar8) = 0;\r\n        (&DAT_00bcd630)[iVar8] = 4;\r\n        *(undefined2 *)(&DAT_00bcd62e + iVar8) = 0;\r\n        FUN_004b5050(iVar4);\r\n        FUN_004b7ab0(iVar5);\r\n      }\r\n      else {\r\n        *(int *)(&DAT_00bcd720 + iVar8) = *(int *)(&DAT_00bcd720 + iVar8) - iVar7;\r\n      }\r\n    }\r\n    else if (iVar6 < (int)((uint)(byte)(&DAT_00bcd615)[iVar8] + iVar7)) {\r\n      (&DAT_00bcd615)[iVar8] = (char)iVar6 + '\\x01';\r\n      (&DAT_00bcd630)[iVar8] = 4;\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar8) = 0;\r\n      FUN_004b5050(iVar4);\r\n      FUN_004b7ab0(iVar5);\r\n      cVar3 = FUN_004ea9c0((&DAT_00bcd602)[iVar8]);\r\n      if ((((cVar3 == '\\0') && (cVar3 = FUN_004ea9a0((&DAT_00bcd602)[iVar8]), cVar3 == '\\0')) &&\r\n          ((&DAT_00bcd602)[iVar8] != '\\x17')) && ((byte)(&DAT_00bcd607)[iVar9] == DAT_00eaac28)) {\r\n        iVar6 = sVar2 * 0x90;\r\n        iVar4 = *(short *)(&DAT_00bcba42 + iVar6) + 1;\r\n        if (99 < iVar4) {\r\n          iVar4 = 100;\r\n        }\r\n        *(short *)(&DAT_00bcba42 + iVar6) = (short)iVar4;\r\n      }\r\n    }\r\n    else {\r\n      (&DAT_00bcd615)[iVar8] = (char)((uint)(byte)(&DAT_00bcd615)[iVar8] + iVar7);\r\n    }\r\n    if (iVar5 != 0) {\r\n      *(undefined2 *)(&DAT_00bcba26 + iVar5 * 0x90) = 6;\r\n      *(short *)(&DAT_00bcba28 + iVar5 * 0x90) = sVar2;\r\n    }\r\n    FUN_0047d350(0x18);\r\n    iVar6 = DAT_00d056f8 * 0x184;\r\n  }\r\nLAB_0049ab7f:\r\n  (&DAT_00bcd606)[iVar6] = 2;\r\nLAB_0049ab86:\r\n  iVar5 = (int)(char)(&DAT_00bcd609)[iVar6] + DAT_00bca2e0 * -4;\r\n  if (iVar5 < 0) {\r\n    iVar5 = iVar5 + 0x20;\r\n  }\r\n  DAT_00e94e00 = iVar5;\r\n  if (((&DAT_00bcd602)[iVar9] != '*') && ((&DAT_00bcd602)[iVar9] != '>')) {\r\n    *(int *)(&DAT_00bcd5fc + iVar6) = DAT_00f55cec + iVar5;\r\n    *(int *)(&DAT_00bcd778 + iVar6) = DAT_00f55cf4 + iVar5;\r\n    return;\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar6) = DAT_00f56f1c + iVar5;\r\n  *(int *)(&DAT_00bcd778 + iVar6) = DAT_00f56f14 + iVar5;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49ac00",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49ac00",
+          "name": "FUN_0049ac00"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049ac00(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  uint uVar8;\r\n  int iVar9;\r\n  int iVar10;\r\n  \r\n  iVar5 = DAT_00d056f8;\r\n  iVar4 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd604)[iVar4] = 1;\r\n  cVar1 = (&DAT_00bcd631)[iVar4];\r\n  (&DAT_00bcd631)[iVar4] = cVar1 + '\\x01';\r\n  if ('x' < (char)(cVar1 + '\\x01')) {\r\n    (&DAT_00bcd606)[iVar4] = 2;\r\n  }\r\n  iVar5 = FUN_004b3ff0(iVar5,4);\r\n  iVar4 = FUN_004b56d0(DAT_00d056f8);\r\n  if (iVar4 == 0) {\r\n    iVar4 = DAT_00d056f8;\r\n    if (iVar5 != 0) {\r\n      (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\n      FUN_0047d350(0xe);\r\n      iVar4 = DAT_00d056f8;\r\n    }\r\n    goto LAB_0049ae6b;\r\n  }\r\n  iVar5 = iVar4 * 0x184;\r\n  iVar9 = (int)(short)(&DAT_00bcd658)[iVar4 * 0xc2];\r\n  if ((byte)(&DAT_00bcd607)[iVar5] == DAT_00eaac28) {\r\n    iVar7 = (*(short *)(&DAT_00bcba42 + iVar9 * 0x90) + 10) / 0x14;\r\n  }\r\n  else {\r\n    iVar7 = 0;\r\n  }\r\n  iVar3 = *(int *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[iVar5] * 0x38);\r\n  uVar8 = *(int *)(&DAT_007090dc + (uint)(byte)(&DAT_00bcd602)[iVar5] * 0x38) + iVar7;\r\n  if (0x13 < (int)uVar8) {\r\n    uVar8 = 0x14;\r\n  }\r\n  iVar10 = iVar9 * 0x90;\r\n  iVar7 = *(int *)(&DAT_007090e0 + (uint)(byte)(&DAT_00bcd602)[DAT_00d056f8 * 0x184] * 0x38);\r\n  if ((*(short *)(&DAT_00bcba22 + iVar10) != 0) &&\r\n     (sVar2 = *(short *)(&DAT_00bcb9cc + iVar10), 10 < sVar2)) {\r\n    if (sVar2 < 0xd) {\r\n      iVar6 = FUN_004b1d10((int)(char)(&DAT_00bcd60b)[iVar5],(&DAT_00bcba33)[iVar10]);\r\n      if (iVar6 == 0) {\r\nLAB_0049ad97:\r\n        uVar8 = uVar8 - 4;\r\n      }\r\n      else {\r\n        sVar2 = *(short *)(&DAT_00bcb9f2 + iVar10);\r\n        if (2 < sVar2) {\r\n          if (sVar2 < 5) {\r\n            uVar8 = uVar8 + 4;\r\n          }\r\n          else if (sVar2 == 6) {\r\n            uVar8 = uVar8 - 2;\r\n          }\r\n        }\r\n      }\r\n    }\r\n    else if (sVar2 == 0xd) {\r\n      iVar6 = FUN_004b1d10((int)(char)(&DAT_00bcd60b)[iVar5],(&DAT_00bcba33)[iVar10]);\r\n      if (iVar6 == 0) goto LAB_0049ad97;\r\n      if (*(short *)(&DAT_00bcb9f2 + iVar10) == 6) {\r\n        uVar8 = uVar8 - 2;\r\n      }\r\n    }\r\n  }\r\n  uVar8 = ((int)uVar8 < 0) - 1 & uVar8;\r\n  if (0x14 < (int)uVar8) {\r\n    uVar8 = 0x14;\r\n  }\r\n  if ((iVar7 == 0) || (iVar7 = ((int)(0x1e - uVar8) / 0x14) * iVar7, iVar7 < 0)) {\r\n    iVar7 = 0;\r\n  }\r\n  if (iVar3 < (int)((uint)(byte)(&DAT_00bcd615)[iVar5] + iVar7)) {\r\n    (&DAT_00bcd615)[iVar5] = (char)iVar3 + '\\x01';\r\n    (&DAT_00bcd630)[iVar5] = 4;\r\n    *(undefined2 *)(&DAT_00bcd62e + iVar5) = 0;\r\n    FUN_004b5050(iVar4);\r\n    FUN_004b7ab0(iVar9);\r\n  }\r\n  else {\r\n    (&DAT_00bcd615)[iVar5] = (char)((uint)(byte)(&DAT_00bcd615)[iVar5] + iVar7);\r\n  }\r\n  FUN_0047d350(0xf);\r\n  iVar4 = DAT_00d056f8;\r\n  (&DAT_00bcd606)[DAT_00d056f8 * 0x184] = 2;\r\nLAB_0049ae6b:\r\n  DAT_00e94e00 = (int)(char)(&DAT_00bcd609)[iVar4 * 0x184] + DAT_00bca2e0 * -2;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 0x10;\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar4 * 0x184) = DAT_00f56424 + 0x20 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49aeb0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49aeb0",
+          "name": "FUN_0049aeb0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049aeb0(void)\r\n\r\n{\r\n  char cVar1;\r\n  bool bVar2;\r\n  undefined4 uVar3;\r\n  undefined4 uVar4;\r\n  undefined1 uVar5;\r\n  int iVar6;\r\n  short sVar7;\r\n  int iVar8;\r\n  int iVar9;\r\n  int iVar10;\r\n  \r\n  iVar10 = DAT_00d056f8;\r\n  bVar2 = false;\r\n  iVar6 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar6] = 4;\r\n  (&DAT_00bcd604)[iVar6] = 0;\r\n  (&DAT_00bcd65d)[iVar6] = 1;\r\n  (&DAT_00bcd66f)[iVar6] = 10;\r\n  (&DAT_00bcd670)[iVar6] = 0x2d;\r\n  iVar8 = (int)(short)(&DAT_00bcd652)[iVar10 * 0xc2];\r\n  iVar9 = iVar8 * 0x108;\r\n  if (((&DAT_007999d8)[iVar9] != '\\x01') || (*(short *)(&DAT_00799a08 + iVar9) != iVar10)) {\r\n    (&DAT_00bcd606)[iVar6] = 2;\r\n  }\r\n  if ((short)(&DAT_00799a18)[iVar8 * 0x84] < 1) {\r\n    (&DAT_00bcd606)[iVar6] = 2;\r\n  }\r\n  if ((short)(&DAT_00799a02)[iVar8 * 0x84] < 1) {\r\n    (&DAT_00bcd606)[iVar6] = 2;\r\n  }\r\n  FUN_004b5420(iVar10);\r\n  iVar10 = DAT_00d056f8;\r\n  if (DAT_00bca2e0 == 0) {\r\n    (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = *(undefined2 *)((int)&DAT_007999dc + iVar9 + 2);\r\n    sVar7 = *(short *)(&DAT_007999e0 + iVar9);\r\n  }\r\n  else if (DAT_00bca2e0 == 2) {\r\n    (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = *(short *)((int)&DAT_007999dc + iVar9 + 2) + 1;\r\n    sVar7 = *(short *)(&DAT_007999e0 + iVar9);\r\n  }\r\n  else {\r\n    if (DAT_00bca2e0 == 4) {\r\n      sVar7 = *(short *)((int)&DAT_007999dc + iVar9 + 2) + 1;\r\n    }\r\n    else {\r\n      if (DAT_00bca2e0 != 6) goto LAB_0049afe6;\r\n      sVar7 = *(short *)((int)&DAT_007999dc + iVar9 + 2);\r\n    }\r\n    (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = sVar7;\r\n    sVar7 = *(short *)(&DAT_007999e0 + iVar9) + 1;\r\n  }\r\n  (&DAT_00bcd60e)[iVar10 * 0xc2] = sVar7;\r\nLAB_0049afe6:\r\n  *(int *)(&DAT_00bcd618 + iVar10 * 0x184) =\r\n       DAT_00bca2d8 + (short)(&DAT_00bcd60c)[iVar10 * 0xc2] +\r\n       (short)(&DAT_00bcd60e)[iVar10 * 0xc2] * 0xe4;\r\n  FUN_004b52f0(iVar10);\r\n  iVar10 = DAT_00d056f8;\r\n  iVar6 = DAT_00d056f8 * 0x184;\r\n  cVar1 = (&DAT_00bcd630)[iVar6];\r\n  if (cVar1 == '\\x04') {\r\n    (&DAT_00bcd606)[iVar6] = 2;\r\n  }\r\n  else if (cVar1 == '\\b') {\r\n    *(short *)(&DAT_00bcd62e + iVar6) = *(short *)(&DAT_00bcd62e + iVar6) + 1;\r\n    if (0x14 < *(short *)(&DAT_00bcd62e + iVar6)) {\r\n      *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n      iVar6 = FUN_00499b50(iVar10,*(undefined4 *)\r\n                                   (&DAT_007090e4 + (uint)(byte)(&DAT_00bcd602)[iVar6] * 0x38));\r\n      iVar10 = DAT_00d056f8;\r\n      if (iVar6 != 0) {\r\n        iVar6 = DAT_00d056f8 * 0x184;\r\n        (&DAT_00bcd630)[iVar6] = 9;\r\n        (&DAT_00bcd663)[iVar6] = (&DAT_007090e8)[(uint)(byte)(&DAT_00bcd602)[iVar6] * 0x38];\r\n      }\r\n    }\r\n  }\r\n  else if (cVar1 == '\\t') {\r\n    cVar1 = (&DAT_00bcd663)[iVar6];\r\n    (&DAT_00bcd663)[iVar6] = cVar1 + 1U;\r\n    if (*(int *)(&DAT_007090e8 + (uint)(byte)(&DAT_00bcd602)[iVar6] * 0x38) <\r\n        (int)(uint)(byte)(cVar1 + 1U)) {\r\n      bVar2 = true;\r\n      iVar6 = FUN_00499b50(iVar10,*(undefined4 *)\r\n                                   (&DAT_007090e4 + (uint)(byte)(&DAT_00bcd602)[iVar6] * 0x38));\r\n      uVar4 = DAT_00d3b4e4;\r\n      uVar3 = DAT_00d3b4e0;\r\n      iVar10 = DAT_00d056f8;\r\n      if (iVar6 == 0) {\r\n        (&DAT_00bcd630)[DAT_00d056f8 * 0x184] = 8;\r\n      }\r\n      else {\r\n        iVar6 = DAT_00d056f8 * 0x184;\r\n        *(short *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) =\r\n             *(short *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) + 1;\r\n        uVar5 = FUN_0051cd80((int)(short)(&DAT_00bcd60c)[iVar10 * 0xc2],\r\n                             (int)(short)(&DAT_00bcd60e)[iVar10 * 0xc2],uVar4,uVar3);\r\n        (&DAT_00bcd609)[iVar6] = uVar5;\r\n        if (*(short *)(&DAT_00bcd62e + iVar6) == 10) {\r\n          FUN_004b45c0(DAT_00d056f8,(int)(short)(&DAT_00bcd60c)[iVar10 * 0xc2],\r\n                       (int)(short)(&DAT_00bcd60e)[iVar10 * 0xc2],DAT_00d3b4e4,DAT_00d3b4e0,0x3c);\r\n          FUN_0047d350(0xd);\r\n          iVar10 = DAT_00d056f8;\r\n        }\r\n        else {\r\n          iVar10 = DAT_00d056f8;\r\n          if (0x17 < *(short *)(&DAT_00bcd62e + iVar6)) {\r\n            *(undefined2 *)(&DAT_00bcd62e + iVar6) = 0;\r\n            (&DAT_00bcd663)[iVar6] = 0;\r\n            iVar10 = DAT_00d056f8;\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n  else {\r\n    (&DAT_00bcd630)[iVar6] = 8;\r\n  }\r\n  iVar10 = iVar10 * 0x184;\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar10] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if (((&DAT_00bcd630)[iVar10] == '\\t') && (bVar2)) {\r\n    *(int *)(&DAT_00bcd5fc + iVar10) =\r\n         DAT_00f56e54 + ((int)*(short *)(&DAT_00bcd62e + iVar10) / 2) * 8 + DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(int *)(&DAT_00bcd5fc + iVar10) = DAT_00f56e44 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b280",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b280",
+          "name": "FUN_0049b280"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049b280(void)\r\n\r\n{\r\n  *(undefined4 *)(&DAT_00bcd5fc + DAT_00d056f8 * 0x184) = DAT_00f55da4;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b2a0",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b2a0",
+          "name": "FUN_0049b2a0"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049b2a0(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar3 = DAT_00d056f8;\r\n  iVar2 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar2] = 1;\r\n  (&DAT_00bcd604)[iVar2] = 0;\r\n  *(undefined2 *)(&DAT_00bcd63a + iVar2) = 0xc0;\r\n  if (((&DAT_007999d8)[(short)(&DAT_00bcd652)[iVar3 * 0xc2] * 0x108] != '\\x01') ||\r\n     ((short)(&DAT_00799a02)[(short)(&DAT_00bcd652)[iVar3 * 0xc2] * 0x84] != iVar3)) {\r\n    (&DAT_00bcd606)[iVar2] = 2;\r\n  }\r\n  cVar1 = (&DAT_00bcd5f9)[iVar2];\r\n  (&DAT_00bcd5f9)[iVar2] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar2] = 0;\r\n  }\r\n  FUN_00493610(1);\r\n  iVar3 = DAT_00d056f8 * 0x184;\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar3] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar3] == '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n         (uint)(byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar3) / 2] + DAT_00f56364;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar3) =\r\n       DAT_00f5635c + (uint)(byte)(&DAT_00bcd5f9)[iVar3] * 8 + DAT_00e94e00;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b390",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b390",
+          "name": "FUN_0049b390"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049b390(void)\r\n\r\n{\r\n  int iVar1;\r\n  \r\n  iVar1 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd66a)[iVar1] = 0;\r\n  (&DAT_00bcd65d)[iVar1] = 1;\r\n  (&DAT_00bcd604)[iVar1] = 1;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b400",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b400",
+          "name": "FUN_0049b400"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049b400(void)\r\n\r\n{\r\n  char cVar1;\r\n  short sVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  \r\n  iVar7 = (int)*(short *)(&DAT_00bcd660 + DAT_00d056f8 * 0x184);\r\n  sVar2 = (&DAT_00bcd652)[DAT_00d056f8 * 0xc2];\r\n  iVar3 = FUN_0049b3c0(DAT_00d056f8);\r\n  iVar6 = DAT_00d056f8;\r\n  iVar4 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd65d)[iVar4] = 0;\r\n  (&DAT_00bcd66a)[iVar4] = 1;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar4];\r\n  (&DAT_00bcd5f9)[iVar4] = cVar1 + 1U;\r\n  if (0xb < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar4] = 0;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd778 + iVar4) = 0;\r\n  if (iVar7 < 1) {\r\n    (&DAT_00bcd606)[iVar4] = 2;\r\n  }\r\n  else {\r\n    iVar5 = iVar7 * 0x184;\r\n    if ((&DAT_00bcd630)[iVar5] == '\\x04') {\r\n      (&DAT_00bcd606)[iVar4] = 2;\r\n    }\r\n    else if ((&DAT_00bcd606)[iVar5] == '\\x01') {\r\n      if (((&DAT_00bcd602)[iVar5] == '\\'') || ((&DAT_00bcd602)[iVar5] == 'B')) {\r\n        if (((&DAT_00bcd630)[iVar3 * 0x184] != '\\a') && ((&DAT_00bcd630)[iVar3 * 0x184] != '\\x06'))\r\n        {\r\n          FUN_004b22e0(iVar6,(int)*(short *)(&DAT_00bcd660 + iVar4),1);\r\n          iVar6 = DAT_00d056f8;\r\n        }\r\n      }\r\n      else {\r\n        (&DAT_00bcd606)[iVar4] = 2;\r\n      }\r\n    }\r\n    else {\r\n      (&DAT_00bcd606)[iVar4] = 2;\r\n      (&DAT_00799a2e)[(uint)(byte)(&DAT_00bcd672)[iVar4] + sVar2 * 0x84] =\r\n           (&DAT_00799a2e)[(uint)(byte)(&DAT_00bcd672)[iVar4] + sVar2 * 0x84] + 100;\r\n    }\r\n  }\r\n  if ((&DAT_00bcd630)[iVar3 * 0x184] == '\\a') {\r\n    (&DAT_00bcd5f9)[iVar6 * 0x184] = 0;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar3 * 0x184] == '\\x06') {\r\n    (&DAT_00bcd65d)[iVar6 * 0x184] = 1;\r\n  }\r\n  if ((&DAT_00bcd65d)[iVar7 * 0x184] != '\\0') {\r\n    (&DAT_00bcd65d)[iVar6 * 0x184] = 1;\r\n  }\r\n  iVar6 = iVar6 * 0x184;\r\n  cVar1 = (&DAT_00bcd609)[iVar6];\r\n  if ('\\a' < cVar1) {\r\n    cVar1 = (&DAT_00bcd60a)[iVar6];\r\n  }\r\n  DAT_00e94e00 = cVar1 - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  if ((&DAT_00bcd630)[iVar6] != '\\x04') {\r\n    *(uint *)(&DAT_00bcd5fc + iVar6) =\r\n         DAT_00f55d34 + (uint)(byte)(&DAT_00bcd5f9)[iVar6] * 8 + DAT_00e94e00;\r\n    return;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar6) =\r\n       (byte)(&DAT_005d048c)[(int)*(short *)(&DAT_00bcd62e + iVar6) / 2] + 0x60 + DAT_00f55d34;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b610",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b610",
+          "name": "FUN_0049b610"
+        },
+        "status": "ok",
+        "pseudocode": "\r\nvoid FUN_0049b610(void)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  short sVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  \r\n  iVar2 = DAT_00d056f8;\r\n  iVar4 = DAT_00d056f8 * 0x184;\r\n  (&DAT_00bcd65d)[iVar4] = 0;\r\n  (&DAT_00bcd66f)[iVar4] = 0;\r\n  (&DAT_00bcd66e)[iVar4] = 1;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar4];\r\n  (&DAT_00bcd5f9)[iVar4] = cVar1 + 1U;\r\n  if (0x23 < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd606)[iVar4] = 2;\r\n  }\r\n  if (*(short *)(&DAT_00bcd62e + iVar4) < 1000) {\r\n    FUN_004b5420(iVar2);\r\n    iVar5 = FUN_00480e90(DAT_00d056f8);\r\n    iVar4 = DAT_00d056f8;\r\n    iVar2 = DAT_00bca2d8;\r\n    if (iVar5 != 0) {\r\n      iVar5 = DAT_00d056f8 * 0x184;\r\n      (&DAT_00bcd60c)[DAT_00d056f8 * 0xc2] = (undefined2)DAT_00d3b4e4;\r\n      sVar3 = (short)DAT_00d3b4e0;\r\n      (&DAT_00bcd60e)[iVar4 * 0xc2] = (short)DAT_00d3b4e0;\r\n      *(int *)(&DAT_00bcd618 + iVar5) = iVar2 + (short)(&DAT_00bcd60c)[iVar4 * 0xc2] + sVar3 * 0xe4;\r\n      (&DAT_00bcd642)[iVar4 * 0xc2] = (&DAT_00bcd60c)[iVar4 * 0xc2] * 0xf;\r\n      (&DAT_00bcd644)[iVar4 * 0xc2] = (&DAT_00bcd60e)[iVar4 * 0xc2] * 0xf;\r\n      (&DAT_00bcd642)[iVar4 * 0xc2] = (&DAT_00bcd642)[iVar4 * 0xc2] + 7;\r\n      (&DAT_00bcd644)[iVar4 * 0xc2] = (&DAT_00bcd644)[iVar4 * 0xc2] + 7;\r\n    }\r\n    FUN_004b52f0(iVar4);\r\n    iVar4 = DAT_00d056f8 * 0x184;\r\n    *(undefined2 *)(&DAT_00bcd62e + iVar4) = 1000;\r\n  }\r\n  *(uint *)(&DAT_00bcd5fc + iVar4) = (uint)(byte)(&DAT_00bcd5f9)[iVar4] + DAT_00f56dbc;\r\n  return;\r\n}\r\n\r\n"
+      },
+      {
+        "address": "0x49b750",
+        "procedure": {
+          "status": "resolved",
+          "address": "0x49b750",
+          "name": "FUN_0049b750"
+        },
+        "status": "ok",
+        "pseudocode": "\r\n/* WARNING: Removing unreachable block (ram,0x0049b9b8) */\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_0049b750(void)\r\n\r\n{\r\n  char cVar1;\r\n  undefined1 uVar2;\r\n  short sVar3;\r\n  short sVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  uint uVar8;\r\n  uint uVar9;\r\n  int iVar10;\r\n  uint uVar11;\r\n  uint uVar12;\r\n  int local_4;\r\n  \r\n  iVar7 = DAT_00d056f8;\r\n  iVar5 = DAT_00d056f8 * 0x184;\r\n  *(int *)(&DAT_00bcd740 + iVar5) = *(int *)(&DAT_00bcd740 + iVar5) + 1;\r\n  iVar6 = *(int *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[iVar5] * 0x38);\r\n  iVar10 = *(int *)(&DAT_00bcd730 + iVar5);\r\n  if (((((&DAT_007999e8)[iVar10 * 0x84] != 0x73) || ((&DAT_00799a7e)[iVar10 * 0x108] == '\\0')) ||\r\n      ((&DAT_007999d8)[iVar10 * 0x108] != '\\x01')) || ((&DAT_00799a18)[iVar10 * 0x84] == 0)) {\r\n    *(undefined4 *)(&DAT_00bcd730 + iVar5) = 0;\r\n  }\r\n  if (*(int *)(&DAT_00bcd73c + iVar5) <= *(int *)(&DAT_00bcd740 + iVar5)) {\r\n    *(undefined4 *)(&DAT_00bcd740 + iVar5) = 0;\r\n    (&DAT_00bcd5f9)[iVar5] = (&DAT_00bcd5f9)[iVar5] + '\\x01';\r\n  }\r\n  iVar10 = DAT_00eaac28;\r\n  (&DAT_00bcd66a)[iVar5] = 5;\r\n  (&DAT_00ea5cea)[iVar10 * 0x24ec] = (&DAT_00ea5cea)[iVar10 * 0x24ec] + 1;\r\n  (&DAT_00bcd604)[iVar5] = 0;\r\n  (&DAT_00bcd65d)[iVar5] = 0;\r\n  cVar1 = (&DAT_00bcd5f9)[iVar5];\r\n  sVar3 = (&DAT_00bcd658)[iVar7 * 0xc2];\r\n  (&DAT_00bcd5f9)[iVar5] = cVar1 + 1U;\r\n  if (0x31 < (byte)(cVar1 + 1U)) {\r\n    (&DAT_00bcd5f9)[iVar5] = 0;\r\n  }\r\n  switch((&DAT_00bcd630)[iVar5]) {\r\n  case 4:\r\n    FUN_004b1d50(iVar7);\r\n    iVar7 = DAT_00d056f8;\r\n    break;\r\n  case 5:\r\n    FUN_004b17d0(iVar7);\r\n    iVar7 = DAT_00d056f8;\r\n    break;\r\n  default:\r\n    (&DAT_00bcd630)[iVar5] = 8;\r\n    break;\r\n  case 8:\r\n  case 0x12:\r\n    *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + -1;\r\n    if (*(short *)(&DAT_00bcd62e + iVar5) < 1) {\r\n      (&DAT_00d3b1c8)[DAT_00d3b1c4] = DAT_00d3b374;\r\n      DAT_00d3b1c4 = DAT_00d3b1c4 + 1;\r\n      if (99 < DAT_00d3b1c4) {\r\n        DAT_00d3b1c4 = 0;\r\n      }\r\n      local_4 = 0x1f;\r\n      do {\r\n        uVar9 = DAT_00d3b384 >> 4;\r\n        uVar11 = DAT_00d3b384 & 1;\r\n        uVar12 = DAT_00d3b380 >> 4;\r\n        uVar8 = DAT_00d3b380 & 1;\r\n        DAT_00d3b384 = DAT_00d3b384 >> 1;\r\n        DAT_00d3b380 = DAT_00d3b380 >> 1;\r\n        if ((uVar9 & 1) != uVar11) {\r\n          DAT_00d3b384 = DAT_00d3b384 | 0x40000000;\r\n        }\r\n        if ((uVar12 & 1) != uVar8) {\r\n          DAT_00d3b380 = DAT_00d3b380 | 0x40000000;\r\n        }\r\n        local_4 = local_4 + -1;\r\n      } while (local_4 != 0);\r\n      _DAT_00d3b378 = DAT_00d3b384 & 7;\r\n      _DAT_00d3b364 = DAT_00d3b380 & 0x7fff;\r\n      _DAT_00d3b36c = DAT_00d3b380 & 7;\r\n      DAT_00d3b374 = DAT_00d3b384 & 0x7f;\r\n      _DAT_00d3b368 = DAT_00d3b380 & 0x7f;\r\n      _DAT_00d3b370 = DAT_00d3b384 & 0x7fff;\r\n      iVar10 = sVar3 * 0x90;\r\n      iVar6 = FUN_004eab10((int)*(short *)(&DAT_00bcb9fe + iVar10),\r\n                           (int)*(short *)(&DAT_00bcba00 + iVar10),DAT_00d3b384 & 0xf,\r\n                           (int)(short)(&DAT_00bcd60c)[iVar7 * 0xc2],\r\n                           (int)(short)(&DAT_00bcd60e)[iVar7 * 0xc2],1);\r\n      iVar7 = DAT_00d056f8;\r\n      if ((iVar6 < 0) || (0xf < iVar6)) {\r\n        *(undefined2 *)(&DAT_00bcd62e + DAT_00d056f8 * 0x184) = 100;\r\n      }\r\n      else {\r\n        sVar3 = *(short *)(&DAT_005cdb7c + iVar6 * 2);\r\n        iVar5 = DAT_00d056f8 * 0x184;\r\n        sVar4 = *(short *)(&DAT_00bcba00 + iVar10);\r\n        *(short *)(&DAT_00bcd61c + iVar5) =\r\n             *(short *)(&DAT_005cdb78 + iVar6 * 2) + *(short *)(&DAT_00bcb9fe + iVar10);\r\n        *(short *)(&DAT_00bcd61e + iVar5) = sVar3 + sVar4;\r\n        (&DAT_00bcd630)[iVar5] = 10;\r\n      }\r\n    }\r\n    break;\r\n  case 9:\r\n  case 10:\r\n    FUN_004a5da0(iVar7,iVar6);\r\n    iVar7 = DAT_00d056f8;\r\n    iVar6 = DAT_00d056f8 * 0x184;\r\n    cVar1 = (&DAT_00bcd609)[iVar6];\r\n    if (cVar1 == '\\t') {\r\n      FUN_004b3250(DAT_00d056f8);\r\n      iVar7 = DAT_00d056f8;\r\n    }\r\n    else if (cVar1 == '\\n') {\r\n      (&DAT_00bcd606)[iVar6] = 2;\r\n    }\r\n    else if (cVar1 == '\\b') {\r\n      uVar2 = (&DAT_00bcd60a)[iVar6];\r\n      (&DAT_00d3b1c8)[DAT_00d3b1c4] = DAT_00d3b374;\r\n      DAT_00d3b1c4 = DAT_00d3b1c4 + 1;\r\n      (&DAT_00bcd609)[iVar6] = uVar2;\r\n      (&DAT_00bcd630)[iVar6] = 0x12;\r\n      if (99 < DAT_00d3b1c4) {\r\n        DAT_00d3b1c4 = 0;\r\n      }\r\n      local_4 = 0x1f;\r\n      do {\r\n        uVar8 = DAT_00d3b384 >> 4;\r\n        uVar11 = DAT_00d3b384 & 1;\r\n        uVar12 = DAT_00d3b380 >> 4;\r\n        uVar9 = DAT_00d3b380 & 1;\r\n        DAT_00d3b384 = DAT_00d3b384 >> 1;\r\n        DAT_00d3b380 = DAT_00d3b380 >> 1;\r\n        if ((uVar8 & 1) != uVar11) {\r\n          DAT_00d3b384 = DAT_00d3b384 | 0x40000000;\r\n        }\r\n        if ((uVar12 & 1) != uVar9) {\r\n          DAT_00d3b380 = DAT_00d3b380 | 0x40000000;\r\n        }\r\n        local_4 = local_4 + -1;\r\n      } while (local_4 != 0);\r\n      _DAT_00d3b378 = DAT_00d3b384 & 7;\r\n      _DAT_00d3b364 = DAT_00d3b380 & 0x7fff;\r\n      _DAT_00d3b370 = DAT_00d3b384 & 0x7fff;\r\n      _DAT_00d3b368 = DAT_00d3b380 & 0x7f;\r\n      _DAT_00d3b36c = DAT_00d3b380 & 7;\r\n      DAT_00d3b374 = DAT_00d3b384 & 0x7f;\r\n      *(short *)(&DAT_00bcd62e + iVar6) = (short)((ulonglong)_DAT_00d3b370 % 0x96) + 0x96;\r\n    }\r\n    break;\r\n  case 0xc:\r\n    if (*(short *)(&DAT_00bcd62e + iVar5) == 0) {\r\n      FUN_004b5050(iVar7);\r\n      iVar7 = DAT_00d056f8;\r\n    }\r\n    iVar6 = iVar7 * 0x184;\r\n    *(short *)(&DAT_00bcd62e + iVar6) = *(short *)(&DAT_00bcd62e + iVar6) + 1;\r\n    if (500 < *(short *)(&DAT_00bcd62e + iVar6)) {\r\n      (&DAT_00bcd630)[iVar6] = 4;\r\n    }\r\n    break;\r\n  case 0xe:\r\n  case 0xf:\r\n    FUN_004eb000(iVar7);\r\n    iVar7 = DAT_00d056f8;\r\n    break;\r\n  case 0x10:\r\n  case 0x11:\r\n    FUN_004a5da0(iVar7,iVar6 * 2);\r\n    iVar7 = DAT_00d056f8;\r\n    iVar6 = DAT_00d056f8 * 0x184;\r\n    cVar1 = (&DAT_00bcd609)[iVar6];\r\n    if (cVar1 == '\\t') {\r\n      FUN_004b3250(DAT_00d056f8);\r\n      iVar7 = DAT_00d056f8;\r\n    }\r\n    else if (cVar1 == '\\n') {\r\n      (&DAT_00bcd609)[iVar6] = (&DAT_00bcd60a)[iVar6];\r\n      (&DAT_00bcd630)[iVar6] = 0xe;\r\n    }\r\n    else if (cVar1 == '\\b') {\r\n      (&DAT_00bcd609)[iVar6] = (&DAT_00bcd60a)[iVar6];\r\n      (&DAT_00bcd630)[iVar6] = 0xe;\r\n    }\r\n    break;\r\n  case 0x18:\r\n    *(short *)(&DAT_00bcd62e + iVar5) = *(short *)(&DAT_00bcd62e + iVar5) + -1;\r\n    if (*(short *)(&DAT_00bcd62e + iVar5) < 1) {\r\n      *(undefined4 *)(&DAT_00bcd740 + iVar5) = 0;\r\n      *(undefined4 *)(&DAT_00bcd73c + iVar5) = 8;\r\n      (&DAT_00bcd630)[iVar5] = 8;\r\n    }\r\n    *(undefined4 *)(&DAT_00bcd5fc + iVar5) = 0;\r\n    return;\r\n  }\r\n  iVar7 = iVar7 * 0x184;\r\n  DAT_00e94e00 = (char)(&DAT_00bcd609)[iVar7] - DAT_00bca2e0;\r\n  if (DAT_00e94e00 < 0) {\r\n    DAT_00e94e00 = DAT_00e94e00 + 8;\r\n  }\r\n  switch((&DAT_00bcd630)[iVar7]) {\r\n  case 4:\r\n  case 0xc:\r\n    break;\r\n  default:\r\n    *(uint *)(&DAT_00bcd5fc + iVar7) = (uint)((byte)(&DAT_00bcd5f9)[iVar7] >> 1) + DAT_00f5607c;\r\n    return;\r\n  }\r\n  if (*(short *)(&DAT_00bcd62e + iVar7) < 0x19) {\r\n    *(int *)(&DAT_00bcd5fc + iVar7) = *(short *)(&DAT_00bcd62e + iVar7) + DAT_00f56084;\r\n    return;\r\n  }\r\n  *(undefined4 *)(&DAT_00bcd5fc + iVar7) = 0;\r\n  return;\r\n}\r\n\r\n"
+      }
+    ],
+    "total": 32,
+    "succeeded": 32,
+    "failed": 0
+  },
+  "confidence": "derived",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "Derived by an REA composed workflow.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Ghidra analysis was seeded before auto-analysis from C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\actor-callback-seeds.tsv (sha256 8cadae0307ea8724b05fc9c7bfa8ed390b55423b413add9dba50f56bd725db45: 102 function, 0 code, 0 label entries). Seeded functions, code and names are caller assertions, not Ghidra discoveries.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Seed outcome: 102 functions created, 0 already present, 0 failed; 0 code seeds decoded, 0 failed; 0 labels applied, 0 failed; 0 seeds outside initialized memory.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+    "Ghidra (ghidra 12.1.4) address_name, procedure_address, procedure_pseudo_code: Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.",
+    "Ghidra (ghidra 12.1.4) procedure_address: External functions and local thunks are distinct; procedure metadata identifies both and preserves a thunk target when Ghidra resolves one.",
+    "Ghidra (ghidra 12.1.4) procedure_pseudo_code: External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "Ghidra (ghidra 12.1.4) procedure_pseudo_code: Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+    {
+      "kind": "address",
+      "address": "0x494b30"
+    },
+    {
+      "kind": "address",
+      "address": "0x494f70"
+    },
+    {
+      "kind": "address",
+      "address": "0x496140"
+    },
+    {
+      "kind": "address",
+      "address": "0x496f20"
+    },
+    {
+      "kind": "address",
+      "address": "0x497010"
+    },
+    {
+      "kind": "address",
+      "address": "0x497450"
+    },
+    {
+      "kind": "address",
+      "address": "0x497dc0"
+    },
+    {
+      "kind": "address",
+      "address": "0x497fc0"
+    },
+    {
+      "kind": "address",
+      "address": "0x498160"
+    },
+    {
+      "kind": "address",
+      "address": "0x498370"
+    },
+    {
+      "kind": "address",
+      "address": "0x4984a0"
+    },
+    {
+      "kind": "address",
+      "address": "0x498590"
+    },
+    {
+      "kind": "address",
+      "address": "0x4986b0"
+    },
+    {
+      "kind": "address",
+      "address": "0x498750"
+    },
+    {
+      "kind": "address",
+      "address": "0x4987f0"
+    },
+    {
+      "kind": "address",
+      "address": "0x4988b0"
+    },
+    {
+      "kind": "address",
+      "address": "0x498a10"
+    },
+    {
+      "kind": "address",
+      "address": "0x498ad0"
+    },
+    {
+      "kind": "address",
+      "address": "0x498c60"
+    },
+    {
+      "kind": "address",
+      "address": "0x498df0"
+    },
+    {
+      "kind": "address",
+      "address": "0x499010"
+    },
+    {
+      "kind": "address",
+      "address": "0x49a150"
+    },
+    {
+      "kind": "address",
+      "address": "0x49a5a0"
+    },
+    {
+      "kind": "address",
+      "address": "0x49a880"
+    },
+    {
+      "kind": "address",
+      "address": "0x49ac00"
+    },
+    {
+      "kind": "address",
+      "address": "0x49aeb0"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b280"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b2a0"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b390"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b400"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b610"
+    },
+    {
+      "kind": "address",
+      "address": "0x49b750"
+    }
+  ],
+  "evidence_links": []
+}

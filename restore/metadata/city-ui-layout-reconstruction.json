@@ -1,0 +1,154 @@
+{
+  "status": "frozen after private Debug and optimized Release proof",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": [
+    {
+      "address": "0051e930",
+      "staged_source": "artifacts/city_ui_layout_phase/src/unit_02343.c",
+      "native_instructions": 16,
+      "contract": "void cdecl; reads DWORDdisplaywidth once; sets expanded/compact DWORDorigins for640/800/1024; unsupported widths leave origins untouched."
+    },
+    {
+      "address": "0051fd60",
+      "staged_source": "artifacts/city_ui_layout_phase/src/unit_02353.c",
+      "native_instructions": 173,
+      "contract": "void cdecl; full signedDWORDbenchmark thresholds advanceDWORDstep; animate both panels via nativebyte-stride table or finish with viewport/camera/refresh sequence."
+    }
+  ],
+  "reference_readonly": [
+    {
+      "path": "../PharaohRewrite/src/Pharaoh.Engine/UI/LegacyCityHudState.cs",
+      "finding": "Scenario HUD projection only; does not supply geometry."
+    },
+    {
+      "path": "../PharaohRewrite/src/Pharaoh.Engine/UI/LegacyCitySidebarAnimation.cs",
+      "finding": "Confirms47-stage table and increment thresholds. ManagedAdvanceStep clamps47; original native stores full advancedstep even above47, so C deliberately retains native behavior."
+    },
+    {
+      "path": "../PharaohRewrite/docs/MAP_RENDERER_PLAN.cs.md",
+      "finding": "Expanded/compact origins478/598 at640,598/718 at800,838/958 at1024; resolutionedge mask remains foreground ofmovingpanel."
+    }
+  ],
+  "native_bindings": {
+    "initializer_callers": [
+      "00414233 in00413ed0",
+      "00414bd0 in00414bd0"
+    ],
+    "transition_caller": "004d7963 in004d75d0",
+    "sprite_receiver": "ECX=f55bb0 for every53e590 call; existing proven Cglobalmanagerfacade unchanged.",
+    "animation_forward": "DWORD[005f8260+step*4]",
+    "animation_reverse": "DWORD[005f831c-step*4]",
+    "completion": [
+      "modezero:4ddec0 thenDWORDmode=1; otherwise4ddf20 thenDWORDmode=0",
+      "BYTEe38dda=1",
+      "4de080()",
+      "4d71c0(1)"
+    ]
+  },
+  "corrections": [
+    "FullDWORDresolution input and sidebarposition outputs; sole source writer ofpositions is51e930.",
+    "SignedDWORDbenchmark thresholds<=24,<=60,<=96; DWORDstep stored before signedcompletioncompare>=47.",
+    "DWORDmode, artIDs, current positions andclipright; byte-onlyredraw/screenmode retained.",
+    "Flat4-byte table stride rather than old16-byte stride.",
+    "Native draw order, forcedchildarguments and geometry/art reloads after callbacks retained. Cachedanimationoffset survives endpointmutations. Clipright restored from livefullDWORDscreenwidth on every drawing exit."
+  ],
+  "proof": {
+    "cases_each_configuration": 3689,
+    "native_functions": 12,
+    "native_instructions": 1544,
+    "new_native_instructions": 189,
+    "unchanged_HUD_instructions": 1355,
+    "smoke_checks_each_configuration": 17,
+    "complete_animation_sequences": 24,
+    "private_Release_exe_sha256": "3463aea49109057b4e7ff7322c9ad95442106f55ddda85c816a38153411f3b61",
+    "nonuniform_guards": true,
+    "frozen_HUD_source_drift": [],
+    "report": "artifacts/city_ui_layout_phase/metadata/emulation.json",
+    "private_debug_report": "artifacts/city_ui_layout_phase/metadata/emulation-debug.json",
+    "private_debug_compiled_C_sha256": "bf8bae8c2626fcca40157ebb3071b268aafca17a95ca95f656a5a0abfce1499d",
+    "private_release_report": "artifacts/city_ui_layout_phase/metadata/emulation-release.json",
+    "private_release_compiled_C_sha256": "3463aea49109057b4e7ff7322c9ad95442106f55ddda85c816a38153411f3b61"
+  },
+  "limitations": [
+    "Viewport/map rendering, camera clamping, sprite/widget/text/primitive drawing and predicate0044bd00 remain controlled endpoints. Physical pixels and complete gameplay rendering are not proved.",
+    "Endpoint004d71c0 is controlled. Variant7 composes the actual HUD0051e990 refresh from that endpoint, without claiming the complete screen dispatcher is reconstructed.",
+    "Valid animation drawing steps are1..46. Completion also covers advanced steps above47 and mode/benchmark high DWORDs. Malformed out-of-table negative/wrapped steps are excluded, without adding production bounds checks.",
+    "All12 routines have void interfaces; incidental native EAX forwarding is not compared. Existing0051f780 remains an empty controlled helper."
+  ],
+  "integration": {
+    "apply_map": "artifacts/city_ui_layout_phase/metadata/apply-map.json",
+    "private_project": "artifacts/city_ui_layout_phase/CMakeLists.txt",
+    "target": "restore_city_ui_layout_verify",
+    "sources": [
+      "tests/city_ui_layout.c",
+      "src/unit_02343.c",
+      "src/unit_02353.c",
+      "src/unit_02344.c",
+      "src/unit_02345.c",
+      "src/unit_02346.c",
+      "src/unit_02347.c",
+      "src/unit_02348.c",
+      "src/unit_02349.c",
+      "src/unit_02350.c",
+      "src/unit_02433.c",
+      "src/unit_02454.c",
+      "src/unit_02455.c"
+    ],
+    "include": "include",
+    "definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "compile_options": [
+      "/W4",
+      "Debug /Od; optimized Release verified"
+    ],
+    "link": [
+      "restore_data"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test": "standalone_city_ui_layout",
+    "proof": "Python312/python.exe tools/verify_city_ui_layout_emulation.py --production --exe <shared verification executable>",
+    "production_note": "Both procedures already belong to productionglob. No runtime source addition or frozenHUD source/header/proof changes."
+  },
+  "frozen_file_hashes": [
+    {
+      "source": "artifacts/city_ui_layout_phase/src/unit_02343.c",
+      "target": "src/unit_02343.c",
+      "sha256": "f827c25d9aef48a8f586817fac9d69b93711923986d6e29f249420e5dafd743d"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/src/unit_02353.c",
+      "target": "src/unit_02353.c",
+      "sha256": "76efaa3415719d9ca6e8e9023799f258ac74c510cb489be2370166e3dcbb5ab9"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/include/city_ui_layout.h",
+      "target": "include/city_ui_layout.h",
+      "sha256": "30787cd49d0191eaf648de6a95859c52724cd6f1662c27b834783d7748f2c6e0"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/tests/city_ui_layout.c",
+      "target": "tests/city_ui_layout.c",
+      "sha256": "045a5c0d255531b14a0878f8930168c741eb41896095e8b5c8bb63642bfe7398"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/tests/city_ui_layout_fixture.h",
+      "target": "tests/city_ui_layout_fixture.h",
+      "sha256": "275e86fac25116767a3cea5db6bd0d885bdfc589cb52cf0c780807d01051dd86"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/tools/verify_city_ui_layout_emulation.py",
+      "target": "tools/verify_city_ui_layout_emulation.py",
+      "sha256": "6cdc4e8df8437974a0ba608790d0b703ba9275af8b6914e54310affc7993295f"
+    },
+    {
+      "source": "artifacts/city_ui_layout_phase/metadata/native.json",
+      "target": "metadata/city-ui-layout-native.json",
+      "sha256": "730117b1af562ec25b3961833c99634130b8355a60d306e605468ca76862dda3"
+    }
+  ]
+}

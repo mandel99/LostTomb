@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T11:19:09.022301+00:00",
+  "passed": true,
+  "child_exe_sha256": "38641fcf03792186454f5d5ce35165a1e06ce6bc2741ba6b02e2984cdc0f915b",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "method": "Isolated restored C startup, real C menu/small-button dispatch and WM_CHAR name entry; immutable post-render frames read from the owned C child. Actual filesystem effects checked on a known fixture profile and two marker files.",
+  "cases": [
+    {
+      "scenario": "duplicate",
+      "log": {
+        "path": "artifacts/menu-dialog-duplicate.log",
+        "sha256": "4b1b0b26a242cfa9083ec7d5b1b9191ad1d31efae6bb3440d68f9879c03375f6"
+      },
+      "frames": [
+        {
+          "screen": "dialog",
+          "manifest": {
+            "path": "metadata/duplicate-dialog-frame.json",
+            "sha256": "58b2628c5d969238c1c590beb4f6cba01fef1d8c28aee17c6a30be33e0a0c7ed"
+          },
+          "image": {
+            "path": "artifacts/duplicate-dialog.bmp",
+            "sha256": "a61a4d92bf86e1cc2fab7a2cc537f219509ae2e7ccb1d2b71fc367d8199fb06d"
+          },
+          "visually_inspected": true
+        },
+        {
+          "screen": "return",
+          "manifest": {
+            "path": "metadata/duplicate-return-frame.json",
+            "sha256": "e8dbf77b9133ff90a900cc2080b92f58d33fdcb06a417968d064f1ea0be24d67"
+          },
+          "image": {
+            "path": "artifacts/duplicate-return.bmp",
+            "sha256": "7221900b93defa1b56b31c85289bf9fa906f29e443e725e631d5ce363b882dfe"
+          },
+          "visually_inspected": true
+        }
+      ],
+      "expected_bounded_timeout": true
+    },
+    {
+      "scenario": "cancel",
+      "log": {
+        "path": "artifacts/menu-dialog-cancel.log",
+        "sha256": "42e16a24862bcbe9c9daeaa9f899af6c46eb6cf8a35f2955b38336165a3aa1b7"
+      },
+      "frames": [
+        {
+          "screen": "dialog",
+          "manifest": {
+            "path": "metadata/cancel-dialog-frame.json",
+            "sha256": "c1ec2ecff0c61fbcbd2e9c2352c629dab076307dff3ae0e2a19780f6c332c884"
+          },
+          "image": {
+            "path": "artifacts/cancel-dialog.bmp",
+            "sha256": "4903c0439935522f18da371e380beba2cc437c28a86fb1b4900fec96e81f4923"
+          },
+          "visually_inspected": true
+        },
+        {
+          "screen": "return",
+          "manifest": {
+            "path": "metadata/cancel-return-frame.json",
+            "sha256": "a35242d0d4e1cda7538722332096134869ce2cd18d003cef813c07237eb9ba46"
+          },
+          "image": {
+            "path": "artifacts/cancel-return.bmp",
+            "sha256": "74c048d3ae5f728652dce4a551c7c6ce0c2120b0f3c4f7977e656c8c97918b6c"
+          },
+          "visually_inspected": true
+        }
+      ],
+      "expected_bounded_timeout": true
+    },
+    {
+      "scenario": "delete",
+      "log": {
+        "path": "artifacts/menu-dialog-delete.log",
+        "sha256": "886abb910eabf77b222f94f11e17a94828ffe70600e6b73f11ce8f19fe3336e5"
+      },
+      "frames": [
+        {
+          "screen": "dialog",
+          "manifest": {
+            "path": "metadata/delete-dialog-frame.json",
+            "sha256": "8d74bd11b192a966671cf6eb880bd54faadecd8423de780cef0930373d5ceeed"
+          },
+          "image": {
+            "path": "artifacts/delete-dialog.bmp",
+            "sha256": "4903c0439935522f18da371e380beba2cc437c28a86fb1b4900fec96e81f4923"
+          },
+          "visually_inspected": true
+        },
+        {
+          "screen": "return",
+          "manifest": {
+            "path": "metadata/delete-return-frame.json",
+            "sha256": "6e372d37334204ff71bf23dc3cefd87740fe8cbe07696fe300c9fcb87befcc53"
+          },
+          "image": {
+            "path": "artifacts/delete-return.bmp",
+            "sha256": "3e6ac4c730e1cde54dd13762a904c6a905ffcc9df4d94848a44fab88ba3747e8"
+          },
+          "visually_inspected": true
+        }
+      ],
+      "expected_bounded_timeout": true
+    }
+  ],
+  "cancel_filesystem": {
+    "path": "metadata/delete-cancel-filesystem.json",
+    "sha256": "82a9dc34db58872ac9e6ae3a0e59b4bbdb052b339b1b6a0a85ab6e0cb367db4f"
+  },
+  "delete_filesystem": {
+    "path": "metadata/delete-confirm-filesystem.json",
+    "sha256": "9f26196ff77bc000aad55f39a916c4c256bce8b834ad76fc73f8c843ea59584a"
+  },
+  "fixture_cleanup": "C-created Restore profile restored byte-for-byte from the retained fixture; marker files removed from the isolated Save folder.",
+  "limitations": [
+    "Visual captures use 1024x768. Native draw-call checks cover the other two viewport offsets. Other modal response callbacks and later menu branches remain incomplete."
+  ],
+  "source_hashes": {
+    "runtime/menu_dialog.c": "92a7291d98be2db9359b4e7185fe796ed999e810f8a8a1db3b04ffee90669295",
+    "runtime/family_delete.c": "b3134f32808f657bca3eec1b4cd20c52dce31ab14cc6406785447566423fde3e",
+    "runtime/startup_probe.c": "43026a2e4ffcc367a0087be3eb41e114b87e75226939ffc84242311f370142e2",
+    "src/unit_00398.c": "5a8dd652e16086a0ee428fefe6b771999abdeddc73f9ba5cd1a1db15af0c2586",
+    "src/unit_00399.c": "3cd516ac28ffcc98eff662ce5287a9900b3bc402e3411bc888ad52668ba6f4e7",
+    "src/unit_00418.c": "6525b7d920b90fa5e2534dd27b62b4f86dfe73b7b1b9f45e4b9f059b1778ce3e",
+    "src/unit_00419.c": "8f452aa224228b58f517f9d3bfed5aa4f1f90a855d832316da00d05eb515aa61",
+    "src/unit_01669.c": "9823a26a7bd29d4355fb84e8010159ce5fc47e35f0114b2825905edfe6ad3991",
+    "src/unit_01690.c": "9cf489376c2636ee695469ea583c0ebbbcad7847ff9cc81731ace2835e69eef1",
+    "src/unit_01704.c": "fd288903dc5db5c87f4a90cf5e84941187db3a64ce8c95b2e5c20c1e34b19939",
+    "src/unit_01705.c": "5c09c7b4db98a2b343ffa620333d595b65d1f9abe26ae0837b1c4ad16b1ed117",
+    "tools/Debug-Standalone.ps1": "6224842cf27e162e48a2f80b19381eb93cc4b180fb1b962f4447d5abeda3c9b7",
+    "tools/capture_restore_framebuffer.py": "fb70acea4517b2a5ebd70bb2a9376c04496b8bb18240480d0294ffa7d882b4b4"
+  }
+}

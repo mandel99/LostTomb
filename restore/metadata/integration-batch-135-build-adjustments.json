@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-31T00:11:02.610219+00:00",
+  "scope": "Build plumbing only: add one existing frozen data-header directory to two verification targets. No algorithm, source mapping, frozen recipe or test corpus changes.",
+  "path": "CMakeLists.txt",
+  "before_sha256": "92d720f804c80aad8b42909197fe35df97f1e1554ebb820dae9131e476d632e1",
+  "after_sha256": "3addbc8039e57ce7176040f54512980c294598b3fa17cbcbf41df5b423c273a2",
+  "appended_text": "\n# Checkpoint135 build correction: P3 fixtures share P2's authenticated record data.\nforeach(_map135_target IN ITEMS restore_map_refresh_postpass3_verify restore_map_refresh_postpass3_plain_verify)\n target_include_directories(${_map135_target} PRIVATE \"${CMAKE_CURRENT_SOURCE_DIR}/artifacts/map_refresh_postpass2_phase\")\nendforeach()\nunset(_map135_target)\n",
+  "header": {
+    "path": "artifacts/map_refresh_postpass2_phase/selector_native_data.h",
+    "sha256": "c9c3e7a42151d25a9e576dc7034d7c6d64f364f15641de75319c549fcd923967"
+  },
+  "script": {
+    "path": "tools/repair_map_checkpoint135_includes.py",
+    "sha256": "51769ee9cebbcf34104c6d6b5be30372a54c0a3815a2b89a5d00644dc517cc85"
+  },
+  "builds_and_tests_must_be_rerun": true
+}

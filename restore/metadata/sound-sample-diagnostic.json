@@ -1,0 +1,75 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "compiled_C_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+  "passed": true,
+  "checked": 473,
+  "invocations": 1419,
+  "coverage": {
+    "0x53bc80": {
+      "instructions": 39,
+      "executed": 39
+    },
+    "0x53bcf0": {
+      "instructions": 213,
+      "executed": 213
+    },
+    "0x539c60": {
+      "instructions": 48,
+      "executed": 48
+    },
+    "0x55dd3f": {
+      "instructions": 105,
+      "executed": 105
+    },
+    "0x560280": {
+      "instructions": 12,
+      "executed": 12
+    },
+    "0x5602b0": {
+      "instructions": 20,
+      "executed": 20
+    }
+  },
+  "conditional_edges": 28,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "source_hashes": {
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "runtime/sound_samples.c": "4d8a0de7c749b964ad3f79d78217722381fe378bb798bc52124d1de801888e8e",
+    "runtime/sound_file_lookup.c": "1984c3fb8362b5ce2e02c541c4d8ed8f52481328eeb2f8359bf99e105f4ef282",
+    "runtime/owned_buffer.c": "d999ceeba52fc346d0be172693e4f5cc30a50532bbd4e865e0f23e7e45904a35",
+    "include/sound_samples.h": "ac297d64337377390b6d300304eb19f7409f4e2db100402ee1f1857862fe76c6",
+    "include/sound_file_lookup.h": "1458054312e14fc007b53ed67af3c9ee6df98251f7e7147f2d5849f35ed8bcb8",
+    "include/owned_buffer.h": "0956c92bfa0b44a747d54a8e8f21191f1e0aedf606c3c5b59a63b0b3f6e21f8e",
+    "include/byte_string_compare.h": "e9f46d356af093cc20eec79ff4f128e1c6c4ad5cfefc491ed5ad52ff0865c7d8",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "include/legacy_format.h": "b6bf95793584ade58f8c3abf3f9d7cb5ef67fd09b02c5bff0d406086dddf95be",
+    "include/host_allocator.h": "a5382a9aca268aa3f83971bba847d0c531c13dcc0f0d01f0773314be19a0fdb0",
+    "direct_c/verify_sound_samples.py": "40ef9092ea7ed1a966a85c9f4912accc844f29f24349ad533220cd71d1f09538",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/sound-sample-native.json": "f1baea57690b5653e7b35c69e934c42ac11db17776c677d5f10145a15b6eeae9",
+    "metadata/sound-sample-rea-evidence.json": "aaa6cc211d6041c5fd15fe22f1f2cb2ebb0c5b37c27089781192cadfeb9e15aa",
+    "src/unit_02483.c": "2db32270d7f9fc79d4e1b35f16874880bd225de4c70c09113a74b26c86c35bcf",
+    "src/unit_02499.c": "c40cb944efc79998f49d76039b14377a2aa310e125c4c141351a1076f70b0cd3",
+    "src/unit_02500.c": "0cbd996cd2916bfdc2a119b645b692b6a96f298e1d5eaf502cc26dc6043adc52",
+    "src/unit_02686.c": "7912eeb88d3c0ca10b132cf29a4ca1df0d36dcfb10a522691e1417a97715750b",
+    "src/unit_02725.c": "9166731c92a5c419d620699eef915210703115a6266c726a69fdd0d2ff72a9c4",
+    "src/unit_02726.c": "aae16c60506dcaef53a2480cbcb5c26c0f86ff0ceda9617e1dfb84418fbc7b16",
+    "src/unit_02848.c": "ec3f29b6906bb170e5b5c0356242708782a6338aa2475c96c64acfcadde8a7be"
+  },
+  "actual_composition_scenarios": 370,
+  "controlled_algorithm_endpoints": [],
+  "controlled_crt_endpoints": [
+    "0x561a0a",
+    "0x561994",
+    "0x561a36",
+    "0x56b177",
+    "0x561bdc"
+  ],
+  "limitations": [
+    "Six complete owned bodies; actual loaders, file registration, owned-buffer helpers and case-sensitive strcmp execute. Only fopen/fclose/sprintf/strdup/free are controlled.",
+    "Normal-return ABI and restored FS exception chain are checked for both native and compiler-generated SEH. Handler addresses/frame layouts differ; arbitrary host SEH dispatch/unwind and corrupted caller stack returns are not established.",
+    "All original static bytes, guarded private table/heap bytes, ordered stores, meaningful child/CRT inputs, consumed full EAX and matching explicit faults are compared. Temporary stack addresses are normalized by role. Physical filesystem/media and concurrency remain unverified."
+  ]
+}

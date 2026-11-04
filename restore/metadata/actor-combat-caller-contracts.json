@@ -1,0 +1,2607 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "canonical_entry": {
+    "address": "004b17d0",
+    "unit": "01414",
+    "signature": "void FUN004b17d0(int32_t actor)",
+    "meaning": "State5 melee/combat tick; not general route movement.",
+    "argument_evidence": [
+      {
+        "address": "004b17d0",
+        "bytes": "83ec10",
+        "instruction": "SUB ESP,0x10",
+        "comment": null
+      },
+      {
+        "address": "004b17d3",
+        "bytes": "53",
+        "instruction": "PUSH EBX",
+        "comment": null
+      },
+      {
+        "address": "004b17d4",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "004b17d5",
+        "bytes": "8b6c241c",
+        "instruction": "MOV EBP,dword ptr [ESP + 0x1c]",
+        "comment": null
+      },
+      {
+        "address": "004b17d9",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "004b17da",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "004b17db",
+        "bytes": "8d7c6d00",
+        "instruction": "LEA EDI,[EBP + EBP*0x2]",
+        "comment": null
+      },
+      {
+        "address": "004b17df",
+        "bytes": "c1e705",
+        "instruction": "SHL EDI,0x5",
+        "comment": null
+      },
+      {
+        "address": "004b17e2",
+        "bytes": "03fd",
+        "instruction": "ADD EDI,EBP",
+        "comment": null
+      },
+      {
+        "address": "004b17e4",
+        "bytes": "c1e702",
+        "instruction": "SHL EDI,0x2",
+        "comment": null
+      },
+      {
+        "address": "004b17e7",
+        "bytes": "8a8731d6bc00",
+        "instruction": "MOV AL,byte ptr [EDI + 0xbcd631]",
+        "comment": null
+      },
+      {
+        "address": "004b17ed",
+        "bytes": "0fbf9f58d6bc00",
+        "instruction": "MOVSX EBX,word ptr [EDI + 0xbcd658]",
+        "comment": null
+      },
+      {
+        "address": "004b17f4",
+        "bytes": "3c05",
+        "instruction": "CMP AL,0x5",
+        "comment": null
+      },
+      {
+        "address": "004b17f6",
+        "bytes": "7f11",
+        "instruction": "JG 0x004b1809",
+        "comment": null
+      }
+    ],
+    "receiver": "No ECX receiver. Entire main body uses explicit argument-derived actor address, not global current actor.",
+    "x87": "No floating-point/x87 instructions or implicit floating input."
+  },
+  "coverage_scope": {
+    "direct_restored": 478,
+    "composed": 37,
+    "total": 515,
+    "functions": {
+      "004b17d0": 387,
+      "004b3250": 17,
+      "004b1d10": 23,
+      "004b1da0": 18,
+      "004b3f00": 50,
+      "004ea9a0": 9,
+      "004ea9c0": 11
+    }
+  },
+  "all38_main_call_sites": [
+    {
+      "call": "00492826",
+      "caller": null,
+      "bytes_before_call": "c404e9ea03000056",
+      "after_call": [
+        {
+          "address": "0049282b",
+          "bytes": "8b35f856d000",
+          "instruction": "mov esi, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "00492831",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00492834",
+          "bytes": "e9d6030000",
+          "instruction": "jmp 0x492c0f"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 9,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x492c20"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004931a1",
+      "caller": null,
+      "bytes_before_call": "c410e9d903000056",
+      "after_call": [
+        {
+          "address": "004931a6",
+          "bytes": "8b35f856d000",
+          "instruction": "mov esi, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "004931ac",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004931af",
+          "bytes": "e9c5030000",
+          "instruction": "jmp 0x493579"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 9,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49358a"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004961f5",
+      "caller": {
+        "name": "FUN_00496140",
+        "address": "00496140"
+      },
+      "bytes_before_call": "ff24959463490051",
+      "after_call": [
+        {
+          "address": "004961fa",
+          "bytes": "eb62",
+          "instruction": "jmp 0x49625e"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 9,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x496278"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049b85d",
+      "caller": null,
+      "bytes_before_call": "ff2495e8bc490057",
+      "after_call": [
+        {
+          "address": "0049b862",
+          "bytes": "8b3df856d000",
+          "instruction": "mov edi, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049b868",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0049b86b",
+          "bytes": "e9de030000",
+          "instruction": "jmp 0x49bc4e"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49bc4e"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049d268",
+      "caller": null,
+      "bytes_before_call": "3cd7bc0007000000",
+      "after_call": [
+        {
+          "address": "0049d26d",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049d273",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "0049d276",
+          "bytes": "e9e0070000",
+          "instruction": "jmp 0x49da5b"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49da5b"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049dd46",
+      "caller": null,
+      "bytes_before_call": "0900a1f856d00050",
+      "after_call": [
+        {
+          "address": "0049dd4b",
+          "bytes": "8b2df856d000",
+          "instruction": "mov ebp, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049dd51",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "0049dd54",
+          "bytes": "e97f090000",
+          "instruction": "jmp 0x49e6d8"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49e6d8"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049ea07",
+      "caller": null,
+      "bytes_before_call": "0900a1f856d00050",
+      "after_call": [
+        {
+          "address": "0049ea0c",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049ea12",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "0049ea15",
+          "bytes": "e9fe090000",
+          "instruction": "jmp 0x49f418"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 6,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49f41f"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049f806",
+      "caller": null,
+      "bytes_before_call": "0900a1f856d00050",
+      "after_call": [
+        {
+          "address": "0049f80b",
+          "bytes": "8b2df856d000",
+          "instruction": "mov ebp, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049f811",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "0049f814",
+          "bytes": "e9160b0000",
+          "instruction": "jmp 0x4a032f"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a032f"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a05d0",
+      "caller": null,
+      "bytes_before_call": "0900a1f856d00050",
+      "after_call": [
+        {
+          "address": "004a05d5",
+          "bytes": "8b1df856d000",
+          "instruction": "mov ebx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "004a05db",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "004a05de",
+          "bytes": "e97c090000",
+          "instruction": "jmp 0x4a0f5f"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 8,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a0f6a"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a3110",
+      "caller": null,
+      "bytes_before_call": "0000e92002000051",
+      "after_call": [
+        {
+          "address": "004a3115",
+          "bytes": "e915020000",
+          "instruction": "jmp 0x4a332f"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 9,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a3349"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a76e1",
+      "caller": null,
+      "bytes_before_call": "005688995dd6bc00",
+      "after_call": [
+        {
+          "address": "004a76e6",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004a76e9",
+          "bytes": "e917040000",
+          "instruction": "jmp 0x4a7b05"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 10,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a7b1d"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a7f95",
+      "caller": null,
+      "bytes_before_call": "0000e99902000056",
+      "after_call": [
+        {
+          "address": "004a7f9a",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004a7f9d",
+          "bytes": "e962040000",
+          "instruction": "jmp 0x4a8404"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 5,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a840d"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a894a",
+      "caller": null,
+      "bytes_before_call": "00fec98808eb0f56",
+      "after_call": [
+        {
+          "address": "004a894f",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004a8952",
+          "bytes": "8b35f856d000",
+          "instruction": "mov esi, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "004a8958",
+          "bytes": "8d0c76",
+          "instruction": "lea ecx, [esi + esi*2]"
+        },
+        {
+          "address": "004a895b",
+          "bytes": "a1e0a2bc00",
+          "instruction": "mov eax, dword ptr [0xbca2e0]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a895b"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a9973",
+      "caller": null,
+      "bytes_before_call": "ff2495acb74a0050",
+      "after_call": [
+        {
+          "address": "004a9978",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 1,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a9978"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004acb01",
+      "caller": null,
+      "bytes_before_call": "8990fcd5bc00c351",
+      "after_call": [
+        {
+          "address": "004acb06",
+          "bytes": "e967ffffff",
+          "instruction": "jmp 0x4aca72"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4aca7b"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004b0866",
+      "caller": null,
+      "bytes_before_call": "005688995dd6bc00",
+      "after_call": [
+        {
+          "address": "004b086b",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004b086e",
+          "bytes": "e961050000",
+          "instruction": "jmp 0x4b0dd4"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 10,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4b0dec"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00489d6c",
+      "caller": {
+        "name": "FUN_00489ca0",
+        "address": "00489ca0"
+      },
+      "bytes_before_call": "bc0080fa05751350",
+      "after_call": [
+        {
+          "address": "00489d71",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 1,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x489d71"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048a2f1",
+      "caller": {
+        "name": "FUN_0048a260",
+        "address": "0048a260"
+      },
+      "bytes_before_call": "bc0080f905751452",
+      "after_call": [
+        {
+          "address": "0048a2f6",
+          "bytes": "8b15f856d000",
+          "instruction": "mov edx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0048a2fc",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048a2ff",
+          "bytes": "e9e3010000",
+          "instruction": "jmp 0x48a4e7"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 5,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48a4ea"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048a7ac",
+      "caller": {
+        "name": "FUN_0048a720",
+        "address": "0048a720"
+      },
+      "bytes_before_call": "bc0080fa05751350",
+      "after_call": [
+        {
+          "address": "0048a7b1",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048a7b4",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48a7b4"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048b697",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05753350",
+      "after_call": [
+        {
+          "address": "0048b69c",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048b69f",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48b69f"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049364e",
+      "caller": {
+        "name": "FUN_00493610",
+        "address": "00493610"
+      },
+      "bytes_before_call": "b052d6bc00750c51",
+      "after_call": [
+        {
+          "address": "00493653",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00493656",
+          "bytes": "5f",
+          "instruction": "pop edi"
+        },
+        {
+          "address": "00493657",
+          "bytes": "5e",
+          "instruction": "pop esi"
+        },
+        {
+          "address": "00493658",
+          "bytes": "c3",
+          "instruction": "ret "
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [
+          "0x493658"
+        ],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": []
+      },
+      "classification": "epilogue-forwarding-only"
+    },
+    {
+      "call": "0048c345",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05756a50",
+      "after_call": [
+        {
+          "address": "0048c34a",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048c34d",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48c34d"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048c735",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05756a50",
+      "after_call": [
+        {
+          "address": "0048c73a",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048c73d",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48c73d"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048df7f",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05753551",
+      "after_call": [
+        {
+          "address": "0048df84",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0048df87",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0048df8d",
+          "bytes": "8d3449",
+          "instruction": "lea esi, [ecx + ecx*2]"
+        },
+        {
+          "address": "0048df90",
+          "bytes": "c1e605",
+          "instruction": "shl esi, 5"
+        },
+        {
+          "address": "0048df93",
+          "bytes": "03f1",
+          "instruction": "add esi, ecx"
+        },
+        {
+          "address": "0048df95",
+          "bytes": "c1e602",
+          "instruction": "shl esi, 2"
+        },
+        {
+          "address": "0048df98",
+          "bytes": "8a8e30d6bc00",
+          "instruction": "mov cl, byte ptr [esi + 0xbcd630]"
+        },
+        {
+          "address": "0048df9e",
+          "bytes": "80f90d",
+          "instruction": "cmp cl, 0xd"
+        },
+        {
+          "address": "0048dfa1",
+          "bytes": "0f852d050000",
+          "instruction": "jne 0x48e4d4"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 18,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48dfa7",
+          "0x48e4d9",
+          "0x48e4ec",
+          "0x48e4f5"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048ec0b",
+      "caller": {
+        "name": "FUN_0048e9e0",
+        "address": "0048e9e0"
+      },
+      "bytes_before_call": "bc0080fa05750b51",
+      "after_call": [
+        {
+          "address": "0048ec10",
+          "bytes": "e9f6090000",
+          "instruction": "jmp 0x48f60b"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 119,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48f64b",
+          "0x49068d"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00490e7b",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05753351",
+      "after_call": [
+        {
+          "address": "00490e80",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "00490e86",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00490e89",
+          "bytes": "8d0449",
+          "instruction": "lea eax, [ecx + ecx*2]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 3,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x490e89"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00491489",
+      "caller": null,
+      "bytes_before_call": "d6bc003c05753452",
+      "after_call": [
+        {
+          "address": "0049148e",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00491491",
+          "bytes": "8b15f856d000",
+          "instruction": "mov edx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "00491497",
+          "bytes": "8d0c52",
+          "instruction": "lea ecx, [edx + edx*2]"
+        },
+        {
+          "address": "0049149a",
+          "bytes": "c1e105",
+          "instruction": "shl ecx, 5"
+        },
+        {
+          "address": "0049149d",
+          "bytes": "03ca",
+          "instruction": "add ecx, edx"
+        },
+        {
+          "address": "0049149f",
+          "bytes": "c1e102",
+          "instruction": "shl ecx, 2"
+        },
+        {
+          "address": "004914a2",
+          "bytes": "8a8109d6bc00",
+          "instruction": "mov al, byte ptr [ecx + 0xbcd609]"
+        },
+        {
+          "address": "004914a8",
+          "bytes": "3c08",
+          "instruction": "cmp al, 8"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 11,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4914b0",
+          "0x491a21"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00491b7c",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05751451",
+      "after_call": [
+        {
+          "address": "00491b81",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "00491b87",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00491b8a",
+          "bytes": "e9f0050000",
+          "instruction": "jmp 0x49217f"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 4,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49217f"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0049506e",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05753350",
+      "after_call": [
+        {
+          "address": "00495073",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "00495076",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x495076"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004970cb",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05751451",
+      "after_call": [
+        {
+          "address": "004970d0",
+          "bytes": "8b0df856d000",
+          "instruction": "mov ecx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "004970d6",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004970d9",
+          "bytes": "e980000000",
+          "instruction": "jmp 0x49715e"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 80,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x497399",
+          "0x4973a9",
+          "0x4973cd",
+          "0x497404",
+          "0x497423",
+          "0x49743a"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00497533",
+      "caller": null,
+      "bytes_before_call": "0a00a1f856d00050",
+      "after_call": [
+        {
+          "address": "00497538",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "0049753b",
+          "bytes": "e9e2010000",
+          "instruction": "jmp 0x497722"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 3,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x497722"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "00499247",
+      "caller": {
+        "name": "FUN_004991a0",
+        "address": "004991a0"
+      },
+      "bytes_before_call": "bc0080fa05750f57",
+      "after_call": [
+        {
+          "address": "0049924c",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0049924f",
+          "bytes": "5f",
+          "instruction": "pop edi"
+        },
+        {
+          "address": "00499250",
+          "bytes": "5e",
+          "instruction": "pop esi"
+        },
+        {
+          "address": "00499251",
+          "bytes": "5d",
+          "instruction": "pop ebp"
+        },
+        {
+          "address": "00499252",
+          "bytes": "5b",
+          "instruction": "pop ebx"
+        },
+        {
+          "address": "00499253",
+          "bytes": "59",
+          "instruction": "pop ecx"
+        },
+        {
+          "address": "00499254",
+          "bytes": "c3",
+          "instruction": "ret "
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 7,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [
+          "0x499254"
+        ],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": []
+      },
+      "classification": "epilogue-forwarding-only"
+    },
+    {
+      "call": "0049a1b5",
+      "caller": null,
+      "bytes_before_call": "d6bc003c05751452",
+      "after_call": [
+        {
+          "address": "0049a1ba",
+          "bytes": "8b15f856d000",
+          "instruction": "mov edx, dword ptr [0xd056f8]"
+        },
+        {
+          "address": "0049a1c0",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "0049a1c3",
+          "bytes": "e90f030000",
+          "instruction": "jmp 0x49a4d7"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 24,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x49a51a",
+          "0x49a549"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004a24c9",
+      "caller": {
+        "name": "FUN_004a2430",
+        "address": "004a2430"
+      },
+      "bytes_before_call": "bc0080fa05750b50",
+      "after_call": [
+        {
+          "address": "004a24ce",
+          "bytes": "e9c3050000",
+          "instruction": "jmp 0x4a2a96"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 3,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4a2a99"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004abf00",
+      "caller": null,
+      "bytes_before_call": "0800a1f856d00050",
+      "after_call": [
+        {
+          "address": "004abf05",
+          "bytes": "83c410",
+          "instruction": "add esp, 0x10"
+        },
+        {
+          "address": "004abf08",
+          "bytes": "eb0e",
+          "instruction": "jmp 0x4abf18"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 3,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4abf18"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004ac4e8",
+      "caller": null,
+      "bytes_before_call": "bc0080fa05753450",
+      "after_call": [
+        {
+          "address": "004ac4ed",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004ac4f0",
+          "bytes": "a1f856d000",
+          "instruction": "mov eax, dword ptr [0xd056f8]"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 2,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4ac4f0"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "004b10b9",
+      "caller": null,
+      "bytes_before_call": "d6bc0000005f5d52",
+      "after_call": [
+        {
+          "address": "004b10be",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        },
+        {
+          "address": "004b10c1",
+          "bytes": "e987000000",
+          "instruction": "jmp 0x4b114d"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 15,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x4b117e"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    },
+    {
+      "call": "0048ceb0",
+      "caller": {
+        "name": "FUN_0048ce30",
+        "address": "0048ce30"
+      },
+      "bytes_before_call": "bc0080fa05750b51",
+      "after_call": [
+        {
+          "address": "0048ceb5",
+          "bytes": "e98b0b0000",
+          "instruction": "jmp 0x48da45"
+        }
+      ],
+      "bounded_CFG": {
+        "instructions_states_checked": 28,
+        "reads_before_overwrite": [],
+        "forwarding_returns": [],
+        "unresolved": [],
+        "overwrites_or_call_clobbers": [
+          "0x48dd00",
+          "0x48dd37",
+          "0x48dd4a"
+        ]
+      },
+      "classification": "EAX-overwritten-on-all-reachable-paths"
+    }
+  ],
+  "caller_analysis_limit": "Pinned-byte bounded CFG tracks original EAX/AX/AL/AH bits after all38 call sites, including partial overwrites and AND/OR masks, treating subsequent calls as ABI clobbers. No read of original result bits is reachable in these bounded caller continuations. Two forwarding epilogues are listed without inventing a consumed result;493610 is an accepted void helper and15 direct consumers of4991a0 are separately audited below, without interpreting forwarding epilogues as consumed results.",
+  "main_callee_windows": [
+    {
+      "call": "004b1801",
+      "instructions": [
+        {
+          "address": "004b17f4",
+          "bytes": "3c05",
+          "instruction": "CMP AL,0x5",
+          "comment": null
+        },
+        {
+          "address": "004b17f6",
+          "bytes": "7f11",
+          "instruction": "JG 0x004b1809",
+          "comment": null
+        },
+        {
+          "address": "004b17f8",
+          "bytes": "fec0",
+          "instruction": "INC AL",
+          "comment": null
+        },
+        {
+          "address": "004b17fa",
+          "bytes": "55",
+          "instruction": "PUSH EBP",
+          "comment": null
+        },
+        {
+          "address": "004b17fb",
+          "bytes": "888731d6bc00",
+          "instruction": "MOV byte ptr [EDI + 0xbcd631],AL",
+          "comment": null
+        },
+        {
+          "address": "004b1801",
+          "bytes": "e8fa260000",
+          "instruction": "CALL 0x004b3f00",
+          "comment": null
+        },
+        {
+          "address": "004b1806",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1809",
+          "bytes": "8a8783d6bc00",
+          "instruction": "MOV AL,byte ptr [EDI + 0xbcd683]",
+          "comment": null
+        },
+        {
+          "address": "004b180f",
+          "bytes": "84c0",
+          "instruction": "TEST AL,AL",
+          "comment": null
+        },
+        {
+          "address": "004b1811",
+          "bytes": "7511",
+          "instruction": "JNZ 0x004b1824",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1814",
+      "instructions": [
+        {
+          "address": "004b1806",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1809",
+          "bytes": "8a8783d6bc00",
+          "instruction": "MOV AL,byte ptr [EDI + 0xbcd683]",
+          "comment": null
+        },
+        {
+          "address": "004b180f",
+          "bytes": "84c0",
+          "instruction": "TEST AL,AL",
+          "comment": null
+        },
+        {
+          "address": "004b1811",
+          "bytes": "7511",
+          "instruction": "JNZ 0x004b1824",
+          "comment": null
+        },
+        {
+          "address": "004b1813",
+          "bytes": "55",
+          "instruction": "PUSH EBP",
+          "comment": null
+        },
+        {
+          "address": "004b1814",
+          "bytes": "e887050000",
+          "instruction": "CALL 0x004b1da0",
+          "comment": null
+        },
+        {
+          "address": "004b1819",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b181c",
+          "bytes": "5f",
+          "instruction": "POP EDI",
+          "comment": null
+        },
+        {
+          "address": "004b181d",
+          "bytes": "5e",
+          "instruction": "POP ESI",
+          "comment": null
+        },
+        {
+          "address": "004b181e",
+          "bytes": "5d",
+          "instruction": "POP EBP",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1855",
+      "instructions": [
+        {
+          "address": "004b183f",
+          "bytes": "389006d6bc00",
+          "instruction": "CMP byte ptr [EAX + 0xbcd606],DL",
+          "comment": null
+        },
+        {
+          "address": "004b1845",
+          "bytes": "750d",
+          "instruction": "JNZ 0x004b1854",
+          "comment": null
+        },
+        {
+          "address": "004b1847",
+          "bytes": "80b830d6bc0004",
+          "instruction": "CMP byte ptr [EAX + 0xbcd630],0x4",
+          "comment": null
+        },
+        {
+          "address": "004b184e",
+          "bytes": "0f85a2000000",
+          "instruction": "JNZ 0x004b18f6",
+          "comment": null
+        },
+        {
+          "address": "004b1854",
+          "bytes": "55",
+          "instruction": "PUSH EBP",
+          "comment": null
+        },
+        {
+          "address": "004b1855",
+          "bytes": "e846050000",
+          "instruction": "CALL 0x004b1da0",
+          "comment": null
+        },
+        {
+          "address": "004b185a",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b185d",
+          "bytes": "5f",
+          "instruction": "POP EDI",
+          "comment": null
+        },
+        {
+          "address": "004b185e",
+          "bytes": "5e",
+          "instruction": "POP ESI",
+          "comment": null
+        },
+        {
+          "address": "004b185f",
+          "bytes": "5d",
+          "instruction": "POP EBP",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b19f8",
+      "instructions": [
+        {
+          "address": "004b19e6",
+          "bytes": "744d",
+          "instruction": "JZ 0x004b1a35",
+          "comment": null
+        },
+        {
+          "address": "004b19e8",
+          "bytes": "0fbe960bd6bc00",
+          "instruction": "MOVSX EDX,byte ptr [ESI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b19ef",
+          "bytes": "0fbe870bd6bc00",
+          "instruction": "MOVSX EAX,byte ptr [EDI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b19f6",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b19f7",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b19f8",
+          "bytes": "e813030000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b19fd",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1a00",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1a02",
+          "bytes": "7431",
+          "instruction": "JZ 0x004b1a35",
+          "comment": null
+        },
+        {
+          "address": "004b1a04",
+          "bytes": "8d0cdb",
+          "instruction": "LEA ECX,[EBX + EBX*0x8]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1a2d",
+      "instructions": [
+        {
+          "address": "004b1a1b",
+          "bytes": "7518",
+          "instruction": "JNZ 0x004b1a35",
+          "comment": null
+        },
+        {
+          "address": "004b1a1d",
+          "bytes": "8b542414",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x14]",
+          "comment": null
+        },
+        {
+          "address": "004b1a21",
+          "bytes": "688d000000",
+          "instruction": "PUSH 0x8d",
+          "comment": null
+        },
+        {
+          "address": "004b1a26",
+          "bytes": "83c204",
+          "instruction": "ADD EDX,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1a29",
+          "bytes": "89542418",
+          "instruction": "MOV dword ptr [ESP + 0x18],EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1a2d",
+          "bytes": "e81eb9fcff",
+          "instruction": "CALL 0x0047d350",
+          "comment": null
+        },
+        {
+          "address": "004b1a32",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1a35",
+          "bytes": "8d1cdb",
+          "instruction": "LEA EBX,[EBX + EBX*0x8]",
+          "comment": null
+        },
+        {
+          "address": "004b1a38",
+          "bytes": "c1e304",
+          "instruction": "SHL EBX,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1a3b",
+          "bytes": "6683bb22babc0000",
+          "instruction": "CMP word ptr [EBX + 0xbcba22],0x0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1a6e",
+      "instructions": [
+        {
+          "address": "004b1a5d",
+          "bytes": "0fbe870bd6bc00",
+          "instruction": "MOVSX EAX,byte ptr [EDI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1a64",
+          "bytes": "33d2",
+          "instruction": "XOR EDX,EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1a66",
+          "bytes": "8a9333babc00",
+          "instruction": "MOV DL,byte ptr [EBX + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1a6c",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1a6d",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1a6e",
+          "bytes": "e89d020000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1a73",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1a76",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1a78",
+          "bytes": "7452",
+          "instruction": "JZ 0x004b1acc",
+          "comment": null
+        },
+        {
+          "address": "004b1a7a",
+          "bytes": "0fbf83f2b9bc00",
+          "instruction": "MOVSX EAX,word ptr [EBX + 0xbcb9f2]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1aab",
+      "instructions": [
+        {
+          "address": "004b1a9a",
+          "bytes": "0fbe970bd6bc00",
+          "instruction": "MOVSX EDX,byte ptr [EDI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1aa1",
+          "bytes": "33c9",
+          "instruction": "XOR ECX,ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1aa3",
+          "bytes": "8a8b33babc00",
+          "instruction": "MOV CL,byte ptr [EBX + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1aa9",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1aaa",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1aab",
+          "bytes": "e860020000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1ab0",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1ab3",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1ab5",
+          "bytes": "7415",
+          "instruction": "JZ 0x004b1acc",
+          "comment": null
+        },
+        {
+          "address": "004b1ab7",
+          "bytes": "6683bbf2b9bc0006",
+          "instruction": "CMP word ptr [EBX + 0xbcb9f2],0x6",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1b0a",
+      "instructions": [
+        {
+          "address": "004b1af9",
+          "bytes": "0fbe8e0bd6bc00",
+          "instruction": "MOVSX ECX,byte ptr [ESI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1b00",
+          "bytes": "33c0",
+          "instruction": "XOR EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b02",
+          "bytes": "8a8533babc00",
+          "instruction": "MOV AL,byte ptr [EBP + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1b08",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b09",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1b0a",
+          "bytes": "e801020000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1b0f",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1b12",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b14",
+          "bytes": "7457",
+          "instruction": "JZ 0x004b1b6d",
+          "comment": null
+        },
+        {
+          "address": "004b1b16",
+          "bytes": "0fbf85f2b9bc00",
+          "instruction": "MOVSX EAX,word ptr [EBP + 0xbcb9f2]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1b4e",
+      "instructions": [
+        {
+          "address": "004b1b3d",
+          "bytes": "0fbe860bd6bc00",
+          "instruction": "MOVSX EAX,byte ptr [ESI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1b44",
+          "bytes": "33d2",
+          "instruction": "XOR EDX,EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1b46",
+          "bytes": "8a9533babc00",
+          "instruction": "MOV DL,byte ptr [EBP + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1b4c",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1b4d",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b4e",
+          "bytes": "e8bd010000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1b53",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1b56",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b58",
+          "bytes": "7413",
+          "instruction": "JZ 0x004b1b6d",
+          "comment": null
+        },
+        {
+          "address": "004b1b5a",
+          "bytes": "6683bdf2b9bc0006",
+          "instruction": "CMP word ptr [EBP + 0xbcb9f2],0x6",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1b93",
+      "instructions": [
+        {
+          "address": "004b1b82",
+          "bytes": "0fbe970bd6bc00",
+          "instruction": "MOVSX EDX,byte ptr [EDI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1b89",
+          "bytes": "33c9",
+          "instruction": "XOR ECX,ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1b8b",
+          "bytes": "8a8b33babc00",
+          "instruction": "MOV CL,byte ptr [EBX + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1b91",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1b92",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1b93",
+          "bytes": "e878010000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1b98",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1b9b",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1b9d",
+          "bytes": "7415",
+          "instruction": "JZ 0x004b1bb4",
+          "comment": null
+        },
+        {
+          "address": "004b1b9f",
+          "bytes": "0fbf83f2b9bc00",
+          "instruction": "MOVSX EAX,word ptr [EBX + 0xbcb9f2]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1bcf",
+      "instructions": [
+        {
+          "address": "004b1bbe",
+          "bytes": "0fbe8e0bd6bc00",
+          "instruction": "MOVSX ECX,byte ptr [ESI + 0xbcd60b]",
+          "comment": null
+        },
+        {
+          "address": "004b1bc5",
+          "bytes": "33c0",
+          "instruction": "XOR EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1bc7",
+          "bytes": "8a8533babc00",
+          "instruction": "MOV AL,byte ptr [EBP + 0xbcba33]",
+          "comment": null
+        },
+        {
+          "address": "004b1bcd",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1bce",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1bcf",
+          "bytes": "e83c010000",
+          "instruction": "CALL 0x004b1d10",
+          "comment": null
+        },
+        {
+          "address": "004b1bd4",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1bd7",
+          "bytes": "85c0",
+          "instruction": "TEST EAX,EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1bd9",
+          "bytes": "7415",
+          "instruction": "JZ 0x004b1bf0",
+          "comment": null
+        },
+        {
+          "address": "004b1bdb",
+          "bytes": "0fbf85f2b9bc00",
+          "instruction": "MOVSX EAX,word ptr [EBP + 0xbcb9f2]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1c6d",
+      "instructions": [
+        {
+          "address": "004b1c5c",
+          "bytes": "3bc5",
+          "instruction": "CMP EAX,EBP",
+          "comment": null
+        },
+        {
+          "address": "004b1c5e",
+          "bytes": "0f8e8d000000",
+          "instruction": "JLE 0x004b1cf1",
+          "comment": null
+        },
+        {
+          "address": "004b1c64",
+          "bytes": "33c9",
+          "instruction": "XOR ECX,ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1c66",
+          "bytes": "8a8e02d6bc00",
+          "instruction": "MOV CL,byte ptr [ESI + 0xbcd602]",
+          "comment": null
+        },
+        {
+          "address": "004b1c6c",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1c6d",
+          "bytes": "e84e8d0300",
+          "instruction": "CALL 0x004ea9c0",
+          "comment": null
+        },
+        {
+          "address": "004b1c72",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1c75",
+          "bytes": "84c0",
+          "instruction": "TEST AL,AL",
+          "comment": null
+        },
+        {
+          "address": "004b1c77",
+          "bytes": "7549",
+          "instruction": "JNZ 0x004b1cc2",
+          "comment": null
+        },
+        {
+          "address": "004b1c79",
+          "bytes": "33d2",
+          "instruction": "XOR EDX,EDX",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1c82",
+      "instructions": [
+        {
+          "address": "004b1c75",
+          "bytes": "84c0",
+          "instruction": "TEST AL,AL",
+          "comment": null
+        },
+        {
+          "address": "004b1c77",
+          "bytes": "7549",
+          "instruction": "JNZ 0x004b1cc2",
+          "comment": null
+        },
+        {
+          "address": "004b1c79",
+          "bytes": "33d2",
+          "instruction": "XOR EDX,EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1c7b",
+          "bytes": "8a9602d6bc00",
+          "instruction": "MOV DL,byte ptr [ESI + 0xbcd602]",
+          "comment": null
+        },
+        {
+          "address": "004b1c81",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1c82",
+          "bytes": "e8198d0300",
+          "instruction": "CALL 0x004ea9a0",
+          "comment": null
+        },
+        {
+          "address": "004b1c87",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1c8a",
+          "bytes": "84c0",
+          "instruction": "TEST AL,AL",
+          "comment": null
+        },
+        {
+          "address": "004b1c8c",
+          "bytes": "7534",
+          "instruction": "JNZ 0x004b1cc2",
+          "comment": null
+        },
+        {
+          "address": "004b1c8e",
+          "bytes": "80be02d6bc0017",
+          "instruction": "CMP byte ptr [ESI + 0xbcd602],0x17",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1cd7",
+      "instructions": [
+        {
+          "address": "004b1cbb",
+          "bytes": "66898342babc00",
+          "instruction": "MOV word ptr [EBX + 0xbcba42],AX",
+          "comment": null
+        },
+        {
+          "address": "004b1cc2",
+          "bytes": "8b4c241c",
+          "instruction": "MOV ECX,dword ptr [ESP + 0x1c]",
+          "comment": null
+        },
+        {
+          "address": "004b1cc6",
+          "bytes": "c68630d6bc0004",
+          "instruction": "MOV byte ptr [ESI + 0xbcd630],0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1ccd",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1cce",
+          "bytes": "66c7862ed6bc000000",
+          "instruction": "MOV word ptr [ESI + 0xbcd62e],0x0",
+          "comment": null
+        },
+        {
+          "address": "004b1cd7",
+          "bytes": "e874330000",
+          "instruction": "CALL 0x004b5050",
+          "comment": null
+        },
+        {
+          "address": "004b1cdc",
+          "bytes": "8b54241c",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x1c]",
+          "comment": null
+        },
+        {
+          "address": "004b1ce0",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1ce1",
+          "bytes": "e8ca5d0000",
+          "instruction": "CALL 0x004b7ab0",
+          "comment": null
+        },
+        {
+          "address": "004b1ce6",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1ce1",
+      "instructions": [
+        {
+          "address": "004b1ccd",
+          "bytes": "51",
+          "instruction": "PUSH ECX",
+          "comment": null
+        },
+        {
+          "address": "004b1cce",
+          "bytes": "66c7862ed6bc000000",
+          "instruction": "MOV word ptr [ESI + 0xbcd62e],0x0",
+          "comment": null
+        },
+        {
+          "address": "004b1cd7",
+          "bytes": "e874330000",
+          "instruction": "CALL 0x004b5050",
+          "comment": null
+        },
+        {
+          "address": "004b1cdc",
+          "bytes": "8b54241c",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x1c]",
+          "comment": null
+        },
+        {
+          "address": "004b1ce0",
+          "bytes": "52",
+          "instruction": "PUSH EDX",
+          "comment": null
+        },
+        {
+          "address": "004b1ce1",
+          "bytes": "e8ca5d0000",
+          "instruction": "CALL 0x004b7ab0",
+          "comment": null
+        },
+        {
+          "address": "004b1ce6",
+          "bytes": "83c408",
+          "instruction": "ADD ESP,0x8",
+          "comment": null
+        },
+        {
+          "address": "004b1ce9",
+          "bytes": "5f",
+          "instruction": "POP EDI",
+          "comment": null
+        },
+        {
+          "address": "004b1cea",
+          "bytes": "5e",
+          "instruction": "POP ESI",
+          "comment": null
+        },
+        {
+          "address": "004b1ceb",
+          "bytes": "5d",
+          "instruction": "POP EBP",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "call": "004b1cf6",
+      "instructions": [
+        {
+          "address": "004b1cec",
+          "bytes": "5b",
+          "instruction": "POP EBX",
+          "comment": null
+        },
+        {
+          "address": "004b1ced",
+          "bytes": "83c410",
+          "instruction": "ADD ESP,0x10",
+          "comment": null
+        },
+        {
+          "address": "004b1cf0",
+          "bytes": "c3",
+          "instruction": "RET",
+          "comment": null
+        },
+        {
+          "address": "004b1cf1",
+          "bytes": "8b442424",
+          "instruction": "MOV EAX,dword ptr [ESP + 0x24]",
+          "comment": null
+        },
+        {
+          "address": "004b1cf5",
+          "bytes": "50",
+          "instruction": "PUSH EAX",
+          "comment": null
+        },
+        {
+          "address": "004b1cf6",
+          "bytes": "e815350000",
+          "instruction": "CALL 0x004b5210",
+          "comment": null
+        },
+        {
+          "address": "004b1cfb",
+          "bytes": "83c404",
+          "instruction": "ADD ESP,0x4",
+          "comment": null
+        },
+        {
+          "address": "004b1cfe",
+          "bytes": "5f",
+          "instruction": "POP EDI",
+          "comment": null
+        },
+        {
+          "address": "004b1cff",
+          "bytes": "5e",
+          "instruction": "POP ESI",
+          "comment": null
+        },
+        {
+          "address": "004b1d00",
+          "bytes": "5d",
+          "instruction": "POP EBP",
+          "comment": null
+        }
+      ]
+    }
+  ],
+  "consumed_returns": {
+    "004b1d10": "Full canonical EAX0/1 at all comparisons. Restored source/header returns uint32_t, retaining AL compatibility for legacy bool callers.",
+    "004ea9c0": "Only AL consumed. Existing C preserves native high scratch bits; actual full native+C helper is composed.",
+    "004ea9a0": "Only AL consumed. Existing C preserves native high scratch bits; actual full native+C helper is composed."
+  },
+  "fields": {
+    "actor": "Physical bcd600+DWORDid*388, WORD formation58/target84,86,88/timer2e/route32/subpixel42,44; BYTE player7/action30/phase31/mode83/attacktick62/damage15/direction9,11/opacity5d,6f,70,71. Target/formation WORD values are sign-extended where native does.",
+    "formation": "bcb9c8+signedWORDid*144; typeWORD+4,countSIGNEDWORD+2a,flagWORD+5a,directionBYTE+6b,experienceSIGNEDWORD+7a.",
+    "stats": "7090cc/d0/d4/d8 +typeBYTE*56; DWORD class,damage threshold,attack,defense. Currentplayer eaac28 is DWORD."
+  },
+  "native_arithmetic": [
+    "Phase31 compares signedBYTE<=5 before increment/one-step. Attacktick62 incrementsBYTE with wrap then compares unsigned>=24.",
+    "Defense first caps signed upper20, receives native formation bonuses, then clamps signed0..20. Attack/defense additions wrap in32bits.",
+    "Damage uses low32bit product (20-defense)*attack followed by signed truncating division20, then signed-negative clamp0. Victim damage accumulation wrapsBYTE before signedDWORD threshold comparison.",
+    "Experience increment preserves signedWORD source, adds1 in32bits, caps only at100, then storesWORD. No lower clamp.",
+    "The attacker formation is cached before the first subpixel call; target and target formation cache at attack processing. Mutating global current actor never rebinds this function."
+  ],
+  "deeper_boundaries": {
+    "0047d350": "event141, void consumption; current C no-argument sound no-op is explicitly adapted.",
+    "004b5050": "cached target actor, discarded return; death/audio/RNG notification implementation outside proof.",
+    "004b5210": "original explicit actor argument, discarded return; hit/audio notification implementation outside proof.",
+    "004b7ab0": "cached signed target formation ID, discarded return; morale/formation kill notification outside proof."
+  },
+  "preflight_source_hashes": {
+    "src/unit_01414.c": "2bbc0dd680e8e537c85c0aefd2680a55f70577eda46a8ac6417c0cf62570860b",
+    "src/unit_01415.c": "689a8be18ff1133bdef1cfe0caa56924344eb5bb024febb69245d514e313dc1b",
+    "src/unit_01417.c": "67ea2b3dfe80cafd1cdc876003c9f5cba6eb7d29f571e06c6c17f0554027e3a1",
+    "src/unit_01435.c": "c7ac1e7576f1efb28651b3a17f5c1d84e2169d8fb04330eaf80ab67f786633fb",
+    "src/unit_01427.c": "364d8206ec5a4be2f177519dcf2082e45b6e4a25df637b4f9b6cbe780826b493",
+    "src/unit_02065.c": "f58f79a1e10450bac3bb522c1793dd5e14f45cbde0d3d9b7d7b48381d1d94e5b",
+    "src/unit_02066.c": "dc13881fa9fe64a9bf48895c75f6b652f8a6f7bcf459899a9baa10032df9dd41",
+    "src/unit_01130.c": "c80c09e0e8ac43653f4f98ce615bd25b1c91e3c2ac3c1cc957ad9f9aa404a5a9",
+    "src/unit_01449.c": "b84f1bda8a113afa95e9ba94589a1dde7440249d30f0faa2c244b64abf5f49ff",
+    "src/unit_01450.c": "6714be97c89a3594de80a110150a7ffa6eb69a63031d377a94f353c3faf3ca8f",
+    "src/unit_01486.c": "f05fda68a6d6700ab8b938fa1199fc82649711e46d9380eb0e84ba8331b96d4e"
+  },
+  "caller_ABI_audit": {
+    "passed": true,
+    "checked": 38,
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "auditor_sha256": "c2c8a67030da1d9bbe2b8c21fb5115b699044ab7911ca00691cace449cbac990",
+    "categories": {
+      "EAX-overwritten-on-all-reachable-paths": 36,
+      "epilogue-forwarding-only": 2
+    },
+    "limitations": [
+      "Bounded static continuation audit, not complete execution of all actor callbacks. Subsequent calls are treated as conventional EAX clobbers; explicit argument setup/indirect call operands are inspected before that boundary. Forwarded EAX through void epilogues is not counted as a consumed result."
+    ],
+    "additional4991a0_call_sites": 15
+  },
+  "forwarding4991a0": {
+    "native_dossier_sha256": "67e9d9f44b43cbd7478c20cb34a35b5f38915e809d7b9f2430baf20c132f6621",
+    "info": {
+      "name": "FUN_004991a0",
+      "address": "004991a0",
+      "signature": "undefined FUN_004991a0(void)",
+      "namespace": "Global",
+      "body_start": "004991a0",
+      "body_end": "004998e2",
+      "body_size": 1859,
+      "calling_convention": "unknown",
+      "is_thunk": false,
+      "is_external": false
+    },
+    "call_sites": [
+      {
+        "call": "00497e2d",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x497e32"
+          ]
+        }
+      },
+      {
+        "call": "00498025",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x49802a"
+          ]
+        }
+      },
+      {
+        "call": "00498215",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x49821a"
+          ]
+        }
+      },
+      {
+        "call": "004983b4",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x4983b9"
+          ]
+        }
+      },
+      {
+        "call": "004984dd",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x4984e2"
+          ]
+        }
+      },
+      {
+        "call": "004985cd",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x4985d2"
+          ]
+        }
+      },
+      {
+        "call": "004986ec",
+        "bounded_CFG": {
+          "instructions_states_checked": 2,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x4986f7"
+          ]
+        }
+      },
+      {
+        "call": "0049878c",
+        "bounded_CFG": {
+          "instructions_states_checked": 2,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x498797"
+          ]
+        }
+      },
+      {
+        "call": "00498834",
+        "bounded_CFG": {
+          "instructions_states_checked": 2,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x49883f"
+          ]
+        }
+      },
+      {
+        "call": "0049891b",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x498920"
+          ]
+        }
+      },
+      {
+        "call": "00498a71",
+        "bounded_CFG": {
+          "instructions_states_checked": 2,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x498a7c"
+          ]
+        }
+      },
+      {
+        "call": "00498b35",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x498b3a"
+          ]
+        }
+      },
+      {
+        "call": "00498ea5",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x498eaa"
+          ]
+        }
+      },
+      {
+        "call": "00499090",
+        "bounded_CFG": {
+          "instructions_states_checked": 1,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x499095"
+          ]
+        }
+      },
+      {
+        "call": "004af842",
+        "bounded_CFG": {
+          "instructions_states_checked": 14,
+          "reads_before_overwrite": [],
+          "forwarding_returns": [],
+          "unresolved": [],
+          "overwrites_or_call_clobbers": [
+            "0x4af863",
+            "0x4af876",
+            "0x4af87f"
+          ]
+        }
+      }
+    ],
+    "limitation": "No direct consumer of4991a0 reads its originalEAX before overwrite/epilogue. Forwarding through additional actor-wrapper epilogues is not a return contract; their eventual table dispatch is outside this bounded audit."
+  }
+}

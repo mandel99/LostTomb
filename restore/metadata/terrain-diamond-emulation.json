@@ -1,0 +1,157 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 1706,
+  "native_functions": 11,
+  "production_sources": true,
+  "original_game_executed": false,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "5c3c75d95afc4e9ca071de2ffe3e68682ab5550adf5a2881732abb0c7cb2e704",
+  "unicorn_version": "2.1.4",
+  "method": "Complete native11-function diamond module plus actual native clippers versus staged compact C module plus compiled clippers. Exact1MiB framebuffer,224 draw/guard bytes, full source preservation, entry/clip/leaf order and arguments, composer return58, stack and saved registers compared. No controlled drawing endpoints.",
+  "limitations": [
+    "Packed valid1800-byte diamonds and source buffers large enough for N*N blocks; native fixed half-cell edge behavior is preserved rather than generalized clipping. Inputs that would escape the owned framebuffer/source are excluded.",
+    "This isolated proof establishes synthetic packed-pixel equivalence, not game art-ID production, sprite library loading or a live city frame.",
+    "Six native leaves preserve EAX via PUSHAD/POPAD. All retained callers overwrite or replace that value before an explicit read; C contracts are void. Native volatile carrier values are checked separately, not exposed as invented C return values."
+  ],
+  "elapsed_seconds": 104.625,
+  "instruction_coverage": {
+    "00427a20": {
+      "total": 970,
+      "executed": 970,
+      "missing": []
+    },
+    "00428c00": {
+      "total": 1411,
+      "executed": 1411,
+      "missing": []
+    },
+    "0042a160": {
+      "total": 489,
+      "executed": 489,
+      "missing": []
+    },
+    "0042aa00": {
+      "total": 690,
+      "executed": 690,
+      "missing": []
+    },
+    "0042b440": {
+      "total": 489,
+      "executed": 489,
+      "missing": []
+    },
+    "0042bcf0": {
+      "total": 690,
+      "executed": 690,
+      "missing": []
+    },
+    "0042c740": {
+      "total": 174,
+      "executed": 174,
+      "missing": []
+    },
+    "0042c9a0": {
+      "total": 382,
+      "executed": 382,
+      "missing": []
+    },
+    "0042cee0": {
+      "total": 664,
+      "executed": 664,
+      "missing": []
+    },
+    "0042d810": {
+      "total": 1032,
+      "executed": 1032,
+      "missing": []
+    },
+    "0042e680": {
+      "total": 1475,
+      "executed": 1475,
+      "missing": []
+    }
+  },
+  "total_instruction_coverage": {
+    "total": 8466,
+    "executed": 8466
+  },
+  "native_global_write_widths": [
+    {
+      "address": "0xd3b530",
+      "bytes": 1
+    },
+    {
+      "address": "0xd3b531",
+      "bytes": 1
+    },
+    {
+      "address": "0xd3b534",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b538",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b53c",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b540",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b544",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b548",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b54c",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b5bc",
+      "bytes": 2
+    },
+    {
+      "address": "0xd3b5be",
+      "bytes": 2
+    },
+    {
+      "address": "0xd3b5d4",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b5dc",
+      "bytes": 4
+    },
+    {
+      "address": "0xd3b5e0",
+      "bytes": 4
+    }
+  ],
+  "source_hashes": {
+    "src/unit_00435.c": "5c2b0534793a51ddb618415cbaec3aaede0f2880d2fbd4b7441b254d47f117cb",
+    "src/unit_00436.c": "132aa5591be6a0f83cd0bf388781d2a728edacbe5aaf57044045d1dba42f874a",
+    "src/unit_00437.c": "6ad18c756273f59457f255c8120b20488ea6e1bac213ceb6db90ab95b03d036a",
+    "src/unit_00438.c": "faca52a5145de24758373b5d95cf6402b70d24291e43cb55dc9df44e87e831d7",
+    "src/unit_00439.c": "8bb16a554623b96569be4f282890726e4491f033b3a32ddc9773c59967b649ac",
+    "src/unit_00440.c": "f3a5487f6355ea813dac4a9de2a868ba8c9df0e538fb7bd9bc400a0b3e583547",
+    "src/unit_00441.c": "a8bb419c43b2f459bcdf381947dfd5caa9509d6da4f82dd98c7a1020e9fea86f",
+    "src/unit_00442.c": "e8fab2e70ee64ed92be818402ebaeca1eed23b187577336f66d4726ca7e54264",
+    "src/unit_00443.c": "2092017fc38d6927c86667e03509d00afc3aafb0822fd7dbd08ac62e59e26eff",
+    "src/unit_00444.c": "08f47c8645f0300956bece221acca21710a2f0973786aa12e96ca8427c56af93",
+    "src/unit_00445.c": "ecfbdf69407b45ea67d0b61ee65671cbe624b83f681e298e02a156b0562eb81c",
+    "runtime/terrain_diamond.c": "15c927da4f8e3587fed604fff7be83f0d876a9e21c1cfa4d37ba57b2ddf0a462",
+    "include/terrain_diamond.h": "fb42c194f9acd0afa940f78deba0b6c30abb6d77b003dda7bbb62a68f4bd8039",
+    "tests/terrain_diamond.c": "2d772878afc6a4b705b771a1b885bec26cba64f50075f062de57d3f141619f4f",
+    "tools/verify_terrain_diamond_emulation.py": "9d864736ef0ab0c916113960b34d9684eace693aeaec7d63bfe915ecfebdef4f",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40",
+    "metadata/terrain-diamond-native.json": "e7ecb55d8b18d89384b3ff98f9eea3dc5162bc6f9cebe81daa6d1738b27203a4"
+  }
+}

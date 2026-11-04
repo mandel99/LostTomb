@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "verified_at": "2026-10-28T10:21:47.3216072+01:00",
+  "target_project": "restore",
+  "source_archive": "E:\\Downloads\\pharaoh-c-reconstruction-v7.zip",
+  "functions_total": 4402,
+  "functions_imported": 191,
+  "active_hooks_replaced": 0,
+  "unresolved_returns_before": 2011,
+  "unresolved_returns_after": 444,
+  "files_with_unresolved_returns_before": 257,
+  "files_with_unresolved_returns_after": 159,
+  "compiler_adaptations": [
+    {
+      "file": "src/unit_00928.c",
+      "function": "FUN_00462180",
+      "change": "Use the Win32 DWORD (WINAPI *)(void) type for timeGetTime instead of the decompiler's generic code pointer."
+    }
+  ],
+  "build": {
+    "configuration": "Release",
+    "platform": "Win32",
+    "library": {
+      "path": "build/cmake/Release/pharaoh_restored.lib",
+      "bytes": 7527426,
+      "sha256": "072ea259d57d54eb99a174d1ffca13948fadd9e6109a094ba2bdac6d19a56630"
+    },
+    "executable": {
+      "path": "artifacts/v7-integrated/Release/PharaohRestore.exe",
+      "bytes": 2146304,
+      "sha256": "9753ec3bac41795f817788bc90a432ac6ff8e816b4858f4e7521721efa39b6e5"
+    },
+    "runtime_dll": {
+      "path": "artifacts/v7-integrated/Release/PharaohRestoreRuntime.dll",
+      "bytes": 36864,
+      "sha256": "0dadb23a152792e781ae13ab87cf530f6d7cd8e3b88f7c320faa849c8c690349"
+    }
+  },
+  "tests": {
+    "passed": 6,
+    "failed": 0,
+    "names": [
+      "intrinsic_integer_widths",
+      "differential_original_x86",
+      "hybrid_image_inspect",
+      "hybrid_abi_self_test",
+      "hybrid_compatibility_startup",
+      "hybrid_hook_identity_guard"
+    ]
+  },
+  "scope_note": "The 191 imported functions compile in the full static library and pass hybrid regression tests. Only the existing 23 verified hooks are active replacements in gameplay; imported functions are not yet all behaviorally promoted."
+}

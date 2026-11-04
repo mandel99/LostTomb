@@ -1,0 +1,37 @@
+{
+  "format": 1,
+  "state": "Navigation466/467 and approved ordering-only1886 candidates, header, tests, verifier and private project frozen after 1246 cases against both private Debug and optimized C. Coordinator owns application and shared integration.",
+  "staged_sources": [
+    {"from": "artifacts/camera_navigation_phase/unit_00466.c", "to": "src/unit_00466.c", "sha256": "e46c641d5ac754dc5e4bf2e7962b116a261dfb9500321903cd6344585e5baac7"},
+    {"from": "artifacts/camera_navigation_phase/unit_00467.c", "to": "src/unit_00467.c", "sha256": "586f1ec829fa86fe173770e372eb1c082e0ce46abf24e92f6e848a194ada4350"},
+    {"from": "artifacts/camera_navigation_phase/unit_01886.c", "to": "src/unit_01886.c", "sha256": "96c14b007462756dd9664948c37021753815080009166ca831afc63e5240156c"}
+  ],
+  "new_header": "include/camera_navigation.h",
+  "accepted_dependencies_preserved": ["src/unit_00458.c", "src/unit_01887.c", "src/unit_00464.c", "src/unit_00465.c", "src/unit_01880.c", "src/unit_01881.c", "include/camera_bounds.h"],
+  "shared_target": {
+    "name": "restore_camera_navigation_verify",
+    "sources": ["tests/camera_navigation.c", "tests/camera_navigation_real.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS"],
+    "excluded_shared_definition": "CAMERA_NAVIGATION_STAGED is private-only.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_command": "restore_camera_navigation_verify",
+    "note": "The real wrapper includes applied466/467/1886 and accepted458/1887/464/465/1880/1881 under aliases. Do not compile these procedure files separately in this oracle. Product restore_procedures compiles the three applied files normally without hooks."
+  },
+  "shared_full_proof": "python tools/verify_camera_navigation_emulation.py --production --exe <absolute shared Debug restore_camera_navigation_verify.exe> --optimized-exe <absolute shared Release restore_camera_navigation_verify.exe>",
+  "single_variant_note": "An explicit --exe without --optimized-exe checks one compiled variant and records comparison_checked=0. Complete case count must remain1246 and coverage126/126 with18 mutation phases.",
+  "coordinator_regression": "After applying staged1886, run unchanged tools/verify_camera_bounds_emulation.py --production --exe <shared restore_camera_bounds_verify.exe>, expecting1266 cases and189/189 instructions; refresh only its approved source hash/evidence.",
+  "private_project": "tools/camera_navigation_project/CMakeLists.txt",
+  "private_target": "camera_navigation_verify",
+  "private_build": "build/agent-camera-navigation",
+  "private_variants": {
+    "Debug": {"compile": "/Od /W4", "sha256": "8c6f7229421096df1529e8a6c54c3ef4b78635c7f4f588da957e6493fb5542c4", "smoke": "1/1 passed"},
+    "Release": {"compile": "/O2 /W4", "sha256": "9654ab0426132c392db4cf0bebfa32ba55b2e53e7a9098fe832740a8c25342e7", "smoke": "1/1 passed"}
+  },
+  "final_private_result": {"passed": true, "checked": 1246, "comparison_checked": 1246, "coverage": [126,126], "primary_coverage": [25,25], "mutation_phases": 18, "full_grid_cells": 105567, "controlled_algorithm_endpoints": [], "elapsed_seconds": 34.92},
+  "source_hash_authority": "All20 hashes in metadata/camera-navigation-emulation.json. Archive this private report before a shared --production rerun overwrites its default path.",
+  "contract": "metadata/camera_navigation_contract.json",
+  "limits": "Pixel-free proof with real lookup/clamp/reset/dimension composition. Reset is an explicit fixture sequence, not an invented navigation call; individual lookup target placements are bounded fixtures with whole-grid missing scans."
+}

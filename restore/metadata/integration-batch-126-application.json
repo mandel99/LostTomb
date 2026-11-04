@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "complete_menu_reconstruction": false,
+  "frozen_inputs": {
+    "artifacts/editor_validation_phase/apply-map.json": "fdb8cd6df48b6e248571854729bc5a16c17202cb12cee5bcebe02bfc13684ce2",
+    "artifacts/display_confirmation_phase/metadata/apply-map.json": "78ff801a2a0f71e1b57998f91700d8e9a9d49dad24020c466375067013c23f1b",
+    "artifacts/display_confirmation_phase/metadata/freeze-manifest.json": "98e02694b1548c814bed067e47aab72563ee037fc0dbe2eed41ee86e88966e40",
+    "CMakeLists.txt": "799f7f753578cd3477b45161e563fe4a8b4111c643fd0d61af882d0eddc54f8e",
+    "runtime/menu_callbacks.c": "68dbd3b45a89b69f3ec2a805fb6cf4b528a595a3a0730b33e23eba5cebb08e9d"
+  },
+  "written": {
+    "include/editor_validation.h": "e8de3f3ddf03d761c0c750406d5a5543a61219180fdb2df35b6cb36153cbd63a",
+    "runtime/editor_validation.c": "f587ab92eb44773491fd10766adddc65004192d346a746d2ab7f16ddec96d17b",
+    "src/unit_02079.c": "be8ea6595c771d1e50a0dad92117e288190cf4ff4e0b06a09c5b3c14a9c4af07",
+    "src/unit_00025.c": "4ba659448e2e6771580201d6d26ac382aee23eff1701efa810e5c5695f047b16",
+    "src/unit_00026.c": "b1e7391b0f4a9d1155cbbb3a53716eeb249bdc2ad1cfdc07e2e98642bb79b4f2",
+    "src/unit_02436.c": "ca6e39510d46eb84d37dbce8ecb47e6d8430e7cdac54900fcee3c6877d6a1a05",
+    "src/unit_01766.c": "e6ad7bfac19c77a5997e50ba4c021750660287ca842f05b6a4418030752998c8",
+    "runtime/display_confirmation.c": "1028ed98cc86b8b1fdc79bdf4b9b2c5026a31f385d182081dbe56bd5cd92c3a6",
+    "runtime/display_confirmation_clock.c": "b37aa1b65cc38932a65e2749c88db63a08cd6b6698efb9a720cd16b56a806e5a",
+    "include/display_confirmation.h": "d8e089b9c861633bc935762cccee91ba41db6591719384fb2d6240dea3f1ceaf",
+    "tests/display_confirmation.c": "77e06946480c81c1870bd790d2c5bcaf73a9da25599c8411da922b3a9bf86fe2",
+    "tools/verify_display_confirmation_emulation.py": "1fc385c34ce9f71a351538e08ee99b084b27276460fe1b62e63c636168fdbb51",
+    "metadata/display-confirmation-native.json": "72e4d19fe52ec6c650461cc35129569f4dfbc1ec09b886ad579aa75fe8b55707",
+    "src/unit_01868.c": "55dcbd800976b31ffe58ade1ddd01a166bf18da4e63c67d252250b48a1972c29",
+    "runtime/menu_callbacks.c": "d7484ed726680ea5edfd4fdf175e91666e229ed8d6f007b92058f24488d4b529",
+    "CMakeLists.txt": "17a66209e9bb4426026e687804f8a8f5a0da45f8d0ebd253863fddecd8fa734c"
+  },
+  "narrow_caller_wiring": {
+    "path": "src/unit_01868.c",
+    "expected_before_sha256": "773b7ebeaa699db9bca5f3ba4731d785d4e2691e02504387370a67fb6af624da",
+    "expected_after_sha256": "55dcbd800976b31ffe58ade1ddd01a166bf18da4e63c67d252250b48a1972c29",
+    "encoding": "UTF8; preserveCRLF bytewise",
+    "replacements": [
+      {
+        "expected": "          if (DAT_00e38dda == '>') {\r\n            uVar4 = FUN_00426450(DAT_00e38da8 + 0x50,DAT_00e38da4 + 0x40,&PTR_DAT_005c68a8,1,\r\n                                 DAT_00e38da8,DAT_00e38da4);\r\n            DAT_007056c8 = FUN_004d6740(DAT_00e38da8 + 0x50,DAT_00e38da4 + 0x40,&PTR_DAT_005c68a8,1,\r\n                                        uVar4);\r\n            iVar5 = FUN_004261d0(DAT_00e38da8 + 0x50,DAT_00e38da4 + 0x40,&PTR_DAT_005c68a8,1);\r\n            if (iVar5 != 0) {\r\n              return;\r\n            }\r\n            DVar10 = timeGetTime();\r\n            if ((int)DVar10 <= DAT_006057e8 + 10000) {\r\n              return;\r\n            }\r\n            FUN_00402de0();\r\n            return;\r\n          }\r\n",
+        "replacement": "          if (DAT_00e38dda == '>') {\r\n            restore_display_confirmation_input();\r\n            return;\r\n          }\r\n",
+        "expected_count": 1
+      },
+      {
+        "expected": "extern void restore_selection_popup_input(void); /* Keep other1868legacy prototypes unchanged. */\r\n",
+        "replacement": "extern void restore_selection_popup_input(void); /* Keep other1868legacy prototypes unchanged. */\r\nextern void restore_display_confirmation_input(void);\r\n",
+        "expected_count": 1
+      }
+    ],
+    "native_selector_guard": "004dd2a2 CMP AL,3E;004dd2a4 JNZ004dd345; bytes3c3e0f859b000000",
+    "native_selected_block": "004dd2aa..004dd344 plus sharedreturn004dd8c3..004dd8ca,53instructions",
+    "preserve": "Every othermode/prelude and the accepted popup0F/48wrapper remain bytewise unchanged."
+  },
+  "central_registry_insertions": [
+    {
+      "anchor": "#include \"selection_popup.h\"\n",
+      "inserted": "#include \"editor_validation.h\"\n#include \"display_confirmation.h\"\n"
+    },
+    {
+      "anchor": "    if(restore_selection_popup_action(address))return;\n",
+      "inserted": "    if(address==0x00409830u){FUN_00409830();return;}\n    if(restore_display_confirmation_action(address))return;\n"
+    }
+  ],
+  "validation": "Applied only; build and native replay still required."
+}

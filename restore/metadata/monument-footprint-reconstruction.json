@@ -1,0 +1,101 @@
+{
+  "status": "three whole native monument tile/resource functions reconstructed as named typed C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x5468d0",
+      "file": "src/unit_02581.c",
+      "name": "restore_monument_commit_footprint",
+      "rea": "ev_aedd0109d5424e4a6d34279d879f5d0f1446a686157945161669823590acfdaa",
+      "instructions": 882,
+      "native_bytes": 3647,
+      "native_body_sha256": "ffb723537cc7f145f3c413fe40b983fb49eda8744dfce86dcd3a0d458e1c5d11",
+      "source_sha256": "2c4f5dc6de4272dcee08f0e1605e1f577093ed52e4fafe6807877e3067884f1c"
+    },
+    {
+      "entry": "0x492fc0",
+      "file": "src/unit_01319.c",
+      "name": "restore_monument_consume_resource",
+      "rea": "ev_91f26a4c2eff034085833e9e85188a334c3bc38392fe6826039dba9ee7ca5196",
+      "instructions": 70,
+      "native_bytes": 198,
+      "native_body_sha256": "8e871d430deef84734524a8f2573c3c0ae840c92191b9c074e3b9ddb93f48b27",
+      "source_sha256": "806ba97381a3bfd872ae97ecbd17c57c0eeea897e4dc6615d96d4fc37c1898c2"
+    },
+    {
+      "entry": "0x547a60",
+      "file": "src/unit_02583.c",
+      "name": "restore_monument_refresh_all_tiles",
+      "rea": "ev_9af71cd66c4a872542b8535386644f77445d225b7d3a31464a90b24680d9e560",
+      "instructions": 36,
+      "native_bytes": 102,
+      "native_body_sha256": "8875e3ee2139f925ac8bd82e20ba498f78ad6b26b08ba6982032deec27857fdd",
+      "source_sha256": "307673c907af40f2d834355fcf071303adc6695d526e34a2e3508365674e1c77"
+    }
+  ],
+  "native_bytes": 3947,
+  "native_instructions": 988,
+  "changes": [
+    "Replace the lost native ECX with explicit receiver arguments; preserve original four-class receivers.",
+    "Recover flags as the DWORD output of the actual image query; footprint size is the cached building BYTE, not an uninitialized local.",
+    "Correct BYTE tile flags/noise, WORD ownership/coordinates and DWORD map/image/offset/shape/orientation fields.",
+    "Translate all supported shape/orientation masks into compact fixed offset-index tables.",
+    "Preserve finished terminal-piece and square branches, cached root/size and provider-dependent reloads.",
+    "Reconstruct the distinct inclusive/exclusive refresh loops, full building-count reloads, material selection and first-tie priority.",
+    "Correct eight explicit receiver calls in the remaining two old caller source files."
+  ],
+  "routing": {
+    "public_entries": "5468D0 now has explicit cdecl(self,building).547A60 delegates the new typed loop.492FC0 public C wrapper delegates the typed material function; MSVC removes/inlines the tiny alias in this Release.",
+    "preserved": "Existing instruction-level C frame graphs keep their original register/flags and native RET4 contracts.",
+    "caller_sources": [
+      "src/unit_01020.c",
+      "src/unit_02582.c"
+    ],
+    "receiver_mapping": {
+      "229": "006F9320",
+      "234": "006F5648",
+      "235": "006DE9E0",
+      "236": "006E9188"
+    }
+  },
+  "verification": {
+    "script": "direct_c/verify_monument_footprint.py",
+    "cases": 376,
+    "shape_orientation_cases": 192,
+    "tile_flags_finished_callbacks": 88,
+    "rectangle_stamp_compositions": 48,
+    "complete_image_activity_stamp_compositions": 12,
+    "resource_refresh_loops": 36,
+    "native_evidence": "All3947 body bytes compared against Ghidra instruction bytes and the pinned original PE; Capstone covers988 instructions without gaps.",
+    "actual_compositions": [
+      "all three reconstructed C bodies in refresh/resource chains",
+      "547BA0 activity and four actual native/C virtual image queries",
+      "47BF50 full rectangle/map writer and4746D0 redraw-bound calculation"
+    ],
+    "controlled_boundaries": [
+      "documented image/activity providers in isolated cases",
+      "475FD0 terrain variant selector",
+      "47BF50 rectangle provider only in shape/mutation cases",
+      "4767D0 final redraw endpoint in real-stamp cases",
+      "4EA930 refresh eligibility in resource cases"
+    ],
+    "comparison": "Complete seeded native global memory, map/ownership/image buffers, callback receivers/arguments/order, stack cleanup and nonvolatile registers. Void return scratch registers are not promoted into logical results.",
+    "diagnostic": "restore_link_check.exe without arguments passed",
+    "live_gameplay": "Not run; physical rendering and host game execution are not part of this check."
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "1b6be712f011a91d357bbeb57d092ab0b007aefdffb69f747dbbe0b3e3c9ef38",
+    "bytes": 7618048,
+    "modified": "2026-11-02T15:32:27.078831+01:00",
+    "compile": "three owned C translation units use strict MSVC /W4 /WX; build passed"
+  },
+  "publication": "Source update only; no tag or release created.",
+  "next_review": [
+    "004BEEB0 remaining monument-worker task selection",
+    "004C0F30 remaining advisor selection scalar widths",
+    "004F04D0 remaining travel/work state machine"
+  ],
+  "source_commit": "2cb0a1563e43f86c1c1eefa8faf2fa361c54121b"
+}

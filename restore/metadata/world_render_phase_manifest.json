@@ -1,0 +1,66 @@
+{
+  "phase": "world-render",
+  "state": "staged and frozen; awaits coordinator application release",
+  "passed": true,
+  "checked": 11080,
+  "native_instruction_coverage": [
+    1398,
+    1400
+  ],
+  "reachable_instruction_coverage": [
+    1398,
+    1398
+  ],
+  "real_helper_instruction_coverage": [
+    12,
+    12
+  ],
+  "helper_receiver_binding_calls": 48,
+  "private_smoke": "1/1 passed",
+  "source_hash_drift": 0,
+  "application": {
+    "src/unit_00547.c": {
+      "staged": "artifacts/world_render_phase/unit_00547.c",
+      "sha256": "e3c510a4be6ed5e1c428f8bf9c40ac78bde0ca3c58133ce6b2cf50ab025663a0"
+    },
+    "src/unit_00548.c": {
+      "staged": "artifacts/world_render_phase/unit_00548.c",
+      "sha256": "f11ae9c3ec5941c8ce6e6168126014af394dc594117880b582cca1f2d88ed275"
+    },
+    "src/unit_00549.c": {
+      "staged": "artifacts/world_render_phase/unit_00549.c",
+      "sha256": "760996e4e24bc938ca08699e5512a5b724b50e352b86ad439ea4bd49141b28c2"
+    }
+  },
+  "shared_target": "restore_world_render_verify",
+  "shared_sources": [
+    "tests/world_render.c",
+    "tests/world_render_real_upper.c",
+    "tests/world_render_real_clips.c",
+    "tests/world_render_real_members.c",
+    "src/unit_00547.c"
+  ],
+  "include_directories": [
+    "include"
+  ],
+  "compile_definitions": [
+    "_CRT_SECURE_NO_WARNINGS"
+  ],
+  "compile_definition_excluded": "WORLD_RENDER_STAGED is private-build-only; shared verification includes applied helpers",
+  "links": [
+    "restore_data",
+    "advapi32"
+  ],
+  "link_options": [
+    "/BASE:0x10000",
+    "/DYNAMICBASE:NO",
+    "/FIXED"
+  ],
+  "verification": "tools/verify_world_render_emulation.py --production --exe build/c-only-debug/Debug/restore_world_render_verify.exe",
+  "limitations": [
+    "Other large object drawing/classifier/animation algorithms and six final raster consumers are controlled endpoints; this proof establishes world-controller behavior and composed upper-sprite/clipping state, not city pixel fidelity.",
+    "Valid mapped tile IDs0..7/sentinel, finite mapped building/actor records and acyclic actor links; arbitrary invalid pointers or cyclic lists are outside finite fixtures.",
+    "Native thiscall cleanup and explicit receiver are checked separately from source C facades. World renderer return is void; helper full EAX results are compared.",
+    "Candidate remains staged until coordinator releases application; --source binds the exact staged or applied source in source_hashes."
+  ]
+}

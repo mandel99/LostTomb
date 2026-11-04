@@ -7497,7 +7497,7 @@ LAB_00514f76: ;
                   (short)(&DAT_00799a00)[DAT_00eadd6c * 0x84] * 0xe4 +
                   DAT_00bca2d8 + (short)(&DAT_007999fe)[DAT_00eadd6c * 0x84]) < '\0') ||
        (((&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0 &&
-        ((FUN_00457af0(), restore_unresolved_return(0x00457af0u)), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
+        (FUN_00457af0(), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
       pcStack_218 = DAT_00f56f8c;
       pcStack_21c = (char *)((int)DAT_00eadd88 * 0xf);
       pcStack_228 = (char *)0x95;
@@ -7799,7 +7799,7 @@ LAB_0051316f: ;
                   (short)(&DAT_00799a00)[DAT_00eadd6c * 0x84] * 0xe4 +
                   DAT_00bca2d8 + (short)(&DAT_007999fe)[DAT_00eadd6c * 0x84]) < '\0') ||
        (((&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0 &&
-        ((FUN_00457af0(), restore_unresolved_return(0x00457af0u)), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
+        (FUN_00457af0(), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
       pcStack_218 = DAT_00f56f8c;
       pcStack_21c = (char *)((int)DAT_00eadd88 * 0xf);
       pcStack_228 = (char *)0x95;
@@ -8056,7 +8056,7 @@ LAB_00513c15: ;
                   (short)(&DAT_00799a00)[DAT_00eadd6c * 0x84] * 0xe4 +
                   DAT_00bca2d8 + (short)(&DAT_007999fe)[DAT_00eadd6c * 0x84]) < '\0') ||
        (((&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0 &&
-        ((FUN_00457af0(), restore_unresolved_return(0x00457af0u)), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
+        (FUN_00457af0(), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
       bVar29 = true;
     }
     if (iVar14 < 9) {
@@ -8298,7 +8298,7 @@ LAB_00514974: ;
                     (short)(&DAT_00799a00)[iVar15 * 0x84] * 0xe4 +
                     DAT_00bca2d8 + (short)(&DAT_007999fe)[iVar15 * 0x84]) < '\0') ||
          (((&DAT_007999f8)[iVar15 * 0x84] == 0 &&
-          ((FUN_00457af0(), restore_unresolved_return(0x00457af0u)), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
+          (FUN_00457af0(), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
         pcStack_218 = DAT_00f56f8c;
         pcStack_21c = (char *)((int)DAT_00eadd88 * 0xf);
         pcStack_228 = (char *)0x94;
@@ -8455,7 +8455,7 @@ LAB_00514357: ;
                   (short)(&DAT_00799a00)[DAT_00eadd6c * 0x84] * 0xe4 +
                   DAT_00bca2d8 + (short)(&DAT_007999fe)[DAT_00eadd6c * 0x84]) < '\0') ||
        (((&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0 &&
-        ((FUN_00457af0(), restore_unresolved_return(0x00457af0u)), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
+        (FUN_00457af0(), (&DAT_007999f8)[DAT_00eadd6c * 0x84] == 0)))) {
       pcStack_218 = DAT_00f56f8c;
       pcStack_21c = (char *)((int)DAT_00eadd88 * 0xf);
       pcStack_228 = (char *)0x95;

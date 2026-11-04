@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "state": "Frozen after final7441-case optimized private proof. Coordinator has applied the exact two candidates and owns shared integration/replay.",
+  "staged_sources": [
+    {"from": "artifacts/actor_render_phase/unit_00561.c", "to": "src/unit_00561.c", "sha256": "ed02eabe017e0aab489cf3763b7955973e87689b038a36268747884866da5ada"},
+    {"from": "artifacts/actor_render_phase/unit_00562.c", "to": "src/unit_00562.c", "sha256": "fc606269c21479bb98365a04fe97bd5725ae2ed0c476e3e342187c1ed6545bec"}
+  ],
+  "shared_target": {
+    "name": "restore_actor_render_verify",
+    "sources": ["tests/actor_render.c", "tests/actor_render_real_renderer.c", "tests/actor_render_real_graphics.c", "tests/actor_render_real_clips.c", "src/unit_00562.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS"],
+    "excluded_shared_definition": "ACTOR_RENDER_STAGED is private-only. No verification macros exist in either product body.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_name": "standalone_actor_render",
+    "test_command": "restore_actor_render_verify",
+    "note": "actor_render_real_renderer.c includes561 under an alias and the test observes its entry. Do not add561 separately to the oracle. Production restore_procedures compiles both applied sources normally."
+  },
+  "shared_full_proof": "python tools/verify_actor_render_emulation.py --production --exe <absolute shared restore_actor_render_verify.exe>",
+  "private_project": "tools/actor_render_project/CMakeLists.txt",
+  "private_executable_sha256": "d5af105cd149c48dee7dcadd00ca25838b3b70cb470e53ea81d78254080174fb",
+  "staged_full_report_archive": "metadata/actor-render-private-optimized.json",
+  "final_private_result": {"passed": true, "checked": 7441, "reachable_instructions": [830,830], "total_instructions": 833, "mutation_endpoints": 14, "ordered_endpoints": 16},
+  "source_hash_authority": "All20 hashes in the complete private report, unchanged at freeze. Shared --production replaces staged candidate paths with actual applied source paths.",
+  "contract": "metadata/actor_render_contract.json",
+  "capture_scope_note": "metadata/viewport_endpasses_capture88_followup.json",
+  "limitations": "Coordinate/predicate/formatting and final raster endpoints are controlled; loaded inline image fixtures only; no city pixel-fidelity claim."
+}

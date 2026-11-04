@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "state": "contract recovery and handwritten staging in progress; no production changes",
+  "scope": "Full0043B630,1963nativeinstructions,6586byte declared body43B630..43D003",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_dossier": {
+    "path": "metadata/viewport-endpasses-next-native.json",
+    "sha256": "9c6d41e9803c1e907d2d39fb15d5a98254a7884494ab9957848ef0b461775cb4"
+  },
+  "read_only_reference_files": [
+    "../PharaohRewrite/src/Pharaoh.Verification/BuildingPreviewVerification.cs",
+    "../PharaohRewrite/src/Pharaoh.Desktop/Legacy/Rendering/BuildPreviewRenderer.cs",
+    "../PharaohRewrite/src/Pharaoh.Desktop/Legacy/Managers/MapManager.TerrainPreviews.cs"
+  ],
+  "reference_authority": "C# is used only as address/navigation hypothesis; native bytes and instruction contracts determine behavior. No C# source changed.",
+  "planned_stage": "artifacts/placement_preview_phase",
+  "confirmed_contract_issues": [
+    "TopgateDWORD6059E8/BCA300/E38DCC/605994/605A3C, BYTE605A5C+6DE514.",
+    "Four004F0BA0calls must pass real32bit x/y output locals; detached in_stack scratch variables are invalid.",
+    "Native53E590/53F250three-stack-arg methods and53F4F0four-stack-arg method bindECX F55BB0; source uses ordinary facade only where explicitreceiver contracts justified.",
+    "Eight earlytailmethods bind receiver constants and cannot be called through old uninitializedin_ECX C bodies. Callee exports requested.",
+    "Map terrainAF598C uses DWORD stride4, buildingB350DC signedWORD stride2; footprint offset tables require exact rawbyte offsets.",
+    "WORD70E120tints and DWORD70E13C/16byte outputdraw queue entries must retain exactorderedendpoint effects."
+  ],
+  "callee_exports_requested": true,
+  "source_sha256_before": {
+    "src/unit_00565.c": "a8254b068f6f3b2a40411fe230121084b1cd2e67955cc06722ebb7275860717b"
+  },
+  "planned_verification": "PrivatefixedWin32C target + bounded pinned-native Unicorn, allnative guards/branches, ordered args/receivers/tailhandoffs, consumed returns/stackoutputs, record/memory/canaries, stack and saved registers. Actual smallhelpers composed only afternativecontract proof; deep algorithms named as controlled endpoints."
+}

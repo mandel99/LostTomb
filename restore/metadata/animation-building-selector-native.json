@@ -1,0 +1,268 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source": "Complete original temple selector 004e59c0, genuine EAX return and all four consumed-return callers.",
+  "function": {
+    "items": [
+      {
+        "address": "004e59c0",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "004e59c1",
+        "bytes": "8b2d28acea00",
+        "instruction": "MOV EBP,dword ptr [0x00eaac28]",
+        "comment": null
+      },
+      {
+        "address": "004e59c7",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "004e59c8",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "004e59c9",
+        "bytes": "33c0",
+        "instruction": "XOR EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004e59cb",
+        "bytes": "33ff",
+        "instruction": "XOR EDI,EDI",
+        "comment": null
+      },
+      {
+        "address": "004e59cd",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004e59cf",
+        "bytes": "754e",
+        "instruction": "JNZ 0x004e5a1f",
+        "comment": null
+      },
+      {
+        "address": "004e59d1",
+        "bytes": "8bcd",
+        "instruction": "MOV ECX,EBP",
+        "comment": null
+      },
+      {
+        "address": "004e59d3",
+        "bytes": "69c976120000",
+        "instruction": "IMUL ECX,ECX,0x1276",
+        "comment": null
+      },
+      {
+        "address": "004e59d9",
+        "bytes": "03cf",
+        "instruction": "ADD ECX,EDI",
+        "comment": null
+      },
+      {
+        "address": "004e59db",
+        "bytes": "47",
+        "instruction": "INC EDI",
+        "comment": null
+      },
+      {
+        "address": "004e59dc",
+        "bytes": "8b148dac5fea00",
+        "instruction": "MOV EDX,dword ptr [ECX*0x4 + 0xea5fac]",
+        "comment": null
+      },
+      {
+        "address": "004e59e3",
+        "bytes": "85d2",
+        "instruction": "TEST EDX,EDX",
+        "comment": null
+      },
+      {
+        "address": "004e59e5",
+        "bytes": "7433",
+        "instruction": "JZ 0x004e5a1a",
+        "comment": null
+      },
+      {
+        "address": "004e59e7",
+        "bytes": "8bca",
+        "instruction": "MOV ECX,EDX",
+        "comment": null
+      },
+      {
+        "address": "004e59e9",
+        "bytes": "c1e105",
+        "instruction": "SHL ECX,0x5",
+        "comment": null
+      },
+      {
+        "address": "004e59ec",
+        "bytes": "03ca",
+        "instruction": "ADD ECX,EDX",
+        "comment": null
+      },
+      {
+        "address": "004e59ee",
+        "bytes": "c1e103",
+        "instruction": "SHL ECX,0x3",
+        "comment": null
+      },
+      {
+        "address": "004e59f1",
+        "bytes": "80b9d899790001",
+        "instruction": "CMP byte ptr [ECX + 0x7999d8],0x1",
+        "comment": null
+      },
+      {
+        "address": "004e59f8",
+        "bytes": "7520",
+        "instruction": "JNZ 0x004e5a1a",
+        "comment": null
+      },
+      {
+        "address": "004e59fa",
+        "bytes": "668bb1e8997900",
+        "instruction": "MOV SI,word ptr [ECX + 0x7999e8]",
+        "comment": null
+      },
+      {
+        "address": "004e5a01",
+        "bytes": "6681fecf00",
+        "instruction": "CMP SI,0xcf",
+        "comment": null
+      },
+      {
+        "address": "004e5a06",
+        "bytes": "7407",
+        "instruction": "JZ 0x004e5a0f",
+        "comment": null
+      },
+      {
+        "address": "004e5a08",
+        "bytes": "6681fed000",
+        "instruction": "CMP SI,0xd0",
+        "comment": null
+      },
+      {
+        "address": "004e5a0d",
+        "bytes": "750b",
+        "instruction": "JNZ 0x004e5a1a",
+        "comment": null
+      },
+      {
+        "address": "004e5a0f",
+        "bytes": "80b92d9a790064",
+        "instruction": "CMP byte ptr [ECX + 0x799a2d],0x64",
+        "comment": null
+      },
+      {
+        "address": "004e5a16",
+        "bytes": "7402",
+        "instruction": "JZ 0x004e5a1a",
+        "comment": null
+      },
+      {
+        "address": "004e5a18",
+        "bytes": "8bc2",
+        "instruction": "MOV EAX,EDX",
+        "comment": null
+      },
+      {
+        "address": "004e5a1a",
+        "bytes": "83ff03",
+        "instruction": "CMP EDI,0x3",
+        "comment": null
+      },
+      {
+        "address": "004e5a1d",
+        "bytes": "7cae",
+        "instruction": "JL 0x004e59cd",
+        "comment": null
+      },
+      {
+        "address": "004e5a1f",
+        "bytes": "5f",
+        "instruction": "POP EDI",
+        "comment": null
+      },
+      {
+        "address": "004e5a20",
+        "bytes": "5e",
+        "instruction": "POP ESI",
+        "comment": null
+      },
+      {
+        "address": "004e5a21",
+        "bytes": "5d",
+        "instruction": "POP EBP",
+        "comment": null
+      },
+      {
+        "address": "004e5a22",
+        "bytes": "c3",
+        "instruction": "RET",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 150,
+    "total": 35,
+    "has_more": false
+  },
+  "xrefs": {
+    "items": [
+      {
+        "from": "00472aa7",
+        "type": "UNCONDITIONAL_CALL",
+        "from_function": {
+          "name": "FUN_004728a0",
+          "address": "004728a0"
+        }
+      },
+      {
+        "from": "004d3c20",
+        "type": "UNCONDITIONAL_CALL",
+        "from_function": {
+          "name": "FUN_004d3c20",
+          "address": "004d3c20"
+        }
+      },
+      {
+        "from": "004e5a83",
+        "type": "UNCONDITIONAL_CALL",
+        "from_function": {
+          "name": "FUN_004e5a80",
+          "address": "004e5a80"
+        }
+      },
+      {
+        "from": "004e5c07",
+        "type": "UNCONDITIONAL_CALL",
+        "from_function": {
+          "name": "FUN_004e5c00",
+          "address": "004e5c00"
+        }
+      }
+    ],
+    "offset": 0,
+    "limit": 100,
+    "total": 4,
+    "has_more": false
+  },
+  "C_consumers": [
+    "src/unit_01022.c",
+    "src/unit_01808.c",
+    "src/unit_01979.c",
+    "src/unit_01983.c"
+  ]
+}

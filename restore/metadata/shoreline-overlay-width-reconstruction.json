@@ -1,0 +1,161 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: eight complete native C bodies reconstructed; linked legacy triage remains open",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x431ce0",
+      "source": "src/unit_00473.c",
+      "evidence_id": "ev_88c7f04551df79e9ec2a2fe44e5b3276c3c05a3b284c3ba39cfbd941799aa34a",
+      "native_bytes": 1157,
+      "decoded_instructions": 394,
+      "native_body_sha256": "797298e358b59903913b6e266e2b9f8020cbd6a7594e26e63dd6c2dac48c4a04",
+      "compiled_entry": "0041bb40",
+      "provider": "pharaoh_restored:unit_00473.obj"
+    },
+    {
+      "address": "0x4321a0",
+      "source": "src/unit_00474.c",
+      "evidence_id": "ev_f1878e05401ac54fd8cf3d13bd0b5ba4d98a9fbec50ac1d5a16de9dd4bb177a9",
+      "native_bytes": 345,
+      "decoded_instructions": 123,
+      "native_body_sha256": "1f592a280be818b5d83b1befc62ed3fc4fa9393b3e3bd0f4e4f2811b11f80090",
+      "compiled_entry": "0041b960",
+      "provider": "pharaoh_restored:unit_00474.obj"
+    },
+    {
+      "address": "0x432620",
+      "source": "src/unit_00476.c",
+      "evidence_id": "ev_32f13c1a2f96d392223635d3eae4088b0c5390191c9041fdd76eaf658ca9dcb1",
+      "native_bytes": 501,
+      "decoded_instructions": 173,
+      "native_body_sha256": "e9c4b9b7ceb35da4ac57a33d429f29035de1e4e216a94bb578355dac9678631b",
+      "compiled_entry": "0041b670",
+      "provider": "pharaoh_restored:unit_00476.obj"
+    },
+    {
+      "address": "0x43dd70",
+      "source": "src/unit_00570.c",
+      "evidence_id": "ev_e41bd98e2ae3a8e86754c871d4818c639c6838f0193928b485df2dbd53a21d1a",
+      "native_bytes": 414,
+      "decoded_instructions": 126,
+      "native_body_sha256": "f1502aeabde78a8851bccf460d8acfa2514f18360da972947911492bea5f6d0f",
+      "compiled_entry": "00412f60",
+      "provider": "pharaoh_restored:unit_00570.obj"
+    },
+    {
+      "address": "0x43e090",
+      "source": "src/unit_00572.c",
+      "evidence_id": "ev_52cb7b8f3a490cfcdaffdd276f6a5c22f8b9172116e2c36c70bfb0a22996bf61",
+      "native_bytes": 258,
+      "decoded_instructions": 81,
+      "native_body_sha256": "f75a34d81e0a7e441ffc0e9dda7ff4ff8ef704fcac9bb9bdd2054c442d4aa023",
+      "compiled_entry": "00412cb0",
+      "provider": "pharaoh_restored:unit_00572.obj"
+    },
+    {
+      "address": "0x43df10",
+      "source": "src/unit_00571.c",
+      "evidence_id": "ev_607e4bee606d9e80ef11a7c834d3cacb424d17ca2110e7643d7ffcc61a3ebd94",
+      "native_bytes": 378,
+      "decoded_instructions": 115,
+      "native_body_sha256": "a09321731977f59c04f706b5241efe05ed30b2afb10c9c10b20c374b3162b331",
+      "compiled_entry": "00412df0",
+      "provider": "pharaoh_restored:unit_00571.obj"
+    },
+    {
+      "address": "0x4893c0",
+      "source": "src/unit_01295.c",
+      "evidence_id": "ev_063c49145c3b5fd75ece94c8955dcfb23623b7411ca83786ae3ca9fcce7d077f",
+      "native_bytes": 174,
+      "decoded_instructions": 64,
+      "native_body_sha256": "dc086d1a85c46e55f5288849539930fb646fef170ab2d3f1c8ab25ca2f2cfdfa",
+      "compiled_entry": "003df410",
+      "provider": "pharaoh_restored:unit_01295.obj"
+    },
+    {
+      "address": "0x441f80",
+      "source": "src/unit_00600.c",
+      "evidence_id": "ev_49587fdfb3df6f3e8a1a665e2f86c093ffc564d00ac657ed3939da4dd08fee46",
+      "native_bytes": 753,
+      "decoded_instructions": 219,
+      "native_body_sha256": "42c72a00629db28dd535a2f9634ba80097e2fd772a9813cea4fe56bb8c96a5e8",
+      "compiled_entry": "0040fc70",
+      "provider": "pharaoh_restored:unit_00600.obj"
+    }
+  ],
+  "body_coverage": {
+    "native_bytes": 3980,
+    "decoded_instructions": 1295,
+    "method": "REA body extents/instructions plus full Ghidra memory reads matched byte-for-byte to the SHA-pinned original; complete Capstone decode. REA listings of the three overlay bodies were partial."
+  },
+  "crash": {
+    "dump": "build/c-only/Release/PharaohRestoreC-crash.dmp",
+    "local_time": "2026-11-02T11:00:07",
+    "source_build_COFF": "6ae85b00",
+    "EIP": "00413080",
+    "provider": "FUN_0043dd70",
+    "invalid_read": "03dfe614",
+    "cause": "kind*20 was added to a DWORD pointer, multiplying the native byte offset by four before a dependent library lookup."
+  },
+  "repairs": [
+    "DWORD map cell indices, image ids, geometry, scratch and selection/player state; WORD tint/actor/building ids; byte footprint/random/status arrays.",
+    "Single-scaled20-byte selection records,144-byte orientation blocks,264-byte building records and terrain/object map arrays.",
+    "Whole2x2/3x3 shoreline, single-building and statue previews; native signed treasury checks, variant selection, per-cell masks and callback reloads.",
+    "Whole water and cliff-footprint branches, transparent tile path, selector and viewport compositions.",
+    "Terrain rectangle uses full map indices and object pointers; native retained highEAX bits and lowAL boolean are preserved."
+  ],
+  "verification": {
+    "shoreline_preview_cases": 112,
+    "water_cliff_cases": 748,
+    "preview_sibling_cases": 73,
+    "terrain_query_cases": 600,
+    "statue_cases": 316,
+    "whole_link_noarg_exit": 0,
+    "scripts": [
+      "direct_c/verify_shoreline_overlay.py",
+      "direct_c/verify_preview_widths.py"
+    ],
+    "scope": "Whole original/C Unicorn execution; projection/input/placement and final sprite boundaries controlled. Some actual parent/selector/query bodies compose. No physical framebuffer or host gameplay claim."
+  },
+  "audit": {
+    "report": "metadata/linked-width-audit.json",
+    "linked_legacy_bodies_scanned": 3323,
+    "remaining_heuristic_candidate_functions": 588,
+    "scaled_address_candidates": 312,
+    "byte_scalar_candidates": 491,
+    "limits": "Patterns overlap. Object presence does not prove runtime reachability. Candidates require individual native validation; no blanket changes were applied."
+  },
+  "artifacts": {
+    "PharaohRestoreC.exe": {
+      "sha256": "aa83183e246c8af5c1370da20c5b3e8b5e6c17a178730a3cf0703681435e89e1",
+      "bytes": 7637504,
+      "COFF": "6ae8627a",
+      "local_time": "2026-11-02T11:14:18"
+    },
+    "restore_link_check.exe": {
+      "sha256": "9eec2ca2342c82885a9d38d8d293b2db267cabc7fbc613cb2d31e263aca97ee4",
+      "bytes": 7633920,
+      "COFF": "6ae86263",
+      "local_time": "2026-11-02T11:13:55"
+    }
+  },
+  "source_sha256": {
+    "src/unit_00473.c": "68e72fbd6cfdc8a58278ab9694db52351fa0259800e0762e7aaf4ea4f90d91be",
+    "src/unit_00474.c": "ab63f9646b7cf91ed23d73ec1edc531e62513b536726f5877f72f86929f95964",
+    "src/unit_00476.c": "e011cba40d4d7d68d432c20bb4c3e9b3a7a91dceaa36e1ce72d0152653e732c6",
+    "src/unit_00570.c": "e816013d53ecdd202214768565e3ec3d5f3c90559d6edd1cce5f3f34ee346282",
+    "src/unit_00572.c": "838294b3de0bd02bdee1baf757fd20404174d3bfbaffd26a800d7324cff6f705",
+    "src/unit_00571.c": "441b34331722a4eb8635f85ef74a5ed4578d5c170aae10048fbd465170675560",
+    "src/unit_01295.c": "277acf26fcd38d3b17b61466433911526daecc6cef4b1dafe922b116d3fdc190",
+    "src/unit_00600.c": "f74a19e4c7151a38d69030abf29c1c5970ea6b71c2b5a22f7e5dc620204bdf58",
+    "include/ground_render.h": "18932be7b14690de1f3f1218ce07d2637592f69a350bc93882beb36b9fae7920",
+    "include/overlay_footprints.h": "73280ef159d52ee4d1020acb332211f676e28444e15d140af6313eba38008976",
+    "include/placement_preview.h": "f7477d04d22d6bf4284ace24297015220f6f756c664d8ee280eb0bc2b34fe07e",
+    "CMakeLists.txt": "593af53c8d8e7b7230323913517905a1757cebb9dcf6caabb602d34d22ef71b1",
+    "tools/audit_linked_legacy_widths.py": "c53f8bda06ee3be40d7483c29b2a05c1dc9fb56e436009915a8c6f39973e849c",
+    "direct_c/verify_shoreline_overlay.py": "e06ded4f75ce32d2ae2181b6a807ffea7c053b5d03d6e4edfde633d8d1fb7437",
+    "direct_c/verify_preview_widths.py": "cbdcf238384c0cbfd317f237a577627abecc2b36a31674f2f6507508b57901f8"
+  }
+}

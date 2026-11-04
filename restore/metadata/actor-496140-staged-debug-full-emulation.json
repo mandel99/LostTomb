@@ -1,0 +1,318 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T14:20:06.027736+00:00",
+  "passed": true,
+  "checked": 3168,
+  "stage": "artifacts/actor_callback_496140_phase",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "build/agent-actor-496140/out/Debug/restore_actor_496140_verify.exe",
+  "compiled_C_sha256": "d372618f54a5992af8322814126772d4312ade8addab1a525ddb85307abe4116",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "method": "Complete154-instruction496140 callback,77-instruction shopping dispatcher,34-instruction pending-queue predicate and24-instruction explicit-receiver queue scan versus handwritten C, composing accepted14+17 timer/route helpers. Full actor/house/queue/canary state, ordered deep action arguments and intermediate data, cached building/original shopping actor versus reloaded global current actor, exact BYTE/WORD/DWORD fields, consumed AL/full-EAX/ignored returns, stack and saved registers compare.",
+  "limitations": [
+    "Six deeper movement/shopping actions remain controlled endpoints; their ordered arguments/selection and callback-visible effects are checked, not their full algorithms, file interactions or actual bazaar simulation.",
+    "Valid actor/building/type/route storage follows IDs1..1999, buildings0..3999, type bytes0..111 and positive routes1..999. Shopping-stop BYTE is in0..3 before the native unchecked four-DWORD history write. No success guard is added for invalid native array indices.",
+    "Fifty224-byte queue objects use head/tail indices0..capacity-1 with capacity1..51 for nonempty rings. Empty head==tail with capacity0 is also checked. Invalid nonempty ring invariants retain native behavior and are outside equivalence; they are not converted into successful absence.",
+    "4F6570 uses an explicit owned C receiver only through rewritten1358. The unowned legacy2187 entry still has dropped ECX for other callers and remains a separate reconstruction gap.",
+    "Callbacks return void; volatile EAX/ECX/EDX are unconsumed and not compared. Only AL is consumed from4A35E0; queue membership returns full canonical EAX0/1. Both resource action return values are deliberately ignored, as native. No actual registry/UI/framebuffer integration is claimed here."
+  ],
+  "complete_case_set": true,
+  "native_byte_audit": {
+    "00496140": {
+      "instructions": 154,
+      "bytes": 596
+    },
+    "00496060": {
+      "instructions": 77,
+      "bytes": 198
+    },
+    "004a35e0": {
+      "instructions": 34,
+      "bytes": 80
+    },
+    "004f6570": {
+      "instructions": 24,
+      "bytes": 53
+    },
+    "004b1d50": {
+      "instructions": 14,
+      "bytes": 69
+    },
+    "004b3250": {
+      "instructions": 17,
+      "bytes": 65
+    }
+  },
+  "newly_restored_native_instructions": 289,
+  "unchanged_composed_native_instructions": 31,
+  "native_bytes_verified": 1061,
+  "native_function_instruction_coverage": {
+    "00496140": {
+      "executed": 154,
+      "total": 154,
+      "unreached": []
+    },
+    "00496060": {
+      "executed": 77,
+      "total": 77,
+      "unreached": []
+    },
+    "004a35e0": {
+      "executed": 34,
+      "total": 34,
+      "unreached": []
+    },
+    "004f6570": {
+      "executed": 24,
+      "total": 24,
+      "unreached": []
+    },
+    "004b1d50": {
+      "executed": 14,
+      "total": 14,
+      "unreached": []
+    },
+    "004b3250": {
+      "executed": 17,
+      "total": 17,
+      "unreached": []
+    }
+  },
+  "controlled_deep_contracts": {
+    "0x4b17d0": {
+      "instructions": 387,
+      "stack_arguments": 1,
+      "execution": "controlled deep movement or shopping action"
+    },
+    "0x4a5da0": {
+      "instructions": 291,
+      "stack_arguments": 2,
+      "execution": "controlled deep movement or shopping action"
+    },
+    "0x495cf0": {
+      "instructions": 24,
+      "stack_arguments": 4,
+      "execution": "controlled deep movement or shopping action"
+    },
+    "0x496010": {
+      "instructions": 24,
+      "stack_arguments": 4,
+      "execution": "controlled deep movement or shopping action"
+    },
+    "0x495e10": {
+      "instructions": 81,
+      "stack_arguments": 3,
+      "execution": "controlled deep movement or shopping action"
+    },
+    "0x495f00": {
+      "instructions": 87,
+      "stack_arguments": 3,
+      "execution": "controlled deep movement or shopping action"
+    }
+  },
+  "native_conditional_branch_coverage": {
+    "0x49619b": {
+      "instruction": "JZ 0x004961a4",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4961ad": {
+      "instruction": "JZ 0x004961c1",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4961b8": {
+      "instruction": "JZ 0x004961c1",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4961d4": {
+      "instruction": "JC 0x004961dd",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4961eb": {
+      "instruction": "JA 0x00496235",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496228": {
+      "instruction": "JZ 0x004962c2",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x49622e": {
+      "instruction": "JLE 0x00496267",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496233": {
+      "instruction": "JG 0x00496267",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496286": {
+      "instruction": "JNS 0x00496290",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496297": {
+      "instruction": "JNZ 0x00496377",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4962fb": {
+      "instruction": "JZ 0x0049630b",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4962fe": {
+      "instruction": "JZ 0x00496258",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496305": {
+      "instruction": "JNZ 0x00496267",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x49632d": {
+      "instruction": "JLE 0x00496267",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496347": {
+      "instruction": "JNZ 0x00496261",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496095": {
+      "instruction": "JA 0x004960ca",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4960ce": {
+      "instruction": "JL 0x0049607d",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x496108": {
+      "instruction": "JZ 0x00496118",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4a35f7": {
+      "instruction": "JNZ 0x004a35fe",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4a3600": {
+      "instruction": "JZ 0x004a3607",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4a360f": {
+      "instruction": "JZ 0x004a361d",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4a361b": {
+      "instruction": "JNZ 0x004a3602",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4a3629": {
+      "instruction": "JL 0x004a360c",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4f657a": {
+      "instruction": "JZ 0x004f6594",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4f6584": {
+      "instruction": "JZ 0x004f659b",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4f658c": {
+      "instruction": "JL 0x004f6590",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4f6592": {
+      "instruction": "JNZ 0x004f6580",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4b1d67": {
+      "instruction": "JGE 0x004b1d72",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4b1d82": {
+      "instruction": "JL 0x004b1d94",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4b326e": {
+      "instruction": "JLE 0x004b3290",
+      "taken": true,
+      "fallthrough": true
+    },
+    "0x4b327f": {
+      "instruction": "JNZ 0x004b328b",
+      "taken": true,
+      "fallthrough": true
+    }
+  },
+  "native_indirect_dispatch_coverage": {
+    "0x4961ed": {
+      "table": "0x496394",
+      "table_sha256": "25fbab39f969a4151e264fa64fd576bed1f6302ff344176db8a8c2524572d2ce",
+      "targets": {
+        "0x4961f4": true,
+        "0x4961fc": true,
+        "0x496204": true,
+        "0x4962d6": true,
+        "0x496317": true,
+        "0x496368": true
+      }
+    },
+    "0x49609f": {
+      "table": "0x496128",
+      "table_sha256": "59b52307869e7cfb0c737a216e21c1801788be1ef27a12bc731c7dc37a44a980",
+      "targets": {
+        "0x4960a6": true,
+        "0x4960b9": true
+      }
+    }
+  },
+  "smoke": {
+    "passed": true,
+    "output": "Actor496140: returning-goal WORDs, actual route release, shadow flag and retained counter smoke passed."
+  },
+  "unqualified_missing_edges": [],
+  "source_hashes": {
+    "artifacts/actor_callback_496140_phase/include/actor_callback_496140.h": "1cef6dacf77c7ca0d2151393bb9de87f6678d29819c83e25f05153b192cab0ae",
+    "artifacts/actor_callback_496140_phase/runtime/actor_callback_496140.c": "540d5b5cf85954ce27d1a20fe87197e028b9a727827c2cbf0941a2436ccd9acf",
+    "artifacts/actor_callback_496140_phase/runtime/actor_callback_496140_queue.c": "0a1a2940a3d7c0f8521b0aa1c452ce09a88f2fb1aa07adfc7cc61990bb207622",
+    "artifacts/actor_callback_496140_phase/src/unit_01335.c": "dcaad4eb64aff7224872800c6ced6f5d1f6bbe48a8f15b44c3ac508ac2c191c8",
+    "artifacts/actor_callback_496140_phase/src/unit_01358.c": "77482e685e77c0c012bc2f9c3885351023c4410fb5f57140c1ba73c482d51ead",
+    "artifacts/actor_callbacks_human_phase/include/actor_callbacks_human.h": "cbb897d99446726d20ef1b38e6b0440e7bf73dacddea99e6805974036d0c03f6",
+    "artifacts/actor_callbacks_human_phase/src/unit_01416.c": "78296d0f446492e8806f9ce151a3ed403f25303c14023c7f267ede340afd4d9b",
+    "artifacts/actor_callbacks_human_phase/src/unit_01427.c": "364d8206ec5a4be2f177519dcf2082e45b6e4a25df637b4f9b6cbe780826b493",
+    "tests/actor_496140.c": "c1627324fc4560ac2680219b9ce4a970c87e161ee185c7fea44809036d1e85c9",
+    "tests/actor_496140_helpers.c": "89c6f8a5d620fb65046536742f66e9fbec830452468eeca8dd2981515a18b02f",
+    "tools/verify_actor_496140_emulation.py": "b316537e4b99c6eacfcd57709efba59fcd2b9f70ca17af00059c4d26d80d0507"
+  },
+  "native_exports": {
+    "metadata/actor-callback-round1-native.json": "b53eb84962a47ca41931fe92fb5837a82ce655919735e47a98022285bda1bcab",
+    "metadata/actor-callback-496140-helpers-native.json": "c2139ad564960597528ec656205d4294c57e6fcfd11671cf8d358fcebb9aa2a9",
+    "metadata/actor-callback-496140-actions-native.json": "8f5de7b4db6f62fdadf726dfce7023c199ce4e00d69c3df8e89d3427f248b700",
+    "metadata/actor-callback-human-queries-native.json": "7c2200a758e346e4c7f71919187ac2a7bb1c96d40f28e76256ec83c5d9dbc39b"
+  }
+}

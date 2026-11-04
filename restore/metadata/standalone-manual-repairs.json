@@ -1,0 +1,374 @@
+{
+  "date": "2026-10-29",
+  "scope": "Source reconstruction, offline checks and explicitly requested live C Debug startup; gameplay has not been tested",
+  "original_game_executed": false,
+  "restored_C_startup_executed": true,
+  "ollama_used": false,
+  "external_zip_bodies_used": false,
+  "repairs": [
+    {
+      "addresses": [
+        "0x00539250",
+        "0x00539550",
+        "0x005395e0",
+        "0x00539730",
+        "0x00539a40",
+        "0x00539a50",
+        "0x0055dd3f",
+        "0x00539c60"
+      ],
+      "change": "Music object/startup ABI, bounded music parser/insertion/selection and sound-file registration ownership/receiver",
+      "verification": "31 source-only tests in both configurations; 324 native/C music cases, 2000 native/C file lookup cases; bounded startup reaches 246 registered files and the following subsystem",
+      "report": "metadata/music-manager-repair.json",
+      "limitation": "Playback and downstream initialization remain unfinished; invalid bounds/paths and allocation failure are deliberately safer than native"
+    },
+    {
+      "addresses": [
+        "0x0055e38b",
+        "0x0055e6c4",
+        "0x0055dea2",
+        "0x0055e5d2",
+        "0x0055ec7c",
+        "0x0055dc63"
+      ],
+      "change": "Owned sound constructor, explicit initialization/pool receivers, complete provider/format bindings, channel/file-table lifecycle and safe partial-failure cleanup",
+      "verification": "29 source-only tests in Debug/Release, 355 native/C sound-state cases, bounded C startup confirms device + 5 channels + 500 file entries",
+      "report": "metadata/sound-initialization-repair.json",
+      "limitation": "Partial-failure behavior deliberately repaired; larger manager, full shutdown, 3D and enclosing consumer contracts remain incomplete"
+    },
+    {
+      "addresses": [
+        "0x0041ac00",
+        "0x0041ac50",
+        "0x0041ac90",
+        "0x0041ad20",
+        "0x0041ad50",
+        "0x0041adc0",
+        "0x0041adf0",
+        "0x0041ae40",
+        "0x00561db1"
+      ],
+      "change": "Campaign parser/prefix constructor/record helper receivers, contiguous frame and sections, numeric status, tokenizer pointer/byte writes and both parser caller contracts",
+      "verification": "28 source-only tests in Debug/Release, 330 native/C parser cases and 3 constructor cases; bounded startup confirms 53 names and 56 records",
+      "report": "metadata/campaign-parser-repair.json",
+      "limitation": "Remaining sound and save/load contracts unreviewed; native padding normalized, CRT/IO test boundaries controlled"
+    },
+    {
+      "addresses": [
+        "0x0053e590",
+        "0x004cdad0",
+        "0x004cdb80",
+        "0x0040fb60",
+        "0x0040ffd0",
+        "0x00410090",
+        "0x00520af0",
+        "0x00520b20"
+      ],
+      "change": "Explicit sprite-render manager, full-width progress IDs/coordinates, signed clipping, correct dispatch arguments and independent 16-bit copies",
+      "verification": "27 source-only tests in both configurations, 1171 native/C dispatcher cases, 129 native/C pixel cases, bounded startup through 30 library loads",
+      "report": "metadata/sprite-render-repair.json",
+      "limitation": "Remaining special raster, cropped-reader and campaign contracts are unreviewed; final loading-image descriptor has a zero pixel pointer"
+    },
+    {
+      "addresses": [
+        "0x00414420",
+        "0x0053dd10",
+        "0x0053dd40",
+        "0x0053dd80",
+        "0x0053dd90",
+        "0x0053dff0",
+        "0x0053f660"
+      ],
+      "change": "Explicit sprite-manager/library receivers, contiguous startup names, first-start object initialization, SG3 tags/images/files/pixels and 73 direct call arguments",
+      "verification": "661 component checks, 40 native/C reader comparisons and live first-library state",
+      "report": "metadata/sprite-libraries-repair.json",
+      "limitation": "Renderer and remaining lifecycle/caller bodies remain incomplete; allocator traces and malformed inputs differ intentionally"
+    },
+    {
+      "addresses": [
+        "0x00564a39",
+        "0x01266a90",
+        "0x01267aa0"
+      ],
+      "change": "Initialize separate legacy stream table and preserve original static records; restore full table/count slots and selection through the table pointer",
+      "test": "standalone_legacy_streams",
+      "verification": "300 real binary files plus 120 exact native/C slot-reset comparisons",
+      "report": "metadata/local-assets-repair.json"
+    },
+    {
+      "addresses": [
+        "0x004268c0",
+        "0x004ce9e0"
+      ],
+      "change": "User-requested local-data startup bypasses optical media checks and insert-CD waits; restore int return at four retry callers",
+      "native_equivalence_claimed": false,
+      "test": "standalone_legacy_streams",
+      "report": "metadata/local-assets-repair.json"
+    },
+    {
+      "addresses": [
+        "0x00417dd0",
+        "0x0041b920",
+        "0x0041ba20",
+        "0x0041bab0"
+      ],
+      "change": "Explicit campaign receiver, full-width category comparison, signed selection and native record links/completion behavior; update direct argument sites",
+      "test": "standalone_campaign_index",
+      "verification": "3017 source-only checks; 3330 isolated native/C comparisons including complete object bytes, 23 global fields and x86 ABI",
+      "limitation": "Full campaign parser and enclosing callers beyond reviewed argument sites remain incomplete",
+      "report": "metadata/startup-repair.json"
+    },
+    {
+      "addresses": [
+        "0x00561a36"
+      ],
+      "change": "Replace artificial decompiler va_list storage with a real C varargs sprintf bridge",
+      "test": "standalone_legacy_format",
+      "limitation": "Uses current host CRT semantics; no equivalence claim for original private formatter internals",
+      "report": "metadata/startup-repair.json"
+    },
+    {
+      "addresses": [
+        "0x004cc110",
+        "0x004cc160"
+      ],
+      "change": "Restore complete text pointers, eight-byte groups, unsigned byte/control scanning and correct preceding-byte rule; repair shared slots in other consumers",
+      "test": "standalone_text_selection",
+      "verification": "40 isolated native/C comparisons; 24 source-only matrix cases and 10000 repeated lookups",
+      "limitation": "Other complete consumers and malformed/out-of-range text input contracts remain unreviewed",
+      "report": "metadata/startup-repair.json"
+    },
+    {
+      "addresses": [
+        "0x004303a0",
+        "0x004ddec0",
+        "0x004ddf20",
+        "0x004ddf70"
+      ],
+      "change": "Restore full grid coordinates and mode-selector width; remove false return consumption after the void setter",
+      "test": "standalone_startup_grid",
+      "verification": "24 native/C comparisons over all 100 grid bytes",
+      "limitation": "Other render/grid consumers still have separate unresolved contracts",
+      "report": "metadata/startup-repair.json"
+    },
+    {
+      "addresses": [
+        "0x00414bd0",
+        "0x00e92e1c"
+      ],
+      "change": "Preserve complete frame-buffer ownership pointer in owner and 14 other declarations; restore full dimensions, native wraparound sizing and mode selection",
+      "test": "standalone_frame_buffer",
+      "verification": "360 source-only resize scenarios with real host allocations and controlled unrelated callbacks",
+      "limitation": "Other enclosing consumers and full renderer integration remain incomplete",
+      "report": "metadata/startup-repair.json"
+    },
+    {
+      "addresses": [
+        "0x01266960",
+        "0x01266a60"
+      ],
+      "change": "Correct 32 byte-truncated descriptor table/count declarations across 18 units to DWORD bindings and retain those types in future export preparation",
+      "evidence": "metadata/file-descriptors-native.asm",
+      "test": "standalone_file_descriptors",
+      "verification": "300 real NUL handles across ten descriptor blocks; live Debug startup passes the former 0x28 access violation",
+      "report": "metadata/debug-session.json",
+      "limitation": "This repairs shared descriptor bindings; other stream, TLS, standard-handle bootstrap and CRT contracts still require reconstruction"
+    },
+    {
+      "addresses": [
+        "0x00561ba6",
+        "0x00561bdc",
+        "0x00563129",
+        "0x005645a0",
+        "0x005647c2"
+      ],
+      "change": "Replace uninitialized original-private-heap assumptions with one consistent host CRT allocation family in the independent C target; retain the original allocator family only in explicit hybrid builds",
+      "runtime": "runtime/host_allocator.c",
+      "test": "standalone_host_allocator",
+      "verification": "351357 allocation ownership, zero-fill, growth/shrink, overflow and failure checks; live C startup advances past the original allocator crash",
+      "report": "metadata/debug-session.json",
+      "limitation": "This is an intentional CRT service replacement, not equivalence of old small-block allocator internals; legacy file/stream/TLS and other CRT services remain unfinished"
+    },
+    {
+      "addresses": [
+        "0x004d0280",
+        "0x004d05f0",
+        "0x004d0650"
+      ],
+      "change": "Restore explicit surface-context receivers, RGB555/RGB565 effects, clipping and byte padding, paired feedback registers and history, full-width frame gates and timing; remove a false unresolved-return trap after a side-effect-only call",
+      "sources": [
+        "src/unit_01786.c",
+        "src/unit_01789.c",
+        "src/unit_01791.c"
+      ],
+      "evidence": [
+        "metadata/surface-effects-native.asm",
+        "metadata/frame-controller-native.asm",
+        "raw/ghidra/surface-effects-function.json"
+      ],
+      "test": "standalone_surface_effects",
+      "verification": "275 source-only scenarios and 824 native/C comparisons, including 2229168 pixel values and 142 memory fields",
+      "report": "metadata/surface-effects-reconstruction.json",
+      "limitation": "City rendering and COM presentation are controlled endpoints; their actual game integration remains unverified"
+    },
+    {
+      "addresses": [
+        "0x00426b40",
+        "0x00426ee0",
+        "0x00426f60",
+        "0x00426ff0",
+        "0x00427480",
+        "0x004d0040",
+        "0x004d0060",
+        "0x004d01e0",
+        "0x004d0220",
+        "0x004d03f0",
+        "0x004d0480"
+      ],
+      "change": "Restore complete graphics data slots, typed COM creation/release/copy calls, descriptors, mode fallback, actual surface return, explicit 44-byte context receiver and wrapping DWORD timer",
+      "header": "include/graphics_session.h",
+      "evidence": [
+        "metadata/directdraw-native.asm",
+        "metadata/graphics-session-native.asm"
+      ],
+      "test": "standalone_graphics_session",
+      "verification": "860 source-only scenarios and 4110 independent instruction/C comparisons across all 11 bodies",
+      "report": "metadata/graphics-session-reconstruction.json",
+      "limitation": "COM, Windows and external game endpoints were controlled; real graphics and gameplay remain unverified. Later image-effect methods now have separate offline reconstruction evidence."
+    },
+    {
+      "change": "Correct 792 scalar string bindings in 114 source units to C array lvalues, preserving pointer decay and address-of; prevent the same error in future exports",
+      "inventory": "metadata/string-binding-repairs.json",
+      "verification": "metadata/string-binding-verification.json",
+      "procedure_bodies_replaced": false,
+      "limitation": "This repairs data declarations only; it does not establish full correctness of the enclosing functions"
+    },
+    {
+      "addresses": [
+        "0x00414cd0"
+      ],
+      "change": "Recover the previously unexported Win32 callback with REA/Ghidra, manually restore message/state/action dispatch and register a compiled stdcall WNDPROC",
+      "source": "runtime/window_messages.c",
+      "test": "standalone_window_messages",
+      "evidence": "raw/rea/window-procedure.json",
+      "verification": "141180 synthetic messages and 16752 isolated instruction/C comparisons",
+      "limitation": "External game/Windows endpoints are controlled in tests; optional message-trace selector backend remains unresolved"
+    },
+    {
+      "addresses": [
+        "0x004cff90",
+        "0x004cffc0",
+        "0x004cffe0",
+        "0x0055f561"
+      ],
+      "change": "Preserve full-width pause flags, window/surface pointers and typed COM restore calls; share an explicit-receiver sound-stream helper for video/window events",
+      "test": "standalone_window_messages and standalone_video_player",
+      "limitation": "Other historical callers of 0x0055f561 still have separate object-input obligations"
+    },
+    {
+      "addresses": [
+        "0x004133d0",
+        "0x004133f0",
+        "0x00413420",
+        "0x00413470",
+        "0x00413580",
+        "0x00413690"
+      ],
+      "change": "Reconstruct the 28-byte video object, explicit receiver, constructor/byte returns, media lifetime, file paths, sound handoff, surface recovery, frame/message loop and mode restoration; repair all direct C callers",
+      "header": "include/video_player.h",
+      "evidence": "metadata/video-player-native.asm",
+      "test": "standalone_video_player",
+      "limitation": "Media, surface and platform endpoints are simulated; real codec/graphics behavior awaits gameplay validation"
+    },
+    {
+      "addresses": [
+        "0x004cf960",
+        "0x004cfd60",
+        "0x004cfdc0",
+        "0x004cff20"
+      ],
+      "change": "Recover complete DWORD dimensions, window/cursor handles, mode geometry, wrapping products and available-physical-memory return; remove the unresolved constructor return",
+      "source": "runtime/display_configuration.c",
+      "test": "standalone_display_configuration",
+      "limitation": "Window creation/resize has not been exercised; its callback is now independently reconstructed and validated"
+    },
+    {
+      "addresses": [
+        "0x00427510"
+      ],
+      "change": "Restore full EAX error-index return and update dependent declarations",
+      "source": "src/unit_00434.c",
+      "evidence": "metadata/ddraw-error-native.asm",
+      "test": "standalone_video_player"
+    },
+    {
+      "addresses": [
+        "0x005614f7",
+        "0x005614fe"
+      ],
+      "change": "Replace misdecoded LOCK/UNLOCK with explicit zero/one-argument member dispatch; recover ECX and callee stack cleanup",
+      "source": "runtime/legacy_member_calls.c",
+      "test": "standalone_member_calls"
+    },
+    {
+      "addresses": [
+        "0x00563320",
+        "0x00563335"
+      ],
+      "change": "Explicit object input, cached-name deallocation, deleting destructor flags, returned object and C-owned vtable",
+      "sources": [
+        "src/unit_02851.c",
+        "src/unit_02852.c"
+      ],
+      "test": "standalone_type_info"
+    },
+    {
+      "addresses": [
+        "0x0055c0e0"
+      ],
+      "change": "Restore three-argument DirectDrawCreate stdcall import adapter",
+      "source": "src/unit_02643.c",
+      "validation": "Typed compilation and whole-program link; graphics behavior deferred"
+    },
+    {
+      "addresses": [
+        "0x004c45a0",
+        "0x004c45e0"
+      ],
+      "change": "C comparator, actual 20-element storage, insertion bounds, 264-byte record strides, full-width state reset and byte-addressed effect coordinates",
+      "source": "src/unit_01600.c",
+      "test": "standalone_record_selection",
+      "limitation": "Equal-key order of host qsort has not been compared with the old CRT"
+    },
+    {
+      "addresses": [
+        "0x004d1ad0"
+      ],
+      "change": "Replace incomplete decompiler stack model with caller-owned record migration; retain every scalar field write",
+      "source": "runtime/city_migration.c",
+      "evidence": "metadata/city-migration-layout.json",
+      "test": "standalone_city_migration"
+    },
+    {
+      "addresses": [
+        "0x004d8310"
+      ],
+      "change": "Typed sqrt results and a separate float stack slot instead of a pointer for four segment lengths",
+      "source": "src/unit_01868.c",
+      "limitation": "The complete large function still has unresolved contracts and has not been behaviorally validated"
+    },
+    {
+      "change": "Resolve recovered x86 exception-chain access to thread-local NT_TIB storage",
+      "source": "include/restore_types.h",
+      "limitation": "Original handler addresses and recovered exception-frame layouts remain to be reconstructed before gameplay"
+    }
+  ],
+  "additional_linkage": {
+    "multimedia_exports": 60,
+    "multimedia_real_dlls_loaded_during_tests": false,
+    "embedded_resources": 59,
+    "original_text_embedded": false,
+    "external_visual_cpp_runtime_required": false,
+    "readiness_report": "metadata/standalone-readiness.json"
+  }
+}

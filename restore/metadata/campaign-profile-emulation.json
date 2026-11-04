@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "method": "Bounded native constructors, stack allocation, profile reader and writer; file endpoints controlled. Full object bytes, written bytes, I/O calls, AL result, stack and saved registers compared.",
+  "compiled_C_sha256": "e75285458e68efa3c9cccb9cbb1c1d434fa015094faf31285891e4f35ff4b115",
+  "safety_differences": [
+    "Unread stack bytes in old/partial profiles are initialized to zero in C; the comparator initializes the native stack to zero.",
+    "C rejects nonterminated active names and out-of-range destination name counts; these malformed-input checks are separate C tests."
+  ],
+  "limitations": [
+    "This checks persistence contracts, not the complete family-menu controller or operating-system file implementation."
+  ],
+  "passed": true,
+  "checked": 732,
+  "source_hashes": {
+    "include/campaign_profile.h": "9f89536332f82d7101a9b74a0e262541289534e65de754bfb9e1f1ea5017e1a9",
+    "src/unit_00241.c": "f3da35964aa69a9de43183d558457ea182c7030026c7d30b7c68edb8766512e0",
+    "src/unit_00242.c": "9b2b6b29039fd49d3586e0ab4ce549e32cd0b31d7ae86bfc63a3dcb5bf0d99b5",
+    "src/unit_00250.c": "b33ad26fac6cbd5dcbe16055086ed6b6418499d020f34379511782a8b3f34746",
+    "src/unit_00251.c": "28c73c3ffda575414834d536134ef4aa34834fa12ce5e2d46d3e8158d11f9635",
+    "tests/campaign_profile.c": "91b9730817d8c9f4e7971486025ce6e01bbd9ffe6bc051a40dd9c43b48ec9871",
+    "tools/verify_campaign_profile_emulation.py": "9d64015f5151945b7abbc1d1e461817187584a1264d059ee5fcae60cd2bd5224"
+  }
+}

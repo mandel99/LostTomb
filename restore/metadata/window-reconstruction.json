@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-29T00:36:16.795Z",
+  "method": "Manual C reconstruction from retained native instructions and REA/Ghidra evidence; offline console and isolated instruction emulation",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "computer_control_used": false,
+  "ollama_used": false,
+  "external_zip_bodies_used": false,
+  "callback": {
+    "native_entry": "0x00414cd0",
+    "native_instruction_range": [
+      "0x00414cd0",
+      "0x0041638c"
+    ],
+    "symbol": "restore_window_proc",
+    "abi": "Win32 stdcall WNDPROC; HWND, UINT, WPARAM, LPARAM -> LRESULT",
+    "previously_missing_from_export": true,
+    "evidence_id": "ev_d8377dfd1bcf12c94623c708427f4f6990b4e093a59cd5c946d3b00700cd7d70",
+    "analysis_fixture_sha256": "742911f13c442ab7e19969a0e79c65cb2311dff56a58c25a71529f5187bbd903",
+    "analysis_fixture_executed": false,
+    "analysis_fixture_linked": false,
+    "linked_C_adapter": "runtime/window_platform_win32.c",
+    "native_addresses_called_as_code": false
+  },
+  "repairs": [
+    "Recover and connect filtering, mouse/button/modifier state, navigation/actions, activation, paint, close, selection and resolution changes.",
+    "Correct the PageDown branch for mode 0x3d against original instructions after a decompiler merge error.",
+    "Preserve full pause flags/window pointers and typed DirectDraw Restore calls; reload the back surface after the front Restore.",
+    "Share explicit-controller sound-stream closure for video and window events.",
+    "Correct scalar string lvalues to C array lvalues and prevent the same error in the exporter."
+  ],
+  "tests": {
+    "suite_passed": 14,
+    "suite_failed": 0,
+    "synthetic_window_messages": 141180,
+    "instruction_C_comparisons": 16752,
+    "observed_memory_fields": 72,
+    "unicorn_version": "2.1.4",
+    "string_declarations_verified": 792,
+    "string_files_verified": 114,
+    "real_window_created": false,
+    "real_input_or_cursor_used": false,
+    "media_DLLs_loaded": false,
+    "external_game_and_Windows_calls_controlled": true
+  },
+  "source_hashes": {
+    "CMakeLists.txt": "8421deff2f9f69345bddbc2fac09abdd307df56f7f9afb3d89d35f4dacfe7e59",
+    "include/window_messages.h": "06259a05d755ae7389fc1f51fc17544dd7a1a83a381c9756bc3ffbd3abc15f5f",
+    "runtime/window_entry.c": "6dc21a9ac6348cf2e1b85164d1fa9bf4e46519576728286f1dd09931a3bc1ef6",
+    "runtime/window_messages.c": "68447bb3f187d4278185933dac65942105191d9ac7fb48e198bfa6e32c2b28df",
+    "runtime/window_platform_win32.c": "7bbd1acdc478ab6b3f1a344c1e9ab1c61348df6ccdf79db33095f1e34d17d26f",
+    "include/sound_streams.h": "cc101c8c79df12f1475fd313544e047b570f64e9b381014f5cc84b535805cfe0",
+    "runtime/sound_streams.c": "6d5283bb60d037c304b03f7fca68629e52475c8630cb9549a4a1e2e14d5edc69",
+    "src/unit_00158.c": "141c7a324cf293e0004bfce94cf23f1fb209dda1a179a53b29f11434fb92edb9",
+    "src/unit_01774.c": "12f19de482c2df39ea9133dcfe79db5c004eab21b9a4e6f571a18be308ccae5b",
+    "src/unit_01779.c": "9fa38b18eb775872672ce67c3d6af8c3152bc39959e2a2dcc02714ae45ec888e",
+    "src/unit_01780.c": "e96f229df4ca53b258b3fb852a4f146628efb055aeb60af62c160c98a54b6b24",
+    "src/unit_01781.c": "1b80fcc731912e0aa418fd377f368a62640b348e428ec58382cc00076b01576a",
+    "tests/window_messages.c": "e11e919d0ea0f298c3bac06ac03778f43849010144631c360855f29175472e03",
+    "tests/window_oracle_fields.h": "af3e5f793045eaf172155729d4a88aa5726c9dc9a32d2236bafd661ce035fd35",
+    "tests/video_player.c": "cefc10b6125104380d88f0f78865afb1d0270778af0bf04a352076658cbf6b45",
+    "tools/prepare_c.py": "3601ccd56595cdd094936c75ff76f08e8ee5fb84e3588f4db0e2d37a8fd14ad1",
+    "tools/repair_string_bindings.mjs": "60fa0e1e1e3633e04ee18020e0e3bba043f8831a3fcbe612daed718b41310868",
+    "tools/prepare_window_analysis.mjs": "f315e3fa4ade47b6a515f1f25e1da38e66764f8b808a5159e0b3ee090b24d98b",
+    "tools/generate_window_oracle_fields.mjs": "4c6a95aab0b18ff0273bc58199870e680fbadc022918904c76e1f0580cf7cdc6",
+    "tools/verify_window_emulation.py": "51d792997c602cb490b9a624233cbfcf83b602aab3ccff547ed6c4c16e3da9ba"
+  },
+  "evidence_hashes": {
+    "raw/rea/window-procedure.json": "fd9b55fa6f11aa3d41d80e750f9c40b89350b875c7303e316a5f8562436a503c",
+    "raw/window-procedure-ghidra.c": "32d3e20b212fcff0080bcbfea912c2ca16d8f87f4b61c1599f86c3a290db5918",
+    "raw/rea/window-evidence.json": "51dd4bc31602222ef23923eb88394365fe1307b799f37c57f46547ea42ab45c8",
+    "metadata/window-procedure-native.asm": "306c450a8c73f4ecabab835a67287d05804a930353bdb96f704c82ab4cc8351c",
+    "metadata/window-emulation.json": "7121f00fdd3c098d47738707a8a83e89ba92ac2512228042485ee16f60deac2c",
+    "metadata/window-emulation-regressions.json": "5763fb798f8034e300f45bd4155b411738a0297524efeb0b3d39e86f17994f18",
+    "metadata/string-binding-repairs.json": "6a7eb8dff1023ff0b591565fe43efaa2d186469c295a5b39f5111b31217b8533",
+    "metadata/string-binding-verification.json": "8cfd0ea7c9d43bf7b2f50b676a95c6c3dc618b1056e7763300e22265b9793df1",
+    "artifacts/window-reconstruction-build.log": "d8bcfb7b4ef3d7a2bdc324cf748e7145197216a6780461efcf3ecc019e117fef"
+  },
+  "executable": "build\\c-only\\Release\\restore_link_check.exe",
+  "executable_sha256": "e5b8cdab376813b7a7aed143f71f533cc3ea86c119c8aab67959cd42d01640ad",
+  "build_requires_original_exe": false,
+  "original_machine_code_embedded": false,
+  "external_C_runtime_required": false,
+  "recovered_procedure_sources": 4402,
+  "additional_recovered_entries": [
+    {
+      "address": "0x00414cd0",
+      "symbol": "restore_window_proc",
+      "source": "runtime/window_messages.c",
+      "abi": "Win32 WNDPROC; stdcall, four arguments, LRESULT",
+      "linked": true
+    }
+  ],
+  "remaining_unresolved_return_sites": 441,
+  "remaining_return_or_register_procedures": 560,
+  "unreviewed_data_code_pointer_candidates": 4361,
+  "playable_game": false,
+  "limitations": [
+    "The optional legacy trace dispatcher 0x00560330 still needs selector/callback ABI recovery when DWORD 0x006fdc40 is nonzero; production currently fails explicitly.",
+    "Downstream game callees retain separate return/register and object-input obligations; external endpoints were controlled during callback comparisons.",
+    "Other callbacks, data code pointers, exception frames and the complete C game startup remain unfinished.",
+    "Real graphics/codecs and full gameplay have not been exercised; finite tests do not prove whole-game equivalence."
+  ]
+}

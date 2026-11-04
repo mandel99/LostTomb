@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 17308,
+  "complete_case_count": 17308,
+  "variant_comparisons": 69232,
+  "production": true,
+  "per_function": {
+    "0047dbc0": 2406,
+    "0047dc80": 2399,
+    "0047ddd0": 7980,
+    "0047dee0": 4174,
+    "0047e000": 349
+  },
+  "composition_cases": 1081,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "algorithm_endpoints": [],
+  "compiled_C_sha256": "f397d027c12432921259a16f76db375437f619e8a34453524575ac0fa924c38c",
+  "native_instruction_coverage": {
+    "0047dbc0": [
+      53,
+      53
+    ],
+    "0047dc80": [
+      110,
+      110
+    ],
+    "0047ddd0": [
+      80,
+      80
+    ],
+    "0047dee0": [
+      69,
+      69
+    ],
+    "0047e000": [
+      36,
+      36
+    ]
+  },
+  "phase_instructions": [
+    348,
+    348
+  ],
+  "real_helper_instruction_coverage": [
+    51,
+    51
+  ],
+  "ordered_events": {
+    "reads_per_trace_variant": 220568,
+    "writes_per_trace_variant": 139651,
+    "transient_one_then_zero_pairs_per_trace_variant": 1187
+  },
+  "elapsed_seconds": 36.03,
+  "method": "Complete original5functions versus5manualseparateCunits, Debug/O2 trace+plain; exactdataread/writeorder/width/value includingprefetch/transientstores, fullinput/state/outputbytes+canaries, read-onlyCinputpages, cdecl/savedregisters/fullEAXE000 andunchangedreal7DB00composition.",
+  "source_hashes": {
+    "src/unit_01138.c": "5adb616bf24a262c171cf95bae9d973f53c5e707f7e2395acdc305271248bf95",
+    "src/unit_01139.c": "c2dbdeb6f253c3fbcb26e5a21bba55b119faa239850ff4e1ca4f7f735ead6fd9",
+    "src/unit_01140.c": "a156b9acbe34be02865da5a03225559659ba633ef0ddc3463883133ba5c6afe3",
+    "src/unit_01141.c": "30fd7c8707b045195a30f61699dc527c954119b917a50bca578205b773379402",
+    "src/unit_01142.c": "5f9b4f63e3c650562128127924e9f2773ccdf07d2974a90284917dafd5ae3512",
+    "include/map_neighbors_phase.h": "ceb8c6d3b7a16c8deffa4a2ac813daafd74830911385f3145617287eb8ac0e42",
+    "artifacts/map_neighbors_phase/map_neighbors_fixture.c": "d22d97221bcd680d5c81f19bc10ade53b937098d0bf2b004b7e5a22f2890ddaa",
+    "artifacts/map_neighbors_phase/CMakeLists.txt": "f24c59ae2b019ade10d351616f68c11f05b656bd5dabf0cc40ea0d999587ae60",
+    "artifacts/map_neighbors_phase/shared_targets.cmake": "9b387bdca24abd73dcafe9653b10c0d584edf29078dc4f7962a79806aac01c85",
+    "artifacts/map_neighbors_phase/map_neighbors_native.json": "813687aec290a6165b006c1faebf9e28eee9acdc6a49cac5aab1b77400be3216",
+    "artifacts/map_neighbors_phase/verify_map_neighbors.py": "e199dba6845ed8919a0d8d613aa6d33f58bf78ce3607d47b6f83104a4f823e6d",
+    "src/unit_01137.c": "fb8e7ee47f65bd86d17672b738f85a3069a312c12baec01ac159a06e4edf9159",
+    "include/terrain_redraw.h": "5dae4fd2212a5963427ed87f62f8e23752a27f7d5e04cc4b60a0810ad3e54a02",
+    "artifacts/map_neighbors_phase/map_neighbors_phase_apply_map.json": "e1141340a25f887ab123c85a8a34ac014ad7b64437c26bad73c369f5e6168561"
+  },
+  "native_exports": {
+    "artifacts/map_neighbors_phase/map_neighbors_native.json": "813687aec290a6165b006c1faebf9e28eee9acdc6a49cac5aab1b77400be3216"
+  },
+  "variants": {
+    "Debug_trace": {
+      "path": "build/c-only-debug/Debug/restore_map_neighbors_verify.exe",
+      "sha256": "f397d027c12432921259a16f76db375437f619e8a34453524575ac0fa924c38c",
+      "checked": 17308,
+      "trace": true
+    },
+    "Debug_plain": {
+      "path": "build/c-only-debug/Debug/restore_map_neighbors_plain_verify.exe",
+      "sha256": "b3f3ae21f6f1873e4143f567fc8b65a65668628a000dfd25c169aef4f08028e2",
+      "checked": 17308,
+      "trace": false
+    },
+    "O2_trace": {
+      "path": "build/c-only/Release/restore_map_neighbors_verify.exe",
+      "sha256": "f746961d5876d4fde814f84c0a2771b050389563e0382b02664ad94f459b303d",
+      "checked": 17308,
+      "trace": true
+    },
+    "O2_plain": {
+      "path": "build/c-only/Release/restore_map_neighbors_plain_verify.exe",
+      "sha256": "61b4b418f8ee9a7106d8c1a659ba39720e3907b5e0f16464dd5a5f5c0e9bad5f",
+      "checked": 17308,
+      "trace": false
+    }
+  },
+  "limitations": [
+    "These leaves usephysical228stride andcaller-ownedmappedpadding; no bounds, orientation or sentinel checks are invented. Arbitraryunmappedinvalidaddresses are outside the valid domain.",
+    "Only ordered events inside the new5functions are compared to tracedC; the unchanged7DB00helper is actuallyexecuted and its before/after slotstate and finalmemory are compared.",
+    "VoidEAX/ECX/EDXscratch is not a returncontract. E000fullEAX0/1 is compared. ABIrequires clearDF.",
+    "This bounded proof doesnotapprove higherterrain/renderingcallers, actorwalking, visualfidelity orwholegamecompletion."
+  ],
+  "source_drift_at_completion": [],
+  "frozen_manifest_sha256": "e1141340a25f887ab123c85a8a34ac014ad7b64437c26bad73c369f5e6168561"
+}

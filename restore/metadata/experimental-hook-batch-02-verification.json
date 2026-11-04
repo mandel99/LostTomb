@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "verified_at": "2026-10-28T10:56:25.2235514+01:00",
+  "status": "superseded-by-mission-stable-212",
+  "verified_hooks": 23,
+  "experimental_hooks": 400,
+  "default_runtime_hooks_at_time_of_record": 423,
+  "batch": {
+    "number": 2,
+    "added": 200,
+    "leaf_functions": 141,
+    "dependency_closed_functions": 59,
+    "maximum_dependency_depth": 1,
+    "untyped_global_functions": 0,
+    "manifest": "metadata/experimental-hook-batch-02.json",
+    "manifest_sha256": "82d58ecc0a4edf9b620f42b34da48e1c19b6d9c7a3bb82eb1cfc093afafa8204"
+  },
+  "runtime_switches": {
+    "verified_only": "--no-experimental-hooks",
+    "original_fallback": "--no-c-hooks",
+    "install_test": "--experimental-hook-test"
+  },
+  "build": {
+    "configuration": "Release",
+    "platform": "Win32",
+    "executable": {
+      "path": "artifacts/experimental-batch-02/Release/PharaohRestore.exe",
+      "bytes": 2146304,
+      "sha256": "9753ec3bac41795f817788bc90a432ac6ff8e816b4858f4e7521721efa39b6e5"
+    },
+    "runtime_dll": {
+      "path": "artifacts/experimental-batch-02/Release/PharaohRestoreRuntime.dll",
+      "bytes": 132608,
+      "sha256": "acf244131fecf83302c97a6de835afc0e4dbbb47f4e08a7743376e85d5944549"
+    }
+  },
+  "tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "startup_smoke_test": {
+    "duration_seconds": 25,
+    "isolated_game_directory": "build/smoke-game",
+    "window_title": "Pharaoh (Cleopatra Expansion)",
+    "responsive": true,
+    "unhandled_exception": false,
+    "log": "artifacts/experimental-batch-02/Release/PharaohRestore.log",
+    "log_sha256": "b94ffc8eb2876d59b0b2e1f98fe00ab603e44aef8d0a3924107a20271eb7bac8"
+  },
+  "scope_note": "The cumulative 400-function layer reached the title window but later failed during mission loading. The current default is capped at 212 experimental hooks; see metadata/mission-load-bisect.json."
+}

@@ -1,0 +1,67 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "explicit_protected_entries": [
+    "004023a0",
+    "00402b90",
+    "00402bc0",
+    "00402be0",
+    "00402c10",
+    "00402c40",
+    "00402cc0",
+    "00402e30",
+    "00402e50",
+    "00402ee0",
+    "00402f70",
+    "00403060",
+    "00403130",
+    "004031a0",
+    "00403210",
+    "00403270",
+    "004032c0",
+    "004032f0",
+    "00403320",
+    "00403390",
+    "004033f0",
+    "00403400",
+    "004034d0",
+    "00406070",
+    "004060e0",
+    "00406100",
+    "00406140",
+    "00406170",
+    "00409580",
+    "0048a720",
+    "0048ad90",
+    "004ea760",
+    "0051f780"
+  ],
+  "reason": "Coordinator is reconstructing these complete menu callbacks concurrently; never emit candidates for them.",
+  "future_actor_seed_inventory": "artifacts/actor_callback_bulk_preflight/qualified-entry-seeds.json",
+  "future_actor_seeds_in_this_run": false,
+  "actor_prototypes_inferred_or_applied": false,
+  "boundary_conflicts": [
+    {
+      "entry": "0048ad90",
+      "role": "foreign_epilogue_not_independent_callable",
+      "qualified_callback": "0048a720",
+      "range": [
+        "0048ad90",
+        "0048ada0"
+      ],
+      "native_fallthrough": [
+        "0048ad8e",
+        "0048ad90"
+      ],
+      "policy": "Native cache facts only; no private function creation, ABI assignment or C emission."
+    },
+    {
+      "entry": "0048a720",
+      "role": "callback_requires_fragment_boundary_review",
+      "foreign_body_intersection": "0048ad90",
+      "qualified_CFG_end": "0048ae4f",
+      "policy": "Native cache facts only in this run; do not merge fragments or infer ABI."
+    }
+  ],
+  "active_settings_phase": "artifacts/settings_callbacks_phase",
+  "settings_callback_inventory": "metadata/settings-callback-inventory.json"
+}

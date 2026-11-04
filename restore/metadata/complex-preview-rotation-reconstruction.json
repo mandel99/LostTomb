@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: complete complex preview rewritten; public rotation entry connected to the existing complete C graph",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x43d720",
+      "source": "src/unit_00569.c",
+      "evidence_id": "ev_6515f3043ecda2df313464e36bf1b2e92185ab1775e7b4f6854ddd734c1cc4df",
+      "native_bytes": 1616,
+      "complete_decoded_instructions": 455,
+      "native_body_sha256": "bf8a3f019ee7e0b652b0d41459f7514a00b0ca1b7bd17269e9d9167c88fa523d",
+      "compiled_entry": "00412590",
+      "provider": "pharaoh_restored:unit_00569.obj"
+    },
+    {
+      "address": "0x46d840",
+      "source": "src/unit_00988.c",
+      "evidence_id": "ev_c41071369a1020345594742451b3b35c5f8f7e0ba4abe6b9d634d185a7ffa52c",
+      "native_bytes": 2275,
+      "complete_decoded_instructions": 668,
+      "native_body_sha256": "b46878a9d850fc73772af3f44f14c1facb643e5499cd935bb5e496a7e033f746",
+      "compiled_entry": "003f19a0",
+      "provider": "pharaoh_restored:unit_00988.obj"
+    }
+  ],
+  "proof": "REA extents/instructions plus full Ghidra memory reads matched byte-for-byte to the SHA-pinned original; complete Capstone decode, including instructions absent from the partial REA listing.",
+  "changes": [
+    "43D720: full DWORD counts/coordinates/images/player, WORD actors/tint, full object pointers and single-scaled table addresses.",
+    "43D720: preserve both footprint groups, native painter order, independent all-invalid and per-cell predicates, actor omission in first-group mask, cached coordinates and callback reloads.",
+    "46D840: mission loading and city_tick formerly called a separate legacy body. Public C entry now shares the existing complete restore_rotation_C_0046d840 graph with the menu, including explicit native member receivers and RETn cleanup.",
+    "Removed the legacy duplicate body rather than creating another competing reconstruction. The shared graph and its production dispatcher were unchanged."
+  ],
+  "references": [
+    {
+      "path": "../PharaohRewrite/src/Pharaoh.Engine/Loading/LegacyMissionLoading.cs",
+      "role": "C# reference: mission loading includes the46D840 refresh step; native bytes remain authority"
+    },
+    {
+      "path": "tools/port_reference.py",
+      "name": "map_orientation_update_buildings",
+      "role": "Port-provided semantic reference only"
+    }
+  ],
+  "verification": {
+    "script": "direct_c/verify_complex_rotation.py",
+    "complex_preview_cases": 73,
+    "public_rotation_cases": 590,
+    "noarg_link_exit": 0,
+    "scope": "Whole original/C Unicorn execution. Projection/sprites controlled for previews; building/member/final refresh endpoints controlled for rotation. Covers actual preview dispatcher, both footprint groups, record/type branches, >255 building ids, WORD coordinates, callback reloads and exact ECX receivers/cleanup. Does not certify descendants or physical framebuffer pixels."
+  },
+  "triage": {
+    "report": "metadata/linked-width-audit.json",
+    "linked_legacy_bodies_scanned": 3323,
+    "remaining_heuristic_candidate_functions": 586,
+    "scaled_address_candidates": 310,
+    "byte_scalar_candidates": 489,
+    "limits": "Overlapping leads, not confirmed defect counts or a runtime-reachability proof."
+  },
+  "artifacts": {
+    "PharaohRestoreC.exe": {
+      "sha256": "4adcc109e5dec792c0e91ee6163b25f0f7672387701d61eb6765f815539cc485",
+      "bytes": 7633920,
+      "COFF": "6ae86500",
+      "local_time": "2026-11-02T11:25:04"
+    },
+    "restore_link_check.exe": {
+      "sha256": "386501ef6a9bd2c418f686e66654daf2064ed82d102e1392f57842a61aeeaeb5",
+      "bytes": 7630336,
+      "COFF": "6ae864eb",
+      "local_time": "2026-11-02T11:24:43"
+    }
+  },
+  "source_sha256": {
+    "src/unit_00569.c": "02f471c33577c47525ce6a0c5e48390c3a0424ddbb48aa6630fd7076bda0578c",
+    "src/unit_00988.c": "2ffe4583ab046ffa3bd59a2e089edc8fa3291d01f7b5423d7a2b751712b9d448",
+    "include/menu_rotation_actions.h": "a6f9635eba72252d850e227486262cf954ea766db4bf65fe24b00fa730f8251b",
+    "runtime/menu_rotation_actions.c": "a1ea5f1427654914f346c018a9531536e128410d65af8a6133ad53fca670ac9f",
+    "runtime/menu_rotation_buildings_model.c": "64aa1daeca43101dccef5bb20cade98a918ef49263d9f7b4c55ce64152a929be",
+    "CMakeLists.txt": "c2ac2f89873762272813778d1dcad94568463e26bc3e62e37e73e3fd264671c7",
+    "direct_c/verify_complex_rotation.py": "f202a4a31362513298d2f77802524ccd54a9e49f62ea61f4b14713476a45abde"
+  }
+}

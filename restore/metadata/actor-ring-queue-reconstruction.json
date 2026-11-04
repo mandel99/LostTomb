@@ -1,0 +1,114 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Preview\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "bd0efe21711f8158cdc851f013f0e64e560fa5d50ba3a59ff50ee56d2970bcc9",
+  "source_hashes": {
+    "include/actor_ring_queue.h": "5df70c43795607fdc72d3218e7d8dd4d8e273d2c87667e557b28f1b170ad86b3",
+    "runtime/ring_queue.c": "0416e684253918cfe0a56b8c5e5d7fd336da8649baac8d64cff40821e4616f3e",
+    "CMakeLists.txt": "f54b57b1a5396f1ac535cec60e819901660e55f5beb7c83b2818de80c1c9d646",
+    "runtime/actor_walking_queue_count.c": "5fbed55259012480bf62759c1ad92bc24ef5687c78c45ebeab8b824a1775a34c",
+    "runtime/actor_walking_queue_full.c": "44b4917bd8e53a238fec232396b9342c38796bb5c3947c7f9dc1a73201371b93",
+    "runtime/actor_walking_queue_push.c": "f3422a90b0435b7e3d91ef8a5900e78f84d7f5ee11e76d42bc5d66532eb02f18",
+    "runtime/actor_callback_496140_queue.c": "e968c37d6b7b3031681162caf83d2744ea2fed3b6c523af3d1b6389241cb419a",
+    "runtime/menu_drag_actor_create.c": "ca5f775d5174aeed7d7ded191a71eb4b6f78bcfc2bd73c9bc641a1cb73c24bac",
+    "runtime/map_commit_links.c": "42e13af98c244d97923ab3f29f3bec5d9c9fd5d59123309daa9c926f2b6413ef",
+    "runtime/building_support.c": "fdda3c701f1672126a50e75248dd9a69775bd241d4875aaa2d7a78603864c726",
+    "direct_c/verify_actor_ring_queue.py": "018092fae50103250191f2d7ff7763d634d45ccd2341baea1bd7ff47a99a36b6",
+    "src/unit_02185.c": "15d967691be60dd6fabb7f064e36202d97c9a0e85f69bac6fcc36173ae39235a",
+    "src/unit_02186.c": "521dccd9ef9d798569489d3b7901319e30cb6d938ef145e792399c24e6277c8e",
+    "src/unit_02187.c": "adac153e70d78f31109ce3f0e2f22f243ac2ca0a767fe2fa68f2cccb833967ed",
+    "src/unit_02188.c": "70fe837507a2e6439c1886fb4002a65475d8035e58615d76d731e3a30e77d9fd",
+    "src/unit_02189.c": "ea0e6e4eea5c0e6b4b575e55e85bb267682acc2f1da5e21d6818c7bcebfe41e1",
+    "src/unit_02190.c": "7cdb3bf98af7ebb8e247bbe96a0009fe17914de9464df88882e256b6f547d94f",
+    "src/unit_02191.c": "9ef6969f114ed946fadc100ae56222517d36d8b7526719a37086b8285c86cda5",
+    "src/unit_02192.c": "21a8307522da316532394a67a929e42e9cecdfe8681176000e1de5a4457b771c"
+  },
+  "checked": 3744,
+  "invocations": 10536,
+  "passed": true,
+  "controlled_algorithm_endpoints": [],
+  "legacy_entries_tested": [
+    "0x4f6620",
+    "0x4f6630"
+  ],
+  "providers_tested": {
+    "5203232": [
+      "restore_ring_004f6520"
+    ],
+    "5203296": [],
+    "5203312": [
+      "restore_actor_496140_queue_contains"
+    ],
+    "5203376": [
+      "restore_actor_walking_queue_push"
+    ],
+    "5203440": [],
+    "5203488": [
+      "restore_ring_004f6620"
+    ],
+    "5203504": [
+      "restore_ring_004f6630"
+    ],
+    "5203536": [
+      "restore_actor_walking_queue_full"
+    ]
+  },
+  "coverage": {
+    "0x4f6520": {
+      "bytes": 51,
+      "instructions": 15,
+      "executed": 15
+    },
+    "0x4f6560": {
+      "bytes": 9,
+      "instructions": 4,
+      "executed": 4
+    },
+    "0x4f6570": {
+      "bytes": 53,
+      "instructions": 24,
+      "executed": 24
+    },
+    "0x4f65b0": {
+      "bytes": 49,
+      "instructions": 19,
+      "executed": 19
+    },
+    "0x4f65f0": {
+      "bytes": 42,
+      "instructions": 18,
+      "executed": 18
+    },
+    "0x4f6620": {
+      "bytes": 10,
+      "instructions": 4,
+      "executed": 4
+    },
+    "0x4f6630": {
+      "bytes": 19,
+      "instructions": 9,
+      "executed": 9
+    },
+    "0x4f6650": {
+      "bytes": 23,
+      "instructions": 11,
+      "executed": 11
+    }
+  },
+  "native_conditional_edges": 20,
+  "missing_native_instructions": [],
+  "missing_native_edges": [],
+  "scope": [
+    "Eight complete native methods and named C APIs; linked legacy ECX bridges/providers listed separately",
+    "Full EAX except the intentionally void map-facing clear wrapper; full workspace, guard bytes and stack/NV contract",
+    "Mapped valid objects, finite valid scans, capacities1..50, source/cursor aliases and unaligned objects",
+    "Count/full also compare arbitrary DWORD head/tail/capacity arithmetic",
+    "Four independent512-operation persistent sequences; unreadable full-queue source pointers"
+  ],
+  "limitations": [
+    "Does not certify every actor simulation caller, global queue construction or full gameplay.",
+    "No concurrent memory mutation, invalid-object handling, EFLAGS or FP status equivalence claimed."
+  ],
+  "commit": "da4556cdf672311105bbbbaee8c15c5bdae119b1",
+  "promoted_to_release": true
+}

@@ -1,0 +1,77 @@
+{
+  "status": "Persisted preference identified; user selectedNormal, actual mission load and normal-exit persistence confirmed",
+  "reported": "Very Easy instead of Normal in Cleopatra's Capital, both new briefing and loaded game",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "observed_release_sha256": "3021ee6dca8bf210e0b918174680c429f5769cbf7443de269cf06dfa3c1a2a22",
+  "read_only_live_observation": {
+    "date": "2026-11-02",
+    "pid": 26680,
+    "method": "OpenProcess QUERY_LIMITED_INFORMATION|VM_READ and ReadProcessMemory; no debug attach, writes, launch, window interaction or process termination",
+    "scenario": 48,
+    "screen": 53,
+    "difficulty_E39080": 0,
+    "player": 1,
+    "player_difficulty_EAA9F0": 0,
+    "funds_EA6254": 24000,
+    "config": "build/debug-startup-game/Pharaoh.inf",
+    "config_size": 564,
+    "config_difficulty_at_552": 2,
+    "conclusion": "The live difficulty really differs from persisted Normal. The responsible transition is not yet established."
+  },
+  "rea": {
+    "startup_4147F0": "ev_67f90eb41cc9540c68b58a156e9e60942ec340f860c6eb26c584c0048d818ab7",
+    "persisted_reader_4CEB10": "ev_6c5729d4dbdf2d9b78776b00f73c75b13e635b8e03807e2e94f125f13486c1a1",
+    "pak_loader_4D58B0": "ev_722257719a70df212af9b51e7ae4a139742f25aa8c6bc05e39f27f1d85c6cce9",
+    "global_references": "ev_432bf5d053f064cc097fd77711df983ed8702437f45c68813573b809f9c14b49"
+  },
+  "verification": {
+    "script": "direct_c/verify_mission_difficulty.py",
+    "cases": 60,
+    "persisted_reader_composition": 5,
+    "pak_selected_vs_stored_difficulty": 50,
+    "real_language_catalog_labels": 5,
+    "result": "All 60 cases pass on both the reported Release and the new diagnostic build. The isolated transitions match native behavior.",
+    "limitations": "File, chunk-loading and city-postload endpoints are controlled. No host game was launched, and no gameplay, full startup sequence or manual reproduction is claimed."
+  },
+  "instrumentation": "Log resolved asset directory, loaded settings difficulty, mission-setup entry/exit with funds, and selected versus serialized PAK difficulty. These logs do not override user settings or saves.",
+  "diagnostic_build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "e11755d872d61fe8f1ecd28b96f709d434f7ed5e8f504d7f269ddc7b9ea7958e",
+    "bytes": 7615488,
+    "local_time": "2026-11-02T18:31:02",
+    "source_commit": "07cc75ad981f1594d3cf25849b167721ef1b28c6",
+    "native_C_cases_passed": 60,
+    "noargument_link_check": "passed",
+    "promoted_only_after_no_game_processes_observed": true
+  },
+  "followup_20261102": {
+    "log": "19:32:45 settings0 -> scene48 selected0, stored PAK2 -> ready0, funds24000",
+    "user_confirmation": "After manually changing Very Easy toNormal the game usesNormal; question concerns default selection.",
+    "read_only_observation": {
+      "pid": 15868,
+      "global_difficulty": 2,
+      "screen": 59,
+      "scene": 48,
+      "player": 1,
+      "player_record_minimum_difficulty": 0
+    },
+    "native_family_loader": "41B680 loads progress;117 settings cases include15 real native/C profile-load comparisons proving global preference unchanged.",
+    "settings_config": "build/debug-startup-game/Pharaoh.inf containedDWORD0at552; game settings and saves were never edited by agent.",
+    "source_commit": "cde1aba1f3f216891fe48607e6023bfe7557cc70",
+    "limits": "No full host launch/shutdown or physical gameplay validation. User game left running; new binary retained in Preview."
+  },
+  "confirmed_normal_after_user_change": {
+    "log_tail": [
+      "394964421 mission PAK load scene=48 pack=0 offset=15503787",
+      "394964468 mission PAK loaded scene=0 year=-331 version=160 selected-difficulty=2 stored-difficulty=2",
+      "394966343 mission setup ready difficulty=2 player=1 scene=48 funds=12000",
+      "394979187 game loop returned result=0 ready=1",
+      "394979187 normal process exit"
+    ],
+    "persisted_difficulty": 2,
+    "config_bytes": 564,
+    "config_modified": "2026-11-02T19:56:39.524529+01:00",
+    "running_release_sha256": "a227757492bacbd69dea7b5b3897fe19ddea7fc541d3a74665b112d99a7d68b1",
+    "settings_or_saves_edited_by_agent": false
+  }
+}

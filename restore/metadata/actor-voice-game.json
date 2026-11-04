@@ -1,0 +1,64 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "5482ff79df468e6ea121259aac20e1d9801b0c31e40d5a4aceb4a14814d509c5",
+  "passed": true,
+  "checked": 624,
+  "invocations": 2440,
+  "coverage": {
+    "0x53d280": {
+      "instructions": 65,
+      "executed": 65
+    },
+    "0x53d0b0": {
+      "instructions": 130,
+      "executed": 130
+    },
+    "0x53bfe0": {
+      "instructions": 44,
+      "executed": 44
+    },
+    "0x539a70": {
+      "instructions": 61,
+      "executed": 61
+    }
+  },
+  "conditional_edges": 72,
+  "switch_targets": 22,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "source_hashes": {
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "include/figure_menu_actions.h": "da6e4c7db735aa09def45a8533aa4a1a380d67849ef67ebe04a12cec0f31f525",
+    "runtime/figure_menu_actions.c": "5604575bf5dc85624c4baf298831b6b17a8bad60ce6c498015de1c541936d676",
+    "runtime/menu_building_overlay.c": "72d3c3552fec6353a765eed6cd7729bda9c707cdf45b9cffdb002e8e994ed8de",
+    "runtime/menu_building_overlay_model.c": "a9d653d4ab1c7a8911f049ab877cdfc0c85f61482f447ffba517e7faf7b2d58d",
+    "include/menu_building_overlay.h": "ad86e5a572de82be63c014b38f3f4783716a52b8488e60a1c68db2ff26851e93",
+    "include/actor_predicate.h": "0406bc7672e04b1c68f69c712a669dcd316d97727289b5327bb40df52674443d",
+    "include/sound_streams.h": "f901ee55727ba834a52df0ff139b8f37ed13493d8a27058589caa64507e34811",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "src/unit_02501.c": "64eb18de833bfde2eae4267504321f8dedaa66360dc983edb9619ff3e02d0d14",
+    "src/unit_02504.c": "bc3603aa3c1e87e93259fef4d1fa46b1ac98c22209677af8f7116ce3c892e04d",
+    "src/unit_02505.c": "91347792e666eef3e0c8fd7845342599c84978a193e0e4ed892cc17ae3eb11ee",
+    "direct_c/verify_actor_voice.py": "684b1bd600cbf256b0edb6750a8f8e4d06b9f2164cc37c96d9bb12a501e6d012",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/actor-voice-native.json": "477d0da6d0a7cb4fdc92d288ad0f6c739679e8152c0b78942863f26dd98a8377",
+    "metadata/actor-voice-rea-evidence.json": "a02b7e555001cd8d73e8053b0bf6a0388a0fa6d5a196de2037c92c7aa6cbdae3"
+  },
+  "actual_composition_scenarios": 16,
+  "unsafe_copy_extent_probes": [
+    32,
+    40
+  ],
+  "unsafe_copy_probe_stops_before_corrupted_return": true,
+  "controlled_algorithm_endpoints": [
+    "53B4A0 and4C5120 unless actual=True",
+    "Owned53BFE0/539A70 children unless actual=True",
+    "55F639/55F32F/55F449 sound controller methods in all enabled-voice cases"
+  ],
+  "limitations": [
+    "The four owned functions execute as a real chain in actual=True cases; controlled isolated calls exercise all switch targets and native load phases. Real sound/training children execute in actual=True, with incidental sound disabled.",
+    "Enabled voice assembly, exact NUL-inclusive DWORD/BYTE copies,32-byte zero padding, receiver/volume reloads and native full-EAX result routes verified. Named/canonical void routes check effects, not their incidental EAX.",
+    "Ordered owned static stores, consumed child inputs/filename bytes, complete original static-memory range and saved ABI checked. Private stack addresses normalized; flag/incidental volatile-register equivalence, post-overflow stack/return behavior beyond the two explicit untruncated-copy probes, concurrency, physical sound and live UI excluded."
+  ]
+}

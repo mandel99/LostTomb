@@ -1,0 +1,337 @@
+{
+  "format": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "passed": true,
+  "checked": 6150,
+  "compiled_C_sha256": "9229733e69cbdb210371be038a815a2926dee36f1a8060a2f662b601879094a9",
+  "method": "Complete editor validation, terrain classifiers and real counter/selector/trim composition against compiled traced and plain C. Full watched bytes/guards, native reads and writes, ordered calls/arguments/state/consumed results, AL/full-EAX domains, declared mutations and native/C stack/saved registers compared.",
+  "limitations": [
+    "Text lookup4CC110/4CC160, panel538CD0, profile5169C0, filesystem enumeration41C740 and sorting41CA10 are explicit typed deterministic boundaries. This proves validation/error selection and selector ordering/reloads; physical filesystem, language resources and modal rendering are outside this proof.",
+    "The selector uses a stable valid list of at most8 prepared entries. Its known invalid-index fallback is infeasible in this domain; unchanged selector is separately covered by the accepted dropdown-start-actions proof.",
+    "Helper-exit mutation cases prove boundary robustness and reload order; pure real classifiers do not ordinarily mutate coordinate/classifier state. Byte-return predicates are compared only in AL; terrain4EC410 and counter443710 preserve their complete native EAX contracts.",
+    "Incoming caller audits distinguish authenticated recovered/cached CFG calls from unowned raw E8 candidates. Zero provider xrefs does not establish absence of callers."
+  ],
+  "plain_checked": 6150,
+  "comparison_checked": 6150,
+  "comparison_C_sha256": "171872229173b1b961fb6ce5366e0a1c1d4df9252099d3ec51f33b0ed6fd1508",
+  "comparison_count": 24600,
+  "case_selection": {
+    "limit": null,
+    "start": 0,
+    "single_case": false
+  },
+  "elapsed_seconds": 140.64,
+  "native_instruction_coverage": [
+    571,
+    572
+  ],
+  "reachable_instruction_coverage": [
+    571,
+    571
+  ],
+  "owned_instruction_coverage": [
+    408,
+    408
+  ],
+  "native_conditional_outcomes": [
+    138,
+    142
+  ],
+  "feasible_conditional_outcomes": [
+    138,
+    138
+  ],
+  "native_uncovered_instructions": [
+    "0x4ce0ad"
+  ],
+  "missing_conditional_outcomes": [
+    [
+      "0x443740",
+      "0x44377e"
+    ],
+    [
+      "0x44375d",
+      "0x44377e"
+    ],
+    [
+      "0x4ce090",
+      "0x4ce0ad"
+    ],
+    [
+      "0x4ce098",
+      "0x4ce0ad"
+    ]
+  ],
+  "declared_dead_edges": [
+    [
+      "0x443740",
+      "0x44377e"
+    ],
+    [
+      "0x44375d",
+      "0x44377e"
+    ],
+    [
+      "0x4ce090",
+      "0x4ce0ad"
+    ],
+    [
+      "0x4ce098",
+      "0x4ce0ad"
+    ]
+  ],
+  "function_instruction_coverage": {
+    "0x4095c0": [
+      31,
+      31
+    ],
+    "0x409650": [
+      44,
+      44
+    ],
+    "0x4096e0": [
+      42,
+      42
+    ],
+    "0x409760": [
+      31,
+      31
+    ],
+    "0x4097c0": [
+      31,
+      31
+    ],
+    "0x409820": [
+      4,
+      4
+    ],
+    "0x409830": [
+      112,
+      112
+    ],
+    "0x4ec360": [
+      55,
+      55
+    ],
+    "0x409620": [
+      17,
+      17
+    ],
+    "0x4ec410": [
+      45,
+      45
+    ],
+    "0x443710": [
+      60,
+      60
+    ],
+    "0x4cdff0": [
+      89,
+      90
+    ],
+    "0x4ce3a0": [
+      10,
+      10
+    ]
+  },
+  "controlled_endpoints": [
+    "0x41c740",
+    "0x41ca10",
+    "0x4cc110",
+    "0x4cc160",
+    "0x5169c0",
+    "0x538cd0"
+  ],
+  "reached_controls": [
+    "0x41c740",
+    "0x41ca10",
+    "0x4cc110",
+    "0x4cc160",
+    "0x5169c0",
+    "0x538cd0"
+  ],
+  "mutated_helper_phases": [
+    [
+      "0x4095c0",
+      0
+    ],
+    [
+      "0x4095c0",
+      1
+    ],
+    [
+      "0x409620",
+      0
+    ],
+    [
+      "0x409620",
+      1
+    ],
+    [
+      "0x409650",
+      0
+    ],
+    [
+      "0x409650",
+      1
+    ],
+    [
+      "0x4096e0",
+      0
+    ],
+    [
+      "0x4096e0",
+      1
+    ],
+    [
+      "0x409760",
+      0
+    ],
+    [
+      "0x409760",
+      1
+    ],
+    [
+      "0x4097c0",
+      0
+    ],
+    [
+      "0x4097c0",
+      1
+    ],
+    [
+      "0x409820",
+      0
+    ],
+    [
+      "0x409820",
+      1
+    ],
+    [
+      "0x409830",
+      0
+    ],
+    [
+      "0x409830",
+      1
+    ],
+    [
+      "0x41c740",
+      0
+    ],
+    [
+      "0x41c740",
+      1
+    ],
+    [
+      "0x41ca10",
+      0
+    ],
+    [
+      "0x41ca10",
+      1
+    ],
+    [
+      "0x443710",
+      0
+    ],
+    [
+      "0x443710",
+      1
+    ],
+    [
+      "0x4cc110",
+      0
+    ],
+    [
+      "0x4cc110",
+      1
+    ],
+    [
+      "0x4cc160",
+      0
+    ],
+    [
+      "0x4cc160",
+      1
+    ],
+    [
+      "0x4cdff0",
+      0
+    ],
+    [
+      "0x4cdff0",
+      1
+    ],
+    [
+      "0x4ce3a0",
+      0
+    ],
+    [
+      "0x4ce3a0",
+      1
+    ],
+    [
+      "0x4ec360",
+      0
+    ],
+    [
+      "0x4ec360",
+      1
+    ],
+    [
+      "0x4ec410",
+      0
+    ],
+    [
+      "0x4ec410",
+      1
+    ],
+    [
+      "0x5169c0",
+      0
+    ],
+    [
+      "0x5169c0",
+      1
+    ],
+    [
+      "0x538cd0",
+      0
+    ],
+    [
+      "0x538cd0",
+      1
+    ]
+  ],
+  "source_hashes": {
+    "runtime/editor_validation.c": "f587ab92eb44773491fd10766adddc65004192d346a746d2ab7f16ddec96d17b",
+    "src/unit_02079.c": "be8ea6595c771d1e50a0dad92117e288190cf4ff4e0b06a09c5b3c14a9c4af07",
+    "include/editor_validation.h": "e8de3f3ddf03d761c0c750406d5a5543a61219180fdb2df35b6cb36153cbd63a",
+    "src/unit_00071.c": "9503e7f1a29aa94739e81b9d0823bf04e8ed2236b8a6991586ad7a25a967b380",
+    "src/unit_00621.c": "c1d28c05fa794420a3b03ce3427ece78fa780d32d6191370ad0d673f13a3430e",
+    "src/unit_01739.c": "1a7546557741a3496b983458ae54174d807fd99367d95b960ef6d325576db94d",
+    "src/unit_01745.c": "0cf982e336813592b50081eef326f0cb8f05b3ca9be4fd8892dc97253bb0bcf2",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "include/file_list.h": "306fc767e65fce27e311a304c823d8f23a07e6f2bf2ba2dc7bb24ed5f98ba3a3",
+    "include/text_selection.h": "ba17da1bea89cb6f9cbe9007eaebcea34545027e2f6189e05995dfb98de74fcf",
+    "include/placement_preview.h": "de1ca5a02ca5ab2969b8528e562550c7d1ce43a13b8e20548b06256f02b26f5c",
+    "tools/verify_editor_validation_emulation.py": "a5d32ef88356ab856f4a2e12d52405262ff0bf3ae22cfec323351bd76fb83043",
+    "artifacts/editor_validation_phase/tests/editor_case.h": "c0d67606ecf9cd355a64d70dde322501769dbd4ed214bdbb6ae2024ddef38e31",
+    "artifacts/editor_validation_phase/tests/editor_points.h": "d481785ac2f0c6fa636a136fd3a01d7682c48acf9cf821d525651c6e7951c497",
+    "artifacts/editor_validation_phase/tests/points.json": "a671a0ada371d173046c77e18a0618daa810e23f793d84e898d3f72f8b3ae7b5",
+    "artifacts/editor_validation_phase/tests/editor_validation.c": "17b08de977f1e1f01746fef82b0f8a425a9c5e25f5979c3e16a35b9eb148eb87",
+    "artifacts/editor_validation_phase/tests/editor_actual_trace.c": "bff18b32e86bf79e4636315668be051ce839fd0e896f67057adf0130f605d66d",
+    "artifacts/editor_validation_phase/tests/editor_actual_plain.c": "65a06a2cdd404f412343cbb6f52f989ec682fdc2b1c263574ed38881a11189f2",
+    "artifacts/editor_validation_phase/project/CMakeLists.txt": "0530b215d6e82608ced6affaf7551dc892ba87415b89b9fb6e84c3ba867c198b",
+    "artifacts/editor_validation_phase/make_test_aliases.py": "0c9bd580c1f0ea729de479fac5ac0214a261d880b71bc47e08091f105c5e7438",
+    "artifacts/editor_validation_phase/inspect_native.py": "c29359a15719bd453e519795de8d8539d6e5558b53b517d3c33bd28b57203016",
+    "artifacts/editor_validation_phase/native.json": "8382517e4466fd0049f615581cf6e501113cdf516cd714cf0910eeb22937c910",
+    "artifacts/editor_validation_phase/helper-native.json": "b3732c87bcb3e889be9756ddee38443fba24546740c3086b58df459ccbf92111",
+    "artifacts/editor_validation_phase/selector-native.json": "58d2ff02c96c653a4be6e26452c3cafe91adcd725df1b505214ad62d6f8c8ae2",
+    "metadata/popup-editor-xrefs-native.json": "4693d0581fb96217cb414f8a5632eeb647e5d99ad766ebd04d2c5164f2b1cb0b",
+    "metadata/popup-editor-relative-calls-native.json": "ee40be7bf066b194332a5bec039f52c593be7e8b12109568c5a7ebfb6ac14121"
+  }
+}

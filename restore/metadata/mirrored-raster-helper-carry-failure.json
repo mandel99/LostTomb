@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "83dc80b09a4deb62052a6ad9bae5804ca1d8788f25c2bbd661acf3bdd1e9ec92",
+  "passed": false,
+  "checked": 552,
+  "case_selection": {
+    "start": 0,
+    "limit": null,
+    "single_case": false
+  },
+  "method": "Actual64-instruction mirrored RLE decoder plus actual32-instruction row skip against optimized traced and plain C, no controlled algorithms. Complete source/frame/state+canary SHA, ordered WORD pixel writes/count, final source cursor, real helper entry/exit mutations, stack/saved registers compared.",
+  "limitations": [
+    "Valid mapped source/frame fixtures; no arbitrary malformed-stream termination guarantee or entire-city pixel fidelity claim.",
+    "Public decoder remainsvoid. Test-only trace exposes source cursor and ordered pixels; native incidental EAX is compared as an internal consumption observation. Clear direction flag is required by the native ABI."
+  ],
+  "case": [
+    257,
+    0,
+    300,
+    8,
+    2048,
+    1,
+    1534,
+    1,
+    123,
+    17,
+    65536,
+    0,
+    5,
+    1,
+    301,
+    9,
+    2048,
+    2038,
+    0,
+    1
+  ],
+  "error": "{'C': {'memory': '4a6bc34aa6a42bab66f9c8ffaf19abde2700f3974848fdc7759bba03bcf87f05', 'source': 822084117, 'write_count': 0, 'write_hash': 'cbf29ce484222325', 'events': [[0, 822083601, 257, 1, 0, 300, 8, 2048, 823197696, 1534], [1, 822084117, 257, 1, 0, 300, 8, 2048, 823197696, 1534]]}, 'native': {'memory': '4a6bc34aa6a42bab66f9c8ffaf19abde2700f3974848fdc7759bba03bcf87f05', 'source': 822084629, 'write_count': 0, 'write_hash': 'cbf29ce484222325', 'events': [[0, 822083601, 257, 1, 0, 300, 8, 2048, 823197696, 1534], [1, 822084629, 257, 1, 0, 300, 8, 2048, 823197696, 1534]]}}",
+  "native_eip": "0x33000000",
+  "plain_checked": 552,
+  "plain_compiled_C_sha256": "83dc80b09a4deb62052a6ad9bae5804ca1d8788f25c2bbd661acf3bdd1e9ec92",
+  "elapsed_seconds": 16.55,
+  "native_instruction_coverage": [
+    64,
+    64
+  ],
+  "helper_instruction_coverage": [
+    32,
+    32
+  ],
+  "native_uncovered_instructions": [],
+  "helper_mutation_phases": [],
+  "controlled_algorithm_endpoints": [],
+  "source_hashes": {
+    "artifacts/mirrored_raster_phase/unit_00131.c": "9ad57dd005f6f44e85be7661a423cb8d9a2f5e120a12dbed1bc4059eba9a33a9",
+    "src/unit_00149.c": "0ce48149d7d54c8062934be92489ab7ef174a337447e51810b160fb386dbf9ef",
+    "include/mirrored_raster.h": "2ccd60b62c589eac503596b9d39ee592b57c3eb0d822d309db2f6eca029fb190",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "tests/mirrored_raster.c": "aa09dcadf4f80e4833a0dc4120282eaeb91095cdc06e79611a344afde85465cc",
+    "tests/mirrored_raster_real_skip.c": "38a0890bdc6e6dde76058eb54e60e3f9420a984dcc85b703d547ccf2013100ba",
+    "tests/mirrored_raster_plain.c": "134bb4680aab27c37b7b08c03427c242a600c37d0dd6980982082b067b3facc8",
+    "tools/mirrored_raster_project/CMakeLists.txt": "a1b3a5d4e3f6e1b5d42b58e624a6a71b3940525ae61719e2ea8d5931a5d1a934",
+    "tools/verify_mirrored_raster_emulation.py": "885ce3afbf6e82b525dcf05b3d60e024f0e50e2babae2e99b50e5e8958c179af",
+    "metadata/flat-sprite-raster-next-native.json": "27c58cf38f7fecb12f28f947a0cceed3df8ae8366b5a3df9aed374215406a99e",
+    "metadata/upper-raster-native.json": "e277388c9359c66608f2be588395203258f80a122df534a8a673fe6daa23bba5"
+  }
+}

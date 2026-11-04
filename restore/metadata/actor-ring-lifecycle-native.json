@@ -1,0 +1,55 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x4f64a0",
+      "bytes": 10,
+      "source": "runtime/actor_ring_lifecycle.c",
+      "name": "actor_ring_startup",
+      "qualification": "CRT table576070 points to4F64A0; bounded CALL4F64B0/JMP4F64D0",
+      "evidence": "ev_62aade37aea535f9a234bc21d0460434cf65fb57867c0ef8740a942872347eaa"
+    },
+    {
+      "address": "0x4f64b0",
+      "bytes": 28,
+      "source": "src/unit_02183.c",
+      "name": "construct50_actor_rings",
+      "evidence": "ev_80ea900612d18847e8c13e92a80d4b1e16dd0164855f398a75ff01c81c368cb0"
+    },
+    {
+      "address": "0x4f64d0",
+      "bytes": 12,
+      "source": "src/unit_02184.c",
+      "name": "register_actor_ring_cleanup",
+      "evidence": "ev_967fb142e2ac8c6b12df6248699e69874482ad6d03c0b79d884b1f7a241020d2"
+    },
+    {
+      "address": "0x4f64e0",
+      "bytes": 23,
+      "source": "runtime/actor_ring_lifecycle.c",
+      "name": "destroy50_actor_rings_reverse",
+      "qualification": "Function pointer in4F64D0; four PUSH/CALL561363/RET",
+      "evidence": "ev_0ad1f1dae8aa76d957d8572cd1a50ee6c2cfce34f627effde06f24b52cd67928"
+    },
+    {
+      "address": "0x4f6500",
+      "bytes": 13,
+      "source": "runtime/actor_ring_lifecycle.c",
+      "name": "restore_actor_ring_construct",
+      "qualification": "Constructor pointer in4F64B0; MOV/XOR/three stores/RET"
+    },
+    {
+      "address": "0x4f6510",
+      "bytes": 5,
+      "source": "runtime/actor_ring_lifecycle.c",
+      "name": "restore_actor_ring_destroy",
+      "qualification": "Destructor pointers in4F64B0 and4F64E0; JMP4F6560"
+    }
+  ],
+  "fresh_contiguous_bytes": "ev_560dbf07176a8ff4db9de0bf8d8ddc55eba3c243cc6e5b02162836c0e235a0f4",
+  "crt_table_entry": "ev_22cd69412e157625fce57b886e3c284468b9d3c15b5f91125addd2d43ef62709",
+  "atexit_semantics": "ev_80be00561842c7bae587c921bebcbd50ed2ccc3844132730ed4f43e9434e0f3d",
+  "helper_evidence_file": "metadata/actor-ring-construction-native.json",
+  "normal_return_only": true,
+  "exception_unwinding_certified": false
+}

@@ -1,0 +1,187 @@
+Pharaoh.inf layout - Pharaoh + Cleopatra2.1 (reviewed original executable)
+
+Size:564 bytes (0x234). Integer byte order: little-endian.
+Native runtime address =0xE38E58 + file offset.
+This is a raw settings/runtime-state block, not a text INI file.
+Native414750 writes exactly564 bytes from E38E58 through4CED90.
+Native4CEB10 reads file bytes directly. No signature/version/CRC is added by this writer.
+Offset000 is color depth, not a version or signature. Offset004:0 means WINDOWED.
+Reviewed 2026-11-03. Preserve passive/legacy bytes when changing known fields.
+"No field consumer" below is a static finding for this executable, not a recovered historical field name.
+
+Offset Size Type  Captured sample                 Meaning
+0x000    4 u32   16                             Detected desktop color depth in bits per pixel (16 is not a format version)
+0x004    4 u32   0                              Fullscreen flag: 0=windowed, nonzero=exclusive fullscreen
+0x008    1 u8    0                              Pause state; reset to0 after settings load
+0x009    1 u8    0                              Passive legacy byte: startup writes0; no field consumer found
+0x00A    1 u8    0                              Media/CD drive letter, ASCII byte, or0
+0x00B    1 u8    1                              Sound effects enabled
+0x00C    1 u8    1                              Music enabled
+0x00D    1 u8    1                              Speech enabled
+0x00E    2 bytes all zero                       Passive bytes; consistent with DWORD alignment, no field references found
+0x010    4 u32   3                              Display mode: 1=640x480, 2=800x600, 3=1024x768
+0x014    4 u32   90                             Game speed
+0x018    4 u32   60                             Map scrolling speed
+0x01C   32 str   'Restore'                      Player/family name: NUL-terminated single-byte string,32-byte buffer
+0x03C    4 u32   16                             Internal/debug map-display selector (cycled through0..27)
+0x040   12 bytes all zero                       Passive legacy/reserved block; no field references found
+0x04C    4 u32   11                             Last selected overseer/advisor ID
+0x050    1 i8    0                              Current campaign mission/scene ID
+0x051    1 i8    0                              Campaign category/period index
+0x052    1 i8    -1                             Previous campaign record index (-1=none)
+0x053    1 i8    -1                             Selected campaign record index (-1=none)
+0x054    4 u32   0                              Mouse-help/tooltip mode0..2
+0x058    4 u32   50                             Campaign carried kingdom rating / initial rating
+0x05C    4 u32   0                              Personal savings carried between campaign missions (player field EA5CC0)
+0x060    4 u32   0                              Campaign completed-mission counter
+0x064    4 u32   0                              Mission mode:0=campaign; other modes use separate mission paths
+0x068    1 u8    1                              City/ambient sound enabled
+0x069    1 u8    1                              Warnings enabled
+0x06A    1 u8    0                              Monthly last.sav switch: exactly1 enables saving after monthly updates
+0x06B    1 u8    0                              Pyramid construction speed-up option
+0x06C    4 u32   80                             Sound-effects volume0..100
+0x070    4 u32   80                             Music volume0..100
+0x074    4 u32   80                             Speech volume0..100
+0x078    4 u32   80                             City/ambient volume0..100
+0x07C    4 u32   2                              Passive legacy DWORD: startup writes2; no field consumer found
+0x080    4 i32   -1                             RAM configuration; also read from Pharaoh.ini
+0x084    4 i32   2810                           CPU configuration; also read from Pharaoh.ini
+0x088    4 u32   999                            Passive legacy DWORD: startup writes0; existing INF then overwrites it (sample999)
+0x08C    4 u32   3                              Previous/cached display-mode code
+0x090    4 u32   0                              Passive legacy/reserved DWORD; no field references found
+0x094    4 u32   0                              Autosave disabled:0=autosave enabled, nonzero=disabled
+0x098    4 u32   0                              Popup-message suppression mask; UI edits bits1..12 (mask0x1FFE)
+0x09C  392 bytes all zero                       Passive serialized area:98 DWORDs, prefix of SAV/PAK chunk134; no individual consumers found
+0x224    4 u32   0                              Alternating victory-movie selector
+0x228    4 u32   2                              Difficulty:0=Very Easy,1=Easy,2=Normal,3=Hard,4=Very Hard
+0x22C    4 u32   1                              God effects enabled
+0x230    1 u8    0                              City names:0=Egyptian, nonzero=classical/Greek
+0x231    1 u8    1                              CD-check setting; startup also reads CheckCD from Pharaoh.ini
+0x232    2 bytes all zero                       Passive trailing bytes; consistent with DWORD alignment, no field references found
+
+Sample: C:\Users\Daniel\Documents\ChatGPT\game decompile and rewrite\restore\build\debug-startup-game\Pharaoh.inf
+Sample SHA256: ef717e081f1ba453f30733b785d3bd300fc672f25368b077c6f2c9b03b9f9023
+
+Primary evidence:
+414750 /4CED90: save block and generic binary writer; src/unit_00180.c.
+4147F0 /4CEB10: defaults and direct file load; src/unit_00181.c and unit_01757.c.
+426B40: desktop PLANES*BITSPIXEL and DirectDraw cooperative flags; src/unit_00429.c.
+402F70..403410: sound/speed/help callbacks; runtime/settings_callbacks.c and dropdown_menu_options.c.
+417DD0 /418640: campaign counters/selection fields; src/unit_00213.c and unit_00225.c.
+Family-name32-byte buffer: runtime/family_menu.c.
+4D58B0: PAK loading saves and restores selected global difficulty; src/unit_01831.c.
+PAK and saved-game payloads also contain difficulty; their stored value is separate from this file.
+At capture, both local Pharaoh.inf samples had DWORD2 at0x228.
+Read-only observation later confirmed global difficulty0 in the old running campaign. Old Restore SAVs contain0; loading a SAV restores its saved difficulty and normal exit persists it to INF. A new family inherits the current global choice.
+
+Unknown-field investigation, 2026-11-03:
+
+0x05C /E38EB4: PERSONAL SAVINGS.
+418640 copies player[EA5CC0 + player*49D8] into this field at mission completion.
+5405B0 restores it into the next campaign mission; non-campaign missions clear player savings.
+40AF90 subtracts donations to the city from EA5CC0; 40AFF0 caps donations by available savings.
+524840 draws actual language group52 entry1 ("Savings of") beside EA5CC0.
+Native SAV descriptor88 at5E1080 also serializes this DWORD.
+
+0x06A /E38EC2: MONTHLY last.sav SWITCH.
+452370 advances the calendar. On the monthly branch, after4E9700 and4EA000:
+  if(byte[E3908C] ==0 && byte[E38EC2] ==1) 4D4E20("last.sav");
+The filename is the original string at5DBB94. Values other than1 do not trigger this path.
+No ordinary field writer/UI toggle was found: the value can enter through the raw INF reader.
+This is separate from the annual autosave-disabled setting at0x094.
+Calling it a debugging aid is an inference; the monthly save behavior is directly observed in code.
+
+0x09C..0x227 /E38EF4..E3907F: SERIALIZED396-BYTE AREA.
+SAV/PAK schema row134 (zero-based), native address5E1418, contains:
+  codec0, pointerE38EF4, element_size4, count99, extra0.
+4D4E20 iterates the schema and writes396 bytes; 4D41E0/4D0E10 load the row.
+Its first392 bytes (INF0x09C..0x223) have no individual field consumers in the audit.
+Its final DWORD is the known victory-movie selector (INF0x224).
+Thus the prefix can be inherited from a SAV/PAK as well as an existing INF.
+Serialization proves byte transport, not98 additional active game options or their old names.
+
+Where passive bytes originate:
+The whole564-byte block lies beyond the raw-backed part of the PE .data section.
+It starts as virtual zero-fill when the original executable is loaded.
+4147F0 explicitly writes legacy0x009=0, 0x07C=2 and0x088=0 before loading Pharaoh.inf.
+4CEB10 then reads existing file bytes directly, including all passive bytes.
+414750 later writes the whole block back, including padding/reserves and unconsumed values.
+This explains persistence of an arbitrary old value such as the captured0x088=999.
+The initial historical author of that particular999 is not established by this executable.
+
+Per-range origin of the still unnamed bytes (rechecked against original instructions):
+Offset/range    Initial value before INF load       Subsequent identified source
+0x009           explicit0 at414819                  Existing INF byte
+0x00E..0x00F    PE virtual zero-fill                Existing INF bytes
+0x040..0x04B    PE virtual zero-fill                Existing INF bytes
+0x07C          explicit2 at414820                  Existing INF DWORD
+0x088          explicit0 at41483A                  Existing INF DWORD (including sample999)
+0x090..0x093    PE virtual zero-fill                Existing INF bytes
+0x09C..0x223    PE virtual zero-fill                Existing INF; later SAV/PAK row134
+0x232..0x233    PE virtual zero-fill                Existing INF bytes
+These ranges total421 bytes. No direct gameplay reads were identified for them.
+All421 bytes are included when414750 writes the complete564-byte image.
+Thus persistence of a nonzero value is not evidence of a current gameplay option.
+The99-DWORD transport descriptor does not prove that its prefix is a semantic array.
+An original historical name cannot be recovered from a default write alone.
+The zero-fill explanation applies to a fresh process; calling the settings initializer
+again does not itself clear every unnamed byte in the block.
+
+Follow-up source-of-values check, 2026-11-03:
+Requeried the native initializer, raw reader and dormant-field xrefs in REA.
+Also reviewed the descriptor-driven SAV writer4D4E20 and readers4D41E0/4D0E10.
+The writer walks20-byte descriptors; row134 supplies pointerE38EF4 and396 bytes.
+The reader also computes a20-byte row index and obtains destination and size
+through that descriptor. Consequently the absence of a direct xref toE38EF4
+does not mean those bytes cannot be loaded: this is a verified indirect source.
+No additional per-field interpretation of its392-byte prefix was found.
+
+The audit now asserts each passive range has no observed direct reads, only
+the three documented initializer writes, and no settings-address literal in
+uncached .text pointing into those ranges. All8 ranges total421 bytes.
+This also checks the single passive-area pointer in .data is row134's pointer.
+These checks complement the existing limitation about computed addresses.
+
+Read-only comparison of6 local INF copies (2 restore,4 reference artifacts)
+found identical bytes in every passive range:0x07C=2,0x088=999, all others zero.
+The full files differ in active fields. Shared passive values across copies
+do not establish the first historical writer or turn999 into a current option.
+No game process was launched and no INF, SAV, PAK or family file was modified.
+
+Coverage and limitations:
+REA/Ghidra xrefs checked candidate addresses; defaults, calendar, savings renderer and
+generic INF/SAV I/O were inspected in original instructions.
+Additional audit authenticated4527 cached native procedure entries /374525 instructions
+against the original PE bytes and decoded their settings operands with Capstone.
+An unaligned DWORD-window scan of the ENTIRE file found589 settings-address occurrences,
+including9 pointers in .data. The only unknown-area pointer is the schema row above.
+Known-base pointer escapes in cached code are the raw block I/O and32-byte family name.
+No indexed settings operand was found in that authenticated instruction set.
+This is not a formal proof against every possible computed address or corrupt/out-of-range input.
+"Alignment" and "reserved/legacy" are structural interpretations, not original debug-symbol names.
+Reproducible audit: tools/audit_pharaoh_inf.py; compact results: metadata/pharaoh-inf-native-audit.json.
+Original EXE SHA256: fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d
+
+Historical-layout comparison, 2026-11-03 (INFERENCE, not native field names):
+Pinned Julius source:
+https://github.com/bvschaik/julius/blob/ec2fe8fad0221e37c46a3fc35be5a9e63ca42032/src/game/settings.c
+Source SHA256:70cbe7c2ac9f8b8395d49fac6d0868e6cd445a0f90cbaa7ef0e0cac751d8b129
+Walking load_settings buffer operations gives100 personal-savings DWORDs at
+0x094..0x223, followed by victory_video at0x224. This was checked by deriving
+offsets from the reader, not by assuming its current in-memory struct layout.
+Pharaoh reuses0x094 for annual-autosave suppression and0x098 for popup masks.
+The remaining0x09C..0x223 equals precisely entries2..99 of that older-shaped
+table:98 DWORDs /392 bytes. Both layouts place the victory selector at0x224.
+This strongly suggests an inherited, unused remainder of a savings table.
+It does NOT prove those98 values are active per-mission savings in Pharaoh;
+native Pharaoh instead carries current personal savings through0x05C.
+It also does not establish the exact historical version that introduced them.
+The SAV descriptor still transports these392 bytes alongside the selector.
+
+Julius uses0x084/0x088 for window width/height; Pharaoh reads0x084 as CPU data
+and has no observed consumer of0x088. Therefore its sample999 must not be
+renamed window height on the strength of that comparison. The current native
+evidence still leaves0x009,0x040..0x04B,0x07C,0x088 and0x090 semantically unnamed.
+Padding interpretations for0x00E..0x00F and0x232..0x233 remain structural only.
+The original executable was rechecked through REA, and the complete local
+native-reference audit passed again. No game or settings files were modified.

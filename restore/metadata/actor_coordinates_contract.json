@@ -1,0 +1,176 @@
+{
+  "format": 1,
+  "status": "Implementation, header, test and verifier frozen after the refreshed complete private Debug and optimized comparison with current placement_preview.h. Coordinator has applied the unchanged coordinate trio and owns shared verification.",
+  "authority": {
+    "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "owned_native_packet": "metadata/actor-coordinates-next-native.json",
+    "accepted_world_native_packet": "metadata/camera-sidebar-coordinate-native.json",
+    "original_process_executed": false,
+    "reference_project_role": "Read-only address and hypothesis reference; original instructions determine the implementation."
+  },
+  "functions": {
+    "004f08c0": {
+      "candidate": "artifacts/actor_coordinates_phase/unit_02113.c",
+      "production": "src/unit_02113.c",
+      "instructions": 166,
+      "signature": "void __cdecl FUN_004f08c0(int32_t building, int32_t step, int32_t *x, int32_t *y)",
+      "records": "Building records are 264 bytes. Part at 7999EA is signed WORD; variant at 799A2C and comparison fields 799A2F/30 are BYTE; active at 799A40 is DWORD.",
+      "algorithm": [
+        "Step below 1 writes x=0 then y=15 and returns. Identical output pointers therefore retain 15.",
+        "For positive step, tier=(step-1)/6. Layout DWORD 5E4EF4 equal to 1 selects a DWORD height at 5E68F8+(tier+variant*6)*4; other layouts use tier*90 with 32-bit wrap.",
+        "Store x=DWORD[70E45C]+1 before loading DWORD[70E44C] and storing y=-(halfY+height). Reload the layout after these output writes.",
+        "Layout 5 uses orientation at 5E6578+(signedPart+variant*36)*8. Other layouts use 5E4EF8+(signedPart+variant*144)*8. These expressions are byte addresses, not scaled typed-pointer indices.",
+        "Divide signed DWORD camera BCA2E0 by 2 toward zero. Orientation below 4 adds that rotation and subtracts 4 once when the result is at least 4. Otherwise orientation below 8 similarly subtracts 4 once at threshold 8. Larger orientations do not rotate.",
+        "When signed orientation is below 9, the unsigned BYTE comparison at 799A2F/30 can force orientation 8. Slot is (step-1)%6+orientation*6.",
+        "Layout 3 selects one of the two X/Y DWORD pairs at 5F57C8/CC or 5F57D0/D4 with slot*16. It updates x, then loads the y delta and updates y, then performs x+=5, y+=8, x+=1, y+=19 as sequential stores.",
+        "Other layouts use the pair at 5F5618/1C with slot*8. After the y update, freshly read active DWORD 799A40 can add the orientation-indexed extra pair at 5F5BF8/BFC. Final x+=1 and y+=19 are sequential on every remaining path."
+      ],
+      "dependencies": [],
+      "alias_contract": "Output pointers can coincide, overlap by two bytes, or alias globals and records. Volatile loads and sequential DWORD stores preserve the observed native ordering; collapsing the function to two final stores is incorrect."
+    },
+    "004f0ab0": {
+      "candidate": "artifacts/actor_coordinates_phase/unit_02114.c",
+      "production": "src/unit_02114.c",
+      "instructions": 78,
+      "signature": "void __cdecl FUN_004f0ab0(int32_t row, int32_t column, int32_t *map_y, int32_t *map_x)",
+      "rotation_coefficients": {
+        "column_order": [
+          "start_row",
+          "start_column",
+          "inner_row",
+          "column_sign",
+          "row_sign",
+          "outer_sign"
+        ],
+        "0": [
+          "2*DWORD[70E418]+1",
+          "230",
+          "1",
+          "-1",
+          "1",
+          "1"
+        ],
+        "2": [
+          "230",
+          "2*DWORD[70E414]+1",
+          "-1",
+          "1",
+          "1",
+          "1"
+        ],
+        "4": [
+          "455-2*DWORD[70E418]",
+          "230",
+          "-1",
+          "1",
+          "-1",
+          "-1"
+        ],
+        "default_including_6": [
+          "230",
+          "455-2*DWORD[70E418]",
+          "1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      "algorithm": [
+        "Read full DWORD origins and camera rotation. All multiplication and subtraction wrap at 32 bits before signed division.",
+        "denominator=outer_sign*row_sign-column_sign*inner_row. q=((column-start_column)*row_sign-(row-start_row)*column_sign)/denominator.",
+        "Store fourth argument map_x=q first. Then compute ((row-q*inner_row)-start_row)/row_sign and store the third argument map_y last. Identical output pointers retain the second value."
+      ],
+      "dependencies": [],
+      "default_path": "The native default is the rotation-6 coefficient set, including noncanonical rotation values. This path has explicit inverse fixtures."
+    },
+    "004f0d30": {
+      "candidate": "artifacts/actor_coordinates_phase/unit_02116.c",
+      "production": "src/unit_02116.c",
+      "instructions": 159,
+      "signature": "void __cdecl FUN_004f0d30(int32_t actor, int32_t *x, int32_t *y)",
+      "records": "Actor records are 388 bytes. Source, source step, target, target step, fraction and total at BCD642/644/646/648/64A/64C are signed WORD fields. Building records are 264 bytes; coordinate and parent fields are signed WORD.",
+      "algorithm": [
+        "Capture source and target from the actor record. If source is 0 or equals target, parent index is target-signedWORD[target+7999EA]. Read parent map Y at 799A00 and X at 7999FE, then call actual 004F0BA0 for the start point.",
+        "For a distinct nonzero source, call actual 004F08C0(source, signed source step). After return, reload source building X/Y at 7999DE/E0 and full DWORD E94E04. Mode 0 increments Y, 4 increments X, 6 increments both, and other modes increment neither. Convert with actual 004F0BA0 and add the offset with wrap.",
+        "Read target building coordinates and E94E04 before calling target 004F08C0. Preserve those coordinates across this call, then call actual 004F0BA0 and add its result to the returned offset.",
+        "After all coordinate helpers return, reload signed fraction and total from the actor. If fraction<total, wrap each (end-start)*fraction before signed division by total, then add start with wrap. Both coordinate calculations finish before either output is stored. Otherwise use the target point directly.",
+        "Store final x then y. No invented zero-denominator or missing-helper fallback is introduced; total=0 with a nonnegative fraction takes the native direct-target branch."
+      ],
+      "dependencies": [
+        "004f08c0 (restored in this phase)",
+        "004f0ba0 (accepted source composed unchanged)",
+        "004f0ab0 (restored actual sentinel fallback through 004f0ba0)"
+      ]
+    },
+    "004f0ba0": {
+      "role": "Accepted unchanged real dependency",
+      "source": "src/unit_02115.c",
+      "header": "include/placement_preview.h",
+      "instructions": 113,
+      "composition": "Uses the real DWORD tile lookup and its real 004F0AB0 inverse fallback. No coordinate algorithm is replaced by an oracle-controlled endpoint.",
+      "rotation_limit": "Direct world-conversion and actor-composition fixtures use supported rotations 0/2/4/6. The native unsupported-rotation return-without-output path is not a separate fixture in this corpus, even though all 113 instruction addresses are reached through supported paths. Unsupported rotation can leave the actor caller's local outputs uninitialized and is outside the actor-composition claim."
+    }
+  },
+  "return_consumption_audit": {
+    "conclusion": "All three owned C interfaces are void. Native incidental EAX values are not asserted or promoted into an invented semantic return.",
+    "004f08c0": {
+      "all_xrefs": [
+        "004f0db0",
+        "004f0e5f"
+      ],
+      "evidence": [
+        "At 004F0DB5 MOV EAX,EDI overwrites the return register.",
+        "At 004F0E64 LEA EAX,[ESP+28] overwrites the return register."
+      ]
+    },
+    "004f0ab0": {
+      "all_xrefs": [
+        "004f0bdc"
+      ],
+      "evidence": "The caller loads ESI/EDX, repairs ESP and jumps to 004F0C0D, where MOV EAX,[BCA2EC] overwrites EAX before consumption."
+    },
+    "004f0d30": {
+      "all_xrefs": [
+        "004390c2"
+      ],
+      "evidence": "The sole caller repairs ESP and jumps to 00438FED, where MOV EAX,[70E44C] overwrites EAX before consumption."
+    }
+  },
+  "proof": {
+    "report": "metadata/actor-coordinates-emulation.json",
+    "passed": true,
+    "cases_per_compiled_variant": 4771,
+    "variants": [
+      "Private Debug /Od",
+      "Private Release /O2"
+    ],
+    "owned_instruction_coverage": [
+      403,
+      403
+    ],
+    "accepted_helper_instruction_coverage": [
+      113,
+      113
+    ],
+    "controlled_algorithm_endpoints": [],
+    "mutations": "All four real functions have exercised entry and exit mutation phases, eight phases in total. Fixture mutations can alter layout, rotation, quarter, record metadata, actor interpolation fields, geometry, camera inputs, building coordinates and output values; actual helper algorithms still execute.",
+    "ordering_observation": "Native original instructions and compiled C execute the same complete helper chain. Ordered helper entry/exit arguments and outputs, fixed-data pointer identities, output alias relations, watched state and final memory hashes are compared. Internal output-store ordering is additionally tested through identical, overlapping and global/record-aliased outputs; this is not an instruction-by-instruction C write trace.",
+    "abi": "Native and compiled C check cdecl caller ESP, saved EBX/EBP/ESI/EDI, caller argument guards and bounded execution. Native nonstack writes must lie within declared watched regions. Incidental EAX for void functions is excluded after the caller consumption audit.",
+    "memory": "Full fixture table regions, the complete lookup grid, camera and layout fields, output canaries, selected nonuniform building records and actor records are hashed with address/size prefixes. Native output-pointer stack addresses are normalized while fixed data pointers and alias relationships remain observable.",
+    "covered_domains": [
+      "Layouts 0/1/3/5 and full-DWORD 100/105 hexadecimal values; orientations 0..10; positive, zero and negative signed steps; BYTE variants and signed WORD parts.",
+      "Supported camera rotations, negative/odd/large noncanonical rotation values for direct offset and inverse tests, full-DWORD origins, coordinate wrap and signed division toward zero.",
+      "Distinct, identical, overlapping, camera-global, building-field and actor-field output pointers across all four real entry points.",
+      "Source-zero, same-source-target and distinct-source actor branches; nonuniform building indices including 257/1000 and actor indices 1/257/1000; 264/388-byte strides.",
+      "Real valid-tile, large sentinel and signed-negative tile paths, actual inverse fallback, signed interpolation fractions and nondividing total-zero cases.",
+      "Mutations at every actual helper's entry and exit, including relevant reloads after deep calls."
+    ],
+    "limits": [
+      "Fixture pointers and table indices address mapped memory; arbitrary invalid pointers or malformed out-of-range table addresses are outside the claim.",
+      "Signed divisions are nonfaulting in the fixture corpus. No behavior is invented for native divide-by-zero or signed overflow traps.",
+      "Supported world-conversion rotations are 0/2/4/6. Explicit native-default fixtures cover inverse and offset, not the world helper's unsupported-rotation return-without-output path.",
+      "This coordinate proof does not establish complete city rendering or pixel fidelity of larger callers."
+    ],
+    "report_wording_qualification": "The generic verifier limitation was corrected with coordinator authorization, then the unchanged 4771-case corpus passed again in both private variants with the current widened placement_preview.h prototype. Explicit unsupported-rotation fixtures remain inverse/offset only; world composition is rotations 0/2/4/6."
+  }
+}

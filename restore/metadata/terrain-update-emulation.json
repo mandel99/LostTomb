@@ -1,0 +1,36 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "9946e5e02675f8cbfc48bf0837e59c1aca000f36ab3fa5491b7caa6b67ec8d5d",
+  "method": "Complete native 00479770 tile update, actual 00475bf0 rectangle walk and ordered 004dea50 controller, actual geometry/predicate and 0047a1c0/0047a1f0 water boundaries. All map/state bytes, endpoint arguments, saved registers and stack compared; boundary full EAX compared when enabled, AL when disabled.",
+  "limitations": [
+    "Tile sprite resolution 00486600 and the other terrain controller passes are controlled; this proves their caller contracts rather than those algorithms.",
+    "Valid map geometry 0..228; direct coordinate probes include edges and rejected negative/outside points.",
+    "Disabled water boundaries preserve unspecified incoming high EAX bits in native code; C defines those unused bits as zero. The Boolean AL contract is compared on that path."
+  ],
+  "checked": 2131,
+  "passed": true,
+  "source_hashes": {
+    "tests/terrain_update.c": "9e79ffb3d2aa1e6905efceec9f4bcb091213166095ae3891f2cb0da181d4bdfa",
+    "tools/verify_terrain_update_emulation.py": "1b7e29ecdc8ef314fb8e07fc430883219c3a61206fb255d7a8821eb3b7779e14",
+    "include/city_prepare.h": "4d1a286b9a05167b32c11eb9430c9e41b2cf774e5122fcbad9e9d1cca1f670bc",
+    "metadata/terrain-update-native.json": "1c08b7887e49ea1e430681b9d0e24652d7d8d2cd489840cd303a2db92b02a6f4",
+    "metadata/water-boundary-native.json": "774d9539a23efa64422079632881072e045e4ae40c377ae53c67feb2fb1cf7ea",
+    "src/unit_01009.c": "c2ae6c562fee3614c2493d47ef14a0856244cd958e93c98da106a9978de042b1",
+    "src/unit_01011.c": "30f894ef75ee0b2f4a657df39c22ca660a35650bae16dcd273ae774cc40e2d0f",
+    "src/unit_01037.c": "53a71df67c08f660db57494586a28c0125d259d8452a52e5a764393aae5817fe",
+    "src/unit_01091.c": "6e367ea43c0622aeafca6cca87d11726c5490d42d178271f40ac1f2271e856d4",
+    "src/unit_01097.c": "5b8c240c7495e7199ece022c72e92e9e4f43f11060690e8c5f00a2594c61ba20",
+    "src/unit_01098.c": "5d03bc30f01bd527284b7529c68983eaaeed6ec43b038c4e6b03c72c9d92403a",
+    "src/unit_01893.c": "2786404b7a19ef010976ad933a7e72f7fb32c5073969025be09341236f469b75",
+    "src/unit_00470.c": "b594f991c583c10110dc4fe6778af6821e94e6d821d0037ab9a86e7f99ad8b6a",
+    "src/unit_00988.c": "b965a8db8bc3ce26f69ff7cce236b325afc27bd302fcd6aa2d52677323d7ee09",
+    "src/unit_01020.c": "50f02b0f5bfa44dae8d6ca7c4e0016cb573daa63e06ad28b7f00056f026bcec0",
+    "src/unit_01095.c": "75cb08f24d6d2241c7e2be05876c5a06104aae19472fc381ce48b0fa207b2045",
+    "src/unit_01099.c": "fc1228f3f356dce160217b03bb2c28c73c584d63bbf5868e58ea530ae7ac75cc",
+    "src/unit_01100.c": "a44b79e5c52b69d3604abdbabdeab807565015371a0a1365e7d66fa520d418a8",
+    "src/unit_01250.c": "2f9ebbeecf56398a38fd98ec39e891e9d650b2e6186bf6892a5b4bf076df4fe9",
+    "src/unit_01274.c": "5ad7a503ec31d45b3e0743d1e9e7497e2b5f73f39bdd243d4c96b19429c21191"
+  }
+}

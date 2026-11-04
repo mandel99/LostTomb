@@ -1,0 +1,155 @@
+{
+  "format": 1,
+  "frozen": true,
+  "frozen_utc": "2026-10-30T14:03:05.888909+00:00",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "production_modified_by_agent": false,
+  "repaired_native_functions": 7,
+  "new_callback_functions": [
+    "0049b390",
+    "00496f20",
+    "00493ec0",
+    "00494010"
+  ],
+  "repaired_generated_units": {
+    "00825": "004578b0",
+    "00826": "004579d0",
+    "01320": "00493610"
+  },
+  "unchanged_composed_function": {
+    "unit": "01602",
+    "address": "004c5120",
+    "sha256": "b7ff5d1ef0228715dfab70e57ada87f687eabcd0de55205c70855f212ab1230d"
+  },
+  "native_instructions": {
+    "callbacks": 253,
+    "state": 117,
+    "stock_queries": 103,
+    "unchanged_classifier": 21,
+    "total": 494
+  },
+  "proofs": {
+    "debug": {
+      "report": "artifacts/actor_callbacks_small_phase/metadata/emulation-debug.json",
+      "sha256": "9972d240c69c76e0a9b1773871835417d7a255d15485f4147d1e0bdeb4f4f455",
+      "passed": true,
+      "checked": 4545,
+      "instructions": 494,
+      "compiled_C_sha256": "d49814c0fe9a23fafd8bec8fc4da719621d58f11f2fd2d9900e5475f05d5849d",
+      "C_smoke_checks": 33,
+      "flags": "/Od /Ob0 /MTd"
+    },
+    "release": {
+      "report": "artifacts/actor_callbacks_small_phase/metadata/emulation-release.json",
+      "sha256": "ce56c3d10101f8dc347866be999681e6708cd4bffae1b222d7fbbfb29ec8aec0",
+      "passed": true,
+      "checked": 4545,
+      "instructions": 494,
+      "compiled_C_sha256": "37940153f038e5cc8605b574ea4a3e16139a80bf98d53ed95ddcfd0b0baecc04",
+      "C_smoke_checks": 33,
+      "flags": "/O2 /Ob2 /DNDEBUG /MT"
+    }
+  },
+  "contracts": {
+    "entry": "All four callbacks are void(void), using current actor DWORD d056f8. Original addresses are canonical exported aliases. They require no raw native function pointers or constructor fields.",
+    "records": "Native actor address bcd600+id*388 and building address7999d8+signExtendedHomeWORD*264 wrap in32 bits. Actor counter/timer/limit and building slots/stock/type use native WORD signedness; image/tag/speed/count/current/orientation are DWORD.",
+    "state_adapter": "FUN00493610(void) is canonical. Separate restore_actor_small_state(int32_t unused) deliberately discards the original pushed word1. It permits typed native entry composition without inventing a consumed argument. Nine other legacy callers remain outside the coherent proof.",
+    "consumed_results": "The stock queries and classifier return full EAX. Callback/state EAX is discarded by the native dispatcher. Road EAX is controlled but tested full-width for zero.",
+    "animation": "BYTE frame increments wrap then unsigned>=12 resets0. Signed direction minus DWORD orientation wraps, then adds8 once when signed-negative. Death timer is signedWORD/2 toward zero, indexing an unclamped BYTE table. Classifier-specific art groups follow actual494190 jump-table order.",
+    "resource_mapping": "Resource list is signed DWORD count and DWORD stride. Unknown nonzero resource IDs deliberately read signed stock at index-1, building+54; no extra rejection is introduced.",
+    "reloads": "Current actor reloads, cached home/speed/id and orientation/art reloads after calls match native. Test wrappers mutate these fields after real helpers to expose width/caching mistakes."
+  },
+  "reference_only": [
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/Walkers.Labor.cs",
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/Walkers.DistributionInventory.cs",
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/LegacyWalkerAnimationCatalog.cs"
+  ],
+  "native_over_reference": [
+    "C# frame modulo/normalization and death-frame clamping are not native behavior for arbitrary BYTE/WORD inputs; staged C follows the original instructions.",
+    "No rewritten road/path or distribution algorithm is substituted for the bounded native helper bodies."
+  ],
+  "validation": "Both variants compare520648 watched bytes including nonuniform neighboring guards after each of4545 independently initialized cases, ordered entry/exit/deep endpoint arguments and intermediate actor fields, full consumed EAX, native caller stack canary/saved registers and compiled C stack balance/saved registers. Every494 original instruction executes. Cases include BYTE wrap, WORD sign/extremes, DWORD high-byte art/speed/count/orientation, physically aliased wrapped current IDs, home/slot mismatch, all actions/classifier groups/resource mappings, and explicit call-side mutations.",
+  "limitations": [
+    "Six road/path/movement/death endpoints (47fe60,4a5da0,4b3250,4b1ef0,4b1d50,4b17d0) are controlled. Their production algorithms and complete actor simulation are not proved.",
+    "State/query/classifier wrappers may apply explicit test-only mutations after real function returns, to verify caller reload/caching contracts. These wrappers are not production stubs.",
+    "Mapped actor/building records and resource lists through512 entries are the input domain; malformed unmapped IDs/list extents are excluded. Signed WORD timer boundary cases use mapped lookup guards covering the complete native index range; all65536 timer values are not enumerated.",
+    "The four callbacks and state entry are void; actor dispatcher489c52 discards callback EAX. Consumed stock/classifier EAX is compared. No function in this bounded graph directly calls RNG.",
+    "Private optimized link uses the existing Debug restore_data.lib and reports LNK4098; optimized handwritten C code is still compiled /O2. Shared target should link its configuration-matching restore_data target.",
+    "The existing central actor dispatcher/resolver and other actor callbacks are not changed here. Parent must register all four aliases."
+  ],
+  "integration": {
+    "target": "restore_actor_callbacks_small_verify",
+    "test": "standalone_actor_callbacks_small",
+    "recipe": "artifacts/actor_callbacks_small_phase/integration.cmake",
+    "recipe_sha256": "3668b4e37f3eeb4c53fa5faddd929eb3d4599e2cb60d9e71b445615980c501e1",
+    "product_runtime_additions": [
+      "runtime/actor_callbacks_small.c",
+      "runtime/actor_callbacks_small_state_adapter.c"
+    ],
+    "resolver_include": "actor_callbacks_small.h",
+    "dispatch_aliases": {
+      "0049b390": 65,
+      "00496f20": 40,
+      "00493ec0": 26,
+      "00494010": 27
+    },
+    "proof": "Python312/python.exe tools/verify_actor_callbacks_small_emulation.py --production --exe <shared executable>",
+    "private_project": "artifacts/actor_callbacks_small_phase/CMakeLists.txt",
+    "frozen_private_project_sha256": "070002048f0de9e594ba7c39e91d326f40a372e3aa39de2f71eb3ce65b91ba37",
+    "root_existing_targets_requiring_new_alias_linkage": [
+      "restore_actor_prey_verify also compiles runtime/actor_callbacks.c and will need the small runtime pair plus restored numbered sources or another deliberate test linkage strategy when resolver gains four cases."
+    ]
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/actor_callbacks_small_phase/src/unit_00825.c",
+      "target": "src/unit_00825.c",
+      "sha256": "bdb539bab39da13ab0a6ee87feab77e547639aed897cf0517851c3c698978390"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/src/unit_00826.c",
+      "target": "src/unit_00826.c",
+      "sha256": "03e720597233c9114c73a5368d0e10bad3040c830da28fbceab2c1c0342e63fa"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/src/unit_01320.c",
+      "target": "src/unit_01320.c",
+      "sha256": "dd0d6fb460065e8342d9ccd64f47572e26d136de831e0838d503a5d7b91a4f82"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/include/actor_callbacks_small.h",
+      "target": "include/actor_callbacks_small.h",
+      "sha256": "eb27eda565e7a60d6403d9ba8d30c0134272972a6217bea537f94eccafff23a3"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/runtime/actor_callbacks_small.c",
+      "target": "runtime/actor_callbacks_small.c",
+      "sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/runtime/actor_callbacks_small_state_adapter.c",
+      "target": "runtime/actor_callbacks_small_state_adapter.c",
+      "sha256": "250df434d61f74b60c3310cb716140cbd870cd391c46d8ffe56cdc62732eb508"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/tests/actor_callbacks_small.c",
+      "target": "tests/actor_callbacks_small.c",
+      "sha256": "f5573b6a8a7f1311a75b73a657959235ce1f1187b8e7e7ed14bf188e912987ff"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/tools/verify_actor_callbacks_small_emulation.py",
+      "target": "tools/verify_actor_callbacks_small_emulation.py",
+      "sha256": "ae6ffb6e59f7e26ec7d7362739fbf005dfbe400f8c7013178110dd141f2d4c56"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/metadata/native.json",
+      "target": "metadata/actor-callbacks-small-native.json",
+      "sha256": "d7bf83a52500ce33b5faee9fb04d7eaf35116a3a6bf8822ac5888bda6c5ea1b5"
+    },
+    {
+      "source": "artifacts/actor_callbacks_small_phase/metadata/caller-contracts.json",
+      "target": "metadata/actor-callbacks-small-caller-contracts.json",
+      "sha256": "332f00fdacbaf5497802d454fd826f828c146ea9cc053350d1b8ff2887356e30"
+    }
+  ]
+}

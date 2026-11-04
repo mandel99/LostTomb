@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "kind": "bounded-native-callsite-control-flow-review",
+  "passed": true,
+  "checked": 512,
+  "reconstructed_native_functions": 0,
+  "complete_dialog_reconstruction": false,
+  "original_game_executed": false,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "unicorn_version": "2.1.4",
+  "source_hashes": {
+    "src/unit_01622.c": "a0eb97d7395b881f2799cd07e4224fd432a2f4af4149f6b6eddc9563c2dee283",
+    "src/unit_01623.c": "a731362a818da91888e8025420afcaf88eb238663c807d38ba4bf7bc8f5b8dae",
+    "metadata/render-dialog-discarded-returns-native.json": "c5f8be9a51457d68b6f676ef054fe23a855c8c2a13c082b82300ad612317e1bc",
+    "tools/verify_render_dialog_guard_flow.py": "a4ff908f9634a09448f9f926bdeba6041ed4db99fbae153114075313b2da7faf"
+  },
+  "method": "Verify current two C conditions and widths by exact normalized source patterns; audit every retained caller/wrapper instruction byte against the canonical PE; execute both original call-site windows and original nine-instruction wrapper in Unicorn for 512 branch scenarios. Compare calls to the source expression control-flow model, with arbitrary controlled renderer EAX values.",
+  "cases": {
+    "lhs_dword": [
+      0,
+      1,
+      256,
+      4294967295
+    ],
+    "initial_redraw_byte": [
+      0,
+      1,
+      2,
+      255
+    ],
+    "renderer_redraw_byte": [
+      0,
+      1,
+      2,
+      255
+    ],
+    "renderer_eax": [
+      0,
+      1,
+      305419896,
+      4294967295
+    ]
+  },
+  "sites": [
+    {
+      "source": "src/unit_01622.c",
+      "function": "004c5e60",
+      "entry": "0x004c5f78",
+      "call": "0x004c5f8f",
+      "redraw_compare": "0x004c5f94",
+      "overwrite": "0x004c5fae",
+      "stop": "0x004c5fb3",
+      "final_eax": "0x00000099"
+    },
+    {
+      "source": "src/unit_01623.c",
+      "function": "004c6c70",
+      "entry": "0x004c6d6b",
+      "call": "0x004c6d83",
+      "redraw_compare": "0x004c6d88",
+      "overwrite": "0x004c6d96",
+      "stop": "0x004c6d9b",
+      "final_eax": "0x0000005c"
+    }
+  ],
+  "conclusions": [
+    "Renderer call is short-circuited by the complete dword at 0x00d3b140.",
+    "Refresh depends only on the post-render byte at 0x00e38dca equaling one.",
+    "Renderer EAX is overwritten without a read at 0x004c5fae / 0x004c6d96.",
+    "Removing the two nested unresolved-return guards preserves the relevant native dataflow."
+  ],
+  "limitations": [
+    "This is bounded native control-flow and static source-shape evidence, not complete dialog reconstruction or a compiled-C differential.",
+    "FUN_00430d30 renderer and FUN_0051e990 refresh bodies are controlled endpoints; their drawing, resource access, and other side effects are outside this review.",
+    "The second window begins after the original XOR EDI,EDI. The zero EDI invariant is checked in the retained prefix; preservation across prefix callees relies on the native callee-saved ABI.",
+    "No original game process or product executable is launched; no product source is edited by this tool."
+  ],
+  "source_checks": [
+    {
+      "source": "src/unit_01622.c",
+      "dword_lhs": true,
+      "byte_redraw": true,
+      "renderer_call_and_short_circuit_retained": true,
+      "discarded_return_guard_absent": true
+    },
+    {
+      "source": "src/unit_01623.c",
+      "dword_lhs": true,
+      "byte_redraw": true,
+      "renderer_call_and_short_circuit_retained": true,
+      "discarded_return_guard_absent": true
+    }
+  ],
+  "native_byte_audit": {
+    "instruction_records": 1435,
+    "bytes": 5142,
+    "records_by_function": {
+      "004c5e60": 987,
+      "004c6c70": 439,
+      "004dddc0": 9
+    },
+    "note": "All retained complete caller-body and wrapper instruction bytes match the canonical PE. Only the listed call-site windows and wrapper execute below."
+  },
+  "executed_native_instruction_addresses": [
+    "0x004c5f78",
+    "0x004c5f7d",
+    "0x004c5f7f",
+    "0x004c5f81",
+    "0x004c5f87",
+    "0x004c5f8d",
+    "0x004c5f8f",
+    "0x004c5f94",
+    "0x004c5f9b",
+    "0x004c5f9d",
+    "0x004c5fa2",
+    "0x004c5fa8",
+    "0x004c5fae",
+    "0x004c6d6b",
+    "0x004c6d70",
+    "0x004c6d73",
+    "0x004c6d75",
+    "0x004c6d7b",
+    "0x004c6d81",
+    "0x004c6d83",
+    "0x004c6d88",
+    "0x004c6d8f",
+    "0x004c6d91",
+    "0x004c6d96",
+    "0x004dddc0",
+    "0x004dddc5",
+    "0x004dddcb",
+    "0x004dddd1",
+    "0x004dddd2",
+    "0x004dddd3",
+    "0x004dddd4",
+    "0x004dddd9",
+    "0x004ddddc"
+  ],
+  "elapsed_seconds": 0.187
+}

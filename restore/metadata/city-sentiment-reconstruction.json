@@ -1,0 +1,83 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Complete pinned REA/Ghidra instructions. Port function labels and C# tax-model schema are references only.",
+  "functions": {
+    "00458f80": {
+      "instructions": 51,
+      "body_bytes": 158,
+      "evidence": "ev_91327742122c84e38496404d9324786283870111f329b6c6e8840de14f2315da",
+      "body_sha256": "9100366d91f0d34fd641db8de1d30bc01fad6824e8a8ce3b45aa567fcde475a2"
+    },
+    "004e8840": {
+      "instructions": 396,
+      "body_bytes": 1387,
+      "evidence": "ev_9cb836d2da1e8eca26aa86db89d870ac786a34465c56eedd88a9e808e7095d26",
+      "body_sha256": "776c61c63b4cbba8e00c4f18d661d52bf26034802fe3d50abfbc06642afcd360"
+    },
+    "004e8db0": {
+      "instructions": 56,
+      "body_bytes": 193,
+      "evidence": "ev_99fb62c07f9f89f0d3f66521631d51a68f9edec3ec06183cb66ecce867e45878",
+      "body_sha256": "a44f1d7f6fedb4ffd375cb6476259aafe89f6a143ab54a5a5b719ef1b86da01c"
+    },
+    "004e8ec0": {
+      "instructions": 66,
+      "body_bytes": 184,
+      "evidence": "ev_a11b853c1867ef27a90255c5768bfeedb2274d1caccf99ec7736345c016452a9",
+      "body_sha256": "5e68a4b662a30d8a61c5c51074a2ae74dc4986523f781c07a473c6b5ac851082"
+    }
+  },
+  "changes": [
+    "Four complete typed C providers replace population-band counting, city sentiment, house adjustment and food-factor frame bodies. Calendar routing and all public entries share runtime/city_sentiment.c.",
+    "Population counting uses its cached explicit city/high-water count, excludes states0/2/5/6, and classifies signed levels/populations. Sentiment instead uses fixed house IDs1..3999 with exact state1 and nonzero occupancy/population gates.",
+    "Preserve signed/wrapped tax-band and labor arithmetic, unemployment thresholds, alternating food toggle, low-population exceptions and actual cohort removal. Do not import C# table-index clamping absent from the original.",
+    "Preserve native BYTE addition/wrap before signed happiness clamps, hunger-counter wrap before its cap, separate food/model denominators and the unweighted mean of signed house happiness values.",
+    "Retain strict worst-cause priority/ties and the previous stored cause when all factors are nonnegative. Preserve cached versus live city selection across labor, census, food-percentage, temple and both toast callbacks; secondary toast is computed before the first callback.",
+    "House adjustment caches the signed wrapped city delta before temple callbacks and clamps updated DWORDs after addition. All four obsolete frame bodies disappear from both final maps."
+  ],
+  "references": {
+    "csharp": "PharaohRewrite/src/Pharaoh.Engine/Installation/LegacyRuntimeTextData.cs: LegacyTaxSentimentModels has26 rows by11 coverage bands. Its clamped GetAdjustment API is not used as authority for original4E8840 arithmetic.",
+    "port_sha256": "f66a27e62a433e06bdb6b01651e632c8ff6cd1eb9070126f590d49c1bdf8fda1",
+    "port_readonly": "tools/port_reference.py confirms house_population_calculate_people_per_type, city_sentiment_update, city_sentiment_update_house_happiness and city_sentiment_food_factor labels. No port execution or linkage."
+  },
+  "verification": {
+    "script": "direct_c/verify_city_sentiment.py",
+    "cases": {
+      "population_bands": 48,
+      "food_factor": 28,
+      "house_adjustment": 70,
+      "sentiment_factors": 162,
+      "callbacks_causes_and_alternation": 25,
+      "actual_queries_and_calendar": 14
+    },
+    "total": 347,
+    "method": "Offline pinned-original/current-Release Unicorn compares all mapped game data, ordered watched field writes, full logical query returns, callback arguments/order, stack cleanup and nonvolatile GPRs. First146 helper cases,162 sentiment cases and39 callback/integration cases passed in scoped runs on the same final target hash. Default fixtures control labor query and toast publication; the last14 run actual labor/temple query bodies or enter via the genuine half-month/monthly calendar. Named callbacks replace only the documented census/food-percentage/classifier/permission/toast dependency. Actual house counting, food percentage and cohort removal execute normally.",
+    "fixture_domain": "A deliberately malformed INT_MIN tax-coverage fixture made the original4E88DC read unmappedCDB6E058. It was replaced with signed negative but mapped band cases and normal capped positive coverage. No production guard or game-crash attribution was introduced from that oracle-only invalid input.",
+    "strict_W4_WX_build_exit": 0,
+    "no_argument_link_diagnostic_exit": 0,
+    "link_audit": "All four canonical public symbols have unique city_sentiment.obj providers in both final maps; their old restore_calendar_C bodies and broad world_dispatch_model.obj are absent. Main code remains below original data560000.",
+    "limitations": "Finite offline state/ABI proof, not exhaustive or live-game validation. Actual toast text/raster output and unrelated calendar simulation remain separate reconstruction obligations. Unconfirmed hunting-stock/granary-animation visual complaints are not claimed fixed. The complete game objective remains unfinished.",
+    "original_game_process_executed": false,
+    "computer_UI_automation_used": false,
+    "original_machine_code_fallback_used": false,
+    "script_sha256": "4c480dfc29831c3f1feb9638b29e48f515ac25cc0d6924ad2fbea7e83157e421",
+    "target": {
+      "sha256": "5e5b8abb06092bcd11891d46a2566f4d12c782cbb31bc3b12a9311a85b062280",
+      "bytes": 7798272,
+      "coff": "6ae80b91",
+      "code_end": "0x47659c"
+    },
+    "diagnostic": {
+      "sha256": "a1639d5daee83931ed9983e22eb620579eca422768b1d60c5258dc6316f92f32",
+      "bytes": 7794688,
+      "coff": "6ae80b7e",
+      "code_end": "0x475dec"
+    }
+  },
+  "sources": {
+    "runtime/city_sentiment.c": "30cfb5f27eceded6ee662a9058265a79fbf545b37aa0b660a30843b55dcb005b",
+    "runtime/population_updates.c": "33a69a962384d0324956f636abdedf2586da0526e7f177965c706be520c6593a",
+    "include/population_updates.h": "22badb14be48b910fbff315b74ea5a609a631d2ec0e6ab9c8704a77879cca028",
+    "CMakeLists.txt": "1922ea2f1c3a0ba5f824fbbb5c3d8d87704a85750da73d6ac19b681050500c7a"
+  }
+}

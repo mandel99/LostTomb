@@ -1,0 +1,62 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "compiled_C_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+  "passed": true,
+  "checked": 180,
+  "invocations": 843,
+  "coverage": {
+    "0x459070": {
+      "instructions": 43,
+      "executed": 43
+    },
+    "0x459100": {
+      "instructions": 94,
+      "executed": 94
+    },
+    "0x459350": {
+      "instructions": 48,
+      "executed": 48
+    },
+    "0x4595a0": {
+      "instructions": 61,
+      "executed": 61
+    },
+    "0x459670": {
+      "instructions": 255,
+      "executed": 255
+    },
+    "0x459400": {
+      "instructions": 130,
+      "executed": 130
+    }
+  },
+  "conditional_edges": 213,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "analytically_unreachable_edges": [
+    [
+      "0x45951c",
+      "0x459531"
+    ]
+  ],
+  "source_hashes": {
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "include/labor_allocation.h": "bfc3b446483854c20bc5b31f8fe3c99cf291453daeb6a08bc9cc738180da1969",
+    "runtime/labor_allocation.c": "eefa409d54660973475c9668584e59b4826030ba7efaa2c9221802cafee8c2f2",
+    "runtime/city_updates.c": "37cc9bac5205e2cc181ac616a6ec97bd9a70eb3529c8fbae39be5b7f2e066efe",
+    "runtime/city_updates_model.c": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+    "runtime/menu_labor_model.c": "c083bf5a7c34aa13dc64ab432af5fa76fde3c5785a352e1e89fbb0333aabde82",
+    "src/unit_00848.c": "6cd84bff512c9ff5da5abc75dd0733bedcb78d5fb5dcca26d4b9b06dcbbfa56f",
+    "direct_c/verify_labor_allocation.py": "7c7e891eccf9b77214599f612d6052888f2423d8e939d0600f7673f762956b48",
+    "metadata/labor-allocation-native.json": "6325defd72166cf2ef1c41a8e97308b6681e0184831b87b3f297fad42c6298df",
+    "metadata/labor-allocation-rea-evidence.json": "6e60f444483b69f2a7125d398291e94319e8be9b7c8f17730acde7a06a077f59"
+  },
+  "controlled_algorithm_endpoints": [],
+  "controlled_platform_endpoints": [],
+  "limitations": [
+    "Actual child algorithms execute; proof covers six owned functions and their consumed child inputs, not complete child coverage.",
+    "45951C to 459531 is infeasible: every update to register ESI is tested at 45950D and exits on <=0; skipped slots do not change ESI. The final loop test cannot newly see <=0 under this sequential execution contract.",
+    "Void returns exclude incidental caller-saved registers/flags. Private scratch, concurrent access and live game/UI fidelity are excluded."
+  ]
+}

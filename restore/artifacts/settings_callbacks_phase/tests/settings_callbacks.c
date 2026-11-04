@@ -146,3 +146,15 @@ int main(int argc,char **argv)
  else{q[P_SEED]=1;q[P_REPEATS]=1;q[P_SPEED]=95;q[P_OP]=11;run(q);CHECK(U(0xe38e6c)==100&&B(0xe38dca)==1);q[P_OP]=2;q[P_SELECTED]=13;q[P_POPUP]=0xa5a50101u;run(q);CHECK(U(0xe38ef0)==0xa5a50101u&&B(0xe38dda)==1);q[P_OP]=7;q[P_SELECTED]=1;q[P_VOL1]=100;q[P_DISABLED]=1;run(q);CHECK(U(SOUND+0x154)==99);plain_mode=1;run(q);CHECK(U(SOUND+0x154)==99&&stored==0);puts("Settings callbacks: DWORD speed, popup confirmation and explicit sound receiver, traced and plain.");}
 done:CHECK(CryptReleaseContext(provider,0));restore_data_close();return 0;
 }
+
+/* The shared stream module also defines open/get-volume helpers. This older
+   settings corpus never reaches those backend calls; make unexpected use fail
+   explicitly, while keeping both Debug and Release source-only links complete. */
+int __cdecl _AIL_open_stream_12(uintptr_t a,uintptr_t b,uintptr_t c)
+{(void)a;(void)b;(void)c;CHECK(0);return 0;}
+int __cdecl _AIL_set_stream_loop_count_8(uintptr_t a,uintptr_t b)
+{(void)a;(void)b;CHECK(0);return 0;}
+int __cdecl _AIL_start_stream_4(uintptr_t a)
+{(void)a;CHECK(0);return 0;}
+int __cdecl _AIL_stream_volume_4(uintptr_t a)
+{(void)a;CHECK(0);return 0;}

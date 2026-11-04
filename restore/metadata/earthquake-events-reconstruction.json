@@ -1,0 +1,81 @@
+{
+  "status": "Complete four-function C reconstruction; offline native/C comparison passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x44bca0",
+      "rea": "ev_2e81f61a752f21ce4bfed9aceaf311953a71ecbc21dc7d530222f42ad4d97db7",
+      "bytes": 91,
+      "instructions": 37
+    },
+    {
+      "entry": "0x44bd20",
+      "rea": "ev_db2b9afc9712f46fcebcdf38215036847ad6ece84a0bc35bddff195b2daf6113",
+      "bytes": 45,
+      "instructions": 14
+    },
+    {
+      "entry": "0x44bd50",
+      "rea": "ev_88d521ce9dbcdf8b3da839f54e6bf42702b5e4d36eb75048560589b5af81278a",
+      "bytes": 218,
+      "instructions": 78
+    },
+    {
+      "entry": "0x44be30",
+      "rea": "ev_43b23e0f02bac0457b7392d3d3ce8975b14c90d73d9869b33739a1092c8f983a",
+      "bytes": 657,
+      "instructions": 229
+    }
+  ],
+  "native_bytes": 1011,
+  "native_instructions": 358,
+  "changes": [
+    "Named whole list tick, full-DWORD terrain predicate, tile destruction and record state machine.",
+    "Restored full32-bit map base/dimensions/terrain and wrapped address arithmetic; signed WORD building IDs and BYTE-only building state writes.",
+    "Preserved cached cell, post-callback building/dimension/coordinate reloads, callback order and list-count reloads.",
+    "All16 expansion directions, signed16-bit timers/progress with wrap, native clamp order and final expansion on completion.",
+    "Explicit receivers for existing due/message graphs. One32-byte message local, native-defined bytes0..29 only; padding remains unconstrained.",
+    "44BD00 was already implemented correctly in mission_unlock.c; no duplicate algorithm added."
+  ],
+  "verification": {
+    "script": "direct_c/verify_earthquake_events.py",
+    "cases": 338,
+    "terrain": 54,
+    "destruction": 21,
+    "event_steps_and_compositions": 233,
+    "list_scan": 30,
+    "compared": "Full seeded global memory, defined AL/full-EAX returns, ordered endpoint calls,32-bit argument values, native stack cleanup and nonvolatile registers.",
+    "limits": "Demolition/refresh and final publisher endpoints controlled. Real due/message and tile/list compositions exercised. No host game, graphics or game-data writes."
+  },
+  "sources": [
+    "include/earthquake_event.h",
+    "include/menu_event_actions.h",
+    "runtime/menu_event_actions.c",
+    "src/unit_00722.c",
+    "src/unit_00724.c",
+    "src/unit_00725.c",
+    "src/unit_00726.c",
+    "direct_c/verify_earthquake_events.py",
+    "CMakeLists.txt"
+  ],
+  "build": {
+    "path": "build/c-only/Preview/PharaohRestoreC.exe",
+    "sha256": "3619ae6a00ed8b3ade7dee7fca280313f10351539cabd18e1404ed410c219e5a",
+    "bytes": 7611904,
+    "local_time": "2026-11-02T19:39:49",
+    "promotion": "Preview retained because user game processes15868/20296 were running; Release not overwritten.",
+    "noarg_link_check": "PASS"
+  },
+  "source_sha256": {
+    "include/earthquake_event.h": "3ffa15d0f74369fecc1eb4ac5fddfd4b9d4947c0f06be9c4f1b286c75c4fc6e4",
+    "include/menu_event_actions.h": "3a05dcc82ec1bf222a01700b60316187f06151300061f4bce3bd2151f2720947",
+    "runtime/menu_event_actions.c": "1972dde972f979324dc056762a5beac92244742bea76aead8bd02aa08a2594cf",
+    "src/unit_00722.c": "226cd7104d76a6c67939207739b5f3e75ff9ea653e8eae24ca775c2b23e680f1",
+    "src/unit_00724.c": "9ad5af78e4b0b288c90684c0fe2d8f128a497acc5ea3b84192f560d0f03265a2",
+    "src/unit_00725.c": "dc47e72f04c4f930fa27e4c0e9d7d996c4f2bcaa88554c08e02a1aa10eb7311d",
+    "src/unit_00726.c": "16311150dfa118273bab178c98ec3d610f76be242ce42ed42db5d3c208b48e5c",
+    "direct_c/verify_earthquake_events.py": "fa23e937ad1895c3521213556635a783060e03cf92d06d1c3ef4abef3d3198fe",
+    "CMakeLists.txt": "ec53d8011ea9ca693fd7ee3628e200c4d0cff1b33b26eb6f418c043e7fec5262"
+  },
+  "source_commit": "cde1aba1f3f216891fe48607e6023bfe7557cc70"
+}

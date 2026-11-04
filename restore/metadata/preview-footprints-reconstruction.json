@@ -1,0 +1,218 @@
+{
+  "status": "Frozen after independent native provenance and compiled Debug/optimized Release proof",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "api": "void restore_preview_footprint_seeds_initialize(void);",
+  "scope": "Only x,y,size,type (DWORD fields0..3) in1327 fixed52-byte records; one named C initializer and constant tuple tables. Existing geometry initializes fields4..12 afterward. No vtable/selector/base-object reconstruction.",
+  "sets": [
+    {
+      "name": "class_0040d280",
+      "constructor": "0x40d280",
+      "object": "0x6fd5d8",
+      "offset": 76,
+      "count": 25,
+      "geometry": "0x40d7e0",
+      "first_record": "0x6fd624",
+      "end_exclusive": "0x6fdb38"
+    },
+    {
+      "name": "class_00401030",
+      "constructor": "0x401030",
+      "object": "0x6de650",
+      "offset": 76,
+      "count": 16,
+      "geometry": "0x4013f0",
+      "first_record": "0x6de69c",
+      "end_exclusive": "0x6de9dc"
+    },
+    {
+      "name": "class_00416c20",
+      "constructor": "0x416c20",
+      "object": "0x6fd368",
+      "offset": 76,
+      "count": 9,
+      "geometry": "0x416f60",
+      "first_record": "0x6fd3b4",
+      "end_exclusive": "0x6fd588"
+    },
+    {
+      "name": "class_004e6400",
+      "constructor": "0x4e6400",
+      "object": "0x6de548",
+      "offset": 76,
+      "count": 2,
+      "geometry": "0x4e6590",
+      "first_record": "0x6de594",
+      "end_exclusive": "0x6de5fc"
+    },
+    {
+      "name": "class_005430e0",
+      "constructor": "0x5430e0",
+      "object": "0x6f9320",
+      "offset": 7772,
+      "count": 167,
+      "geometry": "0x5456a0",
+      "first_record": "0x6fb17c",
+      "end_exclusive": "0x6fd368"
+    },
+    {
+      "name": "class_005567d0",
+      "constructor": "0x5567d0",
+      "object": "0x6f5648",
+      "offset": 7356,
+      "count": 158,
+      "geometry": "0x558b40",
+      "first_record": "0x6f7304",
+      "end_exclusive": "0x6f931c"
+    },
+    {
+      "name": "class_0054fef0",
+      "constructor": "0x54fef0",
+      "object": "0x6de9e0",
+      "offset": 20192,
+      "count": 437,
+      "geometry": "0x555de0",
+      "first_record": "0x6e38c0",
+      "end_exclusive": "0x6e9184"
+    },
+    {
+      "name": "class_005480e0",
+      "constructor": "0x5480e0",
+      "object": "0x6e9188",
+      "offset": 23688,
+      "count": 513,
+      "geometry": "0x54f3d0",
+      "first_record": "0x6eee10",
+      "end_exclusive": "0x6f5644"
+    }
+  ],
+  "native_provenance": {
+    "static": "Capstone tracks affine self+offset pointers and constant registers/PUSH arguments to every4e5120/4e5140 pair. Counts and sequential destinations are asserted.",
+    "independent_execution": "Unicorn runs each original constructor prefix through its last real4e5140 copy, executing actual4e5120 and4e5140. Argument tuples, temporary-object return binding and copied first four DWORDs match the static recovery. Two initial memory fill patterns produce identical tuples.",
+    "records": 1327,
+    "seed_DWORDs": 5308,
+    "native_prefix_instructions_executed": 17497,
+    "tuple_sha256": "da993a39e0af4b2af37c794800c3f56bfcd0189c73bfd76df267cc911e344a66",
+    "detail": "metadata/preview-footprints-provenance.json",
+    "reproduce": "Python312/python.exe tools/extract_preview_footprint_seeds.py --native metadata/preview-footprints-native.json --output <new provenance path> --write-c <new C path>"
+  },
+  "verification": {
+    "cases_per_configuration": 96,
+    "C_smoke_checks_per_configuration": 108676,
+    "watched_bytes": 128624,
+    "BSS_canary_region": [
+      "0x006de500",
+      "0x006fdb40"
+    ],
+    "dimension_guard_region": [
+      "0x0070e440",
+      "0x0070e470"
+    ],
+    "operations": [
+      "seed only",
+      "seed plus real geometry",
+      "repeat seed",
+      "seed plus geometry plus repeat seed preserving derived fields"
+    ],
+    "native_geometry_instructions": [
+      99,
+      99
+    ],
+    "geometry_source_drift": [],
+    "debug": {
+      "report": "artifacts/preview_footprints_phase/metadata/emulation-debug.json",
+      "compiled_C_sha256": "65c02499e811883ae7fcd4ad5476b9a1dc82ac7f417f22378aaba94e0a7152e4",
+      "source_hash_count": 19
+    },
+    "release": {
+      "report": "artifacts/preview_footprints_phase/metadata/emulation-release.json",
+      "compiled_C_sha256": "05a2aea81297dd7fcd7de6f90120526f5c6b356f4b9bcc362924b3b1187808f0",
+      "source_hash_count": 19
+    }
+  },
+  "limitations": [
+    "Only the four seed fields per52-byte record are initialized. Existing geometry must run afterward to produce fields4..12. Vtables, special selectors and unrelated base fields are separate preconditions.",
+    "Native provenance executes constructor prefixes through the final target record copy. Base/vector constructor calls are controlled, empty destructors execute as nativeRET, and SEH epilogues/RNG/post-seed tails are excluded. This is not complete C++ constructor reconstruction.",
+    "No placement rendering, map state, input or physical pixels are established by this seed/bootstrap proof."
+  ],
+  "integration": {
+    "apply_map": "artifacts/preview_footprints_phase/metadata/apply-map.json",
+    "production_addition": "Add runtime/preview_footprint_seeds.c to pharaoh_restored and include preview_footprint_seeds.h in startup unit00177. Call restore_preview_footprint_seeds_initialize() once immediately before its eight existing footprint geometry calls.",
+    "required_order": [
+      "restore_data_open and normal dimension setup",
+      "seed initializer",
+      "eight existing geometry initializers",
+      "placement preview use; vtable/special-selector initialization remains separately required"
+    ],
+    "target": "restore_preview_footprints_verify",
+    "test": "standalone_preview_footprints",
+    "sources": [
+      "tests/preview_footprint_seeds.c",
+      "runtime/preview_footprint_seeds.c",
+      "src/unit_00002.c",
+      "src/unit_00099.c",
+      "src/unit_00195.c",
+      "src/unit_01993.c",
+      "src/unit_02563.c",
+      "src/unit_02617.c",
+      "src/unit_02604.c",
+      "src/unit_02591.c",
+      "src/unit_01965.c",
+      "src/unit_01968.c"
+    ],
+    "include": "include",
+    "definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "compile_options": [
+      "/W4",
+      "Debug /Od; optimized Release also proved"
+    ],
+    "link": [
+      "restore_data"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "proof": "Python312/python.exe tools/verify_preview_footprints_emulation.py --production --exe <shared verification executable>",
+    "private_project": "artifacts/preview_footprints_phase/CMakeLists.txt"
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/preview_footprints_phase/include/preview_footprint_seeds.h",
+      "target": "include/preview_footprint_seeds.h",
+      "sha256": "dd153c83b76f5df9f3d82f5a643dcae934f7c6c941216f49936122d83f987d58"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/runtime/preview_footprint_seeds.c",
+      "target": "runtime/preview_footprint_seeds.c",
+      "sha256": "8dacbed87b64225d023b6256478dc0ceba0636c5f9c40c801f265efc3252983d"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/tests/preview_footprint_seeds.c",
+      "target": "tests/preview_footprint_seeds.c",
+      "sha256": "9a2b7747a77ba7814b39209e08f32a2861f381c5607652674f7cb1b8a861ea1b"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/tools/extract_preview_footprint_seeds.py",
+      "target": "tools/extract_preview_footprint_seeds.py",
+      "sha256": "43126da5ae89275e1745f88d1d64cd3a14a630148b1d7a7fc5d3a558887e4441"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/tools/verify_preview_footprints_emulation.py",
+      "target": "tools/verify_preview_footprints_emulation.py",
+      "sha256": "816ef1b2112a3efbef8b436f856713ad08827cb5d0387f1b53280c5005433a92"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/metadata/native.json",
+      "target": "metadata/preview-footprints-native.json",
+      "sha256": "e7d635af4b5af3ba7b4a167516eb8e968b40f816b3d5cbd11b75e820ccc8da82"
+    },
+    {
+      "source": "artifacts/preview_footprints_phase/metadata/provenance.json",
+      "target": "metadata/preview-footprints-provenance.json",
+      "sha256": "da7067354a2a504d404fbdf25b6ad6772cd1f3ac5d1d09a7b9d47c5b2e0a9e91"
+    }
+  ]
+}

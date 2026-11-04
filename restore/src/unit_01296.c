@@ -1,8 +1,3 @@
-#include "restore_types.h"
-extern uint FUN_004893c0();
-
-uint FUN_00489470(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
-
-{
-  return FUN_004893c0(param_1,param_2,param_3,param_4,0x10000);
-}
+#include "building_occupancy_query.h"
+uint32_t FUN_00489470(int32_t x,int32_t y,int32_t width,int32_t height)
+{return restore_region_has_active_occupant(x,y,width,height);}

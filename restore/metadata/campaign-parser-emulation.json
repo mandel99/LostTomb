@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "unicorn_version": "2.1.4",
+  "original_game_executed": false,
+  "native_entry": "0x0041ae40",
+  "method": "Original parser, prefix constructor, reset, append, whitespace removal, numeric readers, tokenizer and campaign lookup versus compiled C; file IO, digit/atoi, comparison, formatting and logging endpoints controlled",
+  "compared": [
+    "byte return",
+    "complete 0x4a84-byte object with frame padding normalized",
+    "ordered error message hashes",
+    "file cursor/open/close lifecycle",
+    "thiscall cleanup and preserved registers"
+  ],
+  "limitations": [
+    "Native frame padding/unused merge bytes are zero-seeded to match deterministic C initialization; those originally unspecified values are not equivalence claims.",
+    "ASCII numeric and case-insensitive string endpoints are controlled; long error messages are safely truncated by C, and a negative append count is rejected.",
+    "The enclosing save/load consumer still has separate unresolved receiver and argument contracts."
+  ],
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Debug\\restore_campaign_parser_verify.exe",
+  "compiled_C_sha256": "3ebeaf30d6565f57957197fc1383eaeca15d18192e11b0c9c732751b05f65a51",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "local_asset_included": true,
+  "local_asset_sha256": "0ef281c3f32af2a46e49f972f66adf0a93ad5832b0e74252e5d33ea1a5a0c740",
+  "parser_cases": 330,
+  "constructor_cases": 3,
+  "passed": true,
+  "checked": 333,
+  "elapsed_seconds": 85.922,
+  "source_hashes": {
+    "src/unit_00241.c": "f3da35964aa69a9de43183d558457ea182c7030026c7d30b7c68edb8766512e0",
+    "src/unit_00242.c": "9b2b6b29039fd49d3586e0ab4ce549e32cd0b31d7ae86bfc63a3dcb5bf0d99b5",
+    "src/unit_00243.c": "6434374a4828910df0152c211aaf6cf2c8b773ac68094508d126d46a5b5dd06d",
+    "src/unit_00245.c": "03f94297342d40a4d5c456ae23ec7a5ff889e3f100bfcf6a5fdbf6534d952668",
+    "src/unit_00246.c": "d51ffab2a3eea4ae0dc1503b269c5aef739ca89dd17cf24a2d2dc1e138aa8eef",
+    "src/unit_00247.c": "fbc8a8ce0d3146742b6fe4830adf63f39886dd0a139b0612cd2d206941b321fa",
+    "src/unit_00248.c": "990fbc929b59bfbeee620ecf3e38ef08e76ad0a954ad0887ce549c1cff4cce9e",
+    "src/unit_00249.c": "c6549ff118b150e331d71459265012c5adff70a79aca13b0e8ec9115f1b68da7",
+    "src/unit_00253.c": "cea685528d2ea4e5f4899bad0e07583b842a197f50f21b7210c1865e121546af",
+    "src/unit_02815.c": "b3f51069aab117598e44a8f9782502158391149cc32efd64b2df73b6db4ccddc",
+    "include/campaign_parser.h": "9363a737e0d93f61a46c0ba4465871904471c6ebe13bae9bffab1aec0ccf2ab7",
+    "include/campaign_index.h": "84f00882011554833ae0a2402dfb19c16ea2a5787f9998d1a7ab7acaa6250718",
+    "tests/campaign_parser.c": "806b06b04018204daa221a13a538f5cd1a53f5d4a5b9ef50bae8fe46b76164e9",
+    "tools/verify_campaign_parser_emulation.py": "350fdf5b1f329d75b3d49b50cc4bcf628234f0d637d0af32c64e9e10fa97be4d",
+    "CMakeLists.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "runtime/byte_tokenizer.c": "b7e9079f56c038be630f1dfd987a00c6dc191d5283150d336d0a0db47ffeecea",
+    "include/byte_tokenizer.h": "0c6432f40ddf1596364585914c2b2364a999e71b1415dfd2e12ff5d4d1a4ea26"
+  }
+}

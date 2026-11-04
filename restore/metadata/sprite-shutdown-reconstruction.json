@@ -1,0 +1,215 @@
+{
+  "format": 1,
+  "frozen": true,
+  "frozen_utc": "2026-10-30T15:38:35.664852+00:00",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "production_modified_by_agent": false,
+  "repaired_native_functions": 9,
+  "repaired_generated_units": {
+    "01990": "004e63b0",
+    "02512": "0053da60",
+    "02513": "0053da70",
+    "02514": "0053da90",
+    "02515": "0053db00",
+    "02516": "0053db60",
+    "02533": "00540500"
+  },
+  "new_original_address_aliases": {
+    "0053da80": "global cleanup thunk,2 instructions bounded rawCFG",
+    "005404e0": "library constructor,8 instructions bounded rawCFG"
+  },
+  "unchanged_composed_function": {
+    "unit": "02529",
+    "address": "0053f790",
+    "instructions": 19,
+    "sha256": "4b8442cb61e78fbc1e8561d60bc43a56346018e9549da969bc1eace1aa93fb60"
+  },
+  "unchanged_C_only_auxiliary": {
+    "unit": "02678",
+    "address": "0055d960",
+    "successful_domain": "slot isNULL only; full native helper not claimed",
+    "sha256": "2b91886622c50c8cc31e74f5d21c25cdebf1ebeb64044c141d049c81dc9d7b5e"
+  },
+  "native_instructions": {
+    "restored": 188,
+    "unchanged_composed": 19,
+    "total": 207
+  },
+  "proofs": {
+    "debug": {
+      "report": "artifacts/sprite_shutdown_phase/metadata/emulation-debug.json",
+      "sha256": "954cf5f7e88d1c112752004fb964705be60a84199744452c0d70c159ff35c4e3",
+      "passed": true,
+      "checked": 2206,
+      "virtual_boundary_only_cases": 216,
+      "instructions": 207,
+      "compiled_C_sha256": "f2ad984abb21531ff0be11989a8eb1342ece907ea24b17df4c179ef61734bae6",
+      "C_smoke_checks": 227,
+      "unsupported_boundaries": [
+        {
+          "option": "--unsupported-delete",
+          "exit_code": 3,
+          "diagnostic_matched": true
+        },
+        {
+          "option": "--unsupported-slot",
+          "exit_code": 3,
+          "diagnostic_matched": true
+        }
+      ],
+      "flags": "/Od /Ob0 /MTd /RTC1"
+    },
+    "release": {
+      "report": "artifacts/sprite_shutdown_phase/metadata/emulation-release.json",
+      "sha256": "fdc88d6cb778efc463d740751a4c19b97fc3d5639148310acfd82e7143b52028",
+      "passed": true,
+      "checked": 2206,
+      "virtual_boundary_only_cases": 216,
+      "instructions": 207,
+      "compiled_C_sha256": "d454f2a78469d291a0db1ccda54850b1c0c1ccf1720971d89e5d06228323a9e6",
+      "C_smoke_checks": 227,
+      "unsupported_boundaries": [
+        {
+          "option": "--unsupported-delete",
+          "exit_code": 3,
+          "diagnostic_matched": true
+        },
+        {
+          "option": "--unsupported-slot",
+          "exit_code": 3,
+          "diagnostic_matched": true
+        }
+      ],
+      "flags": "/O2 /Ob2 /DNDEBUG /MT"
+    }
+  },
+  "static_native_audit": {
+    "report": "artifacts/sprite_shutdown_phase/metadata/caller-contracts.json",
+    "report_sha256": "db9370fcb89b9d853f439d7367045fbe55d5826840cfbed71274b68e4a097234",
+    "tool_sha256": "4deff1a6369d519fcf92f44ec0877a0ce4880f1f20f95d3b8cfc0b3178358a71",
+    "instructions_authenticated": 207,
+    "raw_CFGs": "Original53DA80/5404E0 lack Ghidra function objects; authenticated96-byte windows recover complete2/8-instruction reachable CFGs, stopping at tailJMP/RET.",
+    "vector_order": "Pinned bytes prove forward ctor/reverse dtor callback order, ECX receiver, RET20/RET16 argument cleanup. Generic CRT unwind not reconstructed."
+  },
+  "validation": "Both variants compare6,495,600 watched bytes per case: two complete0x30f5d8 manager objects plus nonuniform guards, sentinel/shutdown globals, fake object/vtable/heap canaries. Exact ordered release calls/frees/library callbacks, free and virtual mutations, live reloads, selective byte/DWORD clears, pointer/registration/reset results, native stack/canaries/saved registers and restored native SEH chain; compiled C stack/saved registers checked. All19 source bindings match at freeze.227 C smoke checks additionally include actual host allocation/free and compiled cleanup registration.",
+  "contracts": [
+    "Reset has explicit typed arbitrary manager self, returns native constant1. All3 owned canonical callers share its declaration:1990 globalF55BB0, ctor self, dtor self.",
+    "Manager ctor initializes30 individual libraries forward, zeroes alternate then scratch, calls reset, returns self. Dtor calls reset then destroys30 libraries in reverse. No memset or startup initializer substitution.",
+    "Reset frees alternate then scratch through unchanged53F790(flag0), then each non-null library pixel pointer in ascending order. Shared sentinelE92E1C is preserved by helper flag0; individual library pixel frees do not apply sentinel suppression.",
+    "Clear only library name[0], pixels when freed, pixel_bytes,image_count,tag_count; preserve names/files tails, first_image/first_tag, all tag/image arrays and other bytes. Rewrite30 DWORD tag limits; loaded/pixel_bytes=0 and next_tag/next_image=1.",
+    "Typed ctor/global-ctor/library-ctor return pointers; registration preserves full status and receives compiled C cleanup pointer. Controller/dtor/cleanup/library-dtor/release arevoid. Current1990 native consumer immediately calls414750, so forwarded reset EAX is discarded.",
+    "Global optional objectsEA136C/1370 use actualDWORD pointer loads. Typed virtual-delete boundary receives receiver/flag1; production rejects unsupported non-null callbacks. EA1368 non-null fails before known2678 dropped55D8B0 receiver.",
+    "Existing sprite_libraries.h, startup-only runtime/sprite_libraries.c, pointer helper2529 and auxiliary2678 are unchanged. Legacy compiler EH callbacks3100/3101 are not registered by the new nonthrowing C lifecycle and remain outside scope."
+  ],
+  "limitations": [
+    "Normal nonthrowing domain only. Generic CRT vector iteration61441/61363 is controlled fixed30 forward/reverse scaffolding that executes actual native library constructors/destructors; generic unwind/exception algorithms are not proved. Native manager SEH setup/restoration is executed and checked; C uses ordinary nonthrowing control flow.",
+    "Host free is a controlled typed endpoint. Fake pointer/alias/mutation fixtures prove original free ordering and field effects, not real allocator ownership validity or safe double-free behavior. Separate C smoke uses the actual host allocation/free boundary.",
+    "Optional virtual destructors are controlled oracle endpoints to prove controller receiver/flag1/order/reloads/clearing only. Production rejects unsupported non-null objects explicitly; no actual virtual destructor algorithm or original-code pointer is provided.",
+    "AuxiliaryEA1368 is null in successful scenarios. Actual unchanged2678 C executes only its null branch; a fail-fast private link boundary makes55D8B0 unreachable. Production rejects non-null before that known unreconstructed receiver path. No nested auxiliary cleanup is claimed.",
+    "Atexit is a controlled registration endpoint for status/callback scheduling comparison. Production registers a compiled C cleanup pointer through host atexit; C smoke checks actual registration. Raw callback addresses occur only in original-instruction oracle data, never product calls.",
+    "Private Release links existing Debug restore_data.lib and emits LNK4098; candidate/test/leaf objects are compiled /O2. Shared target should link matching restore_data configuration. Existing2529 signed/unsigned comparison warning remains unchanged and its full native behavior is compared.",
+    "No live GUI fixture, original process, injection, raw original-code callback, or main shared build is used here. Native token values exist only in offline original-instruction oracle fixtures."
+  ],
+  "integration": {
+    "target": "restore_sprite_shutdown_verify",
+    "test": "standalone_sprite_shutdown",
+    "recipe": "artifacts/sprite_shutdown_phase/integration.cmake",
+    "recipe_sha256": "785cf0b5066c59448d4c899dc035930cd8fdae7b70d61828b828787a478b0542",
+    "product_runtime_additions": [
+      "runtime/sprite_shutdown_lifecycle.c",
+      "runtime/sprite_shutdown_boundaries.c"
+    ],
+    "source_replacements": [
+      "src/unit_01990.c",
+      "src/unit_02512.c",
+      "src/unit_02513.c",
+      "src/unit_02514.c",
+      "src/unit_02515.c",
+      "src/unit_02516.c",
+      "src/unit_02533.c"
+    ],
+    "header": "include/sprite_shutdown.h",
+    "registry_changes": "None. Cleanup registration uses compiled FUN0053DA80 directly. Current startup initializer is preserved; no new automatic startup hook is added.",
+    "proof": "Python312/python.exe tools/verify_sprite_shutdown_emulation.py --production --exe <shared executable>",
+    "static_audit": "Python312/python.exe tools/audit_sprite_shutdown_native.py --production",
+    "private_project": "artifacts/sprite_shutdown_phase/CMakeLists.txt",
+    "private_project_sha256": "cf34fc4fa8ae9c27a15f94ccc9d3c6f8f3e21e90fb14366499b1f325342978ab"
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_01990.c",
+      "target": "src/unit_01990.c",
+      "sha256": "75bdd75834f6f896646655396317da63f8bcfe93400f28fd4c5551ccc7011558"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02512.c",
+      "target": "src/unit_02512.c",
+      "sha256": "cecd8cade1a16711d46e348e043e0a1f850695bde5b4f837b3720dba8d7cfcb1"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02513.c",
+      "target": "src/unit_02513.c",
+      "sha256": "780e97c09c6923af8176772822b941da2903be51678e28ed0c89b92eefae6c21"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02514.c",
+      "target": "src/unit_02514.c",
+      "sha256": "8ece51f822485f0865bbd6877d612165c7997049c5749f0ad98fac6894d346c8"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02515.c",
+      "target": "src/unit_02515.c",
+      "sha256": "671c141e4f0b101304e4ad46f9f40ac28971b918f99af329eadbee932441bb10"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02516.c",
+      "target": "src/unit_02516.c",
+      "sha256": "aae616c59cb74b1955d210124d87c49190a7a2816d1173da34ae0a3b6f4e34e1"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/src/unit_02533.c",
+      "target": "src/unit_02533.c",
+      "sha256": "2934e760d0e4e57860607a74954a88ec77577cda9e76d16242a82ed4c0bea2ad"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/include/sprite_shutdown.h",
+      "target": "include/sprite_shutdown.h",
+      "sha256": "a2ea987474e03270fc934463017dae5e9e1294edf8db401abe0babc46fb80eee"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/runtime/sprite_shutdown_lifecycle.c",
+      "target": "runtime/sprite_shutdown_lifecycle.c",
+      "sha256": "a23e60c7bd9f21e6e7fbb37e53972e47ec3f3d9e5a871c912f445bcf8cc9b036"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/runtime/sprite_shutdown_boundaries.c",
+      "target": "runtime/sprite_shutdown_boundaries.c",
+      "sha256": "a477fdd09fb2fdd384e6b1e7be6a1302b8d9af40389841258401b1786f40c63e"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/tests/sprite_shutdown.c",
+      "target": "tests/sprite_shutdown.c",
+      "sha256": "044be2dc5dee29a7eca82f6ae0457cbaaa00734c6977b00b34674dcfdb60066e"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/tools/verify_sprite_shutdown_emulation.py",
+      "target": "tools/verify_sprite_shutdown_emulation.py",
+      "sha256": "e138fb5c5109026ab45fa77620ce2cab07d287c55d09c45a9e5bdc83eb63b4e2"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/tools/audit_sprite_shutdown_native.py",
+      "target": "tools/audit_sprite_shutdown_native.py",
+      "sha256": "4deff1a6369d519fcf92f44ec0877a0ce4880f1f20f95d3b8cfc0b3178358a71"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/metadata/native.json",
+      "target": "metadata/sprite-shutdown-native.json",
+      "sha256": "a6f8aa0700d984f86c496db60a961925755a4acf5d1a201b0fafae4005b8d7ac"
+    },
+    {
+      "source": "artifacts/sprite_shutdown_phase/metadata/caller-contracts.json",
+      "target": "metadata/sprite-shutdown-caller-contracts.json",
+      "sha256": "db9370fcb89b9d853f439d7367045fbe55d5826840cfbed71274b68e4a097234"
+    }
+  ]
+}

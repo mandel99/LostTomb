@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-02",
+  "status": "Live post-save hang confirmed; exact blocking function and functional fix remain pending a stack capture.",
+  "observations": {
+    "application_event": "Application Hang1002, local07:04:16, report e9ecdf1b-822b-416b-baca-ddb792600410, PID25616",
+    "run_log_build_coff": "6ae826a0",
+    "save_sha256": "b0a2f27cc034a75440ae2272eb7e506312346dbf64b8063e02844f9a8c0fe00e",
+    "last_log": "Save write/close, notification, route rebuild and two subsequent complete render/input frames returned. No exception dump was generated.",
+    "offline_replay": "All serialized regions decoded. An isolated actor replay reaches completion on both implementations with an increased compiled instruction budget, but the actor states diverge from actor7. Unsaved runtime state is seeded rather than restored, including routing classifications and storage indices. This is a review lead, not a reproduction or attribution of the live hang."
+  },
+  "diagnostic_change": {
+    "sources": ["runtime/game_diagnostics.c", "include/game_diagnostics.h", "src/unit_01864.c"],
+    "behavior": "After a completed save, a worker observes main-loop progress for60seconds. A non-idle stage stalled for15seconds writes at most one PharaohRestoreC-hang.dmp per process, with thread stacks plus actor records and grid heads. It never terminates the game or repairs game state. Progress updates do not write per-frame log records.",
+    "stage_ids": {"0": "idle", "1": "main cycle/save dispatch", "2": "simulation", "3": "input/setup", "4": "rendering", "5": "input dispatch", "6": "auxiliary updates", "7": "presentation", "8": "cursor/audio tail"},
+    "limitations": "Real Windows stack capture is pending. Stalls outside the instrumented active main cycle or outside the one-minute post-save window are not covered."
+  },
+  "verification": {
+    "release_sha256": "b8974c6966f42ce1ee5634e24e0d76374cfbce1f81c2a2f3e4576264c3e9442f",
+    "release_local_time": "2026-11-02 07:22:51",
+    "strict_release_build_exit": 0,
+    "compiled_monitor_cases": 16,
+    "script": "direct_c/verify_post_save_monitor.py",
+    "controlled_endpoints": "Windows timers, thread/file APIs and DbgHelp. No real process/thread/file/dump creation in these offline tests.",
+    "host_game_launched": false
+  },
+  "next_evidence": "Leave the next freeze open for at least20seconds, then inspect the hang dump and run journal from this exact build."
+}

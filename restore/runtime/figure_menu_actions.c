@@ -24,13 +24,16 @@ static void copy_native_words(uint32_t target,uint32_t source,uint32_t size)
    original thiscall children receive the actual E92BF8 sound controller. */
 uint32_t restore_figure_voice_00539a70(const char *name)
 {
-    uint32_t prefix=0x5f90a4u,target=0xf55a20u,size,source;
+    uint32_t prefix=0x5f90a4u,target=0xf55a20u,size,source,first_volume,index;
     if(!U(0xf55b88u)||!B(0xe38e65u))return 0;
     size=terminated_bytes(prefix);copy_native_words(target,prefix,size);
     source=(uint32_t)(uintptr_t)name;size=terminated_bytes(source);
     target+=terminated_bytes(target)-1u;
-    copy_native_words(target,source,size);
-    FUN_0055f639(RESTORE_SOUND,1,(int32_t)U(0xe38eccu));
+    copy_native_words(target,source,size&~3u);
+    /*539AD4 reads the first volume before539ADF copies the BYTE tail. */
+    first_volume=U(0xe38eccu);
+    for(index=size&~3u;index<size;++index)B(target+index)=B(source+index);
+    FUN_0055f639(RESTORE_SOUND,1,(int32_t)first_volume);
     restore_sound_music_volume_0055f32f(RESTORE_SOUND,(int32_t)U(0xe38eccu));
     return FUN_0055f449(RESTORE_SOUND,(const char *)(uintptr_t)0xf55a20u,1,1);
 }
@@ -40,16 +43,38 @@ uint32_t FUN_00539a70(char *name)
 {return restore_figure_voice_00539a70(name);}
 /* Whole53BFE0/44 instructions. All32 native local bytes are zeroed before
    the exact NUL-inclusive copy; variant is signed, filenames have24B stride. */
-static void figure_voice(int32_t kind,int32_t variant)
+uint32_t restore_actor_voice_variant_result(int32_t kind,int32_t variant,uint32_t incoming_eax)
 {
     uint32_t words[8],source,size,index;
-    if(kind<=0||variant<0)return;
+    if(kind<=0||variant<0)return incoming_eax;
     for(index=0;index<8u;++index)words[index]=0;
     source=kind==108?0x60110cu+(uint32_t)variant*24u:
         0x5fb16cu+((uint32_t)variant-20u+(uint32_t)kind*20u)*24u;
     size=terminated_bytes(source);
     copy_native_words((uint32_t)(uintptr_t)words,source,size);
-    (void)restore_figure_voice_00539a70((const char *)words);
+    return FUN_00539a70((char *)words);
+}
+void restore_actor_voice_variant(int32_t kind,int32_t variant)
+{(void)restore_actor_voice_variant_result(kind,variant,0);}
+
+/*53D280 returns the raw figure-table code. Unlike the selection action,
+   secondary-2 is rejected, while secondary0 and values below-4 survive. */
+int32_t restore_actor_figure_code(int32_t actor)
+{
+    uint32_t record=(uint32_t)actor*388u,kind=B(0xbcd602u+record),code;
+    int32_t building=(int16_t)W(0xbcd652u+record);
+    code=U(0x6012ecu+kind*4u);
+    if((int32_t)code>0)return (int32_t)code;
+    if(code==0xfffffffcu){
+        kind=B(0xbcd603u+record);code=U(0x6012ecu+kind*4u);
+        if(code+4u>3u)return (int32_t)code;
+        if(code!=0xfffffffdu)return -1;
+    }else if(code==0xfffffffeu){
+        uint32_t scenario=U(0x5e4c20u+(U(0x784cb0u)&255u)*48u);
+        return scenario==68u?210:scenario==69u?209:scenario==70u?208:-1;
+    }else if(code!=0xfffffffdu)return -1;
+    code=FUN_004c5120(building);
+    return code<=4u?(int32_t)(230u+code):-1;
 }
 static uint32_t figure_sound_pan(int32_t screen_x)
 {
@@ -101,11 +126,11 @@ static void figure_sound(uint32_t actor,int32_t cue,int32_t channel)
 /* Whole53D0B0/130 instructions. DWORD selected actor/image fields, BYTE
    figure kinds and signed WORD building IDs; both native5-way switches.
    Reload the main kind after sound before interpreting image sentinels. */
-void restore_figure_selection_0053d0b0(void)
+uint32_t restore_figure_selection_result_0053d0b0(void)
 {
     uint32_t actor=U(0xeadd24u+U(0xeadce4u)*4u),offset,kind,image;
     int32_t cue=-1,voice;
-    if((int32_t)actor<=0)return;offset=actor*388u;kind=B(0xbcd602u+offset);
+    if((int32_t)actor<=0)return actor;offset=actor*388u;kind=B(0xbcd602u+offset);
     switch(kind){case 83:cue=0;break;case 103:cue=1;break;case 104:cue=2;break;
     case 102:cue=3;break;case 69:cue=4;break;case 70:cue=5;break;case 84:cue=6;break;
     case 82:cue=7;break;case 68:cue=8;break;default:break;}
@@ -126,12 +151,14 @@ void restore_figure_selection_0053d0b0(void)
                 if(kind<=4u)image=230u+kind;else image=U(0xeadce0u);
             }
         }
-        if(image==UINT32_MAX)return;
+        if(image==UINT32_MAX)return image;
     }
-    image-=201u;U(0xeadce0u)=image;if((int32_t)image<0)return;
+    image-=201u;U(0xeadce0u)=image;if((int32_t)image<0)return image;
     voice=(int8_t)B(0xbcd675u+offset);U(0xeadcdcu)=(uint32_t)voice;
-    figure_voice((int32_t)image,voice);
+    return restore_actor_voice_variant_result((int32_t)image,voice,image);
 }
+void restore_figure_selection_0053d0b0(void)
+{(void)restore_figure_selection_result_0053d0b0();}
 /* Whole406700/5 instructions. */
 int restore_figure_menu_action(uint32_t token)
 {

@@ -1,0 +1,126 @@
+{
+  "status": "seven whole native bodies reconstructed as named typed C functions",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x004f0ef0",
+      "file": "src/unit_02117.c",
+      "name": "restore_pyramid_worker_select_piece",
+      "rea": "ev_94646e9883f6a60586c47a79dfb267b17a8822edbbe4a52dd04c3e2921614123",
+      "instructions": 322,
+      "native_bytes": 1030,
+      "native_body_sha256": "143fb9753d8ba6d9572a39b493ab823fac546e0c522ba6368e43e0196f626d45",
+      "source_sha256": "132cf9108583491f1d8bf4cec897e1a733f54a64701963774d64efc0cf89dc46"
+    },
+    {
+      "entry": "0x004f2ba0",
+      "file": "src/unit_02132.c",
+      "name": "restore_monument_worker_route_has_gap",
+      "rea": "ev_0ab6c8f2006558ec8f78de9ba2ae9a9cd2f37df9bf847de0fd8f2a5a959c6b8c",
+      "instructions": 95,
+      "native_bytes": 327,
+      "native_body_sha256": "4f50d1339207b796e618ea81f3dad601e01fa32891b9cbad2d31ebbf4f686142",
+      "source_sha256": "cdf894d9e177b80b4b603de9af6c962d0cad5c3567ae96aa6d0c1ac8e779cf69"
+    },
+    {
+      "entry": "0x004f27b0",
+      "file": "src/unit_02127.c",
+      "name": "restore_pyramid_find_paired_work_piece",
+      "rea": "ev_87a32a1feb7997fb24598b458a8404e0a3e14497fcea8c970e2012226e4c8f5d",
+      "instructions": 99,
+      "native_bytes": 250,
+      "native_body_sha256": "d6f04d0bea0ebaaa5f4bd6796cb65a0930a98cefd0485e04d7d6ea5f97939f1c",
+      "source_sha256": "b72ce7f9b547477c7d44444f2ac2f57f7c33ec3596470ddb447c4223d69ca2d4"
+    },
+    {
+      "entry": "0x004f28e0",
+      "file": "src/unit_02129.c",
+      "name": "restore_pyramid_paired_worker",
+      "rea": "ev_fd81ebd6ed2162c671e5486faa3e3004462ef91ab247d857f1dbae899fda2098",
+      "instructions": 49,
+      "native_bytes": 120,
+      "native_body_sha256": "1e3bcf4eec85eca3fbea591254f6b1c1a677102fd22e7e633f35efc6bd84783a",
+      "source_sha256": "0eeb8827b8d72b054a0566a3e1049e2bd00abdf5c208c783eaa6bd26642a732e"
+    },
+    {
+      "entry": "0x004efd90",
+      "file": "src/unit_02106.c",
+      "name": "restore_pyramid_piece_has_pending_work",
+      "rea": "ev_8ceaedb371804b585c4054f879a3f3c82db9147c34040bd74ad78b50ca7843f8",
+      "instructions": 48,
+      "native_bytes": 146,
+      "native_body_sha256": "1f1ed858f76ad5fff378e9744a47215547084a9db23f0222e31bb05d9ce3c82d",
+      "source_sha256": "a1bc3ede930988dc409c7d3cd7a7b8f3d019cd1e357b6fda3ab8f554fcfff98c"
+    },
+    {
+      "entry": "0x004eea10",
+      "file": "src/unit_02098.c",
+      "name": "restore_pyramid_worker_claim_active",
+      "rea": "ev_6a09303047a0552c63063ccb442a2eda08651d76aed8bc29d0a044a34bd4a7c0",
+      "instructions": 121,
+      "native_bytes": 306,
+      "native_body_sha256": "39d09d163a458116ddec7649bdb3261f3aec61c966c22cb953b2c67abcf21413",
+      "source_sha256": "9345c2532317a605daade60958e836dc68f89d024e82515c95662947dcbf9132"
+    },
+    {
+      "entry": "0x004ef100",
+      "file": "src/unit_02101.c",
+      "name": "restore_pyramid_available_worker_slot",
+      "rea": "ev_f177e962f1afac795e18273621126b23b093ef3e6ae5b6b94d739b6a01800dd2",
+      "instructions": 87,
+      "native_bytes": 250,
+      "native_body_sha256": "d9e38cdd995597a230da32b62fb8934cd275139633c0b30ffa8685881054176d",
+      "source_sha256": "83d6b1b9b7ed53135c0f69c9ddda445064d6a73575370dbd4555c9e7749ac874"
+    }
+  ],
+  "native_bytes": 2429,
+  "native_instructions": 821,
+  "changes": [
+    "Correct all BYTE/WORD/DWORD bindings and scaled pointer indexing in the seven public bodies.",
+    "Recover complete work-slot threshold tables and signed phase/root tests.",
+    "Reconstruct claim cleanup, saved states and all supported actor state branches.",
+    "Preserve paired-piece direction out-byte and signed paired-worker IDs.",
+    "Preserve native selection order: unclaimed/self-owned work priority, signed wrapped distance score, then pair/worker tie flags.",
+    "Recover the seven-step gap query using full monument kind, signed route slot/progress/length and linked actor.",
+    "Preserve parameter-supplied state bytes, source-position WORD and callback-dependent reloads."
+  ],
+  "routing": "Legacy public bodies are replaced with typed natural C. Existing instruction-level C frame graphs retain their register/flags contracts unchanged.",
+  "verification": {
+    "script": "direct_c/verify_pyramid_work_selection.py",
+    "cases": 766,
+    "worker_slots": 75,
+    "pending_work": 140,
+    "claims": 266,
+    "paired_pieces_workers": 100,
+    "route_gaps": 40,
+    "selection_decisions": 60,
+    "actual_selection_compositions": 85,
+    "additional_check": "All100 pair cases rerun with four poisoned bytes around the BYTE output; adjacent bytes preserved.",
+    "actual_compositions": [
+      "4F0EF0 selection through real work collector, pending-work/pair/paired-worker and claim queries",
+      "4EEA10 claim validation through the real4EF100 worker-slot query",
+      "selection through4F02F0 travel setup and its real direction/sqrt helpers from prior reconstruction"
+    ],
+    "controlled_boundaries": [
+      "provider queries only in explicit selection decision/mutation cases; complete compositions use real queries"
+    ],
+    "comparison": "Defined DWORD/AL return, complete seeded native global state, output byte/adjacent bytes, provider calls and argument widths/order, stack cleanup and preserved registers.",
+    "regression_before_fix": "Old public C route-gap function returns AL1 for overlapping linked workers; native returns AL0. Old target SHA256ba7a4fb952f6e8d8a8f3daa43a221a3d7e677b7bc62b048b296cb5c01fa1cf92.",
+    "diagnostic": "restore_link_check.exe without arguments passed",
+    "live_gameplay": "Not run. No host game execution or physical rendering."
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "6fde2fa53cd00f51388433ca96cf655835088b03df30225c6c36847a55433c26",
+    "bytes": 7621120,
+    "modified": "2026-11-02T15:10:11.932722+01:00",
+    "compile": "seven C translation units strict MSVC /W4 /WX; build passed"
+  },
+  "publication": "Source update only; no tag or release created.",
+  "next_review": [
+    "005468D0 virtual building footprint method",
+    "004BEEB0 remaining monument-worker task selection and widths"
+  ],
+  "source_commit": "04c6b2378480aad0a3ce91f07a61629434f1f31a"
+}

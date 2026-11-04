@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "046b3d8e0d2efa620956b7d563e18bc9c8668ea80f0f80f36094a543433ef17a",
+  "passed": true,
+  "checked": 1266,
+  "case_selection": {
+    "limit": null
+  },
+  "method": "Complete camera scan/clamp with actual DWORD width/height accessors, facade thunks, tile exclusion helper and signed diamond geometry predicate. Every grid cell, state field and adjacent guard byte compared. Native and C cdecl stack and saved registers checked.",
+  "limitations": [
+    "No screen drawing, camera scrolling input, map initialization or later frame dispatcher is proved here.",
+    "The native 16-bit parity mask is intentionally preserved; incidental scratch-register/EAX values of void functions are not semantic returns."
+  ],
+  "elapsed_seconds": 14.41,
+  "native_instruction_coverage": [
+    189,
+    189
+  ],
+  "native_uncovered_instructions": [],
+  "full_grid_cells": 105567,
+  "controlled_algorithm_endpoints": [],
+  "source_hashes": {
+    "src/unit_00464.c": "84004b5a4fea37d79b24225deaaf4b17bb0d0dee0898b2721c13a7aa7ab45293",
+    "src/unit_00465.c": "6daab302ff149e6c3910aedd44f7ae36b76f1dbc8caac80848529e0fdb8bce47",
+    "src/unit_01011.c": "30f894ef75ee0b2f4a657df39c22ca660a35650bae16dcd273ae774cc40e2d0f",
+    "src/unit_01151.c": "6beaac16f2a0cf0bea654dbdaf7973ca35b7d298adbc4350ac03e83f55f4f51a",
+    "src/unit_01880.c": "b69c1138c661da6d4cd5fa4ede4242bd057d5e27f56ead90eb27bdfdb9c3d43d",
+    "src/unit_01881.c": "b9ff75e098f4e510f5d5665347412e5ca00b38591cbdede06ed535f4bdd65dc5",
+    "src/unit_01885.c": "f68b069e409c22627fac8b4131f263e0900eb474898cf8e6b4b6a3ef9878e76e",
+    "src/unit_01886.c": "96c14b007462756dd9664948c37021753815080009166ca831afc63e5240156c",
+    "include/camera_bounds.h": "4a9514a39bc7f8069aa5a280e2885b106eb07db2bfe6fa7845a4e82b8018206b",
+    "include/city_prepare.h": "4d1a286b9a05167b32c11eb9430c9e41b2cf774e5122fcbad9e9d1cca1f670bc",
+    "tests/camera_bounds.c": "28f52e33b64274ea40a099903c65bb1385fd735dd484e44d668538e840474726",
+    "tools/camera_bounds_project/CMakeLists.txt": "15e51890ea133422cc964ea7cab6b51bd71f9962d827dd94741b6429182bd9f4",
+    "tools/verify_camera_bounds_emulation.py": "7c5d8d547d9781fed6eb5457aafc2c668b7f8d4c7754c4ebba953a47a8baf5ea",
+    "metadata/camera-sidebar-coordinate-native.json": "a8fca2bad3afa96ef59127b5c739435810b05ff56f72e8369f72d770095a887b",
+    "metadata/camera-bounds-helpers-native.json": "91f6fbeefeac2fc609de0af3ada0b9e8d1790b3c9a597349e3ec25d5bc4660cb",
+    "metadata/CAMERA_BOUNDS_RECONSTRUCTION.md": "e0d6aa57a5bc549e2b33f038da85c3d0e292748581ad696ed6750a298e6ae579"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "status": "Frozen after private Debug and optimized Release proof",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": {
+    "00482650": "src/unit_01202.c",
+    "00482720": "src/unit_01203.c",
+    "004828e0": "src/unit_01205.c",
+    "004829b0": "src/unit_01206.c"
+  },
+  "excluded": "Unit01204/FUN00482810 is a separate function and was not changed.",
+  "native_contracts": {
+    "all": "Signed DWORD dimensions/radius and clamping; DWORD origin and terrain flags; fixed228-cell row pitch; wrapped32-bit arithmetic. Shared row/column scratch fields retain exact native stores.",
+    "00482650": "Return full EAX1 when any scanned cell intersects the mask, otherwise0, including empty scan.",
+    "00482720": "Return full EAX1 when any callback AL is nonzero, otherwise0. Actual callback pointer supplied by caller; no hidden native-token decoder. Callback terrain argument loaded once before call. Bounds/index are cached while shared counters are reloaded after the callback.",
+    "004828e0": "Return full EAX1 if all scanned cells intersect the mask; empty scan returns1.",
+    "004829b0": "Six arguments. Decrement the wrapped signed threshold for each matching cell and return full EAX0/1 according to final signed<=0. Prepublish end row/column before each respective scan. All four native caller windows and shared tails are saved in caller-contracts.json."
+  },
+  "reference_readonly": {
+    "path": "../PharaohRewrite/src/Pharaoh.Engine/Buildings/LegacyHousingRoadAccess.cs",
+    "finding": "Supplies road/terrain search naming and footprint context; native instructions define these broader region-validation algorithms and scratch-counter contracts."
+  },
+  "proof": {
+    "cases_each_configuration": 3079,
+    "C_smoke_checks_each_configuration": 22,
+    "new_native_instructions": 308,
+    "composed_real_rule_instructions": 21,
+    "total_instruction_coverage": [
+      329,
+      329
+    ],
+    "watched_grid_cells": 131072,
+    "mutations": [
+      "Shared row and column on first callback",
+      "Map dimensions/origin after bounds were cached",
+      "Next terrain cell before a later callback",
+      "AL-only returns including0x100/0x101 and high-bit results"
+    ],
+    "guards": [
+      "Whole terrain grid and both adjacent64-byte canaries",
+      "Parameter and scratch-field guards",
+      "Caller stack bytes and callee-saved registers",
+      "Full raw EAX0/1 for all four validators"
+    ],
+    "debug": {
+      "report": "artifacts/region_validation_phase/metadata/emulation-debug.json",
+      "compiled_C_sha256": "ec0acbddc19fd050b860acf33d60b566a898221d4731ba9514c09ae73ba61c10",
+      "source_hash_count": 12
+    },
+    "release": {
+      "report": "artifacts/region_validation_phase/metadata/emulation-release.json",
+      "compiled_C_sha256": "6ad7896e2b66ae4494a277b2dd390a8984996efc68a9077d42ed3809f5de571f",
+      "source_hash_count": 12
+    }
+  },
+  "limitations": [
+    "Callback mutation/return probes are controlled C/native endpoints. The three canonical rule predicates execute as real original and C instructions; no other algorithms are controlled.",
+    "Mapped, bounded scans are exercised. Native malformed dimensions/counters can wrap into unbounded traversal; such nonterminating/out-of-mapping cases are excluded without production bounds checks.",
+    "Callbacks must be real compiled C callables, such as pointers supplied by the accepted restore_placement_rule resolver. This suite does not repair other legacy token-producing callers, input, placement policy or rendering."
+  ],
+  "integration": {
+    "apply_map": "artifacts/region_validation_phase/metadata/apply-map.json",
+    "production": "The four procedures already belong to the production glob. No new runtime source. Coordinator must widen FUN004829b0 to uint32_t in accepted placement_preview.h and its oracle stub, then rerun that unchanged preview corpus. Agent preserved those accepted files.",
+    "target": "restore_region_validation_verify",
+    "sources": [
+      "tests/region_validation.c",
+      "src/unit_01202.c",
+      "src/unit_01203.c",
+      "src/unit_01205.c",
+      "src/unit_01206.c",
+      "runtime/placement_preview_predicates.c"
+    ],
+    "include": "include",
+    "definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "compile_options": [
+      "/W4",
+      "Debug /Od; optimized Release also proved"
+    ],
+    "link": [
+      "restore_data",
+      "advapi32"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test": "standalone_region_validation",
+    "proof": "Python312/python.exe tools/verify_region_validation_emulation.py --production --exe <shared verification executable>",
+    "private_project": "artifacts/region_validation_phase/CMakeLists.txt"
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/region_validation_phase/src/unit_01202.c",
+      "target": "src/unit_01202.c",
+      "sha256": "608a348d596333f7852fb0ba78bf8d94194e18e80aa3d4100d471845337a7622"
+    },
+    {
+      "source": "artifacts/region_validation_phase/src/unit_01203.c",
+      "target": "src/unit_01203.c",
+      "sha256": "83c3e73b5a163ddf28eefafaf82d03b6444f67cbda56ba4bb7aa7677bd87bec6"
+    },
+    {
+      "source": "artifacts/region_validation_phase/src/unit_01205.c",
+      "target": "src/unit_01205.c",
+      "sha256": "d07030e8f3c9225181c0e0a24303a2a8ecfaecf1134e687786fdf7782aac0157"
+    },
+    {
+      "source": "artifacts/region_validation_phase/src/unit_01206.c",
+      "target": "src/unit_01206.c",
+      "sha256": "afce3126244816516fc189e62422fd0e0a48525651ab28173fc834dec4c603c9"
+    },
+    {
+      "source": "artifacts/region_validation_phase/include/region_validation.h",
+      "target": "include/region_validation.h",
+      "sha256": "5278f79b8ae00af049a4599646efa4dbfde9567eef48001d49112bd64f2a3de0"
+    },
+    {
+      "source": "artifacts/region_validation_phase/tests/region_validation.c",
+      "target": "tests/region_validation.c",
+      "sha256": "f6ccbe343e7f63f5250173f1ce2d0f3f37223b0a865bbd45a35831f2804bd5ef"
+    },
+    {
+      "source": "artifacts/region_validation_phase/tools/verify_region_validation_emulation.py",
+      "target": "tools/verify_region_validation_emulation.py",
+      "sha256": "cc49f1df9701391f50b031d7cf0c91fac5da76189558522b3283c1c5e572d019"
+    },
+    {
+      "source": "artifacts/region_validation_phase/metadata/native.json",
+      "target": "metadata/region-validation-native.json",
+      "sha256": "06f65bd846429857499fdd222093b8c1735adc977c1193c209ea22c2980a71c2"
+    },
+    {
+      "source": "artifacts/region_validation_phase/metadata/caller-contracts.json",
+      "target": "metadata/region-validation-caller-contracts.json",
+      "sha256": "b7376b72aaca81424a1a817e913f9afe0400f6efe14d88cf0fc1278c0976878f"
+    }
+  ]
+}

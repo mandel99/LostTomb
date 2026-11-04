@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-29T01:18:27.335Z",
+  "method": "Handwritten C from retained native instructions; Ghidra target identity/body inspection and original REA export provenance; isolated instruction/C comparison",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "computer_control_used": false,
+  "ollama_used": false,
+  "external_zip_bodies_used": false,
+  "functions": [
+    {
+      "address": "0x004d0280",
+      "symbol": "FUN_004d0280",
+      "source": "src/unit_01786.c",
+      "retained_export_evidence": {
+        "address": "0x4d0280",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d05f0",
+      "symbol": "FUN_004d05f0",
+      "source": "src/unit_01789.c",
+      "retained_export_evidence": {
+        "address": "0x4d05f0",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    },
+    {
+      "address": "0x004d0650",
+      "symbol": "FUN_004d0650",
+      "source": "src/unit_01791.c",
+      "retained_export_evidence": {
+        "address": "0x4d0650",
+        "status": "rea",
+        "evidence": "ev_b69058f9ef0172cf375375e61c8b29fce5fe1f6bd2b4b331ce9fb14a57554b8c"
+      }
+    }
+  ],
+  "contract_repairs": [
+    {
+      "address": "0x004d0280",
+      "native": "cdecl force selector, void result; frame gates and elapsed time use DWORD slots",
+      "C": "typed direct effect calls with the global 44-byte context; discard the side-effect-only 0x0051e990 call result without a false trap"
+    },
+    {
+      "address": "0x004d05f0",
+      "native": "ECX receiver, five stack arguments, ret 0x14; low byte of randomize argument",
+      "C": "explicit RestoreSurfaceContext receiver, signed step/brightness arguments, one randomization byte and preserved adjacent padding"
+    },
+    {
+      "address": "0x004d0650",
+      "native": "ECX receiver, one buffer selector, ret 4; void result",
+      "C": "explicit receiver and selector; complete pixel pointers and RNG/history DWORDs"
+    }
+  ],
+  "preserved_behavior": [
+    "RGB555/RGB565 arithmetic follows original masks and shifts, including red shifted by 11 in both greyscale branches.",
+    "Pixels in rows 0..29 and columns outside the chosen signed width limit remain untouched; the unselected buffer remains unchanged.",
+    "Both 31-shift feedback registers, derived masks and the 100-slot history preserve exact state and wrap order.",
+    "Noise consumes randomness per row, including protected top rows and zero-width rows; optional brightness jitter consumes its own advance.",
+    "Effect setup clamps signed step counts to 0..15, writes only the randomization byte, and immediately applies one step.",
+    "Frame gates compare full DWORDs; only force == 1 overrides elapsed time, and the 50ms comparison is signed after wrapping addition.",
+    "Positive frame counters divisible by 136 trigger nine effect/presentation operations without advancing the frame clock.",
+    "City-mode redraw precedes one effect in modes 1, 3, 30, 31, 32 and 73; the native caller consumes no return register from the renderer."
+  ],
+  "tests": {
+    "suite_passed": 16,
+    "suite_failed": 0,
+    "source_scenarios": 275,
+    "instruction_C_cases": 824,
+    "pixel_values_compared": 2229168,
+    "observed_memory_fields": 142,
+    "final_image_bytes_compared_exactly": true,
+    "ordered_presentation_fingerprints_compared": true,
+    "all_16bit_pixel_values_in_large_cases": true,
+    "all_256_frame_modes_in_source_test": true,
+    "guard_pages": true,
+    "both_buffer_selectors": true,
+    "local_and_global_receivers": true,
+    "callee_saved_registers_and_native_stack_cleanup_checked": true,
+    "unicorn_version": "2.1.4",
+    "original_game_executed": false,
+    "real_window_created": false,
+    "real_graphics_device_used": false,
+    "media_DLLs_loaded": false
+  },
+  "source_hashes": {
+    "src/unit_01786.c": "1c9bcd5e4864360d152b60f68ba099477e8425c768f010a986f96d1220a26f73",
+    "src/unit_01789.c": "e407f265796fd09810453189fa62a9cdf293e81238d70f18ce91098a2f9d2a9d",
+    "src/unit_01790.c": "6fbead9e247e644ab1031980fe1b87d1714aa8776960ecec4e74f8fca68451d3",
+    "src/unit_01791.c": "ee2b011899084596835db012bffc0fa7a69fa0bdd5f582470af5b53a2e87242f",
+    "include/graphics_session.h": "763ec7c02b87da1bd9c5b42edb53b321a819dde40ad4484802abfa12dacde643",
+    "tests/surface_effects.c": "0b80da1f8ceb278b291c63e7329ea016cacc7164d01ac9fb33cd57a81e9e5d8b",
+    "tools/verify_surface_effects_emulation.py": "e3c285bdf4b25e4cf6d5f4fbd4e4d410bafd0cac477a9f8fcee5fc4a403b5e26",
+    "src/unit_01782.c": "0614904b99f6d895b0750e77608d0c6b24c0a8c0263a61749c89a944a1f8ab4b",
+    "src/unit_01787.c": "0254d3dc11622c336db5de341521522f353773ab2a2dc0ee0a96a483f6e7a707",
+    "runtime/window_platform_win32.c": "d603a34a2424ff50a2b91b6e39990eff0a1eb8cecb09f495f61af9e1d69c7cc6",
+    "CMakeLists.txt": "eef6bfb907cb0bb5c517104868a7b6caf0adbe6b9e0aa3e70ceffcc31bbb6cf3"
+  },
+  "evidence_hashes": {
+    "metadata/surface-effects-native.asm": "9cb2c4ad1f81677e19775277a3a03b2bde980504c19b7dbbb18babe11a888ce1",
+    "metadata/frame-controller-native.asm": "59dfd256f5c6dd7c51182417aae39f6b10539cfaa67887c61943749bafc333dc",
+    "raw/ghidra/surface-effects-function.json": "6fcc0d05f37afc5af46aa44343a0bf8fb33dd40e2db1c15a42b6a43f3733f914",
+    "metadata/surface-effects-emulation.json": "c2a5215940d9d4f0cd7c618752d3bbc15614e6f17bfa750f6222f18d0f22a3c1",
+    "artifacts/surface-effects-build.log": "97ccfacda043158304236b80ca079b190ff54620cbb9491f926541d9dd7a972e",
+    "build/c-only/Testing/Temporary/LastTest.log": "3d9779eb011cc70aef9b7f33dea4d0405d0216d195d44c0cfd9e2b57a5b99168"
+  },
+  "executable": "build\\c-only\\Release\\restore_link_check.exe",
+  "executable_sha256": "a791a67e4b677f5b4d7a979423331eaae15e94d701187e14ddd1a6fb037be65a",
+  "original_executable_required_for_build": false,
+  "original_machine_code_embedded": false,
+  "external_C_runtime_required": false,
+  "recovered_procedure_sources": 4402,
+  "recovered_public_entries_present": 4402,
+  "remaining_unresolved_return_sites": 438,
+  "remaining_return_or_register_procedures": 555,
+  "unreviewed_data_code_pointer_candidates": 4361,
+  "playable_game": false,
+  "previous_graphics_snapshot": "metadata/graphics-session-reconstruction.json",
+  "limitations": [
+    "City renderer 0x0051e990 is a controlled endpoint during comparison; its actual globals, downstream object calls and unresolved contracts still need reconstruction.",
+    "COM presentation is simulated. Original frame, timing, presentation and clamp instructions run only in the emulator; no original game process starts.",
+    "Pixel buffers in these checks are separate from RNG/context storage, buffer selectors are 0/1, and history indexes start within 0..99.",
+    "Other callbacks, exception frames, data code pointers, remaining contracts and the complete C game entry remain unfinished.",
+    "Finite offline comparisons do not establish real graphics behavior or a playable independent game."
+  ]
+}

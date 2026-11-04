@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": ["metadata/lookup-sentinel-endpass-next-native.json", "metadata/viewport-endpasses-next-native.json", "metadata/world-render-sprite-core-native.json", "build/smoke-game/Pharaoh.exe"],
+  "functions": {
+    "00438e50": {"C_contract": "void cdecl(int32_t actor_id,uint32_t x,uint32_t y,uint32_t selection)", "native_instructions": 671, "behavior": "Capture full lower/upper assets, compute signed movement-table and elevation offsets, apply metadata anchors and selection, then execute the complete native actor-specific layer/ship/trader branches with their original ordering and reload points."},
+    "00439740": {"C_contract": "void cdecl(uint32_t selection)", "native_instructions": 162, "behavior": "Update full animation counter, scan the staggered lookup grid and signed actor chains, compose the actual actor renderer, reload cursors after rendering, then retain the original second traversal and its distinct cursor/length capture behavior."}
+  },
+  "return_consumption": {
+    "renderer": "All eight native callers clean16 argument bytes and overwrite EAX with a signed next-actor WORD before testing it. The C interface is void; incidental last-draw EAX is not semantic.",
+    "renderer_call_sites": ["0043754d", "00437f02", "00439852", "0043a019", "004ef7c3", "004efaa2", "004efcaf", "004efd16"],
+    "scanner": "Three caller sites are the separately proven430d30 controller and430e60 preview wrapper. They consume the scanner's side effects, with no semantic EAX result."
+  },
+  "memory_contracts": {
+    "actors": "388-byte records using byte-offset arithmetic. Lower asset DWORD atbcd5fc, next signedWORD atbcd600, type BYTE atbcd602, quantity BYTE atbcd603, movement BYTE atbcd604, facing/fallback signedBYTE atbcd609/60a, coordinates signedWORD atbcd60c/60e, elevation BYTE atbcd614, phase signedBYTE atbcd631, flag BYTE atbcd639, movement coordinates signedWORD atbcd642/644, attached ID signedWORD atbcd652, ship ID signedWORD atbcd658, offsets signedBYTE atbcd664/665, visible marker BYTE atbcd66f, elevation BYTE atbcd670, owner signedWORD atbcd718, upper asset DWORD atbcd778.",
+    "ships": "144-byte records. Cargo BYTE atbcb9ca, meter signedWORD atbcba42, state signedWORD atbcba4a, alternate-layer flag DWORD atbcba4c.",
+    "tables": "Movement lookup tables5c95b8/96b8/97b8/98b8/99b8/9a38 are signedBYTE arrays with stride1. The two original jump-table byte selectors and destination DWORDs are authenticated against the pinned PE.",
+    "metadata": "64-byte image descriptors. SignedWORD height at10d6a0e, X anchor at10d6a1a and Y anchor at10d6a1c. The fullDWORD126517c limit is compared as signed; the native fallback index0 applies when image>=limit. No additional low-bound clamp is invented.",
+    "scan": "DWORD231-column by457-row lookup grid at70e494, signedWORD heads atb350dc with stride2. FullDWORD camera/geometry/cursor/tile/global direction/selection-marker/counter/overlay fields.605b3d and6de515 are BYTE.",
+    "arithmetic": "Coordinates, images, offsets and counters use uint32_t modular arithmetic, with explicit int32_t interpretation at native signed comparisons. SignedWORD remainder15 and signedBYTE table values preserve negative inputs."
+  },
+  "ordering_and_reloads": [
+    "The initial19-type vertical-base classifier is recovered from the original byte jump table. A nonzero flag639 selects17 rather than12; all other types use10.",
+    "Direction global e94e00 is stored as a fullDWORD before the blocked flag is tested. Movement flag and owner select table offsets or real writable coordinate output arguments.",
+    "Base and upper anchor offsets are captured before selection. Predicate9999 uses the independently proven Boolean contract; after a true result the image limit is reloaded at43909e.",
+    "Types4/38/9 use the freshly read facing plus camera rotation to sort layers. Direction3 and out-of-range directions draw base first and reload per-actor signed offsets afterward. Other valid directions capture those offsets before drawing upper first.",
+    "Types1/2/106/58/13/56/45 sort by signed Y offset. Their base-first branch reloads offsets after the first draw. Types77/78 likewise reload offsets after the base draw and apply the native minus24 upper adjustment.",
+    "Type14 captures its ship branch before drawing, then reloads meter/cargo/assets/metadata at the original later points. The normal branch draws base, meter, upper and cargo in order; the alternate branch draws cargo relative to the captured upper height.",
+    "Type36 checks signed coordinates and the low flag bit, draws base, then upper at the metadata height offset, then reloads quantity for the numeric label. At43937b PUSH y changesESP before43937c reads[ESP+14]; that operand refers to the captured UPPER asset. The staged implementation and proof preserve this stack-adjusted interpretation.",
+    "The scanner retains the current actor's388-byte offset across rendering, then reloads next from that same record. It reloads row/column globals after the renderer; geometry/width/height reloads retain native timing.",
+    "The scanner's second traversal captures its length once, retains a local column, and writes the global column only at its start and end. Its full tile write depends on full overlay0/51 or the special BYTE flag. The original traversal contains no additional drawing call.",
+    "Animation counter78d5ec increments modulo2^32 and resets only when the signed result is>=5, gated by the exact BYTE605b3d==1."
+  ],
+  "dependency_contracts": {
+    "0053e590": "Actual native and C sprite dispatchers are composed; every actor call binds native ECX=f55bb0. Native thiscall cleanup and the C cdecl facade are checked independently at the outer ABI boundary.",
+    "004cdad0_004cdb80": "Actual native and C clip functions are composed.",
+    "004387d0": "Controlled predicate endpoint restricted to independently proven native Boolean0/1; C uses the existing uint8_t declaration from actor_predicate.h.",
+    "004f0d30": "Controlled cdecl(actor_id,DWORD*x,DWORD*y). The test compares initial pointed-to coordinates and writes actual distinct output slots. Raw host/native pointer addresses are normalized through their values; they are not falsely compared as equal addresses. The separate existing2116 coordinate algorithm, including its264-byte building accesses, remains a known pending repair outside this phase.",
+    "004cce00": "Controlled seven-argument numeric formatter. Type36 passes separator20h, suffix57c048, full wrapped coordinates, font6bh and color0.",
+    "0051f780": "Legitimate one-instruction RET in native code. The test observes the dispatcher's evaluated pointer/flag inputs and returns through a real empty C adapter. No missing algorithm is fabricated.",
+    "raster_leaves": "Controlled bitmap/RLE/terrain algorithms. Ordered arguments and state are checked; their pixels are outside this proof. Loaded inline descriptors only, with explicit failing guards on excluded filesystem branches."
+  },
+  "proof": {
+    "report": "metadata/actor-render-emulation.json",
+    "private_optimized_archive": "metadata/actor-render-private-optimized.json",
+    "passed": true,
+    "checked": 7441,
+    "native_instruction_coverage": [830,833],
+    "native_reachable_instruction_coverage": [830,830],
+    "unreachable": {"addresses": ["00439331", "00439332", "00439335"], "reason": "439321 clearsECX;439323 loads an unsigned byte intoCL;439329 ANDs80000001. Sign is always clear, so43932f JNS always skips these three normalization instructions."},
+    "sprite_dispatch_instruction_coverage": [257,1076],
+    "clip_executed_instruction_count": 100,
+    "mutation_endpoints": 14,
+    "ordered_endpoints": 16,
+    "source_hashes": 20,
+    "source_drift_at_freeze": 0,
+    "checks": "All256 actor types, signed layer/movement tables and fields, ship/trader branches, full assets/counts, grid/head/record strides, counter and coordinate wrap, cursor reloads, entry/deep/raster mutations, entire watched regions/canaries and ordered endpoint state. Native/C stack and EBX/EBP/ESI/EDI preservation. Private optimized smoke1/1 passed."
+  },
+  "limitations": ["Coordinate-helper internals, predicate internals, formatting and final raster algorithms are controlled boundaries in this proof, not repaired here.", "No arbitrary malformed actor-chain/cycle contract or city pixel fidelity is claimed.", "Instruction coverage applies to this complete renderer/scanner pair. The composed sprite dispatcher's independent broader proof remains separate evidence."]
+}

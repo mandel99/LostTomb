@@ -5,6 +5,14 @@ callbacks=['00402c10','00402c40','00402cc0','00402f70','00403060','00403130','00
 for variant in ['trace','plain']:
  out=['/* Test-only source aliases; includes exact candidate or applied C. */']
  if variant=='trace':out+=['#define SETTINGS_CALLBACKS_TRACE']
+ # Shared sound providers are included once in each trace/plain translation
+ # unit. Alias public definitions and their header prototypes together.
+ shared=['restore_sound_open_stream','restore_sound_set_stream_volume',
+         'restore_sound_stream_is_playing','restore_sound_get_stream_volume',
+         'restore_sound_set_music_volume','restore_sound_set_voice_volume',
+         'restore_sound_set_ambient_volume','restore_sound_set_sample_volume',
+         'restore_sound_music_volume_0055f32f']
+ out += ['#define '+name+' settings_'+variant+'_'+name for name in shared]
  out+=['#include "settings_callbacks.h"']
  def aliases(names):out.extend('#define FUN_'+x+' settings_'+variant+'_'+x for x in names)
  def undo(names):out.extend('#undef FUN_'+x for x in names)
@@ -18,7 +26,12 @@ for variant in ['trace','plain']:
  for address in ['55f32f','55f3eb']:out+=['#undef restore_settings_sound_'+address]
  aliases(['0055f38d']);out+=['#include "../../../src/unit_02705.c"'];undo(['0055f38d'])
  out+=['#define restore_sound_close_stream settings_'+variant+'_close_stream']
- aliases(['0055f561']);out+=['#include "../../../runtime/sound_streams.c"','#include "../../../src/unit_02708.c"'];undo(['0055f561']);out+=['#undef restore_sound_close_stream']
+ if variant=='trace':out += [
+  'static void settings_trace_stream_publish(uint32_t base,uint32_t field,uint32_t value)',
+  '{if(field==0x154u||field==0x158u)restore_settings_write(base+field,4,value);',
+  ' else *(volatile uint32_t *)(uintptr_t)(base+field)=value;}',
+  '#define RESTORE_SOUND_STREAM_PUBLISH(base,field,value) settings_trace_stream_publish(base,field,value)']
+ aliases(['0055f561']);out+=['#undef U','#include "../../../runtime/sound_streams.c"','#include "../../../src/unit_02708.c"'];undo(['0055f561']);out+=['#undef restore_sound_close_stream']
  aliases(['0055f639']);out+=['#include "../../../src/unit_02711.c"'];undo(['0055f639'])
  aliases(['0051f780']);out+=['#include "../../../src/unit_02351.c"'];undo(['0051f780'])
  (D/('settings_actual_'+variant+'.c')).write_text('\n'.join(out)+'\n')

@@ -1,4 +1,13 @@
 /* Test-only source aliases; includes exact candidate or applied C. */
+#define restore_sound_open_stream settings_plain_restore_sound_open_stream
+#define restore_sound_set_stream_volume settings_plain_restore_sound_set_stream_volume
+#define restore_sound_stream_is_playing settings_plain_restore_sound_stream_is_playing
+#define restore_sound_get_stream_volume settings_plain_restore_sound_get_stream_volume
+#define restore_sound_set_music_volume settings_plain_restore_sound_set_music_volume
+#define restore_sound_set_voice_volume settings_plain_restore_sound_set_voice_volume
+#define restore_sound_set_ambient_volume settings_plain_restore_sound_set_ambient_volume
+#define restore_sound_set_sample_volume settings_plain_restore_sound_set_sample_volume
+#define restore_sound_music_volume_0055f32f settings_plain_restore_sound_music_volume_0055f32f
 #include "settings_callbacks.h"
 #define FUN_00402c10 settings_plain_00402c10
 #define FUN_00402c40 settings_plain_00402c40
@@ -66,6 +75,7 @@
 #undef FUN_0055f38d
 #define restore_sound_close_stream settings_plain_close_stream
 #define FUN_0055f561 settings_plain_0055f561
+#undef U
 #include "../../../runtime/sound_streams.c"
 #include "../../../src/unit_02708.c"
 #undef FUN_0055f561

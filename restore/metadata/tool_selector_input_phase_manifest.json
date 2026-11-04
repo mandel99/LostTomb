@@ -1,0 +1,35 @@
+{
+  "format":1,
+  "state":"Complete34/36 candidates, header, tests, verifier and private project frozen after4506 cases against private Debug and optimized C. Coordinator owns application and shared integration.",
+  "staged_sources":[
+    {"from":"artifacts/tool_selector_input_phase/unit_00034.c","to":"src/unit_00034.c","sha256":"cd71f512079ad58d77f9e7a8d7b40fa6f70d5bb2141aada7650b4f0a057b49f5"},
+    {"from":"artifacts/tool_selector_input_phase/unit_00036.c","to":"src/unit_00036.c","sha256":"49e3cbbeb26ee4bef1aa46f4a675922998abb7b44beba744a4c6274b391ebf86"}
+  ],
+  "new_header":"include/tool_selector_input.h",
+  "unchanged_composed_sources":["src/unit_00042.c","src/unit_00037.c","src/unit_01248.c","src/unit_02508.c","src/unit_00417.c","src/unit_01840.c"],
+  "shared_target":{
+    "name":"restore_tool_selector_input_verify",
+    "sources":["tests/tool_selector_input.c","tests/tool_selector_input_real.c"],
+    "include_directories":["include"],
+    "compile_definitions":["_CRT_SECURE_NO_WARNINGS"],
+    "excluded_shared_definition":"TOOL_SELECTOR_INPUT_STAGED is private-only.",
+    "compile_options":["/W4"],
+    "link_libraries":["restore_data","advapi32"],
+    "link_options":["/BASE:0x10000","/DYNAMICBASE:NO","/FIXED"],
+    "test_command":"restore_tool_selector_input_verify",
+    "note":"The real wrapper includes applied34/36 and accepted42/37/1248/2508/417/1840 under aliases. Do not compile these procedure sources directly into this oracle. Product restore_procedures compiles the two applied files normally; no hooks or router additions are required."
+  },
+  "shared_full_proof":"python tools/verify_tool_selector_input_emulation.py --production --exe <absolute shared Debug restore_tool_selector_input_verify.exe> --optimized-exe <absolute shared Release restore_tool_selector_input_verify.exe>",
+  "single_variant_note":"An explicit --exe without --optimized-exe checks one compiled variant and reports comparison_checked=0. Required complete count4506, owned217/217, branch58/58, dispatch6/6, mutation phases28.",
+  "private_project":"tools/tool_selector_input_project/CMakeLists.txt",
+  "private_target":"tool_selector_input_verify",
+  "private_build":"build/agent-tool-selector-input",
+  "private_variants":{
+    "Debug":{"compile":"/Od /W4","sha256":"0e83cf46223979d46dee7ff6e60bbca0d5f52d047b60963b18196ed9ac9dd091","smoke":"1/1 passed"},
+    "Release":{"compile":"/O2 /W4","sha256":"4e54b5a4ea0cd8cef9aa609bbc9b25e16c371ff8330b80e403920b129f065ca1","smoke":"1/1 passed"}
+  },
+  "final_private_result":{"passed":true,"checked":4506,"comparison_checked":4506,"owned_coverage":[217,217],"actual_composed_coverage":[477,722],"owned_conditional_outcomes":[58,58],"dispatch_targets":[6,6],"mutation_phases":28,"elapsed_seconds":105.05},
+  "source_hash_authority":"All23 hashes in metadata/tool-selector-input-emulation.json. Archive the private report before a shared --production rerun overwrites its default path.",
+  "contract":"metadata/tool_selector_input_contract.json",
+  "limitations":"Six deepest availability/media endpoints remain controlled, while actual selector/count coverage is explicitly partial in this caller suite. No actual UI replay, asset-loading success or complete sidebar pixels are claimed."
+}

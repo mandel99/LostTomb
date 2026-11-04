@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Debug\\restore_music_tick_verify.exe",
+  "compiled_C_sha256": "97cb4d9c15de95e51f38ae1287ec9c52331f9f33759ab0e9e484a1bd2945a1b8",
+  "method": "Complete 00539820 music state machine with actual 00539730/00539a50 selection, 0055f38d sound-volume method and 00562348 RNG. Global and alternate objects, full watched bytes/guards, ordered audio/time calls with intermediate state, RNG returns/state and native ABI compared.",
+  "limitations": [
+    "Clock, stream playback and Miles status/volume API calls are controlled; physical audio output and codecs are not exercised.",
+    "Valid categories 0..52, track counts 0..50, ambient counts 0..10 and track indices through 50; malformed native pointers/counts are excluded."
+  ],
+  "checked": 1668,
+  "passed": true,
+  "source_hashes": {
+    "include/music_manager.h": "147feee13242eb1c964eec5f9d0bc40c9b24b4c7dc5852307a0fa48a52cfc07d",
+    "include/sound_streams.h": "f901ee55727ba834a52df0ff139b8f37ed13493d8a27058589caa64507e34811",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "runtime/music_manager.c": "ac6cdbe14e636af2f0841f565775a3b0379edbab7ba66c66e32fe3ea8bacb005",
+    "tests/music_tick.c": "62eaf6edf2ea8d8680dc86b57fb116273f9049a99c18660fab137d7bbea2ebaa",
+    "tools/verify_music_tick_emulation.py": "f1f982f7d648b840289c5346c4abb09f81a3a5cc73ac111da0ea4deb325e2654",
+    "metadata/music-tick-native.json": "76b76d23a759e62389f26681d4b16613fc137ef4779022378fb2fd9d73fee64b",
+    "src/unit_01864.c": "963b30de36cf11fa430aed580ae88f7fda118534cf431cfd49764cc414bd4b82",
+    "src/unit_02477.c": "5ec8b280d39f456828bab69ba0fee60373bb7c388c3c375d06b5473fc4952cce",
+    "src/unit_02478.c": "5d47e2a8ef74a5c727d459176204d96d4abcd815c56801b265298ff385327c13",
+    "src/unit_02480.c": "8c047e737d12be52debb128db77ffe7df1f5d071853c1ab1bd603d60d3f0e146",
+    "src/unit_02705.c": "5b9f312a4a46941d7006f5f15892f7a6e560042a98ebe2587ce520148e1f12a5",
+    "src/unit_02825.c": "feb319bc0dbe2dc99d9c8004c2121abf9d52a8e3ac64ad5f207d3182641815e4",
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "runtime/music_population_range.c": "52610ab9c6ab89893bb0f73654c18a8fabc67e2aa08ca1d74edfe26ad6c32694",
+    "include/music_configuration.h": "80f0012092acccfee65d15b2220ef428641841931ec805ed6f268afc10dddc24",
+    "tests/music_tick_streams.c": "4d4b45fb0a9d7d20394ed23ef7138b141e34b550a4e480aa151f70023fda22f3",
+    "runtime/sound_streams.c": "70f16ce6f138c65100ed6200a02d3138fb9410e87e9885e768697bb7ae340085",
+    "include/media_bindings.h": "07925327b08c3737996f757552abe259050a659add8c3bf88b2787c803fdfc00"
+  },
+  "observed_native_branches": [
+    "ambient",
+    "main-track",
+    "playlist-wrap",
+    "start-delay",
+    "wait-delay"
+  ]
+}

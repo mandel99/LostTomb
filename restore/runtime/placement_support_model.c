@@ -1,3 +1,4 @@
+#include "building_access.h"
 #include "storage_delivery.h"
 /* Direct instruction-to-C translation. External calls use the explicit frame boundary. */
 #include "placement_support.h"
@@ -1210,86 +1211,7 @@ mi_004c38d7:;
 
 void restore_placement_support_C_00481420(struct restore_placement_support_frame *f)
 {
-    uint32_t a,b,t,p; uint16_t sw;
-    (void)a;(void)b;(void)t;(void)p;(void)sw;
-    /* 00481420 */
-    f->r[0]=MI_U32((0x00000008u+f->r[4]));
-    /* 00481424 */
-    a=f->r[6];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 00481425 */
-    f->r[6]=MI_U32((0x00000008u+f->r[4]));
-    /* 00481429 */
-    a=f->r[7];f->r[4]-=4;MI_U32(f->r[4])=a;
-    /* 0048142a */
-    f->r[1]=(0x00000000u+f->r[0]+f->r[0]*8u);
-    /* 0048142d */
-    f->r[0]=(0x00000000u+f->r[0]+f->r[1]*2u);
-    /* 00481430 */
-    f->r[2]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 00481433 */
-    f->r[0]=MI_U32((0x00bca2d8u));
-    /* 00481438 */
-    f->r[2]=(0x00000000u+f->r[0]+f->r[2]*4u);
-    /* 0048143b */
-    f->r[0]=MI_U32((0x00000014u+f->r[4]));
-    /* 0048143f */
-    a=f->r[2];b=f->r[6];t=mi_alu(f,a,b,32,0);f->r[2]=t;
-    /* 00481441 */
-    a=f->r[6];b=f->r[6];t=mi_alu(f,a,b,32,5);f->r[6]=t;
-    /* 00481443 */
-    f->r[0]=(0x00000000u+f->r[0]+f->r[0]*2u);
-    /* 00481446 */
-    a=f->r[0];b=0x00000005u;t=mi_shift(f,a,b,32,0);f->r[0]=t;
-    /* 00481449 */
-    a=f->r[0];b=0x005cc9e0u;t=mi_alu(f,a,b,32,0);f->r[0]=t;
-mi_0048144e:;
-    /* 0048144e */
-    f->r[1]=MI_U32((0x00000000u+f->r[0]));
-    /* 00481450 */
-    a=f->r[1];b=f->r[1];t=mi_alu(f,a,b,32,3);
-    /* 00481452 */
-    if((f->flags&MI_ZF))goto mi_00481475;
-    /* 00481454 */
-    a=f->r[1];b=f->r[2];t=mi_alu(f,a,b,32,0);f->r[1]=t;
-    /* 00481456 */
-    a=f->r[1];b=0x00000002u;t=mi_shift(f,a,b,32,0);f->r[1]=t;
-    /* 00481459 */
-    a=MI_U8((0x00af598cu+f->r[1]));b=0x00000004u;t=mi_alu(f,a,b,8,3);
-    /* 00481460 */
-    if((f->flags&MI_ZF))goto mi_0048146c;
-    /* 00481462 */
-    f->r[7]=MI_U32((0x00eed760u+f->r[1]));
-    /* 00481468 */
-    a=f->r[7];b=f->r[7];t=mi_alu(f,a,b,32,3);
-    /* 0048146a */
-    if(!(f->flags&MI_ZF))goto mi_0048147a;
-mi_0048146c:;
-    /* 0048146c */
-    a=f->r[6];b=f->flags&MI_CF;t=mi_alu(f,a,1,32,0);f->flags=(f->flags&~MI_CF)|b;f->r[6]=t;
-    /* 0048146d */
-    a=f->r[0];b=0x00000004u;t=mi_alu(f,a,b,32,0);f->r[0]=t;
-    /* 00481470 */
-    a=f->r[6];b=0x00000018u;t=mi_alu(f,a,b,32,1);
-    /* 00481473 */
-    if(mi_signed_less(f->flags))goto mi_0048144e;
-mi_00481475:;
-    /* 00481475 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 00481476 */
-    a=f->r[0];b=f->r[0];t=mi_alu(f,a,b,32,5);f->r[0]=t;
-    /* 00481478 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 00481479 */
-    f->r[4]+=4;return;
-mi_0048147a:;
-    /* 0048147a */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[7]=a;
-    /* 0048147b */
-    f->r[0]=0x00000001u;
-    /* 00481480 */
-    a=MI_U32(f->r[4]);f->r[4]+=4;f->r[6]=a;
-    /* 00481481 */
-    f->r[4]+=4;return;
+ uint32_t sp=f->r[4];f->r[0]=restore_building_has_access_neighbor((int32_t)MI_U32(sp+4u),(int32_t)MI_U32(sp+8u),(int32_t)MI_U32(sp+12u));f->r[4]=sp+4u;
 }
 
 static const uint8_t mi_rom_00459f24[]={0x1a,0x9f,0x45,0x00,0x20,0x9f,0x45,0x00};

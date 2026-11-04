@@ -1,0 +1,168 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T02:45:39.106391+00:00",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "build/c-only-debug/Debug/restore_high_scores_menu_verify.exe",
+  "compiled_C_sha256": "1b7e1596f600335b814bc741940f8f0220013bfc4a71969ea0c080d06019bac3",
+  "actual_file_smoke": {
+    "passed": true,
+    "exit_code": 0,
+    "output": "High scores: actual missing/full/partial file reads, score rows, scrolling, drag and back input.",
+    "fixture_directory": "build/c-only-debug/Debug/high-scores-fixtures",
+    "fixture_removed": true
+  },
+  "method": "Pinned native x86 in bounded Unicorn compared with handwritten compiled C. Complete rankings read/entry/rows/renderer/thumb/arrow/drag, root action3, and mode83 input branch. Exact file/draw endpoint arguments and ordering, all record bytes and guard neighborhoods, consumed AL/full returns, callee-saved registers and native stack cleanup are checked.",
+  "limitations": [
+    "Draw/text/small-button and legacy CRT IO endpoints are controlled in differential cases; final pixels and actual small-button callback execution are integration checks. Separate C smoke performs real missing/full/partial highscore.jas reads in the private build fixture directory.",
+    "Renderer mission/record scans use their native signed count and sparse-row behavior. Normal fixtures remain within the 100-record capacity; six controlled address-wrap fixtures additionally prove the native null mission-address guard against a valid alternate record.",
+    "004c5880 returns a Boolean in AL; unused upper EAX bits are not a public contract. Both native callers set ECX to 00d38708; the explicit reader is additionally compared at an alternate destination."
+  ],
+  "passed": true,
+  "checked": 2816,
+  "branch_probes": {
+    "0x4c541d": {
+      "name": "up decrement",
+      "reached": true
+    },
+    "0x4c543c": {
+      "name": "down increment",
+      "reached": true
+    },
+    "0x4c5442": {
+      "name": "other scroll action",
+      "reached": true
+    },
+    "0x4c5473": {
+      "name": "thumb bottom",
+      "reached": true
+    },
+    "0x4c547a": {
+      "name": "thumb intermediate",
+      "reached": true
+    },
+    "0x4c5466": {
+      "name": "thumb top",
+      "reached": true
+    },
+    "0x4c5519": {
+      "name": "valid score row",
+      "reached": true
+    },
+    "0x4c5513": {
+      "name": "mission address null guard",
+      "reached": true
+    },
+    "0x4c560a": {
+      "name": "skipped row or next row",
+      "reached": true
+    },
+    "0x4c5624": {
+      "name": "empty score message",
+      "reached": true
+    },
+    "0x4c5620": {
+      "name": "mission scan complete",
+      "reached": true
+    },
+    "0x4c564f": {
+      "name": "row/count scan guard",
+      "reached": true
+    },
+    "0x4c57df": {
+      "name": "drag checks",
+      "reached": true
+    },
+    "0x4c5805": {
+      "name": "left outside",
+      "reached": true
+    },
+    "0x4c5812": {
+      "name": "right outside",
+      "reached": true
+    },
+    "0x4c582b": {
+      "name": "above outside",
+      "reached": true
+    },
+    "0x4c5839": {
+      "name": "below outside",
+      "reached": true
+    },
+    "0x4c584b": {
+      "name": "drag clamped bottom",
+      "reached": true
+    },
+    "0x4c5865": {
+      "name": "drag accepted",
+      "reached": true
+    },
+    "0x4c589c": {
+      "name": "open failure",
+      "reached": true
+    },
+    "0x4c58a3": {
+      "name": "read call",
+      "reached": true
+    },
+    "0x4c58bc": {
+      "name": "read return consumed",
+      "reached": true
+    },
+    "0x4c5957": {
+      "name": "valid count",
+      "reached": true
+    },
+    "0x4c5958": {
+      "name": "next count",
+      "reached": true
+    },
+    "0x4c5964": {
+      "name": "entry success",
+      "reached": true
+    },
+    "0x4c5967": {
+      "name": "entry failure",
+      "reached": true
+    },
+    "0x4dd76d": {
+      "name": "back to title",
+      "reached": true
+    },
+    "0x4dd790": {
+      "name": "small-button fallback",
+      "reached": true
+    },
+    "0x4dd8c3": {
+      "name": "drag consumed",
+      "reached": true
+    },
+    "0x418089": {
+      "name": "main rankings mode",
+      "reached": true
+    }
+  },
+  "null_mission_address_guard_taken": true,
+  "source_hashes": {
+    "include/high_scores_menu.h": "55b5d301e702066a6e74bec7df724bd56a01e89ee7c4ca338860f55417348f39",
+    "runtime/high_scores_menu.c": "28548746a4c4d365cf8ef91a4bfc79f632cbb9fc1defe684d5650553815864a2",
+    "runtime/menu_actions.c": "62908a78519c3516fe18292c26e17d869c3645c948764f61e63d286ffa607b42",
+    "src/unit_01610.c": "3f566aeb9d29b8b50e756c50f8699d9dfecf3977e7d6e9318a8fef9f29f0322c",
+    "src/unit_01611.c": "aa2fb8aeef654678b0949002c7bf348d50a75d78ee79b79d5f1164aa608998c6",
+    "src/unit_01612.c": "2c0efb79d1f4ca582b6ff5208d1961612e934c60100c3c5e3cd18fd66ac89ca8",
+    "src/unit_01613.c": "12f29f299d5fc1b129413eebcb393bfb2b018edc6285b00fa04090b522fd9267",
+    "src/unit_01614.c": "27814daff9bc1abff0e5187c545da00539619d3f50539d86721dcf19efc0729b",
+    "src/unit_01616.c": "b0caf06174264e16abf9c262ad7f0b7f840cbbcd07b66aa684751ad65d11f0b2",
+    "src/unit_01730.c": "5d831aed45a0c5948f2ea8b80332ca6fa392e6b67b3250cda455d328e6b70f4d",
+    "src/unit_01731.c": "4e40648404bf3ce4b39357144a55d7a755e2b993aed9a0e11676270c6e068899",
+    "tests/high_scores_menu.c": "9f4fcfb09d1215979f31eaeb671d71442a54a80bc425369dc6b14452d9d32947",
+    "tools/verify_high_scores_menu_emulation.py": "1922f2fd07d97b04ab4ec6726c389df3c25e580d84b547523350bc5209d9a259"
+  },
+  "native_exports": {
+    "metadata/high-scores-native.json": "43b98dfab117dc0347b8fa56d7bb4a451e8c87bc5a7279a514d877b42da62c8c",
+    "metadata/high-scores-input-native.json": "d50c0934b1e09a279dcabd70e16380bb744efa78d152175e73e31fd3ef255ba9",
+    "metadata/high-scores-scroll-native.json": "ffdae9c11578e18cfc8015447e0a112c715b1d736c70d2e35135eaef16a87c2c"
+  }
+}

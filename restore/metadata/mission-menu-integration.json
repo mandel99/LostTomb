@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T11:19:09.072445+00:00",
+  "passed": true,
+  "child_exe_sha256": "38641fcf03792186454f5d5ce35165a1e06ce6bc2741ba6b02e2984cdc0f915b",
+  "log": {
+    "path": "artifacts/menu-mission-integration.log",
+    "sha256": "c82b69a3eb6e911144c200d4b638ac4a5bfe49de1506921669e38e943ab795c8"
+  },
+  "expected_bounded_timeout": true,
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "confirmed_flow": [
+    "title",
+    "main menu",
+    "family registry",
+    "saved profile load",
+    "family options",
+    "custom missions",
+    "empty custom selector",
+    "back through C small-button dispatcher",
+    "family options"
+  ],
+  "frames": [
+    {
+      "screen": "selector",
+      "mode": 61,
+      "manifest": {
+        "path": "metadata/mission-selector-frame.json",
+        "sha256": "4957dd673192811b4ed7ebc8d0ddcb58463b92f155598920158ee928d66d02c2"
+      },
+      "image": {
+        "path": "artifacts/mission-selector.bmp",
+        "sha256": "dd523bf97bc844b1654688462725219e280cd4c7fc1868440d4c6f19fb281fb0"
+      },
+      "raw_frame_sha256": "d9e582c77c1ff51c1d0af166e4d21dee4bb21e0bc45dea36f691bad2a8038bb4"
+    },
+    {
+      "screen": "return",
+      "mode": 48,
+      "manifest": {
+        "path": "metadata/mission-return-frame.json",
+        "sha256": "a661a4c45a1c9b6379b83ef95b2f4104a52ca84abd27d082e3a909a1c2b22a1c"
+      },
+      "image": {
+        "path": "artifacts/mission-return.bmp",
+        "sha256": "10ed281a34acf2fc09f2366a185178d41f4923181d2d55b886cf3aa63c2993d3"
+      },
+      "raw_frame_sha256": "a65338e0e1741ccf55d52de9390c469b031b763d08116586f635c1bae4e82e6b"
+    }
+  ],
+  "fixture_profile": {
+    "path": "build/debug-startup-game/Save/Restore.dat",
+    "sha256": "7794376f0421356ed16a950de128b5029cc30d679b3f04c3f58760e86d242371"
+  },
+  "REA_evidence": {
+    "path": "metadata/mission-menu-rea-function.json",
+    "sha256": "51a8a20b9fa617cb1b2c33c2e3a20af0ad0a3429a03eeaecf45ca91aa11947ff"
+  },
+  "REA_evidence_id": "ev_804e6af481596de4d5d29d7f5d1d190e1b4c9ca2076bf12955f8105a3ceb71fe",
+  "limitations": [
+    "This live C run uses the isolated empty Maps folder at 1024x768. Nonempty lists/metadata and the other two resolutions are native-contract comparisons.",
+    "The chunk/codec pipeline and town connectivity have separate native verification. Top-level map/scenario loading, route rebuilding and independent game preparation remain. This does not establish playable gameplay."
+  ],
+  "source_hashes": {
+    "include/mission_menu.h": "1cf62099553c6702c8506f69570022395fcf3bac18a954927abbd63da11793e7",
+    "runtime/mission_menu.c": "76940150fce3d8633d015758ae892c957d35772785e57c40fc9941bd5ee228cd",
+    "runtime/menu_callbacks.c": "3089a15ddd1e086ae87423a35b69043f52037afed3c3aed62957264bab1c8347",
+    "runtime/startup_probe.c": "43026a2e4ffcc367a0087be3eb41e114b87e75226939ffc84242311f370142e2",
+    "src/unit_01866.c": "53aae9ff3dd8d66712a53d8d314b8f1a6931b918c8ebd3e5d316d64708fab5fd",
+    "src/unit_01867.c": "e9bf7ca7a0abd96fecca19938b33ccbdfd61acae89e1fe2d6496ba68001b0503",
+    "src/unit_01868.c": "bf5e480ebae728be5149201cccc566c49e21f60b01674218acd386b97c354468",
+    "tools/Debug-Standalone.ps1": "6224842cf27e162e48a2f80b19381eb93cc4b180fb1b962f4447d5abeda3c9b7",
+    "tools/Test-MenuIntegration.ps1": "d629db820cc6d8fe1f2ff2aa7747ccd8d47316d59ebae67775792cd267545931",
+    "tools/capture_restore_framebuffer.py": "fb70acea4517b2a5ebd70bb2a9376c04496b8bb18240480d0294ffa7d882b4b4",
+    "tools/record_mission_menu.py": "e6dc6913b9e518f8bcedb009a6af9ff340478d44812cd0fa82d34ee17c296208"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "compiled_C_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+  "passed": true,
+  "checked": 260,
+  "invocations": 887,
+  "coverage": {
+    "0x4bf9d0": {
+      "instructions": 42,
+      "executed": 42
+    },
+    "0x459240": {
+      "instructions": 44,
+      "executed": 44
+    },
+    "0x488030": {
+      "instructions": 8,
+      "executed": 8
+    },
+    "0x487f80": {
+      "instructions": 11,
+      "executed": 11
+    }
+  },
+  "conditional_edges": 30,
+  "switch_targets": 4,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "analytically_unreachable_edges": [
+    [
+      "0x459263",
+      "0x459267"
+    ],
+    [
+      "0x459298",
+      "0x4592c2"
+    ]
+  ],
+  "source_hashes": {
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "include/building_processing_query.h": "da79c90b3ba7aa1cfaa32702e61e76a16838000806e7e434297f1d8f833d5928",
+    "runtime/building_processing_query.c": "79dfbb33b686abb2d1f77a9c90d9584ac6ea617ccd859feeb0d446dcd57c3f8c",
+    "runtime/menu_building_kind.c": "754a8ee58d23d3c133b5f296983c2f42c34f71560783d7b0041ee233de535171",
+    "runtime/menu_actor_message.c": "1433efff9b71373bf2ef39142257558934ffb3ef3d7323c86156ca411f78c6b0",
+    "runtime/building_occupancy_query.c": "decf8e3b7bd2de683b97d82dbe6f3f18ca316353c60a61f1aeb22334f656bfae",
+    "src/unit_00846.c": "e4f2f468a301555aa4cf1fefef09d64fe4dac9a27901a64ff51f4967eab82212",
+    "src/unit_01275.c": "be7c9aba1c5bb44a5001610c53b41a1970edd97f2e375cd24ce81be32960aefe",
+    "src/unit_01572.c": "e23140fc936548275cef0a334886bfaaac3bf6aabcb1aa0aa2829cbe32d04f26",
+    "direct_c/verify_building_processing.py": "33ad374bdc5c97d2890dba3fb811edf92f3206f1eb3d7ca354a2679f467e60b1",
+    "metadata/building-processing-native.json": "6297d89a106167e4b2cbafea141bbeb3a713dfa9b2b09f8f7dc5114ca1cd950c",
+    "metadata/building-processing-rea-evidence.json": "0e347773208abbbe9308b9271d27ab76fc99b642b44971f488871e67cb029e71"
+  },
+  "controlled_algorithm_endpoints": [
+    "0x488030",
+    "0x4894a0",
+    "0x459240"
+  ],
+  "actual_composition_scenarios": 11,
+  "limitations": [
+    "Controller children are controlled unless actual=True; the487F80 leaf always executes. Eleven parent/permission compositions execute actual reached children without substitutions. Complete owned functions and feasible branches are verified, not all deeper child instructions.",
+    "459263 JG cannot take its target after signed kind<106;459298 JNZ cannot take its target because both initial signed comparisons force BL0, including after the child. Both switch targets converge on the same permission lookup.",
+    "Full-EAX results, ordered owned stores, consumed child arguments, full static memory, saved ABI, native cleanup through frames and explicit C receivers compared. Private scratch, flags, concurrency and live gameplay excluded."
+  ]
+}

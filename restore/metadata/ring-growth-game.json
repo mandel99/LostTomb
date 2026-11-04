@@ -1,0 +1,40 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "5482ff79df468e6ea121259aac20e1d9801b0c31e40d5a4aceb4a14814d509c5",
+  "passed": true,
+  "checked": 19,
+  "invocations": 49,
+  "canonical_baseline_cases": 35,
+  "coverage": {
+    "0x4f6a50": {
+      "instructions": 33,
+      "executed": 33
+    }
+  },
+  "conditional_edges": 2,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "source_hashes": {
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "include/mission_compat.h": "83a14b3d2523c4762507a3ce55dc47f4707a9241728708efc14aa5f06cbf4076",
+    "include/actor_teardown_model.h": "e9f6e704c3e933160c3712e9262ebcaf1e1b71dc1df3e9a6902671a53e50e1cc",
+    "runtime/dynamic_history.c": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+    "runtime/menu_drag_actor_teardown.c": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+    "runtime/actor_civic.c": "57354c62dcb292fd2df9f6f7dcbb6f02577d86736c5d6e0931550350651d39a7",
+    "direct_c/verify_ring_growth.py": "7f394dc1d1c5bad4f777a3aa0b0739f75a85884e2bbdff3aaf98dbe99990ad4d",
+    "direct_c/verify_dynamic_history.py": "901060e117bec993e9e8a162d7926c7f4f9a1d86df4507bae906b40e2e9531d6",
+    "metadata/ring-growth-native.json": "3c1a399145deb9f9f07db167404f92287cd3d8c2992c348646b6a54ffce9687a",
+    "metadata/ring-growth-rea-evidence.json": "83d473ff1149be3fc330faabfa2cb41e146eccff4e880e5a2bce4d3d780c78e6"
+  },
+  "controlled_platform_endpoints": [
+    "0x561a1d",
+    "0x561a2b"
+  ],
+  "controlled_algorithm_endpoints": [],
+  "limitations": [
+    "Actual class reserve/copy/growth and gameplay enqueue/enrollment paths execute; only malloc/free are controlled with identical readable padded backing. Original destination-capacity copy reads beyond the temporary source allocation, including backing padding; no FIFO repair remains.",
+    "Ordered nonstack writes compared for direct growth; callers compare allocation events, complete static data and heap backing, return, saved ABI and restored FS.",
+    "Normal-return paths only; arbitrary host allocator adjacency, undefined source extent, allocation failure and C++ exception unwinding are not certified."
+  ]
+}

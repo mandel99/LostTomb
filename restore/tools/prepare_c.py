@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 from generate_intrinsics import generate_intrinsics
 from repair_discarded_returns import repair as repair_discarded_return_guards
+from repair_member_receivers import repair as repair_member_receivers
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -245,7 +246,8 @@ typedef struct { unsigned int value:24; } restore_u24;
         destination = f"src/unit_{i:05d}.c"
         code = repair_discarded_return_guards(code)
         void_results = code.count('restore_unresolved_return(')
-        (ROOT / destination).write_text('\n'.join(prefix) + '\n\n' + code + '\n', encoding='utf-8')
+        source = repair_member_receivers('\n'.join(prefix) + '\n\n' + code + '\n',f['name'])
+        (ROOT / destination).write_text(source, encoding='utf-8')
         report.append(dict(name=f['name'], file=destination, signature=f['signature'], globals=len(uses),
                            unresolved_void_results=void_results, unresolved_stack_layout=bool(stack),
                            register_inputs=sorted(set(re.findall(r'\b(?:in_[A-Z]+|unaff_\w+|extraout_\w+)\b',code))),

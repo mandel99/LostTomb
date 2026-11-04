@@ -1,0 +1,134 @@
+{
+  "format": 1,
+  "status": "staged implementation and verification sources frozen; production integration pending root",
+  "native_core_functions": {
+    "004c7fd0": 26,
+    "004c8040": 13,
+    "004c8070": 301,
+    "004c8480": 96,
+    "004c8590": 88,
+    "004c8680": 69
+  },
+  "core_instruction_count": 593,
+  "read_only_helpers": {
+    "004cc020": 27,
+    "004cc070": 49
+  },
+  "verified_instruction_count": 669,
+  "native_bytes_verified": 2055,
+  "staged_sources": [
+    "artifacts/rich_message_text_phase/src/unit_01630.c",
+    "artifacts/rich_message_text_phase/src/unit_01631.c",
+    "artifacts/rich_message_text_phase/src/unit_01632.c",
+    "artifacts/rich_message_text_phase/src/unit_01633.c",
+    "artifacts/rich_message_text_phase/src/unit_01634.c",
+    "artifacts/rich_message_text_phase/src/unit_01635.c"
+  ],
+  "staged_header": "artifacts/rich_message_text_phase/include/rich_message_text.h",
+  "production_destinations": [
+    "src/unit_01630.c",
+    "src/unit_01631.c",
+    "src/unit_01632.c",
+    "src/unit_01633.c",
+    "src/unit_01634.c",
+    "src/unit_01635.c",
+    "include/rich_message_text.h"
+  ],
+  "production_sources_modified_by_agent": false,
+  "frozen_panel_and_publisher_source_drift": 0,
+  "defects": {
+    "glyph_table": "BYTE map at5E049C, native4c862e/868e; oldDWORD stride4 turned ASCIIA glyph27 into102, lowercasea1 into160, admitted nativeemptyspace.",
+    "sprite_records": "NativeSHL EAX,6 at4c8222/838a/83ae/86c4/86d9/8736 and signedWORD metric loads. Correct64byte stride replaces old128byte indexing.",
+    "widths": "DWORD link counters/cursor, scroll/line counts, font IDs, parsed lengths, text cursors, image count and shared current glyph. Color D3B51C isWORD; E20799 remainsBYTE.",
+    "contracts": "Typed4/0/6/1/5/6argument prototypes; actual sprite callers bindECX F55BB0 at4c840c/8714 and use existing3argument global facade. Explicit unsigned32bit wrap retains original arithmetic; no speculative ID/image guards added."
+  },
+  "proof": {
+    "path": "metadata/rich-message-text-staged-emulation.json",
+    "sha256": "505ecb65e202fd0ae35b40b6c0dadb9fe1da7c14f01063ac2d38a899a01b47f9",
+    "passed": true,
+    "checked": 4106,
+    "branch_probes": 40,
+    "pixel_cases": 216,
+    "pixel_bytes_compared": 133608960,
+    "compiled_C_path": "build/agent-rich-message-text/out/Debug/restore_rich_message_text_verify.exe",
+    "compiled_C_sha256": "ed999da330fb2f988a779984cc2c1e3b815d95fa545f1b7298fdf48a440e2447",
+    "source_hashes": {
+      "artifacts/rich_message_text_phase/include/rich_message_text.h": "35d05825be27753d8bf21db91b251f92ba1d4478fdf421488a03a5329f2f52fd",
+      "artifacts/rich_message_text_phase/src/unit_01630.c": "3394b8b30f99b2cd796cb69da412a190c5a298b7ace71a2cc577e1c37a8c75d8",
+      "artifacts/rich_message_text_phase/src/unit_01631.c": "1a0e9879d24828c039c5bc5ef6a990435d3050463c8e752956b7d3257a9ca2f0",
+      "artifacts/rich_message_text_phase/src/unit_01632.c": "7dd7a6c452bf11aee4cc754667436382d2dd9f7b648fc08c68dbc3c4e12f745a",
+      "artifacts/rich_message_text_phase/src/unit_01633.c": "d54145190a8f26e9f52c82896fc64b105cb87991c387f3220c2d0cac8cf97e74",
+      "artifacts/rich_message_text_phase/src/unit_01634.c": "49201d55d485cebcfcc3c1e2f43bbaeadea2b50983c2f05e05df1b8850c221cc",
+      "artifacts/rich_message_text_phase/src/unit_01635.c": "a3b6aa61f13024fbc0244c02ce2b5ae9715f83c3b0d9cdd4dce7f61794e23d4e",
+      "tests/rich_message_text.c": "449e2d145a5fa7ec790193b04107c080c15a36eb83dd501e5de285acd2a6c948",
+      "tests/rich_message_text_raster.c": "e8071008a2ad20f08ba0137b497af745f279c3fa42fd5f822f33323e80140a50",
+      "tools/verify_rich_message_text_emulation.py": "d41ad2012cf7e6130d2b042b8612fd30449828d053d04ef732f7955541b41c17",
+      "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+      "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+      "runtime/sprite_pixels.c": "04296c8136d82b147f3d03416b6d1d08cfd81f7925f04c1364c31b861cd43844",
+      "src/unit_01669.c": "9823a26a7bd29d4355fb84e8010159ce5fc47e35f0114b2825905edfe6ad3991",
+      "src/unit_01670.c": "313db42a6e1b505063f4f2464f9d614dab778d8bafde8514e34e2aeb336bc3ca",
+      "src/unit_02524.c": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9",
+      "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+      "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40",
+      "src/unit_00128.c": "0c7730f15ac3e342e80cfc6a6c8cb63be15871b322b1c9c818cd1fc2eb997e65",
+      "src/unit_00136.c": "51099d2b4f7018fc6bb13d7e4a5aa2d3b16cbff106724455247571df292f29c6",
+      "src/unit_00137.c": "5335ac2184d91d904bc460d524670939bb40bcf785f5f139ba2efc434e65a4ca",
+      "src/unit_00140.c": "24116a943999c96ac24bab87458e4b6e6f066586a37cec843321c680430dc8db",
+      "src/unit_00146.c": "0a66a5c6adfdf96da4daa52e9ba12e23985cfdf0e79bea157362efd1b5dc5b7b",
+      "src/unit_00149.c": "0ce48149d7d54c8062934be92489ab7ef174a337447e51810b160fb386dbf9ef"
+    },
+    "native_exports": {
+      "metadata/rich-message-text-next-native.json": "1c10c7875932be06310655861b4b9422eeac4f8a68fbdebb431c68672d7fb6c5",
+      "metadata/rich-message-text-helpers-native.json": "4f2359bc1f582ed8febf667bc67223abde0c76acf61fdbd6d3b329d7ad0b4b87"
+    }
+  },
+  "terminal_marker_native_budget_evidence": "metadata/rich-message-text-terminal-marker-native.json",
+  "actual_asset_grammar_audit": "metadata/rich-message-text-asset-markup-audit.json",
+  "terminal_marker_domain": "65terminalnumericstrings are media selectors atfield60; none in title68/caption72/body76. Artificial bare@17 with90followingguard bytes makes native read beyondNUL and hit3000000instruction observation budget; C preserves that behavior and returns on999line guard. No complete equivalence claim for that diagnostic.",
+  "integration": {
+    "target": "restore_rich_message_text_verify",
+    "sources": [
+      "tests/rich_message_text.c",
+      "tests/rich_message_text_raster.c",
+      "src/unit_01630.c",
+      "src/unit_01631.c",
+      "src/unit_01632.c",
+      "src/unit_01633.c",
+      "src/unit_01634.c",
+      "src/unit_01635.c",
+      "src/unit_01669.c",
+      "src/unit_01670.c"
+    ],
+    "include": "include/",
+    "link": "restore_data",
+    "compile_options": [
+      "/W0",
+      "/Od"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "CTest": "standalone_rich_message_text",
+    "verifier": "tools/verify_rich_message_text_emulation.py --production --exe <shared executable>",
+    "production_report": "metadata/rich-message-text-emulation.json",
+    "runtime_dispatch_or_startup_wiring": false
+  },
+  "limitations": [
+    "Raw glyph fixtures use controlled5x7 deterministic sprite pixels and actual immutable character map; asset identity and compressed sprites are separate proofs. Sprite endpoint is controlled in nonpixel cases to test consumed metadata reloads and deep side effects.",
+    "Native unchecked text copies require assembled lines to fit the200byte scratch buffer and linked IDs/font image records to be valid. Numeric link markers require their native following delimiter/text; an isolated marker immediately at NUL makes the original scanner consume beyond that NUL and is excluded. Word/line budget guards are exercised separately without overflowing the native scratch buffer. Negative image indices are outside the valid font domain; no new production guard is inserted.",
+    "The existing read-only glyph measurement and decimal parser are composed. Native decimal input remains within its power-table capacity; tests include signed32bit bounds. Windows32bit compiled arithmetic is compared, with explicit unsigned wrap in the rewritten six bodies.",
+    "Completed city rendering, actual font payload identity and other downstream renderer paths require root integration replay."
+  ],
+  "private_Release_O2_proof": {
+    "path": "metadata/rich-message-text-staged-release-emulation.json",
+    "sha256": "581d9244290801b64a240b969244042b8bbc9a699ba688d3da539cefda95497d",
+    "passed": true,
+    "checked": 4106,
+    "compiled_C_sha256": "2908ead18daf90700e06759d2a37c6343ffa380620008ad760c302d785c45c08",
+    "optimization": "Release project default/O2; /Od applies only Debug in private CMake",
+    "warning": "Existing Debug restore_data.lib brings mixedCRT linker warning in the private Release proof; tested rewritten C and readonly helpers compiled/O2, no source or proof mismatch."
+  }
+}

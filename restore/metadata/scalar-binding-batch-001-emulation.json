@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 16526,
+  "variant_comparisons": 33052,
+  "per_function": {
+    "0040fa40": 5501,
+    "0040fa70": 5508,
+    "0040fae0": 5517
+  },
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "product_sources_applied": true,
+  "algorithm_endpoints": [],
+  "native_instruction_coverage": {
+    "0040fa40": [
+      18,
+      18
+    ],
+    "0040fa70": [
+      18,
+      18
+    ],
+    "0040fae0": [
+      20,
+      20
+    ]
+  },
+  "native_instruction_total": 56,
+  "native_instruction_covered": 56,
+  "compiled_C_sha256": "2b63a3da49ffcd99a3ee9721b00b455bb5851ed1effc3d0d1e19604ca324597f",
+  "variants": {
+    "Debug": {
+      "path": "build/c-only-debug/Debug/restore_scalar_binding_batch_001_verify.exe",
+      "sha256": "2b63a3da49ffcd99a3ee9721b00b455bb5851ed1effc3d0d1e19604ca324597f",
+      "checked": 16526
+    },
+    "O2": {
+      "path": "build/c-only/Release/restore_scalar_binding_batch_001_verify.exe",
+      "sha256": "9eccb79af13bb3bd78341fb6127958e9d1ec8c96031b771d9ed71d5d9410653d",
+      "checked": 16526
+    }
+  },
+  "elapsed_seconds": 44.64,
+  "method": "Complete authenticated native 18+18+20 instruction bodies in Unicorn versus exactly six mechanically transformed bindings, three separate C units, Debug and /O2. Complete64KiB framebuffer+globalguard SHA256, exact single native WORD mutation/read footprint, C/native expected WORD, inaccessible surrounding pages, cdecl stack/argument canaries and saved registers.",
+  "source_hashes": {
+    "src/unit_00123.c": "290eff944d7f12f5e196bf567853f685e4be6304e95c5c6574af4725ae5f2753",
+    "src/unit_00124.c": "0bdddeb04aee5e1c78db2e92c6dc265d9cb7ce8f120d961eef786ffd8fadee9c",
+    "src/unit_00126.c": "281a902f8c9ccf785db28d2f5450fe025c0b5c3baed228b47a7974d51fef760b",
+    "artifacts/scalar_binding_batch_001/guarded_pixel_fixture.c": "ebfa8fc394bbcd0e958de1ac891e5546a9547caa4bdb99d3616f747c341388f1",
+    "artifacts/scalar_binding_batch_001/shared_targets.cmake": "37756f8a632658a252cf1f334a3f95fe8dcbab553e4a23f825197d958b4d9b9e",
+    "artifacts/scalar_binding_batch_001/transform_scalar_bindings.py": "9f45c45d00d782bc79335b2e0f8fb2a2ceb28af786abc793456a8f1ba06b0c80",
+    "artifacts/scalar_binding_batch_001/six_site_plan.json": "2ebb6b88842b77f84c200dab8d7456a0660c7133b1100a3c05e4759074ca1c15",
+    "artifacts/scalar_binding_batch_001/scalar_binding_native.json": "46b848b51b23b4dd897fbaf7e212e171df183495a10f741377127f40346b074c",
+    "artifacts/scalar_binding_batch_001/verify_guarded_pixels.py": "3f6d82ae402988cea1db7b2a72a2bc1d7e73d8827af4e0fcae37c2b05b92cca4",
+    "artifacts/scalar_binding_batch_001/scalar_binding_batch_001_apply_map.json": "6c63c87f78bf3cbc9e87c0fc5cc841f3991a097ceec1e1e4de19b3bd85e1ef23",
+    "tools/verify_scalar_binding_batch_001_emulation.py": "59d1728e657a87891c6317c890247e1ae2659c6719fd23fa15dd647732418de6",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/restore_intrinsics.h": "27c0ba2205a3066b47dfd27872922e8ef9cfbde593b1700b88ef8fd40d47a768",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8"
+  },
+  "native_exports": {
+    "artifacts/scalar_binding_batch_001/scalar_binding_native.json": "46b848b51b23b4dd897fbaf7e212e171df183495a10f741377127f40346b074c"
+  },
+  "limitations": [
+    "The valid domain requires the final calculated WORD to be mapped and disjoint from the two globals, x*2 representable in signed32 bits, and Windows x86 support for unaligned WORD accesses. No clipping is invented.",
+    "y*pitch, pointer additions and coordinate cancellation are unsigned32 arithmetic after the explicit uint32_t binding changes; no floating point or mixed-width aliasing is used.",
+    "These are void source functions. Native caller-saved EAX/ECX/EDX scratch values are incidental and are not compared. Caller windows are retained for return-consumption review.",
+    "A binding-width scan alone does not establish equivalence; this report covers only the three complete algorithms under the documented valid memory/ABI domain. Whole-game completion is not established."
+  ],
+  "production": true,
+  "frozen_manifest_sha256": "6c63c87f78bf3cbc9e87c0fc5cc841f3991a097ceec1e1e4de19b3bd85e1ef23",
+  "frozen_fixture_sha256": "ebfa8fc394bbcd0e958de1ac891e5546a9547caa4bdb99d3616f747c341388f1",
+  "frozen_oracle_sha256": "3f6d82ae402988cea1db7b2a72a2bc1d7e73d8827af4e0fcae37c2b05b92cca4",
+  "oracle_core_sha256": "544419a28038157339052556d45a47abb0e897e15101ca0eb9bd00af8764ecff",
+  "frozen_mapping_verified": true,
+  "scope": [
+    "0040fa40",
+    "0040fa70",
+    "0040fae0"
+  ],
+  "canonical_cases": 16526,
+  "source_drift_at_completion": []
+}

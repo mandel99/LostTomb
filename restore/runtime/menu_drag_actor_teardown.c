@@ -1,4 +1,6 @@
 #include "actor_teardown_model.h"
+#include "building_occupancy_query.h"
+#include "mission_compat.h"
 #include "actor_walking.h"
 #include "menu_building_kind.h"
 #include "menu_actor_message.h"
@@ -9,50 +11,18 @@
 #define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define SENTRY UINT32_C(0x8e47b123)
-/* Full accepted 4894A0 -> 489470 -> 4893C0 C bodies, native RET4/RET16 remain inside this frame. */
 uint8_t restore_actor_building_query(int32_t building)
-{
- uint32_t stack[32];struct restore_actor_message_frame f;unsigned i;
- for(i=0;i<32;++i)stack[i]=SENTRY;
- for(i=0;i<8;++i)f.r[i]=0;
- f.flags=2;f.boundary=restore_actor_message_dispatch;f.r[4]=(uint32_t)(uintptr_t)(stack+16);stack[17]=(uint32_t)building;
- restore_actor_message_C_004894a0(&f);
- if(f.r[4]!=(uint32_t)(uintptr_t)(stack+18)||stack[16]!=SENTRY||stack[0]!=SENTRY)abort();
- for(i=18;i<32;++i)if(stack[i]!=SENTRY)abort();
- return (uint8_t)f.r[0];
-}
+{return (uint8_t)restore_building_has_active_occupant(building);}
 /* ECX receiver of original488050 is only forwarded to4894A0, whose complete closure does not read it. */
 uint32_t restore_actor_building_gate(int32_t building)
 {
  if((uint8_t)FUN_00488030((uint32_t)building)==0)return 0;
  return restore_actor_building_query(building)!=0;
 }
-/* Native 4F6A50 grows through 4F66C0/6700/6790/66F0. Its final copy reads
-   the destination capacity from a smaller temporary allocation and loses
-   wrapped FIFO entries. Preserve the logical entries without that overread. */
+/* Use the literal native reserve/copy chain, including its destination-sized
+   source read. Gameplay and the canonical entry must use the same algorithm. */
 uint32_t restore_ring_004f6a50(void *self,int32_t capacity)
-{
- uint32_t q=(uint32_t)(uintptr_t)self,old_capacity=U(q+16u),count,head,i,tail;
- uint32_t old_buffer,new_buffer;size_t bytes;
- if(capacity<=(int32_t)old_capacity)return 1;
- if(capacity<=0||(uint32_t)capacity>UINT32_MAX/4u)abort();
- count=U(q+12u);head=U(q+4u);old_buffer=U(q+20u);
- if(count>old_capacity||(count&&(!old_capacity||!old_buffer)))abort();
- bytes=(size_t)(uint32_t)capacity*4u;
- new_buffer=(uint32_t)(uintptr_t)restore_heap_allocate(bytes);
- if(!new_buffer)abort();
- memset((void *)(uintptr_t)new_buffer,0,bytes);
- head%=(uint32_t)capacity;
- for(i=0;i<count;++i){
-  uint32_t source=(head+i)%old_capacity,destination=(head+i)%(uint32_t)capacity;
-  U(new_buffer+destination*4u)=U(old_buffer+source*4u);
- }
- tail=(head+count+(uint32_t)capacity-1u)%(uint32_t)capacity;
- U(q+16u)=(uint32_t)capacity;U(q+20u)=new_buffer;
- U(q+4u)=head;U(q+8u)=tail;
- if(old_buffer)restore_heap_free((void *)(uintptr_t)old_buffer);
- return 1;
-}
+{return FUN_004f6a50((RestoreDynamicHistory *)self,capacity);}
 uint8_t restore_ring_004f6950(void *self,int32_t actor)
 {
  uint32_t q=(uint32_t)(uintptr_t)self,count,scanned=0,buffer,value,tail;

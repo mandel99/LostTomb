@@ -1,0 +1,65 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "5482ff79df468e6ea121259aac20e1d9801b0c31e40d5a4aceb4a14814d509c5",
+  "passed": true,
+  "checked": 1172,
+  "invocations": 5860,
+  "coverage": {
+    "0x53c100": {
+      "instructions": 976,
+      "executed": 972,
+      "analytically_unreachable": 4
+    }
+  },
+  "conditional_edges": 205,
+  "switch_targets": 49,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "analytically_unreachable_instructions": [
+    "0x53cbb5",
+    "0x53cbba",
+    "0x53cca9",
+    "0x53ccae"
+  ],
+  "analytically_unreachable_edges": [
+    [
+      "0x53cbb3",
+      "0x53cbb5"
+    ],
+    [
+      "0x53cca7",
+      "0x53cca9"
+    ],
+    [
+      "0x53cd0c",
+      "0x53cd2d"
+    ]
+  ],
+  "source_hashes": {
+    "CMakeLists.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "include/actor_message.h": "ebe9b9aa4254f20d1ea4be3335b1053f883ae788e520852056abd3db31999457",
+    "runtime/actor_message.c": "5c56f1c0d6dee611a0cff0fb8faa0d5bb5be345e719b976dda9309bfbd25c624",
+    "src/unit_02503.c": "b32638d85366080ffa362eae743e87c514170efc7753533edee4e7b2ab0bf503",
+    "include/message_category.h": "b309f94291717a7c586a209b911c8b49fb893a86ac9c0ed374de8fc4fde51335",
+    "runtime/message_category.c": "0122a205c3b438fe0f80dec06b82fed21f94cc2c294ba016fa51d608f3053bbb",
+    "include/menu_actor_message.h": "7613d33359e810ff795ccb0e137ff315ad96699946538b11bbcd523b1cf27dfe",
+    "runtime/menu_actor_message.c": "1433efff9b71373bf2ef39142257558934ffb3ef3d7323c86156ca411f78c6b0",
+    "include/town_menu.h": "9f6c7f2de3562abe8e02a0e1d3b5744a55c0a29b4af31f47cc98c59352db8573",
+    "src/unit_00720.c": "7dd090ec519727f6a2757bfaa31259997541a5046391d2e5d51432c09524b318",
+    "runtime/town_record_queries.c": "aaa4db5c794f5afa72cd396f25283479c262b23529c05ce9c7a0fe312b1dc59f",
+    "runtime/building_processing_query.c": "79dfbb33b686abb2d1f77a9c90d9584ac6ea617ccd859feeb0d446dcd57c3f8c",
+    "runtime/storage_trade.c": "7ac548c4f2db6ed014a4791fa813d3c747cd2d2e936b4e87510f12abf1bec596",
+    "include/actor_predicate.h": "0406bc7672e04b1c68f69c712a669dcd316d97727289b5327bb40df52674443d",
+    "direct_c/verify_actor_message.py": "70da0dfd277f885e68502c5b248c6cfc5b963b60e76a680d497f7135510e4a18",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/actor-message-native.json": "5f65a2818a486dab3d5eb299933499a2dcfbc1f3ae9f6333047c373860ec63f7",
+    "metadata/actor-message-rea-evidence.json": "cddccf83a78b323a396cb5f6bc0cb09675a179d7ebe2fe0bd9d3f2ddd6fbd2ef"
+  },
+  "actual_composition_scenarios": 13,
+  "limitations": [
+    "All BYTE actor kinds and five switch tables covered; four native instructions behind impossible BYTE>=500 comparisons cannot execute. Two guards and a repeated cached-nonzero test supply the three cold edges.",
+    "Iterator/calendar children always execute. Other direct children are controlled except actual=True, whose complete reached children execute. Deeper child instruction coverage is not claimed.",
+    "Named result and raw frame compare full EAX including inherited nonpositive-actor returns. Canonical and named void interfaces compare effects because the native caller discards EAX. Ordered owned stores, child inputs, full static memory and saved ABI checked; private scratch, incidental flags/volatile registers, concurrency, invalid IDIV and live gameplay excluded."
+  ]
+}

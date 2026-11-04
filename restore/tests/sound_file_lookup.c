@@ -8,6 +8,7 @@ static unsigned int checks,cases,duplicates,fail_duplicate;
 #define U(a) (*(uint32_t *)(uintptr_t)(a))
 #define REQUIRE(x) do{++checks;if(!(x)){fprintf(stderr,"Sound file lookup failure at %d\n",__LINE__);ExitProcess(1);}}while(0)
 uint32_t FUN_0056b177(const char *text) {++duplicates;if(fail_duplicate)return 0;strcpy((char *)HEAP,text);return HEAP;}
+void FUN_00561bdc(void *allocation){(void)allocation;REQUIRE(0);}
 static const char *names[]={"new.wav","cached.wav","same.wav","Same.wav",""};
 static int run(const uint32_t p[8])
 {
@@ -38,10 +39,10 @@ int main(int argc,char **argv)
         p[7]=1;REQUIRE(run(p)==0&&U(BASE+4)==2&&!duplicates);
         p[7]=2;p[3]=1;REQUIRE(run(p)==1&&!duplicates);
         p[7]=3;REQUIRE(run(p)==2&&duplicates==1&&U(BASE+0x110)==HEAP&&!strcmp((char *)HEAP,"Same.wav"));
-        p[4]=1;REQUIRE(run(p)==-1&&U(BASE+4)==2&&U(BASE+0x110)==0);p[4]=0;
+        p[4]=1;REQUIRE(run(p)==2&&U(BASE+4)==3&&U(BASE+0x110)==0&&U(BASE+0x114)==1);p[4]=0;
         p[1]=4;REQUIRE(run(p)==-1&&!duplicates);p[1]=2;p[2]=0;REQUIRE(run(p)==-1);p[2]=1;
-        p[1]=0xffffffffu;REQUIRE(run(p)==-1&&!duplicates);
-        printf("Sound file lookup: %u checks across %u cases; IDs, exact duplicates, copy ownership, capacity, null entries and duplicate-allocation failure verified.\n",checks,cases);
+        p[1]=0xffffffffu;REQUIRE(run(p)==-1&&duplicates==1&&U(BASE+4)==0&&U(BASE+0xf8)==HEAP&&U(BASE+0xfc)==1);
+        printf("Sound file lookup: %u checks across %u cases; IDs, exact duplicates, raw ownership, capacity, null entries, failed-copy insertion and negative-count addressing verified.\n",checks,cases);
     }
 done:
     VirtualFree((void *)BASE,0,MEM_RELEASE);VirtualFree((void *)HEAP,0,MEM_RELEASE);return 0;

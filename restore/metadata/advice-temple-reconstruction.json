@@ -1,0 +1,94 @@
+{
+  "status": "three whole typed/named C functions; focused native/C checks passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "004c2f50",
+      "file": "src/unit_01589.c",
+      "name": "restore_temple_complex_upgrade_preview",
+      "evidence_id": "ev_1615a085ef4818e49145aa4c8b797aaa3d10c8ea894a503b0bb5b6cab5692efb",
+      "instructions": 373,
+      "native_bytes": 1227,
+      "native_body_sha256": "225df428985e6b3f38168dffb84a252f1d6974ef72443d15dabae111f37748c1",
+      "source_sha256": "f3853938150d2d76539104bfc227e002fd7a3b2a48d93cb3d2a17d14174b03a4"
+    },
+    {
+      "entry": "00538050",
+      "file": "src/unit_02462.c",
+      "name": "restore_chief_advisor_render_advice",
+      "evidence_id": "ev_59247c63e3cac8c239ca04afbeafff5eabdfee1d77acc064e6fbf8936038ac35",
+      "instructions": 539,
+      "native_bytes": 1962,
+      "native_body_sha256": "7bb0642c52c1498398b0e486cc4968ee6e6ba8d20cf9dcc04149054515f1237b",
+      "source_sha256": "48623e22d9f7f9a405fd8fd8e7fcd226f311269ed94be4301e93f322938326fa"
+    },
+    {
+      "entry": "004c52d0",
+      "file": "src/unit_01606.c",
+      "name": "restore_temple_upgrade_present",
+      "evidence_id": "ev_fd05026e5c441351143ca998ba9b00d5f482f4df84685124dfa275b668cb459d",
+      "instructions": 14,
+      "native_bytes": 40,
+      "native_body_sha256": "c5eeadfd4305fc44a318571005b7591373acffa39e79e8e0cb3d63d4bcbe4344",
+      "source_sha256": "c31d7a9d77463a23fe85c10ecba334e91f50db65730fe6d6d9bec6fe9452a60d"
+    }
+  ],
+  "native_bytes": 3229,
+  "native_instructions": 926,
+  "corrections": [
+    "Chief advice uses DWORD category/player/geometry/table fields, signed BYTE deity mood and BYTE action availability.",
+    "All twelve advice categories retain signed comparisons, wrapped32-bit products and post-callback player/layout reloads.",
+    "Trade advice uses the genuine list iterator and explicit receiver-compatible record predicates.",
+    "Temple preview uses DWORD footprints/geometry and sprite ids, signed WORD building kinds/links/coordinates and WORD tint.",
+    "Preserve both upgrade branches, linked-piece lookup and original query/draw order.",
+    "Upgrade query names the BYTE flags; desired argument remains a full DWORD and only AL is a return contract."
+  ],
+  "verification": {
+    "script": "direct_c/verify_advice_temple.py",
+    "cases": 448,
+    "chief_advice": 298,
+    "temple_preview": 108,
+    "upgrade_query": 42,
+    "actual_helpers": [
+      "44BAF0 trade iterator",
+      "4C52D0 temple query",
+      "475B50 root-chain lookup (48 preview compositions)"
+    ],
+    "controlled_boundaries": [
+      "4F0BA0 projection",
+      "53E590/53F250/53F4F0 sprites",
+      "4CF090/536820/4D6160/4D6250/425730 raster/text",
+      "44D4C0 trade availability",
+      "447530 workforce query",
+      "446610 city query",
+      "4BD590 flood quality"
+    ],
+    "diagnostic": "restore_link_check.exe no arguments passed",
+    "before_fix": "DWORD category256: original makes zero draw calls, old C truncates to0 and makes five draw calls.",
+    "live_gameplay": "Not run; rendered pixels, fonts and full gameplay are outside this focused check."
+  },
+  "contracts": [
+    "Percentage divisions retain native defined-state requirements; no invented divide-by-zero clamp.",
+    "Function-address aliases remain available beside descriptive C names."
+  ],
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Release Win32",
+    "sha256": "f4981e302027ea7ab64db8b85e25dc2d8cd9387ad04740d31ff31f498e9c3773",
+    "bytes": 7629824
+  },
+  "publication": {
+    "branch": "main",
+    "tag_created": false,
+    "release_created": false,
+    "actions_runs_after_push": 0
+  },
+  "source_commit": "d3c55dc7b903f37389986ef862051787ef782bb4",
+  "next_review": {
+    "entries": [
+      "004c47a0",
+      "0046a400"
+    ],
+    "scope": "Review legacy public entries against existing typed canonical C providers. God-effect message scratch has only WORDs0,1,8 initialized natively; preserve unspecified remaining bytes instead of inventing values. Check allocator entry contracts and alias callers before rerouting."
+  }
+}

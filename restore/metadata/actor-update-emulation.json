@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "11e1c807c32f2c9c46db88001346f83b2e1359bc74eb3b17ad7ee1fc0dfaf7df",
+  "method": "Complete 00489b70 original controller versus C. Full actor/profile memory and guards, all 110 native table entries, endpoint order/arguments/intermediate state, callback mutation/reloads and stack/saved registers compared.",
+  "limitations": [
+    "Profiling/timer functions, actor callbacks and deletion endpoint are controlled. This does not prove any of those deep algorithms or imply that all 102 distinct callback bodies are implemented.",
+    "Valid players 0/1, actor IDs 0..1999 and type values 0..109. Invalid native links/table indices are excluded."
+  ],
+  "checked": 622,
+  "passed": true,
+  "source_hashes": {
+    "include/actor_update.h": "c91633881f00d565375e0881a0dbd618c4d0d372099e8c87cc7327c3461e03cd",
+    "src/unit_01307.c": "e494946dc286f764c61b96bf184ad98ffd480742058d71db5ab40eb1c17cda70",
+    "tests/actor_update.c": "9c3d5af96624aa7d75cffc5b3b6db71fdb56cb7e61483ab4525ea357a9074f49",
+    "tools/verify_actor_update_emulation.py": "1d2a56a3024745547b8392f3024fe1cbb2fb5c53791598a82043eacf313e5f06",
+    "metadata/actor-update-native.json": "800fd1d482502cb75a2320b2d119b4bb3d32db8fbf0c4be39bfbdb2a8b42af83",
+    "metadata/actor-callback-table-native.json": "ed28f853f430aa39744d98c5ffc180f3054c13f8d39d6b02a8c8aa489b3732cf"
+  },
+  "observed_native_branches": [
+    "bad-backlink",
+    "callback",
+    "countdown",
+    "dead-partner",
+    "delete",
+    "timer-start"
+  ]
+}

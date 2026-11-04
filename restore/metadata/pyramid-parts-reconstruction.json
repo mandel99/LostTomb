@@ -1,0 +1,140 @@
+{
+  "status": "seven whole functions reconstructed as typed, named C; focused offline checks passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "004edf50",
+      "file": "src/unit_02091.c",
+      "name": "restore_pyramid_update_piece_image",
+      "evidence_id": "ev_1b8bd34a83efe908001a1935da1b331cba2d23dcb8ea874a9716583678631b41",
+      "instructions": 367,
+      "native_bytes": 1358,
+      "native_body_sha256": "765dbd306a765b77d3c94e8bb19f68bde230e5e483ca953707e18d5bae136801",
+      "source_sha256": "8613babf2d80a25545c0b6ffd7c5695460b033bdb0700e2712c4a97af683549b"
+    },
+    {
+      "entry": "004ee6c0",
+      "file": "src/unit_02096.c",
+      "name": "restore_pyramid_stamp_footprint",
+      "evidence_id": "ev_1ba41a961fd977dd7bfad79f2dc588c8ad9b50633dd41d8fee9edc8c9c1c3b29",
+      "instructions": 62,
+      "native_bytes": 191,
+      "native_body_sha256": "a779f3e4b7a0f826b81fedc811deb67d26c259788d743c80ff1cb33a97afd15d",
+      "source_sha256": "080ddda5703f444b4850b22422b1d4bb73543fdef6a9219bc0373f4ed4e8459c"
+    },
+    {
+      "entry": "004ee780",
+      "file": "src/unit_02097.c",
+      "name": "restore_pyramid_create_parts",
+      "evidence_id": "ev_de2b3486ec9537bcfc0675aa5a62f315d78b572872b68f210247bcc523fe9e51",
+      "instructions": 156,
+      "native_bytes": 633,
+      "native_body_sha256": "93df169497ec2c01a699ca0bc4e1d9cb586cf9c9b5381d36be9f9da019ae3795",
+      "source_sha256": "b39771e85e1576c8b26854650f31af6dade1a700899e87743099f1ed8a1a1646"
+    },
+    {
+      "entry": "004ee4a0",
+      "file": "src/unit_02092.c",
+      "name": "restore_pyramid_refresh_all_parts",
+      "evidence_id": "ev_a309bd6d63037d1a42733f502abb06a2d4d4e30e36ebd6d0e3cfa80ba8c38d5c",
+      "instructions": 66,
+      "native_bytes": 178,
+      "native_body_sha256": "12957fc879b0e6519d7658964a958737f543b2c0292c87c02881b7e0cdd6c0d7",
+      "source_sha256": "a18db900dd754fa51347207213359971894f69b681b0c4fd752e9b8a9daa59d4"
+    },
+    {
+      "entry": "004f4160",
+      "file": "src/unit_02146.c",
+      "name": "restore_pyramid_update_finished_piece",
+      "evidence_id": "ev_3855db9d5f5664a7e0698a2438ee66fa61fab5fc4052b4dfe0b3461f15cbcdc1",
+      "instructions": 138,
+      "native_bytes": 404,
+      "native_body_sha256": "026d0c98e08788aa6958a698f6a6681cc57b5ee4d99f515f7f2f6bab675f372b",
+      "source_sha256": "fc54a1518970aec18beaf4da0eb6728b48c8c798aa6af6bafb3f2832ce0f7237"
+    },
+    {
+      "entry": "004f3c90",
+      "file": "src/unit_02143.c",
+      "name": "restore_pyramid_mark_special_parts",
+      "evidence_id": "ev_32e12f4991aec5b0dfa981279782a2b3d49c373efc61807d10a9d7df5492d3c7",
+      "instructions": 81,
+      "native_bytes": 220,
+      "native_body_sha256": "633cf697d5b7a8626d7b28aaee502a64bff56cff1180159012d0025b38d38599",
+      "source_sha256": "9ffb7a6d5bdc4655dafe230244c1f9a12727e74385e5383fca8868882f0e12fb"
+    },
+    {
+      "entry": "004f5f10",
+      "file": "src/unit_02176.c",
+      "name": "restore_pyramid_create_entrance",
+      "evidence_id": "ev_f9fee69ee2b837e8801da66ce73564f01c8251633a5c74122943733dad309769",
+      "instructions": 78,
+      "native_bytes": 235,
+      "native_body_sha256": "ad4981077f150bcdc681d8b409edb90f7d148ea83d1200e860a6555702bc0b82",
+      "source_sha256": "6a98296b4891c05e08d650fdc4ca5507c38227c6ff1676459ba64186a22fb5f5"
+    }
+  ],
+  "native_bytes": 3219,
+  "native_instructions": 948,
+  "corrections": [
+    "BYTE geometry/state/worker fields, WORD links and ownership, DWORD tables/coordinates/image ids.",
+    "Single byte scaling for both 36-record and 144-record template families.",
+    "Refresh caller now passes building, rotation and layout kind instead of an incomplete two-argument call.",
+    "Preserve cached root layout/rotation and dynamic post-callback bounds, mode, owner and descriptor reloads.",
+    "Signed DWORD worker-coordinate halving and four independent phase-mask cell updates.",
+    "Complete linked part creation and associated kind215 entrance creation."
+  ],
+  "known_contracts": [
+    "4EE780 argument4 is unused in the native routine.",
+    "4F4160 argument2 is unused; its final sprite branch reads global map orientation.",
+    "Public C names retain address aliases. Existing register-frame instruction-C graphs are unchanged and retain their native scratch-register/stack behavior."
+  ],
+  "verification": {
+    "script": "direct_c/verify_pyramid_parts.py",
+    "cases": 368,
+    "footprint": 50,
+    "images_and_workers": 190,
+    "finished_parts": 45,
+    "refresh_and_special_parts": 32,
+    "full_seven_function_compositions": 35,
+    "entrance": 16,
+    "controlled_boundaries": [
+      "46A400 allocation",
+      "485100 record update",
+      "4F4F80 slot query",
+      "470990 kind215 model placement",
+      "47BF50 tile commit",
+      "4F3F70 cell update",
+      "4ECEA0 brush predicate",
+      "4ED360 brush update"
+    ],
+    "diagnostic": "restore_link_check.exe without arguments passed",
+    "before_fix": "Old C 4EE6C0 wrote scratch305419842 and left ownership0 where native writes scratch21610 and ownership400.",
+    "fixture_limit": "Synthetic switch from normal kind4 to family5 is invalid in the original: family5 has only kinds0..2. Cross-family reload cases keep a valid kind2 root.",
+    "live_gameplay": "Not run; no physical rendering or complete-game fidelity claim."
+  },
+  "pending_semantics": [
+    "WORD building offset0x64 is reset here; its wider gameplay meaning is not claimed."
+  ],
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Release Win32",
+    "sha256": "f61b242e10464bcf460a8ffa9dce3fdbc7def596dc39c4bf1576cd52d18fe841",
+    "bytes": 7630336
+  },
+  "publication": {
+    "branch": "main",
+    "tag_created": false,
+    "release_created": false,
+    "actions_runs_after_push": 0
+  },
+  "source_commit": "e2fa13f1f88addf5a6f4820e12fa7fd189b73b09",
+  "next_review": {
+    "entries": [
+      "00538050",
+      "004c2f50",
+      "004c47a0",
+      "0046a400"
+    ],
+    "scope": "Review native widths and compare linked legacy public entries with existing canonical C providers before replacing them. Candidate patterns are not proof of defects."
+  }
+}

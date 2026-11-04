@@ -1,0 +1,37 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "ff4ea67d589ce23d750c3c67a216e4e30fad260819d1fc70096866b184443186",
+  "method": "Complete original city conversion, town-link migration and actual type predicate, walker reconstruction with actual building classification, all ten history objects with native 820-byte by-value import and pointer export, native resize/free/index normalization, and six post-load defaults. Only allocator/free endpoints controlled. Full watched-region SHA256 including guards, complete allocated-buffer hashes, events, returns and native stack/register ABI compared.",
+  "safety_differences": [
+    "C aborts on failed history allocation or negative capacity normalization, instead of reproducing native invalid writes/infinite loops. Tests use valid capacities and distinct snapshot/object storage."
+  ],
+  "limitations": [
+    "These are bounded helper contracts and data conversions. Complete file loading and live builtin mission preview need separate integration."
+  ],
+  "passed": true,
+  "checked": 1566,
+  "source_hashes": {
+    "include/mission_compat.h": "383d3e2f59bb6419602d52dadf00277a7872a24fe48c1d9ac050d1fb9b2c9ef4",
+    "include/town_menu.h": "9f6c7f2de3562abe8e02a0e1d3b5744a55c0a29b4af31f47cc98c59352db8573",
+    "tests/legacy_mission.c": "b8ae820815c57932e2632287d554b7a89214cb28685015e3027e0865beea0954",
+    "tools/verify_legacy_mission_emulation.py": "855d9810d4b1297db73d5f07fb1897876826311e64cc906e6b58176bb3f377ec",
+    "metadata/legacy-mission-native.json": "bf1bdeaabb9bf6a1aa986bc6dd578ebf59dab492ca140ce065fee087e4326e2c",
+    "src/unit_00695.c": "ea973dadb171dc17e62640e158d113c8c1e5d1d48d7d4665f2f47cdc4ca69006",
+    "src/unit_00732.c": "a04fbe94c581391c2a2fcf64aef5d992d0f198231062556fc53bb8ab478fb0ad",
+    "src/unit_01602.c": "b7ff5d1ef0228715dfab70e57ada87f687eabcd0de55205c70855f212ab1230d",
+    "src/unit_01792.c": "b9c5b28215657f2da9899010b5d656417b270b0302ba07535d55b0efc7c53a49",
+    "src/unit_01800.c": "4f9523c39987806dfa9dc761528d0625dfff778aedbf86f2a28638a949a334aa",
+    "src/unit_01801.c": "4d88c06642162d8ded22bed272c023b777b9d663359b60f7f8f58356c79de2be",
+    "src/unit_01807.c": "a522234a837ac3cfdedb9a13ce3d22998f53bd44b0f9b83460f51f61c1e6e5c9",
+    "src/unit_01809.c": "af19a6e75cc162cba489e5a344908e32b7fe950d98076b7c71ed680a5617b296",
+    "src/unit_01816.c": "765db70fdf3289a0ab0e4d04beca3324cc1f40f85fbf4a4c179981870a3a0ad9",
+    "src/unit_01817.c": "887bc0a18d07f769fdfd7ff9176998c18002d4da50dfaf94d1e6636ca8cd72db",
+    "src/unit_01818.c": "67fb947540dc617e8afe7dbfd759b19f0c94871d7e91bdde88e45918c7b8f18a",
+    "src/unit_01819.c": "3059e85c35f81afd332846e89fb2a7ceeb1d793b0f58457a43d4cfee981a6755",
+    "src/unit_01820.c": "da9b130d9e21c3a65f826a3534f2c0f7e9c7c03996d77ef03a4d2ed3c5eacf14",
+    "src/unit_02199.c": "0af7311ef3024f3d3c28d5006f3cf94640517dbe59abf9ce0e8cf0331db2a85f",
+    "src/unit_02200.c": "b217556863bc2888add8c97a6bb7fc945627210e6099c6ec4b970fc79fa98c40"
+  }
+}

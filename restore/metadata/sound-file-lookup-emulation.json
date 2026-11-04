@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "native_entry": "0x0055dd3f",
+  "method": "Native file table lookup/append plus native temporary-string constructor/destructor and actual case-sensitive strcmp versus compiled C; only strdup controlled",
+  "compared": [
+    "exact table/entry/string bytes",
+    "file ID and duplicate allocation count",
+    "copy ownership flag",
+    "stack cleanup, preserved registers and restored native exception chain"
+  ],
+  "limitations": [
+    "Null-input/alias/callback cases and complete sample loading are checked by the separate whole-graph sound-sample suite; this corpus compares guarded negative indices and allocation failure in the legacy table fixture.",
+    "Both normal-return object lifecycles run. Native/compiler SEH frames restore their chains; arbitrary exception delivery/unwind is not proved."
+  ],
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Debug\\restore_sound_files_verify.exe",
+  "compiled_C_sha256": "b998f77df7579a89df5a410c79a0961dea16d7c43d74875e6f0064db05683614",
+  "passed": true,
+  "checked": 5600,
+  "elapsed_seconds": 148.063,
+  "source_hashes": {
+    "CMakeLists.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "tools/sound_file_project/CMakeLists.txt": "a1016b04da11900086b709dfcab2c6e334aee44459208091bf690e4cbb1774c4",
+    "runtime/sound_file_lookup.c": "1984c3fb8362b5ce2e02c541c4d8ed8f52481328eeb2f8359bf99e105f4ef282",
+    "runtime/owned_buffer.c": "d999ceeba52fc346d0be172693e4f5cc30a50532bbd4e865e0f23e7e45904a35",
+    "include/owned_buffer.h": "0956c92bfa0b44a747d54a8e8f21191f1e0aedf606c3c5b59a63b0b3f6e21f8e",
+    "include/byte_string_compare.h": "e9f46d356af093cc20eec79ff4f128e1c6c4ad5cfefc491ed5ad52ff0865c7d8",
+    "src/unit_02725.c": "9166731c92a5c419d620699eef915210703115a6266c726a69fdd0d2ff72a9c4",
+    "src/unit_02726.c": "aae16c60506dcaef53a2480cbcb5c26c0f86ff0ceda9617e1dfb84418fbc7b16",
+    "src/unit_02848.c": "ec3f29b6906bb170e5b5c0356242708782a6338aa2475c96c64acfcadde8a7be",
+    "src/unit_02686.c": "7912eeb88d3c0ca10b132cf29a4ca1df0d36dcfb10a522691e1417a97715750b",
+    "include/sound_file_lookup.h": "1458054312e14fc007b53ed67af3c9ee6df98251f7e7147f2d5849f35ed8bcb8",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "tests/sound_file_lookup.c": "75e2c22d6d34a4ddd051d61661760405886eaaa7b1a070f191d826b99f66ba77",
+    "tools/verify_sound_file_lookup_emulation.py": "83ebb8b10ca9ae9c4df96d6b71fab3f4fb1f225b1466d3acfc893725058cac1d"
+  }
+}

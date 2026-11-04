@@ -1,72 +1,39 @@
-#include "restore_types.h"
-
-int __cdecl FUN_005631b0(char *_Str1,char *_Str2)
-
+#include "byte_string_compare.h"
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+/* Native5631B0 compares unsigned bytes and returns exactly-1/0/+1. Retain
+   aligned left-hand word loads, early NUL exits and native read widths. */
+int32_t restore_byte_string_compare(const char *left,const char *right)
 {
-  undefined2 uVar1;
-  undefined4 uVar2;
-  byte bVar3;
-  byte bVar4;
-  bool bVar5;
-  
-  if (((uint)_Str1 & 3) != 0) {
-    if (((uint)_Str1 & 1) != 0) {
-      bVar4 = *_Str1;
-      _Str1 = _Str1 + 1;
-      bVar5 = bVar4 < (byte)*_Str2;
-      if (bVar4 != *_Str2) goto LAB_005631f4;
-      _Str2 = _Str2 + 1;
-      if (bVar4 == 0) {
-        return 0;
-      }
-      if (((uint)_Str1 & 2) == 0) goto LAB_005631c0;
+    uint32_t l=(uint32_t)(uintptr_t)left,r=(uint32_t)(uintptr_t)right,value,i;
+    uint8_t a,b;
+    if(l&3u){
+        if(l&1u){
+            a=B(l);++l;b=B(r);
+            if(a!=b)return a<b?-1:1;
+            ++r;if(!a)return 0;
+            if(!(l&2u))goto aligned;
+        }
+        value=W(l);l+=2u;
+        a=(uint8_t)value;b=B(r);
+        if(a!=b)return a<b?-1:1;
+        if(!a)return 0;
+        a=(uint8_t)(value>>8);b=B(r+1u);
+        if(a!=b)return a<b?-1:1;
+        if(!a)return 0;
+        r+=2u;
     }
-    uVar1 = *(undefined2 *)_Str1;
-    _Str1 = _Str1 + 2;
-    bVar4 = (byte)uVar1;
-    bVar5 = bVar4 < (byte)*_Str2;
-    if (bVar4 != *_Str2) goto LAB_005631f4;
-    if (bVar4 == 0) {
-      return 0;
+aligned:
+    for(;;){
+        value=U(l);
+        for(i=0;i<4u;++i){
+            a=(uint8_t)(value>>(i*8u));b=B(r+i);
+            if(a!=b)return a<b?-1:1;
+            if(!a)return 0;
+        }
+        l+=4u;r+=4u;
     }
-    bVar4 = (byte)((ushort)uVar1 >> 8);
-    bVar5 = bVar4 < (byte)_Str2[1];
-    if (bVar4 != _Str2[1]) goto LAB_005631f4;
-    if (bVar4 == 0) {
-      return 0;
-    }
-    _Str2 = _Str2 + 2;
-  }
-LAB_005631c0: ;
-  while( true ) {
-    uVar2 = *(undefined4 *)_Str1;
-    bVar4 = (byte)uVar2;
-    bVar5 = bVar4 < (byte)*_Str2;
-    if (bVar4 != *_Str2) break;
-    if (bVar4 == 0) {
-      return 0;
-    }
-    bVar4 = (byte)((uint)uVar2 >> 8);
-    bVar5 = bVar4 < (byte)_Str2[1];
-    if (bVar4 != _Str2[1]) break;
-    if (bVar4 == 0) {
-      return 0;
-    }
-    bVar4 = (byte)((uint)uVar2 >> 0x10);
-    bVar5 = bVar4 < (byte)_Str2[2];
-    if (bVar4 != _Str2[2]) break;
-    bVar3 = (byte)((uint)uVar2 >> 0x18);
-    if (bVar4 == 0) {
-      return 0;
-    }
-    bVar5 = bVar3 < (byte)_Str2[3];
-    if (bVar3 != _Str2[3]) break;
-    _Str2 = _Str2 + 4;
-    _Str1 = _Str1 + 4;
-    if (bVar3 == 0) {
-      return 0;
-    }
-  }
-LAB_005631f4: ;
-  return (uint)bVar5 * -2 + 1;
 }
+int FUN_005631b0(const char *left,const char *right)
+{return restore_byte_string_compare(left,right);}

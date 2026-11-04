@@ -1,0 +1,34 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Complete pinned REA/Ghidra instructions. Port-provided names and C# city/HUD field layouts are references only.",
+  "sources": ["runtime/financial_updates.c", "include/financial_updates.h", "runtime/city_tick.c", "runtime/menu_event_actions.c", "include/menu_event_actions.h", "CMakeLists.txt"],
+  "functions": {
+    "004460b0": {"instructions": 130, "evidence": "ev_a0e954adfd7e28e38bef4393e156338ca54eb561244ffb80d37da2b5f1195b53"},
+    "0045a990": {"instructions": 34, "evidence": "ev_439895224ecbf630fd55fd88794fac483820507a79f2244f9a32fb9bea26a685"},
+    "0045a7b0": {"instructions": 62, "evidence": "ev_6742f0e3fb8ab63ea963a366cf5c04f1d45e2a2097c2a8ac6ed8e482bfc0369b"},
+    "0046e840": {"instructions": 9, "evidence": "ev_d3a611dc04f6ec51fe69ae959d6f44f57250014cbfeedb7bb31fb933478c4755"},
+    "0044ef90": {"instructions": 5, "evidence": "ev_fba18825639464c2e1e314f78e52ddca90aa8d308dd7d9936083de0da0b102f2", "scope": "Inlined complete record cancellation at the debt-controller call site; other event-model uses remain unchanged."},
+    "0044c490": {"instructions": 155, "evidence": "ev_068677eb1b39e7ddfb4b254a1ea20843add096fd5766c6988acd8a92ec93e3cd", "scope": "Existing complete event-model body reused through a new explicit receiver/two-argument/RET8 facade; not counted as a newly rewritten body."}
+  },
+  "changes": [
+    "Replace four legacy public providers with complete typed C. Preserve full DWORD owner/difficulty indices, native wrapped ledger arithmetic, cached treasury and ledger addresses around separate percentage calls, fresh subsequent owner reads, grant/warning state and exact115/116/117 message ordering.",
+    "Restore the debt controller's missing event receiver for actual scheduling and cancellation. Preserve first-flagged-invasion stopping behavior, signed WORD kind/template fields, the three WORD pre-schedule writes, cancellation BYTE/DWORD widths and final month marker.",
+    "Preserve45A7B0's provisional stores, real percentage call, post-call owner reload and final zero, including the original duplicate clears. Preserve46E840's wrapped subtraction/sign test rather than introducing a mathematical clamp over a wider integer type.",
+    "Compile financial_updates.c with W4/WX; retire legacy00658/00872/00876/00995 objects. Both Release maps have one financial_updates.obj provider per canonical entry and one scheduling facade. Shared existing cdecl event facades retain cleanup0."
+  ],
+  "verification": {
+    "script": "direct_c/verify_financial_updates.py",
+    "script_sha256": "70d2d9ada3b1949097549819ea9f480cf7bbf11b4c9f5376e2f9c5203734efce",
+    "cases": {"debt_state_receiver_order_and_callbacks": 144, "ledger_reserve_and_reputation": 157, "actual_publish_schedule_and_phase4_compositions": 12},
+    "total": 313,
+    "target_sha256": "2ba36376a9624c90b144ccbe330d4845650073acdcde66038a255b10dc5cefb9",
+    "target_coff": "6ae7e894",
+    "target_bytes": 7910400,
+    "target_code_end": "0x0049037c",
+    "diagnostic_sha256": "8cdfbcea71d45c58ae510e25440aceea2f0a5983da5c0132c7bfd4a73427d191",
+    "diagnostic_code_end": "0x0048fbcc",
+    "build_and_no_argument_link_diagnostic_exit": 0,
+    "method": "All313 comparisons execute against this final Release in offline Unicorn, comparing complete mapped game state, observed message/member calls, callback-visible pre-schedule record and provisional reserve stores, stack and nonvolatile ABI. Actual percentage, ledger/reserve/reputation, and town-list algorithms execute except explicit percentage callback fixtures. Composed cases run the actual queued message publisher with sound disabled and the existing complete scheduling/member graph, including record lookup, append/reset/copy and date publication. Native immediate451540 invasion execution is an explicitly controlled boundary on both sides. Actual city phase4 is included."
+  },
+  "limitations": "Finite defined-state comparisons, not exhaustive coverage or live-game certification. Scheduling is usually observed; composed scheduling cases retain the existing instruction-to-C model. Immediate invasion execution and active sound/UI behavior are outside the declared composition boundary. No claim is made for all callers of the legacy implicit-receiver symbols, every finance update, yearly45A5D0 or full game reconstruction."
+}

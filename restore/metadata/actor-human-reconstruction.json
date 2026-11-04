@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "status": "Complete staged handwritten immigrant/emigrant callbacks and essential timer/route repairs frozen. Accepted selector and other source/test/proof files were not modified.",
+  "original_native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_callbacks": {
+    "00489ca0": {
+      "type": 1,
+      "instructions": 407,
+      "C_entry": "restore_actor_00489ca0"
+    },
+    "0048a260": {
+      "type": 2,
+      "instructions": 313,
+      "C_entry": "restore_actor_0048a260"
+    }
+  },
+  "newly_rewritten_helpers": {
+    "004b1d50": {
+      "unit": 1416,
+      "instructions": 14
+    },
+    "004b3250": {
+      "unit": 1427,
+      "instructions": 17
+    }
+  },
+  "unchanged_composed_helper": {
+    "0047a1c0": {
+      "unit": 1097,
+      "instructions": 17
+    }
+  },
+  "native_instructions": 768,
+  "new_native_instructions": 751,
+  "native_bytes_authenticated": 2855,
+  "instruction_coverage": "768/768 with no exclusions",
+  "conditional_outcomes": "130/130 with no exclusions",
+  "checks_each": 3726,
+  "configurations": [
+    {
+      "report": "metadata/actor-human-staged-debug-full-emulation.json",
+      "sha256": "f33436b6629b32b15c69d0ce992d5e9cda5c169c47020f7c1cdb1930b70150c5",
+      "compiled_C_path": "build/agent-actor-human/out/Debug/restore_actor_human_verify.exe",
+      "compiled_C_sha256": "dba6f29d3aed002acafee2dc7d35a3e228d152c6298f632b37851dacfc5fe283"
+    },
+    {
+      "report": "metadata/actor-human-staged-release-full-emulation.json",
+      "sha256": "026b1433257145a105e67bc48adce4bd278c6517bb260b24cf8bcea232d8be4b",
+      "compiled_C_path": "build/agent-actor-human/out/Release/restore_actor_human_verify.exe",
+      "compiled_C_sha256": "372b4d7907d0a9f796f730c8f5e140a57cfcc98ace9cbae363ae4601081c8cbf"
+    }
+  ],
+  "ABI": "Both new callbacks are void(void) and read current actor DWORD D056F8. The original callback-table caller ignores EAX; callback scratch EAX/ECX/EDX are not compared. Native ESP and callee-saved EBX/EBP/ESI/EDI are verified for every case.",
+  "contracts": [
+    "388-byte actor records atBCD5F8 and264-byte building records at7999D8, with exact BYTE/WORD/DWORD fields, signed home/timer/world coordinates, BYTE frame wrap and full DWORD sprite IDs/counters.",
+    "Initial terrain classification and house pointer remain cached across external endpoints. Current-actor/player/global-heading reloads occur at native call boundaries; switched actors have distinct home/population fields in the fixtures.",
+    "Emigrant road-search failure marks deletion but still installs goals and submits approach setup. This native fallthrough is retained even though the read-only C# guidance differs.",
+    "Immigrant and emigrant animation paths differ in which branches clear actor+384 and when they reload heading; those differences are retained and exercised by callback mutations.",
+    "The14/17-instruction timer and route helpers previously multiplied388-byte actor offsets by4 through DWORD pointer arithmetic; corrected sources now use exact actor strides and BYTE deletion/WORD route ownership writes.",
+    "47A1C0 receives two stack arguments from these callbacks but its authenticated17-instruction body reads onlyx. The named adapter retains the two-coordinate caller trace and invokes unchanged one-input1097; onlyAL is consumed.",
+    "No direct RNG call exists in either callback. Seven larger movement/path/building/population algorithms remain explicit controlled deep endpoints."
+  ],
+  "production_wiring": "Add the two new runtime files to pharaoh_restored. Apply units1416/1427 (already in RESTORE_UNITS). Include actor_callbacks_human.h in the central actor registry and map489CA0/48A260 to the new void(void) entries. No startup/menu/input/fixture edits are needed by this module.",
+  "verification": "Targetrestore_actor_human_verify uses tests/actor_human.c+helpers.c+runtime/actor_callbacks_human.c with RESTORE_ACTOR_HUMAN_PRODUCTION, linking restore_data. Helpers include1416/1427/boundary/unchanged1097 with boundary renames; do not compile them separately. Run tools/verify_actor_human_emulation.py --production --exe <shared target> for metadata/actor-human-emulation.json.",
+  "integration_note": "Existing prey verifier compiles actor registry directly, so new registry symbol references require coordinator-owned link/test wiring. No production no-op callbacks are introduced.",
+  "CMake_recipe": "artifacts/actor_callbacks_human_phase/metadata/integration-cmake.txt",
+  "limitations": [
+    "Seven movement/path/building/population algorithms are named controlled deep endpoints. Their ordered selection, arguments, state effects at the callback boundary and consumed returns are proved; their full algorithms and actual city movement/graphics are not. No RNG is called directly in these callback bodies.",
+    "Valid storage uses actor IDs1..1999, buildings0..3999, byte type indices0..111, positive route IDs1..999, players0..7, and safe mapped table addresses. Explicit signed/width/wrap fixtures additionally retain native behavior without introducing success guards for invalid native reads.",
+    "Both callbacks pass x,y to47A1C0, whose full17-instruction body reads only x at stack+4. The production adapter discards y explicitly and calls the unchanged accepted one-input C leaf. Only AL is compared/consumed; the native disabled-boundary path leaves unused high EAX scratch bits unspecified.",
+    "Boundary mutations exercise required actor/player/state/direction reloads and the cached original terrain classification. They do not assert that every current deep endpoint performs those writes. Sprite IDs and state are verified; framebuffer pixels and actual actor-registry routing remain coordinator integration work."
+  ],
+  "read_only_reference": [
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/ImmigrantBehavior.cs",
+    "PharaohRewrite/src/Pharaoh.Engine/Walkers/EmigrantBehavior.cs"
+  ],
+  "reference_authority": "C# used only as address/name guidance. Native bytes/control flow determine the reconstruction; no reference project, original game process or computer UI was modified/used.",
+  "source_hashes": {
+    "artifacts/actor_callbacks_human_phase/include/actor_callbacks_human.h": "cbb897d99446726d20ef1b38e6b0440e7bf73dacddea99e6805974036d0c03f6",
+    "artifacts/actor_callbacks_human_phase/runtime/actor_callbacks_human.c": "14e32eac75ab837f7e77577f73bbf33afca24743720d423d60de2e609424dc6c",
+    "artifacts/actor_callbacks_human_phase/runtime/actor_callbacks_human_boundary.c": "30633f5ebcd5bfe54223034da71a70f24a6584159702300a26518ec9949a6dfc",
+    "artifacts/actor_callbacks_human_phase/src/unit_01416.c": "78296d0f446492e8806f9ce151a3ed403f25303c14023c7f267ede340afd4d9b",
+    "artifacts/actor_callbacks_human_phase/src/unit_01427.c": "364d8206ec5a4be2f177519dcf2082e45b6e4a25df637b4f9b6cbe780826b493",
+    "src/unit_01097.c": "5b8c240c7495e7199ece022c72e92e9e4f43f11060690e8c5f00a2594c61ba20",
+    "tests/actor_human.c": "d30df6d3a02c0e2f70fee8b8eb4648c6cb445ad541e7e75e27383c082d6bab0e",
+    "tests/actor_human_helpers.c": "058b7c2b7560891840ba93fa830fb45580db50c269e0a863d16d788c5dd299e6",
+    "tools/verify_actor_human_emulation.py": "5d3e240749e57463d69ac80aea4d12b18b5e9b460275c97c818da83637ac8994"
+  },
+  "native_exports": {
+    "metadata/actor-callback-round1-native.json": "b53eb84962a47ca41931fe92fb5837a82ce655919735e47a98022285bda1bcab",
+    "metadata/actor-callback-human-queries-native.json": "7c2200a758e346e4c7f71919187ac2a7bb1c96d40f28e76256ec83c5d9dbc39b"
+  }
+}

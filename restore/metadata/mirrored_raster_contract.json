@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": ["metadata/flat-sprite-raster-next-native.json", "metadata/upper-raster-native.json", "build/smoke-game/Pharaoh.exe"],
+  "functions": {
+    "0040fc40": {
+      "native_instructions": 64,
+      "C_contract": "void cdecl(const void *pixels)",
+      "widths": "Framebuffer pointer e92e18, pitch e38d94, X d3b5e0, Y d3b5dc, row count d3b5d4 and row gap d3b53c are fullDWORD. Width d3b5be is a signedWORD. Commands and skip lengths are unsignedBYTE; pixels are WORD.",
+      "behavior": "Call actual410f20 first even when the draw height is nonpositive. Capture doubled signed width after that helper. Compute the wrapped byte address frame+pitch*y+2*x. For each positive-height row, reload signed width and add captured2*width to the current cursor. Copy literal WORDs leftward, skip transparent runs leftward, and advance from the actual final cursor by rowgap+captured2*width.",
+      "leftward_origin": "For an exactly filled positive-width row, the first pixel is written at x+width and the last at x+1. The implementation preserves this original inclusive/right-edge convention.",
+      "literal_cutoff": "When remaining width becomes0 inside a literal, stop immediately without consuming the rest of that literal payload. The following row starts at that actual consumed source position, even when it lies inside the earlier literal's nominal payload.",
+      "transparent_overshoot": "A transparent run may make remaining width negative. Its complete byte skip is applied before ending the row; no fabricated clamp is added.",
+      "zero_width": "Zero or negative signed width consumes no source within the drawing loop. Positive row counts still execute the original row-cursor arithmetic; nonpositive height still performs the row-skip helper call.",
+      "stack_scratch": "Native40fc9c writes the skip BYTE into its own by-value input argument slot, then masks a DWORD load to8bits. This is internal scratch. Stack canaries are checked outside the argument slot; the public C interface remains void.",
+      "native_EAX": "EAX retains the final consumed source pointer. A test-only finish trace compares this full pointer while preserving the void production interface. Four retained native callers use side effects and then select their own width/color result."
+    },
+    "00410f20": {
+      "native_instructions": 32,
+      "C_contract": "char *cdecl(char *pixels)",
+      "behavior": "Read full signedDWORD row-skip count. For each positive row, reload signedWORD width and clear the full EAX scratch value. Load tags and skip lengths into only its low byte. Subtract the full scratch from remaining width. Literal advance doubles the full scratch and adds1, retaining its high24 bits for the next byte load. Transparent advance adds2 to the pointer and likewise preserves the full scratch high bits. Return the exact final source pointer.",
+      "quirk": "The native helper is not equivalent to zero-extending every RLE tag. The high bits left by a preceding long literal can affect a subsequent literal, skip or zero tag. This behavior is preserved intentionally; no asset-domain restriction is assumed."
+    }
+  },
+  "discovered_dependency_case": {
+    "failure_archive": "metadata/mirrored-raster-helper-carry-failure.json",
+    "case": "Width257, skip1, drawheight0, a literal254 followed by literal3.",
+    "native": "After literal254, EAX=509. MOVAL,3 changes it to259, so the second byte advance is519. Total consumed source is1028 bytes.",
+    "previous_C": "Zero-extended tag3 and consumed509+7=516 bytes.",
+    "repair": "The bounded staged149 repair reproduces all32 original instructions' data behavior. Additional long-literal-to-skip and long-literal-to-zero-tag cases distinguish both retained-high-bit branches.",
+    "old_suite": "Existing upper-raster2210 tests/tool and the other accepted raster sources were not edited by this agent. Coordinator owns archiving and rerunning that unchanged suite after applying149."
+  },
+  "proof": {
+    "report": "metadata/mirrored-raster-emulation.json",
+    "passed": true,
+    "checked": 1066,
+    "plain_checked": 1066,
+    "native_instruction_coverage": [64,64],
+    "helper_instruction_coverage": [32,32],
+    "controlled_algorithm_endpoints": [],
+    "memory": "Every byte of the524288-byte source,524288-byte framebuffer and full watched state/canaries participates in the SHA comparison. Native writes outside the framebuffer/stack are rejected; source memory is read-only.",
+    "ordered_pixels": "Traced C and native compare WORD write count and the ordered address/value digest, including overlapping/negative-pitch rows. Final source cursor and real helper entry/exit pointers are compared exactly.",
+    "plain_variant": "A second alias includes the actual product body after explicitly undefining RESTORE_MIRRORED_RASTER_TRACE. It is compared independently for full pixels/source/state, helper observations, stack and saved registers. The verifier also asserts that this variant emitted no trace output.",
+    "mutations": "Both helper entry and helper exit mutate full width/height/coordinates/pitch/gap/skip globals in dedicated fixtures, proving post-helper capture timing.",
+    "domains": "Literal/skip/zero commands, clipped literals and transparent overshoot, signedWORD widths including0/negative and widths above255, nonpositive/fullDWORD heights, positive/negative pitch,32-bit coordinate multiplication wrap, distinct source/frame offsets and repeated calls.",
+    "private_build": "Win32 /O2 /W4, fixed base10000, no dynamic base; optimized private smoke1/1 passed with both variants.",
+    "source_hashes": 11,
+    "source_drift_at_freeze": 0
+  },
+  "limitations": ["Fixtures use valid mapped source/frame storage. No arbitrary malformed-stream termination guarantee or entire-city pixel fidelity is claimed.", "The native ABI requires a clear direction flag. Public decoder EAX is not promoted to a production return contract; its pointer is additionally observed only through compile-time test tracing."]
+}

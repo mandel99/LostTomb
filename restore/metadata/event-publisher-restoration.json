@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "status": "frozen; complete private native proof passed; root city replay pending",
+  "changed_production_sources": [
+    "src/unit_00211.c",
+    "src/unit_01911.c",
+    "src/unit_01914.c"
+  ],
+  "frozen_message_panel_files_changed": false,
+  "loader_modified": false,
+  "root_cause": {
+    "tutorial_lookup": "00417b24 reads5794c4+index*28. Old undefined4-pointer arithmetic multiplied that stride by4. Index15 must publish message249.",
+    "publisher_records": "004e0e25/2e form message*80;004e0d6e/71 and004e0e6a/73 form event*48. Old C used wrongly scaled pointers and DWORD writes for WORD and BYTE fields.",
+    "pointer_initializer": "004cec40 reads24+1000*80 bytes intoE209A0, then the remainder into allocatedDWORD E36C74. Full87instruction native loader and unchanged C are composed in this proof. No loader defect established.",
+    "actual_failure_evidence": "metadata/city-confirm-event-publisher-failure.json and artifacts/city-confirm-event-publisher-failure.log are preserved by root; fixes require actual root replay before claiming survival."
+  },
+  "record_layout": {
+    "MM_header": 24,
+    "MM_capacity": 1000,
+    "MM_active_records": 497,
+    "MM_stride": 80,
+    "MM_payload_offset": 80024,
+    "MM_payload_size": 510103,
+    "MM_record_base": "0xe209b8",
+    "media_field": 60,
+    "media_payload_pointer": "0xe36c74",
+    "event_base": "0xe95228",
+    "event_stride": 48,
+    "tutorial_table": "0x5794c4",
+    "tutorial_stride": 28
+  },
+  "actual_asset_validation": {
+    "MM_sha256": "962bfcce8b2d82c37271d113813ccf3d1ef56d04489b786c68ab5347d8e783d7",
+    "active_records": 497,
+    "four_text_media_offsets_checked": 1988,
+    "invalid_offsets": [],
+    "tutorial15_message": 249,
+    "tutorial15_media_offset": 0,
+    "filename_for_offset0": "00"
+  },
+  "integration": {
+    "target": "restore_event_publisher_verify",
+    "sources": [
+      "tests/event_publisher.c",
+      "src/unit_00211.c",
+      "src/unit_01911.c",
+      "src/unit_01914.c",
+      "src/unit_01917.c",
+      "src/unit_01759.c",
+      "src/unit_01747.c",
+      "src/unit_01619.c"
+    ],
+    "textually_composed_readonly_source": "src/unit_01130.c",
+    "headers": [
+      "include/event_publisher.h",
+      "include/message_panel.h",
+      "include/sprite_libraries.h"
+    ],
+    "link": "restore_data",
+    "options": [
+      "/Od",
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "smoke_cwd": "restore root; reads build/debug-startup-game/Pharaoh_Text.eng and Pharaoh_MM.eng read-only",
+    "verifier": "tools/verify_event_publisher_emulation.py --exe <compiled path>",
+    "report": "metadata/event-publisher-emulation.json",
+    "new_runtime_interfaces": false,
+    "shared_dispatch_wiring": false
+  },
+  "native_zero_helper": "metadata/native-zero-helper-47d350.json authenticates33c0c3; caller unused selector stack args are traced and actual C/native zero helper bodies execute.",
+  "proof": {
+    "path": "metadata/event-publisher-emulation.json",
+    "sha256": "1be0ecbe040a0e77e84140520e0e6816a0952d19b5fc09a136d2eae030d6d55e",
+    "passed": true,
+    "checked": 1394,
+    "branch_probes": 35,
+    "native_instructions": 393,
+    "native_bytes": 1448,
+    "compiled_C_path": "build/agent-event-publisher/out/Debug/restore_event_publisher_verify.exe",
+    "compiled_C_sha256": "0d221043df81517eb12dd4f8d2f23f415f9cfa16e999c7d7331b3e04845f9e63",
+    "source_hashes": {
+      "include/event_publisher.h": "111828ff77a34574aa7b067c32f6ce003c9cefe9c31a3588a31f60651d48d01b",
+      "include/message_panel.h": "b2df19d8d105d60b55619fac4849472e47daad18bf5ee3d12ce9295a0ad8c11f",
+      "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+      "tests/event_publisher.c": "21df51454091d01079b62dd08889f8d66238fa57c467f017d2ae24e5d48f1204",
+      "tools/verify_event_publisher_emulation.py": "997e097d5bdd98933de21472ed6897dc1b1986524f254dde72ce43de859b480c",
+      "src/unit_00211.c": "e8185e5247698021b178e682cc2746b46251f021697a9ff9acc4e345cb846b6d",
+      "src/unit_01911.c": "2965ab61c7ed0867981f9c7cb4fbb9a370859c485fca98fd2c37ff52f848664e",
+      "src/unit_01914.c": "39dc292c86a7b8330f6a9aac684f6cd28cee5cffaa9a3353b1fada89a07857a1",
+      "src/unit_01917.c": "617a55fe80ac35cf1c33acddc2f23db1f81caf7a32499fd2e552de8f3e5801fa",
+      "src/unit_01759.c": "d8f20805963fb93447256173a435012f88023f2b0705cb40e36b1e0af83578e9",
+      "src/unit_01747.c": "49c2af5a0f0d9061b019ab63d8a545e9f1ef2fe514c3f6425097dd5538bb7f37",
+      "src/unit_01619.c": "02bc18302e67ec23c784bb86113a1b8a37e1be92096ad27c8c38faf382bfc053",
+      "src/unit_01130.c": "c80c09e0e8ac43653f4f98ce615bd25b1c91e3c2ac3c1cc957ad9f9aa404a5a9"
+    },
+    "native_exports": {
+      "metadata/event-publisher-native.json": "58aed5268c05e80618447c20b26dd2f627c1721fd7010bc4ee2e69a30539c81c",
+      "metadata/event-publisher-support-native.json": "2c2e203083feec6c744c9dddadcdbc5512c366f642f9c0b0bd9e9e98023c455e",
+      "metadata/message-panel-support-native.json": "4dc92876bd1b4d527e0c344dddad5094bc871d0018450a02f025b865e9aabae9",
+      "metadata/native-zero-helper-47d350.json": "16fead5a3f8d19acc655dbbcfbbd1dc10d2589e041162c8bbc2f91767f3c8471"
+    }
+  }
+}

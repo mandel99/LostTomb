@@ -1,0 +1,223 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "compiled_C_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+  "replayed_counterexamples": 8,
+  "cases": [
+    {
+      "inputs": {
+        "fail_heap": 1
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "fail_heap": 2
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          0,
+          0,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "fail_heap": 3
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          0,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "fail_heap": 4
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          0
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "fail_handle": 1
+      },
+      "original": {
+        "result": 1,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          839151616
+        ]
+      },
+      "current_C": {
+        "result": 1,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          839151616
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "fail_handle": 2
+      },
+      "original": {
+        "result": 1,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          839151616
+        ]
+      },
+      "current_C": {
+        "result": 1,
+        "count": 3,
+        "arrays": [
+          839127040,
+          839135232,
+          839143424,
+          839151616
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "requested": 536870912,
+        "fail_heap": 1
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "inputs": {
+        "requested": 1073741824,
+        "fail_heap": 1
+      },
+      "original": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "current_C": {
+        "result": 0,
+        "count": 3,
+        "arrays": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  ],
+  "source_hashes": {
+    "direct_c/verify_sound_allocation_regressions.py": "a2b26915dd22c0643d1f43c82733e9eeebbced9b062baac65fb699382a334731",
+    "direct_c/verify_sound_allocation.py": "28028ec10f686e5a1a3592c8605e78df04c8d565240ef90526666e01d931a326",
+    "direct_c/verify_sound_stopping.py": "a250317f50352ecf71a063feb98f8c4f8296b2457bf350871fa18e7381ceb055",
+    "direct_c/verify_sound_playback.py": "a6522e08fb01957ce84a71443cfdc29f9d3c44d838585e5f93b410ff5d40d9a0",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/sound-allocation-before-counterexamples.json": "456bc4971fdf40b86fee8fb973beadcb21c5bad7b7081920339766ae25683e0f"
+  },
+  "limitations": [
+    "All eight historical requested/failure settings replay with initial sample_count3 and empty array fields. The current shared oracle compares actual original and current C full memory, ordered stores/calls, EAX and ABI.",
+    "The mapped test allocator uses its own guard-page addresses; historical physical pointer addresses are not compared across fixtures. Physical allocator/audio behavior remains outside the test."
+  ]
+}

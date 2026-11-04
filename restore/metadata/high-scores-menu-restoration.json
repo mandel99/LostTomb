@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "handwritten_C_complete_for_rankings_controller": true,
+  "shared_menu_integration_claimed": false,
+  "native_cases": 2816,
+  "selected_probes": 30,
+  "all_selected_probes_reached": true,
+  "actual_missing_full_partial_file_smoke": {
+    "passed": true,
+    "exit_code": 0,
+    "output": "High scores: actual missing/full/partial file reads, score rows, scrolling, drag and back input.",
+    "fixture_directory": "build/agent-menu/out/Debug/high-scores-fixtures",
+    "fixture_removed": true
+  },
+  "native_reference_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "procedures": {
+    "004c5400": "Both up/down small-button callbacks, complete action/total/scroll/dirty guards.",
+    "004c5450": "Complete thumb placement and full-width sprite base.",
+    "004c54c0": "Complete empty/nonempty and sparse 20-row scan, exact field widths, family/difficulty/score output, consumed text width.",
+    "004c5660": "Native panel/header/row/thumb/footer painter order.",
+    "004c57d0": "Complete inclusive drag hit rectangle, percentage rounding, clamp and consumed return.",
+    "004c5880": "Explicit ECX destination, 7600-byte fread, close, Boolean read result. Global facade justified by both native callers.",
+    "004c5920": "Complete failure/success and signed mission-count scan; preserves existing scroll.",
+    "004dd764..004dd7b3": "Complete mode83 back/drag/small-button input branch; enclosing dispatcher prelude is retained by coordinator."
+  },
+  "REA_evidence": {
+    "path": "metadata/high-scores-rea-function.json",
+    "sha256": "a90b268419dca9df9bfc9deb5fa051ab6deaa40899decf4b6b5d093a6eaade7c"
+  },
+  "REA_snapshot": {
+    "path": "metadata/high-scores-rea-snapshot.json",
+    "sha256": "c22b5af88eee89a058cb15af203fc4e23bad41549936dc4ae29b7da328984941"
+  },
+  "REA_evidence_id": "ev_9d38ae0476a04e40d0d7198a3a2b5283b911b7c93def034c671438a84fc64fc5",
+  "native_exports": {
+    "metadata/high-scores-native.json": "43b98dfab117dc0347b8fa56d7bb4a451e8c87bc5a7279a514d877b42da62c8c",
+    "metadata/high-scores-input-native.json": "d50c0934b1e09a279dcabd70e16380bb744efa78d152175e73e31fd3ef255ba9",
+    "metadata/high-scores-scroll-native.json": "ffdae9c11578e18cfc8015447e0a112c715b1d736c70d2e35135eaef16a87c2c"
+  },
+  "fixture": {
+    "path": "metadata/high-scores-fixture.json",
+    "sha256": "e9f24cd82d84727029ac38061af454d35e86682f9dacb46e63563a2885bc02ba"
+  },
+  "source_hashes": {
+    "include/high_scores_menu.h": "55b5d301e702066a6e74bec7df724bd56a01e89ee7c4ca338860f55417348f39",
+    "runtime/high_scores_menu.c": "28548746a4c4d365cf8ef91a4bfc79f632cbb9fc1defe684d5650553815864a2",
+    "runtime/menu_actions.c": "62908a78519c3516fe18292c26e17d869c3645c948764f61e63d286ffa607b42",
+    "src/unit_01610.c": "3f566aeb9d29b8b50e756c50f8699d9dfecf3977e7d6e9318a8fef9f29f0322c",
+    "src/unit_01611.c": "aa2fb8aeef654678b0949002c7bf348d50a75d78ee79b79d5f1164aa608998c6",
+    "src/unit_01612.c": "2c0efb79d1f4ca582b6ff5208d1961612e934c60100c3c5e3cd18fd66ac89ca8",
+    "src/unit_01613.c": "12f29f299d5fc1b129413eebcb393bfb2b018edc6285b00fa04090b522fd9267",
+    "src/unit_01614.c": "27814daff9bc1abff0e5187c545da00539619d3f50539d86721dcf19efc0729b",
+    "src/unit_01616.c": "b3179fb04b419c7fd09706d3824675f9e6b26a1109e9c909c667ef249d237526",
+    "src/unit_01730.c": "5d831aed45a0c5948f2ea8b80332ca6fa392e6b67b3250cda455d328e6b70f4d",
+    "src/unit_01731.c": "4e40648404bf3ce4b39357144a55d7a755e2b993aed9a0e11676270c6e068899",
+    "tests/high_scores_menu.c": "9f4fcfb09d1215979f31eaeb671d71442a54a80bc425369dc6b14452d9d32947",
+    "tools/verify_high_scores_menu_emulation.py": "1922f2fd07d97b04ab4ec6726c389df3c25e580d84b547523350bc5209d9a259"
+  },
+  "limitations": [
+    "Draw/text/small-button and legacy CRT IO endpoints are controlled in differential cases; final pixels and actual small-button callback execution are integration checks. Separate C smoke performs real missing/full/partial highscore.jas reads in the private build fixture directory.",
+    "Renderer mission/record scans use their native signed count and sparse-row behavior. Normal fixtures remain within the 100-record capacity; six controlled address-wrap fixtures additionally prove the native null mission-address guard against a valid alternate record.",
+    "004c5880 returns a Boolean in AL; unused upper EAX bits are not a public contract. Both native callers set ECX to 00d38708; the explicit reader is additionally compared at an alternate destination."
+  ],
+  "coordinator_wiring": [
+    "Add runtime/high_scores_menu.c to pharaoh_restored.",
+    "Route callback004c5400 through restore_menu_callback.",
+    "Call void restore_high_scores_input(void) only inside mode83 branch of004d8310; preserve shared dispatcher prelude.",
+    "Register restore_high_scores_menu_verify with tests/high_scores_menu.c, runtime/high_scores_menu.c, runtime/menu_actions.c, units01610/01611/01612/01613/01614/01616/01730/01731; include include, link restore_data, use fixed low image base.",
+    "Replay verifier --exe against shared compiled target; all source hashes should remain identical.",
+    "Use deterministic25-row fixture for final C framebuffer, down/drag/back integration; restore copied asset afterwards."
+  ]
+}

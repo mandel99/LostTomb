@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-27",
+  "platform": "Windows x86",
+  "configuration": "Release",
+  "build": "passed",
+  "tests_passed": 6,
+  "hybrid_executable": "artifacts\\memory-batch\\Release\\PharaohRestore.exe",
+  "executable_sha256": "9753ec3bac41795f817788bc90a432ac6ff8e816b4858f4e7521721efa39b6e5",
+  "runtime_dll_sha256": "96aec62fd34fac20d4acc6ce3144635eea58c71ab2ea17d2e4e1422856228594",
+  "standalone_c_reconstruction": false,
+  "original_code_fallback": true,
+  "active_c_replacements": 13,
+  "compiled_c_procedure_bodies": 4402,
+  "independent_original_checks": 500105,
+  "existing_mapped_abi_checks": 192,
+  "geometry_memory_return_comparisons": 150000,
+  "geometry_cases_per_routine_per_phase": 25000,
+  "geometry_phases": [
+    "C adapters before patch",
+    "patched game entries"
+  ],
+  "new_addresses": [
+    "0x00562240",
+    "0x005631b0",
+    "0x00563240",
+    "0x00563380"
+  ],
+  "geometry_evidence": "metadata/geometry-evidence.json",
+  "runtime_bindings": "metadata/runtime-bindings.json",
+  "hook_guard": "Changed final prologue refuses all hooks before writing any; restored image accepts all thirteen.",
+  "previous_visual_session": {
+    "active_c_replacements": 6,
+    "visual_verification": "Campaign city reached and rendered using isolated settings and Save directory.",
+    "exit_code": 0,
+    "call_counts": "0041ba00=358 0041bad0=0 00451bc0=0 0045b490=0 0045bb30=0 004e5120=1335"
+  },
+  "latest_batch_visual_session": "Thirteen-hook build reached and rendered a campaign city in the isolated installation; game left running.",
+  "latest_build_log": "build/memory-batch-build.log",
+  "remaining_work": [
+    "Migrate further native routines in independently verified batches.",
+    "Restore full C startup, exception/CRT state, data initialization and imports before removing native fallback."
+  ],
+  "memory_string_comparisons": 201546,
+  "memory_string_randomized_comparisons": 200000,
+  "protected_page_comparisons": 1546,
+  "memory_string_evidence": "metadata/memory-strings-evidence.json",
+  "visual_artifact": "build\\memory-batch-city.jpg",
+  "observed_runtime_entry_counts": {
+    "0041ba00": 0,
+    "0041bad0": 0,
+    "00451bc0": 0,
+    "0045b490": 0,
+    "0045bb30": 0,
+    "004e5120": 1335,
+    "004e5140": 1335,
+    "004e5190": 0,
+    "004e52b0": 8,
+    "00562240": 0,
+    "005631b0": 35272,
+    "00563240": 2,
+    "00563380": 247
+  },
+  "visual_artifact_sha256": "7bb09f5d382e886b92d84afcfe324ebed18dc56835e8ea31ed58b54a48298493"
+}

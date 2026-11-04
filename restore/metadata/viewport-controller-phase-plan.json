@@ -1,0 +1,120 @@
+{
+  "phase": "viewport-controller",
+  "state": "analysis only; production implementation awaits coordinator release",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_source": "metadata/city-ui-next-native.json",
+  "ownership_after_release": [
+    "src/unit_00468.c",
+    "src/unit_01878.c",
+    "new include/viewport_controller.h",
+    "new tests/viewport_controller.c",
+    "new tools/verify_viewport_controller_emulation.py",
+    "new tools/viewport_controller_project/CMakeLists.txt",
+    "new metadata/viewport-controller-emulation.json"
+  ],
+  "production_current_hashes": {
+    "src/unit_00468.c": "295530d4b7c0ccdc802bd1c5fb4e4d71b93f40fbae77e3209192a89799f4e39b",
+    "src/unit_01878.c": "08233ef94ec8992ed81fa975d59337ff53fc254ea7ee03712150f771a0d07935"
+  },
+  "staged_files": [
+    "artifacts/viewport-controller-unit_00468.staged.c",
+    "artifacts/viewport-controller-unit_01878.staged.c",
+    "artifacts/viewport-controller-header.staged.h",
+    "artifacts/viewport-controller-phase.staged.patch"
+  ],
+  "native_function_counts": {
+    "00430d30": 67,
+    "004dddc0": 9
+  },
+  "contracts": {
+    "00430d30": "cdecl(void(uint32 camera_x,uint32 camera_y,uint32 camera_mode)), caller removes12 argument bytes; no meaningful C return value",
+    "004dddc0": "cdecl(void(void)); reads full dwords bca2d8,bca2c0,bca2bc in native order, then calls430d30(x,y,z)",
+    "widths": "All camera,clip,clock,last-clock,animation-flag,overlay,counter,screen and facade fields are DWORD; only6de515 is BYTE",
+    "clock": "delta=(now-last) modulo2^32; update last and flag iff signed delta<0 or signed delta>60, equivalently unsigned delta>60",
+    "branch": "Capture mode and conditional byte once before deep calls. Mode51 skips6de515 entirely. Lower calls cannot change chosen sequence.",
+    "tail": "After43e300 reload775610 and decrement iff nonzero with32bitwrap; then reloade38db0/e38dac before four clip reset writes."
+  },
+  "call_paths": {
+    "mode0_flag0": [
+      "430ef0()",
+      "436b60(0)",
+      "51f780()",
+      "43b630()",
+      "439740(0)",
+      "43e300()"
+    ],
+    "mode51_or_flag_nonzero": [
+      "4316f0()",
+      "436b60(0)",
+      "51f780()",
+      "43b630()",
+      "439740(0)",
+      "43e300()"
+    ],
+    "mode_other_flag0": [
+      "4316f0()",
+      "51f780()",
+      "439f10()",
+      "43b630()",
+      "439740(9999)",
+      "43e300()"
+    ]
+  },
+  "dependencies": [
+    {
+      "address": "00430ef0",
+      "source": "src/unit_00470.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "004316f0",
+      "source": "src/unit_00472.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "00436b60",
+      "source": "src/unit_00547.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "00439f10",
+      "source": "src/unit_00564.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "0043b630",
+      "source": "src/unit_00565.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "00439740",
+      "source": "src/unit_00562.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "0043e300",
+      "source": "src/unit_00574.c",
+      "test_scope": "controlled endpoint; preserve exact order, arity, fixed-memory state and declared mutations"
+    },
+    {
+      "address": "0051f780",
+      "source": "src/unit_02351.c",
+      "test_scope": "confirmed real single RET0xc3 in metadata/actor-empty-callback-native.json; legitimate no-op, no missing implementation"
+    }
+  ],
+  "verification_plan": [
+    "Dedicated build/agent-viewport-controller, never shared main builds. Both trace and plain C; same fixed data-only restore_data owner, Win32 fixed base0x10000.",
+    "Authenticate every original instruction byte against pinned PE; execute original instructions only in Unicorn. Native coverage target76/76 instructions.",
+    "Compare exact ordered fixed-memory read/write trace, callback sequence, callback dword args/state, complete fixture bytes with neighboring guards, cdecl stack and saved registers.",
+    "Mode matrix0,51,other including high-byte values0x100,0x1000000,0x80000000,0xffffffff; flag all256 byte values and guards preventing mode51 byte reads.",
+    "Clock cross products around0,59,60,61,255,256,65535,65536,0x7fffffff,0x80000000,0xffffffff; wrap deltas including0,60,61,-1,INT_MIN,INT_MAX.",
+    "Counters0,1,255,256,65535,0x7fffffff,0x80000000,0xffffffff; cameras/clip/screen/facade full32-bit values and neighboring byte canaries.",
+    "Mutate modes/flag/camera/clock/clip/screen/counter and facade inputs at every callback. Chosen call path remains fixed; counter/screen tail reloads consume final callback values.",
+    "Facade test executes actual controller rather than treating430d30 as a controlled endpoint; compare right-to-left fullDWORD reads and ordered three args.",
+    "All lower drawing algorithms except legitimate singleRET remain explicitly bounded controlled endpoints; controller proof alone cannot establish correct city pixels or completed gameplay."
+  ],
+  "risk": "Lower city drawing procedures still contain byte/truncated grid declarations. Correcting these two controllers is necessary but cannot alone establish a visually correct city frame.",
+  "existing_files_edited": false,
+  "C_builds_run": false,
+  "original_process_run": false
+}

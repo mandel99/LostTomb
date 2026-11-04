@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "f68d01fdeeae3e6d48a000614da7532a00d39f7e7409de1dde1ea12a813f6580",
+  "compiled_C_variants_sha256": {
+    "restore_actor_predicate_verify.exe": "f68d01fdeeae3e6d48a000614da7532a00d39f7e7409de1dde1ea12a813f6580",
+    "restore_actor_predicate_plain_verify.exe": "027900c37ae4947c93218eff4bd091d6f785e2b4b6d9a826370c6eea49c1fec8"
+  },
+  "checked": 26284,
+  "method": "Authenticated complete 436-instruction native predicate and real 21/14-instruction helpers in Unicorn against traced and uninstrumented handwritten C; all table cases, unsigned type/subtype/status bytes, ordered predicate reads and endpoint arguments/state, complete fixture bytes+guards, controlled helper mutations, native full EAX domain, C/native cdecl stack and all callee-saved registers.",
+  "limitations": [
+    "Finite fixtures use mapped actor/building/profile addresses and guarded records; arbitrary invalid addresses retain native fault behavior rather than being treated as valid input.",
+    "Both real helper algorithms execute in C and Unicorn. Additional controlled helpers deliberately return adversarial categories/AL and mutate declared fixture fields to expose predicate capture/reload semantics; those callback behaviors are tests rather than claims about real pure helpers.",
+    "Existing C byte return interface is preserved. Native predicate full EAX is independently checked as0/1; C Boolean callers consume AL. Raw C EAX is recorded and its domain reported, because C does not guarantee upper return bits for uint8.",
+    "No original executable process, original .text fallback, UI or original installation access. This bounded proof establishes this predicate and its two helpers, not a completed city frame or the100 other actor callbacks."
+  ],
+  "passed": true,
+  "elapsed_seconds": 35.83,
+  "predicate_instruction_coverage": [
+    436,
+    436
+  ],
+  "helper_instruction_coverage": [
+    35,
+    35
+  ],
+  "native_predicate_full_EAX_domain": [
+    0,
+    1
+  ],
+  "compiled_C_raw_EAX_domain": [
+    0,
+    1,
+    256,
+    257,
+    4097,
+    32768,
+    65280,
+    99584,
+    99585,
+    775424,
+    775425,
+    16777216,
+    4294966784,
+    4294966785,
+    4294967040
+  ],
+  "source_hashes": {
+    "src/unit_00560.c": "8855286db863c349e9ae8a1de3005a07a37fa2afb32c13a4d62df9b03e87bd47",
+    "src/unit_01602.c": "b7ff5d1ef0228715dfab70e57ada87f687eabcd0de55205c70855f212ab1230d",
+    "src/unit_01606.c": "327286a03ce0522fe27303753132a1df5b90c6cca60c10eaf078dee82542ebb0",
+    "include/actor_predicate.h": "0406bc7672e04b1c68f69c712a669dcd316d97727289b5327bb40df52674443d",
+    "tests/actor_predicate.c": "e115a8e2477cd59303eebd9b5c84a9eed216b125007e1f5ed9c352af576e493d",
+    "tests/actor_predicate_helpers.c": "e83212081342060161fd80abe8200106e344bee59e60f13ac0f09039c3d58b69",
+    "tools/verify_actor_predicate_emulation.py": "aab5803120006404b4bcf395a8924512eedba776ff1abf7d46b42d8a77f251b8",
+    "tools/actor_predicate_project/CMakeLists.txt": "19de851f9a525debfc4c48654e692515ccc75d73a781605850b1efcc852ae77b",
+    "metadata/minimap-helpers-native.json": "81fb07dfefed4779fc41408171221b21dd20f92901e15fc82dc2ef208d3f73b9",
+    "metadata/actor_predicate_helpers_native.json": "0b672a32e8169a7b72ab94b16856ccb3ea9fbfd18568811f56ae330ede74483f"
+  }
+}

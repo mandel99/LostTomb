@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "production": true,
+  "checked": 186,
+  "comparisons": 744,
+  "full_corpus_cases": 186,
+  "coverage": {
+    "00442ef0": [
+      44,
+      48
+    ],
+    "00442f80": [
+      48,
+      48
+    ]
+  },
+  "maximum_native_count": {
+    "00442ef0": 200,
+    "00442f80": 200
+  },
+  "certified_unreachable": [
+    "00442f24",
+    "00442f29",
+    "00442f2c",
+    "00442f35"
+  ],
+  "unreachable_reason": "442EF0 initializes EDX=0 and increments at most once for each of exactly200 records; signed-negative branch cannot occur from its entry. C retains the original condition and both stores. No injected negative counter cases.",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_exports": {
+    "metadata/native-function-audit-cache/batch-0576.json": "84450e83d03429431896e6a9430fc4f38f02b1c4a661d48efcc2bafd331bb249"
+  },
+  "compiled_C_sha256": "f0300f944716b19c04361dfd98b431704bc350ea008059d4f9fb081fe9cd097b",
+  "variants": {
+    "Debug_trace": {
+      "path": "build/c-only-debug/Debug/restore_map_record_decay_trace_verify.exe",
+      "sha256": "f0300f944716b19c04361dfd98b431704bc350ea008059d4f9fb081fe9cd097b",
+      "checked": 186
+    },
+    "Debug_plain": {
+      "path": "build/c-only-debug/Debug/restore_map_record_decay_plain_verify.exe",
+      "sha256": "a55b054d73ad10f19c519c0567906ab563dfd8d92263cf9ca352ca3db68d1a32",
+      "checked": 186
+    },
+    "O2_trace": {
+      "path": "build/c-only/Release/restore_map_record_decay_trace_verify.exe",
+      "sha256": "a644abc46bdca3aaa90d4da6e0511c8bf972df3e4e2b2fecc09cef69aef246b3",
+      "checked": 186
+    },
+    "O2_plain": {
+      "path": "build/c-only/Release/restore_map_record_decay_plain_verify.exe",
+      "sha256": "aceec9054b987a22a24fd4dab567ca5cf30d520d57e97b31c38d7f727844594e",
+      "checked": 186
+    }
+  },
+  "source_hashes": {
+    "artifacts/map_record_decay_phase/verify_decay.py": "9183c121221e4ab106c18ffaaf30eebd86ce23e110aa08cc5a067b49be8d120c",
+    "metadata/native-function-audit-cache/batch-0576.json": "84450e83d03429431896e6a9430fc4f38f02b1c4a661d48efcc2bafd331bb249",
+    "artifacts/map_record_decay_phase/CMakeLists.txt": "04efc8ad32d3d37f04c516b0b3532b5673480d77f3aee34712fc3d2a03d8da93",
+    "artifacts/map_record_decay_phase/record_fixture.c": "79172fca997fb282461b5977296758e4e67058b0f1f83e2fc2c6ca070ce5bb28",
+    "artifacts/map_record_decay_phase/map_record_decay.h": "fc913819a1400113d9513f0d18111446ca11d8addf3a4780b9db282faca5ebfa",
+    "artifacts/map_record_decay_phase/unit_00613.c": "443df60ed0652a124bcf735d452a10e5cf554da0c98cec1934b9d543eb5d30f8",
+    "artifacts/map_record_decay_phase/unit_00614.c": "e71fa3d577c75452ebdf9886408b6898c85ec6cf754daa38012ed334296080ba",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "build/c-only-debug/Debug/restore_data.lib": "b4b4379a49725b0ad765e0129d87e6395a5805283314dbcbe4a597a5634228a3",
+    "src/unit_00613.c": "443df60ed0652a124bcf735d452a10e5cf554da0c98cec1934b9d543eb5d30f8",
+    "src/unit_00614.c": "e71fa3d577c75452ebdf9886408b6898c85ec6cf754daa38012ed334296080ba",
+    "include/map_record_decay.h": "fc913819a1400113d9513f0d18111446ca11d8addf3a4780b9db282faca5ebfa",
+    "build/c-only-debug/restore_map_record_decay_trace_verify.vcxproj": "835710cdd2a203f0bb252ab12c6b7a5a9ee3352f9eedb0e6852c41da108227fc",
+    "build/c-only-debug/restore_map_record_decay_plain_verify.vcxproj": "3e2b13a38516821a2df1c13c13a8d6ca451a5156d3365f593b74881f306c3865",
+    "build/c-only/restore_map_record_decay_trace_verify.vcxproj": "5ec7060387e325261f55a65758b9cb88cb2ae8fb4dadd7fa107387c3ea12950f",
+    "build/c-only/Release/restore_data.lib": "44404842c1f6a8d2eb733ac056d224b1a8c5866709016cf47074aee0c4779f3f",
+    "build/c-only/restore_map_record_decay_plain_verify.vcxproj": "ed2a892dbc717cafa23233965ae297ec131a67cf8e271504ba2fe627380c80b2"
+  },
+  "source_drift": [],
+  "binary_drift": [],
+  "corpus_sha256": "d0cdfb4faaf0a6a3388740aea92fbf92e84f29f33345d70be4ea52a87ea0b75a",
+  "elapsed_seconds": 5.88,
+  "apply": {
+    "src/unit_00613.c": {
+      "before_sha256": null,
+      "after_sha256": "443df60ed0652a124bcf735d452a10e5cf554da0c98cec1934b9d543eb5d30f8"
+    },
+    "src/unit_00614.c": {
+      "before_sha256": null,
+      "after_sha256": "e71fa3d577c75452ebdf9886408b6898c85ec6cf754daa38012ed334296080ba"
+    },
+    "include/map_record_decay.h": {
+      "before_sha256": null,
+      "after_sha256": "fc913819a1400113d9513f0d18111446ca11d8addf3a4780b9db282faca5ebfa"
+    }
+  },
+  "limits": [
+    "Both complete C leaf functions and their actual first-then-second composition; no internal substitute or import. Original96 instructions authenticated against pinned PE;92 reachable instructions exercised,4 certified dead.",
+    "Zero-argument void cdecl, no receiver. Whole guarded record/player window and ordered BYTE/DWORD reads, BYTE/WORD writes compared; callee-saved GPRs/stack/canary checked. Scratch EAX/ECX/EDX and EFLAGS are not promised.",
+    "Finite representative fixtures, count0/1/2/200, postdecrement timers0/1/2/128/255, state/type/active BYTE boundaries. Large DWORD indices are separately synthetic mapped wrap/width tests, not claimed real player indices.",
+    "Private /O2 uses Debug data/CRT. Product application/replay separate; old frozen phases unchanged. No GUI or original process."
+  ]
+}

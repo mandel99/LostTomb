@@ -1,0 +1,17 @@
+{
+  "status": "Current startup exit attributed to pre-existing original game window; no code change or rollback required by this evidence.",
+  "executable_sha256": "3021ee6dca8bf210e0b918174680c429f5769cbf7443de269cf06dfa3c1a2a22",
+  "run_log": "build/c-only/Release/PharaohRestoreC-run.log",
+  "run_log_evidence": "build COFF6ae8be92 pid20912; game loop returned result0 ready0; normal process exit at2026-11-02 18:02:05 local.",
+  "latest_dump": "2026-11-02 15:57:27, older unrelated Ferry Landing crash; no new exception dump.",
+  "current_exact_lookup": {
+    "class": "WinSJBClass",
+    "title": "Pharaoh (Cleopatra Expansion)",
+    "hwnd": "0x180ede",
+    "pid": 7316,
+    "process": "Pharaoh.exe"
+  },
+  "code": "src/unit_01774.c: FindWindowA returns an existing handle, activates that instance and returns0 before creating DirectDraw. src/unit_00177.c labels any zero result from4CF960 as a DirectDraw startup failure.",
+  "observation_scope": "Read-only exact FindWindowA/GetWindowThreadProcessId query using the loaded game catalog title; no new game launch, window messages or process termination.",
+  "next_action": "User closes the existing original game and retries the same Release. Preserve current source and build until that result or newer exception evidence is available."
+}

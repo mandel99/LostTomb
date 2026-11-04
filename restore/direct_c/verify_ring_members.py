@@ -2,8 +2,8 @@
 
 Use restore_link_check.exe to inspect all six diagnostic-retained member APIs;
 the game strips unused APIs but retains the actor-enqueue entry. No providers
-are replaced. Growth cases remain separate because the existing growth repair
-intentionally differs from the original temporary-buffer overread.
+are replaced. Growth cases have a separate heap-backed oracle which preserves the native
+destination-capacity copy, including reads beyond the temporary source extent.
 """
 from verify_options_startup import *
 

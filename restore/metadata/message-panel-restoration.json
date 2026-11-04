@@ -1,0 +1,164 @@
+{
+  "format": 1,
+  "implementation_frozen": true,
+  "complete_owned_controller_module": true,
+  "live_message_panel_integration_claimed": false,
+  "standalone_gameplay_proven": false,
+  "native_reference_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "owned_procedures": {
+    "004c5bf0": "src/unit_01619.c",
+    "004c5cc0": "src/unit_01620.c",
+    "004c5ce0": "src/unit_01621.c",
+    "004c5e60": "src/unit_01622.c",
+    "004c6c70": "src/unit_01623.c",
+    "004c72b0": "src/unit_01624.c",
+    "004c7340": "src/unit_01625.c",
+    "0053e530": "src/unit_02523.c"
+  },
+  "interfaces": [
+    "include/message_panel.h",
+    "include/message_panel_calls.h"
+  ],
+  "new_runtime_source_required": false,
+  "shared_dispatcher_or_callback_edit_required": false,
+  "restored_contracts": [
+    "Explicit80-byte message and48-byte event structures; signedWORD record fields and DWORD panel/fonts/state; two nativeWORD picture-position writes preserve adjacent bytes.",
+    "Full987-instruction normal producer and439-instruction media producer, including template substitutions, titles/pictures/caption, body preflight geometry, resource/statistic/date/family output, clips and ordered nested rendering.",
+    "Zero-argument00447840 getter retains the four drawing arguments that were pushed before it;004cc770 receives the returned text plus all four retained arguments.",
+    "Complete setup/dispatch/media-button/thumb/control-submission;00d3b186 reads/writes preserve the nativeWORD flags while004c5ce0 consumes its lowBYTE action bits.",
+    "0053e530 explicit sprite receiver, signedWORD dimensions promoted intoDWORD outputs, AL result and global facade justified by its sole native callerECX=00f55bb0.",
+    "Invalid media external-record index is diagnosed and aborts at the nativeNULL+48 read point; valid native order is preserved."
+  ],
+  "proof": {
+    "cases": 1666,
+    "selected_native_probes": 30,
+    "all_selected_probes_reached": true,
+    "actual_raster_cases": 210,
+    "padded_pitch_cases": 12,
+    "framebuffer_bytes_compared": 219802752,
+    "raw_frame_transfer": true,
+    "data_and_guards": true,
+    "ordered_endpoint_args_and_consumed_returns": true,
+    "native_stack_and_saved_registers": true,
+    "private_CTest_passed": true,
+    "invalid_external_rejection": {
+      "passed": true,
+      "exit_code": 3,
+      "diagnostic": "Message panel 004c6c70: invalid external record index -1 (count 3).",
+      "native_equivalence_claimed": false
+    },
+    "compiled_C_path": "build/agent-message-panel/out/Debug/restore_message_panel_verify.exe",
+    "compiled_C_sha256": "ff2102163aea753364a8b01ce044df24f7ff148a63755ab31612ed5fdcd6f2ed"
+  },
+  "actual_raster_bodies": {
+    "00425730": "small-button variants",
+    "0053e590": "sprite dispatch",
+    "004cdad0/004cdb80": "clip construction",
+    "0040fb60": "opaque copy",
+    "0040ffd0/00410090": "transparent copy with unclipped/clipped source"
+  },
+  "pitch_evidence": {
+    "path": "metadata/message-panel-native-byte-audit.json",
+    "sha256": "0ada3d537d0c12b640680116c569867a4e4b406df35837ee7f5c6888fbeebe1a"
+  },
+  "pitch_assumption": "No blanket packed-pitch precondition is imposed. Packed and16-byte padded surfaces are both compared; native padding writes are retained while source bytes and prefix/suffix guards must remain unchanged.",
+  "REA_evidence": {
+    "path": "metadata/message-panel-rea-function.json",
+    "sha256": "11c0860bedefa279a9eb6e54a6d6bd2f317e94cfae5abf202b4e0e4debcbb478"
+  },
+  "REA_snapshot": {
+    "path": "metadata/message-panel-rea-snapshot.json",
+    "sha256": "325e3888d70eaa3dc84b06249d8bcd46640070c81fba8bf72bf5a20809437810"
+  },
+  "REA_evidence_id": "ev_8add395c3d71fb62fa0718cf0f1cb730b8d28333135e929d0444f1078f793203",
+  "REA_address": "004c5e60",
+  "REA_instruction_count": 987,
+  "REA_body_bytes": 3556,
+  "supersedes_limited_source_shape_review": "metadata/render-dialog-guard-review.json for the two completely reconstructed producer bodies; its512-case discarded-EAX contract is included in the complete-function controlled-EAX/refresh matrix.",
+  "native_emulation_report": {
+    "path": "metadata/message-panel-emulation.json",
+    "sha256": "d590e062d7fea228fa43e29e6d0e43e9902a3dc8cabea637d9c1fcd05e9ed80e"
+  },
+  "source_hashes": {
+    "include/message_panel.h": "b2df19d8d105d60b55619fac4849472e47daad18bf5ee3d12ce9295a0ad8c11f",
+    "include/message_panel_calls.h": "ea82daa210d649906f504ecfca0e3576216e09140e35d58cb469b82ff3cef666",
+    "tests/message_panel.c": "cb05a68030a66c07fc8fc53c92b386f17084a7436e066c9e50a8775bc0aaa7d7",
+    "tests/message_panel_raster.c": "c8e92985194db457eeb26d7981ec7ecaf6362562fe90bf42e26600c76e7cb669",
+    "tools/verify_message_panel_emulation.py": "ed439fea2254b39c3d2994109417d7f6f8d7957e24722a84eb14078c56f8ef3b",
+    "src/unit_01619.c": "02bc18302e67ec23c784bb86113a1b8a37e1be92096ad27c8c38faf382bfc053",
+    "src/unit_01620.c": "1322e759858af844fed8afb48b5ee470b9159c8f8e2fbc164988c7b249ebdd84",
+    "src/unit_01621.c": "d8e80b1ee2e5128861775cfc90dd39c69599b699e8b3e0e71da9c5cc5b21a85b",
+    "src/unit_01622.c": "dd557118690ae29642fe3f193da8c353b6606fe2c845b795e0545182b01fba28",
+    "src/unit_01623.c": "0e1b4e15f680e65019a88910e38de439d543bf1d840b0c7f211c8ba485e4a711",
+    "src/unit_01624.c": "64e3fed37a76c3d44c59c7034763ef1fa2bf3a20f79459240d5d8ac5051b8f70",
+    "src/unit_01625.c": "1ebf63fc57d485edb55cf6709ae05c7f3eef17d2c1113fd67fe880f99eb69b7d",
+    "src/unit_02523.c": "3509f923bef512275340e03998625d2cf26c17ce9e3339ac39b7c80491d9793e",
+    "src/unit_01730.c": "5d831aed45a0c5948f2ea8b80332ca6fa392e6b67b3250cda455d328e6b70f4d",
+    "src/unit_01731.c": "4e40648404bf3ce4b39357144a55d7a755e2b993aed9a0e11676270c6e068899",
+    "src/unit_02524.c": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9",
+    "src/unit_00401.c": "8e692f6025ec1397073bc8c2faff3ac9344ad29a8a1d8dce35dfbdcef0d64494",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40",
+    "src/unit_00128.c": "0c7730f15ac3e342e80cfc6a6c8cb63be15871b322b1c9c818cd1fc2eb997e65",
+    "src/unit_00136.c": "51099d2b4f7018fc6bb13d7e4a5aa2d3b16cbff106724455247571df292f29c6",
+    "src/unit_00137.c": "5335ac2184d91d904bc460d524670939bb40bcf785f5f139ba2efc434e65a4ca",
+    "src/unit_00140.c": "24116a943999c96ac24bab87458e4b6e6f066586a37cec843321c680430dc8db",
+    "src/unit_00146.c": "0a66a5c6adfdf96da4daa52e9ba12e23985cfdf0e79bea157362efd1b5dc5b7b",
+    "src/unit_00149.c": "0ce48149d7d54c8062934be92489ab7ef174a337447e51810b160fb386dbf9ef",
+    "runtime/sprite_pixels.c": "04296c8136d82b147f3d03416b6d1d08cfd81f7925f04c1364c31b861cd43844"
+  },
+  "native_exports": {
+    "metadata/render-dialog-discarded-returns-native.json": "c5f8be9a51457d68b6f676ef054fe23a855c8c2a13c082b82300ad612317e1bc",
+    "metadata/message-panel-next-native.json": "bed9cd2897999b2a79181c00cd71d0f9f4cd841808da30436ca9fdebeaa616d6",
+    "metadata/city-ui-next-native.json": "c1187312b58c836003c990bfff7b6026717f74f6ee64314ec92ccfcb2b64bde0",
+    "metadata/message-panel-support-native.json": "4dc92876bd1b4d527e0c344dddad5094bc871d0018450a02f025b865e9aabae9",
+    "metadata/message-panel-dimensions-callers-native.json": "b45840784835cd4bb54cf2f1b275cd804658b4ba778fabff347f6df5d8f55b6c"
+  },
+  "arithmetic_domain": [
+    "Message coordinates/dimensions and event quantities/costs/resources are native signedWORD fields. Intended viewports are640x480,800x600,1024x768; rich-layout row production is bounded by the original999-iteration guard. Derived panel/body coordinates fit signed32bit in this domain.",
+    "Image banks are native loaded image indices below25500. Resource/foreign record pointers and profile strides use explicituint32 arithmetic; native quantity scaling and thumb stride construction wrap explicitly before signed use."
+  ],
+  "limitations": [
+    "Rich body layout004c8070, substitution, text primitives, family label, variant selection, video and link-clear endpoints are controlled. Their complete algorithms and final text/media pixels are separate dependencies.",
+    "The media type2/subtype2 native body dereferences NULL+48 for an invalid external-record index. Differential fixtures obey its valid-index invariant; C diagnoses and aborts at that read instead. A separate rejection child proves this fail-fast behavior; it is excluded from native equivalence.",
+    "0053e530 consumed result is AL; unused upper EAX differs by implementation. Its sole native caller binds the global manager; alternate-receiver cases additionally prove the explicit receiver.",
+    "Raster cases use deterministic in-memory8x9 raw sprite payloads, with actual native/C dispatch, clipping and copies, for both packed and padded pitches. Native padding writes are retained and compared; only prefix/suffix guard bands must remain untouched. These fixtures prove algorithms rather than production asset identity."
+  ],
+  "integration": {
+    "target": "restore_message_panel_verify",
+    "sources": [
+      "tests/message_panel.c",
+      "tests/message_panel_raster.c",
+      "src/unit_01619.c",
+      "src/unit_01620.c",
+      "src/unit_01621.c",
+      "src/unit_01622.c",
+      "src/unit_01623.c",
+      "src/unit_01624.c",
+      "src/unit_01625.c",
+      "src/unit_02523.c",
+      "src/unit_01730.c",
+      "src/unit_01731.c"
+    ],
+    "includes": [
+      "include"
+    ],
+    "links": [
+      "restore_data"
+    ],
+    "options": [
+      "/Od",
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "verification": "tools/verify_message_panel_emulation.py --exe <shared target>",
+    "notes": [
+      "message_panel_raster.c includes the existing real button/sprite/clip/pixel sources with two verification-only symbol renames; it does not link pharaoh_restored or define production mocks.",
+      "No live process, original installation, C# project, shared CMake/startup/callback/header/checkpoint file, or other agent source was changed. Root owns full builds, fixture preservation and final C frames."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "method": "Native deletion callback, path builders, file-list constructor/destructor and SEH chain; enumeration, unlink, directory removal, deallocation and registry reload are controlled endpoints.",
+  "compiled_C_sha256": "76c4454587efeeb2257b34cb9e951fc881a7e61a9d3abdb158b95ec3603b9269",
+  "safety_difference": "C skips a file path exceeding the native 260-byte stack buffer; this malformed case is a separate C check.",
+  "limitations": [
+    "Exact paths/call order/lifetime are compared. Filesystem deletion and the complete modal/registry loop are separate integration checks."
+  ],
+  "passed": true,
+  "checked": 1408,
+  "source_hashes": {
+    "include/family_menu.h": "67c28886b5afd3da5aaefa5f12cdb5e17f5b6a3f488bd82963a67e20516aebd4",
+    "runtime/family_delete.c": "b3134f32808f657bca3eec1b4cd20c52dce31ab14cc6406785447566423fde3e",
+    "include/file_list.h": "306fc767e65fce27e311a304c823d8f23a07e6f2bf2ba2dc7bb24ed5f98ba3a3",
+    "src/unit_02282.c": "669ee00b553e1345001c32801cc637dea24636b24fd3df0d3fd14b6e9b158f93",
+    "src/unit_02283.c": "443b70d459698ad9b754f6f70d8bc79cb42dc260bfd1b1868f8d679b4c04666d",
+    "tests/family_delete.c": "9bea1ec4ca677333d8522882d5b38ba24c03335424da301be2d2809adfa6e5dc",
+    "tools/verify_family_delete_emulation.py": "4c7cbdc8dfcf0a00b1e826ff10574f5a1f439902f3f7d194caaf1589c70ccf41"
+  }
+}

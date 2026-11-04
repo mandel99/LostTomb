@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "aae825a70b427986a69a5ba75b088322572d9435ed1e7f1e47348b756694ac67",
+  "method": "Complete 004767d0 three-pass terrain redraw with actual 0047c140 placement, 0047c880 footprint selection, 0046f9a0 margin predicate, 0047db00 neighbor gather and 00484f40 count. All watched bytes, endpoint order/arguments/intermediate globals, return EAX, stack and saved registers compared.",
+  "limitations": [
+    "Remaining building-state callbacks, final queued-building refresh, connected-neighbor graphic selector and rotated variant callback are controlled.",
+    "Valid geometry 0..228, footprint table dimensions 0..6 and valid object/building pointers; malformed native inputs that would access invalid memory are excluded."
+  ],
+  "checked": 4624,
+  "passed": true,
+  "source_hashes": {
+    "include/terrain_redraw.h": "5dae4fd2212a5963427ed87f62f8e23752a27f7d5e04cc4b60a0810ad3e54a02",
+    "include/city_prepare.h": "4d1a286b9a05167b32c11eb9430c9e41b2cf774e5122fcbad9e9d1cca1f670bc",
+    "tests/terrain_redraw.c": "d752f4a7cfcbd08018244ce9730a5bca0d31da91f247c1db7f2bfaf4c6c44576",
+    "tools/verify_terrain_redraw_emulation.py": "aa7840df162271ac7736b31afbf52ac24c4048645881ab0f91c2cc2b68a0d1e9",
+    "metadata/terrain-redraw-next-native.json": "0785e2ca4c9854fce86703e2496c55736322e3bcd4f5925a9130145a6fda25cf",
+    "metadata/terrain-redraw-helpers-native.json": "2712ec8ff92367d0b7cb0a93d7fcabdf8118c9921d363765a17e1b2f27d49387",
+    "src/unit_01009.c": "c2ae6c562fee3614c2493d47ef14a0856244cd958e93c98da106a9978de042b1",
+    "src/unit_01011.c": "30f894ef75ee0b2f4a657df39c22ca660a35650bae16dcd273ae774cc40e2d0f",
+    "src/unit_01012.c": "0b63157d2b88a7ea0fe703f6a36220c14b1fb29c74ff778c2631741738eeae41",
+    "src/unit_01043.c": "8de92eb6baece366bf460fed569eeb745e8a88dbd093716eb7c96348de2c5d12",
+    "src/unit_01117.c": "7324fb19d4b7d8050df9d3ff872bfd8037404074dd60af370f2584289977cd70",
+    "src/unit_01122.c": "6711f8a331dcba34fa918429956456afa9da12fb44f776f1fea34aa8b6bb436d",
+    "src/unit_01137.c": "fb8e7ee47f65bd86d17672b738f85a3069a312c12baec01ac159a06e4edf9159",
+    "src/unit_01238.c": "3e4ee44f0b07ef2d3730127c3a478c7a179eb07e34f213767d6fb06d6c303bc5"
+  },
+  "observed_native_branches": [
+    "blocked-neighbor",
+    "building-b7",
+    "building-e1",
+    "building-e6",
+    "building-group",
+    "building-scan",
+    "connected-neighbor",
+    "encoded-fertility",
+    "first-ground-pass",
+    "footprint-1",
+    "footprint-2",
+    "footprint-3",
+    "footprint-4",
+    "ordinary-fertility",
+    "second-ground-pass",
+    "uneven-neighborhood",
+    "uniform-neighborhood"
+  ]
+}

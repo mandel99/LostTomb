@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "state": "Implementation, header, tests and verifier frozen after complete staged proof. Coordinator owns application and shared build.",
+  "staged_sources": [
+    {"from": "artifacts/ground_render_phase/unit_00469.c", "to": "src/unit_00469.c", "sha256": "cb994e20fd7843047b8c591460c9bf6a19b723a8feb66328cc295e73d5dde65c"},
+    {"from": "artifacts/ground_render_phase/unit_00470.c", "to": "src/unit_00470.c", "sha256": "b594f991c583c10110dc4fe6778af6821e94e6d821d0037ab9a86e7f99ad8b6a"},
+    {"from": "artifacts/ground_render_phase/unit_00472.c", "to": "src/unit_00472.c", "sha256": "74f0b5f0b927541744111d792b165cfdcbe706b33dcfb88e8a370d6630a9f146"},
+    {"from": "artifacts/ground_render_phase/unit_02493.c", "to": "src/unit_02493.c", "sha256": "afee8c8fc63b6239d8e33cc85dd19592ba90bd16dcd5b717354a93ede671d4c1"}
+  ],
+  "shared_target": {
+    "name": "restore_ground_render_verify",
+    "sources": ["tests/ground_render.c", "tests/ground_render_real_graphics.c", "tests/ground_render_real_upper.c", "tests/ground_render_real_clips.c", "tests/ground_render_real_helpers.c", "src/unit_00469.c", "src/unit_00470.c", "src/unit_00472.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS", "GROUND_RENDER_VERIFY"],
+    "excluded_shared_definition": "GROUND_RENDER_STAGED is private-only. Shared helper wrapper must include production2493.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_name": "standalone_ground_render",
+    "test_command": "restore_ground_render_verify",
+    "note": "Do not add src/unit_02493.c separately to this test target: ground_render_real_helpers.c includes it under an alias. Production restore_procedures still compiles the applied source normally."
+  },
+  "shared_full_proof": "python tools/verify_ground_render_emulation.py --production --exe <absolute shared restore_ground_render_verify.exe>",
+  "private_project": "tools/ground_render_project/CMakeLists.txt",
+  "private_executable_sha256": "3139bcbade1fb240b6b00682f2ce942908ff140340f5fe5f5920c61b2afe0da4",
+  "full_staged_proof": {"passed": true, "checked": 5077, "native_instruction_coverage": [940,940], "helper_instruction_coverage": [43,43], "mutation_targets": 19},
+  "source_hash_authority": "All23 hashes in metadata/ground-render-emulation.json. Preserve the complete staged report before the shared production rerun overwrites its default report path.",
+  "contract": "metadata/ground_render_contract.json",
+  "limitations": "Final raster leaves and deeper overlay/world/actor/publication algorithms are controlled. Loaded inline images only. No pixel-fidelity claim."
+}

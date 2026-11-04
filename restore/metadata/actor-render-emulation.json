@@ -1,0 +1,95 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "5842f60da5f7bb1baf7177e36c94e3b800f1c61223ee7fc46b16810b81c20cea",
+  "passed": true,
+  "checked": 7441,
+  "case_selection": {
+    "start": 0,
+    "limit": null,
+    "single_case": false
+  },
+  "method": "Actual833-instruction actor renderer/scanner versus actual composed C renderer/scanner, real sprite dispatcher/both clip algorithms. Ordered endpoint arguments/receivers/state, watched fixture bytes/canaries, caller reloads/mutations and native/C stack/saved registers compared.",
+  "limitations": [
+    "Predicate4387d0 is controlled with its independently proven Boolean domain; coordinate4f0d30 is controlled through real writable DWORD output arguments. The current separate coordinate algorithm remains outside this repair/proof.",
+    "Numeric formatting and final bitmap/RLE/terrain consumers are controlled; no city pixel-fidelity claim.",
+    "Loaded inline image fixtures only. Filesystem branches fail explicitly. Void EAX is not asserted."
+  ],
+  "elapsed_seconds": 124.86,
+  "native_instruction_coverage": [
+    830,
+    833
+  ],
+  "native_reachable_instruction_coverage": [
+    830,
+    830
+  ],
+  "native_uncovered_instructions": [
+    "0x439331",
+    "0x439332",
+    "0x439335"
+  ],
+  "native_unreachable_reason": "439321 clearsECX;439323 loads an unsigned byte intoCL;439329 ANDs80000001. Sign is always clear, so43932f JNS always skips439331/332/335.",
+  "sprite_dispatch_instruction_coverage": [
+    257,
+    1076
+  ],
+  "clip_executed_instruction_count": 100,
+  "mutated_endpoint_addresses": [
+    "0x40fb60",
+    "0x40ffd0",
+    "0x410090",
+    "0x4100f0",
+    "0x410230",
+    "0x410700",
+    "0x4387d0",
+    "0x438e50",
+    "0x4cce00",
+    "0x4cdad0",
+    "0x4cdb80",
+    "0x4f0d30",
+    "0x51f780",
+    "0x53e590"
+  ],
+  "ordered_endpoint_addresses": [
+    "0x40fb60",
+    "0x40ffd0",
+    "0x410090",
+    "0x4100f0",
+    "0x4101c0",
+    "0x410230",
+    "0x410700",
+    "0x427a20",
+    "0x4387d0",
+    "0x438e50",
+    "0x4cce00",
+    "0x4cdad0",
+    "0x4cdb80",
+    "0x4f0d30",
+    "0x51f780",
+    "0x53e590"
+  ],
+  "source_hashes": {
+    "src/unit_00561.c": "ed02eabe017e0aab489cf3763b7955973e87689b038a36268747884866da5ada",
+    "src/unit_00562.c": "fc606269c21479bb98365a04fe97bd5725ae2ed0c476e3e342187c1ed6545bec",
+    "include/actor_render.h": "e1dfa8cba56ef2a8ede49e19cdaa20c0e72573181f47ebad3b202b149b4a3080",
+    "include/actor_predicate.h": "0406bc7672e04b1c68f69c712a669dcd316d97727289b5327bb40df52674443d",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "tests/actor_render.c": "ff7df564688ef008d503dc45fc32f31afbd730815d0d0be5c5d05f69222beffc",
+    "tests/actor_render_real_renderer.c": "b0f34aaa25ad433d851078b03ce92ca195aa7ad452981fc6790952d7978ddd9a",
+    "tests/actor_render_real_graphics.c": "838d917f7e29161e740f16f83f9be5c0b9cfc1cb1771ba4ad7a706f59d9929cb",
+    "tests/actor_render_real_clips.c": "c4d9aa636c5051824fc9e82e95902eb32148ad14bff9cc4220ad5844824f6a54",
+    "tools/actor_render_project/CMakeLists.txt": "24f813f3351ccd9be622eeb8f1c6bea6fa61a9b2d9c56817635915a502c183f0",
+    "tools/verify_actor_render_emulation.py": "5ad4916ff323674308ae8b8f7c1d7bf5563b47f47ba8e722b706fc6693eab458",
+    "src/unit_02524.c": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9",
+    "src/unit_01725.c": "aec784759caa15d9b60961a70f51dc274b77cd2ac901645bc9dbdbd180e0a950",
+    "src/unit_01726.c": "e803f91b0a3a72705c04b36c1d767e0fc1ae5bbe9f90a7d25b957ee55c09ec40",
+    "metadata/lookup-sentinel-endpass-next-native.json": "ddcedd49d709f39d15d0dd99901f2339df63aa043734b72bff89771d25ae62ef",
+    "metadata/viewport-endpasses-next-native.json": "9c6d41e9803c1e907d2d39fb15d5a98254a7884494ab9957848ef0b461775cb4",
+    "metadata/world-render-sprite-core-native.json": "7950342f847cb3c7dcc7bb455a25fea0b429720a33377615df105bb2bf2ab3a8"
+  }
+}

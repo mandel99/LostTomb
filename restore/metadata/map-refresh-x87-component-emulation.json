@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "passed": true,
+  "production": true,
+  "canonical_56133c_replaced": false,
+  "whole_map_refresh_complete": false,
+  "checked": 42768,
+  "complete_cases": 42768,
+  "comparisons": 85536,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "coverage": [
+    15,
+    15
+  ],
+  "decoded_coverage": [
+    16,
+    16
+  ],
+  "encoding_classes": {
+    "zero": 48,
+    "subnormal": 96,
+    "pseudo_denormal": 385,
+    "unsupported_unnormal": 2685,
+    "normal": 39025,
+    "infinity_or_nan": 529
+  },
+  "control_words": [
+    127,
+    4223,
+    1151,
+    5247,
+    2175,
+    6271,
+    3199,
+    7295,
+    639,
+    4735,
+    1663,
+    5759,
+    2687,
+    6783,
+    3711,
+    7807,
+    895,
+    4991,
+    1919,
+    6015,
+    2943,
+    7039,
+    3967,
+    8063
+  ],
+  "corpus_sha256": "6c48a9f3cff8eae89bcc46c7c3a1d99bc170691e2b5bcdc1e6742aec004c1c6f",
+  "compiled_C_sha256": "735095d037f30d89ccc24dd75c1620395b92ec4e7e394ac53460eb1333ca8407",
+  "variants": {
+    "Debug": {
+      "path": "build/c-only-debug/Debug/restore_map_refresh_x87_conversion_verify.exe",
+      "sha256": "735095d037f30d89ccc24dd75c1620395b92ec4e7e394ac53460eb1333ca8407",
+      "checked": 42768
+    },
+    "O2": {
+      "path": "build/c-only/Release/restore_map_refresh_x87_conversion_verify.exe",
+      "sha256": "a6caf33c1e2a48b0475e00514bcffbd7271ca2abe4e8202b43e912248c60582f",
+      "checked": 42768
+    }
+  },
+  "source_hashes": {
+    "artifacts/map_refresh_phase/x87_conversion/verify_x87_conversion.py": "89dfab7867a0880c67391fcf3cdbfc861b404f18c5cfdf7d64c745c129ab39fa",
+    "runtime/map_x87_conversion.c": "9f5bc49e242527472db361e5761aecd56e961c807b2da51ee4dbdb6dbdb9c13e",
+    "include/map_x87_conversion.h": "ce34f1dbc1664eee0fb51eb1dbd3bd191dc5461bc963d49342aedf7c65777784",
+    "artifacts/map_refresh_phase/x87_conversion/x87_conversion_fixture.c": "1e0d2f4514bf9dc03c54b622f4f6f5d3a4475878039fa5630e72433329e1f213",
+    "artifacts/map_refresh_phase/x87_conversion/CMakeLists.txt": "955ef745bba02d525fcc538b10347ff4cb04cb1944111d5c9409a88c4dbe9384",
+    "artifacts/map_refresh_phase/x87_conversion/CONTRACT.md": "743311573dcdb293820f857a9900f5e9519134c56014365cd4788ae63f12a3b6",
+    "artifacts/map_refresh_phase/map_refresh_native.json": "081b72bb30063b36ba9dcdef799becf90fe772a59ecb1eae66d336142679206d",
+    "artifacts/map_refresh_integration_phase/verify_map_numeric_components.py": "fd23113e168423de82eef9f59d1b4e929e2838b4e66479e93dc397dfcf557bc4",
+    "artifacts/map_refresh_integration_phase/integration-manifest.json": "26fb92cfb97e75a69f85847bee68643fe72694cbe8cfac9da130444dfc12b2ee",
+    "artifacts/map_refresh_integration_phase/shared_targets.cmake": "cc7765cf72fd6ee79c5df7053fde1ef3c3f6f4bab8d33c94a058260e059171c6",
+    "build/c-only-debug/restore_map_refresh_x87_conversion_verify.vcxproj": "2ca31389c517cd331a4375952df8d8b399fee8c134b155b33970af8b751c7002",
+    "build/c-only/restore_map_refresh_x87_conversion_verify.vcxproj": "8780587077c14d4b92610e92db00bf5e213677de3c3a670794210d6cc4070fb0",
+    "artifacts/map_refresh_phase/x87_conversion/map_x87_conversion.h": "ce34f1dbc1664eee0fb51eb1dbd3bd191dc5461bc963d49342aedf7c65777784"
+  },
+  "native_exports": {
+    "artifacts/map_refresh_phase/map_refresh_native.json": "081b72bb30063b36ba9dcdef799becf90fe772a59ecb1eae66d336142679206d"
+  },
+  "source_drift": [],
+  "binary_drift": [],
+  "elapsed_seconds": 17.76,
+  "limitations": [
+    "Numeric result and unchangedCW only under all exceptions masked. Unicorn omits native FISTP precision/invalid FPSW flag updates; no status/trap equivalence claim.",
+    "NativeST0 register input/pop is normalized to explicit10-byte C input; nativeTOP/tag pop checked independently, C input/guards and EDX:EAX ABI checked. No canonical legacy ST0 callers are redirected.",
+    "PC/RC arithmetic, binary64 spills,481540/481690,488E90/489030 and postpasses remain unfinished.",
+    "Integration wrapper changes parser/executable/source/report bindings only. Private plumbing is not product evidence; production compares actual root source owners with DebugMTd/ReleaseMT. Historical oracle scope qualifications stay intact."
+  ],
+  "component": "raw80",
+  "original_oracle": {
+    "path": "artifacts/map_refresh_phase/x87_conversion/verify_x87_conversion.py",
+    "sha256": "89dfab7867a0880c67391fcf3cdbfc861b404f18c5cfdf7d64c745c129ab39fa",
+    "source_body_and_corpus_changed": false
+  },
+  "path_binding_transform_sha256": "b2ade5b5daba774d56c35da315531ccbff91fdf40bc68374b22c4adb3cd38328",
+  "project_evidence": {
+    "build/c-only-debug/restore_map_refresh_x87_conversion_verify.vcxproj": {
+      "sha256": "2ca31389c517cd331a4375952df8d8b399fee8c134b155b33970af8b751c7002",
+      "configuration": "Debug",
+      "runtime": "MultiThreadedDebug",
+      "optimization": "Disabled",
+      "sources": [
+        "artifacts/map_refresh_phase/x87_conversion/x87_conversion_fixture.c",
+        "runtime/map_x87_conversion.c"
+      ]
+    },
+    "build/c-only/restore_map_refresh_x87_conversion_verify.vcxproj": {
+      "sha256": "8780587077c14d4b92610e92db00bf5e213677de3c3a670794210d6cc4070fb0",
+      "configuration": "Release",
+      "runtime": "MultiThreaded",
+      "optimization": "MaxSpeed",
+      "sources": [
+        "artifacts/map_refresh_phase/x87_conversion/x87_conversion_fixture.c",
+        "runtime/map_x87_conversion.c"
+      ]
+    }
+  },
+  "production_link_map_bindings": {
+    "build/c-only-debug/Debug/restore_map_refresh_x87_conversion_verify.map": {
+      "sha256": "bcabdaa77123e8f74183c6a1188da59efb4ec16302553376615c6d2c5a18c203",
+      "bindings": {
+        "_restore_map_trunc80": "map_x87_conversion.obj"
+      }
+    },
+    "build/c-only/Release/restore_map_refresh_x87_conversion_verify.map": {
+      "sha256": "54208cf312f6dd441919de7bd1de1101566cd15a2cf5f82b8d317697c4da9348",
+      "bindings": {
+        "_restore_map_trunc80": "map_x87_conversion.obj"
+      }
+    }
+  },
+  "wrapper_sha256": "fd23113e168423de82eef9f59d1b4e929e2838b4e66479e93dc397dfcf557bc4",
+  "integration_manifest_sha256": "26fb92cfb97e75a69f85847bee68643fe72694cbe8cfac9da130444dfc12b2ee"
+}

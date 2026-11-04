@@ -1,0 +1,20 @@
+{
+  "complete": true,
+  "status": "Existing exact calendar C now also replaces both actor-message frame algorithms; message-category corpus verifies native/named/canonical/frame routes. See MESSAGE_CATEGORY_RECONSTRUCTION.md.",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x44d6d0",
+      "evidence_id": "ev_5157636dcf5503b7b28e2720222020f4ba0b6fb333eea46db26c6d66b7153097",
+      "instruction_count": 17,
+      "assembly": "0x44d6d0: MOVSX EAX, word ptr [ECX + 0x14]\n0x44d6d4: MOVSX EDX, word ptr [0x007848d8]\n0x44d6db: ADD EAX, EDX\n0x44d6dd: MOV EDX, dword ptr [0x0078d7bc]\n0x44d6e3: CMP EDX, EAX\n0x44d6e5: JGE 0x0044d6ea\n0x44d6e7: MOV AL, 0x1\n0x44d6e9: RET\n0x44d6ea: JLE 0x0044d6ef\n0x44d6ec: XOR AL, AL\n0x44d6ee: RET\n0x44d6ef: XOR EAX, EAX\n0x44d6f1: MOV AL, byte ptr [ECX + 0x3]\n0x44d6f4: MOV ECX, dword ptr [0x0078d7c0]\n0x44d6fa: CMP ECX, EAX\n0x44d6fc: SETL AL\n0x44d6ff: RET"
+    },
+    {
+      "address": "0x44d700",
+      "evidence_id": "ev_30c452d93d80a202b050c1f39dbb591e22836bbce08c6921c6870d500b208a6e",
+      "instruction_count": 31,
+      "assembly": "0x44d700: PUSH ESI\n0x44d701: MOV ESI, ECX\n0x44d703: TEST byte ptr [ESI + 0x28], 0x11\n0x44d707: JZ 0x0044d70d\n0x44d709: XOR AL, AL\n0x44d70b: POP ESI\n0x44d70c: RET\n0x44d70d: MOV ECX, ESI\n0x44d70f: CALL 0x0044d6d0\n0x44d714: TEST AL, AL\n0x44d716: JZ 0x0044d71c\n0x44d718: XOR AL, AL\n0x44d71a: POP ESI\n0x44d71b: RET\n0x44d71c: MOVSX ECX, word ptr [ESI + 0x14]\n0x44d720: MOV EAX, [0x0078d7bc]\n0x44d725: MOVSX EDX, word ptr [0x007848d8]\n0x44d72c: SUB EAX, ECX\n0x44d72e: XOR ECX, ECX\n0x44d730: MOV CL, byte ptr [ESI + 0x3]\n0x44d733: SUB EAX, EDX\n0x44d735: MOV EDX, dword ptr [0x0078d7c0]\n0x44d73b: LEA EAX, [EAX + EAX*0x2]\n0x44d73e: SHL EAX, 0x2\n0x44d741: SUB EAX, ECX\n0x44d743: ADD EAX, EDX\n0x44d745: MOVSX EDX, word ptr [ESI + 0x2c]\n0x44d749: CMP EAX, EDX\n0x44d74b: POP ESI\n0x44d74c: SETLE AL\n0x44d74f: RET"
+    }
+  ],
+  "replacement_catalogue": "message-category-native.json"
+}

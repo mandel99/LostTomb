@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "method": "Bounded original enumeration/growth/quicksort with controlled Win32 enumeration and heap; exact bytes and endpoint calls compared",
+  "compiled_C_sha256": "bc1b47424097f73bfbbe77022e7f5ffe56cd990eda9be63595e07cd676a46851",
+  "return_contract": "0041c740 and 0041c8f0 return Boolean in AL; upper EAX bits are unspecified and are not compared.",
+  "safety_difference": {
+    "reason": "Remove the original duplicate deletion of an offsets buffer when growing a reused non-appending list. All final data bytes remain equal.",
+    "cases": 88
+  },
+  "limitations": [
+    "Enumeration and allocation endpoints are controlled. File reads, actual OS directory ordering and campaign/save parsing are separate checks.",
+    "The legacy file-list vtable remains data; no original machine code is called."
+  ],
+  "passed": true,
+  "checked": 816,
+  "source_hashes": {
+    "src/unit_00269.c": "4cf7e80c4574f18bd1eb5e96b4d9cccaf0c9f1176fbe46fe2eb7f1221b7f48a6",
+    "src/unit_00270.c": "4d092db3aeb31286cb21eab9694f1b2198c1e31b3726635579a5738fcb19127a",
+    "src/unit_00271.c": "583857a8b474355743f51ceeb565f9d2fe3aa8b5a67acf046276e26a8db585c5",
+    "src/unit_00287.c": "de1572bed5bc36d0e3602a2b48ef3d27e387595c209babff4ecf008d676e6794",
+    "src/unit_02820.c": "8ff8e1dfe6fe0a1c119085651879ffb5290fbd727a0dfbee28d335be592d5074",
+    "src/unit_02821.c": "b78bf33987282c5677c909c5cc1a5879d9b2a39a330cf06f28b68434162c6905",
+    "src/unit_02822.c": "f23a908fe215d817be571c4e65ccb7efb2f6e08ca1f6d6e86af4bb1557d4a4b8",
+    "include/file_list.h": "306fc767e65fce27e311a304c823d8f23a07e6f2bf2ba2dc7bb24ed5f98ba3a3",
+    "tests/file_list.c": "ea1cbbce70d36c245221fb63393c22ec115031d817ea3d24e68e2f4b4c0dd729",
+    "tools/verify_file_list_emulation.py": "d75c9d3a2bf10ae71ccf1510a09982488904c22b00998b75bd7332423a3df4a4"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "format": 1,
+  "status": "Three staged candidates, header, two test sources, verifier and private project frozen after the complete Debug and optimized proof. Coordinator owns application and shared integration.",
+  "authority": {
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "packets": ["metadata/camera-navigation-next-native.json", "metadata/camera-sidebar-coordinate-native.json", "metadata/camera-bounds-helpers-native.json"],
+    "original_process_executed": false,
+    "implementation": "Handwritten C from the complete pinned original instruction bodies. Reference project remains read-only."
+  },
+  "owned_algorithms": {
+    "00430cc0": {
+      "source": "artifacts/camera_navigation_phase/unit_00466.c",
+      "production": "src/unit_00466.c",
+      "native_instructions": 4,
+      "signature": "uint32_t __cdecl FUN_00430cc0(void)",
+      "algorithm": "Load full DWORD 70E458, add 2 with 32-bit wrap, multiply by full DWORD 70E464, and return the low DWORD in EAX. Unsigned C arithmetic preserves native ADD/IMUL bits without signed-overflow undefined behavior.",
+      "consumed_return": "The sole native xref at 0051FCF9 immediately adds FFFFFE40 to EAX and then performs signed division by 2 toward zero before passing the result to 00536820. The raw 32-bit return is therefore asserted; its later signed interpretation belongs to the caller."
+    },
+    "00430cd0": {
+      "source": "artifacts/camera_navigation_phase/unit_00467.c",
+      "production": "src/unit_00467.c",
+      "native_instructions": 21,
+      "signature": "void __cdecl FUN_00430cd0(uint32_t tile)",
+      "algorithm": [
+        "Call actual 004304C0(tile). Read its full DWORD lookup column at D3B4E4 and width at 70E464, subtract signed width/2 with truncation toward zero, and retain the wrapped DWORD X.",
+        "Read full DWORD lookup row D3B4E0 and height 70E460. Subtract signed height/2 with truncation toward zero and retain the wrapped DWORD Y.",
+        "Write X to BCA2BC, then write DWORD E38DCC=1, then write Y&0000FFFE to BCA2C0. Preserve this native mask, which also clears the upper 16 bits.",
+        "Transfer to actual 004DE080. The C call/return expresses the same semantic tail transfer; no native instruction fallback is used."
+      ],
+      "read_order": "Both lookup-result and dimension pairs are read after the actual lookup returns. Both centered coordinates are calculated before the three output state stores. Helper-entry and helper-exit mutations prove the state observed by the clamp.",
+      "direct_xrefs": ["00458135", "00406237", "00416AAB", "00416AFD", "0040D09E", "0040A334", "0040A5AA"],
+      "return_limit": "No direct caller window consumes the navigation EAX as an input to another operation. Some callers forward incidental EAX through RET, and others overwrite EAX/AL; this is not elevated into an invented semantic return. The proof compares navigation state and ABI, excluding void incidental EAX. A transitive return contract of every enclosing caller is outside this bounded proof."
+    },
+    "004de080_ordering_dependency": {
+      "source": "artifacts/camera_navigation_phase/unit_01886.c",
+      "production": "src/unit_01886.c",
+      "native_instructions": 54,
+      "approved_change": "Call actual 004DDEB0 before reading DWORD BCA2C0, matching native 004DE0F8 -> 004DE0FF. The prior accepted source loaded camera Y before the call. All other clamp behavior is retained.",
+      "reason": "The real getter is pure during ordinary execution, so this change preserves that accepted domain. Explicit mutation after the real height getter now also preserves the native reload order.",
+      "retained_behavior": "Full DWORD signed bound comparisons, editor-mode bound expansion, actual width/height getter calls including repeated getters on maximum clamps, BYTE E38DCA dirty flag, and the final DWORD Y&0000FFFE store are unchanged.",
+      "regression_owner": "Coordinator will replay the unchanged accepted 1266-case camera-bounds suite after application and refresh its source hash."
+    }
+  },
+  "real_composed_dependencies": {
+    "004304c0": {
+      "source": "src/unit_00458.c",
+      "native_instructions": 33,
+      "contract": "Reset DWORD D3B4E0/E4 to zero, scan the complete 457-row by 231-column DWORD table at 70E494 in row order, accept only entries unsigned below 0FFF0000 equal to the requested tile, and store the first matching row/column. Missing or excluded targets retain zero. No production changes are needed."
+    },
+    "004de140": {
+      "source": "src/unit_01887.c",
+      "native_instructions": 8,
+      "contract": "Write FFFFFFFF into eight DWORDs at E94DDC through E94DF8. Adjacent fields E94DFC/E94E00 are guards. This actual reset is called only as an explicitly requested fixture sequence; navigation itself does not call reset. No production changes are needed."
+    },
+    "004ddea0_004ddeb0": {
+      "sources": ["src/unit_01880.c", "src/unit_01881.c"],
+      "native_instructions": 2,
+      "contract": "Actual native facade thunks reach actual width/height accessors. Raw DWORD return values are asserted and passed back to the real clamp."
+    },
+    "00430ca0_00430cb0": {
+      "sources": ["src/unit_00464.c", "src/unit_00465.c"],
+      "native_instructions": 4,
+      "contract": "Actual full DWORD getters read 70E464 and 70E460. These and their facade sources are accepted and unchanged."
+    }
+  },
+  "proof": {
+    "report": "metadata/camera-navigation-emulation.json",
+    "passed": true,
+    "checked_per_variant": 1246,
+    "variants": ["Private Debug /Od", "Private Release /O2"],
+    "native_instruction_coverage": [126, 126],
+    "primary_navigation_instruction_coverage": [25, 25],
+    "approved_clamp_instruction_coverage": [54, 54],
+    "unchanged_dependency_instruction_coverage": [47, 47],
+    "helper_entry_exit_mutation_phases": [18, 18],
+    "controlled_algorithm_endpoints": [],
+    "native_execution": "Pinned original bytes execute inside Unicorn only, with all 126 instruction records checked against the PE. A native tail-transfer stack tracks nested facade/navigation frames sharing the same return address and observes exits at the actual RET instructions.",
+    "compiled_execution": "Actual production candidate bodies execute under aliases with wrappers at the nine public helper boundaries. Bodies contain no verification hooks. The same actual chain is compiled separately for Debug and optimized variants.",
+    "observations": "Compare ordered function entry/exit identifiers, tile arguments, consumed raw DWORD returns, 24 state values at each boundary, final hashes of all declared memory regions and return values. All nine functions have reached both mutation phases; repeated getter occurrences are also tested.",
+    "mutation_domains": ["Dimensions and area rows", "Lookup row and column outputs", "Camera X/Y", "Four bounds", "Editor and mode DWORDs", "BYTE and DWORD dirty fields", "First/last lookup cells", "Reset pair contents"],
+    "memory": "Hash every byte of the complete 105567-DWORD lookup grid with adjacent guards, dimension globals, camera fields, lookup outputs, bounds/reset region, editor/mode state and dirty state. Native nonstack writes must lie within declared watched regions; address and size prefixes are part of every region hash.",
+    "abi": "Native and C cdecl caller ESP plus saved EBX/EBP/ESI/EDI are checked. Native caller argument guards and execution budget are checked. Semantic area and dimension returns are asserted; void incidental EAX and identical machine-code tailcall generation are not claimed.",
+    "case_domains": [
+      "Wrapped area addition/product, including full-DWORD values at signed boundaries and above 255/65535.",
+      "Odd, even, zero and negative dimensions including INT_MIN, preserving signed division toward zero before centering.",
+      "Normal and editor bounds, full-DWORD modes 0/1/100 hexadecimal, signed clamp overflow and random full-DWORD limits.",
+      "First/last cell, row transitions, high rows, duplicate matches, excluded high targets, sequential grids, all-equal grids and complete missing-target scans.",
+      "Actual reset-alone and reset-before-navigation fixtures, repeated navigation, mutations at every real helper entry and exit, and repeated width/height getter calls."
+    ],
+    "limits": [
+      "This is a pixel-free memory and algorithm proof. It does not establish input dispatch, map initialization, scrolling animations or complete city pixel fidelity.",
+      "The full native lookup allocation is watched and traversed by missing-target cases. Every possible target value and every possible placement is not independently enumerated.",
+      "Mutations are declared fixture actions around real algorithms, not substitute endpoint algorithms or production behavior.",
+      "No accepted source other than the approved staged 1886 ordering dependency is changed; coordinator owns application and the old camera regression refresh."
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "status": "Frozen complete55instruction tiler; both private Debug/O2 native proofs passed. Production and prior frozen phase files unchanged.",
+  "native_entry": "00536990",
+  "source": "src/unit_02446.c",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_instructions": 55,
+  "native_bytes": 151,
+  "original_defects": [
+    "F5683C spritebase and D3B5C0/DC/E0 art/coordinate caches wereBYTE despiteDWORDnative accesses, truncating submittedimageIDs and globals."
+  ],
+  "restoration": [
+    "LiveDWORDspritebase reload for every tile, with explicitunsigned32bit addition/wrap forbase+columnphase+rowphase+13.",
+    "Exactglobalstore order:DWORDxD3B5E0, DWORDyD3B5DC, DWORDimageD3B5C0; actual three-argument compiled53E590facade usesglobalF55BB0manager.",
+    "Cached localx/y preserved across deep endpoint mutations; x+16 and y+16 wrap as nativeDWORD.",
+    "Columnphase incrementsandcycles0..9 for eachrow; rowphase increasesby12andcycles0..108 across10rows. Nonpositive signedwidth/height preserve nativeguards and no-submit behavior.",
+    "Sprite returnEAX is discarded; controlledfullDWORDreturnvariants and ECX/EDXclobber demonstrate no invented resultdependence."
+  ],
+  "proof": {
+    "cases_each_configuration": 1547,
+    "instruction_coverage_each": [
+      55,
+      55
+    ],
+    "conditional_outcome_coverage_each": [
+      12,
+      12
+    ],
+    "exclusions": [],
+    "guarded_regions": [
+      [
+        "00d3b5b8",
+        56
+      ],
+      [
+        "00f56834",
+        24
+      ]
+    ],
+    "endpoint_mutations": [
+      "livebaseincrement aftereachsubmission",
+      "livebasereplacement",
+      "art/x/ycacheoverwrites",
+      "combinedmutations",
+      "volatileECX/EDXclobber"
+    ],
+    "configured_native_receiver": "00f55bb0",
+    "native_stack_arguments": [
+      "imageDWORD",
+      "xDWORD",
+      "yDWORD"
+    ],
+    "native_renderer_cleanup_bytes": 12,
+    "C_renderer_facade": "int FUN_0053e590(intimage,intx,inty), globalmanagerboundinsideacceptedbody",
+    "native_stack_and_callee_saved_registers_checked": true,
+    "Debug": {
+      "path": "artifacts/dropdown_tiler_phase/metadata/emulation-debug.json",
+      "sha256": "7093c82dc26f492641ea14dd02c31ee1937358e0e075f379cab71c7a28e42725",
+      "compiled_C_sha256": "8f8ea14d5917514f19fd2b5f99f1283c8d78d8fb2cb720ce18104d77f71d7060"
+    },
+    "O2": {
+      "path": "artifacts/dropdown_tiler_phase/metadata/emulation-release.json",
+      "sha256": "b7169e8b33bade317b49af5a5e062a62b40ba639140c99d9aa97c39d3854148d",
+      "compiled_C_sha256": "6e942f298cb38d717de6f366bdef4e8ee9bd8b9be8aded66b4c4c5417b8811f3"
+    }
+  },
+  "limitations": [
+    "Deep53E590 sprite render remains a typed controlled endpoint; its1076nativeinstructions are authenticated for entry/thiscall/RET12contract only, not executed or re-proven here. No pixel equivalence claimed.",
+    "The actual native caller explicitly bindsECX=F55BB0, pushes y/x/image and receives callee cleanup12. The accepted compiledC53E590facade takes image/x/y as cdecl and binds the same globalmanager internally. The fixture records that manager and those3values; no native pointer calls.",
+    "Positive tile extents tested through256 for individualaxes and32x32; nonpositive signedDWORDextents includeINT_MIN. Huge positive grids are outside finite fixture budget, but no count narrowing or new production bounds are introduced.",
+    "Caller-provided coordinates and spritebase are tested across all32bit wrap boundaries under the controlled-renderer contract. The actual renderer has independent image/clip preconditions; this suite does not relax them."
+  ],
+  "supersession": "This independent55body restoration closes the knownunit2446BYTEdefect recorded historically in frozen dropdown_menu_phase. That earlier proof remains a controller/ordered-render-endpoint proof, and neither suite claimsfullspritepixels.",
+  "source_hashes": {
+    "artifacts/dropdown_tiler_phase/include/dropdown_tiler.h": "c0448c82bbe0dcc5efff33640a08276ab9fd756613cc3a26b1cc170ca138f0b0",
+    "artifacts/dropdown_tiler_phase/src/unit_02446.c": "77b03da5c89ce5bfa7d77d29deb1c147348456e97a4d004961565f92f43da9b0",
+    "artifacts/dropdown_tiler_phase/tests/dropdown_tiler.c": "08164f93dc53ed28cfe31b21bff1612838cf84ad4f4be9ab395594b96959d061",
+    "artifacts/dropdown_tiler_phase/tools/verify_dropdown_tiler_emulation.py": "cf7eca16f9ac3fe9b3cf6b86c4a6bf2412f8b04c3627ec180c0e75d076a8615b",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "src/unit_02524.c": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9"
+  },
+  "native_evidence": {
+    "metadata/dropdown-menu-render-latches-native.json": "e22ca78f6ae935ad0fada1940ed8dad5a74359f785606863bde4240fc8e35fda",
+    "metadata/world-render-sprite-core-native.json": "7950342f847cb3c7dcc7bb455a25fea0b429720a33377615df105bb2bf2ab3a8"
+  },
+  "recipe": "integration-cmake.txt",
+  "requires_new_runtime_or_callback_or_startup": false,
+  "unchanged_dependencies": [
+    "include/sprite_render.h",
+    "src/unit_02524.c"
+  ],
+  "original_game_process_executed": false,
+  "product_modified": false
+}

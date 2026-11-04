@@ -1,0 +1,159 @@
+{
+  "format": 1,
+  "status": "Complete staged handwritten implementation and native evidence frozen; production and live integration remain coordinator-owned.",
+  "original_native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entry": "0043b630",
+  "entry_native_instructions": 1963,
+  "entry_native_bytes": 6586,
+  "new_native_instructions": 2860,
+  "existing_geometry_instructions": 99,
+  "all_native_bytes_authenticated": 9746,
+  "conditional_outcomes": {
+    "executed": 684,
+    "total": 686,
+    "qualified_unreachable": {
+      "0x4e5582": {
+        "excluded_outcome": "taken",
+        "reason": "First row:4E5562..556C reads[EDI]=side and skips the entire piece when side<=0;4E5572..5582 has no calls or stores throughEDI. Later rows:4E5740/5742 requires nonnegative row<side, then jumps directly to4E557E XOR EBX;4E5580/5582 repeats side<=0. For valid nonaliasing object/stack/global regions there is no intervening external call or side-field store on either edge."
+      },
+      "0x5461bf": {
+        "excluded_outcome": "taken",
+        "reason": "First row:54619B..5461A5 reads[ESI]=side and skips the piece when side<=0;5461AB..5461BF has no calls or stores throughESI. Later rows:546390/546392 requires nonnegative row<side, then jumps directly to5461B7 XOR EBX;5461B9/5461BF repeats side<=0. For valid nonaliasing object/stack/global regions there is no intervening external call or side-field store on either edge."
+      }
+    },
+    "unqualified_missing": []
+  },
+  "checks_per_configuration": 3938,
+  "configurations": [
+    {
+      "report": "metadata/placement-preview-staged-debug-full-emulation.json",
+      "sha256": "5ee4be1c702f53deda730203ab3d158d6f81ffa93ba72e43b375634a65ff7e03",
+      "compiled_C_path": "build/agent-placement-preview/out/Debug/restore_placement_preview_verify.exe",
+      "compiled_C_sha256": "9d3bb8b70e802a552feece883ba568a5dc9d0b9b257ae9a99243c00f10a8bf0b"
+    },
+    {
+      "report": "metadata/placement-preview-staged-release-full-emulation.json",
+      "sha256": "3aae8222d75630e8feff22d59c4f50c18314099b93b28daaef517c61c2edc1a3",
+      "compiled_C_path": "build/agent-placement-preview/out/Release/restore_placement_preview_verify.exe",
+      "compiled_C_sha256": "f2a001a48fa3a41e24d55bf6a75248a158535c7c237423f5017604ff48018bb6"
+    }
+  ],
+  "startup_profiles_per_configuration": 72,
+  "native_seed_records": 1327,
+  "native_seed_prefix_instructions_reexecuted": 17497,
+  "global_mask_receiver_bindings": [
+    "0x43c1d1",
+    "0x43c475",
+    "0x43c581",
+    "0x43c72b",
+    "0x43c8a3",
+    "0x43ca7f",
+    "0x43cadd",
+    "0x43cb5f",
+    "0x43d4ff",
+    "0x43d6f6",
+    "0x43d936",
+    "0x43da6f",
+    "0x43e17b",
+    "0x4417cc",
+    "0x441949",
+    "0x441ab9",
+    "0x442211",
+    "0x4ded17",
+    "0x4edde8",
+    "0x4edf31",
+    "0x541d13",
+    "0x43d282",
+    "0x43def3",
+    "0x43e06f",
+    "0x43f77d",
+    "0x4c0120",
+    "0x4c137a",
+    "0x4c3114",
+    "0x4e56eb",
+    "0x4ed4c3",
+    "0x4ed5b5",
+    "0x4eda18",
+    "0x536f9b",
+    "0x546335"
+  ],
+  "twelve_class_stores": {
+    "vtable_tokens": 8,
+    "selected_piece_DWORDs": 4,
+    "full_object_watch_bytes": 131072,
+    "original_constructor_prefixes": "Only12 exact data-store instructions are claimed here, not complete constructors."
+  },
+  "entrypoint_contracts": {
+    "projection": "4F0BA0:four stack arguments, both actual32bit output locals, aliasing and unsupported-orientation preservation checked.",
+    "mask": "53F4F0:explicit receiver plus4 arguments; all34 native entryxrefs immediately bind ECX=F55BB0 before the global facade.",
+    "members": "4E5490 and545FC0:explicit self,pieces,count; all8 five-instruction native adapter identities bind owned C code; virtual native tokens select4 owned C predicates.",
+    "rules": "405B40/60/80 data tokens map to3 owned C leaf predicates; six unknown/truncated tokens explicitly diagnosed outside valid native equivalence.",
+    "bootstrap": "Seed initializer, then8 existing geometry calls, then12 class stores. Existing geometry and seed/runtime files remain unchanged."
+  },
+  "owned_existing_units": [
+    565,
+    2115,
+    2527
+  ],
+  "new_runtime_files": [
+    "runtime/placement_preview_members.c",
+    "runtime/placement_preview_predicates.c",
+    "runtime/placement_preview_platform.c"
+  ],
+  "production_wiring": "Add placement_preview.h to unit00177; call restore_placement_preview_initialize_classes immediately after existing54F3D0(6E9188), before541D50. Keep recovered seeding before all8 geometry methods. No callbacks or startup diagnostics are needed by this module.",
+  "CMake_recipe": "artifacts/placement_preview_phase/metadata/integration-cmake.txt",
+  "verification": "tools/verify_placement_preview_emulation.py --production --exe <shared restore_placement_preview_verify.exe> writes metadata/placement-preview-emulation.json. Tests use RESTORE_PLACEMENT_PREVIEW_PRODUCTION; helpers include2115,2527,members,predicates textually, so do not compile those twice in the verifier. Production library compiles those files normally.",
+  "limitations": [
+    "Deep terrain validators/game actions, 4F0AB0 fallback coordinate lookup, clipping classifiers and sprite raster endpoints are named controlled endpoints. This proves controller selection, argument/state order and consumed return contracts, not those deep algorithms or framebuffer pixels. Untouched region validators such as unit01203 still declare map origin/dimensions as BYTE; their full production validation for a nonzero DWORD origin is not established here.",
+    "Semantic fixtures explicitly vary piece sizes/type/selector; separate startup profiles use exactly the independently proved1327 tuples and actual geometry. Only the12 evidenced class stores are reconstructed; unrelated C++ constructor state is outside this boundary.",
+    "Unowned toolbar unit00042 currently writes BYTE605A48 although native writes a full function token. The owned resolver accepts only405B40/405B60/405B80 and diagnoses unknown/truncated IDs; no guessed recovery or native code-pointer call is used. Actual toolbar selection and complete construction gameplay are not claimed.",
+    "Controlled region and mask/clip mutations additionally exercise mode and occupancy reloads, including the later29..2B variant and second-pass live-actor arm. These mutation fixtures establish boundary effects, not an assertion that the current deep algorithms perform those writes. Valid map indices, size0..6 and even orientation0/2/4/6 are used for the main/member controllers; direct projection additionally checks untouched outputs on unsupported orientations."
+  ],
+  "reference_files_read_only": [
+    "../PharaohRewrite/src/Pharaoh.Verification/BuildingPreviewVerification.cs",
+    "../PharaohRewrite/src/Pharaoh.Desktop/Legacy/Rendering/BuildPreviewRenderer.cs",
+    "../PharaohRewrite/src/Pharaoh.Desktop/Legacy/Managers/MapManager.TerrainPreviews.cs"
+  ],
+  "reference_authority": "C# used for hypotheses/navigation; every reconstructed behavior bound to original native bytes. No ref files, original game process, UI, Ollama, imported drafts, production sources or shared build/run files modified by this phase.",
+  "source_hashes": {
+    "artifacts/placement_preview_phase/include/placement_preview.h": "43fe045c49c6cff0459d642309ae4fcafd89eaa682f19ade56cf9d5d80ceaa77",
+    "artifacts/placement_preview_phase/src/unit_00565.c": "4499a0a848b7dea33d5b48474c8d8b25fc96e5cdb78ef7539c089fb2f8fc9c5e",
+    "artifacts/placement_preview_phase/src/unit_02115.c": "23e6313b1ac0f16c185c6c3577915322a08ac2b4c628e8668de378f3b9da2990",
+    "artifacts/placement_preview_phase/src/unit_02527.c": "bbe4539d93d305bb77ba0adb7bd4496f21be49306d7b0f44776f5392d42dec29",
+    "artifacts/placement_preview_phase/runtime/placement_preview_members.c": "ee8a878130ea9620fccfff5b53e77e8d36a6ea00eca794acdf73e22e7811c92f",
+    "artifacts/placement_preview_phase/runtime/placement_preview_predicates.c": "7ef1896493c850b2c88333171c1551018ef4b5f23c95cea3652974cc40ebd707",
+    "artifacts/placement_preview_phase/runtime/placement_preview_platform.c": "5c67d45ad0923336ae753b6e3416c439ff29e48c41b61bc23c6b7424a19944e7",
+    "tests/placement_preview.c": "476ee9dd112a31d633cd147503ec3f8ec8031f78f20820b06ef1ae89c956440a",
+    "tests/placement_preview_helpers.c": "fc37c8ff8f133776fc36849d167888340e9d6b94fec57a562a3c0ce9f06d1db6",
+    "tools/verify_placement_preview_emulation.py": "c8235f37d92ee5f0fb5a3fb317954f8ad5f038c07164f0e836412e7a404a3b26",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "include/graphics_53f250.h": "bf532d4ec532fdbe38efdadd9bfb00cfaec2a3f47845a332dddf5a8ba582d677",
+    "include/preview_footprint_seeds.h": "dd153c83b76f5df9f3d82f5a643dcae934f7c6c941216f49936122d83f987d58",
+    "runtime/preview_footprint_seeds.c": "8dacbed87b64225d023b6256478dc0ceba0636c5f9c40c801f265efc3252983d",
+    "tools/extract_preview_footprint_seeds.py": "43126da5ae89275e1745f88d1d64cd3a14a630148b1d7a7fc5d3a558887e4441",
+    "include/startup_geometry.h": "4436aa4484a37630c153d439d084ee6180371b7f827f2514f4e6f493e6b84aa6",
+    "src/unit_00002.c": "70c1206fd4b7a83598678373da25e16906246fe0eedcad52fa855282ab6b7d09",
+    "src/unit_00099.c": "6b056e6c6e039bc169bb96741861599e9ec028f5b08a023ece4a75feaf7510d1",
+    "src/unit_00195.c": "ba42cedd419e6e83ba2cc292953248cc4d86f6a3e6ffca1f5dcf44e28d9894d5",
+    "src/unit_01993.c": "58818aa759c1cc2da76b6c1e9af0b245d7f6e45e6a647d37d1cb1920dae737d6",
+    "src/unit_02563.c": "8e3962ec562fb4157ebcad699eece016c5f2009c57537886f322ee04c4bbb50b",
+    "src/unit_02617.c": "e62eaa647024d88dd9abae4ee4c9f53368711187a3f5fea76ce3529252baaa53",
+    "src/unit_02604.c": "3127a5004e3c82e4872585db947dccdc763904f0777d8fa31c5aadb0ba6d99e8",
+    "src/unit_02591.c": "65af6fc3363fd073a9acefca046e4aee31420d5c54cf89d24d637858c77bf58f",
+    "src/unit_01965.c": "5ace5ef1b8e81780465b34c224cdf2fe3ed915f0cd44862ab1e2ba8ff8cc5bf7",
+    "src/unit_01968.c": "6ed97449be9f20feeecd5bde319616a756981234739a98404e7ee4de0458bd13"
+  },
+  "native_exports": {
+    "metadata/viewport-endpasses-next-native.json": "9c6d41e9803c1e907d2d39fb15d5a98254a7884494ab9957848ef0b461775cb4",
+    "metadata/camera-sidebar-coordinate-native.json": "a8fca2bad3afa96ef59127b5c739435810b05ff56f72e8369f72d770095a887b",
+    "metadata/placement-preview-callee-native.json": "88c29628726188a158803a0689eff4691218b474867428935da6ee9d602b2736",
+    "metadata/placement-preview-member-draw-native.json": "81738d2dc5af12bf4150f4412d969f20bd501ced8f69d690b0c26a3a6fe51fc0",
+    "metadata/placement-preview-predicate-cfg-native.json": "8e22c29f72e45dd2e94096835b2182ba073b758dd9d0409548a154389b4f8341",
+    "metadata/placement-preview-rule-predicates-native.json": "2fd56fa3c488ba032e329a8d26c54b6b667f901858c009f854e9138065f1e503",
+    "metadata/placement-preview-object-ctors-native.json": "5393b70a2285d8514c5cbfbaf5b4528668928a5babbcfd18ab59c3f730a38d12",
+    "metadata/preview-footprints-provenance.json": "da7067354a2a504d404fbdf25b6ad6772cd1f3ac5d1d09a7b9d47c5b2e0a9e91",
+    "metadata/preview-footprints-native.json": "e7d635af4b5af3ba7b4a167516eb8e968b40f816b3d5cbd11b75e820ccc8da82",
+    "metadata/placement-preview-objects-native.json": "f94dd5f87dcbb1caedbe20dfadd6ed1179afb9cb552baf1488c8d5c27d8c05dc"
+  }
+}

@@ -2,11 +2,11 @@
  * EAX outputs are full DWORDs; no incoming register data input/ECX receiver.
  * Native488030/487f80 RET4 is normalized by these typed internal C calls. */
 #include "menu_building_kind.h"
+#include "building_processing_query.h"
 #define BK_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define BK_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
-extern int32_t FUN_00487f80(int32_t kind);
 uint32_t FUN_00488030(uint32_t building)
-{return (uint32_t)FUN_00487f80((int32_t)(int16_t)BK_W(0x7999e8u+building*264u));}
+{return restore_building_is_processing_type(building);}
 uint32_t FUN_004f8960(void)
 {
  uint32_t mode=BK_U(0xeadd50u),building;uint16_t kind;

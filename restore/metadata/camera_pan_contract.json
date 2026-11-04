@@ -1,0 +1,88 @@
+{
+  "format":1,
+  "status":"Three complete staged camera bodies, header, tests, verifier and private project frozen after4176 cases against private Debug and optimized C. Coordinator owns application after its current checkpoint.",
+  "authority":{
+    "native_sha256":"fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "native_packets":["metadata/camera-pan-chain-native.json","metadata/camera-sidebar-coordinate-native.json","metadata/camera-bounds-helpers-native.json"],
+    "caller_windows":"metadata/camera_pan_callers_native.json",
+    "original_process_executed":false,
+    "reference":"PharaohRewrite read-only CameraManager and LegacyCityMapProjection used for names/navigation only. Native contradictory-key priority, outside-edge handling and unrestricted signed speed arithmetic take precedence over reference cancellation/clamping behavior."
+  },
+  "keyboard_preflight":{
+    "packet":"metadata/camera-keyboard-pan-native.json",
+    "unchanged_sources":["src/unit_01680.c","src/unit_01681.c"],
+    "conclusion":"004CC370/390 are text-cursor decrement/increment helpers with no callees. The BYTE base symbols are used as byte-address bases plus index*4 before casting to int*, so their effective loads/stores and stride are already DWORD/4. Their signed conditions prevent decrement/increment overflow. No rewrite was justified.",
+    "actual_camera_path":"runtime/window_messages.c writes full DWORD direction flags after the text-cursor helper and optional407C10 action. The later sampler004CF660 consumes these camera flags through the cadence gate;004DDDE0 performs the actual city camera movement.",
+    "scope_limit":"No runtime/window_messages.c or keyboard-pair source is edited or re-proved by this phase."
+  },
+  "004cf660":{
+    "candidate":"artifacts/camera_pan_phase/unit_01771.c",
+    "production":"src/unit_01771.c",
+    "instructions":131,
+    "signature":"int32_t __cdecl FUN_004cf660(void)",
+    "algorithm":[
+      "Call actual004DDD60 first. If its full EAX is zero, return8 without changing dirty state or consuming any direction flags.",
+      "Read signed DWORD cursor X at E38DC4. Store DWORD E38DCC=0. X<=0 sets west and dirty1; X>=wrapped(DWORD screen width E38DB8-1) sets east and dirty1.",
+      "Read signed DWORD cursor Y at E38DC0. Y<=0 sets north and dirty1; Y>=wrapped(DWORD screen height E38DB4-1) sets south and dirty1. Native code has no extra out-of-window rejection.",
+      "Overlay nonzero full DWORD keyboard flags in native read order: E92E30 west,E92E2C east,E92E38 north,E92E34 south. Each active flag sets dirty1.",
+      "Clear four full DWORD flags in order E92E2C,E92E30,E92E34,E92E38 before selecting a direction.",
+      "Resolve west+north=7,west+south=5,east+north=1,east+south=3,west=6,north=0,south=4,east=2,otherwise8. This order gives west/north priority when opposite flags coexist; it does not cancel them."
+    ],
+    "return_contract":"The complete raw EAX domain is0..8. All eight native callers PUSH EAX directly: six pass it to004DDDE0 and two to00442730. The latter movement algorithm is outside this proof. This suite preserves the full direction scalar rather than a Boolean."
+  },
+  "004ddd60":{
+    "candidate":"artifacts/camera_pan_phase/unit_01877.c",
+    "production":"src/unit_01877.c",
+    "instructions":33,
+    "signature":"uint32_t __cdecl FUN_004ddd60(void)",
+    "algorithm":[
+      "Call the real Windows timeGetTime import, retain its raw DWORD result, then load DWORD last timestamp E94DB4. Compute wrapped now-last and interpret it signed; negative elapsed is replaced by10000.",
+      "After the clock call load full DWORD speed E38E70. Compute wrapped100-speed, interpret signed and divide by10 toward zero, matching native signed multiply-high division. Do not clamp speed to0..100.",
+      "Require signed setting<10. Compute wrapped setting*12+2 and compare it signed against elapsed. When due, store the originally returned now DWORD at E94DB4 and return1. Otherwise preserve the timestamp and return0."
+    ],
+    "ordering":"Timestamp and speed reload after the actual clock boundary. Clock exit mutations and repeated wrap/timing cases exercise those reloads. The sole caller tests full EAX for zero.",
+    "host_ABI":"Pinned PE import slot0056F22C resolves to WINMM.dll!timeGetTime. Production uses DWORD WINAPI timeGetTime(void). The private native oracle redirects that import to its declared host-clock endpoint; the C wrapper uses the same typed WINAPI contract. No time source is embedded into the production body."
+  },
+  "004ddde0":{
+    "candidate":"artifacts/camera_pan_phase/unit_01879.c",
+    "production":"src/unit_01879.c",
+    "instructions":55,
+    "signature":"void __cdecl FUN_004ddde0(int32_t direction)",
+    "algorithm":[
+      "Read full DWORD5E2A60 and choose vertical step1 if zero,otherwise4. Direction8 returns immediately with no cache decay or clamp.",
+      "Directions0/1/7 subtract step from camera Y;3/4/5 add step. Directions1/2/3 add1 to camera X;5/6/7 subtract1. All coordinates at BCA2BC/C0 are full DWORDs and wrap at32 bits.",
+      "Diagonal1/3 read Y then X, store Y then X, matching native ordering. The other directional stores retain their original order.",
+      "Every direction other than8, including unsupported direction values, calls actual0041D6F0 and then transfers to actual004DE080. No default early return or silent clamp replacement is introduced."
+    ],
+    "return_contract":"The function is void. Direct caller windows either overwrite EAX/AL or forward incidental EAX through enclosing control flow without consuming it as the movement result. The proof excludes void scratch EAX and compares the full state/ABI; identical generated tailcall bytes are not claimed.",
+    "reload_contract":"Mutations after real decay and dimension helpers can alter camera, geometry, mode and cache fields. Movement does not restore stale coordinates after those calls; the real clamp observes the native current state."
+  },
+  "unchanged_real_dependencies":{
+    "0041d6f0":{
+      "source":"src/unit_00281.c",
+      "coverage":[17,17],
+      "contract":"Already correct69 records with128-byte stride from702984. In each record zero DWORD fields2..6 and replace signed field0 with division by2 toward zero. Preserve field1 and every other byte. Full nonuniform records and surrounding guards are compared; no source rewrite is needed."
+    },
+    "004de080":{"source":"src/unit_01886.c","coverage":[54,54],"contract":"Compose the applied accepted full DWORD camera clamp, including corrected real height-getter-before-Y reload, signed bounds, editor expansion, BYTE dirty flag and final0000FFFE Y mask."},
+    "004ddea0_004ddeb0":{"sources":["src/unit_01880.c","src/unit_01881.c"],"coverage":[2,2],"contract":"Actual facade thunks, with consumed full DWORD getter returns and repeated calls on maximum clamps."},
+    "00430ca0_00430cb0":{"sources":["src/unit_00464.c","src/unit_00465.c"],"coverage":[4,4],"contract":"Actual full DWORD viewport width/height accessors."}
+  },
+  "proof":{
+    "report":"metadata/camera-pan-emulation.json",
+    "passed":true,
+    "cases_per_variant":4176,
+    "variants":["Private Debug /Od","Private Release /O2"],
+    "native_instruction_coverage":[296,296],
+    "owned_instruction_coverage":[219,219],
+    "owned_conditional_outcomes":[60,60],
+    "boundary_mutation_phases":[20,20],
+    "controlled_algorithm_endpoints":[],
+    "controlled_host_boundary":"WINMM.timeGetTime only",
+    "source_hash_count":20,
+    "composition":"Actual sampler/cadence/movement,69-record decay, clamp and four dimension facade/getter bodies execute in both original-instruction Unicorn and compiled C. Fixture pipeline sampler->movement uses the full returned direction, matching six direct native callers.",
+    "observations":"Compare ordered real function entry/exit identifiers, direction arguments, consumed raw scalar returns,26 DWORD state fields plus one BYTE field, and final hashes of all watched regions with address/size prefixes. Tail-transferred native frames are tracked through their shared return stack.",
+    "memory_and_ABI":"Every byte of the69 nonuniform128-byte cache records, their guards, direction flags, cursor/dimension/dirty fields, clocks, camera/bounds and mode/editor state is compared. Native nonstack writes must lie in watched regions. Native and C cdecl ESP and saved EBX/EBP/ESI/EDI are checked; native caller argument guards and execution budget are checked.",
+    "corpus":["All16 keyboard combinations, including contradictory directions and values1/256/80000000 hexadecimal, with cursor interior/edge/outside positions.","Signed dimension/cursor boundaries, DWORD subtraction wrap at screen edges and dirty-state preservation when cadence fails.","Speeds0..100 around exact due thresholds, negative/large speeds, signed timestamp differences and DWORD clock wrap.","All directions0..8 plus negative/unsupported values, vertical step0/1/256 settings, full wrapped camera coordinates and real clamps.","All20 real/clock entry and exit mutation phases, repeated getter occurrences, clock/cache/speed reloads, real cache decay and repeated pipeline calls."],
+    "limits":["The Windows host clock is deterministic in this fixture. Actual wall-clock timing and Windows scheduling are outside the comparison.","No original game process, UI automation, complete window event loop, actual mouse sampling or city pixel fidelity is claimed.","Only six sampler callers use this composed movement function. The two00442730 callers and their different movement algorithm remain outside this scope.","Mapped fixed state is used; arbitrary invalid addresses and asynchronous data races are outside the proof. No production algorithm or original-code fallback is substituted."]
+  }
+}

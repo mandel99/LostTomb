@@ -1,0 +1,181 @@
+{
+  "format": 1,
+  "frozen": true,
+  "frozen_utc": "2026-10-30T14:39:08.291031+00:00",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "production_modified_by_agent": false,
+  "repaired_native_functions": 4,
+  "repaired_generated_units": {
+    "01414": "004b17d0",
+    "01415": "004b1d10",
+    "01417": "004b1da0",
+    "01435": "004b3f00"
+  },
+  "unchanged_composed_functions": {
+    "1427": {
+      "address": "004b3250",
+      "sha256": "364d8206ec5a4be2f177519dcf2082e45b6e4a25df637b4f9b6cbe780826b493",
+      "instructions": 17
+    },
+    "2065": {
+      "address": "004ea9a0",
+      "sha256": "f58f79a1e10450bac3bb522c1793dd5e14f45cbde0d3d9b7d7b48381d1d94e5b",
+      "instructions": 9
+    },
+    "2066": {
+      "address": "004ea9c0",
+      "sha256": "dc13881fa9fe64a9bf48895c75f6b652f8a6f7bcf459899a9baa10032df9dd41",
+      "instructions": 11
+    }
+  },
+  "unchanged_C_only_sound_endpoint": {
+    "unit": "01130",
+    "sha256": "c80c09e0e8ac43653f4f98ce615bd25b1c91e3c2ac3c1cc957ad9f9aa404a5a9",
+    "native_instructions_claimed": 0
+  },
+  "native_instructions": {
+    "restored_main": 387,
+    "restored_direction": 23,
+    "restored_exit": 18,
+    "restored_subpixel": 50,
+    "restored_total": 478,
+    "composed_route_classifiers": 37,
+    "total": 515
+  },
+  "proofs": {
+    "debug": {
+      "report": "artifacts/actor_combat_phase/metadata/emulation-debug.json",
+      "sha256": "0c837dfed5fbe50bba66a8a4287ab49d7b0ffbfe935f7e8a463e9e55e48130fb",
+      "passed": true,
+      "checked": 2989,
+      "instructions": 515,
+      "compiled_C_sha256": "c802edc2c2cee225fb465517fbb27a92e57c278de2f99c9e2f23188fe6de0232",
+      "C_smoke_checks": 32,
+      "flags": "/Od /Ob0 /MTd /RTC1"
+    },
+    "release": {
+      "report": "artifacts/actor_combat_phase/metadata/emulation-release.json",
+      "sha256": "782c3fc6b4c10cc79c17f7e50ba22aa775fff730e360fca2eae136c455f6ae0f",
+      "passed": true,
+      "checked": 2989,
+      "instructions": 515,
+      "compiled_C_sha256": "e20f6caab01d9a9a6393c8800bc87ca46c46e32e9a260555a6c68b2e090bb49c",
+      "C_smoke_checks": 32,
+      "flags": "/O2 /Ob2 /DNDEBUG /MT"
+    }
+  },
+  "caller_ABI_audit": {
+    "passed": true,
+    "checked": 38,
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "auditor_sha256": "c2c8a67030da1d9bbe2b8c21fb5115b699044ab7911ca00691cace449cbac990",
+    "categories": {
+      "EAX-overwritten-on-all-reachable-paths": 36,
+      "epilogue-forwarding-only": 2
+    },
+    "limitations": [
+      "Bounded static continuation audit, not complete execution of all actor callbacks. Subsequent calls are treated as conventional EAX clobbers; explicit argument setup/indirect call operands are inspected before that boundary. Forwarded EAX through void epilogues is not counted as a consumed result."
+    ],
+    "additional4991a0_call_sites": 15
+  },
+  "entry_contract": "void FUN004b17d0(int32_t actor), explicit argument-derived388-byte actor record; no ECX receiver, global-current-actor rebinding, x87 input or direct RNG. This is state5 melee/combat, not general route movement.",
+  "validation": "Both C variants match2989 independently initialized native scenarios, all515 original instructions and413328 watched bytes including nonuniform guards. Compare ordered actual leaf entry/exit and deeper endpoint args/intermediate fields, full canonical direction result plus AL classifier use, native/C stack balance and saved registers, native caller stack canary. Cases cover signed/byte/word/DWORD boundaries, target recovery modes, subpixel8-direction movement/opacity,144-byte formations,56-byte stats, wrapped damage product/division/accumulation, owner/player fullDWORD, route release, all formation bonuses and explicit endpoint mutations. All14 source bindings match at freeze.",
+  "native_contracts": [
+    "SignedBYTE phase<=5 increments before one real subpixel step. BYTE attacktick wraps, unsigned threshold24; native target class1/4 resets tick12, others0.",
+    "Targets/formation IDs sign-extendWORD. Formation type/count/flag areWORD, headingBYTE, experienceSIGNEDWORD; formation stride144, actor388, stat56. Player eaac28 is fullDWORD.",
+    "Attacker formation is cached before subpixel call. Target pointer/formation/stat inputs cache at native points; global current actor may change without rebinding explicit actor.",
+    "Formation attack/defense arithmetic preserves asymmetric direction/count bonuses,32-bit wrap, signed defense clamps0..20, low32 damage product then signed division20 towardzero and negative clamp. Damage accumulation wrapsBYTE before signedDWORD threshold comparison.",
+    "Direction predicate returns full canonical EAX0/1; classifiers preserve actual native high EAX scratch but combat consumesAL. Existing legacy bool consumers of the predicate remain AL-compatible.",
+    "Combat exit really clears mode/targets, restores saved actionBYTE, then invokes unchanged accepted route release. Subpixel step updatesWORD positions and BYTE hidden/opacity state with native wrapping."
+  ],
+  "limitations": [
+    "Physical sound47d350, death notification4b5050, hit notification4b5210 and formation notification4b7ab0 are controlled deep endpoints. Production retains these existing entries; named sound adapter explicitly retains/discards native event before current no-argument sound no-op. Their full algorithms, audio, RNG side effects and complete combat simulation are not proved.",
+    "Return wrappers may apply explicit test-only mutations after real leaves execute; they expose native cache/reload behavior without claiming these mutations are real product effects.",
+    "Mapped bounded actor,formation,stat and route records are exercised. Unmapped malformed IDs are excluded; no extra product validation is introduced. All515 original instructions are covered; the32-bit input space is not exhaustive.",
+    "This is state5 melee combat and its subpixel approach/exit helpers. General route/free-walk4A5DA0/4B3FF0 remains outside this proof. No implicit ECX receiver, x87 input or direct RNG exists in the proved graph.",
+    "All38 native call continuations have bit-aware EAX audit:36 overwrite,2 pure epilogue forwarding. Fifteen4991a0 consumers separately show no direct original-EAX read. Forwarding is not counted as consumed return; further actor-wrapper dispatch is outside this bounded static audit.",
+    "Private optimized link uses existing Debug restore_data.lib and emits LNK4098. Candidate/test/leaf objects are compiled /O2; shared target should use its configuration-matching restore_data."
+  ],
+  "integration": {
+    "target": "restore_actor_combat_verify",
+    "test": "standalone_actor_combat",
+    "recipe": "artifacts/actor_combat_phase/integration.cmake",
+    "recipe_sha256": "d55f7a207c937ad5e137bbd8069330ddb2d6c00b46533a30df905b3171c7aedb",
+    "product_runtime_additions": [
+      "runtime/actor_combat_boundaries.c"
+    ],
+    "source_replacements": [
+      "src/unit_01414.c",
+      "src/unit_01415.c",
+      "src/unit_01417.c",
+      "src/unit_01435.c"
+    ],
+    "registry_changes": "None; existing calls resolve canonical original function names.",
+    "proof": "Python312/python.exe tools/verify_actor_combat_emulation.py --production --exe <shared executable>",
+    "static_audit": "Python312/python.exe tools/audit_actor_combat_callers.py --production",
+    "private_project": "artifacts/actor_combat_phase/CMakeLists.txt",
+    "private_project_sha256": "230c9281bb7b38748d2c67e2f4f158867e6569f5f5b978311bb8893a2173fcfd"
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/actor_combat_phase/src/unit_01414.c",
+      "target": "src/unit_01414.c",
+      "sha256": "7b79ce77a66ca532ca28f790956aaa2e29671ee8aa14cddd0d4091abc7b65039"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/src/unit_01415.c",
+      "target": "src/unit_01415.c",
+      "sha256": "445c1af031c1dd1fd8ca8358a01c813fb064309b1b93ea3f0f81828ca233432a"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/src/unit_01417.c",
+      "target": "src/unit_01417.c",
+      "sha256": "f9baf22e9128a877458839dc7b310531a1950808ff56a3df6bfed6fa0018d403"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/src/unit_01435.c",
+      "target": "src/unit_01435.c",
+      "sha256": "a83d51c13941260e0c5209a11448eedff9aadcf71189a730dfa7a8b7159180c9"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/include/actor_combat.h",
+      "target": "include/actor_combat.h",
+      "sha256": "bd562beba6e94835c2f64a13e690e09e90ffa4da5e5e31238ff7bc062fd6a352"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/runtime/actor_combat_boundaries.c",
+      "target": "runtime/actor_combat_boundaries.c",
+      "sha256": "6e9a27a34e9f8bd1ce66871d6fa20010e8fdbee1a7abdef721e02234fbb6b812"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/tests/actor_combat.c",
+      "target": "tests/actor_combat.c",
+      "sha256": "d2e932f368c685343cff83a85235787604e847aa1fc2252e832ad70eeef2e5cf"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/tools/verify_actor_combat_emulation.py",
+      "target": "tools/verify_actor_combat_emulation.py",
+      "sha256": "398713180c2dcb7ecc698f8e5ba4382110933dac342a530aaafb037d99e869b1"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/tools/audit_actor_combat_callers.py",
+      "target": "tools/audit_actor_combat_callers.py",
+      "sha256": "c2c8a67030da1d9bbe2b8c21fb5115b699044ab7911ca00691cace449cbac990"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/metadata/native.json",
+      "target": "metadata/actor-combat-native.json",
+      "sha256": "f0142f956118c39dea7ab19b93b3f7389059922a646173ed9f3a1e75a1969263"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/metadata/caller-contracts.json",
+      "target": "metadata/actor-combat-caller-contracts.json",
+      "sha256": "e1a4375da38bb581bc763661b7d6ca88ec5389034c6e83253b99f93c7d09af14"
+    },
+    {
+      "source": "artifacts/actor_combat_phase/metadata/forwarding-native.json",
+      "target": "metadata/actor-combat-forwarding-native.json",
+      "sha256": "67e9d9f44b43cbd7478c20cb34a35b5f38915e809d7b9f2430baf20c132f6621"
+    }
+  ]
+}

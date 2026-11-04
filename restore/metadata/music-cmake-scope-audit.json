@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "sole_changed_target": "restore_music_tick_verify",
+  "prior_CMake_sha256": [
+    "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "d5e41540a770b75fbce792825a35cdd5a97078e5d3148c00dc055a9e9ae96b50"
+  ],
+  "current_CMake_sha256": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+  "compatible_startup_audit": {
+    "current_sha256": "c082ec122ef59e01e0d53471c16dc2ace5911d1024310d7b7b6abe5fae20c34b",
+    "prior_sha256": [
+      "6b497f0325deed4b9a32cc486d58e0511a4907947bd9bad138c0e5c46efd5dde",
+      "d69ab997bb9abeefbd08670c73364c6f1ab9ca9a6f03d9a8ac2fbdbc505b8bd5"
+    ],
+    "only_changed_field": "source_hashes.CMakeLists.txt"
+  },
+  "unchanged_production_artifacts": {
+    "restore_link_check": {
+      "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+      "binary_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+      "map_sha256": "bba1a735086b5f31aa9711f45326a569ae9b6f0c62449d4d545d4fe5a96696fe"
+    },
+    "PharaohRestoreC": {
+      "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\PharaohRestoreC.exe",
+      "binary_sha256": "5482ff79df468e6ea121259aac20e1d9801b0c31e40d5a4aceb4a14814d509c5",
+      "map_sha256": "73d5ffdb5ac6cbde82f252b781313d6b6258a261e13870b1322ea886750c960d"
+    }
+  },
+  "incremental_build_exit": 0,
+  "command": [
+    "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+    "--build",
+    "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only",
+    "--config",
+    "Release",
+    "--target",
+    "restore_link_check",
+    "restore_game",
+    "--parallel",
+    "8"
+  ],
+  "source_hashes": {
+    "direct_c/verify_music_cmake_scope.py": "45cf9f7cf9a67702482cb408e332a0253db37f009499ec2a64ca5292aa9bcd6b",
+    "CMakeLists.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "tests/music_tick_streams.c": "4d4b45fb0a9d7d20394ed23ef7138b141e34b550a4e480aa151f70023fda22f3",
+    "build/build-music-production-unchanged.log": "61ce264597ab5b3e170d3ad5e12e1a47e2625628ac7e79778d7d1603865d6f87",
+    "build/music-configuration-cmake-epochs/CMakeLists-cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "build/music-configuration-cmake-epochs/CMakeLists-d5e41540a770b75fbce792825a35cdd5a97078e5d3148c00dc055a9e9ae96b50.txt": "d5e41540a770b75fbce792825a35cdd5a97078e5d3148c00dc055a9e9ae96b50",
+    "build/music-configuration-cmake-epochs/CMakeLists-05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099.txt": "05e915d77aab28ee045f8b6cdf5218c28a30543c55d165d8c4c575ca7d4ea099",
+    "build/music-configuration-cmake-epochs/audio-global-startup-6b497f0325deed4b9a32cc486d58e0511a4907947bd9bad138c0e5c46efd5dde.json": "6b497f0325deed4b9a32cc486d58e0511a4907947bd9bad138c0e5c46efd5dde",
+    "build/music-configuration-cmake-epochs/audio-global-startup-d69ab997bb9abeefbd08670c73364c6f1ab9ca9a6f03d9a8ac2fbdbc505b8bd5.json": "d69ab997bb9abeefbd08670c73364c6f1ab9ca9a6f03d9a8ac2fbdbc505b8bd5",
+    "metadata/audio-global-startup-audit.json": "c082ec122ef59e01e0d53471c16dc2ace5911d1024310d7b7b6abe5fae20c34b"
+  },
+  "limitations": [
+    "Exact one-time CMake scope audit, not a replacement for behavioral tests. Original report CMake hashes remain unchanged and their full historical files are retained.",
+    "Only the standalone music-tick source list and target-local compile/link options differ. All production and other fixture target definitions, source properties, variables and algorithm files are unchanged between these CMake epochs. The music-tick artifact itself is excluded from this compatibility exception and must pass fresh tests.",
+    "The corresponding historical startup-audit records differ only at source_hashes.CMakeLists.txt. Their reconstructed full bytes must match the exact hash pinned by the original device reports; those device reports are not edited.",
+    "An actual current-config incremental build must preserve both tested Release EXEs and their maps byte for byte. Any other CMake edit, algorithm change, stale non-CMake source, binary difference or unlisted historical hash fails closed."
+  ]
+}

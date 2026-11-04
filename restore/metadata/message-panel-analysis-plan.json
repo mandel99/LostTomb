@@ -1,0 +1,212 @@
+{
+  "format": 1,
+  "phase": "analysis-only; wait for root checkpoint release before any existing source edit",
+  "production_files_edited": false,
+  "native_reference_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "current_mode5_frame": {
+    "path": "artifacts/city-confirm-team-frame.bmp",
+    "sha256": "70d3f422a59a5d46541917c5969acfb4f81807e71904f21aa5078df72ca17c73"
+  },
+  "native_byte_audit": {
+    "path": "metadata/message-panel-analysis-byte-audit.json",
+    "sha256": "14263b6c9153659bd716ed6950d5abdc75b0e2e750c32debc10a9cd402965581"
+  },
+  "approved_next_release_ownership": [
+    "src/unit_01622.c",
+    "src/unit_01623.c",
+    "src/unit_01624.c",
+    "src/unit_01625.c",
+    "NEW uniquely named message-panel header/runtime/test/tool/metadata/private-build files"
+  ],
+  "required_adjacent_contracts_pending_ownership": [
+    {
+      "function": "004c5bf0",
+      "source": "src/unit_01619.c",
+      "reason": "Setup stores message ID, media state, history/counts, scroll and immediate-background token as DWORD; event flags at00d3b186 are WORD. Native message records stride80 and event records stride48. Current setup truncates/misindexes these before either owned renderer."
+    },
+    {
+      "function": "004c5cc0",
+      "source": "src/unit_01620.c",
+      "reason": "Dispatches normal/media renderer by complete DWORD00d3b180, currently BYTE."
+    },
+    {
+      "function": "004c5ce0",
+      "source": "src/unit_01621.c",
+      "reason": "Required media-action button helper uses message geometry, hover and font state; current record arithmetic scales undefined4 pointers by4. Could remain a controlled deep endpoint in the four-controller proof, but actual media branch requires its real correction."
+    },
+    {
+      "function": "0053e530",
+      "source": "src/unit_02523.c",
+      "reason": "Media renderer passes ECX=00f55bb0; dimensions are signed WORD fields promoted to int32 output pointers and only AL is consumed. Current helper has an uninitialized in_ECX. Native return upper bits are not consumed by this caller."
+    }
+  ],
+  "concrete_contract_failures": [
+    {
+      "kind": "record-stride",
+      "native": "80-byte message record at00e209b8 + id*80",
+      "current_C": "&DAT_00e209XX is undefined4*; adding id*0x50 scales to320bytes."
+    },
+    {
+      "kind": "event-stride",
+      "native": "48-byte event record; signed WORD template IDs at00e95238/3a/3c + event*48",
+      "current_C": "undefined4[] indexed by event*0x18 advances96bytes."
+    },
+    {
+      "kind": "overlapping-write",
+      "native_sites": [
+        "004c60e4",
+        "004c60ea"
+      ],
+      "native": "WORD writes of16 to00e209c8 and00e209ca",
+      "current_C": "Overlapping DWORD writes also overwrite adjacent picture fields."
+    },
+    {
+      "kind": "dropped-stack-arguments",
+      "native_sites": [
+        "004c6623",
+        "004c700f"
+      ],
+      "native": "00447840(void) returns family label; caller prepushes x,y,font,color then passes returned text to five-argument004cc770.",
+      "current_C": "The four drawing arguments are passed to zero-argument00447840;004cc770 receives only text."
+    },
+    {
+      "kind": "width",
+      "native": "Panel geometry/counts/fonts are DWORD; source/sprite dimensions and layout fields are signed WORD; redraw flags are BYTE; event flags are WORD.",
+      "current_C": "Most globals are undefined/BYTE, causing truncation of offsets192/144 plus coordinates, font IDs, scroll state, and IDs."
+    }
+  ],
+  "record_contract": {
+    "message_base": "00e209b8",
+    "message_stride": 80,
+    "verified_fields": {
+      "0x00": "signed WORD type",
+      "0x02": "signed WORD subtype",
+      "0x06": "signed WORD panel x",
+      "0x08": "signed WORD panel y",
+      "0x0a": "signed WORD panel columns",
+      "0x0c": "signed WORD panel rows",
+      "0x0e": "signed WORD picture1 ID",
+      "0x10": "signed WORD picture1 x",
+      "0x12": "signed WORD picture1 y",
+      "0x14": "signed WORD picture2 ID",
+      "0x16": "signed WORD picture2 x",
+      "0x18": "signed WORD picture2 y",
+      "0x1a": "signed WORD title x",
+      "0x1c": "signed WORD title y",
+      "0x1e": "signed WORD caption x",
+      "0x20": "signed WORD caption y",
+      "0x26": "signed WORD media-control x",
+      "0x28": "signed WORD media-control y",
+      "0x3c": "DWORD offset used to address media string",
+      "0x44": "DWORD title-string offset",
+      "0x48": "DWORD caption-string offset",
+      "0x4c": "DWORD body-string offset"
+    },
+    "string_base_pointer": "DWORD00e36c74",
+    "event_stride": 48,
+    "event_index": "DWORD00e951e4",
+    "event_templates": "signed WORD IDs at00e95238/3a/3c + event*48",
+    "event_resource_fields": "signed WORD values at00e95240/42/44 + event*48"
+  },
+  "algorithm_004c7340": [
+    "Set BYTE00e38dc9=1. Compute special=(DWORD00d3a6e8==8 && WORD00d3b186!=0).",
+    "If DWORD00d3b180!=0: special calls004c5ce0; ordinary media chooses native action descriptor by mode1..7/default, submits it at(panel_x+16,panel_y+408), then close at(panel_x+436,panel_y+410). Set BYTE00e38dc8=0 and return.",
+    "Normal type0 with positive DWORD history count draws back descriptor at(panel_x+16,panel_y+record_rows*16-36) and text group12/0 at(panel_x+52,panel_y+record_rows*16-31) using full DWORD font.",
+    "Normal type2: special calls004c5ce0; otherwise draw action descriptor at(panel_x+16,panel_y+record_rows*16-40). Subtypes1/7 additionally draw005c7e70 at(panel_x+64,content_y+36).",
+    "Always draw ordinary close at(panel_x+record_columns*16-38,panel_y+record_rows*16-36). If maximum-scroll DWORD!=0, draw up/down descriptors at(content_x+content_columns*16-1,content_y) and the same x at content_y+content_rows*16-26. Preserve normal-branch draw flags exactly."
+  ],
+  "native_action_table_map": {
+    "1": "005c7ec0",
+    "2": "005c7f88",
+    "3": "005c7fb0",
+    "4": "005c7f38",
+    "5": "005c7ee8",
+    "6": "005c7fd8",
+    "7": "005c8050",
+    "default": "005c7e48"
+  },
+  "algorithm_004c72b0": [
+    "Return unless signed DWORD maximum_scroll(00d3b134)>0.",
+    "Percentage is0 when signed first(00d3b130)<=0,100 when first>=maximum, otherwise actual004cde60(first,maximum).",
+    "Offset=actual004cde40(content_rows*16-77,percentage); if drag_override DWORD00d3b12c!=0 use exact DWORD00d3b128 instead.",
+    "Draw sprite(DWORD00f56494+39,content_x+content_columns*16+6,content_y+26+offset) with global sprite receiver00f55bb0. Preserve native32bit wraps and signed division."
+  ],
+  "producer_reconstruction_order": [
+    "Define byte-addressed, size-asserted80-byte message and48-byte event contracts plus explicit DWORD/WORD/BYTE accessors. Do not widen every field mechanically.",
+    "Handwrite complete987-instruction004c5e60: template substitutions, panel origin/title/pictures/caption, text preflight/count, scrollbar/clip, all subtype-specific resource/family/statistic output, clip restoration, thumb.",
+    "Handwrite complete439-instruction004c6c70: templates,480x448 media geometry, exact guard-audited background sequence, still-image dimensions/centering or video endpoint, caption/date/family/resource footer, body, controls.",
+    "Handwrite full004c7340 and004c72b0 consumers; compose them with both producers and actual percent helpers.",
+    "Retain existing corrected background short-circuit: DWORD00d3b140==0 invokes004dddc0; only post-call BYTE00e38dca==1 invokes0051e990. Ignore discarded renderer EAX."
+  ],
+  "endpoint_proof_design": [
+    "Private Win32 build only after release, fixed low image base, immutable native PE executed exclusively in bounded Unicorn. Compare full panels/records/guards, call order, explicit receiver and argument widths, consumed AL/int returns, native stack and EBX/ESI/EDI/EBP.",
+    "Cross all modes0..8/default, type0/1/2, subtype1..7/default, history count0/1/199/256, flags0/1/0x100, media0/1/256, scroll0/1/visible/visible+1/256, drag override0/1/256, and three viewport offsets.",
+    "Use nonzero message IDs including251 and256 with neighboring record guard bytes, event index>0 and signed template IDs-1/0/positive. Assert only two native WORD picture-position writes occur for record0.",
+    "Control deep substitution, wrapped-text, family-label, video, resource-name and portrait/statistic endpoints; record all exact arguments and callback-produced global widths/line counts. Independently vary unused EAX and post-render redraw byte to preserve the512-case guard audit contract.",
+    "Exercise still-image success/failure with varied signed dimensions and exact global receiver; prove division truncates toward zero in centering calculations. Normalize local template-buffer pointer identities to payload hashes while checking capacities1000/200/200."
+  ],
+  "pixel_guard_design": [
+    "Compose actual00425730 small-button renderer, actual0053e590 dispatch and actual copy/transparency/RLE pixel bodies with controlled in-memory sprite metadata/payloads, for both native and handwritten C. Do not replace this pass with event-only draw stubs.",
+    "Provide deterministic images for all relevant button/thumb IDs and exercised variants; compare every16bit framebuffer byte, row padding and guard bands at640x480,800x600,1024x768. Check source sprite bytes remain unchanged and output clipping never touches sentinels.",
+    "A full live text/media panel pixel claim additionally requires repaired real004c8070/004c8480/004c8590/004c8680 contracts. If held controlled in controller comparison, state this limit and use root-owned completed C frames only as integration evidence, not native pixel equivalence.",
+    "Keep existing menu pixel regressions and fixture persistence checks outside this agent build; root owns final full builds/live integration."
+  ],
+  "known_deep_dependencies_not_yet_claimed_complete": {
+    "004c8070": "rich body layout/count/render, unit01632",
+    "004c8480": "word/command measurement, unit01633",
+    "004c8590": "link/glyph-line rendering, unit01634",
+    "004c8680": "glyph image/y/width dispatch, unit01635",
+    "004c7770": "message input controller, unit01626",
+    "004c7db0": "scroll drag controller, unit01627",
+    "004c7e90": "up/down callback not exported as own source",
+    "004c7ee0": "history-back callback not exported as own source",
+    "004c7f30": "close callback, unit01628",
+    "004c7fd0/004c8040": "link-rectangle append/clear, units01630/01631"
+  },
+  "guard_audits": [
+    {
+      "path": "metadata/discarded-return-verification.json",
+      "sha256": "ba1d1c6a4757442c5a3bb24825627b8728f5a5c907387e3911d32c9f3fc530f8"
+    },
+    {
+      "path": "metadata/render-dialog-guard-review.json",
+      "sha256": "2294a7e2c9ca2f27af5ddb8ca372703b2e5fe9d0dbb472cc843f7dea2406f3c4"
+    }
+  ],
+  "current_source_hashes": {
+    "src/unit_01619.c": "ec4dc1ff42755d29e7bd6ff0c2fa3ad1d23c2e027dce01bf418eaa6d54b88adc",
+    "src/unit_01620.c": "f4f94b31aad7e8cd7ebd1dd63468bf69d769a088876c5d01138035835b67acc9",
+    "src/unit_01621.c": "28fb9d97b3ef62c28f92d165b63383b1624a5d8b2fa63459170f51262ec01512",
+    "src/unit_01622.c": "a0eb97d7395b881f2799cd07e4224fd432a2f4af4149f6b6eddc9563c2dee283",
+    "src/unit_01623.c": "a731362a818da91888e8025420afcaf88eb238663c807d38ba4bf7bc8f5b8dae",
+    "src/unit_01624.c": "9327323e6aed6fcf6431649d87d902287a0f7e84a531cdd8eaef078d821087a9",
+    "src/unit_01625.c": "577ccaa933d7e843712193ba54d9fce059c0f1e1e6adb2b415c6b4bf47b379d8",
+    "src/unit_02523.c": "e0bd68e16c1b397a9ebf0b57a90cb7fc94936913c8326771298997b369752a9c"
+  },
+  "limitations": [
+    "No implementation or compiled proof is produced by this planning record.",
+    "C# UI methods were read as address/layout hypotheses only; all concrete contracts above derive from retained native instructions.",
+    "Current repeated-panel frame has multiple unresolved city/HUD dependencies; this scope alone does not establish a complete gameplay frame."
+  ],
+  "additional_typed_records": [
+    {
+      "base": "00785d74",
+      "native_stride": 124,
+      "native_count": "DWORD00785d70",
+      "observations": "Producer6c70 validates00d3b170 against count, then reads signed WORD atrecord+0x30. Producer5e60 also reads BYTE atrecord+2. Existing undefined4-pointer arithmetic doubles or quadruples this stride."
+    },
+    {
+      "base": "0077de03",
+      "native_stride": 106,
+      "observations": "Producer5e60 reads a BYTE name/label index atbase +00d3b170*106. Use explicit byte arithmetic rather than undefined4[] scaling."
+    }
+  ],
+  "native_input_invariants": [
+    "In media producer6c70, type2/subtype2 with invalid00d3b170 sets local record pointer toNULL, but later native4c7204 reads WORD[record+0x30]. Treat this as an invalid native input boundary; normal differential fixtures must satisfy record index range. Do not silently claim safe behavior for this native null dereference.",
+    "Producer subtype5/6 calls0047d350(DWORD00d3b16c,3), consumes its integer return and reloads00d3b16c after the call before forming sprite ID; a complete differential must check both arguments and consumed result."
+  ],
+  "caller_composition": [
+    "004c5e60 does not itself call004c7340: root004d75d0 submits controls later via its two native xrefs. Unit6c70 calls7340 internally. Tests must preserve this ordering and avoid adding a duplicate7340 call into5e60.",
+    "The approvedfour bodies remain frozen until root release; all additions in this phase are new analysis metadata only."
+  ]
+}

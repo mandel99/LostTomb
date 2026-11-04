@@ -93,8 +93,8 @@ RestoreDynamicHistory *FUN_004f66c0(RestoreDynamicHistory *self,const RestoreDyn
     return self;
 }
 
-/* Literal native growth entry. Gameplay's existing repaired growth adapter
-   remains distinct: the native temporary copy has a smaller readable extent. */
+/* Literal native growth entry, shared by gameplay and canonical callers.
+   Its temporary source extent is smaller than the final copy when growing. */
 uint32_t FUN_004f6a50(RestoreDynamicHistory *self,int32_t capacity)
 {
     if(capacity>(int32_t)DYN_U(ADDRESS(self)+16u)) {

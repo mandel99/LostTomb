@@ -1,0 +1,90 @@
+{
+  "status": "Four auxiliary sprite/cache lifetime bodies reconstructed, compiled, verified offline, promoted to Release and pushed to main; child virtual destructor remains explicitly unresolved",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x55d8b0",
+      "bytes": 176,
+      "instructions": 58,
+      "rea": "ev_9ace131cbe2c78d5234b4d75b588c5e579b820ee387c4fb97c38ab9aefb75971"
+    },
+    {
+      "entry": "0x55d960",
+      "bytes": 37,
+      "instructions": 15,
+      "rea": "ev_e6f0561c9771c4679cc906b5421e856ee10f1a070cd8a0027e5dfedad0147ffc"
+    },
+    {
+      "entry": "0x55db90",
+      "bytes": 48,
+      "instructions": 19,
+      "rea": "ev_980760a9d5bcbe5212cbf5eabc92d21d55ebc213ae0cba5533bef57d358c961e"
+    },
+    {
+      "entry": "0x55d990",
+      "bytes": 42,
+      "instructions": 14,
+      "rea": "ev_7e2a03ac89c1e1095a39952b533aa5ecae769f062b1b069baa623574bdc85b4d"
+    }
+  ],
+  "totals": {
+    "functions": 4,
+    "bytes": 303,
+    "instructions": 106
+  },
+  "changes": [
+    "Replace implicit/uninitialized ECX receivers with typed auxiliary owner/24-byte cache record parameters.",
+    "55D8B0 now preserves the original child-delete flag3 boundary, captured old allocations, later owner-field reloads, reverse24-byte vector cleanup, and conditional shared scratch teardown.",
+    "Correct truncated byte interpretation at012652F8 to the original fullDWORD pointer and32-bit clear, with companion012652F4 cleared only when the pointer was nonzero.",
+    "Inline only normal-path561363 iteration, including decrement/sign-bit termination with32-bit wrap; do not replace it by unsigned count>0.",
+    "55D960 captures and frees the original owner across callbacks that mutate the slot;55DB90 reloads owner/index after free;55D990 pushes records onto the descending free-pointer stack and returns fullEAX0.",
+    "Remove production's unconditional rejection of every non-null auxiliary slot. Preserve the existing explicit unresolved child virtual-destructor boundary.",
+    "Update legacy sprite-manager fixture signatures and remove its obsolete unsupported-slot negative case for production. Keep historical artifact-phase negative checks when not using --production."
+  ],
+  "verification": {
+    "script": "direct_c/verify_sprite_auxiliary.py",
+    "cases": 145,
+    "record_methods": 28,
+    "owner_slot_global_cleanup": 117,
+    "scope": "All32 optional-member masks; zero/one/three records; signed-high vector-count skip cases; full-width indices and free-stack address wrap; child/free/owner/table/global/slot callback mutations. Native vector iterator and actual record/free-stack functions execute. Six cases compose real4E63B0 global cleanup and the actual non-null slot bridge.",
+    "controlled": "Allocation release and child virtual deletion; only the final manager reset is controlled in the six global-cleanup compositions. All relevant shared memory, seeded globals, ordered calls, native RET4 versus explicit C receiver, stack and nonvolatile registers compared. EAX compared only for55D990; other methods are void.",
+    "compiled_manager_fixture": "PASS227 checks in restore_sprite_shutdown_verify.exe; its auxiliary slot remains null and its private non-null auxiliary destructor stub is not exercised.",
+    "noargument_link_check": "PASS; diagnostic only, no game launch.",
+    "limits": "Actual child virtual-destructor algorithm remains unreconstructed and production still rejects that specific boundary. No native code-pointer execution, host game, DLL/renderer execution, real allocation ownership proof, double-free safety or injected C++ exception/unwind validation."
+  },
+  "vector_iterator_evidence": "ev_f7bee5ec82b5e6c53d31dc521c01fad059d62026af4619efdfe1e0fb5d1cb7a5",
+  "previous_manager_report": "Older sprite-shutdown reports' blanket non-null auxiliary-slot rejection is superseded here. Their isolated null-slot proof remains historically scoped; this change does not certify their controlled virtual-destructor endpoints.",
+  "sources": [
+    "CMakeLists.txt",
+    "include/sprite_auxiliary.h",
+    "runtime/sprite_shutdown_boundaries.c",
+    "src/unit_02677.c",
+    "src/unit_02678.c",
+    "src/unit_02679.c",
+    "src/unit_02681.c",
+    "direct_c/verify_sprite_auxiliary.py",
+    "tests/sprite_shutdown.c",
+    "tools/verify_sprite_shutdown_emulation.py"
+  ],
+  "source_commit": "cc24127abcc715d6d82613435c20152ee4fcfe07",
+  "source_sha256": {
+    "direct_c/verify_sprite_auxiliary.py": "58e1101f8f0f05cc283924edf1c8c9a38a2da42c91db9b2444f6b334675f94e1",
+    "src/unit_02679.c": "239bbb9114fa10c382516645f24aa63f4fd75edb8ac60fec13d19e55f5c49c16",
+    "CMakeLists.txt": "2ba00bd1320c76c3f3bb0060cd1eac5461c6ea6e53f52ab5e928b3ebb3b7012a",
+    "include/sprite_auxiliary.h": "0b18e6cf11347e5540c71ff73373be9c2ee628969ef6013016f17466ef9bc8b8",
+    "runtime/sprite_shutdown_boundaries.c": "475564f22a6f7d388e0061e5ff922380e19c5521c19e639d42f09bd5e4d9cd4d",
+    "src/unit_02677.c": "afd407b02f40bc6b3a822fc2f2be00f053bbc82bd0b909a2d379585ec271a4b0",
+    "tools/verify_sprite_shutdown_emulation.py": "76aa08dd14810c6716167418dbd1b40122293aabf3c8d8054aab91a07872b5b2",
+    "tests/sprite_shutdown.c": "163797a9d5744debf29f62eaf8e66169e2ee7af0f25a1d99cdfdd41fdf6e0a23",
+    "src/unit_02681.c": "7993674802cf45266cd09983f6caf1cb3505720030f73d77cbfb9a29e0957327",
+    "src/unit_02678.c": "0d054b078f364defa637af69e7d4b22b289c71581974ba2ddbb9f3eb9c41c1e1"
+  },
+  "build": {
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "sha256": "af980afba25be156200e9ec0334ec1b7118e76208cbbb4311ed4d246863d456d",
+    "bytes": 7520256,
+    "local_time": "2026-11-02T21:37:01.9013781+01:00",
+    "promotion": "Verified EXE/map and link-check EXE/map copied after no PharaohRestoreC process was observed. No assets, game settings, saves or media DLLs copied.",
+    "publication": "Source commit on main only. No tag or release created."
+  }
+}

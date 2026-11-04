@@ -1,3 +1,8 @@
+#include "access_repair_flood.h"
+#include "building_access.h"
+#include "building_access_search.h"
+#include "building_removal.h"
+#include "labor_allocation.h"
 #include "migration_flow.h"
 #include "population_demography.h"
 #include "housing_capacity.h"
@@ -367,23 +372,42 @@ void FUN_0045d5d0(void)
 void FUN_0045e6c0(void)
 {restore_city_update_industry();}
 void FUN_00457a40(void)
-{(void)invoke(0x00457a40u,0,0);}
+{restore_building_refresh_route_flags();}
 void FUN_00457af0(void)
-{(void)invoke(0x00457af0u,0,0);}
+{restore_building_update_access();}
+uint32_t restore_building_access_neighbor_query(uint32_t target,int32_t x,int32_t y,uint32_t size)
+{
+ switch(target){
+ case 0x481060u:return restore_building_find_access(x,y,size);
+ case 0x481210u:return restore_building_find_wide_access(x,y,size);
+ case 0x487d00u:return restore_building_fixed_entry(x,y);
+ default:abort();
+ }
+}
+uint8_t restore_building_access_special_query(int32_t building,uint32_t *tile,int32_t *x,int32_t *y)
+{
+ return (uint8_t)restore_building_special_entry(building,tile,x,y);
+}
+void restore_building_access_remove_disconnected(void)
+{restore_building_remove_highest_serial();}
+void restore_building_access_remove_special(int32_t building)
+{restore_building_clear_four_parts(building);}
+void restore_building_access_refresh_terrain(int32_t x,int32_t y,uint32_t size)
+{restore_building_spawn_removal_effects(x,y,size,1);}
 void FUN_00458440(void)
 {restore_housing_rebuild_capacity();}
 void FUN_00458540(void)
 {restore_migration_update();}
 void FUN_00459070(void)
-{(void)invoke(0x00459070u,0,0);}
+{restore_housing_displace_overcrowding();}
 void FUN_00459100(void)
-{(void)invoke(0x00459100u,0,0);}
+{restore_labor_rebuild_demand();}
 void FUN_00459350(void)
-{(void)invoke(0x00459350u,0,0);}
+{restore_labor_update_unemployment();}
 void FUN_004595a0(void)
-{(void)invoke(0x004595a0u,0,0);}
+{restore_labor_rebuild_shares();}
 void FUN_00459670(void)
-{(void)invoke(0x00459670u,0,0);}
+{restore_labor_assign_buildings();}
 void FUN_00455430(void)
 {(void)invoke(0x00455430u,0,0);}
 void FUN_00454e20(void)
@@ -406,11 +430,8 @@ void FUN_00469730(void)
 {(void)invoke(0x00469730u,0,0);}
 void FUN_00468b70(void)
 {(void)invoke(0x00468b70u,0,0);}
-uint8_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty)
-{
-    const uint32_t args[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty};
-    return (uint8_t)invoke(0x00517c20u,args,4);
-}
+uint32_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty)
+{return restore_access_clear_first_blocker(x,y,tx,ty);}
 
 void FUN_004677c0(void){(void)invoke(0x004677c0u,0,0);}
 void FUN_00468170(void){(void)invoke(0x00468170u,0,0);}

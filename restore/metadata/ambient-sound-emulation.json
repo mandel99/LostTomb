@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 5015,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "9d4005aa64741f60ded92051dac442dd346cb9049b47997595338cf570f52ef2",
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "method": "All original instructions of ambient controller0053acf0, geometry00430960, conversion0056133c and RNG00562348 execute in Unicorn; C composes both restored controllers, real RNG and explicit local x87 expression/conversion. Compare ordered RNG/coordinate/sound calls, request/state bytes and guards, source immutability, return values, x87 sentinel/control word/status, stack and saved registers.",
+  "limitations": [
+    "Physical sound manager0055f0e8 is a controlled endpoint; exact receiver/request descriptor/order and callback mutations are compared, without audio output or codecs.",
+    "Coordinate geometry requires nonzero positive divisors and mapped231-column lookup indices. Sound-table categories/counts and selected records are bounded to mapped test storage; malformed pointers and native divide traps are excluded.",
+    "Unicorn2.1.4 does not reproduce the x87 precision exception status bit for inexact division/conversion. That status bit is excluded. For zero-width stress cases, invalid-operation status is also excluded because Unicorn omits it for FISTP infinity; numeric output, divide-by-zero status, control word and x87 stack are still compared. Nonzero widths retain the invalid-operation comparison.",
+    "Controller ambient return is void; incidental caller-saved EAX forwarding is not treated as a semantic result.",
+    "Direct conversion cases execute the original expression and ftol then the original ratio-pop instruction, without executing unrelated controller stores."
+  ],
+  "source_hashes": {
+    "src/unit_02486.c": "e0b7517876d8f3ada0fd476d0b3e16af3104d3cec19bb7ad4d205fbaf0d2ec29",
+    "src/unit_00461.c": "28a5c7589fc6b7c447db6da8fabe033bd3e46f7ed25074a04b9545c8f622d16a",
+    "src/unit_02825.c": "feb319bc0dbe2dc99d9c8004c2121abf9d52a8e3ac64ad5f207d3182641815e4",
+    "src/unit_02775.c": "72252d062fae873387c64649ad3b7638dc9c3c34b40a52b55db1a401275ba28b",
+    "include/ambient_sound.h": "c50edad56bdac4f421f5ba599714ab687d01dc3058a2235be440c5eff705de88",
+    "include/sound_initialization.h": "be19347a7ffbf22d2d21d18d39bfbf06fa8e23219a0b125caa3971a7803691c9",
+    "tests/ambient_sound.c": "2f47de29fbb6caf5afe7f09d1eb7bc25bbef12b18ccd2baca1ca5b8027c0b74a",
+    "tests/ambient_sound_project/CMakeLists.txt": "01a0ff6934fbab6bfcb0d5a00b3c39f3019847a2582c7535ad1a62bdcd27f412",
+    "tools/verify_ambient_sound_emulation.py": "f3887cde8dbd8958a54715325e3074eddefbcdb5dc7825f3756e082149ddcb83",
+    "metadata/ambient-sound-native.json": "3637ac473f60f0e1ac28ba266fb77d12ac5fec3cf868056490937254ec91240d",
+    "metadata/music-tick-native.json": "76b76d23a759e62389f26681d4b16613fc137ef4779022378fb2fd9d73fee64b"
+  },
+  "instruction_coverage": {
+    "0x53acf0": {
+      "executed": 161,
+      "total": 161,
+      "unexecuted": []
+    },
+    "0x56133c": {
+      "executed": 15,
+      "total": 15,
+      "unexecuted": []
+    },
+    "0x430960": {
+      "executed": 174,
+      "total": 174,
+      "unexecuted": []
+    },
+    "0x562348": {
+      "executed": 7,
+      "total": 7,
+      "unexecuted": []
+    }
+  },
+  "instructions_executed": 357,
+  "instructions_total": 357
+}

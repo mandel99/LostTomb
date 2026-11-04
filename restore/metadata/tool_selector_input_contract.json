@@ -1,0 +1,85 @@
+{
+  "format": 1,
+  "status": "Complete input and enumerator candidates, header, tests, verifier and private project frozen after4506 native cases against both private Debug and optimized C. Coordinator owns application.",
+  "authority": {
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "owned_bodies": "metadata/tool-selector-input-native.json",
+    "real_selector_bodies": "metadata/tool-selector-next-native.json",
+    "query_contracts": "metadata/tool-selector-query-native.json",
+    "small_helper_bodies": "metadata/tool-selector-input-helpers-native.json",
+    "caller_windows": "metadata/tool_selector_input_callers_native.json",
+    "original_process_executed": false,
+    "reference_role": "Read-only address/name reference. Complete pinned original instructions determine both handwritten bodies."
+  },
+  "00403e00": {
+    "candidate": "artifacts/tool_selector_input_phase/unit_00034.c",
+    "production": "src/unit_00034.c",
+    "native_instructions": 82,
+    "native_bytes": 240,
+    "signature": "int32_t __cdecl FUN_00403e00(void)",
+    "algorithm": [
+      "Capture DWORD F53F64-258. DWORD F53F78 equal to1 selects DWORD F53F60-258; DWORD605A3C equal to1 restores the originally captured F53F64-derived value. Comparisons use full DWORDs, not low bytes.",
+      "Capture Y=DWORD7056E8+110 before calling actual004D5ED0. Add161 minus its full EAX result to X with 32-bit wrap. Changes to dimensions/menu globals made by the helper do not retroactively change these captured bases.",
+      "Call actual00426450(X,Y,5C28A8,signedDWORD7056F0). Reload the count after it returns, then store its full EAX hover index to DWORD7056C8. A nonpositive count returns0.",
+      "For each 28-byte rectangle, call actual00403F10(currentDWORD7056EC,previous), starting previous=-1. Read signed WORD left/right/top/bottom at offsets0/4/2/6. Add the captured base with wrap and compare signed DWORD mouse X/Y. Left/top are inclusive and right/bottom exclusive.",
+      "Read BYTE E38E03 only after all rectangle comparisons succeed. A nonzero byte selects previous+1, stores that full DWORD at D3B198, calls actual00405200, then returns the originally selected value. Selector mutations to D3B198 do not change the return.",
+      "On each miss reload the signed DWORD count, advance rectangle by28 and index by1, and continue while signed index<count. Exhaustion returns0."
+    ],
+    "return_contract": "The legal composed enumerator domain gives0 for no clicked row and1..30 for a clicked row, including the native ambiguity where an enumerator return0 can represent row0 or no available row. The sole incoming call at004D8B4F immediately TESTs full EAX and branches on nonzero. Both the full scalar and the caller's Boolean consumption are preserved.",
+    "mutation_contract": "Tests change category/count/table/coordinates/click state before and after real helpers, verify the captured bases and post-helper reloads, and change selection after the selector returns. This is not a claim that every current gameplay endpoint performs those writes."
+  },
+  "00403f10": {
+    "candidate": "artifacts/tool_selector_input_phase/unit_00036.c",
+    "production": "src/unit_00036.c",
+    "native_instructions": 135,
+    "native_code_bytes": 472,
+    "signature": "int32_t __cdecl FUN_00403f10(int32_t category,int32_t previous)",
+    "layout": "Kind table5CE3BC and availability table70A8DC contain DWORDs. Category stride is30 entries/120 bytes; row stride4 bytes. The old C scaled an already-byte-scaled offset through a DWORD pointer, producing an incorrect16-byte stride.",
+    "algorithm": [
+      "Set wrapped row=previous+1 and phase=row+1. Signed row>=30 returns0. Calculate the byte offset once from the captured category and row. Nonpositive signed kind returns0.",
+      "Default categories return the current row when the full DWORD availability value at the captured offset is nonzero.",
+      "Category6 kind30 hexadecimal calls the low-byte availability predicate, then full signed resource have/need getters; return the row only when have<need. Continue using the captured category after failed resource comparisons.",
+      "Other category6 kinds calculate a separate index using freshly read global7056EC. If its kind is not61 hexadecimal, use availability at the captured parameter offset. If it is61 and the current profile temple WORD is zero, use availability at that separate global-category offset. Otherwise query current profile building phase1, then reload player/building for phase2; either zero AL accepts the row.",
+      "Category10 kind4 requires the low-byte availability predicate and accepts the first nonzero AL from building queries B3/B2/B1, in that exact short-circuit order. Other kinds use ordinary availability.",
+      "Category22 requires the low-byte availability predicate, then reloads kind at the captured offset and tests AL from its building query.",
+      "Category28 requires the low-byte predicate and zero DWORD at EA5FA0+player*49D8+row*4. This enumerator does not add the monument-WORD filter present in the separate row-count helper.",
+      "Category36 queries building at EA5F9C+player*49D8 with phase=row+1 and accepts a zero AL. Temple fields are WORD, player/building/state fields DWORD, and the profile byte stride is49D8 hexadecimal.",
+      "On rejection increment row and phase with wrap, advance byte offset4, and continue while signed phase<31. Exhaustion returns0."
+    ],
+    "dispatch": "All six targets from the original DWORD dispatch table at4040E8 and BYTE category map at404100 are reached. Their exact hashes are in the report.",
+    "returns_and_callers": "Both native callers consume the full EAX row:00403E81 retains it for the next enumeration/selected value;0052004D copies it into EDX and a DWORD local. The direct helper corpus also includes the bounded negative-row returnFFFFFFFF rather than narrowing it to a Boolean or BYTE.",
+    "domain_limit": "Ordinary menu traversal starts previous=-1 and stays within rows0..29. Safe mapped direct probes include previous=-2..30 and categories -1/256; arbitrary pathological previous values causing enormous scans or invalid table addresses are not given invented termination behavior."
+  },
+  "actual_composition": {
+    "00405200": {"source":"src/unit_00042.c","coverage":[329,508],"role":"Accepted unchanged full selector algorithm; partial reachable composition coverage in this input corpus, not a new full selector proof."},
+    "00404120": {"source":"src/unit_00037.c","coverage":[58,124],"role":"Accepted unchanged actual row-count algorithm; its unvisited paths remain covered only by the separate accepted selector suite."},
+    "00486060": {"source":"src/unit_01248.c","coverage":[7,7],"role":"Actual DWORD release state and BYTE write at actor/building264-byte stride."},
+    "0053d850": {"source":"src/unit_02508.c","coverage":[32,32],"role":"Actual four-library controller. This corpus starts at player0 and can mutate to1, with temporary variant1; the controller's already accepted broader player0..7/variant0..2 domain is unchanged."},
+    "00426450": {"source":"src/unit_00417.c","coverage":[48,48],"role":"Actual full28-byte signed rectangle hit test, full hover result and mouse-position writes."},
+    "004d5ed0": {"source":"src/unit_01840.c","coverage":[3,3],"role":"Actual full DWORD E94DAC+20 offset getter, including wrapped compiled Win32 behavior."}
+  },
+  "deep_boundaries": {
+    "controlled": ["00403EF0","004F5470","004F5020","004F4FF0","004C52D0","0053DD90"],
+    "availability_ABI": "403EF0 has no arguments and403EF0/4F5470 consume only AL;4F5470 has one cdecl building argument.4F5020/4F4FF0 are no-argument full signed EAX resource getters.4C52D0 has two cdecl building/phase arguments and its caller consumes AL. Nonzero high EAX with zero AL is explicitly exercised.",
+    "loader_ABI": "Native53DD90 receives ECX=F55BB0 and two stack arguments name/index; RET8 is pinned C20800 at0053DFBF. The oracle performs that callee cleanup. The C facade takes an explicit manager pointer and two ordinary cdecl arguments; ordered normalized receiver/name/index values are compared. No machine-ABI identity between these two adapters is claimed.",
+    "loader_return": "The real four-library controller ignores the loader's AL result. The controlled loader returns1 only as a declared test endpoint; it performs no I/O and establishes no asset-load success.",
+    "production": "Controls exist only in the new test harness. Both staged production bodies call the actual named functions and contain no controlled replacements, dummy success or original-code fallback."
+  },
+  "proof": {
+    "report":"metadata/tool-selector-input-emulation.json",
+    "passed":true,
+    "cases_per_variant":4506,
+    "variants":["Private Debug /Od","Private Release /O2"],
+    "owned_instruction_coverage":[217,217],
+    "owned_conditional_outcomes":[58,58],
+    "computed_dispatch_targets":[6,6],
+    "actual_composed_instruction_coverage":[477,722],
+    "mutated_boundary_phases":[28,28],
+    "source_hash_count":23,
+    "observations":"Ordered entry/exit function identifiers, arguments, raw scalar results where consumed,20 DWORD state fields and3 BYTE fields are compared. Final hashes include address/size prefixes and all bytes of declared table, profile, actor, selector, mouse and guard regions.",
+    "ABI_and_guards":"Native and C caller ESP and saved EBX/EBP/ESI/EDI are checked. Native caller argument guards, instruction budget and all nonstack write destinations are checked. Final C and native watched memory/canaries must match. Void scratch EAX is not asserted.",
+    "cases":["Full DWORD screen/offset/menu geometry and modes, including signed and wrap boundaries.","Signed WORD rectangle extremes, all four edge comparisons, inverted bounds, overlapping/late rectangles, BYTE click0/1/128 and truncating256.","Counts below zero,0,1,2,30,31,256; full hover256 and normal selected return30.","All enumerator special categories, category-table stride, safe high/negative categories, row exhaustion and signed kind/availability widths.","AL versus high-EAX predicate results, full signed resource comparisons, both temple phases, current-player/category reloads and six computed dispatch targets.","Real selector/count/release/media composition, all28 real/controlled entry-exit mutation phases and repeated input calls."],
+    "limits":["Availability and media loader algorithms remain controlled and explicit; complete sidebar functionality and pixel fidelity are not established.","The new suite proves all owned instructions and outcomes, while real selector/count composition reaches only the reported477 of722 dependency instructions. The separate accepted selector proof remains unchanged.","Fixture categories, rectangle counts, table indices, profiles and selections are mapped and bounded. Consumed selector selections stay valid; full-width D3B198 corruption is tested only after the selector has finished or where it is overwritten before consumption.","No original game process, UI automation, actual file loading or fallback to original executable code is used."],
+    "pending_caller_defect":"The other enumerator caller00520000 in frozen src/unit_02355.c still declares category/count/screen globals as BYTE and contains typed-pointer table scaling. That larger renderer is outside this owned pair and no repair or rendering claim is made for it."
+  }
+}

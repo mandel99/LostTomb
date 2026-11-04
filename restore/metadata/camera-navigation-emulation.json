@@ -1,0 +1,167 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "0f3fa3c4301d14e8b908f5dc768ad6741c2549857a14087d79a5934339754101",
+  "passed": true,
+  "checked": 1246,
+  "case_selection": {
+    "limit": null,
+    "start": 0,
+    "single_case": false
+  },
+  "method": "Complete native area/navigation and actual lookup/reset/clamp/dimension chain versus compiled C. Ordered real helper entry/exit arguments, consumed raw returns, full lookup/state memory with canaries, injected state mutations and native/C cdecl stack/saved registers compared.",
+  "limitations": [
+    "Pixel-free fixture proof; no scrolling input dispatcher, map initialization or city pixel fidelity is claimed.",
+    "Reset is composed as an explicit fixture sequence where requested; navigation itself calls lookup then tail-clamp and does not call reset.",
+    "All native lookup cells are present and scanned by the missing-target cases; individual target positions are bounded fixtures rather than an exhaustive proof of every target value. Void incidental EAX is not asserted."
+  ],
+  "comparison_checked": 0,
+  "comparison_C_sha256": null,
+  "elapsed_seconds": 28.44,
+  "native_instruction_coverage": [
+    126,
+    126
+  ],
+  "owned_instruction_coverage": [
+    25,
+    25
+  ],
+  "function_instruction_coverage": {
+    "0x430cc0": [
+      4,
+      4
+    ],
+    "0x430cd0": [
+      21,
+      21
+    ],
+    "0x4304c0": [
+      33,
+      33
+    ],
+    "0x4de140": [
+      8,
+      8
+    ],
+    "0x4de080": [
+      54,
+      54
+    ],
+    "0x430ca0": [
+      2,
+      2
+    ],
+    "0x430cb0": [
+      2,
+      2
+    ],
+    "0x4ddea0": [
+      1,
+      1
+    ],
+    "0x4ddeb0": [
+      1,
+      1
+    ]
+  },
+  "native_uncovered_instructions": [],
+  "controlled_algorithm_endpoints": [],
+  "mutated_helper_phases": [
+    [
+      "0x4304c0",
+      0
+    ],
+    [
+      "0x4304c0",
+      1
+    ],
+    [
+      "0x430ca0",
+      0
+    ],
+    [
+      "0x430ca0",
+      1
+    ],
+    [
+      "0x430cb0",
+      0
+    ],
+    [
+      "0x430cb0",
+      1
+    ],
+    [
+      "0x430cc0",
+      0
+    ],
+    [
+      "0x430cc0",
+      1
+    ],
+    [
+      "0x430cd0",
+      0
+    ],
+    [
+      "0x430cd0",
+      1
+    ],
+    [
+      "0x4ddea0",
+      0
+    ],
+    [
+      "0x4ddea0",
+      1
+    ],
+    [
+      "0x4ddeb0",
+      0
+    ],
+    [
+      "0x4ddeb0",
+      1
+    ],
+    [
+      "0x4de080",
+      0
+    ],
+    [
+      "0x4de080",
+      1
+    ],
+    [
+      "0x4de140",
+      0
+    ],
+    [
+      "0x4de140",
+      1
+    ]
+  ],
+  "full_grid_cells": 105567,
+  "source_hashes": {
+    "src/unit_00466.c": "e46c641d5ac754dc5e4bf2e7962b116a261dfb9500321903cd6344585e5baac7",
+    "src/unit_00467.c": "586f1ec829fa86fe173770e372eb1c082e0ce46abf24e92f6e848a194ada4350",
+    "src/unit_01886.c": "96c14b007462756dd9664948c37021753815080009166ca831afc63e5240156c",
+    "src/unit_00458.c": "480a106f0dbd193c139411607e2cbed3b8c91968520341d8a7090ceb62c59c0a",
+    "src/unit_01887.c": "3bbbceb23ec18c42c1d9e0776cb9a92dbb54f6df2d2eb811ffa7985cd30bf5e2",
+    "src/unit_00464.c": "84004b5a4fea37d79b24225deaaf4b17bb0d0dee0898b2721c13a7aa7ab45293",
+    "src/unit_00465.c": "6daab302ff149e6c3910aedd44f7ae36b76f1dbc8caac80848529e0fdb8bce47",
+    "src/unit_01880.c": "b69c1138c661da6d4cd5fa4ede4242bd057d5e27f56ead90eb27bdfdb9c3d43d",
+    "src/unit_01881.c": "b9ff75e098f4e510f5d5665347412e5ca00b38591cbdede06ed535f4bdd65dc5",
+    "include/camera_navigation.h": "b585e41012390336137705a3a6b7219e958165f6af577bebe8a2d22c0c25c52e",
+    "include/camera_bounds.h": "4a9514a39bc7f8069aa5a280e2885b106eb07db2bfe6fa7845a4e82b8018206b",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "tests/camera_navigation.c": "2c92a46b573c4b32c64fa13e63ecb2fcca32bc420ad8ea3ef13625e6d7d24e9f",
+    "tests/camera_navigation_real.c": "be8969b3608345014b07bad50e1dd0e3ceb338fe0e6f2a08d63477a2dbf16310",
+    "tools/camera_navigation_project/CMakeLists.txt": "6b5332fb8930526339ad627b0caa537c799b1e4cd558c040d4a844f2f55a032f",
+    "tools/verify_camera_navigation_emulation.py": "fa8d077c82a80fe76cadd095fb079c427cde15d849cb877b73eb051a3cf66cb5",
+    "metadata/camera-navigation-next-native.json": "81cdbd8a350013cd6d2bb43bd40e27364a67ff063d394903e91fffeef6535f3d",
+    "metadata/camera-sidebar-coordinate-native.json": "a8fca2bad3afa96ef59127b5c739435810b05ff56f72e8369f72d770095a887b",
+    "metadata/camera-bounds-helpers-native.json": "91f6fbeefeac2fc609de0af3ada0b9e8d1790b3c9a597349e3ec25d5bc4660cb"
+  }
+}

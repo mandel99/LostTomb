@@ -1,0 +1,175 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: missing schema initializer reconstructed; campaign/grass loading and saving repaired; gameplay validation pending",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x40faa0",
+      "source": "src/unit_00125.c",
+      "evidence_id": "ev_a9bbb5514b132b7287801e580d2d4f01716b4ab93392cff9a2e64f2b8dfc310d",
+      "native_bytes": 53,
+      "native_instructions": 21,
+      "body": [
+        {
+          "start": "0x40faa0",
+          "end": "0x40fad4"
+        }
+      ],
+      "compiled_entry": "00431fa0",
+      "provider": "pharaoh_restored:unit_00125.obj"
+    },
+    {
+      "address": "0x4cf090",
+      "source": "src/unit_01765.c",
+      "evidence_id": "ev_6f20006f144ea8e4ae4da8cb76158db77f07272b8ea37682c86c89efca441e11",
+      "native_bytes": 289,
+      "native_instructions": 107,
+      "body": [
+        {
+          "start": "0x4cf090",
+          "end": "0x4cf1b0"
+        }
+      ],
+      "compiled_entry": "003c78b0",
+      "provider": "pharaoh_restored:unit_01765.obj"
+    },
+    {
+      "address": "0x4d1340",
+      "source": "runtime/mission_schema.c",
+      "native_bytes": 5,
+      "native_instructions": 1,
+      "body": [
+        {
+          "start": "0x4d1340",
+          "end": "0x4d1344"
+        }
+      ],
+      "evidence": "Ghidra exact read_memory bytes e90b000000; CRT data reference576068 points to1340; jump reaches1350.",
+      "compiled_entry": "0032de60",
+      "provider": "pharaoh_restored:mission_schema.obj"
+    },
+    {
+      "address": "0x4d1350",
+      "source": "runtime/mission_schema.c",
+      "native_bytes": 1163,
+      "native_instructions": 177,
+      "body": [
+        {
+          "start": "0x4d1350",
+          "end": "0x4d17da"
+        }
+      ],
+      "evidence": "Ghidra read_memory complete1163 bytes, no gaps; exact match against SHA-pinned original; Capstone complete decode and bounded native execution.",
+      "native_body_sha256": "dc48832ebe28591f32320d4c0991c16283fe34bb5aa6b061db414f0cd74482a4",
+      "compiled_entry": "0032de70",
+      "provider": "pharaoh_restored:mission_schema.obj"
+    }
+  ],
+  "native_bytes_total": 1510,
+  "native_instructions_total": 306,
+  "reported_failure": {
+    "build_COFF": "6ae8492c",
+    "log_local_time": "2026-11-02 09:38:23",
+    "observed": [
+      "mission advance selected=0 next=1 scene=0 category=0 kind=0",
+      "mission advance published selected=0 scene=0 mode=4 briefing=200",
+      "mission PAK load scene=0 pack=0 offset=240"
+    ],
+    "conclusion": "Next selector correctly found Thinis. Missing campaign mode kept the native advance branch from publishing it."
+  },
+  "root_cause": "Static data extraction omitted native CRT initializer4D1340->4D1350. All34 late descriptors147..180 remained unfinished. Mode169 and grass170 were discarded on load and absent on save. New startup calls the reconstructed initializer after data initialization.",
+  "compatibility": {
+    "scope": "Only version160/count181 with exact original empty147..180 suffix: first codec1, remaining codec0, every destination/size/count/migration zero.",
+    "campaign": "Restore mode1 only for campaign/custom=0 with valid selected family record matching the loaded scene; retain nonzero modes and custom-map mode.",
+    "grass": "One pending native486E70 regeneration after geometry and map indices are prepared by4D52A0. Other unrecoverable missing history/state is not claimed restored.",
+    "disk_effect": "Compatibility operates in game memory; no user assets or saves changed during this work."
+  },
+  "validation": {
+    "pixel_access": {
+      "script": "direct_c/verify_pixel_access.py",
+      "passed": 101,
+      "scope": "48 real AND/sample/OR cases,50 real grey rectangles with independent framebuffer expectations,3 controlled format-reload cases; RGB555/565 and640/800/1024 widths."
+    },
+    "schema": {
+      "script": "direct_c/verify_mission_schema.py",
+      "passed": 19,
+      "scope": "8 full native/C constructor/thunk snapshots;4 actual4D0E10 mode/grass routes using read-only Nubt/Thinis PAK payloads with controlled IO/DCL endpoints;1 whole4D4E20 native/C save writer with controlled IO;6 new compatibility guards/one-shot regeneration checks."
+    },
+    "progress": {
+      "script": "direct_c/verify_mission_progress.py",
+      "passed": 102,
+      "scope": "100 whole outcomes;1 native/C first-to-second transition;1 transition after compatibility repair of the actual early C-only schema. Profile writing and summary controlled; actual selector/mission ID/timer execute."
+    },
+    "link_check": "No-argument restore_link_check exited0; no host game started."
+  },
+  "pak_grass": [
+    {
+      "scene": 0,
+      "nonzero_cells": 1168,
+      "sha256": "bded3e92014fceb80bfe779092c14aac61d16adaa9dc67104bd365a4520b3895"
+    },
+    {
+      "scene": 1,
+      "nonzero_cells": 2560,
+      "sha256": "62031a00e171d9183e6c503637df7e16c406c98443c132f6e94ca507856b33d8"
+    }
+  ],
+  "references": {
+    "port_sha256": "f66a27e62a433e06bdb6b01651e632c8ff6cd1eb9070126f590d49c1bdf8fda1",
+    "port_names": [
+      "graphics_get_pixel_masked",
+      "graphics_grey_rect",
+      "game_file_init_save_chunk_table_ext_thunk",
+      "game_file_init_save_chunk_table_ext"
+    ],
+    "csharp": "PharaohRewrite/src/Pharaoh.Engine/Loading/LegacyMissionLoading.cs:175/181 descriptor count and version154 boundary; reference only."
+  },
+  "limitations": [
+    "No host game execution, GUI control, original/port execution or user-save mutation.",
+    "Full live Nubt-to-Thinis briefing/input/PAK-post-load flow and complete map pixels are not certified.",
+    "Compatibility regeneration is new recovery behavior, not an original native function. It cannot restore every historical field missing from early C-only saves.",
+    "Original40FAA0 incidental EDX from MUL is not treated as a return value: all five incoming native calls consume EAX."
+  ],
+  "preserved": "Previously reviewed40FA70/40FAE0 bodies and frozen scalar-batch hashes remain unchanged.",
+  "build": {
+    "configuration": "Release; hybrid OFF; new pixel and schema providers /W4 /WX without PCH",
+    "targets": "restore_link_check and restore_game completed exit0",
+    "PharaohRestoreC.exe": {
+      "sha256": "fdc19fd3af8af85e99d12061b7b2fa920d3558014cc593a87b68f61d3b82bdcf",
+      "bytes": 7638016,
+      "COFF": "6ae84f2d",
+      "local_time": "2026-11-02T09:51:57"
+    },
+    "restore_link_check.exe": {
+      "sha256": "a781efaebeff060362d2b350a58fd056ca7977a35603bed66572e211ea064699",
+      "bytes": 7634944,
+      "COFF": "6ae84f18",
+      "local_time": "2026-11-02T09:51:36"
+    }
+  },
+  "read_only_inputs": {
+    "build/debug-startup-game/Save/Restore/autosave.sav": "9012c7ff26411ecd2ee004437bbaf5b7b592b51131370a9b6604b4d94d118093",
+    "build/debug-startup-game/Save/Restore.dat": "1f2ae3a2dfb9ef490a94b06ce18997de8f5df2184119807dd486a0d68eba59a7"
+  },
+  "source_sha256": {
+    "src/unit_00125.c": "cb3227c66b740b0b935546d03db48cdb2015495f729a8b8c39c03ad89a0a5b71",
+    "src/unit_01765.c": "47c5a769eb7457b8bd476449c904ae345e4f8e12e1a7221fd572560367c0a888",
+    "runtime/mission_schema.c": "ca9bf1287cd568aac1e549996bc99319109953cfaae1617fb94e80613d463cb8",
+    "include/mission_schema.h": "14d942ff7370d71c5833b97a74f92005c619fd8883746d816051031db70ab6a2",
+    "include/pixel_access.h": "81f44cd8f04ce0e018382b3a00e57ccc379d5529fa6a99f843e3b985fcbdf050",
+    "runtime/standalone_link_check.c": "1f1e688c2e5adc74dc2189864f20ae7d0757651b048691d1187b3ee18c16ca6b",
+    "src/unit_01821.c": "dc3ba744d6c5a57e5275d275379b1e68da3df39e3efdb8d44f18631782b22600",
+    "src/unit_01828.c": "0dff4de5b58ea6c124d3f400c868601071f9f0da1cab78ef01f68f8ffcb7588e",
+    "runtime/labor_advisor_render.c": "29b6ff492ee0628526f83e1c2964663b048a78aad25940f709a699c02084f76a",
+    "runtime/religion_advisor_render.c": "e44df875df90be74195a2684bf3c2370bf2f6e26a516d6496187fc2942c23d60",
+    "runtime/menu_building_overlay.c": "5fe98e11e2eeb19007db9266d3e1ee9cb42eb10aab616850f61111a1d014a588",
+    "CMakeLists.txt": "55dba946660d1e7e897f6b9061d736e239ac48724344b8f1ea97dfca5623ce1c",
+    "direct_c/verify_mission_schema.py": "a0de0a977f318cbd293d9a32e804296db136a71cdd087eb94cd1b7351d07538f",
+    "direct_c/verify_pixel_access.py": "22a04bfe2d14e448a889a5b792ae7a0532a3ac417138444ab3ee82a3c280ea9c",
+    "direct_c/verify_mission_progress.py": "9f69a82be97c835dc69b31bdd26f4dfc93fde7d1a78261c266ee458784d29a7f",
+    "tests/mission_loaders.c": "4893216d3528a5f96670179342b9f9b60bf46831414772b7a75dc8d427d1b4f5",
+    "tests/mission_save.c": "84c3773dd0f6796e4225eaa92cbcaed2256170a421475f18270ce1489d521f57",
+    "tests/city_prepare.c": "c998f500ccbfb4d2adcf26c92146fa1c9cf2fb2711eace8fe2c4bcdbda828ada"
+  }
+}

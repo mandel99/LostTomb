@@ -1,0 +1,98 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: two complete monument preview bodies rewritten in C; broader reconstruction remains incomplete",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x441490",
+      "source": "src/unit_00599.c",
+      "evidence_id": "ev_19b934fed311d6be1dd0c517290836de50b986f5bd15634ed9d3220253ed4f69",
+      "native_bytes": 2796,
+      "complete_decoded_instructions": 810,
+      "native_body_sha256": "b443fce99d6a55d09910f5b7141ba7cb702c71c1f5c94ab52f3da8575d685019",
+      "compiled_entry": "0040f410",
+      "provider": "pharaoh_restored:unit_00599.obj"
+    },
+    {
+      "address": "0x4edbb0",
+      "source": "src/unit_02090.c",
+      "evidence_id": "ev_ff2a9a3056b10f38665e6c610c0f576984ef9f028ff866875e6532e832315438",
+      "native_bytes": 915,
+      "complete_decoded_instructions": 270,
+      "native_body_sha256": "5a2b8353114c288df9e5051f21182fd30b413be24f88aee9b068e5b353ff0c1e",
+      "compiled_entry": "003b38f0",
+      "provider": "pharaoh_restored:unit_02090.obj"
+    }
+  ],
+  "proof": "REA procedure scopes/instructions plus complete Ghidra memory reads matched byte-for-byte to the pinned PE. All body bytes decoded with Capstone; no completeness claim based only on partial REA listings.",
+  "changes": [
+    "441490: full DWORD coordinate coefficients, half-size fields, profile selection and36-cell count; native WORD tint and scenario flag.",
+    "441490: single-scaled orientation/cell tables, all three footprint groups, cached pre-query flags and coordinates, live group reloads and original painter orders.",
+    "4EDBB0: correct16-byte construction records with36/144 entries per orientation, DWORD global fields and terrain/map-offset arrays.",
+    "4EDBB0: preserve native piece-origin bounds queries, per-subtile terrain masks, cached orientation/debt state, lowAL prechecks, lowWORD construction mask and trailing obstruction row."
+  ],
+  "references": {
+    "port_names": [
+      "city_building_ghost_draw_sphinx",
+      "pyramid_draw_construction_preview"
+    ],
+    "port_authority": "semantic reference only; original bytes determine behavior",
+    "csharp_limit": "C# BuildingType.Sphinx is209; native dispatcher uses210. The C# enum was not copied into native logic."
+  },
+  "verification": {
+    "target": "build/c-only/Preview/PharaohRestoreC.exe",
+    "sphinx_endpoint_cases": 252,
+    "sphinx_actual_bounds_compositions": 8,
+    "pyramid_cases": 242,
+    "noarg_link_exit": 0,
+    "scripts": [
+      "direct_c/verify_sphinx_preview.py",
+      "direct_c/verify_pyramid_preview.py"
+    ],
+    "scope": "Whole original/C Unicorn execution and actual build-mode dispatcher. Projection, sprite and pyramid precheck/construction endpoints controlled. Sphinx composition also executes actual46F9A0/46F930. No physical framebuffer or host gameplay claim."
+  },
+  "build": {
+    "configuration": "Release",
+    "output_directory": "Preview",
+    "reason": "Release EXE was held by user processes22568/22940. No process was stopped. Current CMake-generated project copied with only Release output/import-library/PDB paths changed; same compiled production library and linker options.",
+    "release_limit": "Release11:37 contains Sphinx but not the later pyramid rewrite. Preview11:43 contains both."
+  },
+  "triage": {
+    "report": "metadata/linked-width-audit.json",
+    "linked_legacy_bodies_scanned": 3323,
+    "remaining_heuristic_candidate_functions": 584,
+    "functions_by_pattern": {
+      "scaled_address": 308,
+      "byte_scalar": 487
+    },
+    "limits": "Overlapping heuristic leads; no blanket patch approval or runtime reachability proof."
+  },
+  "artifacts": {
+    "build/c-only/Preview/PharaohRestoreC.exe": {
+      "sha256": "7af9e867be8725d85ff5c85b5d6cf2fd8ea2a51925b24ec6232d61b7b13403e4",
+      "bytes": 7631872,
+      "COFF": "6ae86939",
+      "local_time": "2026-11-02T11:43:05"
+    },
+    "build/c-only/Release/restore_link_check.exe": {
+      "sha256": "6c4ec740d8223eb612e1eb8ca8dae8a48274eca9015775ad8443bcdc10470e39",
+      "bytes": 7628288,
+      "COFF": "6ae868ee",
+      "local_time": "2026-11-02T11:41:50"
+    },
+    "build/c-only/Release/PharaohRestoreC.exe": {
+      "sha256": "86810d921bedc041971bab79ed8dcbf14c8abad7e9fba38e314df249948c0040",
+      "bytes": 7631872,
+      "COFF": "6ae867f8",
+      "local_time": "2026-11-02T11:37:44"
+    }
+  },
+  "source_sha256": {
+    "src/unit_00599.c": "bb569d271797650b964583783eef6f614f3ea04d196e8d977b89e40df0a7129d",
+    "src/unit_02090.c": "4c6381ca9a8ca6f5acaf34ab9de6c629a60e6c841794943a80e94794a7a5fde1",
+    "CMakeLists.txt": "dba570d27ec8614d5e5f2a02765f4ebd51a79f665ec31c7a1ad9626d30e5d388",
+    "direct_c/verify_sphinx_preview.py": "51a35b614db771b2266515dba4e87f95f983b07cc57b2a75d02c2cc517aa47b4",
+    "direct_c/verify_pyramid_preview.py": "9df969f3c6eef279947d036b0b70e00f2323e7d3d3f1229a3fe6b94fb42483bf"
+  }
+}

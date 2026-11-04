@@ -1,0 +1,521 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "global_facade_callers": [
+  {
+    "procedure": "0x4b8cf0",
+    "evidence": "ev_76f9ae267858bd133294836b647d46fd240c72867580dab64b04fc8596e330fc",
+    "excerpts": [
+      [
+        "0x4b8da4: TEST AL, AL",
+        "0x4b8da6: JNZ 0x004b92b0",
+        "0x4b8dac: MOVSX EAX, word ptr [ESI + 0x28]",
+        "0x4b8db0: PUSH EAX",
+        "0x4b8db1: MOV ECX, 0x785d70",
+        "0x4b8db6: CALL 0x0044bb40",
+        "0x4b8dbb: MOV ECX, dword ptr [0x00d05630]"
+      ],
+      [
+        "0x4b8ec0: MOV word ptr [ESI + -0x22], CX",
+        "0x4b8ec4: MOV word ptr [ESI + -0x20], DX",
+        "0x4b8ec8: MOVSX EAX, word ptr [ESI + 0x28]",
+        "0x4b8ecc: PUSH EAX",
+        "0x4b8ecd: MOV ECX, 0x785d70",
+        "0x4b8ed2: CALL 0x0044bb40",
+        "0x4b8ed7: MOV EDI, EAX"
+      ]
+    ]
+  },
+  {
+    "procedure": "0x533e70",
+    "evidence": "ev_11d94d6684926d563e92f457d307940e5672f1fc486dc6621508fa83d7161c0c",
+    "excerpts": [
+      [
+        "0x534009: PUSH 0x54",
+        "0x53400b: PUSH 0x40",
+        "0x53400d: CALL 0x004d62f0",
+        "0x534012: ADD ESP, 0x20",
+        "0x534015: MOV ECX, 0x785d70",
+        "0x53401a: CALL 0x0044bd00",
+        "0x53401f: OR EBX, 0xffffffff"
+      ]
+    ]
+  }
+],
+  "functions": [
+    {
+      "address": "0x44d680",
+      "evidence": "ev_4de415179f2f24cef43d19b7e782b0c22270e432492ff0e6869ca782a31e7d23",
+      "result": {
+        "procedure": {
+          "address": "0x44d680",
+          "name": "FUN_0044d680",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44d680",
+                "end": "0x44d6c1"
+              }
+            ],
+            "total_bytes": 66,
+            "span_bytes": 66,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44d680: MOV AL, byte ptr [ESP + 0x4]",
+          "0x44d684: TEST AL, AL",
+          "0x44d686: JNZ 0x0044d693",
+          "0x44d688: TEST byte ptr [ECX + 0x28], 0x5",
+          "0x44d68c: JZ 0x0044d693",
+          "0x44d68e: XOR AL, AL",
+          "0x44d690: RET 0x4",
+          "0x44d693: MOVSX EAX, word ptr [ECX + 0x14]",
+          "0x44d697: MOVSX EDX, word ptr [0x007848d8]",
+          "0x44d69e: ADD EAX, EDX",
+          "0x44d6a0: MOV EDX, dword ptr [0x0078d7bc]",
+          "0x44d6a6: CMP EDX, EAX",
+          "0x44d6a8: JZ 0x0044d6af",
+          "0x44d6aa: XOR AL, AL",
+          "0x44d6ac: RET 0x4",
+          "0x44d6af: XOR EAX, EAX",
+          "0x44d6b1: MOV AL, byte ptr [ECX + 0x3]",
+          "0x44d6b4: MOV ECX, dword ptr [0x0078d7c0]",
+          "0x44d6ba: CMP ECX, EAX",
+          "0x44d6bc: SETZ AL",
+          "0x44d6bf: RET 0x4"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44d6d0",
+      "evidence": "ev_63d6628ebfccf52c7fc55cda7f32d9b0271b25becf2eef4848de53d96aa0d2cf",
+      "result": {
+        "procedure": {
+          "address": "0x44d6d0",
+          "name": "FUN_0044d6d0",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44d6d0",
+                "end": "0x44d6ff"
+              }
+            ],
+            "total_bytes": 48,
+            "span_bytes": 48,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44d6d0: MOVSX EAX, word ptr [ECX + 0x14]",
+          "0x44d6d4: MOVSX EDX, word ptr [0x007848d8]",
+          "0x44d6db: ADD EAX, EDX",
+          "0x44d6dd: MOV EDX, dword ptr [0x0078d7bc]",
+          "0x44d6e3: CMP EDX, EAX",
+          "0x44d6e5: JGE 0x0044d6ea",
+          "0x44d6e7: MOV AL, 0x1",
+          "0x44d6e9: RET",
+          "0x44d6ea: JLE 0x0044d6ef",
+          "0x44d6ec: XOR AL, AL",
+          "0x44d6ee: RET",
+          "0x44d6ef: XOR EAX, EAX",
+          "0x44d6f1: MOV AL, byte ptr [ECX + 0x3]",
+          "0x44d6f4: MOV ECX, dword ptr [0x0078d7c0]",
+          "0x44d6fa: CMP ECX, EAX",
+          "0x44d6fc: SETL AL",
+          "0x44d6ff: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44d700",
+      "evidence": "ev_5617789d076d1e3555a132300368084c8c999f2e28b79ca8d5eaebebb3c71d9e",
+      "result": {
+        "procedure": {
+          "address": "0x44d700",
+          "name": "FUN_0044d700",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44d700",
+                "end": "0x44d74f"
+              }
+            ],
+            "total_bytes": 80,
+            "span_bytes": 80,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44d700: PUSH ESI",
+          "0x44d701: MOV ESI, ECX",
+          "0x44d703: TEST byte ptr [ESI + 0x28], 0x11",
+          "0x44d707: JZ 0x0044d70d",
+          "0x44d709: XOR AL, AL",
+          "0x44d70b: POP ESI",
+          "0x44d70c: RET",
+          "0x44d70d: MOV ECX, ESI",
+          "0x44d70f: CALL 0x0044d6d0",
+          "0x44d714: TEST AL, AL",
+          "0x44d716: JZ 0x0044d71c",
+          "0x44d718: XOR AL, AL",
+          "0x44d71a: POP ESI",
+          "0x44d71b: RET",
+          "0x44d71c: MOVSX ECX, word ptr [ESI + 0x14]",
+          "0x44d720: MOV EAX, [0x0078d7bc]",
+          "0x44d725: MOVSX EDX, word ptr [0x007848d8]",
+          "0x44d72c: SUB EAX, ECX",
+          "0x44d72e: XOR ECX, ECX",
+          "0x44d730: MOV CL, byte ptr [ESI + 0x3]",
+          "0x44d733: SUB EAX, EDX",
+          "0x44d735: MOV EDX, dword ptr [0x0078d7c0]",
+          "0x44d73b: LEA EAX, [EAX + EAX*0x2]",
+          "0x44d73e: SHL EAX, 0x2",
+          "0x44d741: SUB EAX, ECX",
+          "0x44d743: ADD EAX, EDX",
+          "0x44d745: MOVSX EDX, word ptr [ESI + 0x2c]",
+          "0x44d749: CMP EAX, EDX",
+          "0x44d74b: POP ESI",
+          "0x44d74c: SETLE AL",
+          "0x44d74f: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x449640",
+      "evidence": "ev_b703d42e8a5977b2599f2f5b4bbf13a658b8839f73ca1ba688a32c8ae86caa9b",
+      "result": {
+        "procedure": {
+          "address": "0x449640",
+          "name": "FUN_00449640",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x449640",
+                "end": "0x449654"
+              }
+            ],
+            "total_bytes": 21,
+            "span_bytes": 21,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x449640: MOV AL, byte ptr [ECX + 0x2]",
+          "0x449643: CMP AL, 0x1",
+          "0x449645: JZ 0x00449652",
+          "0x449647: CMP AL, 0x12",
+          "0x449649: JBE 0x0044964f",
+          "0x44964b: CMP AL, 0x14",
+          "0x44964d: JBE 0x00449652",
+          "0x44964f: XOR AL, AL",
+          "0x449651: RET",
+          "0x449652: MOV AL, 0x1",
+          "0x449654: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x449660",
+      "evidence": "ev_edc226f37d49e6ee8c7b6528684b2d5cd574f127fa681320498e4ad6963b4556",
+      "result": {
+        "procedure": {
+          "address": "0x449660",
+          "name": "FUN_00449660",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x449660",
+                "end": "0x449687"
+              }
+            ],
+            "total_bytes": 40,
+            "span_bytes": 40,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x449660: CMP byte ptr [ECX + 0x2], 0x2",
+          "0x449664: JNZ 0x00449685",
+          "0x449666: MOV AX, word ptr [ECX + 0x1e]",
+          "0x44966a: TEST AX, AX",
+          "0x44966d: JGE 0x00449675",
+          "0x44966f: MOV AX, word ptr [ECX + 0x22]",
+          "0x449673: JMP 0x0044967c",
+          "0x449675: CMP word ptr [ECX + 0x20], 0x0",
+          "0x44967a: JGE 0x00449685",
+          "0x44967c: CMP AX, 0x9",
+          "0x449680: JL 0x00449685",
+          "0x449682: MOV AL, 0x1",
+          "0x449684: RET",
+          "0x449685: XOR AL, AL",
+          "0x449687: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x449690",
+      "evidence": "ev_5783a6c3f3d34f4a978bcd982a8dcbcc6b2134c5f793ed8ab05e4a6a1c3137cb",
+      "result": {
+        "procedure": {
+          "address": "0x449690",
+          "name": "FUN_00449690",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x449690",
+                "end": "0x4496a1"
+              }
+            ],
+            "total_bytes": 18,
+            "span_bytes": 18,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x449690: MOV DL, byte ptr [ECX + 0x2]",
+          "0x449693: MOV AL, 0x1",
+          "0x449695: CMP DL, AL",
+          "0x449697: JNZ 0x0044969f",
+          "0x449699: CMP byte ptr [ECX + 0x60], 0x3",
+          "0x44969d: JZ 0x004496a1",
+          "0x44969f: XOR AL, AL",
+          "0x4496a1: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44bb40",
+      "evidence": "ev_714833ab9364c2d3c6e1fc81859b81a49ee6b229bfed32e378df5e1555be955f",
+      "result": {
+        "procedure": {
+          "address": "0x44bb40",
+          "name": "FUN_0044bb40",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44bb40",
+                "end": "0x44bb86"
+              }
+            ],
+            "total_bytes": 71,
+            "span_bytes": 71,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44bb40: MOV EAX, dword ptr [ESP + 0x4]",
+          "0x44bb44: CMP EAX, 0x8c",
+          "0x44bb49: JNZ 0x0044bb54",
+          "0x44bb4b: LEA EAX, [ECX + 0x43d4]",
+          "0x44bb51: RET 0x4",
+          "0x44bb54: TEST EAX, EAX",
+          "0x44bb56: JL 0x0044bb76",
+          "0x44bb58: CMP EAX, dword ptr [ECX]",
+          "0x44bb5a: JGE 0x0044bb76",
+          "0x44bb5c: MOV EDX, EAX",
+          "0x44bb5e: SHL EDX, 0x5",
+          "0x44bb61: SUB EDX, EAX",
+          "0x44bb63: LEA EAX, [ECX + EDX*0x4 + 0x4]",
+          "0x44bb67: XOR ECX, ECX",
+          "0x44bb69: CMP byte ptr [EAX + 0x2], 0x2",
+          "0x44bb6d: SETNZ CL",
+          "0x44bb70: DEC ECX",
+          "0x44bb71: AND EAX, ECX",
+          "0x44bb73: RET 0x4",
+          "0x44bb76: XOR EAX, EAX",
+          "0x44bb78: XOR ECX, ECX",
+          "0x44bb7a: CMP byte ptr [EAX + 0x2], 0x2",
+          "0x44bb7e: SETNZ CL",
+          "0x44bb81: DEC ECX",
+          "0x44bb82: AND EAX, ECX",
+          "0x44bb84: RET 0x4"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x44bd00",
+      "evidence": "ev_39d804c836fcaba68abe6b8a9626284cc8fe2b960b338db3914bd212e055ceca",
+      "result": {
+        "procedure": {
+          "address": "0x44bd00",
+          "name": "FUN_0044bd00",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x44bd00",
+                "end": "0x44bd17"
+              }
+            ],
+            "total_bytes": 24,
+            "span_bytes": 24,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x44bd00: MOV EDX, dword ptr [ECX]",
+          "0x44bd02: XOR EAX, EAX",
+          "0x44bd04: TEST EDX, EDX",
+          "0x44bd06: JLE 0x0044bd17",
+          "0x44bd08: ADD ECX, 0x6",
+          "0x44bd0b: CMP byte ptr [ECX], 0x3",
+          "0x44bd0e: JNZ 0x0044bd11",
+          "0x44bd10: INC EAX",
+          "0x44bd11: ADD ECX, 0x7c",
+          "0x44bd14: DEC EDX",
+          "0x44bd15: JNZ 0x0044bd0b",
+          "0x44bd17: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    },
+    {
+      "address": "0x448a60",
+      "evidence": "ev_d6f259285cfc23726890ef8aee8870beb87f1a0bf9fc887ccfe92e98573737fa",
+      "result": {
+        "procedure": {
+          "address": "0x448a60",
+          "name": "FUN_00448a60",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x448a60",
+                "end": "0x448a82"
+              }
+            ],
+            "total_bytes": 35,
+            "span_bytes": 35,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        },
+        "instructions": [
+          "0x448a60: XOR EAX, EAX",
+          "0x448a62: MOV word ptr [ECX + 0x3a], AX",
+          "0x448a66: MOV word ptr [ECX + 0x3c], AX",
+          "0x448a6a: MOV word ptr [ECX + 0x3e], AX",
+          "0x448a6e: MOV word ptr [ECX + 0x40], AX",
+          "0x448a72: MOV word ptr [ECX + 0x42], AX",
+          "0x448a76: MOV word ptr [ECX + 0x44], AX",
+          "0x448a7a: MOV word ptr [ECX + 0x46], AX",
+          "0x448a7e: MOV word ptr [ECX + 0x4a], AX",
+          "0x448a82: RET"
+        ],
+        "limitations": [
+          "Instruction text and ordering are Ghidra-specific representations.",
+          "The fast path does not invoke the decompiler or scan whole-program names and strings."
+        ]
+      }
+    }
+  ]
+}

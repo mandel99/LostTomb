@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "verified_at": "2026-10-28T10:51:20.8442298+01:00",
+  "status": "compiled-install-tested-and-startup-smoke-tested",
+  "verified_hooks": 23,
+  "experimental_hooks": 200,
+  "default_runtime_hooks": 223,
+  "selection_manifest": "metadata/experimental-hook-batch-01.json",
+  "runtime_switches": {
+    "verified_only": "--no-experimental-hooks",
+    "original_fallback": "--no-c-hooks",
+    "install_test": "--experimental-hook-test"
+  },
+  "build": {
+    "configuration": "Release",
+    "platform": "Win32",
+    "executable": {
+      "path": "artifacts/experimental-batch-01-fixed/Release/PharaohRestore.exe",
+      "bytes": 2146304,
+      "sha256": "9753ec3bac41795f817788bc90a432ac6ff8e816b4858f4e7521721efa39b6e5"
+    },
+    "runtime_dll": {
+      "path": "artifacts/experimental-batch-01-fixed/Release/PharaohRestoreRuntime.dll",
+      "bytes": 81408,
+      "sha256": "42fde9fb078045b48705139d78c8ebd50e4a0ba31930f29aaaee99474ce8ff75"
+    }
+  },
+  "tests": {
+    "passed": 7,
+    "failed": 0,
+    "names": [
+      "intrinsic_integer_widths",
+      "differential_original_x86",
+      "hybrid_image_inspect",
+      "hybrid_abi_self_test",
+      "hybrid_compatibility_startup",
+      "hybrid_hook_identity_guard",
+      "hybrid_experimental_hook_install"
+    ]
+  },
+  "startup_smoke_test": {
+    "duration_seconds": 25,
+    "isolated_game_directory": "build/smoke-game",
+    "window_title": "Pharaoh (Cleopatra Expansion)",
+    "responsive": true,
+    "unhandled_exception": false,
+    "log": "artifacts/experimental-batch-01-fixed/Release/PharaohRestore.log",
+    "log_sha256": "7e97b213c3073bc03a16dc439f4236c0fb32bb09a3c3e601a588945207f687b7"
+  },
+  "scope_note": "All 200 entries install, the prior loading crash is fixed, and the title window remained responsive through a 25-second isolated startup. Full gameplay equivalence remains unverified."
+}

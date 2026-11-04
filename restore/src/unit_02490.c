@@ -1,13 +1,5 @@
-#include "restore_types.h"
-#define DAT_00f54120 (*(undefined4 *)0x00f54120u)
-extern undefined4 FUN_00539c60();
-
-void FUN_0053b100(int param_1,undefined4 param_2,int param_3)
-
+#include "sound_banks.h"
+void FUN_0053b100(int32_t bank,const char *filename,int32_t variant)
 {
-  undefined4 uVar1;
-  
-  uVar1 = FUN_00539c60(param_2);
-  (&DAT_00f54120)[param_1 * 5 + param_3] = uVar1;
-  return;
+    restore_sound_load_actor_sample(bank,filename,variant);
 }

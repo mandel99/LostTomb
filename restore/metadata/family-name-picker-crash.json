@@ -1,0 +1,78 @@
+{
+  "status": "Fixed observed name-picker abort; compiled native/C validation passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "reported": "Opening suggested names while creating a new campaign terminates the latest Release",
+  "crash": {
+    "source_dump": "C:\\Users\\Daniel\\AppData\\Local\\CrashDumps\\PharaohRestoreC.exe.26648.dmp",
+    "dump_sha256": "94af42313d396e3d8be5d0d292e578c5e84aaf93b7616c0734bcbdbdf4393140",
+    "event_time": "2026-11-02 18:56:55",
+    "exception": "0xC0000409",
+    "fast_fail_parameter": 7,
+    "fault_va": "0x0043C8FE",
+    "module_base": "0x10000",
+    "coff": "0x6AE8CC92",
+    "reported_release_sha256": "46d4be99b39b074e307f16053a03781c52f0c6244f5413e535231642abbc597a",
+    "stack": "abort -> restore_menu_callback+948 ->4261D0+25C -> overlay dispatcher ->4D75D0; callback argument40C890, button5C5AF8, name-entry screen54",
+    "cause": "The real callback was absent from the production dispatch registry. The default unresolved-callback branch invokes abort; fast fail bypassed the game exception dump filter, so the current dump was in Windows CrashDumps."
+  },
+  "callbacks": [
+    {
+      "entry": "0x40c890",
+      "name": "restore_family_open_name_choices",
+      "native_bytes": 15,
+      "native_instructions": 3,
+      "native_body_sha256": "30f42a4b18999960d0635cc0ceadb1e26cc41271ca4863505b95d606bd757155"
+    },
+    {
+      "entry": "0x40c810",
+      "name": "restore_family_close_name_choices",
+      "native_bytes": 25,
+      "native_instructions": 4,
+      "native_body_sha256": "415a5774c3fd2f3982713141413d21eb1baef998ed3596c0551488caa1551492"
+    },
+    {
+      "entry": "0x40c830",
+      "name": "restore_family_choose_name",
+      "native_bytes": 89,
+      "native_instructions": 30,
+      "native_body_sha256": "af2e8b71315afa3b99aac3ec4800934f7fd1ae563a5548737764223e216c50bc"
+    }
+  ],
+  "panel": {
+    "entry": "0x520D00",
+    "native_bytes": 248,
+    "native_instructions": 82,
+    "name": "restore_family_draw_name_choices",
+    "source": "src/unit_02363.c",
+    "source_sha256": "86f083e0803a8075a332070c8a53a8a15e45102280bae2b1cd097116dd23bbf7",
+    "rea": "ev_37e6616d1eca136b6eb3d79b76b38938d732430fb329342e4740e1f4982c05e0"
+  },
+  "rea": {
+    "callback_bytes": "ev_14f52304895c746fc2cc9a0b5b19bc93410c9a8b1372b70d7489013d4921a34f",
+    "opener_bytes": "ev_7ed996d66fe0709e158173acad474a9b654721c6af70cb907012bdd4cf6cc5e4",
+    "opening_button": "ev_db9faba16ef84a0a11eeeab66db996ae289d0526b30f68623eb3ce080896bf8f"
+  },
+  "repair": "Register all three original callbacks. Preserve selected-catalog copy including NUL, real editor initialization and late selected-row reload. Reconstruct42 rows, two headings, all43 left/right button identities, full DWORD font/origin/selection/resolution and native hover priority. No unknown callback is silently accepted.",
+  "verification": {
+    "script": "direct_c/verify_family_name_choices.py",
+    "cases": 315,
+    "callbacks_and_real_catalog": 105,
+    "actual_table_clicks": 138,
+    "complete_panel": 72,
+    "comparison": "Full seeded global memory, ordered meaningful calls, actual selected name bytes, native/C stack cleanup and nonvolatile registers. All43 original button rows include headings, close, right-click and no-click paths.",
+    "limitations": "Text-editor reset and final panel/text drawing endpoints are controlled. Host game, physical graphics and user profile writes were not exercised.",
+    "noargument_link_check": "PASS",
+    "difficulty_cases": 60,
+    "existing_family_fixture_link": "PASS; linked real text-selection dependency"
+  },
+  "build": {
+    "sha256": "a227757492bacbd69dea7b5b3897fe19ddea7fc541d3a74665b112d99a7d68b1",
+    "bytes": 7612416,
+    "local_time": "2026-11-02T19:09:20",
+    "release_path": "build/c-only/Release/PharaohRestoreC.exe",
+    "release_sha256": "a227757492bacbd69dea7b5b3897fe19ddea7fc541d3a74665b112d99a7d68b1"
+  },
+  "native_total_bytes": 377,
+  "native_total_instructions": 119,
+  "source_commit": "3f54c6608808dd2ed67515d35e9058589edfaad8"
+}

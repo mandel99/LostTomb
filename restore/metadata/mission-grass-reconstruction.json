@@ -1,0 +1,141 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: four complete C bodies rebuilt and native comparisons passed",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x4138d0",
+      "evidence_id": "ev_38ed9b0ab75665a3f0f63eb0c3776edf1a75e6a2825b96efa0f0eb38b7fc40a5",
+      "native_bytes": 926,
+      "native_instructions": 319,
+      "body": [
+        {
+          "start": "0x4138d0",
+          "end": "0x413c6d"
+        }
+      ],
+      "source": "src/unit_00160.c",
+      "compiled_entry": "004301c0",
+      "provider": "pharaoh_restored:unit_00160.obj"
+    },
+    {
+      "address": "0x4ea2c0",
+      "evidence_id": "ev_07c67cc02f1be070b55e0218af88502dcba0560b3566cf20096312f19c9ebc86",
+      "native_bytes": 1137,
+      "native_instructions": 324,
+      "body": [
+        {
+          "start": "0x4ea2c0",
+          "end": "0x4ea730"
+        }
+      ],
+      "source": "src/unit_02059.c",
+      "compiled_entry": "003b5c30",
+      "provider": "pharaoh_restored:unit_02059.obj"
+    },
+    {
+      "address": "0x478330",
+      "evidence_id": "ev_67e9ececc81caaeed91dc2ea5623466d609475043cfd0fd14456f264272b192f",
+      "native_bytes": 237,
+      "native_instructions": 86,
+      "body": [
+        {
+          "start": "0x478330",
+          "end": "0x47841c"
+        }
+      ],
+      "source": "src/unit_01072.c",
+      "compiled_entry": "003ee790",
+      "provider": "pharaoh_restored:unit_01072.obj"
+    },
+    {
+      "address": "0x478420",
+      "evidence_id": "ev_05e4157f53f0ba7c1aa798e1db88e62b6339c64beab8e716b73b6fb772e2fcd5",
+      "native_bytes": 28,
+      "native_instructions": 11,
+      "body": [
+        {
+          "start": "0x478420",
+          "end": "0x47843b"
+        }
+      ],
+      "source": "src/unit_01073.c",
+      "compiled_entry": "003ee750",
+      "provider": "pharaoh_restored:unit_01073.obj"
+    }
+  ],
+  "native_bytes_total": 2328,
+  "native_instructions_total": 740,
+  "changes": [
+    "Whole4138D0 editor options renderer: correct full-width coordinates, fonts, hover and live callback reloads.",
+    "Whole4EA2C0 mission evaluation: correct DWORD goals, byte-addressed player record stride and signed result handling; preserve native victory/loss presentation.",
+    "Whole478330 and478420 map preparation: correct DWORD map origin and geometry; actual flags at physical cells; pass x/y to flood repair.",
+    "Low-frequency transition traces in4EA2C0,418640 and4D58B0 report result, selected/next index, scene and PAK offset/year."
+  ],
+  "validation": {
+    "editor_options": {
+      "script": "direct_c/verify_editor_options_draw.py",
+      "passed": 104,
+      "scope": "92 ordered renderer cases with controlled drawing endpoints; 12 real display-router compositions"
+    },
+    "mission_progress": {
+      "script": "direct_c/verify_mission_progress.py",
+      "passed": 101,
+      "scope": "100 whole outcome cases with controlled external effects; actual current-family first-to-second indexing and timed briefing entry ID201; profile writes and summary controlled"
+    },
+    "grass": {
+      "script": "direct_c/verify_grass_selection.py",
+      "passed": 107,
+      "scope": "77 real image selections; 18 actual growth/wet-edge generations; 11 controlled rectangle/wrapper dispatch cases; 1 composed recursive flood repair and redraw"
+    },
+    "link_check": "No-argument restore_link_check exited0; does not start game.",
+    "build": "Release targets restore_link_check and restore_game completed exit0; hybrid OFF; four changed function providers /W4 /WX without PCH."
+  },
+  "observations": {
+    "family_sha256": "1f2ae3a2dfb9ef490a94b06ce18997de8f5df2184119807dd486a0d68eba59a7",
+    "latest_save_sha256": "1176e6f82744531583d117996621657e39bb34518d3fe3f5555abee47790cdae",
+    "first_map_year": -3500,
+    "second_map_year": -3100,
+    "mission_pak_offsets": [
+      240,
+      302941,
+      611779
+    ],
+    "pre_fix": "Old C preparation selected477F60 for rectangle8,5..10,8 where native selected477F70(8,5); old outcome test did not clear the full tool DWORD."
+  },
+  "limitations": [
+    "Actual first-map reload root cause is not conclusively established; outcome bugs are proven and fixed, but new transition logs await gameplay reproduction.",
+    "Real PAK loading, complete victory-screen input flow and the user's full grass scene are not replayed by these tests.",
+    "Image IDs and terrain state were checked; final framebuffer pixels and live gameplay were not certified.",
+    "No host game execution, GUI control, asset/save modification or original/port execution."
+  ],
+  "build_files": {
+    "PharaohRestoreC.exe": {
+      "sha256": "022312d7d0d9ae5d075e0ce024c26d6269efd84c0d4f9f847f5f4ab366b360ab",
+      "bytes": 7637504,
+      "COFF": "6ae8492c",
+      "local_time": "2026-11-02T09:26:20"
+    },
+    "restore_link_check.exe": {
+      "sha256": "2fd4820566c8b0e8d7107310a3cc81fcf6504c3a44493799921f43eb5fffb715",
+      "bytes": 7633920,
+      "COFF": "6ae84919",
+      "local_time": "2026-11-02T09:26:01"
+    }
+  },
+  "source_sha256": {
+    "src/unit_00160.c": "ffa7b082918790d7238d585c3305c8e28202eb477524acf4cd1c4a45011167a6",
+    "src/unit_02059.c": "5b77752355f0d323bb9007ed88cd1660b1a9f88b1985b3a0a40820595a9b0277",
+    "src/unit_01072.c": "a3636697e48a265fb8155f492b206e3e4bf888e8f6b0d8dd7bd1774ace7c6bbd",
+    "src/unit_01073.c": "b1169789e5ba9845917b460c9e024e11e5961fbace93a2b911b9ce663cffea89",
+    "src/unit_00225.c": "3e5212ce1842e0dda6a4f87928d3b926ec9085e143af2961c88fdff2fded6678",
+    "src/unit_01831.c": "b72423181c31792c6c1c3dc77708195c4d37b8f0420b7ab66ad396e9c4803d32",
+    "include/terrain_redraw.h": "530ca7381bc41264062ee9c43aa0b4355460baee4d3abfe788d0a7e6ffaae280",
+    "CMakeLists.txt": "fc8d3f5035a18bece75a2fee88b7d7761e89e5e5ce8bbebd848c89b8b961df64",
+    "direct_c/verify_editor_options_draw.py": "7ad6a03ea58ee2470ef3f93f1baec266a29f19574f2b51ef951bb9556bd8b3ed",
+    "direct_c/verify_mission_progress.py": "f3c031c10743fbfd7f0b982834fcacd21028f7bfd779a5b6225efb67d9a47df0",
+    "direct_c/verify_grass_selection.py": "37f923d96c03c3538da0f21e39fbb468f15a5a0d2dc7239e9662970684913a07",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3"
+  }
+}

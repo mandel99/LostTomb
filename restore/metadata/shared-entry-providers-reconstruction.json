@@ -1,0 +1,89 @@
+{
+  "status": "three legacy public bodies removed; address entries share existing whole typed C providers",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0046a400",
+      "alias": "src/unit_00963.c",
+      "provider": "runtime/building_allocator.c",
+      "name": "restore_building_allocate_0046a400",
+      "evidence_id": "ev_a130fc19d272265345f31f95e432e5902e160d3373549ddc75e0e210f067f78e",
+      "instructions": 490,
+      "native_bytes": 2049,
+      "native_body_sha256": "ab54610efc87f2bee0bd088981b36fc87dde449b3d9371fc649b0de4ff9c54c6",
+      "alias_sha256": "675bfec0b673830da450f575a5dc40118f2182c30b8a1c4047df622d58d87fbf",
+      "provider_sha256": "e985f8189b002b7b3ac193782c5ec4ee2ff6d1c4156f6069cecf7b1415a69843"
+    },
+    {
+      "entry": "0046a280",
+      "alias": "src/unit_00960.c",
+      "provider": "runtime/building_allocator.c",
+      "name": "restore_building_repair_slot_0046a280",
+      "evidence_id": "ev_2c321ac3c9e0271bb6b3bac826355262dd44b2423c94aa2d5a1781f3f77978cd",
+      "instructions": 26,
+      "native_bytes": 85,
+      "native_body_sha256": "eda684625ac422ce54c457461f9f47b4b339b811a60153c9b43c21850cac8174",
+      "alias_sha256": "2c5c443a6af316837f60c96df13963b6d24a4392e40467121d2fe54e1c90754c",
+      "provider_sha256": "e985f8189b002b7b3ac193782c5ec4ee2ff6d1c4156f6069cecf7b1415a69843"
+    },
+    {
+      "entry": "004c47a0",
+      "alias": "src/unit_01601.c",
+      "provider": "runtime/god_effects.c",
+      "name": "restore_god_effect_004c47a0",
+      "evidence_id": "ev_f833d0498a016aacbfed16aecf210812be3711f7565443266d6e333f84fe6102",
+      "instructions": 764,
+      "native_bytes": 2309,
+      "native_body_sha256": "2e5d44ee3e00c9b9d93b65a36af4fc2118f35810d6822a1f0833484cef7ff9c9",
+      "alias_sha256": "dd06f82abb995820b8cd62ee48ecbe69ce34d1bb88924e472bf2d1fca524dd27",
+      "provider_sha256": "f9f5058b5b25a82d87c14f85fb88408da8b70e02a24887dbd74c3ea2786dc2dc"
+    }
+  ],
+  "native_bytes": 4443,
+  "native_instructions": 1280,
+  "scope": "This unifies entry routing and verifies the existing C algorithms; it does not claim three newly authored algorithms.",
+  "changes": [
+    "46A400 public allocation entry now uses the complete C allocator instead of the discarded scaled-pointer body.",
+    "46A280 public repair entry shares the ten-slot BYTE/DWORD implementation.",
+    "4C47A0 public god-effect entry shares the simulation provider, including BYTE mood, WORD role and DWORD player/counter fields.",
+    "Preserve the full native 30-byte message scratch contract. Only WORDs0,1,8 are initialized; no default values are invented."
+  ],
+  "verification": {
+    "script": "direct_c/verify_shared_entry_providers.py",
+    "cases": 668,
+    "allocator_kinds": 241,
+    "allocator_search_callbacks": 52,
+    "repair_slots": 11,
+    "god_effect_branches": 100,
+    "god_scratch_thresholds": 264,
+    "actual_compositions": [
+      "4851B0 reservation lookup",
+      "46A280 repair-slot provider from allocation",
+      "public aliases -> existing canonical typed C providers"
+    ],
+    "controlled_boundaries": [
+      "4E7F00 building quality",
+      "481000 neighbor query",
+      "488050 actor-building gate",
+      "4E2970 pending notice",
+      "OutputDebugStringA",
+      "562348 RNG",
+      "4E0CF0 message publication",
+      "monument/god-building/city effect endpoints"
+    ],
+    "scratch_model": "Verification-only hook seeds the owned C scratch at the explicit core entry; native scratch is seeded at initialSP-32. Complete published packet bytes match for both tested prestates.",
+    "regressions_before_fix": [
+      "Repair slot0 old C overwrites three adjacent bytes with zero; original leaves their0xA5 prestate.",
+      "God roleWORD256: old public C reads only its zero low byte and skips a blessing; original publishes message295."
+    ],
+    "diagnostic": "restore_link_check.exe no arguments passed",
+    "live_gameplay": "Not run; this verifies entry/data/ABI logic, not rendered gameplay."
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Release Win32",
+    "sha256": "1f0cd57f5e3c8439aecccfdf497947a568692cdd9bd398666d50da2d5c284cdb",
+    "bytes": 7622144
+  },
+  "publication": "Source update only; no tag/release."
+}

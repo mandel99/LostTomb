@@ -1,0 +1,45 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "old_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\sound-allocation-before\\PharaohRestoreC.exe",
+  "old_C_sha256": "8dc1eec47b1abff28ea436aaf311857bec0d6a97c11d1cb19bc2d4d16b53778f",
+  "alias_fault": {
+    "original": [
+      20,
+      3,
+      4
+    ],
+    "previous_C": [
+      20,
+      11,
+      4
+    ]
+  },
+  "pre_version_state": {
+    "original": {
+      "handles": 838926336,
+      "cache": 839057408,
+      "sample_count": 2,
+      "counter": 270544972
+    },
+    "previous_C": {
+      "handles": 0,
+      "cache": 0,
+      "sample_count": 2,
+      "counter": 270544984
+    }
+  },
+  "concrete_counterexamples": 2,
+  "complete_reconstruction": false,
+  "limitations": [
+    "Actual native/currently retained previous C execute. One full failing initializer path proves a different fault address after cache-pointer aliasing.",
+    "The boot example stops at the first version-query entry and compares constructed object state, proving the extra late constructor; it does not claim normal-return ABI for this intentional prefix.",
+    "Only declared OS/CRT/Miles/heap services are controlled; no game algorithm result is replaced."
+  ],
+  "source_hashes": {
+    "direct_c/probe_sound_device_before.py": "91a8a4a24b1ef8c6121bed2329b0c0a5284e83d18df4ce22fa6293ff6d1ea4b0",
+    "direct_c/verify_sound_device.py": "acc55ad96f3417a782f975df063d8cdab26b09242e1ebcf341e492c25ff13c3c",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/sound-device-native.json": "70e52194c3efc4f956320a2eef098473641d152b9d52e665654fa38e62869902",
+    "metadata/sound-device-rea-evidence.json": "6cee846fe67c5aaa8477fac2b0d2b0fcd75325986a0b572fc9f8a5f8300d4d90"
+  }
+}

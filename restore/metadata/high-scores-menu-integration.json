@@ -1,0 +1,129 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T11:19:09.151028+00:00",
+  "passed": true,
+  "child_exe_sha256": "38641fcf03792186454f5d5ce35165a1e06ce6bc2741ba6b02e2984cdc0f915b",
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "original_machine_code_fallback_used": false,
+  "expected_bounded_timeout": true,
+  "confirmed_flow": [
+    "title",
+    "main menu action 3",
+    "25 real score records loaded by C",
+    "first20 rows",
+    "down callback to first1",
+    "drag to first5",
+    "Escape through mode83 input",
+    "main menu"
+  ],
+  "log": {
+    "path": "artifacts/menu-high-scores-integration.log",
+    "sha256": "b34626b6ac6220a5903d04226b4f5ad69f4698e1a22129f6c57aec568f256217"
+  },
+  "fixture": {
+    "path": "artifacts/high-scores-fixtures/highscore-readable.jas",
+    "sha256": "f273af67cf5bdc431404e39d40eba16cf67e8726e6fcbd22067088acf2a9ebea"
+  },
+  "fixture_restored_after_run": true,
+  "profile": {
+    "path": "build/debug-startup-game/Save/Restore.dat",
+    "sha256": "7794376f0421356ed16a950de128b5029cc30d679b3f04c3f58760e86d242371"
+  },
+  "frames": [
+    {
+      "screen": "high-scores",
+      "mode": 83,
+      "first": 0,
+      "manifest": {
+        "path": "metadata/menu-high-scores-frame.json",
+        "sha256": "7b8bbf94f28085b09d58eb5ae83a7aec22223ac3f3916cabe5622e62e6c87621"
+      },
+      "image": {
+        "path": "artifacts/menu-high-scores.bmp",
+        "sha256": "97056bfea6fb2ba1f7562fb1c4239ab169fb8f3f29b6906bb64b47e3a3be9960"
+      },
+      "raw_frame_sha256": "ecc976cb74085d3d173e8b980bc83262ce2b69eff2f7db85a9f58688885e0818",
+      "visually_inspected": true
+    },
+    {
+      "screen": "high-scores-scrolled",
+      "mode": 83,
+      "first": 1,
+      "manifest": {
+        "path": "metadata/menu-high-scores-scrolled-frame.json",
+        "sha256": "91108a15ab7f39e881d14e4b5ac21fd47b5ad259f25d57fc369388b826254a9c"
+      },
+      "image": {
+        "path": "artifacts/menu-high-scores-scrolled.bmp",
+        "sha256": "6b9989654bea402b0bdb102e6e314c7981a8d4f1c95dcaa037eebd78e99f64f9"
+      },
+      "raw_frame_sha256": "a66e01783b1c22e5749eaa3bdbc2e07917abc6c086c0fc41d4cde2e14ba40077",
+      "visually_inspected": true
+    },
+    {
+      "screen": "high-scores-dragged",
+      "mode": 83,
+      "first": 5,
+      "manifest": {
+        "path": "metadata/menu-high-scores-dragged-frame.json",
+        "sha256": "f5dd56259a86a0eb31070e2bfedb5e40f7703982658ededee8c70375b18e3b10"
+      },
+      "image": {
+        "path": "artifacts/menu-high-scores-dragged.bmp",
+        "sha256": "3f74cfc2fd94a0f11301df57432b10ce50c193c462054680840f02cb98354987"
+      },
+      "raw_frame_sha256": "5d7dfda387f07e8193899044479d47c617c0a34865baa005cabc65e7d709446e",
+      "visually_inspected": true
+    },
+    {
+      "screen": "high-scores-return",
+      "mode": 0,
+      "first": 5,
+      "manifest": {
+        "path": "metadata/menu-high-scores-return-frame.json",
+        "sha256": "cbbd64ebdc882cd1794db5e2eb071211303842555bc845560682f8a85de5cd9f"
+      },
+      "image": {
+        "path": "artifacts/menu-high-scores-return.bmp",
+        "sha256": "c093842c66391c8d52fa828c762521c2f2c5223d1346029d2744916c082decc4"
+      },
+      "raw_frame_sha256": "740c05915a050c14289094361ce55895574802bc336ded2dc98b5b352bd1a62d",
+      "visually_inspected": true
+    }
+  ],
+  "REA_evidence": {
+    "path": "metadata/high-scores-rea-function.json",
+    "sha256": "a90b268419dca9df9bfc9deb5fa051ab6deaa40899decf4b6b5d093a6eaade7c"
+  },
+  "REA_evidence_id": "ev_9d38ae0476a04e40d0d7198a3a2b5283b911b7c93def034c671438a84fc64fc5",
+  "limitations": [
+    "Frozen captures use1024x768. Native comparisons also exercise other offsets and malformed/partial input cases.",
+    "This proves the rankings flow; it does not establish the remaining editor, settings, campaign confirmation or playable gameplay."
+  ],
+  "source_hashes": {
+    "include/high_scores_menu.h": "55b5d301e702066a6e74bec7df724bd56a01e89ee7c4ca338860f55417348f39",
+    "include/startup_probe.h": "a63dd3fc5b682f1ab9911b45e2220c85264e3d8b0500b5c11af89e7147e5b1e5",
+    "metadata/high-scores-integration-fixture.json": "09742772f5927a87135e9235cdae44799a70a6d4acac04beb479b0227381736a",
+    "runtime/high_scores_menu.c": "28548746a4c4d365cf8ef91a4bfc79f632cbb9fc1defe684d5650553815864a2",
+    "runtime/menu_actions.c": "62908a78519c3516fe18292c26e17d869c3645c948764f61e63d286ffa607b42",
+    "runtime/menu_callbacks.c": "3089a15ddd1e086ae87423a35b69043f52037afed3c3aed62957264bab1c8347",
+    "runtime/menu_platform_win32.c": "0effd268e64299c83313c2973a8d1455faffa64e516c7b003cca820555def5ce",
+    "runtime/startup_probe.c": "43026a2e4ffcc367a0087be3eb41e114b87e75226939ffc84242311f370142e2",
+    "src/unit_01610.c": "3f566aeb9d29b8b50e756c50f8699d9dfecf3977e7d6e9318a8fef9f29f0322c",
+    "src/unit_01611.c": "aa2fb8aeef654678b0949002c7bf348d50a75d78ee79b79d5f1164aa608998c6",
+    "src/unit_01612.c": "2c0efb79d1f4ca582b6ff5208d1961612e934c60100c3c5e3cd18fd66ac89ca8",
+    "src/unit_01613.c": "12f29f299d5fc1b129413eebcb393bfb2b018edc6285b00fa04090b522fd9267",
+    "src/unit_01614.c": "27814daff9bc1abff0e5187c545da00539619d3f50539d86721dcf19efc0729b",
+    "src/unit_01616.c": "b0caf06174264e16abf9c262ad7f0b7f840cbbcd07b66aa684751ad65d11f0b2",
+    "src/unit_01730.c": "5d831aed45a0c5948f2ea8b80332ca6fa392e6b67b3250cda455d328e6b70f4d",
+    "src/unit_01731.c": "4e40648404bf3ce4b39357144a55d7a755e2b993aed9a0e11676270c6e068899",
+    "src/unit_01868.c": "bf5e480ebae728be5149201cccc566c49e21f60b01674218acd386b97c354468",
+    "tests/high_scores_menu.c": "9f4fcfb09d1215979f31eaeb671d71442a54a80bc425369dc6b14452d9d32947",
+    "tools/Debug-Standalone.ps1": "6224842cf27e162e48a2f80b19381eb93cc4b180fb1b962f4447d5abeda3c9b7",
+    "tools/Test-HighScoresIntegration.ps1": "cfdf377a80b19f74e8cb19669c4c01eed6386a3984347d7eedaa3815b9777df0",
+    "tools/capture_restore_framebuffer.py": "fb70acea4517b2a5ebd70bb2a9376c04496b8bb18240480d0294ffa7d882b4b4",
+    "tools/record_high_scores_integration.py": "9bf0f9497fb4a2bf7a4b81e9efbdc0a2d67977cd3a739bc7f2389ecb24bdf07a",
+    "tools/verify_high_scores_menu_emulation.py": "1922f2fd07d97b04ab4ec6726c389df3c25e580d84b547523350bc5209d9a259"
+  }
+}

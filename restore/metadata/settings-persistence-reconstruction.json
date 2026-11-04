@@ -1,0 +1,73 @@
+{
+  "status": "Original default and persistence established; complete shutdown routine reconstructed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_whole_function": {
+    "entry": "0x414750",
+    "rea": "ev_26bfb64cdb52d025610c133ad1bc651d42f79c00c2768cb9b746078a9471040e",
+    "bytes": 152,
+    "instructions": 42
+  },
+  "inspected_existing_functions": [
+    {
+      "entry": "0x4ced90",
+      "rea": "ev_d794d9bb4c3839b8eb2014a271850658f49a2dd10def7cec7101687f4990bf3f",
+      "bytes": 67,
+      "instructions": 25
+    },
+    {
+      "entry": "0x41b680",
+      "rea": "ev_adaaf1e4f6c897f3b6cd4affc5652ca43664dfb5daa7019126e86657c3186027",
+      "bytes": 536,
+      "instructions": 130
+    },
+    {
+      "entry": "0x516990",
+      "rea": "ev_d6df5c600b902adf41ccb3f809ee9e4db00481076ad2bb203eb512e9563bc7a8",
+      "bytes": 48,
+      "instructions": 14
+    }
+  ],
+  "arrow_bytes_rea": "ev_d6d1b41f04da5fc74798944d5608b902e124d4de2e6074e804e722e382e24084",
+  "facts": [
+    "4147F0 initializes difficulty DWORD E39080 to2=Normal before reading Pharaoh.inf.",
+    "Pharaoh.inf is564bytes; difficulty is DWORD at byte552. User's active data-directory config contained0=VeryEasy. Log19:32:45 showed selected0 and PAK stored2, then preserved selected0 as native does.",
+    "User subsequently confirmed changing Options toNormal makes gameplay useNormal. Read-only PID15868 observation confirmed E39080=2; no process writes/attach/launch performed.",
+    "41B680 family DAT load copies campaign progress into6FDD08..7027A3, not global E39080. Existing file loader matches original on full/legacy/missing-file cases across all five difficulties.",
+    "Normal remains the no-config default. Existing persisted user choices are not overridden; no game settings or saves were edited."
+  ],
+  "repair": [
+    "414750 save-and-cleanup now reads full DWORD heap pointers including E36C80 and the diagnostic value F535BC.",
+    "Save both native blocks before freeing, preserve callback pointer reloads, clear only the two native language pointers.",
+    "Existing actual4CED90 writer was retained and exercised rather than duplicated."
+  ],
+  "verification": {
+    "script": "direct_c/verify_settings_persistence.py",
+    "cases": 117,
+    "full_shutdown_and_writer": 96,
+    "bootstrap_exit_restart": 6,
+    "family_profile": 15,
+    "old_release": "Prior19:09Release fails the full-width shutdown comparison at mask0,mutateFalse,no open failure; corrected Preview passes.",
+    "limits": "File/allocation/hardware boundaries controlled; payload captured only in memory. No real file writes or full host shutdown performed."
+  },
+  "sources": [
+    "include/settings_persistence.h",
+    "src/unit_00180.c",
+    "direct_c/verify_settings_persistence.py",
+    "CMakeLists.txt"
+  ],
+  "build": {
+    "path": "build/c-only/Preview/PharaohRestoreC.exe",
+    "sha256": "3619ae6a00ed8b3ade7dee7fca280313f10351539cabd18e1404ed410c219e5a",
+    "bytes": 7611904,
+    "local_time": "2026-11-02T19:39:49",
+    "promotion": "Preview retained because user game processes15868/20296 were running; Release not overwritten.",
+    "noarg_link_check": "PASS"
+  },
+  "source_sha256": {
+    "include/settings_persistence.h": "14f2e8a71ccc938170f8a07c1638682cef9dee921cd6874e60db2b1b1ef4f2bb",
+    "src/unit_00180.c": "1c5ef56866d7189f8bc71e609e1aabd01b90f30108541f500d52e14f40ac3af6",
+    "direct_c/verify_settings_persistence.py": "7cf83f1789be7204b1b36b01039694b72c4b1cc3c95fc4ffc15dbe34ca583b31",
+    "CMakeLists.txt": "ec53d8011ea9ca693fd7ee3628e200c4d0cff1b33b26eb6f418c043e7fec5262"
+  },
+  "source_commit": "cde1aba1f3f216891fe48607e6023bfe7557cc70"
+}

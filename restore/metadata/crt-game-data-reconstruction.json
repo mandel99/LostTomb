@@ -1,0 +1,120 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: six missing CRT entries reconstructed; Preview build verified",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "00486080",
+      "source": "runtime/vegetation_farm_init.c",
+      "native_bytes": 5,
+      "native_instructions": 1,
+      "native_body_sha256": "ec7d2aa54ab353ae3e298f2752ca2bce4eae1ebdb8c1ddeefde03cd044576859",
+      "compiled_entry": "0032de70",
+      "provider": "pharaoh_restored:vegetation_farm_init.obj"
+    },
+    {
+      "address": "00486090",
+      "source": "runtime/vegetation_farm_init.c",
+      "native_bytes": 53,
+      "native_instructions": 10,
+      "native_body_sha256": "c75f3df783d69cf1f85d6e65dd38ccc5ec6d06fb4d8df65024449fdc713d5913",
+      "compiled_entry": "0032de80",
+      "provider": "pharaoh_restored:vegetation_farm_init.obj"
+    },
+    {
+      "address": "00489940",
+      "source": "runtime/vegetation_farm_init.c",
+      "native_bytes": 5,
+      "native_instructions": 1,
+      "native_body_sha256": "ec7d2aa54ab353ae3e298f2752ca2bce4eae1ebdb8c1ddeefde03cd044576859",
+      "compiled_entry": "0032dec0",
+      "provider": "pharaoh_restored:vegetation_farm_init.obj"
+    },
+    {
+      "address": "00489950",
+      "source": "runtime/vegetation_farm_init.c",
+      "native_bytes": 26,
+      "native_instructions": 7,
+      "native_body_sha256": "e630ce8ad3d609bf99e5ce47a3d0c416abd7cc66633575fa940f96bb7b83c7fd",
+      "compiled_entry": "0032ded0",
+      "provider": "pharaoh_restored:vegetation_farm_init.obj"
+    },
+    {
+      "address": "004d4a50",
+      "source": "runtime/mission_schema.c",
+      "native_bytes": 5,
+      "native_instructions": 1,
+      "native_body_sha256": "ec7d2aa54ab353ae3e298f2752ca2bce4eae1ebdb8c1ddeefde03cd044576859",
+      "compiled_entry": "0032dff0",
+      "provider": "pharaoh_restored:mission_schema.obj"
+    },
+    {
+      "address": "004d4a60",
+      "source": "runtime/mission_schema.c",
+      "native_bytes": 113,
+      "native_instructions": 18,
+      "native_body_sha256": "de5772613801d4af3f4f65fff91bc45b2c81a3742e4d00b4d488215efff7185f",
+      "compiled_entry": "0032e000",
+      "provider": "pharaoh_restored:mission_schema.obj"
+    }
+  ],
+  "native_bytes_total": 207,
+  "native_instruction_total": 38,
+  "evidence": "Ghidra read_memory exact full bodies of486090/489950/4D4A60 matched SHA-pinned original bytes, no gaps; original CRT slots57604C/576050/57606C call their thunks. All full bodies decoded and executed offline.",
+  "changes": [
+    "Vegetation defaults25/35, modifiers and scan flags initialize before main.",
+    "Farm maximum initializes to2000: native truncation of immutable binary64 10.0, multiplied by200.",
+    "Map descriptors21..23 initialize settings, seasonal records and51984-byte grass; preserve the statically initialized codec21.",
+    "Startup calls retained initializers in their native relative order."
+  ],
+  "validation": {
+    "script": "direct_c/verify_crt_game_data.py",
+    "passed": 39,
+    "scope": "18 whole-constructor data snapshots,18 real farm percentage cases with real division and WORD fields,3 actual map chunk routes with IO/DCL controlled.",
+    "mission_schema_regression": "19 checks passed on same Preview target; whole save schema/PAK routing and compatibility guards.",
+    "link_check": "Current no-argument restore_link_check exited0; no host game launched."
+  },
+  "build": {
+    "path": "restore\\build\\c-only\\Preview\\PharaohRestoreC.exe",
+    "sha256": "5c3cbad2a8b0b160bcb4a041bf93fe203d5997d60ff98928d0658a12167436a4",
+    "bytes": 7638528,
+    "local_time": "2026-11-02T10:09:30",
+    "configuration": "Release, hybrid OFF, new initializer provider /W4 /WX without PCH",
+    "publication": "Release game link failed LNK1104 because the existing EXE is running. Same newly compiled production objects/libraries linked successfully via generated restore_game_preview.vcxproj; only executable output directory and associated PDB/import-library outputs changed. Release EXE was not replaced."
+  },
+  "live_user_run": {
+    "source": "build/c-only/Release/PharaohRestoreC-run.log",
+    "observed_build_COFF": "6ae84f2d",
+    "snapshot_sha256": "c2f274880e37c6e2c0fd054e4c3c4ded71fc145bf82d9d255ab921afebd4613e",
+    "events": [
+      "359379046 build COFF=6ae84f2d pid=24400",
+      "359384421 legacy C save missing descriptors147..180: campaign=1 grass regeneration pending",
+      "359384500 legacy C save grass regenerated from loaded terrain",
+      "359537625 save route rebuild complete",
+      "359558203 mission advance selected=0 next=1 scene=0 category=0 kind=1",
+      "359558203 mission advance published selected=1 scene=1 mode=4 briefing=201",
+      "359559203 mission PAK load scene=1 pack=0 offset=302941",
+      "359559250 mission PAK loaded scene=0 year=-3100 version=147",
+      "359563828 save route rebuild complete",
+      "359677906 save route rebuild complete",
+      "359794125 save route rebuild complete"
+    ],
+    "conclusion": "User-run Release selected scene1/briefing201, loaded mission1.pak offset302941 with year-3100, and completed subsequent saves. Post-PAK trace scene0 is the file header before5405B0 restores the selected campaign scene."
+  },
+  "limitations": [
+    "No host game/original/port execution or GUI control by the agent. Live evidence comes from the user-run Release log.",
+    "Preview startup/rendering and complete farm/vegetation simulation are not certified by these bounded checks.",
+    "Grass framebuffer appearance remains unconfirmed.",
+    "This is a bounded CRT initialization batch, not completion of all game constructors or all reconstructed functions."
+  ],
+  "source_sha256": {
+    "runtime/vegetation_farm_init.c": "5773beea7af6a6558376e4b3b895b36aaf6230ea58fcaddf2e652a645356ed41",
+    "include/vegetation_farm_init.h": "4963b6e874415305f6364e31744b7872fad80ab533dd8b87e9896f92db7063c1",
+    "runtime/mission_schema.c": "9f9bd21a4e2d0dc79f73070794ca76e9538ee88e59e5f85f3a1e72c86ec90f7e",
+    "include/mission_schema.h": "ebb1c7a53d9c533e190727f37207caf962d8c0601d3553a66da7b73f577e7eea",
+    "runtime/standalone_link_check.c": "a9567d029db233a16d68dfbbf203a51e097ef3d4ef48dcfc221e85bf4182b6cf",
+    "CMakeLists.txt": "64b5f4a77618eb4a9ec2c771bfb81637e19baf121bccf5dcd6c612012657435d",
+    "direct_c/verify_crt_game_data.py": "9a333e0e63c679ad8df9174954fb76e4099a31408397cc54e108dbbee10fd16b"
+  }
+}

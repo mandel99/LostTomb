@@ -1,0 +1,199 @@
+{
+  "format": 1,
+  "date": "2026-11-02",
+  "status": "progress: six complete C bodies rebuilt; reported rendering paths repaired; live visual confirmation pending",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x4cba60",
+      "source": "src/unit_01657.c",
+      "evidence_id": "ev_d1e49af1a1da6ff456ddaf304c10393b50512b3c4f488a0cbd5e22ef792175e8",
+      "native_bytes": 776,
+      "rea_instruction_count": 285,
+      "body": [
+        {
+          "start": "0x4cba60",
+          "end": "0x4cbd67"
+        }
+      ],
+      "compiled_entry": "003cc040",
+      "provider": "pharaoh_restored:unit_01657.obj",
+      "decoded_instruction_count": 285,
+      "native_body_sha256": "f8443b4327f67669b76c1cf2f49a4da0d3b463975af94e9ba6ff8fd567d8405d"
+    },
+    {
+      "address": "0x4cbd70",
+      "source": "src/unit_01658.c",
+      "evidence_id": "ev_cf4e9125528ac52b05b2a06aa17c5c39eeb07115652974aa2ab55c4a5b9cd4b2",
+      "native_bytes": 53,
+      "rea_instruction_count": 23,
+      "body": [
+        {
+          "start": "0x4cbd70",
+          "end": "0x4cbda4"
+        }
+      ],
+      "compiled_entry": "003cbfe0",
+      "provider": "pharaoh_restored:unit_01658.obj",
+      "decoded_instruction_count": 23,
+      "native_body_sha256": "66584b01fa0df253a0a3646d1dffad0efabd15f0664a94c6e114924cd338137e"
+    },
+    {
+      "address": "0x5208f0",
+      "source": "src/unit_02357.c",
+      "evidence_id": "ev_0149309aa40c824df9d39909dd8c6ec90fcc6c897e33ececb4639a41351b7290",
+      "native_bytes": 437,
+      "rea_instruction_count": 137,
+      "body": [
+        {
+          "start": "0x5208f0",
+          "end": "0x520aa4"
+        }
+      ],
+      "compiled_entry": "003a7a60",
+      "provider": "pharaoh_restored:unit_02357.obj",
+      "decoded_instruction_count": 137,
+      "native_body_sha256": "54ac5bb0ee6a830e1f2bc8b8418760d33ffc71009e335f34aa11dc43a87ec40b"
+    },
+    {
+      "address": "0x4cf7b0",
+      "source": "src/unit_01772.c",
+      "evidence_id": "ev_e6f96af53477802899962cbb8ea913fcd9af108811ccce32e4bf87371fd39f87",
+      "native_bytes": 301,
+      "rea_instruction_count": 113,
+      "body": [
+        {
+          "start": "0x4cf7b0",
+          "end": "0x4cf8dc"
+        }
+      ],
+      "compiled_entry": "003c7260",
+      "provider": "pharaoh_restored:unit_01772.obj",
+      "decoded_instruction_count": 113,
+      "native_body_sha256": "a757151072d81a81fd8a9a4da1efeb65e695e0f3beb7f34ca24e843523bd587b"
+    },
+    {
+      "address": "0x43f5b0",
+      "source": "src/unit_00587.c",
+      "evidence_id": "ev_e197965939b1a6698cba1d31fd471cb77e24048f1b166778e216f908de6e5c21",
+      "native_bytes": 1662,
+      "rea_instruction_count": 131,
+      "body": [
+        {
+          "start": "0x43f5b0",
+          "end": "0x43fc2d"
+        }
+      ],
+      "compiled_entry": "004111e0",
+      "provider": "pharaoh_restored:unit_00587.obj",
+      "decoded_instruction_count": 506,
+      "native_body_sha256": "1265885d205d77890a94cd2916e07036ab7a1b15a7b68fa8b558929979ab784e"
+    },
+    {
+      "address": "0x4482f0",
+      "source": "src/unit_00672.c",
+      "native_bytes": 21,
+      "body": [
+        {
+          "start": "0x4482f0",
+          "end": "0x448304"
+        }
+      ],
+      "evidence": "SHA-pinned native full21-byte ctor: push5D3010, push5D9A2C, ECX784F20, CALL4CBA60, RET. C receiver is explicit.",
+      "compiled_entry": "00409620",
+      "provider": "pharaoh_restored:unit_00672.obj",
+      "decoded_instruction_count": 5,
+      "native_body_sha256": "e5e9f81332ba789f7de1247d43fe3744964412fe4ca02dfee5ebacec8f7aaa2b"
+    }
+  ],
+  "changes": [
+    "Whole43F5B0 venue ghost: DWORD sprite groups/origins/placement flag, WORD tint, correctly scaled rotation tables for Booth, bandstand, pavilion and festival square.",
+    "Whole5208F0 overlays menu: DWORD layout/font/hover/submenu fields and singly scaled30-entry submenu groups; retain cached sidebar edge and live reads.",
+    "Whole4CF7B0 loading label: DWORD game/desktop dimensions; retain measured centered coordinates across rectangle and GDI calls.",
+    "Whole4CBA60 two-pass catalog constructor and4CBD70 destructor: explicit C receiver, typed owned buffers and paired cleanup.4482F0 now supplies784F20. Startup loads EVENTMSG.TXT and frees the catalog before data close."
+  ],
+  "validation": {
+    "venue": {
+      "script": "direct_c/verify_venue_preview.py",
+      "passed": 121,
+      "scope": "120 complete native/C draw traces with controlled placement/drawing endpoints, all4 venues,6 orientations, valid/invalid placement and missing components.1 native/C festival validation plus complete terrain/image/building-grid commit on a5x5 crossroad; allocator/reset/finalization controlled."
+    },
+    "overlay": {
+      "script": "direct_c/verify_overlay_menu.py",
+      "passed": 75,
+      "scope": "640/800/1024 widths, both sidebars, main/submenu hover, full fonts/origins and live callback mutations; drawing endpoints controlled."
+    },
+    "loading": {
+      "script": "direct_c/verify_loading_text.py",
+      "passed": 17,
+      "scope": "Whole loading label/frame at all3 game sizes and differing desktop sizes, empty text/DC failure/callback mutations; GDI and rectangle endpoints controlled."
+    },
+    "catalog": {
+      "script": "direct_c/verify_message_catalog.py",
+      "passed": 20,
+      "scope": "19 synthetic construction/lookup/destruction and allocation/file failure cases; actual read-only EVENTMSG.TXT against all601 native key slots, all601 populated. Allocator/file IO/ASCII strcmpi controlled; two parsing passes real.",
+      "file_sha256": "b820c81c8e2f1be26222637a2764ff0fcf6427d90fabdefeb0b0a334c8a52af2",
+      "comparator_evidence": "ev_172efb3dbc739e17d96789ed98f5c29ae297fba3ebda433f29864cd585a3a120",
+      "comparator_note": "Native562370 is case-insensitive strcmpi. Earlier case-sensitive fixture was corrected; actual native and C Warning/warning comparison also checked."
+    },
+    "link_check": "No-argument restore_link_check exited0; no host game started."
+  },
+  "pre_fix_overlay": "Whole foreground failed immediately: native first panel=(6,470,334,10,1,2,288,528), old C=(6,-42,78,10,1,2,32,16).",
+  "venue_evidence": {
+    "rea_listing_coverage": "REA analyzed listing contains131 instructions within reported1662-byte body; this is partial decoding, not a complete instruction count.",
+    "full_body": "Ghidra read_memory1662 bytes, no gaps, verified against SHA-pinned original. Capstone decoded all1662 bytes as506 instructions ending43FC2D RET; actual whole native body executed in venue cases.",
+    "native_body_sha256": "1265885d205d77890a94cd2916e07036ab7a1b15a7b68fa8b558929979ab784e"
+  },
+  "references": {
+    "port_sha256": "f66a27e62a433e06bdb6b01651e632c8ff6cd1eb9070126f590d49c1bdf8fda1",
+    "port_names": [
+      "key_text_table_load",
+      "key_text_table_destroy",
+      "event_texts_static_construct",
+      "window_overlay_menu_draw_foreground",
+      "city_building_ghost_draw_venue",
+      "platform_draw_loading_text"
+    ],
+    "csharp": "PharaohRewrite/src/Pharaoh.Engine/Installation/LegacyRuntimeTextData.cs, LegacyEventMessages; context only. Native grammar, key table and case-insensitive comparison determine the C implementation."
+  },
+  "limitations": [
+    "No host game/original/port execution, GUI control or asset/save writes by the agent.",
+    "Final loading/Booth/overlay framebuffer pixels are not certified; drawing and GDI endpoint arguments were compared.",
+    "Festival construction was checked on a bounded legal crossroad fixture, not the user's actual mouse/input sequence.",
+    "Malformed unterminated quoted input stops safely rather than reproducing native out-of-bounds reads.",
+    "No claim of full game/CRT reconstruction completion."
+  ],
+  "native_bytes_total": 3250,
+  "native_instruction_total": 1069,
+  "build": {
+    "configuration": "Release; hybrid OFF; six providers /W4 /WX without PCH",
+    "targets": "restore_link_check and restore_game completed exit0",
+    "PharaohRestoreC.exe": {
+      "sha256": "dbea5772ae5213baf17f6fd0bdaf95ec12382f6ff3b73c4304bab5886b3d0f33",
+      "bytes": 7638016,
+      "COFF": "6ae85b00",
+      "local_time": "2026-11-02T10:42:25"
+    },
+    "restore_link_check.exe": {
+      "sha256": "654bbd8656cb9dc241df031c67f980e4d2e1938e17ccbd0ca935a4ae1b57b15f",
+      "bytes": 7634432,
+      "COFF": "6ae85aeb",
+      "local_time": "2026-11-02T10:42:03"
+    }
+  },
+  "source_sha256": {
+    "src/unit_01657.c": "9950c13bd3e7bad23c1fed3223a3a4939d92ffd4d9696f3ce148f2cf495211dc",
+    "src/unit_01658.c": "e18cb19ebe25a812ea8dd024c7c610390325b90aa53faa906361dac0b1d3d9a8",
+    "src/unit_02357.c": "688b78bb35e29c56b5d6cba4c39d0be6c8574e75eb7c7665d8ff18b0e0e2c33e",
+    "src/unit_01772.c": "547f52405327ddb14644e5f48fcf5e3e18a7c1c4ec6cfa59f07f324608bca63e",
+    "src/unit_00587.c": "9774da6f05e43212763f4a6e078317eb4d15ab61144f3933e43fc1ab00d50bac",
+    "src/unit_00672.c": "be701b797717a02958c5d0cbd1362360dd42ba270399752b36227ee55931fa3b",
+    "include/text_templates.h": "688f2f63093c4bc94824d7f5529f954b4cf48b719a0f63eab260d4a245ba1347",
+    "runtime/standalone_link_check.c": "90595cfab81d5dd8d01b6055aec314071e41523ac4d7e1912d5aa259a77e8be1",
+    "CMakeLists.txt": "c42b924010c7876dc4289dddfc021063369996996674a720c1b70752bc615e42",
+    "direct_c/verify_message_catalog.py": "f777af1ba1adb5365f6ade813d11a33b7e9015548a940c5209d9b176cc531083",
+    "direct_c/verify_venue_preview.py": "d7c8d4efbc80370a036f81031a232124962a1075b5cb7267d997a71131d0dc5b",
+    "direct_c/verify_overlay_menu.py": "f08d678fdfc585f2e3ea3f9ef24eeab928a9c1f4679ce4cddcfa47075b417063",
+    "direct_c/verify_loading_text.py": "c88ba47be104c7df585d7f789e573ff1f06ae7787535d956cf633547e725e739"
+  }
+}

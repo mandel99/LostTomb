@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "passed": true,
+  "production": true,
+  "whole_map_refresh_complete": false,
+  "checked": 20224,
+  "complete_cases": 20224,
+  "comparisons": 40448,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_executed": false,
+  "operation_sites": [
+    4724226,
+    4724264,
+    4724169,
+    4724340,
+    4724127
+  ],
+  "store_site": 4724175,
+  "operation_counts": {
+    "0": 4027,
+    "1": 4044,
+    "2": 4077,
+    "3": 4029,
+    "4": 4047
+  },
+  "control_words": [
+    127,
+    4223,
+    1151,
+    5247,
+    2175,
+    6271,
+    3199,
+    7295,
+    639,
+    4735,
+    1663,
+    5759,
+    2687,
+    6783,
+    3711,
+    7807,
+    895,
+    4991,
+    1919,
+    6015,
+    2943,
+    7039,
+    3967,
+    8063
+  ],
+  "compiled_C_sha256": "e33daf897bd283ffd623278bdaf4257de1d569c26315b36bd00865be6e1640ca",
+  "variants": {
+    "Debug": {
+      "path": "build/c-only-debug/Debug/restore_map_refresh_numeric_verify.exe",
+      "sha256": "e33daf897bd283ffd623278bdaf4257de1d569c26315b36bd00865be6e1640ca",
+      "checked": 20224
+    },
+    "O2": {
+      "path": "build/c-only/Release/restore_map_refresh_numeric_verify.exe",
+      "sha256": "f58d6d68461ef90c390c136acb9648e7562234a76ec661d57bb308dbccfd7666",
+      "checked": 20224
+    }
+  },
+  "source_hashes": {
+    "artifacts/map_refresh_arithmetic_phase/verify_map_refresh_numeric.py": "223819fc4fd5e83781706ec6dab6445145f7a903e7c91998df3ded752af61a6e",
+    "runtime/map_refresh_fp.c": "97c204c7e98a9667982ceca101f3cb68fd5fe4dc8cd96a70a2e57339bd274439",
+    "include/map_refresh_arithmetic.h": "7e19ee4a95d345fc22df6c056426fde2da3f928d62426cc71a497dc10ddfb2e1",
+    "artifacts/map_refresh_arithmetic_phase/numeric_fixture.c": "98c84b8107743af40689e950267ac77090aeaf287f289993c0dadd4665b89bb8",
+    "artifacts/map_refresh_arithmetic_phase/CMakeLists.txt": "12b58b6a99736f4317fa39c2e83904dfa0ff19ed72fe6b08de9d8f62f1718eeb",
+    "artifacts/map_refresh_phase/map_refresh_native.json": "081b72bb30063b36ba9dcdef799becf90fe772a59ecb1eae66d336142679206d",
+    "artifacts/map_refresh_integration_phase/verify_map_numeric_components.py": "fd23113e168423de82eef9f59d1b4e929e2838b4e66479e93dc397dfcf557bc4",
+    "artifacts/map_refresh_integration_phase/integration-manifest.json": "26fb92cfb97e75a69f85847bee68643fe72694cbe8cfac9da130444dfc12b2ee",
+    "artifacts/map_refresh_integration_phase/shared_targets.cmake": "cc7765cf72fd6ee79c5df7053fde1ef3c3f6f4bab8d33c94a058260e059171c6",
+    "build/c-only-debug/restore_map_refresh_numeric_verify.vcxproj": "dcafe1e1172a073946044475ded9f89798268afb5d7901b0715c411894d6a56b",
+    "build/c-only/restore_map_refresh_numeric_verify.vcxproj": "6fcdd88197886554c14e71bbc5d0c6c959f39c1c87745a375be97b253b4222d3",
+    "artifacts/map_refresh_arithmetic_phase/map_refresh_arithmetic.h": "7e19ee4a95d345fc22df6c056426fde2da3f928d62426cc71a497dc10ddfb2e1"
+  },
+  "native_exports": {
+    "artifacts/map_refresh_phase/map_refresh_native.json": "081b72bb30063b36ba9dcdef799becf90fe772a59ecb1eae66d336142679206d"
+  },
+  "source_drift": [],
+  "binary_drift": [],
+  "elapsed_seconds": 9.05,
+  "limitations": [
+    "Exact numeric raw80 result and binary64 spill only for required finite operand domain; inputexponents[-80,80], addition exponent separation<=192, normal binary64 stores; signedzero and derived0/0 NaN included.",
+    "All x87 exception masks set. No precision/invalid/overflow status or trap equivalence claim. Native instruction operand memory is supplied by this isolated numeric oracle.",
+    "Complete481540/481690 composition must be proved separately, including actual481AA0 and memory/ABI boundaries.",
+    "Integration wrapper changes parser/executable/source/report bindings only. Private plumbing is not product evidence; production compares actual root source owners with DebugMTd/ReleaseMT. Historical oracle scope qualifications stay intact."
+  ],
+  "component": "arithmetic",
+  "original_oracle": {
+    "path": "artifacts/map_refresh_arithmetic_phase/verify_map_refresh_numeric.py",
+    "sha256": "223819fc4fd5e83781706ec6dab6445145f7a903e7c91998df3ded752af61a6e",
+    "source_body_and_corpus_changed": false
+  },
+  "path_binding_transform_sha256": "1a38a648be81eb617a6f100ec62e0f5d7c0de69ae8689eead1d22e6bde51a6fd",
+  "project_evidence": {
+    "build/c-only-debug/restore_map_refresh_numeric_verify.vcxproj": {
+      "sha256": "dcafe1e1172a073946044475ded9f89798268afb5d7901b0715c411894d6a56b",
+      "configuration": "Debug",
+      "runtime": "MultiThreadedDebug",
+      "optimization": "Disabled",
+      "sources": [
+        "artifacts/map_refresh_arithmetic_phase/numeric_fixture.c",
+        "runtime/map_refresh_fp.c"
+      ]
+    },
+    "build/c-only/restore_map_refresh_numeric_verify.vcxproj": {
+      "sha256": "6fcdd88197886554c14e71bbc5d0c6c959f39c1c87745a375be97b253b4222d3",
+      "configuration": "Release",
+      "runtime": "MultiThreaded",
+      "optimization": "MaxSpeed",
+      "sources": [
+        "artifacts/map_refresh_arithmetic_phase/numeric_fixture.c",
+        "runtime/map_refresh_fp.c"
+      ]
+    }
+  },
+  "production_link_map_bindings": {
+    "build/c-only-debug/Debug/restore_map_refresh_numeric_verify.map": {
+      "sha256": "92331478cc1e906d48ce2b39b1c4a523b4ce9bd266b9fef5cece22b7ec0f0053",
+      "bindings": {
+        "_mr_fp_add": "map_refresh_fp.obj",
+        "_mr_fp_div": "map_refresh_fp.obj",
+        "_mr_fp_store64": "map_refresh_fp.obj"
+      }
+    },
+    "build/c-only/Release/restore_map_refresh_numeric_verify.map": {
+      "sha256": "300acd283feeb63338da65b6323f7aed0f6f8f5c220d7ded888208f000d6aaff",
+      "bindings": {
+        "_mr_fp_add": "map_refresh_fp.obj",
+        "_mr_fp_div": "map_refresh_fp.obj",
+        "_mr_fp_store64": "map_refresh_fp.obj"
+      }
+    }
+  },
+  "wrapper_sha256": "fd23113e168423de82eef9f59d1b4e929e2838b4e66479e93dc397dfcf557bc4",
+  "integration_manifest_sha256": "26fb92cfb97e75a69f85847bee68643fe72694cbe8cfac9da130444dfc12b2ee"
+}

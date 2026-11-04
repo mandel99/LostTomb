@@ -1,0 +1,188 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "786a8714baf5cd2ab7819cabcdd3837ac4ae25e5a4eb536088d2a034270e5069",
+  "passed": true,
+  "checked": 4176,
+  "case_selection": {
+    "limit": null,
+    "start": 0,
+    "single_case": false
+  },
+  "method": "Complete camera sampler/cadence/movement with actual69-record cache decay, camera clamp and dimension getters versus compiled C. Ordered real calls, raw consumed returns, full watched memory/canaries, callback mutations, native/C stack and saved registers compared.",
+  "limitations": [
+    "Only the Windows timeGetTime host clock is controlled, through its authenticated IAT slot and typed WINAPI C test adapter. No gameplay algorithm endpoint is substituted.",
+    "Fixture pipeline invokes sampler then movement with its full returned direction, matching the direct native caller pattern. No full window event loop, actual mouse sampling, wall-clock timing or city pixel fidelity is claimed.",
+    "Supported fixed mapped state is used, including full signed/wrapped DWORD probes; arbitrary invalid addresses or asynchronous data races are outside the proof."
+  ],
+  "comparison_checked": 0,
+  "comparison_C_sha256": null,
+  "elapsed_seconds": 71.05,
+  "native_instruction_coverage": [
+    296,
+    296
+  ],
+  "owned_instruction_coverage": [
+    219,
+    219
+  ],
+  "function_instruction_coverage": {
+    "0x4cf660": [
+      131,
+      131
+    ],
+    "0x4ddd60": [
+      33,
+      33
+    ],
+    "0x4ddde0": [
+      55,
+      55
+    ],
+    "0x41d6f0": [
+      17,
+      17
+    ],
+    "0x4de080": [
+      54,
+      54
+    ],
+    "0x430ca0": [
+      2,
+      2
+    ],
+    "0x430cb0": [
+      2,
+      2
+    ],
+    "0x4ddea0": [
+      1,
+      1
+    ],
+    "0x4ddeb0": [
+      1,
+      1
+    ]
+  },
+  "native_uncovered_instructions": [],
+  "owned_conditional_outcomes": [
+    60,
+    60
+  ],
+  "missing_owned_conditional_outcomes": [],
+  "controlled_algorithm_endpoints": [],
+  "host_clock_boundary": {
+    "IAT": "0x56f22c",
+    "DLL": "WINMM.dll",
+    "name": "timeGetTime",
+    "ABI": "DWORD WINAPI timeGetTime(void)",
+    "oracle_token": "0x35000000"
+  },
+  "mutated_helper_phases": [
+    [
+      "0x41d6f0",
+      0
+    ],
+    [
+      "0x41d6f0",
+      1
+    ],
+    [
+      "0x430ca0",
+      0
+    ],
+    [
+      "0x430ca0",
+      1
+    ],
+    [
+      "0x430cb0",
+      0
+    ],
+    [
+      "0x430cb0",
+      1
+    ],
+    [
+      "0x4cf660",
+      0
+    ],
+    [
+      "0x4cf660",
+      1
+    ],
+    [
+      "0x4ddd60",
+      0
+    ],
+    [
+      "0x4ddd60",
+      1
+    ],
+    [
+      "0x4ddde0",
+      0
+    ],
+    [
+      "0x4ddde0",
+      1
+    ],
+    [
+      "0x4ddea0",
+      0
+    ],
+    [
+      "0x4ddea0",
+      1
+    ],
+    [
+      "0x4ddeb0",
+      0
+    ],
+    [
+      "0x4ddeb0",
+      1
+    ],
+    [
+      "0x4de080",
+      0
+    ],
+    [
+      "0x4de080",
+      1
+    ],
+    [
+      "0x35000000",
+      0
+    ],
+    [
+      "0x35000000",
+      1
+    ]
+  ],
+  "cache_records": 69,
+  "cache_stride": 128,
+  "source_hashes": {
+    "src/unit_01771.c": "fab53ae1cab36ac51922656e6e991d8b914c4ecdacdcd241cfe33c460ce0bf85",
+    "src/unit_01877.c": "8eeb9b524fdc7145ed62b5e966b45e40ae584899b322f5e963a624fd37cd54a0",
+    "src/unit_01879.c": "08888abee3a3d23350967bfce3da8699c553b56ba60ef2ec53f3408fe619c763",
+    "src/unit_00281.c": "9b83b520d73a5c9fa832dc4ed41f5268ece8bb97604765e06a9502049a06aa70",
+    "src/unit_01886.c": "96c14b007462756dd9664948c37021753815080009166ca831afc63e5240156c",
+    "src/unit_01880.c": "b69c1138c661da6d4cd5fa4ede4242bd057d5e27f56ead90eb27bdfdb9c3d43d",
+    "src/unit_01881.c": "b9ff75e098f4e510f5d5665347412e5ca00b38591cbdede06ed535f4bdd65dc5",
+    "src/unit_00464.c": "84004b5a4fea37d79b24225deaaf4b17bb0d0dee0898b2721c13a7aa7ab45293",
+    "src/unit_00465.c": "6daab302ff149e6c3910aedd44f7ae36b76f1dbc8caac80848529e0fdb8bce47",
+    "include/camera_pan.h": "90c6aa448e8abc65c6d8bbe8fb128ad27dfe2b92e273b358eace26b55b15b021",
+    "include/camera_bounds.h": "4a9514a39bc7f8069aa5a280e2885b106eb07db2bfe6fa7845a4e82b8018206b",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "include/standalone_data.h": "9816ee02020f898506fe8a922a4862c09547ff6dfdae6f8e06c83a07148e51c8",
+    "tests/camera_pan.c": "db5c4ec2429bc25d4ee5239eb0d212103211028ba2318a1c9c931c9b00994524",
+    "tests/camera_pan_real.c": "ed85b19dd6ba7b15a918f632a3ccf151a5f74ba560d3166080e6d95b88884750",
+    "tools/camera_pan_project/CMakeLists.txt": "a71df76733008d1633464cf7efb872a328eb305f49c4d1522544019eb5b8fa8a",
+    "tools/verify_camera_pan_emulation.py": "391943c09a4c9487a91656922e5bd18229625fb0fb933eaa75d7c7548c650658",
+    "metadata/camera-pan-chain-native.json": "c1e93aba9f5031ededa31f2be9f8cfa7bab0d9c01cc521dfeb4e857e6e2b44bd",
+    "metadata/camera-sidebar-coordinate-native.json": "a8fca2bad3afa96ef59127b5c739435810b05ff56f72e8369f72d770095a887b",
+    "metadata/camera-bounds-helpers-native.json": "91f6fbeefeac2fc609de0af3ada0b9e8d1790b3c9a597349e3ec25d5bc4660cb"
+  }
+}

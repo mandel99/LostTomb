@@ -1,0 +1,135 @@
+{
+  "status": "seven complete native bodies reconstructed as typed, named C functions",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x4f1d10",
+      "file": "src/unit_02120.c",
+      "name": "restore_monument_worker_advance_travel",
+      "rea": "ev_a2ff7c29ba97e84f3aee7be187b6cac37cb7cba9ee3cbd6e2f04c32af5ea0a74",
+      "instructions": 313,
+      "native_bytes": 1103,
+      "native_body_sha256": "578c3b4c6d2ace2be02632c67c5b565957ae5810b6340be26b97742de4107209",
+      "source_sha256": "7e9ed15f89571acf3c5206fd8ad64f886417ccaa31fc02a30701468dea762bef"
+    },
+    {
+      "entry": "0x4f02f0",
+      "file": "src/unit_02111.c",
+      "name": "restore_monument_worker_begin_travel",
+      "rea": "ev_3c2acdf733f22603e63a99b89551ec7306dbebd3acef255a41a9276b47f41c5e",
+      "instructions": 120,
+      "native_bytes": 434,
+      "native_body_sha256": "fad009305857c298cc40a966206a0f6cedf9d592ce23b763502c67de0746baf6",
+      "source_sha256": "30f20769bc574ba76d2ce1c55f62211d3c840620b683b06ccf461ab312187c3a"
+    },
+    {
+      "entry": "0x4f1cb0",
+      "file": "src/unit_02119.c",
+      "name": "restore_monument_worker_reset_travel",
+      "rea": "ev_e876b5416fd1a084759cea49458dfed24f35dea8f8bb529a92c462e372f8391f",
+      "instructions": 16,
+      "native_bytes": 87,
+      "native_body_sha256": "6f07fe979fdec1340720807a2924e0d577521b0c47e4004d97760fa1a926d4ce",
+      "source_sha256": "51aa5d76d089aba1a19b6ec56a662ee6698bf73b1f92487e3c912fc1eaf3779b"
+    },
+    {
+      "entry": "0x4f2230",
+      "file": "src/unit_02122.c",
+      "name": "restore_monument_worker_find_work",
+      "rea": "ev_1d77d629236fe635cfe6204678de2dad15c317a4f999c833e2f5cda4b2b9ea19",
+      "instructions": 155,
+      "native_bytes": 467,
+      "native_body_sha256": "ba3042254f7316869367faeaa52395bbef1cdcf8a8016e059ecbce5f5b144af2",
+      "source_sha256": "101f10e3558390e6e29658c7bc08c94d3233852f91577a9d4b9dd960d7cfead2"
+    },
+    {
+      "entry": "0x4f2190",
+      "file": "src/unit_02121.c",
+      "name": "restore_pyramid_next_work_piece",
+      "rea": "ev_cf3a9e640f0db49075029d8901f689643498e6bac222fdae9a1f41db16aa349b",
+      "instructions": 74,
+      "native_bytes": 157,
+      "native_body_sha256": "43b39590a891d6cef17c2cb604d1beac4209847b0de5cf0ff68ff51e5c089f74",
+      "source_sha256": "24f1f4d50d3fd0e04b3c0621c410724d69f2be392e7bb42c949708d4e1dceff0"
+    },
+    {
+      "entry": "0x4f2410",
+      "file": "src/unit_02123.c",
+      "name": "restore_monument_worker_snap_to_target",
+      "rea": "ev_88e467d63951d0f05eca8287a6384132d0a98362f3b5d6001cf1b53429a50080",
+      "instructions": 37,
+      "native_bytes": 147,
+      "native_body_sha256": "0b015625d967cff33eb81dc54bf470634d1088731bc8e88f2160567be6d31410",
+      "source_sha256": "d9d3fce7f305177f25c2b77e192c7c56348d457810a8f22773614a0f24f0f7dc"
+    },
+    {
+      "entry": "0x4ef450",
+      "file": "src/unit_02104.c",
+      "name": "restore_pyramid_collect_work_pieces",
+      "rea": "ev_38fea9aafb80b2333d14ff327fd0da6917fbbb48faa93950925a1f67e1814009",
+      "instructions": 86,
+      "native_bytes": 256,
+      "native_body_sha256": "d416d65dc66a6aea24f2ced2a4f8b753e783a069419ca83328f0d8848e43962a",
+      "source_sha256": "2555b18e63e764e7d14a775f9510526108d1b6d0005cba3041b1b4092e4afdb5"
+    }
+  ],
+  "native_bytes": 2651,
+  "native_instructions": 801,
+  "changes": [
+    "Replace duplicated scaled-pointer public bodies with explicit BYTE/WORD/DWORD access and complete C signatures.",
+    "Recover the missing FSQRT to signed integer distance expression before multiplying by15.",
+    "Preserve native signed WORD wrap/clamp, DWORD current actor and camera settings, interpolated map lookup and three neighbor probes.",
+    "Reconstruct all six next-piece ring descriptors, work-list ranking and reservation eligibility.",
+    "Recover delayed stack arguments: 4F2190 has one argument; 4F02F0 receives actor, building, position and select_action.",
+    "Identify pyramid building WORD0x64 as assigned worker ID, replacing the previously unknown field name."
+  ],
+  "routing": "Public C entry bodies are replaced. Existing instruction-level C frame graphs retain their register/flags contracts; those graphs were not replaced by the natural C implementations.",
+  "verification": {
+    "script": "direct_c/verify_monument_worker_motion.py",
+    "cases": 687,
+    "reset": 6,
+    "travel_setup": 153,
+    "movement": 183,
+    "reset_setup_movement_compositions": 18,
+    "ring_positions": 148,
+    "work_list": 96,
+    "target_snap": 6,
+    "work_selection_compositions": 77,
+    "actual_compositions": [
+      "all seven reconstructed public functions in work/motion chains",
+      "51CD80 direction classifier and its actual ratio helper",
+      "native x87 sqrt/ftol vs typed C extended-sqrt/truncation helper"
+    ],
+    "controlled_boundaries": [
+      "4B5420 actor-grid unlink",
+      "4B52F0 actor-grid link",
+      "51CD80 only in explicit callback mutation cases"
+    ],
+    "comparison": "Return AL when defined, full seeded native global memory, provider calls/order, stack cleanup/nonvolatile registers and numeric control word.",
+    "regression_before_fix": "Previous public advance C returns AL1 and makes no grid updates; native returns AL0, unlinks and links at the updated position.",
+    "live_gameplay": "Not run. No physical rendering or host game execution.",
+    "diagnostic": "restore_link_check.exe without arguments passed",
+    "target_sha256": "62eb5190b9397f6419ba6c2bd60a30e8641864308c1655cec61a445039b04029"
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "62eb5190b9397f6419ba6c2bd60a30e8641864308c1655cec61a445039b04029",
+    "bytes": 7621632,
+    "modified": "2026-11-02T15:00:28.277479+01:00",
+    "compile": "seven translation units strict MSVC /W4 /WX; build passed"
+  },
+  "renamed_field": {
+    "file": "include/pyramid_parts.h",
+    "old": "PY_STATE_WORD_64",
+    "name": "PY_ASSIGNED_WORKER",
+    "offset": 100,
+    "evidence": "Native4F2230 tests this signed WORD as an actor ID, checks actor type/state and stores the claiming actor ID."
+  },
+  "publication": "Source update only; no tag or release created.",
+  "source_commit": "02687f713269662b6930a432a97895dc5d0f9c45",
+  "next_review": [
+    "005468D0 building footprint method: unresolved receiver/virtual output and field widths",
+    "004F0EF0 and004F2BA0 work selection: remaining legacy scaled-pointer bodies"
+  ]
+}

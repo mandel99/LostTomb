@@ -138,7 +138,14 @@ def verified_message_panel_proof(root=ROOT):
  return proof,{'path':MESSAGE_PANEL_PROOF,'sha256':sha(proof_path),'cases':proof['checked'],'compiled_C_path':proof['compiled_C_path'],'compiled_C_sha256':proof['compiled_C_sha256'],'all_source_hashes_current':True,'complete_case_set':True}
 PATTERN=re.compile(r'(?m)^([ \t]*)\((FUN_([0-9a-f]{8})\([^;]*\)), restore_unresolved_return\(0x([0-9a-f]{8})u\)\);[ \t]*$')
 def valid(match):return match[3]==match[4] and 'restore_unresolved_return' not in match[2]
-def repair(text):return PATTERN.sub(lambda m:m[1]+m[2]+';' if valid(m) else m[0],text)
+# Native512D3C/5133C5/513757/514082/51454E overwrite EAX immediately after
+# CALL457AF0, then read the building's7999F8 WORD. Keep this embedded-comma
+# repair restricted to that exact recovered query, not arbitrary value uses.
+# Evidence: metadata/building-access-caller-windows.json and the unused-return audit.
+ACCESS_DISCARDED=re.compile(r'\(FUN_00457af0\(\), restore_unresolved_return\(0x00457af0u\)\)(?=,\s*\(&DAT_007999f8\)\[DAT_00eadd6c \* 0x84\] == 0)')
+def repair(text):
+ text=PATTERN.sub(lambda m:m[1]+m[2]+';' if valid(m) else m[0],text)
+ return ACCESS_DISCARDED.sub('FUN_00457af0()',text)
 def plan():
  entries=[]
  for file in sorted((ROOT/'src').glob('*.c')):

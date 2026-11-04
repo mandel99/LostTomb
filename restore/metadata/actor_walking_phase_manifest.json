@@ -1,0 +1,141 @@
+{
+  "format": 1,
+  "state": "Seven complete candidate bodies, four new runtime implementations, header, tests, verifier and private project frozen after9072 cases against both private Debug and optimized C. Coordinator owns application and shared integration.",
+  "staged_sources": [
+    {
+      "from": "artifacts/actor_walking_phase/unit_01387.c",
+      "to": "src/unit_01387.c",
+      "sha256": "15d576a9aae8d97776ac4c2e15ce43bdae0ae4f134c9fb48a4de8993a3296f46"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01423.c",
+      "to": "src/unit_01423.c",
+      "sha256": "be59fb8972d8878f9ab2f73ab0f77a90801ea868c07a02b3ec0156c7172fc8f0"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01431.c",
+      "to": "src/unit_01431.c",
+      "sha256": "8a6471a2ca51b7c35b165c80801f1a3cef289a44f1c59d587ecfa0c00d1af687"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01433.c",
+      "to": "src/unit_01433.c",
+      "sha256": "5dffc8d8b5a3b729c96bc81be1bb401ce831dccb95f160634caa2686055072ac"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01434.c",
+      "to": "src/unit_01434.c",
+      "sha256": "ec3266327298e90ca11713b4a498daa249f23144ecc0b0d258f08e3f8052c72c"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01451.c",
+      "to": "src/unit_01451.c",
+      "sha256": "86586deeb6d9a1649a646104617eaf3c177af194889229525430ce6693b7e312"
+    },
+    {
+      "from": "artifacts/actor_walking_phase/unit_01453.c",
+      "to": "src/unit_01453.c",
+      "sha256": "3d104fa0829ef394a17e3cbdd025a7eebf40216f8f72ac6a5547a8f4b971f5ab"
+    }
+  ],
+  "new_header": "include/actor_walking.h",
+  "new_product_runtime_sources": [
+    "runtime/actor_walking_facades.c",
+    "runtime/actor_walking_queue_count.c",
+    "runtime/actor_walking_queue_full.c",
+    "runtime/actor_walking_queue_push.c"
+  ],
+  "unchanged_composed_sources": [
+    "src/unit_01435.c",
+    "src/unit_01427.c",
+    "src/unit_02332.c",
+    "src/unit_02351.c"
+  ],
+  "private_combat_binding": "Private wrapper hashes artifacts/actor_combat_phase/src/unit_01435.c plus artifact actor_combat.h. Coordinator confirmed both root equivalents applied with identical hashes; --production binds those root files.",
+  "shared_target": {
+    "name": "restore_actor_walking_verify",
+    "sources": [
+      "tests/actor_walking.c",
+      "tests/actor_walking_real.c"
+    ],
+    "include_directories": [
+      "include"
+    ],
+    "compile_definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "excluded_shared_definition": "ACTOR_WALKING_STAGED is private-only; no walking verification macro is required.",
+    "compile_options": [
+      "/W4"
+    ],
+    "link_libraries": [
+      "restore_data",
+      "advapi32"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test_command": "restore_actor_walking_verify",
+    "note": "The real wrapper includes all seven applied bodies, four actual unchanged helpers and all four new runtime files under aliases. Do not also compile any of those files directly into the oracle. Product builds compile the applied seven units normally and add the four new runtime files normally. No product trace hooks, callback routing edits or generated219x member-wrapper changes are required."
+  },
+  "shared_full_proof": "python tools/verify_actor_walking_emulation.py --production --exe <absolute shared Debug restore_actor_walking_verify.exe> --optimized-exe <absolute shared Release restore_actor_walking_verify.exe>",
+  "single_variant_note": "An explicit --exe without --optimized-exe checks one compiled variant and records comparison_checked=0. Complete expected corpus9072, total reachable1242/1242, owned reachable1092/1092, owned conditional outcomes222/222, computed dispatch targets40/40 and40 mutation phases. Ten proven dead native instructions are excluded, not forced.",
+  "private_project": "tools/actor_walking_project/CMakeLists.txt",
+  "private_target": "actor_walking_verify",
+  "private_build": "build/agent-actor-walking",
+  "private_variants": {
+    "Debug": {
+      "compile": "/Od /W4",
+      "sha256": "0e71b1c485717282214f29f6d859088ad6e37d4577a1df87a178005e08aab32f",
+      "smoke": "1/1 passed"
+    },
+    "Release": {
+      "compile": "/O2 /W4",
+      "sha256": "35b5961e95de8f2c7365f2c4acdf7acd2ced3d142bcd9841906d85419772b89b",
+      "smoke": "1/1 passed"
+    }
+  },
+  "final_private_result": {
+    "passed": true,
+    "checked": 9072,
+    "comparison_checked": 9072,
+    "native_instruction_coverage": [
+      1242,
+      1252
+    ],
+    "reachable_instruction_coverage": [
+      1242,
+      1242
+    ],
+    "owned_reachable_instruction_coverage": [
+      1092,
+      1092
+    ],
+    "owned_conditional_outcomes": [
+      222,
+      222
+    ],
+    "computed_targets": [
+      40,
+      40
+    ],
+    "mutation_phases": 40,
+    "source_hashes": 30,
+    "source_drift": 0,
+    "elapsed_seconds": 555.03
+  },
+  "source_hash_authority": "All30 consumed source/header/test/tool/native-packet hashes in metadata/actor-walking-emulation.json. Archive the final private report before the shared --production rerun replaces that path.",
+  "contract": "metadata/actor_walking_contract.json",
+  "static_caller_audit": "metadata/actor-walking-caller-audit.json",
+  "static_caller_audit_tool": "tools/audit_actor_walking_callers.py",
+  "coverage_qualification": "Computed secondary bridge default target004B3A27->004B3B5C is covered only with declared actual-helper-exit actor-kind mutation; unchanged1427 cannot make that mutation. No ordinary closed-graph reachability is inferred. Coverage counts include declared entry/exit memory interventions; original registers are never forced.",
+  "limitations": "Six named deeper route/service/relocation/lookahead/collision/terrain algorithms remain typed controlled oracle endpoints; alternate4B3FF0 and other generated queue callers remain outside this phase. Heading51CBA0 compares consumed AL only and separately asserts its native raw EAX domain. Prepared routes, mapped records/queues and bounded initially acyclic lists form the fixture domain. No route-finding completeness, actual broad-service success, complete controller behavior, runtime queue initialization, city replay or pixel fidelity is claimed.",
+  "supporting_hashes": {
+    "metadata/actor_walking_contract.json": "6b5d3d7d0fc183bc511ad89190f1c2cc6ed7d5c00e52b2e4177cf762b63915f7",
+    "metadata/actor-walking-caller-audit.json": "4191e46ef009b7e984031c46ed834b31d766fe9b8e3fc3f3bb5b63f0b8e930ed",
+    "tools/audit_actor_walking_callers.py": "3788a9c8a2e0650c9ca18c14d21463d78d08cf131b90b4a4337b6c9b0c521e37"
+  },
+  "private_archived_report": "metadata/actor-walking-private-emulation.json"
+}

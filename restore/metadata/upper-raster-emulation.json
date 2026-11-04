@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 2210,
+  "native_functions": 10,
+  "restored_native_functions": 7,
+  "original_game_executed": false,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "e9553ec69cb2296a5968729f0c3d149d47dcc9b8b7623ca3e2f34368fc26f207",
+  "unicorn_version": "2.1.4",
+  "method": "Compose actual native/C copy, mask and solid-shadow RLE consumers with actual row-skip helper. Compare every byte of128KiB frame and224 draw/guard bytes, unchanged read-only source, helper entry/returned pointer sequence, integer zero results, stack and saved registers. Include paired base-copy/mask passes. No controlled drawing endpoints.",
+  "limitations": [
+    "Raster equivalence uses positive signed-word widths, positive visible row counts and complete RLE rows. Literal controls1..16 and transparent controls0..255 are covered. C raster consumers reject nonpositive dimensions; native do/while would execute a first row.",
+    "Helper-only cases include zero/negative signed-word widths and negative/zero skip counts; pointer result and preserved registers are checked.",
+    "This synthetic raster proof does not establish full city rendering or validate malformed streams that escape source/frame storage."
+  ],
+  "elapsed_seconds": 9.562,
+  "instruction_coverage": {
+    "00410230": {
+      "total": 278,
+      "executed": 278,
+      "missing": []
+    },
+    "004105c0": {
+      "total": 62,
+      "executed": 62,
+      "missing": []
+    },
+    "00410660": {
+      "total": 59,
+      "executed": 59,
+      "missing": []
+    },
+    "00410700": {
+      "total": 211,
+      "executed": 211,
+      "missing": []
+    },
+    "004109d0": {
+      "total": 62,
+      "executed": 62,
+      "missing": []
+    },
+    "00410a70": {
+      "total": 59,
+      "executed": 59,
+      "missing": []
+    },
+    "00410f20": {
+      "total": 32,
+      "executed": 32,
+      "missing": []
+    },
+    "00410b10": {
+      "total": 211,
+      "executed": 211,
+      "missing": []
+    },
+    "00410de0": {
+      "total": 62,
+      "executed": 62,
+      "missing": []
+    },
+    "00410e80": {
+      "total": 59,
+      "executed": 59,
+      "missing": []
+    }
+  },
+  "total_instruction_coverage": {
+    "total": 1095,
+    "executed": 1095
+  },
+  "source_hashes": {
+    "src/unit_00140.c": "24116a943999c96ac24bab87458e4b6e6f066586a37cec843321c680430dc8db",
+    "src/unit_00141.c": "e3e4e5f21478a17b203ca70e0560bd768ae3ca885b71cb1420295f081437a3ac",
+    "src/unit_00142.c": "1afa57fd9b1ce59d07fa0afd6e73a4eb142f1bbcd65aada469ba1f3241abbff3",
+    "src/unit_00143.c": "2c3fc185f7bca83ab8b7156755a4b426b5d1049c4682fc327e8cd819f3680a27",
+    "src/unit_00144.c": "1724160c0e3610a9879c13c681579d8375a5d86e886664bb3b4c9208a393531e",
+    "src/unit_00145.c": "38d542cf58ad152dc22570f2d77ea97ca394d5463cdc3c374a88e660b44350ec",
+    "src/unit_00146.c": "0a66a5c6adfdf96da4daa52e9ba12e23985cfdf0e79bea157362efd1b5dc5b7b",
+    "src/unit_00147.c": "53342558074f6e8db6e73fa908b76474f6e809293cbcc07a7ee2519f54045f2c",
+    "src/unit_00148.c": "b8f6ade238b7c1b0fc64750fc192f99fccb1246d7c204a338dac10cb6059f12a",
+    "src/unit_00149.c": "1379f6416ee2e3ad5c96a49d45ca3b10e30ae87a1ccc875298f512a20e49a34c",
+    "runtime/upper_raster.c": "651d6e5a57ca9ba7883ebd3746c2caaea40e5cf9455e3eac08d1b08dea2ae43e",
+    "runtime/sprite_pixels.c": "04296c8136d82b147f3d03416b6d1d08cfd81f7925f04c1364c31b861cd43844",
+    "include/upper_raster.h": "e42ff1278cfc0cc46db012bfc99cde09ce2d834a0b288f168115b4f0c2397a49",
+    "include/sprite_render.h": "56aef72126bd891bfba659faa12b3e97cb2e87eb5135552c79ddfddb2a90bcf2",
+    "tests/upper_raster.c": "9e40f0926b29d53ddbb1202cbfbb246bd4a370b3061734c1f82c441f42aa92b7",
+    "tools/verify_upper_raster_emulation.py": "4863ca272c37dee50af66ae232497ced180122ee9a6af4cdb7e6c3d7b51fd11a",
+    "metadata/upper-raster-native.json": "e277388c9359c66608f2be588395203258f80a122df534a8a673fe6daa23bba5",
+    "metadata/upper-raster-shadow-native.json": "8bd747e8e47535f10b2bd132c9f68fba3169958b2de254aa7db9356203ed2329"
+  }
+}

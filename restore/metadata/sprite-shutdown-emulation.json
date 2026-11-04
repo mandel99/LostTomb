@@ -1,0 +1,108 @@
+{
+  "format": 1,
+  "passed": true,
+  "checked": 2206,
+  "production": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "448f4f8f2837c48c522296501522bea8aad5640a0942c0aa766e91b46316374a",
+  "original_game_executed": false,
+  "unicorn_version": "2.1.4",
+  "method": "Full207-instruction normal lifecycle graph: reset84, shutdown19, manager ctor28/dtor23, global ctor2/register4/cleanup2, library ctor8/dtor18 and unchanged pointer-release19. Actual native leaf callbacks execute within controlled fixed30 vector iteration. Compare both complete0x30f5d8 objects and guards, globals/object/vtable/heap canaries, ordered frees/mutations/library iteration, receiver/argument contracts, native constructor pointer/reset1/registration EAX, stack/saved registers and restored native SEH chain. Compiled C uses explicit receiver APIs and compiled cleanup callback.",
+  "limitations": [
+    "Normal nonthrowing domain only. Generic CRT vector iteration61441/61363 is controlled fixed30 forward/reverse scaffolding that executes actual native library constructors/destructors; generic unwind/exception algorithms are not proved. Native manager SEH setup/restoration is executed and checked; C uses ordinary nonthrowing control flow.",
+    "Host free is a controlled typed endpoint. Fake pointer/alias/mutation fixtures prove original free ordering and field effects, not real allocator ownership validity or safe double-free behavior. Separate C smoke uses the actual host allocation/free boundary.",
+    "Optional virtual destructors are controlled oracle endpoints to prove controller receiver/flag1/order/reloads/clearing only. Production rejects unsupported non-null objects explicitly; no actual virtual destructor algorithm or original-code pointer is provided.",
+    "AuxiliaryEA1368 is null in successful scenarios. Actual unchanged2678 C executes only its null branch; a fail-fast private link boundary makes55D8B0 unreachable. Production rejects non-null before that known unreconstructed receiver path. No nested auxiliary cleanup is claimed.",
+    "Atexit is a controlled registration endpoint for status/callback scheduling comparison. Production registers a compiled C cleanup pointer through host atexit; C smoke checks actual registration. Raw callback addresses occur only in original-instruction oracle data, never product calls."
+  ],
+  "virtual_boundary_only_cases": 216,
+  "unsupported_boundaries_fail_closed": [
+    {
+      "option": "--unsupported-delete",
+      "exit_code": 3,
+      "diagnostic_matched": true
+    },
+    {
+      "option": "--unsupported-slot",
+      "exit_code": 3,
+      "diagnostic_matched": true
+    }
+  ],
+  "source_hashes": {
+    "include/sprite_shutdown.h": "a2ea987474e03270fc934463017dae5e9e1294edf8db401abe0babc46fb80eee",
+    "runtime/sprite_shutdown_lifecycle.c": "a23e60c7bd9f21e6e7fbb37e53972e47ec3f3d9e5a871c912f445bcf8cc9b036",
+    "runtime/sprite_shutdown_boundaries.c": "a477fdd09fb2fdd384e6b1e7be6a1302b8d9af40389841258401b1786f40c63e",
+    "tests/sprite_shutdown.c": "044be2dc5dee29a7eca82f6ae0457cbaaa00734c6977b00b34674dcfdb60066e",
+    "src/unit_01990.c": "75bdd75834f6f896646655396317da63f8bcfe93400f28fd4c5551ccc7011558",
+    "src/unit_02512.c": "cecd8cade1a16711d46e348e043e0a1f850695bde5b4f837b3720dba8d7cfcb1",
+    "src/unit_02513.c": "780e97c09c6923af8176772822b941da2903be51678e28ed0c89b92eefae6c21",
+    "src/unit_02514.c": "8ece51f822485f0865bbd6877d612165c7997049c5749f0ad98fac6894d346c8",
+    "src/unit_02515.c": "671c141e4f0b101304e4ad46f9f40ac28971b918f99af329eadbee932441bb10",
+    "src/unit_02516.c": "aae616c59cb74b1955d210124d87c49190a7a2816d1173da34ae0a3b6f4e34e1",
+    "src/unit_02533.c": "2934e760d0e4e57860607a74954a88ec77577cda9e76d16242a82ed4c0bea2ad",
+    "tools/verify_sprite_shutdown_emulation.py": "e138fb5c5109026ab45fa77620ce2cab07d287c55d09c45a9e5bdc83eb63b4e2",
+    "metadata/sprite-shutdown-native.json": "a6f8aa0700d984f86c496db60a961925755a4acf5d1a201b0fafae4005b8d7ac",
+    "artifacts/sprite_shutdown_phase/CMakeLists.txt": "cf34fc4fa8ae9c27a15f94ccc9d3c6f8f3e21e90fb14366499b1f325342978ab",
+    "src/unit_02529.c": "4b8442cb61e78fbc1e8561d60bc43a56346018e9549da969bc1eace1aa93fb60",
+    "src/unit_02678.c": "2b91886622c50c8cc31e74f5d21c25cdebf1ebeb64044c141d049c81dc9d7b5e",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "include/host_allocator.h": "a5382a9aca268aa3f83971bba847d0c531c13dcc0f0d01f0773314be19a0fdb0",
+    "runtime/host_allocator.c": "c49ef84fb08cec8d9adbbcd925eb7cc81d6653b8805280d73c36ef58bf6d1dd4"
+  },
+  "instruction_coverage": {
+    "0x4e63b0": {
+      "executed": 19,
+      "total": 19,
+      "missing": []
+    },
+    "0x53db60": {
+      "executed": 84,
+      "total": 84,
+      "missing": []
+    },
+    "0x53f790": {
+      "executed": 19,
+      "total": 19,
+      "missing": []
+    },
+    "0x53da90": {
+      "executed": 28,
+      "total": 28,
+      "missing": []
+    },
+    "0x53db00": {
+      "executed": 23,
+      "total": 23,
+      "missing": []
+    },
+    "0x53da60": {
+      "executed": 2,
+      "total": 2,
+      "missing": []
+    },
+    "0x53da70": {
+      "executed": 4,
+      "total": 4,
+      "missing": []
+    },
+    "0x53da80": {
+      "executed": 2,
+      "total": 2,
+      "missing": []
+    },
+    "0x5404e0": {
+      "executed": 8,
+      "total": 8,
+      "missing": []
+    },
+    "0x540500": {
+      "executed": 18,
+      "total": 18,
+      "missing": []
+    }
+  },
+  "instructions_executed": 207,
+  "instructions_total": 207,
+  "watched_bytes": 6495600,
+  "elapsed_seconds": 231.609
+}

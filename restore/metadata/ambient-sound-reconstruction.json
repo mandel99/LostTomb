@@ -1,0 +1,114 @@
+{
+  "format": 1,
+  "status": "frozen after private Debug and optimized Release proof",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "production_functions": [
+    {
+      "address": "0053acf0",
+      "source": "src/unit_02486.c",
+      "instructions": 161,
+      "contract": "void cdecl ambient selector; ordered actual RNG calls, actual coordinate lookup, terrain/building sound selection, x87 stereo position and thiscall sound endpoint"
+    },
+    {
+      "address": "00430960",
+      "source": "src/unit_00461.c",
+      "instructions": 174,
+      "contract": "cdecl signed DWORD x/y -> signed DWORD tile. Sole native caller pushes third zero; callee ignores it. The explicit C facade retains that third argument."
+    }
+  ],
+  "native_calls": {
+    "ambient_entry_caller": "004d6f9a in004d6b60",
+    "coordinate_call": "0053ad5d (x,y,0)",
+    "float_conversion_calls": [
+      "0053ae6c",
+      "0053af26"
+    ],
+    "sound_call": "0053af62: ECX=00e92bf8, stack=request00e92da8; callee pops4"
+  },
+  "corrections": [
+    "Restore DWORD enablef55b88, viewport modef53f78, widths f53f60/f53f64, heighte38d98 and volume e38ed0; sound enablee38ec0 remains BYTE.",
+    "Building-grid entry is signed WORD atb4e6fc+tile*2; terrain flags DWORD ataf598c+tile*4. Building record stride264 with signed WORD type/subtype at7999e8/e a.",
+    "Terrain sound rows are48bytes with11 IDs and DWORD count@44; building rows20bytes with4 IDs and DWORD count@16. Building57 special subtypes13/11 usef54990/f549e0, other subtypesf549f4.",
+    "Random scaling exactly retains low-DWORD IMUL then divides signed product toward zero by32768.",
+    "Missing x87 expression at both call sites is sampledX*(128.0f/current selected signed DWORD width), retaining extended precision. Original float constant570150 is00000043. Width is reloaded after sound selection.",
+    "Explicit local helper performs x87 FILD/FDIVR/FILD/FMUL, saves control word, forces truncation, FISTP signed QWORD, restores control word and pops ratio. Only low DWORD is consumed. Global2775 ABI and source are untouched.",
+    "Coordinate helper uses signed DWORD camera values; diamond parity/edge classification; lookupDWORD at70e494+4*((cameraRow+row)*231+cameraColumn+column). Source writes exact five DWORD scratch outputs."
+  ],
+  "request_layout": [
+    "-1",
+    "sound ID",
+    "DWORD volume e38ed0",
+    "truncated stereo position",
+    "1"
+  ],
+  "proof": {
+    "cases_per_configuration": 5015,
+    "private_debug_smoke_checks": 15,
+    "private_release_smoke_checks": 15,
+    "native_instructions_executed": 357,
+    "native_instructions_total": 357,
+    "real_dependencies": [
+      "00562348 RNG (unchanged src02825)",
+      "0056133c native x87 conversion (Unicorn only; global C shim unchanged)"
+    ],
+    "controlled_endpoints": [
+      "0055f0e8 physical sound: receiver, request address, full descriptor, call order and endpoint mutations compared"
+    ],
+    "release_compiled_C_sha256": "cc2f81fb1b93fdabdb3438c0d25eda7c6176378462dc3a53d65685cc5888fdac",
+    "report": "metadata/ambient-sound-emulation.json"
+  },
+  "limitations": [
+    "Physical sound manager0055f0e8 is a controlled endpoint; exact receiver/request descriptor/order and callback mutations are compared, without audio output or codecs.",
+    "Coordinate geometry requires nonzero positive divisors and mapped231-column lookup indices. Sound-table categories/counts and selected records are bounded to mapped test storage; malformed pointers and native divide traps are excluded.",
+    "Unicorn2.1.4 does not reproduce the x87 precision exception status bit for inexact division/conversion. That status bit is excluded. For zero-width stress cases, invalid-operation status is also excluded because Unicorn omits it for FISTP infinity; numeric output, divide-by-zero status, control word and x87 stack are still compared. Nonzero widths retain the invalid-operation comparison.",
+    "Controller ambient return is void; incidental caller-saved EAX forwarding is not treated as a semantic result.",
+    "Direct conversion cases execute the original expression and ftol then the original ratio-pop instruction, without executing unrelated controller stores."
+  ],
+  "integration": {
+    "production": "Both existing procedure files already belong to production source glob. No runtime source addition, no global ftol ABI change. New include/ambient_sound.h required.",
+    "target": "restore_ambient_sound_verify",
+    "main_sources": [
+      "tests/ambient_sound.c",
+      "src/unit_02486.c"
+    ],
+    "object_sources": [
+      {
+        "source": "src/unit_00461.c",
+        "definition": "FUN_00430960=ambient_coord_impl"
+      },
+      {
+        "source": "src/unit_02825.c",
+        "definition": "FUN_00562348=ambient_rng_impl"
+      }
+    ],
+    "include": "include",
+    "link": [
+      "restore_data"
+    ],
+    "definitions": [
+      "_CRT_SECURE_NO_WARNINGS (test only)"
+    ],
+    "compile_options": [
+      "/W4",
+      "/Od for Debug; optimized Release also proved"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test_command": "restore_ambient_sound_verify",
+    "native_command": "Python312/python.exe tools/verify_ambient_sound_emulation.py --exe build/c-only-debug/Debug/restore_ambient_sound_verify.exe",
+    "private_project": "tests/ambient_sound_project/CMakeLists.txt"
+  },
+  "source_hashes": {
+    "src/unit_02486.c": "e0b7517876d8f3ada0fd476d0b3e16af3104d3cec19bb7ad4d205fbaf0d2ec29",
+    "src/unit_00461.c": "28a5c7589fc6b7c447db6da8fabe033bd3e46f7ed25074a04b9545c8f622d16a",
+    "include/ambient_sound.h": "c50edad56bdac4f421f5ba599714ab687d01dc3058a2235be440c5eff705de88",
+    "tests/ambient_sound.c": "2f47de29fbb6caf5afe7f09d1eb7bc25bbef12b18ccd2baca1ca5b8027c0b74a",
+    "tests/ambient_sound_project/CMakeLists.txt": "01a0ff6934fbab6bfcb0d5a00b3c39f3019847a2582c7535ad1a62bdcd27f412",
+    "tools/verify_ambient_sound_emulation.py": "f3887cde8dbd8958a54715325e3074eddefbcdb5dc7825f3756e082149ddcb83",
+    "src/unit_02775.c": "72252d062fae873387c64649ad3b7638dc9c3c34b40a52b55db1a401275ba28b",
+    "src/unit_02825.c": "feb319bc0dbe2dc99d9c8004c2121abf9d52a8e3ac64ad5f207d3182641815e4"
+  }
+}

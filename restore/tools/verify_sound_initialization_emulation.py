@@ -1,6 +1,7 @@
 """Optional bounded native/C sound-state comparison; no audio or game process."""
 from pathlib import Path
-import hashlib,json,random,struct,subprocess,sys,time
+import argparse,hashlib,json,random,struct,subprocess,sys,time
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument("--exe",type=Path);args=parser.parse_args()
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'build/offline-verification-deps'))
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_BLOCK,UC_HOOK_CODE,__version__ as unicorn_version
@@ -23,10 +24,10 @@ def fnv(text):
  for b in text:value=((value^b)*16777619)&0xffffffff
  return value
 imports={0x56f124:1,0x56f0f8:1,0x56f2dc:0,0x56f2e0:2,0x56f2e4:4,0x56f2f4:1,0x56f2f0:1,0x56f2cc:1,0x56f2c8:1,0x56f308:1}
-endpoints={0x561a1d:0x561a1d,0x561a2b:0x561a2b,0x561bdc:0x561bdc,0x563240:0x563240,0x561441:0x561441,0x561363:0x561363}
+endpoints={0x561a1d:0x561a1d,0x561a2b:0x561a2b,0x561bdc:0x561bdc,0x563240:0x563240}
 for i,(slot,nargs) in enumerate(imports.items()):endpoints[STUBS+i*16]=slot;write(slot,STUBS+i*16)
 RANGES=[(0x55dbc0,0x55dbf7),(0x55dc18,0x55dd3e),(0x55dea2,0x55e14e),(0x55e38b,0x55e589),(0x55e5d2,0x55e92a),
- (0x55eb99,0x55ec0e),(0x55ec7c,0x55ecf2),(0x560210,0x5602e2)]
+ (0x55eb99,0x55ec0e),(0x55ec7c,0x55ecf2),(0x560210,0x5602e2),(0x561363,0x5614c2)]
 state={}
 def event(a,args):state['events'].append([a,len(args)]+args+[0]*(4-len(args)))
 def guard(cpu,a,n,user):
@@ -40,11 +41,15 @@ def endpoint(cpu,a,n,user):
   elif ident==0x56f0f8:args=[fnv(cstring(args[0]))]
   elif ident==0x56f2dc:value=1
   elif ident==0x56f2e4:write(args[0],0x70123456);value=state['p'][5]
-  elif ident==0x56f2f4:state['handles']+=1;value=0x70000000+state['handles']
+  elif ident==0x56f2f4:
+   state['handles']+=1;value=0 if state['handles']==state['p'][12] else 0x70000000+state['handles']
   event(ident,args)
  elif ident==0x561a1d:
-  event(ident,args[:1]);value=state['cursor'];state['cursor']+=(args[0]+15)&~15
-  assert state['cursor']<HEAP+0x200000;vm.mem_write(value,b'\xcd'*args[0])
+  event(ident,args[:1]);state['allocations']+=1
+  if state['allocations']==state['p'][11]:value=0
+  else:
+   value=state['cursor'];state['cursor']+=(args[0]+15)&~15
+   assert state['cursor']<HEAP+0x200000;vm.mem_write(value,b'\xcd'*args[0])
  elif ident in [0x561a2b,0x561bdc]:event(ident,args[:1])
  elif ident==0x563240:vm.mem_write(args[0],bytes([args[1]&255])*args[2]);value=args[0]
  elif ident==0x561441:
@@ -71,7 +76,7 @@ def call(entry,args):
  return vm.reg_read(UC_X86_REG_EAX)
 def native(p):
  global state
- state={'p':p,'events':[],'cursor':HEAP+0x10000,'handles':0}
+ state={'p':p,'events':[],'cursor':HEAP+0x10000,'handles':0,'allocations':0}
  vm.mem_write(OBJECT,bytes([p[1]&255])*0x204);vm.mem_write(HEAP,b'\x5a'*0x200000);write(0x12663b0,0x10203040);write(0,0xffffffff)
  call(0x55e38b,[])
  if p[0]:
@@ -111,15 +116,19 @@ for count in [-1,0,1,3,17,500]:
 for old in [0,1]:
  for disabled in [0,1]:add(p0=4,p7=old,p13=disabled)
 for channel in [0,1]:add(p0=5,p7=1,p15=channel)
-exe=ROOT/'build/c-only-debug/Debug/restore_sound_verify.exe'
+for kind in [1,2]:
+ for old in [0,1]:
+  for failure in range(1,5):add(p0=kind,p7=old,p11=failure)
+  for failure in range(1,6):add(p0=kind,p7=old,p12=failure)
+exe=args.exe or ROOT/'build/c-only/Debug/restore_sound_verify.exe'
 process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
 report={'format':1,'unicorn_version':unicorn_version,'original_game_executed':False,'audio_output_used':False,
- 'method':'Compiled C versus bounded original constructor, PCM initialization, sample-pool allocation/reset/stop and file-table allocation; media, OS, allocator and vector-lifecycle endpoints controlled',
+ 'method':'Compiled C versus bounded original constructor, PCM initialization, sample-pool allocation/reset/stop and file-table allocation; media/OS, allocator and memset endpoints controlled; actual vector constructors/destructors execute',
  'compared':['complete 0x204-byte object','new and old heap bytes','global receiver and DWORD allocation counter','ordered endpoint arguments','value returns and thiscall stack/register preservation'],
- 'limitations':['C failure cleanup intentionally differs from native partial-allocation and sample-handle failure behavior; these cases are verified by the source-only test, not claimed equivalent.',
-  'C rejects allocation arithmetic overflow. Native 3D initialization, full shutdown and file lookup remain separate reconstruction work.',
-  'Constructor/void result markers are normalized; object bytes, owner pointer and ABI are compared. No actual sound device, media library or game process is used in this comparison.'],
- 'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest()}
+ 'limitations':['Finite PCM/device corpus plus explicit heap/handle failures; physical backend behavior and untested overflow paths of other sound methods are not certified by this report.',
+  'Actual file-table/array lifecycles now execute. Physical audio and native OS exception dispatch remain separate from this deterministic comparison.',
+  'Constructor/void result markers normalized; object/global/heap bytes, endpoint inputs and normal native ABI compared.'],
+ 'compiled_C_path':str(exe.resolve()),'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'original_sha256':hashlib.sha256(image).hexdigest()}
 checked=0;case=None;started=time.monotonic()
 try:
  assert json.loads(process.stdout.readline())=={'object':OBJECT,'heap':HEAP}
@@ -136,7 +145,11 @@ except Exception as error:report.update(passed=False,checked=checked,case=case,e
 finally:
  process.stdin.close();process.wait(timeout=10)
 report['elapsed_seconds']=round(time.monotonic()-started,3)
-files=['src/unit_02689.c','src/unit_02691.c','src/unit_02692.c','src/unit_02687.c','src/unit_02697.c','src/unit_02685.c','include/sound_initialization.h','tests/sound_initialization.c','tools/verify_sound_initialization_emulation.py']
+files=['CMakeLists.txt','runtime/array_lifecycle.c','runtime/owned_buffer_lifecycle.c','runtime/owned_buffer.c','runtime/sound_file_lifecycle.c','include/array_lifecycle.h','include/owned_buffer.h','include/sound_file_lookup.h']+[f'src/unit_{n:05}.c' for n in [2682,2683,2684,2724,2725,2726,2776,2778,2779]]+['src/unit_02689.c','src/unit_02691.c','src/unit_02692.c','src/unit_02687.c','src/unit_02697.c','src/unit_02685.c','include/sound_initialization.h','tests/sound_initialization.c','tools/verify_sound_initialization_emulation.py']
+files+=['runtime/sound_sample_reset.c','include/sound_playback.h']
+files+=['runtime/sound_stop_channels.c','include/sound_stopping.h','src/unit_02694.c','src/unit_02695.c']
+files+=['runtime/sound_allocation.c','include/sound_allocation.h']
+files+=['runtime/sound_device.c','runtime/sound_constructor.c','include/sound_device.h','include/audio_global_lifecycle.h','include/music_manager.h','include/media_bindings.h','src/unit_02849.c']
 report['source_hashes']={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in files}
-(ROOT/'metadata/sound-initialization-emulation.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/('metadata/sound-initialization-emulation-release.json' if 'Release' in str(exe) else 'metadata/sound-initialization-emulation.json')).write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='source_hashes'},indent=2));sys.exit(0 if report['passed'] else 1)

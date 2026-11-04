@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-30T11:19:09.038003+00:00",
+  "passed": true,
+  "child_exe_sha256": "38641fcf03792186454f5d5ce35165a1e06ce6bc2741ba6b02e2984cdc0f915b",
+  "log": {
+    "path": "artifacts/menu-campaign-integration.log",
+    "sha256": "93e5274568325752daecbb7f1974cec2776f42a0c406aca15b6884d2d9ff96b5"
+  },
+  "expected_bounded_timeout": true,
+  "original_game_process_executed": false,
+  "computer_UI_automation_used": false,
+  "confirmed_flow": [
+    "title",
+    "main menu",
+    "family registry",
+    "saved profile load",
+    "family options",
+    "history action through C dispatcher",
+    "campaign/era selector"
+  ],
+  "frames": [
+    {
+      "screen": "family",
+      "mode": 47,
+      "manifest": {
+        "path": "metadata/menu-family-frame.json",
+        "sha256": "b952d8dd7e136616a0255e2e13ab7345c499e2e53c236bd251f61b60d355270b"
+      },
+      "image": {
+        "path": "artifacts/menu-family-frame.bmp",
+        "sha256": "8c74e84d1e87e58104e43ddd66d08248d2f7f8e7780c25aee66756396bf32516"
+      },
+      "raw_frame_sha256": "0a8f948931cbfc3e0394cd964c3f9ad6cfff8c604e1e1dca189963cef2bb680d"
+    },
+    {
+      "screen": "options",
+      "mode": 48,
+      "manifest": {
+        "path": "metadata/menu-options-frame.json",
+        "sha256": "7658f7101d9dfb3cc7b90533ab14b6c9fe9308accaaf3c8827f0f2a3da69c297"
+      },
+      "image": {
+        "path": "artifacts/menu-options-frame.bmp",
+        "sha256": "4282fb084a875d71be95b6d671c63681ba05201fd38a46c15c22e3eda2caf9d7"
+      },
+      "raw_frame_sha256": "cf367f3df166230cab5a876a7e68f58a631d028b286e74fb24561e71499d0585"
+    },
+    {
+      "screen": "campaign",
+      "mode": 23,
+      "manifest": {
+        "path": "metadata/menu-campaign-frame.json",
+        "sha256": "884b979bedd8004e299061924021e8cd29e2cbdb03cd9591bf8b77a515d46553"
+      },
+      "image": {
+        "path": "artifacts/menu-campaign-frame.bmp",
+        "sha256": "e0007029b2570ba0c1e1924bc1e413c0af7d1bbc628ea598f756d3ce5ac3b6a3"
+      },
+      "raw_frame_sha256": "608aeb690daa8a1728f9d3d06391f272767404a77c5d0daae4f549e9d7f7f5e0"
+    }
+  ],
+  "fixture_profile": {
+    "path": "build/debug-startup-game/Save/Restore.dat",
+    "sha256": "7794376f0421356ed16a950de128b5029cc30d679b3f04c3f58760e86d242371"
+  },
+  "REA_evidence": {
+    "path": "metadata/campaign-selector-rea-function.json",
+    "sha256": "7d722ec7387ebd23a496147f696da1159271e0f86a73ebb7b5cede6bbd0cbf46"
+  },
+  "REA_evidence_id": "ev_1e3f77c44a9ed9f85f72df210600340bdc5fc03f5cf39f981cd939674e267f00",
+  "limitations": [
+    "Only the 1024x768 real-C framebuffer is captured. Native renderer calls cover 640x480 and 800x600 too.",
+    "Mission confirmation, movie playback on this path and later mission preparation are controlled endpoints in native comparisons. Independent gameplay is not proved."
+  ],
+  "source_hashes": {
+    "runtime/campaign_menu.c": "6072a832bceb4ddd154ce5e236896b1877683b5c991a6a8c4cc15a1695ddc03d",
+    "runtime/family_options.c": "1f0210e2e022b831541ef868fb04eff3179a82afdf3ba5f3758e7714cdca8000",
+    "runtime/menu_callbacks.c": "3089a15ddd1e086ae87423a35b69043f52037afed3c3aed62957264bab1c8347",
+    "runtime/startup_probe.c": "43026a2e4ffcc367a0087be3eb41e114b87e75226939ffc84242311f370142e2",
+    "src/unit_00261.c": "10935796ae3be6f0cc3fe71e26fa5743989c4318996dfd718310baa68c70b1ac",
+    "src/unit_00262.c": "9f2ab7e9962122f0ae5d23c753623998fe0a953029e85799075f06716c0e6a65",
+    "src/unit_00263.c": "7d251979598b33c0659cc6b2851c663af80a8d0752039258d90513092e146d80",
+    "src/unit_00308.c": "555373f5ad22c529f08c549d9a4433b5fdedf0dd127a54ce185678b255ac45ac",
+    "src/unit_01868.c": "bf5e480ebae728be5149201cccc566c49e21f60b01674218acd386b97c354468",
+    "tools/Debug-Standalone.ps1": "6224842cf27e162e48a2f80b19381eb93cc4b180fb1b962f4447d5abeda3c9b7",
+    "tools/capture_restore_framebuffer.py": "fb70acea4517b2a5ebd70bb2a9376c04496b8bb18240480d0294ffa7d882b4b4",
+    "tools/record_campaign_menu.py": "e1111d54746737dd186a1c40101b5f81e5d87f14055e25d7e89a90c771e06c40"
+  }
+}

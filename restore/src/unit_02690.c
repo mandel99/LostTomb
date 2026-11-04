@@ -1,22 +1,9 @@
-#include "restore_types.h"
-#include "sound_initialization.h"
-#define LAB_0056e171 (*(undefined1 *)0x0056e171u)
-extern void FUN_0055dbf8();
-
-void FUN_0055e58a(CAtlWinModule *this)
-
+#include "sound_file_lookup.h"
+#include <windows.h>
+void restore_sound_destroy(RestoreSound *self)
 {
-  void *local_10;
-  undefined1 *puStack_c;
-  undefined4 local_8;
-  
-  puStack_c = &LAB_0056e171;
-  local_10 = ExceptionList;
-  local_8 = 0;
-  ExceptionList = &local_10;
-  FUN_0055e92b((RestoreSound *)this);
-  local_8 = 0xffffffff;
-  FUN_0055dbf8();
-  ExceptionList = local_10;
-  return;
+    __try{(void)FUN_0055e92b(self);}
+    __finally{FUN_0055dbf8(&self->files);}
 }
+void FUN_0055e58a(RestoreSound *self)
+{restore_sound_destroy(self);}

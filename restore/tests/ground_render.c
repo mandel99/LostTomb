@@ -11,6 +11,10 @@
 #define FRAME 0x31100000u
 #define FIELDS 68
 #define CHECK(x) do{if(!(x)){fprintf(stderr,"Ground render failure at %d\n",__LINE__);ExitProcess(1);}}while(0)
+/* Corrupt actor chains are outside the finite valid-grid fixtures. Preserve
+   the production fail-closed boundary if a fixture unexpectedly reaches it. */
+__declspec(noreturn) void restore_game_actor_grid_failure(uint32_t tile,int32_t actor)
+{fprintf(stderr,"Unexpected corrupt actor grid %u/%d\n",tile,actor);ExitProcess(1);}
 /* op,seed,h,w,camX,camY,pixelX,pixelY,dy,dx,halfX,lookupMode,tile,flags,
    edge,foot,imageOrOffset,building,type,damage,animate,special,overlay,
    selected,sentinelBlank,boundaryEnabled,boundaryTotal,neighborA,neighborB,
@@ -68,8 +72,10 @@ void FUN_0040ffd0(const void *q){pixel1(0x40ffd0,(uint32_t)(uintptr_t)q);}
 void FUN_00410090(const void *q){pixel1(0x410090,(uint32_t)(uintptr_t)q);}
 void FUN_00410230(const void *q){pixel1(0x410230,(uint32_t)(uintptr_t)q);}
 void FUN_00410b10(const void *q){pixel1(0x410b10,(uint32_t)(uintptr_t)q);}
+void FUN_0040fed0(const void *q){pixel1(0x40fed0,(uint32_t)(uintptr_t)q);}
+void FUN_0040ff50(const void *q){pixel1(0x40ff50,(uint32_t)(uintptr_t)q);}
 #define PIX1(name,a) int name(uint32_t q){return pixel1(a,q);}
-PIX1(FUN_0040fc40,0x40fc40) PIX1(FUN_0040fcf0,0x40fcf0) PIX1(FUN_0040fdd0,0x40fdd0) PIX1(FUN_0040fed0,0x40fed0) PIX1(FUN_0040ff50,0x40ff50)
+PIX1(FUN_0040fc40,0x40fc40) PIX1(FUN_0040fcf0,0x40fcf0) PIX1(FUN_0040fdd0,0x40fdd0)
 PIX1(FUN_004105c0,0x4105c0) PIX1(FUN_00410660,0x410660) PIX1(FUN_00410de0,0x410de0) PIX1(FUN_00410e80,0x410e80) PIX1(FUN_00410f70,0x410f70) PIX1(FUN_00410fb0,0x410fb0) PIX1(FUN_004114a0,0x4114a0) PIX1(FUN_00411fd0,0x411fd0)
 #define PIX2(name,a) int name(uint32_t q,uint32_t c){return pixel2(a,q,c&65535u);}
 PIX2(FUN_004100f0,0x4100f0) PIX2(FUN_004101c0,0x4101c0) PIX2(FUN_00410700,0x410700) PIX2(FUN_004109d0,0x4109d0) PIX2(FUN_00410a70,0x410a70)

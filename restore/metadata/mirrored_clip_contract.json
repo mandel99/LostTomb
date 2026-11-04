@@ -1,0 +1,49 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": ["metadata/mirrored-clip-next-native.json", "metadata/upper-raster-native.json", "build/smoke-game/Pharaoh.exe"],
+  "functions": {
+    "0040fcf0": {
+      "native_instructions": 74,
+      "C_contract": "void cdecl(const void *pixels)",
+      "behavior": "Compose the actual410f20 row skip before capturing drawing geometry. Capture doubled signedWORD width once; each row reloads signedWORD width and fullDWORD visible widthd3b544. Start at the current cursor plus captured2*width. Consume complete literal and transparent runs until signed remaining width is nonpositive. Copy a literal WORD only when signed(width-visibleWidth-decodedColumns)<=0.",
+      "row_advance": "Advance from the actual final leftward pixel cursor by the freshly loaded fullDWORD pitch. Oversized runs can therefore shift subsequent rows relative to the initial row base. Zero/negative width still applies the native cursor and pitch arithmetic for every positive-height row."
+    },
+    "0040fdd0": {
+      "native_instructions": 80,
+      "C_contract": "void cdecl(const void *pixels)",
+      "behavior": "Compose the actual410f20 row skip before geometry capture. Each row reloads signedWORD width and reads fullDWORD clip-bytesd3b540 twice. Use arithmetic right shift by1 for the clipping counter, including downward rounding of negative odd values. Start at preservedRowBase+captured2*width-clipBytes. Consume complete runs and copy a literal WORD only while signed(width-SAR(clipBytes,1)-decodedColumns)>0.",
+      "row_advance": "Preserve the original row base across decoding and advance that base by the freshly loaded fullDWORD pitch. The next row does not depend on the final leftward cursor."
+    }
+  },
+  "shared_contracts": {
+    "widths": "Framebuffer e92e18, pitch e38d94, X d3b5e0, Y d3b5dc, row countd3b5d4 and both clipping fields are fullDWORD. Widthd3b5be is signedWORD. Tags/skip counts are unsignedBYTE and copied pixels are WORD.",
+    "literal_consumption": "Both clipped siblings consume every WORD of a literal run, including runs longer than remaining row width. This differs from the separately proved131 decoder's early literal stop. No new clamp is introduced.",
+    "transparent_runs": "Apply the entire skip to remaining width, clipping counter and leftward cursor. A skip can overshoot a row. Zero literal and zero skip commands retain original behavior.",
+    "arithmetic": "All address, stride and counter arithmetic wraps at32 bits. Native signed tests explicitly reinterpret those wrapped values. Odd clip-byte values may produce odd destination addresses, preserving x86 WORD access behavior.",
+    "nonpositive_height": "The row-skip helper is still called before testing drawing height. No destination WORD is written when the signed height is nonpositive.",
+    "helper": "Actual accepted src/unit_00149.c composes on both native and C sides. Its preserved high-EAX carry, full returned pointer and consumed source are tested here; no helper replacement or controlled drawing endpoint is used.",
+    "EAX_and_stack": "Both existing public C interfaces remain void. Native final EAX is the consumed source cursor; a compile-time test trace compares it as an additional internal observation. Native temporary byte stores in stack scratch/by-value argument slots are permitted; caller guards outside the argument are checked.",
+    "registers": "Native and both C variants preserve EBX/EBP/ESI/EDI and the cdecl stack. Incidental caller-saved register contents are not promoted to a C contract."
+  },
+  "proof": {
+    "report": "metadata/mirrored-clip-emulation.json",
+    "passed": true,
+    "checked": 3258,
+    "plain_checked": 3258,
+    "native_instruction_coverage": [154,154],
+    "function_instruction_coverage": {"0040fcf0": [74,74], "0040fdd0": [80,80]},
+    "helper_instruction_coverage": [32,32],
+    "controlled_algorithm_endpoints": [],
+    "memory": "Complete524288-byte source and524288-byte framebuffer, full watched state and canaries participate in SHA comparison. Native writes outside framebuffer/stack are rejected; encoded source is read-only.",
+    "ordered_pixels": "Traced C compares the ordered WORD address/value digest and count, plus the exact final source cursor and actual helper entry/exit pointer/state observations.",
+    "plain_variant": "Separate aliases include each actual product body after explicitly undefining tracing. Each plain variant independently matches native full pixels/state/source/helper observations and ABI; the verifier asserts that it emitted no trace output.",
+    "fixture_domains": "Literal/transparent/zero commands; oversized literals and skips; signedWORD widths including0/negative and above255; fullDWORD geometry and clip values; clipping boundaries and negative odd SAR; positive/negative pitch;32-bit coordinate multiplication wrap; distinct source/frame offsets; long-literal helper carry; entry/exit helper mutations of geometry and clipping; repeated calls.",
+    "private_build": "Win32 /O2 /W4 with fixed base10000 and no dynamic base. Smoke1/1 exercises both siblings and both compiled variants.",
+    "source_hashes": 13,
+    "source_drift_at_freeze": 0
+  },
+  "frozen_dependencies": "The accepted mirrored131/149 sources,1066 proof and old upper-raster suite files were not edited during this phase.",
+  "limitations": ["Mapped bounded source/frame fixtures; no arbitrary malformed-stream termination guarantee or entire-city pixel fidelity claim.", "The native ABI requires a clear direction flag. Production bodies do not enable the test-only trace macro."]
+}

@@ -1,0 +1,122 @@
+{
+  "format": 1,
+  "generated_at": "2026-10-31T00:14:04.813429+00:00",
+  "passed": true,
+  "checked": 1632,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "original_game_process_executed": false,
+  "original_machine_code_fallback_used": false,
+  "computer_UI_automation_used": false,
+  "source_hashes": {
+    "runtime/dropdown_actions.c": "774bd720ef298f82680e7d6dff3b1ddd001b37bbc05ccc5a93b83725d1998eed",
+    "include/dropdown_actions.h": "64f1aa4c7313f57f9a96ce703f9ac48c39f1fa157bef746221741a5aa68db50b",
+    "runtime/menu_callbacks.c": "a16d47b04bbeaf2bf3eb0dc0f4b581d3217f880fa92a355282565270c95ecc58",
+    "runtime/dropdown_menu_boundary.c": "64f5e0b2c5b2bfb03582c5394f4ece2e0265a4ed56b9d6e25135a64a89563055",
+    "runtime/dropdown_menu_options.c": "a04c98b095488c04179f41f153fc59e094a3d62c4b0d88391c0032c7df735f2a",
+    "src/unit_00410.c": "d25248f0b111e449010072f4dd8cad59a9d0721047cefd10b622566247313874",
+    "src/unit_00413.c": "ee995ef50c6bde22bb56aaec15ce91ffaed8581825d4202a56c8b52de65e279b",
+    "tests/dropdown_actions.c": "bd307d2c6e45c9863d92266d6327cb677752c016463e55de1947719d2256ee6a",
+    "include/dropdown_menu.h": "50e8c9c8d0d6cb32172ad778f8906567b47d9e580992b4bcf4f26be9f1670496",
+    "tools/verify_dropdown_actions_emulation.py": "4f0aad52460b20f9fa3313f372d23a61d0fac64d6d2c65cdcebaaea2141fd5a3"
+  },
+  "native_exports": {
+    "metadata/dropdown-action-native-cfg.json": "20f34892184db0a7feb0e89df47886b9c0a4dcd87e0e0f7554f1cdbb4c53a42e",
+    "metadata/dropdown-menu-native.json": "cd35e51dcad8c29b40ba37507b69469c16ac79b128e68579510bfd7dd1de0882",
+    "metadata/dropdown-actions-ghidra-windows.json": "8f77289bfa388bfc2fd240d3068d9e69173b00d2986e29c140b2c4d43e6d7a5f"
+  },
+  "compiled_C_path": "build/c-only-debug/Debug/restore_dropdown_actions_verify.exe",
+  "compiled_C_sha256": "e10824e19dac772bf109401885c4c0fcbed5ce0e3603c4906294d76e654efb9e",
+  "variants": {
+    "Debug": {
+      "path": "build/c-only-debug/Debug/restore_dropdown_actions_verify.exe",
+      "sha256": "e10824e19dac772bf109401885c4c0fcbed5ce0e3603c4906294d76e654efb9e",
+      "checked": 1632,
+      "ordered_stores_compared": true,
+      "process_exit_code": 0
+    },
+    "Debug_plain": {
+      "path": "build/c-only-debug/Debug/restore_dropdown_actions_plain_verify.exe",
+      "sha256": "50ac3a09141e47b2e5af1968f70bbf8b0e30bcaee1d53b3cdb10ff4b0a4ac78d",
+      "checked": 1632,
+      "ordered_stores_compared": false,
+      "process_exit_code": 0
+    },
+    "O2": {
+      "path": "build/c-only/Release/restore_dropdown_actions_verify.exe",
+      "sha256": "1b981852244ac0037764c93d7e0cb703d2967530ac30c362e3e18fa717f6e8e6",
+      "checked": 1632,
+      "ordered_stores_compared": true,
+      "process_exit_code": 0
+    },
+    "O2_plain": {
+      "path": "build/c-only/Release/restore_dropdown_actions_plain_verify.exe",
+      "sha256": "2702531d16a6c81c44039be5a0ebd45a75d95df1218d020835fc6190bf6ba72a",
+      "checked": 1632,
+      "ordered_stores_compared": false,
+      "process_exit_code": 0
+    }
+  },
+  "coverage": {
+    "00402bc0": {
+      "executed": 4,
+      "total": 4
+    },
+    "00402be0": {
+      "executed": 6,
+      "total": 6
+    },
+    "00402e30": {
+      "executed": 4,
+      "total": 4
+    },
+    "00402ee0": {
+      "executed": 25,
+      "total": 25
+    },
+    "004032c0": {
+      "executed": 8,
+      "total": 8
+    },
+    "00406070": {
+      "executed": 8,
+      "total": 8
+    },
+    "004060e0": {
+      "executed": 7,
+      "total": 7
+    },
+    "00406100": {
+      "executed": 11,
+      "total": 11
+    },
+    "00406140": {
+      "executed": 9,
+      "total": 9
+    },
+    "00406170": {
+      "executed": 8,
+      "total": 8
+    }
+  },
+  "conditional_outcomes": {
+    "checked": 4,
+    "total": 4
+  },
+  "composed_context_instructions": 35,
+  "routes": [
+    "direct body",
+    "actual resolver",
+    "actual central menu router",
+    "actual dropdown router",
+    "actual clicked dropdown -> callback -> close"
+  ],
+  "method": "Ten complete native no-call callback CFGs byte-authenticated and executed; complete core instruction/branch coverage, bounded global memory and canaries, exact callback store ordering for traced variants, native stack/callee-saved GPR preservation. Real C routing and clicked native dropdown path are composed without controlled algorithm endpoints.",
+  "limitations": [
+    "Native ignored EAX values are not promoted to C return values; the real dropdown ignores those callback results.",
+    "Settings entry/snapshot and cache invalidation callbacks are proved here. Settings drawing, sliders, confirmation, audio platform and every remaining menu action are separate requirements.",
+    "Native clicked-path context is covered for valid selected-row records and compared in this suite; other dropdown branches have their own complete controller proof.",
+    "Dedicated O2 variants compile the actual callback source with O2; the whole-program library retains its existing compiler settings."
+  ],
+  "native_instructions_independently_authenticated_by_Ghidra": 90,
+  "comparisons": 6528
+}

@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "1fadf8ebffcb2f1e9d98516e74d603c0ddb25b88043e9c428879dc697c56f60c",
+  "method": "Original 004d0e10 schema loader and both actual native migration callbacks, including native constructors/stack probes. File reads, codec endpoint (separately verified), allocation, memmove and error-dialog endpoints controlled. Complete output, read/copy/memory events, versions, text pointers, returns and native ABI compared.",
+  "safety_differences": [
+    "Unread native stack padding in expanded migration records is defined as zero. Native oracle stack starts zero; all fourteen town metadata tail bytes 18614..18627 are unwritten by constructor and conversion. The final DWORD is asserted to contain _chkstk return address 004d0c6a, then only those fourteen reserved bytes are normalized at 004d0d07. The 44->48 record conversion leaves offsets 46..47 uninitialized; only those two local padding bytes are zeroed at 004d0db3 before native copy-out. All initialized data and other bytes remain compared."
+  ],
+  "limitations": [
+    "This validates chunk contracts and record conversions; whole map/scenario entry controllers and their post-load initialization still need verification.",
+    "Migration test shapes match their format versions. A fabricated old record shape beyond its migration cutoff would make the native loader call a null callback; arbitrary corrupt-schema safety is separate."
+  ],
+  "passed": true,
+  "checked": 1880,
+  "source_hashes": {
+    "include/chunk_io.h": "db66e80a2a03c0f988dd486e7eee02750fa9be67e182ffb1ca135b74f473d828",
+    "runtime/chunk_migrations.c": "e9d04f81d0600f2ac8c9cefd989505cdf6aeb16ff5399c569660c9ccae3c5773",
+    "src/unit_01793.c": "4044a98a2bd1c90a9c92657b021a3158e4f464f47455a1db20384c1f89a142f2",
+    "tests/chunk_io.c": "077f321b5c3210f009136d73b80c12dd3cd3805746ae81cacd77cd6e89c6ae58",
+    "tools/verify_chunk_io_emulation.py": "a4557de6c2bb588bd4e51518737c17c90744c26898f775f8f6dd16abd42c0b7e",
+    "tools/inspect_migration_tables.py": "520d219e2fc80ccf84f47861564ac8c12aaf6eb125c2f9d48b3740f1e1ddd61e",
+    "metadata/native-chunk-schemas.json": "7e570782e905727ec0a39f5bcf5c1f3ad48d13c6fe28e4e3a56450b36fd63a20"
+  }
+}

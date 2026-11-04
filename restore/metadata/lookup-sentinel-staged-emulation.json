@@ -1,0 +1,36 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_sha256": "e8689cfe16ff004fb322187a3b82607b4b2cfc61f1206e84af122749dfe01fb4",
+  "passed": true,
+  "checked": 473,
+  "case_selection": {
+    "limit": null,
+    "single_case": false
+  },
+  "method": "Complete178 original instructions of430480/430530 versus actual compiled C. Real clear helper composition; every105567 grid DWORD, all51984 image-source DWORDs, full setup/bounds/sentinel and canaries compared. Real clear entry/exit observations and mutations, cdecl stack and all saved registers checked.",
+  "limitations": [
+    "No image descriptors, rasterization, camera clamps or later viewport passes are executed by this pair. Their correctness is not claimed.",
+    "Functions have no consumed semantic return; incidental EAX and caller-saved scratch registers are not asserted. Native caller ABI requires a clear direction flag."
+  ],
+  "elapsed_seconds": 87.17,
+  "native_instruction_coverage": [
+    178,
+    178
+  ],
+  "native_uncovered_instructions": [],
+  "full_grid_cells": 105567,
+  "source_image_cells": 51984,
+  "controlled_algorithm_endpoints": [],
+  "source_hashes": {
+    "artifacts/lookup_sentinel_phase/unit_00457.c": "1296dc3796b3f842dcf2f78d685b0ad9fcda3f1af50dfb9dc6ac797c889ee8cc",
+    "artifacts/lookup_sentinel_phase/unit_00459.c": "0efdc1c852146dc1dba7d079eb3a017d2b48d9ac68379bc0e4415df6005a9ef3",
+    "include/lookup_sentinel.h": "fc80d37a6b7b7c61155360c051ace6b5ed954b7ec7fe0a2fdb3c86d19a75710a",
+    "tests/lookup_sentinel.c": "fc55e7c17d565c6bd8f6de4ea1d786bcf63f35e1c30c774c72c801bce4a762ee",
+    "tests/lookup_sentinel_real_clear.c": "270bfc031edc77c5126d4a991bbf6a6d5f87c059d7947b40cbc7623c2205b8f1",
+    "tools/lookup_sentinel_project/CMakeLists.txt": "c808958fb5401484e8327d17b7ee1f80f4aa33e96ec20497bad8391c3ddce3d7",
+    "tools/verify_lookup_sentinel_emulation.py": "d156875aad0f05117f74af49f1c22dd5fc8c5b067f732db58b68d19554986dc4",
+    "metadata/lookup-sentinel-endpass-next-native.json": "ddcedd49d709f39d15d0dd99901f2339df63aa043734b72bff89771d25ae62ef"
+  }
+}

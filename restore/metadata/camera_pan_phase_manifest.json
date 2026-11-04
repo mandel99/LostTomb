@@ -1,0 +1,38 @@
+{
+  "format":1,
+  "state":"Three complete camera candidates, header, tests, verifier and private project frozen after4176 cases against both private Debug and optimized C. Coordinator owns application after its accepted checkpoint.",
+  "staged_sources":[
+    {"from":"artifacts/camera_pan_phase/unit_01771.c","to":"src/unit_01771.c","sha256":"fab53ae1cab36ac51922656e6e991d8b914c4ecdacdcd241cfe33c460ce0bf85"},
+    {"from":"artifacts/camera_pan_phase/unit_01877.c","to":"src/unit_01877.c","sha256":"8eeb9b524fdc7145ed62b5e966b45e40ae584899b322f5e963a624fd37cd54a0"},
+    {"from":"artifacts/camera_pan_phase/unit_01879.c","to":"src/unit_01879.c","sha256":"08888abee3a3d23350967bfce3da8699c553b56ba60ef2ec53f3408fe619c763"}
+  ],
+  "new_header":"include/camera_pan.h",
+  "unchanged_real_sources":["src/unit_00281.c","src/unit_01886.c","src/unit_01880.c","src/unit_01881.c","src/unit_00464.c","src/unit_00465.c"],
+  "keyboard_pair_preserved":["src/unit_01680.c","src/unit_01681.c"],
+  "shared_target":{
+    "name":"restore_camera_pan_verify",
+    "sources":["tests/camera_pan.c","tests/camera_pan_real.c"],
+    "include_directories":["include"],
+    "compile_definitions":["_CRT_SECURE_NO_WARNINGS"],
+    "excluded_shared_definition":"CAMERA_PAN_STAGED is private-only.",
+    "compile_options":["/W4"],
+    "link_libraries":["restore_data","advapi32"],
+    "link_options":["/BASE:0x10000","/DYNAMICBASE:NO","/FIXED"],
+    "test_command":"restore_camera_pan_verify",
+    "note":"The real wrapper includes applied1771/1877/1879 plus accepted281/1886/1880/1881/464/465 under aliases. Do not compile these procedure sources directly into this oracle. Only the test wrapper aliases timeGetTime to its typed WINAPI host-clock function. Production compiles all three applied bodies normally and uses the existing winmm dependency."
+  },
+  "shared_full_proof":"python tools/verify_camera_pan_emulation.py --production --exe <absolute shared Debug restore_camera_pan_verify.exe> --optimized-exe <absolute shared Release restore_camera_pan_verify.exe>",
+  "single_variant_note":"An explicit --exe without --optimized-exe checks one compiled variant and records comparison_checked=0. Required complete count4176, owned219/219, total296/296, branch60/60 and20 mutation phases.",
+  "private_project":"tools/camera_pan_project/CMakeLists.txt",
+  "private_target":"camera_pan_verify",
+  "private_build":"build/agent-camera-pan",
+  "private_variants":{
+    "Debug":{"compile":"/Od /W4","sha256":"261922bea8fe646b26a17c6e62a7e22e8861b89700fefa0e4c825f053357eba7","smoke":"1/1 passed"},
+    "Release":{"compile":"/O2 /W4","sha256":"c6d89be78d08ae7313dc6175fd8811db15736c4139256363ff96358ed307d441","smoke":"1/1 passed"}
+  },
+  "final_private_result":{"passed":true,"checked":4176,"comparison_checked":4176,"native_coverage":[296,296],"owned_coverage":[219,219],"owned_conditional_outcomes":[60,60],"mutation_phases":20,"controlled_algorithm_endpoints":[],"cache_records":69,"cache_stride":128,"elapsed_seconds":64.45},
+  "source_hash_authority":"All20 hashes in metadata/camera-pan-emulation.json. Archive the private report before a shared --production rerun overwrites its default path.",
+  "contract":"metadata/camera_pan_contract.json",
+  "caller_windows":"metadata/camera_pan_callers_native.json",
+  "limitations":"Only the typed Windows host clock is controlled. No full window event loop, separate442730 movement, actual wall-clock timing, original process or city pixel fidelity is claimed."
+}

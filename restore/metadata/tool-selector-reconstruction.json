@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "status": "Complete handwritten staged selector and essential row-count/release dependencies frozen. No accepted96 files changed by this phase.",
+  "original_native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "owned_procedures": {
+    "00405200": {
+      "unit": 42,
+      "instructions": 508
+    },
+    "00404120": {
+      "unit": 37,
+      "instructions": 124
+    },
+    "00486060": {
+      "unit": 1248,
+      "instructions": 7
+    }
+  },
+  "unchanged_composed_procedure": {
+    "0053d850": {
+      "unit": 2508,
+      "instructions": 32
+    }
+  },
+  "new_native_instructions": 639,
+  "unchanged_composed_native_instructions": 32,
+  "native_bytes_authenticated": 2972,
+  "checks_per_configuration": 3171,
+  "native_instruction_coverage": "671/671, with no exclusions",
+  "conditional_outcomes": "232/232, with no exclusions",
+  "computed_dispatch_targets": "10/10 across two original tables; exact table hashes and target-edge hits retained in both reports.",
+  "configurations": [
+    {
+      "report": "metadata/tool-selector-staged-debug-full-emulation.json",
+      "sha256": "d937c0652c85487513f5851d5156163fc825d9108034a3d17b6feef946c57f1f",
+      "compiled_C_path": "build/agent-tool-selector/out/Debug/restore_tool_selector_verify.exe",
+      "compiled_C_sha256": "933c7876452f97b7bfc571dcfd7c25a4e99b62b05d6647d9090f1c1f88d6caf8"
+    },
+    {
+      "report": "metadata/tool-selector-staged-release-full-emulation.json",
+      "sha256": "cd004e11381316e20e0d4b72b1a97875843e8c35e2586d1ff22df9da739e749e",
+      "compiled_C_path": "build/agent-tool-selector/out/Release/restore_tool_selector_verify.exe",
+      "compiled_C_sha256": "6f30ca22b1ee37d2dbaf56ea67c54ccb6c18ce9a3006dd2aa94efc3dca049783"
+    }
+  ],
+  "contracts": [
+    "Tool/category, selection, counts, dimensions, placement flags, player index and predicate tokens use full DWORDs.605A5C and mode/redraw bytes preserve BYTE stores.",
+    "Record table5D19C8 has16-byte stride with WORD kind/subtype and signed WORD payload. The selection table at784DDE uses signed WORD indices.784B94 stores only WORD(selection-1).",
+    "486060 clears DWORD BCA310 and writes exactly one BYTE6 at7999D8+index*264; the previous source erroneously used DWORD writes and1056-byte stride.",
+    "Subtype1 saves the actual WORD atEA5BAA+player*49D8, writes WORD1, submits the real32-instruction four-library controller, reloads the current player after it returns, and restores the saved WORD there.",
+    "404120 consumes only AL from the boolean query helpers and full signed EAX from the two resource counts; the selector consumes its full EAX count for both DWORD dimension lookups.",
+    "Full405B40/405B60/405B80 data-token stores now reach the already accepted owned-C placement resolver. No raw original function pointer is invoked."
+  ],
+  "production_integration": "Apply4 files. Units already in RESTORE_UNITS. Add tool_selector.h include and405200\u2192FUN00405200 to the central callback router; ten original data xrefs plus one directcaller403E00 bind it. No new runtime or startup function is required.",
+  "verification": "restore_tool_selector_verify uses tests/tool_selector.c+helpers.c+unit00042.c, RESTORE_TOOL_SELECTOR_PRODUCTION, and restore_data. Helpers include units37/1248/2508 textually; no duplicate compilation. Run tools/verify_tool_selector_emulation.py --production --exe <target>; standard reportmetadata/tool-selector-emulation.json.",
+  "CMake_recipe": "artifacts/tool_selector_phase/metadata/integration-cmake.txt",
+  "limitations": [
+    "403EF0/4F5020/4F4FF0/4F5470/4C52D0 availability queries and53DD90 sprite-library loading remain named controlled deep endpoints. Their selection/ordered arguments and consumed return contracts are tested; their full gameplay/file-loading algorithms are not established.",
+    "The unchanged2508 asset controller is composed for native player indices0..7 and valid sphinx variants0..2. Its legacy player scalar is BYTE, which equals DWORD over this explicit player domain. No invalid native filename-pointer read is converted into success.",
+    "Record/selector/table fixtures use mapped native storage; ordinary categories/rows cover0..37 and0..30, with safe mapped full-DWORD category/wrap probes. Subtype1 forces temporary WORD variant1, reloads the player after the loader, and restores the saved WORD to that current player exactly as native.",
+    "Boundary mutation fixtures test category/player/mode reloads across callbacks. They do not assert that each current deep endpoint performs those particular writes. No actual sidebar click, placement execution or framebuffer result is claimed."
+  ],
+  "read_only_reference": "PharaohRewrite/src/Pharaoh.Engine/UI/LegacyBuildMenuState.cs OriginalAddress405200 used as navigation/name guidance; all behavior and field widths bound to native bytes.",
+  "source_hashes": {
+    "artifacts/tool_selector_phase/include/tool_selector.h": "f0fc9a06c154edd5fd452b40cc1bf220b4ddebcad198fba0f9511309f7f81fa2",
+    "artifacts/tool_selector_phase/src/unit_00037.c": "453d4e61f3d7378b8975341660124d23afd99379f4b435d2ae80c48413bda61c",
+    "artifacts/tool_selector_phase/src/unit_00042.c": "74e97aa5f363725bd233b5c17320953819c3e1e9f09abb52ecdb475f866e13dd",
+    "artifacts/tool_selector_phase/src/unit_01248.c": "6368e1cea19a62b625ed39ed8667706d4b96ad1ff6301c80c7f03330e283cdae",
+    "src/unit_02508.c": "99adf05c5812c49407f93868dd10cbe8fbe62b94ccd2011d803c2f1220dcab1c",
+    "include/sprite_libraries.h": "8f09f2d2f11d77d9b69b73d6858f433f71652c3e3c29e007e67b3db0ee660513",
+    "tests/tool_selector.c": "7e8c1f82f2d9e7e923ac3fb1ba225dc233be04f054418a4ab3b6d09c689a2bfc",
+    "tests/tool_selector_helpers.c": "0663c9bae45edff00f8f97704993e35e07d270b3d09a6986e0d8adb1f606b331",
+    "tools/verify_tool_selector_emulation.py": "4fa6a6c029753df002bb6c953a9f1f6d62f2e3c0173881bad24efdb173d12237"
+  },
+  "native_exports": {
+    "metadata/tool-selector-next-native.json": "ae9ef144a8fcd6ee3d06c3e282fb663d12283fbd5de3366940bfc12c5a6ea455",
+    "metadata/tool-selector-query-native.json": "71fe51639a7c392c69f127b74c95625cc17c88ad0c78663deb8d2784f7339543"
+  }
+}

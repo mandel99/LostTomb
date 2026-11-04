@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "state": "132/133 bodies, header, tests and verifier frozen after3258 native cases against both compiled traced/plain variants. Coordinator owns application and shared integration.",
+  "staged_sources": [
+    {"from": "artifacts/mirrored_clip_phase/unit_00132.c", "to": "src/unit_00132.c", "sha256": "38ce6dd3177d43c888e27f26c7f541556c2da02f862ee8b1996f070a8c8c72e7"},
+    {"from": "artifacts/mirrored_clip_phase/unit_00133.c", "to": "src/unit_00133.c", "sha256": "3f5f58182b2d4e62bdb1c7682e19e5e397772617da0ccded259cfa3719e1b8c8"}
+  ],
+  "shared_target": {
+    "name": "restore_mirrored_clip_verify",
+    "sources": ["tests/mirrored_clip.c", "tests/mirrored_clip_real_skip.c", "tests/mirrored_clip_plain132.c", "tests/mirrored_clip_plain133.c", "src/unit_00132.c", "src/unit_00133.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS", "RESTORE_MIRRORED_CLIP_TRACE"],
+    "excluded_shared_definition": "MIRRORED_CLIP_STAGED is private-only. Production restore_procedures must not define RESTORE_MIRRORED_CLIP_TRACE.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_name": "standalone_mirrored_clip",
+    "test_command": "restore_mirrored_clip_verify",
+    "note": "The real-skip wrapper includes unchanged149 under an alias; do not compile149 separately in this oracle. The two plain wrappers undefine tracing and include applied132/133 under aliases. Product restore_procedures compiles both applied functions normally without tracing."
+  },
+  "shared_full_proof": "python tools/verify_mirrored_clip_emulation.py --production --exe <absolute shared restore_mirrored_clip_verify.exe>",
+  "plain_protocol": "The same binary exposes --oracle-batch and --oracle-batch-plain; the verifier always compares both. --plain-exe can select an equivalent separate oracle.",
+  "private_project": "tools/mirrored_clip_project/CMakeLists.txt",
+  "private_build_options": ["/O2", "/W4"],
+  "private_executable_sha256": "fe42f2b963297ca9ba38a5b5a6b29c437e284ae34c13723ba3e16035a21cdee3",
+  "final_private_result": {"passed": true, "checked": 3258, "plain_checked": 3258, "pair_coverage": [154,154], "helper_coverage": [32,32], "controlled_algorithm_endpoints": []},
+  "source_hash_authority": "All13 hashes in metadata/mirrored-clip-emulation.json. Preserve the optimized private report before the shared --production rerun overwrites its default path.",
+  "contract": "metadata/mirrored_clip_contract.json",
+  "frozen_previous_scope": "No accepted mirrored_raster131/149 or1066/old upper-raster proof file is modified by this phase.",
+  "limitations": "Mapped bounded stream/frame fixtures; no arbitrary malformed-stream termination or entire-city pixel-fidelity claim."
+}

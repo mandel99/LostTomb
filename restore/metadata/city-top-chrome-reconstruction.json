@@ -1,0 +1,153 @@
+{
+  "status": "Frozen after private Debug and optimized Release verification",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": [
+    {
+      "address": "00536670",
+      "source": "src/unit_02443.c",
+      "instructions": 46,
+      "contract": "Void cdecl; full DWORD display width, editor-mode access and live art base. Supported resolutions choose x=-360/-240/0, image=artBase+8, y=0. Unsupported widths draw nothing."
+    },
+    {
+      "address": "00425330",
+      "source": "src/unit_00396.c",
+      "instructions": 71,
+      "contract": "Void cdecl (signed WORD record table, signed DWORD count). Sixteen-byte record stride; signed WORD x/y/group; DWORD fonts, selected menu, text pointer, cursor and highlight state; WORD left/right hitboxes."
+    }
+  ],
+  "reference_readonly": [
+    {
+      "path": "../PharaohRewrite/docs/MAP_RENDERER_PLAN.cs.md",
+      "finding": "Names the original 1000x30 top-bar record and resolution anchors, plus full font IDs and separate menu labels."
+    },
+    {
+      "path": "../PharaohRewrite/src/Pharaoh.Engine/UI/LegacyCityTopMenu.cs",
+      "finding": "Typed menu-table context and names only. Native instructions define the actual label-painting algorithm."
+    }
+  ],
+  "native_caller_contracts": {
+    "topbar": [
+      "0051f185 in0051f0a0. Caller pushes two unused values, then discards EAX and loads faction state at0051f18d. Callee reads no stack arguments."
+    ],
+    "labels": [
+      "0051f1c7 and0051f1fe in0051f0a0. Actual calls use record tables005c9230/005c91f0 and count4. EAX is overwritten without consumption."
+    ],
+    "sprite_receiver": "Every native top-bar sprite call binds ECX=00f55bb0; existing proven global-manager C facade is unchanged.",
+    "measure_return": "004cbf30 return is discarded at004253b5; native x/y/group remain cached across translation and measurement."
+  },
+  "corrections": [
+    "Replace impossible BYTE display-width comparisons with full DWORD inputs and preserve live art IDs.",
+    "Preserve the existing full DWORD e20768 string-pointer binding and use an explicitly typed pointer when calling the width sampler.",
+    "Load fonts, selected-menu index, text cursor and highlight flag as DWORDs. Keep e38de0/e38de1 as bytes.",
+    "Sign-extend record x/y/group from WORDs; retain16-byte record stride, WORD hitbox stores, full DWORD cursor+10 wrap and count<=0 initialization behavior.",
+    "Retain native ordering: cache coordinates/group, select text, inspect live selected index, set highlight DWORD1, measure with font84, reload font8c, draw, clear highlight DWORD0, then update hitbox/cursor.",
+    "The top-bar editor branches produce identical semantic calls. C retains the volatile DWORD mode read and implements their common image/coordinate selection. No meaningful return value is introduced."
+  ],
+  "proof": {
+    "cases_each_configuration": 4626,
+    "smoke_checks_each_configuration": 37,
+    "native_functions_composed": 14,
+    "new_native_instructions": 117,
+    "frozen_HUD_instructions": 1544,
+    "total_native_instruction_coverage": [
+      1661,
+      1661
+    ],
+    "nonuniform_guards": true,
+    "frozen_HUD_source_drift": [],
+    "debug": {
+      "report": "artifacts/city_top_chrome_phase/metadata/emulation-debug.json",
+      "compiled_C_sha256": "71ce5d90f6f9c3fcce29641ba18ba4fe2b9a1ea9f021a67d1143bc4d02b3ca7b",
+      "source_hash_count": 25
+    },
+    "release": {
+      "report": "artifacts/city_top_chrome_phase/metadata/emulation-release.json",
+      "compiled_C_sha256": "405f38c73bf3a1df9f7b5f9e47ed4797ec81c93260c390f78a74e617f8e4df46",
+      "source_hash_count": 25
+    }
+  },
+  "limitations": [
+    "Map/viewport/camera, sprite/widget/text/primitive drawing and predicate0044bd00 are controlled endpoints. Font pixels, translation lookup and complete gameplay rendering are not proved.",
+    "Text selection004cc110 supplies a controlled full pointer; measurement004cbf30 and rendering004ccbb0 supply controlled cursor/font mutations. This proof establishes caller contracts; the endpoint algorithms are outside this suite.",
+    "004d71c0 remains controlled, with variant7 composing real0051e990 HUD refresh. Existing0051f780 remains an empty controlled helper.",
+    "Menu tables use mapped16-byte records and counts through16, plus negative/zero count and bounded alias stress. Malformed out-of-table animation steps and unbounded record extents are excluded. All14 routines have void interfaces; incidental EAX is not compared."
+  ],
+  "integration": {
+    "apply_map": "artifacts/city_top_chrome_phase/metadata/apply-map.json",
+    "private_project": "artifacts/city_top_chrome_phase/CMakeLists.txt",
+    "target": "restore_city_top_chrome_verify",
+    "sources": [
+      "tests/city_top_chrome.c",
+      "src/unit_00396.c",
+      "src/unit_02443.c",
+      "src/unit_02343.c",
+      "src/unit_02353.c",
+      "src/unit_02344.c",
+      "src/unit_02345.c",
+      "src/unit_02346.c",
+      "src/unit_02347.c",
+      "src/unit_02348.c",
+      "src/unit_02349.c",
+      "src/unit_02350.c",
+      "src/unit_02433.c",
+      "src/unit_02454.c",
+      "src/unit_02455.c"
+    ],
+    "include": "include",
+    "definitions": [
+      "_CRT_SECURE_NO_WARNINGS"
+    ],
+    "compile_options": [
+      "/W4",
+      "Debug /Od; optimized Release also verified"
+    ],
+    "link": [
+      "restore_data"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "test": "standalone_city_top_chrome",
+    "proof": "Python312/python.exe tools/verify_city_top_chrome_emulation.py --production --exe <shared verification executable>",
+    "production_note": "Both existing procedures already belong to the production source glob. No runtime addition, object renaming or changes to the twelve frozen HUD functions."
+  },
+  "frozen_files": [
+    {
+      "source": "artifacts/city_top_chrome_phase/src/unit_02443.c",
+      "target": "src/unit_02443.c",
+      "sha256": "a2721811bcf15d17ba2a86efca48a12225682e5604e779afac806ede00425549"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/src/unit_00396.c",
+      "target": "src/unit_00396.c",
+      "sha256": "476210520e710be246efdadf840e62d54e31b7ee82bae34aae4fbb331aa8003f"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/include/city_top_chrome.h",
+      "target": "include/city_top_chrome.h",
+      "sha256": "9a32271946a9c06132285402e62867d10fc4947860da416e7d7fe34154f3a57d"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/tests/city_top_chrome.c",
+      "target": "tests/city_top_chrome.c",
+      "sha256": "981a2e7273631af78b9a8a08b3fd25b3965ee2cac28ba8290982baf801546eda"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/tests/city_top_chrome_fixture.h",
+      "target": "tests/city_top_chrome_fixture.h",
+      "sha256": "0a415bca3ff50dcc0c548fce3812406597926315c2fbeff6d9dd19745efe8f2e"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/tools/verify_city_top_chrome_emulation.py",
+      "target": "tools/verify_city_top_chrome_emulation.py",
+      "sha256": "3694644d0518dd5dcd83b5653dd2728b8ee00d861a639cc6c050fde505d9023a"
+    },
+    {
+      "source": "artifacts/city_top_chrome_phase/metadata/native.json",
+      "target": "metadata/city-top-chrome-native.json",
+      "sha256": "fc4e1d8b9b5b58b16c97cba9c904a96eb4048c2b960800664c7a7248603c9d5c"
+    }
+  ]
+}

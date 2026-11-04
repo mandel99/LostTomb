@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "original_game_executed": false,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Complete13+165 native instructions in metadata/lookup-sentinel-endpass-next-native.json, all bytes authenticated against the pinned PE.",
+  "functions": {
+    "00430480": {
+      "C_contract": "void cdecl(void)",
+      "behavior": "Read the fullDWORD sentinel asset atf56b44 once and add0x0fff0000 modulo2^32. StoreDWORD70e424=230, fill exactly105567 lookup DWORDs at70e494, then storeDWORD70e420=456 and clearDWORD70e42c/428 in that order.",
+      "native_instructions": 13,
+      "return_consumption": "The sole native caller430530 immediately overwrites EAX at43053c. The C interface remains side-effect-only void."
+    },
+    "00430530": {
+      "C_contract": "void cdecl(uint32_t orientation)",
+      "native_instructions": 165,
+      "behavior": "Compose the actual430480 clear, initialize fullDWORD228x228 source dimensions/setup state, and transform all51984 source-image cells into the231x457 staggered lookup grid. Store the incoming full orientation at70e41c. Eligible source images produce tile indices; ineligible cells reload the full sentinel asset and produce sentinel IDs.",
+      "source_eligibility": "The native signed comparison requires(int32_t)image>=6. Values with bit31 set are ineligible even though their unsigned value exceeds6.",
+      "orientations": {
+        "0": {"row_start": 1, "twice_column_start": 230, "inner_row_step": 1, "inner_twice_column_step": 1, "outer_row_step": 1, "outer_twice_column_step": -1},
+        "2": {"row_start": 230, "twice_column_start": 1, "inner_row_step": -1, "inner_twice_column_step": 1, "outer_row_step": 1, "outer_twice_column_step": 1},
+        "4": {"row_start": 455, "twice_column_start": 230, "inner_row_step": -1, "inner_twice_column_step": -1, "outer_row_step": -1, "outer_twice_column_step": 1},
+        "all_other_values": {"row_start": 230, "twice_column_start": 455, "inner_row_step": 1, "inner_twice_column_step": -1, "outer_row_step": -1, "outer_twice_column_step": -1}
+      },
+      "bounds": "Eligible image cells update min column70e42c, min row70e428, max column70e424, max row70e420 using signed DWORD comparisons before checking the destination coordinate. Ineligible cells do not affect bounds. Column is signed division by2 truncating toward zero. Destination checks require row0..456 and column0..230.",
+      "arithmetic": "Address offsets and steps use uint32_t modular arithmetic, with explicit int32_t interpretation for native signed comparisons. Tile indices and sentinel art IDs remain fullDWORD values.",
+      "arguments_and_return": "The complete body consumes only the first stack argument. Six original callsites push an additional unused argument and clean up their own stack. All six following windows overwrite or abandon EAX before any semantic use; the void C interface is preserved."
+    }
+  },
+  "callsite_audit": [
+    {"call": "004d540b", "following": "ADDESP8;CALL4ddf90, whose first instruction overwrites EAX"},
+    {"call": "004de77e", "following": "MOVEAX,[605a3c]"},
+    {"call": "00540b85", "following": "MOVEAX,[f53f78]"},
+    {"call": "004de59f", "following": "MOVEAX,[bca2d4]"},
+    {"call": "00430b76", "following": "ADDESP8;CMPESI,sentinel; optional4304c0 call then MOVEAX,[70e464]"},
+    {"call": "00430c3c", "following": "ADDESP8;CMPESI,sentinel; optional4304c0 call then MOVEAX,[70e464]"}
+  ],
+  "proof": {
+    "report": "metadata/lookup-sentinel-emulation.json",
+    "passed": true,
+    "checked": 473,
+    "native_instruction_coverage": [178,178],
+    "full_grid_cells_per_case": 105567,
+    "source_image_cells_per_case": 51984,
+    "controlled_algorithm_endpoints": [],
+    "checks": ["Full grid/setup/bounds/sentinel/source bytes and surrounding canaries", "Source-image CPU writes prohibited", "Real clear helper entry/exit state and before/after mutations of assets/source/setup", "All four orientations and additional fullDWORDdefault modes", "Signed eligibility thresholds including5/6,7fffffff,80000000 andffffffff", "Sparse corners/edges, central regions, stripes, cycles and pseudorandom source grids", "Repeated rebuilds", "Native and C cdecl stack cleanup and EBX/EBP/ESI/EDI preservation"],
+    "private_smoke": "1/1 passed",
+    "source_hashes_checked": 8,
+    "source_drift": 0
+  },
+  "limitations": ["This pair does not execute rasterization, image descriptors, camera clamps, actor drawing or later viewport passes. Their correctness and city pixel fidelity are not established.", "Incidental EAX and caller-saved scratch state are not part of the void C contract. Native ABI requires a clear direction flag."]
+}

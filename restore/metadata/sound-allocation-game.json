@@ -1,0 +1,57 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\PharaohRestoreC.exe",
+  "compiled_C_sha256": "5482ff79df468e6ea121259aac20e1d9801b0c31e40d5a4aceb4a14814d509c5",
+  "passed": true,
+  "checked": 361,
+  "invocations": 1083,
+  "coverage": {
+    "0x55dea2": {
+      "instructions": 186,
+      "executed": 186
+    }
+  },
+  "conditional_edges": 28,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "source_hashes": {
+    "CMakeLists.txt": "d5e41540a770b75fbce792825a35cdd5a97078e5d3148c00dc055a9e9ae96b50",
+    "runtime/sound_allocation.c": "27b78a047426c696aceae05ad723929e000646c0bd8f1409b6082bce6841c9da",
+    "include/sound_allocation.h": "8bf7c1545f9c2821bebe62318fec83246f2c8804c1d6cceeb7e35520969310c4",
+    "src/unit_02687.c": "134811af8898d9476821c1ead7d99a32c61cc475b38950ed96b3e34c1c2c786d",
+    "runtime/sound_sample_reset.c": "4c7b7e95fc10fe30f8fe61f4a3f44cdb2cfe812f1f9c2cffa21297a5afadbac9",
+    "runtime/sound_stop_channels.c": "b09fa8eefe61e1a69f8000b4718decd7e6ca384bb55be141ead3a4e515988e0e",
+    "include/sound_stopping.h": "ff0fb0b5c350c28581290371e8d3653bbec5d762d68463efd46af72c8d8472ae",
+    "include/sound_playback.h": "1cc8fb25af65d60f039b8e19a4eaf738cfc687539ec444e439c3585bf5e1a9f8",
+    "include/sound_initialization.h": "931f90fa77f8c02250a18837825263b90e48adabf89855ea6656c7cbd9545f10",
+    "include/media_bindings.h": "07925327b08c3737996f757552abe259050a659add8c3bf88b2787c803fdfc00",
+    "direct_c/verify_sound_allocation.py": "28028ec10f686e5a1a3592c8605e78df04c8d565240ef90526666e01d931a326",
+    "direct_c/verify_sound_stopping.py": "a250317f50352ecf71a063feb98f8c4f8296b2457bf350871fa18e7381ceb055",
+    "direct_c/verify_sound_playback.py": "a6522e08fb01957ce84a71443cfdc29f9d3c44d838585e5f93b410ff5d40d9a0",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/sound-allocation-native.json": "8ae4da132fbea7d8e1f424d467255636f293bac11313f92eb6095392a8b5199e",
+    "metadata/sound-allocation-rea-evidence.json": "72f4f9da67cdc2e9249fa4541b3a4e5eb29adf990258664d25f278afde66079c",
+    "src/unit_02691.c": "5185394d69eef97109c17daceada3459c5acc8935813a2d7e278bd86c9dc4a7f",
+    "src/unit_02694.c": "e586dddf62af88e6d716c381b297eb33b5515d8f6e68592a47b3ec319a87ecdd",
+    "src/unit_02695.c": "7cb87d3a8d1b9f7dbf13431ad567a38fe995b56874f19cb6daaff831e0c43f64",
+    "src/unit_02697.c": "3bb87ce85f6f3b2bc39340fd406b3f19ee7ec9e0f0e27e27339b1cf7ab3564ad"
+  },
+  "actual_composition_scenarios": 91,
+  "controlled_algorithm_endpoints": [],
+  "controlled_heap_endpoints": [
+    "00561a1d",
+    "00561a2b"
+  ],
+  "controlled_media_endpoints": [
+    "_AIL_allocate_sample_handle_4",
+    "_AIL_release_sample_handle_4",
+    "_AIL_end_sample_4",
+    "_AIL_end_3D_sample_4",
+    "_AIL_mem_free_lock_4"
+  ],
+  "limitations": [
+    "Complete 55DEA2 runs with actual stop-all, individual stop members and ordered channel reset. Only heap/Miles endpoints are controlled.",
+    "All static/private bytes, guarded heap pages, ordered writes, meaningful child/backend inputs, full EAX, normal-return ABI and matched explicit memory faults are compared.",
+    "Wrapped and huge requested sizes are observed at the test allocator; fixed mapped guard pages permit bounded actual paths through immediate allocation/handle failure. Physical giant allocations, full successful huge traversals, backend/device behavior, concurrency and native OS exception dispatch remain unproved."
+  ]
+}

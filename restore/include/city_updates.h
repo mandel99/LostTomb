@@ -96,7 +96,7 @@ void FUN_0047e290(void);
 void FUN_0046a060(void);
 void FUN_00469730(void);
 void FUN_00468b70(void);
-uint8_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty);
+uint32_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty);
 void restore_city_C_004677c0(struct restore_city_frame *);
 void restore_city_C_00468170(struct restore_city_frame *);
 void restore_city_C_004684e0(struct restore_city_frame *);

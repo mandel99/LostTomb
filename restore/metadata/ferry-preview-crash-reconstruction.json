@@ -1,0 +1,105 @@
+{
+  "status": "Ferry Landing selection crash repaired; four complete functions reconstructed in typed C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x47f3e0",
+      "file": "src/unit_01162.c",
+      "name": "restore_ferry_scan_crossing",
+      "rea": "ev_22d93b7ebd439af44ce9cc8031a3c96dbfcf81ee08f416423fbcb41d40710460",
+      "recovered_chunks": true,
+      "native_bytes": 298,
+      "native_instructions": 83,
+      "native_body_sha256": "22de36cfc33f6d3ccc448dc0e9aa000eddb05d4e5969b502e656e0262290c9a6",
+      "source_sha256": "80474372c2f54172b5bee74667f98cc3acb204564fce5a48a5d04ef6f38a1a1f"
+    },
+    {
+      "entry": "0043d300",
+      "file": "src/unit_00568.c",
+      "name": "restore_ferry_preview",
+      "rea": "ev_3190e4663373bd83e46a0adb3fc47be20ab951ecde2ee4aa94ada0c1fedd1102",
+      "native_bytes": 1041,
+      "native_instructions": 312,
+      "native_body_sha256": "f5c65ecd1d11426195a10f4bc9552be7683e9448777f213cbb5a10441fb87c2d",
+      "source_sha256": "584464eaf3279fe838116f7dfab4aba0fb2565c3760d04ff40bd925b8425b21a"
+    },
+    {
+      "entry": "0043d030",
+      "file": "src/unit_00567.c",
+      "name": "restore_ferry_highlight_approaches",
+      "rea": "ev_d45a5c942e4a3c63071bc949b2bee37518641aa4367d1da03fc6c34036718d47",
+      "native_bytes": 709,
+      "native_instructions": 228,
+      "native_body_sha256": "d17e43a4b2a5320e4f754160d7f5769109f3c49f7489bd239122d25f8c0c8e1b",
+      "source_sha256": "e9adb6eafd3540b4266c37237234bdfdaaeb769bfb0ddd6f2bf764e2dbc55dad"
+    },
+    {
+      "entry": "0043d010",
+      "file": "src/unit_00566.c",
+      "name": "restore_ferry_image_orientation",
+      "rea": "ev_19ac71522f20fce5a34351d3a53d5b5527dd56de34093c081cd14f1985403508",
+      "native_bytes": 23,
+      "native_instructions": 9,
+      "native_body_sha256": "292a0bef7dab7ea253b72b6e06ea558b6a53ae314a8dd7ff7e1955d4b239e3f4",
+      "source_sha256": "a893c62ae86056824c62efad3f1d04e2b01c454bbfe7d2a5d322a7bb0629de67"
+    }
+  ],
+  "native_bytes": 2071,
+  "native_instructions": 632,
+  "crash_evidence": {
+    "dump": "build\\c-only\\Release\\PharaohRestoreC-crash.dmp",
+    "sha256": "12096f8611f88baee8c532c3ac7b2d0f628923510240673e34e1276e2258acab",
+    "observed_local": "2026-11-02 15:57:27",
+    "exception": "C0000005 execute at00000000",
+    "compiled_c_return": "003E34AC = FUN_0047F3E0+6C",
+    "caller": "FUN_0043D300 Ferry Landing placement preview",
+    "module_coff": "6AE8A379",
+    "scope": "Crash context/stack read offline; the full saved game state was not replayed."
+  },
+  "root_cause": "The old47F3E0 body misread an unresolved native JMP table as a function call through original code addresses. A previous compiled C build reproduces the same null instruction fetch at EIP0.",
+  "changes": [
+    "Resolve all four even orientation table entries and every formerly missing scan/success block as C control flow.",
+    "Preserve native one-cell-ahead probes, endpoint, length40 success marker and maximum scan behavior.",
+    "Reconstruct the complete first/second landing preview and opposite-bank highlight loop.",
+    "Use exact BYTE placement validity, WORD ownership/tint/coordinates and DWORD positions, lengths, assets, camera and pointers.",
+    "Keep the1000-DWORD owned route buffer and original first250-DWORD initialization.",
+    "Preserve cached values and reloads after projection, geometry, route and draw callbacks."
+  ],
+  "boundary_recovery": {
+    "47F3E0": "REA/Ghidra function manager reports only99 bytes in two ranges. Missing switch blocks and success tail were recovered from Ghidra read_memory47F3E0..47F50B and the original seven-entry table47F50C. All298 code bytes through RET47F509 match the pinned PE and decode completely; trailing two-byte NOP is excluded."
+  },
+  "verification": {
+    "script": "direct_c/verify_ferry_preview.py",
+    "cases": 355,
+    "crossing_scan": 127,
+    "orientation": 36,
+    "approach_highlights": 100,
+    "full_preview": 76,
+    "actual_compositions": 16,
+    "actual_compositions_scope": "All four recovered functions compose, including opposite-bank alignment and route acceptance; actual47CBD0 shoreline query executes in four dedicated scan cases.",
+    "controlled_boundaries": [
+      "4F0BA0 projection",
+      "47CC70 landing fit",
+      "486CF0 existing landing query",
+      "486A30 route query",
+      "47CBD0 in controlled orientation cases",
+      "53E590/53F250/53F4F0 draw endpoints",
+      "43DD70 valid footprint draw"
+    ],
+    "comparison": "Full seeded native global memory, ordered logical calls, output-buffer/count initialization, returned DWORD/AL where defined, stack cleanup and nonvolatile registers.",
+    "regression_before_fix": "Previous Preview SHA2561b6be712f011a91d357bbeb57d092ab0b007aefdffb69f747dbbe0b3e3c9ef38:47F3E0 with controlled shore direction2 faults at EIP0, matching the reported crash mechanism.",
+    "diagnostic": "restore_link_check.exe without arguments passed",
+    "live_gameplay": "Not run; no host game or physical rendering."
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "a31f65a17a4b736550c60fbaa5b9cde479c956653ffe3e4c34baef0d32bfc6f2",
+    "bytes": 7618048,
+    "modified": "2026-11-02T16:12:16.464537+01:00",
+    "compile": "four C translation units strict MSVC /W4 /WX; build passed"
+  },
+  "publication": "Source update only; no tag/release created.",
+  "pending_goal_work": "Unverified five-function worker-state/sort work is saved intact in build/pending-worker-state. Its source changes were removed from this tested Ferry Landing build.",
+  "source_commit": "57c07d4b764eb6b4ffd84b0c2ba9c5c877a6595c"
+}

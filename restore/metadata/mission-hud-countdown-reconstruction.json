@@ -1,0 +1,47 @@
+{
+  "status": "Complete native51F790 reconstructed as typed named C mission-status renderer",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": {
+    "entry": "0x51f790",
+    "name": "restore_city_draw_mission_status",
+    "file": "src/unit_02352.c",
+    "native_bytes": 1459,
+    "native_instructions": 434,
+    "native_body_sha256": "a7b7f61063a856efdf3c0b0fdaa2be9406ef0a2dadfee82c2f326f4ae4da28b9",
+    "source_sha256": "d868929a4d026d56ed145e1dc227791f5f18e5a24fa09a9d53f18d6c90819711",
+    "rea": "ev_049481a9cf7edcb03d110a3955e0be226f19e4b47acf0f684f8bb747f8af5349",
+    "rea_bytes": "ev_9882162277971a5918c042d706455cfa9cb77c097246a24280891f9489582ff4"
+  },
+  "reported_issue": "Garbled red mission timer in Cleopatra Capital; user supplied an original screenshot reading Months to complete mission144.",
+  "cause": "Old exported source truncated full font IDs, signed calendar years/months, viewport origins and several mode flags to BYTE values. Preserve the native campaign WORD gate and tomb-placement/pause BYTE flags.",
+  "restoration": "Recover both timer modes, four black outline draws and red foreground, complete won/tomb-placement notices, debug event/happiness text and paused banner. Cache font only where native does and reload origins/cursor after callbacks. Use existing localized text and numeric rendering providers.",
+  "verification": {
+    "script": "direct_c/verify_mission_hud.py",
+    "cases": 417,
+    "mode_priority_and_widths": 72,
+    "calendar": 192,
+    "other_branches_and_callback_reloads": 117,
+    "actual_catalog_number_compositions": 36,
+    "comparison": "Full seeded global memory, ordered logical draw/layout calls, rendered text bytes/values, stack cleanup and nonvolatile registers.",
+    "real_composition": "51F790 composes real4D62F0/4D6860,4CCBB0,4CCE00/4CC5C0 and native/C catalog selection using the existing Pharaoh_Text.eng. Only final4CC770 glyph endpoint and layout records are controlled.",
+    "specific_results": [
+      "Months to complete mission144 at January",
+      "143 at February",
+      "133 at December",
+      "Months until victory144 in survival mode"
+    ],
+    "pre_fix_regression": "Old Preview SHA2566e9fb9149784869e4c2d54d0a605d408a873797d98b256d3e67e77699ac7dbd0 fails a controlled native/C case: font0 instead of0x12340100 and origins1/255 instead of257/-513.",
+    "limits": "No full framebuffer comparison or host gameplay. Screenshot is user evidence, not a replay capture.",
+    "diagnostic": "Preview and copied Release no-argument restore_link_check.exe passed."
+  },
+  "build": {
+    "executable": "build/c-only/Release/PharaohRestoreC.exe",
+    "configuration": "Win32 Release",
+    "sha256": "759ee5a72835cc8435ffbddc26e1c28d8a6f253dd3c5760fd613c8139641f100",
+    "bytes": 7618048,
+    "modified": "2026-11-02T17:13:50+01:00",
+    "compile": "MSVC /W4 /WX for unit02352; complete source build passed. Final source comment clarifies the tomb-placement flag; executable implementation is unchanged."
+  },
+  "publication": "Source update only; no tag or GitHub release created.",
+  "source_commit": "d76a026717fc0fe5acead13f9ef7c5412846899a"
+}

@@ -1,0 +1,565 @@
+{
+  "format": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "passed": true,
+  "checked": 19,
+  "complete_native_caller_bodies": 10,
+  "authenticated_original_instructions": 3018,
+  "source": "metadata/viewport-controller-facade-callers-native.json",
+  "source_sha256": "3753dd7ce4b194be6d98a9550c09764ff351f5994fdc6506def5b1520250e82a",
+  "method": "Authenticate all10 complete caller bodies against pinned PE, then follow post-call direct control flow from all19 CALL004dddc0 sites until full EAX overwrite, next call, RET or tail jump. Reject any intervening EAX/AX/AL/AH read. Conditional branches in these paths inspect their own memory comparisons. No process executed.",
+  "conclusion": "None of19 callers reads the facade EAX value before overwriting it, issuing another direct call, returning or tail jumping. Three wrappers have incidental forwarding on an epilogue path; this alone does not establish a semantic return value. Keep the existing void facade/controller interfaces.",
+  "limitations": [
+    "Next direct calls and tail jumps are ABI boundaries; this local audit does not claim whole-program register dataflow across arbitrary custom-convention callees.",
+    "The audit distinguishes unchanged EAX at a RET from actual caller-side consumption; incidental forwarding is explicitly retained as an observation rather than interpreted as a result."
+  ],
+  "sites": [
+    {
+      "callsite": "004d7689",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d768e",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051ec90"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d768e",
+          "bytes": "e8fd750400",
+          "instruction": "CALL 0x0051ec90",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d76e4",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d7714",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051efb0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d76e9",
+          "bytes": "eb27",
+          "instruction": "JMP 0x004d7712",
+          "comment": null
+        },
+        {
+          "address": "004d7712",
+          "bytes": "6a00",
+          "instruction": "PUSH 0x0",
+          "comment": null
+        },
+        {
+          "address": "004d7714",
+          "bytes": "e897780400",
+          "instruction": "CALL 0x0051efb0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d772f",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d7734",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x00425430"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d7734",
+          "bytes": "e8f7dcf4ff",
+          "instruction": "CALL 0x00425430",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d7750",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d7755",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x00520000"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d7755",
+          "bytes": "e8a6880400",
+          "instruction": "CALL 0x00520000",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d7763",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d7768",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x005208f0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d7768",
+          "bytes": "e883910400",
+          "instruction": "CALL 0x005208f0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d77d5",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d77da",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x004caf10"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d77da",
+          "bytes": "e83137ffff",
+          "instruction": "CALL 0x004caf10",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d822a",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d8231",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051efb0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d822f",
+          "bytes": "6a00",
+          "instruction": "PUSH 0x0",
+          "comment": null
+        },
+        {
+          "address": "004d8231",
+          "bytes": "e87a6d0400",
+          "instruction": "CALL 0x0051efb0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d8247",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d824e",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051efb0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d824c",
+          "bytes": "6a00",
+          "instruction": "PUSH 0x0",
+          "comment": null
+        },
+        {
+          "address": "004d824e",
+          "bytes": "e85d6d0400",
+          "instruction": "CALL 0x0051efb0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d8264",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d826b",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051efb0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d8269",
+          "bytes": "6a00",
+          "instruction": "PUSH 0x0",
+          "comment": null
+        },
+        {
+          "address": "004d826b",
+          "bytes": "e8406d0400",
+          "instruction": "CALL 0x0051efb0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004d827e",
+      "caller": "004d75d0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004d8285",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051efb0"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004d8283",
+          "bytes": "6a00",
+          "instruction": "PUSH 0x0",
+          "comment": null
+        },
+        {
+          "address": "004d8285",
+          "bytes": "e8266d0400",
+          "instruction": "CALL 0x0051efb0",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "0051eb88",
+      "caller": "0051e990",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "0051eb8d",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "0051eb8d",
+          "bytes": "a1643ff500",
+          "instruction": "MOV EAX,[0x00f53f64]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "0051fe06",
+      "caller": "0051fd60",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "0051fe0b",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "0051fe0b",
+          "bytes": "a1b08de300",
+          "instruction": "MOV EAX,[0x00e38db0]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "0051ffd5",
+      "caller": "0051ffd0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "0051ffed",
+          "kind": "tail jump reached without any caller-side EAX read",
+          "target": "0x520000"
+        },
+        {
+          "address": "0051fff2",
+          "kind": "incidental EAX forwarding at return; no caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "0051ffda",
+          "bytes": "803dca8de30002",
+          "instruction": "CMP byte ptr [0x00e38dca],0x2",
+          "comment": null
+        },
+        {
+          "address": "0051ffe1",
+          "bytes": "720f",
+          "instruction": "JC 0x0051fff2",
+          "comment": null
+        },
+        {
+          "address": "0051ffe3",
+          "bytes": "c705303ff50000000000",
+          "instruction": "MOV dword ptr [0x00f53f30],0x0",
+          "comment": null
+        },
+        {
+          "address": "0051ffed",
+          "bytes": "e90e000000",
+          "instruction": "JMP 0x00520000",
+          "comment": null
+        },
+        {
+          "address": "0051fff2",
+          "bytes": "c3",
+          "instruction": "RET",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004c5f8f",
+      "caller": "004c5e60",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004c5f9d",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051e990"
+        },
+        {
+          "address": "004c5fae",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004c5f94",
+          "bytes": "803dca8de30001",
+          "instruction": "CMP byte ptr [0x00e38dca],0x1",
+          "comment": null
+        },
+        {
+          "address": "004c5f9b",
+          "bytes": "7505",
+          "instruction": "JNZ 0x004c5fa2",
+          "comment": null
+        },
+        {
+          "address": "004c5f9d",
+          "bytes": "e8ee890500",
+          "instruction": "CALL 0x0051e990",
+          "comment": null
+        },
+        {
+          "address": "004c5fa2",
+          "bytes": "8b0d60b1d300",
+          "instruction": "MOV ECX,dword ptr [0x00d3b160]",
+          "comment": null
+        },
+        {
+          "address": "004c5fa8",
+          "bytes": "8b155cb1d300",
+          "instruction": "MOV EDX,dword ptr [0x00d3b15c]",
+          "comment": null
+        },
+        {
+          "address": "004c5fae",
+          "bytes": "a124b1d300",
+          "instruction": "MOV EAX,[0x00d3b124]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004c6d83",
+      "caller": "004c6c70",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004c6d91",
+          "kind": "next direct call reached without any caller-side EAX read",
+          "target": "0x0051e990"
+        },
+        {
+          "address": "004c6d96",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004c6d88",
+          "bytes": "803dca8de30001",
+          "instruction": "CMP byte ptr [0x00e38dca],0x1",
+          "comment": null
+        },
+        {
+          "address": "004c6d8f",
+          "bytes": "7505",
+          "instruction": "JNZ 0x004c6d96",
+          "comment": null
+        },
+        {
+          "address": "004c6d91",
+          "bytes": "e8fa7b0500",
+          "instruction": "CALL 0x0051e990",
+          "comment": null
+        },
+        {
+          "address": "004c6d96",
+          "bytes": "a15cb1d300",
+          "instruction": "MOV EAX,[0x00d3b15c]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004e18c2",
+      "caller": "004e1870",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004e18cd",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004e18c7",
+          "bytes": "8b150451e900",
+          "instruction": "MOV EDX,dword ptr [0x00e95104]",
+          "comment": null
+        },
+        {
+          "address": "004e18cd",
+          "bytes": "a10851e900",
+          "instruction": "MOV EAX,[0x00e95108]",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "005208c5",
+      "caller": "005208c0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "005208dd",
+          "kind": "tail jump reached without any caller-side EAX read",
+          "target": "0x5208f0"
+        },
+        {
+          "address": "005208e2",
+          "kind": "incidental EAX forwarding at return; no caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "005208ca",
+          "bytes": "803dca8de30002",
+          "instruction": "CMP byte ptr [0x00e38dca],0x2",
+          "comment": null
+        },
+        {
+          "address": "005208d1",
+          "bytes": "720f",
+          "instruction": "JC 0x005208e2",
+          "comment": null
+        },
+        {
+          "address": "005208d3",
+          "bytes": "c705303ff50000000000",
+          "instruction": "MOV dword ptr [0x00f53f30],0x0",
+          "comment": null
+        },
+        {
+          "address": "005208dd",
+          "bytes": "e90e000000",
+          "instruction": "JMP 0x005208f0",
+          "comment": null
+        },
+        {
+          "address": "005208e2",
+          "bytes": "c3",
+          "instruction": "RET",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004f8e60",
+      "caller": "004f8e60",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004f8e6b",
+          "kind": "full EAX overwritten before any caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004f8e65",
+          "bytes": "8b156cddea00",
+          "instruction": "MOV EDX,dword ptr [0x00eadd6c]",
+          "comment": null
+        },
+        {
+          "address": "004f8e6b",
+          "bytes": "8bc2",
+          "instruction": "MOV EAX,EDX",
+          "comment": null
+        }
+      ]
+    },
+    {
+      "callsite": "004fa489",
+      "caller": "004fa3c0",
+      "no_caller_side_EAX_read": true,
+      "path_endpoints": [
+        {
+          "address": "004fa490",
+          "kind": "incidental EAX forwarding at return; no caller-side read"
+        }
+      ],
+      "inspected_postcall_instructions": [
+        {
+          "address": "004fa48e",
+          "bytes": "5e",
+          "instruction": "POP ESI",
+          "comment": null
+        },
+        {
+          "address": "004fa48f",
+          "bytes": "5d",
+          "instruction": "POP EBP",
+          "comment": null
+        },
+        {
+          "address": "004fa490",
+          "bytes": "c3",
+          "instruction": "RET",
+          "comment": null
+        }
+      ]
+    }
+  ]
+}

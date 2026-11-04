@@ -1,0 +1,42 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Preview\\restore_link_check.exe",
+  "compiled_C_sha256": "874738642ce5f6082dca1a45c7b48e2137f5b9ad477cce41def88b3d59586500",
+  "passed": true,
+  "checked": 160,
+  "source_hashes": {
+    "runtime/sprite_frame_clock.c": "871d04d6648f756dfc2a674bdb6f6eabb2c81e73a3cd79421ffb0d2614fe08cb",
+    "include/sprite_frame_clock.h": "899698da7cd7c5c3a088a101f9a8646d61cac209236e3e9e707989e90734c318",
+    "src/unit_01989.c": "f5d37cf556cc06316c4d0cd1ef951c73a33a4809486e55364ad2057633f1b241",
+    "CMakeLists.txt": "ec74eb99841d943f09284f98d6e60a99477aef3849a831cfb24877e75dba8a81",
+    "direct_c/verify_sprite_frame_clock.py": "1cd3847b9d0264c99d537b8455fb48c87df3b98b222c537e36e03e1509d00fbf"
+  },
+  "coverage": {
+    "start": "0x4e61f0",
+    "end_inclusive": "0x4e62b7",
+    "bytes": 200,
+    "instructions": 48,
+    "executed": 48,
+    "conditional_edges": 12
+  },
+  "controlled_algorithm_endpoints": [],
+  "controlled_platform_endpoints": [
+    "timeGetTime",
+    "GetAsyncKeyState"
+  ],
+  "scope": [
+    "Actual compiled4E61F0 integration and named C clock/key helper, full DWORD writes and callback reloads",
+    "Unsigned timer wrap, key masks, full-width flags, x87 PC/RC, NaN/Inf and inherited x87 values/status",
+    "Five clock-to-real-animation-tick compositions, including DWORD wrap and unsigned-high elapsed time"
+  ],
+  "limitations": [
+    "Optional preview-object pointers are null; dispatch after4E62B8 is not reconstructed or approved by this proof.",
+    "Masked FP exceptions; no live game, keyboard state or multimedia timer is exercised.",
+    "Exact FPSW is compared for the clock/key prefix, not for the later timing-method composition."
+  ],
+  "commit": "7c04ea3ea98f2bb662011d50c85cc1bb80803f83",
+  "publication_source_parity": true,
+  "promoted_release_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "promoted_release_sha256": "874738642ce5f6082dca1a45c7b48e2137f5b9ad477cce41def88b3d59586500",
+  "no_argument_host_diagnostic_exit_code": 0
+}

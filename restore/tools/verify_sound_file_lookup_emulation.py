@@ -1,6 +1,7 @@
 """Sound file table native/C comparison. No files, media or game are run."""
 from pathlib import Path
-import hashlib,json,struct,subprocess,sys,time
+import argparse,hashlib,json,struct,subprocess,sys,time
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument("--exe",type=Path);args=parser.parse_args()
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'build/offline-verification-deps'))
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_BLOCK,UC_HOOK_CODE,__version__ as unicorn_version
@@ -20,19 +21,21 @@ def write(a,v,n=4):vm.mem_write(a,(v&((1<<(n*8))-1)).to_bytes(n,'little'))
 def cstring(a):return bytes(vm.mem_read(a,256)).split(b'\0',1)[0]
 state={}
 def guard(cpu,a,n,user):
- if a not in [0x5631b0,0x56b177] and not any(lo<=a and a+n-1<=hi for lo,hi in [(0x55dd3f,0x55dea1),(0x560280,0x5602e2)]):raise RuntimeError('Native instruction escaped at '+hex(a))
+ if a not in [0x5631b0,0x56b177] and not any(lo<=a and a+n-1<=hi for lo,hi in [(0x55dd3f,0x55dea1),(0x560280,0x5602e2),(0x5631b0,0x563233)]):raise RuntimeError('Native instruction escaped at '+hex(a))
 def endpoint(cpu,a,n,user):
  sp=cpu.reg_read(UC_X86_REG_ESP);x=read(sp+4);y=read(sp+8)
  if a==0x5631b0:
   x=cstring(x);y=cstring(y);value=0 if x==y else (1 if x>y else 0xffffffff)
  else:
-  state['duplicates']+=1;vm.mem_write(HEAP,cstring(x)+b'\0');value=HEAP
+  state['duplicates']+=1
+  if state['fail_duplicate']:value=0
+  else:vm.mem_write(HEAP,cstring(x)+b'\0');value=HEAP
  cpu.reg_write(UC_X86_REG_EAX,value);cpu.reg_write(UC_X86_REG_EIP,read(sp));cpu.reg_write(UC_X86_REG_ESP,sp+4)
 vm.hook_add(UC_HOOK_BLOCK,guard)
-for a in [0x5631b0,0x56b177]:vm.hook_add(UC_HOOK_CODE,endpoint,begin=a,end=a)
+for a in [0x56b177]:vm.hook_add(UC_HOOK_CODE,endpoint,begin=a,end=a)
 def native(p):
  global state
- state={'duplicates':0};vm.mem_write(BASE,bytes([p[6]&255])*0x1000);vm.mem_write(HEAP,b'\xcd'*0x1000)
+ state={'duplicates':0,'fail_duplicate':p[4]};vm.mem_write(BASE,bytes([p[6]&255])*0x1000);vm.mem_write(HEAP,b'\xcd'*0x1000)
  for i,v in enumerate([p[0],p[1],BASE+0x100 if p[2] else 0]):write(BASE+i*4,v)
  for i in range(8):write(BASE+0x100+i*4,0)
  vm.mem_write(BASE+0x400,b'cached.wav\0');vm.mem_write(BASE+0x440,b'same.wav\0')
@@ -53,19 +56,20 @@ def native(p):
   'memory':bytes(vm.mem_read(BASE,0x1000)).hex(),'heap':bytes(vm.mem_read(HEAP,0x1000)).hex()}
 cases=[]
 for capacity in [0,1,2,3,4]:
- for count in [0,1,2,3,4]:
+ for count in [0,1,2,3,4,0xffffffff,0xfffffffe]:
   for entries in [0,1]:
    for copy in [0,1,2,0xffffffff]:
     for name in range(5):
-     for null in [0,1]:cases.append([capacity,count,entries,copy,0,null,0xa5,name])
-exe=ROOT/'build/c-only-debug/Debug/restore_sound_files_verify.exe'
+     for null in [0,1]:
+      for failure in [0,1]:cases.append([capacity,count,entries,copy,failure,null,0xa5,name])
+exe=args.exe or ROOT/'build/c-only/Debug/restore_sound_files_verify.exe'
 process=subprocess.Popen([str(exe),'--oracle-batch'],cwd=ROOT,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
 report={'format':1,'original_game_executed':False,'unicorn_version':unicorn_version,'native_entry':'0x0055dd3f',
- 'method':'Native file table lookup/append plus native temporary-string constructor/destructor versus compiled C; strcmp and strdup endpoints controlled',
+ 'method':'Native file table lookup/append plus native temporary-string constructor/destructor and actual case-sensitive strcmp versus compiled C; only strdup controlled',
  'compared':['exact table/entry/string bytes','file ID and duplicate allocation count','copy ownership flag','stack cleanup, preserved registers and restored native exception chain'],
- 'limitations':['C rejects negative counts/null input and returns failure without inserting a null entry if strdup fails; these deliberate repairs are checked by source-only tests.',
-  'The unused native temporary string/SEH frame is eliminated from C; arbitrary C++ exceptions are not emulated.'],
- 'original_sha256':hashlib.sha256(image).hexdigest(),'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest()}
+ 'limitations':['Null-input/alias/callback cases and complete sample loading are checked by the separate whole-graph sound-sample suite; this corpus compares guarded negative indices and allocation failure in the legacy table fixture.',
+  'Both normal-return object lifecycles run. Native/compiler SEH frames restore their chains; arbitrary exception delivery/unwind is not proved.'],
+ 'original_sha256':hashlib.sha256(image).hexdigest(),'compiled_C_path':str(exe.resolve()),'compiled_C_sha256':hashlib.sha256(exe.read_bytes()).hexdigest()}
 checked=0;case=None;started=time.monotonic()
 try:
  assert json.loads(process.stdout.readline())=={'object':BASE}
@@ -80,7 +84,7 @@ except Exception as error:report.update(passed=False,checked=checked,case=case,e
 finally:
  process.stdin.close();process.wait(timeout=10)
 report['elapsed_seconds']=round(time.monotonic()-started,3)
-files=['src/unit_02686.c','include/sound_file_lookup.h','include/sound_initialization.h','tests/sound_file_lookup.c','tools/verify_sound_file_lookup_emulation.py']
+files=['CMakeLists.txt','tools/sound_file_project/CMakeLists.txt','runtime/sound_file_lookup.c','runtime/owned_buffer.c','include/owned_buffer.h','include/byte_string_compare.h','src/unit_02725.c','src/unit_02726.c','src/unit_02848.c','src/unit_02686.c','include/sound_file_lookup.h','include/sound_initialization.h','tests/sound_file_lookup.c','tools/verify_sound_file_lookup_emulation.py']
 report['source_hashes']={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in files}
-(ROOT/'metadata/sound-file-lookup-emulation.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/('metadata/sound-file-lookup-emulation-release.json' if 'Release' in str(exe) else 'metadata/sound-file-lookup-emulation.json')).write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='source_hashes'},indent=2));sys.exit(0 if report['passed'] else 1)

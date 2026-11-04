@@ -1,0 +1,99 @@
+{
+  "status": "Complete two-function sound lifecycle reconstruction and observed Preview media-load failure repaired; offline validation passed",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x55e14f",
+      "bytes": 572,
+      "instructions": 156,
+      "rea": "ev_5ae71d2f8d1d0547bd0e2aafe11d1695e3748227fa7aaa910c15dfae090c6599"
+    },
+    {
+      "entry": "0x55e92b",
+      "bytes": 622,
+      "instructions": 161,
+      "rea": "ev_e22815ad87c4ab7957da84672dbb0fd2b65e12a280cff3bc2a76c2057987a599"
+    }
+  ],
+  "changes": [
+    "55E14F now receives an explicit RestoreSound and signed count; exact arrays4/40/12 bytes per slot, native allocation failure exits, partial handle success, callback-sensitive count/pointer reloads.",
+    "55E92B now receives the real sound controller; preserve all2D sample/default, stream,3D provider, Miles shutdown and four final allocation releases in original order.",
+    "Fix callers' declarations/receiver forwarding. Provider selection55F697 now has an explicit receiver; its remaining helper closure and the whole inherited destructor are not certified by this change.",
+    "Media loader now supports the launcher's selected absolute game-data directory after executable-local media DLLs; uses explicit wide paths and retains restricted Windows dependency search flags.",
+    "Do not distribute or copy media DLLs; no host game or DLL launched by verification."
+  ],
+  "observed_crash": {
+    "dumps": [
+      "C:/Users/Daniel/AppData/Local/CrashDumps/PharaohRestoreC.exe.20176.dmp",
+      "C:/Users/Daniel/AppData/Local/CrashDumps/PharaohRestoreC.exe.10348.dmp"
+    ],
+    "time": "2026-11-02T19:55",
+    "module": "build/c-only/Preview/PharaohRestoreC.exe",
+    "coff": "0x6ae8dc3d",
+    "exception": "0xc0000409",
+    "fast_fail": 7,
+    "module_record_at": "0x019037c8",
+    "init_once": 2,
+    "loaded_handle": 0,
+    "error": 126,
+    "dll_pointer": "0x019034d4",
+    "dll_text": "mss32.dll",
+    "export_pointer": "0x019034c4",
+    "export_text": "_AIL_startup@0",
+    "filesystem": "mss32.dll present in selected debug-startup-game and Release; absent from Preview. Existing loader attempted only the EXE directory.",
+    "certainty": "DLL/export strings and cached module/error fields read directly from dump; old map is unavailable and no exact unsupported old symbol attribution claimed.",
+    "dump_sha256": {
+      "C:/Users/Daniel/AppData/Local/CrashDumps/PharaohRestoreC.exe.20176.dmp": "2180ee6393eed7c3d48c8a82262f5ee9ccfe7f7f72d5c4e54f57fc931b287db1",
+      "C:/Users/Daniel/AppData/Local/CrashDumps/PharaohRestoreC.exe.10348.dmp": "9d5464e73bd4acbad25acb6b41eac49d58802790a4baf11d10a9d664524b2f43"
+    }
+  },
+  "verification": {
+    "native_c_script": "direct_c/verify_sound_lifecycle.py",
+    "native_c_cases": 97,
+    "pool_resize": 38,
+    "shutdown": 59,
+    "composed": "Actual existing55EC7C stop helper and55E5D2 channel-default reset execute in three composed cases; all Miles and allocation boundaries controlled.",
+    "comparison": "Full EAX, ordered logical calls, all seeded global memory and128KiB scratch/controller/array state, stack cleanup and nonvolatile registers.",
+    "media_loader_script": "direct_c/verify_media_loader.py",
+    "media_loader_cases": 74,
+    "media_scope": "Actual compiled callback and directory setter; GetModuleFileNameW/LoadLibraryExW/GetLastError controlled. All3DLLs, precedence/fallback, trailing separators, Unicode, unknown/truncated EXE paths and errors. InitOnce/export resolver contract unchanged; full host launch not exercised.",
+    "binding_fixture": "PASS60 multimedia forwarding signatures",
+    "noarg_link_check": "PASS",
+    "limitations": "No live audio/device behavior,3D provider selection UI, whole inherited destructor, physical game startup or media DLL execution."
+  },
+  "sources": [
+    "CMakeLists.txt",
+    "include/sound_initialization.h",
+    "runtime/game_launcher.c",
+    "runtime/media_loader.c",
+    "runtime/media_loader.h",
+    "src/unit_02688.c",
+    "src/unit_02690.c",
+    "src/unit_02693.c",
+    "src/unit_02713.c",
+    "direct_c/verify_sound_lifecycle.py",
+    "direct_c/verify_media_loader.py"
+  ],
+  "build": {
+    "sha256": "56ae577d6f3894b325d7869fa71e91233ddd426b4b7514acbb482c1926101370",
+    "bytes": 7610880,
+    "local_time": "2026-11-02T20:34:14",
+    "path": "build/c-only/Release/PharaohRestoreC.exe",
+    "promotion": "Promoted verified EXE/maps and link-check artifacts only after no PharaohRestoreC process was observed.",
+    "release_sha256": "56ae577d6f3894b325d7869fa71e91233ddd426b4b7514acbb482c1926101370"
+  },
+  "source_commit": "32e63052c61c565e5fb5d4a3891df9c6e972e0a9",
+  "source_sha256": {
+    "CMakeLists.txt": "8aeec8b3bbc776bc6be392f62ef56cf1e913f92d2c662a0c3aa42c6b2606eafd",
+    "include/sound_initialization.h": "44f243a34e074a4ade3d8c5f714c5330b27fc013b15c19386d0cc4f7dfdc0e9e",
+    "runtime/game_launcher.c": "6fa18cc119dab70e5245fcd9d481d1c680583b8704ea7378abaf9a461945ca6c",
+    "runtime/media_loader.c": "e8472390c8d359650f418a2fc835e604be625422bdebd85d28192bed8c2b97c3",
+    "runtime/media_loader.h": "501716930bc0f58e161f713f13fda5f3c9d57946955122594fafc3a38fd98713",
+    "src/unit_02688.c": "9bacb92a79bb2e9151c112d7249fd7d40c27e7f964d9d2c175fdd8f84bb6ce58",
+    "src/unit_02690.c": "c5ed76f2169d3415ad4038726c4cf7c94c31fb483c99e28ec5ab65f3104815c0",
+    "src/unit_02693.c": "51de73acf7765e127b7cd82946d94ff6e1a11c5894c3d9319f1999f237b1f771",
+    "src/unit_02713.c": "54a56b309ea6af880ee7ba5b7a9525d7691e9fb17a10035496ede589d683db69",
+    "direct_c/verify_sound_lifecycle.py": "a325adc6a45153da86fe2e7ce15756e0c50300314b6ed86684b7fc785113f96b",
+    "direct_c/verify_media_loader.py": "bceb665aed9405babc369cd934e3f27a0822f8fe19bbd44f52c50a85cb351bc8"
+  }
+}

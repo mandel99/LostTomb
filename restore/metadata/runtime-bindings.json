@@ -1,0 +1,222 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "status": "Twenty-three active C replacements; original native fallback remains for other routines.",
+  "bindings": [
+    {
+      "address": "0x0041ba00",
+      "source": "generated C",
+      "adapter": "c_0041ba00",
+      "input": "stack: int",
+      "callee_cleanup_bytes": 4,
+      "return": "EAX",
+      "reviewed_ollama_assistance": "metadata/ollama-pilot.json"
+    },
+    {
+      "address": "0x0041bad0",
+      "source": "generated C",
+      "adapter": "c_0041bad0",
+      "input": "stack: uint32",
+      "callee_cleanup_bytes": 4,
+      "return": "EAX",
+      "reviewed_ollama_assistance": "metadata/ollama-pilot.json"
+    },
+    {
+      "address": "0x00451bc0",
+      "source": "generated C",
+      "adapter": "c_00451bc0",
+      "input": "stack: int",
+      "callee_cleanup_bytes": 0,
+      "return": "EAX",
+      "reviewed_ollama_assistance": "metadata/ollama-pilot.json"
+    },
+    {
+      "address": "0x0045b490",
+      "source": "generated C",
+      "adapter": "c_0045b490",
+      "input": "stack: int",
+      "callee_cleanup_bytes": 0,
+      "return": "EAX",
+      "reviewed_ollama_assistance": "metadata/ollama-pilot.json"
+    },
+    {
+      "address": "0x0045bb30",
+      "source": "generated C",
+      "adapter": "c_0045bb30",
+      "input": "stack: int,int",
+      "callee_cleanup_bytes": 0,
+      "return": "AL; adapter also preserves the original 0..2 EAX result",
+      "reviewed_ollama_assistance": "metadata/ollama-pilot.json"
+    },
+    {
+      "address": "0x004e5120",
+      "source": "generated C plus reviewed return adapter",
+      "adapter": "c_004e5120",
+      "input": "ECX: record; stack: int,int,int,int",
+      "callee_cleanup_bytes": 16,
+      "return": "EAX=record"
+    },
+    {
+      "address": "0x004e5140",
+      "source": "runtime/record_geometry.c",
+      "adapter": "c_004e5140",
+      "input": "ECX: destination; stack: source",
+      "callee_cleanup_bytes": 4,
+      "return": "EAX=destination",
+      "evidence": "metadata/geometry-evidence.json"
+    },
+    {
+      "address": "0x004e5190",
+      "source": "runtime/record_geometry.c",
+      "adapter": "c_004e5190",
+      "input": "ECX: record",
+      "callee_cleanup_bytes": 0,
+      "return": "EAX=(y-x)*(step+1) modulo 2^32",
+      "evidence": "metadata/geometry-evidence.json"
+    },
+    {
+      "address": "0x004e52b0",
+      "source": "runtime/record_geometry.c",
+      "adapter": "c_004e52b0",
+      "input": "stack: records,signed count",
+      "callee_cleanup_bytes": 8,
+      "return": "void contract; no EAX claim for nonpositive counts",
+      "evidence": "metadata/geometry-evidence.json"
+    },
+    {
+      "address": "0x00562240",
+      "source": "runtime/memory_strings.c",
+      "adapter": "c_00562240",
+      "input": "stack: destination,source,size_t count",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=destination",
+      "evidence": "metadata/memory-strings-evidence.json"
+    },
+    {
+      "address": "0x005631b0",
+      "source": "runtime/memory_strings.c",
+      "adapter": "c_005631b0",
+      "input": "stack: left,right strings",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX exactly -1,0,1",
+      "evidence": "metadata/memory-strings-evidence.json"
+    },
+    {
+      "address": "0x00563240",
+      "source": "runtime/memory_strings.c",
+      "adapter": "c_00563240",
+      "input": "stack: destination,int value,size_t count",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=destination",
+      "evidence": "metadata/memory-strings-evidence.json"
+    },
+    {
+      "address": "0x00563380",
+      "source": "runtime/memory_strings.c",
+      "adapter": "c_00563380",
+      "input": "stack: NUL-terminated byte string",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=32-bit byte length",
+      "evidence": "metadata/memory-strings-evidence.json"
+    },
+    {
+      "address": "0x0056233e",
+      "source": "runtime/core_helpers.c",
+      "adapter": "c_0056233e",
+      "input": "stack: uint32 seed",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=seed; shared 32-bit state at 0x604950",
+      "evidence": "metadata/core-helpers-evidence.json"
+    },
+    {
+      "address": "0x00562348",
+      "source": "runtime/core_helpers.c",
+      "adapter": "c_00562348",
+      "input": "none",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=(next state>>16)&0x7fff; shared state updated modulo 2^32",
+      "evidence": "metadata/core-helpers-evidence.json"
+    },
+    {
+      "address": "0x005632a0",
+      "source": "runtime/core_helpers.c",
+      "adapter": "c_005632a0",
+      "input": "stack: text,pattern",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=first match or NULL; empty pattern returns text",
+      "evidence": "metadata/core-helpers-evidence.json"
+    },
+    {
+      "address": "0x00563400",
+      "source": "runtime/core_helpers.c",
+      "adapter": "c_00563400",
+      "input": "stack: destination,source,size_t count",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=destination; overlap-safe copy",
+      "evidence": "metadata/core-helpers-evidence.json"
+    },
+    {
+      "address": "0x004f6520",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f6520",
+      "input": "ECX: queue",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=1; initializes 50-slot object",
+      "evidence": "metadata/ring-queue-evidence.json"
+    },
+    {
+      "address": "0x004f6560",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f6560",
+      "input": "ECX: queue",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=0; clears head/tail only",
+      "evidence": "metadata/ring-queue-evidence.json"
+    },
+    {
+      "address": "0x004f6570",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f6570",
+      "input": "ECX: queue; stack: uint32 value",
+      "callee_cleanup_bytes": 4,
+      "return_value": "EAX=0 or 1; occupied-slot search",
+      "evidence": "metadata/ring-queue-evidence.json"
+    },
+    {
+      "address": "0x004f65b0",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f65b0",
+      "input": "ECX: queue; stack: source pointer",
+      "callee_cleanup_bytes": 4,
+      "return_value": "EAX=0 or 1; full queue does not read source",
+      "evidence": "metadata/ring-queue-evidence.json"
+    },
+    {
+      "address": "0x004f65f0",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f65f0",
+      "input": "ECX: queue; stack: cursor pointer",
+      "callee_cleanup_bytes": 4,
+      "return_value": "EAX=slot value or zero at tail; cursor updated in original order",
+      "evidence": "metadata/ring-queue-evidence.json"
+    },
+    {
+      "address": "0x004f6630",
+      "source": "runtime/ring_queue.c",
+      "adapter": "c_004f6630",
+      "input": "ECX: queue",
+      "callee_cleanup_bytes": 0,
+      "return_value": "EAX=wrapped tail-head count",
+      "evidence": "metadata/ring-queue-evidence.json"
+    }
+  ],
+  "validation": {
+    "independent_original_checks": 500105,
+    "existing_mapped_checks": 192,
+    "new_memory_return_checks": 150000,
+    "global_state": "Geometry globals and original RNG state restored after each verification phase.",
+    "guard": "All twenty-three original prefixes checked before patching; refusal tested with a changed final site.",
+    "memory_string_comparisons": 201546,
+    "core_helper_comparisons": 554112,
+    "ring_queue_comparisons": 333008
+  }
+}

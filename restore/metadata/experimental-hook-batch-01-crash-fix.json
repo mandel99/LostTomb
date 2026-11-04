@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "observed_failure": {
+    "exception": "0xc0000005",
+    "runtime_address": "0x71b486f0",
+    "runtime_rva": "0x000086f0",
+    "mapped_function": "FUN_0040ffd0",
+    "original_address": "0x0040ffd0"
+  },
+  "root_cause": "The recovered C source declared seven globals as one-byte undefined values although the original instructions read six dwords and one signed word. The resulting framebuffer destination pointer was invalid.",
+  "correction": {
+    "source": "src/unit_00136.c",
+    "dword_globals": [
+      "DAT_00d3b53c",
+      "DAT_00d3b5d4",
+      "DAT_00d3b5dc",
+      "DAT_00d3b5e0",
+      "DAT_00e38d94",
+      "DAT_00e92e18"
+    ],
+    "signed_word_globals": [
+      "DAT_00d3b5be"
+    ]
+  },
+  "batch_hardening": {
+    "rule": "Reject experimental candidates that still dereference a global as bare undefined.",
+    "old_entries_removed": 123,
+    "replacement_entries_added": 123,
+    "remaining_untyped_global_entries": 0,
+    "batch_size": 200,
+    "manifest_sha256": "a6c9aafaaa6d6907580587c3d175790daf2e5695d3fbbdafea3d45e16904d8f7"
+  },
+  "verification": {
+    "tests_passed": 7,
+    "tests_failed": 0,
+    "startup_smoke_seconds": 25,
+    "responsive_window": true,
+    "unhandled_exception": false
+  }
+}

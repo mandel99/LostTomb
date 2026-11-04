@@ -33,6 +33,10 @@ static void prepare(const uint32_t input[16],const uint8_t *text,size_t bytes)
     memset(self,(uint8_t)p[1],SNAPSHOT);REQUIRE(FUN_00539550(self)==self);
     if(!p[0])return;
     for(i=0;i<53;++i)self->categories[i].ambient_count=0;
+    if(p[0]==3&&(int32_t)p[2]<=53){
+        uint32_t row=(uint32_t)(uintptr_t)self+p[2]*0x1b10u;
+        U(row+0x1b08u)=p[3];U(row+0x1b0cu)=p[4];
+    }
     if(p[0]!=5&&(int32_t)p[2]>=0&&p[2]<53) {
         RestoreMusicCategory *c=&self->categories[p[2]];c->count=(int32_t)p[3];c->ambient_count=(int32_t)p[4];
         for(i=0;i<p[3]&&i<50;++i) {
@@ -81,22 +85,22 @@ int main(int argc,char **argv)
         REQUIRE(run(q,song,strlen(song))==1);c=&RESTORE_MUSIC->categories[0];REQUIRE(c->count==1&&!strcmp(c->tracks[0].path,song)&&c->tracks[0].minimum==20);
         q[6]=1;REQUIRE(run(q,song,strlen(song))==1&&c->ambient_count==1&&c->tracks[50].minimum==0&&c->tracks[50].maximum==0);
         q[4]=10;REQUIRE(run(q,song,strlen(song))==-1);q[4]=0;q[6]=0;q[3]=50;REQUIRE(run(q,song,strlen(song))==-1);
-        q[3]=0;q[2]=53;REQUIRE(run(q,song,strlen(song))==-1&&RESTORE_MUSIC->enabled==0);q[2]=0xffffffffu;REQUIRE(run(q,song,strlen(song))==-1);q[2]=0;
-        memset(long_path,'x',100);long_path[100]=0;REQUIRE(run(q,long_path,100)==-1&&c->count==0);
+        q[3]=0;q[2]=53;REQUIRE(run(q,song,strlen(song))==1&&RESTORE_MUSIC->enabled!=0);q[2]=0xffffffffu;REQUIRE(run(q,song,strlen(song))==1);q[2]=0;
+        memset(long_path,'x',100);long_path[100]=0;REQUIRE(run(q,long_path,100)==1&&c->count==1&&c->tracks[0].delay==7);
         q[0]=5;REQUIRE(run(q,text,strlen(text))==0&&c->count==2&&c->ambient_after[1]==1&&c->tracks[1].delay==20);
         REQUIRE(RESTORE_MUSIC->categories[52].ambient_count==1&&RESTORE_MUSIC->categories[52].tracks[50].delay==20);
         q[13]=0;REQUIRE(run(q,"a.mp3 M 0\n",10)==0&&!strcmp(c->tracks[0].path,"audio\\music\\a.mp3"));
-        q[14]='D';run(q,"a.mp3 M 0\n",10);REQUIRE(!strcmp(c->tracks[0].path,"D:\\audio\\music\\a.mp3"));q[13]=1;q[14]=0;
-        run(q,"bad\n\na.mp3 M -1\nAMBIENT\n",24);REQUIRE(c->count==0);
+        q[14]='D';run(q,"a.mp3 M 0\n",10);REQUIRE(!strcmp(c->tracks[0].path,"audio\\music\\a.mp3"));q[13]=1;q[14]=0;
+        run(q,";bad\n\nAMBIENT\n",14);REQUIRE(c->count==0&&c->ambient_after[0]==1);
         n=0;for(i=0;i<50;++i) {memcpy(generated+n,"a.mp3 M 0\n",10);n+=10;}memcpy(generated+n,"AMBIENT\n",8);n+=8;
-        run(q,generated,n);REQUIRE(c->count==50&&c->ambient_count==0);
-        memset(generated,'x',95);memcpy(generated+95," M 0\n",5);run(q,generated,100);REQUIRE(c->count==0);
+        run(q,generated,n);REQUIRE(c->count==1&&c->ambient_count==0);
+        memset(generated,'x',95);memcpy(generated+95," M 0\n",5);run(q,generated,100);REQUIRE(c->count==1);
         q[0]=4;q[3]=5;q[5]=4;q[6]=1;q[7]=7;q[8]=150;q[11]=4;q[12]=0;run(q,"",0);
         REQUIRE(RESTORE_MUSIC->first==0&&RESTORE_MUSIC->last==1&&RESTORE_MUSIC->current==0&&RESTORE_MUSIC->phase==1);
         q[12]=1;run(q,"",0);REQUIRE(RESTORE_MUSIC->phase==42);
         q[0]=0;q[1]=0xa5;run(q,"",0);for(i=0;i<53;++i)REQUIRE(!RESTORE_MUSIC->categories[i].count&&RESTORE_MUSIC->categories[i].ambient_count==(int32_t)0xa5a5a5a5u);
         REQUIRE(U((uintptr_t)RESTORE_MUSIC+sizeof(*RESTORE_MUSIC))==0xa5a5a5a5u);
-        printf("Music manager: %u checks across %u scenarios; constructor bounds, records, parser defaults, category/path guards, ambient markers and population selection verified without playback.\n",checks,scenarios);
+        printf("Music manager: %u checks across %u scenarios; native record/count behavior, parser defaults, ambient aliasing, population selection and local-only CD policy verified without playback.\n",checks,scenarios);
     }
     restore_data_close();return 0;
 }

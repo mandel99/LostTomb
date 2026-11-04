@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "state": "131/149 bodies, header, tests and verifier frozen after1066 native cases versus both traced/plain optimized C variants. Coordinator owns application/shared build and old2210 rerun.",
+  "staged_sources": [
+    {"from": "artifacts/mirrored_raster_phase/unit_00131.c", "to": "src/unit_00131.c", "sha256": "9ad57dd005f6f44e85be7661a423cb8d9a2f5e120a12dbed1bc4059eba9a33a9"},
+    {"from": "artifacts/mirrored_raster_phase/unit_00149.c", "to": "src/unit_00149.c", "sha256": "1379f6416ee2e3ad5c96a49d45ca3b10e30ae87a1ccc875298f512a20e49a34c"}
+  ],
+  "shared_target": {
+    "name": "restore_mirrored_raster_verify",
+    "sources": ["tests/mirrored_raster.c", "tests/mirrored_raster_real_skip.c", "tests/mirrored_raster_plain.c", "src/unit_00131.c"],
+    "include_directories": ["include"],
+    "compile_definitions": ["_CRT_SECURE_NO_WARNINGS", "RESTORE_MIRRORED_RASTER_TRACE"],
+    "excluded_shared_definition": "MIRRORED_RASTER_STAGED is private-only. Production restore_procedures must not define RESTORE_MIRRORED_RASTER_TRACE.",
+    "compile_options": ["/W4"],
+    "link_libraries": ["restore_data", "advapi32"],
+    "link_options": ["/BASE:0x10000", "/DYNAMICBASE:NO", "/FIXED"],
+    "test_name": "standalone_mirrored_raster",
+    "test_command": "restore_mirrored_raster_verify",
+    "note": "The real-skip wrapper includes149 under an alias; do not compile149 separately in this oracle. The plain wrapper undefines tracing and includes production131 under a second alias. Product restore_procedures compiles both applied sources normally without tracing."
+  },
+  "shared_full_proof": "python tools/verify_mirrored_raster_emulation.py --production --exe <absolute shared restore_mirrored_raster_verify.exe>",
+  "plain_protocol": "The same binary exposes --oracle-batch and --oracle-batch-plain. The verifier runs both by default; --plain-exe is available for an equivalent separate oracle.",
+  "private_project": "tools/mirrored_raster_project/CMakeLists.txt",
+  "private_build_options": ["/O2", "/W4"],
+  "private_executable_sha256": "cfb58e4ebb6ec13199a07f247127024bba0ff45a59b480a6fe2cfb8e6382e0c4",
+  "final_private_result": {"passed": true, "checked": 1066, "plain_checked": 1066, "decoder_coverage": [64,64], "helper_coverage": [32,32], "controlled_algorithm_endpoints": []},
+  "source_hash_authority": "All11 hashes in metadata/mirrored-raster-emulation.json. Preserve this optimized private report before the shared --production rerun overwrites its default path.",
+  "contract": "metadata/mirrored_raster_contract.json",
+  "dependency_failure_evidence": "metadata/mirrored-raster-helper-carry-failure.json",
+  "required_root_followup": "Archive prior upper-raster2210 evidence, apply both exact candidates, rebuild and rerun the unchanged old upper-raster2210 verifier with repaired149.",
+  "limitations": "Mapped bounded stream/frame fixtures; no arbitrary malformed-stream termination or entire-city pixel-fidelity claim."
+}

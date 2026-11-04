@@ -1,0 +1,67 @@
+{
+  "status": "Four whole functions reconstructed and verified in compiled standalone C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "entry": "0x44aaf0",
+      "native_bytes": 3873,
+      "native_instructions": 1237,
+      "name": "restore_editor_event_detail_draw",
+      "source": "src/unit_00715.c",
+      "source_sha256": "e0957083b6cbdb99f5b3376d4cbc48493b84bb1cb0592f5ad4e15c1ddaf169d1",
+      "native_body_sha256": "997704af661e1526b9e24e3f30e6fbd3948ea204a0397cb0765941b919283a6f",
+      "rea": "ev_932992b57775fd1d44924b206a41b3a771f8f5277ea481adfd4f07c50c8ff8f7"
+    },
+    {
+      "entry": "0x4cd1f0",
+      "native_bytes": 70,
+      "native_instructions": 24,
+      "name": "restore_ui_label_at_rect",
+      "source": "src/unit_01707.c",
+      "source_sha256": "c60fc06adc6bc83bc4dd51909ee33e5f80c3eda30800a1d044e4b5531cc0e72f",
+      "native_body_sha256": "8892ef544c20a8ce6d6347075a1f3d44e2a117bf8646a30246eefdf5708e5279",
+      "rea": "ev_e1acd95aeadc919a2a6562d1885673bac971d6e3e20b38f7dac8c69e4a59773f"
+    },
+    {
+      "entry": "0x4cd2e0",
+      "native_bytes": 82,
+      "native_instructions": 29,
+      "name": "restore_ui_clipped_number_at_rect",
+      "source": "src/unit_01710.c",
+      "source_sha256": "340182836b76d9b4bab164c6c2352af31e16afa0226237935b93663987dfac33",
+      "native_body_sha256": "4618193b1a6fd9e08a1d2d106931895ff2702698a9091988581b2f735b3b4283",
+      "rea": "ev_60be8de6ec8bcdd4d31f7d35b66e82f4d032061af4fe2606731313a62bb186b5"
+    },
+    {
+      "entry": "0x4cd340",
+      "native_bytes": 70,
+      "native_instructions": 24,
+      "name": "restore_ui_number_at_rect",
+      "source": "src/unit_01711.c",
+      "source_sha256": "f49264dd46c7830176e060d8bfe5e21ee8a699606b3380e8bac4e4862187229a",
+      "native_body_sha256": "1665887c7d02279642543046ca3f3d8ad65c3148bf85112e9e6e7ac379e02e77",
+      "rea": "ev_ed23b6ebb2e5729e20838bf4cba1798ae7744c940f487c585617de5bab379003"
+    }
+  ],
+  "native_bytes": 4095,
+  "native_instructions": 1314,
+  "reuse": "The renderer consumes the actual complete existing resource/detail/event-query C graphs through explicit receiver/argument frames. Record erasure and lookup use existing reviewed C bodies. No original code is invoked.",
+  "restoration": "Full selected-record cache, erase-and-continue behavior, range snapshots, per-callback font/origin/hover reloads, delayed arguments, all reference rows, selection validation and month/type panels. Signed WORD record fields and DWORD UI/counter values retain native widths. Three complete rectangle helpers preserve32-bit wrapped arithmetic.",
+  "verification": {
+    "script": "direct_c/verify_event_detail_render.py",
+    "cases": 406,
+    "whole_detail": 343,
+    "actual_helper_and_erasure_compositions": 27,
+    "rectangle_helpers": 36,
+    "comparison": "Full seeded global memory, ordered meaningful UI calls, argument values, native/C stack cleanup and nonvolatile registers. Actual query graph executes for all30 event kinds.",
+    "limitations": "Final UI/text/number endpoints are controlled. This is not a physical rendering or live gameplay certification."
+  },
+  "build": {
+    "sha256": "a227757492bacbd69dea7b5b3897fe19ddea7fc541d3a74665b112d99a7d68b1",
+    "bytes": 7612416,
+    "local_time": "2026-11-02T19:09:20",
+    "release_path": "build/c-only/Release/PharaohRestoreC.exe",
+    "release_sha256": "a227757492bacbd69dea7b5b3897fe19ddea7fc541d3a74665b112d99a7d68b1"
+  },
+  "source_commit": "3f54c6608808dd2ed67515d35e9058589edfaad8"
+}

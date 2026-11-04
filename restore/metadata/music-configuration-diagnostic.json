@@ -1,0 +1,105 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\c-only\\Release\\restore_link_check.exe",
+  "compiled_C_sha256": "3fa481ceff13823dd75aef68a6217ec9a1a2af611b515e1f2c6f564603250282",
+  "passed": true,
+  "checked": 748,
+  "invocations": 2244,
+  "coverage": {
+    "0x539250": {
+      "instructions": 219,
+      "executed": 209,
+      "user_disabled_CD": 10
+    },
+    "0x5395e0": {
+      "instructions": 117,
+      "executed": 117,
+      "user_disabled_CD": 0
+    },
+    "0x539730": {
+      "instructions": 79,
+      "executed": 79,
+      "user_disabled_CD": 0
+    },
+    "0x539a50": {
+      "instructions": 5,
+      "executed": 5,
+      "user_disabled_CD": 0
+    },
+    "0x561db1": {
+      "instructions": 74,
+      "executed": 74,
+      "user_disabled_CD": 0
+    }
+  },
+  "conditional_edges": 86,
+  "unexecuted_instructions": [],
+  "unexecuted_edges": [],
+  "source_hashes": {
+    "CMakeLists.txt": "cb064b7bd42b49a6ab8fff87671c58bcc39d0d47b54a3224622555b3b76512f2",
+    "runtime/music_configuration.c": "0e2342aada38751214f2566f0d16c5856a030780fe4dae47b172eb03d954daee",
+    "runtime/music_tracks.c": "b4c6ed174d107544f8e131fcc9351cd6636a99ebcd4ba88c4dca0b8b1dd6ff5c",
+    "runtime/music_population_range.c": "52610ab9c6ab89893bb0f73654c18a8fabc67e2aa08ca1d74edfe26ad6c32694",
+    "runtime/byte_tokenizer.c": "b7e9079f56c038be630f1dfd987a00c6dc191d5283150d336d0a0db47ffeecea",
+    "include/music_configuration.h": "80f0012092acccfee65d15b2220ef428641841931ec805ed6f268afc10dddc24",
+    "include/music_manager.h": "147feee13242eb1c964eec5f9d0bc40c9b24b4c7dc5852307a0fa48a52cfc07d",
+    "include/byte_tokenizer.h": "0c6432f40ddf1596364585914c2b2364a999e71b1415dfd2e12ff5d4d1a4ea26",
+    "include/legacy_format.h": "b6bf95793584ade58f8c3abf3f9d7cb5ef67fd09b02c5bff0d406086dddf95be",
+    "direct_c/verify_music_configuration.py": "03a0ab17442a4cd2ae07aafecca295c8d90a56c452b1ab50ebfc7a16c863787e",
+    "direct_c/verify_options_startup.py": "ad9e67a3c189ba32b8864028a67030b14a5214bcdb23fb1d7dc7680895250ab3",
+    "metadata/music-configuration-native.json": "dea1a8ccef64051684d6b910a1e3b04f93b96641e77330c501dab989f5ff7819",
+    "metadata/music-configuration-rea-evidence.json": "60009ae53ea83a03d8d5da539e6ae9e07cbcaa13ad00a94b2c27df9aecada4e9",
+    "src/unit_02473.c": "53c681da3565305c59f208f42c6b61856a7efc5431bee061d80948b8c77f5eef",
+    "src/unit_02476.c": "5033b3777cceac97c11abb4d015e7cca501a9a5f9caf180cd54f04f847669b98",
+    "src/unit_02477.c": "5ec8b280d39f456828bab69ba0fee60373bb7c388c3c375d06b5473fc4952cce",
+    "src/unit_02480.c": "8c047e737d12be52debb128db77ffe7df1f5d071853c1ab1bd603d60d3f0e146",
+    "src/unit_02815.c": "b3f51069aab117598e44a8f9782502158391149cc32efd64b2df73b6db4ccddc"
+  },
+  "actual_composition_scenarios": 203,
+  "explicit_CD_policy_scenarios": 3,
+  "user_disabled_CD_instructions": [
+    "0x539470",
+    "0x539472",
+    "0x539473",
+    "0x539479",
+    "0x53947d",
+    "0x53947e",
+    "0x539483",
+    "0x539484",
+    "0x539489",
+    "0x53948c"
+  ],
+  "user_disabled_CD_edges": [
+    [
+      "0x53946e",
+      "0x539470"
+    ]
+  ],
+  "analytically_unreachable_edges": [
+    [
+      "0x53930e",
+      "0x539324"
+    ],
+    [
+      "0x539388",
+      "0x53939e"
+    ],
+    [
+      "0x53939c",
+      "0x53937e"
+    ]
+  ],
+  "controlled_algorithm_endpoints": [],
+  "controlled_crt_endpoints": [
+    "fopen",
+    "fclose",
+    "fgets",
+    "sprintf",
+    "strtol"
+  ],
+  "limitations": [
+    "Five whole native bodies are recorded. Ten CD-only fallback instructions and their incoming outcome are explicitly disabled in C at the user request; three separate actual native/C policy cases assert the authorized different result and do not contribute equivalence coverage.",
+    "Three inline string-comparison outcomes are impossible for immutable AMBIENT/A constants. All remaining owned instructions/outcomes execute actual insertion, range-setter and byte-tokenizer children.",
+    "Static/private bytes, ordered CPU writes, child/CRT inputs, meaningful EAX, full normal-return ABI, matched explicit faults and tokenizer cursor are compared. Temporary parser buffer pointers are normalized by relative role. Physical CRT/file/decimal behavior, arbitrary caller-stack aliases, unbounded huge traversal and OS exception dispatch are unproved."
+  ]
+}

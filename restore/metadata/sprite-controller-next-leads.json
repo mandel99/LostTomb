@@ -1,0 +1,176 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "status": "Unreconstructed leads; this is not an approval or proof of whole-controller correctness.",
+  "entries": [
+    {
+      "address": "0x55d330",
+      "evidence": "ev_b8e2099626a6e067431d990bae3c3a9a4bd490a06fa07f7fc3aaa4a95bdba1e4",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d330",
+            "end": "0x55d45e"
+          }
+        ],
+        "total_bytes": 303,
+        "span_bytes": 303,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x55d460"
+      ],
+      "callees": [
+        "0x55d290",
+        "0x55d2e0",
+        "0x55d300",
+        "0x55d750",
+        "0x55d840"
+      ],
+      "unresolved_calls": []
+    },
+    {
+      "address": "0x55d460",
+      "evidence": "ev_1e6669426f0f89b92c7eaa94bd44fb11274c5d29b926892806e6bcf0264e3eb6",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d460",
+            "end": "0x55d470"
+          }
+        ],
+        "total_bytes": 17,
+        "span_bytes": 17,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x55d810"
+      ],
+      "callees": [
+        "0x55d330"
+      ],
+      "unresolved_calls": []
+    },
+    {
+      "address": "0x55d6d0",
+      "evidence": "ev_bcdf2c9ff8f48a2d3c26137ea9888ca0f121dd9e2a945ea60b14f384eaf5a6a9",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d6d0",
+            "end": "0x55d738"
+          }
+        ],
+        "total_bytes": 105,
+        "span_bytes": 105,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x4e61f0"
+      ],
+      "callees": [
+        "0x55d760",
+        "0x55d780",
+        "0x55d7b0",
+        "0x55d810"
+      ],
+      "unresolved_calls": []
+    },
+    {
+      "address": "0x55d810",
+      "evidence": "ev_87bf40bb10c985bfe903a7cdb2ded8056fa41ab6c8e20012b0516196ef4fa710",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d810",
+            "end": "0x55d83b"
+          }
+        ],
+        "total_bytes": 44,
+        "span_bytes": 44,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x55d6d0"
+      ],
+      "callees": [
+        "0x55d460",
+        "0x55d4f0"
+      ],
+      "unresolved_calls": []
+    },
+    {
+      "address": "0x55d840",
+      "evidence": "ev_0a77adea6cbb378e73b58bc67cfb65a934163c0f98a79b8d803497ef5d9ec53a",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d840",
+            "end": "0x55d8a0"
+          }
+        ],
+        "total_bytes": 97,
+        "span_bytes": 97,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x55d330"
+      ],
+      "callees": [
+        "0x55d9c0"
+      ],
+      "unresolved_calls": [
+        {
+          "address": "0x55d868",
+          "reason": "Instruction decoder identifies a call but ReferenceManager supplies no call destination"
+        }
+      ]
+    },
+    {
+      "address": "0x55d750",
+      "evidence": "ev_3ed9b6d99dd7f8e59fce7b3dd65e77b63ec6d3abf0819bd9c38246a4bddfae28",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x55d750",
+            "end": "0x55d753"
+          }
+        ],
+        "total_bytes": 4,
+        "span_bytes": 4,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "callers": [
+        "0x55d330"
+      ],
+      "callees": [],
+      "unresolved_calls": []
+    }
+  ],
+  "observations": [
+    "55D840 calls vtable[0] on the embedded subobject self+4; the result is x87 ST0 and is spilled to binary32 before55D9C0.",
+    "55D840 with no source clears AX only, preserving incoming EAX high16. A null source+8 instead returns full DWORD0.",
+    "55D9C0 output contains a private-stack inherited padding WORD;55D840 returns the packed first DWORD, not just the variant index.",
+    "55D750 is XOR AX,AX;RET, not an angle getter. It clears only low16 of EAX.",
+    "Only direct caller of55D6D0 is4E61F0; direct caller of55D330 is55D460, itself reached by55D810.",
+    "Authenticated cached instruction scan across4527 entries found two +114 memory writes:51E025 stack-local data and55D8C6 child-slot clear. No constructor store was found; computed/aliased writes are not excluded.",
+    "Concrete virtual angle/draw/delete providers remain unidentified. Do not substitute zero angles, fabricated vtables or free-only destructors."
+  ]
+}

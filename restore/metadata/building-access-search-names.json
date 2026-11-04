@@ -1,0 +1,24 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "names": {
+    "00481060": "restore_building_find_access",
+    "00481210": "restore_building_find_wide_access",
+    "00487d00": "restore_building_fixed_entry",
+    "004f30b0": "restore_building_special_entry",
+    "00458270": "restore_building_remove_highest_serial"
+  },
+  "creation_serial": {
+    "address": "007999ee + building*264",
+    "width": "WORD",
+    "producer": "0046a400",
+    "producer_evidence_id": "ev_cf2ed479e3237c6e9adbb201e536dd4750e17c3df1cfee8c6e3ddc9bb467415a",
+    "instructions": ["0046a490 MOV EAX,[0078d7b4]", "0046a495 MOV WORD[ESI+7999ee],AX", "0046a49c INC EAX", "0046a4ab MOV [0078d7b4],EAX"],
+    "removal_selection": "First strict maximum above zero, compared as signed WORD, among status1/3 records up to the cached high-water count. Negative/sentinel/wrapped serials remain excluded exactly as native.",
+    "evidence": "metadata/building-serial-producer-rea-evidence.json"
+  },
+  "known_native_quirks_retained": [
+    "00481210 fallback adds the selected horizontal shift a second time to published X and returned cell.",
+    "00487d00 returns a zero-based cell; its caller's existing result-1 transformation remains native behavior.",
+    "004f30b0 preserves full-EAX high bits from the tile-output pointer in mode5 and from the grid base in other modes; AL is1."
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "format": 1,
+  "restored_native_function_count": 10,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "implementation_frozen": true,
+  "production_sources": [
+    "src/unit_02344.c",
+    "src/unit_02345.c",
+    "src/unit_02346.c",
+    "src/unit_02347.c",
+    "src/unit_02348.c",
+    "src/unit_02349.c",
+    "src/unit_02350.c",
+    "src/unit_02433.c",
+    "src/unit_02454.c",
+    "src/unit_02455.c"
+  ],
+  "header": "include/city_ui_controllers.h",
+  "evidence": [
+    "metadata/city-ui-next-native.json",
+    "metadata/city-ui-children-native.json",
+    "metadata/city-ui-emulation.json"
+  ],
+  "corrections": [
+    "0051e990 and0051efb0: full-width display dimensions, panel positions/state, art IDs, mode/dirty flags and styles; dirty flag clears four bytes; redraw flage38dc9 stays a byte.",
+    "0051ec90/0051ed30/0051edd0/00537100/00537120: full-width panel origins, state/cache flags, period and art IDs; button-record enable field5c7538 remains a byte.",
+    "0051f0a0: full-width active faction index/count/cache/style/positions, native unsigned game-mode byte, signed halfword dropdown coordinate at5c79c8; faction arrays use byte stride0x49d8 without extra pointer scaling; alternate layout computes signed width-width/5.",
+    "0051f680: full-width counts/cache/style/coordinates and availability state; four widget enable fields remain byte writes.",
+    "00533e70: full-width selection/style/positions and text advance; adjacent status pairs at784c60..6a and784c8c..92 use signed halfwords; word784b94 differs from byte mode784cb0 and its explicit low-byte dword mask.",
+    "All ten actual controller algorithms compose in the proof. Native00533e70 trailing address-walk loops genuinely contain no reads/increments of the count and are semantically inert; the preceding16-pair word loop alone computes the availability count."
+  ],
+  "validation": {
+    "C_smoke": "26 checks passed",
+    "differential_cases": 1419,
+    "native_instructions": 1355,
+    "all_instructions_exercised": true,
+    "compiled_C_sha256": "34203386f40de21db6780a1939321db8a1e0bb1d8bcaec4ef8c5265b1d4c65a9",
+    "ABI": "C test-boundary assembly measures ESP/EBP and EBX/ESI/EDI; native emulator checks caller cleanup and preserved registers; sprite receiverECX=0x00f55bb0 plus native RET12 enforced.",
+    "fixture": "Every byte of18 guarded state regions compared, including widget records, adjacent halfword arrays, full dirty flag and high-byte-only values. Full IDs/coordinates,640/800/1024/unknown widths, faction indices0/1/7, all85 tested game-mode byte values, reload mutations and text-width output side effects.",
+    "return_scope": "All ten restored C interfaces are void; incidental native endpoint EAX forwarding is not asserted to be a meaningful caller return."
+  },
+  "integration": {
+    "target": "restore_city_ui_verify",
+    "sources": [
+      "tests/city_ui_controllers.c",
+      "src/unit_02344.c",
+      "src/unit_02345.c",
+      "src/unit_02346.c",
+      "src/unit_02347.c",
+      "src/unit_02348.c",
+      "src/unit_02349.c",
+      "src/unit_02350.c",
+      "src/unit_02433.c",
+      "src/unit_02454.c",
+      "src/unit_02455.c"
+    ],
+    "include_dirs": [
+      "include"
+    ],
+    "local_test_header": "tests/city_ui_fixture.h",
+    "link_libraries": [
+      "restore_data"
+    ],
+    "link_options": [
+      "/BASE:0x10000",
+      "/DYNAMICBASE:NO",
+      "/FIXED"
+    ],
+    "compile_options": [
+      "/Od"
+    ],
+    "private_project": "tests/city_ui_project/CMakeLists.txt",
+    "private_build": "build/agent-city-ui",
+    "commands": [
+      "cmake -S tests/city_ui_project -B build/agent-city-ui -G \"Visual Studio 18 2026\" -A Win32",
+      "cmake --build build/agent-city-ui --config Debug --parallel 2",
+      "build/agent-city-ui/Debug/restore_city_ui_verify.exe",
+      "python tools/verify_city_ui_emulation.py --exe build/agent-city-ui/Debug/restore_city_ui_verify.exe"
+    ],
+    "shared_integration": "The ten production units already belong to RESTORE_UNITS. No extra runtime source, shared sprite header, or caller change is required. Coordinator registers the one test target and shared proof invocation."
+  },
+  "limitations": [
+    "Viewport/minimap rasterization, sprite rendering, primitive drawing, widget drawing, text/numeric rendering and predicate0044bd00 are controlled endpoints. Pixel correctness and complete city rendering are not established.",
+    "Endpoint0051f780 is the existing empty helper, modeled as a controlled zero-argument endpoint. These ten source routines have void interfaces; incidental native EAX is not compared.",
+    "Faction fixture indices are0,1,7; no bounds validation absent from the original is added."
+  ],
+  "source_hashes": {
+    "src/unit_02344.c": "9de2b3d7e4bf48f325228ab1ddbaadcd05597bbcd4fccabaf40ba2a2b5122a36",
+    "src/unit_02345.c": "1408247ed20c10f32bfddafaac14376eff5bb1f2d4271844c96094f0a771c296",
+    "src/unit_02346.c": "42bacc8c18a86bcff354e4c1fa6a2b4fef75fc5f1221e9534df146abff796583",
+    "src/unit_02347.c": "56715930afe20b29692ac78f8c3dbe0e256854288d2f5fe1842d40d531cea039",
+    "src/unit_02348.c": "94c84325131e6e4f53847b7c863264c6b9ed9b814984fc14cd2bba2ce67fe51b",
+    "src/unit_02349.c": "d680ee58e118796d5fd6e0a08b1a053f717313da907be88042daad1047fa1eb5",
+    "src/unit_02350.c": "3d585853cabb46a11e48b5669564dcc84145a700c0f284ef00dfabe0b63caa23",
+    "src/unit_02433.c": "dd07eaed5264a2b515ef07cadb6724faa160a4d1cd9a4899076fbffc78f1849d",
+    "src/unit_02454.c": "602d39c7c5170565f4bd3b2bda621d0a4eeab905ce7b314b61b2c914d38195f9",
+    "src/unit_02455.c": "fbf3e36537124fb606d3c853f899bb56e824ef1fe0c76094c93b77a0e8d1488a",
+    "include/city_ui_controllers.h": "ed9cda77e68a5dbbff00afc1868a68ffd9e45cbfa20418c36c72e1a4d8d5a5c7",
+    "tests/city_ui_controllers.c": "d146fb1fbe697b6f686512aa92d634711e94c8a4f6378f9cc6f56b6a9075c217",
+    "tests/city_ui_fixture.h": "ac84f4d85811f04268f318d81c649105527c043e35233b136ba2f689bca5cdaf",
+    "tools/verify_city_ui_emulation.py": "938777c7c1eea9b2553708dddb1dfb58a8254b1a75a609b21c176b6da7110198",
+    "metadata/city-ui-next-native.json": "c1187312b58c836003c990bfff7b6026717f74f6ee64314ec92ccfcb2b64bde0",
+    "metadata/city-ui-children-native.json": "af0ec0616b3a10df4bf4b4c907d02300a903ed8d9e8b52b5b2050b1b743fce98"
+  }
+}

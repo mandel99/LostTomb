@@ -1,0 +1,331 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source": "metadata/placement-preview-predicate-memory.json",
+  "functions": {
+    "004e5310": {
+      "start": "004e5310",
+      "end_exclusive": "004e531e",
+      "instructions": [
+        {
+          "address": "004e5310",
+          "bytes": "f74424046fd7fffe",
+          "instruction": "test dword ptr [esp + 4], 0xfeffd76f"
+        },
+        {
+          "address": "004e5318",
+          "bytes": "0f94c0",
+          "instruction": "sete al"
+        },
+        {
+          "address": "004e531b",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        }
+      ],
+      "count": 3,
+      "calls": [],
+      "complete_reachable_CFG": true,
+      "method": "Capstone direct conditional/unconditional edges from exact entry through every reachable RET; no padding or following function included."
+    },
+    "00401440": {
+      "start": "00401440",
+      "end_exclusive": "00401479",
+      "instructions": [
+        {
+          "address": "00401440",
+          "bytes": "8b542408",
+          "instruction": "mov edx, dword ptr [esp + 8]"
+        },
+        {
+          "address": "00401444",
+          "bytes": "56",
+          "instruction": "push esi"
+        },
+        {
+          "address": "00401445",
+          "bytes": "8b742408",
+          "instruction": "mov esi, dword ptr [esp + 8]"
+        },
+        {
+          "address": "00401449",
+          "bytes": "57",
+          "instruction": "push edi"
+        },
+        {
+          "address": "0040144a",
+          "bytes": "8d3c52",
+          "instruction": "lea edi, [edx + edx*2]"
+        },
+        {
+          "address": "0040144d",
+          "bytes": "81e66fd7fffe",
+          "instruction": "and esi, 0xfeffd76f"
+        },
+        {
+          "address": "00401453",
+          "bytes": "b001",
+          "instruction": "mov al, 1"
+        },
+        {
+          "address": "00401455",
+          "bytes": "8d14ba",
+          "instruction": "lea edx, [edx + edi*4]"
+        },
+        {
+          "address": "00401458",
+          "bytes": "837c915809",
+          "instruction": "cmp dword ptr [ecx + edx*4 + 0x58], 9"
+        },
+        {
+          "address": "0040145d",
+          "bytes": "750b",
+          "instruction": "jne 0x40146a"
+        },
+        {
+          "address": "0040145f",
+          "bytes": "85f6",
+          "instruction": "test esi, esi"
+        },
+        {
+          "address": "00401461",
+          "bytes": "7411",
+          "instruction": "je 0x401474"
+        },
+        {
+          "address": "00401463",
+          "bytes": "5f",
+          "instruction": "pop edi"
+        },
+        {
+          "address": "00401464",
+          "bytes": "32c0",
+          "instruction": "xor al, al"
+        },
+        {
+          "address": "00401466",
+          "bytes": "5e",
+          "instruction": "pop esi"
+        },
+        {
+          "address": "00401467",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        },
+        {
+          "address": "0040146a",
+          "bytes": "81fe02000020",
+          "instruction": "cmp esi, 0x20000002"
+        },
+        {
+          "address": "00401470",
+          "bytes": "7402",
+          "instruction": "je 0x401474"
+        },
+        {
+          "address": "00401472",
+          "bytes": "32c0",
+          "instruction": "xor al, al"
+        },
+        {
+          "address": "00401474",
+          "bytes": "5f",
+          "instruction": "pop edi"
+        },
+        {
+          "address": "00401475",
+          "bytes": "5e",
+          "instruction": "pop esi"
+        },
+        {
+          "address": "00401476",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        }
+      ],
+      "count": 22,
+      "calls": [],
+      "complete_reachable_CFG": true,
+      "method": "Capstone direct conditional/unconditional edges from exact entry through every reachable RET; no padding or following function included."
+    },
+    "00547de0": {
+      "start": "00547de0",
+      "end_exclusive": "00547e11",
+      "instructions": [
+        {
+          "address": "00547de0",
+          "bytes": "8b542404",
+          "instruction": "mov edx, dword ptr [esp + 4]"
+        },
+        {
+          "address": "00547de4",
+          "bytes": "56",
+          "instruction": "push esi"
+        },
+        {
+          "address": "00547de5",
+          "bytes": "8b74240c",
+          "instruction": "mov esi, dword ptr [esp + 0xc]"
+        },
+        {
+          "address": "00547de9",
+          "bytes": "57",
+          "instruction": "push edi"
+        },
+        {
+          "address": "00547dea",
+          "bytes": "8b7950",
+          "instruction": "mov edi, dword ptr [ecx + 0x50]"
+        },
+        {
+          "address": "00547ded",
+          "bytes": "81e26fd7fffe",
+          "instruction": "and edx, 0xfeffd76f"
+        },
+        {
+          "address": "00547df3",
+          "bytes": "3bf7",
+          "instruction": "cmp esi, edi"
+        },
+        {
+          "address": "00547df5",
+          "bytes": "5f",
+          "instruction": "pop edi"
+        },
+        {
+          "address": "00547df6",
+          "bytes": "b001",
+          "instruction": "mov al, 1"
+        },
+        {
+          "address": "00547df8",
+          "bytes": "5e",
+          "instruction": "pop esi"
+        },
+        {
+          "address": "00547df9",
+          "bytes": "7509",
+          "instruction": "jne 0x547e04"
+        },
+        {
+          "address": "00547dfb",
+          "bytes": "85d2",
+          "instruction": "test edx, edx"
+        },
+        {
+          "address": "00547dfd",
+          "bytes": "740f",
+          "instruction": "je 0x547e0e"
+        },
+        {
+          "address": "00547dff",
+          "bytes": "32c0",
+          "instruction": "xor al, al"
+        },
+        {
+          "address": "00547e01",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        },
+        {
+          "address": "00547e04",
+          "bytes": "81fa02000020",
+          "instruction": "cmp edx, 0x20000002"
+        },
+        {
+          "address": "00547e0a",
+          "bytes": "7402",
+          "instruction": "je 0x547e0e"
+        },
+        {
+          "address": "00547e0c",
+          "bytes": "32c0",
+          "instruction": "xor al, al"
+        },
+        {
+          "address": "00547e0e",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        }
+      ],
+      "count": 19,
+      "calls": [],
+      "complete_reachable_CFG": true,
+      "method": "Capstone direct conditional/unconditional edges from exact entry through every reachable RET; no padding or following function included."
+    },
+    "004e6620": {
+      "start": "004e6620",
+      "end_exclusive": "004e6649",
+      "instructions": [
+        {
+          "address": "004e6620",
+          "bytes": "8b4c2404",
+          "instruction": "mov ecx, dword ptr [esp + 4]"
+        },
+        {
+          "address": "004e6624",
+          "bytes": "8b542408",
+          "instruction": "mov edx, dword ptr [esp + 8]"
+        },
+        {
+          "address": "004e6628",
+          "bytes": "b801000000",
+          "instruction": "mov eax, 1"
+        },
+        {
+          "address": "004e662d",
+          "bytes": "81e16fd7fffe",
+          "instruction": "and ecx, 0xfeffd76f"
+        },
+        {
+          "address": "004e6633",
+          "bytes": "3bd0",
+          "instruction": "cmp edx, eax"
+        },
+        {
+          "address": "004e6635",
+          "bytes": "7509",
+          "instruction": "jne 0x4e6640"
+        },
+        {
+          "address": "004e6637",
+          "bytes": "85c9",
+          "instruction": "test ecx, ecx"
+        },
+        {
+          "address": "004e6639",
+          "bytes": "740b",
+          "instruction": "je 0x4e6646"
+        },
+        {
+          "address": "004e663b",
+          "bytes": "32c0",
+          "instruction": "xor al, al"
+        },
+        {
+          "address": "004e663d",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        },
+        {
+          "address": "004e6640",
+          "bytes": "83f902",
+          "instruction": "cmp ecx, 2"
+        },
+        {
+          "address": "004e6643",
+          "bytes": "0f94c0",
+          "instruction": "sete al"
+        },
+        {
+          "address": "004e6646",
+          "bytes": "c20800",
+          "instruction": "ret 8"
+        }
+      ],
+      "count": 13,
+      "calls": [],
+      "complete_reachable_CFG": true,
+      "method": "Capstone direct conditional/unconditional edges from exact entry through every reachable RET; no padding or following function included."
+    }
+  }
+}
