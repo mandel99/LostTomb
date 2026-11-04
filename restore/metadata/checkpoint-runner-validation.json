@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "validation_scope": "checkpoint orchestration only",
+  "isolated_tests": 10,
+  "full_read_only_plan_jobs": {
+    "audit": 7,
+    "primary": 62,
+    "supplemental": 10,
+    "composition": 6,
+    "final": 3
+  },
+  "existing_report_schemas_checked": 81,
+  "existing_report_binding_issues": 0,
+  "partial_plan_adds_primary_prerequisites": true,
+  "same_and_later_stage_dependencies_rejected": true,
+  "local_harness_result": "build/checkpoint-runner-review/run-20261104T160613Z-6aa63485/harness-result.json",
+  "local_harness_result_sha256": "5a7c6c0d4584a77247e522e634ffce5c82dfc60dd606bba00335c35542c5a107",
+  "local_harness_log_sha256": "4a3af6b9310bdc3e36e273e36e412af4415fb9351084dc22f97a8f718cebc08b",
+  "source_hashes": {
+    "tools/run_reconstruction_checkpoint.py": "abb669c2055dd74e9a25d028fd06bc480cc3663a9a96c6cabb68a0734974799f",
+    "tools/RECONSTRUCTION_CHECKPOINT_RUNNER.md": "2d309bfc260b19c84d6a750388f3367676b75d7cf5e562514ac7b29b7fadc2dc",
+    "tests/test_reconstruction_checkpoint_runner.py": "cb9f24d868a966f3461f6b10e566082fee498c15a1b1680b09a278bf3dec83a1"
+  },
+  "current_reconstruction_aggregate_sha256": "27b82d708f78fcec78fa0d8584e29080bb642a7d6b6ce44e618db5b6328a6a83",
+  "real_verifiers_executed_by_harness": false,
+  "real_build_executed_by_harness": false,
+  "host_game_launched": false,
+  "stale_reports_rebound": false,
+  "limitations": [
+    "The orchestration harness uses generated fake Python verifiers and fake binary input bytes. It validates scheduling, failures, drains, snapshots, binding checks and interruption, not native game behavior.",
+    "The current main reconstruction passed its full independent checkpoint before the utility change. No runtime C or current native proof changed for this utility."
+  ]
+}
