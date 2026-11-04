@@ -1,5 +1,14 @@
 # Pharaoh restore
 
+Source translation is in progress beyond verified checkpoint
+[1683857](https://github.com/mandel99/LostTomb/commit/168385711131ca23708013c5303218b7ea5d8bb1).
+The next connected animal block is being written into ordinary C before one
+combined main build and detailed comparison. Verification totals below describe
+that last accepted checkpoint; they are not a current-main proof for this block.
+Six callbacks are now transcribed and linked; see the explicit
+[C-first source status](metadata/ANIMAL_TRANSLATION_BATCH.md). Joint native
+verification of that block remains pending.
+
 Crocodile/hyena updates, kind cues, weighted state selection and state entry
 now use five named C bodies. Both Release images pass4,951 scenarios /
 18,599 invocations each:1,907 executed native instructions plus15 proved dead,
@@ -22,7 +31,7 @@ named, legacy and civic raw entries. Full return widths, cached reads, the
 south-segment global store and both RNG phases are preserved. See
 [animal target reconstruction](metadata/ACTOR_ANIMAL_TARGET_RECONSTRUCTION.md).
 
-The current aggregate passes66 paired reports:53,766 scenarios /185,712
+The last verified aggregate passes66 paired reports:53,766 scenarios /185,712
 invocations. Per binary it owns16,132 native instructions:16,100 executed,
 22 proved dead and ten user-disabled CD instructions. The structural
 inventory and finite native comparisons do not establish complete gameplay.
@@ -968,9 +977,9 @@ Twelve additional actual adjacent initializer sequences per binary and four
 full-width/cached-count cases also pass.
 See [ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md](metadata/ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md).
 
-The structural inventory now has1158 ordinary C bodies,213 instruction/frame
+The last verified structural inventory has1158 ordinary C bodies,213 instruction/frame
 models and1096 decompiler-style bodies, with4003 of4402 catalogue entries
-linked. The current aggregate includes33 paired families. Uncatalogued
+linked. That aggregate includes33 paired families. Uncatalogued
 49D0F0/49DC50/49E8B0 callbacks are compared without inflating this catalogue.
 The next connected candidates are49F710/4A04D0/4A1130. Full gameplay remains unfinished; no host game
 was launched during this recovery.

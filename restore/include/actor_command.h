@@ -8,6 +8,16 @@ int32_t restore_actor_find_clear_vector(int32_t x,int32_t y,int32_t first_vector
 uint32_t restore_actor_update_hippo(void);
 uint32_t restore_actor_update_crocodile(void);
 uint32_t restore_actor_update_hyena(void);
+void restore_actor_update_ostrich(void);
+void FUN_0049bd40(void);
+void restore_actor_update_antelope(void);
+void FUN_0049c750(void);
+uint32_t restore_actor_update_birds(void);
+void FUN_0049b750(void);
+uint32_t restore_actor_update_scorpion(void);
+uint32_t restore_actor_update_lion(void);
+uint32_t restore_actor_update_asp(void);
+void FUN_0049f710(void),FUN_004a04d0(void),FUN_004a1130(void);
 void restore_actor_play_kind_cue(int32_t actor);
 uint32_t restore_actor_choose_crocodile_state(int32_t actor);
 /* Preserve the initializer's native full EAX through named/raw entries. */

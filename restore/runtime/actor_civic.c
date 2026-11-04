@@ -50,6 +50,12 @@
 #pragma comment(linker, "/include:_FUN_0049e8b0")
 #pragma comment(linker, "/include:_FUN_0049d0f0")
 #pragma comment(linker, "/include:_FUN_0049dc50")
+#pragma comment(linker, "/include:_FUN_0049bd40")
+#pragma comment(linker, "/include:_FUN_0049c750")
+#pragma comment(linker, "/include:_FUN_0049b750")
+#pragma comment(linker, "/include:_FUN_0049f710")
+#pragma comment(linker, "/include:_FUN_004a04d0")
+#pragma comment(linker, "/include:_FUN_004a1130")
 #pragma comment(linker, "/include:_FUN_004eca70")
 extern void FUN_0040f8f0(uint32_t *,uint32_t,uint8_t);
 extern void FUN_004e96c0(int32_t);
@@ -154,12 +160,8 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004bcd90);
     RAW(004bcb10);
     RAW(004f6900);
-    RAW(0049b750);
     RAW(0049bd40);
     RAW(0049c750);
-    RAW(0049f710);
-    RAW(004a04d0);
-    RAW(004a1130);
     RAW(00494f70);
     RAW(00497010);
     RAW(00497450);
@@ -271,6 +273,10 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     case 0x49dc50u:f->r[0]=restore_actor_update_hyena();break;
     case 0x4ecd40u:f->r[0]=restore_actor_choose_crocodile_state((int32_t)A(1));break;
     case 0x4eca70u:f->r[0]=restore_actor_enter_animal_state((int32_t)A(1),A(2));break;
+    case 0x49f710u:f->r[0]=restore_actor_update_scorpion();break;
+    case 0x4a04d0u:f->r[0]=restore_actor_update_lion();break;
+    case 0x4a1130u:f->r[0]=restore_actor_update_asp();break;
+    case 0x49b750u:f->r[0]=restore_actor_update_birds();break;
     case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
     case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
     case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
@@ -734,24 +740,24 @@ int32_t FUN_00445670(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
 int32_t FUN_00445ac0(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4};return (int32_t)invoke(0x00445ac0u,args,5);}
 
-void FUN_0049b750(void)
-{(void)invoke(0x0049b750u,0,0);}
-void FUN_0049bd40(void)
-{(void)invoke(0x0049bd40u,0,0);}
-void FUN_0049c750(void)
-{(void)invoke(0x0049c750u,0,0);}
+__declspec(noinline) void FUN_0049b750(void)
+{(void)restore_actor_update_birds();}
+__declspec(noinline) void FUN_0049bd40(void)
+{(void)restore_actor_update_ostrich();}
+__declspec(noinline) void FUN_0049c750(void)
+{(void)restore_actor_update_antelope();}
 __declspec(noinline) void FUN_0049d0f0(void)
 {(void)restore_actor_update_crocodile();}
 __declspec(noinline) void FUN_0049dc50(void)
 {(void)restore_actor_update_hyena();}
 __declspec(noinline) void FUN_0049e8b0(void)
 {(void)restore_actor_update_hippo();}
-void FUN_0049f710(void)
-{(void)invoke(0x0049f710u,0,0);}
-void FUN_004a04d0(void)
-{(void)invoke(0x004a04d0u,0,0);}
-void FUN_004a1130(void)
-{(void)invoke(0x004a1130u,0,0);}
+__declspec(noinline) void FUN_0049f710(void)
+{(void)restore_actor_update_scorpion();}
+__declspec(noinline) void FUN_004a04d0(void)
+{(void)restore_actor_update_lion();}
+__declspec(noinline) void FUN_004a1130(void)
+{(void)restore_actor_update_asp();}
 __declspec(noinline) uint8_t FUN_004eaac0(int32_t p0)
 {return (uint8_t)restore_actor_route_line_mode((uint32_t)p0);}
 __declspec(noinline) int32_t FUN_004eab10(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t p4,int32_t p5)

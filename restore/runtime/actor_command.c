@@ -1228,6 +1228,838 @@ __declspec(noinline) uint32_t restore_actor_update_hyena(void)
     return hyena_animation(actor);
 }
 
+/* Scorpion, Lion and Asp callbacks. Share only local shift/offset arithmetic;
+   keep each cache, history publication and native return phase. */
+static struct animal_random_pair scorpion_history(uint32_t index,uint32_t previous)
+{
+    struct animal_random_pair p;
+    U(0xd3b1c8u+index*4u)=previous;++index;U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    p.a=U(0xd3b384u);p.b=U(0xd3b380u);return animal_shift_random_pair(p);
+}
+static uint8_t scorpion_target_differs(uint32_t offset,uint32_t linked)
+{
+    uint16_t x=W(0xbcd60cu+linked),target=W(0xbcd61cu+offset);
+    if(x!=target)return 1;
+    x=W(0xbcd60eu+linked);target=W(0xbcd61eu+offset);return x!=target;
+}
+static void scorpion_copy_linked(uint32_t actor,uint32_t linked)
+{
+    uint16_t x=W(0xbcd60cu+linked);uint32_t offset=animal_offset(actor);
+    W(0xbcd61cu+offset)=x;W(0xbcd61eu+offset)=W(0xbcd60eu+linked);
+}
+static void scorpion_copy_group(uint32_t actor,uint32_t group,uint32_t vector)
+{
+    uint16_t x=W(0x5cdb78u+vector*8u),y=W(0x5cdb7cu+vector*8u);
+    uint32_t offset=animal_offset(actor);
+    x=(uint16_t)(x+W(0xbcba02u+group));y=(uint16_t)(y+W(0xbcba04u+group));
+    W(0xbcd61cu+offset)=x;W(0xbcd61eu+offset)=y;B(0xbcd630u+offset)=9;
+}
+static uint32_t scorpion_animation(uint32_t actor)
+{
+    uint32_t offset=animal_offset(actor),counter=U(0xbcd740u+offset),cycle=U(0xbcd73cu+offset),direction,base;
+    uint8_t state;
+    if((int32_t)counter>=(int32_t)cycle||(int32_t)counter<0)U(0xbcd740u+offset)=0;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+offset);direction-=U(0xbca2e0u);U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+offset);
+    switch(state){
+    case 4:case 12:{int32_t delay=(int16_t)W(0xbcd62eu+offset);base=U(0xf570b4u);U(0xbcd5fcu+offset)=base+(delay>=6?5u:(uint32_t)delay);break;}
+    case 8:case 9:case 10:case 13:case 21:counter=U(0xbcd740u+offset);base=U(0xf5709cu);U(0xbcd5fcu+offset)=base+counter*8u+direction;break;
+    case 5:counter=U(0xbcd740u+offset);base=U(0xf570a4u);U(0xbcd5fcu+offset)=base+counter*8u+direction;break;
+    case 20:base=U(0xf570bcu);U(0xbcd5fcu+offset)=base+direction;break;
+    case 18:case 19:counter=U(0xbcd740u+offset);base=U(0xf570bcu);U(0xbcd5fcu+offset)=base+counter*8u+direction;break;
+    default:break;
+    }
+    return offset;
+}
+
+/* Ordinary candidate for the bounded3390-byte callback; no frame interpreter.
+ * Keep each RNG publication phase distinct. Child algorithms are supplied by
+ * the isolated verifier protocol, not silently redirected to native code. */
+__declspec(noinline) uint32_t restore_actor_update_scorpion(void)
+{
+    uint32_t actor=U(0xd056f8u),offset=animal_offset(actor),kind=B(0xbcd602u+offset);
+    uint32_t counter=U(0xbcd740u+offset)+1u,speed,cycle;int32_t group,linked;
+    uint8_t completed=0,animation,state,direction;
+    U(0xbcd740u+offset)=counter;speed=U(0x7090ecu+kind*56u);cycle=U(0xbcd73cu+offset);
+    if((int32_t)counter>=(int32_t)cycle){U(0xbcd740u+offset)=0;animation=B(0xbcd5f9u+offset);++animation;completed=1;B(0xbcd5f9u+offset)=animation;}
+    {uint32_t profile=U(0xeaac28u)*0x49d8u;B(0xbcd66au+offset)=5;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);}
+    B(0xbcd604u+offset)=0;B(0xbcd65du+offset)=0;animation=B(0xbcd5f9u+offset);group=(int16_t)W(0xbcd658u+offset);
+    ++animation;B(0xbcd5f9u+offset)=animation;if(animation>=12u)B(0xbcd5f9u+offset)=0;
+    state=B(0xbcd630u+offset);
+    switch(state){
+    case 5:U(0xbcd73cu+offset)=6;FUN_0053b4a0((int32_t)actor,2,2);actor=U(0xd056f8u);FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:U(0xbcd73cu+offset)=6;FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:{uint32_t result=20;
+        W(0xbcd62eu+offset)=(uint16_t)(W(0xbcd62eu+offset)-1u);
+        if((int16_t)W(0xbcd62eu+offset)<=0){result=8;U(0xbcd740u+offset)=0;U(0xbcd73cu+offset)=8;B(0xbcd630u+offset)=8;}
+        U(0xbcd5fcu+offset)=0;return result;
+    }
+    case 8:{
+        uint32_t sample=U(0xd3b374u),index;struct animal_random_pair p;
+        U(0xbcd73cu+offset)=0;B(0xbcd609u+offset)=B(0xbcd60au+offset);index=U(0xd3b1c4u);
+        p=scorpion_history(index,sample);index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=p.a&127u;++index;
+        B(0xbcd630u+offset)=(p.a&1u)?18:19;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+        p=animal_shift_random_pair(p);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+        W(0xbcd62eu+offset)=(uint16_t)((p.a&32767u)%100u);break;
+    }
+    case 19:U(0xbcd73cu+offset)=6;W(0xbcd62eu+offset)=(uint16_t)(W(0xbcd62eu+offset)-1u);if((int16_t)W(0xbcd62eu+offset)<=0)B(0xbcd630u+offset)=8;break;
+    case 18:
+        U(0xbcd73cu+offset)=6;W(0xbcd62eu+offset)=(uint16_t)(W(0xbcd62eu+offset)-1u);
+        if((int16_t)W(0xbcd62eu+offset)<=0){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+            struct animal_random_pair p=scorpion_history(index,sample);int32_t x,y,gx,gy,result;
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+            result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+            if(result>=0&&result<16){
+                actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);scorpion_copy_group(actor,g,(uint32_t)result);U(0xbcd740u+animal_offset(actor))=0;
+                restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+            }
+            index=U(0xd3b1c4u);sample=U(0xd3b374u);p=scorpion_history(index,sample);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;actor=U(0xd056f8u);
+            U(0xd3b374u)=p.a&127u;W(0xbcd62eu+animal_offset(actor))=(uint16_t)((p.a&32767u)%100u);
+        }
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 23:{
+        uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+        struct animal_random_pair p;int32_t x,y,gx,gy,result;
+        U(0xbcd73cu+offset)=1;p=scorpion_history(index,sample);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;y=(int16_t)W(0xbcd60eu+offset);x=(int16_t)W(0xbcd60cu+offset);
+        U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+        result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+        if(result>=0&&result<16){actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);scorpion_copy_group(actor,g,(uint32_t)result);}
+        else{
+            actor=U(0xd056f8u);index=U(0xd3b1c4u);sample=U(0xd3b374u);offset=animal_offset(actor);
+            U(0xd3b1c8u+index*4u)=sample;++index;B(0xbcd630u+offset)=18;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+            W(0xbcd62eu+offset)=(uint16_t)((p.a&32767u)%100u);
+        }
+        break;
+    }
+    case 20:U(0xbcd73cu+offset)=1;restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 9:case 10:
+        U(0xbcd73cu+offset)=12;FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);offset=animal_offset(actor);direction=B(0xbcd609u+offset);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==10u){B(0xbcd609u+offset)=B(0xbcd60au+offset);B(0xbcd630u+offset)=8;W(0xbcd62eu+offset)=(uint16_t)((uint32_t)B(0xbcd65au+offset)*5u);break;}
+        if(direction==8u){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u);uint8_t previous=B(0xbcd60au+offset);struct animal_random_pair p;
+            U(0xd3b1c8u+index*4u)=sample;++index;B(0xbcd609u+offset)=previous;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            B(0xbcd630u+offset)=(p.a&1u)?18:19;index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=p.a&127u;++index;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b36cu)=p.b&7u;U(0xd3b368u)=p.b&127u;U(0xd3b374u)=p.a&127u;
+            W(0xbcd62eu+offset)=(uint16_t)((p.a&32767u)%100u);U(0xbcd740u+offset)=0;
+        }
+        break;
+    case 21:
+        U(0xbcd73cu+offset)=12;linked=(int16_t)W(0xbcd656u+offset);W(0xbcd62eu+offset)=(uint16_t)(W(0xbcd62eu+offset)-1u);
+        if((int16_t)W(0xbcd62eu+offset)<=0&&completed){W(0xbcd62eu+offset)=0;B(0xbcd663u+offset)=0;B(0xbcd630u+offset)=23;break;}
+        if(linked&&scorpion_target_differs(offset,animal_offset((uint32_t)linked))&&completed){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);scorpion_copy_linked(actor,animal_offset((uint32_t)linked));}
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);offset=animal_offset(actor);direction=B(0xbcd609u+offset);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==8u||direction==10u){B(0xbcd609u+offset)=B(0xbcd60au+offset);B(0xbcd630u+offset)=23;W(0xbcd62eu+offset)=(uint16_t)((uint32_t)B(0xbcd65au+offset)*5u);}break;
+    case 13:
+        U(0xbcd73cu+offset)=12;FUN_004a5da0((int32_t)actor,speed*2u);actor=U(0xd056f8u);offset=animal_offset(actor);direction=B(0xbcd609u+offset);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==8u||direction==10u){B(0xbcd609u+offset)=B(0xbcd60au+offset);B(0xbcd630u+offset)=23;W(0xbcd62eu+offset)=(uint16_t)((uint32_t)B(0xbcd65au+offset)*5u);}
+        if(completed){restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);}break;
+    case 12:
+        U(0xbcd73cu+offset)=6;if(!W(0xbcd62eu+offset)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        offset=animal_offset(actor);W(0xbcd62eu+offset)=(uint16_t)(W(0xbcd62eu+offset)+1u);if((int16_t)W(0xbcd62eu+offset)>500)B(0xbcd630u+offset)=4;break;
+    default:U(0xbcd73cu+offset)=0;B(0xbcd630u+offset)=8;break;
+    }
+    return scorpion_animation(actor);
+}
+
+static void lion_history(uint32_t index,uint32_t sample)
+{
+    U(0xd3b1c8u+index*4u)=sample;++index;U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+}
+static struct animal_random_pair lion_read_shift(void)
+{
+    struct animal_random_pair p;p.a=U(0xd3b384u);p.b=U(0xd3b380u);return animal_shift_random_pair(p);
+}
+static uint8_t lion_target_differs(uint32_t o,uint32_t linked)
+{
+    uint16_t a=W(0xbcd60cu+linked),b=W(0xbcd61cu+o);
+    if(a!=b)return 1;
+    a=W(0xbcd60eu+linked);b=W(0xbcd61eu+o);return a!=b;
+}
+static void lion_copy_linked(uint32_t actor,uint32_t linked)
+{
+    uint16_t x=W(0xbcd60cu+linked);uint32_t o=animal_offset(actor);
+    W(0xbcd61cu+o)=x;W(0xbcd61eu+o)=W(0xbcd60eu+linked);
+}
+static void lion_copy_group(uint32_t actor,uint32_t group,uint32_t index)
+{
+    uint16_t x=W(0x5cdb78u+index*8u),y=W(0x5cdb7cu+index*8u);
+    uint32_t o=animal_offset(actor);
+    x=(uint16_t)(x+W(0xbcba02u+group));y=(uint16_t)(y+W(0xbcba04u+group));
+    W(0xbcd61cu+o)=x;W(0xbcd61eu+o)=y;B(0xbcd630u+o)=9;
+}
+static uint32_t lion_animation(uint32_t actor)
+{
+    uint32_t o=animal_offset(actor),counter=U(0xbcd740u+o),cycle=U(0xbcd73cu+o),direction,base,sprite,result;
+    uint8_t state;
+    if((int32_t)counter>=(int32_t)cycle || (int32_t)counter<0)U(0xbcd740u+o)=0;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o);direction-=U(0xbca2e0u);
+    U(0xe94e00u)=direction;if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);result=(uint32_t)state-4u;
+    switch(state){
+    case 4:case 12:{int32_t delay=(int16_t)W(0xbcd62eu+o);base=U(0xf57084u);
+        sprite=base+(delay>=6?5u:(uint32_t)delay)*8u+direction;U(0xbcd5fcu+o)=sprite;return sprite;}
+    case 8:base=U(0xf57074u);U(0xbcd5fcu+o)=base+direction;return result;
+    case 9:case 10:case 13:case 21:case 23:
+        counter=U(0xbcd740u+o);base=U(0xf57074u);sprite=base+counter*8u+direction;U(0xbcd5fcu+o)=sprite;return sprite;
+    case 18:
+        counter=U(0xbcd740u+o);base=U(0xf5708cu);U(0xbcd5fcu+o)=base+counter*8u+direction;return base;
+    case 5:
+        counter=U(0xbcd740u+o);base=U(0xf5707cu);sprite=base+counter*8u+direction;U(0xbcd5fcu+o)=sprite;return sprite;
+    case 19:case 20:
+        counter=U(0xbcd740u+o);base=U(0xf57094u);counter=(uint32_t)((int32_t)counter/2);
+        sprite=base+counter*8u+direction;U(0xbcd5fcu+o)=sprite;return sprite;
+    default:return result;
+    }
+}
+
+__declspec(noinline) uint32_t restore_actor_update_lion(void)
+{
+    uint32_t actor=U(0xd056f8u),o=animal_offset(actor),kind=B(0xbcd602u+o),counter=U(0xbcd740u+o)+1u;
+    uint32_t speed,cycle;int32_t group;uint8_t completed=0,animation,state,direction;
+    U(0xbcd740u+o)=counter;speed=U(0x7090ecu+kind*56u);cycle=U(0xbcd73cu+o);
+    if((int32_t)counter>=(int32_t)cycle){U(0xbcd740u+o)=0;animation=B(0xbcd5f9u+o);++animation;completed=1;B(0xbcd5f9u+o)=animation;}
+    {uint32_t profile=U(0xeaac28u)*0x49d8u;B(0xbcd66au+o)=5;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);}
+    B(0xbcd604u+o)=0;B(0xbcd65du+o)=0;animation=B(0xbcd5f9u+o);group=(int16_t)W(0xbcd658u+o);
+    ++animation;B(0xbcd5f9u+o)=animation;if(animation>=12u)B(0xbcd5f9u+o)=0;
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 5:
+        U(0xbcd73cu+o)=11;FUN_0053b4a0((int32_t)actor,1,2);actor=U(0xd056f8u);
+        FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:U(0xbcd73cu+o)=6;FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;B(0xbcd630u+o)=8;}
+        U(0xbcd5fcu+o)=0;return 0;
+    case 8:{
+        uint32_t index=U(0xd3b1c4u),sample;struct animal_random_pair p;
+        U(0xbcd73cu+o)=0;B(0xbcd609u+o)=B(0xbcd60au+o);sample=U(0xd3b374u);
+        lion_history(index,sample);p=lion_read_shift();
+        B(0xbcd630u+o)=(uint8_t)(((~p.a)&1u)|18u);
+        index=U(0xd3b1c4u);lion_history(index,p.a&127u);p=animal_shift_random_pair(p);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+        W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%200u+150u);break;}
+    case 19:
+        U(0xbcd73cu+o)=8;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0)B(0xbcd630u+o)=8;
+        break;
+    case 18:{
+        U(0xbcd73cu+o)=10;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+            struct animal_random_pair p;int32_t x,y,gx,gy,result;
+            lion_history(index,sample);p=lion_read_shift();
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+            y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);U(0xd3b370u)=p.a&32767u;
+            U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+            result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+            if(result>=0 && result<16){actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);lion_copy_group(actor,g,(uint32_t)result);}
+            else{actor=U(0xd056f8u);W(0xbcd62eu+animal_offset(actor))=200;}
+        }
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;}
+    case 23:{
+        uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+        struct animal_random_pair p;int32_t x,y,gx,gy,result;
+        U(0xbcd73cu+o)=11;lion_history(index,sample);p=lion_read_shift();
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+        y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);U(0xd3b370u)=p.a&32767u;
+        U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+        result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+        if(result>=0 && result<16){actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);lion_copy_group(actor,g,(uint32_t)result);}
+        else{actor=U(0xd056f8u);o=animal_offset(actor);B(0xbcd630u+o)=18;W(0xbcd62eu+o)=200;}
+        break;}
+    case 20:
+        U(0xbcd73cu+o)=8;restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 9:case 10:
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=8;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);}
+        else if(direction==8u){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),next;uint8_t previous=B(0xbcd60au+o);struct animal_random_pair p;
+            U(0xd3b1c8u+index*4u)=sample;next=index+1u;B(0xbcd609u+o)=previous;U(0xd3b1c4u)=next;
+            if((int32_t)next>=100)U(0xd3b1c4u)=0;
+            p=lion_read_shift();
+            if(p.a&1u){B(0xbcd630u+o)=18;U(0xbcd73cu+o)=10;}
+            else{B(0xbcd630u+o)=19;U(0xbcd73cu+o)=4;}
+            index=U(0xd3b1c4u);lion_history(index,p.a&127u);p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b36cu)=p.b&7u;U(0xd3b368u)=p.b&127u;U(0xd3b374u)=p.a&127u;
+            W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%200u+150u);
+        }
+        break;
+    case 21:{
+        int32_t linked;U(0xbcd73cu+o)=11;linked=(int16_t)W(0xbcd656u+o);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0 && completed){W(0xbcd62eu+o)=0;B(0xbcd663u+o)=0;B(0xbcd630u+o)=23;break;}
+        if(linked){uint32_t linked_o=animal_offset((uint32_t)linked);
+            if(lion_target_differs(o,linked_o) && completed){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);lion_copy_linked(actor,linked_o);}}
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==8u || direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=23;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);}
+        break;}
+    case 13:
+        U(0xbcd73cu+o)=11;FUN_004a5da0((int32_t)actor,speed*2u);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==8u || direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=23;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);}
+        if(completed){restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);}break;
+    case 12:
+        U(0xbcd73cu+o)=6;if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        o=animal_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>500)B(0xbcd630u+o)=4;
+        break;
+    default:U(0xbcd73cu+o)=1;B(0xbcd630u+o)=8;break;
+    }
+    return lion_animation(actor);
+}
+
+static struct animal_random_pair asp_advance_random_history(uint32_t index,uint32_t sample)
+{
+    struct animal_random_pair p;
+    U(0xd3b1c8u+index*4u)=sample;++index;U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    p.a=U(0xd3b384u);p.b=U(0xd3b380u);return animal_shift_random_pair(p);
+}
+static uint8_t asp_linked_target_differs(uint32_t o,uint32_t linked)
+{
+    uint16_t x=W(0xbcd60cu+linked),target=W(0xbcd61cu+o);
+    if(x!=target)return 1;
+    x=W(0xbcd60eu+linked);target=W(0xbcd61eu+o);return x!=target;
+}
+static void asp_copy_linked_target(uint32_t actor,uint32_t linked)
+{
+    uint16_t x=W(0xbcd60cu+linked);uint32_t o=animal_offset(actor);
+    W(0xbcd61cu+o)=x;W(0xbcd61eu+o)=W(0xbcd60eu+linked);
+}
+static void asp_copy_group_target(uint32_t actor,uint32_t g,uint32_t index)
+{
+    uint16_t x=W(0x5cdb78u+index*8u),y=W(0x5cdb7cu+index*8u);uint32_t o=animal_offset(actor);
+    x=(uint16_t)(x+W(0xbcba02u+g));y=(uint16_t)(y+W(0xbcba04u+g));
+    W(0xbcd61cu+o)=x;W(0xbcd61eu+o)=y;B(0xbcd630u+o)=9;
+}
+static uint32_t asp_animation(uint32_t actor)
+{
+    uint32_t o=animal_offset(actor),counter=U(0xbcd740u+o),cycle=U(0xbcd73cu+o),direction,rotation,base;uint8_t state;
+    if((int32_t)counter>=(int32_t)cycle || (int32_t)counter<0)U(0xbcd740u+o)=0;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o);rotation=U(0xbca2e0u);direction-=rotation;
+    U(0xe94e00u)=direction;if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 4:case 12:{int32_t delay=(int16_t)W(0xbcd62eu+o);base=U(0xf57064u);U(0xbcd5fcu+o)=base+(delay>=6?5u:(uint32_t)delay);break;}
+    case 9:case 10:case 13:case 21:counter=U(0xbcd740u+o);base=U(0xf5704cu);U(0xbcd5fcu+o)=base+counter*8u+direction;break;
+    case 5:counter=U(0xbcd740u+o);base=U(0xf57054u);U(0xbcd5fcu+o)=base+counter*8u+direction;break;
+    case 20:base=U(0xf5706cu);U(0xbcd5fcu+o)=base+direction;break;
+    case 18:case 19:counter=U(0xbcd740u+o);base=U(0xf5706cu);U(0xbcd5fcu+o)=base+counter*8u+direction;break;
+    default:break;
+    }
+    return o;
+}
+__declspec(noinline) uint32_t restore_actor_update_asp(void)
+{
+    uint32_t actor=U(0xd056f8u),o=animal_offset(actor),kind=B(0xbcd602u+o),counter=U(0xbcd740u+o)+1u,speed,cycle;
+    int32_t group,linked;uint8_t completed=0,animation,state,direction;
+    U(0xbcd740u+o)=counter;speed=U(0x7090ecu+kind*56u);cycle=U(0xbcd73cu+o);
+    if((int32_t)counter>=(int32_t)cycle){U(0xbcd740u+o)=0;animation=B(0xbcd5f9u+o);++animation;completed=1;B(0xbcd5f9u+o)=animation;}
+    {uint32_t profile=U(0xeaac28u)*0x49d8u;B(0xbcd66au+o)=5;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);}
+    B(0xbcd604u+o)=0;B(0xbcd65du+o)=0;animation=B(0xbcd5f9u+o);group=(int16_t)W(0xbcd658u+o);
+    ++animation;B(0xbcd5f9u+o)=animation;if(animation>=12u)B(0xbcd5f9u+o)=0;
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 5:U(0xbcd73cu+o)=6;FUN_0053b4a0((int32_t)actor,3,2);actor=U(0xd056f8u);FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:U(0xbcd73cu+o)=6;FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:{uint32_t result=20;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){result=8;U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;B(0xbcd630u+o)=8;}
+        U(0xbcd5fcu+o)=0;return result;}
+    case 8:{
+        uint32_t sample=U(0xd3b374u),index;struct animal_random_pair p;uint8_t previous;
+        U(0xbcd73cu+o)=0;previous=B(0xbcd60au+o);B(0xbcd609u+o)=previous;index=U(0xd3b1c4u);
+        p=asp_advance_random_history(index,sample);
+        state=(uint8_t)(((~p.a)&1u)|18u);index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=p.a&127u;++index;
+        B(0xbcd630u+o)=state;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+        p=animal_shift_random_pair(p);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;
+        U(0xd3b374u)=p.a&127u;W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%100u+50u);break;
+    }
+    case 19:
+        U(0xbcd73cu+o)=6;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);if((int16_t)W(0xbcd62eu+o)<=0)B(0xbcd630u+o)=8;break;
+    case 18:
+        U(0xbcd73cu+o)=6;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+            struct animal_random_pair p=asp_advance_random_history(index,sample);int32_t x,y,gx,gy,result;
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+            result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+            if(result>=0 && result<16){actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);asp_copy_group_target(actor,g,(uint32_t)result);U(0xbcd740u+animal_offset(actor))=0;restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;}
+            index=U(0xd3b1c4u);sample=U(0xd3b374u);p=asp_advance_random_history(index,sample);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;
+            actor=U(0xd056f8u);o=animal_offset(actor);U(0xd3b374u)=p.a&127u;W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%100u);
+        }
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 23:{
+        uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;struct animal_random_pair p;int32_t x,y,gx,gy,result;
+        U(0xbcd73cu+o)=1;p=asp_advance_random_history(index,sample);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+        U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+        result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+        if(result>=0 && result<16){actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);asp_copy_group_target(actor,g,(uint32_t)result);}
+        else{
+            actor=U(0xd056f8u);index=U(0xd3b1c4u);sample=U(0xd3b374u);o=animal_offset(actor);
+            U(0xd3b1c8u+index*4u)=sample;++index;B(0xbcd630u+o)=18;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;
+            U(0xd3b374u)=p.a&127u;W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%100u);
+        }
+        break;
+    }
+    case 20:U(0xbcd73cu+o)=1;restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 9:case 10:
+        U(0xbcd73cu+o)=12;FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=8;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);break;}
+        if(direction==8u){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u);uint8_t previous=B(0xbcd60au+o);struct animal_random_pair p;
+            U(0xd3b1c8u+index*4u)=sample;++index;B(0xbcd609u+o)=previous;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            B(0xbcd630u+o)=(p.a&1u)?18:19;index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=p.a&127u;++index;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b36cu)=p.b&7u;U(0xd3b368u)=p.b&127u;U(0xd3b374u)=p.a&127u;
+            W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%100u);U(0xbcd740u+o)=0;
+        }
+        break;
+    case 21:
+        U(0xbcd73cu+o)=12;linked=(int16_t)W(0xbcd656u+o);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0 && completed){W(0xbcd62eu+o)=0;B(0xbcd663u+o)=0;B(0xbcd630u+o)=23;break;}
+        if(linked && asp_linked_target_differs(o,animal_offset((uint32_t)linked)) && completed){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);asp_copy_linked_target(actor,animal_offset((uint32_t)linked));}
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==8u || direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=23;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);}
+        break;
+    case 13:
+        U(0xbcd73cu+o)=12;FUN_004a5da0((int32_t)actor,speed*2u);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==8u || direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=23;W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);}
+        if(completed){restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);}break;
+    case 12:
+        U(0xbcd73cu+o)=6;if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        o=animal_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);if((int16_t)W(0xbcd62eu+o)>500)B(0xbcd630u+o)=4;break;
+    default:U(0xbcd73cu+o)=0;B(0xbcd630u+o)=8;break;
+    }
+    return asp_animation(actor);
+}
+
+static struct animal_random_pair birds_history_draw(uint32_t index,uint32_t sample)
+{
+    struct animal_random_pair p;
+    U(0xd3b1c8u+index*4u)=sample;++index;U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    p.a=U(0xd3b384u);p.b=U(0xd3b380u);return animal_shift_random_pair(p);
+}
+static uint32_t birds_animation(uint32_t actor)
+{
+    uint32_t o=animal_offset(actor),rotation=U(0xbca2e0u),direction,base;uint8_t state;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;
+    U(0xe94e00u)=direction;if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);
+    if(state==4u || state==12u){
+        int32_t delay=(int16_t)W(0xbcd62eu+o);
+        if(delay>=25)U(0xbcd5fcu+o)=0;
+        else{base=U(0xf56084u);U(0xbcd5fcu+o)=base+(uint32_t)delay;}
+    }else{
+        uint32_t animation;base=U(0xf5607cu);animation=B(0xbcd5f9u+o);
+        U(0xbcd5fcu+o)=base+(animation>>1);
+    }
+    return o;
+}
+__declspec(noinline) uint32_t restore_actor_update_birds(void)
+{
+    uint32_t actor=U(0xd056f8u),o=animal_offset(actor),kind=B(0xbcd602u+o),counter=U(0xbcd740u+o)+1u;
+    uint32_t speed,building,cycle;int32_t group;uint8_t animation,state,direction;
+    U(0xbcd740u+o)=counter;speed=U(0x7090ecu+kind*56u);
+    building=U(0xbcd730u+o)*264u;
+    if(W(0x7999e8u+building)!=115u || B(0x799a7eu+building)==0u ||
+        B(0x7999d8u+building)!=1u || W(0x799a18u+building)==0u)U(0xbcd730u+o)=0;
+    counter=U(0xbcd740u+o);cycle=U(0xbcd73cu+o);
+    if((int32_t)counter>=(int32_t)cycle){U(0xbcd740u+o)=0;animation=B(0xbcd5f9u+o);++animation;B(0xbcd5f9u+o)=animation;}
+    {uint32_t profile=U(0xeaac28u)*0x49d8u;B(0xbcd66au+o)=5;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);}
+    B(0xbcd604u+o)=0;B(0xbcd65du+o)=0;animation=B(0xbcd5f9u+o);group=(int16_t)W(0xbcd658u+o);
+    ++animation;B(0xbcd5f9u+o)=animation;if(animation>=50u)B(0xbcd5f9u+o)=0;
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 5:FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;B(0xbcd630u+o)=8;}
+        U(0xbcd5fcu+o)=0;return o;
+    case 8:case 18:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),g=(uint32_t)group*144u;
+            struct animal_random_pair p=birds_history_draw(index,sample);int32_t x,y,gx,gy,result;
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b36cu)=p.b&7u;y=(int16_t)W(0xbcd60eu+o);U(0xd3b374u)=p.a&127u;U(0xd3b368u)=p.b&127u;
+            x=(int16_t)W(0xbcd60cu+o);U(0xd3b370u)=p.a&32767u;
+            gy=(int16_t)W(0xbcba00u+g);gx=(int16_t)W(0xbcb9feu+g);
+            result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,1);
+            actor=U(0xd056f8u);o=animal_offset(actor);
+            if(result>=0 && result<16){
+                uint16_t vx=W(0x5cdb78u+(uint32_t)result*8u),vy=W(0x5cdb7cu+(uint32_t)result*8u);
+                vx=(uint16_t)(vx+W(0xbcb9feu+g));vy=(uint16_t)(vy+W(0xbcba00u+g));
+                W(0xbcd61cu+o)=vx;W(0xbcd61eu+o)=vy;B(0xbcd630u+o)=10;
+            }else W(0xbcd62eu+o)=100;
+        }
+        break;
+    case 9:case 10:
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u)B(0xbcd606u+o)=2;
+        else if(direction==8u){
+            uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u);uint8_t previous=B(0xbcd60au+o);struct animal_random_pair p;
+            U(0xd3b1c8u+index*4u)=sample;++index;B(0xbcd609u+o)=previous;B(0xbcd630u+o)=18;
+            U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;
+            U(0xd3b374u)=p.a&127u;W(0xbcd62eu+o)=(uint16_t)((p.a&32767u)%150u+150u);
+        }
+        break;
+    case 14:case 15:(void)FUN_004eb000((int32_t)actor);actor=U(0xd056f8u);break;
+    case 16:case 17:
+        FUN_004a5da0((int32_t)actor,speed*2u);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==8u || direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=14;}
+        break;
+    case 12:
+        if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        o=animal_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);if((int16_t)W(0xbcd62eu+o)>500)B(0xbcd630u+o)=4;break;
+    default:B(0xbcd630u+o)=8;break;
+    }
+    return birds_animation(actor);
+}
+
+static void antelope_animation(uint32_t actor)
+{
+    uint32_t o=animal_offset(actor),rotation=U(0xbca2e0u),direction,base,frame,sprite;
+    uint8_t state;
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 4:base=U(0xf56eb4u);sprite=base+7u;break;
+    case 12:{int32_t delay=(int16_t)W(0xbcd62eu+o);base=U(0xf56eb4u);sprite=base+(delay>=8?7u:(uint32_t)delay);break;}
+    case 19:frame=U(0xbcd740u+o);base=U(0xf56eccu);sprite=base+frame*8u+direction;break;
+    case 18:frame=U(0xbcd740u+o);base=U(0xf56ec4u);sprite=base+frame*8u+direction;break;
+    case 8:case 14:case 15:base=U(0xf56eacu);sprite=base+direction;break;
+    case 16:case 17:frame=U(0xbcd740u+o);base=U(0xf56ed4u);sprite=base+frame*8u+direction;break;
+    case 5:frame=U(0xbcd740u+o);base=U(0xf56ebcu);sprite=base+frame*8u+direction;break;
+    default:frame=U(0xbcd740u+o);base=U(0xf56eacu);sprite=base+frame*8u+direction;break;
+    }
+    U(0xbcd5fcu+o)=sprite;
+}
+
+/* Ordinary void callback. Native incidental EAX is outside this contract;
+ * the complete original RAW callback/model must remain available. */
+__declspec(noinline) void restore_actor_update_antelope(void)
+{
+    uint32_t actor=U(0xd056f8u),o=animal_offset(actor),kind=B(0xbcd602u+o);
+    uint32_t profile,speed,counter,building,b,cycle;int32_t group;uint8_t completed=0,state;
+    B(0xbcd66au+o)=5;B(0xbcd604u+o)=0;B(0xbcd65du+o)=0;
+    profile=U(0xeaac28u)*0x49d8u;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);
+    speed=U(0x7090ecu+kind*56u);group=(int16_t)W(0xbcd658u+o);
+    counter=U(0xbcd740u+o)+1u;U(0xbcd740u+o)=counter;
+    building=U(0xbcd730u+o);b=building*264u;
+    if(W(0x7999e8u+b)!=0x73u||!B(0x799a7eu+b)||B(0x7999d8u+b)!=1u||!W(0x799a18u+b))U(0xbcd730u+o)=0;
+    counter=U(0xbcd740u+o);cycle=U(0xbcd73cu+o);
+    if((int32_t)counter>=(int32_t)cycle){uint8_t animation;U(0xbcd740u+o)=0;animation=B(0xbcd5f9u+o);++animation;completed=1;B(0xbcd5f9u+o)=animation;}
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 5:U(0xbcd73cu+o)=7;FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:U(0xbcd73cu+o)=8;FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:{
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;B(0xbcd630u+o)=8;}
+        U(0xbcd5fcu+o)=0;B(0xbcd65du+o)=1;return;
+    }
+    case 8:{
+        uint32_t index=U(0xd3b1c4u),previous=U(0xd3b374u),sample;struct animal_random_pair p;
+        U(0xd3b1c8u+index*4u)=previous;++index;if((int32_t)index>=100)index=0;
+        p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+        U(0xd3b1c8u+index*4u)=p.a&127u;++index;
+        B(0xbcd630u+o)=(uint8_t)((~p.a&1u)|18u);U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;
+        U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+        p=animal_shift_random_pair(p);
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        sample=p.a&32767u;U(0xd3b370u)=sample;U(0xd3b368u)=p.b&127u;U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;
+        W(0xbcd62eu+o)=(uint16_t)(sample%150u+150u);return;
+    }
+    case 18:{int32_t delay;
+        U(0xbcd73cu+o)=8;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);delay=(int16_t)W(0xbcd62eu+o);
+        if(delay<0){W(0xbcd62eu+o)=0;delay=0;}
+        if(delay<=0&&completed){
+            uint32_t index=U(0xd3b1c4u),previous=U(0xd3b374u),g=(uint32_t)group*144u;
+            struct animal_random_pair p;int32_t x,y,gx,gy,result;
+            U(0xd3b1c8u+index*4u)=previous;++index;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b36cu)=p.b&7u;U(0xd3b374u)=p.a&127u;y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+            U(0xd3b370u)=p.a&32767u;U(0xd3b368u)=p.b&127u;gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+            result=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,1);
+            if(result>=0&&result<16){uint16_t dx,dy;actor=U(0xd056f8u);o=animal_offset(actor);
+                dx=W(0x5cdb78u+(uint32_t)result*8u);dy=W(0x5cdb7cu+(uint32_t)result*8u);
+                dx=(uint16_t)(dx+W(0xbcba02u+g));dy=(uint16_t)(dy+W(0xbcba04u+g));
+                W(0xbcd61cu+o)=dx;W(0xbcd61eu+o)=dy;B(0xbcd630u+o)=10;return;
+            }
+            actor=U(0xd056f8u);W(0xbcd62eu+animal_offset(actor))=100;
+        }
+        if(completed){(void)FUN_004eb000((int32_t)actor);actor=U(0xd056f8u);}break;
+    }
+    case 19:
+        U(0xbcd73cu+o)=8;W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){if(completed){B(0xbcd630u+o)=18;return;}}
+        else if(completed){(void)FUN_004eb000((int32_t)actor);actor=U(0xd056f8u);}break;
+    case 9:case 10:{uint8_t direction;
+        U(0xbcd73cu+o)=12;FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u){uint16_t delay;B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=8;
+            delay=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);
+            W(0xbcd62eu+o)=delay;U(0xbcd740u+o)=0;return;
+        }else if(direction==8u){
+            uint32_t index=U(0xd3b1c4u),previous=U(0xd3b374u),sample;uint8_t old_direction=B(0xbcd60au+o);struct animal_random_pair p;
+            U(0xd3b1c8u+index*4u)=previous;++index;B(0xbcd609u+o)=old_direction;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p.a=U(0xd3b384u);p.b=U(0xd3b380u);p=animal_shift_random_pair(p);B(0xbcd630u+o)=(p.a&1u)?18:19;
+            index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=p.a&127u;++index;U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            p=animal_shift_random_pair(p);
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            sample=p.a&32767u;U(0xd3b370u)=sample;U(0xd3b36cu)=p.b&7u;U(0xd3b368u)=p.b&127u;U(0xd3b374u)=p.a&127u;
+            W(0xbcd62eu+o)=(uint16_t)(sample%150u+150u);break;
+        }
+        if(completed){(void)FUN_004eb000((int32_t)actor);actor=U(0xd056f8u);}break;
+    }
+    case 14:case 15:U(0xbcd73cu+o)=1;(void)FUN_004eb000((int32_t)actor);actor=U(0xd056f8u);break;
+    case 16:case 17:{uint8_t direction;
+        U(0xbcd73cu+o)=8;counter=U(0xbcd740u+o)+1u;U(0xbcd740u+o)=counter;if((int32_t)counter>=12)U(0xbcd740u+o)=0;
+        FUN_004a5da0((int32_t)actor,speed*2u);actor=U(0xd056f8u);o=animal_offset(actor);direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u||direction==8u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=14;U(0xbcd740u+o)=0;return;}break;
+    }
+    case 12:
+        if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}o=animal_offset(actor);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);if((int16_t)W(0xbcd62eu+o)>500)B(0xbcd630u+o)=4;break;
+    default:B(0xbcd630u+o)=8;break;
+    }
+    antelope_animation(actor);
+}
+
+
+#define OSTRICH_H(a) ((int32_t)(int16_t)W(a))
+static uint32_t ostrich_actor(uint32_t id) { return 0xbcd600u+id*388u; }
+static void ostrich_shift(uint32_t *a,uint32_t *b)
+{
+    uint32_t i,x=*a,y=*b;
+    for(i=0;i<31u;++i) {
+        uint32_t p=((x>>4)^x)&1u,q=((y>>4)^y)&1u;
+        x=(x>>1)|(p<<30);y=(y>>1)|(q<<30);
+    }
+    *a=x;*b=y;
+}
+
+/* State8 retains the first next-history index locally. Neither RNG state is
+ * published/reloaded between the two shift phases. Returns second A15/150. */
+static uint32_t ostrich_initial_wait(uint32_t actor)
+{
+    uint32_t index=U(0xd3b1c4u),a,b,choice,remainder;
+    U(0xd3b1c8u+index*4u)=U(0xd3b374u);
+    ++index;if((int32_t)index>=100)index=0;
+    a=U(0xd3b384u);b=U(0xd3b380u);ostrich_shift(&a,&b);
+    choice=a&0x7fffu;
+    U(0xd3b1c8u+index*4u)=a&0x7fu;
+    ++index;
+    B(actor+0x30u)=(uint8_t)((~choice&1u)|0x12u);
+    U(actor+0x140u)=0;
+    U(actor+0x13cu)=8;
+    U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    ostrich_shift(&a,&b);
+    U(0xd3b384u)=a;U(0xd3b378u)=a&7u;
+    U(0xd3b380u)=b;U(0xd3b364u)=b&0x7fffu;
+    choice=a&0x7fffu;
+    U(0xd3b370u)=choice;U(0xd3b368u)=b&0x7fu;U(0xd3b36cu)=b&7u;
+    remainder=choice%150u;
+    U(0xd3b374u)=a&0x7fu;
+    W(actor+0x2eu)=(uint16_t)(remainder+150u);
+    return choice/150u;
+}
+
+/* Direction8 has a different history/index/store phase from state8. */
+static void ostrich_moving_wait(uint32_t actor)
+{
+    uint32_t index=U(0xd3b1c4u),a,b,choice;
+    uint32_t previous=U(0xd3b374u);
+    uint8_t direction=B(actor+10u);
+    U(0xd3b1c8u+index*4u)=previous;++index;
+    B(actor+9u)=direction;
+    U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    a=U(0xd3b384u);b=U(0xd3b380u);ostrich_shift(&a,&b);
+    B(actor+0x30u)=(uint8_t)((a&1u)?18u:19u);
+    index=U(0xd3b1c4u);U(0xd3b1c8u+index*4u)=a&0x7fu;++index;
+    U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    ostrich_shift(&a,&b);
+    U(0xd3b384u)=a;U(0xd3b378u)=a&7u;
+    U(0xd3b380u)=b;U(0xd3b364u)=b&0x7fffu;
+    choice=a&0x7fffu;
+    U(0xd3b370u)=choice;U(0xd3b36cu)=b&7u;U(0xd3b368u)=b&0x7fu;
+    U(0xd3b374u)=a&0x7fu;
+    W(actor+0x2eu)=(uint16_t)(choice%150u+150u);
+}
+
+static uint32_t ostrich_image(uint32_t id)
+{
+    uint32_t offset=id*388u,actor=0xbcd600u+offset,rotation=U(0xbca2e0u),heading;
+    uint32_t counter,cycle,sprite,base;uint8_t state;
+    int16_t delay;
+    heading=(uint32_t)(int32_t)(int8_t)B(actor+9u)-rotation;
+    U(0xe94e00u)=heading;
+    if((int32_t)heading<0) {
+        heading+=8u;U(0xe94e00u)=heading;
+        if((int32_t)heading<0) {heading+=((7u-heading)>>3)*8u;U(0xe94e00u)=heading;}
+    }
+    if((int32_t)heading>=8) {heading-=(heading>>3)*8u;U(0xe94e00u)=heading;}
+    counter=U(actor+0x140u);cycle=U(actor+0x13cu);
+    if((int32_t)counter>(int32_t)cycle)U(actor+0x140u)=counter-cycle;
+    counter=U(actor+0x140u);if((int32_t)counter<0)U(actor+0x140u)=0;
+    state=B(actor+0x30u);
+    switch(state) {
+    case 4:sprite=U(0xf561d4u)+7u;break;
+    case 12:
+        delay=OSTRICH_H(actor+0x2eu);base=U(0xf561d4u);
+        sprite=base+(delay<8?(uint32_t)(int32_t)delay:7u);break;
+    case 8:case 18:
+        counter=U(actor+0x140u);base=U(0xf561e4u);sprite=base+counter*8u+heading;break;
+    case 19:
+        counter=U(actor+0x140u);base=U(0xf561ecu);sprite=base+counter*8u+heading;break;
+    case 14:case 15:sprite=U(0xf561ecu)+heading;break;
+    case 5:
+        counter=U(actor+0x140u);base=U(0xf561dcu);sprite=base+counter*8u+heading;break;
+    default:
+        counter=U(actor+0x140u);base=U(0xf561ccu);sprite=base+counter*8u+heading;break;
+    }
+    U(actor-4u)=sprite;return offset;
+}
+
+__declspec(noinline) void restore_actor_update_ostrich(void)
+{
+    uint32_t id=U(0xd056f8u),a=ostrich_actor(id),kind=B(a+2u),speed,building,b,profile,counter,cycle;
+    int32_t group;uint8_t due,state,direction;
+    B(a+0x6au)=5;B(a+4u)=0;B(a+0x5du)=0;
+    profile=U(0xeaac28u)*0x49d8u+0xea5ceau;W(profile)=(uint16_t)(W(profile)+1u);
+    speed=U(0x7090ecu+kind*56u);group=OSTRICH_H(a+0x58u);
+    counter=U(a+0x140u)+1u;U(a+0x140u)=counter;
+    building=U(a+0x130u);b=0x7999d8u+building*264u;
+    if(W(b+16u)!=0x73u||B(b+0xa6u)==0||B(b)!=1||W(b+0x40u)==0)U(a+0x130u)=0;
+    counter=U(a+0x140u);cycle=U(a+0x13cu);due=(uint8_t)((int32_t)counter>=(int32_t)cycle);
+    if(due){U(a+0x140u)=0;B(a-7u)=(uint8_t)(B(a-7u)+1u);}
+    state=B(a+0x30u);
+    switch(state) {
+    case 4:U(a+0x13cu)=8;FUN_004b1d50((int32_t)id);id=U(0xd056f8u);break;
+    case 5:U(a+0x13cu)=7;FUN_004b17d0((int32_t)id);id=U(0xd056f8u);break;
+    case 8:(void)ostrich_initial_wait(a);return;
+    case 9:case 10:
+        U(a+0x13cu)=12;FUN_004a5da0((int32_t)id,speed);id=U(0xd056f8u);a=ostrich_actor(id);
+        direction=B(a+9u);
+        if(direction==9){FUN_004b3250((int32_t)id);id=U(0xd056f8u);a=ostrich_actor(id);B(a+9u)=B(a+10u);}
+        else if(direction==10){
+            B(a+9u)=B(a+10u);B(a+0x30u)=8;
+            W(a+0x2eu)=(uint16_t)((uint32_t)B(a+0x5au)*5u);U(a+0x140u)=0;return;
+        }
+        else if(direction==8)ostrich_moving_wait(a);
+        if(due){FUN_004eb000((int32_t)id);id=U(0xd056f8u);}break;
+    case 12:
+        if(OSTRICH_H(a+0x2eu)==0){FUN_004b5050((int32_t)id);id=U(0xd056f8u);}
+        a=ostrich_actor(id);W(a+0x2eu)=(uint16_t)(W(a+0x2eu)+1u);
+        if(OSTRICH_H(a+0x2eu)>500)B(a+0x30u)=4;break;
+    case 14:case 15:U(a+0x13cu)=1;FUN_004eb000((int32_t)id);id=U(0xd056f8u);break;
+    case 16:case 17:
+        U(a+0x13cu)=12;counter=U(a+0x140u)+1u;U(a+0x140u)=counter;
+        if((int32_t)counter>=12)U(a+0x140u)=0;
+        FUN_004a5da0((int32_t)id,speed*2u);id=U(0xd056f8u);a=ostrich_actor(id);
+        direction=B(a+9u);
+        if(direction==9){FUN_004b3250((int32_t)id);id=U(0xd056f8u);a=ostrich_actor(id);B(a+9u)=B(a+10u);B(a+0x30u)=14;}
+        else if(direction==10){B(a+6u)=2;return;}
+        else if(direction==8){B(a+9u)=B(a+10u);B(a+0x30u)=14;U(a+0x140u)=0;return;}
+        break;
+    case 18:
+    {
+        int16_t remaining;
+        U(a+0x13cu)=8;W(a+0x2eu)=(uint16_t)(W(a+0x2eu)-1u);
+        remaining=OSTRICH_H(a+0x2eu);if(remaining<0){W(a+0x2eu)=0;remaining=0;}
+        if(remaining<=0&&due) {
+            uint32_t index=U(0xd3b1c4u),rng_a,rng_b,formation=0xbcb9c8u+(uint32_t)group*144u;
+            int32_t x,y,tx,ty,position;uint16_t target_x,target_y;
+            U(0xd3b1c8u+index*4u)=U(0xd3b374u);++index;
+            U(0xd3b1c4u)=index;if((int32_t)index>=100)U(0xd3b1c4u)=0;
+            rng_a=U(0xd3b384u);rng_b=U(0xd3b380u);ostrich_shift(&rng_a,&rng_b);
+            U(0xd3b384u)=rng_a;U(0xd3b378u)=rng_a&7u;
+            U(0xd3b380u)=rng_b;U(0xd3b364u)=rng_b&0x7fffu;
+            U(0xd3b36cu)=rng_b&7u;U(0xd3b374u)=rng_a&0x7fu;
+            ty=OSTRICH_H(a+14u);tx=OSTRICH_H(a+12u);
+            U(0xd3b370u)=rng_a&0x7fffu;U(0xd3b368u)=rng_b&0x7fu;
+            y=OSTRICH_H(formation+0x3cu);x=OSTRICH_H(formation+0x3au);
+            position=FUN_004eab10(x,y,(int32_t)(rng_a&15u),tx,ty,1);
+            if(position>=0&&position<16){
+                id=U(0xd056f8u);a=ostrich_actor(id);
+                target_x=W(0x5cdb78u+(uint32_t)position*8u);target_y=W(0x5cdb7cu+(uint32_t)position*8u);
+                target_x=(uint16_t)(target_x+W(formation+0x3au));target_y=(uint16_t)(target_y+W(formation+0x3cu));
+                W(a+0x1cu)=target_x;W(a+0x1eu)=target_y;B(a+0x30u)=10;return;
+            }
+            id=U(0xd056f8u);a=ostrich_actor(id);W(a+0x2eu)=100;
+        }
+        if(due){FUN_004eb000((int32_t)id);id=U(0xd056f8u);}break;
+    }
+    case 19:
+        U(a+0x13cu)=8;W(a+0x2eu)=(uint16_t)(W(a+0x2eu)-1u);
+        if(OSTRICH_H(a+0x2eu)<=0){if(due){B(a+0x30u)=18;return;}}
+        else if(due){FUN_004eb000((int32_t)id);id=U(0xd056f8u);}break;
+    case 24:
+        W(a+0x2eu)=(uint16_t)(W(a+0x2eu)-1u);
+        if(OSTRICH_H(a+0x2eu)<=0){U(a+0x140u)=0;U(a+0x13cu)=8;B(a+0x30u)=8;}
+        U(a-4u)=0;return;
+    default:B(a+0x30u)=8;break;
+    }
+    (void)ostrich_image(id);
+}
+
+#undef OSTRICH_H
+
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct
    RNG publication phases and the post-probe vector advance literally. */
 __declspec(noinline) void restore_actor_command_spawn_hippos(void)
