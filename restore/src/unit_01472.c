@@ -1,44 +1,21 @@
-#include "restore_types.h"
-int FUN_004b6ff0(undefined2 param_1,int param_2,int param_3,undefined2 param_4,undefined2 param_5)
-
+#include "actor_mission_init.h"
+#define U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define U16(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+__declspec(noinline) int32_t restore_actor_group_allocate(uint16_t kind,int32_t mode,int32_t orientation,uint16_t x,uint16_t y)
 {
-  int iVar1;
-  char *pcVar2;
-  int iVar3;
-  
-  iVar1 = 10;
-  pcVar2 = (char *)0x00bcbf68u;
-  do {
-    if (*pcVar2 == '\0') {
-      if (pcVar2[0x69] == '\0') {
-        iVar3 = iVar1 * 0x90;
-        *(undefined2 *)(0x00bcb9feu + (uint)iVar3) = param_4;
-        *(undefined2 *)(0x00bcba00u + (uint)iVar3) = param_5;
-        *(undefined1 *)(0x00bcb9c8u + (uint)iVar3) = 1;
-        *(undefined1 *)(0x00bcba0au + (uint)iVar3) = 0;
-        *(undefined1 *)(iVar3 + 0xbcb9c9) = 0;
-        *(undefined2 *)(0x00bcb9ccu + (uint)iVar3) = param_1;
-        *(undefined1 *)(0x00bcb9cau + (uint)iVar3) = (char)iVar1 + -10;
-        if (param_2 != 10) {
-          *(short *)(0x00bcb9f2u + (uint)iVar3) = (short)param_2;
-          *(undefined2 *)(0x00bcb9f4u + (uint)iVar3) = 100;
-          return iVar1;
-        }
-        if ((param_3 != 0) && (param_3 != 4)) {
-          *(undefined2 *)(0x00bcb9f2u + (uint)iVar3) = 2;
-          *(undefined2 *)(0x00bcb9f4u + (uint)iVar3) = 100;
-          return iVar1;
-        }
-        *(undefined2 *)(0x00bcb9f2u + (uint)iVar3) = 1;
-        *(undefined2 *)(0x00bcb9f4u + (uint)iVar3) = 100;
-        return iVar1;
-      }
-      *pcVar2 = '\x01';
-    }
-    pcVar2 = pcVar2 + 0x90;
-    iVar1 = iVar1 + 1;
-    if (0xbcd5e7 < (int)pcVar2) {
-      return 0;
-    }
-  } while( true );
+ uint32_t group,slot,offset;
+ for(group=10,slot=0xbcbf68u;slot<0xbcd5e8u;++group,slot+=144u){
+  if(U8(slot)!=0)continue;
+  if(U8(slot+105u)!=0){U8(slot)=1;continue;}
+  offset=group*144u;
+  U16(0xbcb9feu+offset)=x;U16(0xbcba00u+offset)=y;
+  U8(0xbcb9c8u+offset)=1;U8(0xbcba0au+offset)=0;U8(0xbcb9c9u+offset)=0;
+  U16(0xbcb9ccu+offset)=kind;U8(0xbcb9cau+offset)=(uint8_t)(group-10u);
+  if(mode==10)mode=(orientation==0||orientation==4)?1:2;
+  U16(0xbcb9f2u+offset)=(uint16_t)mode;U16(0xbcb9f4u+offset)=100;
+  return (int32_t)group;
+ }
+ return 0;
 }
+__declspec(noinline) int32_t FUN_004b6ff0(uint16_t kind,int32_t mode,int32_t orientation,uint16_t x,uint16_t y)
+{return restore_actor_group_allocate(kind,mode,orientation,x,y);}

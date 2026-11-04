@@ -861,8 +861,8 @@ scenarios each, covering all 649 instructions and 76 conditional outcomes.
 A retained previous EXE proves the stop-all callback mismatch: one native stop
 versus six C backend calls after sound becomes disabled; the repaired parent
 calls its real gated members. Debug/Release playback passes 160 assertions and
-initialization passes 391 cases each. The 54-report aggregate binds current
-sources and executables. The structural inventory classifies 1141 ordinary C
+initialization passes 391 cases each. The 56-report aggregate binds current
+sources and executables. The structural inventory classifies 1144 ordinary C
 entries of4402 catalogued. Its parser now recognizes MSVC attributes, so the
 reclassified existing bodies are not new algorithm conversions. Complete
 gameplay equivalence remains unproved.
@@ -898,8 +898,8 @@ policy cases. Ten original CD-fallback instructions are retained in comments
 and intentionally disabled. All four retained insertion-guard mismatches now
 replay successfully against original/current named/canonical C.
 
-The current aggregate passes54 paired reports,34,290 scenarios /114,762
-invocations. Per binary it owns10,678 native instructions:10,664 executed,
+The current aggregate passes56 paired reports,35,384 scenarios /117,466
+invocations. Per binary it owns11,418 native instructions:11,404 executed,
 four proved dead actor-message instructions and ten user-disabled CD
 instructions. Debug/Release music, campaign and music-tick native corpora pass
 316/333/1668 cases each. A recorded exact CMake scope audit covers late edits
@@ -916,10 +916,21 @@ BYTE fills and the town iterator's cached count and unusual record140 fallback
 are preserved. See
 [ACTOR_RESERVED_RECONSTRUCTION.md](metadata/ACTOR_RESERVED_RECONSTRUCTION.md).
 
-The next scope targets the remaining560/90-instruction mission-spawn models
-4BB3F0 and4BBC10, retained in `metadata/actor-mission-spawn-next-native.json`.
-Full gameplay remains unfinished, and no host game was launched during this
-recovery.
+The scenario point/group initializers4BBC10 and4BB3F0 now use named C.
+Their frame dispatcher and both remaining mission-init register models are
+removed. A named group allocator replaces its decompiler-style body; the
+existing terrain predicate is included as a genuine child. Both Release
+binaries pass547 cases /1352 invocations each, all740 native instructions
+and126 outcomes. History wrap, exhausted terrain search, actor-zero writes,
+coordinate widths, cached selectors and RNG/actor-field aliases are retained.
+Twelve additional actual adjacent initializer sequences per binary and four
+full-width/cached-count cases also pass.
+See [ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md](metadata/ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md).
+
+The structural inventory has1144 ordinary C bodies,216 instruction models
+and1106 decompiler-style bodies. The next pinned scope is the603-instruction
+command/state graph4EC990/4EC7C0/4EC0F0/4EC4A0. Full gameplay remains
+unfinished; no host game was launched during this recovery.
 
 ## Verification scope
 

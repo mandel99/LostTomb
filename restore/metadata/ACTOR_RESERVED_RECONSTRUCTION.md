@@ -60,8 +60,9 @@ platform or device endpoints are invoked, and no host game is launched.
 
 Coverage does not certify incidental void return registers/flags, fault-time
 registers, arbitrary caller-stack aliases, the OS exception dispatcher, host
-allocation/device behavior or complete gameplay. Two remaining mission-spawn
-models (`4BB3F0`, `4BBC10`) are retained as the next scope with native evidence.
+allocation/device behavior or complete gameplay. That checkpoint retained two mission-spawn models (`4BB3F0`, `4BBC10`) as
+the next scope. Their subsequent named-C migration is documented in
+ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md.
 
 The structural inventory now recognizes `__declspec` before return types. Its
 reclassification of existing attributed bodies must not be counted as new

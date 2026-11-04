@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(actor_scenario_spawn_strict C)
+get_filename_component(RESTORE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+add_library(actor_scenario_spawn_strict OBJECT "${RESTORE_ROOT}/runtime/actor_mission_init.c" "${RESTORE_ROOT}/src/unit_01472.c")
+target_include_directories(actor_scenario_spawn_strict PRIVATE "${RESTORE_ROOT}/include")
+target_compile_options(actor_scenario_spawn_strict PRIVATE /W4 /WX /GS- /Ob0 "$<$<CONFIG:Release>:/O2>")

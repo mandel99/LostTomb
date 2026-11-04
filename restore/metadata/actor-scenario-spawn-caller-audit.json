@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "direct_callsites": 2,
+  "point_return_kill": {
+    "full_kill": "0x4bb3f3",
+    "overwrite_sites": [
+      "0x4bb3f3"
+    ]
+  },
+  "group_return_kill": {
+    "full_kill": "0x40f900",
+    "overwrite_sites": [
+      "0x40f8f3",
+      "0x40f900"
+    ]
+  },
+  "void_interfaces_supported_for_observed_callers": true,
+  "source_hashes": {
+    "direct_c/audit_actor_scenario_spawn_callers.py": "2126e0ea220b2f8f0c68ca066e76988c64bbb7e64ce0863d9529d7eb20bb5477",
+    "direct_c/native_test_pe.py": "c98d2d1e68340be38c258b3c989e18bea6196b60e170519ec12603426d3a790b",
+    "metadata/actor-scenario-spawn-context.json": "e2f109b138a0c135875aa0350b42875f1450a903f768df283dd6528c8fe8353f",
+    "metadata/actor-scenario-spawn-caller-bytes.json": "7047ea9a865eb49c82efcdc9473014e197a6df18d4678840e51aae004ce13fe6",
+    "metadata/actor-scenario-spawn-native.json": "716449086d75280006e28ce7bc72e0297538fec7fea60371062b8f8af6e315f8",
+    "metadata/actor-reserved-native.json": "a78585958d1bec676ae791368118bd0767e0d9ddbd5f677fd03e725222653bfe",
+    "include/actor_mission_init.h": "f4e56bc8794ffd04383ccfd2e8e7aea6c2ccee7416408a1a428347db3ff39467"
+  },
+  "limitations": [
+    "Exactly one provider-observed direct caller per entry.4BBC10 is followed by4BB3F0, whose first MOV EAX kills its incoming value.4BB3F0 is followed by4D5980, whose constant pushes lead to40F8F0: AL is replaced before its use and full EAX is then overwritten.",
+    "This checks EAX/AX/AL/AH liveness through these exact prefixes. Indirect/unrecognized callers, arbitrary stack corruption, other incidental volatile registers/flags and full end-to-end mission loading are outside this audit."
+  ]
+}
