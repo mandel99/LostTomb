@@ -1,5 +1,12 @@
 # Pharaoh restore
 
+Actor target search and command-state transitions now use five named C bodies,
+including a callback that Ghidra had not identified as a procedure. The656 native
+instructions preserve full return bits, RNG publication order, signed tile-list
+links and aliased search outputs. See
+[actor command transitions](metadata/ACTOR_COMMAND_TRANSITION_RECONSTRUCTION.md)
+for the comparison scope, explicit dead-branch qualifications and remaining work.
+
 The 2026-11-03 incremental recovery adds named C building-access controllers and
 an exact neighbor query, with594 native instructions compared in188 scenarios
 against both Release executables. Six labor/displacement algorithms also pass

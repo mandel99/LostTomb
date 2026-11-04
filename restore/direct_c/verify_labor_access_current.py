@@ -2,7 +2,7 @@
 
 This checks retained oracle reports and lightweight source audits; it does not
 rerun or replace the differential tests.
-Run the twenty-eight differential suites for both executables before refreshing it.
+Run the twenty-nine differential suites for both executables before refreshing it.
 """
 from pathlib import Path
 from datetime import datetime,timezone
@@ -37,7 +37,7 @@ def main():
  for audit in ['audit_building_access_returns.py','audit_processing_receiver.py']:
   subprocess.run([sys.executable,str(ROOT/'direct_c'/audit)],check=True)
  proofs={};files={}
- for suite in ['labor-allocation','building-access','building-access-search','building-removal','building-destruction','map-surface','access-repair-flood','map-region','building-occupancy','ring-growth','building-processing','message-category','actor-message','actor-voice','sound-stream','sound-fade','sound-ambient','sound-sample','byte-string-compare','sound-file-lifecycle','sound-bank','sound-playback','sound-stop','sound-allocation','sound-device','music-configuration','actor-reserved','actor-scenario-spawn']:
+ for suite in ['labor-allocation','building-access','building-access-search','building-removal','building-destruction','map-surface','access-repair-flood','map-region','building-occupancy','ring-growth','building-processing','message-category','actor-message','actor-voice','sound-stream','sound-fade','sound-ambient','sound-sample','byte-string-compare','sound-file-lifecycle','sound-bank','sound-playback','sound-stop','sound-allocation','sound-device','music-configuration','actor-reserved','actor-scenario-spawn','actor-command-transition']:
   for suffix in ['diagnostic','game']:
    rel=f'metadata/{suite}-{suffix}.json';p=ROOT/rel;j=json.loads(p.read_text())
    assert j['passed'] and not j['unexecuted_instructions'] and not j['unexecuted_edges'],rel
@@ -52,11 +52,20 @@ def main():
     assert set(j['coverage'])=={'0x4bb3f0','0x4bbc10','0x4b6ff0','0x4ec410'}
     assert j['actual_scenarios']==405 and j['protocol_scenarios']==137 and j['synthetic_memory_scenarios']==5
     assert j['conditional_edges']==126 and j['controlled_platform_endpoints']==[]
+   if suite=='actor-command-transition':
+    assert set(j['coverage'])=={'0x4ec990','0x4ec7c0','0x4ec4a0','0x4ec0f0','0x4eae20'}
+    assert j['checked']==1353 and j['invocations']==3976 and j['conditional_edges']==138
+    assert j['actual_scenarios']==1256 and j['protocol_scenarios']==95 and j['synthetic_memory_scenarios']==2
+    assert j['controlled_algorithm_endpoints_by_lane']['actual']==[] and j['controlled_platform_endpoints']==[]
+    assert j['analytically_unreachable_edges']==[['0x4ec137','0x4ec193'],['0x4ec1a9','0x4ec20a'],['0x4ec225','0x4ec281'],['0x4ec297','0x4ec2f4'],['0x4ec5eb','0x4ec5ed'],['0x4ec947','0x4ec949']]
    coverage=j['coverage']
    qualified=sum(c.get('analytically_unreachable',0) for c in coverage.values())
    if qualified:
-    assert suite=='actor-message' and qualified==4,rel
-    assert set(j['analytically_unreachable_instructions'])=={'0x53cbb5','0x53cbba','0x53cca9','0x53ccae'},rel
+    if suite=='actor-command-transition':
+     assert qualified==3 and set(j['analytically_unreachable_instructions'])=={'0x4ec5ed','0x4ec5ee','0x4ec5f1'},rel
+    else:
+     assert suite=='actor-message' and qualified==4,rel
+     assert set(j['analytically_unreachable_instructions'])=={'0x53cbb5','0x53cbba','0x53cca9','0x53ccae'},rel
    disabled=sum(c.get('user_disabled_CD',0) for c in coverage.values())
    if disabled:
     assert suite=='music-configuration' and disabled==10 and j['explicit_CD_policy_scenarios']==3,rel
@@ -213,9 +222,31 @@ def main():
   for source,sha in composition['source_hashes'].items():assert source_matches(source,sha),('scenario composition',suffix,source)
   extra.append(rel)
  extra.append('direct_c/verify_actor_scenario_spawn_composition.py')
+ command_audit=json.loads((ROOT/'metadata/actor-command-transition-audit.json').read_text())
+ assert command_audit['passed'] and len(command_audit['analytically_unreachable_instructions'])==3
+ for source,sha in command_audit['source_hashes'].items():assert source_matches(source,sha),('command transition audit',source)
+ for suffix in ['diagnostic','game']:
+  rel=f'metadata/actor-command-transition-composition-{suffix}.json';composition=json.loads((ROOT/rel).read_text())
+  assert composition['passed'] and composition['checked']==67 and composition['invocations']==201
+  assert composition['actual_scenarios']==66 and composition['synthetic_memory_scenarios']==1 and composition['protocol_scenarios']==0
+  assert composition['controlled_algorithm_endpoints']==composition['controlled_platform_endpoints']==[]
+  assert digest(Path(composition['compiled_C_path']))==composition['compiled_C_sha256']
+  assert digest(ROOT/'build/smoke-game/Pharaoh.exe')==composition['native_sha256']
+  for source,sha in composition['source_hashes'].items():assert source_matches(source,sha),('command composition',suffix,source)
+  extra.append(rel)
+ extra+=['direct_c/verify_actor_command_transition_composition.py','direct_c/audit_actor_command_transition.py','metadata/actor-command-transition-audit.json','metadata/actor-command-transition-native.json','metadata/actor-command-transition-additions-rea-records.json','metadata/actor-command-transition-callers-rea-records.json','metadata/ACTOR_COMMAND_TRANSITION_RECONSTRUCTION.md','tools/actor_command_transition_project/CMakeLists.txt','metadata/actor-command-nullary-next-rea-record.json','build/actor-command-transition/main-build.log','build/actor-command-transition/strict.log','build/actor-command-transition/game-final.log','build/actor-command-transition/diagnostic-final.log']
+ for suffix in ['diagnostic','game']:
+  rel=f'metadata/actor-command-parent-{suffix}.json';parent=json.loads((ROOT/rel).read_text())
+  assert parent['passed'] and parent['checked']==14 and parent['invocations']==28
+  assert parent['controlled_algorithm_endpoints']==parent['controlled_platform_endpoints']==[]
+  assert digest(Path(parent['compiled_C_path']))==parent['compiled_C_sha256']
+  assert digest(ROOT/'build/smoke-game/Pharaoh.exe')==parent['native_sha256']
+  for source,sha in parent['source_hashes'].items():assert source_matches(source,sha),('retained command parent',suffix,source)
+  extra.append(rel)
+ extra+=['direct_c/verify_actor_command_parent.py','metadata/actor-command-nullary-next-context-rea-records.json','metadata/actor-command-nullary-next-caller-refs-rea-record.json','metadata/actor-command-nullary-next-notes.json']
  for rel in extra:files[rel]=digest(ROOT/rel)
- result=dict(generated_at=datetime.now(timezone.utc).isoformat(),scope='Release labor, building queries, removal, ring, map repair, message categories, the actor-message controller actor voice routing, sound streams, fades, ambient selection, sample loading and file registration, unsigned-byte comparison, array/file-table lifecycles and building/UI/actor sample banks, 2D playback/cache, explicit-receiver stopping and faithful 2D sample-pool allocation, PCM initialization/shutdown, whole sound boot and sound/music global CRT lifetimes, music configuration/insertion/population selection and byte-set tokenization, reserved-actor initialization/reset/allocation, ordered byte-fill and town iterator, scenario point/group spawning with real group allocation, terrain checks and native RNG ordering; explicit user-disabled CD fallback; finite genuine compositions; not complete gameplay',complete_game_reconstruction=False,proofs=proofs,files=files,remaining_tracked_region_models=[],next_native_targets=['004ec990','004ec7c0','004ec0f0','004ec4a0'],next_scope='Replace the603-instruction actor command/state graph and callback-search models with named C; preserve native callback contracts, RNG, transition cycles and actual nearest-building search; remaining catalogue/exception dispatch',verification_configuration='Release',host_game_process_launched=False,scenario_adjacent_compositions_per_binary=12,scenario_width_cache_cases_per_binary=4,settings_production_checked=settings['checked'],settings_debug_release_trace_plain_passed=True,ground_production_checked=ground['checked'],ground_production_passed=True,sound_table_debug_release_checked=sound_tables,sound_initialization_debug_release_checked=sound_initialization,sound_allocation_host_checks_per_configuration=265,historical_allocation_counterexamples_fixed_in_current_C=8,historical_device_boot_counterexamples=2,historical_music_insertion_counterexamples_fixed=4,user_disabled_CD_native_instructions=10,audio_CRT_subset_startup_audit_passed=True,C_seh_contracts_per_configuration=6,native_OS_exception_dispatch_proven=False,real_highest_serial_removal_cases=dict(kinds=[31,202,1],controlled_results=False,final_building_status=4,allocated_effect_actors=16,queued_events=1,sound_enabled=False),real_destruction=dict(composition_scenarios=17,whole_destruction_scenarios=9,controlled_results=False,native_tables=True,asserted_rubble_counts=[4,7,36]),real_access_repair=dict(composition_scenarios=5,controlled_results=False,fixture_dimensions=[16,16],active_buildings=0,checked_attempt_counts=[0,1,15],success_notification=True,exhausted_removal_dispatch=True),processing_receiver_audit_command='python direct_c/audit_processing_receiver.py',processing_receiver_audit_passed=True,processing_historical_receiver_calls_repaired=1,ring_growth_gameplay_unified=True,ring_growth_normal_return_only=True,caller_abort_placeholders_removed=5,caller_syntax_check='passed',caller_audit_command='python direct_c/audit_building_access_returns.py',build_command='cmake --build build/c-only --config Release --target restore_link_check restore_game --parallel 8',remaining_scope=['Parent actor/building query models and broader states beyond finite compositions','Original heap layout and C++ exception/unwind paths beyond normal-return ring verification','Remaining instruction models and decompiler placeholders across the catalogue','End-to-end usable gameplay, enabled sound and physical screen behavior'])
+ result=dict(generated_at=datetime.now(timezone.utc).isoformat(),scope='Release labor, building queries, removal, ring, map repair, message categories, the actor-message controller actor voice routing, sound streams, fades, ambient selection, sample loading and file registration, unsigned-byte comparison, array/file-table lifecycles and building/UI/actor sample banks, 2D playback/cache, explicit-receiver stopping and faithful 2D sample-pool allocation, PCM initialization/shutdown, whole sound boot and sound/music global CRT lifetimes, music configuration/insertion/population selection and byte-set tokenization, reserved-actor initialization/reset/allocation, ordered byte-fill and town iterator, scenario point/group spawning with real group allocation, terrain checks and native RNG ordering, actor command-state transitions and actual callback target search; explicit user-disabled CD fallback; finite genuine compositions; not complete gameplay',complete_game_reconstruction=False,proofs=proofs,files=files,remaining_tracked_region_models=[],next_native_targets=['0041cd00','0049e8b0','004eaec0'],next_scope='Replace the remaining nullary actor command and civic target-search callers with named C; preserve actual allocation, RNG, transition cycles and native return contracts; remaining catalogue/exception dispatch',verification_configuration='Release',host_game_process_launched=False,scenario_adjacent_compositions_per_binary=12,scenario_width_cache_cases_per_binary=4,actor_command_additional_compositions_per_binary=67,settings_production_checked=settings['checked'],settings_debug_release_trace_plain_passed=True,ground_production_checked=ground['checked'],ground_production_passed=True,sound_table_debug_release_checked=sound_tables,sound_initialization_debug_release_checked=sound_initialization,sound_allocation_host_checks_per_configuration=265,historical_allocation_counterexamples_fixed_in_current_C=8,historical_device_boot_counterexamples=2,historical_music_insertion_counterexamples_fixed=4,user_disabled_CD_native_instructions=10,audio_CRT_subset_startup_audit_passed=True,C_seh_contracts_per_configuration=6,native_OS_exception_dispatch_proven=False,real_highest_serial_removal_cases=dict(kinds=[31,202,1],controlled_results=False,final_building_status=4,allocated_effect_actors=16,queued_events=1,sound_enabled=False),real_destruction=dict(composition_scenarios=17,whole_destruction_scenarios=9,controlled_results=False,native_tables=True,asserted_rubble_counts=[4,7,36]),real_access_repair=dict(composition_scenarios=5,controlled_results=False,fixture_dimensions=[16,16],active_buildings=0,checked_attempt_counts=[0,1,15],success_notification=True,exhausted_removal_dispatch=True),processing_receiver_audit_command='python direct_c/audit_processing_receiver.py',processing_receiver_audit_passed=True,processing_historical_receiver_calls_repaired=1,ring_growth_gameplay_unified=True,ring_growth_normal_return_only=True,caller_abort_placeholders_removed=5,caller_syntax_check='passed',caller_audit_command='python direct_c/audit_building_access_returns.py',build_command='cmake --build build/c-only --config Release --target restore_link_check restore_game --parallel 8',remaining_scope=['Parent actor/building query models and broader states beyond finite compositions','Original heap layout and C++ exception/unwind paths beyond normal-return ring verification','Remaining instruction models and decompiler placeholders across the catalogue','End-to-end usable gameplay, enabled sound and physical screen behavior'])
  (ROOT/'metadata/labor-and-access-current.json').write_text(json.dumps(result,indent=2)+'\n')
- print('PASS56 paired reports plus settings, ground, Debug/Release sound tables/initialization/playback and C SEH contracts: current sources/binaries, exact music-tick-only CMake scope audit; complete_game_reconstruction=false')
+ print('PASS58 paired reports plus settings, ground, Debug/Release sound tables/initialization/playback and C SEH contracts: current sources/binaries, exact music-tick-only CMake scope audit; complete_game_reconstruction=false')
 
 if __name__=='__main__':main()

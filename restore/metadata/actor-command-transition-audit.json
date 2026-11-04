@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "analytically_unreachable_instructions": [
+    "0x4ec5ed",
+    "0x4ec5ee",
+    "0x4ec5f1"
+  ],
+  "analytically_unreachable_edges": [
+    [
+      "0x4ec5eb",
+      "0x4ec5ed"
+    ],
+    [
+      "0x4ec137",
+      "0x4ec193"
+    ],
+    [
+      "0x4ec1a9",
+      "0x4ec20a"
+    ],
+    [
+      "0x4ec225",
+      "0x4ec281"
+    ],
+    [
+      "0x4ec297",
+      "0x4ec2f4"
+    ],
+    [
+      "0x4ec947",
+      "0x4ec949"
+    ]
+  ],
+  "proofs": [
+    "EC5C1 masks EDX to 15 bits; EC5CC copies it to EAX. EC5D4 ANDs with 0x80000007, so SF=0. Only MOVs intervene before JNS; its three-instruction negative correction cannot execute.",
+    "Spiral EBP starts at 1 and increases by 2 only after a round. The counter starts at 0 and permits reentry only below 228, so every reached direction has positive span 1..455. Its four JLE skip edges cannot execute.",
+    "Chooser remainder is (first & 32767) % 100, hence 0..99. Every native weight row sums to 100; some cumulative comparison must succeed by row 3. The ECX==4 loop exit is unreachable without private-stack/code corruption."
+  ],
+  "caller_bridge": {
+    "retained": "Full EAX, RET0 ESP movement and nonvolatile registers.",
+    "scratch": "ECX and flags are overwritten immediately at the animal callsites. EDX is replaced along the join branches; the 49F108 path calls the typed two-DWORD movement helper before its next EDX use. 41CD5A reloads EDX and ECX before RNG use. The EAEC0 suffix tests EAX then assigns ECX and DX before using them.",
+    "return_type": "EC4A0 default returns the full EAX from EC990. Integer C interfaces retain partial-AL/AX and child return bit patterns."
+  },
+  "source_hashes": {
+    "direct_c/audit_actor_command_transition.py": "30a8b40ade95fe735c3116a3bd839faa08fa8f8f4a57fa2b174cf955dea5ed19",
+    "metadata/actor-command-transition-native.json": "2e1e637465a29abd7ccbe8922487f1d3a4d8e6f838198bc10ca20933ad489872",
+    "metadata/actor-command-transition-next-rea-evidence.json": "db507679391737a1560e014326cb7ba0ff488a77dd3e9983085e40c6ff31fb8c",
+    "metadata/actor-command-transition-additions-rea-records.json": "45988753f3ae8d22d6367818e5910b1149a9d7e6a48542d1bd2199296cbd0eac",
+    "metadata/actor-command-transition-callers-rea-records.json": "100c9056810463121dc491040d9a6dee699b432f26a218e84afad0ccf51b6569",
+    "runtime/actor_command.c": "bdcb8acf59c2ca7b2fe25d75b3b6ce993f48e9841d1177d4654c73b5ac86cf58",
+    "runtime/actor_command_model.c": "5479b7874b361c79518bc1bcd56711ae80fb06569e7ad460decf11f736a68543",
+    "runtime/actor_civic.c": "57354c62dcb292fd2df9f6f7dcbb6f02577d86736c5d6e0931550350651d39a7",
+    "runtime/actor_civic_model.c": "d916bb49282fd68de19d8ff3da8057075da9459a6dd565220140a552dcb1a091",
+    "runtime/actor_routing_model.c": "b541a68da81378b6712d8d93f8efcf8bef7dfbcc987e874f41929936c31cbd64",
+    "include/actor_command.h": "92cbc9fd5f45270ed88543f32e432783648906c360cb4ee15724851f246da24e"
+  },
+  "limitations": [
+    "Read-only Ghidra did not identify EAE20, 49E8B0 and 41CD00 procedures. Their existing raw byte/source models provide additional explicitly identified callsites; provider incoming references alone are incomplete there.",
+    "This exact native/source audit does not certify arbitrary caller-stack aliases, self-modifying code, corrupted private locals, unknown indirect callers, unused volatile outputs or OS exception dispatch."
+  ]
+}

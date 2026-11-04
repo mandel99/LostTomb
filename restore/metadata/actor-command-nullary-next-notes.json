@@ -1,0 +1,27 @@
+{
+  "status": "next implementation candidate; not yet converted or behaviorally verified",
+  "entry": "0x41cd00",
+  "end_inclusive": "0x41cfbc",
+  "native_instructions": 195,
+  "raw_bytes_record": "metadata/actor-command-nullary-next-rea-record.json",
+  "suggested_C_name": "restore_actor_command_spawn_eight",
+  "observed_guards": [
+    "Run only when BYTE E38DDA equals 1.",
+    "Call 4B6FF0(84, 5, 0, DWORD BCA2C8, DWORD BCA2CC); continue only when its full signed result is positive."
+  ],
+  "observed_body": [
+    "Set group offset +105 to BYTE 1, +78 to WORD 24 and +41 to BYTE 8.",
+    "For ordinals 0..7, advance/publish the paired RNG, then start the eight-vector terrain probe at that ordinal.",
+    "The native probe index is BCA2D8 + vectorX + 228*vectorY + BCA2C8 + BCA2CC. The center Y addition is unscaled in these original instructions; do not silently replace it with 228*centerY.",
+    "After every probe, including the successful one, advance/wrap the vector index. Stop when terrain AL is zero or after eight attempts. Actor creation uses this already advanced vector, including after exhaustion.",
+    "Advance the paired RNG a second time, retaining this phase's distinct history/publication order. Load center Y after publishing the first state but before its masked outputs, and center X later before allocation, matching native freshness.",
+    "Call 4B4800(1, 84, vectorX + centerX, vectorY + cachedCenterY, firstRandom & 7).",
+    "Without a zero-result guard, store actor BYTE state 25, WORD group link, WORD delay 1000, BYTE ordinal and DWORD animation mode 7, then call the newly recovered 4EC990. Actor zero and 32-bit wrapped offsets remain observable if allocation returns those values."
+  ],
+  "residuals": [
+    "The retained 41CD00 model remains active until a real C replacement and whole-native differential corpus pass.",
+    "Recover the two RNG publication phases independently; the common transition publisher has a different store order.",
+    "Audit the command-table caller's return contract before choosing the final C return type.",
+    "Include genuine allocation/terrain/target-search compositions, group failure, actor zero, coordinate/ordinal widths and native freshness/store-order cases."
+  ]
+}
