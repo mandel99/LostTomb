@@ -936,3 +936,7 @@ cover the constructor, three record routines, four memory/string routines,
 four copy/search/random helpers, and six ring queue methods.
 Successful compilation and these finite differential checks do not establish
 full-game equivalence.
+
+Local cleanup on2026-11-04 removed10.728 GiB of obsolete generated outputs.
+Current builds, original assets and referenced evidence remain available; see
+[the cleanup record](metadata/RESTORE_CLEANUP_2026-11-04.md).
