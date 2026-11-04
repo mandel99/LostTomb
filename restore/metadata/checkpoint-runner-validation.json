@@ -1,54 +1,74 @@
 {
   "passed": true,
-  "validation_scope": "checkpoint orchestration and retained report bindings",
+  "validation_scope": "Checkpoint orchestration, current report bindings and explicit external/recovery barrier",
   "isolated_tests": 10,
   "full_read_only_plan_jobs": {
-    "audit": 8,
-    "primary": 64,
+    "audit": 9,
+    "primary": 66,
     "supplemental": 10,
     "composition": 6,
     "final": 3
   },
-  "existing_report_schemas_checked": 83,
+  "existing_report_schemas_checked": 85,
   "existing_report_binding_issues": 0,
   "partial_plan_adds_primary_prerequisites": true,
   "same_and_later_stage_dependencies_rejected": true,
-  "local_harness_result": "build/checkpoint-runner-review/run-20261104T163014Z-ea2dc9e1/harness-result.json",
-  "local_harness_result_sha256": "498c2c740510058b7ac1fabb9a6f0e81b90750684b0a7858eb3feaee4294b50b",
-  "local_harness_log_sha256": "95763a925403d076077165d59ba9a339059624be385e4f3f99f47c943c54f032",
+  "local_harness_result": "build/checkpoint-runner-review/run-20261104T202738Z-0cd62fc2/harness-result.json",
+  "local_harness_result_sha256": "4add686e18cb6256ff9269cd4d20de77cf84d321cbc6a425023781324753853f",
+  "local_harness_log_sha256": "c12d4cc5b0862c66d90a14ede9b5ddf7759be8c4e80263fff13c31235248c326",
   "source_hashes": {
-    "tools/run_reconstruction_checkpoint.py": "0b8753417300742075af2b604de9c4252fbcebf55127ea8dd7442d7d199ddf08",
-    "tools/RECONSTRUCTION_CHECKPOINT_RUNNER.md": "c18edbd64faa52afe3dc2d573146f98a40ac57b04f0da79d8b183f35c4192f05",
-    "tests/test_reconstruction_checkpoint_runner.py": "dbd7bc68b031d0156bd98dba921f52330473c712e30c9bb3ac656806bd222490"
+    "tools/run_reconstruction_checkpoint.py": "0a3a8c182eebb0f8c0805406bca1936b35657c11c450f66c009ea80ac229762d",
+    "tools/RECONSTRUCTION_CHECKPOINT_RUNNER.md": "4d6878e8cb835479267548bf5509d4712f9c1143915316090236dc1157ff22c3",
+    "tests/test_reconstruction_checkpoint_runner.py": "2b2688dfa00b42a428b51a0f72715953cae88d0ca87898f1b4207cba8a0767e4"
   },
-  "current_reconstruction_aggregate_sha256": "4a9d870dea1a1f92fd93469aa363d7110d932a528ff51c4a45a88aa6ec8bbbd3",
+  "current_reconstruction_aggregate_sha256": "cbc9b102d7adce3c1daac55b3229a55746e9e9968385fb77d6f0c5433f3da52d",
   "real_verifiers_executed_by_harness": false,
   "real_build_executed_by_harness": false,
   "host_game_launched": false,
   "stale_reports_rebound": false,
   "real_selected_checkpoint": {
-    "local_receipt": "build/checkpoints/hippo-vector-previous-20261104/receipt.json",
-    "receipt_sha256": "095c8f207a442d474a1260567982ef257901adf30e774cfcac396115f7221a2f",
-    "selected_jobs": 85,
-    "actual_child_exits_all_zero": true,
-    "sources_unchanged": true,
-    "binaries_unchanged": true,
+    "initial_receipt": "build/checkpoints/animals-following-previous-20261104/receipt.json",
+    "initial_receipt_sha256": "486d5f3979bcaece5af561af3e5a5837c77a8037fbe2ed035a0b6f84adb376f9",
+    "initial_status": "failed",
+    "initial_successful_jobs_preserved": 68,
+    "initial_failed_job": "actor_animal_target-diagnostic",
+    "initial_not_started": 19,
+    "recovery_receipt": "build/checkpoints/animals-following-recovery-20261104/receipt.json",
+    "recovery_receipt_sha256": "77460f83c3abef486b12f8c14ea44173a9e38e3f35b32f02e563a4c9696a6dc3",
+    "recovery_status": "passed",
+    "recovery_jobs": 20,
+    "combined_successful_unique_jobs": 88,
+    "actual_child_attempts": 89,
+    "previous_successful_jobs_repeated": false,
     "complete_checkpoint": false,
-    "new_parent_primary_reports_completed_before_selected_run": 2,
-    "finalizers_executed_after_selected_run": [
+    "sources_unchanged_within_both_runs": true,
+    "binaries_unchanged": true,
+    "new_family_pair_overlapped_initial_selected_run": true,
+    "serial_finalizers_after_pair_and_both_runs": [
       "verify_music_cmake_scope",
       "verify_music_configuration_host",
       "verify_labor_access_current"
     ]
   },
   "finalization_log_hashes": {
-    "build/actor-animal-next/final-cmake-scope.log": "04e41a5c9c3b7d12384f12b3917e29d5a45dc3663491d5fb91928cf3501f3ef6",
-    "build/actor-animal-next/final-music-host.log": "3c50912ce788ac6eb9f2d29d88deb780489e0c9654417f02d213dcfd85f66e81",
-    "build/actor-animal-next/final-aggregate.log": "2b46a56283df9b5c820fa9de8a29757ea62981c815a6d4f24d54e1de36b807fe"
+    "build/actor-animal-following/final-cmake-scope.log": "04e41a5c9c3b7d12384f12b3917e29d5a45dc3663491d5fb91928cf3501f3ef6",
+    "build/actor-animal-following/final-music-host.log": "3c50912ce788ac6eb9f2d29d88deb780489e0c9654417f02d213dcfd85f66e81",
+    "build/actor-animal-following/final-aggregate.log": "e0cfe2a00fe965119a8f5d713179352b15a83314e091402c52fae68e95e8808c"
+  },
+  "new_primary_reports": {
+    "game": {
+      "path": "metadata/actor-animal-following-game.json",
+      "sha256": "70bd9f0ea1ba8aab6b7b641d2b8d0dc0ac595827cbad7b6d8915b56dcfc62208"
+    },
+    "diagnostic": {
+      "path": "metadata/actor-animal-following-diagnostic.json",
+      "sha256": "90399862c370f34ab2f161e2eb108a4c7afa0807f83b943140bee7d2a19605ac"
+    }
   },
   "limitations": [
-    "The isolated harness uses generated fake Python verifiers and fake binary bytes. It validates orchestration, not native game behavior.",
-    "The actual selected runner checked the previous 31 primary families plus supplemental/composition stages once. Its partial receipt intentionally excludes the already fresh parent family and finalizers.",
-    "Separate fresh paired parent proofs and serial CMake/host/aggregate finalization complete this finite reconstruction checkpoint; they do not establish complete gameplay equivalence."
+    "The ten isolated harness tests run fake verifiers only; they do not establish native behavior.",
+    "The initial selected runner remains honestly failed. After its children exited, the only script change restored the omitted snapshot helper. Sixty-eight successful jobs retained their exact report hashes and current source/binary bindings; only failed/not-started jobs ran in the new recovery phase.",
+    "The runner lock does not coordinate external verifiers. The new-family pair used disjoint report paths and the same frozen implementation/binaries; an explicit external barrier preceded serial finalization. The initial receipt retains its generic no-external-verifier caution.",
+    "Both selected receipts remain partial. Paired new-family proofs and three serial finalizers complete this finite checkpoint, not complete gameplay equivalence."
   ]
 }

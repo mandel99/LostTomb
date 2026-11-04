@@ -235,13 +235,9 @@ int32_t FUN_00445ac0(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
 void restore_civic_C_0049b750(struct restore_civic_frame *);
 void restore_civic_C_0049bd40(struct restore_civic_frame *);
 void restore_civic_C_0049c750(struct restore_civic_frame *);
-void restore_civic_C_0049d0f0(struct restore_civic_frame *);
-void restore_civic_C_0049dc50(struct restore_civic_frame *);
 void restore_civic_C_0049f710(struct restore_civic_frame *);
 void restore_civic_C_004a04d0(struct restore_civic_frame *);
 void restore_civic_C_004a1130(struct restore_civic_frame *);
-void restore_civic_C_004ecd40(struct restore_civic_frame *);
-void restore_civic_C_004eca70(struct restore_civic_frame *);
 void FUN_0049b750(void);
 void FUN_0049bd40(void);
 void FUN_0049c750(void);

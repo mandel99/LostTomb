@@ -6,6 +6,14 @@ uint32_t restore_actor_route_line_mode(uint32_t mode);
 int32_t restore_actor_find_clear_vector(int32_t x,int32_t y,int32_t first_vector,
  int32_t target_x,int32_t target_y,uint32_t mode);
 uint32_t restore_actor_update_hippo(void);
+uint32_t restore_actor_update_crocodile(void);
+uint32_t restore_actor_update_hyena(void);
+void restore_actor_play_kind_cue(int32_t actor);
+uint32_t restore_actor_choose_crocodile_state(int32_t actor);
+/* Preserve the initializer's native full EAX through named/raw entries. */
+uint32_t restore_actor_enter_animal_state(int32_t actor,uint32_t state);
+void FUN_0049d0f0(void),FUN_0049dc50(void);
+void FUN_004b5050(int32_t actor),FUN_004ecd40(int32_t actor);
 uint8_t FUN_004eaac0(int32_t mode);
 int32_t FUN_004eab10(int32_t x,int32_t y,int32_t first_vector,
  int32_t target_x,int32_t target_y,int32_t mode);

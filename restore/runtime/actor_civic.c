@@ -48,6 +48,9 @@
 /* Keep the legacy byte-return entry available to native-address lookup. */
 #pragma comment(linker, "/include:_FUN_004eaec0")
 #pragma comment(linker, "/include:_FUN_0049e8b0")
+#pragma comment(linker, "/include:_FUN_0049d0f0")
+#pragma comment(linker, "/include:_FUN_0049dc50")
+#pragma comment(linker, "/include:_FUN_004eca70")
 extern void FUN_0040f8f0(uint32_t *,uint32_t,uint8_t);
 extern void FUN_004e96c0(int32_t);
 extern void FUN_004e0cc0(int32_t,int32_t *,int32_t *);
@@ -154,13 +157,9 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(0049b750);
     RAW(0049bd40);
     RAW(0049c750);
-    RAW(0049d0f0);
-    RAW(0049dc50);
     RAW(0049f710);
     RAW(004a04d0);
     RAW(004a1130);
-    RAW(004ecd40);
-    RAW(004eca70);
     RAW(00494f70);
     RAW(00497010);
     RAW(00497450);
@@ -268,6 +267,10 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004b46b0);
     RAW(0048ded0);RAW(0048e5e0);RAW(00469a50);
     RAW(0048a720);RAW(00458c30);RAW(004e91e0);
+    case 0x49d0f0u:f->r[0]=restore_actor_update_crocodile();break;
+    case 0x49dc50u:f->r[0]=restore_actor_update_hyena();break;
+    case 0x4ecd40u:f->r[0]=restore_actor_choose_crocodile_state((int32_t)A(1));break;
+    case 0x4eca70u:f->r[0]=restore_actor_enter_animal_state((int32_t)A(1),A(2));break;
     case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
     case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
     case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
@@ -557,8 +560,8 @@ int32_t FUN_00499b50(int32_t p0,int32_t p1)
 void FUN_004b1700(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004b1700u,args,1);}
 
-void FUN_004b5050(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004b5050u,args,1);}
+__declspec(noinline) void FUN_004b5050(int32_t p0)
+{(void)restore_actor_play_kind_cue(p0);}
 
 void FUN_004b7ab0(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004b7ab0u,args,1);}
@@ -737,10 +740,10 @@ void FUN_0049bd40(void)
 {(void)invoke(0x0049bd40u,0,0);}
 void FUN_0049c750(void)
 {(void)invoke(0x0049c750u,0,0);}
-void FUN_0049d0f0(void)
-{(void)invoke(0x0049d0f0u,0,0);}
-void FUN_0049dc50(void)
-{(void)invoke(0x0049dc50u,0,0);}
+__declspec(noinline) void FUN_0049d0f0(void)
+{(void)restore_actor_update_crocodile();}
+__declspec(noinline) void FUN_0049dc50(void)
+{(void)restore_actor_update_hyena();}
 __declspec(noinline) void FUN_0049e8b0(void)
 {(void)restore_actor_update_hippo();}
 void FUN_0049f710(void)
@@ -761,10 +764,10 @@ __declspec(noinline) uint8_t FUN_004eabf0(int32_t p0,int32_t p1,int32_t p2,int32
 {return restore_actor_choose_clear_step(p0,p1,p2,p3,p4,p5);}
 __declspec(noinline) uint8_t FUN_004eaec0(int32_t p0)
 {return (uint8_t)restore_actor_try_periodic_target(p0);}
-void FUN_004ecd40(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004ecd40u,args,1);}
-void FUN_004eca70(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x004eca70u,args,2);}
+__declspec(noinline) void FUN_004ecd40(int32_t p0)
+{(void)restore_actor_choose_crocodile_state(p0);}
+__declspec(noinline) void FUN_004eca70(int32_t p0,int32_t p1)
+{(void)restore_actor_enter_animal_state(p0,(uint32_t)p1);}
 __declspec(noinline) void FUN_0056233e(uint32_t p0)
 {(void)restore_actor_random_seed(p0);}
 

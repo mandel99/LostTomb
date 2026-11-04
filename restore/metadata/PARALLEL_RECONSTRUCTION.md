@@ -213,3 +213,17 @@ callback bodies remain. A completed frame and one surviving fixture do not
 establish complete gameplay or pixel equivalence. Historical findings remain in
 `viewport_endpasses_readonly_audit.json`; current per-module proofs distinguish
 the restored functions from their remaining dependencies.
+
+## Translation-first batches requested on 2026-11-04
+
+Prioritize concrete ordinary C for larger connected blocks. Agents own distinct
+functions and share the native loader, endpoint fixtures and ABI setup. During
+translation, run strict compilation and short witnesses for uncertain types,
+returns, aliasing or other interface assumptions. Defer full native coverage to
+the combined block and broad regressions to larger integration milestones.
+
+Keep draft, compiled and behaviorally verified states explicit. Compilation does
+not make a candidate equivalent to the original. Preserve exact source/evidence
+bindings and retained compatibility paths where a contract remains open. The
+coordinator owns integration, final checks and pushes to existing main; agents
+keep unfinished candidates separate from the accepted runtime.

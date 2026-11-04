@@ -1,0 +1,915 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "established_names": {
+    "82": "Crocodile",
+    "83": "Hyena",
+    "84": "Hippo"
+  },
+  "proposed_functions": {
+    "0x49d0f0": "restore_actor_update_crocodile",
+    "0x49dc50": "restore_actor_update_hyena"
+  },
+  "chain": [
+    "Shipped Figure_model files identify row ordinal82 as Crocodile,83 as Hyena,84 as Hippo; all110 displayed numeric labels equal their zero-based row ordinals.",
+    "Native540ED0 selects a difficulty-specific Figure_model path, finds ALL FIGURES, and fills14DWORD per brace-delimited row sequentially at7090CC through70A8DC.",
+    "Both authenticated callback bodies read the actor-kind byte at actorOffset+BCD602 and use that value*56+7090EC, the ninth DWORD of the corresponding figure model row.",
+    "The authenticated registered callback table5DC28C has row82=49D0F0,row83=49DC50,row84=49E8B0; prior authenticated invoker489C52 indexes that table with the same actor-kind byte."
+  ],
+  "loader_path_table": [
+    {
+      "pointer": "0x601a50",
+      "name": "Figure_model_VeryEasy.txt"
+    },
+    {
+      "pointer": "0x601a38",
+      "name": "Figure_model_Easy.txt"
+    },
+    {
+      "pointer": "0x601a20",
+      "name": "Figure_model_Normal.txt"
+    },
+    {
+      "pointer": "0x601a08",
+      "name": "Figure_model_Hard.txt"
+    },
+    {
+      "pointer": "0x6019ec",
+      "name": "Figure_model_Impossible.txt"
+    }
+  ],
+  "loader_windows": [
+    {
+      "address": "0x540f0c",
+      "byte_count": 27,
+      "sha256": "1e12ffc209970b3b33d12c09bb09f208121a78deb9026c9c4bdb5075278531b5",
+      "rea_authenticated": true
+    },
+    {
+      "address": "0x54100a",
+      "byte_count": 112,
+      "sha256": "aaf6e43247ff1099c22175870dd7620214df5773225bf8970791eb039e9c3ef1",
+      "rea_authenticated": true
+    },
+    {
+      "address": "0x60191c",
+      "byte_count": 20,
+      "sha256": "c8bf8ccd79599d32dc4b1c24bda8cd64a09da87f5e22f01fcea90745bdffc4e7",
+      "rea_authenticated": true
+    },
+    {
+      "address": "0x6019ec",
+      "byte_count": 126,
+      "sha256": "3e79070762e904577f6b020df4a5121cce01f84c3236babcaaf1b62854c6cf8a",
+      "rea_authenticated": true
+    },
+    {
+      "address": "0x601c54",
+      "byte_count": 12,
+      "sha256": "032071fe1571da0ec83907afb8b73a7b0d3e3e50b0729329f6717bba50701258",
+      "rea_authenticated": true
+    }
+  ],
+  "loader_selection_instructions": [
+    [
+      "0x540f0c",
+      "mov",
+      "ecx, dword ptr [0xe39080]"
+    ],
+    [
+      "0x540f12",
+      "mov",
+      "eax, dword ptr [0xe92e1c]"
+    ],
+    [
+      "0x540f17",
+      "push",
+      "0"
+    ],
+    [
+      "0x540f19",
+      "push",
+      "eax"
+    ],
+    [
+      "0x540f1a",
+      "mov",
+      "edx, dword ptr [ecx*4 + 0x60191c]"
+    ],
+    [
+      "0x540f21",
+      "push",
+      "edx"
+    ],
+    [
+      "0x540f22",
+      "call",
+      "0x4ceb60"
+    ]
+  ],
+  "loader_fill_instructions": [
+    [
+      "0x54100a",
+      "mov",
+      "esi, dword ptr [0xe92e1c]"
+    ],
+    [
+      "0x541010",
+      "push",
+      "edi"
+    ],
+    [
+      "0x541011",
+      "push",
+      "0x601c54"
+    ],
+    [
+      "0x541016",
+      "push",
+      "esi"
+    ],
+    [
+      "0x541017",
+      "call",
+      "0x4cbdd0"
+    ],
+    [
+      "0x54101c",
+      "add",
+      "esp, 0xc"
+    ],
+    [
+      "0x54101f",
+      "add",
+      "esi, eax"
+    ],
+    [
+      "0x541021",
+      "mov",
+      "dword ptr [esp + 0x10], 0x12b"
+    ],
+    [
+      "0x541029",
+      "mov",
+      "ebx, 0x7090cc"
+    ],
+    [
+      "0x54102e",
+      "cmp",
+      "ebx, 0x70a8dc"
+    ],
+    [
+      "0x541034",
+      "jge",
+      "0x54107a"
+    ],
+    [
+      "0x541036",
+      "push",
+      "edi"
+    ],
+    [
+      "0x541037",
+      "push",
+      "0x7b"
+    ],
+    [
+      "0x541039",
+      "push",
+      "esi"
+    ],
+    [
+      "0x54103a",
+      "call",
+      "0x4cbe30"
+    ],
+    [
+      "0x54103f",
+      "add",
+      "esp, 0xc"
+    ],
+    [
+      "0x541042",
+      "add",
+      "esi, eax"
+    ],
+    [
+      "0x541044",
+      "mov",
+      "ebp, 0xe"
+    ],
+    [
+      "0x541049",
+      "push",
+      "esi"
+    ],
+    [
+      "0x54104a",
+      "call",
+      "0x4cc0e0"
+    ],
+    [
+      "0x54104f",
+      "add",
+      "esi, eax"
+    ],
+    [
+      "0x541051",
+      "push",
+      "esi"
+    ],
+    [
+      "0x541052",
+      "call",
+      "0x4cc070"
+    ],
+    [
+      "0x541057",
+      "push",
+      "edi"
+    ],
+    [
+      "0x541058",
+      "push",
+      "0x2c"
+    ],
+    [
+      "0x54105a",
+      "push",
+      "esi"
+    ],
+    [
+      "0x54105b",
+      "mov",
+      "dword ptr [ebx], eax"
+    ],
+    [
+      "0x54105d",
+      "call",
+      "0x4cbe30"
+    ],
+    [
+      "0x541062",
+      "add",
+      "esp, 0x14"
+    ],
+    [
+      "0x541065",
+      "add",
+      "esi, eax"
+    ],
+    [
+      "0x541067",
+      "add",
+      "ebx, 4"
+    ],
+    [
+      "0x54106a",
+      "dec",
+      "ebp"
+    ],
+    [
+      "0x54106b",
+      "jne",
+      "0x541049"
+    ],
+    [
+      "0x54106d",
+      "mov",
+      "eax, dword ptr [esp + 0x10]"
+    ],
+    [
+      "0x541071",
+      "dec",
+      "eax"
+    ],
+    [
+      "0x541072",
+      "test",
+      "eax, eax"
+    ],
+    [
+      "0x541074",
+      "mov",
+      "dword ptr [esp + 0x10], eax"
+    ],
+    [
+      "0x541078",
+      "jg",
+      "0x54102e"
+    ]
+  ],
+  "registered_callback_selection_instructions": [
+    [
+      "0x489c3e",
+      "xor",
+      "edx, edx"
+    ],
+    [
+      "0x489c40",
+      "add",
+      "esp, 4"
+    ],
+    [
+      "0x489c43",
+      "lea",
+      "ecx, [eax + eax*2]"
+    ],
+    [
+      "0x489c46",
+      "shl",
+      "ecx, 5"
+    ],
+    [
+      "0x489c49",
+      "add",
+      "ecx, eax"
+    ],
+    [
+      "0x489c4b",
+      "mov",
+      "dl, byte ptr [ecx*4 + 0xbcd602]"
+    ],
+    [
+      "0x489c52",
+      "call",
+      "dword ptr [edx*4 + 0x5dc28c]"
+    ]
+  ],
+  "callback_kind_to_model_instructions": {
+    "82": [
+      [
+        "0x49d0f3",
+        "mov",
+        "ecx, dword ptr [0xd056f8]"
+      ],
+      [
+        "0x49d0f9",
+        "xor",
+        "edx, edx"
+      ],
+      [
+        "0x49d0fd",
+        "lea",
+        "eax, [ecx + ecx*2]"
+      ],
+      [
+        "0x49d101",
+        "shl",
+        "eax, 5"
+      ],
+      [
+        "0x49d104",
+        "add",
+        "eax, ecx"
+      ],
+      [
+        "0x49d107",
+        "shl",
+        "eax, 2"
+      ],
+      [
+        "0x49d114",
+        "mov",
+        "dl, byte ptr [eax + 0xbcd602]"
+      ],
+      [
+        "0x49d11a",
+        "lea",
+        "esi, [edx*8]"
+      ],
+      [
+        "0x49d121",
+        "sub",
+        "esi, edx"
+      ],
+      [
+        "0x49d12a",
+        "mov",
+        "ebp, dword ptr [esi*8 + 0x7090ec]"
+      ]
+    ],
+    "83": [
+      [
+        "0x49dc55",
+        "mov",
+        "ebp, dword ptr [0xd056f8]"
+      ],
+      [
+        "0x49dc5b",
+        "xor",
+        "eax, eax"
+      ],
+      [
+        "0x49dc5f",
+        "lea",
+        "ecx, [ebp + ebp*2]"
+      ],
+      [
+        "0x49dc68",
+        "shl",
+        "ecx, 5"
+      ],
+      [
+        "0x49dc6b",
+        "add",
+        "ecx, ebp"
+      ],
+      [
+        "0x49dc6d",
+        "shl",
+        "ecx, 2"
+      ],
+      [
+        "0x49dc70",
+        "mov",
+        "al, byte ptr [ecx + 0xbcd602]"
+      ],
+      [
+        "0x49dc7c",
+        "lea",
+        "edx, [eax*8]"
+      ],
+      [
+        "0x49dc83",
+        "sub",
+        "edx, eax"
+      ],
+      [
+        "0x49dc8e",
+        "mov",
+        "edi, dword ptr [edx*8 + 0x7090ec]"
+      ]
+    ]
+  },
+  "limitations": [
+    "This establishes species names for two callbacks. It does not change or retest their ordinary C candidates.",
+    "Installed assets are read-only inputs and excluded from Git. Their exact bytes are recorded by SHA256 and agree in all three local copies.",
+    "The loader naming chain is a static byte/source audit, not a new claim of complete gameplay equivalence."
+  ],
+  "asset_files": [
+    {
+      "name": "Figure_model.txt",
+      "sha256": "39482690356d14c4985251fe594dd82b1e9828f91b2bd05309277292b6ee8945",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 140,
+          "source_line": "82,Crocodile,{,7,8,10,12,18,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            8,
+            10,
+            12,
+            18,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 141,
+          "source_line": "83,Hyena,{,7,10,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            10,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 142,
+          "source_line": "84,Hippo,{,7,6,20,16,19,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            6,
+            20,
+            16,
+            19,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Figure_model_easy.txt",
+      "sha256": "8e42b2b3dc3a35e8d94dd84f7c2c76a5074734042585aa1781cc69430c86dd72",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 140,
+          "source_line": "82,Crocodile,{,7,8,10,12,18,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            8,
+            10,
+            12,
+            18,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 141,
+          "source_line": "83,Hyena,{,7,10,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            10,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 142,
+          "source_line": "84,Hippo,{,7,6,20,16,19,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            6,
+            20,
+            16,
+            19,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Figure_model_hard.txt",
+      "sha256": "47ec6ae54ed031bfb575650b7d3c15be0995b5ae36819125c1bb4892bff361b6",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 139,
+          "source_line": "82,Crocodile,{,7,10,10,12,18,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            10,
+            10,
+            12,
+            18,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 140,
+          "source_line": "83,Hyena,{,7,12,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            12,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 141,
+          "source_line": "84,Hippo,{,7,8,20,16,19,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            8,
+            20,
+            16,
+            19,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Figure_model_impossible.txt",
+      "sha256": "f018feef11dd9ddaa2037d53fd870ed0a494458d6ca68e0375ad5a7d344d9266",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 140,
+          "source_line": "82,Crocodile,{,7,12,10,12,18,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            12,
+            10,
+            12,
+            18,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 141,
+          "source_line": "83,Hyena,{,7,15,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            15,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 142,
+          "source_line": "84,Hippo,{,7,9,20,16,19,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            9,
+            20,
+            16,
+            19,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Figure_model_normal.txt",
+      "sha256": "39482690356d14c4985251fe594dd82b1e9828f91b2bd05309277292b6ee8945",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 140,
+          "source_line": "82,Crocodile,{,7,8,10,12,18,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            8,
+            10,
+            12,
+            18,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 141,
+          "source_line": "83,Hyena,{,7,10,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            10,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 142,
+          "source_line": "84,Hippo,{,7,6,20,16,19,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            6,
+            20,
+            16,
+            19,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Figure_model_veryeasy.txt",
+      "sha256": "fa06736f40b3e645747df05f4dbe8cb18257292d72c288641a163a4830b2d9d5",
+      "figure_rows": 110,
+      "all_numeric_labels_match_row_ordinals": true,
+      "rows": [
+        {
+          "kind": 82,
+          "ordinal": 82,
+          "name": "Crocodile",
+          "line": 140,
+          "source_line": "82,Crocodile,{,7,8,10,12,16,0,0,0,6,0,0,0,0,0,}",
+          "columns": [
+            7,
+            8,
+            10,
+            12,
+            16,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 83,
+          "ordinal": 83,
+          "name": "Hyena",
+          "line": 141,
+          "source_line": "83,Hyena,{,7,10,5,0,0,0,0,0,7,0,0,0,0,0,}",
+          "columns": [
+            7,
+            10,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "kind": 84,
+          "ordinal": 84,
+          "name": "Hippo",
+          "line": 142,
+          "source_line": "84,Hippo,{,7,6,20,16,17,0,0,0,5,0,0,0,0,0,}",
+          "columns": [
+            7,
+            6,
+            20,
+            16,
+            17,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "captured_original_assets_equal_in_three_local_copies": true,
+  "captured_proof_sha256": "9234bf5c64f958dcef6d026f6c78a0742925dfa5b7e42785d4c4d54a1aac894d"
+}

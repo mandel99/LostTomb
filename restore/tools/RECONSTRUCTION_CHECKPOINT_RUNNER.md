@@ -16,8 +16,12 @@ Use a fresh phase name for each execution. Logs and `receipt.json` go under
 `restore/build/checkpoints/PHASE/`; existing phases are never overwritten or
 resumed. `--log-prefix NAME` changes log filenames within that new directory.
 
-The current registry contains32 primary families,5 supplemental families and3
-composition families. Both main targets are Release builds:
+The current registry contains33 primary families,5 supplemental families and3
+composition families. The complete plan has94 jobs:9 audits,66 primary runs,
+10 supplemental runs,6 compositions and3 serial finalizers. The animal-following
+audit runs the local typed cue contract and checks the retained legacy raw model;
+the open global cue raw-drop audit is not represented as a passing gate.
+Both main targets are Release builds:
 
 | `--configuration` | Artifact |
 | --- | --- |
@@ -49,7 +53,7 @@ The full plan runs these stages in order:
    completes before either `sound_device` run. Each suite declares its audits
    in the registry, including the actor command, Hippo Stomp and animal target
    audits.
-2. All32 primary families for both main EXEs, with at most `--jobs` subprocesses.
+2. All33 primary families for both main EXEs, with at most `--jobs` subprocesses.
    Music configuration is one primary family and runs only once per variant.
 3. Allocation/music counterexample replays, actor queues, formation control and
    town record queries.
@@ -68,7 +72,12 @@ also recognize its proof. A full run refuses to report a complete checkpoint
 if that aggregate omits any registered primary report.
 
 Execution requires already-built main EXEs/MAPs and the pinned original PE.
-Finish edits and stop manually launched verification/build processes first.
+Finish edits and stop builds or verifiers that write the same reports first.
+An independently launched new-family pair may overlap a partial runner for
+older families only when both use the same frozen sources/binaries and their
+report paths are disjoint. Reserve workers for that pair, keep source audit
+outputs deterministic, and wait for both groups' actual exits before serial
+finalization. The partial runner cannot establish that external barrier itself.
 The runner snapshots C/header/assembly inputs, verification scripts and main
 EXE/MAP bytes; it refuses later stages if those change. It adds no report-hash
 compatibility exceptions. The existing audited CMake exception remains inside

@@ -1,5 +1,12 @@
 # Pharaoh restore
 
+Crocodile/hyena updates, kind cues, weighted state selection and state entry
+now use five named C bodies. Both Release images pass4,951 scenarios /
+18,599 invocations each:1,907 executed native instructions plus15 proved dead,
+296 feasible outcomes and53 switch targets. Four raw entries are converted;
+the original raw cue model is retained under an explicit local typed contract.
+See [animal callbacks and state initialization](metadata/ACTOR_ANIMAL_FOLLOWING_RECONSTRUCTION.md).
+
 The hippo update and two route-vector helpers now use named C, replacing
 1,036 native instructions and their civic register models. Both Release
 executables pass 1,929 scenarios / 7,716 invocations each through named, legacy
@@ -15,9 +22,9 @@ named, legacy and civic raw entries. Full return widths, cached reads, the
 south-segment global store and both RNG phases are preserved. See
 [animal target reconstruction](metadata/ACTOR_ANIMAL_TARGET_RECONSTRUCTION.md).
 
-The current aggregate passes64 paired reports:43,864 scenarios /148,514
-invocations. Per binary it owns14,210 native instructions:14,193 executed,
-seven proved dead and ten user-disabled CD instructions. The structural
+The current aggregate passes66 paired reports:53,766 scenarios /185,712
+invocations. Per binary it owns16,132 native instructions:16,100 executed,
+22 proved dead and ten user-disabled CD instructions. The structural
 inventory and finite native comparisons do not establish complete gameplay.
 
 The Hippo Stomp action now creates its eight actors through named C, preserving
@@ -961,12 +968,11 @@ Twelve additional actual adjacent initializer sequences per binary and four
 full-width/cached-count cases also pass.
 See [ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md](metadata/ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md).
 
-The structural inventory now has1155 ordinary C bodies,214 instruction/frame
-models and1098 decompiler-style bodies, with4001 of4402 catalogue entries
-linked. The current aggregate includes32 paired families. The uncatalogued
-49E8B0 callback is compared separately without inflating this catalogue.
-The next connected candidates are the kind82/83 callbacks49D0F0/49DC50 and
-kind-dependent cue4B5050. Full gameplay remains unfinished; no host game
+The structural inventory now has1158 ordinary C bodies,213 instruction/frame
+models and1096 decompiler-style bodies, with4003 of4402 catalogue entries
+linked. The current aggregate includes33 paired families. Uncatalogued
+49D0F0/49DC50/49E8B0 callbacks are compared without inflating this catalogue.
+The next connected candidates are49F710/4A04D0/4A1130. Full gameplay remains unfinished; no host game
 was launched during this recovery.
 
 ## Verification scope

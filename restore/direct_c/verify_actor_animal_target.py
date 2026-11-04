@@ -3,7 +3,55 @@
 Protocol child results and read-triggered RAM mutations are explicit lanes.
 Byte APIs compare AL; periodic and search named/raw entries compare full EAX.
 """
-from verify_options_startup import *
+from pathlib import Path
+from functools import cache
+import hashlib, itertools, re, struct, sys
+ROOT = next(p for p in Path(__file__).resolve().parents if (p/'runtime/actor_civic.c').is_file())
+sys.path[:0] = [str(ROOT/'build/offline-verification-deps'), str(ROOT/'direct_c')]
+from native_test_pe import PE
+from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
+from unicorn.x86_const import *
+
+original = ROOT/'build/smoke-game/Pharaoh.exe'
+assert hashlib.sha256(original.read_bytes()).hexdigest() == 'fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d'
+targets=[a for a in sys.argv[1:] if not a.startswith('--')]
+target = Path(targets[0]) if targets else ROOT/'build/c-only/Release/PharaohRestoreC.exe'
+images = [PE(original), PE(target)]
+target_sha = hashlib.sha256(target.read_bytes()).hexdigest()
+symbols = target.with_suffix('.map').read_text()
+@cache
+def sym(name):
+    hits = re.findall(r'\s_'+re.escape(name)+r'\s+([0-9a-fA-F]{8})\s', symbols)
+    assert len(hits)==1, (name, hits)
+    return int(hits[0],16)
+def address(c, token): return sym('FUN_%08x'%token) if c else token
+def put(u,a,v): u.mem_write(a,struct.pack('<I',v&0xffffffff))
+def word(u,a,v): u.mem_write(a,struct.pack('<H',v&65535))
+def byte(u,a,v): u.mem_write(a,bytes([v&255]))
+def get(u,a): return struct.unpack('<I',u.mem_read(a,4))[0]
+SP,STOP,S = 0x30008000,0x31000000,0x32000000
+registers=[UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_EBX,UC_X86_REG_ESP,UC_X86_REG_EBP,UC_X86_REG_ESI,UC_X86_REG_EDI]
+saved=[0x12345678,0x23456789,0x3456789a,0x456789ab]
+seed=bytes(images[0].data[0x560000-images[0].base:0x126d000-images[0].base])
+def snapshot(u):return bytes(u.mem_read(0x560000,len(seed)))
+
+machines=[]
+for c,pe in enumerate(images):
+    u=Uc(UC_ARCH_X86,UC_MODE_32)
+    u.mem_map(pe.base,(len(pe.data)+4095)&~4095);u.mem_write(pe.base,bytes(pe.data))
+    u.mem_map(0x30000000,0x10000);u.mem_map(STOP,4096);u.mem_map(S,0x50000)
+    state={'hooks':{},'calls':[]}
+    def intercept(uc,pc,size,data):
+        handler=data['hooks'].get(pc)
+        if handler is None:return
+        count,cleanup,action=handler
+        sp=uc.reg_read(UC_X86_REG_ESP);args=tuple(get(uc,sp+4+i*4) for i in range(count))
+        value=action(uc,args)
+        uc.reg_write(UC_X86_REG_EAX,value&0xffffffff)
+        uc.reg_write(UC_X86_REG_ESP,sp+4+cleanup);uc.reg_write(UC_X86_REG_EIP,get(uc,sp))
+    u.hook_add(UC_HOOK_CODE,intercept,state,begin=S+0x49000,end=S+0x49000)
+    machines.append((c,u,state))
+
 from unicorn import UC_HOOK_MEM_WRITE, UC_HOOK_MEM_READ, UC_HOOK_MEM_INVALID, UcError
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 import json
@@ -39,11 +87,12 @@ def restore_seed(u):
         if current[offset:offset+4096]!=page:u.mem_write(0x560000+offset,page)
 
 for compiled,u,state in machines:
-    state.update(compiled=compiled,collect=False)
+    state.update(compiled=compiled,collect=False,read_hook_handles=[])
     def write(uc,access,at,size,value,data):
         if data['collect'] and (0x560000<=at<0x126d000 or S<=at<S+0x48000):
             data['writes'].append((at,size,value&((1<<(size*8))-1)))
-    u.hook_add(UC_HOOK_MEM_WRITE,write,state)
+    u.hook_add(UC_HOOK_MEM_WRITE,write,state,begin=0x560000,end=0x126cfff)
+    u.hook_add(UC_HOOK_MEM_WRITE,write,state,begin=S,end=S+0x47fff)
     def invalid(uc,access,at,size,value,data):data['faults'].append((access,at,size));return False
     u.hook_add(UC_HOOK_MEM_INVALID,invalid,state)
     def read(uc,access,at,size,value,data):
@@ -53,7 +102,7 @@ for compiled,u,state in machines:
             if n==nth:
                 data['events'].append(('read_mutation',at,n,changes))
                 for dst,value in changes:put(uc,dst,value)
-    u.hook_add(UC_HOOK_MEM_READ,read,state)
+    state['read_callback']=read
     if not compiled:
         def visit(uc,pc,size,data):
             if not data['collect'] or owner.get(pc) in data['controlled']:return
@@ -88,6 +137,8 @@ for compiled,u,state in machines:
         state['entries'][pc]=token;u.hook_add(UC_HOOK_CODE,child,state,begin=pc,end=pc)
 
 def setup(compiled,u,state,fn,cfg):
+    for handle in state['read_hook_handles']:u.hook_del(handle)
+    state['read_hook_handles']=[]
     state.update(collect=False,fn=fn,cfg=cfg,writes=[],events=[],faults=[],counts={},controlled=set(cfg.get('controlled',[])),read_mutations=cfg.get('read_mutations',{}),read_counts={})
     state['hooks'].clear();state['calls'].clear();last[0]=None
     restore_seed(u);u.mem_write(S,b'\xa5'*0x50000);u.mem_write(0x30000000,b'\xcc'*0x10000)
@@ -118,6 +169,10 @@ def setup(compiled,u,state,fn,cfg):
         for at,value in cfg.get('clock_mutations',[]):put(uc,at,value)
         return cfg.get('clock',0x12345678)
     state['hooks'][CLOCK]=(0,0,clock)
+    for at in state['read_mutations']:
+        def anchored_read(uc,access,start,size,value,data,anchor=at):
+            if start==anchor:data['read_callback'](uc,access,start,size,value,data)
+        state['read_hook_handles'].append(u.hook_add(UC_HOOK_MEM_READ,anchored_read,state,begin=at,end=at))
     if fn==0x56233e:return [cfg.get('seed',0x76543210)]
     if fn==0x4ebc90:return [cfg.get('x',10),cfg.get('y',11),cfg.get('count',len(types)),ptr,cfg.get('mask',0),cfg.get('out_x',S+128),cfg.get('out_y',S+132),cfg.get('rings',0),cfg.get('excluded',1),cfg.get('wanted_state',16)]
     if fn==0x4eabf0:return [cfg.get('x',10),cfg.get('y',11),cfg.get('from_x',20),cfg.get('from_y',21),cfg.get('out_x',S+128),cfg.get('out_y',S+132)]
