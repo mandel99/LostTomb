@@ -13,7 +13,7 @@ uint32_t restore_ring_004f6570(const void *queue,int32_t actor)
  return restore_actor_ring_contains(queue,(uint32_t)actor);
 }
 /* Only AL is defined by the original boolean return. */
-uint8_t FUN_004b47a0(int32_t actor)
+__declspec(noinline) uint8_t FUN_004b47a0(int32_t actor)
 {
  uint32_t q,record,j;
  for(q=0xeaaf68u;q<0xeadb28u;q+=224u)
@@ -23,7 +23,7 @@ uint8_t FUN_004b47a0(int32_t actor)
    for(j=0;j<4u;++j)if(U(record+j*4u)==(uint32_t)actor)return 1;
  return 0;
 }
-void FUN_00444b30(int32_t actor)
+__declspec(noinline) void FUN_00444b30(int32_t actor)
 {
  uint32_t slot=U(0x77aefcu),next;
  B(0xbcd677u+(uint32_t)actor*388u)=(uint8_t)slot;
@@ -31,7 +31,7 @@ void FUN_00444b30(int32_t actor)
  next=U(0x77aefcu)+1u;U(0x77aefcu)=next;
  if((int32_t)next>=100)U(0x77aefcu)=0;
 }
-int32_t FUN_004b4800(uint8_t player,int32_t kind,int32_t x,int32_t y,uint8_t direction)
+__declspec(noinline) int32_t restore_actor_create(uint8_t player,int32_t kind,int32_t x,int32_t y,uint8_t direction)
 {
  uint32_t actor,record,j,serial,tile;uint8_t random;
  for(actor=1;actor<2000u;++actor)
@@ -55,3 +55,5 @@ int32_t FUN_004b4800(uint8_t player,int32_t kind,int32_t x,int32_t y,uint8_t dir
   }
  return 0;
 }
+__declspec(noinline) int32_t FUN_004b4800(uint8_t player,int32_t kind,int32_t x,int32_t y,uint8_t direction)
+{return restore_actor_create(player,kind,x,y,direction);}

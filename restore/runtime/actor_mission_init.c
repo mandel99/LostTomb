@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define SENTRY UINT32_C(0x8e47b123)
 extern void FUN_0040f8f0(uint32_t *destination,uint32_t bytes,uint8_t value);
 extern uint32_t FUN_00562348(void);
@@ -12,20 +13,21 @@ extern uint32_t FUN_00562348(void);
    only low WORDs of kind,x,y are consumed; five cdecl slots, RET0. */
 extern int32_t FUN_004b6ff0(uint16_t kind,int32_t mode,int32_t orientation,uint16_t x,uint16_t y);
 
-void FUN_004b4760(void)
+__declspec(noinline) void restore_actor_reset_pool(void)
 {
  uint32_t record;
  for(record=0xbcd5f8u;record<0xc8ad38u;record+=388u)
   FUN_0040f8f0((uint32_t *)(uintptr_t)record,388,0);
  U(0xbcd5f0u)=0;U(0xbcd5f4u)=0;
 }
-void restore_town_actor_links_00448a60(void *self)
+__declspec(noinline) void FUN_004b4760(void){restore_actor_reset_pool();}
+__declspec(noinline) void restore_town_actor_links_00448a60(void *self)
 {
  uint32_t p=(uint32_t)(uintptr_t)self;
  W(p+0x3au)=0;W(p+0x3cu)=0;W(p+0x3eu)=0;W(p+0x40u)=0;
  W(p+0x42u)=0;W(p+0x44u)=0;W(p+0x46u)=0;W(p+0x4au)=0;
 }
-void FUN_004b8c90(void)
+__declspec(noinline) void restore_actor_reset_town_links(void)
 {
  RestoreTownRecord *record=restore_town_next(RESTORE_TOWNS,0,1);
  while(record){
@@ -34,6 +36,26 @@ void FUN_004b8c90(void)
  }
  U(0xd0563cu)=0;U(0xd05638u)=0;U(0xd05634u)=0;
  U(0xd05630u)=0;U(0xd0562cu)=0;
+}
+__declspec(noinline) void FUN_004b8c90(void){restore_actor_reset_town_links();}
+__declspec(noinline) void restore_actor_initialize_reserved(void)
+{
+ uint32_t actor,tag;
+ FUN_004b4760();FUN_004b8c90();
+ for(tag=1;tag<=3u;++tag){
+  actor=(uint32_t)FUN_004b4800(1,36,-1,-1,0);
+  B(0xbcd603u+actor*388u)=(uint8_t)tag;
+ }
+ /* Native fourth allocation has no tag store, including on failure. */
+ (void)FUN_004b4800(1,36,-1,-1,0);
+ for(tag=12;tag<=32u;++tag){
+  actor=(uint32_t)FUN_004b4800(1,36,-1,-1,0);
+  B(0xbcd603u+actor*388u)=(uint8_t)tag;
+ }
+ for(tag=50;tag<=65u;++tag){
+  actor=(uint32_t)FUN_004b4800(1,36,-1,-1,0);
+  B(0xbcd603u+actor*388u)=(uint8_t)tag;
+ }
 }
 static void boundary(uint32_t site,uint32_t target,struct restore_actor_init_frame *f)
 {
@@ -70,6 +92,6 @@ static void execute(void (*body)(struct restore_actor_init_frame *))
  for(i=0;i<8;++i)if(stack[i]!=SENTRY)abort();
  for(i=33;i<64;++i)if(stack[i]!=SENTRY)abort();
 }
-void FUN_004bb090(void){execute(restore_actor_init_C_004bb090);}
+void FUN_004bb090(void){restore_actor_initialize_reserved();}
 void FUN_004bb3f0(void){execute(restore_actor_init_C_004bb3f0);}
 void FUN_004bbc10(void){execute(restore_actor_init_C_004bbc10);}

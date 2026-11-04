@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(actor_reserved_strict C)
+get_filename_component(RESTORE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+add_library(actor_reserved_strict OBJECT "${RESTORE_ROOT}/runtime/actor_mission_init.c" "${RESTORE_ROOT}/runtime/menu_drag_actor_create.c" "${RESTORE_ROOT}/src/unit_00119.c" "${RESTORE_ROOT}/src/unit_00720.c")
+target_include_directories(actor_reserved_strict PRIVATE "${RESTORE_ROOT}/include")
+target_compile_options(actor_reserved_strict PRIVATE /W4 /WX /GS- /Ob0 "$<$<CONFIG:Release>:/O2>")

@@ -1,0 +1,103 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "callers": [
+    {
+      "address": "0x403bc2",
+      "requested_bytes": 64,
+      "returned_bytes": 64,
+      "bytes_hex": "e8c9740b00a058596000c705dc8de30014000000a2da8de300a1505a600085c0c605ca8de30001740cffd0c705505a6000000000005e5bc39090909090908b4c",
+      "complete": true,
+      "bytes_evidence_id": "ev_063ade0daa0c929df2b11cddf3e62443b0dff9c6379ae02067f553e499ae7e75",
+      "containing_result": {
+        "query_address": "0x403bc2",
+        "found": false,
+        "procedure": null,
+        "reason": "not_in_procedure"
+      },
+      "containing_evidence_id": "ev_60f691c923dbfa99c0d6100f4f3dce77536548b5a9bdd3f6de385d3d1d1d49f2"
+    },
+    {
+      "address": "0x4de790",
+      "requested_bytes": 64,
+      "returned_bytes": 64,
+      "bytes_hex": "e8fbc8fdff668b0d8c4c7800663bcb742f66a18e4c7800663bc3742466391d904c7800741b66391d924c780074120fbfd00fbfc16a015250e873d5fdff83c40c",
+      "complete": true,
+      "bytes_evidence_id": "ev_b4dd8fc5c9789b5b2be2da924fab5d47b4b7b5ba69915d4dc4e60cb119d54529",
+      "containing_result": {
+        "query_address": "0x4de790",
+        "found": true,
+        "procedure": {
+          "address": "0x4de600",
+          "name": "FUN_004de600",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x4de600",
+                "end": "0x4de813"
+              }
+            ],
+            "total_bytes": 532,
+            "span_bytes": 532,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        }
+      },
+      "containing_evidence_id": "ev_77744fcc98baf86ddf843976405d7469c58941aa809fbf361870a15223bf5d1d"
+    },
+    {
+      "address": "0x540ace",
+      "requested_bytes": 64,
+      "returned_bytes": 64,
+      "bytes_hex": "e8bda5f7ff8b44241050e843ddf9ffbf748ee30083c9ff33c0891d28acea00f2aef7d12bf9a18090e3008bd18bf7bf4c18ea00881d4b62ea00c1e902f3a58bca",
+      "complete": true,
+      "bytes_evidence_id": "ev_37f60ea965a26b98c1d7eeff26e36accb5a2ed9009f8bd948efe511859b22edc",
+      "containing_result": {
+        "query_address": "0x540ace",
+        "found": true,
+        "procedure": {
+          "address": "0x540a10",
+          "name": "FUN_00540a10",
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          },
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x540a10",
+                "end": "0x540b4b"
+              }
+            ],
+            "total_bytes": 316,
+            "span_bytes": 316,
+            "non_contiguous": false,
+            "contains_entry": true
+          }
+        }
+      },
+      "containing_evidence_id": "ev_cdf9bdfcd39611fd0ddb5f412777c020fe53ea4a9f537d2fd9ce7207075ec38e"
+    }
+  ],
+  "caller_4de600": {
+    "assembly": "0x4de600: SUB ESP, 0x64\n0x4de603: PUSH EBX\n0x4de604: PUSH EBP\n0x4de605: PUSH ESI\n0x4de606: PUSH EDI\n0x4de607: CALL 0x0046fa40\n0x4de60c: PUSH 0xe37078\n0x4de611: CALL 0x004ce3a0\n0x4de616: PUSH 0x3\n0x4de618: PUSH 0xe38aec\n0x4de61d: PUSH 0x576274\n0x4de622: CALL 0x004cbea0\n0x4de627: PUSH 0xe37078\n0x4de62c: CALL 0x004ce3c0\n0x4de631: OR EBX, 0xffffffff\n0x4de634: MOV EDI, 0x57626c\n0x4de639: MOV ECX, EBX\n0x4de63b: XOR EAX, EAX\n0x4de63d: SCASB.REPNE ES:EDI\n0x4de63f: NOT ECX\n0x4de641: SUB EDI, ECX\n0x4de643: LEA EDX, [ESP + 0x24]\n0x4de647: MOV EAX, ECX\n0x4de649: MOV ESI, EDI\n0x4de64b: MOV EDI, EDX\n0x4de64d: LEA EDX, [ESP + 0x24]\n0x4de651: SHR ECX, 0x2\n0x4de654: MOVSD.REP ES:EDI, ESI\n0x4de656: MOV ECX, EAX\n0x4de658: XOR EAX, EAX\n0x4de65a: AND ECX, 0x3\n0x4de65d: PUSH EAX\n0x4de65e: MOVSB.REP ES:EDI, ESI\n0x4de660: MOV EDI, 0xe37078\n0x4de665: MOV ECX, EBX\n0x4de667: SCASB.REPNE ES:EDI\n0x4de669: NOT ECX\n0x4de66b: SUB EDI, ECX\n0x4de66d: MOV ESI, EDI\n0x4de66f: MOV EBP, ECX\n0x4de671: MOV EDI, EDX\n0x4de673: MOV ECX, EBX\n0x4de675: SCASB.REPNE ES:EDI\n0x4de677: MOV ECX, EBP\n0x4de679: DEC EDI\n0x4de67a: SHR ECX, 0x2\n0x4de67d: MOVSD.REP ES:EDI, ESI\n0x4de67f: MOV ECX, EBP\n0x4de681: LEA EAX, [ESP + 0x28]\n0x4de685: AND ECX, 0x3\n0x4de688: PUSH EAX\n0x4de689: MOVSB.REP ES:EDI, ESI\n0x4de68b: CALL 0x004d5820\n0x4de690: PUSH 0xe37078\n0x4de695: CALL 0x004ce3a0\n0x4de69a: ADD ESP, 0x20\n0x4de69d: CALL 0x00444a80\n0x4de6a2: MOV ECX, dword ptr [0x00784904]\n0x4de6a8: MOV EDX, dword ptr [0x00784908]\n0x4de6ae: MOV EAX, [0x0078490c]\n0x4de6b3: MOV dword ptr [0x00bca2d0], ECX\n0x4de6b9: MOV ECX, dword ptr [0x00784910]\n0x4de6bf: MOV dword ptr [0x00bca2d4], EDX\n0x4de6c5: MOV [0x00bca2d8], EAX\n0x4de6ca: MOV dword ptr [0x00bca2dc], ECX\n0x4de6d0: CALL 0x0046f7b0\n0x4de6d5: MOV ESI, 0x784be0\n0x4de6da: MOVSX EAX, word ptr [ESI]\n0x4de6dd: MOV EDX, dword ptr [0x00bca2ec]\n0x4de6e3: MOVSX ECX, word ptr [ESI + -0x20]\n0x4de6e7: ADD EDX, EAX\n0x4de6e9: MOV EAX, [0x00bca2e8]\n0x4de6ee: ADD EAX, ECX\n0x4de6f0: PUSH EDX\n0x4de6f1: PUSH EAX\n0x4de6f2: CALL 0x0046f930\n0x4de6f7: ADD ESP, 0x8\n0x4de6fa: TEST AL, AL\n0x4de6fc: JNZ 0x004de705\n0x4de6fe: MOV word ptr [ESI + -0x20], BX\n0x4de702: MOV word ptr [ESI], BX\n0x4de705: MOVSX EAX, word ptr [ESI]\n0x4de708: MOV EDX, dword ptr [0x00bca2ec]\n0x4de70e: MOVSX ECX, word ptr [ESI + -0x20]\n0x4de712: ADD EDX, EAX\n0x4de714: MOV EAX, [0x00bca2e8]\n0x4de719: ADD EAX, ECX\n0x4de71b: PUSH EDX\n0x4de71c: PUSH EAX\n0x4de71d: CALL 0x0046f930\n0x4de722: ADD ESP, 0x8\n0x4de725: TEST AL, AL\n0x4de727: JNZ 0x004de730\n0x4de729: MOV word ptr [ESI + -0x20], BX\n0x4de72d: MOV word ptr [ESI], BX\n0x4de730: ADD ESI, 0x2\n0x4de733: CMP ESI, 0x784c00\n0x4de739: JL 0x004de6da\n0x4de73b: MOV ECX, dword ptr [0x00f56f84]\n0x4de741: PUSH ECX\n0x4de742: PUSH 0x0\n0x4de744: PUSH 0x118\n0x4de749: PUSH 0x18\n0x4de74b: PUSH 0x784914\n0x4de750: PUSH 0x5\n0x4de752: CALL 0x004cc560\n0x4de757: MOV EDX, dword ptr [0x00f56f84]\n0x4de75d: PUSH EDX\n0x4de75e: PUSH 0x0\n0x4de760: PUSH 0x190\n0x4de765: PUSH 0x1f4\n0x4de76a: PUSH 0x784954\n0x4de76f: PUSH 0x6\n0x4de771: CALL 0x004cc560\n0x4de776: MOV EAX, [0x00e94e04]\n0x4de77b: PUSH 0x1\n0x4de77d: PUSH EAX\n0x4de77e: CALL 0x00430530\n0x4de783: MOV EAX, [0x00605a3c]\n0x4de788: ADD ESP, 0x38\n0x4de78b: CMP EAX, 0x1\n0x4de78e: JNZ 0x004de7d0\n0x4de790: CALL 0x004bb090\n0x4de795: MOV CX, word ptr [0x00784c8c]\n0x4de79c: CMP CX, BX\n0x4de79f: JZ 0x004de7d0\n0x4de7a1: MOV AX, [0x00784c8e]\n0x4de7a7: CMP AX, BX\n0x4de7aa: JZ 0x004de7d0\n0x4de7ac: CMP word ptr [0x00784c90], BX\n0x4de7b3: JZ 0x004de7d0\n0x4de7b5: CMP word ptr [0x00784c92], BX\n0x4de7bc: JZ 0x004de7d0\n0x4de7be: MOVSX EDX, AX\n0x4de7c1: MOVSX EAX, CX\n0x4de7c4: PUSH 0x1\n0x4de7c6: PUSH EDX\n0x4de7c7: PUSH EAX\n0x4de7c8: CALL 0x004bbd40\n0x4de7cd: ADD ESP, 0xc\n0x4de7d0: CALL 0x004bbc10\n0x4de7d5: CALL 0x004bb3f0\n0x4de7da: CALL 0x004d5980\n0x4de7df: CALL 0x004dea50\n0x4de7e4: CALL 0x0046d480\n0x4de7e9: CALL 0x004ddf90\n0x4de7ee: CALL 0x004de080\n0x4de7f3: CALL 0x00517a20\n0x4de7f8: CALL 0x005178b0\n0x4de7fd: CALL 0x00517370\n0x4de802: CALL 0x00517660\n0x4de807: CALL 0x005178e0\n0x4de80c: POP EDI\n0x4de80d: POP ESI\n0x4de80e: POP EBP\n0x4de80f: POP EBX\n0x4de810: ADD ESP, 0x64\n0x4de813: RET",
+    "evidence_id": "ev_08ba6fa295b0fa3299f73e1aff1eabb5ad13dad9cfa70a29ede8ed1cacc38f8b"
+  },
+  "following_4bbc10": {
+    "assembly": "0x4bbc10: PUSH ECX\n0x4bbc11: MOV EAX, [0x00605a3c]\n0x4bbc16: TEST EAX, EAX\n0x4bbc18: JNZ 0x004bbd3d\n0x4bbc1e: PUSH EBX\n0x4bbc1f: PUSH EBP\n0x4bbc20: PUSH ESI\n0x4bbc21: PUSH EDI\n0x4bbc22: MOV EDI, 0x784b74\n0x4bbc27: MOV BX, word ptr [EDI]\n0x4bbc2a: TEST BX, BX\n0x4bbc2d: JLE 0x004bbd2a\n0x4bbc33: MOV EAX, [0x00d3b1c4]\n0x4bbc38: MOV ECX, dword ptr [0x00d3b374]\n0x4bbc3e: MOV dword ptr [EAX*0x4 + 0xd3b1c8], ECX\n0x4bbc45: INC EAX\n0x4bbc46: CMP EAX, 0x64\n0x4bbc49: MOV [0x00d3b1c4], EAX\n0x4bbc4e: JL 0x004bbc5a\n0x4bbc50: MOV dword ptr [0x00d3b1c4], 0x0\n0x4bbc5a: MOV ECX, dword ptr [0x00d3b384]\n0x4bbc60: MOV EAX, [0x00d3b380]\n0x4bbc65: MOV dword ptr [ESP + 0x10], 0x1f\n0x4bbc6d: MOV EDX, ECX\n0x4bbc6f: MOV ESI, ECX\n0x4bbc71: SHR EDX, 0x4\n0x4bbc74: AND EDX, 0x1\n0x4bbc77: AND ESI, 0x1\n0x4bbc7a: XOR EDX, ESI\n0x4bbc7c: MOV ESI, EAX\n0x4bbc7e: SHR ESI, 0x4\n0x4bbc81: MOV EBP, EAX\n0x4bbc83: AND ESI, 0x1\n0x4bbc86: AND EBP, 0x1\n0x4bbc89: XOR ESI, EBP\n0x4bbc8b: SHR ECX, 0x1\n0x4bbc8d: SHR EAX, 0x1\n0x4bbc8f: TEST EDX, EDX\n0x4bbc91: JZ 0x004bbc99\n0x4bbc93: OR ECX, 0x40000000\n0x4bbc99: TEST ESI, ESI\n0x4bbc9b: JZ 0x004bbca2\n0x4bbc9d: OR EAX, 0x40000000\n0x4bbca2: MOV EDX, dword ptr [ESP + 0x10]\n0x4bbca6: DEC EDX\n0x4bbca7: MOV dword ptr [ESP + 0x10], EDX\n0x4bbcab: JNZ 0x004bbc6d\n0x4bbcad: MOV EDX, ECX\n0x4bbcaf: MOV dword ptr [0x00d3b384], ECX\n0x4bbcb5: AND EDX, 0x7fff\n0x4bbcbb: MOV [0x00d3b380], EAX\n0x4bbcc0: MOV dword ptr [0x00d3b370], EDX\n0x4bbcc6: MOV EDX, ECX\n0x4bbcc8: AND EDX, 0x7f\n0x4bbccb: AND ECX, 0x7\n0x4bbcce: MOV dword ptr [0x00d3b374], EDX\n0x4bbcd4: MOV dword ptr [0x00d3b378], ECX\n0x4bbcda: MOV ECX, EAX\n0x4bbcdc: MOV EDX, EAX\n0x4bbcde: AND EAX, 0x7\n0x4bbce1: AND ECX, 0x7fff\n0x4bbce7: MOV [0x00d3b36c], EAX\n0x4bbcec: MOV dword ptr [0x00d3b364], ECX\n0x4bbcf2: MOVSX EAX, word ptr [EDI + 0x10]\n0x4bbcf6: MOVSX ECX, BX\n0x4bbcf9: PUSH 0x0\n0x4bbcfb: PUSH EAX\n0x4bbcfc: PUSH ECX\n0x4bbcfd: AND EDX, 0x7f\n0x4bbd00: PUSH 0x5f\n0x4bbd02: PUSH 0x1\n0x4bbd04: MOV dword ptr [0x00d3b368], EDX\n0x4bbd0a: CALL 0x004b4800\n0x4bbd0f: ADD ESP, 0x14\n0x4bbd12: MOV ESI, EAX\n0x4bbd14: CALL 0x00562348\n0x4bbd19: LEA EDX, [ESI + ESI*0x2]\n0x4bbd1c: AND AL, 0x1f\n0x4bbd1e: SHL EDX, 0x5\n0x4bbd21: ADD EDX, ESI\n0x4bbd23: MOV byte ptr [EDX*0x4 + 0xbcd5f9], AL\n0x4bbd2a: ADD EDI, 0x2\n0x4bbd2d: CMP EDI, 0x784b84\n0x4bbd33: JL 0x004bbc27\n0x4bbd39: POP EDI\n0x4bbd3a: POP ESI\n0x4bbd3b: POP EBP\n0x4bbd3c: POP EBX\n0x4bbd3d: POP ECX\n0x4bbd3e: RET",
+    "evidence_id": "ev_69525414fb40a6f3c4b11e2a65bf605d94ffc15764d96e3563ea1b429ed16f40"
+  },
+  "analyst_conclusion": "For these three analyzed direct call sites, EAX/AL/AX from4BB090 are not consumed before replacement. 403BC2 replaces AL then EAX before use;540ACE replaces EAX immediately;4DE790 replaces AX before its WORD uses or reaches4BBC10, whose initial MOV EAX,[605A3C] kills the full incoming value. This supports the existing void C interface for the observed callers. Indirect callers or corrupted ABI states are not certified."
+}

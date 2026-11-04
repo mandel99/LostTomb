@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "direct_callsites": 3,
+  "void_interface_supported_for_observed_callers": true,
+  "results": [
+    {
+      "callsite": "0x403bc2",
+      "checked_states": 4,
+      "kill_sites": [
+        "0x403bc7",
+        "0x403bdb"
+      ],
+      "incoming_EAX_consumed": false
+    },
+    {
+      "callsite": "0x4de790",
+      "checked_states": 12,
+      "kill_sites": [
+        "0x4de7a1",
+        "0x4de7c1",
+        "4BBC10 entry overwrites full EAX before use"
+      ],
+      "incoming_EAX_consumed": false
+    },
+    {
+      "callsite": "0x540ace",
+      "checked_states": 1,
+      "kill_sites": [
+        "0x540ad3"
+      ],
+      "incoming_EAX_consumed": false
+    }
+  ],
+  "source_hashes": {
+    "direct_c/audit_actor_reserved_callers.py": "cdfa70f28f9cdb43b0f5e41d6a7a85b41afe9edb19c8656f2edefb0f7e718d3d",
+    "direct_c/native_test_pe.py": "c98d2d1e68340be38c258b3c989e18bea6196b60e170519ec12603426d3a790b",
+    "metadata/actor-reserved-caller-native.json": "f1c5ac686b74599151761d1b443b77f74d0cb70ae38e35f61ff6dd6cd6def2b5",
+    "metadata/actor-reserved-rea-evidence.json": "b63862b7818bc819e8482c9bab6e5102c5c0399dab002ac73d18dfe7b1a7e55c"
+  },
+  "limitations": [
+    "Exact three analyzed direct references and their EAX/AX/AL liveness are checked; the4DE7D0 cutpoint uses the verified4BBC10 entry kill. Indirect/unrecognized callers, arbitrary stack corruption, all volatile-register states and physical runtime execution are not certified."
+  ]
+}

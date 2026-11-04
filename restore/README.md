@@ -861,9 +861,11 @@ scenarios each, covering all 649 instructions and 76 conditional outcomes.
 A retained previous EXE proves the stop-all callback mismatch: one native stop
 versus six C backend calls after sound becomes disabled; the repaired parent
 calls its real gated members. Debug/Release playback passes 160 assertions and
-initialization passes 391 cases each. The 52-report aggregate binds current
-sources and executables. The structural inventory is 1124 ordinary C entries
-of 4402 catalogued; complete gameplay equivalence remains unproved.
+initialization passes 391 cases each. The 54-report aggregate binds current
+sources and executables. The structural inventory classifies 1141 ordinary C
+entries of4402 catalogued. Its parser now recognizes MSVC attributes, so the
+reclassified existing bodies are not new algorithm conversions. Complete
+gameplay equivalence remains unproved.
 See [SOUND_PLAYBACK_RECONSTRUCTION.md](metadata/SOUND_PLAYBACK_RECONSTRUCTION.md)
 and [SOUND_STOP_RECONSTRUCTION.md](metadata/SOUND_STOP_RECONSTRUCTION.md).
 
@@ -896,20 +898,28 @@ policy cases. Ten original CD-fallback instructions are retained in comments
 and intentionally disabled. All four retained insertion-guard mismatches now
 replay successfully against original/current named/canonical C.
 
-The current aggregate passes52 paired reports,32,644 scenarios /109,828
-invocations. Per binary it owns10,176 native instructions:10,162 executed,
+The current aggregate passes54 paired reports,34,290 scenarios /114,762
+invocations. Per binary it owns10,678 native instructions:10,664 executed,
 four proved dead actor-message instructions and ten user-disabled CD
 instructions. Debug/Release music, campaign and music-tick native corpora pass
 316/333/1668 cases each. A recorded exact CMake scope audit covers late edits
-to the standalone music-tick target; current main EXEs/maps remain byte-identical
-and original report hashes are preserved. See
+to the standalone music-tick target; the incremental audit build preserves
+the currently tested main EXEs/maps byte for byte and retains report hashes. See
 [MUSIC_CONFIGURATION_RECONSTRUCTION.md](metadata/MUSIC_CONFIGURATION_RECONSTRUCTION.md).
 
-The next scope targets4BB090 reserved-walker initialization and its actual pool,
-town-link and allocator children. The279-instruction parent still uses a
-register/flags model; native bytes, calls and incoming references are retained
-in `metadata/actor-mission-reserved-next-native.json`. Full gameplay remains
-unfinished, and no host game was launched during this recovery.
+Seven reserved-actor/reset/allocation/fill/iterator bodies now share named C
+providers. The279-instruction4BB090 register/flags model is removed. Both
+Release binaries pass823 scenarios each, all502 native instructions and
+32 conditional outcomes. The41 allocations preserve the untagged fourth
+actor, original tag sequence and actor-zero writes on failure. Ordered DWORD/
+BYTE fills and the town iterator's cached count and unusual record140 fallback
+are preserved. See
+[ACTOR_RESERVED_RECONSTRUCTION.md](metadata/ACTOR_RESERVED_RECONSTRUCTION.md).
+
+The next scope targets the remaining560/90-instruction mission-spawn models
+4BB3F0 and4BBC10, retained in `metadata/actor-mission-spawn-next-native.json`.
+Full gameplay remains unfinished, and no host game was launched during this
+recovery.
 
 ## Verification scope
 

@@ -26,6 +26,8 @@ for directory,glob in [('runtime','*.c'),('src','*.c'),('include','*.h')]:
  for path in sorted((src/directory).glob(glob)):
   text=path.read_text(encoding='utf-8-sig');clean=mask.sub(lambda m:' '*len(m[0]),text);rel=path.relative_to(src).as_posix()
   clean=re.sub(r'\b[A-Z_][A-Z0-9_]*\((FUN_[0-9a-fA-F]{8})\)',lambda m:m[1]+' '*(len(m[0])-len(m[1])),clean)
+  # Attributes precede return types; retain positions for source line evidence.
+  clean=re.sub(r'\b__declspec\s*\([^)]*\)',lambda m:' '*len(m[0]),clean)
   file_hashes[rel]=hashlib.sha256(path.read_bytes()).hexdigest()
   if '#include "restore_types.h"' in text:generated_files.add(rel)
   for m in head.finditer(clean):
