@@ -1,0 +1,28 @@
+{
+  "status": "evidence and implementation obligations only; both bodies still use models",
+  "native_entries": ["0x4eaec0", "0x56233e"],
+  "native_instructions": 89,
+  "observed_target_helper_callers": 17,
+  "suggested_names": {
+    "0x4eaec0": "restore_actor_try_periodic_target",
+    "0x56233e": "restore_actor_random_seed"
+  },
+  "observations": [
+    "4EAEC0 preserves incoming ECX with PUSH/POP and consumes one DWORD actor argument. Its public facade is uint8, but raw callers currently receive the full native frame.",
+    "Reject classifier AL zero, inactive status and state bytes 12, 4, 5 or 21. Failed exits zero only AL; do not normalize the full EAX to zero.",
+    "Load BYTE actor+BCD663 and scene DWORD784CB0, increment the counter modulo256 and store it before loading signed WORD784B94. The table offset is (signedVariant + 2*(scene&255))*48 with32-bit wrapping.",
+    "Compare the zero-extended counter with the signed DWORD threshold at5E4CD0+offset. A deferred attempt returns offset&FFFFFF00, which can be nonzero even though AL is zero.",
+    "On reaching the threshold, cache full DWORD radius5E4CD4+offset, store counter BYTE zero, call timeGetTime and seed the real game LCG.",
+    "56233E is a real three-instruction game leaf, not an OS/CRT import: MOV EAX,[ESP+4]; MOV[604950],EAX; RET. Preserve its full seed result in raw wiring and actual shared604950 state. Do not substitute the host CRT srand.",
+    "After seeding, load signed actor Y then X fresh. Call the actual C spiral search with cached radius and the EAE20 callback; output slots are private and unused afterwards.",
+    "A nonzero full search result selects the target. Load/store its fresh WORD X then Y; set BYTE state21, WORD delay=radius*18 modulo65536, WORD linked actor=searchResult. Return (searchResult&FFFFFF00)|1, not a normalized full DWORD one.",
+    "All17 observed callers reload a current-actor global after the call and overwrite flags with ADD ESP,4. Some directly replace EAX; others join shared render/animation suffixes. Audit EDX and upper-EAX liveness through every join before replacing raw dispatch."
+  ],
+  "remaining_obligations": [
+    "Seed references and five caller join windows are now captured. Audit them before integration; provider containment is missing for many animal callbacks. The second seed caller4EB000 has a separate1203-byte dossier and one observed caller49BB88; it is related future work, not part of the89-instruction two-body candidate.",
+    "Convert both active raw bodies, source facades and dispatch wiring together. Keep full partial-return bit patterns in the new private typed helper.",
+    "Native/C fixtures must execute the actual seed leaf, search, kind predicates and tile lists in actual lanes; only the platform clock may be controlled there.",
+    "Exercise byte-counter wrap, signed thresholds, full radius/delay widths, table offsets, cached/fresh fields, aliased game RAM, all17 parent-wiring contracts and explicit child-return lanes.",
+    "Do not change C sources during the active Hippo Stomp checkpoint regression batch."
+  ]
+}

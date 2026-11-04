@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "command_table_row": 3,
+  "decoded_command_name": "Hippo Stomp",
+  "void_supported_for_observed_UI_callers": true,
+  "return_analysis": "The table invoker replaces AL only. Upper EAX bits propagate through tail/return paths, then both observed input-loop callers reach 4CF1F0 which XORs EAX,EAX before use. The intervening 4D0280 either returns without consuming incoming EAX or replaces EAX first.",
+  "reference_correction": "Ghidra labels the 41D390 edge as a call; authenticated E9 bytes show a tail JMP. The byte-level control flow is used.",
+  "source_hashes": {
+    "metadata/actor-command-nullary-next-context-rea-records.json": "08347c8caddc192fe914b3d20aa4316dd05f7882592787af345cd2ce68eddf7e",
+    "metadata/actor-command-nullary-next-caller-refs-rea-record.json": "579b8466e9e6c6cb37316f67655a0510dd958ee595fc509d9dcbee3aa09af38a",
+    "metadata/actor-command-spawn-eight-caller-rea-records.json": "b19034f9864b1b6cac634791288baf1d630c0aa776eb161a115a2ece53e7d7a0",
+    "metadata/actor-command-spawn-eight-outer-caller-rea-records.json": "509716ee93ef3d92ec1d01cbc69c787f6754175eef3019e170b7ba2280979cee",
+    "metadata/actor-command-spawn-eight-event-caller-rea-record.json": "c3c9a6fce7057fb049bb113c1928032da36a5ee1f41b243b08eda357a7294e0c",
+    "metadata/actor-command-spawn-eight-input-refs-rea-record.json": "4d250a80e9ae7ade880e7108eae6198296daaf47a48041f0b63c1d5121ebe774",
+    "metadata/actor-command-spawn-eight-input-caller-rea-records.json": "6f2a074eb37e94c1e8d1cd7c7e4f44e407b3e59098e0614be841be7b64e3a607",
+    "metadata/actor-command-spawn-eight-return-kill-rea-records.json": "c6175fd3e03a9d88c8d2075d1a3c6960ce0dddd5dead4f2615c47e8075adef7c",
+    "metadata/actor-command-spawn-eight-return-kill-tail-rea-record.json": "193d8f4d828c68d6d33fa61572662bf2de19dd90974686ecf0667c5f12935a5f",
+    "direct_c/audit_actor_spawn_hippos.py": "11092ba8628cd58d3a12f44a0beb25bf44b996ab7953ea469dce67c45ab5a692",
+    "runtime/actor_command.c": "80db1152f123b698e70c4034137fee0cfcbb10cc86b6f15172ab8f2a6e106810",
+    "runtime/actor_command_model.c": "81a5a8a2b1af50b351405815406031257949502a7b147c1cbd5cb7ee9baad77b",
+    "runtime/action_tail.c": "fb939705c8bfd7f812289200954c95a6060fd4223f6f9c10a2e595e0d205e4b0",
+    "runtime/menu_callbacks.c": "9de12c1359dedadc7c69aba9045415e51974b7faedeb64d6fcb2b31d93dbcf95",
+    "include/actor_command.h": "064f1eb9be314868149bda804ec978b24b06f23e899aee38f0e14524d857bfe2"
+  },
+  "limitations": [
+    "Exact command row and provider-observed UI caller closure; unidentified indirect callers and arbitrary register/stack corruption remain unknown.",
+    "This supports a void C callback in the existing nullary UI path; it does not claim that native incidental upper EAX bits equal a C void return. No game is launched."
+  ]
+}

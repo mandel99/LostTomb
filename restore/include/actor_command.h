@@ -1,10 +1,7 @@
 #ifndef RESTORE_ACTOR_COMMAND_H
 #define RESTORE_ACTOR_COMMAND_H
 #include <stdint.h>
-struct restore_actor_command_frame;
-typedef void (*restore_actor_command_call)(uint32_t,uint32_t,struct restore_actor_command_frame *);
-struct restore_actor_command_frame {uint32_t r[8],flags;restore_actor_command_call boundary;};
-void restore_actor_command_C_0041cd00(struct restore_actor_command_frame *);
+void restore_actor_command_spawn_hippos(void);
 typedef uint32_t (*restore_actor_tile_callback)(uint32_t tile,uint32_t actor);
 uint32_t restore_actor_find_other_kind_on_tile(uint32_t tile,uint32_t actor);
 uint32_t restore_actor_spiral_search(int32_t x,int32_t y,volatile int32_t *out_x,
@@ -14,7 +11,7 @@ uint32_t restore_actor_choose_command_state(int32_t actor);
 uint32_t restore_actor_apply_command_state(int32_t actor,uint32_t state);
 uint32_t FUN_004ec0f0(int32_t x,int32_t y,volatile int32_t *out_x,
  volatile int32_t *out_y,int32_t rings,uint32_t actor,restore_actor_tile_callback callback);
-/* Reviewed nullary command-table row3, no incoming ECX or scratch payload. */
+/* Hippo Stomp: reviewed nullary command-table row3. */
 void restore_actor_command_0041cd00(void);
 int restore_actor_command_action(uint32_t token);
 /* Prefix helper preserves the native one-DWORD/RET0 contract. */

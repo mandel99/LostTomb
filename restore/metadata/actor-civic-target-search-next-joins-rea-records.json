@@ -1,0 +1,504 @@
+{
+  "records": [
+    {
+      "evidence_id": "ev_9ba5041d03ca747942fba78c430c16ec5f81ccfd8ab9b9728f315a769964c4d3",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x49da5b",
+        "length": 320
+      },
+      "raw_result": {
+        "address": "0x49da5b",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d04498b15e0a2bc00c1e00503c1c1e0020fbe8809d6bc002bca890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe130f87f700000033d28a9634dc4900ff24951cdc49008a4c241284c9668b882ed6bc00743a6683f9177c1b8b15146ef500b9160000005f03ca5e5d8988fcd5bc005b83c408c38b15146ef5005f0fbfc903ca5e5d8988fcd5bc005b83c408c36683f9087c1b8b15ac5df500b9070000005f03ca5e5d8988fcd5bc005b83c408c38b15ac5df5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b9040d7bc008b35b45df5005f8d14d65e03d15d8990fcd5bc005b83c408c38a54241284d28b9040d7bc00741f8b35bc5df5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35a45df5005f8d14d65e03d15d8990fcd5bc005b83c408c38a54241284d2741f8b90",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x49da5b",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d04498b15e0a2bc00c1e00503c1c1e0020fbe8809d6bc002bca890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe130f87f700000033d28a9634dc4900ff24951cdc49008a4c241284c9668b882ed6bc00743a6683f9177c1b8b15146ef500b9160000005f03ca5e5d8988fcd5bc005b83c408c38b15146ef5005f0fbfc903ca5e5d8988fcd5bc005b83c408c36683f9087c1b8b15ac5df500b9070000005f03ca5e5d8988fcd5bc005b83c408c38b15ac5df5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b9040d7bc008b35b45df5005f8d14d65e03d15d8990fcd5bc005b83c408c38a54241284d28b9040d7bc00741f8b35bc5df5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35a45df5005f8d14d65e03d15d8990fcd5bc005b83c408c38a54241284d2741f8b90",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_4ff5eade2188cff71fec7ee6e992af00503cc2bd0c9ef5ac469453c30c35c301",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x49e6d8",
+        "length": 320
+      },
+      "raw_result": {
+        "address": "0x49e6d8",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d446d00c1e00503c5c1e0028b8840d7bc008b903cd7bc003bca7d0485c97d0ac78040d7bc00000000000fbe8809d6bc002b0de0a2bc00890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe110f87f000000033d28a9698e84900ff249578e84900668b882ed6bc006683f9067c1b8b150462f500b9050000005f03ca5e5d8988fcd5bc005b83c408c38b150462f5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b15f461f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b35f461f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b350c62f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35fc61f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b151462f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b351462f5",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x49e6d8",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d446d00c1e00503c5c1e0028b8840d7bc008b903cd7bc003bca7d0485c97d0ac78040d7bc00000000000fbe8809d6bc002b0de0a2bc00890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe110f87f000000033d28a9698e84900ff249578e84900668b882ed6bc006683f9067c1b8b150462f500b9050000005f03ca5e5d8988fcd5bc005b83c408c38b150462f5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b15f461f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b35f461f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b350c62f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35fc61f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b151462f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b351462f5",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_20745407a280d83138ecece96e8ba14d01b64d28632575736fe5795971e1e482",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x49f418",
+        "length": 320
+      },
+      "raw_result": {
+        "address": "0x49f418",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "a0e127700084c08d04490f848a000000c1e00503c1c1e0028a8830d6bc0080f904742d80f90c74288b15a46ef500c7803cd7bc000e0000008b8840d7bc005f5e5d8d4c11055b8988fcd5bc0083c408c3c7803cd7bc00120000000fbf882ed6bc0083f9127c1b8b15a46ef500b9240000005f03d15e5d8990fcd5bc005b83c408c38b15a46ef50083c1135f03d15e5d8990fcd5bc005b83c408c3c1e0058b15e0a2bc0003c1c1e0020fbe8809d6bc002bca890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe160f876d01000033d28a96f4f64900ff2495dcf649008a4c241284c9668b882ed6bc00743a6683f9177c1b8b15146ef500b9160000005f03d15e5d8990fcd5bc005b83c408c38b15146ef5005f0fbfc903d15e5d8990fcd5bc005b83c408c36683f9087c1b8b15746ef500b9070000005f",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x49f418",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "a0e127700084c08d04490f848a000000c1e00503c1c1e0028a8830d6bc0080f904742d80f90c74288b15a46ef500c7803cd7bc000e0000008b8840d7bc005f5e5d8d4c11055b8988fcd5bc0083c408c3c7803cd7bc00120000000fbf882ed6bc0083f9127c1b8b15a46ef500b9240000005f03d15e5d8990fcd5bc005b83c408c38b15a46ef50083c1135f03d15e5d8990fcd5bc005b83c408c3c1e0058b15e0a2bc0003c1c1e0020fbe8809d6bc002bca890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe160f876d01000033d28a96f4f64900ff2495dcf649008a4c241284c9668b882ed6bc00743a6683f9177c1b8b15146ef500b9160000005f03d15e5d8990fcd5bc005b83c408c38b15146ef5005f0fbfc903d15e5d8990fcd5bc005b83c408c36683f9087c1b8b15746ef500b9070000005f",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_5ee009996fa0bba55510f95bb2d0c51dc61dafd0e3e1654d55f1907ff62ce898",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x4a032f",
+        "length": 320
+      },
+      "raw_result": {
+        "address": "0x4a032f",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d446d00c1e00503c5c1e0028b8840d7bc008b903cd7bc003bca7d0485c97d0ac78040d7bc00000000000fbe8809d6bc002b0de0a2bc00890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe110f87bb00000033d28a96b4044a00ff24959c044a00668b882ed6bc006683f9067c1b8b15b470f500b9050000005f03ca5e5d8988fcd5bc005b83c408c38b15b470f5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b9040d7bc008b359c70f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35a470f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b15bc70f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b35bc70f5008d14d603d18990fcd5bc005f5e5d5b83c408c38bff19f84900ecf7490037f8490026ff4900d4024a0047024a0009fa4900e5f949",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x4a032f",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d446d00c1e00503c5c1e0028b8840d7bc008b903cd7bc003bca7d0485c97d0ac78040d7bc00000000000fbe8809d6bc002b0de0a2bc00890d004ee900790983c108890d004ee90033d28a9030d6bc008d72fc83fe110f87bb00000033d28a96b4044a00ff24959c044a00668b882ed6bc006683f9067c1b8b15b470f500b9050000005f03ca5e5d8988fcd5bc005b83c408c38b15b470f5005f0fbfc903ca5e5d8988fcd5bc005b83c408c38b9040d7bc008b359c70f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b9040d7bc008b35a470f5005f8d14d65e03d15d8990fcd5bc005b83c408c38b15bc70f5005f03d15e5d8990fcd5bc005b83c408c38b9040d7bc008b35bc70f5008d14d603d18990fcd5bc005f5e5d5b83c408c38bff19f84900ecf7490037f8490026ff4900d4024a0047024a0009fa4900e5f949",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_f8a5698615e91e004e2add0c2b1b24e48b484a2a50047b37f08064d6cd5f6a83",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x4a0f5f",
+        "length": 320
+      },
+      "raw_result": {
+        "address": "0x4a0f5f",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d0c5bc1e10503cbc1e1028b8140d7bc008b913cd7bc003bc27d0485c07d0ac78140d7bc00000000000fbeb109d6bc002b35e0a2bc008935004ee900790983c6088935004ee90033c08a8130d6bc0083c0fc83f8130f87e400000033d28a9010114a00ff2495f4104a00668b812ed6bc00663d06007c1e8b158470f500b8050000005f8d04c203c65e5d8981fcd5bc005b83c408c38b158470f5005f0fbfc08d04c203c65e5d8981fcd5bc005b83c408c38b157470f5005f03d65e5d8991fcd5bc005b83c408c38b8140d7bc008b157470f5005f8d04c203c65e5d8981fcd5bc005b83c408c38b9140d7bc00a18c70f5005f8d14d003d65e5d8991fcd5bc005b83c408c38b8140d7bc008b157c70f5005f8d04c203c65e5d8981fcd5bc005b83c408c38b8140d7bc00992bc28b159470f500d1f88d04c203c68981fcd5bc005f",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x4a0f5f",
+        "requested_bytes": 320,
+        "returned_bytes": 320,
+        "bytes_hex": "8d0c5bc1e10503cbc1e1028b8140d7bc008b913cd7bc003bc27d0485c07d0ac78140d7bc00000000000fbeb109d6bc002b35e0a2bc008935004ee900790983c6088935004ee90033c08a8130d6bc0083c0fc83f8130f87e400000033d28a9010114a00ff2495f4104a00668b812ed6bc00663d06007c1e8b158470f500b8050000005f8d04c203c65e5d8981fcd5bc005b83c408c38b158470f5005f0fbfc08d04c203c65e5d8981fcd5bc005b83c408c38b157470f5005f03d65e5d8991fcd5bc005b83c408c38b8140d7bc008b157470f5005f8d04c203c65e5d8981fcd5bc005b83c408c38b9140d7bc00a18c70f5005f8d14d003d65e5d8991fcd5bc005b83c408c38b8140d7bc008b157c70f5005f8d04c203c65e5d8981fcd5bc005b83c408c38b8140d7bc00992bc28b159470f500d1f88d04c203c68981fcd5bc005f",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  ]
+}

@@ -2,9 +2,10 @@
 
 This recovery replaces the five register/flags bodies at 4EC990, 4EC7C0,
 4EC4A0, 4EC0F0 and the previously unidentified callback 4EAE20 with named C.
-The command-table entry 41CD00 remains a separate instruction model. Its child
-dispatch, the animal/civic bridge and the three canonical recovered source files
-all route into the new C bodies; the retired five bodies are removed.
+The command-table entry 41CD00 now also has its own named C replacement; see
+[Hippo Stomp](ACTOR_SPAWN_HIPPOS_RECONSTRUCTION.md). The animal/civic bridge and
+the three canonical recovered source files route into the new C bodies. All six
+old models and the private register-frame/VM-stack invocation are removed.
 
 REA provides the four analyzed procedure spans (603 instructions) and exact
 153-byte callback input (53 instructions). Ghidra reports that the callback is
@@ -72,17 +73,17 @@ coordinate boundaries and fresh target-coordinate reads (66 actual cases and
 one synthetic RAM mutation). These extras do not expand instruction ownership.
 The strict source build passes `/W4 /WX /GS- /Ob0 /O2`.
 
-Fourteen further cases / 28 invocations per binary execute the retained 41CD00
+Fourteen further cases / 28 invocations per binary execute the 41CD00
 parent through the real action facade and its new C children. They compare all
 data, ordered stores, meaningful child arguments and nonvolatile ABI with the
 native parent, including disabled mode, full group/actor pools, terrain, history
 aliases and RNG extremes. No child or platform result is replaced. The parent
-is still an instruction model; these comparisons add no converted instruction
-ownership and do not certify its incidental EAX/flags or arbitrary stack aliases.
+has separate primary instruction ownership; these extra comparisons add none
+and do not certify its incidental EAX/flags or arbitrary stack aliases.
 
 No host game is launched. This finite verification does not prove all gameplay,
 arbitrary caller-stack aliases, corrupted private locals, unknown indirect
 callers, self-modifying code, OS exception dispatch or unused volatile outputs.
-The remaining command/civic models and other unresolved game logic still need
+The remaining civic models and other unresolved game logic still need
 reconstruction. Main-binary changes require all prior comparison reports to be
 refreshed before a checkpoint is published.

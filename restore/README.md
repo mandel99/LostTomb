@@ -1,5 +1,12 @@
 # Pharaoh restore
 
+The Hippo Stomp action now creates its eight actors through named C, preserving
+both RNG phases, native vector advance, signed group guards and actor-zero
+stores. Both Release binaries pass169 scenarios covering all195 instructions
+and28 conditional outcomes. The last actor-command model and its private
+register frame/VM stack are removed. See
+[Hippo Stomp reconstruction](metadata/ACTOR_SPAWN_HIPPOS_RECONSTRUCTION.md).
+
 Actor target search and command-state transitions now use five named C bodies,
 including a callback that Ghidra had not identified as a procedure. The656 native
 instructions preserve full return bits, RNG publication order, signed tile-list

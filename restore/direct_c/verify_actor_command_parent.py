@@ -1,7 +1,7 @@
-"""Real retained 41CD00 parent -> new command/search C compositions.
+"""Real 41CD00 action -> command/search C compositions.
 
-The parent itself remains an instruction model. No added instruction ownership
-or complete conversion of that parent is claimed by these finite tests.
+The action now has its own whole-body native/C suite. These additional
+compositions do not expand that suite's instruction ownership.
 """
 import verify_actor_command_transition as oracle
 from verify_actor_command_transition import *
@@ -54,7 +54,7 @@ primary_path=ROOT/f"metadata/actor-command-transition-{'diagnostic' if target.st
 primary=json.loads(primary_path.read_text());assert primary['passed'] and primary['compiled_C_sha256']==target_sha
 for path,sha in primary['source_hashes'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==sha,path
 paths=[*primary['source_hashes'],'direct_c/verify_actor_command_parent.py','metadata/actor-command-nullary-next-rea-record.json']
-proof=dict(passed=True,native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,checked=cases,invocations=invokes,controlled_algorithm_endpoints=[],controlled_platform_endpoints=[],source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths},limitations=['The retained 195-instruction command parent is compared against its real model/C-child composition. It is still a model; these cases do not expand converted instruction ownership.','Complete original data/private bytes, ordered stores, meaningful child arguments and normal-return nonvolatile ABI are compared. Parent incidental EAX/flags and arbitrary caller-stack aliases are not certified.','The compiled action facade must return handled=1. Native caller argument/AL contracts and remaining parent conversion require the separate evidence/audit. No host game is launched.'])
+proof=dict(passed=True,native_sha256=catalogue['native_sha256'],compiled_C_path=str(target.resolve()),compiled_C_sha256=target_sha,checked=cases,invocations=invokes,controlled_algorithm_endpoints=[],controlled_platform_endpoints=[],source_hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths},limitations=['The 195-instruction command parent is compared through its real C-child composition. Its primary suite owns the converted instructions; these extra cases add no instruction ownership.','Complete original data/private bytes, ordered stores, meaningful child arguments and normal-return nonvolatile ABI are compared. Parent incidental EAX/flags and arbitrary caller-stack aliases are not certified.','The compiled action facade must return handled=1. Native caller argument/AL contracts are qualified by the separate caller audit. No host game is launched.'])
 suffix='diagnostic' if target.stem=='restore_link_check' else 'game'
 (ROOT/f'metadata/actor-command-parent-{suffix}.json').write_text(json.dumps(proof,indent=2)+'\n')
-print('PASS real retained actor command parent compositions:',cases,'scenarios;',invokes,'invocations')
+print('PASS real actor command parent compositions:',cases,'scenarios;',invokes,'invocations')
