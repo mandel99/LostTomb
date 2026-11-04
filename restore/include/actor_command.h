@@ -2,6 +2,14 @@
 #define RESTORE_ACTOR_COMMAND_H
 #include <stdint.h>
 void restore_actor_command_spawn_hippos(void);
+uint32_t restore_actor_route_line_mode(uint32_t mode);
+int32_t restore_actor_find_clear_vector(int32_t x,int32_t y,int32_t first_vector,
+ int32_t target_x,int32_t target_y,uint32_t mode);
+uint32_t restore_actor_update_hippo(void);
+uint8_t FUN_004eaac0(int32_t mode);
+int32_t FUN_004eab10(int32_t x,int32_t y,int32_t first_vector,
+ int32_t target_x,int32_t target_y,int32_t mode);
+void FUN_0049e8b0(void);
 uint32_t restore_actor_random_seed(uint32_t seed);
 uint32_t restore_actor_try_periodic_target(int32_t actor);
 uint8_t restore_actor_update_group_target(int32_t actor);

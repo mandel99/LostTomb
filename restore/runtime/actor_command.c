@@ -14,6 +14,9 @@ typedef char actor_command_pointer32[sizeof(void*)==4?1:-1];
 extern int32_t FUN_004eada0(int32_t kind);
 extern uint8_t FUN_0051cd80(int32_t,int32_t,int32_t,int32_t);
 extern void FUN_004b3250(int32_t actor);
+extern void FUN_0053b4a0(int32_t actor,int32_t sound,int32_t variant);
+extern void FUN_004b1d50(int32_t actor);
+extern uint32_t FUN_004ec7c0(int32_t actor);
 /* Audited whole native45-instruction leaf; low WORD kind/X/Y consumed. */
 extern int32_t FUN_004b6ff0(uint16_t kind,int32_t mode,int32_t orientation,uint16_t x,uint16_t y);
 
@@ -423,6 +426,339 @@ __declspec(noinline) uint8_t restore_actor_update_group_target(int32_t actor)
   if(progress>20u){FUN_004b3250(actor);B(0xbcd630u+offset)=8;}
  }
  return 0;
+}
+
+/* Kind84 update and its16-vector route helper. The callback invoker
+   overwrites scratch results through its profiler before meaningful use. */
+__declspec(noinline) uint32_t restore_actor_route_line_mode(uint32_t mode)
+{
+    uint32_t offset, table;
+    if (mode & 255u) {
+        uint32_t scene = U(0x784cb0u);
+        offset = (scene & 255u) * 48u;
+        table = 0x5e4c3cu;
+    } else {
+        uint32_t scene = U(0x784cb0u);
+        int32_t variant = (int16_t)W(0x784b94u);
+        offset = ((uint32_t)variant + (scene & 255u) * 2u) * 48u;
+        table = 0x5e4cccu;
+    }
+    /* MOV AL,[table+offset] replaces only the low byte of the offset. */
+    return (offset & 0xffffff00u) | B(table + offset);
+}
+
+__declspec(noinline) int32_t restore_actor_find_clear_vector(int32_t x, int32_t y,
+    int32_t first_vector, int32_t target_x, int32_t target_y, uint32_t mode)
+{
+    uint32_t vector = (uint32_t)first_vector, attempt;
+    for (attempt = 0; attempt < 16u; ++attempt) {
+        uint32_t dy = U(0x5cdb7cu + vector * 8u);
+        uint32_t dx = U(0x5cdb78u + vector * 8u);
+        uint32_t candidate_y = dy + (uint32_t)y;
+        uint32_t map_base = U(0xbca2d8u);
+        uint32_t candidate_x = dx + (uint32_t)x;
+        uint32_t tile = map_base + candidate_y * 228u + candidate_x;
+        uint32_t line_clear;
+
+        /* Coordinates and tile are cached before the selector/line children.
+           The selector and terrain predicate use AL; the line tests use EAX. */
+        if (FUN_004eaac0((int32_t)mode)) {
+            line_clear = FUN_00519be0(target_x, target_y,
+                (int32_t)candidate_x, (int32_t)candidate_y);
+            if (!line_clear)
+                line_clear = FUN_00517f20(target_x, target_y,
+                    (int32_t)candidate_x, (int32_t)candidate_y);
+        } else {
+            line_clear = FUN_005181c0(target_x, target_y,
+                (int32_t)candidate_x, (int32_t)candidate_y);
+        }
+        if (line_clear && !W(0xb350dcu + tile * 2u)) {
+            uint32_t terrain = U(0xaf598cu + tile * 4u);
+            if (FUN_004ec410(terrain, (char)mode) & 255u)
+                return (int32_t)vector;
+        }
+        ++vector;
+        if ((int32_t)vector >= 16)
+            vector = 0;
+    }
+    return -1;
+}
+
+struct hippo_random_pair {uint32_t a,b;};
+
+static uint32_t hippo_offset(uint32_t actor){return actor*388u;}
+static uint32_t hippo_half(uint32_t value){return (uint32_t)((int32_t)value>>1);}
+static struct hippo_random_pair hippo_random_advance(void)
+{
+    uint32_t index=U(0xd3b1c4u),sample=U(0xd3b374u),i;
+    struct hippo_random_pair p;
+    U(0xd3b1c8u+index*4u)=sample;
+    ++index;U(0xd3b1c4u)=index;
+    if((int32_t)index>=100)U(0xd3b1c4u)=0;
+    p.a=U(0xd3b384u);p.b=U(0xd3b380u);
+    for(i=0;i<31u;++i){
+        uint32_t a=(p.a^(p.a>>4))&1u,b=(p.b^(p.b>>4))&1u;
+        p.a=(p.a>>1)|(a<<30);p.b=(p.b>>1)|(b<<30);
+    }
+    return p;
+}
+
+static uint8_t hippo_target_differs(uint32_t actor_offset,uint32_t linked_offset)
+{
+    uint16_t linked_x=W(0xbcd60cu+linked_offset),target_x=W(0xbcd61cu+actor_offset);
+    uint16_t linked_y,target_y;
+    if(linked_x!=target_x)return 1;
+    linked_y=W(0xbcd60eu+linked_offset);target_y=W(0xbcd61eu+actor_offset);
+    return linked_y!=target_y;
+}
+
+/* Caller clears the route first. Each load/store remains fresh and ordered. */
+static uint32_t hippo_copy_linked_target(uint32_t actor,uint32_t linked_offset)
+{
+    uint16_t x=W(0xbcd60cu+linked_offset);
+    uint32_t o=hippo_offset(actor);
+    W(0xbcd61cu+o)=x;
+    W(0xbcd61eu+o)=W(0xbcd60eu+linked_offset);
+    return o;
+}
+
+static uint32_t hippo_copy_group_target(uint32_t actor,uint32_t group_offset,
+                                       uint32_t direction,uint32_t group_x,uint32_t group_y)
+{
+    uint16_t x=W(0x5cd978u+direction*8u);
+    uint32_t o=hippo_offset(actor);
+    x=(uint16_t)(x+W(group_x+group_offset));W(0xbcd61cu+o)=x;
+    x=W(0x5cd97cu+direction*8u);
+    x=(uint16_t)(x+W(group_y+group_offset));W(0xbcd61eu+o)=x;
+    B(0xbcd630u+o)=9;
+    return o;
+}
+
+static uint8_t hippo_surrounded_by_flag4(uint32_t tile)
+{
+    uint32_t p=0xaf598cu+tile*4u;
+    return (B(p)&4u) && (B(p-912u)&4u) && (B(p+4u)&4u) &&
+           (B(p+912u)&4u) && (B(p-4u)&4u) && (B(p-908u)&4u) &&
+           (B(p-916u)&4u) && (B(p+916u)&4u) && (B(p+908u)&4u);
+}
+
+static uint32_t hippo_animation(uint32_t actor,uint8_t surrounded)
+{
+    uint32_t o=hippo_offset(actor),base,counter,direction,rotation;
+    uint8_t state;
+    if(B(0x7027e1u)){
+        state=B(0xbcd630u+o);
+        if(state!=4u && state!=12u){
+            base=U(0xf56ea4u);U(0xbcd73cu+o)=14;
+            counter=U(0xbcd740u+o);U(0xbcd5fcu+o)=counter+base+5u;
+        }else{
+            int32_t delay;
+            U(0xbcd73cu+o)=18;delay=(int16_t)W(0xbcd62eu+o);
+            base=U(0xf56ea4u);
+            U(0xbcd5fcu+o)=base+(delay>=18?36u:(uint32_t)delay+19u);
+        }
+        return o;
+    }
+    rotation=U(0xbca2e0u);
+    direction=(uint32_t)(int32_t)(int8_t)B(0xbcd609u+o)-rotation;
+    U(0xe94e00u)=direction;
+    if((int32_t)direction<0){direction+=8u;U(0xe94e00u)=direction;}
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 4:case 12:{
+        int32_t delay=(int16_t)W(0xbcd62eu+o);
+        if(surrounded){base=U(0xf56e14u);counter=delay>=23?22u:(uint32_t)delay;}
+        else{base=U(0xf56e74u);counter=delay>=8?7u:(uint32_t)delay;}
+        U(0xbcd5fcu+o)=base+counter;return o;
+    }
+    case 9:case 10:case 19:case 21:
+        counter=U(0xbcd740u+o);base=U(surrounded?0xf56e84u:0xf56e6cu);
+        U(0xbcd5fcu+o)=base+counter*8u+direction;return o;
+    case 25:
+        counter=U(0xbcd740u+o);base=U(surrounded?0xf56e84u:0xf56e7cu);
+        U(0xbcd5fcu+o)=base+counter*8u+direction;return o;
+    case 8:case 23:
+        base=U(surrounded?0xf56e94u:0xf56e6cu);
+        U(0xbcd5fcu+o)=base+direction;return o;
+    case 26:
+        if(surrounded){counter=U(0xbcd740u+o);base=U(0xf56e8cu);U(0xbcd5fcu+o)=base+counter*8u+direction;}
+        else{base=U(0xf56e6cu);U(0xbcd5fcu+o)=base+direction;}
+        return o;
+    default:
+        base=U(0xf56e9cu);counter=U(0xbcd740u+o);
+        if(surrounded)base=U(0xf56e94u);
+        U(0xbcd5fcu+o)=base+counter*8u+direction;return o;
+    }
+}
+
+__declspec(noinline) uint32_t restore_actor_update_hippo(void)
+{
+    uint32_t actor=U(0xd056f8u),o=hippo_offset(actor),kind=B(0xbcd602u+o);
+    uint32_t counter=U(0xbcd740u+o)+1u,speed,cycle,tile;
+    int32_t group,linked=0;
+    uint8_t cycle_advanced=0,surrounded,state,animation_byte,direction;
+    U(0xbcd740u+o)=counter;
+    speed=U(0x7090ecu+kind*56u);cycle=U(0xbcd73cu+o);
+    if((int32_t)counter>=(int32_t)cycle){
+        U(0xbcd740u+o)=0;animation_byte=B(0xbcd5f9u+o);
+        ++animation_byte;cycle_advanced=1;B(0xbcd5f9u+o)=animation_byte;
+    }
+    B(0xbcd66au+o)=6;B(0xbcd604u+o)=0;B(0xbcd65du+o)=0;
+    tile=U(0xbcd618u+o);group=(int16_t)W(0xbcd658u+o);
+    surrounded=hippo_surrounded_by_flag4(tile);
+    {uint32_t profile=U(0xeaac28u)*0x49d8u;W(0xea5ceau+profile)=(uint16_t)(W(0xea5ceau+profile)+1u);}
+    animation_byte=B(0xbcd5f9u+o);++animation_byte;B(0xbcd5f9u+o)=animation_byte;
+    if(animation_byte>=12u)B(0xbcd5f9u+o)=0;
+    state=B(0xbcd630u+o);
+    switch(state){
+    case 5:
+        FUN_0053b4a0((int32_t)actor,6,2);actor=U(0xd056f8u);
+        FUN_004b17d0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 4:
+        if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        o=hippo_offset(actor);U(0xbcd73cu+o)=8;
+        FUN_004b1d50((int32_t)actor);actor=U(0xd056f8u);break;
+    case 24:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){U(0xbcd740u+o)=0;U(0xbcd73cu+o)=8;B(0xbcd630u+o)=8;}
+        U(0xbcd5fcu+o)=0;return o;
+    case 26:
+        cycle=hippo_half(U(0xbcd73cu+o));counter=U(0xbcd740u+o);
+        if(counter==cycle){
+            W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+            if((int16_t)W(0xbcd62eu+o)>0)U(0xbcd740u+o)=hippo_half(U(0xbcd73cu+o))-1u;
+        }else if(cycle_advanced){FUN_004ec7c0((int32_t)actor);actor=U(0xd056f8u);}
+        break;
+    case 8:
+        FUN_004ec7c0((int32_t)actor);actor=U(0xd056f8u);break;
+    case 9:case 10:case 19:
+        if(surrounded)speed=hippo_half(speed);
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=hippo_offset(actor);
+        direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);}
+        else if(direction==10u || direction==8u){
+            B(0xbcd609u+o)=B(0xbcd60au+o);
+            FUN_004ec7c0((int32_t)actor);actor=U(0xd056f8u);
+        }
+        break;
+    case 18:
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){
+            struct hippo_random_pair p=hippo_random_advance();
+            uint32_t g=(uint32_t)group*144u;int32_t x,y,gx,gy,index;
+            U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;
+            U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+            U(0xd3b374u)=p.a&127u;U(0xd3b36cu)=p.b&7u;
+            y=(int16_t)W(0xbcd60eu+o);U(0xd3b368u)=p.b&127u;
+            x=(int16_t)W(0xbcd60cu+o);U(0xd3b370u)=p.a&32767u;
+            gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+            index=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+            if(index>=0 && index<16){
+                actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+                hippo_copy_group_target(actor,g,(uint32_t)index,0xbcba02u,0xbcba04u);
+                restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+            }
+            actor=U(0xd056f8u);o=hippo_offset(actor);W(0xbcd62eu+o)=100;
+        }
+        /* State20 has the same periodic-call tail. */
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 20:
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);break;
+    case 23:{
+        struct hippo_random_pair p=hippo_random_advance();
+        uint32_t g=(uint32_t)group*144u;int32_t x,y,gx,gy,index;
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;
+        U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b374u)=p.a&127u;U(0xd3b36cu)=p.b&7u;
+        y=(int16_t)W(0xbcd60eu+o);U(0xd3b368u)=p.b&127u;
+        x=(int16_t)W(0xbcd60cu+o);U(0xd3b370u)=p.a&32767u;
+        gy=(int16_t)W(0xbcba04u+g);gx=(int16_t)W(0xbcba02u+g);
+        index=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+        if(index>=0 && index<16){
+            actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+            hippo_copy_group_target(actor,g,(uint32_t)index,0xbcba02u,0xbcba04u);break;
+        }
+        p=hippo_random_advance();
+        U(0xd3b384u)=p.a;U(0xd3b378u)=p.a&7u;
+        U(0xd3b380u)=p.b;U(0xd3b364u)=p.b&32767u;
+        U(0xd3b368u)=p.b&127u;actor=U(0xd056f8u);
+        U(0xd3b36cu)=p.b&7u;U(0xd3b370u)=p.a&32767u;
+        o=hippo_offset(actor);y=(int16_t)W(0xbcd60eu+o);x=(int16_t)W(0xbcd60cu+o);
+        gy=(int16_t)W(0xbcba00u+g);gx=(int16_t)W(0xbcb9feu+g);
+        U(0xd3b374u)=p.a&127u;
+        index=FUN_004eab10(gx,gy,(int32_t)(p.a&15u),x,y,0);
+        if(index>=0 && index<16){
+            actor=U(0xd056f8u);FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+            hippo_copy_group_target(actor,g,(uint32_t)index,0xbcb9feu,0xbcba00u);break;
+        }
+        actor=U(0xd056f8u);B(0xbcd606u+hippo_offset(actor))=2;return actor;
+    }
+    case 25:
+        linked=(int16_t)W(0xbcd656u+o);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){B(0xbcd663u+o)=0;B(0xbcd630u+o)=23;break;}
+        if(linked && B(0xbcd630u+hippo_offset((uint32_t)linked))!=4u && B(0xbcd606u+hippo_offset((uint32_t)linked))==1u){
+            if(cycle_advanced && hippo_target_differs(o,hippo_offset((uint32_t)linked))){
+                FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+                o=hippo_copy_linked_target(actor,hippo_offset((uint32_t)linked));
+            }
+        }else{
+            B(0xbcd609u+o)=B(0xbcd60au+o);restore_actor_seek_other_kind((int32_t)actor);actor=U(0xd056f8u);
+        }
+        FUN_004a5da0((int32_t)actor,surrounded?speed:speed*2u);actor=U(0xd056f8u);o=hippo_offset(actor);
+        direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==10u){B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd663u+o)=0;B(0xbcd630u+o)=23;break;}
+        if(direction==8u){
+            if(linked && hippo_target_differs(o,hippo_offset((uint32_t)linked)) &&
+               B(0xbcd630u+hippo_offset((uint32_t)linked))!=4u && B(0xbcd606u+hippo_offset((uint32_t)linked))==1u){
+                FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+                hippo_copy_linked_target(actor,hippo_offset((uint32_t)linked));
+            }else{
+                B(0xbcd609u+o)=B(0xbcd60au+o);restore_actor_seek_other_kind((int32_t)actor);actor=U(0xd056f8u);
+            }
+        }
+        break;
+    case 21:
+        linked=(int16_t)W(0xbcd656u+o);
+        W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)-1u);
+        if((int16_t)W(0xbcd62eu+o)<=0){B(0xbcd663u+o)=0;B(0xbcd630u+o)=23;break;}
+        if(cycle_advanced && linked && hippo_target_differs(o,hippo_offset((uint32_t)linked))){
+            FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+            hippo_copy_linked_target(actor,hippo_offset((uint32_t)linked));
+        }
+        if(surrounded)speed=hippo_half(speed);
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=hippo_offset(actor);
+        direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==10u)goto reset_ordinal_delay;
+        if(direction==8u){
+            if(linked && hippo_target_differs(o,hippo_offset((uint32_t)linked))){
+                FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);
+                hippo_copy_linked_target(actor,hippo_offset((uint32_t)linked));
+            }else goto reset_ordinal_delay;
+        }
+        break;
+    case 13:
+        if(surrounded)speed=hippo_half(speed);
+        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);
+        restore_actor_try_periodic_target((int32_t)actor);actor=U(0xd056f8u);o=hippo_offset(actor);
+        direction=B(0xbcd609u+o);
+        if(direction==9u){FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);break;}
+        if(direction==10u || direction==8u)goto reset_ordinal_delay;
+        break;
+    case 12:
+        if(!W(0xbcd62eu+o)){FUN_004b5050((int32_t)actor);actor=U(0xd056f8u);}
+        o=hippo_offset(actor);W(0xbcd62eu+o)=(uint16_t)(W(0xbcd62eu+o)+1u);
+        if((int16_t)W(0xbcd62eu+o)>500)B(0xbcd630u+o)=4;
+        break;
+    default:B(0xbcd630u+o)=8;break;
+    }
+    return hippo_animation(actor,surrounded);
+reset_ordinal_delay:
+    B(0xbcd609u+o)=B(0xbcd60au+o);B(0xbcd630u+o)=23;
+    W(0xbcd62eu+o)=(uint16_t)((uint32_t)B(0xbcd65au+o)*5u);
+    return hippo_animation(actor,surrounded);
 }
 
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct

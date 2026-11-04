@@ -1,0 +1,684 @@
+{
+  "passed": true,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "owned_instructions": 1036,
+  "registered_callback_consumer": {
+    "passed": true,
+    "invoker_entry": "0x489b70",
+    "callback_site": "0x489c52",
+    "callback_table": "0x5dc28c",
+    "callbacks": {
+      "82": {
+        "row": "0x5dc3d4",
+        "entry": "0x49d0f0"
+      },
+      "84": {
+        "row": "0x5dc3dc",
+        "entry": "0x49e8b0"
+      }
+    },
+    "incoming_scratch_bits_discarded": [
+      "EAX[31:0]",
+      "ECX[31:0]",
+      "EDX[31:0]"
+    ],
+    "flags_discarded": "SUB ESP,8 and TEST AL,AL precede any incoming flag use.",
+    "all_scratch_killed_before": "0x489ab9",
+    "flow_states": 14,
+    "external_contracts": {
+      "0x56f024": {
+        "dll": "KERNEL32.dll",
+        "name": "QueryPerformanceCounter",
+        "stack_args": 1,
+        "argument": "0xbcb628",
+        "return_type": "BOOL full EAX"
+      },
+      "0x56f12c": {
+        "dll": "KERNEL32.dll",
+        "name": "GetTickCount",
+        "stack_args": 0,
+        "return_type": "DWORD full EAX"
+      }
+    }
+  },
+  "helper_callers": {
+    "0x49b9ce": {
+      "visited_instructions": [
+        "0x49b9d3",
+        "0x49b9d6",
+        "0x49b9d8",
+        "0x49b9da",
+        "0x49b9dd",
+        "0x49b9df",
+        "0x49b9e5",
+        "0x49b9ed",
+        "0x49b9f5",
+        "0x49b9fc",
+        "0x49b9ff",
+        "0x49ba02",
+        "0x49ba04",
+        "0x49ba07",
+        "0x49ba0e",
+        "0x49ba15",
+        "0x49ba1c",
+        "0x49ba23",
+        "0x49ba28",
+        "0x49ba2e",
+        "0x49ba31",
+        "0x49ba34",
+        "0x49ba36",
+        "0x49ba40",
+        "0x49bc4e",
+        "0x49bc4e",
+        "0x49bc51",
+        "0x49bc51"
+      ],
+      "full_kills": [
+        "0x49bc57"
+      ],
+      "route_clear_calls": [],
+      "known_low_word_stores": [
+        "0x49ba0e"
+      ],
+      "caller_return_escapes": []
+    },
+    "0x49d444": {
+      "visited_instructions": [
+        "0x49d449",
+        "0x49d44b",
+        "0x49d44e",
+        "0x49d450",
+        "0x49d452",
+        "0x49d455",
+        "0x49d457",
+        "0x49d4ac",
+        "0x49d4b2",
+        "0x49d4b5",
+        "0x49d4b8",
+        "0x49d4ba",
+        "0x49d4c4",
+        "0x49d4c8",
+        "0x49d4ca",
+        "0x49d4d0",
+        "0x49d4d1",
+        "0x49d4d6",
+        "0x49d4dc",
+        "0x49d4df",
+        "0x49da5b",
+        "0x49da5e"
+      ],
+      "full_kills": [
+        "0x49d45d",
+        "0x49da64"
+      ],
+      "route_clear_calls": [],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49d5e8": {
+      "visited_instructions": [
+        "0x49d5ed",
+        "0x49d5ef",
+        "0x49d5f2",
+        "0x49d5f4",
+        "0x49d5f6",
+        "0x49d5f9",
+        "0x49d5fb",
+        "0x49d653",
+        "0x49d658",
+        "0x49d65e",
+        "0x49d665",
+        "0x49d666",
+        "0x49d669",
+        "0x49d66e",
+        "0x49d670",
+        "0x49d67a",
+        "0x49d680",
+        "0x49d685",
+        "0x49d68a"
+      ],
+      "full_kills": [
+        "0x49d601",
+        "0x49d68c"
+      ],
+      "route_clear_calls": [],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49d747": {
+      "visited_instructions": [
+        "0x49d74c",
+        "0x49d74e",
+        "0x49d751",
+        "0x49d753",
+        "0x49d755",
+        "0x49d758",
+        "0x49d75a",
+        "0x49d75f",
+        "0x49d760",
+        "0x49d7b1",
+        "0x49d7b6",
+        "0x49d7b7",
+        "0x49d7b8",
+        "0x49d7b9",
+        "0x49d7bc",
+        "0x49d7bd",
+        "0x49d7c0",
+        "0x49d7c2",
+        "0x49d7ca",
+        "0x49d7cd"
+      ],
+      "full_kills": [
+        "0x49d765"
+      ],
+      "route_clear_calls": [
+        "0x49d760"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": [
+        {
+          "address": "0x49d7cd",
+          "unknown_bits": "0xffffffff"
+        }
+      ]
+    },
+    "0x49e072": {
+      "visited_instructions": [
+        "0x49e077",
+        "0x49e079",
+        "0x49e07c",
+        "0x49e07e",
+        "0x49e080",
+        "0x49e083",
+        "0x49e085",
+        "0x49e08b",
+        "0x49e08c",
+        "0x49e0ed",
+        "0x49e0f3"
+      ],
+      "full_kills": [
+        "0x49e091",
+        "0x49e0f7"
+      ],
+      "route_clear_calls": [
+        "0x49e08c"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49e222": {
+      "visited_instructions": [
+        "0x49e227",
+        "0x49e229",
+        "0x49e22c",
+        "0x49e22e",
+        "0x49e230",
+        "0x49e233",
+        "0x49e235",
+        "0x49e23b",
+        "0x49e23c",
+        "0x49e28e",
+        "0x49e294",
+        "0x49e298",
+        "0x49e29b",
+        "0x49e29d",
+        "0x49e2a0",
+        "0x49e2a7",
+        "0x49e2b0",
+        "0x49e6d8",
+        "0x49e6dc",
+        "0x49e6df",
+        "0x49e6e1",
+        "0x49e6e4",
+        "0x49e6ea"
+      ],
+      "full_kills": [
+        "0x49e241",
+        "0x49e6f0"
+      ],
+      "route_clear_calls": [
+        "0x49e23c"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49ec5b": {
+      "visited_instructions": [
+        "0x49ec60",
+        "0x49ec62",
+        "0x49ec65",
+        "0x49ec67",
+        "0x49ec69",
+        "0x49ec6c",
+        "0x49ec6e",
+        "0x49ecd5",
+        "0x49ecdb",
+        "0x49ecde",
+        "0x49ece1",
+        "0x49ece3",
+        "0x49eced",
+        "0x49ecee",
+        "0x49ecf3",
+        "0x49ecf9",
+        "0x49ecfc",
+        "0x49f418",
+        "0x49f41d",
+        "0x49f41f",
+        "0x49f422",
+        "0x49f428",
+        "0x49f42b",
+        "0x49f42d",
+        "0x49f430",
+        "0x49f436",
+        "0x49f439",
+        "0x49f43b",
+        "0x49f43e",
+        "0x49f440",
+        "0x49f468",
+        "0x49f472",
+        "0x49f479",
+        "0x49f47c",
+        "0x49f47e",
+        "0x49f499",
+        "0x49f4b2",
+        "0x49f4b5"
+      ],
+      "full_kills": [
+        "0x49ec74",
+        "0x49f446",
+        "0x49f484",
+        "0x49f49f",
+        "0x49f4bb"
+      ],
+      "route_clear_calls": [],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49edfc": {
+      "visited_instructions": [
+        "0x49ee01",
+        "0x49ee03",
+        "0x49ee06",
+        "0x49ee08",
+        "0x49ee0a",
+        "0x49ee0d",
+        "0x49ee0f",
+        "0x49ee67",
+        "0x49ee6c",
+        "0x49ee72",
+        "0x49ee79",
+        "0x49ee7a",
+        "0x49ee7d",
+        "0x49ee82",
+        "0x49ee84",
+        "0x49ee8e",
+        "0x49ee94",
+        "0x49ee99",
+        "0x49ee9e"
+      ],
+      "full_kills": [
+        "0x49ee15",
+        "0x49eea0"
+      ],
+      "route_clear_calls": [],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49ef5b": {
+      "visited_instructions": [
+        "0x49ef60",
+        "0x49ef62",
+        "0x49ef65",
+        "0x49ef67",
+        "0x49ef69",
+        "0x49ef6c",
+        "0x49ef6e",
+        "0x49ef73",
+        "0x49ef74",
+        "0x49efc5",
+        "0x49efca",
+        "0x49efcb",
+        "0x49efcc",
+        "0x49efcd",
+        "0x49efd0",
+        "0x49efd1",
+        "0x49efd4",
+        "0x49efd6",
+        "0x49efde",
+        "0x49efe1"
+      ],
+      "full_kills": [
+        "0x49ef79"
+      ],
+      "route_clear_calls": [
+        "0x49ef74"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": [
+        {
+          "address": "0x49efe1",
+          "unknown_bits": "0xffffffff"
+        }
+      ]
+    },
+    "0x49fb26": {
+      "visited_instructions": [
+        "0x49fb2b",
+        "0x49fb2d",
+        "0x49fb30",
+        "0x49fb32",
+        "0x49fb34",
+        "0x49fb37",
+        "0x49fb39",
+        "0x49fb3f",
+        "0x49fb40",
+        "0x49fbab",
+        "0x49fbb0"
+      ],
+      "full_kills": [
+        "0x49fb45",
+        "0x49fbb6"
+      ],
+      "route_clear_calls": [
+        "0x49fb40"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x49fda5": {
+      "visited_instructions": [
+        "0x49fdaa",
+        "0x49fdac",
+        "0x49fdaf",
+        "0x49fdb1",
+        "0x49fdb3",
+        "0x49fdb6",
+        "0x49fdb8",
+        "0x49fdbe",
+        "0x49fdbf",
+        "0x49fe11",
+        "0x49fe17",
+        "0x49fe1c"
+      ],
+      "full_kills": [
+        "0x49fdc4",
+        "0x49fe22"
+      ],
+      "route_clear_calls": [
+        "0x49fdbf"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x4a08f3": {
+      "visited_instructions": [
+        "0x4a08f8",
+        "0x4a08fa",
+        "0x4a08fd",
+        "0x4a08ff",
+        "0x4a0901",
+        "0x4a0904",
+        "0x4a0906",
+        "0x4a090c",
+        "0x4a090d",
+        "0x4a096d",
+        "0x4a0973"
+      ],
+      "full_kills": [
+        "0x4a0912",
+        "0x4a0976"
+      ],
+      "route_clear_calls": [
+        "0x4a090d"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    },
+    "0x4a0aa2": {
+      "visited_instructions": [
+        "0x4a0aa7",
+        "0x4a0aa9",
+        "0x4a0aac",
+        "0x4a0aae",
+        "0x4a0ab0",
+        "0x4a0ab3",
+        "0x4a0ab5",
+        "0x4a0abb",
+        "0x4a0abc",
+        "0x4a0b0d",
+        "0x4a0b13",
+        "0x4a0b16",
+        "0x4a0b19",
+        "0x4a0b1b",
+        "0x4a0b1e",
+        "0x4a0b25",
+        "0x4a0b2e",
+        "0x4a0f5f",
+        "0x4a0f62",
+        "0x4a0f65",
+        "0x4a0f67",
+        "0x4a0f6a",
+        "0x4a0f70"
+      ],
+      "full_kills": [
+        "0x4a0ac1",
+        "0x4a0f76"
+      ],
+      "route_clear_calls": [
+        "0x4a0abc"
+      ],
+      "known_low_word_stores": [],
+      "caller_return_escapes": []
+    }
+  },
+  "helper_direct_callers": 13,
+  "helper_preserves_native_incoming_ECX": true,
+  "helper_full_EAX_reconstructed": true,
+  "selector_direct_callers": 1,
+  "selector_consumed_return": "AL",
+  "selector_named_and_raw_return": "full EAX including upper table-offset bits",
+  "periodic_input_EDX_noninterference": [
+    [
+      "kill",
+      "0x4eaf2c"
+    ],
+    [
+      "preserved_return",
+      "0x4eaff2"
+    ]
+  ],
+  "helper_ret_escapes_closed_by_registered_callback_consumer": true,
+  "raw_adapter_EDX_drop_supported": true,
+  "raw_adapter_flags_may_be_retained_for_observed_callers": true,
+  "parent_switches": [
+    {
+      "site": "0x49e9f0",
+      "selector": "0x49f6c4",
+      "pointer_table": "0x49f688",
+      "bounded_state_range": [
+        4,
+        26
+      ],
+      "selector_values": [
+        0,
+        1,
+        14,
+        14,
+        2,
+        3,
+        3,
+        14,
+        4,
+        5,
+        14,
+        14,
+        14,
+        14,
+        6,
+        7,
+        8,
+        9,
+        14,
+        10,
+        11,
+        12,
+        13
+      ],
+      "table_targets": [
+        "0x49ea1a",
+        "0x49e9f7",
+        "0x49f03b",
+        "0x49efe2",
+        "0x49f3d2",
+        "0x49f350",
+        "0x49eb4b",
+        "0x49eaf0",
+        "0x49eced",
+        "0x49f1f0",
+        "0x49ed01",
+        "0x49ea5a",
+        "0x49f04f",
+        "0x49ea95",
+        "0x49f411"
+      ],
+      "state_to_target": {
+        "4": "0x49ea1a",
+        "5": "0x49e9f7",
+        "6": "0x49f411",
+        "7": "0x49f411",
+        "8": "0x49f03b",
+        "9": "0x49efe2",
+        "10": "0x49efe2",
+        "11": "0x49f411",
+        "12": "0x49f3d2",
+        "13": "0x49f350",
+        "14": "0x49f411",
+        "15": "0x49f411",
+        "16": "0x49f411",
+        "17": "0x49f411",
+        "18": "0x49eb4b",
+        "19": "0x49eaf0",
+        "20": "0x49eced",
+        "21": "0x49f1f0",
+        "22": "0x49f411",
+        "23": "0x49ed01",
+        "24": "0x49ea5a",
+        "25": "0x49f04f",
+        "26": "0x49ea95"
+      }
+    },
+    {
+      "site": "0x49f4f6",
+      "selector": "0x49f6f4",
+      "pointer_table": "0x49f6dc",
+      "bounded_state_range": [
+        4,
+        26
+      ],
+      "selector_values": [
+        0,
+        5,
+        5,
+        5,
+        1,
+        2,
+        2,
+        5,
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        2,
+        5,
+        2,
+        5,
+        1,
+        5,
+        3,
+        4
+      ],
+      "table_targets": [
+        "0x49f4fd",
+        "0x49f600",
+        "0x49f580",
+        "0x49f5c0",
+        "0x49f61e",
+        "0x49f65b"
+      ],
+      "state_to_target": {
+        "4": "0x49f4fd",
+        "5": "0x49f65b",
+        "6": "0x49f65b",
+        "7": "0x49f65b",
+        "8": "0x49f600",
+        "9": "0x49f580",
+        "10": "0x49f580",
+        "11": "0x49f65b",
+        "12": "0x49f4fd",
+        "13": "0x49f65b",
+        "14": "0x49f65b",
+        "15": "0x49f65b",
+        "16": "0x49f65b",
+        "17": "0x49f65b",
+        "18": "0x49f65b",
+        "19": "0x49f580",
+        "20": "0x49f65b",
+        "21": "0x49f580",
+        "22": "0x49f65b",
+        "23": "0x49f600",
+        "24": "0x49f65b",
+        "25": "0x49f5c0",
+        "26": "0x49f61e"
+      }
+    }
+  ],
+  "parent_statically_reachable_instructions": 935,
+  "parent_normal_returns": [
+    "0x49ea94",
+    "0x49efe1",
+    "0x49f467",
+    "0x49f498",
+    "0x49f4b1",
+    "0x49f52c",
+    "0x49f545",
+    "0x49f566",
+    "0x49f57f",
+    "0x49f5a6",
+    "0x49f5bf",
+    "0x49f5e6",
+    "0x49f5ff",
+    "0x49f61d",
+    "0x49f644",
+    "0x49f65a",
+    "0x49f687"
+  ],
+  "parent_full_EAX_return": "actorOffset except49EFE1 returns fresh actorID",
+  "analytically_unreachable_instructions": [],
+  "analytically_unreachable_edges": [],
+  "source_hashes": {
+    "metadata/actor-animal-parent-abi-rea-records.json": "4d83a2a607136e81e207ce9c43e991ac34a8d06ada33933220a514522e888759",
+    "metadata/actor-animal-parent-native.json": "61d9215df91c5446e0cc46b823a9e37a0bd08afe6efddef4a52ace7733c36eb2",
+    "direct_c/audit_actor_animal_parent.py": "953d05da138fa5fab75134b32ff1ffbdf9bd71f68d9185c266b75566b41c9773",
+    "runtime/actor_command.c": "752ac148db083080da01a329de66b899e958790027460d8eaf4f4f5e25e07458",
+    "runtime/actor_civic.c": "14cfaa25b0e7f54a1897ff224cc0d50cc96a9b5bb15ef362c927ad8ce0b6641a",
+    "runtime/actor_civic_model.c": "010a2e9f1681274f9d2b21f52657bf1914924255cbf5155036f794b48dfde6d0",
+    "runtime/actor_callbacks.c": "77c7cc5c37b4189edd0335f85618f33efcc22f592f5cc91741682830a3d888be",
+    "src/unit_01307.c": "e494946dc286f764c61b96bf184ad98ffd480742058d71db5ab40eb1c17cda70",
+    "include/actor_command.h": "135a8b94129d34da05b43c5ae93cc8e29605229b402eac2adbea422859bf352d",
+    "include/actor_civic.h": "67d37d6acdf93bd0fcadcd8479d55ac5814649beb8a90b86d4eba7dcb6e63240"
+  },
+  "installed_SDK_contract_sources": {
+    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\profileapi.h": "cfa8e3626dba11689997d8fcd65b5dfbf4bcef8de09dd7e4e881769d48d165a2",
+    "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\sysinfoapi.h": "077088cb53ec69d454916aac5f00e45dda79e09da64054acc141120eb67a5700"
+  },
+  "limitations": [
+    "Provider-observed13 direct helper callers, one selector caller and the registered actor callback invoker; unidentified indirect callers and arbitrary private-stack corruption remain unknown.",
+    "Ghidra does not own49E8B0 as a function. Its exact3544 bytes, both bounded selector/jump maps and935-instruction local CFG are authenticated; CALL normal return is assumed for the CFG walk.",
+    "The two outward helper EDX taints may reach callback RETs. The common profiling consumer replaces all incoming EAX/ECX/EDX/flags before use; no physical imported API or game is executed.",
+    "Installed Win32 SDK declarations and pinned import names define the0/1-stack-argument clock/QPC boundaries. Physical OS behavior and exceptions are not proved.",
+    "The named/raw parent deliberately reconstructs full native EAX. The legacy void callback is supported by the observed registered consumer, not by asserting equal incidental C-void register values."
+  ]
+}

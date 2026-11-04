@@ -16,7 +16,7 @@ Use a fresh phase name for each execution. Logs and `receipt.json` go under
 `restore/build/checkpoints/PHASE/`; existing phases are never overwritten or
 resumed. `--log-prefix NAME` changes log filenames within that new directory.
 
-The current registry contains31 primary families,5 supplemental families and3
+The current registry contains32 primary families,5 supplemental families and3
 composition families. Both main targets are Release builds:
 
 | `--configuration` | Artifact |
@@ -49,7 +49,7 @@ The full plan runs these stages in order:
    completes before either `sound_device` run. Each suite declares its audits
    in the registry, including the actor command, Hippo Stomp and animal target
    audits.
-2. All31 primary families for both main EXEs, with at most `--jobs` subprocesses.
+2. All32 primary families for both main EXEs, with at most `--jobs` subprocesses.
    Music configuration is one primary family and runs only once per variant.
 3. Allocation/music counterexample replays, actor queues, formation control and
    town record queries.
@@ -105,8 +105,8 @@ binary. That optimization is intentionally not implemented here.
 Implementation validation used `--help`, full/partial plans, argument rejection
 and temporary fake Python verifiers. The isolated harness checked stage barriers,
 real child exits, digests, failure draining, incorrect report binding, source
-mutation and Ctrl+C draining/exit130. The actual expensive corpus, incremental
-build and host fixtures were not run while the current checkpoint was active.
+mutation and Ctrl+C draining/exit130. The harness never runs the expensive corpus, an incremental build or host
+fixtures; production verification remains a separate checkpoint.
 The isolated review harness is tracked in
 `tests/test_reconstruction_checkpoint_runner.py`:
 

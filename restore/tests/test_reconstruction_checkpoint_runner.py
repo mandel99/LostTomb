@@ -86,10 +86,10 @@ class Review(unittest.TestCase):
         suites, _ = RUNNER.select_suites(None)
         jobs, full = RUNNER.build_plan(suites, list(RUNNER.CONFIGURATIONS))
         self.assertTrue(full)
-        self.assertEqual(len(suites), 39)
-        self.assertEqual(len(jobs), 88)
+        self.assertEqual(len(suites), 40)
+        self.assertEqual(len(jobs), 91)
         self.assertEqual(len({job.identifier for job in jobs}), len(jobs))
-        self.assertEqual(sum(job.stage == "primary" for job in jobs), 62)
+        self.assertEqual(sum(job.stage == "primary" for job in jobs), 64)
         self.assertEqual(sum(job.stage == "supplemental" for job in jobs), 10)
         self.assertEqual(sum(job.stage == "composition" for job in jobs), 6)
         self.assertEqual([job.identifier for job in jobs if job.stage == "final"],
@@ -132,7 +132,7 @@ class Review(unittest.TestCase):
             if expected == 0:
                 plan = json.loads(completed.stdout)
                 self.assertTrue(plan["full_checkpoint"])
-                self.assertEqual(len(plan["stages"][1]["jobs"]), 62)
+                self.assertEqual(len(plan["stages"][1]["jobs"]), 64)
         self.assertFalse(output.exists())
 
     def test_full_fake_pipeline_and_hash_receipt(self):

@@ -47,6 +47,7 @@
 #include <string.h>
 /* Keep the legacy byte-return entry available to native-address lookup. */
 #pragma comment(linker, "/include:_FUN_004eaec0")
+#pragma comment(linker, "/include:_FUN_0049e8b0")
 extern void FUN_0040f8f0(uint32_t *,uint32_t,uint8_t);
 extern void FUN_004e96c0(int32_t);
 extern void FUN_004e0cc0(int32_t,int32_t *,int32_t *);
@@ -155,12 +156,9 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(0049c750);
     RAW(0049d0f0);
     RAW(0049dc50);
-    RAW(0049e8b0);
     RAW(0049f710);
     RAW(004a04d0);
     RAW(004a1130);
-    RAW(004eaac0);
-    RAW(004eab10);
     RAW(004ecd40);
     RAW(004eca70);
     RAW(00494f70);
@@ -270,6 +268,9 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004b46b0);
     RAW(0048ded0);RAW(0048e5e0);RAW(00469a50);
     RAW(0048a720);RAW(00458c30);RAW(004e91e0);
+    case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
+    case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
+    case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
     case 0x4eaec0u:f->r[0]=restore_actor_try_periodic_target((int32_t)A(1));break;
     case 0x4eb000u:f->r[0]=FUN_004eb000((int32_t)A(1));break;
     case 0x4ebc90u:f->r[0]=(uint32_t)FUN_004ebc90((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),
@@ -740,18 +741,18 @@ void FUN_0049d0f0(void)
 {(void)invoke(0x0049d0f0u,0,0);}
 void FUN_0049dc50(void)
 {(void)invoke(0x0049dc50u,0,0);}
-void FUN_0049e8b0(void)
-{(void)invoke(0x0049e8b0u,0,0);}
+__declspec(noinline) void FUN_0049e8b0(void)
+{(void)restore_actor_update_hippo();}
 void FUN_0049f710(void)
 {(void)invoke(0x0049f710u,0,0);}
 void FUN_004a04d0(void)
 {(void)invoke(0x004a04d0u,0,0);}
 void FUN_004a1130(void)
 {(void)invoke(0x004a1130u,0,0);}
-uint8_t FUN_004eaac0(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (uint8_t)invoke(0x004eaac0u,args,1);}
-int32_t FUN_004eab10(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t p4,int32_t p5)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4,(uint32_t)p5};return (int32_t)invoke(0x004eab10u,args,6);}
+__declspec(noinline) uint8_t FUN_004eaac0(int32_t p0)
+{return (uint8_t)restore_actor_route_line_mode((uint32_t)p0);}
+__declspec(noinline) int32_t FUN_004eab10(int32_t p0,int32_t p1,int32_t p2,int32_t p3,int32_t p4,int32_t p5)
+{return restore_actor_find_clear_vector(p0,p1,p2,p3,p4,(uint32_t)p5);}
 __declspec(noinline) uint8_t FUN_004eb000(int32_t p0)
 {return restore_actor_update_group_target(p0);}
 __declspec(noinline) int32_t FUN_004ebc90(int32_t p0,int32_t p1,int32_t p2,const uint32_t * p3,uint32_t p4,int32_t * p5,int32_t * p6,int32_t p7,int32_t p8,int32_t p9)

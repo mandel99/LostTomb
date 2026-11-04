@@ -1,5 +1,13 @@
 # Pharaoh restore
 
+The hippo update and two route-vector helpers now use named C, replacing
+1,036 native instructions and their civic register models. Both Release
+executables pass 1,929 scenarios / 7,716 invocations each through named, legacy
+and raw entries, covering every owned instruction, all 198 conditional outcomes
+and 21 switch targets. Native counter widths, RNG publication, cached values
+and fresh actor reloads are preserved. See
+[hippo callback reconstruction](metadata/ACTOR_ANIMAL_PARENT_RECONSTRUCTION.md).
+
 Five more actor-target bodies now use named C: periodic target checks, group
 updates, state-filtered spiral search, clear-step selection and the game seed.
 Both Release executables pass789 scenarios, covering all905 native instructions through
@@ -7,8 +15,8 @@ named, legacy and civic raw entries. Full return widths, cached reads, the
 south-segment global store and both RNG phases are preserved. See
 [animal target reconstruction](metadata/ACTOR_ANIMAL_TARGET_RECONSTRUCTION.md).
 
-The current aggregate passes62 paired reports:40,006 scenarios /133,082
-invocations. Per binary it owns13,174 native instructions:13,157 executed,
+The current aggregate passes64 paired reports:43,864 scenarios /148,514
+invocations. Per binary it owns14,210 native instructions:14,193 executed,
 seven proved dead and ten user-disabled CD instructions. The structural
 inventory and finite native comparisons do not establish complete gameplay.
 
@@ -953,10 +961,12 @@ Twelve additional actual adjacent initializer sequences per binary and four
 full-width/cached-count cases also pass.
 See [ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md](metadata/ACTOR_SCENARIO_SPAWN_RECONSTRUCTION.md).
 
-The structural inventory now has1153 ordinary C bodies,214 instruction/frame
-models and1100 decompiler-style bodies, with3999 of4402 catalogue entries
-linked. The current aggregate includes31 paired families. The next larger
-pinned actor parent is49E8B0. Full gameplay remains unfinished; no host game
+The structural inventory now has1155 ordinary C bodies,214 instruction/frame
+models and1098 decompiler-style bodies, with4001 of4402 catalogue entries
+linked. The current aggregate includes32 paired families. The uncatalogued
+49E8B0 callback is compared separately without inflating this catalogue.
+The next connected candidates are the kind82/83 callbacks49D0F0/49DC50 and
+kind-dependent cue4B5050. Full gameplay remains unfinished; no host game
 was launched during this recovery.
 
 ## Verification scope

@@ -76,6 +76,7 @@ SUITES = (
     Suite("actor_spawn_hippos", audits=("audit_actor_spawn_hippos",)),
     Suite("music_configuration"),
     Suite("actor_animal_target", audits=("audit_actor_animal_target",)),
+    Suite("actor_animal_parent", audits=("audit_actor_animal_parent",)),
     Suite("sound_allocation_regressions", "supplemental", ("sound_allocation",)),
     Suite("music_configuration_regressions", "supplemental", ("music_configuration",)),
     Suite("actor_ring_queue", "supplemental", report_overrides=(("game", "metadata/actor-ring-queue-reconstruction.json"),)),

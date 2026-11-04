@@ -1,33 +1,54 @@
 {
   "passed": true,
-  "validation_scope": "checkpoint orchestration only",
+  "validation_scope": "checkpoint orchestration and retained report bindings",
   "isolated_tests": 10,
   "full_read_only_plan_jobs": {
-    "audit": 7,
-    "primary": 62,
+    "audit": 8,
+    "primary": 64,
     "supplemental": 10,
     "composition": 6,
     "final": 3
   },
-  "existing_report_schemas_checked": 81,
+  "existing_report_schemas_checked": 83,
   "existing_report_binding_issues": 0,
   "partial_plan_adds_primary_prerequisites": true,
   "same_and_later_stage_dependencies_rejected": true,
-  "local_harness_result": "build/checkpoint-runner-review/run-20261104T160613Z-6aa63485/harness-result.json",
-  "local_harness_result_sha256": "5a7c6c0d4584a77247e522e634ffce5c82dfc60dd606bba00335c35542c5a107",
-  "local_harness_log_sha256": "4a3af6b9310bdc3e36e273e36e412af4415fb9351084dc22f97a8f718cebc08b",
+  "local_harness_result": "build/checkpoint-runner-review/run-20261104T163014Z-ea2dc9e1/harness-result.json",
+  "local_harness_result_sha256": "498c2c740510058b7ac1fabb9a6f0e81b90750684b0a7858eb3feaee4294b50b",
+  "local_harness_log_sha256": "95763a925403d076077165d59ba9a339059624be385e4f3f99f47c943c54f032",
   "source_hashes": {
-    "tools/run_reconstruction_checkpoint.py": "abb669c2055dd74e9a25d028fd06bc480cc3663a9a96c6cabb68a0734974799f",
-    "tools/RECONSTRUCTION_CHECKPOINT_RUNNER.md": "2d309bfc260b19c84d6a750388f3367676b75d7cf5e562514ac7b29b7fadc2dc",
-    "tests/test_reconstruction_checkpoint_runner.py": "cb9f24d868a966f3461f6b10e566082fee498c15a1b1680b09a278bf3dec83a1"
+    "tools/run_reconstruction_checkpoint.py": "0b8753417300742075af2b604de9c4252fbcebf55127ea8dd7442d7d199ddf08",
+    "tools/RECONSTRUCTION_CHECKPOINT_RUNNER.md": "c18edbd64faa52afe3dc2d573146f98a40ac57b04f0da79d8b183f35c4192f05",
+    "tests/test_reconstruction_checkpoint_runner.py": "dbd7bc68b031d0156bd98dba921f52330473c712e30c9bb3ac656806bd222490"
   },
-  "current_reconstruction_aggregate_sha256": "27b82d708f78fcec78fa0d8584e29080bb642a7d6b6ce44e618db5b6328a6a83",
+  "current_reconstruction_aggregate_sha256": "4a9d870dea1a1f92fd93469aa363d7110d932a528ff51c4a45a88aa6ec8bbbd3",
   "real_verifiers_executed_by_harness": false,
   "real_build_executed_by_harness": false,
   "host_game_launched": false,
   "stale_reports_rebound": false,
+  "real_selected_checkpoint": {
+    "local_receipt": "build/checkpoints/hippo-vector-previous-20261104/receipt.json",
+    "receipt_sha256": "095c8f207a442d474a1260567982ef257901adf30e774cfcac396115f7221a2f",
+    "selected_jobs": 85,
+    "actual_child_exits_all_zero": true,
+    "sources_unchanged": true,
+    "binaries_unchanged": true,
+    "complete_checkpoint": false,
+    "new_parent_primary_reports_completed_before_selected_run": 2,
+    "finalizers_executed_after_selected_run": [
+      "verify_music_cmake_scope",
+      "verify_music_configuration_host",
+      "verify_labor_access_current"
+    ]
+  },
+  "finalization_log_hashes": {
+    "build/actor-animal-next/final-cmake-scope.log": "04e41a5c9c3b7d12384f12b3917e29d5a45dc3663491d5fb91928cf3501f3ef6",
+    "build/actor-animal-next/final-music-host.log": "3c50912ce788ac6eb9f2d29d88deb780489e0c9654417f02d213dcfd85f66e81",
+    "build/actor-animal-next/final-aggregate.log": "2b46a56283df9b5c820fa9de8a29757ea62981c815a6d4f24d54e1de36b807fe"
+  },
   "limitations": [
-    "The orchestration harness uses generated fake Python verifiers and fake binary input bytes. It validates scheduling, failures, drains, snapshots, binding checks and interruption, not native game behavior.",
-    "The current main reconstruction passed its full independent checkpoint before the utility change. No runtime C or current native proof changed for this utility."
+    "The isolated harness uses generated fake Python verifiers and fake binary bytes. It validates orchestration, not native game behavior.",
+    "The actual selected runner checked the previous 31 primary families plus supplemental/composition stages once. Its partial receipt intentionally excludes the already fresh parent family and finalizers.",
+    "Separate fresh paired parent proofs and serial CMake/host/aggregate finalization complete this finite reconstruction checkpoint; they do not establish complete gameplay equivalence."
   ]
 }
