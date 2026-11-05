@@ -1,0 +1,55 @@
+{
+  "schema": "cohort3-pure-draw-cases-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "module_sha256": "b38dd307bfdac663206aaced7dd859271f5c35eea03cfeacc5c91c4584f5da02",
+  "entries": 10,
+  "recipes": 89,
+  "per_entry": {
+    "0x401420": 8,
+    "0x40d870": 8,
+    "0x416f90": 8,
+    "0x4e6610": 8,
+    "0x5456e0": 9,
+    "0x54f410": 9,
+    "0x555e20": 9,
+    "0x558b80": 9,
+    "0x4e5490": 10,
+    "0x545fc0": 11
+  },
+  "features": {
+    "valid": 44,
+    "invalid": 10,
+    "blocked": 10,
+    "projection": 10,
+    "draw": 10,
+    "no-neighbor": 5
+  },
+  "expected_endpoint_invocations_per_native_pass": {
+    "projection": 89,
+    "occupancy": 680,
+    "render": 600
+  },
+  "fixture_source": "Fresh authored pure recipes; no copied prior replay cases, no native/C execution, no C algorithm transcription.",
+  "source_references": [
+    "runtime/placement_preview_members.c",
+    "runtime/placement_preview_predicates.c",
+    "include/placement_preview.h",
+    "build/actor-animal-following/cohort3-bulk-footprint-c/contracts.json",
+    "build/actor-animal-following/cohort3-bulk-footprint-c/native-assembly.txt"
+  ],
+  "contracts": {
+    "shared": "ECX=self; DWORD pieces,count; native/canonical RET8; named C cdecl3; logical void.",
+    "forwarders": "ECX=self; no native stack args; native/canonical RET0; named C cdecl1(self); logical void.",
+    "predicates": "Actual native 4E5310 and547DE0 execute via scratch vtable+16; compiled existing predicate token switch executes. Neither predicate is an endpoint.",
+    "projection": "4F0BA0, cdecl4 both; real distinct stack output pointers; x325,y-147; full scalar x/y input comparison.",
+    "occupancy": "46F9A0, cdecl3 both; AL-only result0 or80 preserves actual incoming EAX highbits.",
+    "render": "53F4F0, arity4, native RET16/compiled cdecl; native ECX F55BB0; result37; full four raw DWORD argument comparison.",
+    "result": "result_mask=None for every logical-void entry; nonvolatile and cleanup checks apply; no invented full-EAX logical output.",
+    "memory": "52-byte pieces; +50 selected index written only for special owners. Side2 first and last active records; all intermediate records side0. Input/table/grid canaries and BC9768 watched.",
+    "mutations": "Endpoint data mutations happen after observed args/state. Projection exercises pre-captured offset orientation/dx/dy plus post-call globals. Renderer exercises live per-cell fields, BC9768 and next-piece map origin with cached cursor.",
+    "mask": "No mask normalization. Full physical mask DWORDs remain strict; any FFFFF863 versus0000F863 mismatch needs native/callee proof or a source correction."
+  },
+  "static_checks": "AST parse; pure recipe generation;89 unique IDs/10 entries; scratch bounds; vtable tokens; initially seeded DWORDs; no pure-predicate endpoints. No image loaded.",
+  "verification_status": "Author packet only. Root owns authentication, shared engine integration, retained build and native/C comparison.",
+  "unvisited": "No claim of complete gameplay equivalence or exhaustive indirect coverage. Other virtual predicate tokens, sides other than2, huge/overflowing geometry and non-quarter-turn rotations are outside this packet."
+}

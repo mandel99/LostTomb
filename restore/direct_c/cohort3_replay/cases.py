@@ -1,6 +1,7 @@
 """Pure case recipes. Additional cohort families remain explicit pending work."""
 import struct
 from formatter_cases import definitions as formatter_definitions
+from draw_cases import definitions as draw_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -28,4 +29,5 @@ def definitions(registry):
       watched=[(words,64)],write_ranges=[(words,12)],result_mask=0xffffffff,
       native_cleanup=0,named_cleanup=0,canonical_cleanup=0,canonical_registers_and_flags=False))
  out.extend(formatter_definitions(registry))
+ out.extend(draw_definitions(registry))
  return out

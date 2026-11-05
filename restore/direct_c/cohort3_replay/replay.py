@@ -6,7 +6,7 @@ of the entire cohort remains false until every selected entry has fresh cases.
 from pathlib import Path
 import argparse,datetime,hashlib,json,struct,sys
 sys.dont_write_bytecode=True
-from registry import ROOT,LEDGER,digest,load,save
+from registry import ROOT,LEDGER,digest,load,save,symbol
 from cases import definitions
 DATA_START,DATA_END=0x560000,0x126d000
 STACK,STACK_SIZE,SP,STOP,SCRATCH=0x2ff00000,0x110000,0x30008000,0x31000000,0x32000000
@@ -34,8 +34,37 @@ def execute(registry,cases,directory):
   if DATA_START<pe.base:u.mem_map(DATA_START,pe.base-DATA_START)
   if DATA_END>end:u.mem_map(end,(DATA_END-end+4095)&~4095)
   u.mem_map(STACK,STACK_SIZE);u.mem_map(STOP,4096);u.mem_map(SCRATCH,0x50000)
-  state=dict(active=False,allowed=executable_ranges(ROOT/item['path'],pe.base),faults=[])
+  state=dict(active=False,label=label,map_text=''if label=='native'else(ROOT/item['map_path']).read_text(),allowed=executable_ranges(ROOT/item['path'],pe.base),faults=[])
   def code(uc,address,size,state):
+   if not state['active']:return
+   if address in state['endpoints']:
+    spec=state['endpoints'][address];sp=uc.reg_read(x.UC_X86_REG_ESP)
+    def get(at,width=4):return int.from_bytes(uc.mem_read(at,width),'little')
+    raw=[get(sp+4+i*4)for i in range(spec['arity'])];logical=list(raw)
+    roles={int(i):role for i,role in spec.get('pointer_args',{}).items()};private=[]
+    for i,role in roles.items():
+     assert 0<=i<len(raw)and STACK<=raw[i]<STACK+STACK_SIZE-3,('private output pointer',spec['token'],i,hex(raw[i]))
+     private.append(raw[i]);logical[i]=['stack-output',role]
+    assert len(private)==len(set(private)),('unexpected output alias',spec['token'])
+    if state['label']=='native'and'native_receiver'in spec:
+     assert uc.reg_read(x.UC_X86_REG_ECX)==spec['native_receiver'],('endpoint receiver',spec['token'])
+    state['events'].append(dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])]))
+    state['physical_endpoint_arguments'].append(dict(token=spec['token'],arguments=raw))
+    for i,width,value in spec.get('writes_args',[]):
+     assert int(i)in roles and width in [1,2,4]
+     uc.mem_write(raw[int(i)],(value&((1<<(8*width))-1)).to_bytes(width,'little'))
+    for at,width,value in spec.get('mutations',[]):
+     assert width in [1,2,4]and any(lo<=at and at+width<=lo+n for lo,n in state['write_ranges'])
+     uc.mem_write(at,(value&((1<<(8*width))-1)).to_bytes(width,'little'))
+    kind=spec['result_kind']
+    if kind=='full32':uc.reg_write(x.UC_X86_REG_EAX,spec['value']&0xffffffff)
+    elif kind=='al8':uc.reg_write(x.UC_X86_REG_EAX,(uc.reg_read(x.UC_X86_REG_EAX)&0xffffff00)|(spec['value']&255))
+    else:assert kind=='void','Unknown endpoint result contract'
+    for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX)]:
+     if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
+    cleanup=spec['native_cleanup']if state['label']=='native'else spec['compiled_cleanup']
+    assert cleanup>=0 and cleanup%4==0
+    uc.reg_write(x.UC_X86_REG_ESP,sp+4+cleanup);uc.reg_write(x.UC_X86_REG_EIP,get(sp));return
    if state['active']and address!=STOP and not any(lo<=address<hi for lo,hi in state['allowed']):
     state['faults'].append(dict(kind='non-executable-or-unknown-target',address=hex(address)));uc.emu_stop()
   def write(uc,access,address,size,value,state):
@@ -62,7 +91,17 @@ def execute(registry,cases,directory):
     if canonical and Path(m['source']).stem+'.obj'in canonical['owner']:
      selected.append(('canonical',canonical['va'],case['arguments']))
    for route,pc,args in selected:
-    state.update(active=False,faults=[],write_ranges=case['write_ranges']);errors=[]
+    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={});errors=[]
+    for spec in case.get('endpoints',[]):
+     assert spec['result_kind']in ['void','al8','full32']and 0<=spec['arity']<=16
+     if spec['result_kind']!='void':assert 'value'in spec,('missing endpoint result',spec['token'])
+     if label=='native':pcs=[spec['native']]
+     else:
+      pcs=[value['va']for name in spec['compiled_symbols']if(value:=symbol(state['map_text'],name))]
+      assert pcs,('missing compiled endpoint',label,spec['token'])
+     for at in pcs:
+      assert at not in state['endpoints']or state['endpoints'][at]['token']==spec['token']
+      state['endpoints'][at]=spec
     u.mem_write(DATA_START,bytes(seed));u.mem_write(SCRATCH,b'\xa5'*0x50000);u.mem_write(SP-0x2000,b'\xcc'*0x4000)
     for at,value in case['stores']:u.mem_write(at,value)
     initial=[0xa5b6c7d8,case['receiver'],0x33333333,saved[0],SP,*saved[1:]]
@@ -71,7 +110,7 @@ def execute(registry,cases,directory):
     u.mem_write(SP,struct.pack('<I',STOP))
     for i,value in enumerate(args):u.mem_write(SP+4+i*4,struct.pack('<I',value&0xffffffff))
     attempts+=1;state['active']=True
-    try:u.emu_start(pc,STOP,count=200000)
+    try:u.emu_start(pc,STOP,count=case.get('budget',200000))
     except Exception as exc:errors.append(dict(kind='execution-error',detail=repr(exc)))
     finally:state['active']=False
     values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in case['watched']]
@@ -79,12 +118,20 @@ def execute(registry,cases,directory):
     if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
     if [values[i]for i in [3,5,6,7]]!=saved:errors.append(dict(kind='nonvolatile-registers'))
     if route=='native':
-     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram);reference_regs=(values,flags)
+     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram,state['events']);reference_regs=(values,flags)
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
+     counts={token:sum(e['token']==token for e in state['events'])for token in case.get('expected_endpoint_counts',{})}
+     if counts!=case.get('expected_endpoint_counts',{}):errors.append(dict(kind='native-authored-endpoint-counts',actual=counts,expected=case['expected_endpoint_counts']))
     else:
-     if reference!=(None if case['result_mask']is None else values[0]&case['result_mask'],ram):errors.append(dict(kind='native-C-result-or-memory'))
+     if reference[:2]!=(None if case['result_mask']is None else values[0]&case['result_mask'],ram):
+      differences=[]
+      for (base,n),a,b in zip(case['watched'],reference[1],ram):
+       if a!=b:
+        i=next(i for i,(aa,bb)in enumerate(zip(a,b))if aa!=bb);differences.append(dict(address=hex(base+i),native=a[i],compiled=b[i]))
+      errors.append(dict(kind='native-C-result-or-memory',native_eax=reference[0],compiled_eax=values[0],memory_differences=differences))
+     if reference[2]!=state['events']:errors.append(dict(kind='native-C-endpoint-sequence'))
      if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),errors=errors)
+    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))
@@ -96,9 +143,10 @@ def execute(registry,cases,directory):
  save(directory/'result.json',report);return report
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--run',action='store_true');p.add_argument('--group',action='append',default=[]);p.add_argument('--output-dir',type=Path,default=ROOT/'build/actor-animal-following/cohort3-verification/runs');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--run',action='store_true');p.add_argument('--group',action='append',default=[]);p.add_argument('--case-id',action='append',default=[]);p.add_argument('--output-dir',type=Path,default=ROOT/'build/actor-animal-following/cohort3-verification/runs');a=p.parse_args()
  registry=load(a.run);cases=definitions(registry)
  if a.group:cases=[c for c in cases if c['id'].split('/')[0]in a.group]
+ if a.case_id:cases=[c for c in cases if c['id']in a.case_id]
  assert cases and len({c['id']for c in cases})==len(cases),'Empty or duplicate case selection'
  if not a.run:print(json.dumps(dict(source_entries=registry['source_entries'],planned_cases=len(cases),planned_entries=len({c['entry']for c in cases}),execution_performed=False)));return
  directory=a.output_dir/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d-%H%M%S-%f');directory.mkdir(parents=True,exist_ok=False)
