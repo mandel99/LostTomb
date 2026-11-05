@@ -590,3 +590,9 @@ __declspec(noinline) uint32_t restore_actor_update_warehouseman(void)
     }
     return warehouseman_render(id);
 }
+
+/* Shared semantic boundaries reuse the existing warehouse mappings. */
+int32_t restore_actor_resource_booking_kind(int32_t kind)
+{ return warehouse_resource_booking_kind(kind); }
+int32_t restore_actor_resource_for_subtype(int32_t subtype)
+{ return warehouse_resource_for_subtype(subtype); }

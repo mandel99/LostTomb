@@ -1,3 +1,4 @@
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "storage_transactions.h"
 #include "actor_walking.h"
 /* Native BAA10 ignores the extra literal-zero caller slot. */
@@ -144,8 +145,8 @@ void FUN_004690f0(int32_t tile,int32_t limit)
 {const uint32_t a[]={(uint32_t)tile,(uint32_t)limit};(void)routing_invoke(0x4690f0u,a,2);}
 
 /* Shared service coverage, patrol direction and storage selection. */
-void FUN_004b21d0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)routing_invoke(0x004b21d0u,a,1);}
+__declspec(noinline) void FUN_004b21d0(int32_t actor)
+{restore_actor_choose_nearby_road_direction(actor);}
 int32_t FUN_0045bb50(int32_t building,int32_t resource,char require_stock)
 {return restore_storage_find_source(building,resource,require_stock);}
 uint32_t FUN_0047e340(int32_t tile,uint32_t actor)

@@ -397,6 +397,10 @@ target_sources(pharaoh_restored PRIVATE src/unit_01320.c)
 set_property(SOURCE src/unit_01320.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_00493610=restore_actor_update_service_state>")
 set_property(SOURCE src/unit_01460.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b56d0=restore_actor_find_combat_target_on_tile>")
 set_property(SOURCE src/unit_01461.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b5770=restore_actor_find_projectile_victim_on_tile>")
+# Reuse the unchanged resource-to-cargo-image C switch.
+target_sources(pharaoh_restored PRIVATE src/unit_01310.c)
+set_source_files_properties(src/unit_01310.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_property(SOURCE src/unit_01310.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_0048b320=restore_actor_resource_cargo_image_group>")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c
@@ -406,7 +410,10 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_engineer.c
  artifacts/actor_civic_followup/actor_fireman.c
  artifacts/actor_civic_followup/actor_warehouseman.c
- artifacts/actor_civic_followup/actor_walking_service.c)
+ artifacts/actor_civic_followup/actor_walking_service.c
+ artifacts/actor_civic_followup/actor_cartpusher.c
+ artifacts/actor_civic_followup/actor_cart_delivery.c
+ artifacts/actor_civic_followup/actor_route_approach.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -416,6 +423,9 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_fireman.c
  artifacts/actor_civic_followup/actor_warehouseman.c
  artifacts/actor_civic_followup/actor_walking_service.c
+ artifacts/actor_civic_followup/actor_cartpusher.c
+ artifacts/actor_civic_followup/actor_cart_delivery.c
+ artifacts/actor_civic_followup/actor_route_approach.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

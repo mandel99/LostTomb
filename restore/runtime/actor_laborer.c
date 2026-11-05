@@ -319,16 +319,16 @@ void FUN_004a8800(void){(void)invoke(0x4a8800u,0,0);}
 void FUN_004b0760(void){(void)invoke(0x4b0760u,0,0);}
 void FUN_004ab980(void){(void)invoke(0x4ab980u,0,0);}
 void FUN_004af2c0(void){(void)invoke(0x4af2c0u,0,0);}
-int32_t FUN_004a34f0(int32_t actor,int32_t *length)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)(uintptr_t)length};return (int32_t)invoke(0x4a34f0u,a,2);}
-void FUN_004b23c0(int32_t actor,int32_t leader,uint32_t mode,int32_t distance)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)leader,mode,(uint32_t)distance};(void)invoke(0x4b23c0u,a,4);}
-int32_t FUN_004bc2e0(int32_t x,int32_t y,int32_t actor)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)actor};return (int32_t)invoke(0x4bc2e0u,a,3);}
-int32_t FUN_004bc3b0(int32_t x,int32_t y,int32_t actor)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)actor};return (int32_t)invoke(0x4bc3b0u,a,3);}
-int32_t FUN_004bc140(int32_t x,int32_t y,int32_t actor)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)actor};return (int32_t)invoke(0x4bc140u,a,3);}
+__declspec(noinline) int32_t FUN_004a34f0(int32_t actor,int32_t *length)
+{return restore_actor_find_linked_kind85(actor,length);}
+__declspec(noinline) void FUN_004b23c0(int32_t actor,int32_t leader,uint32_t mode,int32_t distance)
+{restore_actor_follow_leader_closely(actor,leader,mode,distance);}
+__declspec(noinline) int32_t FUN_004bc2e0(int32_t x,int32_t y,int32_t actor)
+{return restore_actor_find_approach_building_state2((uint32_t)x,(uint32_t)y,actor);}
+__declspec(noinline) int32_t FUN_004bc3b0(int32_t x,int32_t y,int32_t actor)
+{return restore_actor_find_approach_building_state3((uint32_t)x,(uint32_t)y,actor);}
+__declspec(noinline) int32_t FUN_004bc140(int32_t x,int32_t y,int32_t actor)
+{return (int32_t)restore_actor_approach_destination_result((uint32_t)x,(uint32_t)y,actor);}
 uint32_t FUN_004a9730(int32_t actor)
 {const uint32_t a[]={(uint32_t)actor};return invoke(0x4a9730u,a,1);}
 
@@ -401,3 +401,30 @@ void restore_pyramid_sort_entries(uint32_t count)
  restore_actor_laborer_raw(0x562069u,registers,&flags);
  if(registers[4]!=sp+4u||registers[3]||registers[5]||registers[6]||registers[7])abort();
 }
+
+/* Existing native member endpoints consume ECX and RET12. Preserve their
+   complete modeled EAX; these boundaries are not new reconstructed bodies. */
+static uint32_t route_member_invoke(uint32_t entry,uint32_t receiver,
+                                  uint32_t first,uint32_t second,uint32_t third)
+{
+    uint32_t stack[8192],sp=(uint32_t)(uintptr_t)(stack+8000);
+    struct restore_laborer_frame f={{0},2,dispatch};
+    stack[8000]=0;stack[8001]=first;stack[8002]=second;stack[8003]=third;
+    f.r[1]=receiver;f.r[4]=sp;
+    dispatch(0,entry,&f);
+    if(f.r[4]!=sp+16u)abort();
+    return f.r[0];
+}
+uint32_t restore_route_member_approach(uint32_t entry,uint32_t receiver,
+                                     uint32_t x,uint32_t y,int32_t actor)
+{return route_member_invoke(entry,receiver,x,y,(uint32_t)actor);}
+uint32_t restore_route_member_building_accept(uint32_t receiver,int32_t building,
+                                             int32_t actor,uint32_t mode)
+{return route_member_invoke(0x559110u,receiver,(uint32_t)building,(uint32_t)actor,mode);}
+uint32_t restore_route_advance_travel(int32_t actor,uint32_t mode)
+{const uint32_t a[]={(uint32_t)actor,mode};return invoke(0x4f1d10u,a,2);}
+
+uint32_t restore_route_approach_00542a80(uint32_t x,uint32_t y,int32_t actor)
+{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x542a80u,a,3);}
+uint32_t restore_route_approach_004e0c00(uint32_t x,uint32_t y,int32_t actor)
+{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x4e0c00u,a,3);}

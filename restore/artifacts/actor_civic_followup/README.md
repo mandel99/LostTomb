@@ -1,30 +1,41 @@
-# Civic and route-pixel C owners awaiting main selection
+# Civic, delivery and walking C owners
 
-These seventeen ordinary C algorithms are selected directly by the main build.
-Eight source owners were created in a5e4547 and are reused unchanged; nine
-new Engineer/Fireman, warehouse and patrol algorithms were added in the second cohort. Original
-frame models remain available. Selection does not count an algorithm twice.
+These 27 C entrypoints are selected directly by the main build. Eight owners
+were created before611f3cc; 18 were created since it and 1 correct
+inactive owner was reused unchanged. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
+| 469A50 | restore_fireman_find_nearest_fire | 92 |
 | 48A720 | restore_actor_update_vagrant | 491 |
+| 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
+| 48AEF0 | restore_actor_apply_cart_delivery | 156 |
+| 48B320 | restore_actor_resource_cargo_image_group | 75 |
+| 48B4A0 | restore_actor_select_cargo_image | 104 |
+| 48B620 | restore_actor_update_cartpusher | 611 |
 | 48BFF0 | restore_actor_update_ghost | 63 |
 | 48C200 | restore_actor_update_explosion | 54 |
+| 48C6A0 | restore_actor_update_engineer | 259 |
+| 48CAA0 | restore_actor_apply_warehouse_delivery | 148 |
+| 48CE30 | restore_actor_update_warehouseman | 1053 |
+| 48DED0 | restore_actor_update_fireman | 463 |
+| 48E5E0 | restore_fireman_try_assign_fire | 112 |
 | 491420 | restore_actor_update_trade_caravan | 425 |
+| 4A34F0 | restore_actor_find_linked_kind85 | 25 |
+| 4B1DF0 | restore_actor_prepare_service_patrol | 73 |
+| 4B1EF0 | restore_actor_advance_service_patrol | 203 |
+| 4B21D0 | restore_actor_choose_nearby_road_direction | 88 |
+| 4B23C0 | restore_actor_follow_leader_closely | 255 |
 | 4B3FF0 | restore_actor_advance_route_pixels | 118 |
 | 4B4180 | restore_actor_update_route_error | 35 |
 | 4B43A0 | restore_actor_step_route_pixel_y | 16 |
 | 4B43E0 | restore_actor_step_route_pixel_x | 16 |
-| 48C6A0 | restore_actor_update_engineer | 259 |
-| 48DED0 | restore_actor_update_fireman | 463 |
-| 48E5E0 | restore_fireman_try_assign_fire | 112 |
-| 469A50 | restore_fireman_find_nearest_fire | 92 |
+| 4BC140 | restore_actor_approach_destination_result | 71 |
+| 4BC2E0 | restore_actor_find_approach_building_state2 | 71 |
+| 4BC3B0 | restore_actor_find_approach_building_state3 | 71 |
 
-The total is 3,682 static native instructions, not execution coverage.
-The eight C files are the source owners. Keep them selected directly; do not
-copy their bodies into another runtime module or count selection as another
-new algorithm. Existing removal-effects, service-state, storage and grid
-algorithms are called through their APIs and receive no new rewrite credit.
+The total is 5,209 static native instructions, not execution coverage.
+Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
 Release links. Native/C behavioral comparison for this new cohort remains
@@ -32,7 +43,7 @@ pending. The standalone CMake project only compiles object files; it does
 not launch the host game. Detailed current-main comparison belongs to the
 next connected verification milestone.
 
-The six callbacks, fire queries and route advancement have full DWORD contracts; the
+The callbacks, fire queries and route advancement have full DWORD contracts; the
 three movement leaf APIs promise their BYTE/WORD RAM effects and are void.
 The vagrant's
 death/non-special result deliberately clears the low byte of signed

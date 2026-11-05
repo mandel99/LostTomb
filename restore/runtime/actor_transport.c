@@ -53,17 +53,17 @@ int32_t FUN_00460890(int32_t param_1,int32_t param_2,int32_t param_3)
 __declspec(noinline) void FUN_0048ae50(int32_t param_1,uint32_t param_2)
 {(void)restore_actor_find_remaining_delivery_destination(param_1,param_2);}
 
-void FUN_0048aef0(int32_t param_1,int32_t param_2,uint32_t param_3)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3};(void)invoke(0x48aef0u,a,3);}
+__declspec(noinline) void FUN_0048aef0(int32_t delivered,int32_t actor,uint32_t network)
+{restore_actor_apply_cart_delivery(delivered,actor,network);}
 
-uint32_t FUN_0048b320(uint32_t param_1)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1};return (uint32_t)invoke(0x48b320u,a,1);}
+__declspec(noinline) uint32_t FUN_0048b320(uint32_t resource)
+{return restore_actor_resource_cargo_image_group(resource);}
 
-void FUN_0048b4a0(int32_t param_1)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1};(void)invoke(0x48b4a0u,a,1);}
+__declspec(noinline) void FUN_0048b4a0(int32_t actor)
+{restore_actor_select_cargo_image(actor);}
 
-void FUN_0048b620(void)
-{(void)invoke(0x48b620u,0,0);}
+__declspec(noinline) void FUN_0048b620(void)
+{(void)restore_actor_update_cartpusher();}
 
 __declspec(noinline) void FUN_0048ce30(void)
 {(void)restore_actor_update_warehouseman();}

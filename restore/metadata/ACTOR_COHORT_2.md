@@ -1,21 +1,25 @@
 # Second connected C cohort
 
-This source-first cohort selects 17 related native entrypoints /3,682 static
-instructions. Eight C owners were already published in a5e4547 and are now
-selected unchanged. Nine algorithms were created since611f3cc, including
-five in the latest checkpoint.
-They add Engineer/Fireman, warehouse delivery and service-patrol logic to
-the civic and route-pixel block. Source bodies are owned once in
-`artifacts/actor_civic_followup/`.
+The cohort selects 27 related native entrypoints /5,209 static instructions:
+eight C owners created before611f3cc, 18 created since that baseline and
+1 correct prior-C owner reused unchanged. The latest checkpoint adds
+9 algorithms. Source owners are selected once.
 
-Shared strict Win32 C11 compilation and both Release main links pass.
-Detailed native comparison is deferred to the next connected milestone of
-approximately 100 functions. The 105-entry /1,649-case comparison at 611f3cc
-remains historical and is not rebound to these new binaries.
+This block covers civic callbacks, warehouse/cart deliveries, route pixels
+and walking services. Shared strict Win32 C11 compilation and both Release
+main links pass. Detailed native comparison is deferred to approximately100
+connected functions. The105-entry/1,649-case comparison at611f3cc remains
+historical and is not rebound to these binaries.
 
-Original RAW models and routing remain unchanged. The kind 13 stack-table
-domain in the separate formation-soldier draft is unproved; that draft is
-unselected and receives no completed-rewrite credit.
+23 named owners remain in both main images. Four unused definitions
+(4B23C0,4BC140,4BC2E0,4BC3B0) are compiled by the main target but eliminated
+by the linker. They receive C translation credit; main execution/comparison
+is not claimed. Their milestone retention/replay remains pending.
 
-`actor-cohort-2.json` records body/source hashes, exact native evidence,
+RAW models and routing are retained. Receiver-aware boundaries reuse existing
+RAW child providers and receive no algorithm credit. Physical incidental
+registers/flags are not promised by logical void/BYTE APIs. The separate
+formation-soldier draft remains unselected pending its heading-index proof.
+
+`actor-cohort-2.json` records per-member body/source hashes, native evidence,
 actual MAP ownership, compile/link results and remaining qualifications.

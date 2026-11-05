@@ -18,4 +18,11 @@ void restore_actor_advance_service_patrol(int32_t actor,int32_t steps);
 int32_t restore_actor_find_remaining_delivery_destination(int32_t actor,uint32_t network);
 int32_t restore_actor_apply_warehouse_delivery(int32_t delivered,int32_t actor,uint32_t network,uint8_t retire);
 uint32_t restore_actor_update_warehouseman(void);
+uint32_t restore_actor_update_cartpusher(void);
+void restore_actor_select_cargo_image(int32_t actor);
+uint32_t restore_actor_resource_cargo_image_group(uint32_t resource);
+int32_t restore_actor_resource_booking_kind(int32_t kind);
+int32_t restore_actor_resource_for_subtype(int32_t subtype);
+void restore_actor_apply_cart_delivery(int32_t delivered,int32_t actor,uint32_t network);
+#include "route_approach_candidates.h"
 #endif

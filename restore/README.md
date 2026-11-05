@@ -1,10 +1,10 @@
 # Pharaoh restore
 
-The current source-first cohort selects 17 connected C entrypoints /3,682
+The current source-first cohort selects 27 connected C entrypoints /5,209
 static native instructions. Eight previously published bodies are selected
-unchanged; nine new Engineer/Fireman, warehouse and patrol algorithms were created. Shared strict
-C11 compilation and both Release main links pass. Detailed native comparison
-will follow at the next approximately 100-function milestone.
+unchanged; 18 algorithms were created since611f3cc and 1 correct inactive C
+owner was reused unchanged. Shared strict compilation and both Release main
+links pass. Detailed native comparison follows at approximately100 functions.
 See [the current cohort](metadata/ACTOR_COHORT_2.md).
 
 The last finite API comparison is [611f3cc](https://github.com/mandel99/LostTomb/commit/611f3cc8cf001595c682fc99932ad102ad66ea9c):
