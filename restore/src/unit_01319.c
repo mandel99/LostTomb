@@ -10,8 +10,10 @@ void restore_monument_consume_resource(void)
  for(i=0;i<36u;++i){
   switch(i){case 1:case 8:case 10:case 13:case 15:case 17:case 18:case 19:
   case 20:case 23:case 24:case 25:case 26:case 28:case 30:break;default:continue;}
-  cost=(int32_t)U(0x5d2c48u+i*8u);
-  if(U(0x784e78u+i*4u)&&cost>best_cost){best=i;best_cost=cost;}
+  if(U(0x784e78u+i*4u)){
+   cost=(int32_t)U(0x5d2c48u+i*8u);
+   if(cost>best_cost){best=i;best_cost=cost;}
+  }
  }
  if(best)U(0x784e78u+best*4u)-=1u;
  if((uint8_t)FUN_004ea930())return;

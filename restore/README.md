@@ -13,8 +13,11 @@ credit. Independent whole-tree provider audits corrected four earlier
 source-only attributions and removed duplicate tile/service bodies.
 The 105-entry workload has reached the requested joint verification milestone.
 Current sources pass strict compilation and both main Release executables
-build successfully. Joint native comparison is in progress; broad regression
-and complete cohort qualification remain pending.
+build successfully. All 1,649 selected API scenarios for 105 entrypoints agree
+against the pinned original and both current main images, across 6,588
+compiled-route comparisons. Instruction/branch coverage, RAW qualification
+and broad current-main regression remain pending; this is not a whole-game
+equivalence claim.
 See the [current cohort and queue](metadata/ACTOR_COHORT_100.md).
 
 Eight further ordinary C source owners are prepared for civic callbacks and

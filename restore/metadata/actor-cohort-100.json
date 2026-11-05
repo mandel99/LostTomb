@@ -559,13 +559,22 @@
       "call_arguments": "p0",
       "native_instructions": 191,
       "role": "shared actor helper",
-      "body_sha256": "3df899b7ec29f8b7350873e0ac724af0f081b97951a75f15c17220fdd5cfbfad",
+      "body_sha256": "d10f34a6800f68b7114041d4539f86e40dcf1c8dc8d6c27a557fd1687b861147",
       "stage": "C_transcribed_pending_joint_verification",
       "raw_model_retained": true,
       "candidate_source_sha256": "e3e27bd532896fe49230f3c99659f39469395fafbc39fddb88b3c7e196a0cf72",
       "candidate_manifest_sha256": "af742e4ad9f7a97de0ca7bd0de79399063bd89c6ab36475a46a1a49cc5efd24a",
       "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
-      "new_rewrite_credit": 1
+      "new_rewrite_credit": 1,
+      "integration_body_sha256": "3df899b7ec29f8b7350873e0ac724af0f081b97951a75f15c17220fdd5cfbfad",
+      "source_phase_repairs": [
+        {
+          "path": "metadata/actor-cohort-100-phase-repair.json",
+          "sha256": "a7ffc2594b616a9516c5ea1fabe62b10c87710ad33a23f2f82f8c8e4acbbd5c7",
+          "new_rewrite_credit": 0
+        }
+      ],
+      "first_phase_body_sha256": "bd17fbf094dc932ba4dd26519768df096d0a5ab48c9ec2a3d0710b64fecc46d7"
     },
     {
       "address": "0x4937a0",
@@ -1814,7 +1823,7 @@
     "include/actor_walking.h": "1874c8858272b4ab67fea4c5f97c908bf1832f7446766a5c6aadd3e1f6d6b58d",
     "runtime/actor_civic.c": "0fe9d23540a67fb707a06e756016f2911033d8243d6d4dcfd531fbab6bf1e237",
     "runtime/actor_civic_model.c": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
-    "runtime/actor_command.c": "97181ce02dda0e4ed459d0a98fbc7392682aa9e1f35551e9dc773753a3d1afbb",
+    "runtime/actor_command.c": "d692134594c475c567a1d8b172d35b2438e22699dcc50dd3557eb993bfdc45c9",
     "runtime/actor_prey.c": "543d548549448e3cb595308deea5cb31cf4e4de77883b713d3e533c263826d53",
     "runtime/menu_drag_actor_move.c": "4bc5b5b3abdb522fd4e99843748a0eb9f59513e0493633296aefb45149d02ade",
     "runtime/menu_drag_actor_walk_link.c": "8df43269631cf0aa15fbf2b295d365a4f6211d84d0fefa5156c251584653b663",
@@ -1823,7 +1832,7 @@
     "src/unit_00855.c": "3807bcf0e0abff6fb41717571e0db5be4e9914122aeb50d18532d6332fe22dd2",
     "src/unit_01171.c": "ecdb595a29caf3a24f8a861e849527089d03c84984d788dc3d6fea59de760a3c",
     "src/unit_01172.c": "b608c5dad72500f376318a3652090c33b1ce49e7132079b3f27264d40f2a9391",
-    "src/unit_01319.c": "806ba97381a3bfd872ae97ecbd17c57c0eeea897e4dc6615d96d4fc37c1898c2",
+    "src/unit_01319.c": "a73a386659997202cdce917cfb1494c17c2f4b346a37e1506c017a8ef26a4ac3",
     "src/unit_01320.c": "8dfe10eb9e76891761bed4ee1fb5757867d58bddb3f82de217aaef6dab0ac39b",
     "src/unit_01460.c": "c9bdeac2214964df3260592a6b83150be76c32d37d8e9ee6f63790b70eae8207",
     "src/unit_01461.c": "4d499210c7b9e066cb24a6e27ca46eeefb1a88ebc549341b5004bc10fe4ce99e"
@@ -1927,7 +1936,7 @@
       "/Ob0",
       "/O2"
     ],
-    "log_sha256": "f24dda2bf23af34fe5ffb520a183ca93b017b1f0b343fd8b3684a0794c179d2e",
+    "log_sha256": "eb65d1ed4c8e06494c3eca55395a6585a331ac4bc28e2fdf65ddfac3e6371ec2",
     "note": "Shared strict module compilation includes selected reused providers and repaired facades."
   },
   "current_source_main_build": {
@@ -1935,23 +1944,34 @@
     "compiled_artifacts": {
       "game": {
         "path": "build/c-only/Release/PharaohRestoreC.exe",
-        "sha256": "bfb5e8f0c43e30113799d545759b4e6f0ce5011b7873e7015bf1374d732e94b6",
+        "sha256": "13897c6c65f9dfcc4d881dbcd90c0bce5611586880f7263078d6c3f7aa8ebf9d",
         "map_path": "build/c-only/Release/PharaohRestoreC.map",
-        "map_sha256": "0555ac3d01c7f6c317464a0d69ea1c7561920c9bf54598d5620396002e949a47"
+        "map_sha256": "134021539d51020cf4ee63b00c28f95174e2972c4e0cc80c515834044f1f7184"
       },
       "diagnostic": {
         "path": "build/c-only/Release/restore_link_check.exe",
-        "sha256": "f416709c79887328b4e3c53424ec430118d0c03807456bd636483e9fe46e0233",
+        "sha256": "2bd9616f02fdb9550130ffa67fd2854f7360a154159c8a323c27c7c1bb849b15",
         "map_path": "build/c-only/Release/restore_link_check.map",
-        "map_sha256": "18791715b313747e12968b697b017d95601766fcd79ba3f9095c9e4bfa9080e0"
+        "map_sha256": "00f7d1880f75dd99b25a5f9b78b14429bc3cf103300fe8d3290b3d832f88e1f2"
       }
     },
-    "log_sha256": "7f406f5c33c6a80df4a630eba744e68febcaa81665aa216d2816c1b631601511",
+    "log_sha256": "1fba7beadb1535f8ecbf642b9e922d3489ac45218f29ee51f27228f139b783dd",
     "stable_prebuild_input_count": 7868,
     "all_prebuild_inputs_unchanged": true,
     "host_game_launched": false
   },
-  "joint_native_comparison": "in_progress; current main hashes frozen, no complete cohort PASS",
+  "joint_native_comparison": {
+    "status": "all-selected-finite-comparisons-agree",
+    "proof": "metadata/actor-cohort-100-main-comparison.json",
+    "sha256": "f9fc4bd72548366d8337ff2364d2c31700ac45874da5c9abcf1295bec11e0680",
+    "entrypoints": 105,
+    "cases": 1649,
+    "native_C_route_comparisons": 6588,
+    "route_invocations": 8237,
+    "failures": 0,
+    "instruction_coverage_complete": false,
+    "full_cohort_validation_complete": false
+  },
   "broad_regressions": "pending",
   "complete_game_reconstruction": false,
   "host_game_launched": false,
@@ -1976,11 +1996,11 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 1518064,
+            "va": 1518112,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
-            "va": 3427280,
+            "va": 3427328,
             "map_tail": "f   pharaoh_restored:unit_00855.obj"
           },
           "retained_model_symbols": {
@@ -1992,11 +2012,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 1516576,
+            "va": 1516624,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
-            "va": 3428528,
+            "va": 3428576,
             "map_tail": "f   pharaoh_restored:unit_00855.obj"
           },
           "retained_model_symbols": {
@@ -2019,7 +2039,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2284736,
+            "va": 2284784,
             "map_tail": "f   pharaoh_restored:storage_transactions.obj"
           },
           "canonical": {
@@ -2035,7 +2055,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2284608,
+            "va": 2284656,
             "map_tail": "f   pharaoh_restored:storage_transactions.obj"
           },
           "canonical": {
@@ -2062,7 +2082,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2285904,
+            "va": 2285952,
             "map_tail": "f   pharaoh_restored:storage_transactions.obj"
           },
           "canonical": {
@@ -2078,7 +2098,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2285776,
+            "va": 2285824,
             "map_tail": "f   pharaoh_restored:storage_transactions.obj"
           },
           "canonical": {
@@ -2105,11 +2125,11 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 3363968,
+            "va": 3364016,
             "map_tail": "f   pharaoh_restored:unit_01171.obj"
           },
           "canonical": {
-            "va": 3363968,
+            "va": 3364016,
             "map_tail": "f   pharaoh_restored:unit_01171.obj"
           },
           "retained_model_symbols": {
@@ -2121,11 +2141,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 3364848,
+            "va": 3364896,
             "map_tail": "f   pharaoh_restored:unit_01171.obj"
           },
           "canonical": {
-            "va": 3364848,
+            "va": 3364896,
             "map_tail": "f   pharaoh_restored:unit_01171.obj"
           },
           "retained_model_symbols": {
@@ -2148,11 +2168,11 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 1521248,
+            "va": 1521296,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
-            "va": 3363936,
+            "va": 3363984,
             "map_tail": "f   pharaoh_restored:unit_01172.obj"
           },
           "retained_model_symbols": {
@@ -2164,11 +2184,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 1519760,
+            "va": 1519808,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
-            "va": 3364816,
+            "va": 3364864,
             "map_tail": "f   pharaoh_restored:unit_01172.obj"
           },
           "retained_model_symbols": {
@@ -2184,18 +2204,18 @@
     {
       "address": "0x492fc0",
       "name": "restore_monument_consume_resource",
-      "classification": "ordinary-reuse",
+      "classification": "prior-ordinary-reuse-stock-cost-phase-repair",
       "new_rewrite_credit": 0,
       "prior_ordinary_source": "src/unit_01319.c",
-      "current_prior_source_sha256": "806ba97381a3bfd872ae97ecbd17c57c0eeea897e4dc6615d96d4fc37c1898c2",
+      "current_prior_source_sha256": "a73a386659997202cdce917cfb1494c17c2f4b346a37e1506c017a8ef26a4ac3",
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 3337664,
+            "va": 3337712,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "canonical": {
-            "va": 3337664,
+            "va": 3337712,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "retained_model_symbols": {
@@ -2207,11 +2227,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 3338544,
+            "va": 3338592,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "canonical": {
-            "va": 3338544,
+            "va": 3338592,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "retained_model_symbols": {
@@ -2222,7 +2242,22 @@
           }
         }
       },
-      "note": "Existing ordinary source reused, wired or repaired; no new algorithm credit."
+      "note": "Existing ordinary source reused, wired or repaired; no new algorithm credit.",
+      "phase_repair": {
+        "address": "0x492fc0",
+        "name": "restore_monument_consume_resource",
+        "source": "src/unit_01319.c",
+        "new_rewrite_credit": 0,
+        "old_source_sha256": "806ba97381a3bfd872ae97ecbd17c57c0eeea897e4dc6615d96d4fc37c1898c2",
+        "new_source_sha256": "a73a386659997202cdce917cfb1494c17c2f4b346a37e1506c017a8ef26a4ac3",
+        "native_sites": [
+          "0x492fee",
+          "0x492ff1",
+          "0x492ff3",
+          "0x492ff5"
+        ],
+        "reason": "Read stock first; read cost only when stock is nonzero. Keep the existing ordinary owner."
+      }
     },
     {
       "address": "0x493610",
@@ -2234,7 +2269,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2749808,
+            "va": 2749856,
             "map_tail": "f   pharaoh_restored:unit_01320.obj"
           },
           "canonical": {
@@ -2250,7 +2285,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2749680,
+            "va": 2749728,
             "map_tail": "f   pharaoh_restored:unit_01320.obj"
           },
           "canonical": {
@@ -2277,7 +2312,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 1508080,
+            "va": 1508128,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
@@ -2293,7 +2328,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 1506592,
+            "va": 1506640,
             "map_tail": "f   pharaoh_restored:actor_command.obj"
           },
           "canonical": {
@@ -2320,11 +2355,11 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2750960,
+            "va": 2751008,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_move.obj"
           },
           "canonical": {
-            "va": 2750960,
+            "va": 2751008,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_move.obj"
           },
           "retained_model_symbols": {
@@ -2336,11 +2371,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2750832,
+            "va": 2750880,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_move.obj"
           },
           "canonical": {
-            "va": 2750832,
+            "va": 2750880,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_move.obj"
           },
           "retained_model_symbols": {
@@ -2363,11 +2398,11 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2097232,
+            "va": 2097280,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_link.obj"
           },
           "canonical": {
-            "va": 2097232,
+            "va": 2097280,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_link.obj"
           },
           "retained_model_symbols": {
@@ -2379,11 +2414,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2096640,
+            "va": 2096688,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_link.obj"
           },
           "canonical": {
-            "va": 2096640,
+            "va": 2096688,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_link.obj"
           },
           "retained_model_symbols": {
@@ -2406,7 +2441,7 @@
       "current_selected_symbols": {
         "game": {
           "canonical": {
-            "va": 2096992,
+            "va": 2097040,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_unlink.obj"
           },
           "retained_model_symbols": {
@@ -2418,7 +2453,7 @@
         },
         "diagnostic": {
           "canonical": {
-            "va": 2096400,
+            "va": 2096448,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_unlink.obj"
           },
           "retained_model_symbols": {
@@ -2441,7 +2476,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2750592,
+            "va": 2750640,
             "map_tail": "f   pharaoh_restored:unit_01460.obj"
           },
           "canonical": {
@@ -2457,7 +2492,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2750464,
+            "va": 2750512,
             "map_tail": "f   pharaoh_restored:unit_01460.obj"
           },
           "canonical": {
@@ -2484,7 +2519,7 @@
       "current_selected_symbols": {
         "game": {
           "named": {
-            "va": 2750384,
+            "va": 2750432,
             "map_tail": "f   pharaoh_restored:unit_01461.obj"
           },
           "canonical": {
@@ -2500,7 +2535,7 @@
         },
         "diagnostic": {
           "named": {
-            "va": 2750256,
+            "va": 2750304,
             "map_tail": "f   pharaoh_restored:unit_01461.obj"
           },
           "canonical": {
@@ -2534,7 +2569,8 @@
     "test": "standalone_actor_callbacks_small",
     "exit_code": 0,
     "log_sha256": "eef84bd4716d93e55e67fdef394d6933803d3faa4f96e3d53e3d4a8e93a8fc08",
-    "note": "Existing controlled source-only fixture; does not execute either host game or establish native equivalence."
+    "note": "Existing controlled source-only fixture; does not execute either host game or establish native equivalence.",
+    "historical_epoch": "epoch03; its target sources unchanged by the current actor_command-only repair"
   },
   "source_only_historical_reports_not_rebound": true,
   "full_cohort_validation_complete": false,
@@ -2558,11 +2594,11 @@
       "symbols": {
         "game": {
           "named": {
-            "va": 3337664,
+            "va": 3337712,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "canonical": {
-            "va": 3337664,
+            "va": 3337712,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "retained_model_symbols": {
@@ -2574,11 +2610,11 @@
         },
         "diagnostic": {
           "named": {
-            "va": 3338544,
+            "va": 3338592,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "canonical": {
-            "va": 3338544,
+            "va": 3338592,
             "map_tail": "f   pharaoh_restored:unit_01319.obj"
           },
           "retained_model_symbols": {
@@ -2615,7 +2651,7 @@
       "symbols": {
         "game": {
           "canonical": {
-            "va": 2096992,
+            "va": 2097040,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_unlink.obj"
           },
           "retained_model_symbols": {
@@ -2627,7 +2663,7 @@
         },
         "diagnostic": {
           "canonical": {
-            "va": 2096400,
+            "va": 2096448,
             "map_tail": "f   pharaoh_restored:menu_drag_actor_walk_unlink.obj"
           },
           "retained_model_symbols": {
@@ -2645,5 +2681,17 @@
       "raw_symbol": null,
       "raw_route_policy": "requires-separate-family-and-selected-routing-audit"
     }
+  },
+  "phase_repair": {
+    "path": "metadata/actor-cohort-100-phase-repair.json",
+    "sha256": "a7ffc2594b616a9516c5ea1fabe62b10c87710ad33a23f2f82f8c8e4acbbd5c7",
+    "new_rewrite_credit": 0
+  },
+  "prepared_followup": {
+    "proof": "metadata/actor-civic-followup.json",
+    "sha256": "b2f77afa5fa3cb3588d10bd44cf9b395c5297465985b3e86ad69bff32f87c0a1",
+    "new_source_owners": 8,
+    "selected_in_current_main": false,
+    "subsequent_main_selection_credit": 0
   }
 }

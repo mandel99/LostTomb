@@ -1,10 +1,9 @@
 # Connected actor cohort: approximately 100 functions
 
-Following the requested workflow, detailed native comparison and broad
-regressions are deferred until a connected cohort of approximately 100
-functions is transcribed. Cheap compilation and focused checks of genuinely
-uncertain interfaces continue during writing. Source commits are pushed on
-the existing main branch during this work.
+Following the requested workflow, connected functions were transcribed
+before the detailed comparison milestone at approximately 100 entrypoints.
+Cheap compilation and focused checks of uncertain interfaces continued
+during writing. Source commits are pushed on the existing main branch.
 
 The current cohort contains **92 new ordinary C algorithms** after accepted
 native checkpoint 1683857: 45 registry callbacks and 47 shared helpers,
@@ -77,10 +76,27 @@ successfully.** All 7,868 build/proof inputs in the final prebuild snapshot
 remained byte-identical after the build. The five mutable report outputs
 are excluded from that input snapshot. The existing controlled
 `standalone_actor_callbacks_small` fixture also builds and passes after
-limiting provider renames to the main library. Joint native comparison is in progress;
-there is no complete cohort PASS and broad regression remains pending.
+limiting provider renames to the main library. The selected API comparison
+now agrees on all 1,649 scenarios for 105 entrypoints. It performed 8,237
+route invocations: 1,649 native references and 6,588 compiled routes across
+both main images. There were zero failures. The suite contains 1,608
+controlled-protocol scenarios and 41 actual child compositions. It does
+not close instruction/branch/loop coverage, RAW or global cue gates;
+broad current-main regression remains pending.
 Historical accepted reports are not rebound to these new PE hashes.
 No host game was launched.
+
+The wider comparisons found two phase errors. In 492D20 the monument
+predicate had folded two native WORD reads of the piece index into one.
+The first source correction matched constant-value cases, but mutation
+cases showed that emitted MSVC code still skipped the second read when
+the first was nonzero. Two real noinline read calls now preserve that path,
+confirmed in both main images. The existing 492FC0 ordinary owner also now
+reads stock before conditionally reading cost, as native does. Both repairs
+receive zero new rewrite credit. All 17 current repair witnesses agree
+across 85 routes. Historical runs keep their original source/PE bindings;
+the broader current-main selected API suite also agrees. See
+`actor-cohort-100-phase-repair.json`.
 
 The actual main linker omits two unused symbols. For 492FC0 the available
 ordinary void owner is `restore_monument_consume_resource`; its unused
@@ -105,6 +121,10 @@ also remain outside the transcribed count until their invariant is closed.
 
 `actor-cohort-100.json` binds current bodies, source hashes, syntax evidence,
 both main builds, zero-credit reuse and explicit pending stages.
+`actor-cohort-100-main-comparison.json` binds the finite comparison result,
+all 105 per-entry scenario counts, exact source/PE/MAP hashes and remaining
+qualifications. A corrupted cursor input remains a separate native-fault
+appendix; its wrap behavior was not changed or clamped in C.
 `actor-support-translation-rea-records.json` contains the exact authenticated
 native windows for the four new functions and grid return closures.
 `actor-cohort-100-new-rea-records.json` binds 60 later native body windows

@@ -5033,6 +5033,11 @@ rejected:count=COHORT_STATES_U(0x96e6b0u);
     if(index<=0)return 0;return (int32_t)COHORT_STATES_U(0x972530u+(uint32_t)index*4u);
 }
 
+/* MSVC folded repeated WORD operands in one compound predicate even when
+   they were volatile. Keep each native piece-read phase across a real call. */
+static __declspec(noinline) uint32_t human_read_monument_piece(uint32_t address)
+{return COHORT_STATES_W(address);}
+
 __declspec(noinline) int32_t restore_actor_find_tomb_robbery_target(int32_t actor)
 {
     /* Exact30 selectors492F9C. The loop indices are -1..34; only these15
@@ -5049,7 +5054,7 @@ __declspec(noinline) int32_t restore_actor_find_tomb_robbery_target(int32_t acto
                 kind=COHORT_STATES_W(p);
                 if((kind==222&&(COHORT_STATES_W(p+6u)==0xffffu||available))||
                    (kind==183&&available)||
-                   ((kind==229||kind==234||kind==235||kind==236)&&COHORT_STATES_W(p+2u)==0&&(COHORT_STATES_W(p+6u)==0xffffu||available))){
+                   ((kind==229||kind==234||kind==235||kind==236)&&((human_read_monument_piece(p+2u)==0&&COHORT_STATES_W(p+6u)==0xffffu)||(human_read_monument_piece(p+2u)==0&&available)))){
                     COHORT_STATES_U(0x972534u+count*4u)=id;
                     /* Native X/Y locals are NOT initialized here. Selected
                      * monument pieces are0, for which both stores are proven. */
