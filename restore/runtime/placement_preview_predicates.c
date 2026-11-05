@@ -1,15 +1,33 @@
 #include "placement_preview.h"
+#include "placement_predicate_entries.h"
 #include <stdlib.h>
+uint8_t restore_placement_empty_mask(uint32_t terrain)
+{return (terrain&0xfeffd76fu)==0;}
+uint8_t restore_placement_piece_mask(uint32_t self,uint32_t terrain,int32_t piece)
+{
+ uint32_t bits=terrain&0xfeffd76fu;
+ return PV_I(self+0x58u+(uint32_t)piece*52u)==9?bits==0:bits==0x20000002u;
+}
+uint8_t restore_placement_selected_mask(uint32_t self,uint32_t terrain,int32_t piece)
+{
+ uint32_t bits=terrain&0xfeffd76fu;
+ return piece==PV_I(self+0x50u)?bits==0:bits==0x20000002u;
+}
+uint8_t restore_placement_two_piece_mask(uint32_t terrain,int32_t piece)
+{
+ uint32_t bits=terrain&0xfeffd76fu;
+ return piece==1?bits==0:bits==2;
+}
 uint8_t restore_placement_predicate(void *self,uint32_t terrain,int32_t piece)
 {
-    uint32_t object=(uint32_t)(uintptr_t)self,table=PV_U(object),target=PV_U(table+16u),bits=terrain&0xfeffd76fu;
-    switch(target) {
-    case 0x4e5310:return bits==0;
-    case 0x401440:return PV_I(object+0x58u+(uint32_t)piece*52u)==9?bits==0:bits==0x20000002u;
-    case 0x547de0:return piece==PV_I(object+0x50u)?bits==0:bits==0x20000002u;
-    case 0x4e6620:return piece==1?bits==0:bits==2;
-    default:fprintf(stderr,"Unreconstructed placement virtual predicate %08lx.\n",(unsigned long)target);abort();
-    }
+ uint32_t object=(uint32_t)(uintptr_t)self,target=PV_U(PV_U(object)+16u);
+ switch(target){
+ case 0x4e5310:return restore_placement_empty_mask(terrain);
+ case 0x401440:return restore_placement_piece_mask(object,terrain,piece);
+ case 0x547de0:return restore_placement_selected_mask(object,terrain,piece);
+ case 0x4e6620:return restore_placement_two_piece_mask(terrain,piece);
+ default:fprintf(stderr,"Unreconstructed placement virtual predicate %08lx.\n",(unsigned long)target);abort();
+ }
 }
 
 /* Only verified native constructor vtable and selected-piece stores are retired here.

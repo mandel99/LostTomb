@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "city_numeric_confirm.h"
 #include "world_route_geometry.h"
 #define DAT_00776fb0 (*(undefined4 *)0x00776fb0u)
 #define DAT_00776fb4 (*(undefined4 *)0x00776fb4u)
@@ -8,7 +9,6 @@
 #define DAT_007843d8 (*(undefined4 *)0x007843d8u)
 #define DAT_00784f10 (*(undefined *)0x00784f10u)
 #define PTR_s_Pharaoh2_emp_005d2a28 (*(unsigned char * *)0x005d2a28u)
-extern int FUN_00445d10();
 extern undefined4 FUN_004ce920();
 extern void * FUN_00561a1d();
 extern void FUN_00561a2b();
@@ -93,7 +93,7 @@ void FUN_004444e0(void)
       if (1 < *pbVar6) {
         do {
           if (*(int *)(pbVar6 + -0xd) < iVar7) goto LAB_004446da;
-          iVar3 = FUN_00445d10(iVar9 + -1,iVar9,iVar7);
+          iVar3 = restore_city_numeric_00445d10((uint32_t)(uintptr_t)(pbVar6-0x141),iVar9-1,iVar9,(uint32_t)iVar7);
           iVar7 = iVar7 + iVar3;
           iVar9 = iVar9 + 1;
         } while (iVar9 < (int)(uint)*pbVar6);

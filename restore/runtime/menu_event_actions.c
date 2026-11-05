@@ -345,3 +345,6 @@ uint32_t FUN_0044ba20(uint32_t self)
 /* Actual4483A0 is MOV ECX,785D70; JMP44BA20. Existing C caller448390
    discards EAX before its atexit registration. */
 void FUN_004483a0(void){(void)FUN_0044ba20(0x785d70u);}
+
+uint32_t restore_event_construct_00448960(uint32_t self)
+{return construct_event(self);}

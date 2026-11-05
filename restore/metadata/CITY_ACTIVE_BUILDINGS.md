@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects150 original C owners /15,333 native
+The current connected batch selects198 original C owners /16,646 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -111,3 +111,7 @@ Joint finite milestone:98/98 named C definitions and98/98 retained canonical ent
 Cohort4 source expansion adds52 entries /2119 decoded native instructions over completed cohort3 baseline98. It includes16 live-x87/error entries,22 stream I/O entries,3 generated compound rules,10 ABI-only query repairs reusing C and1 purecall error forwarder. All share strict compile/link checks. Native/C comparison for these52 remains deferred to the approximately100-new-entry milestone. Previous verified image bytes are privately archived and previous finite reports are not rebound.
 
 Cohort4 active progress:52/approximately100 new entries,2119 decoded instructions, shared strict compile/link passed. Cohort3 remains a separate completed98-entry finite gate with its original PE/MAP bytes archived privately. New52 entries have no claimed behavioral comparison yet. Two live-x87 unresolved scalar substitutions were removed; a zero active literal-return inventory is not whole-game reconstruction completeness.
+
+Cohort4 source milestone reached:100 new entries /3432 normalized native instructions over the completed98-entry cohort3 baseline. The final48 entries add placement ABI/scope cleanup, omitted predicate bindings, table getters, actor/widget helpers and CRT runtime/NLS/error paths. Shared strict compile/link passed. Further source expansion is suspended pending joint native/C comparison for all100, including compiled-only definitions. Prior finite reports remain bound to their archived image bytes; no whole-game equivalence or host execution is claimed.
+
+Current cohort4 milestone:100/100 new entries,68 new C algorithms and32 reuse/ABI repairs,3432 normalized native instructions. All100 named and canonical symbols have unique current active COFF owners. No new behavior comparison is claimed; source expansion waits for the joint gate.

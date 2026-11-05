@@ -1,0 +1,62 @@
+{
+  "status": "Selected C and ABI bindings pass shared strict compile/link; joint native/C comparison pending.",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": {
+    "00565f66": {
+      "logical_result": "Full EAX uint32, bounded by a WORD classification AND the actual mask DWORD. Failure returns the actual zero BOOL branch. No live ECX padding becomes an API input.",
+      "behavior": "Unsigned(character+1)<=100 selects WORD table lookup, including characterFFFFFFFF at table-2. Otherwise high-byte table flag80 chooses input bytes high/low/NUL with count2, or low/NUL with count1. Remaining owned bytes are unspecified and untouched. Call actual canonical569335 with native fixed arguments1,0,0,1. Output points at original character argument's upper WORD; mask is reloaded from its actual original argument slot after NLS, preserving any two-WORD output overlap."
+    },
+    "00569335": {
+      "logical_result": "Full Win32 BOOL EAX, WORD output array, cached DWORD backend and original argument5 codepage slot when defaulted.",
+      "behavior": "DWORD12666DC backend0 probes GetStringTypeW then A using native empty strings; stores1 or2 on success and returns0 if both fail. Backend2 uses locale argument or DWORD126648C with GetStringTypeA. Backend1 defaults actual codepage argument slot from DWORD126649C, sizes MBTW with strict!=0?9:1, allocates aligned4(required*2) with uint32 wrapping, zero-fills exactly required*2 bytes, then converts with flags1 and passes actual converted count to GetStringTypeW. Only allocation/zero-fill is under SEH. Native filter56942E always returns1; handler569432 restores allocation frame and selects null wide pointer. C __except(EXCEPTION_EXECUTE_HANDLER) preserves that failure return without retry or stack-guard reset. Other backend values return0.",
+      "ownership": "Main native cached ranges plus authenticated11-byte missing filter/handler gap are reconstructed in one C SEH scope. No separate new-entry credit for compiler funclets."
+    },
+    "00567500": {
+      "logical_result": "Live raw80 ST0 result and native CW restoration through existing typed math dispatcher; full raw binary64 first/second operands, EAX type, ECX name and EDX operation are actual native inputs.",
+      "behavior": "Physical entry uses saved CW at entryESP+4, first operand words+12/+16, second+20/+24. New C builds complete32-byte math record with actual second operand, pops ST0 to binary64, calls existing correct restore_crt_math_dispatch, reloads binary64 result into ST0 and restores original CW when not027F. Native prefix67500..67516 is new9-instruction ownership. Shared67520..67552 is already covered by the existing unary error family and gets no duplicate instruction credit. No generic double/long-double return or fabricated operand."
+    },
+    "00561f30": {
+      "logical_result": "Physical ESP=original callerSP-EAX byte count, actual original return address in full EAX, actual incoming ECX/EDX and callee-saved registers preserved. Unwritten newly allocated bytes and TEST EFLAGS are not logical scalar outputs.",
+      "behavior": "C starts from actual callerSP(entryESP+4). While count>=1000, subtract1000 from address/count and perform a volatile DWORD probe. Subtract remainder and perform final volatile DWORD probe, including a duplicate final read for exact page multiples. uint32 address/count wrapping is explicit. Naked adapter only passes native inputs and restores physical ESP/return/registers; no probed stack word becomes an invented C input/result.",
+      "domains": "Mapped probe targets and sufficient control-stack headroom for a C call. Exact guard-page fault contexts, asynchronous faults and trap resumption remain unverified. Cached direct callsites do not consume helper TEST flags; unresolved indirect flag consumers remain open. Generated callers outside rewritten569335 can still have their own unbound EAX/source-stack obligations."
+    },
+    "00563dd6": {
+      "logical_result": "DWORD registration[ESI-4] and restored globals1266418/126641C; conditional existing exception destructor call. No fake zero EBP/ESI/EDI/EBX context.",
+      "behavior": "Adapter forwards actual EBP,ESI,EDI,EBX. C copies frame[-28] to registration[-4], then frame[-1C/-20] to globals. Exception DWORDs0/10/14 must beE06D7363/3/19930520; frame[-24] must equal actual EBX and frame[-2C] differ. Existing typed abnormal-termination result is forwarded as actual second argument to56400A with EDI first. Existing correct unwind/destructor implementation is reused."
+    },
+    "005630e0": {
+      "logical_result": "Full actual callback EAX uint32 when custom cdecl exit callback returns. Default exit may terminate. No zero return, void substitution or noreturn promise.",
+      "behavior": "DWORD1266408==1 invokes banner, then report original error, then reload and call DWORD604968 with255. Native authenticated563102..563104 POP ECX/POP ECX/RET completes the returning-callback path omitted by cached noreturn analysis. Existing purecall562CF7 must forward this full value to its virtual consumers; root owns that narrow repair."
+    },
+    "00567dcc": {
+      "logical_result": "Ordered reporting/callback side effects; no new C integer result is claimed.",
+      "behavior": "Snapshot DWORD mode1266408. Enter for mode1 or mode0 plus DWORD60496C==1. Report252, then reload optional DWORD callback12666A0 and call if nonnull, then report255 even after a returning callback. Each report reevaluates its own current globals; callback mutations are respected. Native report argument values252/255 initialize their WriteFile output slots."
+    },
+    "00567e05": {
+      "logical_result": "Native Win32 reporting calls/payloads and caller error-argument slot updated by WriteFile's DWORD output. No arbitrary integer return is invented.",
+      "behavior": "Scan18 table entries at605158, then retain final comparison at index18, which accepts error20 in pinned image. Unmatched errors return silently. DWORD mode/app globals select stderr WriteFile(GetStdHandle(-12),message,actual strlen,&original argument,0). Other mode suppresses error252 only; query ANSI module filename into uninitialized native260-byte program field, use native unknown-program fallback only if API returns0, preserve native long-name suffix truncation(name+length-59, overwrite3 bytes with ellipsis), construct160-byte message with existing exact string helpers, then call dynamic message box with native title and12010 flags. No invented NUL termination, new default error or changed failure policy. Frame layout program260/message160 is statically asserted420 bytes."
+    },
+    "00569c11": {
+      "logical_result": "Actual full int32 result of resolved WINAPI MessageBoxA, or native full zero when library/MessageBox resolution fails.",
+      "behavior": "DWORD caches12666E8/EC/F0 retain actual function pointers, correcting generated BYTE types. Resolve user32/MessageBoxA/GetActiveWindow/GetLastActivePopup using native strings; do not free native-loaded module or substitute a direct import. Optional active window and popup calls use native pointer snapshots and actual HWND returns, including null popup result. Reload MessageBox target after those callbacks and preserve exact stdcall ABI/text/caption/flags."
+    }
+  },
+  "reused": [
+    "Existing typed CRT math dispatcher and32-byte _exception layout; existing raw80/64 ownership remains unchanged.",
+    "Existing correct strcpy/strcat/strncpy/strlen/memset algorithms under native mapped, terminated byte-string domain; no new entry credit.",
+    "Existing typed abnormal-termination and56400A destructor route, preserving actual initialized mode word."
+  ],
+  "residuals": [
+    "Joint cohort native/C behavior gate remains pending; authenticated bytes and shared strict compile/link are complete.",
+    "Indirect callers and nonlogical GPR/EFLAGS scratch effects remain unresolved. Full EAX is explicitly retained where actual native returning exit callback makes it observable.",
+    "Physical probe C-call control-stack headroom and exact guard-fault context/resumption remain outside the accepted mapped-probe domain.",
+    "Other existing generated dynamic-stack/NLS conversion callers outside rewritten569335 retain separate source obligations.",
+    "Native API outputs without valid termination, corrupted fixed tables and arbitrary callback ABI violations keep their native unsafe behavior; this packet adds no fallback to mask those domains."
+  ],
+  "root_selection": {
+    "new_entries": 9,
+    "source_repair_without_new_entry_credit": "562CF7 now forwards the actual full-EAX result when the configured fatal-error callback returns.",
+    "native_evidence": "REA-authenticated entry bytes, missing tails and immutable data are in city-active-buildings-rea-records.json.",
+    "native_instruction_credit": "567500 prefix owns only its distinct nine instructions; the shared 567520 tail has no duplicate credit."
+  }
+}

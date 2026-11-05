@@ -195,3 +195,6 @@ int restore_numeric_completion_action(uint32_t token)
     default:return 0;
     }
 }
+
+void restore_event_range_pack_0044c780(uint32_t self,int16_t first,int16_t second,int16_t third)
+{range_pack(self,first,second,third);}

@@ -1,10 +1,11 @@
 # Pharaoh restore
 
-The current connected city, draw and monument-worker batch repairs150 original
-C owners /15,333 static native instructions. Its controller, initializer, widget
+The current connected city, draw and monument-worker batch repairs198 original
+C owners /16,646 static native instructions. Its controller, initializer, widget
 groups and worker selection use explicit widths, child contracts and returns.
-Shared strict compilation and both Release links pass. Detailed native
-comparison follows at the approximately100-entry milestone. See
+Shared strict compilation and both Release links pass. Cohort4 has reached
+100 new entries; joint native/C comparison must finish before further source
+expansion. The preceding98-entry finite comparison retains its archived images. See
 [the controller ledger](metadata/CITY_ACTIVE_BUILDINGS.md).
 
 The previous100-entry cohort's285-case comparison is historical at871eea0.

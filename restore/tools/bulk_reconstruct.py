@@ -88,12 +88,13 @@ def rule(ins):
         if (first.mnemonic,first.op_str)==('xor','eax, eax') and a.mnemonic==b.mnemonic=='mov':
             aa,bb=a.operands,b.operands
             if (len(aa)==len(bb)==2 and aa[0].type==bb[0].type==X86_OP_REG and
-                a.reg_name(aa[0].reg)==b.reg_name(bb[0].reg)=='al' and
-                aa[1].type==bb[1].type==X86_OP_MEM and aa[1].size==bb[1].size==1 and
-                a.reg_name(aa[1].mem.base)=='ecx' and b.reg_name(bb[1].mem.base)=='eax' and
-                not(aa[1].mem.index or bb[1].mem.index or aa[1].mem.segment or bb[1].mem.segment)):
-                return dict(kind='lookup',result='uint32_t',offset=aa[1].mem.disp,width=1,
-                    table_base=bb[1].mem.disp&0xffffffff,native_flags='xor_eax_eax')
+                a.reg_name(aa[0].reg)=='al' and aa[1].type==bb[1].type==X86_OP_MEM and aa[1].size==1 and
+                a.reg_name(aa[1].mem.base)=='ecx' and not(aa[1].mem.index or aa[1].mem.segment or bb[1].mem.segment)):
+                byte=(b.reg_name(bb[0].reg)=='al'and bb[1].size==1 and b.reg_name(bb[1].mem.base)=='eax'and not bb[1].mem.index)
+                dword=(b.reg_name(bb[0].reg)=='eax'and bb[1].size==4 and not bb[1].mem.base and b.reg_name(bb[1].mem.index)=='eax'and bb[1].mem.scale==4)
+                if byte or dword:
+                    return dict(kind='lookup',result='uint32_t',offset=aa[1].mem.disp,width=1,
+                        table_base=bb[1].mem.disp&0xffffffff,table_width=1 if byte else 4,native_flags='xor_eax_eax')
     if len(core)!=2 or core[-1].mnemonic!='ret' or core[-1].op_str: return None
     op=core[0];args=op.operands
     if len(args)!=2: return None
@@ -125,7 +126,9 @@ def generate(address, canonical, r):
     offset=r['offset']&0xffffffff;pointer=f'(uintptr_t)(self+0x{offset:08x}u)'
     value_arg=',uint32_t value' if 'value_register' in r else ''
     if r['kind']=='lookup':
-        body=f'uint32_t index=*(volatile uint8_t *){pointer};\n return (uint32_t)*(volatile uint8_t *)(uintptr_t)(0x{r["table_base"]:08x}u+index);'
+        table_width=r.get('table_width',1)
+        indexed='index'if table_width==1 else f'index*{table_width}u'
+        body=f'uint32_t index=*(volatile uint8_t *){pointer};\n return (uint32_t)*(volatile uint{table_width*8}_t *)(uintptr_t)(0x{r["table_base"]:08x}u+{indexed});'
     elif r['kind']=='read':
         typ=('int' if r['signed'] else 'uint')+str(width*8)+'_t'
         body=f'return (uint32_t)*(volatile {typ} *){pointer};'
@@ -158,6 +161,7 @@ def main():
     ap.add_argument('--write-candidates',type=Path)
     ap.add_argument('--limit',type=int,default=100)
     ap.add_argument('--exclude-manifest',type=Path,action='append',default=[])
+    ap.add_argument('--reviewed-source-owners',type=Path,help='Explicit SHA-bound audit of incorrect canonical owners whose separate frame models must remain unchanged.')
     args=ap.parse_args()
     if args.limit<1: ap.error('--limit must be positive')
     sys.path[:0]=[str(ROOT/'build/offline-verification-deps'),str(ROOT/'direct_c')]
@@ -172,6 +176,12 @@ def main():
         if len(found)==1: sources[int(found[0][2],16)]=(path,found[0][1],text)
     for path in [ROOT/'metadata/city-active-buildings-reconstruction.json',ROOT/'metadata/actor-cohort-2.json',*args.exclude_manifest]:
         d=json.loads(path.read_bytes());excluded.update(int(x['address'],16) for x in d.get('members',[]))
+    reviewed={}
+    if args.reviewed_source_owners:
+        for item in json.loads(args.reviewed_source_owners.read_bytes())['members']:
+            address=int(item['address'],16);assert address not in reviewed
+            assert sha(ROOT/item['source'])==item['source_sha256']and sha(ROOT/item['preserved_model'])==item['preserved_model_sha256']
+            reviewed[address]=item
     owners=set()
     for folder in ['runtime','include']:
         for path in (ROOT/folder).rglob('*'):
@@ -196,12 +206,13 @@ def main():
             path,canonical,text=item;row['source']=path.relative_to(ROOT).as_posix()
             marker=re.search(r'\b(?:u?int|undefined[124]|uint32_t|int32_t|char|byte|short|ushort|bool)\s+(?:\*\s*)*in_ECX\s*;',text)
             if not marker or len(re.findall(r'\bin_ECX\b',text))<2 or re.search(r'\bin_ECX\s*=(?!=)',text): row['status']='outside_current_automatic_rules'
-            elif address in owners: row['status']='existing_C_definition_requires_reuse_audit'
+            elif address in owners and address not in reviewed: row['status']='existing_C_definition_requires_reuse_audit'
             elif path.resolve() not in active: row['status']='outside_primary_active_library'
             else:
                 obj=ROOT/'build/c-only/pharaoh_restored.dir/Release'/(path.stem+'.obj')
                 if not obj.is_file() or obj.stat().st_mtime_ns<path.stat().st_mtime_ns or '_'+canonical not in defined_symbols(obj): row['status']='canonical_owner_requires_audit'
                 else:
+                    if address in reviewed:assert reviewed[address]['source']==row['source']
                     raw=native_bytes(e)
                     ins=list(dis.disasm(raw,address)) if raw else []
                     r=rule(ins)

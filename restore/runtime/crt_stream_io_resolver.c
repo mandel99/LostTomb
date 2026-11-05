@@ -52,7 +52,7 @@ extern void FUN_0056123e(void);
 extern uint32_t FUN_0056124d(void);
 extern uint32_t FUN_00561278(void);
 extern void FUN_005612ed(void);
-extern void FUN_00562cf7(void);
+extern uint32_t FUN_00562cf7(void);
 extern void FUN_0056b7d0(void);
 extern void FUN_0056e17c(void);
 extern void FUN_0056e190(void);

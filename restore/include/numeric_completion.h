@@ -13,4 +13,5 @@ void restore_numeric_completion_0044a350(void);
 void restore_numeric_completion_0044a530(void);
 void restore_numeric_completion_0044a5b0(void);
 int restore_numeric_completion_action(uint32_t token);
+void restore_event_range_pack_0044c780(uint32_t self,int16_t first,int16_t second,int16_t third);
 #endif

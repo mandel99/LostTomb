@@ -1,14 +1,11 @@
-#include <stdint.h>
-void __cdecl FUN_005630e0(int32_t error);
-
-/* Default abstract stream method: report CRT runtime error25.
-   The existing fatal-error/exit dispatcher remains an explicit dependency.
-   A returning custom exit handler supplies no logical integer result. */
-void restore_crt_pure_virtual_call(void)
+#include "crt_runtime_tail.h"
+/* The authenticated native tail returns when a custom exit callback returns.
+   Preserve its actual full EAX through the abstract stream method. */
+uint32_t restore_crt_pure_virtual_call(void)
 {
- FUN_005630e0(25);
+ return FUN_005630e0(25);
 }
-void FUN_00562cf7(void)
+uint32_t FUN_00562cf7(void)
 {
- restore_crt_pure_virtual_call();
+ return restore_crt_pure_virtual_call();
 }

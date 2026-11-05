@@ -1,0 +1,62 @@
+{
+  "schema": "cohort4-source-milestone-completion-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": 48,
+  "native_instructions": 1313,
+  "new_C_algorithms": 27,
+  "families": {
+    "placement_context_and_scope_cleanup": 20,
+    "omitted_placement_predicates": 5,
+    "event_table_getters": 3,
+    "actor_widget": 11,
+    "CRT_runtime_tail": 9
+  },
+  "actor_widget": {
+    "path": "metadata/cohort4-actor-widget-contracts.json",
+    "sha256": "0395afd27ea1b8ed730972aebae7a9c57c239f5211bcbd1018a99ff4029b7708"
+  },
+  "CRT_runtime_tail": {
+    "path": "metadata/cohort4-crt-runtime-tail-contracts.json",
+    "sha256": "a190cca6820754150955917ce9f37b0ab8dd1f3785490b3a0de0d4b7e6dce29e"
+  },
+  "placement_scope": {
+    "array_stride": 52,
+    "array_counts": [
+      16,
+      25,
+      9,
+      2,
+      167,
+      513,
+      437,
+      158
+    ],
+    "reuse": "Existing array destroy and one-byte empty element destructor; actual parent EBP slots are explicit."
+  },
+  "placement_predicates": {
+    "reuse": "Existing native-width terrain and piece expressions are shared. Partial AL results receive actual incoming EAX; unused stack/register values are not invented inputs."
+  },
+  "event_tables": {
+    "index_width": 8,
+    "load_widths": [
+      8,
+      32,
+      32
+    ],
+    "preserved_model": "runtime/editor_event_detail_model.c",
+    "generator_review": "Explicit SHA-bound incorrect canonical owners; separate correct frame model retained."
+  },
+  "purecall_repair": {
+    "source": "runtime/crt_purecall.c",
+    "before_sha256": "7f87382aa5f2ae9631dc385eea73b825b51fcf1e6367533a6847b4d56f4c91dc",
+    "after_sha256": "1926f325bbd0a6e1a0f5e14a52dd69f06d0bf0fa58b9a13f3b9f106000bd4a78",
+    "old_logical_signature": "void cdecl0",
+    "new_logical_signature": "uint32_t cdecl0",
+    "reason": "Authenticated5630E0 returning-callback tail means purecall562CF7 forwards actual full EAX; no forced noreturn or fabricated0."
+  },
+  "strict_build": "Shared restore_link_check and restore_game Release links pass; host game not launched.",
+  "joint_gate": "100 new connected entries reached. Further source expansion waits for joint native/C comparison including compiled-only definitions.",
+  "fresh_behavior_comparisons": 0,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

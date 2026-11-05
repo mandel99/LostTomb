@@ -96,4 +96,5 @@ void FUN_004483a0(void);
 void FUN_0044ba90(void);
 int32_t FUN_004e7ac0(int32_t duration);
 uint32_t FUN_004e7c90(int32_t building);
+uint32_t restore_event_construct_00448960(uint32_t self);
 #endif

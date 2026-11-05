@@ -1,0 +1,114 @@
+{
+  "schema": "cohort4-actor-widget-c-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "status": "Selected C and ABI bindings pass shared strict compile/link; joint native/C comparison pending.",
+  "prototypes": [
+    "void restore_widget_position_0041f910(uint32_t self,int32_t *x,int32_t *y,uint32_t *image)",
+    "void restore_widget_position_0041fad0(uint32_t self,int32_t *x,int32_t *y,uint32_t *image,int32_t direction)",
+    "void restore_route_release_samples_004454a0(uint32_t self)",
+    "int32_t restore_city_numeric_00445d10(uint32_t self,int32_t from,int32_t to,uint32_t first_sample)",
+    "uint32_t restore_event_construct_00448960(uint32_t self)",
+    "uint32_t restore_event_active_trade_00449390(uint32_t self)",
+    "uint32_t restore_event_trade_progress_00449750(uint32_t self,int32_t *route,int32_t *percentage,uint8_t *special,uint32_t *unused)",
+    "int32_t restore_event_route_months_0044c110(uint32_t self)",
+    "void restore_event_range_pack_0044c780(uint32_t self,int16_t first,int16_t second,int16_t third)",
+    "int32_t restore_event_warning_months_0044c9a0(uint32_t self)",
+    "void FUN_0056b650(void) /* actual EBP-relative SEH frame; tail-context adapter only */"
+  ],
+  "result_width_evidence": {
+    "0041f910_0041fad0": "All7+25 cached direct CALL continuations immediately MOV EAX from the output-image stack slot before testing. API is void with three DWORD outputs. Other volatile registers/flags are not C API results.",
+    "004454a0": "Destructor callback and EBP-relative cleanup tail reference. No logical scalar result. Null allocation arm retains capacity.",
+    "00445d10": "Five direct callers ADD EDI,EAX; full signed count is retained by unchanged x87 C.",
+    "00448960": "Native final MOV EAX,ESI. Explicit constructor returns full self; constructor callbacks need no synthetic EAX input.",
+    "00449390": "Four direct callers consume AL. Existing449370/80 typed lookups zero-extend byte values, proving full EAX boolean on all arms.",
+    "00449750": "Sole cached direct caller530469 TEST AL,AL. Native EAX first loads the actual fourth output pointer; failure XOR AL clears only AL. Mode failure upper24 comes from signed WORD mode; success from route*81. Typed C preserves full result using real arguments/fields, with no incoming-EAX parameter.",
+    "0044c110": "4497CC/44C9B2/44CCE8 consume full EAX;44C311/44CAF2/44CB3B consume AX. Full signed route estimate retained;4477D0 is an existing exact scale/clamp C algorithm.",
+    "0044c780": "No cached direct native reference. Existing four typed edit callbacks consume only field writes. Native scratch upper24/16 and incidental EAX are not exposed as new inputs; indirect result/flag consumers remain unresolved.",
+    "0044c9a0": "44CC3A consumes AX;524158 stores full EAX. Full signed clamp result retained.",
+    "0056b650": "Native two-instruction cleanup reads the actual parent EBP frame; no C-local substitute for that receiver."
+  },
+  "memory_widths": {
+    "widget": "self+0/+4/+8 DWORD;self+16 WORD;self+21 BYTE. Descriptor is40 bytes; coordinates8 bytes; motion48 bytes; image sequence16 bytes.00BCA2E0 and0126517C are DWORD loads. Sprite anchors10D6A1A/1C are signed WORD, stride64. This supersedes misleading generated DAT pointer scaling only for these native accesses.",
+    "event": "type self+2 and active self+32 BYTE; commodity self+1C, mode self+30, progress self+2E, route self+58 signed WORD. Record stride124. Route stride324:step BYTE+0, count DWORD+134, vertex count BYTE+141, enabled BYTE+142. No blanket DAT type rewrite.",
+    "destructor_constructor_pack": "allocation and capacity DWORD+4/+138. Constructor/range packed fields are WORD stores in the old C order. Constructor calls exact existing4489C0 reset."
+  },
+  "accepted_domain": "Win32 ordinary nonfaulting memory; original signed divide preconditions; controlled allocator/search endpoints. Output pointer aliases are retained in native write order. x87 generator keeps existing documented domain and limitations. Private VM stack aliases, SEH exceptions and asynchronous volatile-memory mutations are not claimed.",
+  "reuse": [
+    "runtime/city_numeric_confirm.c restore_city_numeric_00445d10 unchanged; no duplicate x87 implementation.",
+    "runtime/menu_event_actions.c construct_event renamed/exported; sole existing constructor loop rewired; all raw callbacks/models preserved.",
+    "runtime/numeric_completion.c range_pack renamed/exported; existing edit_range rewired; all numerical callbacks preserved.",
+    "src/unit_00666.c FUN_00447430 already complete explicit cdecl loop; unchanged. Native output BYTE remains untouched on search failure.",
+    "src/unit_00641.c restore_resource_lookup_slot existing owner reused; no duplicate slot lookup.",
+    "src/unit_00670.c restore_object_scale_clamp_004477d0 existing C reused; belongs to existing52 entries and is not counted.",
+    "src/unit_00691.c/00692.c complete zero-extending lookup C reused.",
+    "runtime/carpenter_jobs.c41FD80, building_widgets.c41FCA0, pyramid_widget_draw.c4E5E90 already correct; untouched/unclaimed."
+  ],
+  "integration": {
+    "copy": "Selected canonical units, actor/widget typed helpers and narrow public wrapper/header exposures integrated. The candidate position retranslation was not installed.",
+    "cmake": "New typed helpers and11 canonical units pass shared strict /W4 /WX Release compile/link. Existing position algorithm and raw models remain selected unchanged.",
+    "raw_adapters": "Raw frame APIs and all existing raw models remain unchanged deliberately. Their arbitrary live registers/flags are retained. Do not redirect raw frames to logical C bodies unless separately comparing or reconstructing every observed volatile register/flag. No zero frame is used by new named C bodies.",
+    "caller_migrations": "All current named position callers already pass real self. New44C110/449390/44C9A0 named C calls use real self. Canonical callbacks capture native ECX;56B650 preserves its EBP-derived self. Legacy generated source callers listed below must use typed calls if that generated source is activated; existing frame/model paths already pass ECX explicitly. Four existing generated445D10 callers are also surgically migrated to the typed C function with their actual row (count pointer minus0x141). Other generated-parent activation obligations below remain qualified."
+  },
+  "legacy_source_caller_obligations": [
+    {
+      "target": "00445d10",
+      "sources": [
+        "src/unit_00633.c",
+        "src/unit_00634.c",
+        "src/unit_00635.c",
+        "src/unit_01829.c"
+      ],
+      "action": "COMPLETED IN PACKET: call the unchanged typed generator with actual route row; headers/prototype adjusted and all other source bytes preserved."
+    },
+    {
+      "target": "00449750",
+      "sources": [
+        "src/unit_02417.c"
+      ],
+      "action": "52F8B0 existing resource-render model supplies receiver. If generated renderer becomes active, call named C with current event receiver."
+    },
+    {
+      "target": "0044c110",
+      "sources": [
+        "src/unit_00730.c",
+        "src/unit_00739.c"
+      ],
+      "action": "44C1A0 diplomacy and44C9E0 event-frame dispatch already preserve explicit ECX. Generated bodies must pass selected event/current self to named C if activated."
+    },
+    {
+      "target": "0044c9a0",
+      "sources": [
+        "src/unit_00739.c"
+      ],
+      "action": "44C9E0 frame path supplies self; future ordinary C body must call warning-months(self)."
+    }
+  ],
+  "verification_plan": [
+    "Joint milestone replay each compiled canonical entry, including11th EBP cleanup. Compare logical widths above, output bytes and stack cleanup; track unresolved indirect coverage explicitly.",
+    "41F910/AD0 invalid type/kind/index/frame and successful interpolation; forward/reverse alternatives; signed global orientation; duration edges with valid divisors; sprite fallback and aliased outputs. Compare all three DWORD outputs.",
+    "4454A0 null/non-null allocation with controlled free; verify capacity untouched on null.445D10 existing x87 vectors shared at milestone; full EAX count.",
+    "448960 full initialized byte map and exact reset order.44C780 sign combinations and noncanonical negative WORD values; compare six output bytes only.",
+    "449390 both lookup tables, every byte value class.44C110 kind2 invalid route/count-clearing/disabled/enabled and non-kind2 failed/success lookup; controlled search side effects; scale-wrap quotient.",
+    "449750 all early predicates, modes5/6/7/invalid, reverse search success/failure and original pointer-low-byte fallback, clamp bounds, aliases, full EAX upper-byte behavior.",
+    "44C9A0 route estimate<=0 fallback12 and wrapping signed remaining arithmetic/clamp.56B650 controlled EBP frame and destructor endpoint; never launch a host game."
+  ],
+  "blockers": [
+    "Joint native/C replay for all100 new entries remains pending; authenticated native bytes and shared strict build are complete.",
+    "Indirect entry consumers and arbitrary SEH/flags remain unresolved; this packet asserts no complete gameplay equivalence."
+  ],
+  "verified_existing_callers": [
+    "4E5E90/41F910 and421920/41FAD0 already pass actual self through named C; preserved.",
+    "4D4E20 is src/unit_01825.c and already calls restore_city_numeric_rebuild_routes; preserved.",
+    "44C490 src/unit_00732.c already captures actual ECX into restore_event_schedule_0044c490; preserved.",
+    "52F8B0 src/unit_02417.c is excluded from the host compiled set in CMake; active resource frame/model path retains explicit ECX.",
+    "523EA0 src/unit_02379.c is excluded from RESTORE_UNITS in CMake; existing advisor/model path retains explicit ECX."
+  ],
+  "root_selection": {
+    "position": "Existing runtime/widget_position.c retained byte-for-byte; speculative replacement not installed.",
+    "helpers": "Existing menu_event_actions.c and numeric_completion.c helper bodies and callbacks retained; thin public wrappers expose them.",
+    "new_algorithms": 5,
+    "reused_or_ABI_only_entries": 6,
+    "caller_migrations": "Four legacy callers use the existing explicit-self full-width numeric API. Their baseline compilation flags remain unchanged.",
+    "native_evidence": "REA-authenticated bytes are in city-active-buildings-rea-records.json; source contracts alone do not prove behavior."
+  }
+}
