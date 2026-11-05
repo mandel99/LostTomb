@@ -1,30 +1,28 @@
-#include "restore_types.h"
-#define DAT_0057058c (*(undefined4 *)0x0057058cu)
-#define PTR_LAB_00570588 (*(unsigned char * *)0x00570588u)
-extern void FUN_005605fa();
-extern void FUN_00560671();
-extern void FUN_00563354();
+#include "crt_stream_constructor.h"
 
-int * FUN_00560d22(void)
-
+uint32_t restore_stream_ostream_construct(uint32_t self, uint32_t buffer,
+    uint32_t construct_virtual_base)
 {
-  undefined4 uVar1;
-  int *extraout_ECX;
-  int unaff_EBP;
-  
-  FUN_00563354();
-  *(undefined4 *)(unaff_EBP + -0x10) = 0;
-  *(int **)(unaff_EBP + -0x14) = extraout_ECX;
-  if (*(int *)(unaff_EBP + 0xc) != 0) {
-    *extraout_ECX = (int)&DAT_0057058c;
-    FUN_005605fa();
-    *(undefined4 *)(unaff_EBP + -0x10) = 1;
-    *(undefined4 *)(unaff_EBP + -4) = 0;
-  }
-  uVar1 = *(undefined4 *)(unaff_EBP + 8);
-  *(undefined ***)(*(int *)(*extraout_ECX + 4) + (int)extraout_ECX) = &PTR_LAB_00570588;
-  FUN_00560671(uVar1);
-  ExceptionList = *(void **)(unaff_EBP + -0xc);
-  extraout_ECX[1] = 0;
-  return extraout_ECX;
+    volatile uint32_t constructed = 0u;
+    volatile int32_t state = -1;
+    uint32_t base;
+    __try {
+        if (construct_virtual_base != 0u) {
+            restore_stream_write32(self, 0x57058cu);
+            (void)restore_stream_ios_construct(self + 8u);
+            constructed = 1u;
+            state = 0;
+        }
+        base = restore_stream_virtual_base(self);
+        restore_stream_write32(base, 0x570588u);
+        /* Native reloads the vbtable after publishing the vfptr. */
+        base = restore_stream_virtual_base(self);
+        (void)restore_stream_ios_initialize(base, buffer);
+        restore_stream_write32(self + 4u, 0u);
+    }
+    __finally {
+        if (AbnormalTermination() && state >= 0 && (constructed & 1u) != 0u)
+            restore_stream_ios_destroy(self + 8u);
+    }
+    return self;
 }

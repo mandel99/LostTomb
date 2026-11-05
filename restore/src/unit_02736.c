@@ -1,21 +1,17 @@
-#include "restore_types.h"
-#define PTR_FUN_00570534 (*(unsigned char * *)0x00570534u)
+#include "crt_stream_constructor.h"
 
-void FUN_005605fa(void)
-
+uint32_t restore_stream_ios_construct(uint32_t self)
 {
-  undefined4 *in_ECX;
-  
-  *in_ECX = &PTR_FUN_00570534;
-  in_ECX[1] = 0;
-  in_ECX[2] = 4;
-  in_ECX[3] = 0;
-  in_ECX[4] = 0;
-  in_ECX[8] = 0;
-  in_ECX[9] = 0;
-  in_ECX[10] = 6;
-  *(undefined1 *)(in_ECX + 0xb) = 0x20;
-  in_ECX[0xc] = 0;
-  in_ECX[7] = 0;
-  return;
+    restore_stream_write32(self, 0x570534u);
+    restore_stream_write32(self + 4u, 0u);
+    restore_stream_write32(self + 8u, 4u);
+    restore_stream_write32(self + 12u, 0u);
+    restore_stream_write32(self + 16u, 0u);
+    restore_stream_write32(self + 32u, 0u);
+    restore_stream_write32(self + 36u, 0u);
+    restore_stream_write32(self + 40u, 6u);
+    *(volatile uint8_t *)(uintptr_t)(self + 44u) = 0x20u;
+    restore_stream_write32(self + 48u, 0u);
+    restore_stream_write32(self + 28u, 0u);
+    return self;
 }

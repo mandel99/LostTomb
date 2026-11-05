@@ -1,32 +1,39 @@
-#include "restore_types.h"
-#define DAT_005705dc (*(undefined4 *)0x005705dcu)
-#define DAT_005705e4 (*(undefined4 *)0x005705e4u)
-#define PTR_LAB_005705d8 (*(unsigned char * *)0x005705d8u)
-extern void FUN_005605fa();
-extern int * FUN_00560d22();
-extern int * FUN_005611c8();
-extern void FUN_00563354();
+#include "crt_stream_constructor.h"
 
-int * FUN_00561278(void)
-
+uint32_t restore_stream_iostream_construct(uint32_t self, uint32_t buffer,
+    uint32_t construct_virtual_base)
 {
-  int *extraout_ECX;
-  int unaff_EBP;
-  
-  FUN_00563354();
-  *(int **)(unaff_EBP + -0x14) = extraout_ECX;
-  *(undefined4 *)(unaff_EBP + -0x10) = 0;
-  if (*(int *)(unaff_EBP + 0xc) != 0) {
-    *extraout_ECX = (int)&DAT_005705e4;
-    extraout_ECX[3] = (int)&DAT_005705dc;
-    FUN_005605fa();
-    *(undefined4 *)(unaff_EBP + -0x10) = 1;
-    *(undefined4 *)(unaff_EBP + -4) = 0;
-  }
-  FUN_005611c8(*(undefined4 *)(unaff_EBP + 8),0);
-  *(undefined4 *)(unaff_EBP + -4) = 1;
-  FUN_00560d22(*(undefined4 *)(unaff_EBP + 8),0);
-  ExceptionList = *(void **)(unaff_EBP + -0xc);
-  *(undefined ***)(*(int *)(*extraout_ECX + 4) + (int)extraout_ECX) = &PTR_LAB_005705d8;
-  return extraout_ECX;
+    volatile uint32_t constructed = 0u;
+    volatile int32_t state = -1;
+    uint32_t base;
+    __try {
+        if (construct_virtual_base != 0u) {
+            restore_stream_write32(self, 0x5705e4u);
+            restore_stream_write32(self + 12u, 0x5705dcu);
+            (void)restore_stream_ios_construct(self + 20u);
+            constructed = 1u;
+            state = 0;
+        }
+        (void)restore_stream_istream_construct(self, buffer, 0u);
+        state = 1;
+        (void)restore_stream_ostream_construct(self + 12u, buffer, 0u);
+        base = restore_stream_virtual_base(self);
+        restore_stream_write32(base, 0x5705d8u);
+    }
+    __finally {
+        if (AbnormalTermination()) {
+            if (state >= 1) {
+                state = 0;
+                /* 56E222 calls 56123E with ECX=self+0x0C, even though
+                   the most-derived virtual base is at self+0x14. */
+                restore_stream_istream_destroy(self + 12u);
+            }
+            if (state >= 0) {
+                state = -1;
+                if ((constructed & 1u) != 0u)
+                    restore_stream_ios_destroy(self + 20u);
+            }
+        }
+    }
+    return self;
 }

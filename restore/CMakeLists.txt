@@ -2520,3 +2520,7 @@ if(MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 4)
  set_source_files_properties(runtime/crt_exception_handlers.asm PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/safeseh")
 endif()
 set_source_files_properties(src/unit_02794.c src/unit_02869.c src/unit_02856.c src/unit_02958.c src/unit_02786.c src/unit_02787.c src/unit_02859.c runtime/crt_exception_entries.c runtime/crt_exception_dispatch_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Local unwind FS/funclet ABI and stream constructor/cleanup C closure.
+target_sources(pharaoh_restored PRIVATE runtime/crt_local_unwind_entries.c runtime/crt_stream_constructor_entries.c)
+set_source_files_properties(src/unit_02791.c src/unit_02792.c src/unit_02793.c src/unit_02795.c src/unit_02749.c src/unit_02758.c src/unit_02771.c src/unit_02773.c src/unit_02736.c src/unit_02738.c src/unit_02739.c src/unit_02740.c src/unit_02761.c src/unit_02772.c runtime/crt_local_unwind_entries.c runtime/crt_stream_constructor_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

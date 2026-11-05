@@ -1,18 +1,13 @@
-#include "restore_types.h"
-#define PTR_FUN_0057053c (*(unsigned char * *)0x0057053cu)
-extern void FUN_00560f02();
+#include "crt_stream_constructor.h"
 
-void FUN_005606a0(void)
-
+uint32_t restore_stream_filebuf_construct(uint32_t self)
 {
-  undefined4 *in_ECX;
-  
-  FUN_00560f02();
-  *in_ECX = &PTR_FUN_0057053c;
-  in_ECX[0xc] = 1;
-  in_ECX[0xd] = 1;
-  in_ECX[0xf] = 0;
-  in_ECX[0x10] = 0;
-  in_ECX[0x11] = 0;
-  return;
+    (void)restore_stream_buffer_construct(self);
+    restore_stream_write32(self, 0x57053cu);
+    restore_stream_write32(self + 48u, 1u);
+    restore_stream_write32(self + 52u, 1u);
+    restore_stream_write32(self + 60u, 0u);
+    restore_stream_write32(self + 64u, 0u);
+    restore_stream_write32(self + 68u, 0u);
+    return self;
 }

@@ -1,11 +1,8 @@
-#include "restore_types.h"
-#define PTR_LAB_005705c8 (*(unsigned char * *)0x005705c8u)
+#include "crt_stream_constructor.h"
 
-void FUN_0056123e(void)
-
+void restore_stream_istream_destroy(uint32_t virtual_base_argument)
 {
-  int in_ECX;
-  
-  *(undefined ***)(*(int *)(*(int *)(in_ECX + -0xc) + 4) + -0xc + in_ECX) = &PTR_LAB_005705c8;
-  return;
+    uint32_t self = virtual_base_argument - 12u;
+    uint32_t base = restore_stream_virtual_base(self);
+    restore_stream_write32(base, 0x5705c8u);
 }

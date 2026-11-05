@@ -1,0 +1,124 @@
+{
+  "schema": "crt-local-unwind-and-stream-constructor-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "local_unwind": {
+    "registration": "Actual volatile16-byte FS record: previous, canonical5617C8 handler, level=-2, target registration. Stores and loop reloads retain native order.",
+    "scope": "Reload table and current level each loop. Stop at-1 or requested level. Save enclosing level in guard and parent before examining filter. Invoke only filter==0 finally entries.",
+    "funclet": "Canonical5617EA captures actual incoming EBP; callback edge supplies that parent frame and observed EAX/ECX. Reload actual target after notification. Normal return restores actual FS predecessor and returns registration in EAX.",
+    "limit": "Logical funclet ABI only; unspecified registers/flags and arbitrary targetless callbacks have no full equivalence proof. Original561B4D and compiler exception-handler callers still require independent frame ownership reconstruction."
+  },
+  "collision_guard": "Previously missing5617C8 C body: flags&6 writes actual registration into DispatcherContext and returns3(collided unwind); other paths return1 without that write. No invented RtlUnwind call or exception normalization.",
+  "abnormal": "Read actual FS:[0], compare canonical handler identity, load parent state before guard state, return exactly0/1.",
+  "notify1": "Native56187E reads code from [incoming EBP+8], preserves registers/flags and RET4. Caller stack101 copy is not read. Reuse existing561875 C stores unchanged.",
+  "global_unwind": "Relocated in-function continuation label replaces obsolete5617C0 literal. Native saved EBP/EBX/ESI/EDI, extra EBP stack slot, RtlUnwind arguments and cdecl RET0 are retained in a minimal stack/control-transfer primitive.",
+  "stream": {
+    "schema": 1,
+    "pin": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "source_scope": "Ten repaired owners: four constructor algorithms and six connected receiver/result/member-call repairs. Six reuse their existing C algorithm core with creation_credit0. One typed header and one minimal ABI bridge unit. Private packet only; no public edit, build, host launch, replay or Git action.",
+    "primary_repaired_entries": [
+      "0x5609da",
+      "0x560d22",
+      "0x5611c8",
+      "0x561278",
+      "0x5605fa",
+      "0x560648",
+      "0x560671",
+      "0x5606a0",
+      "0x560f02",
+      "0x56123e"
+    ],
+    "substantive_constructor_algorithms": [
+      "0x5609da",
+      "0x560d22",
+      "0x5611c8",
+      "0x561278"
+    ],
+    "reused_core_abi_repairs_creation_credit0": [
+      "0x5605fa",
+      "0x560648",
+      "0x560671",
+      "0x5606a0",
+      "0x560f02",
+      "0x56123e"
+    ],
+    "actual_registration_and_cleanup": [
+      "Each of the four constructors uses a real MSVC i386 compiler __try/__finally registration. No global ExceptionList substitute, original absolute handler code pointer, invented EBP slot, or unknown-register input is used. The compiler owns actual FS-chain installation/restoration and SafeSEH metadata. Handler identity/frame layout is compiler-specific, not claimed byte-identical to the original MSVC C++ record.",
+      "Native descriptor573D58 has two unwind rows(-1,56E190),(0,56E1AA). Its state1 first deletes the saved raw allocation, then state0 conditionally destroys self+20 when constructed&1. The allocation slot is meaningful only after operator_new returns and state becomes1; initializing the C slot before that does not make it a native API input.",
+      "Native descriptor573DD8 has two unwind rows(-1,56E208),(0,56E222). Its state1 destroys the completed istream with actual argument self+12, then state0 conditionally destroys ios at self+20. State is stepped down before invoking each cleanup, preserving the native unwind-map order.",
+      "Native descriptors573D88 and573DB0 each have a single state0 cleanup to -1. They destroy ios at self+8 and self+12 respectively only when the local constructed flag has low bit1.",
+      "The state starts-1. The virtual-base flag is tested as an entire DWORD for nonzero. constructed becomes1 and state0 only after the optional ios constructor returns. No incomplete base is destroyed. A child exception before that point therefore does not run that cleanup.",
+      "No manually registered handler is added. Compiler SEH only performs the evidenced local unwind actions; nested cleanup exception propagation/termination remains qualified below."
+    ],
+    "constructor5609da": [
+      "ECX is the actual object receiver; the one DWORD stack argument controls virtual-base construction; native RET4 is preserved by the canonical bridge. The algorithm returns the actual self pointer in full EAX.",
+      "When virtual-base construction is requested, publish vbtable570578 at self and570570 at self+12, then construct ios at self+20. Allocate exactly0x48 bytes with unchanged561A1D; publish state1 only after the actual allocation result is saved. A null allocation gives buffer0; nonnull calls5606A0 on that exact allocation and uses its real returned child pointer.",
+      "Set state0 before the combined iostream constructor(self,buffer,0). On its failure the native map does not delete the raw allocation; this sometimes surprising ownership timing is retained. Do not invent a buffer free merely because allocation succeeded.",
+      "After combined construction, reload self vbtable+4 for each write: vfptr57056C at the virtual base, then DWORD1 at virtualbase+28 twice. Both ownership stores and all three independent vbtable loads remain volatile. They are not folded into a fixed self+20 offset."
+    ],
+    "constructor561278": [
+      "ECX=self; stack args(buffer,virtual-base flag); canonical RET8. Optional construction publishes5705E4 at self and5705DC at self+12, then constructs ios at self+20.",
+      "Calls istream(self,buffer,0), records state1 after successful return, then ostream(self+12,buffer,0). Final vfptr5705D8 is written through the current self vbtable displacement. The actual buffer pointer is forwarded unchanged to both children.",
+      "The cleanup56123E argument is self+12, not the most-derived ios address self+20. That cleanup subtracts12 to recover the istream receiver, loads its current vbtable+4 displacement, and writes vfptr5705C8 to that virtual base."
+    ],
+    "constructor5611c8_and560d22": [
+      "Both retain real receivers, actual buffer arguments and native RET8. Standalone istream optionally publishes5705CC and constructs ios at self+12; standalone ostream optionally publishes57058C and constructs ios at self+8.",
+      "Each computes its current virtual base, publishes its own vfptr(5705C8 or570588), reloads the vbtable displacement, then initializes that virtual base with the actual buffer. ostream clears DWORDself+4 after initialization. istream reloads the displacement after initialization, ORs DWORDvirtualbase+36 with1, then clears DWORDself+8 andself+4 in that native order.",
+      "The saved native vbtable rows prove standalone displacements8/12 and most-derived displacements20 and8. Their pointer/table interpretation is separate from DWORD native load widths; no claim is made about every generated DAT pointer unit."
+    ],
+    "helper_repairs_creation_credit0": [
+      "5605FA,5606A0,560F02,560648,560671 and56123E already contained their ordinary C store/branch cores. Their new ownership repairs the previously uninitialized ECX receiver, outgoing member-call receiver, or missing actual return. These are six distinct necessary repaired entries, with creation_credit0; no claim is made that six new algorithms were created.",
+      "5605FA returns self; its fill character at+44 is one BYTE, preserving bytes45..47. It also leaves+20 and+24 unchanged. 560F02 returns self and initializes only its0x30-byte base layout, with DWORD+12 setFFFFFFFF before publishing vfptr570598.",
+      "5606A0 forwards self to560F02, publishes57053C, sets DWORD+48/+52 to1, clears+60/+64/+68 and returns self. DWORD+56 remains untouched. The caller receives this actual pointer, never a sampled return from a void child.",
+      "560648 captures the ownership DWORD+28 before writing vfptr570534, then reloads buffer+4 and invokes its actual first virtual function with ECX=buffer and stack flags1 only when both are nonzero. It finally clears buffer+4 and writes state+8=4. Its EAX is not exposed as a logical result.",
+      "560671 similarly deletes an existing owned nonnull buffer, then stores the incoming buffer at+4 and clears or sets only state bit4 according to pointer nonnull/null. Native EAX is exactly that complete incoming buffer pointer on all normal paths, so its named result is uint32_t.",
+      "The member-call adapter is only an ABI edge. It loads the actual vtable and slot0 and forwards the actual buffer receiver and flags. No zero ABI frame, fixed destructor address, unknown EAX input or invented callback result is introduced."
+    ],
+    "remaining_blockers": [
+      "Nested exceptions raised from a cleanup may depend on original C++ dispatch/unwind/termination semantics which the earlier core packet still qualifies as incomplete. No catch-all termination policy has been invented; second-exception propagation/termination equivalence is unproven.",
+      "Compiler SEH provides actual local cleanup registration, not original handler identity, descriptor address, original EBP layout or complete C++ search-phase equivalence. Native exception-dispatch owners561554/563BE1 and nonlocal continuation closure remain separately qualified by the prior packet.",
+      "The virtual deleting-destructor endpoint must implement its actual member-call/RET4 contract. Concrete generated destructor owners such as5606C6/5606E2/560F4B remain outside this constructor packet; their whole destruction behavior is not inferred from this adapter. Controlled endpoint comparison is required for those calls.",
+      "Generated legacy callers outside this packet may still call canonical member entries through cdecl declarations while losing their own original ECX. This packet fixes the connected constructor calls by named typed C calls and provides correct canonical ABI entries; it does not claim arbitrary direct or computed callers are repaired.",
+      "No native/C replay, full exception equivalence or complete gameplay equivalence is claimed. Parent owns shared strict compilation and integration, and milestone native comparison includes every repaired helper as well as primary algorithms."
+    ],
+    "verification": [
+      "All13 cached selected entries have complete assembly records and every cached instruction byte matches the pinned PE through native_test_pe.PE.data/.base. The16 requested raw spans bind full constructor/helper bodies, six missing cleanup actions, handler stubs, descriptor/unwind rows and relevant vbtable bytes; root supplies authenticated REA span evidence.",
+      "No per-function framework, private compiler, host launch or original/restored gameplay execution was used. Candidate line endings are CRLF; original public source bytes and unchanged dependency hashes are retained in metadata.",
+      "At the approximately100-entry milestone compare virtual-base flag0/nonzero, preinitialized nonstandard vbtable offsets, allocation null/non-null/raising, actual child result forwarding, field widths/untouched sentinels, duplicate ownership writes, phase-specific exceptions before and after state transitions, cleanup order/arguments and FS-chain installation/restoration.",
+      "Include all six ABI-only repairs in comparison: full pointer EAX for constructors/initialize, BYTE+44, untouched+20/+24/+45..47/+56, initial ownership flag timing, no callback for null/unowned buffers, actual ECX/flags1 and callee RET4 for deleting callbacks, mutable tables/buffer state after callbacks, all RET0/4/8 stack deltas and nonvolatile registers. Branches requiring unresolved nested/unwind/destructor owners stay explicitly unresolved."
+    ],
+    "public_caller_audit": [
+      "Recorded public C references contain20 direct callsites:11 inside replaced owners and9 outside. All five calls to restored RET4/RET8 entries are inside replaced owners and already route through named C; there is no recorded outside stale-cdecl stack-pop conflict.",
+      "The nine outside calls target RET0 entries only(560648 or56123E), and all lack an existing typed receiver. No safe call-only patch exists. public-caller-audit.json records every source, native caller/callsite address, actual receiver expression and exact ownership blocker.",
+      "Standalone legacy cleanup owners56E190/56E1C0/56E1E4/56E208/56E222 remain untyped, while their selected constructor actions are already replaced by compiler-managed typed C cleanup. The unrelated5612ED/56E238 destructor closure still needs its own work.",
+      "No new owner reconstruction, primary-entry credit or candidate source change is assigned for this caller audit. All cached external-caller instruction bytes match the same pinned PE; full records are in public-caller-audit-native.json."
+    ]
+  },
+  "safe_handler_registration": {
+    "handlers": [
+      "FUN_005615de",
+      "FUN_005617c8"
+    ],
+    "metadata_source": "runtime/crt_exception_handlers.asm",
+    "kind": "Metadata-only external PROC annotations; no instructions.",
+    "reference": "https://learn.microsoft.com/en-us/cpp/assembler/masm/dot-safeseh",
+    "PE_verification": {
+      "path": "metadata/crt-local-unwind-safe-handler.json",
+      "sha256": "ff0d985ca6fa184785d01525a1c1ffd4451994094c03e8a79e69abd72ac535fb",
+      "both_main_images_registered": true
+    }
+  },
+  "coverage": {
+    "joint_native_C_comparison": false,
+    "full_game_equivalence": false,
+    "host_execution": false,
+    "milestone": "Joint comparison at approximately100 entries includes new constructors, cleanup transitions, abnormal termination, collided unwind, relocated RtlUnwind endpoint and all compiled-only definitions. Nested exceptions and caller-frame deficits remain explicit.",
+    "prior_safe_receipt": "crt-exception-safe-handler.json is the retained49-entry linked-image snapshot; the new current proof is separate."
+  },
+  "global_unwind_static_abi": {
+    "path": "metadata/crt-local-unwind-global-abi.json",
+    "sha256": "cb64322c48c1797737d9119307ef81e9700e0fa6ed8dfbd7becead62ef6ca285"
+  },
+  "shared_dependencies_changed_by_parent": {
+    "runtime/crt_exception_handlers.asm": "f0dd3a3e8a726aeebc96b3916b986ec9288b247116180db1cb94f4345f944c99"
+  }
+}

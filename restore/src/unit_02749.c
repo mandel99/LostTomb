@@ -1,45 +1,48 @@
-#include "restore_types.h"
-#define DAT_00570570 (*(undefined4 *)0x00570570u)
-#define DAT_00570578 (*(undefined4 *)0x00570578u)
-#define PTR_LAB_0057056c (*(unsigned char * *)0x0057056cu)
-extern void FUN_005605fa();
-extern void FUN_005606a0();
-extern int * FUN_00561278();
-extern void * FUN_00561a1d();
-extern void FUN_00563354();
+#include "crt_stream_constructor.h"
 
-int * FUN_005609da(void)
-
+uint32_t restore_stream_fstream_construct(uint32_t self,
+    uint32_t construct_virtual_base)
 {
-  void *pvVar1;
-  undefined4 uVar2;
-  int *extraout_ECX;
-  int unaff_EBP;
-  
-  FUN_00563354();
-  *(int **)(unaff_EBP + -0x14) = extraout_ECX;
-  *(undefined4 *)(unaff_EBP + -0x10) = 0;
-  if (*(int *)(unaff_EBP + 8) != 0) {
-    *extraout_ECX = (int)&DAT_00570578;
-    extraout_ECX[3] = (int)&DAT_00570570;
-    FUN_005605fa();
-    *(undefined4 *)(unaff_EBP + -0x10) = 1;
-    *(undefined4 *)(unaff_EBP + -4) = 0;
-  }
-  pvVar1 = FUN_00561a1d(0x48);
-  *(void **)(unaff_EBP + 8) = pvVar1;
-  *(undefined4 *)(unaff_EBP + -4) = 1;
-  if (pvVar1 == (void *)0x0) {
-    uVar2 = 0;
-  }
-  else {
-    uVar2 = (FUN_005606a0(), restore_unresolved_return(0x005606a0u));
-  }
-  *(undefined1 *)(unaff_EBP + -4) = 0;
-  FUN_00561278(uVar2,0);
-  ExceptionList = *(void **)(unaff_EBP + -0xc);
-  *(undefined ***)(*(int *)(*extraout_ECX + 4) + (int)extraout_ECX) = &PTR_LAB_0057056c;
-  *(undefined4 *)(*(int *)(*extraout_ECX + 4) + 0x1c + (int)extraout_ECX) = 1;
-  *(undefined4 *)(*(int *)(*extraout_ECX + 4) + 0x1c + (int)extraout_ECX) = 1;
-  return extraout_ECX;
+    volatile uint32_t constructed = 0u;
+    volatile int32_t state = -1;
+    volatile uint32_t allocation = 0u;
+    uint32_t buffer;
+    uint32_t base;
+    __try {
+        if (construct_virtual_base != 0u) {
+            restore_stream_write32(self, 0x570578u);
+            restore_stream_write32(self + 12u, 0x570570u);
+            (void)restore_stream_ios_construct(self + 20u);
+            constructed = 1u;
+            state = 0;
+        }
+        allocation = (uint32_t)(uintptr_t)FUN_00561a1d(0x48u);
+        state = 1;
+        buffer = allocation != 0u
+            ? restore_stream_filebuf_construct(allocation) : 0u;
+        state = 0;
+        (void)restore_stream_iostream_construct(self, buffer, 0u);
+        base = restore_stream_virtual_base(self);
+        restore_stream_write32(base, 0x57056cu);
+        base = restore_stream_virtual_base(self);
+        restore_stream_write32(base + 28u, 1u);
+        /* The duplicate ownership store and its second vbtable load are
+           in the pinned executable. Retain both observable writes. */
+        base = restore_stream_virtual_base(self);
+        restore_stream_write32(base + 28u, 1u);
+    }
+    __finally {
+        if (AbnormalTermination()) {
+            if (state >= 1) {
+                state = 0;
+                FUN_00561a2b((void *)(uintptr_t)allocation);
+            }
+            if (state >= 0) {
+                state = -1;
+                if ((constructed & 1u) != 0u)
+                    restore_stream_ios_destroy(self + 20u);
+            }
+        }
+    }
+    return self;
 }

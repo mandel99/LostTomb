@@ -1,15 +1,12 @@
-#include "restore_types.h"
-#define LAB_005617c8 (*(undefined1 *)0x005617c8u)
+#include "crt_local_unwind.h"
 
-int __cdecl FUN_00561852(void)
-
+int32_t restore_crt_abnormal_termination(void)
 {
-  int iVar1;
-  
-  iVar1 = 0;
-  if ((*(undefined1 **)((int)ExceptionList + 4) == &LAB_005617c8) &&
-     (*(int *)((int)ExceptionList + 8) == *(int *)(*(int *)((int)ExceptionList + 0xc) + 0xc))) {
-    iVar1 = 1;
-  }
-  return iVar1;
+ volatile const RestoreCrtUnwindGuard *guard=
+  (volatile const RestoreCrtUnwindGuard *)(uintptr_t)__readfsdword(0);
+ uint32_t registration,parent_level;
+ if(guard->handler!=(uint32_t)(uintptr_t)FUN_005617c8)return 0;
+ registration=guard->registration;
+ parent_level=*(volatile uint32_t *)(uintptr_t)(registration+12u);
+ return guard->level==parent_level?1:0;
 }
