@@ -31,3 +31,7 @@ reprodukuje schválenou skupinu dvou vykreslovacích vstupů a osmi obálek.
 Kontroluje přesné LEA/PUSH/CALL/RET vzory, parametry, COFF vlastníka a původní
 bajty; propojuje je s existujícím C algoritmem. Výstup je samostatný kandidát,
 nikoli počet nově hotových funkcí při každém opakovaném spuštění.
+
+Spolecny konec treti davky:98 pojmenovanych C definic i98 kanonickych vstupu proslo1017 ruznymi scenari, celkem5841 spustenimi. Viz metadata/cohort3-joint-comparison.json. Jde o konecne testovaci pripady, nikoli dukaz uplne shody hry.
+
+Nasledny hromadny scan4527 katalogovych zaznamu uz v soucasnych pravidlech nenasel dalsi automaticky kandidat. Fronty obsahuji30 slozitejsich vzoru,370 nejasnych vlastniku a104 existujicich C definic k opetovnemu pouziti;3839 zaznamu lezi mimo pravidla. Tyto pocty nejsou poctem chybejicich funkci. Dalsi postup rozsiri pravidla podle ulozenych REA dukazu a znovu pouzije spravne C, misto aby generoval neurcene hodnoty.

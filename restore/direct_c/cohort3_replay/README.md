@@ -12,3 +12,5 @@ Other selected entries remain explicit pending work; this is a staged comparison
 not a claim that the whole cohort or game is verified. No host game is launched.
 
 Placement draw family: --group draw runs89 recipes over10 existing entries. Declared endpoints compare ordered raw scalar arguments, distinct private output pointer roles, observed memory and optional global mutations. Actual selected bodies and pure virtual predicates execute; controlled projection/occupancy/render bodies are outside this comparison. --case-id selects a single fresh recipe. All family receipts retain their original source snapshots.
+
+Full finite milestone: all98 named C and retained canonical entries are covered. The retained image now forces every selected canonical symbol; main game/diagnostic images remain unchanged. Joint and same-input ABI supplement receipts retain separate exact hashes. This completes the authored finite gate, not branch/domain or gameplay equivalence.

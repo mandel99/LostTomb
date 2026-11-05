@@ -6,6 +6,7 @@ from fp_control_cases import definitions as fp_control_definitions
 from stream_cases import definitions as stream_definitions
 from crt_lifecycle_cases import definitions as crt_lifecycle_definitions
 from exception_cases import definitions as exception_definitions
+from gameplay_cases import definitions as gameplay_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -38,8 +39,11 @@ def definitions(registry):
  out.extend(stream_definitions(registry))
  out.extend(crt_lifecycle_definitions(registry))
  out.extend(exception_definitions(registry))
+ out.extend(gameplay_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
+  if c['id'].startswith('formatter/'):
+   c['canonical_owner']='crt_format_entries.obj'
   if c['id'].startswith('stream/'):
    c['canonical_owner']='crt_stream_constructor_entries.obj'if c['entry']in constructors else'crt_stream_destructor_entries.obj'
  return out

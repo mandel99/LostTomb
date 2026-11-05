@@ -105,3 +105,5 @@ stream comparison:152 fresh cases /304 invocations pass for32 existing entries. 
 crt-lifecycle comparison:102 fresh cases /393 invocations pass for4 existing entries. Combined epochs:63/98 entries,707 cases /2360 invocations;35 pending. See cohort3-crt-lifecycle-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.
 
 exception comparison:59 fresh cases /324 invocations pass for12 existing entries. Combined epochs:75/98 entries,766 cases /2684 invocations;23 pending. See cohort3-exception-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.
+
+Joint finite milestone:98/98 named C definitions and98/98 retained canonical entries pass 1017 unique scenarios, 1203 case passes and 5841 native/C invocations. The rebuilt offline image retains all canonical symbols; original game/diagnostic hashes and historical receipts remain unchanged. Cohort source expansion may resume. Full gameplay, branch and input-domain equivalence remain unproven. See cohort3-joint-comparison.json.

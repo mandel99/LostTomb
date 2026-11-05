@@ -1,0 +1,316 @@
+{
+  "schema": "cohort3-pure-gameplay-cases-v1",
+  "entries": 23,
+  "recipes": 251,
+  "pinnedSHA": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "module_sha256": "f888f2feac4573ef2905f21ad61d5332367154acde0728210c6156571cef8fdb",
+  "authorship": "Fresh pure recipe definitions. No image loaded or executed, no host launch, no build, no new REA query, no public source edit, no Git operation and no subagent. Counts are derived by source inspection; root owns generation/schema checks and native/C replay.",
+  "per_entry": {
+    "0x462180": 6,
+    "0x4620c0": 8,
+    "0x41fff0": 5,
+    "0x420050": 5,
+    "0x4206f0": 5,
+    "0x420a30": 5,
+    "0x420d60": 5,
+    "0x421060": 5,
+    "0x421920": 29,
+    "0x4e5b20": 8,
+    "0x4efe30": 13,
+    "0x4f01e0": 6,
+    "0x46f200": 42,
+    "0x4a3b00": 22,
+    "0x4e7ac0": 6,
+    "0x4e7c90": 26,
+    "0x52b6d0": 10,
+    "0x4728a0": 8,
+    "0x55d330": 7,
+    "0x55d460": 4,
+    "0x55d6d0": 16,
+    "0x55d810": 2,
+    "0x55d840": 8
+  },
+  "entry_contracts": [
+    {
+      "entry": "0x462180",
+      "native": "cdecl0, no receiver, RET0, logical void",
+      "named": "cdecl0",
+      "canonical_owner": "city_updates.obj",
+      "cases": "negative/zero/positive delay; zero/four building scan; five linked actors crossing count4; live clock mutation of completion latch; real actor and building loops"
+    },
+    {
+      "entry": "0x4620c0",
+      "native": "cdecl1(actor), RET0, logical void",
+      "named": "cdecl1(actor)",
+      "canonical_owner": "unit_00926.obj",
+      "cases": "actor0/1/7/1999; kind0/127; nonuniform actor/profile canaries; separate BYTE and DWORD writes"
+    },
+    {
+      "entry": "0x41fff0",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "22-entry real table walk, rotations0/2/4/6 and all hidden"
+    },
+    {
+      "entry": "0x420050",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "13-entry real table walk, rotations0/2/4/6 and all hidden"
+    },
+    {
+      "entry": "0x4206f0",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "27-entry real table walk; all four rotations force real41F8C0 orientation copy; all hidden"
+    },
+    {
+      "entry": "0x420a30",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "56-entry real table walk, rotations0/2/4/6 and all hidden"
+    },
+    {
+      "entry": "0x420d60",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "27-entry real table walk, rotations0/2/4/6 and all hidden"
+    },
+    {
+      "entry": "0x421060",
+      "native": "cdecl2(x,y), RET0, logical void",
+      "named": "cdecl2(x,y)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "15-entry real table walk, rotations0/2/4/6 and all hidden"
+    },
+    {
+      "entry": "0x421920",
+      "native": "cdecl3(x,y,building), RET0, logical void",
+      "named": "cdecl3(x,y,building)",
+      "canonical_owner": "widget_draw.obj",
+      "cases": "all26 supported type labels including1/29 alias, three default DWORD values, three-entry selection walk with matching first/last and mismatching middle; real direction-aware child"
+    },
+    {
+      "entry": "0x4e5b20",
+      "native": "cdecl1(building), RET0, logical AL8 Boolean",
+      "named": "uint8 cdecl1(building)",
+      "canonical_owner": "actor_laborer.obj",
+      "cases": "progress100 early exit,0,93,94,99,101,250,255; proven increment4/7; wrapped BYTE addition and unsigned cap; actual signed WORD coordinates sent to refresh"
+    },
+    {
+      "entry": "0x4efe30",
+      "native": "cdecl4(unused1,unused2,actor,mode), RET0, full signed EAX",
+      "named": "cdecl2(actor,mode)",
+      "canonical_owner": "actor_laborer.obj",
+      "cases": "families1/2/3/4/5, both family2 pending polarities by mode, busy/expired claims, available-slot reject, zero/two-element worklist, access miss/hit/conflicting actor; real root and conflict scans"
+    },
+    {
+      "entry": "0x4f01e0",
+      "native": "cdecl3(unused1,unused2,actor), RET0, full EAX",
+      "named": "cdecl1(actor)",
+      "canonical_owner": "actor_laborer.obj",
+      "cases": "family5 exit, count0/2, availability0/1, empty/expired/busy claim, actual nonzero-availability short-circuit and target publisher"
+    },
+    {
+      "entry": "0x46f200",
+      "native": "cdecl0, RET0, logical void",
+      "named": "cdecl0",
+      "canonical_owner": "menu_building_overlay.obj",
+      "cases": "all14 monument type labels; pyramid family0/1/2/3/4/5; scenario threshold15/16 and latch; query progress99/100 and existing announcement; flags precede captured message payload"
+    },
+    {
+      "entry": "0x4a3b00",
+      "native": "cdecl2(actor,period), actual incoming EAX, RET0, full EAX",
+      "named": "cdecl3(actor,period,actual_incoming_EAX)",
+      "canonical_owner": "actor_cadence_facade.obj",
+      "cases": "wrapped signed counters-32768/-1/0/1/99/100/101/32767; periodsINT_MIN/0/1/2/3/101; phases0/6; real4B27E0->4B3F00, full result and memory"
+    },
+    {
+      "entry": "0x4e7ac0",
+      "native": "cdecl1(duration), RET0, full physical EAX",
+      "named": "cdecl1(duration)",
+      "canonical_owner": "menu_event_actions.obj",
+      "cases": "count-1/0/3, no eligible buildings, failed cell lookup, successful create/patrol, RNG ring0/99; both scans execute actual selected4E7C90; actual existing4B1DF0 executes"
+    },
+    {
+      "entry": "0x4e7c90",
+      "native": "cdecl1(building), RET0, full physical EAX with AL Boolean",
+      "named": "cdecl1(building)",
+      "canonical_owner": "menu_event_actions.obj",
+      "cases": "rejected/accepted signed WORD kinds around2F/3C..40, B7/DE/E5/EA/EB/EC/FFFF; cell result0/1234 exposes result high24"
+    },
+    {
+      "entry": "0x52b6d0",
+      "native": "cdecl0, RET0, logical void",
+      "named": "cdecl0",
+      "canonical_owner": "unit_02403.obj",
+      "cases": "resource gate0/1, three visible resource rows including zero current and count-unit domains, no/negative/selected slots, ordinary active/absent city types1/2/3/5; live text-width mutations"
+    },
+    {
+      "entry": "0x4728a0",
+      "native": "cdecl7(player,orientation,x1,y1,x2,y2,tool), RET0, logical void",
+      "named": "cdecl7(same)",
+      "canonical_owner": "map_commit_complete.obj",
+      "cases": "tool0, debt-5000/-5001, invalid-drag default/52/6/26 branches, existing-obelisk rejection; actual disabled-message helper executes"
+    },
+    {
+      "entry": "0x55d330",
+      "native": "ECX=self, stack(action,unused,frame), RET12, logical void; first action slot is reused",
+      "named": "cdecl4(self,action,frame,NULL)",
+      "canonical_owner": "sprite_controller_entries.obj",
+      "cases": "null source; action0/1/2/clamped and nonzero high16; frame0/1000/-1/99; actual direction mapper and variant/frame helpers execute"
+    },
+    {
+      "entry": "0x55d460",
+      "native": "ECX=self, stack(action), RET4, logical void",
+      "named": "cdecl2(self,action)",
+      "canonical_owner": "sprite_controller_entries.obj",
+      "cases": "actions0/1/2/clamped with mirror direction; actual selected55D330 and55D840 execute"
+    },
+    {
+      "entry": "0x55d6d0",
+      "native": "ECX=self, no stack args, RET0, full EAX",
+      "named": "cdecl1(self)",
+      "canonical_owner": "sprite_controller_entries.obj",
+      "cases": "all modes0..7 and unfinished/completed frames; real timing children including actual selected55D810/55D460/55D330/55D840"
+    },
+    {
+      "entry": "0x55d810",
+      "native": "ECX=self, no stack args, RET0, full EAX0/1",
+      "named": "cdecl1(self)",
+      "canonical_owner": "sprite_controller_entries.obj",
+      "cases": "unfinished/completed timing; actual selected action transition executes"
+    },
+    {
+      "entry": "0x55d840",
+      "native": "ECX=self, no stack args, RET0, observed logical AX index; high16 outside API",
+      "named": "uint16 cdecl1(self)",
+      "canonical_owner": "sprite_controller_entries.obj",
+      "cases": "null source/data; one direction0/180; ordinary directions4 positive/negative angle; mirrored angle270/660; actual mapper executes"
+    }
+  ],
+  "endpoint_contracts": {
+    "renderer": "53E590: native ECX F55BB0, stack3(image,x,y), RET12. Named restore_sprite_draw adds receiver as explicit arg0 and is cdecl4. Receiver is asserted then removed; remaining three raw DWORDs and sequence compare. Explicit full result1.",
+    "clock": "Imported timeGetTime, arity0/RET0, explicit full result81234567. Per-image named import trap, never host API. Fourth call count asserted. Optional latch mutation tests a live final latch read.",
+    "obelisk": "4E5AE0 cdecl1 returns explicit full4/7; parent consumes AL only. 4E5840 cdecl3 is void; endpoint observes updated progress BYTE.",
+    "work": "4EF450 cdecl1 void publishes work count/list; 4EF100 cdecl1 explicit full0/1; 4EEA10/4EFD90/4ECEA0 logical AL endpoints preserve actual high24; 4ED360 cdecl4 void publishes chosen memory cell; 4F3000 cdecl2 explicit full1735.",
+    "cell": "47FE60 cdecl4 full result0/1234, writes its known DWORD x/y globals D3B4E4/D3B4E0. 4B4800 cdecl5 full actor5. No selected patrol eligibility, service preparation, or selected parent body is replaced.",
+    "message": "4E0CF0 cdecl5 void. Arg3 is private input int16[3], represented with private_input_args role message_parameters and width6; root compares exact content, not physical private address. Input/output roles are distinct. Selection/overlay reset boundaries are cdecl0 void.",
+    "progress": "Signed full progress99/100. Native thiscall base/progress methods preserve actual constant receivers; named C adds explicit receiver. Native stack2/RET8 for member progress, C cdecl3. Queries542AD0/4DF040 are cdecl2/RET0;401540 ignores native ECX but retains native RET8, compiled C is cdecl2/RET0. Exact native RET instructions were checked in saved audit caches.",
+    "storage": "Drawing and text boundaries use raw full argument vectors and explicit void/full result kinds. E20778 text/number width outputs mutate only permitted DWORD memory; subsequent layout reads must stay live. No stack pointer is normalized for global resource/point/suffix addresses.",
+    "map": "46FDE0 AL gate preserves actual high24; 4B5830 cdecl4 full query; 40F920/40F860 cdecl3 void; 485830 cdecl0 void; 4E59C0 cdecl0 full1. Actual4E2970 executes with its message-enable BYTE0.",
+    "sprite_angle": "Fixture-supplied external virtual callback: native target31000100, compiled allocator symbol used only as an isolated callback endpoint. ECX=self+4, no stack args, RET0, exact explicit binary32 ST0 via x87_float32. EAX=vtable, EDX=source_data, ESI=self, EDI=cached descriptor are captured and compared live. No selected sprite body is intercepted.",
+    "pointer_fixups": "Only scratch callback vtable slot differs per image; excluded from watched physical bytes and checked unchanged by runner. Callback scalar/register values and same-address data remain strict.",
+    "void": "Every proven logical-void selected entry uses result_mask=null. Full EAX comparisons are limited to documented full-result entries; obelisk usesFF and directionFFFF. Nonvolatile registers, exact native/named/canonical cleanup, memory and event order remain checked."
+  },
+  "engine_features": [
+    "canonical_owner",
+    "compiled_arity",
+    "compiled_receiver_arg",
+    "x87_float32",
+    "registers",
+    "private_input_args",
+    "import_name"
+  ],
+  "endpoint_return_evidence": {
+    "metadata/native-function-audit-cache/batch-0000.json": "401540 RET8 despite unused native ECX",
+    "metadata/native-function-audit-cache/batch-0064.json": "40D940 RET8",
+    "metadata/native-function-audit-cache/batch-0192.json": "417050 RET8",
+    "metadata/native-function-audit-cache/batch-1920.json": "4DF040 RET0",
+    "metadata/native-function-audit-cache/batch-1984.json": "4E6710 RET8",
+    "metadata/native-function-audit-cache/batch-2624.json": "542AD0 RET0",
+    "metadata/native-function-audit-cache/batch-2688.json": "545740/54F470/555E80/558BE0 RET8;547A60 RET0"
+  },
+  "evidence_refs": [
+    {
+      "path": "metadata/city-active-buildings-reconstruction.json",
+      "sha256": "39c3e406c26931e7fb358e27903d6f8c8f9e514fa9fcbfbef06d82286cb267fc",
+      "role": "Pinned selected entry byte evidence IDs, source hashes and exact native body hashes"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-unknown-values/actor-cache.json",
+      "sha256": "71608dbd6334af7c35c4ba6ff6ffcf9caf1040c98d042cb8aeb608598d2c1b72",
+      "role": "Saved native4A3B00,4E5B20,4EFE30,4F01E0 instructions and stack contracts"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-unknown-values/draw-cache.json",
+      "sha256": "e20c4b8430fbec0652b5aa1f7a2573ae9e920beb768c513bbb7212b80beb1b2d",
+      "role": "Saved seven widget native bodies and output-slot aliasing"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-city-controller/native.asm",
+      "sha256": "01c41d2f3a7c6b3d2dbd8f72f9cc723c53c785035bc384803d8a2c8577682b37",
+      "role": "Complete5307-instruction controller, count/delay and four clock calls"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-city-controller/rea-evidence.json",
+      "sha256": "e2e10ab4af06139913fc522c70b8eeb93741be22819fe14b92210a0d855b664f",
+      "role": "Pinned byte binding for city controller"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-city-controller/child-4620c0-cache.json",
+      "sha256": "bbca05ffee0a2a9fce7b9f6cdaa3aebbbda276262304c8600ee6827fe1ebf3fe",
+      "role": "Basic actor profile native30-instruction body"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-map-commit-c/rea-byte-record.json",
+      "sha256": "d11f3b0086a7a037736f34f385fd1997aff067a30c968063ea36bca4918bf6fb",
+      "role": "Whole6273 native map commit bytes"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-map-commit-c/native.asm",
+      "sha256": "cbfa96fd01b3dbe10b8ff1ca927a1a546ca65595dfbeed661a52f5f966620809",
+      "role": "Native rejection callsite argument order, seven entry arguments and RET0"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-menu-overlays/rea-records.json",
+      "sha256": "a71ba8e1acafd02c5f7b922965bcf4507edf1be84c0638fb82d21b24b60c9ec4",
+      "role": "Completion native query widths, receiver constants and payload formation"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-storage-menu-c/source-contract-native-proof.json",
+      "sha256": "4b975ce7b05d9ba24a9320602e8e2be7d62bf09da1d90374e6ee7e5045c7369c",
+      "role": "Full951-instruction storage menu/native table validation"
+    },
+    {
+      "path": "build/actor-animal-following/cohort3-cadence-closure/contracts.json",
+      "sha256": "0c3ad384b1bf6ec15ab38f7ef1ba6da221659efcdb861e01a916e8f7135fdafe",
+      "role": "Full EAX live-input and nested provider closure"
+    },
+    {
+      "path": "metadata/actor-walking-step-native.json",
+      "role": "Cached191-byte4B27E0 step instructions; real phase0/6 path to4B3F00"
+    },
+    {
+      "path": "metadata/native-function-audit-cache/batch-1984.json",
+      "sha256": "d12ed1809e0b438fea973ad99f40543cdb2e9a548e150fd0617f5272f84b1eb4",
+      "role": "Saved4E7AC0/4E7C90 full-EAX result producers and native callsites"
+    },
+    {
+      "path": "metadata/rea-sprite-cycle-snapshot.json",
+      "sha256": "60c7cf69fec8013e9b297a00d8e62f18b5960c99be2fac2d13f3053c8e71f618",
+      "role": "Sprite selected control bodies, callback register/ST0 contract, AX consumers and RET12/RET4"
+    }
+  ],
+  "limitations": [
+    "Unexecuted author packet. Root must generate recipes, authenticate evidence, check schema/bounds, integrate pure module, rebuild retained canonical providers when needed, and perform joint native/C comparison. No pass/equivalence claim is made here.",
+    "Finite coverage. Controller462180 has5307 native instructions: this packet exercises initialization, full actor scan, preparatory count/reset scan and active default branch, not the many building-type production/spawn branches.",
+    "Widget descriptor group0/animation0/library0 is controlled with all four ordinary view rotations. Other groups, malformed counts, negative rotations, aliased private output slots and orientation already synchronized are unvisited.",
+    "Pyramid work-list and query bodies are controlled external boundaries. Real roots/claim/target writes and access conflict scan execute, but live count/category mutation during descriptors, every possible list ID, failed brush geometry and arbitrary claim actor states are unvisited.",
+    "Completion covers all type labels and family message dispatch, but e5 root links below-1, progress outside99/100, arbitrary skip-table mutation, real progress-query internals and publisher internals are outside these recipes.",
+    "Cadence runs actual nested step phases0/6 and all return values full32. Route phase7/8/14/15, stopped directions, heat/ferry/recovery/invasion and route allocation domains remain unvisited by this packet.",
+    "Patrol generator and two real eligibility scans execute, but cell search and actor allocation are external endpoints. Count mutation during queries and count/table overflow are unvisited.",
+    "Storage menu tests three resource rows and ordinary simple slots; pyramid summary output and most complex monument progress/selection branches are unvisited. Controlled text width side effects test layout sequencing, not font or renderer fidelity.",
+    "Map commit covers startup/rejection control. Successful placement, terrain mutation, resource debit, every tool case, callbacks/warnings and final construction paths remain unvisited by this packet.",
+    "Sprite callback domain is one supplied external method with explicit finite angles. The targetless indirect callback universe is unresolved; native AX consumers prove only low16 for55D840, not full physical EAX. Other flags/registers and x87 status/trap equivalence are not claimed.",
+    "55D330 native first argument slot is physically reused. Named recipes deliberately use the supported NULL optional output-slot pointer; mutated caller argument words are recorded by root, but are not a named C output contract. No private stack garbage is invented as an API input.",
+    "All source and evidence bytes outside the three private packet files were preserved. Complete gameplay equivalence is not established by compilation or finite replay."
+  ],
+  "author_module_sha256": "7184cd21e6375d74cfb528d507a1533a02d96f4194d3ada855a6aff00404c0f0",
+  "integration_correction": "Closed missing append parenthesis in _word; AST and pure generation performed by root.",
+  "fixture_generation": "Pattern repeats every256 bytes; block repetition preserves exact bytes and avoids per-byte Python loops for large arrays."
+}
