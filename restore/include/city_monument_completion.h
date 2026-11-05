@@ -1,0 +1,4 @@
+#ifndef RESTORE_CITY_MONUMENT_COMPLETION_H
+#define RESTORE_CITY_MONUMENT_COMPLETION_H
+void restore_city_publish_completed_monument(void);
+#endif

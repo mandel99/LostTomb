@@ -1,3 +1,4 @@
+#include "city_monument_completion.h"
 #include "menu_building_overlay.h"
 #include "chief_advisor_render.h"
 #include "population_advisor_render.h"
@@ -895,7 +896,7 @@ void FUN_004191f0(void){(void)invoke(0x4191f0u,0,0);}
 const char *restore_menu_overlay_text_callback(uint32_t address)
 {return (const char *)(uintptr_t)invoke(address,0,0);}
 char *FUN_00447840(void){return (char *)(uintptr_t)invoke(0x447840u,0,0);}
-void FUN_0046f200(void){(void)invoke(0x46f200u,0,0);}
+void FUN_0046f200(void){restore_city_publish_completed_monument();}
 void FUN_0052b6d0(void){(void)invoke(0x52b6d0u,0,0);}
 uint32_t FUN_00446610(void){return invoke(0x446610u,0,0);}
 void FUN_004d6200(uint32_t group,uint32_t text,const int16_t *point,uint32_t font,uint32_t color,int32_t dx,int32_t dy,int32_t origin_x,int32_t origin_y)

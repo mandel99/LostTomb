@@ -51,11 +51,11 @@ void FUN_00517660(void)
  last_y=(int32_t)(U(0xbca2d4u)-1u);last_x=(int32_t)(U(0xbca2d0u)-1u);
  FUN_005173a0(0,0,last_x,last_y);
 }
-void FUN_005178e0(void)
+uint32_t restore_rebuild_access_map_result(void)
 {
  uint32_t cell=U(0xbca2d8u),rows,width,padding,direction,flags,count,x;uint8_t value;
  FUN_0040f8f0((uint32_t *)0xebab20u,0xcb10u,0xff);
- rows=U(0xbca2d4u);if((int32_t)rows<=0)return;
+ rows=U(0xbca2d4u);if((int32_t)rows<=0)return rows;
  width=U(0xbca2d0u);direction=U(0xe94e04u);
  do{
   if((int32_t)width>0){
@@ -89,4 +89,7 @@ void FUN_005178e0(void)
   }
   padding=U(0xbca2dcu);cell+=padding;--rows;
  }while(rows);
+ return rows;
 }
+/* Existing logical void callers retain the same memory algorithm. */
+void FUN_005178e0(void){(void)restore_rebuild_access_map_result();}

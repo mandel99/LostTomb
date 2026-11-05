@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects12 original C owners /6,861 native
+The current connected batch selects14 original C owners /7,226 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -49,3 +49,11 @@ Ten original owners now use ordinary C: six widget groups, building-widget selec
 Twenty-eight placeholder calls were removed: two consumed values now have explicit contracts (4E5AE0 AL and4F3000 full EAX);26 values are discarded in the native parent. The remaining source inventory is34 sites in31 units, which requires ownership auditing before selection.4A3B00 remains deferred until its transitive full-EAX contract is proven.
 
 Both shared Release links and strict compilation pass. Joint native/C behavior comparison remains pending at the approximately100-entry milestone. Historical finite receipts retain their original bindings. Neither host game was launched.
+
+## Monument completion and cadence follow-up
+
+The original46F200 owner now publishes completion messages using14 native type cases, five family variants and the native scan skips. BYTE announcement flags, signed WORD fields, DWORD latches and explicit progress receivers replace incorrect generated pointer units.401540 supplies the actual signed return. Existing query algorithms and menu physical dispatch are unchanged.
+
+4A3B00 now forwards actual incoming EAX through its retained physical child closure. The canonical entry captures it explicitly; the dedicated RAW parent path forwards the actual entry register frame. Its named C and canonical shim are compiled-only in both main links. A COFF check qualifies shim EAX/arguments/RET0; full behavior and volatile-register/flag comparison remain pending, including a linked exercise of those compiled-only definitions. See the cadence closure contracts in the JSON ledger. Global routing dispatch stays unchanged.
+
+The connected source batch now contains14 entries /7,226 native instructions. Both shared Release links and strict compilation pass. Joint native/C comparison remains pending at the approximately100-entry milestone; neither host game was launched.

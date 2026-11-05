@@ -1,3 +1,4 @@
+#include "actor_cadence_closure.h"
 #include "storage_transactions.h"
 #include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "actor_civic.h"
@@ -209,7 +210,7 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(004a34b0);
     RAW(004a36e0);
     RAW(004a38a0);
-    RAW(004a3b00);
+    case 0x4a3b00u:restore_actor_cadence_raw(f->r,&f->flags);return;
     RAW(004be4a0);
     RAW(004a46f0);
     RAW(004a4770);
@@ -519,8 +520,6 @@ static uint32_t invoke(uint32_t entry,const uint32_t *args,uint32_t count)
     if(f.r[4]!=sp+(entry==0x4be4a0u?8u:4u))abort();
     return f.r[0];
 }
-int32_t FUN_004a3b00(int32_t actor,int32_t period)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)period};return (int32_t)invoke(0x4a3b00u,a,2);}
 /* Complete native bodies: WORD cell links/coordinates, BYTE actor kinds and
    phases, DWORD models/counters. These cdecl entries own their local frames;
    no incoming receiver, flags, FPU state or extra caller array is consumed. */
