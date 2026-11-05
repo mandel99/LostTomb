@@ -15,7 +15,7 @@
 /* Both inline native random advances shift two 31-bit feedback registers31
    times. History records the previous first stream's low7 result before the
    index increments; an overflowing signed index has the native wrap behavior. */
-static uint32_t advance_hazard_random(uint32_t initial)
+static uint32_t advance_hazard_random(uint32_t initial,uint32_t *initial_count)
 {
  uint32_t index=U(0xd3b1c4u),a,b,i,feedback_a,feedback_b;
  U(0xd3b1c8u+index*4u)=U(0xd3b374u);++index;U(0xd3b1c4u)=index;
@@ -26,7 +26,12 @@ static uint32_t advance_hazard_random(uint32_t initial)
   a=(a>>1)|(feedback_a<<30);b=(b>>1)|(feedback_b<<30);
  }
  U(0xd3b384u)=a;U(0xd3b378u)=a&7u;U(0xd3b380u)=b;U(0xd3b364u)=b&0x7fffu;
- if(initial){U(0xd3b36cu)=b&7u;U(0xd3b370u)=a&0x7fffu;U(0xd3b374u)=a&0x7fu;U(0xd3b368u)=b&0x7fu;}
+ if(initial){
+  U(0xd3b36cu)=b&7u;
+  /* Native468C43 snapshots high-water before the final three publications. */
+  *initial_count=U(0x78d790u);
+  U(0xd3b370u)=a&0x7fffu;U(0xd3b374u)=a&0x7fu;U(0xd3b368u)=b&0x7fu;
+ }
  else{U(0xd3b370u)=a&0x7fffu;U(0xd3b368u)=b&0x7fu;U(0xd3b36cu)=b&7u;U(0xd3b374u)=a&0x7fu;}
  return a;
 }
@@ -37,11 +42,11 @@ static uint32_t advance_hazard_random(uint32_t initial)
 void restore_city_update_building_hazards(void)
 {
  uint32_t off=U(0xeaac28u)*0x49d8u,id=1u,record,kind,tile,weight,bucket,factor,table;
- uint32_t now,last,size,x,y,damage,increment,changed=0u;
+ uint32_t now,last,size,x,y,damage,increment,initial_count,changed=0u;
  U(0xea5c84u+off)=0;U(0xea5c88u+off)=0;
  if(U(0x978d70u)==1u)return;
- bucket=advance_hazard_random(1u)&7u;
- if(I(U(0x78d790u))<1)return;
+ bucket=advance_hazard_random(1u,&initial_count)&7u;
+ if(I(initial_count)<1)return;
  do{
   record=id*264u;
   if(B(0x7999d8u+record)!=1u)goto next_building;
@@ -80,7 +85,7 @@ void restore_city_update_building_hazards(void)
    restore_building_spawn_removal_effects(I(x),I(y),size,1);
    restore_building_clear_linked_parts(I(id),0);changed=1;goto next_building;
   }
-  factor=(advance_hazard_random(0u)&0x7fffu)%5u+1u;
+  factor=(advance_hazard_random(0u,0)&0x7fffu)%5u+1u;
   if(weight!=bucket)goto next_building;
   if(B(0x7999ddu+record)!=0u){
    if(H(0x7999f4u+record)<=0)W(0x799a20u+record)=0;

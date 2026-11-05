@@ -1,25 +1,24 @@
 #include "restore_types.h"
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00bcd602 (*(byte *)0x00bcd602u)
-#define PTR_DAT_00596088 (*(unsigned char * *)0x00596088u)
+#define AV_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define AV_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define AV_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
+/* Original-owner access repair, zero new algorithm credit. Native snapshots
+   the building phase before scanning, then reads each descriptor and conditionally
+   the actor BYTE before the descriptor kind DWORD. Keep those read phases. */
 int FUN_00420430(int param_1,int param_2)
-
 {
-  undefined **ppuVar1;
-  
-  ppuVar1 = &PTR_DAT_00596088;
-  do {
-    if ((*(short *)(*ppuVar1 + 0x12) == 0) &&
-       (ppuVar1[-2] == (undefined *)(&DAT_00799a30)[param_1 * 0x42])) {
-      if ((ppuVar1[-1] == (undefined *)(uint)(byte)(&DAT_00bcd602)[param_2 * 0x184]) &&
-         (0 < *(int *)(*ppuVar1 + 0xc))) {
-        return param_1;
-      }
-    }
-    ppuVar1 = ppuVar1 + 4;
-    if (0x596157 < (int)ppuVar1) {
-      return 0;
-    }
-  } while( true );
+    uint32_t phase = AV_U(0x799a30u + (uint32_t)param_1 * 264u);
+    uint32_t row = 0x596088u, descriptor, actor_kind, required_kind;
+    do {
+        descriptor = AV_U(row);
+        if (AV_W(descriptor + 0x12u) == 0u && AV_U(row - 8u) == phase) {
+            actor_kind = AV_B(0xbcd602u + (uint32_t)param_2 * 388u);
+            required_kind = AV_U(row - 4u);
+            if (required_kind == actor_kind && (int32_t)AV_U(descriptor + 12u) > 0)
+                return param_1;
+        }
+        row += 16u;
+        if (row >= 0x596158u) return 0;
+    } while (1);
 }

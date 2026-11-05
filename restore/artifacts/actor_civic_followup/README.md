@@ -108,13 +108,11 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 559110 | restore_actor_member_accept_building | 8 |
 
 The total is 13,285 static native instructions, not execution coverage.
-Bodies remain in their existing source owners; canonical facades delegate.
+Bodies remain in their existing owners; physical RAW paths retain their contracts.
 
 The block passes shared strict Win32 C11 object compilation and both main
-Release links. Native/C behavioral comparison for this new cohort remains
-pending. The standalone CMake project only compiles object files; it does
-not launch the host game. Detailed current-main comparison belongs to the
-next connected verification milestone.
+Release links. The finite285-case native/C comparison now agrees; full coverage is unproven. The standalone CMake project only compiles object files; it does
+not launch the host game. The current result is linked in the recorded comparison metadata.
 
 The callbacks, fire queries and route advancement have full DWORD contracts; the
 three movement leaf APIs promise their BYTE/WORD RAM effects and are void.
@@ -167,7 +165,7 @@ update phases. Migration uses the native binary32 factor through x87 and
 raw80 truncation; no binary64 intermediate is introduced.496640 reads its
 link once, returns the input actor only for zero,and keeps the original
 constant loop otherwise. These source changes have shared strict build/link
-validation; current-cohort native comparison remains pending.
+validation; the current finite native comparison is recorded below.
 
 The city census/maintenance block reuses11 original C owners, with zero new
 algorithm credit. Width/stride and callback-phase repairs cover counts,
@@ -176,7 +174,7 @@ refresh. Coverage retains FILD32/FIDIV32 under inherited x87 control and raw80
 truncation. Road fill retains cached shade until final publication and the
 1000-DWORD scratch ring; linked fire rereads its signed link after the child.
 Packed overlay decay keeps the native XOR0000FFFF quirk. Physical RAW models
-and routing remain unchanged; detailed native comparison is pending.
+and routing remain unchanged; the finite comparison is recorded below.
 
 Eight already-correct path variants remain unchanged and earn no additional
 entry/rewrite credit. The narrow EAX witness is historical at6cc75a8; its old
@@ -191,5 +189,14 @@ and462140 C bodies are unchanged and receive no additional entry credit.
 
 The100-entry translation milestone is reached. Seventeen named definitions
 are compiled but linker-eliminated in both main images. Dedicated retention
-and joint offline native/C comparison are next; neither full-cohort behavior
+and the finite native/C comparison are now recorded below; neither full-cohort behavior
 nor complete game equivalence is claimed by this source/build checkpoint.
+
+The joint offline comparison agrees for 285 cases / 1,030 route invocations
+across all 100 entries, including 17 definitions retained only in the separate
+verification image. Six original-owner read/cache phase errors were repaired
+with zero new-algorithm credit. The first two failed attempts remain archived.
+Current source/image bindings and per-entry cases are recorded in
+`actor-cohort-2-comparison.json`. Full branch/domain coverage, canonical method
+ABIs, physical RAW registers/flags and complete gameplay equivalence remain
+unproven. The old611f3cc/6cc75a8 receipts remain historical.
