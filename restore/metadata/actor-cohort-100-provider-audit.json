@@ -1,0 +1,2850 @@
+{
+  "schema": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Independent whole-tree provider searches including inactive source and explicit native width/stride reviews.",
+  "reviewed_entry_count": 96,
+  "packets": [
+    {
+      "packet": "cohort100-initial-provider-recheck",
+      "report_sha256": "3937bc2613e8e1e47d8a9341a547896fd16b0e2830aa289d6a511d12b98e19c4",
+      "manifest_sha256": "b3b7a6bc9cfa4ec0d9f25524736dfd1c747173ef43093d0c2d7ae4b6311c86b1",
+      "baseline": "168385711131ca23708013c5303218b7ea5d8bb1",
+      "entry_count": 32,
+      "entries": [
+        {
+          "entry": "0x49b750",
+          "family": "animal",
+          "name": "restore_actor_update_birds",
+          "native_bytes": 1432,
+          "native_instructions": 376,
+          "native_evidence_id": "ev_b0b9b87d5aa471e91106326ee95c8eb0750d9460a57754ddbc95e19afd666489",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "de2f38cb50d61a3d43a39541653af2ed7b6bc7213909e996c79422f13da226cf",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049b750"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49bd40",
+          "family": "animal",
+          "name": "restore_actor_update_ostrich",
+          "native_bytes": 2453,
+          "native_instructions": 668,
+          "native_evidence_id": "ev_2824b0eee820b031305e17b9d0a3ab2b123891ba2df8ec9fe709fd3623d51466",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "3b69d48786f248bbf973ec24fb0870557cf7b8e8490afe897340837cdf09914f",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049bd40"
+            },
+            {
+              "path": "restore/runtime/actor_prey.c",
+              "file_sha256": "543d548549448e3cb595308deea5cb31cf4e4de77883b713d3e533c263826d53",
+              "body_sha256": "fd3bbef691e79afbc7aefa33dd85287f008c742444b8c9eafaad7ddd8bc0b25f",
+              "frame_facade": false,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049bd40"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "existing-ordinary-source-adaptation-with-substantial-native-phase-corrections",
+          "direct_reuse_qualified": false,
+          "previous_ordinary_algorithm_exists": true,
+          "cache_only_refinement_claimed": false,
+          "reason": "Historical actor_prey.c already implements the Ostrich state/render/RNG structure with explicit correct base strides. It is a separate source-only test provider, absent from main libraries. Direct wiring is not exact: random_wait performs two complete random_tick calls, publishing/reloading RNG/index between them; native state8 keeps cached words/index across its two31-step phases and publishes its final index after the second history write. Entry source captures speed/group/building before native reset/counter phases. Original image() has numerically corresponding heading normalization, but omits intermediate native global stores and fresh-read phases.",
+          "native_observations": [
+            {
+              "site": "0x49bd65",
+              "instruction": "0049bd65 mov      byte ptr [ecx + 0xbcd66a], 5"
+            },
+            {
+              "site": "0x49bd95",
+              "instruction": "0049bd95 mov      esi, dword ptr [edx*8 + 0x7090ec]"
+            },
+            {
+              "site": "0x49bdb0",
+              "instruction": "0049bdb0 mov      dword ptr [ecx + 0xbcd740], eax"
+            },
+            {
+              "site": "0x49bdb6",
+              "instruction": "0049bdb6 mov      edx, dword ptr [ecx + 0xbcd730]"
+            },
+            {
+              "site": "0x49bec0",
+              "instruction": "0049bec0 mov      dword ptr [ebx*4 + 0xd3b1c8], eax"
+            },
+            {
+              "site": "0x49bf33",
+              "instruction": "0049bf33 mov      dword ptr [ebx*4 + 0xd3b1c8], ebp"
+            },
+            {
+              "site": "0x49bf5e",
+              "instruction": "0049bf5e mov      dword ptr [0xd3b1c4], ebx"
+            }
+          ],
+          "old_source_only_target": "add_executable(restore_actor_prey_verify tests/actor_prey.c tests/actor_callback_unrelated.c runtime/actor_prey.c runtime/actor_callbacks.c)",
+          "recommendation": "Describe as adaptation/correction of the existing ordinary implementation, with new production wiring and native-order repair. Do not claim a previously absent ordinary state-machine algorithm or claim unchanged old body is byte-correct.",
+          "prior_packet_disclosed": true,
+          "prior_packet_handoff": "build/actor-animal-following/next49bd40/HANDOFF.md"
+        },
+        {
+          "entry": "0x49c750",
+          "family": "animal",
+          "name": "restore_actor_update_antelope",
+          "native_bytes": 2345,
+          "native_instructions": 640,
+          "native_evidence_id": "ev_296c93935c8c77791d08bf572716069a3c734dbb12c29deaf109a2b68db3703e",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "2f4a0e3e8bab6089575c94456b6dc7dbd25cedf80ee27a4770c0b332ef14b37e",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049c750"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49f710",
+          "family": "animal",
+          "name": "restore_actor_update_scorpion",
+          "native_bytes": 3390,
+          "native_instructions": 866,
+          "native_evidence_id": "ev_8a884827d8e3b9e45dc914dce848adb2e60278421df7bc0ce410ea78ad981368",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "df8960f0908ca31664b9055493d55eec0bb76d5ac938858328d0ba9b62670fd6",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049f710"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4a04d0",
+          "family": "animal",
+          "name": "restore_actor_update_lion",
+          "native_bytes": 3030,
+          "native_instructions": 777,
+          "native_evidence_id": "ev_e9f88a5162a465836a07652dcc8dcb2f74119eff4639e67c6fdef13a3ea607a8",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "b51b2bd25612a4abcb2a3c82f701957963149501d1ddfa7573f3dec6118ca72c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004a04d0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4a1130",
+          "family": "animal",
+          "name": "restore_actor_update_asp",
+          "native_bytes": 3393,
+          "native_instructions": 867,
+          "native_evidence_id": "ev_7fd3c86db420f3d3cd1e825d76d005aad595350eff139da69da7678899b908cf",
+          "native_capture_file": "metadata/actor-animal-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "cd5f60449035621d7bfcc63de39e3a03632bf4c5cfe05e07d96b2168daa64afd",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004a1130"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x494f70",
+          "family": "service",
+          "name": "restore_actor_update_docker",
+          "native_bytes": 2224,
+          "native_instructions": 567,
+          "native_evidence_id": "ev_bd2ac88f2f33dceeb455d8fb7417535e14530b7be66b32139edcd30ff160a464",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "ccec488074fd28e887c06bd543b5b4d25f8676636a8752716cbc51d55f48f879",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00494f70"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x497010",
+          "family": "service",
+          "name": "restore_actor_update_barbarian",
+          "native_bytes": 1080,
+          "native_instructions": 278,
+          "native_evidence_id": "ev_cc6ce92f6ea6dbe8ce9af61deffa51c005050118f48850311527222e82068872",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "0b077ec20c73c54120158a9ae6a5b2d2800153c1e5e37af5f07d92087872890c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00497010"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x497450",
+          "family": "service",
+          "name": "restore_actor_update_sentry",
+          "native_bytes": 1502,
+          "native_instructions": 383,
+          "native_evidence_id": "ev_3e016fcb29b1497ed86366d5d131be489739bcf3ce815946924dbaf7e5daedb6",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "c0fd514e7b25bcf1a828e07c8495e7382954ca12a8daf87098806e01507573d3",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00497450"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49a150",
+          "family": "service",
+          "name": "restore_actor_update_native_trader",
+          "native_bytes": 1100,
+          "native_instructions": 276,
+          "native_evidence_id": "ev_caec8d1b70189c4e9f8136364b82ca5b7169016aba0932d32ec0414712619c10",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "c3f21e9b57764d0cb117ad59de6d64f44ac62125425e8ac061d4c5d8196c9cac",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049a150"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49a5a0",
+          "family": "service",
+          "name": "restore_actor_update_arrow",
+          "native_bytes": 721,
+          "native_instructions": 208,
+          "native_evidence_id": "ev_6c75e5251ce7d4ee33ab41cfc676a597badb84c3dfe6d668104ffe8a051917c9",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "2e4c7f22f8ed421b15a03b8c1cf4ccd0c5d233759ee8b28d8e72ff4b51aa6b5c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049a5a0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49a880",
+          "family": "service",
+          "name": "restore_actor_update_javelin",
+          "native_bytes": 893,
+          "native_instructions": 238,
+          "native_evidence_id": "ev_9f62a64f90367b6f4937e6363020677c6dcf9c842afb254349b311e3a47932ab",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "c28dfc0591d23ef524cab219a6f6725ca4bfd0d6b77a12ed8716012845cc90ff",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049a880"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49ac00",
+          "family": "service",
+          "name": "restore_actor_update_bolt",
+          "native_bytes": 686,
+          "native_instructions": 201,
+          "native_evidence_id": "ev_7cc5ba494dd36484e7a9a60a0ecb7d7a6d857c06d1e3efb40efa6231e28790fb",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "96ade21dd2217009755b5fa9fa93bb21f16299f02d97401c4d1a45dcfd34d13e",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049ac00"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49aeb0",
+          "family": "service",
+          "name": "restore_actor_update_ballista",
+          "native_bytes": 969,
+          "native_instructions": 247,
+          "native_evidence_id": "ev_217cc28461352c2ff37951ddec28d1c44662985ec3f1bc89f643f02946567d04",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "9e558a12a64b9e8c7d7530a1b40e944e495164cf69f7279ddfc125c092900249",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049aeb0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49b280",
+          "family": "service",
+          "name": "restore_actor_update_creature",
+          "native_bytes": 27,
+          "native_instructions": 7,
+          "native_evidence_id": "ev_f289e1f472fe97853dc3beaa06fc69018762fbfc8c5e6390a8b3df423c5dad81",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "e5058833b109a0864ce56c655b02ae40cc197f1cccb69e1a699ca7335f5426b3",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049b280"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49b2a0",
+          "family": "service",
+          "name": "restore_actor_update_missionary",
+          "native_bytes": 240,
+          "native_instructions": 63,
+          "native_evidence_id": "ev_7e738766aee92e2bf5dea185a7da8d4d5846d72ad0b0522b75783fe6a09d5875",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "fff0432b3f6488eb5767c5054a3a923a598e2dd957c391bdd8b80ecd1e8a4d14",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049b2a0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x49b610",
+          "family": "service",
+          "name": "restore_actor_update_shipwreck",
+          "native_bytes": 307,
+          "native_instructions": 72,
+          "native_evidence_id": "ev_0dbee6ae0b4dd7dcf1e830348575192b681770324060059d6eb1842652964d2e",
+          "native_capture_file": "metadata/actor-service-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "f57fbc8fe70aa645fa91b2b735699e6bd8b7feba5caa8b5990b168ced7c2fab7",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_0049b610"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x493610",
+          "family": "combat",
+          "name": "restore_actor_update_service_state",
+          "native_bytes": 398,
+          "native_instructions": 117,
+          "native_evidence_id": "ev_9567d9ef93739435c4866626ef7567e4eaa251c3f3f162983dd0bf549c72d4ab",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "2c644d7601a19617a4aea2e04d84ef410fd213c903d5e18e0e2416605c38fe43",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00493610"
+            },
+            {
+              "path": "restore/src/unit_01320.c",
+              "file_sha256": "dd0d6fb460065e8342d9ccd64f47572e26d136de831e0838d503a5d7b91a4f82",
+              "body_sha256": "5840f71fc29fa4aed497a7271fab21d3fda17333b8b5f47395f74fbf6969af19",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00493610"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "preexisting-typed-ordinary-algorithm-requiring-cache-phase-refinement",
+          "direct_reuse_qualified": false,
+          "reuse_refinement_candidate": true,
+          "previous_ordinary_algorithm_exists": true,
+          "reason": "Complete existing state1/2/4/5/default algorithm uses correct explicit volatile BYTE/WORD/DWORD accesses and388/264 strides. It is not a blank frame/decompiler body. However state is loaded after speed/home, unlike native, and targetX is loaded after state2 publication, unlike the native cached pre-store value. Query argument load order is also not explicit in the old C expression.",
+          "native_observations": [
+            {
+              "site": "0x493634",
+              "instruction": "00493634 mov      dl, byte ptr [eax + 0xbcd630]"
+            },
+            {
+              "site": "0x49363d",
+              "instruction": "0049363d mov      edi, dword ptr [esi*8 + 0x7090ec]"
+            },
+            {
+              "site": "0x493644",
+              "instruction": "00493644 movsx    esi, word ptr [eax + 0xbcd652]"
+            },
+            {
+              "site": "0x4936ed",
+              "instruction": "004936ed mov      dx, word ptr [0xd3b4e4]"
+            },
+            {
+              "site": "0x4936fd",
+              "instruction": "004936fd mov      byte ptr [eax + 0xbcd630], 2"
+            }
+          ],
+          "source_header": {
+            "path": "restore/include/actor_callbacks_small.h",
+            "sha256": "eb27eda565e7a60d6403d9ba8d30c0134272972a6217bea537f94eccafff23a3"
+          },
+          "recommendation": "Treat as reuse of an existing ordinary algorithm plus explicit native cache/read/store-phase corrections, not as an independently absent algorithm. Keep current reconstructed behavior; this read-only report does not request reverting native-order fixes.",
+          "prior_packet_disclosed": true,
+          "prior_packet_handoff": "build/actor-animal-following/next493610/HANDOFF.md"
+        },
+        {
+          "entry": "0x497dc0",
+          "family": "combat",
+          "name": "restore_actor_update_enemy_kind43",
+          "native_bytes": 500,
+          "native_instructions": 157,
+          "native_evidence_id": "ev_9817de3e894b5a589ad1a4d4ac37bf14f37e8adab8bc96a759bed174cee33136",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "bb80fe9d36a51c42d06e33e666dc7b6fffd64cbb282f30af44ad3374eb0cd1a0",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00497dc0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x497fc0",
+          "family": "combat",
+          "name": "restore_actor_update_enemy_kind44",
+          "native_bytes": 407,
+          "native_instructions": 122,
+          "native_evidence_id": "ev_b810c59b2ab831341d7e76a588901720960b0491bd6598cd629a21fea06a0d79",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "e811ea388385ac0b7f0445bdb1cda09a2f6d0878a31c467bc934744ef0626596",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00497fc0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498370",
+          "family": "combat",
+          "name": "restore_actor_update_enemy_kind46",
+          "native_bytes": 301,
+          "native_instructions": 87,
+          "native_evidence_id": "ev_1e7fd5c6b46f33972d625ae6491e84d366f8673392775937f1b7bdb5319fafde",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "c173fdb01e3849cfee5399fdd0423054e864860daffdc43b0337c97175ec7d0c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498370"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4984a0",
+          "family": "combat",
+          "name": "restore_actor_update_enemy_kind47",
+          "native_bytes": 229,
+          "native_instructions": 64,
+          "native_evidence_id": "ev_f2ff5bb130d26908c689568ddf38fd67e55112291bd52ecbfe54ddca7a6fbebe",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "766bcd044e670c0084f81d080fffd2508834a3e8a826e0a312e5b733a5ca3d19",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004984a0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498590",
+          "family": "combat",
+          "name": "restore_actor_update_enemy_kind48",
+          "native_bytes": 280,
+          "native_instructions": 80,
+          "native_evidence_id": "ev_4e8793e8a568daae83789894206d560a5d3aaf4c67dcc032bb6420c476032b0d",
+          "native_capture_file": "metadata/actor-combat-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "9726a4f5156f9c687a832b2a9f89fc3192d81d3aacc67d04bc06571f62319f4c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498590"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498c60",
+          "family": "army",
+          "name": "restore_actor_update_egyptian_archers",
+          "native_bytes": 392,
+          "native_instructions": 114,
+          "native_evidence_id": "ev_fbb79789291be85c0a784c3594255c9dade0ef90a3af165101bf6b681c3238e0",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "93537ced7e1782ff50202064f9e39330c457722a8a4cca2171a0479800603fe7",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498c60"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x499010",
+          "family": "army",
+          "name": "restore_actor_update_enemy_kind57",
+          "native_bytes": 399,
+          "native_instructions": 118,
+          "native_evidence_id": "ev_bc94e85cf12c7a8659f07a59a297170ee31de908103f86695306ec766fc26678",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "e331e278b07aaeb35a5ceeac3c1d56276b3888a1696bc61125bd98bc1c0bb61c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00499010"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4991a0",
+          "family": "army",
+          "name": "restore_actor_update_enemy_group",
+          "native_bytes": 1859,
+          "native_instructions": 523,
+          "native_evidence_id": "ev_d8d2b73472249de02a43cc3ba83f7b9ae9f8d60484c2375f173936d814b9d456",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "3c70222685a85a0a807ab17251001cb9db423b7e74b6b875658c84a4d69c4053",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004991a0"
+            },
+            {
+              "path": "restore/src/unit_01347.c",
+              "file_sha256": "c16b8d42434ec72406f23f315c9fa39a5beda94993667c9993669875a658665b",
+              "body_sha256": "f03d2ef147ebf2ee552d921f11cf6eb9ce617434006436a65850dd18525c1d01",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true,
+              "main_source_path_literal_present": false,
+              "existing_function_name": "FUN_004991a0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "inactive-generated-body-with-concrete-width-and-stride-errors",
+          "direct_reuse_qualified": false,
+          "reason": "Native activeID and cohort are full DWORD; old macros read unsigned BYTE. Native actor fieldBCD66A is BYTE at actor*388, while DWORD-macro indexing iVar7 addresses actor*1552 and writes DWORD. Group/target typed offsets also scale incorrectly.",
+          "native_observations": [
+            {
+              "site": "0x4991a5",
+              "instruction": "004991a5 mov      edi, dword ptr [0xd056f8]"
+            },
+            {
+              "site": "0x4991d5",
+              "instruction": "004991d5 mov      ecx, dword ptr [0xeaac28]"
+            },
+            {
+              "site": "0x4991cc",
+              "instruction": "004991cc mov      byte ptr [eax + 0xbcd66a], 2"
+            }
+          ]
+        },
+        {
+          "entry": "0x4986b0",
+          "family": "army",
+          "name": "restore_actor_update_barbarian_kind49",
+          "native_bytes": 147,
+          "native_instructions": 36,
+          "native_evidence_id": "ev_ce5b979ad990ba62b3e9c2103bfb1505aedb68324f7fb02b58eeb314224042e7",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "37b0a7d89d5a4af774188e63cdd63f364c9bba53e9230e286941c688508c5cd5",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004986b0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498750",
+          "family": "army",
+          "name": "restore_actor_update_barbarian_kind50",
+          "native_bytes": 147,
+          "native_instructions": 36,
+          "native_evidence_id": "ev_8e33b603f21737cbeef37a372b14a2d3a47d11718492d00b83f3fd1e90fb7bbb",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "595d4f63abbdcc96a3fb939ef8d1f36723d7810e874e5972ca4ed0458bb8a8ac",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498750"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4987f0",
+          "family": "army",
+          "name": "restore_actor_update_barbarian_kind51",
+          "native_bytes": 183,
+          "native_instructions": 46,
+          "native_evidence_id": "ev_c9cd5ad4ac96e012de8a48382091d8b7605d140f4ff5488067ca434153f9d6c6",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "8210a59ae3f0c3c535d9480d7ced529b583fcd59be1224ff68fc0a9aeb7d7c04",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004987f0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x4988b0",
+          "family": "army",
+          "name": "restore_actor_update_barbarian_kind52",
+          "native_bytes": 340,
+          "native_instructions": 98,
+          "native_evidence_id": "ev_2793c610a05c85c90ad9123572ab4f5be98c8f74c3fd115b61657490533d1e11",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "ae0b729d1ebcf094954c9777610188c70698a860a86e991a06f40edaa6b5deb2",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_004988b0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498a10",
+          "family": "army",
+          "name": "restore_actor_update_enemy_kind53",
+          "native_bytes": 184,
+          "native_instructions": 45,
+          "native_evidence_id": "ev_d9480011be2362078b1a6162fabe8b686b20106a806371803a7afca74c00dc34",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "22d39cbbdd177197c3b5a4805d04d914e0c1d5c3d92d44ea56b904535f45a4ff",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498a10"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        },
+        {
+          "entry": "0x498ad0",
+          "family": "army",
+          "name": "restore_actor_update_egyptian_infantry",
+          "native_bytes": 386,
+          "native_instructions": 116,
+          "native_evidence_id": "ev_5f6ae74e9c557d20bb0d6b8b6e3653883b2b744db3f6865c94d51de9860b0602",
+          "native_capture_file": "metadata/actor-army-translation-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "849ff178cec71ee90c83cfe3a880f823d0e3d3833b019ae90e0ff3cce525321f",
+              "body_sha256": "ed3b2e35b4968f90fe1a9d8e72a7f568ec7f3c9681e14c6f0d2de7a6967be40f",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null,
+              "main_source_path_literal_present": true,
+              "existing_function_name": "FUN_00498ad0"
+            }
+          ],
+          "baseline_same_named_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "direct_reuse_qualified": false,
+          "reason": "Baseline canonical is invoke/frame. No alternate FUN address or proposed named ordinary src/runtime definition was found, including inactive files."
+        }
+      ],
+      "limitations": [
+        "This is source/byte static evidence. Neither old bodies nor new candidates have been behaviorally qualified by this review.",
+        "Existing ordinary source provenance is independent of whether a provider was linked into main. Two prior packets already disclosed these adaptations; this review independently confirms their pre-checkpoint existence.",
+        "The native renderer49BD40 does include multiple normalization steps. Only volatile read/store phase differences, not a false claim of different final normalization formula, are used against unchanged reuse.",
+        "Arbitrarily renamed semantic equivalence was not exhaustively disproved. Exact address and proposed names were searched across all baseline runtime/src C."
+      ]
+    },
+    {
+      "packet": "cohort100-provider-recheck",
+      "report_sha256": "73f1ce81006593f0df1d02c6c0aa4b1fd95815ba1a20425592d0ed595294ff72",
+      "manifest_sha256": "3c6958cddbee9396517577fdcd7384c28bda90577a23dddc28cb109503d22d8e",
+      "baseline": "f108a8e1a5c84b08b3512b2d7ccbcc1e10d3965d",
+      "entry_count": 31,
+      "entries": [
+        {
+          "address": "0x4998f0",
+          "new_name": "restore_actor_find_soldier_target",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "c2ba99765e67211dab94538addf451dd62f930ee5c4c78c73d57e14fe82939dc",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "490d7f4e59b9b253bd3fce8de2210ce429f913b7cbfa67d0e912cd553ba9b773",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01348.c",
+              "whole_file_sha256": "bf6f2617a123d8d560e14bcd9575fff45940138ee45e1d6d183a1a4cceb44ea1",
+              "body_sha256": "c6f2894ab8f7555a71524c86f493922b69f0f8dc6c33cda6fabc4ae717883171",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x494800",
+          "new_name": "restore_actor_update_map_flag",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "35d10892512c79ed4edcbf425f848f53851f801c2191b937a685341fc1413371",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "2c46bc61955a3290ccce9d8771fc6cfd59935c875f5c8ae1ae7960ea9135084d",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x494b30",
+          "new_name": "restore_actor_update_flotsam",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "c9a713ebb7400971309ab2b3d3fd29ea14ea672466e83a995ed27f03c767e0d9",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "0b7a25d7cd01c7a6dce6ff52647c7098fe8e897761afac9b764deb0c1e272fd6",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x499e50",
+          "new_name": "restore_actor_find_priority_target",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "cece77cb3f3764fb6fc57e69d5b71277d676c11f77bc1a2f5dcc406793e95b7e",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "fd3902f2a9cb0c0dfcc2d4151112f70e87b963e631d26f13107d4069802c47f0",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01351.c",
+              "whole_file_sha256": "d0aa572182c4b6f7844fbd2b9dee774eac0b0f98776b233bce3bdba9f3e4fde4",
+              "body_sha256": "8bafafbf0a19d22a2b85bd8b265392291c919cabff5707c7569bfc20d0261d4f",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4941b0",
+          "new_name": "restore_actor_update_schoolchild",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "8729a5239b994bae7126f4ce46956e2606fcfec2490db1d3a770eac10cc92f54",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "3b2806f55896f9e652767117eec6eec984d6ab6896ad35582aa23c8531f3571d",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x494200",
+          "new_name": "restore_actor_update_teacher",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "8fe2309f9d0581a9d3340620630745522fab2e42ce8279eafd58dfcd6ca78fe2",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "aa4332248b570354b1ab67dce047ebeeb070385775bd73cd8732c8a49df760d0",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4942f0",
+          "new_name": "restore_actor_update_librarian",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "d25d4b9cc92664fd1db3c7c71de46c9c49ab0d2ff73f1d85f336236bc580a8a2",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "d3717847ee96d1c85498082209f2e5258823a649674118234105c61236b9d3f9",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4943e0",
+          "new_name": "restore_actor_update_dentist",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "c49e33b1d3960d3174cd395bb178bacdbd452924293477e7b31ffc8f691cc891",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "73557155209de4017fccc4808ee7eb14d397b9e1058db173169be442517ac696",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4944d0",
+          "new_name": "restore_actor_update_physician",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "7a919a7a4a38eb7b36828fcee723accc2cd5341e623ac9e604f39f317a14b7d3",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "e656f0ae514629bb639ab6c0999d92cafa3b395e25e59c3d704699477c81cf9a",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4945c0",
+          "new_name": "restore_actor_update_herbalist",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "e0db84f947276c689f6959eb8ba0b45798bf8495bb9e3d1ee92210f17f350872",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "8f0243a2ef7424529a5a1270c86336faee8606933300c50fd1fed08b0ec0f425",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4946b0",
+          "new_name": "restore_actor_update_embalmer",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "180d5be1da44c43dcf88cc775a7ee0b1dfc872f60377ad54f3d1e9af551330a1",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "ff9d50e4922fea7b869821b121fe2dc3af6e741128e3c819f3f5db2033d2bfe6",
+            "classification": "active-shared-instruction-frame-model",
+            "shared": true
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4947a0",
+          "new_name": "restore_actor_update_worker",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "176d33e26baaa2a6a9438b644c69a6e1fc3528233628fbe05019157e2431497c",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "513b282bf1b85a3c13cdaabe38f55bbd211323a1411f25b26f88961360d637b3",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": []
+        },
+        {
+          "address": "0x4b4420",
+          "new_name": "restore_actor_test_projectile_path",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "ef5852007f3110c420a1ab0440ed77c94ca9e8c492a3d818696cbb344be9b5f6",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "55c5109f0b8d57f2519413ff82e59d4554947d4f65ed8bac6c8de4bb11c4b241",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01441.c",
+              "whole_file_sha256": "099054002903a7e1889747037549487b5f369d9877e6cd6eb8da4a3b0dd389de",
+              "body_sha256": "a89b6708b3ebdfeececb1465cf67c2ea9c9ff606b085ffd10ca5381166c9c7b6",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4b45c0",
+          "new_name": "restore_actor_create_projectile",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "ccfc779e20efac690fc64e4bc2234c7deb30edc6b1e1dd943684100e61eb3dfc",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "9e3f2351e69f11b2bb58bf82232bc9a187c2e5470a71301b65f3b5c327d04632",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01442.c",
+              "whole_file_sha256": "db02093d84e2b61af3d42802dc11096839cd12c8129592583b8aa03282f46015",
+              "body_sha256": "5f2f631b7356940c26549675cec242559c629620c81c91a1408382e47f95af3f",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4b53b0",
+          "new_name": "restore_actor_refresh_grid_ordinal",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "283506340310a7143b85cf71952109ad6b45e2e76afcec90d3d43cd0f0a15a7c",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "7941e2d34fd6c12ddbe8af28f0fe04b971a0d3d7dcebdbe489e2fb8b09ddaedc",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01452.c",
+              "whole_file_sha256": "7239ce7fe1755ed2c1546a5b7bc5e68947aeebaf40f7edfedbd71fbce3c02ff3",
+              "body_sha256": "fa58427e71875c4e61891d80892421144be54cd36330b97dab23280abb4bf8bc",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4b56d0",
+          "new_name": "restore_actor_find_combat_target_on_tile",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "1bc112a4dd30d8d1752f7fe33d629ee31586642ea7de6a2aeb5ecbb2103fb6f3",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "5deffb1e6b3aff8a3da839a70fdb469e251f78efae905085967e0e6ee42daa8d",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01460.c",
+              "whole_file_sha256": "6f59d8613eab90402aba1679c684a0788a69d6c98da479a98270af708245005f",
+              "body_sha256": "e4f353682f79b95aad975c7fab7c550d5ee3cc53e9e420839439245486236ae9",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "inactive-ordinary-reuse-refinement-candidate",
+              "quality": "Complete corresponding query logic/address widths. State is read again forkind41 rather than explicitly caching native BL; volatile/cache refinement and source mapping still required before exact protocol claim."
+            }
+          ]
+        },
+        {
+          "address": "0x4b5770",
+          "new_name": "restore_actor_find_projectile_victim_on_tile",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "20f899087bbf485f459c7014a79303513a0eeedb7492c1286a8645a5e16919e9",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "bd520ed80d3883ebdde31459b188c3c2d60093305c45045296513cd14dbe7210",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01461.c",
+              "whole_file_sha256": "7b7983b74ed7f4566fa41880263b78fc59aac581f9e6ed15089613b107345a14",
+              "body_sha256": "4e89786fd8ced066f1bead240a377d7c363162bef0dd80894a041f8f2ff7f810",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "inactive-ordinary-typed-query-static-reviewed",
+              "quality": "Typed query is complete and matches native address widths, predicates, signed link traversal and full ID/0 result. No external calls or stores. Nonvolatile source is not a dynamic read-mutation proof."
+            }
+          ]
+        },
+        {
+          "address": "0x4b1700",
+          "new_name": "restore_actor_scan_neighbor_contacts",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "e836dc6a2d4aa2ebecfb0ab8607663200220512eb6be6efd6456ee27950f81a8",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "7fe90e218493f06cb29a455599ce228700fceaa6232f84ae2a720dc58da98650",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01413.c",
+              "whole_file_sha256": "f11bb92ec9cd657fb24a049e3fb8284fade375d8fe5fd2d5e52bf04379136b38",
+              "body_sha256": "89785e030138fe1149455d63ed27e2bb53aee5f501a891d37596560ad7330389",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4b1210",
+          "new_name": "restore_actor_process_contact_chain",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "cad67f942edb33116ac6bbb889f62deeceb7942d8e4bea6d10ea6f5c45dba502",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "93a7037fb48116fc907f6f8b401f6631d21656cdf64b89f882cde9e8bfbad987",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01412.c",
+              "whole_file_sha256": "320c49ca7f5f70672788d7259814edd1f6ca67ab61a6bc87af58280fd7a42e82",
+              "body_sha256": "e6795498f1cb779eeddd1d4b17737f235be06354815da6ba15fdffb07a056caf",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4bc4a0",
+          "new_name": "restore_actor_apply_contact_damage",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "e6d0287260da62624daa5170f2a50ae760046c1ec837738d45cafba09aee8fb5",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "6e258713dc52deeebd79f7b7205315b89049d4ec728a90b1a1a943d4be950148",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01525.c",
+              "whole_file_sha256": "ac8d595c3c83a35ac8f5180e85b6579db1118c1bf0a40dcb64e7845021ba0eec",
+              "body_sha256": "daeeb3663ef7ef53d09af477b822931b1f9cd4df828cb5a27b10a6ac8312d042",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4b7ab0",
+          "new_name": "restore_formation_apply_loss_penalty",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "aac986c150839ee6f7277fa8a94d644b4d09e796148b18a58c0bda818d8f101f",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "3f3b963aa91e6d1478ea8e3cdc358a9e5246c3dbd8826105cda12c1297948c82",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01486.c",
+              "whole_file_sha256": "f05fda68a6d6700ab8b938fa1199fc82649711e46d9380eb0e84ba8331b96d4e",
+              "body_sha256": "f1966d8fc28a0cd4078f0314e28027667058b2c90db94caed2e09983c0c88ac1",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x444b80",
+          "new_name": "restore_trader_record_city_import",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "7329b8ec543e2083f17fe0a28a30b219798aa23adf894d3be53ff3b28337beb8",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "d3237a8a5cbc38f7ba05dfe149ca5c5775263c74976c519f16e9f7e321c06de3",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00647.c",
+              "whole_file_sha256": "21363d8ab377b9250db27ffa7e2f5e69807c2efa429ecb0cb4f143cfa3c28e03",
+              "body_sha256": "336e4e9f8b74420a2e52165bbe04c70e51e1f871bad9092e4cab35fb7c5c5117",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x444bd0",
+          "new_name": "restore_trader_record_city_export",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "783892de7fb11b5f6ec2271816f95947ca04756c51c5325f936f221aa5315f81",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "6952b648512893f7c028a336312691977cd966205af3bf8ea6857516bea41e7e",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00648.c",
+              "whole_file_sha256": "4e345f447f3e748cb33d88b8d8b6b5be3db5e166497acee8da3890fda44452b1",
+              "body_sha256": "e4d5a57aa2c0c01a8b0158a20ae392a3c5eba17f73579001d6cf2fb17d948fdf",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4454d0",
+          "new_name": "restore_storage_import_batch_limit",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "ccdf1e4d5c9617437d4987d53ebbbec1663473c4ffce642df920297430869b31",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "7d5e4d89bf09246eb8e3c3c51aa2f8d3c5ac398effcebcad8bc75ba40a19013a",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00652.c",
+              "whole_file_sha256": "c8775f14ce3a28977f76ddf05a6448ef2fd07602b120ad83203f2485591e0be5",
+              "body_sha256": "d4382811914c162c2b064da16345a4df2b79fab25695242c22328bdb75982af1",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x445980",
+          "new_name": "restore_dock_import_resource",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "72bee22ebb9bed3e79433f769e1254491708d15ad3cb2bb7770b0451357b6341",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "046bd77afc4e263b5364deb16bbf93c5c3986be3c20b3638d747fa6075655659",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00654.c",
+              "whole_file_sha256": "9403da27bc5121abfd98f734ff8a3dc9250eb0d323dc59755bc0634eb9003316",
+              "body_sha256": "e0bf55511952b43504b0f59a0dd83638432346cbd8d451eaaa0b893beeed6be0",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x445e50",
+          "new_name": "restore_dock_export_resource",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "6ef67d81743c43dee0856dbe802c55a5d67924227de3fd86d7ac93e0f8977797",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "373f68e41d10dcbc09e71e5b73020e5a0c1e3b9056ad005fa7965cb0c64ccd54",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00657.c",
+              "whole_file_sha256": "ae398822bf2832282245debf0863a1eb0926c61595b8cd8682e2afe7f3f873f3",
+              "body_sha256": "ce9fc5364cea186f9cddff9844e39f6068f50cb7be4d0d93e7617352919bc0f8",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x445670",
+          "new_name": "restore_dock_find_import_storage",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "eeef768ca1bbb46a1b8ad376ad0b1720b532f226f90d499281eb539939a601a1",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "c989ce818806f765e5d4e88891c02aaff1943aac4537ad3e77aba377c86b4e8f",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00653.c",
+              "whole_file_sha256": "594ac9809302b9e57c002e46aa67ce373a4344e5a75943a42e8a3e8174be10ae",
+              "body_sha256": "2488d7f13becf0576e61f42ea2ea8175f460439175c26d605de4382cf34a055a",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x445ac0",
+          "new_name": "restore_dock_find_export_storage",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "7cacedf71f4b10afb944a416d14bed457b2aa1b9ee412c6a1d4817a9eaf5e310",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "0be24b946142783fc7d5adbe4c9b35ef32b4452709bf88289d11e413c6bab968",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00655.c",
+              "whole_file_sha256": "c4aac197967ab52a1128cfed9882e0f03278c001ed87fe7ae3d59daf955693a3",
+              "body_sha256": "1c3174714c7aa223fc7edf421b10c09d7d667afbb6525fb3592403b439cf885f",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x4450c0",
+          "new_name": "restore_trader_find_storage",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "8676c46422ac943b0b52a2f08406a818619babb760bbd08eaa113bd3fbde74d4",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "75138f09536699b0eb0858cd46c5976f292f1fef0edead38ac2d3ff44eaaf848",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_00650.c",
+              "whole_file_sha256": "d8fd4e68b81284b63e9037011074b40ad057a2ff0e45524654cdbf9fcc79fc62",
+              "body_sha256": "0d53c8123b343aa2a0f71f56091e3ae24d9e4ea132793947b41ede1d866e3c37",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x495840",
+          "new_name": "restore_docker_find_import_destination",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "c262a167ff92751b62ee2e0cae9630deeb21b40d3530ec10b9618cae84019295",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "bb5a2417cf02484d0335877c312cea9bbc680a2c834e4311c7955052ac68bb7d",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01321.c",
+              "whole_file_sha256": "c1b6642c0c4d0c0ed1aa2db3c696cde1de5841b4ad2cccafae42b3349331e655",
+              "body_sha256": "93fa4ee64ebf69ea999a86b1e63723e0b538d3d91910e6df1fd6fde1b97048f1",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        },
+        {
+          "address": "0x495950",
+          "new_name": "restore_docker_find_export_destination",
+          "baseline_canonical": {
+            "path": "restore/runtime/actor_civic.c",
+            "sha256": "1a793af52ba948ba2b0a1e8969d4c7a700f73ba350e923b15ddb0f9dae4f8759",
+            "classification": "active-invoke-facade-to-frame-model"
+          },
+          "baseline_model": {
+            "path": "restore/runtime/actor_civic_model.c",
+            "sha256": "ef604d582950191684fcf1ea3851986d189dcbf36c8b09bb68c7b1ace2f7a135",
+            "classification": "active-instruction-frame-model",
+            "shared": false
+          },
+          "same_named_ordinary_definition_before": [],
+          "legacy_definitions": [
+            {
+              "path": "restore/src/unit_01322.c",
+              "whole_file_sha256": "3bf7749187c7ec4206006eb3bd10646de006031186b18b898d08fc5ba3cd55ac",
+              "body_sha256": "03ee10a527eec876ccc564dbaedab84eeacc7af2630ac484033a150de127162d",
+              "listed_by_units_cmake": true,
+              "removed_by_cmake": true,
+              "active_in_main_source_set": false,
+              "classification": "legacy-decompiler-not-confirmed-quality",
+              "quality": "Generated DAT macros/casts are not a proof of native widths or pointer strides; concrete scale/width counterexamples recorded in REVIEW.md. Not accepted as a confirmed duplicate."
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "No native runtime or compiled binary equivalence was rerun. Static review of two childless queries is narrower than a whole-application gameplay/alias proof.",
+        "Old decompiler-style origin alone does not establish either correctness or incorrectness; the two candidates have explicit correct byte addresses unlike the other counterexamples.",
+        "The existing metadata map-symbol absence cannot establish provider ownership; this independent audit uses baseline source inclusion and definitions instead."
+      ]
+    },
+    {
+      "packet": "cohort100-later-provider-recheck",
+      "report_sha256": "cef68a4bcb688cc3b62fe8fc27e50cd0950254b4f34d2297d2c9d0655d508348",
+      "manifest_sha256": "bd68963a261559cbe24bde01deccbdf133d651f1a01975debab735bbca6d13e6",
+      "baseline": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "entry_count": 33,
+      "entries": [
+        {
+          "entry": "0x497a30",
+          "block": "cohort100-sentry",
+          "native_bytes": 339,
+          "decoded_instructions": 117,
+          "proposed_name": "restore_actor_find_sentry_patrol_destination",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_cfc09cd58b0cbb76207258952f7eac9816f7b6a48063695de7208f78b7c0c4c6",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "081b08d40f665ccc91cfbd44b5f55786f6236f59268e1aae6d1905d29272a506",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01344.c",
+              "file_sha256": "ac5281b30ece038712b5b8908d144d35f6ef62ccf67aae7ce194966e0a6bc6b8",
+              "body_sha256": "6ed3b476ea38b18c145d0f6432d33950a5bfbf1cf91a36d6370f0e3c180f3d80",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x497a97",
+            "instruction": "00497a97 mov      eax, dword ptr [0xbca2d0]"
+          },
+          "source_expression": "DAT_00bca2d0",
+          "source_problem": "DAT_00bca2d0 is unsigned BYTE, while native reads signed/full DWORD dimensions. Its home and building coordinate typed-array expressions additionally double/quadruple the native offsets.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x497cf0",
+          "block": "cohort100-sentry",
+          "native_bytes": 198,
+          "decoded_instructions": 68,
+          "proposed_name": "restore_actor_try_sentry_attack",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_c125b421c72e92a3e8baa963056f06ed4872d3150ae31f3af5d18e8f7e60694f",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "8bce1e726c53b2bd433d139e14e479fa40a9ba13bc5654765648db73a67ea143",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01346.c",
+              "file_sha256": "07e111f62e98f5e49f66733ab1180feac4ba766807eddac35d96ea0f947860cf",
+              "body_sha256": "2dd3ccd8ddcb9c21dfac4b8d348b3e5fda9b27018570d790484cdf74e13d3db2",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x497cf0",
+            "instruction": "00497cf0 mov      eax, dword ptr [0xd0563c]"
+          },
+          "source_expression": "DAT_00d0563c",
+          "source_problem": "The initial signed/full DWORD gate is declared BYTE; state/cooldown DWORD-macro arrays also use four times the native actor byte stride.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4807d0",
+          "block": "cohort100-sentry",
+          "native_bytes": 143,
+          "decoded_instructions": 53,
+          "proposed_name": "restore_actor_find_permitted_neighbor",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_ab047ca4eb494880badb2f4b36654624be26e4adb30b55037f2b6eeecae80715",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "9514a78a4d12d5c84e156e32b80b7bcf9c6d40fe3eeaed9f8f8d8d0336e9bef1",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01179.c",
+              "file_sha256": "9ba199d290901652b3cdf2b04e0e58b7b6b9b1829f1e154307abe6599d74a0ff",
+              "body_sha256": "b4f0214d6348283633e8528d63e38931cf74c2a8adc03a4759a62c93e18a56e5",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4807fc",
+            "instruction": "004807fc add      ecx, 0x5cc9e0"
+          },
+          "source_expression": "&DAT_005cc9e0 + param_3 * 0x60",
+          "source_problem": "Native forms offset row*96 bytes (LEA3row,SHL5). Source adds row*96 DWORD elements, i.e. row*384 bytes. Its BYTE gridbase and output-table scaled pointer additions also differ.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4b28a0",
+          "block": "cohort100-sentry",
+          "native_bytes": 76,
+          "decoded_instructions": 32,
+          "proposed_name": "restore_actor_advance_movement_phase",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_01c695e125e95d6226df4d7ec58062120be4f281986d0b1b2856791889328ace",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "3a66fa8b38308e61eb52451b0a6616cb55740a10433de86e4850bfa16d6f7a89",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01424.c",
+              "file_sha256": "32cc42487e6b687e08f5c88939ebc398d4993c9c7efa02a6a9ff6d66b16ce9a5",
+              "body_sha256": "3eb37cfc162d4eb8b6d70b03f0f87de1fffef22b10f59f642cf06817af33b795",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4b28bf",
+            "instruction": "004b28bf mov      cl, byte ptr [esi + 0xbcd631]"
+          },
+          "source_expression": "(&DAT_00bcd631)[iVar2]",
+          "source_problem": "Native phase is BYTE at base+actor*388. Source DWORD-macro array indexed by actor*388 addresses base+actor*1552 and stores DWORD. This is more than a volatile/cache refinement.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4999e0",
+          "block": "cohort100-sentry",
+          "native_bytes": 355,
+          "decoded_instructions": 121,
+          "proposed_name": "restore_actor_find_nearest_combat_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_6a478ed0aa50ab28efc0c4df4d806f8703dc07b3b706548c3e7cc4073a67ef28",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "0e126fa38791650397621242f6efe64e01215df053476cbfc10a85af1784e635",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01349.c",
+              "file_sha256": "379893a5bdc9a657f08d3163845bd4a55b5f62e3078f5525a78c568985c2ae9d",
+              "body_sha256": "77c2aec0267919c317d0514a202425c3a1b6897701c0e1c8bf6c9cebbb01ca27",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x499a86",
+            "instruction": "00499a86 mov      dword ptr [0xd3b4fc], edx"
+          },
+          "source_expression": "DAT_00d3b4fc",
+          "source_problem": "Native distance scratch publication is DWORD; the existing macro is BYTE. Owner group uses DWORD-array index actor*194, addressing base+actor*776 instead of signed WORD at base+actor*388; group restriction pointer also scales4.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x499b50",
+          "block": "cohort100-sentry",
+          "native_bytes": 671,
+          "decoded_instructions": 221,
+          "proposed_name": "restore_actor_find_sentry_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_7de1c6aa438ce590cea8168ef0cb05f3b85c1da9993d7508ae17ee9045d60584",
+          "native_capture_file": "build/actor-animal-following/cohort100-sentry/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "8c99a0121cbc329e975d2929b1e47626cb2fc27c00d073bb4e072357587b98ef",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01350.c",
+              "file_sha256": "a9ac248e3606f5330571a8df2b8f4271895de17640abe64792776cbdea2abd7e",
+              "body_sha256": "ff5b76396f182180ba01be7c9288072cbe4c7d628e4f77ca9a80926f135d2e43",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x499b70",
+            "instruction": "00499b70 movsx    ebp, word ptr [edx + 0xbcd60c]"
+          },
+          "source_expression": "(&DAT_00bcd60c)[param_1 * 0xc2]",
+          "source_problem": "Native originWORD is at base+actor*388. Source DWORD indexingactor*194 reaches base+actor*776 before casting low16. dx publication is also BYTE instead of DWORD.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x491a90",
+          "block": "cohort100-human-states",
+          "native_bytes": 2256,
+          "decoded_instructions": 590,
+          "proposed_name": "restore_actor_update_trade_ship",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_b9086e6a2fe5b40cf8caf72e9c8d0a8eb61c94ecaa13784afd271967b7d3b7c4",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "7ca1735e8d0f8c5be12b4f6fea6b7cdb587da65200a635146ff54a54f988072d",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x4923a0",
+          "block": "cohort100-human-states",
+          "native_bytes": 465,
+          "decoded_instructions": 131,
+          "proposed_name": "restore_actor_update_merchant_caravan",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_96d07e6d2732a1acf463de6bba0360f215566214e13d0ccad75982a7d3d7d6c5",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "62cfdf4cf096e3fb342aefc41dbc2b73d4dd25d3c64163346281d0975dbfef43",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x492580",
+          "block": "cohort100-human-states",
+          "native_bytes": 196,
+          "decoded_instructions": 47,
+          "proposed_name": "restore_actor_update_protestor",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_b2283d8c69e11604626aa146a548fecee6104439b389e37240c0d5f6f59af5fb",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "a9f83d403a3100cb732c80238010c2537702924983827899baac20b7860cf5a3",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x492650",
+          "block": "cohort100-human-states",
+          "native_bytes": 282,
+          "decoded_instructions": 91,
+          "proposed_name": "restore_actor_find_criminal_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_3ae496dc7638c493d6e91fcc7d5d9549dfd4ca3c464ea7fd08dd3e4fe1f6b05b",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "e4820a824a3fd8d26bd408811e1feb8907c8afe279df3fc09ff3faa526aca108",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01317.c",
+              "file_sha256": "597d9a4c686fdc9682c0f9d55fb89a5dab2e116ea19869df185f99f8f90970bc",
+              "body_sha256": "0b329883f8b4ca6277e9a392213b878f6cf39ec3be0a6f2097f6e17690faeb81",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x492651",
+            "instruction": "00492651 mov      eax, dword ptr [0xeaac28]"
+          },
+          "source_expression": "DAT_00eaac28",
+          "source_problem": "Native caches full DWORD cohort; legacy macro truncates to BYTE. EA187C address is formed through DWORD pointer+cohort*49D8, scaling by4 instead of native byte offset.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x492d20",
+          "block": "cohort100-human-states",
+          "native_bytes": 626,
+          "decoded_instructions": 191,
+          "proposed_name": "restore_actor_find_tomb_robbery_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_6921a63c75115e050f0d149705f4c3e6d837677624ed2dd57c89803eab909ef2",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "5ff588c087ce88e064fd667804904f0a270347db182d5ffa6e3a9d353236eba0",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01318.c",
+              "file_sha256": "822546dbc95cd8fab51ba270f9ba16f006945ec200d23d186d62216e8c6aa5c7",
+              "body_sha256": "ae4352d401b1bcc55b56c3717584c547f9c9e20b702116dcbdf65b8f22f10edb",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x492d7a",
+            "instruction": "00492d7a mov      eax, dword ptr [0x78d790]"
+          },
+          "source_expression": "DAT_0078d790",
+          "source_problem": "Native building bound is full signed DWORD; legacy bound macro is BYTE. Status/kind accesses are also based on incompatible short-pointer initialization from a DWORD macro, with element offsets rather than exact native record fields.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4937a0",
+          "block": "cohort100-human-states",
+          "native_bytes": 1774,
+          "decoded_instructions": 443,
+          "proposed_name": "restore_actor_update_fishing_boat",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_49328a8264f534d89b85d4540c7c3dc6eb7eef35c95e7c95fff9d25b51a8cdd1",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "0fca34a1c58d76193bfbd15a8062e3ae3188dde845e0eb9ae91a8874846d0ce0",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x4b22e0",
+          "block": "cohort100-human-states",
+          "native_bytes": 218,
+          "decoded_instructions": 63,
+          "proposed_name": "restore_actor_follow_chain_steps",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_51512320157b6324a64dc04c400d137f68d88ee761d4f40c0510cc6db948ead5",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-states/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "e60947592a60fc56a69c661a72429ecaf825352d5f4ac2eb5820a7d8f1a5e7d1",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01421.c",
+              "file_sha256": "dbbdfcc25cfffe02abec8d2babdb0f5b5f6b9f4c1058d05772cca2e9a902a87a",
+              "body_sha256": "7b61432e7349f2be41fa06bd91c58df4aafb4d31a0e285c5a704357b3be3e1cc",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4b2336",
+            "instruction": "004b2336 mov      byte ptr [esi + 0xbcd631], cl"
+          },
+          "source_expression": "(&DAT_00bcd631)[iVar2]",
+          "source_problem": "Native signed BYTE phase uses actor*388 bytes. Existing DWORD-array slot uses actor*388 elements: actor*1552 bytes and DWORD store. Own coordinateWORD arrays also double the native actor stride.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4b46b0",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 86,
+          "decoded_instructions": 28,
+          "proposed_name": "restore_actor_has_valid_linked_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_a09cf3a50bc6fb8483617c95983b6e511f67cbe02536665700989b4ba45a0bf7",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "08f6cf71a9e9e2826a194c745c5bb4958cad8d5ea038287223ec729c47d7ac6f",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01443.c",
+              "file_sha256": "4ece3cc6707d3dcbe1faa259825c02d046d2f129fb01d98f2b668e783983c295",
+              "body_sha256": "ad9919d0f66781265f37d343a106d12a395c84ea144bdd15389e48667b3a64d5",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4b46bf",
+            "instruction": "004b46bf movsx    edx, word ptr [eax + 0xbcd67a]"
+          },
+          "source_expression": "&DAT_00bcd67a + param_1 * 0x184",
+          "source_problem": "Native linkedIDWORD at actor*388 bytes; adding actor*388 to DWORD pointer reaches actor*1552 bytes. Status/state and serial accesses also have incorrect typed-array scaling. Cannot directly reuse this complete-looking leaf.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4b3340",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 132,
+          "decoded_instructions": 37,
+          "proposed_name": "restore_actor_next_path_direction",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_203e20bb0b8bacb7649c377ac7e1ad230f05f485149a31874d2e185598406b78",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x4bce90",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 88,
+          "decoded_instructions": 26,
+          "proposed_name": "restore_actor_target_excluded_by_assignment",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_8146d223b3ac246e72bd679ed917401799cde1bec1d4c4f45b8328a42257c763",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "92320d83ec9cc77c43f4b474bc1a9559eb54c44ad4e1e5cdaabbf3e129399ca9",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01535.c",
+              "file_sha256": "5c745dd56bc9b670d51c66c47b98e629c871e26a8320cbfd58c0c051be9c9458",
+              "body_sha256": "5765c35d3b1d9148f5386b0f6da48fc4c37e6eafd178e533cfee0d782e2c9d88",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4bcea1",
+            "instruction": "004bcea1 mov      cl, byte ptr [eax + 0xbcd602]"
+          },
+          "source_expression": "(&DAT_00bcd602)[uVar1]",
+          "source_problem": "Native kind is BYTE at actor*388. Source switches over DWORD at actor*1552. Signed group/assignment pointer offsets are likewise scaled; the partial-EAX CONCAT31 formula does not cure wrong memory inputs.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4bcf40",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 45,
+          "decoded_instructions": 14,
+          "proposed_name": "restore_actor_find_route_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_52d8ac169a11c33deeafe07e9870a48829e656fc91824fcd2e00c3d09085d33b",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "58cae50238de216d7ecb93bf66b1c38b66c54efea52138eac1d62c6d44705e7c",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01536.c",
+              "file_sha256": "ddda514d5ac00664a7a2af1b363405fb20f2a12f0601dd32e35d82632369312e",
+              "body_sha256": "2b60e68b85753d7cd15a7d1e4ed84936d0a550f013b3aa9cd64b4b047e5c694a",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4bcf5b",
+            "instruction": "004bcf5b movsx    eax, word ptr [eax + 0xbcd60c]"
+          },
+          "source_expression": "(&DAT_00bcd60c)[param_1 * 0xc2]",
+          "source_problem": "The tiny wrapper loads low16 of DWORD at actor*776, while native reads signed WORD at actor*388. Native reads Y then X explicitly; the old function argument evaluation does not encode that read order either.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4bcf70",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 644,
+          "decoded_instructions": 215,
+          "proposed_name": "restore_actor_find_weighted_route_target",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_131952851cca52cdf5203b19c8d71b2568a1ed227f3d8e1a5f6f51782199a13f",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "2b8c81d741a37aaf80007cc0d094c20dc0a3b0649902ba0affc6841874d06503",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01537.c",
+              "file_sha256": "40496845599ae03285fbb6d271a4a6270b6f0eb10dda1a44de979b52e4463e3e",
+              "body_sha256": "258d8b16684ac6f724fa88d71376fed1b20f4302a30a976252b0622ba6ee9dfe",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4bd08e",
+            "instruction": "004bd08e mov      ecx, dword ptr [0xd056f8]"
+          },
+          "source_expression": "DAT_00d056f8",
+          "source_problem": "Native active actor is full DWORD but legacy macro is BYTE. Distance scratch D3B4FC is also BYTE rather than DWORD, and actor-kind/model pointer expressions scale their byte offsets again.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4be4a0",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 212,
+          "decoded_instructions": 62,
+          "proposed_name": "restore_actor_relocate_from_marked_tile",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_2e7f4792a79b6bae36a460324f76e6cd5479f41a629e2adb026420effeac3b45",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "c355a9d486edf1dc7dd6547aa4db95ca50d2b9340d83bc14b682f9f1971773d7",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01560.c",
+              "file_sha256": "cceb67fab70a9332a36bc51bad6c93707330cf78fbbc097e1688204c7bbac36c",
+              "body_sha256": "81fdab0c54dff2753b8563aeecd8dd2fe506f019ccc9238ec1e6797ffde74a48",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4be4b5",
+            "instruction": "004be4b5 mov      eax, dword ptr [esi + 0xbcd618]"
+          },
+          "source_expression": "&DAT_00bcd618 + iVar3",
+          "source_problem": "Native cached tileDWORD uses actor*388 byte offset. Source adds actor*388 DWORD elements, reaching actor*1552. Its pixel/coordinate arrays similarly double native strides; pointer-output/result contract also needs the stated typed adaptation.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4e91e0",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 107,
+          "decoded_instructions": 31,
+          "proposed_name": "restore_player_debit_and_recompute_history",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_94926c7e96bcf210b7046d6a6eb827af341f2a001555e78ddd502b29614fb7f5",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "f3ad7665aa86397d13e4464496dbf630580bd011ec18a8eddca70f75514c9d27",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_02039.c",
+              "file_sha256": "c731b9f93024c8d83ab5f22e75f5b3e595fdf9101efdfe4da8e31219b12af6cd",
+              "body_sha256": "6cb632ff3a57c23431f3c1ffa84ee8b8c128246331d301693b63e16156ef3cf2",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4e91f3",
+            "instruction": "004e91f3 mov      edx, dword ptr [esi + 0xea3f68]"
+          },
+          "source_expression": "&DAT_00ea3f68 + iVar4",
+          "source_problem": "Native player stride49D8 is already a byte offset. Existing DWORD pointer addition multiplies it by4 for balance, total and history. The final peak expression happens to scale1276*4 correctly, which does not make the earlier stores correct.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x480e90",
+          "block": "cohort100-path-helpers",
+          "native_bytes": 356,
+          "decoded_instructions": 114,
+          "proposed_name": "restore_actor_find_unoccupied_cross_tile",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_3c849859781b80a5dc82d778a2f4a70c19b3a39546566f21baacd23469434366",
+          "native_capture_file": "build/actor-animal-following/cohort100-path-helpers/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "616cc3e352c6a2271d856ab9d0de5d570b0ef7fa6045a33852293cec64147343",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01186.c",
+              "file_sha256": "744da700b2ab964fb26f483179ec7278adf105d1c271f43cacaf5d4472236e8d",
+              "body_sha256": "12fa1d84e2a99779dee8196f07d50ccce2d872a08414d1331e58564c76e942b5",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x480f07",
+            "instruction": "00480f07 mov      ecx, dword ptr [0xbca2d0]"
+          },
+          "source_expression": "DAT_00bca2d0",
+          "source_problem": "Native dimensions/base are DWORD; source macros are BYTE. Initial actor tile and coordinate typed pointer calculations have incorrect strides. Cross-neighbor test shape alone is not a matching implementation.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4f6420",
+          "block": "cohort100-human-support",
+          "native_bytes": 127,
+          "decoded_instructions": 37,
+          "proposed_name": "restore_building_resolve_entry_position",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_59d088645977cd7b55f97cc1811d15a56fdec313274e8fd4f437cf02ff84fc6f",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "780da70d60c4bb8422542e59ccdda74df093b2302d1dc60f873432e8b346de41",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_02182.c",
+              "file_sha256": "0a230cb705f44f54d74fc04d207573652abef51078690628a00a444450c1cb70",
+              "body_sha256": "e1997be59ef06bab9e96f92f88d7d6d8d76e0d0f1cfb6d22e22495be60362a72",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4f6433",
+            "instruction": "004f6433 mov      ecx, dword ptr [0x5e4ef4]"
+          },
+          "source_expression": "DAT_005e4ef4",
+          "source_problem": "Native mode is DWORD; source declares BYTE. Member/variant/output arrays use building*132 DWORD elements (528 bytes) rather than native264byte stride; offset lookup pointer additions also multiply scale4.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x480860",
+          "block": "cohort100-human-support",
+          "native_bytes": 55,
+          "decoded_instructions": 19,
+          "proposed_name": "restore_dock_registry_index",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_6b91d4f7c7bf1470a61808c20dc9fe241d952010afaaab3fb577317ec15c2996",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "a7aa728e7f89f91f386fd368acb9ee003ea51cae7a4617b5559af97cac2b3116",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01180.c",
+              "file_sha256": "ebb1f9648e5ee3d8fae726f4602d2c926269170e19d74dc2ae19004320e71f9e",
+              "body_sha256": "2c9a1862e578be121b5e45b8fe4ce98581b73248b94fcf7bc99d104a8467815a",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x480860",
+            "instruction": "00480860 mov      eax, dword ptr [0x705c1c]"
+          },
+          "source_expression": "DAT_00705c1c",
+          "source_problem": "Native signed DWORD count and full DWORD cohort are BYTE macros. List stride expression itself can be correct after DWORD scaling, but its count/cohort inputs are not.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4808a0",
+          "block": "cohort100-human-support",
+          "native_bytes": 262,
+          "decoded_instructions": 82,
+          "proposed_name": "restore_actor_claim_dock_position",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_b12f03907a75fe917174a5043bb30cf9f8f8f101d24a32aa49f8a3b516647bda",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "6ad707dbe6427511a2ce2086cf8d38d8b08281c70d53d1827d0e0ec0b3afa0fa",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01181.c",
+              "file_sha256": "129f59500e0c32f17bf3315fc16d0320ef440fd076e5d9a2c0e6b9ee72ad9017",
+              "body_sha256": "8152443db44e192612978176d72a597bd585af9072abee1b650e95368f278d06",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4808a0",
+            "instruction": "004808a0 mov      eax, dword ptr [0x705c1c]"
+          },
+          "source_expression": "DAT_00705c1c",
+          "source_problem": "Native count/cohort are DWORD, source BYTE; actor/building array indexing repeatedly scales by4. Owner read/store and freshY versus Xpublication phases cannot be recovered by simply enabling the old unit.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x4809b0",
+          "block": "cohort100-human-support",
+          "native_bytes": 461,
+          "decoded_instructions": 126,
+          "proposed_name": "restore_actor_find_dock_waiting_position",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_310aa909d6dccf2f699088e11984b1c8e3b93fc3fdfbd13218d5bd43e5c29488",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "60a3fa7575d243986bf025d19268c2246fe472545f3d3d96a3ca90ed93bbf9c1",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01182.c",
+              "file_sha256": "81f1f087c108e44f1508aaccd0a19665e3b0bbd6e42bc3355dc8399313ba095d",
+              "body_sha256": "e0cf407f513e0554af0ee0776784acbc0601337df2fa0755555b7e32b171420a",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x4809c5",
+            "instruction": "004809c5 mov      ebp, dword ptr [0xbca2d8]"
+          },
+          "source_expression": "DAT_00bca2d8",
+          "source_problem": "Native initial/fresh cached gridbase is DWORD, source BYTE. Count/cohort are also BYTE and typed actor/building/grid offsets wrong. Separate native first/second pass cache phases are not represented.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x480b80",
+          "block": "cohort100-human-support",
+          "native_bytes": 217,
+          "decoded_instructions": 68,
+          "proposed_name": "restore_actor_find_available_water_building",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_7a0063f0fc497bb9ccadf985c69b4986e9b5a98b90d2954c5ce7debedcb7e7e4",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "a69dff7091a1f24763a25fc5d03e2f79dc7439310c2e51146704962b01a8e101",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01183.c",
+              "file_sha256": "da792e88dc3226a088ccd6c45921d4e081d1772d854d246869af76401d0c5b31",
+              "body_sha256": "97713faeb996bdb7771e4376fe29ac4bf9d88de4f55875226dca35104f98934a",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x480b95",
+            "instruction": "00480b95 mov      dx, word ptr [ecx]"
+          },
+          "source_expression": "psVar4 = &DAT_00799af0",
+          "source_problem": "Native has exact BYTEstatus/WORDkind at consecutive building264byte records. Source assigns a DWORD macro address to short pointer and uses wrong status/orientation/coordinate offsets; e.g. status psVar4[-8] is16 bytes before the kind versus native16, but the separate orientation DWORD pointer at building*132 scales528 rather than264.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x480c60",
+          "block": "cohort100-human-support",
+          "native_bytes": 248,
+          "decoded_instructions": 87,
+          "proposed_name": "restore_actor_find_nearest_water_waypoint",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_ab77d993ef8c9243524d1fa4cee52b4676ebb9732bbfaaee18b82ac665e8806b",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "aedbd37f0e5b5cd01ca753d06d8e1c18621bf2d5eae91d52ba3cc55e628c862f",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01184.c",
+              "file_sha256": "de1fc6357c869e01d5f2eed7d552ca5b93e06f87046b902916602bb666e9dcdd",
+              "body_sha256": "03c30676cd2d2761639e9e4d75ad7cf1b9483585c8a1c8c77e35c2faf01506ba",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x480cdc",
+            "instruction": "00480cdc mov      dword ptr [0xd3b4fc], eax"
+          },
+          "source_expression": "DAT_00d3b4fc",
+          "source_problem": "Native480CDC stores dxDWORD; existing macro truncates to BYTE. Source publishes dy prematurely and the selected outputBYTE uses local_4 byte stride while native uses chosen*2 (480D35/480D3C).",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x480d60",
+          "block": "cohort100-human-support",
+          "native_bytes": 295,
+          "decoded_instructions": 98,
+          "proposed_name": "restore_actor_water_space_blocked",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_1e7daf870f88404d7bafd5c0b2164a3889134ef3f36996eacebf61a4000e1b67",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "49f928e166803244c871478d3257a72257d655d9acae3e1be77d3e2cd2d1997b",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01185.c",
+              "file_sha256": "af031f31ca0df8be976a331d7e19859a5883689f696d4a52bd632328b27a9caf",
+              "body_sha256": "7af341ec55e0add7d7de7584667bda32cbeb6f35b7df49471612cc1eb6a3c762",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x480dcd",
+            "instruction": "00480dcd mov      esi, dword ptr [0xbca2d0]"
+          },
+          "source_expression": "DAT_00bca2d0",
+          "source_problem": "Native dimension/baseDWORD values become BYTE in old macros. Actor tile/coordinate/grid typed offsets are incorrect, and actorX/Y are re-read per radius instead of preserving native once-only caches.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x495a40",
+          "block": "cohort100-human-support",
+          "native_bytes": 170,
+          "decoded_instructions": 57,
+          "proposed_name": "restore_actor_can_leave_water_building",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_4eb34cf53b05336e45b96313568e1485c079ade60a88b4f673b8941b8ad01155",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "51d9f313fa02acbbc4c2f41ec5069402d2ea962f24d9994d1198097eaac34507",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01323.c",
+              "file_sha256": "dc12ee788ca062b14c9d12dad5b64460c7fbe7cc711e4cb60d861184d5caff15",
+              "body_sha256": "f8b47e0046c434cf2c1cb62c4f328a738fcf8dd3d2c072ca9d15fd89b1f995de",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x495a6c",
+            "instruction": "00495a6c mov      dx, word ptr [ecx + 0x7999e8]"
+          },
+          "source_expression": "DAT_007999e8",
+          "source_problem": "Native kindWORD versus source BYTE, plus actor/building DWORD-array strides scaling native offsets again. Three-worker and timer control shape is recognizable but memory/width behavior is wrong.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x495af0",
+          "block": "cohort100-human-support",
+          "native_bytes": 102,
+          "decoded_instructions": 29,
+          "proposed_name": "restore_actor_water_assignment_invalid",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_45319c2b7d93e16fe546c734a0d5de9c8ad7d63b59f37255e609a3e829c5fe74",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "fadb6ed31df2365a160b65ca3ecdf1c2136bc5aaa862b352e27982828c3cfbe8",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_01324.c",
+              "file_sha256": "f90d36cbda9f237ce3e0bb6c392d0615b7515a95c06a95150f40e0e6a55fd3bf",
+              "body_sha256": "af36db98430a3c16691cd3d6779a2a7b9c857bcf17514ede7d60297774561c75",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x495b1d",
+            "instruction": "00495b1d mov      dx, word ptr [eax + 0x7999e8]"
+          },
+          "source_expression": "DAT_007999e8",
+          "source_problem": "Native kindWORD versus source BYTE; buildingstatus is BYTE with264byte stride rather than DWORD at building*1056. The final bool expression does not fix wrong linkedID/owner addresses.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x459ff0",
+          "block": "cohort100-human-support",
+          "native_bytes": 51,
+          "decoded_instructions": 15,
+          "proposed_name": "restore_building_has_special_service_kind",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_76aa676cd35e87ffe162b6facaaee1d8f0fe85c774dca36f5877ae4efbac9f1d",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "a11bf254fca88a8215eb9497abfcfddb2c8e967149af96a7f0c065bdef3e1b23",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            },
+            {
+              "path": "restore/src/unit_00858.c",
+              "file_sha256": "7c8bc82bd7af05f66d608f6f547078a30015999f0b0ce1917dc71c1625d4177b",
+              "body_sha256": "f9441a8d059e3d665b43425a20948c8073c5d0297f18f160162d087f1490ee2f",
+              "frame_facade": false,
+              "unit_listed": true,
+              "unit_removed": true
+            }
+          ],
+          "classification": "inactive-ordinary-shaped-source-with-concrete-byte-mismatch",
+          "confirmed_reusable": false,
+          "native_counterexample": {
+            "site": "0x459ffb",
+            "instruction": "00459ffb movsx    eax, word ptr [ecx*8 + 0x7999e8]"
+          },
+          "source_expression": "(&DAT_007999e8)[param_1 * 0x84]",
+          "source_problem": "The eleven case constants match the authenticated remap exactly and are reusable. However source BYTEkind has132byte stride, versus native signed WORDkind at264byte stride. Not a byte-correct existing ordinary provider.",
+          "legacy_source_still_byte_identical_in_worktree": true
+        },
+        {
+          "entry": "0x490b50",
+          "block": "cohort100-human-support",
+          "native_bytes": 680,
+          "decoded_instructions": 177,
+          "proposed_name": "restore_actor_update_standard_bearer",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_ecc951b8db08053d421e261fd6199b7200b3b5b13f905e9724608d8453d0a67d",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "a8d582c362bee4cc717fd509fd63d2b2eace90665a7b50e5c543572c66ec1d99",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        },
+        {
+          "entry": "0x490e00",
+          "block": "cohort100-human-support",
+          "native_bytes": 1443,
+          "decoded_instructions": 360,
+          "proposed_name": "restore_actor_update_entertainer",
+          "baseline_same_named_definitions": [],
+          "native_evidence_id": "ev_d460add108045a8a24276104136742872721e1e959da5f57f8e24ed5c0b9c1d6",
+          "native_capture_file": "build/actor-animal-following/cohort100-human-support/available-rea-records.json",
+          "baseline_definitions": [
+            {
+              "path": "restore/runtime/actor_civic.c",
+              "file_sha256": "88b1ca5af92165b1836904e8ddfcd90ee71b0388daf51d3e234da36dee9ff307",
+              "body_sha256": "ba1cd0b4cf0b9ce72e27bc7f12e7506139139d1576640c38083780674121c34f",
+              "frame_facade": true,
+              "unit_listed": null,
+              "unit_removed": null
+            }
+          ],
+          "classification": "no-preexisting-ordinary-definition-found",
+          "confirmed_reusable": false,
+          "source_problem": "Only canonical invoke/frame model or RAW-only entry exists in baseline; no FUN address or proposed named ordinary src/runtime body found."
+        }
+      ],
+      "limitations": [
+        "Static explicit byte/width comparisons can reject direct reuse of these sources; they do not establish complete behavior of the new candidates.",
+        "Generated-source origin itself was never used as a correctness classification.",
+        "No claim that arbitrary differently named semantically equivalent code has been exhaustively disproved. Exact canonical and proposed names were searched in every baseline runtime/src C file.",
+        "Native bounds/ownership and incoming callers are inherited only as the exact authenticated packet windows; no new provider ownership or caller closure is asserted."
+      ]
+    }
+  ],
+  "corrections": {
+    "previous_source_only_count": 63,
+    "declassified_entries": [
+      "0x493610",
+      "0x49bd40",
+      "0x4b56d0",
+      "0x4b5770"
+    ],
+    "corrected_previous_new_algorithm_count": 59,
+    "additional_new_algorithms": 33,
+    "current_new_algorithm_count": 92
+  },
+  "note": "The source scans reject direct unchanged reuse where concrete native mismatches exist. They are not behavioral qualification of new C.",
+  "original_accepted_reports_rewritten": false,
+  "host_game_launched": false
+}

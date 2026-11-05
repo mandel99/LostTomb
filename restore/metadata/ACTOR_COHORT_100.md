@@ -6,12 +6,12 @@ functions is transcribed. Cheap compilation and focused checks of genuinely
 uncertain interfaces continue during writing. Source commits are pushed on
 the existing main branch during this work.
 
-The current cohort contains **63 transcribed ordinary C functions** after
-accepted native checkpoint 1683857: 40 registry callbacks and 23 shared
-helpers, covering 11,770 static native instructions. These are source scopes,
-not execution coverage, a global game inventory or completed behavior proof.
-The previous four source records describe 32 of them. Four initial additions
-are listed below, followed by four connected fragments containing 27 more:
+The current cohort contains **92 new ordinary C algorithms** after accepted
+native checkpoint 1683857: 45 registry callbacks and 47 shared helpers,
+covering 14,744 static native instructions. Another **13 entries reuse,
+repair or adapt existing C**, giving a joint verification workload of105
+entrypoints. These are source scopes, not execution coverage, a global game
+inventory or completed behavior proof. Four initial additions are listed below:
 
 | Entry | Name | Native instructions | Current contract |
 | --- | --- | ---: | --- |
@@ -24,14 +24,36 @@ The shared service fragment adds Schoolchild, Teacher, Librarian, Dentist,
 Physician, Herbalist, Embalmer and Worker: eight native functions /419
 instructions. Six use one ordinary C service routine with their authenticated
 sprite slots; the existing 493610 state handler is reused.
-Five projectile/grid helpers add 322 instructions: path checking, projectile
-creation, ordinal refresh and two tile-list searches. Four contact/formation
+Three new projectile/grid helpers add 231 instructions: path checking,
+projectile creation and ordinal refresh. The two tile-list searches reuse
+existing source and receive zero new rewrite credit. Four contact/formation
 helpers add 544 instructions: neighboring contacts, list-state transitions,
 damage and loss penalty. Their unknown physical returns remain outside the
 ordinary void APIs, with complete original frame paths retained.
 Ten Dock/trade helpers add 1,287 instructions for trade accounting, import
 capacity, transactions, storage selection and docker transitions. Existing
 storage import/export are reused and receive no new rewrite credit.
+
+The latest connected fragments add 33 new algorithms /3,850 instructions:
+six sentry/target helpers, seven trade/human-state functions, eight path
+helpers and twelve water-building/human-support functions. They include
+trade ships, merchant caravans, protestors, fishing boats, standard bearers
+and the entertainer callback shared by five actor kinds. Existing search,
+resource-consumption and pixel-path algorithms are reused.
+
+Independent provider audits searched the whole source tree, including
+inactive files. They corrected four earlier source-only attributions:
+4B56D0 and 4B5770 reuse their previous typed tile queries; 493610 reuses its
+previous service-state algorithm with native read/publication phases fixed;
+49BD40 is an adaptation of an earlier ordinary ostrich implementation.
+The duplicate tile/service bodies were removed from `actor_command.c` and
+the original owners were selected through CMake. The corrected count for
+the previous 63-function checkpoint is 59 new algorithms. Earlier immutable
+family reports keep their historical counts and hashes; the current ledger
+records these corrections explicitly. Mere presence of generated C is not
+enough for direct reuse: the remaining rejected providers have concrete
+native width, address-stride or ordering defects. See
+`actor-cohort-100-provider-audit.json`.
 
 The target searches retain signed comparison and modulo subtraction,
 first-wins ties, fresh best-distance reads, full Boolean child results and
@@ -49,24 +71,25 @@ unlink returns the cached actor offset. Map flag now returns the result of
 the real typed link API. No physical C-void scratch result is sampled.
 These refinements receive **zero new rewrite credit**.
 
-The current source module and both changed grid providers pass strict Win32
-C11 `/W4 /WX /GS- /Ob0 /O2`. **The current main executables have not been
-rebuilt or compared with native code.** Their last linked source checkpoint
-is 1c63f52. Historical compile/link and accepted reports keep their original
-hashes and are not rebound to this tree. No host game was launched.
+The current source module and selected reused providers pass strict Win32
+C11 `/W4 /WX /GS- /Ob0 /O2`. **Both current Release executables build
+successfully.** All 7,868 build/proof inputs in the final prebuild snapshot
+remained byte-identical after the build. The five mutable report outputs
+are excluded from that input snapshot. The existing controlled
+`standalone_actor_callbacks_small` fixture also builds and passes after
+limiting provider renames to the main library. Joint native comparison is in progress;
+there is no complete cohort PASS and broad regression remains pending.
+Historical accepted reports are not rebound to these new PE hashes.
+No host game was launched.
 
-The remaining 39 planned tasks are connected actor callback peers or
-children of actor state, target, projectile, walking and trade paths. The
-sentry, Dock/trade and human-state groups are reserved to separate agents. Planning
-relationships come from existing source/models and are not a complete native
-call graph: authenticate every native body before translating it. If an entry
-already has ordinary main C, do not count it again; choose another connected
-missing function. Three direct query dependencies are tracked as existing-C
-repairs/refinements with zero new rewrite credit. Other already ordinary
-functions were also excluded. The target is approximate, not a reason to pad
-the count with duplicate implementations or repairs.
+The actual main linker omits two unused symbols. For 492FC0 the available
+ordinary void owner is `restore_monument_consume_resource`; its unused
+`FUN_00492fc0` facade has no MAP entry. For 4B5420 only the canonical void
+entry is present; the unused named full-result helper has no MAP entry.
+Current-main comparison must respect these available lanes and cannot
+claim a result from an absent symbol.
 
-Complete frame compatibility remains for Map flag, the shared state handlers,
+Original frame paths remain for Map flag, the shared state handlers,
 cue and the earlier void animal callbacks. Laborer RAW delegation is unchanged.
 Enemy45 and Egyptian Chariots also retain their original canonical/frame
 paths because their stack-table index invariants are unproved. Global physical
@@ -81,7 +104,8 @@ Unproved difficulty-array domains in the pending Criminal/Tomb Robber drafts
 also remain outside the transcribed count until their invariant is closed.
 
 `actor-cohort-100.json` binds current bodies, source hashes, syntax evidence,
-refinements, the remaining queue and explicit pending stages.
+both main builds, zero-credit reuse and explicit pending stages.
 `actor-support-translation-rea-records.json` contains the exact authenticated
 native windows for the four new functions and grid return closures.
-`actor-cohort-100-new-rea-records.json` binds the 27 later bodies and their data.
+`actor-cohort-100-new-rea-records.json` binds 60 later native body windows
+and their data, including the two zero-credit tile-query scopes.

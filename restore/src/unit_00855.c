@@ -1,12 +1,4 @@
-#include "restore_types.h"
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-
-undefined4 FUN_00459ec0(int param_1)
-
-{
-  if ((0x4c < (short)(&DAT_007999e8)[param_1 * 0x84]) &&
-     ((short)(&DAT_007999e8)[param_1 * 0x84] < 0x50)) {
-    return 1;
-  }
-  return 0;
-}
+/* Replace the existing active generated provider; do not add a second symbol. */
+#include "actor_command.h"
+uint32_t FUN_00459ec0(int32_t building)
+{return restore_building_is_kind_77_to_79(building);}

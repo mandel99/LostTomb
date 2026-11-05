@@ -6,15 +6,20 @@ Connected blocks are being written into ordinary C with immediate compilation
 and focused interface checks, followed by joint main/native comparison at a
 larger milestone. Verification totals below describe the last accepted
 checkpoint; they are not a current-main proof for the new source blocks.
-The active connected cohort now contains 63 transcribed functions: 40 registry
-callbacks and 23 shared helpers, totaling 11,770 static native instructions.
-Detailed native comparison and broad regressions are scheduled for roughly 100
-connected functions, following the requested workflow. Current sources pass
-cheap strict compilation; the current main executables have not been rebuilt.
+The active connected cohort now contains 92 new algorithms: 45 registry
+callbacks and 47 shared helpers, totaling 14,744 static native instructions.
+Another 13 entries reuse, repair or adapt prior C and receive no new rewrite
+credit. Independent whole-tree provider audits corrected four earlier
+source-only attributions and removed duplicate tile/service bodies.
+The 105-entry workload has reached the requested joint verification milestone.
+Current sources pass strict compilation and both main Release executables
+build successfully. Joint native comparison is in progress; broad regression
+and complete cohort qualification remain pending.
 See the [current cohort and queue](metadata/ACTOR_COHORT_100.md).
 
-Thirty-two of these functions were linked across four earlier source-first
-blocks: 30 registry callbacks and two shared state handlers. See the
+Four earlier source-first blocks reported 32 functions. The current ledger
+classifies two of those as prior-C reuse/adaptation with zero new rewrite
+credit; their original reports remain historical. See the
 [six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md),
 [eleven-service record](metadata/SERVICE_TRANSLATION_BATCH.md) and
 [six-function combat/state record](metadata/COMBAT_TRANSLATION_BATCH.md) and

@@ -386,6 +386,17 @@ target_sources(pharaoh_restored PRIVATE runtime/city_sentiment.c)
 target_sources(pharaoh_restored PRIVATE runtime/locust_updates.c)
 target_sources(pharaoh_restored PRIVATE runtime/actor_movement.c runtime/actor_route_slots.c)
 target_sources(pharaoh_restored PRIVATE runtime/actor_weighted_search.c runtime/actor_goal_route.c)
+# Select the existing pixel-path owner once; no duplicate canonical wrapper.
+target_sources(pharaoh_restored PRIVATE runtime/menu_drag_actor_move.c)
+set_source_files_properties(runtime/menu_drag_actor_move.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Reuse existing tile-query algorithms. Their canonical facades remain in actor_civic.c.
+target_sources(pharaoh_restored PRIVATE src/unit_01460.c src/unit_01461.c)
+# Reuse the pre-existing typed service-state algorithm with native phase corrections.
+target_sources(pharaoh_restored PRIVATE src/unit_01320.c)
+# The standalone verification targets retain their original FUN symbols.
+set_property(SOURCE src/unit_01320.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_00493610=restore_actor_update_service_state>")
+set_property(SOURCE src/unit_01460.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b56d0=restore_actor_find_combat_target_on_tile>")
+set_property(SOURCE src/unit_01461.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b5770=restore_actor_find_projectile_victim_on_tile>")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)
 target_sources(pharaoh_restored PRIVATE runtime/mission_schema.c runtime/vegetation_farm_init.c)

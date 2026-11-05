@@ -2959,41 +2959,8 @@ __declspec(noinline) uint32_t restore_actor_update_sentry(void)
 extern void FUN_004b17d0(int32_t actor),FUN_004b1d50(int32_t actor),FUN_004b3250(int32_t actor);
 extern void FUN_004a5da0(int32_t actor,uint32_t speed),FUN_004b1ef0(int32_t actor,int32_t steps);
 extern uint32_t FUN_0047fe60(int32_t x,int32_t y,uint32_t size,int32_t distance);
-static uint32_t service_state_offset(uint32_t actor){return actor*388u;}
 
 /* Exact noarg API: callers' pushed1 is unused. Physical EAX is unpromised. */
-__declspec(noinline) void restore_actor_update_service_state(void)
-{
-    uint32_t actor,o,kind,speed;uint8_t state;int32_t home;
-    actor=U(0xd056f8u);o=service_state_offset(actor);kind=B(0xbcd602u+o);
-    state=B(0xbcd630u+o);speed=U(0x7090ecu+kind*56u);home=(int16_t)W(0xbcd652u+o);
-    if(state==5u){FUN_004b17d0((int32_t)actor);return;}
-    if(state==4u){FUN_004b1d50((int32_t)actor);return;}
-    if(state==1u){
-        int32_t count,limit;
-        B(0xbcd65du+o)=0;W(0xbcd63cu+o)=(uint16_t)(W(0xbcd63cu+o)+1u);
-        count=(int16_t)W(0xbcd63cu+o);limit=(int16_t)W(0xbcd63au+o);
-        if(count>=limit){
-            uint32_t building=(uint32_t)home*264u,size,found;int32_t y,x;
-            size=B(0x7999dbu+building);y=(int16_t)W(0x7999e0u+building);x=(int16_t)W(0x7999deu+building);
-            found=FUN_0047fe60(x,y,size,2);actor=U(0xd056f8u);o=service_state_offset(actor);
-            if(!found){B(0xbcd606u+o)=2;FUN_004b1ef0((int32_t)actor,1);return;}
-            {
-                uint16_t target_x=W(0xd3b4e4u);
-                B(0xbcd630u+o)=2;W(0xbcd61cu+o)=target_x;W(0xbcd61eu+o)=W(0xd3b4e0u);
-            }
-            FUN_004b3250((int32_t)actor);actor=U(0xd056f8u);W(0xbcd63cu+service_state_offset(actor))=0;
-        }
-        FUN_004b1ef0((int32_t)actor,1);return;
-    }
-    if(state==2u){
-        uint8_t direction;
-        FUN_004a5da0((int32_t)actor,speed);actor=U(0xd056f8u);o=service_state_offset(actor);direction=B(0xbcd609u+o);
-        if(direction==9u||direction==10u||direction==8u)B(0xbcd606u+o)=2;
-        return;
-    }
-    B(0xbcd630u+o)=1;W(0xbcd63cu+o)=W(0xbcd63au+o);
-}
 
 extern void FUN_004bd250(int32_t);
 extern void FUN_004991a0(void);
@@ -4167,50 +4134,8 @@ __declspec(noinline) uint32_t restore_actor_refresh_grid_ordinal(int32_t actor_i
 }
 
 /* 4B56D0: first non-dying actor in the native combat-target kind set. */
-__declspec(noinline) int32_t restore_actor_find_combat_target_on_tile(int32_t actor_id)
-{
-    uint32_t tile = COHORT_COMBAT_CU(combat_actor(actor_id) + 0x18u);
-    int32_t current = COHORT_COMBAT_CH(0xb350dcu + tile * 2u);
-    while (current > 0) {
-        uint32_t actor = combat_actor(current);
-        uint8_t state = COHORT_COMBAT_CB(actor + 0x30u);
-        if (state != 4u) {
-            uint8_t kind = COHORT_COMBAT_CB(actor + 2u);
-            if (kind >= 43u && kind <= 57u)
-                return current;
-            if (kind == 41u && state == 11u)
-                return current;
-            switch (kind) {
-            case 82: case 83: case 104: case 102: case 103: case 84:
-            case 109: case 99: case 100: case 101: case 93: case 92:
-                return current;
-            default:
-                break;
-            }
-        }
-        current = COHORT_COMBAT_CH(actor);
-    }
-    return 0;
-}
 
 /* 4B5770: first non-dying actor not excluded by the projectile victim set. */
-__declspec(noinline) int32_t restore_actor_find_projectile_victim_on_tile(int32_t actor_id)
-{
-    uint32_t tile = COHORT_COMBAT_CU(combat_actor(actor_id) + 0x18u);
-    int32_t current = COHORT_COMBAT_CH(0xb350dcu + tile * 2u);
-    while (current > 0) {
-        uint32_t actor = combat_actor(current);
-        if (COHORT_COMBAT_CB(actor + 0x30u) != 4u) {
-            uint8_t kind = COHORT_COMBAT_CB(actor + 2u);
-            if (kind != 0u && kind != 6u && kind != 14u &&
-                kind != 36u && kind != 37u &&
-                (kind < 41u || kind >= 77u) && kind <= 78u)
-                return current;
-        }
-        current = COHORT_COMBAT_CH(actor);
-    }
-    return 0;
-}
 
 #undef COHORT_COMBAT_CU
 #undef COHORT_COMBAT_CW
@@ -4727,6 +4652,1167 @@ __declspec(noinline) int32_t restore_trader_find_storage(int32_t actor,uint32_t 
 #undef COHORT_DOCK_TRADE_B
 #undef COHORT_DOCK_TRADE_H
 #undef COHORT_DOCK_TRADE_I
+
+
+#define COHORT_SENTRY_SU(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SENTRY_SW(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SENTRY_SH(a) (*(volatile int16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SENTRY_SB(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+typedef char sentry_pointer32[sizeof(void *) == 4 ? 1 : -1];
+extern void FUN_004b3f00(int32_t actor);
+extern int32_t FUN_004ea9c0(int32_t kind);
+extern uint32_t FUN_004b4420(int32_t x,int32_t y,int32_t tx,int32_t ty);
+
+int32_t restore_actor_find_sentry_target(int32_t actor,int32_t range);
+/* Existing ordinary src/unit_01171.c; its algorithm is reused unchanged. */
+extern uint32_t FUN_00480060(uint32_t x,uint32_t y,uint32_t size,int32_t max_radius);
+
+static int32_t sentry_increment(int32_t value)
+{ return (int32_t)((uint32_t)value+1u); }
+static int32_t sentry_axis_distance(int32_t a,int32_t b)
+{
+    if(a>b)return (int32_t)((uint32_t)a-(uint32_t)b);
+    if(a<b)return (int32_t)((uint32_t)b-(uint32_t)a);
+    return 0;
+}
+static int32_t sentry_publish_distance(int32_t x,int32_t y,int32_t tx,int32_t ty)
+{
+    int32_t dx=sentry_axis_distance(x,tx),dy;
+    COHORT_SENTRY_SU(0xd3b4fcu)=(uint32_t)dx;
+    dy=sentry_axis_distance(y,ty);COHORT_SENTRY_SU(0xd3b4f8u)=(uint32_t)dy;
+    return dx>=dy?dx:dy;
+}
+
+/* 4800B0: publish every scan cursor; return at the first unmarked tile. */
+__declspec(noinline) uint32_t restore_map_find_unmarked_tile(int32_t x,int32_t y,int32_t size,int32_t radius)
+{
+    int32_t first_x=(int32_t)((uint32_t)x-(uint32_t)radius);
+    int32_t first_y=(int32_t)((uint32_t)y-(uint32_t)radius);
+    int32_t last_x=(int32_t)((uint32_t)x+(uint32_t)size+(uint32_t)radius-1u);
+    int32_t last_y=(int32_t)((uint32_t)y+(uint32_t)size+(uint32_t)radius-1u);
+    int32_t limit,row;
+    uint32_t tile,row_skip;
+    if(first_x<0)first_x=0;
+    if(first_y<0)first_y=0;
+    limit=(int32_t)COHORT_SENTRY_SU(0xbca2d0u);
+    if(last_x>=limit)last_x=(int32_t)((uint32_t)limit-1u);
+    limit=(int32_t)COHORT_SENTRY_SU(0xbca2d4u);
+    if(last_y>=limit)last_y=(int32_t)((uint32_t)limit-1u);
+    tile=COHORT_SENTRY_SU(0xbca2d8u)+(uint32_t)first_y*228u+(uint32_t)first_x;
+    row=first_y;COHORT_SENTRY_SU(0xd3b4e0u)=(uint32_t)row;
+    row_skip=(uint32_t)first_x-(uint32_t)last_x+227u;
+    COHORT_SENTRY_SU(0xbc9768u)=tile;
+    while(row<=last_y){
+        int32_t column=first_x;
+        COHORT_SENTRY_SU(0xd3b4e4u)=(uint32_t)column;
+        while(column<=last_x){
+            if(COHORT_SENTRY_SB(0xebab20u+tile)==0u)return 1;
+            column=sentry_increment(column);++tile;
+            COHORT_SENTRY_SU(0xd3b4e4u)=(uint32_t)column;COHORT_SENTRY_SU(0xbc9768u)=tile;
+        }
+        row=sentry_increment(row);tile+=row_skip;
+        COHORT_SENTRY_SU(0xd3b4e0u)=(uint32_t)row;COHORT_SENTRY_SU(0xbc9768u)=tile;
+    }
+    return 0;
+}
+
+static void sentry_offset_destination(uint8_t facing,int32_t distance,int32_t *x,int32_t *y)
+{
+    if(facing==0u)*y-=distance;
+    else if(facing==2u)*x+=distance;
+    else if(facing==4u)*y+=distance;
+    else if(facing==6u)*x-=distance;
+}
+static void sentry_clamp_destination(int32_t *x,int32_t *y)
+{
+    int32_t limit;
+    if(*x<0)*x=0;
+    if(*y<0)*y=0;
+    limit=(int32_t)COHORT_SENTRY_SU(0xbca2d0u);
+    if(*x>=limit)*x=(int32_t)((uint32_t)limit-1u);
+    limit=(int32_t)COHORT_SENTRY_SU(0xbca2d4u);
+    if(*y>=limit)*y=(int32_t)((uint32_t)limit-1u);
+}
+static uint8_t sentry_rotate_destination(uint32_t building)
+{
+    uint8_t previous=COHORT_SENTRY_SB(building+0x34u),next=(uint8_t)(previous+2u);
+    COHORT_SENTRY_SB(building+0x34u)=next;
+    if(next>6u)COHORT_SENTRY_SB(building+0x34u)=0;
+    return previous;
+}
+
+/* 497A30: try radius8, then four radius3 directions using the old facing. */
+__declspec(noinline) int32_t restore_actor_find_sentry_patrol_destination(int32_t actor_id)
+{
+    uint32_t building=0x7999d8u+(uint32_t)(int32_t)COHORT_SENTRY_SH(sentry_actor(actor_id)+0x52u)*264u;
+    uint8_t facing=COHORT_SENTRY_SB(building+0x34u);
+    int32_t x=COHORT_SENTRY_SH(building+6u),y=COHORT_SENTRY_SH(building+8u),attempt;
+    sentry_offset_destination(facing,8,&x,&y);sentry_clamp_destination(&x,&y);
+    if(FUN_00480060((uint32_t)x,(uint32_t)y,1u,6)!=0u){
+        (void)sentry_rotate_destination(building);return 1;
+    }
+    for(attempt=0;attempt<4;++attempt){
+        facing=sentry_rotate_destination(building);
+        x=COHORT_SENTRY_SH(building+6u);y=COHORT_SENTRY_SH(building+8u);
+        sentry_offset_destination(facing,3,&x,&y);sentry_clamp_destination(&x,&y);
+        if(FUN_00480060((uint32_t)x,(uint32_t)y,1u,6)!=0u)return 1;
+    }
+    return 0;
+}
+
+/* 497CF0: check cooldown and publish the cached actor's attack state/target. */
+__declspec(noinline) int32_t restore_actor_try_sentry_attack(int32_t actor_id)
+{
+    uint32_t actor;
+    uint8_t state,counter,kind;
+    int32_t range;
+    if((int32_t)COHORT_SENTRY_SU(0xd0563cu)<=0)return 0;
+    actor=sentry_actor(actor_id);state=COHORT_SENTRY_SB(actor+0x30u);
+    if(state==5u||state==4u)return 0;
+    if(COHORT_SENTRY_SB(actor+0x38u)!=0u)return 0;
+    counter=(uint8_t)(COHORT_SENTRY_SB(actor+0x78u)+1u);COHORT_SENTRY_SB(actor+0x78u)=counter;
+    if(counter<40u)return 0;
+    COHORT_SENTRY_SB(actor+0x78u)=0;kind=COHORT_SENTRY_SB(actor+2u);
+    range=(int32_t)COHORT_SENTRY_SU(0x7090e4u+(uint32_t)kind*56u);
+    if(restore_actor_find_sentry_target(actor_id,range)<=0)return 0;
+    if((int32_t)COHORT_SENTRY_SU(0xbcd5ecu)>10)return 0;
+    COHORT_SENTRY_SB(actor+0x30u)=10;
+    COHORT_SENTRY_SW(actor+0x1cu)=COHORT_SENTRY_SW(actor+12u);COHORT_SENTRY_SW(actor+0x1eu)=COHORT_SENTRY_SW(actor+14u);
+    return 1;
+}
+
+/* 4807D0: row index is native/unclamped; zero offset is a failure sentinel. */
+__declspec(noinline) int32_t restore_actor_find_permitted_neighbor(int32_t x,int32_t y,int32_t row)
+{
+    uint32_t tile=COHORT_SENTRY_SU(0xbca2d8u)+(uint32_t)y*228u+(uint32_t)x;
+    uint32_t at=0x5cc9e0u+(uint32_t)row*96u,index;
+    for(index=0;index<24u;++index,at+=4u){
+        uint32_t offset=COHORT_SENTRY_SU(at),flags;
+        if(offset==0u)return 0;
+        flags=COHORT_SENTRY_SU(0xaf598cu+(offset+tile)*4u)&0xeefed77fu;
+        if((flags&0x40u)!=0u||flags==0u){
+            uint32_t pair=((uint32_t)row*24u+index)*8u;
+            uint32_t target_x=COHORT_SENTRY_SU(0x5cce98u+pair)+(uint32_t)x;
+            uint32_t target_y=COHORT_SENTRY_SU(0x5cce9cu+pair)+(uint32_t)y;
+            COHORT_SENTRY_SU(0xd3b4e4u)=target_x;COHORT_SENTRY_SU(0xd3b4e0u)=target_y;return 1;
+        }
+    }
+    return 0;
+}
+
+/* 4B28A0: void movement-child physical EAX remains outside this logical API. */
+__declspec(noinline) void restore_actor_advance_movement_phase(int32_t actor_id,int32_t steps)
+{
+    uint32_t actor=sentry_actor(actor_id);
+    while(steps>0){
+        uint8_t phase=(uint8_t)(COHORT_SENTRY_SB(actor+0x31u)+1u);COHORT_SENTRY_SB(actor+0x31u)=phase;
+        if((int8_t)phase<15)FUN_004b3f00(actor_id);
+        else COHORT_SENTRY_SB(actor+0x31u)=15;
+        --steps;
+    }
+}
+
+/* 4999E0: closest eligible combat target, optional group restriction/penalty. */
+__declspec(noinline) int32_t restore_actor_find_nearest_combat_target(int32_t x,int32_t y,int32_t range,int32_t owner)
+{
+    int32_t group=COHORT_SENTRY_SH(sentry_actor(owner)+0x58u),selected=0,id;
+    COHORT_SENTRY_SU(0xbcd5ecu)=10000;
+    for(id=1;id<2000;++id){
+        uint32_t actor=sentry_actor(id);
+        uint8_t kind;
+        int32_t tx,ty,distance,restricted;
+        if(COHORT_SENTRY_SB(actor+6u)!=1u||COHORT_SENTRY_SB(actor+0x30u)==4u)continue;
+        kind=COHORT_SENTRY_SB(actor+2u);
+        if(!((kind>=43u&&kind<=57u)||kind==99u)){
+            if((uint8_t)FUN_004ea9c0(kind)==0u){
+                if(COHORT_SENTRY_SB(actor+2u)!=41u||COHORT_SENTRY_SB(actor+0x30u)!=11u)continue;
+            }
+        }
+        tx=COHORT_SENTRY_SH(actor+12u);ty=COHORT_SENTRY_SH(actor+14u);
+        distance=sentry_publish_distance(x,y,tx,ty);
+        restricted=(int32_t)COHORT_SENTRY_SU(0xbcba54u+(uint32_t)group*144u);
+        if(restricted>0&&COHORT_SENTRY_SH(actor+0x58u)!=restricted)continue;
+        if(distance>range)continue;
+        if(COHORT_SENTRY_SW(actor+0x7cu)!=0u)distance=(int32_t)((uint32_t)distance*2u);
+        if(distance<(int32_t)COHORT_SENTRY_SU(0xbcd5ecu)){
+            COHORT_SENTRY_SU(0xbcd5ecu)=(uint32_t)distance;selected=id;
+        }
+    }
+    return selected;
+}
+
+/* 499B50: a priority upgrade is accepted only when also strictly closer. */
+__declspec(noinline) int32_t restore_actor_find_sentry_target(int32_t actor_id,int32_t range)
+{
+    uint32_t owner=sentry_actor(actor_id);
+    int32_t x=COHORT_SENTRY_SH(owner+12u),y=COHORT_SENTRY_SH(owner+14u),group=COHORT_SENTRY_SH(owner+0x58u);
+    int32_t selected=0,best_priority=0,id;
+    COHORT_SENTRY_SU(0xbcd5ecu)=(uint32_t)range;
+    for(id=1;id<2000;++id){
+        uint32_t actor=sentry_actor(id);
+        uint8_t kind;
+        int32_t priority,restricted,tx,ty,distance;
+        if(COHORT_SENTRY_SB(actor+6u)!=1u||COHORT_SENTRY_SB(actor+0x30u)==4u)continue;
+        kind=COHORT_SENTRY_SB(actor+2u);
+        if(kind!=92u&&kind!=101u&&kind!=93u&&kind!=100u){
+            restricted=(int32_t)COHORT_SENTRY_SU(0xbcba54u+(uint32_t)group*144u);
+            if(restricted>0&&COHORT_SENTRY_SH(actor+0x58u)!=restricted)continue;
+        }
+        switch(kind){
+        case 43:case 44:case 45:case 54:case 55:case 56:case 99:
+            tx=COHORT_SENTRY_SH(actor+12u);ty=COHORT_SENTRY_SH(actor+14u);priority=50;break;
+        case 82:case 83:case 84:case 102:case 103:case 104:case 109:
+            tx=COHORT_SENTRY_SH(actor+12u);ty=COHORT_SENTRY_SH(actor+14u);priority=10;break;
+        case 92:case 101:
+            priority=COHORT_SENTRY_SB(actor+0x128u)!=0u?40:20;
+            ty=COHORT_SENTRY_SH(actor+14u);tx=COHORT_SENTRY_SH(actor+12u);break;
+        case 93:case 100:
+            tx=COHORT_SENTRY_SH(actor+12u);ty=COHORT_SENTRY_SH(actor+14u);priority=30;break;
+        default:continue;
+        }
+        distance=sentry_publish_distance(x,y,tx,ty);
+        if(priority<=best_priority||distance>=(int32_t)COHORT_SENTRY_SU(0xbcd5ecu))continue;
+        if(COHORT_SENTRY_SB(owner+0x30u)!=21u&&FUN_004b4420(x,y,tx,ty)==0u)continue;
+        COHORT_SENTRY_SU(0xbcd5ecu)=(uint32_t)distance;selected=id;best_priority=priority;
+    }
+    if(selected!=0){
+        uint32_t target=sentry_actor(selected);
+        int32_t target_x=COHORT_SENTRY_SH(target+12u),target_y=COHORT_SENTRY_SH(target+14u);
+        COHORT_SENTRY_SU(0xd3b4e0u)=(uint32_t)target_y;COHORT_SENTRY_SU(0xd3b4e4u)=(uint32_t)target_x;
+    }
+    return selected;
+}
+
+#undef COHORT_SENTRY_SU
+#undef COHORT_SENTRY_SW
+#undef COHORT_SENTRY_SH
+#undef COHORT_SENTRY_SB
+
+/* Connected human/water walkers. Original RAW entries remain authoritative for
+ * physical scratch registers. No invented return value for void child APIs. */
+
+#define COHORT_STATES_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_STATES_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_STATES_H(a) ((int32_t)(int16_t)COHORT_STATES_W(a))
+#define COHORT_STATES_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+extern void FUN_004b1d50(int32_t),FUN_004b17d0(int32_t);
+extern void FUN_004b3250(int32_t),FUN_004b3c60(int32_t),FUN_004b3f00(int32_t);
+extern void FUN_004a5da0(int32_t,uint32_t);
+extern uint32_t FUN_0051cba0(int32_t,int32_t,int32_t,int32_t);
+extern int32_t FUN_00492360(int32_t),FUN_00459ff0(int32_t);
+extern uint32_t FUN_00459ef0(int32_t);
+extern int32_t FUN_004b28f0(int32_t,int32_t,uint32_t);
+extern void FUN_004cc110(int32_t,int32_t);
+extern void FUN_004e0cc0(int32_t,int32_t *,int32_t *);
+extern void FUN_004f6420(int32_t,int32_t *,int32_t *);
+extern uint32_t restore_complex_position_00545a30(uint32_t,uint32_t,uint32_t);
+extern uint32_t restore_complex_position_00558f00(uint32_t,uint32_t,uint32_t);
+extern uint32_t restore_complex_position_00556230(uint32_t,uint32_t,uint32_t);
+extern uint32_t restore_complex_position_0054f8a0(uint32_t,uint32_t,uint32_t);
+extern int32_t FUN_004cde40(int32_t,int32_t),FUN_004cde60(int32_t,int32_t);
+extern void FUN_004684e0(void),FUN_004e2970(int32_t),FUN_004e96c0(int32_t);
+extern void restore_monument_consume_resource(void);
+extern uint32_t FUN_004806c0(int32_t,int32_t,uint32_t),FUN_0047a1c0(int32_t);
+extern int32_t FUN_004808a0(int32_t),FUN_004809b0(int32_t),FUN_00480860(int32_t);
+extern int32_t FUN_00495af0(int32_t),FUN_00495a40(int32_t);
+extern int32_t FUN_00480b80(int32_t),FUN_00480d60(int32_t),FUN_00480c60(int32_t);
+extern void FUN_004e0cf0(int32_t,uint32_t,uint32_t,const int16_t *,uint8_t);
+static uint32_t human_actor(int32_t id){return 0xbcd600u+(uint32_t)id*388u;}
+static uint32_t human_building(int32_t id){return 0x7999d8u+(uint32_t)id*264u;}
+/* Native 459EC0,38 bytes/13 instructions. This exact leaf is separately owned
+ * as a local dependency refinement; do not call the old generated byte macro. */
+__declspec(noinline) uint32_t restore_building_is_kind_77_to_79(int32_t id)
+{int32_t type=COHORT_STATES_H(human_building(id)+0x10u);return (uint32_t)(type>=77&&type<=79);}
+/* These two callbacks publish the same RNG stores in this exact order. */
+static void human_building_position(uint16_t kind,int32_t building,int32_t *x,int32_t *y)
+{
+    uint32_t px=(uint32_t)(uintptr_t)x,py=(uint32_t)(uintptr_t)y;
+    switch(kind){
+    case 222:FUN_004e0cc0(building,x,y);break;
+    case 183:FUN_004f6420(building,x,y);break;
+    case 229:(void)restore_complex_position_00545a30((uint32_t)building,px,py);break;
+    case 234:(void)restore_complex_position_00558f00((uint32_t)building,px,py);break;
+    case 235:(void)restore_complex_position_00556230((uint32_t)building,px,py);break;
+    case 236:(void)restore_complex_position_0054f8a0((uint32_t)building,px,py);break;
+    default:break;
+    }
+}
+
+__declspec(noinline) void restore_actor_follow_chain_steps(int32_t actor,int32_t predecessor,int32_t steps)
+{
+    uint32_t a=human_actor(actor),p=human_actor(predecessor);uint8_t timer,direction;uint16_t x_here,x_return;
+    x_here=COHORT_STATES_W(a+0x0cu);x_return=COHORT_STATES_W(a+0x24u);
+    if(x_here==x_return){uint16_t y_here=COHORT_STATES_W(a+0x0eu),y_return=COHORT_STATES_W(a+0x26u);if(y_here==y_return)COHORT_STATES_B(a+0x5du)=1;}
+    while(steps>0){
+        --steps;timer=(uint8_t)(COHORT_STATES_B(a+0x31u)+1u);COHORT_STATES_B(a+0x31u)=timer;
+        if((int8_t)timer>=15){
+            int32_t y,py,px,x;COHORT_STATES_B(a+0x31u)=15;
+            y=COHORT_STATES_H(a+0x0eu);py=COHORT_STATES_H(p+0x12u);px=COHORT_STATES_H(p+0x10u);x=COHORT_STATES_H(a+0x0cu);
+            direction=(uint8_t)FUN_0051cba0(x,y,px,py);COHORT_STATES_B(a+9u)=direction;
+            if((int8_t)direction>=8)return;
+            COHORT_STATES_B(a+0x0au)=direction;COHORT_STATES_B(a+0x31u)=0;
+        }
+        FUN_004b3f00(actor);if(COHORT_STATES_B(a+0x31u)==8)FUN_004b3c60(actor);
+    }
+}
+
+__declspec(noinline) uint32_t restore_actor_update_protestor(void)
+{
+    int32_t id=(int32_t)COHORT_STATES_U(0xd056f8u);uint32_t a=human_actor(id),base,sprite;uint8_t frame;
+    COHORT_STATES_B(a+0x6au)=1;frame=(uint8_t)(COHORT_STATES_B(a-7u)+1u);COHORT_STATES_B(a-7u)=frame;
+    if(frame>=64)COHORT_STATES_B(a-7u)=0;COHORT_STATES_U(a+0x178u)=0;
+    if(COHORT_STATES_B(a+0x30u)==4){FUN_004b1d50(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+    a=human_actor(id);COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+    if(COHORT_STATES_H(a+0x2eu)>200){COHORT_STATES_B(a+6u)=2;COHORT_STATES_B(a-7u)=0;}
+    if(COHORT_STATES_B(a+0x30u)==4){
+        int32_t half=COHORT_STATES_H(a+0x2eu)/2;frame=COHORT_STATES_B(0x5d048cu+(uint32_t)half);
+        base=COHORT_STATES_U(0xf55df4u);COHORT_STATES_U(a-4u)=base+frame;return base;
+    }
+    base=COHORT_STATES_U(0xf55decu);frame=COHORT_STATES_B(a-7u);sprite=base+(uint32_t)frame*8u;
+    COHORT_STATES_U(a-4u)=sprite;return sprite;
+}
+
+__declspec(noinline) uint32_t restore_actor_update_merchant_caravan(void)
+{
+    int32_t id=(int32_t)COHORT_STATES_U(0xd056f8u),predecessor=COHORT_STATES_H(human_actor(id)+0x60u);
+    int32_t leader=FUN_00492360(id),heading;uint32_t a,base;uint8_t frame,state;
+    id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x5du)=0;COHORT_STATES_B(a+0x6au)=3;
+    frame=(uint8_t)(COHORT_STATES_B(a-7u)+1u);COHORT_STATES_B(a-7u)=frame;if(frame>=12)COHORT_STATES_B(a-7u)=0;
+    COHORT_STATES_U(a+0x178u)=0;
+    if(predecessor<=0)COHORT_STATES_B(a+6u)=2;
+    else{
+        uint32_t p=human_actor(predecessor);
+        if(COHORT_STATES_B(p+0x30u)==4||COHORT_STATES_B(p+6u)!=1)COHORT_STATES_B(a+6u)=2;
+        else{
+            uint8_t kind=COHORT_STATES_B(p+2u);
+            if(kind!=19&&kind!=21)COHORT_STATES_B(a+6u)=2;
+            else{
+                state=COHORT_STATES_B(human_actor(leader)+0x30u);
+                if(state!=6&&state!=7){
+                    int32_t fresh_predecessor=COHORT_STATES_H(a+0x60u);
+                    restore_actor_follow_chain_steps(id,fresh_predecessor,1);
+                    id=(int32_t)COHORT_STATES_U(0xd056f8u);
+                }
+            }
+        }
+    }
+    if(COHORT_STATES_B(human_actor(predecessor)+0x5du))COHORT_STATES_B(human_actor(id)+0x5du)=1;
+    a=human_actor(id);heading=(int8_t)COHORT_STATES_B(a+9u);if(heading>=8)heading=(int8_t)COHORT_STATES_B(a+0x0au);
+    heading=(int32_t)((uint32_t)heading-COHORT_STATES_U(0xbca2e0u));COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;
+    if(heading<0){heading+=8;COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;}
+    state=COHORT_STATES_B(human_actor(leader)+0x30u);if(state==6){COHORT_STATES_U(a-4u)=0;return (uint32_t)heading;}
+    if(state==7)COHORT_STATES_B(a-7u)=0;
+    if(COHORT_STATES_B(a+6u)==2){
+        int32_t half=COHORT_STATES_H(a+0x2eu)/2;frame=COHORT_STATES_B(0x5d048cu+(uint32_t)half);
+        base=COHORT_STATES_U(0xf55e94u);COHORT_STATES_U(a-4u)=base+frame;COHORT_STATES_B(a+0x5du)=0;return base;
+    }
+    base=COHORT_STATES_U(0xf55e8cu);frame=COHORT_STATES_B(a-7u);COHORT_STATES_U(a-4u)=base+(uint32_t)frame*8u+(uint32_t)heading;
+    COHORT_STATES_B(a+0x5du)=0;return (uint32_t)heading;
+}
+
+__declspec(noinline) int32_t restore_actor_find_criminal_target(int32_t actor)
+{
+    uint32_t profile=COHORT_STATES_U(0xeaac28u)*0x49d8u,wealth,count=0,p,id;int has_wealth,has_goods;int32_t index;
+    wealth=COHORT_STATES_U(0xea5cc0u+profile);COHORT_STATES_U(0x96e6b0u)=0;has_wealth=(int32_t)wealth>0;
+    has_goods=(int32_t)COHORT_STATES_U(0xea187cu+profile)>0;if(!has_wealth&&!has_goods)return 0;
+    for(id=1,p=0x799b98u;p<0x89b790u;++id,p+=264u){
+        if(COHORT_STATES_B(p-0xb8u)==0)continue;
+        if(!FUN_00459ff0((int32_t)id))goto rejected;
+        if(restore_building_is_kind_77_to_79((int32_t)id)&&!has_wealth)goto rejected;
+        if(FUN_00459ef0((int32_t)id)&&!has_goods)goto rejected;
+        if((int32_t)COHORT_STATES_U(p)<=0)goto rejected;
+        {
+            int32_t y=COHORT_STATES_H(p-0x90u),x;uint32_t grid=COHORT_STATES_U(0xbca2d8u);
+            count=COHORT_STATES_U(0x96e6b0u);COHORT_STATES_U(0x972534u+count*4u)=id;x=COHORT_STATES_H(p-0x92u);++count;
+            COHORT_STATES_U(0x96e6b0u)=count;COHORT_STATES_U(0x96e6b0u+count*4u)=grid+(uint32_t)x+(uint32_t)y*228u;
+        }
+        continue;
+rejected:count=COHORT_STATES_U(0x96e6b0u);
+    }
+    if(!count)return 0;index=FUN_004b28f0(actor,0x96e6b4,(uint32_t)count);
+    if(index<=0)return 0;return (int32_t)COHORT_STATES_U(0x972530u+(uint32_t)index*4u);
+}
+
+__declspec(noinline) int32_t restore_actor_find_tomb_robbery_target(int32_t actor)
+{
+    /* Exact30 selectors492F9C. The loop indices are -1..34; only these15
+     * resource indices enter492D65. No bytes from the following procedure. */
+    static const uint8_t selected[36]={0,1,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,1,1,1,1,0,0,1,1,1,1,0,1,0,1,0,0,0,0,0};
+    uint32_t i,count,id,p;int available=0;int32_t x,y,index;uint16_t kind;
+    int32_t text=(int8_t)COHORT_STATES_B(0xe38ea8u);COHORT_STATES_U(0x96e6b0u)=0;FUN_004cc110(0x133,text);
+    for(i=0;i<36u;++i)if(selected[i]&&(int32_t)COHORT_STATES_U(0x784e78u+i*4u)>0){available=1;break;}
+    if((int32_t)COHORT_STATES_U(0x78d790u)<1)count=COHORT_STATES_U(0x96e6b0u);
+    else{
+        count=COHORT_STATES_U(0x96e6b0u);id=1;p=0x799af0u;
+        do{
+            if(COHORT_STATES_B(p-0x10u)){
+                kind=COHORT_STATES_W(p);
+                if((kind==222&&(COHORT_STATES_W(p+6u)==0xffffu||available))||
+                   (kind==183&&available)||
+                   ((kind==229||kind==234||kind==235||kind==236)&&COHORT_STATES_W(p+2u)==0&&(COHORT_STATES_W(p+6u)==0xffffu||available))){
+                    COHORT_STATES_U(0x972534u+count*4u)=id;
+                    /* Native X/Y locals are NOT initialized here. Selected
+                     * monument pieces are0, for which both stores are proven. */
+                    human_building_position(kind,(int32_t)id,&x,&y);
+                    {uint32_t grid=COHORT_STATES_U(0xbca2d8u)+(uint32_t)y*228u+(uint32_t)x;
+                     count=COHORT_STATES_U(0x96e6b0u);COHORT_STATES_U(0x96e6b4u+count*4u)=grid;++count;COHORT_STATES_U(0x96e6b0u)=count;}
+                }
+            }
+            ++id;p+=264u;
+        }while((int32_t)id<=(int32_t)COHORT_STATES_U(0x78d790u));
+    }
+    if(!count)return 0;index=FUN_004b28f0(actor,0x96e6b4,count);
+    if(index<=0)return 0;return (int32_t)COHORT_STATES_U(0x972530u+(uint32_t)index*4u);
+}
+
+
+
+
+__declspec(noinline) uint32_t restore_actor_update_fishing_boat(void)
+{
+    int32_t id=(int32_t)COHORT_STATES_U(0xd056f8u),building_id,heading,result;uint32_t a=human_actor(id),t,speed;uint8_t state,frame,direction;
+    uint32_t kind=COHORT_STATES_B(a+2u);speed=COHORT_STATES_U(0x7090ecu+kind*56u);building_id=COHORT_STATES_H(a+0x52u);t=human_building(building_id);
+    if(COHORT_STATES_B(t)!=1){if(COHORT_STATES_B(a+0x30u)!=4)COHORT_STATES_W(a+0x2eu)=0xffffu;COHORT_STATES_B(a+0x30u)=4;}
+    if((int32_t)COHORT_STATES_U(a+0x120u)<=0){if(COHORT_STATES_B(a+0x30u)!=4)COHORT_STATES_W(a+0x2eu)=0xffffu;COHORT_STATES_B(a+0x30u)=4;}
+    state=COHORT_STATES_B(a+0x30u);
+    if(state!=8&&state!=4&&COHORT_STATES_H(t+0xb4u)!=id){
+        building_id=FUN_00480b80(id);
+        if(building_id){
+            uint32_t layout;int32_t x,y;
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);t=human_building(building_id);
+            COHORT_STATES_W(t+0xb4u)=(uint16_t)id;layout=COHORT_STATES_B(t+3u);COHORT_STATES_W(a+0x52u)=(uint16_t)building_id;COHORT_STATES_B(a+0x30u)=11;
+            y=COHORT_STATES_H(t+8u);x=COHORT_STATES_H(t+6u);(void)FUN_004806c0(x,y,layout);
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+            {uint32_t tx=COHORT_STATES_U(0xd3b4e4u),ty=COHORT_STATES_U(0xd3b4e0u);COHORT_STATES_W(a+0x1cu)=(uint16_t)tx;COHORT_STATES_W(a+0x1eu)=(uint16_t)ty;COHORT_STATES_W(a+0x24u)=(uint16_t)tx;COHORT_STATES_W(a+0x26u)=(uint16_t)ty;}
+            FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);
+        }else{
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);if(COHORT_STATES_B(a+0x30u)!=4)COHORT_STATES_W(a+0x2eu)=0xffffu;COHORT_STATES_B(a+0x30u)=4;
+        }
+    }
+    a=human_actor(id);COHORT_STATES_B(a+0x5du)=0;COHORT_STATES_B(a+0x6eu)=1;frame=(uint8_t)(COHORT_STATES_B(a-7u)+1u);COHORT_STATES_B(a-7u)=frame;
+    if(frame>=12)COHORT_STATES_B(a-7u)=0;COHORT_STATES_U(a+0x178u)=0;state=COHORT_STATES_B(a+0x30u);
+    if(state==8){
+        COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+        if(COHORT_STATES_H(a+0x2eu)>=50){
+            int32_t fresh_building;COHORT_STATES_W(a+0x2eu)=0;fresh_building=COHORT_STATES_H(a+0x52u);
+            if(fresh_building){
+                uint32_t layout;int32_t x,y;
+                COHORT_STATES_B(a+0x30u)=11;COHORT_STATES_W(human_building(fresh_building)+0xb4u)=(uint16_t)id;
+                /* The ownership store uses fresh_building, position uses the
+                 * original cached building_id from the callback prologue. */
+                t=human_building(building_id);layout=COHORT_STATES_B(t+3u);y=COHORT_STATES_H(t+8u);x=COHORT_STATES_H(t+6u);(void)FUN_004806c0(x,y,layout);
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+                {uint32_t tx=COHORT_STATES_U(0xd3b4e4u),ty=COHORT_STATES_U(0xd3b4e0u);COHORT_STATES_W(a+0x1cu)=(uint16_t)tx;COHORT_STATES_W(a+0x1eu)=(uint16_t)ty;COHORT_STATES_W(a+0x24u)=(uint16_t)tx;COHORT_STATES_W(a+0x26u)=(uint16_t)ty;}
+                FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);
+            }
+        }
+    }else if(state==9){
+        FUN_004a5da0(id,(int32_t)speed);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x6fu)=0;direction=COHORT_STATES_B(a+9u);
+        if(direction==8){
+            result=FUN_00480d60(id);
+            if(!result){
+                uint16_t tx;id=(int32_t)COHORT_STATES_U(0xd056f8u);FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+                tx=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_W(a+0x1cu)=tx;tx=COHORT_STATES_W(0xd3b4e0u);COHORT_STATES_W(a+0x1eu)=tx;COHORT_STATES_B(a+9u)=COHORT_STATES_B(a+0x0au);
+            }else{id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x30u)=10;COHORT_STATES_W(a+0x2eu)=0;}
+        }else if(direction==9||direction==10){
+            uint32_t remaining=COHORT_STATES_U(a+0x120u);if((int32_t)remaining>0)COHORT_STATES_U(a+0x120u)=remaining-1u;
+            COHORT_STATES_B(a+0x30u)=12;COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(a+0x24u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(a+0x26u);
+        }
+    }else if(state==10){
+        COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+        if(COHORT_STATES_H(a+0x2eu)>=200){COHORT_STATES_W(a+0x2eu)=0;COHORT_STATES_B(a+0x30u)=13;COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(a+0x24u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(a+0x26u);FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+    }else if(state==11){
+        FUN_004a5da0(id,(int32_t)speed);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x6fu)=0;direction=COHORT_STATES_B(a+9u);
+        if(direction==8){COHORT_STATES_B(a+0x30u)=12;COHORT_STATES_W(a+0x2eu)=0;}
+        else if(direction==9){FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+        else if(direction==10){if(COHORT_STATES_B(a+0x30u)!=4)COHORT_STATES_W(a+0x2eu)=0xffffu;COHORT_STATES_B(a+0x30u)=4;}
+    }else if(state==12){
+        int32_t type,value,maximum,limit;t=human_building(building_id);type=COHORT_STATES_H(t+0x10u);value=COHORT_STATES_H(t+0x40u);maximum=(int32_t)COHORT_STATES_U(0x705eb8u+(uint32_t)type*40u);
+        result=FUN_004cde60(value,maximum);limit=(int32_t)((102u-(uint32_t)result)*5u);if(COHORT_STATES_H(t+0x64u)>0)result=0;
+        if(!COHORT_STATES_U(0x78d7b0u)&&result>0){
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+            if(COHORT_STATES_H(a+0x2eu)>=limit){
+                COHORT_STATES_W(a+0x2eu)=0;result=FUN_00480c60(id);
+                if(result){uint16_t tx;id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);tx=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_B(a+0x30u)=9;COHORT_STATES_W(a+0x1cu)=tx;tx=COHORT_STATES_W(0xd3b4e0u);COHORT_STATES_W(a+0x1eu)=tx;FUN_004b3250(id);}
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);
+            }
+        }else id=(int32_t)COHORT_STATES_U(0xd056f8u);
+    }else if(state==13){
+        FUN_004a5da0(id,(int32_t)speed);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x6fu)=0;direction=COHORT_STATES_B(a+9u);
+        if(direction==8){COHORT_STATES_B(a+0x30u)=12;COHORT_STATES_W(a+0x2eu)=0;t=human_building(building_id);COHORT_STATES_B(t+0x32u)=1;COHORT_STATES_W(t+0x64u)=(uint16_t)(COHORT_STATES_W(t+0x64u)+1u);}
+        else if(direction==9){FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+        else if(direction==10){if(COHORT_STATES_B(a+0x30u)!=4)COHORT_STATES_W(a+0x2eu)=0xffffu;COHORT_STATES_B(a+0x30u)=4;}
+    }else if(state!=4)COHORT_STATES_B(a+0x30u)=8;
+    a=human_actor(id);if(COHORT_STATES_B(a+0x30u)==4){FUN_004b1d50(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);}
+    heading=(int8_t)COHORT_STATES_B(a+9u);if(heading>=8)heading=(int8_t)COHORT_STATES_B(a+0x0au);heading=(int32_t)((uint32_t)heading-COHORT_STATES_U(0xbca2e0u));state=COHORT_STATES_B(a+0x30u);
+    COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;if(state==10){heading-=2;COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;}if(heading<0){heading+=8;COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;}
+    if(state==9||state==11||state==13){uint32_t animation=COHORT_STATES_B(a-7u)/3u,base=COHORT_STATES_U(0xf5611cu);COHORT_STATES_U(a-4u)=base+animation*8u+(uint32_t)heading;return base;}
+    if(state==10){int32_t animation=COHORT_STATES_H(a+0x2eu)%9;uint32_t base=COHORT_STATES_U(0xf56124u);COHORT_STATES_U(a-4u)=base+(uint32_t)animation*8u+(uint32_t)heading;return base;}
+    if(state==4){
+        int32_t age=COHORT_STATES_H(a+0x2eu);uint32_t sprite;
+        if(age<33){int32_t animation=age/3,division=heading/8;uint32_t base=COHORT_STATES_U(0xf5612cu);sprite=base+(uint32_t)animation+(uint32_t)division;}
+        else{int32_t animation=age-33;if(animation>=23)animation=22;sprite=COHORT_STATES_U(0xf56e14u)+(uint32_t)animation;}
+        COHORT_STATES_U(a-4u)=sprite;return sprite;
+    }
+    {uint32_t sprite=COHORT_STATES_U(0xf56134u)+(uint32_t)heading;COHORT_STATES_U(a-4u)=sprite;return sprite;}
+}
+
+__declspec(noinline) uint32_t restore_actor_update_trade_ship(void)
+{
+    int32_t id=(int32_t)COHORT_STATES_U(0xd056f8u),building_id,result,heading;uint32_t a=human_actor(id),t,speed;
+    uint8_t kind=COHORT_STATES_B(a+2u),state,frame,direction;int moving=1;
+    building_id=COHORT_STATES_H(a+0x56u);speed=COHORT_STATES_U(0x7090ecu+(uint32_t)kind*56u);
+    if(building_id){
+        t=human_building(building_id);
+        if(COHORT_STATES_H(t+0xb4u)==id){
+            int32_t y=COHORT_STATES_H(t+8u),x=COHORT_STATES_H(t+6u);uint32_t layout=COHORT_STATES_B(t+3u);(void)FUN_004806c0(x,y,layout);
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+            {int32_t target_x=COHORT_STATES_H(a+0x1cu);int same=0;
+             if(COHORT_STATES_U(0xd3b4e4u)==(uint32_t)target_x){int32_t target_y=COHORT_STATES_H(a+0x1eu);same=COHORT_STATES_U(0xd3b4e0u)==(uint32_t)target_y;}
+             COHORT_STATES_W(t+0xb4u)=same?(uint16_t)id:0;}
+        }
+    }
+    COHORT_STATES_B(a+0x5du)=0;COHORT_STATES_B(a+0x6eu)=1;frame=(uint8_t)(COHORT_STATES_B(a-7u)+1u);COHORT_STATES_B(a-7u)=frame;if(frame>=12)COHORT_STATES_B(a-7u)=0;
+    COHORT_STATES_U(a+0x178u)=0;state=COHORT_STATES_B(a+0x30u);
+    if(state==5){FUN_004b17d0(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+    else if(state==4){FUN_004b1d50(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+    else if(state==8){
+        moving=0;COHORT_STATES_B(a+0x5du)=0;COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+        if(COHORT_STATES_H(a+0x2eu)>20){
+            building_id=FUN_004808a0(id);
+            if(building_id){
+                int32_t y,x;uint32_t layout;t=human_building(building_id);layout=COHORT_STATES_B(t+3u);y=COHORT_STATES_H(t+8u);x=COHORT_STATES_H(t+6u);
+                (void)FUN_004806c0(x,y,layout);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_W(a+0x56u)=(uint16_t)building_id;COHORT_STATES_B(a+0x30u)=9;
+                COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(0xd3b4e0u);
+            }else{
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);result=FUN_004809b0(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+                if(result){COHORT_STATES_B(a+0x30u)=11;COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(0xd3b4e0u);}
+                else{uint16_t x=COHORT_STATES_B(0x784c90u);COHORT_STATES_B(a+0x30u)=13;COHORT_STATES_W(a+0x2eu)=0;COHORT_STATES_W(a+0x1cu)=x;COHORT_STATES_W(a+0x1eu)=COHORT_STATES_B(0x784c92u);}
+            }
+            COHORT_STATES_W(a+0x2eu)=0;
+        }
+        COHORT_STATES_B(a-7u)=0;
+    }else if(state==12){
+        moving=0;COHORT_STATES_W(a+0x2eu)=(uint16_t)(COHORT_STATES_W(a+0x2eu)+1u);
+        if(COHORT_STATES_H(a+0x2eu)>40){
+            building_id=FUN_004808a0(id);
+            if(building_id){
+                uint32_t layout;int32_t y,x;t=human_building(building_id);layout=COHORT_STATES_B(t+3u);y=COHORT_STATES_H(t+8u);x=COHORT_STATES_H(t+6u);(void)FUN_004806c0(x,y,layout);
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_W(a+0x56u)=(uint16_t)building_id;COHORT_STATES_B(a+0x30u)=9;
+                COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(0xd3b4e0u);
+            }else{
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+                if(COHORT_STATES_H(0xb350dcu+COHORT_STATES_U(a+0x18u)*2u)!=id){
+                    result=FUN_004809b0(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);
+                    if(result){COHORT_STATES_B(a+0x30u)=11;COHORT_STATES_W(a+0x1cu)=COHORT_STATES_W(0xd3b4e4u);COHORT_STATES_W(a+0x1eu)=COHORT_STATES_W(0xd3b4e0u);}
+                }
+            }
+            a=human_actor(id);COHORT_STATES_W(a+0x2eu)=0;
+        }
+        COHORT_STATES_B(a-7u)=0;
+    }else if(state==9){
+        FUN_004a5da0(id,(int32_t)speed);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x6fu)=0;direction=COHORT_STATES_B(a+9u);
+        if(direction==8)COHORT_STATES_B(a+0x30u)=10;
+        else if(direction==9){FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+        else if(direction==10){
+            COHORT_STATES_B(a+6u)=2;
+            if(!COHORT_STATES_U(0xe95184u)){COHORT_STATES_U(0xe950dcu)=1;FUN_004e0cf0(114,0,0,0,0);COHORT_STATES_U(0xe95184u)+=1u;id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+        }
+        a=human_actor(id);building_id=COHORT_STATES_H(a+0x56u);
+        if(COHORT_STATES_B(human_building(building_id))!=1){
+            frame=(uint8_t)((uint32_t)FUN_00480860(building_id)+1u);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x72u)=frame;
+            if(frame<10){COHORT_STATES_B(a+0x30u)=8;COHORT_STATES_W(a+0x2eu)=0;}
+            else{uint16_t x=COHORT_STATES_B(0x784c90u);COHORT_STATES_B(a+0x30u)=13;COHORT_STATES_W(a+0x2eu)=0;COHORT_STATES_W(a+0x1cu)=x;COHORT_STATES_W(a+0x1eu)=COHORT_STATES_B(0x784c92u);}
+        }
+    }else if(state==10){
+        uint8_t orientation;moving=0;building_id=COHORT_STATES_H(a+0x56u);result=FUN_00495af0(id);
+        if(result){
+            uint32_t cached_actor;id=(int32_t)COHORT_STATES_U(0xd056f8u);cached_actor=human_actor(id);
+            frame=(uint8_t)((uint32_t)FUN_00480860(building_id)+1u);COHORT_STATES_B(cached_actor+0x72u)=frame;COHORT_STATES_B(cached_actor+0x73u)=0;
+            if(COHORT_STATES_B(cached_actor+0x72u)<10){COHORT_STATES_B(cached_actor+0x30u)=8;COHORT_STATES_W(cached_actor+0x2eu)=0;}
+            else{
+                uint16_t x=COHORT_STATES_B(0x784c90u),y=COHORT_STATES_B(0x784c92u);COHORT_STATES_B(cached_actor+0x30u)=13;COHORT_STATES_W(cached_actor+0x2eu)=0;
+                COHORT_STATES_W(cached_actor+0x1cu)=x;COHORT_STATES_W(cached_actor+0x1eu)=y;COHORT_STATES_W(human_building(building_id)+0xb4u)=0;
+            }
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);
+        }else{
+            id=(int32_t)COHORT_STATES_U(0xd056f8u);result=FUN_00495a40(id);
+            if(result){
+                id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);t=human_building(building_id);
+                COHORT_STATES_W(t+0x54u)=0;COHORT_STATES_B(t+0xa7u)=0;COHORT_STATES_B(a+0x73u)=0;
+                frame=(uint8_t)((uint32_t)FUN_00480860(building_id)+1u);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x72u)=frame;
+                if(frame<10){COHORT_STATES_B(a+0x30u)=8;COHORT_STATES_W(a+0x2eu)=0;}
+                else{uint16_t x=COHORT_STATES_B(0x784c90u);COHORT_STATES_B(a+0x30u)=13;COHORT_STATES_W(a+0x2eu)=0;COHORT_STATES_W(a+0x1cu)=x;COHORT_STATES_W(t+0xb4u)=0;COHORT_STATES_W(a+0x1eu)=COHORT_STATES_B(0x784c92u);}
+            }else id=(int32_t)COHORT_STATES_U(0xd056f8u);
+        }
+        orientation=COHORT_STATES_B(human_building(building_id)+0xaau);a=human_actor(id);COHORT_STATES_U(0xe95184u)=0;
+        if(orientation==0)COHORT_STATES_B(a+9u)=2;else if(orientation==1)COHORT_STATES_B(a+9u)=4;else if(orientation==2)COHORT_STATES_B(a+9u)=6;else COHORT_STATES_B(a+9u)=0;
+        COHORT_STATES_B(a-7u)=0;
+    }else if(state==11||state==13){
+        FUN_004a5da0(id,(int32_t)speed);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);COHORT_STATES_B(a+0x6fu)=0;direction=COHORT_STATES_B(a+9u);
+        if(direction==8){if(state==11)COHORT_STATES_B(a+0x30u)=12;else{COHORT_STATES_B(a+0x30u)=8;COHORT_STATES_B(a+6u)=2;}}
+        else if(direction==9){FUN_004b3250(id);id=(int32_t)COHORT_STATES_U(0xd056f8u);}
+        else if(direction==10)COHORT_STATES_B(a+6u)=2;
+    }else{COHORT_STATES_B(a+0x30u)=8;moving=0;}
+    a=human_actor(id);heading=(int8_t)COHORT_STATES_B(a+9u);if(heading>=8)heading=(int8_t)COHORT_STATES_B(a+0x0au);
+    heading=(int32_t)((uint32_t)heading-COHORT_STATES_U(0xbca2e0u));COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;
+    if(heading<0){heading+=8;COHORT_STATES_U(0xe94e00u)=(uint32_t)heading;}
+    if(COHORT_STATES_B(a+0x30u)==4){
+        int32_t age=COHORT_STATES_H(a+0x2eu);
+        if(age<33){
+            int32_t y=COHORT_STATES_H(a+0x0eu),x=COHORT_STATES_H(a+0x0cu);uint8_t water;uint32_t base,sprite;(void)y;
+            water=(uint8_t)FUN_0047a1c0(x);id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);age=COHORT_STATES_H(a+0x2eu)/3;heading=(int32_t)COHORT_STATES_U(0xe94e00u);
+            base=COHORT_STATES_U(water?0xf571dcu:0xf560ccu);sprite=base+(uint32_t)age+(uint32_t)(heading/8);COHORT_STATES_U(a-4u)=sprite;return sprite;
+        }else{int32_t animation=age-33;if(animation>=23)animation=22;COHORT_STATES_U(a-4u)=COHORT_STATES_U(0xf56e14u)+(uint32_t)animation;return a-0xbcd600u;}
+    }else{
+        int32_t y=COHORT_STATES_H(a+0x0eu),x=COHORT_STATES_H(a+0x0cu);uint8_t water;uint32_t base;(void)y;
+        water=(uint8_t)FUN_0047a1c0(x);
+        if(moving){
+            uint32_t animation;id=(int32_t)COHORT_STATES_U(0xd056f8u);a=human_actor(id);animation=COHORT_STATES_B(a-7u)/3u;
+            base=COHORT_STATES_U(water?0xf571d4u:0xf560c4u);heading=(int32_t)COHORT_STATES_U(0xe94e00u);COHORT_STATES_U(a-4u)=base+animation*8u+(uint32_t)heading;return (uint32_t)heading;
+        }
+        base=COHORT_STATES_U(0xf560d4u);heading=(int32_t)COHORT_STATES_U(0xe94e00u);if(water)base=COHORT_STATES_U(0xf571e4u);
+        id=(int32_t)COHORT_STATES_U(0xd056f8u);COHORT_STATES_U(human_actor(id)-4u)=base+(uint32_t)heading;return (uint32_t)id;
+    }
+}
+
+#undef COHORT_STATES_U
+#undef COHORT_STATES_W
+#undef COHORT_STATES_H
+#undef COHORT_STATES_B
+
+
+#define COHORT_PATH_PU(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_PATH_PW(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_PATH_PH(a) (*(volatile int16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_PATH_PB(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+typedef char path_pointer32[sizeof(void *)==4?1:-1];
+extern uint32_t FUN_0051cba0(int32_t x,int32_t y,int32_t tx,int32_t ty);
+extern uint32_t FUN_004b4420(int32_t x,int32_t y,int32_t tx,int32_t ty);
+extern uint32_t FUN_004467a0(int32_t *x,int32_t *y);
+extern void FUN_004b5420(int32_t actor);
+extern uint32_t restore_actor_link_to_grid(int32_t actor);
+extern void FUN_004e9400(int32_t player,int32_t amount);
+int32_t restore_actor_find_weighted_route_target(int32_t x,int32_t y,int32_t range);
+
+static uint32_t path_actor(int32_t id)
+{return 0xbcd600u+(uint32_t)id*388u;}
+static int32_t path_axis_distance(int32_t a,int32_t b)
+{
+    if(a>b)return (int32_t)((uint32_t)a-(uint32_t)b);
+    if(a<b)return (int32_t)((uint32_t)b-(uint32_t)a);
+    return 0;
+}
+static int32_t path_publish_distance(int32_t x,int32_t y,int32_t tx,int32_t ty)
+{
+    int32_t dx=path_axis_distance(x,tx),dy;
+    COHORT_PATH_PU(0xd3b4fcu)=(uint32_t)dx;
+    dy=path_axis_distance(y,ty);COHORT_PATH_PU(0xd3b4f8u)=(uint32_t)dy;
+    return dx>=dy?dx:dy;
+}
+
+/* 4B46B0: status, life state and cached-target serial must still match. */
+__declspec(noinline) uint32_t restore_actor_has_valid_linked_target(int32_t id)
+{
+    uint32_t actor=path_actor(id),target;
+    int32_t linked=COHORT_PATH_PH(actor+0x7au);
+    uint16_t serial;
+    if(linked<=0)return 0;
+    target=path_actor(linked);
+    if(COHORT_PATH_PB(target+6u)!=1u)return 0;
+    if(COHORT_PATH_PB(target+0x30u)==4u)return 0;
+    serial=COHORT_PATH_PW(target+0x7eu);
+    return serial==COHORT_PATH_PW(actor+0x80u)?1u:0u;
+}
+
+/* 4B3340: route bytes are not clamped; fallback classifies a fresh heading. */
+__declspec(noinline) uint32_t restore_actor_next_path_direction(int32_t id)
+{
+    uint32_t actor=path_actor(id);
+    int32_t route=COHORT_PATH_PH(actor+0x32u),step,limit;
+    if(route<=0){
+        int32_t ty=COHORT_PATH_PH(actor+0x1eu),tx=COHORT_PATH_PH(actor+0x1cu);
+        int32_t y=COHORT_PATH_PH(actor+14u),x=COHORT_PATH_PH(actor+12u);
+        uint8_t heading=(uint8_t)FUN_0051cba0(x,y,tx,ty);
+        return heading==8u?8u:10u;
+    }
+    step=COHORT_PATH_PH(actor+0x34u);limit=COHORT_PATH_PH(actor+0x36u);
+    if(step>=limit)return 8;
+    return COHORT_PATH_PB(0xc8ad38u+(uint32_t)route*500u+(uint32_t)step);
+}
+
+/* 4BCE90's established API promises AL only. Full physical RAW is retained. */
+__declspec(noinline) uint8_t restore_actor_target_excluded_by_assignment(int32_t id)
+{
+    uint32_t actor=path_actor(id);
+    uint8_t kind=COHORT_PATH_PB(actor+2u);
+    if(kind==77u||kind==78u)return COHORT_PATH_PH(actor+0x12au)>=0?1u:0u;
+    if(kind==11u||kind==12u||kind==13u){
+        int32_t group=COHORT_PATH_PH(actor+0x58u);
+        return COHORT_PATH_PH(0xbcba4au+(uint32_t)group*144u)>=0?1u:0u;
+    }
+    return 0;
+}
+
+/* 4BCF40: Y is read before X, then the complete selected-ID result passes on. */
+__declspec(noinline) int32_t restore_actor_find_route_target(int32_t id,int32_t range)
+{
+    uint32_t actor=path_actor(id);
+    int32_t y=COHORT_PATH_PH(actor+14u),x=COHORT_PATH_PH(actor+12u);
+    return restore_actor_find_weighted_route_target(x,y,range);
+}
+
+/* 4BCF70: maximize wrapped signed priority-distance, with strict ties. */
+__declspec(noinline) int32_t restore_actor_find_weighted_route_target(int32_t x,int32_t y,int32_t range)
+{
+    int32_t best_priority=0,selected=0,id;
+    COHORT_PATH_PU(0xbcd5ecu)=(uint32_t)range;
+    for(id=1;id<2000;++id){
+        uint32_t actor=path_actor(id);
+        uint8_t kind;
+        int32_t tx,ty,priority,distance,new_score,old_score;
+        if(COHORT_PATH_PB(actor+6u)!=1u)continue;
+        if(restore_actor_target_excluded_by_assignment(id)!=0u)continue;
+        if(COHORT_PATH_PB(actor+0x30u)==4u)continue;
+        kind=COHORT_PATH_PB(actor+2u);
+        switch(kind){
+        case 77:
+            priority=COHORT_PATH_PB(actor+0x128u)!=0u?25:10;
+            tx=COHORT_PATH_PH(actor+12u);ty=COHORT_PATH_PH(actor+14u);break;
+        case 11:case 12:case 13:
+            tx=COHORT_PATH_PH(actor+12u);ty=COHORT_PATH_PH(actor+14u);priority=17;break;
+        case 78:
+            tx=COHORT_PATH_PH(actor+12u);ty=COHORT_PATH_PH(actor+14u);priority=15;break;
+        case 20:case 25:
+            tx=COHORT_PATH_PH(actor+12u);ty=COHORT_PATH_PH(actor+14u);priority=5;break;
+        default:continue;
+        }
+        distance=path_publish_distance(x,y,tx,ty);
+        if(kind==11u||kind==12u||kind==13u){
+            uint32_t active=path_actor((int32_t)COHORT_PATH_PU(0xd056f8u));
+            uint8_t active_kind=COHORT_PATH_PB(active+2u);
+            if(distance>(int32_t)COHORT_PATH_PU(0x7090e4u+(uint32_t)active_kind*56u))continue;
+        }
+        old_score=(int32_t)((uint32_t)best_priority-COHORT_PATH_PU(0xbcd5ecu));
+        new_score=(int32_t)((uint32_t)priority-(uint32_t)distance);
+        if(new_score<=old_score)continue;
+        if(FUN_004b4420(x,y,tx,ty)==0u)continue;
+        COHORT_PATH_PU(0xbcd5ecu)=(uint32_t)distance;selected=id;best_priority=priority;
+    }
+    if(selected!=0){
+        uint32_t actor=path_actor(selected);
+        int32_t tx=COHORT_PATH_PH(actor+12u),ty=COHORT_PATH_PH(actor+14u);
+        COHORT_PATH_PU(0xd3b4e0u)=(uint32_t)ty;COHORT_PATH_PU(0xd3b4e4u)=(uint32_t)tx;
+    }
+    return selected;
+}
+
+/* 4BE4A0 is native RET4; this named C API is logical cdecl, not a raw entry. */
+__declspec(noinline) uint32_t restore_actor_relocate_from_marked_tile(int32_t id)
+{
+    uint32_t actor=path_actor(id),tile=COHORT_PATH_PU(actor+0x18u),dx,dy;
+    int32_t x,y,old_x,old_y;
+    if((int8_t)COHORT_PATH_PB(0xed4140u+tile)>=0)return tile;
+    x=COHORT_PATH_PH(actor+12u);y=COHORT_PATH_PH(actor+14u);
+    (void)FUN_004467a0(&x,&y);
+    old_x=COHORT_PATH_PH(actor+12u);old_y=COHORT_PATH_PH(actor+14u);
+    dx=(uint32_t)x-(uint32_t)old_x;dy=(uint32_t)y-(uint32_t)old_y;
+    if(dx==0u&&dy==0u)return (uint32_t)old_y;
+    FUN_004b5420(id);
+    COHORT_PATH_PW(actor+0x42u)=(uint16_t)(COHORT_PATH_PW(actor+0x42u)+(dx<<4));
+    COHORT_PATH_PW(actor+12u)=(uint16_t)x;
+    COHORT_PATH_PW(actor+0x44u)=(uint16_t)(COHORT_PATH_PW(actor+0x44u)+(dy<<4));
+    COHORT_PATH_PW(actor+14u)=(uint16_t)y;
+    COHORT_PATH_PU(actor+0x18u)=COHORT_PATH_PU(actor+0x18u)+dx+dy*228u;
+    return restore_actor_link_to_grid(id);
+}
+
+/* 4E91E0: each signed history entry reads the current published sum freshly. */
+__declspec(noinline) uint32_t restore_player_debit_and_recompute_history(int32_t player,int32_t amount)
+{
+    uint32_t offset=(uint32_t)player*0x49d8u,index,total=0;
+    COHORT_PATH_PU(0xea3f68u+offset)=COHORT_PATH_PU(0xea3f68u+offset)-(uint32_t)amount;
+    FUN_004e9400(player,amount);
+    COHORT_PATH_PU(0xea1894u+offset)=0;
+    for(index=0;index<100u;++index){
+        int32_t entry=COHORT_PATH_PH(0xea3e34u+offset+index*2u);
+        total=COHORT_PATH_PU(0xea1894u+offset)+(uint32_t)entry;
+        COHORT_PATH_PU(0xea1894u+offset)=total;
+    }
+    if((int32_t)total>(int32_t)COHORT_PATH_PU(0xea5f0cu+offset))COHORT_PATH_PU(0xea5f0cu+offset)=total;
+    return total;
+}
+
+/* 480E90: destination plus four cells two tiles away must have flag4. */
+__declspec(noinline) int32_t restore_actor_find_unoccupied_cross_tile(int32_t id)
+{
+    uint32_t actor=path_actor(id),tile=COHORT_PATH_PU(actor+0x18u);
+    int32_t x,y,radius;
+    if((COHORT_PATH_PB(0xaf598cu+tile*4u)&4u)!=0u&&COHORT_PATH_PH(0xb350dcu+tile*2u)==id)return 0;
+    x=COHORT_PATH_PH(actor+12u);y=COHORT_PATH_PH(actor+14u);
+    for(radius=1;radius<=5;++radius){
+        int32_t first_x=x-radius,first_y=y-radius,last_x=x+radius,last_y=y+radius;
+        int32_t limit,row;
+        uint32_t current,row_skip;
+        if(first_x<0)first_x=0;
+        if(first_y<0)first_y=0;
+        limit=(int32_t)COHORT_PATH_PU(0xbca2d0u);
+        if(last_x>=limit)last_x=(int32_t)((uint32_t)limit-1u);
+        limit=(int32_t)COHORT_PATH_PU(0xbca2d4u);
+        if(last_y>=limit)last_y=(int32_t)((uint32_t)limit-1u);
+        row=first_y;COHORT_PATH_PU(0xd3b4e0u)=(uint32_t)row;
+        current=COHORT_PATH_PU(0xbca2d8u)+(uint32_t)first_y*228u+(uint32_t)first_x;
+        row_skip=(uint32_t)first_x-(uint32_t)last_x+227u;
+        while(row<=last_y){
+            int32_t column=first_x;
+            COHORT_PATH_PU(0xd3b4e4u)=(uint32_t)column;
+            while(column<=last_x){
+                uint32_t flags=0xaf5984u+current*4u;
+                if((COHORT_PATH_PB(flags+8u)&4u)!=0u){
+                    int32_t head=COHORT_PATH_PH(0xb350dcu+current*2u);
+                    if((head==0||head==id)&&(COHORT_PATH_PB(flags-0x718u)&4u)!=0u&&
+                        (COHORT_PATH_PB(flags+0x10u)&4u)!=0u&&(COHORT_PATH_PB(flags+0x728u)&4u)!=0u&&
+                        (COHORT_PATH_PB(flags)&4u)!=0u)return 1;
+                }
+                column=(int32_t)((uint32_t)column+1u);++current;
+                COHORT_PATH_PU(0xd3b4e4u)=(uint32_t)column;
+            }
+            row=(int32_t)(COHORT_PATH_PU(0xd3b4e0u)+1u);current+=row_skip;
+            COHORT_PATH_PU(0xd3b4e0u)=(uint32_t)row;
+        }
+    }
+    return 0;
+}
+
+#undef COHORT_PATH_PU
+#undef COHORT_PATH_PW
+#undef COHORT_PATH_PH
+#undef COHORT_PATH_PB
+
+/* C-first human/water support cohort. All units/provider exclusions were
+   evaluated before writing this fragment; no active ordinary body is copied. */
+#define COHORT_SUPPORT_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SUPPORT_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SUPPORT_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define COHORT_SUPPORT_H(a) ((int32_t)(int16_t)COHORT_SUPPORT_W(a))
+#define COHORT_SUPPORT_I(a) ((int32_t)(uint32_t)(a))
+typedef char human_support_pointer32[sizeof(void *)==4?1:-1];
+
+__declspec(noinline) void restore_building_resolve_entry_position(int32_t building,int32_t *out_x,int32_t *out_y)
+{
+    uint32_t original=(uint32_t)building*264u,root,mode,variant,offset,selected;
+    int32_t member=COHORT_SUPPORT_H(0x7999eau+original);mode=COHORT_SUPPORT_U(0x5e4ef4u);root=(uint32_t)building-(uint32_t)member;
+    variant=COHORT_SUPPORT_B(0x799a2cu+root*264u);
+    offset=mode==5u?COHORT_SUPPORT_U(0x5f5498u+variant*128u):COHORT_SUPPORT_U(0x5f3878u+variant*960u);
+    selected=(root+offset)*264u;
+    *(volatile int32_t *)out_x=COHORT_SUPPORT_H(0x7999feu+selected);
+    *(volatile int32_t *)out_y=COHORT_SUPPORT_H(0x799a00u+selected);
+}
+__declspec(noinline) int32_t restore_dock_registry_index(int32_t building)
+{
+    uint32_t list,n;
+    if(COHORT_SUPPORT_I(COHORT_SUPPORT_U(0x705c1cu))<=0)return -1;
+    list=0xea5cd0u+COHORT_SUPPORT_U(0xeaac28u)*0x49d8u;
+    for(n=0;n<10u;++n)if(COHORT_SUPPORT_H(list+n*2u)==building)return COHORT_SUPPORT_I(n);
+    return -1;
+}
+__declspec(noinline) int32_t restore_actor_claim_dock_position(int32_t actor)
+{
+    uint32_t index,list,record;int32_t candidate=0,x,y;uint16_t owner;uint8_t direction;
+    if(COHORT_SUPPORT_I(COHORT_SUPPORT_U(0x705c1cu))<=0)return 0;
+    index=COHORT_SUPPORT_B(0xbcd672u+(uint32_t)actor*388u);if(index>=10u)return 0;
+    list=0xea5cd0u+COHORT_SUPPORT_U(0xeaac28u)*0x49d8u+index*2u;
+    do{
+        candidate=COHORT_SUPPORT_H(list);
+        if(candidate>0){owner=COHORT_SUPPORT_W(0x799a8cu+(uint32_t)candidate*264u);if(owner==0u || (int32_t)(int16_t)owner==actor)break;}
+        ++index;list+=2u;
+    }while(index<10u);
+    /* Exhaustion still accepts the last positive candidate, even occupied. */
+    if(candidate<=0)return 0;
+    record=(uint32_t)candidate*264u;direction=COHORT_SUPPORT_B(0x799a82u+record);
+    x=COHORT_SUPPORT_H(0x7999deu+record);x=COHORT_SUPPORT_I((uint32_t)x+(direction==1u?3u:(direction==0u || direction==2u?1u:0xffffffffu)));
+    COHORT_SUPPORT_U(0xd3b4e4u)=(uint32_t)x;
+    y=COHORT_SUPPORT_H(0x7999e0u+record);y=COHORT_SUPPORT_I((uint32_t)y+(direction==0u?0xffffffffu:(direction==2u?3u:1u)));
+    COHORT_SUPPORT_W(0x799a8cu+record)=(uint16_t)actor;COHORT_SUPPORT_U(0xd3b4e0u)=(uint32_t)y;return candidate;
+}
+
+struct human_water_point{int32_t x,y;};
+/* Captures X and Y before either publication. This is deliberately separate
+   from claim_dock_position, which reads Y only after publishing X. */
+static struct human_water_point human_water_publish_point(uint32_t record,uint32_t negative,uint32_t positive)
+{
+    struct human_water_point point;uint8_t direction=COHORT_SUPPORT_B(0x799a82u+record);
+    point.x=COHORT_SUPPORT_H(0x7999deu+record);point.y=COHORT_SUPPORT_H(0x7999e0u+record);
+    point.x=COHORT_SUPPORT_I((uint32_t)point.x+(direction==1u?positive:(direction==0u || direction==2u?1u:0u-negative)));
+    point.y=COHORT_SUPPORT_I((uint32_t)point.y+(direction==0u?0u-negative:(direction==2u?positive:1u)));
+    COHORT_SUPPORT_U(0xd3b4e4u)=(uint32_t)point.x;COHORT_SUPPORT_U(0xd3b4e0u)=(uint32_t)point.y;return point;
+}
+__declspec(noinline) int32_t restore_actor_find_dock_waiting_position(int32_t actor)
+{
+    uint32_t grid_base,start,player,list,index,tile;int32_t candidate;
+    struct human_water_point point;
+    if(COHORT_SUPPORT_I(COHORT_SUPPORT_U(0x705c1cu))<=0)return 0;
+    grid_base=COHORT_SUPPORT_U(0xbca2d8u);start=COHORT_SUPPORT_B(0xbcd672u+(uint32_t)actor*388u);player=COHORT_SUPPORT_U(0xeaac28u);
+    if(start<10u){
+        list=0xea5cd0u+player*0x49d8u+start*2u;
+        for(index=start;index<10u;++index,list+=2u){
+            candidate=COHORT_SUPPORT_H(list);if(candidate<=0)continue;
+            point=human_water_publish_point((uint32_t)candidate*264u,2,4);
+            grid_base=COHORT_SUPPORT_U(0xbca2d8u);tile=grid_base+(uint32_t)point.y*228u+(uint32_t)point.x;
+            if(COHORT_SUPPORT_W(0xb350dcu+tile*2u)==0u)return candidate;
+            player=COHORT_SUPPORT_U(0xeaac28u);
+        }
+        /* Fallback uses last cached player/base, not fresh globals. */
+        list=0xea5cd0u+player*0x49d8u+start*2u;
+        for(index=start;index<10u;++index,list+=2u){
+            candidate=COHORT_SUPPORT_H(list);if(candidate<=0)continue;
+            point=human_water_publish_point((uint32_t)candidate*264u,3,5);
+            tile=grid_base+(uint32_t)point.y*228u+(uint32_t)point.x;
+            if(COHORT_SUPPORT_W(0xb350dcu+tile*2u)==0u)return candidate;
+        }
+    }
+    return 0;
+}
+__declspec(noinline) int32_t restore_actor_find_available_water_building(int32_t actor)
+{
+    uint32_t building,record;uint16_t kind,owner;
+    for(building=1;building<4000u;++building){
+        record=building*264u;if(COHORT_SUPPORT_B(0x7999d8u+record)!=1u)continue;
+        kind=COHORT_SUPPORT_W(0x7999e8u+record);if(kind!=76u && kind!=181u && kind!=182u)continue;
+        owner=COHORT_SUPPORT_W(0x799a8cu+record);if(owner!=0u && (int32_t)(int16_t)owner!=actor)continue;
+        (void)human_water_publish_point(record,1,2);return COHORT_SUPPORT_I(building);
+    }
+    return 0;
+}
+static uint32_t human_support_difference(int32_t a,int32_t b)
+{return a>b?(uint32_t)a-(uint32_t)b:(a<b?(uint32_t)b-(uint32_t)a:0u);}
+__declspec(noinline) int32_t restore_actor_find_nearest_water_waypoint(int32_t actor)
+{
+    uint32_t count=0,n,chosen=0,o=(uint32_t)actor*388u,dx,dy,distance;int32_t best=10000,px,py,x,y;
+    uint16_t raw_x;uint8_t output_x,output_y;
+    for(n=0;n<8u;++n)if(COHORT_SUPPORT_H(0x784b74u+n*2u)>0)++count;
+    if(count==0u)return 0;
+    for(n=0;n<8u;++n){
+        raw_x=COHORT_SUPPORT_W(0x784b74u+n*2u);if((int16_t)raw_x<=0)continue;
+        px=(int16_t)raw_x;py=COHORT_SUPPORT_H(0x784b84u+n*2u);y=COHORT_SUPPORT_H(0xbcd60eu+o);x=COHORT_SUPPORT_H(0xbcd60cu+o);
+        dx=human_support_difference(x,px);COHORT_SUPPORT_U(0xd3b4fcu)=dx;
+        dy=human_support_difference(y,py);COHORT_SUPPORT_U(0xd3b4f8u)=dy;distance=COHORT_SUPPORT_I(dx)<COHORT_SUPPORT_I(dy)?dy:dx;
+        if(COHORT_SUPPORT_I(distance)<best){best=COHORT_SUPPORT_I(distance);chosen=n;}
+    }
+    if(best>=10000)return 0;
+    output_x=COHORT_SUPPORT_B(0x784b74u+chosen*2u);output_y=COHORT_SUPPORT_B(0x784b84u+chosen*2u);
+    COHORT_SUPPORT_U(0xd3b4e4u)=output_x;COHORT_SUPPORT_U(0xd3b4e0u)=output_y;return 1;
+}
+__declspec(noinline) int32_t restore_actor_water_space_blocked(int32_t actor)
+{
+    uint32_t o=(uint32_t)actor*388u,tile=COHORT_SUPPORT_U(0xbcd618u+o),grid_base,row_adjust,next_y;
+    int32_t x,y,left,right,top,bottom,width,height,current_x,current_y;unsigned radius;
+    if(COHORT_SUPPORT_H(0xb350dcu+tile*2u)==actor)return 1;
+    x=COHORT_SUPPORT_H(0xbcd60cu+o);y=COHORT_SUPPORT_H(0xbcd60eu+o);
+    for(radius=1;radius<=5u;++radius){
+        right=COHORT_SUPPORT_I((uint32_t)x+radius);bottom=COHORT_SUPPORT_I((uint32_t)y+radius);left=COHORT_SUPPORT_I((uint32_t)x-radius);top=COHORT_SUPPORT_I((uint32_t)y-radius);
+        if(left<0)left=0;if(top<0)top=0;
+        width=COHORT_SUPPORT_I(COHORT_SUPPORT_U(0xbca2d0u));if(right>=width)right=COHORT_SUPPORT_I((uint32_t)width-1u);
+        height=COHORT_SUPPORT_I(COHORT_SUPPORT_U(0xbca2d4u));if(bottom>=height)bottom=COHORT_SUPPORT_I((uint32_t)height-1u);
+        grid_base=COHORT_SUPPORT_U(0xbca2d8u);COHORT_SUPPORT_U(0xd3b4e0u)=(uint32_t)top;
+        tile=grid_base+(uint32_t)top*228u+(uint32_t)left;row_adjust=(uint32_t)left-(uint32_t)right+227u;current_y=top;
+        if(current_y>bottom)continue;
+        do{
+            current_x=left;COHORT_SUPPORT_U(0xd3b4e4u)=(uint32_t)current_x;
+            if(current_x<=right){
+                do{
+                    if((COHORT_SUPPORT_B(0xaf598cu+tile*4u)&4u)!=0u && COHORT_SUPPORT_W(0xb350dcu+tile*2u)==0u)return 0;
+                    current_x=COHORT_SUPPORT_I((uint32_t)current_x+1u);++tile;COHORT_SUPPORT_U(0xd3b4e4u)=(uint32_t)current_x;
+                }while(current_x<=right);
+            }
+            next_y=COHORT_SUPPORT_U(0xd3b4e0u)+1u;tile+=row_adjust;current_y=COHORT_SUPPORT_I(next_y);COHORT_SUPPORT_U(0xd3b4e0u)=next_y;
+        }while(current_y<=bottom);
+    }
+    return 1;
+}
+__declspec(noinline) int32_t restore_actor_can_leave_water_building(int32_t actor)
+{
+    uint32_t o=(uint32_t)actor*388u,record=(uint32_t)COHORT_SUPPORT_H(0xbcd656u+o)*264u,n,worker;
+    uint16_t kind;uint8_t timer;
+    if(COHORT_SUPPORT_B(0x7999d8u+record)!=1u)return 1;
+    kind=COHORT_SUPPORT_W(0x7999e8u+record);if(kind!=75u && kind!=192u)return 1;
+    if(COHORT_SUPPORT_H(0x799a18u+record)<=0)return 1;
+    for(n=0;n<3u;++n){
+        worker=(uint32_t)COHORT_SUPPORT_H(0x799a86u+record+n*2u);
+        if(worker!=0u && COHORT_SUPPORT_B(0xbcd606u+worker*388u)==1u && COHORT_SUPPORT_B(0xbcd630u+worker*388u)!=8u)return 0;
+    }
+    timer=(uint8_t)(COHORT_SUPPORT_B(0xbcd673u+o)+1u);COHORT_SUPPORT_B(0xbcd673u+o)=timer;
+    if(timer<10u)return 0;COHORT_SUPPORT_B(0xbcd673u+o)=11;return 1;
+}
+__declspec(noinline) int32_t restore_actor_water_assignment_invalid(int32_t actor)
+{
+    uint32_t record=(uint32_t)COHORT_SUPPORT_H(0xbcd656u+(uint32_t)actor*388u)*264u;uint16_t kind;
+    if(COHORT_SUPPORT_B(0x7999d8u+record)!=1u)return 1;
+    kind=COHORT_SUPPORT_W(0x7999e8u+record);if(kind!=75u && kind!=192u)return 1;
+    if(COHORT_SUPPORT_H(0x799a18u+record)<=0)return 1;
+    return COHORT_SUPPORT_H(0x799a8cu+record)!=actor;
+}
+/* Exact type set, deliberately named by the existing service-kind grouping
+   rather than asserting an unproven building-resource interpretation. */
+__declspec(noinline) int32_t restore_building_has_special_service_kind(int32_t building)
+{
+    switch(COHORT_SUPPORT_H(0x7999e8u+(uint32_t)building*264u)){
+    case 77:case 78:case 79:case 84:case 85:case 86:case 87:
+    case 184:case 187:case 188:case 189:return 1;
+    default:return 0;
+    }
+}
+
+extern void FUN_004b5420(int32_t actor),FUN_004b52f0(int32_t actor);
+extern void FUN_004b17d0(int32_t actor),FUN_004b1d50(int32_t actor),FUN_004b3250(int32_t actor);
+extern void FUN_004a5da0(int32_t actor,uint32_t speed),FUN_004b1ef0(int32_t actor,int32_t steps);
+extern uint32_t FUN_0047fe60(int32_t x,int32_t y,uint32_t size,int32_t distance);
+extern void FUN_004b4220(int32_t actor,int32_t from_x,int32_t from_y,int32_t to_x,int32_t to_y,int32_t mode);
+extern int32_t FUN_004b3ff0(int32_t actor,int32_t mode),FUN_00467450(int32_t actor);
+extern void FUN_00468530(int32_t actor);
+extern uint32_t FUN_004a35e0(int32_t actor);
+
+__declspec(noinline) uint32_t restore_actor_update_standard_bearer(void)
+{
+    uint32_t actor=COHORT_SUPPORT_U(0xd056f8u),o=actor*388u,g=(uint32_t)COHORT_SUPPORT_H(0xbcd658u+o)*144u;
+    uint32_t followed,fo,grid_base,base,graphic,result,idle_offset,active_offset;
+    uint16_t px,py,marker,active;uint8_t animation,field;int32_t x,y,strength;
+    COHORT_SUPPORT_B(0xbcd66au+o)=0;animation=(uint8_t)(COHORT_SUPPORT_B(0xbcd5f9u+o)+1u);COHORT_SUPPORT_B(0xbcd5f9u+o)=animation;
+    if(animation>=16u)COHORT_SUPPORT_B(0xbcd5f9u+o)=0;
+    FUN_004b5420(COHORT_SUPPORT_I(actor));
+    if(COHORT_SUPPORT_B(0xbcb9cbu+g)!=0u){
+        actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;px=COHORT_SUPPORT_W(0xbcb9feu+g);COHORT_SUPPORT_W(0xbcd60cu+o)=px;
+        py=COHORT_SUPPORT_W(0xbcba00u+g);COHORT_SUPPORT_W(0xbcd60eu+o)=py;
+    }else{
+        followed=COHORT_SUPPORT_U(0xbcba4cu+g);
+        if(followed!=0u){
+            actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;fo=followed*388u;
+            px=COHORT_SUPPORT_W(0xbcd60cu+fo);grid_base=COHORT_SUPPORT_U(0xbca2d8u);COHORT_SUPPORT_W(0xbcd60cu+o)=px;
+            py=COHORT_SUPPORT_W(0xbcd60eu+fo);COHORT_SUPPORT_W(0xbcd60eu+o)=py;
+            y=(int16_t)py;x=COHORT_SUPPORT_H(0xbcd60cu+o);COHORT_SUPPORT_U(0xbcd618u+o)=grid_base+(uint32_t)y*228u+(uint32_t)x;
+            px=COHORT_SUPPORT_W(0xbcd642u+fo);COHORT_SUPPORT_W(0xbcd642u+o)=px;py=COHORT_SUPPORT_W(0xbcd644u+fo);COHORT_SUPPORT_W(0xbcd644u+o)=py;
+            field=COHORT_SUPPORT_B(0xbcd631u+fo);COHORT_SUPPORT_B(0xbcd631u+o)=field;field=COHORT_SUPPORT_B(0xbcd609u+fo);COHORT_SUPPORT_B(0xbcd609u+o)=field;
+            goto standard_bearer_link;
+        }
+        actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;px=COHORT_SUPPORT_W(0xbcb9fau+g);py=COHORT_SUPPORT_W(0xbcb9fcu+g);
+        COHORT_SUPPORT_W(0xbcd60cu+o)=px;COHORT_SUPPORT_W(0xbcd60eu+o)=py;
+    }
+    grid_base=COHORT_SUPPORT_U(0xbca2d8u);y=(int16_t)py;x=COHORT_SUPPORT_H(0xbcd60cu+o);
+    COHORT_SUPPORT_U(0xbcd618u+o)=grid_base+(uint32_t)y*228u+(uint32_t)x;
+    px=COHORT_SUPPORT_W(0xbcd60cu+o);COHORT_SUPPORT_W(0xbcd642u+o)=(uint16_t)(px*15u);
+    py=COHORT_SUPPORT_W(0xbcd60eu+o);COHORT_SUPPORT_W(0xbcd644u+o)=(uint16_t)(py*15u);
+    COHORT_SUPPORT_W(0xbcd642u+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd642u+o)+7u);COHORT_SUPPORT_W(0xbcd644u+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd644u+o)+7u);
+standard_bearer_link:
+    FUN_004b52f0(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;strength=COHORT_SUPPORT_H(0xbcb9f4u+g);
+    base=COHORT_SUPPORT_U(0xf565ccu);graphic=base-(uint32_t)(strength/5)+20u;COHORT_SUPPORT_U(0xbcd5fcu+o)=graphic;
+    marker=COHORT_SUPPORT_W(0xbcb9ccu+g);idle_offset=marker==12u?0u:(marker==13u?18u:9u);active_offset=idle_offset+8u;
+    active=COHORT_SUPPORT_W(0xbcba22u+g);base=COHORT_SUPPORT_U(0xf5680cu);
+    if(active!=0u){result=base+active_offset;COHORT_SUPPORT_U(0xbcd778u+o)=result;return result;}
+    animation=COHORT_SUPPORT_B(0xbcd5f9u+o);COHORT_SUPPORT_U(0xbcd778u+o)=base+((uint32_t)animation>>1)+idle_offset;return base;
+}
+
+__declspec(noinline) uint32_t restore_actor_update_entertainer(void)
+{
+    uint32_t actor=COHORT_SUPPORT_U(0xd056f8u),o=actor*388u,kind=COHORT_SUPPORT_B(0xbcd602u+o),speed,base,direction,home_record,size,found;
+    uint32_t walk_id,death_id,graphic;int32_t home,facing,x,y,target_x,target_y,from_x,from_y,count,limit;
+    uint16_t target_word;uint8_t animation,state,current;
+    base=COHORT_SUPPORT_U(0xf55f54u);COHORT_SUPPORT_U(0xbcd778u+o)=base;COHORT_SUPPORT_B(0xbcd66au+o)=1;speed=COHORT_SUPPORT_U(0x7090ecu+kind*56u);
+    COHORT_SUPPORT_B(0xbcd604u+o)=0;COHORT_SUPPORT_W(0xbcd63au+o)=512;
+    animation=COHORT_SUPPORT_B(0xbcd5f9u+o);home=COHORT_SUPPORT_H(0xbcd652u+o);++animation;COHORT_SUPPORT_B(0xbcd5f9u+o)=animation;
+    if(animation>=12u)COHORT_SUPPORT_B(0xbcd5f9u+o)=0;
+    state=COHORT_SUPPORT_B(0xbcd630u+o);
+    switch(state){
+    case 5:
+        FUN_004b17d0(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;
+        animation=(uint8_t)(COHORT_SUPPORT_B(0xbcd5f9u+o)+1u);COHORT_SUPPORT_B(0xbcd5f9u+o)=animation;if(animation>=32u)COHORT_SUPPORT_B(0xbcd5f9u+o)=0;
+        break;
+    case 4:FUN_004b1d50(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);break;
+    case 8:
+        COHORT_SUPPORT_B(0xbcd65du+o)=1;COHORT_SUPPORT_B(0xbcd5f9u+o)=0;COHORT_SUPPORT_B(0xbcd663u+o)=0;
+        COHORT_SUPPORT_W(0xbcd62eu+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd62eu+o)-1u);if(COHORT_SUPPORT_H(0xbcd62eu+o)>0)break;
+        home_record=(uint32_t)home*264u;size=COHORT_SUPPORT_B(0x7999dbu+home_record);y=COHORT_SUPPORT_H(0x799a00u+home_record);x=COHORT_SUPPORT_H(0x7999feu+home_record);
+        found=FUN_0047fe60(x,y,size,2);actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;
+        if(found==0u){COHORT_SUPPORT_B(0xbcd606u+o)=2;break;}
+        target_word=COHORT_SUPPORT_W(0xd3b4e4u);COHORT_SUPPORT_B(0xbcd630u+o)=9;COHORT_SUPPORT_W(0xbcd61cu+o)=target_word;
+        target_word=COHORT_SUPPORT_W(0xd3b4e0u);COHORT_SUPPORT_W(0xbcd61eu+o)=target_word;target_y=(int32_t)(int16_t)target_word*15;
+        target_x=COHORT_SUPPORT_H(0xbcd61cu+o)*15;from_y=COHORT_SUPPORT_H(0xbcd644u+o);from_x=COHORT_SUPPORT_H(0xbcd642u+o);
+        FUN_004b4220(COHORT_SUPPORT_I(actor),from_x,from_y,target_x,target_y,0);actor=COHORT_SUPPORT_U(0xd056f8u);COHORT_SUPPORT_W(0xbcd63cu+actor*388u)=0;break;
+    case 9:
+        COHORT_SUPPORT_B(0xbcd604u+o)=1;COHORT_SUPPORT_B(0xbcd65du+o)=1;
+        if(FUN_004b3ff0(COHORT_SUPPORT_I(actor),1)!=1)actor=COHORT_SUPPORT_U(0xd056f8u);
+        else{
+            actor=COHORT_SUPPORT_U(0xd056f8u);found=(uint32_t)FUN_00467450(COHORT_SUPPORT_I(actor));
+            if(found==0u){actor=COHORT_SUPPORT_U(0xd056f8u);COHORT_SUPPORT_B(0xbcd606u+actor*388u)=2;}
+            else{
+                home_record=found*264u;size=COHORT_SUPPORT_B(0x7999dbu+home_record);y=COHORT_SUPPORT_H(0x7999e0u+home_record);x=COHORT_SUPPORT_H(0x7999deu+home_record);
+                size=FUN_0047fe60(x,y,size,2);actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;
+                if(size==0u)COHORT_SUPPORT_B(0xbcd606u+o)=2;
+                else{
+                    target_word=COHORT_SUPPORT_W(0xd3b4e4u);COHORT_SUPPORT_W(0xbcd656u+o)=(uint16_t)found;COHORT_SUPPORT_B(0xbcd630u+o)=10;
+                    COHORT_SUPPORT_W(0xbcd61cu+o)=target_word;target_word=COHORT_SUPPORT_W(0xd3b4e0u);COHORT_SUPPORT_W(0xbcd61eu+o)=target_word;COHORT_SUPPORT_W(0xbcd63cu+o)=0;
+                }
+            }
+        }
+        COHORT_SUPPORT_B(0xbcd65du+actor*388u)=1;break;
+    case 10:
+        COHORT_SUPPORT_B(0xbcd65du+o)=0;COHORT_SUPPORT_W(0xbcd63cu+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd63cu+o)+1u);
+        if(COHORT_SUPPORT_H(0xbcd63cu+o)>=3200)COHORT_SUPPORT_B(0xbcd606u+o)=2;
+        FUN_004a5da0(COHORT_SUPPORT_I(actor),speed);actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;current=COHORT_SUPPORT_B(0xbcd609u+o);
+        if(current==8u){FUN_00468530(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);COHORT_SUPPORT_B(0xbcd606u+actor*388u)=2;}
+        else if(current==9u){FUN_004b3250(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);}
+        else if(current==10u)COHORT_SUPPORT_B(0xbcd606u+o)=2;
+        break;
+    case 12:
+        COHORT_SUPPORT_B(0xbcd65du+o)=0;COHORT_SUPPORT_W(0xbcd63cu+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd63cu+o)+1u);
+        count=COHORT_SUPPORT_H(0xbcd63cu+o);limit=COHORT_SUPPORT_H(0xbcd63au+o);
+        if(count>=limit){
+            home_record=(uint32_t)home*264u;size=COHORT_SUPPORT_B(0x7999dbu+home_record);y=COHORT_SUPPORT_H(0x7999e0u+home_record);x=COHORT_SUPPORT_H(0x7999deu+home_record);
+            found=FUN_0047fe60(x,y,size,2);actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;
+            if(found==0u)COHORT_SUPPORT_B(0xbcd606u+o)=2;
+            else{
+                target_word=COHORT_SUPPORT_W(0xd3b4e4u);COHORT_SUPPORT_B(0xbcd630u+o)=13;COHORT_SUPPORT_W(0xbcd61cu+o)=target_word;
+                target_word=COHORT_SUPPORT_W(0xd3b4e0u);COHORT_SUPPORT_W(0xbcd61eu+o)=target_word;
+            }
+        }
+        FUN_004b1ef0(COHORT_SUPPORT_I(actor),1);actor=COHORT_SUPPORT_U(0xd056f8u);break;
+    case 13:
+        FUN_004a5da0(COHORT_SUPPORT_I(actor),speed);actor=COHORT_SUPPORT_U(0xd056f8u);o=actor*388u;current=COHORT_SUPPORT_B(0xbcd609u+o);
+        if(current==9u || current==10u || current==8u)COHORT_SUPPORT_B(0xbcd606u+o)=2;
+        break;
+    case 6:
+        COHORT_SUPPORT_B(0xbcd65du+o)=1;COHORT_SUPPORT_W(0xbcd62eu+o)=(uint16_t)(COHORT_SUPPORT_W(0xbcd62eu+o)+1u);
+        if(COHORT_SUPPORT_H(0xbcd62eu+o)>100){
+            COHORT_SUPPORT_W(0xbcd62eu+o)=0;found=FUN_004a35e0(COHORT_SUPPORT_I(actor));actor=COHORT_SUPPORT_U(0xd056f8u);
+            if((uint8_t)found==0u)COHORT_SUPPORT_B(0xbcd630u+actor*388u)=8;
+        }
+        break;
+    case 7:COHORT_SUPPORT_B(0xbcd5f9u+o)=0;break;
+    default:COHORT_SUPPORT_B(0xbcd630u+o)=8;break;
+    }
+    o=actor*388u;facing=(int8_t)COHORT_SUPPORT_B(0xbcd609u+o);if(facing>=8)facing=(int8_t)COHORT_SUPPORT_B(0xbcd60au+o);
+    direction=(uint32_t)facing-COHORT_SUPPORT_U(0xbca2e0u);COHORT_SUPPORT_U(0xe94e00u)=direction;
+    if(direction&0x80000000u){direction+=8u;COHORT_SUPPORT_U(0xe94e00u)=direction;}
+    kind=COHORT_SUPPORT_B(0xbcd602u+o);
+    switch(kind){
+    case 15:walk_id=169;death_id=170;break;
+    case 16:walk_id=230;death_id=231;break;
+    case 17:walk_id=167;death_id=168;break;
+    case 105:walk_id=679;death_id=680;break;
+    default:walk_id=171;death_id=172;break;
+    }
+    state=COHORT_SUPPORT_B(0xbcd630u+o);
+    if(state==4u){
+        count=COHORT_SUPPORT_H(0xbcd62eu+o);base=COHORT_SUPPORT_U(0xf55bb4u+death_id*8u);
+        graphic=base+(count>=8?7u:(uint32_t)count);
+    }else{base=COHORT_SUPPORT_U(0xf55bb4u+walk_id*8u);animation=COHORT_SUPPORT_B(0xbcd5f9u+o);graphic=base+(uint32_t)animation*8u+direction;}
+    COHORT_SUPPORT_U(0xbcd5fcu+o)=graphic;return o;
+}
+
+#undef COHORT_SUPPORT_U
+#undef COHORT_SUPPORT_W
+#undef COHORT_SUPPORT_B
+#undef COHORT_SUPPORT_H
+#undef COHORT_SUPPORT_I
 
 /* Native command table row3 decodes to Hippo Stomp. Keep its two distinct
    RNG publication phases and the post-probe vector advance literally. */
