@@ -1,0 +1,254 @@
+{
+  "schema": "bulk-draw-dispatch-C-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "draw": {
+    "schema": "placement-draw-canonical-ABI-repair-v1",
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "repaired_entries": 10,
+    "native_instructions": 585,
+    "new_algorithms": 0,
+    "status": "Source packet; joint strict compilation and native/C comparison pending at root cohort milestone",
+    "scope": "Two shared draw canonical entries and eight complete constant-parameter draw forwarders. Reuse the existing active draw algorithms unchanged.",
+    "ownership": {
+      "method": "Current Release COFF symbol parsing plus primary generated vcxproj membership and object freshness",
+      "record": "ownership.json",
+      "all10_active_current_canonical": true,
+      "original_defect": "Each active legacy definition has a read from uninitialized in_ECX; shared legacy bodies also have wrong global widths/pointer units. The replacement forwards actual ECX and uses existing corrected C instead."
+    },
+    "shared_helpers": [
+      {
+        "address": "0x004e5490",
+        "source": "src/unit_01970.c",
+        "provider": "restore_placement_member_004e5490",
+        "native_contract": "ECX=self; DWORD stack arguments pieces,count; RET8; logical void",
+        "C_contract": "void cdecl3(void *self,const void *pieces,int32_t count)"
+      },
+      {
+        "address": "0x00545fc0",
+        "source": "src/unit_02577.c",
+        "provider": "restore_placement_member_00545fc0",
+        "native_contract": "ECX=self; DWORD stack arguments pieces,count; RET8; logical void",
+        "C_contract": "void cdecl3(void *self,const void *pieces,int32_t count)"
+      }
+    ],
+    "forwarders": [
+      {
+        "address": "0x00401420",
+        "source": "src/unit_00004.c",
+        "facade": "restore_placement_draw_00401420",
+        "child": "0x004e5490",
+        "offset": 76,
+        "count": 16,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x0040d870",
+        "source": "src/unit_00102.c",
+        "facade": "restore_placement_draw_0040d870",
+        "child": "0x004e5490",
+        "offset": 76,
+        "count": 25,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x00416f90",
+        "source": "src/unit_00197.c",
+        "facade": "restore_placement_draw_00416f90",
+        "child": "0x004e5490",
+        "offset": 76,
+        "count": 9,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x004e6610",
+        "source": "src/unit_01996.c",
+        "facade": "restore_placement_draw_004e6610",
+        "child": "0x004e5490",
+        "offset": 76,
+        "count": 2,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x005456e0",
+        "source": "src/unit_02565.c",
+        "facade": "restore_placement_draw_005456e0",
+        "child": "0x00545fc0",
+        "offset": 7772,
+        "count": 167,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x0054f410",
+        "source": "src/unit_02593.c",
+        "facade": "restore_placement_draw_0054f410",
+        "child": "0x00545fc0",
+        "offset": 23688,
+        "count": 513,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x00555e20",
+        "source": "src/unit_02606.c",
+        "facade": "restore_placement_draw_00555e20",
+        "child": "0x00545fc0",
+        "offset": 20192,
+        "count": 437,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      },
+      {
+        "address": "0x00558b80",
+        "source": "src/unit_02619.c",
+        "facade": "restore_placement_draw_00558b80",
+        "child": "0x00545fc0",
+        "offset": 7356,
+        "count": 158,
+        "native_contract": "ECX=self, no stack arguments, RET0; logical void",
+        "C_contract": "void cdecl1(uint32_t self)"
+      }
+    ],
+    "native_register_inputs": "The draw native routines save EBX/EBP/ESI/EDI before replacing their live working values. Their only register input is ECX. No zeroed or invented register context is passed to shared C.",
+    "result_and_flag_observation": {
+      "logical_width": "void; no sampler reads a C void return or asserts incidental native EAX",
+      "direct_native_helpers": "Saved catalogue has exactly eight direct calls to the two helpers, all in the repaired draw forwarders; each returns immediately after the child call.",
+      "native_draw_dispatch": "0043B630 tail-jumps to all eight forwarders after supplying ECX; it does not inspect their return.",
+      "known_parent_consumers": "The two saved direct CALL 0043B630 sites in 00430D30 immediately PUSH a constant and CALL 00439740. That child overwrites AL at00439740, overwrites flags at00439745/48, and overwrites full EAX at0043974C or00439766 before using high bits. Thus no result or flags flow to a known native consumer.",
+      "current_C_consumer": "src/unit_00565.c:121-124 dispatches via restore_placement_member_adapter and immediately returns for each of the eight modes.",
+      "unresolved_indirect_coverage": "Catalogue is not claimed exhaustive. Unresolved indirect callers may exist; volatile register/flag equivalence is outside this logical C contract."
+    },
+    "native_memory_facts": {
+      "piece_record": "52 bytes; x+0,y+4,size+8 and signed DWORD screen offsets at20+orientation*4,36+orientation*4",
+      "grid_constants": "All observed map coordinate/orientation globals and BC9768 stores in these native helpers are DWORD; this does not retype unrelated DAT aliases.",
+      "offset_table": "5CC8C0 is loaded as DWORD using native scale8. The second DWORD in each8-byte unit is not used here.",
+      "terrain_and_draw_tables": "AF598C and four neighbor planes use scale4 DWORD terrain. Tile-order tables use scale4 DWORD indices.5CFCF0/4 sprite offsets use scale8 DWORD loads.",
+      "callback_result": "Native uses only AL from the+0x10 terrain predicate, passing actual self,terrain,piece; all four neighbor calls execute even after an earlier hit.",
+      "draw_receiver": "Native supplies ECX=F55BB0 before53F4F0; existing C drawing boundary retains that owned global receiver."
+    },
+    "reused_unchanged_sha256": {
+      "runtime/placement_preview_members.c": "ee8a878130ea9620fccfff5b53e77e8d36a6ea00eca794acdf73e22e7811c92f",
+      "runtime/placement_preview_predicates.c": "7ef1896493c850b2c88333171c1551018ef4b5f23c95cea3652974cc40ebd707",
+      "include/placement_preview.h": "f7477d04d22d6bf4284ace24297015220f6f756c664d8ee280eb0bc2b34fe07e"
+    },
+    "outside_callsite_audit": {
+      "record": "callsite-audit.json",
+      "draw_subset_closed": true,
+      "detail": "Only the eight replaced source forwarders call the two native canonical draw helper names. The new forwarders call named C providers directly, so no outside cdecl caller is paired with RET8."
+    },
+    "deferred_query_helpers": {
+      "entries": [
+        "0x004e5330",
+        "0x005463e0"
+      ],
+      "unchanged_sources": [
+        "src/unit_01969.c",
+        "src/unit_02578.c"
+      ],
+      "reason": "Each native member is RET12, but four outside legacy callers still declare an unspecified cdecl three-argument child and would double-clean the stack after an isolated canonical RET12 replacement. No query source was edited.",
+      "required_caller_migrations": [
+        {
+          "shared_child": "0x004e5330",
+          "address": "0x00401400",
+          "source": "src/unit_00003.c",
+          "source_sha256": "e4caed0d033b9968e7629198083f6ccff190f994e12378254943e55c1ddc478f"
+        },
+        {
+          "shared_child": "0x004e5330",
+          "address": "0x0040d850",
+          "source": "src/unit_00101.c",
+          "source_sha256": "6b8fe805ac22e7619b13f5cc4c0c331f9fb7846fefbab0b001ac89626e3a54ff"
+        },
+        {
+          "shared_child": "0x004e5330",
+          "address": "0x00416f70",
+          "source": "src/unit_00196.c",
+          "source_sha256": "ea635b5629a91c5281e5bbf8b78db2972b4ffc1ac641ec4463e17d7d4c4d92fa"
+        },
+        {
+          "shared_child": "0x004e5330",
+          "address": "0x004e65f0",
+          "source": "src/unit_01995.c",
+          "source_sha256": "951e9b34b3325016c317cc9360a572af520e1badd0a7cd45e727e7275abaac2a"
+        },
+        {
+          "shared_child": "0x005463e0",
+          "address": "0x005456c0",
+          "source": "src/unit_02564.c",
+          "source_sha256": "b492bb57152066e91d2f777ac359040669e159b3f02e57c8c9354693f87ab2fd"
+        },
+        {
+          "shared_child": "0x005463e0",
+          "address": "0x0054f3f0",
+          "source": "src/unit_02592.c",
+          "source_sha256": "88a6c47a1b3289f7d6715004cfa08b60a920da62dacd81fd00805b07677f4d11"
+        },
+        {
+          "shared_child": "0x005463e0",
+          "address": "0x00555e00",
+          "source": "src/unit_02605.c",
+          "source_sha256": "372685366b7e94a930ce375432256b809987713d45c06697d4ab39598fda8484"
+        },
+        {
+          "shared_child": "0x005463e0",
+          "address": "0x00558b60",
+          "source": "src/unit_02618.c",
+          "source_sha256": "afaa9cbf29bc04ae3cd59beac7eb96f09b6fdfbcb2db6d464c2f74ea43d62f29"
+        }
+      ]
+    },
+    "verification_plan": {
+      "root_joint_milestone": "Cohort88+10=98,12629+585=13214 native instructions. Do not expand before joint native/C comparison.",
+      "bindings": "Compile all ten canonical definitions with strict shared build; verify canonical COFF names, RET8/RET0 and nonvolatile/ESP behavior at ABI level. Compare forwarder arguments against native exact count and offset without sampling void EAX.",
+      "shared_algorithms": "Use the unchanged two shared C providers in cohort replay. Compare memory effects and ordered projection/bounds/predicate/draw traces under controlled endpoint contracts; include count<=0, empty/positive piece size, all4 orientations, blocked/unblocked tiles, all4 predicate families and selected-piece neighbor zero/one/multiple-hit cases. Include all8 compiled-only wrapper definitions in joint plan.",
+      "limits": "No host executable was launched. Byte matching and source contracts are complete; compilation and finite native/C replay remain root responsibilities and cannot establish complete gameplay equivalence."
+    },
+    "packet_files_sha256": {
+      "callsite-audit.json": "fe3752cc16954b2c21bdb078aaa6f6b97168612b58838f49223baf9840193852",
+      "members.json": "521478891537c1b6e62b95cffc31845d0487540fe899543b4eaf612bb6c22a80",
+      "native-consumer-0043b630.json": "645fbeb84401e9732d4287ad5be985a2074634e28037c5f8775b5141bf03e693",
+      "native-consumer-callers.json": "93685d2548f0a6f9be0bf58e086e5e54b46bcd39f7262fbd597d063d2c098bef",
+      "native-direct-calls.json": "4881967bf5105010f9616f586e745a020d4ac118bd1d27af93979cfdd88ff90e",
+      "native-evidence.json": "6ca2f7b0f7d6bc2298f67432ffef6f8332e27ddea4aaf74aacd413fbe2a90b1d",
+      "native-result-kill-00439740.json": "045c7ee0b641826af67646540e6d5effd39feb11a08f79a9aa07db8c5bf1ea9f",
+      "ownership.json": "9630f346f4240cdb491799598505e870bc55100de0565c2df6e0a6806a22c244"
+    },
+    "generator_sha256": "b1fb10252fbf2cb690d3ce4ba58051e344627fbbbf2918df13e60867dfb3b579"
+  },
+  "generation": {
+    "script": "tools/draw_dispatch_reconstruct.py",
+    "sha256": "b1fb10252fbf2cb690d3ce4ba58051e344627fbbbf2918df13e60867dfb3b579",
+    "repaired_entries": 10,
+    "new_algorithms": 0,
+    "reproduced_candidate_source_hashes": true,
+    "existing_C_algorithms_reused_unchanged": {
+      "runtime/placement_preview_members.c": "ee8a878130ea9620fccfff5b53e77e8d36a6ea00eca794acdf73e22e7811c92f",
+      "runtime/placement_preview_predicates.c": "7ef1896493c850b2c88333171c1551018ef4b5f23c95cea3652974cc40ebd707",
+      "include/placement_preview.h": "f7477d04d22d6bf4284ace24297015220f6f756c664d8ee280eb0bc2b34fe07e"
+    }
+  },
+  "safe_handler_registration": {
+    "handlers": [
+      "FUN_005615de",
+      "FUN_005617c8"
+    ],
+    "metadata_source": "runtime/crt_exception_handlers.asm",
+    "PE_verification": {
+      "path": "metadata/bulk-draw-dispatch-safe-handler.json",
+      "sha256": "52c290fa9eea1424ed7bb07f997e566f2c6376060a7c8b5f05eeacaf88c57978",
+      "both_main_images_registered": true
+    }
+  },
+  "milestone": {
+    "source_entries": 98,
+    "new_source_expansion_suspended_until_joint_comparison": true,
+    "comparison_complete": false,
+    "include_compiled_only_definitions": true
+  },
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

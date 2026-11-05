@@ -25,3 +25,9 @@ Kategorie `outside_current_automatic_rules` neznamená dokončený přepis.
 Katalog zůstává otevřený; vygenerovaný kandidát čeká na porovnání chování.
 Současné paměťové vzory pokrývají přístupy bez výjimky a bez tvrzení o
 shodě kontextu procesoru při chybě paměti nebo o úplné shodě hry.
+
+`draw_dispatch_reconstruct.py --root restore --output restore/build/draw-next`
+reprodukuje schválenou skupinu dvou vykreslovacích vstupů a osmi obálek.
+Kontroluje přesné LEA/PUSH/CALL/RET vzory, parametry, COFF vlastníka a původní
+bajty; propojuje je s existujícím C algoritmem. Výstup je samostatný kandidát,
+nikoli počet nově hotových funkcí při každém opakovaném spuštění.

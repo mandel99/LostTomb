@@ -2526,5 +2526,9 @@ target_sources(pharaoh_restored PRIVATE runtime/crt_local_unwind_entries.c runti
 set_source_files_properties(src/unit_02791.c src/unit_02792.c src/unit_02793.c src/unit_02795.c src/unit_02749.c src/unit_02758.c src/unit_02771.c src/unit_02773.c src/unit_02736.c src/unit_02738.c src/unit_02739.c src/unit_02740.c src/unit_02761.c src/unit_02772.c runtime/crt_local_unwind_entries.c runtime/crt_stream_constructor_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 
 # Stream destructors/funclets and native-rule-generated object lookups.
+include(direct_c/cohort3_replay/retained_image.cmake)
 target_sources(pharaoh_restored PRIVATE runtime/crt_stream_deleting_endpoints.c runtime/crt_stream_destructor_entries.c)
 set_source_files_properties(src/unit_02521.c src/unit_02737.c src/unit_02741.c src/unit_02742.c src/unit_02750.c src/unit_02759.c src/unit_02762.c src/unit_02763.c src/unit_02766.c src/unit_02774.c src/unit_03102.c src/unit_04394.c src/unit_04395.c src/unit_04397.c src/unit_04398.c src/unit_04399.c src/unit_04400.c src/unit_04401.c runtime/crt_stream_deleting_endpoints.c runtime/crt_stream_destructor_entries.c src/unit_00691.c src/unit_00692.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Native draw member/forwarder bridges generated over existing C algorithms.
+set_source_files_properties(src/unit_00004.c src/unit_00102.c src/unit_00197.c src/unit_01970.c src/unit_01996.c src/unit_02565.c src/unit_02577.c src/unit_02593.c src/unit_02606.c src/unit_02619.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
