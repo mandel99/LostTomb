@@ -11,11 +11,38 @@ from cases import definitions
 DATA_START,DATA_END=0x560000,0x126d000
 STACK,STACK_SIZE,SP,STOP,SCRATCH=0x2ff00000,0x110000,0x30008000,0x31000000,0x32000000
 
+def push_float32(uc,x,bits):
+ """Controlled callback ST0 result; exact IEEE binary32 to x87 conversion."""
+ assert 0<=bits<=0xffffffff
+ fraction=bits&0x7fffff;exponent=(bits>>23)&255;sign=(bits>>16)&0x8000
+ if exponent==255:mantissa=(1<<63)|(fraction<<40);encoded=0x7fff;tag=2
+ elif exponent:mantissa=(0x800000|fraction)<<40;encoded=exponent-127+16383;tag=0
+ elif fraction:
+  leading=fraction.bit_length()-1;mantissa=fraction<<(63-leading);encoded=leading-149+16383;tag=0
+ else:mantissa=encoded=0;tag=1
+ status=uc.reg_read(x.UC_X86_REG_FPSW);tags=uc.reg_read(x.UC_X86_REG_FPTAG);top=(((status>>11)&7)-1)&7
+ assert (tags>>(top*2))&3==3,'Controlled callback requires a free x87 return slot'
+ uc.reg_write(x.UC_X86_REG_FP0+top,(mantissa,encoded|sign))
+ uc.reg_write(x.UC_X86_REG_FPTAG,(tags&~(3<<(top*2)))|(tag<<(top*2)))
+ uc.reg_write(x.UC_X86_REG_FPSW,(status&~0x3a00)|(top<<11))
+
 def executable_ranges(path,base):
  b=Path(path).read_bytes();nt=struct.unpack_from('<I',b,60)[0];n=struct.unpack_from('<H',b,nt+6)[0];table=nt+24+struct.unpack_from('<H',b,nt+20)[0];out=[]
  for i in range(n):
   p=table+i*40;size,rva=struct.unpack_from('<II',b,p+8)
   if struct.unpack_from('<I',b,p+36)[0]&0x20000000:out.append((base+rva,base+rva+size))
+ return out
+
+def import_slots(pe):
+ b=pe.data;opt=struct.unpack_from('<I',b,60)[0]+24;table=struct.unpack_from('<I',b,opt+104)[0];out={}
+ if not table:return out
+ while any(b[table:table+20]):
+  original,_,_,_,first=struct.unpack_from('<IIIII',b,table);lookup=original or first;i=0
+  while (value:=struct.unpack_from('<I',b,lookup+i*4)[0]):
+   if not value&0x80000000:
+    name=bytes(b[value+2:b.index(0,value+2)]).decode('ascii');assert name not in out,name;out[name]=pe.base+first+i*4
+   i+=1
+  table+=20
  return out
 
 def execute(registry,cases,directory):
@@ -34,21 +61,30 @@ def execute(registry,cases,directory):
   if DATA_START<pe.base:u.mem_map(DATA_START,pe.base-DATA_START)
   if DATA_END>end:u.mem_map(end,(DATA_END-end+4095)&~4095)
   u.mem_map(0,4096);u.mem_map(STACK,STACK_SIZE);u.mem_map(STOP,4096);u.mem_map(SCRATCH,0x50000)
-  state=dict(active=False,label=label,map_text=''if label=='native'else(ROOT/item['map_path']).read_text(),allowed=executable_ranges(ROOT/item['path'],pe.base),faults=[])
+  state=dict(active=False,label=label,map_text=''if label=='native'else(ROOT/item['map_path']).read_text(),imports=import_slots(pe),allowed=executable_ranges(ROOT/item['path'],pe.base),faults=[])
   def code(uc,address,size,state):
    if not state['active']:return
    if address in state['endpoints']:
     spec=state['endpoints'][address];sp=uc.reg_read(x.UC_X86_REG_ESP)
     def get(at,width=4):return int.from_bytes(uc.mem_read(at,width),'little')
-    raw=[get(sp+4+i*4)for i in range(spec['arity'])];logical=list(raw)
+    arity=spec['arity']if state['label']=='native'else spec.get('compiled_arity',spec['arity'])
+    raw=[get(sp+4+i*4)for i in range(arity)];logical=list(raw)
     roles={int(i):role for i,role in spec.get('pointer_args',{}).items()};private=[]
     for i,role in roles.items():
      assert 0<=i<len(raw)and STACK<=raw[i]<STACK+STACK_SIZE-3,('private output pointer',spec['token'],i,hex(raw[i]))
      private.append(raw[i]);logical[i]=['stack-output',role]
+    for i,info in spec.get('private_input_args',{}).items():
+     i=int(i);width=info['width'];assert i not in roles and 0<width<=256 and STACK<=raw[i]and raw[i]+width<=STACK+STACK_SIZE,('private input pointer',spec['token'])
+     logical[i]=['stack-input',info['role'],bytes(uc.mem_read(raw[i],width)).hex()]
     assert len(private)==len(set(private)),('unexpected output alias',spec['token'])
     if state['label']=='native'and'native_receiver'in spec:
      assert uc.reg_read(x.UC_X86_REG_ECX)==spec['native_receiver'],('endpoint receiver',spec['token'])
-    state['events'].append(dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])]))
+    if state['label']!='native'and'compiled_receiver_arg'in spec:
+     i=spec['compiled_receiver_arg'];assert raw[i]==spec['native_receiver'],('compiled receiver',spec['token']);logical.pop(i)
+    assert len(logical)==spec['arity'],('endpoint logical arity',spec['token'])
+    event=dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])])
+    if spec.get('registers'):event['registers']={name:uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))for name in spec['registers']}
+    state['events'].append(event)
     state['physical_endpoint_arguments'].append(dict(token=spec['token'],arguments=raw))
     for i,width,value in spec.get('writes_args',[]):
      assert int(i)in roles and width in [1,2,4]
@@ -59,6 +95,7 @@ def execute(registry,cases,directory):
     kind=spec['result_kind']
     if kind=='full32':uc.reg_write(x.UC_X86_REG_EAX,spec['value']&0xffffffff)
     elif kind=='al8':uc.reg_write(x.UC_X86_REG_EAX,(uc.reg_read(x.UC_X86_REG_EAX)&0xffffff00)|(spec['value']&255))
+    elif kind=='x87_float32':push_float32(uc,x,spec['value'])
     else:assert kind=='void','Unknown endpoint result contract'
     for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX)]:
      if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
@@ -89,14 +126,19 @@ def execute(registry,cases,directory):
     provider=m['providers'][label];selected=[]
     if provider['named']:selected.append(('named',provider['named']['va'],case['named_arguments']))
     canonical=provider['canonical']
-    if canonical and Path(m['source']).stem+'.obj'in canonical['owner']:
+    if canonical and (Path(m['source']).stem+'.obj'in canonical['owner']or case.get('canonical_owner')and case['canonical_owner']in canonical['owner']):
      selected.append(('canonical',canonical['va'],case['arguments']))
    for route,pc,args in selected:
     state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={});errors=[]
+    import_fixups=[]
     for spec in case.get('endpoints',[]):
-     assert spec['result_kind']in ['void','al8','full32']and 0<=spec['arity']<=16
+     assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16
      if spec['result_kind']!='void':assert 'value'in spec,('missing endpoint result',spec['token'])
-     if label=='native':pcs=[spec['native']]
+     if 'import_name'in spec:
+      pcs=[STOP+0x100+len(import_fixups)*16];import_fixups.append((state['imports'][spec['import_name']],pcs[0]))
+     elif 'controlled_address'in spec:
+      at=spec['controlled_address'];assert STOP<at<STOP+4096;pcs=[at]
+     elif label=='native':pcs=[spec['native']]
      else:
       pcs=[value['va']for name in spec['compiled_symbols']if(value:=symbol(state['map_text'],name))]
       assert pcs,('missing compiled endpoint',label,spec['token'])
@@ -108,7 +150,8 @@ def execute(registry,cases,directory):
      assert (0,4)in case['write_ranges']or[0,4]in case['write_ranges']
      u.mem_write(0,struct.pack('<I',case['initial_fs0']))
     for at,value in case['stores']:u.mem_write(at,value)
-    fixed=[]
+    fixed=list(import_fixups)
+    for at,value in import_fixups:u.mem_write(at,struct.pack('<I',value))
     for fixup in case.get('function_pointers',[]):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
@@ -130,6 +173,10 @@ def execute(registry,cases,directory):
     if 'initial_fs0'in case and int.from_bytes(u.mem_read(0,4),'little')!=case['initial_fs0']:errors.append(dict(kind='exception-chain-not-restored'))
     for at,value in fixed:
      if int.from_bytes(u.mem_read(at,4),'little')!=value:errors.append(dict(kind='function-pointer-slot-modified',address=hex(at)))
+    for fixup in case.get('expected_function_pointers',[]):
+     value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
+     assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched'])
+     if int.from_bytes(u.mem_read(fixup['address'],4),'little')!=value:errors.append(dict(kind='expected-function-pointer',address=hex(fixup['address'])))
     if route=='native':
      reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_x87=fp
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))

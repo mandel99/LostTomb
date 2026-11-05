@@ -4,6 +4,7 @@ from formatter_cases import definitions as formatter_definitions
 from draw_cases import definitions as draw_definitions
 from fp_control_cases import definitions as fp_control_definitions
 from stream_cases import definitions as stream_definitions
+from crt_lifecycle_cases import definitions as crt_lifecycle_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -34,4 +35,5 @@ def definitions(registry):
  out.extend(draw_definitions(registry))
  out.extend(fp_control_definitions(registry))
  out.extend(stream_definitions(registry))
+ out.extend(crt_lifecycle_definitions(registry))
  return out

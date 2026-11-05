@@ -1,0 +1,31 @@
+{
+  "schema": "cohort3-crt-lifecycle-case-contracts-v1",
+  "entries": 4,
+  "recipes": 102,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "sources": [
+    "src/unit_02796.c",
+    "src/unit_02797.c",
+    "src/unit_02798.c",
+    "src/unit_02799.c",
+    "src/unit_02870.c",
+    "src/unit_02872.c"
+  ],
+  "evidence": [
+    "metadata/native-function-audit-cache/batch-2880.json",
+    "metadata/native-function-audit-cache/batch-2944.json"
+  ],
+  "coverage": [
+    "54 callback registration cases: nine capacity/reallocation/aliasing modes, three callback values including zero, and two selected entrypoints.",
+    "48 connected floating query/initialization cases: six x87 control words, absent module/query and feature0/1. Actual probe, decoder/encoder and initialization helpers execute.",
+    "Capacity/reallocator callbacks may mutate globals; compare exact raw arguments/events, all declared memory, full results, preserved registers and stack cleanup.",
+    "Floating initialization final function pointers checked against each compiled MAP symbol; literal embedded labels remain raw watched DWORDs.",
+    "Windows imports use explicit isolated IAT traps; no host API is invoked. Final full x87 state compares."
+  ],
+  "limitations": [
+    "Finite normal-return emulator behavior and empty initial x87 stack only. Hardware erratum and pending hardware exceptions are not established.",
+    "Allocator capacity/reallocation and Windows module/feature APIs are controlled external boundaries.",
+    "Initialized callback targets are checked as addresses; their later arbitrary indirect behavior remains unproven."
+  ],
+  "host_execution": false
+}
