@@ -24,3 +24,13 @@
   tools, credentials and unrelated projects out of commits.
 - Preserve exact source and evidence bytes, including line endings. The
   verification records bind SHA-256 hashes; retain the `.gitattributes` policy.
+
+# Token-efficient workflow
+
+- Use compact, explicit briefs for new subagents (`fork_turns="none"`), not
+  full conversation forks. Avoid overlapping author/reviewer work.
+- Translate connected batches of approximately100 functions. During writing,
+  use shared strict compilation and only necessary ABI checks; defer detailed
+  native replay to the batch milestone. Do not create per-function frameworks.
+- Reuse existing correct C and evidence, including inactive source. Read only
+  relevant excerpts and keep handoffs, progress reports and tool output short.
