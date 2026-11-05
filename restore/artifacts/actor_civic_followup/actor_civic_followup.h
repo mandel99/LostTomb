@@ -35,4 +35,7 @@ int32_t restore_actor_find_approach_kind234(uint32_t receiver,uint32_t x,uint32_
 int32_t restore_actor_find_approach_kind235(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
 int32_t restore_actor_find_approach_kind236(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
 #include "acceptance_predicates.h"
+#include "worker_availability_candidates.h"
+#include "worker_query_candidate.h"
+int32_t FUN_00420430(int32_t building,int32_t actor);
 #endif

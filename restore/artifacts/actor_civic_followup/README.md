@@ -1,15 +1,21 @@
 # Civic, delivery and walking C owners
 
-These 44 C entrypoints are selected directly by the main build. Eight owners
-were created before611f3cc; 31 were created since it and 5 prior-C
+These51 native entrypoints map to49 named C functions selected by the main
+build. Shared generic providers receive no additional creation credit. Eight owners
+were created before611f3cc; 33 were created since it and 10 prior-C
 owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
+| 401B40 | restore_monument_worker_query_00401b40 | 56 |
+| 401D40 | restore_actor_kind230_accept | 97 |
 | 401ED0 | restore_actor_find_approach_kind230_mode | 35 |
 | 401F30 | restore_actor_find_approach_kind230 | 9 |
+| 40EC20 | restore_monument_base_worker_result | 71 |
 | 40F070 | restore_actor_find_approach_kind225 | 34 |
+| 417590 | restore_monument_base_worker_result | 59 |
 | 4178E0 | restore_actor_find_approach_kind227 | 34 |
+| 420430 | FUN_00420430 | 42 |
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
 | 48A720 | restore_actor_update_vagrant | 491 |
 | 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
@@ -41,17 +47,19 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 4BC480 | restore_actor_approach_common_result | 9 |
 | 4E05F0 | restore_actor_accept_kind222_work | 429 |
 | 4E0C00 | restore_actor_find_approach_kind222 | 31 |
+| 4E6B20 | restore_monument_base_worker_result | 59 |
 | 4E6E10 | restore_actor_find_approach_kind228 | 34 |
 | 5421D0 | restore_actor_accept_kind213_work | 576 |
 | 542A80 | restore_actor_find_approach_kind213 | 31 |
 | 545BE0 | restore_actor_find_approach_kind229 | 33 |
+| 5477E0 | restore_monument_worker_active | 47 |
 | 547C10 | restore_actor_member_accept_building_core | 125 |
 | 54FB40 | restore_actor_find_approach_kind236 | 35 |
 | 556430 | restore_actor_find_approach_kind235 | 33 |
 | 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 6,797 static native instructions, not execution coverage.
+The total is 7,228 static native instructions, not execution coverage.
 Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
@@ -90,3 +98,10 @@ child. Native SETZ overwrites a byte of the saved argument area; the later
 loads refer to that captured flag and to the separate mode byte. This
 stack phase is represented explicitly in the logical C owner. Physical
 caller-stack/register/flags behavior remains available through RAW.
+
+The virtual worker queries preserve incoming EAX high24 and define AL.
+547C10 loads EAX from the receiver vtable before its virtual call. Its full
+C result therefore forwards that cached value through the query adapter;
+a zeroed generic frame loses observable high bits. One before/after offline
+return-value witness now agrees with both main images. Other query targets
+keep RAW with explicit incoming EAX; no complete runtime domain is claimed.

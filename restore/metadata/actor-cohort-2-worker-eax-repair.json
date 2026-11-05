@@ -1,0 +1,94 @@
+{
+  "scope": "One narrow EAX-return ABI witness only; no RAM/branch/full-function/cohort equivalence claim.",
+  "baseline_checkpoint": "f1b8d380a304dd15cd1f1ed4e984bdb5cd8a16e4",
+  "native_entry": "0x547c10",
+  "caller_input_provenance": {
+    "load": "0x547c33 MOV EAX,[EBX]",
+    "call": "0x547c3a CALL[EAX+0x24]",
+    "child_contract": "Known virtual query writesAL only; original incoming high24 preserved."
+  },
+  "fixture": {
+    "receiver": "0x6f9320",
+    "vtable": "0x570160",
+    "query": "0x5477e0",
+    "building": 2,
+    "actor": 1,
+    "mode": 0,
+    "worker": 3,
+    "worker_active": 1,
+    "worker_kind": "0x51",
+    "worker_state": 9
+  },
+  "before": [
+    {
+      "route": "original",
+      "eax": "0x570100",
+      "pe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+      "map_sha256": null
+    },
+    {
+      "route": "game",
+      "eax": "0x0",
+      "pe_sha256": "ceff1511f443c59b95f12c498215c0a5c36dcff6e00cf00a06fad0c3f81f17df",
+      "map_sha256": "fc2cda398f61518b880900e210c08c8f79d0cf29ec55777b9e65fb2d28396245"
+    },
+    {
+      "route": "diagnostic",
+      "eax": "0x0",
+      "pe_sha256": "c4d538c1cc4bc5d13fdbe5b952db78acef4fa2f03a6d9592fb2ebd3ac71460af",
+      "map_sha256": "9bfab0e4530c9e86ddfb12686f08d3edfda1d85ea7f3aa81832c613883810864"
+    }
+  ],
+  "after": [
+    {
+      "route": "original",
+      "eax": "0x570100",
+      "pe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+      "map_sha256": null
+    },
+    {
+      "route": "game",
+      "eax": "0x570100",
+      "pe_sha256": "e0a5f8753d337ec1282ff2b61229d35973728b9cdec49e42854f7db26756d6bc",
+      "map_sha256": "53a74cec297fed5438372cb68322b30477158859d5d7acad5a4f5a4fb967ec0b"
+    },
+    {
+      "route": "diagnostic",
+      "eax": "0x570100",
+      "pe_sha256": "5d037d47bd30d93527cdab58a282c70c1f161ce61297ee077b6f6da00a9d8396",
+      "map_sha256": "b7c556bd3544a0143f77fbdfb895bd1be0eee79d636aa91dd1d1199278e259fe"
+    }
+  ],
+  "superseded_fixture_attempt": {
+    "reason": "First fixture omitted original query slot in restored images; it faulted before returning. Corrected fixture explicitly seeds the authenticated vtable query slot.",
+    "routes": [
+      {
+        "route": "original",
+        "eax": "0x570100",
+        "pe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+        "map_sha256": null
+      },
+      {
+        "route": "game",
+        "error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+        "eip": "0x399775",
+        "pe_sha256": "ceff1511f443c59b95f12c498215c0a5c36dcff6e00cf00a06fad0c3f81f17df"
+      },
+      {
+        "route": "diagnostic",
+        "error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+        "eip": "0x399b35",
+        "pe_sha256": "c4d538c1cc4bc5d13fdbe5b952db78acef4fa2f03a6d9592fb2ebd3ac71460af"
+      }
+    ]
+  },
+  "native_cases": 1,
+  "original_reference_runs": 2,
+  "compiled_route_comparisons": 4,
+  "after_failures": 0,
+  "host_launched": false,
+  "full_cohort_validation": false,
+  "valid_fixture_route_invocations": 6,
+  "excluded_fixture_invocations": 3,
+  "total_attempted_route_invocations": 9
+}

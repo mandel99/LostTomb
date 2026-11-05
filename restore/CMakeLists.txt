@@ -411,6 +411,9 @@ set_property(SOURCE src/unit_02555.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<ST
 # Repair existing acceptance owners in place; retain full-result RAW canonicals.
 set_source_files_properties(src/unit_01906.c src/unit_02554.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_property(SOURCE src/unit_01906.c src/unit_02554.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
+# Existing stage query keeps its canonical source and receives only the BYTE-base repair.
+set_source_files_properties(src/unit_00331.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_property(SOURCE artifacts/actor_civic_followup/actor_acceptance_members.c APPEND PROPERTY COMPILE_DEFINITIONS "restore_acceptance_kind230_check_raw=restore_acceptance_kind230_check_logical")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c
@@ -427,7 +430,9 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_approach_members.c
  artifacts/actor_civic_followup/actor_approach_search.c
  artifacts/actor_civic_followup/actor_approach_building_scans.c
- artifacts/actor_civic_followup/actor_acceptance_members.c)
+ artifacts/actor_civic_followup/actor_acceptance_members.c
+ artifacts/actor_civic_followup/actor_worker_availability.c
+ artifacts/actor_civic_followup/actor_worker_query.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -444,6 +449,8 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_approach_search.c
  artifacts/actor_civic_followup/actor_approach_building_scans.c
  artifacts/actor_civic_followup/actor_acceptance_members.c
+ artifacts/actor_civic_followup/actor_worker_availability.c
+ artifacts/actor_civic_followup/actor_worker_query.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

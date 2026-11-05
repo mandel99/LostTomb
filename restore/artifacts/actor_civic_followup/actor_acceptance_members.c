@@ -9,8 +9,8 @@ typedef char acceptance_member_requires_pointer32[sizeof(void *) == 4 ? 1 : -1];
 /* RAW children retain ECX, every complete stack word, and full EAX. */
 extern uint32_t restore_acceptance_kind230_check_raw(uint32_t receiver,
     int32_t building, int32_t actor, uint32_t accept, uint32_t mode);
-extern uint32_t restore_acceptance_member_check_raw(uint32_t entry,
-    uint32_t receiver, int32_t building);
+extern uint32_t restore_acceptance_member_check_eax(uint32_t entry,
+    uint32_t receiver, int32_t building, uint32_t incoming_eax);
 extern int32_t FUN_0045bb50(int32_t building, int32_t resource, char require_stock);
 extern int32_t FUN_00422a90(int32_t building, int32_t actor);
 
@@ -50,7 +50,7 @@ __declspec(noinline) uint32_t restore_actor_member_accept_building_core(
     captured_kind85 = ACM_B(0xbcd602u + actor_offset) == 85u;
     vtable = ACM_U(receiver);
     target = ACM_U(vtable + 36u);
-    result = restore_acceptance_member_check_raw(target, receiver, building);
+    result = restore_acceptance_member_check_eax(target, receiver, building, vtable);
     if ((result & 255u) != 0) return result & 0xffffff00u;
 
     if (captured_kind85 != 0) {

@@ -466,25 +466,44 @@ int32_t FUN_00542a80(uint32_t x,uint32_t y,uint32_t actor)
 /* Native acceptance endpoints use either one explicit slot/RET4 or
    four explicit slots/RET16. Receiver and complete modeled EAX are kept. */
 static uint32_t acceptance_member_invoke(uint32_t entry,uint32_t receiver,
-                                         const uint32_t *args,uint32_t count)
+                                         const uint32_t *args,uint32_t count,uint32_t incoming_eax)
 {
     uint32_t stack[8192],i,sp=(uint32_t)(uintptr_t)(stack+8000);
     struct restore_laborer_frame f={{0},2,dispatch};
     stack[8000]=0;for(i=0;i<count;++i)stack[8001+i]=args[i];
-    f.r[1]=receiver;f.r[4]=sp;dispatch(0,entry,&f);
+    f.r[0]=incoming_eax;f.r[1]=receiver;f.r[4]=sp;dispatch(0,entry,&f);
     if(f.r[4]!=sp+4u*(count+1u))abort();
     return f.r[0];
 }
 uint32_t restore_acceptance_member_check_raw(uint32_t entry,uint32_t receiver,int32_t building)
-{const uint32_t a[]={(uint32_t)building};return acceptance_member_invoke(entry,receiver,a,1);}
+{const uint32_t a[]={(uint32_t)building};return acceptance_member_invoke(entry,receiver,a,1,0);}
 uint32_t restore_acceptance_kind230_check_raw(uint32_t receiver,int32_t building,
                                             int32_t actor,uint32_t accept,uint32_t mode)
-{const uint32_t a[]={(uint32_t)building,(uint32_t)actor,accept,mode};return acceptance_member_invoke(0x401d40u,receiver,a,4);}
+{const uint32_t a[]={(uint32_t)building,(uint32_t)actor,accept,mode};return acceptance_member_invoke(0x401d40u,receiver,a,4,0);}
 uint32_t restore_actor_approach_kind213_stage_worker_available_raw(int32_t building,int32_t actor)
-{const uint32_t a[]={(uint32_t)building,(uint32_t)actor};return invoke(0x420430u,a,2);}
+{return (uint32_t)FUN_00420430(building,actor);}
 
 uint32_t restore_actor_approach_kind222_accept(int32_t building,int32_t actor,char mode)
 {return (uint32_t)restore_actor_accept_kind222_work(building,actor,(uint8_t)mode);}
 
 uint32_t restore_actor_approach_kind213_accept(int32_t building,int32_t actor,char mode)
 {return (uint32_t)restore_actor_accept_kind213_work(building,actor,(uint8_t)mode);}
+
+/* Known virtual queries already have ordinary C. Unknown targets keep RAW.
+   The caller's cached vtable value is the actual incoming EAX at CALL. */
+uint32_t restore_acceptance_member_check_eax(uint32_t entry,uint32_t receiver,
+                                            int32_t building,uint32_t incoming_eax)
+{
+    switch(entry){
+    case 0x417590u:case 0x4e6b20u:case 0x40ec20u:
+        return restore_monument_base_worker_result(entry,(uint32_t)building,incoming_eax);
+    case 0x5477e0u:
+        return (incoming_eax&0xffffff00u)|restore_monument_worker_active((uint32_t)building);
+    case 0x401b40u:
+        return restore_monument_worker_query_00401b40((uint32_t)building,incoming_eax);
+    default:{const uint32_t a[]={(uint32_t)building};return acceptance_member_invoke(entry,receiver,a,1,incoming_eax);}
+    }
+}
+uint32_t restore_acceptance_kind230_check_logical(uint32_t receiver,int32_t building,
+                                                int32_t actor,uint32_t accept,uint32_t mode)
+{return (uint32_t)restore_actor_kind230_accept(receiver,building,actor,accept,mode);}
