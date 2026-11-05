@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects42 original C owners /11,775 native
+The current connected batch selects49 original C owners /12,060 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -83,3 +83,5 @@ Seven CRT owners now preserve actual initialization/query/callback results. The 
 Shared strict compilation and both Release links pass. Detailed joint comparison at the approximately100-entry milestone remains pending, including exception behavior, unknown indirect edges and all compiled-only definitions. Neither host game was launched.
 
 CRT floating formatter closure: ten original C owners,811 native instructions. Corrected five-argument formatter and actual returned buffer pointers; reconstructed binary64/raw80/raw96 conversion, multiplication, scaling and rounding. Eleven correct C sources are reused unchanged. Exact x87 load/spill remains a hardware boundary. The strict main links pass; joint native/C comparison is pending at the approximately100-entry milestone, including compiled-only definitions and the shared569FAD parser consumer. See crt-format-contracts.json and crt-format-return-width.json for ABI, memory phases and qualified indirect coverage. No host game was launched.
+
+Exception runtime checkpoint: seven repaired original C owners. Native NLG register inputs/stores and shared tail, frame-aware funclet return,20-byte FS registration, registration-handler return, handler search, terminate SEH/finally and WINAPI unhandled-filter return/reload are reconstructed. Existing56389A dispatch is reused byte-for-byte and has no primary credit;563BE1 receives only the necessary named-cdecl callsite correction. No targetless callback, complete exception closure or whole-game equivalence is claimed. Downstream local unwind, RtlUnwind continuations and frame-jump owners remain explicit in crt-exception-contracts.json. Strict compilation/linking only; joint native/C comparison remains pending at approximately100 entries, including compiled-only definitions.

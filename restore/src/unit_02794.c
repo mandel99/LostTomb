@@ -1,17 +1,10 @@
-#include "restore_types.h"
-#define DAT_0060492c (*(undefined4 *)0x0060492cu)
-#define DAT_00604930 (*(undefined4 *)0x00604930u)
-#define DAT_00604934 (*(undefined4 *)0x00604934u)
+#include "crt_exception_runtime.h"
 
-void FUN_00561875(void)
-
+uint32_t restore_crt_notify_jump(uint32_t destination,uint32_t code,uint32_t frame)
 {
-  undefined4 in_EAX;
-  undefined4 in_ECX;
-  undefined4 unaff_EBP;
-  
-  DAT_00604930 = in_ECX;
-  DAT_0060492c = in_EAX;
-  DAT_00604934 = unaff_EBP;
-  return;
+ /* The debugger record is written in native code,destination,frame order. */
+ *(volatile uint32_t *)(uintptr_t)0x00604930u=code;
+ *(volatile uint32_t *)(uintptr_t)0x0060492cu=destination;
+ *(volatile uint32_t *)(uintptr_t)0x00604934u=frame;
+ return destination;
 }

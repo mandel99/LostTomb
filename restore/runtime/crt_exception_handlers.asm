@@ -1,0 +1,7 @@
+; Linker metadata only: no instructions or exception logic.
+; https://learn.microsoft.com/en-us/cpp/assembler/masm/dot-safeseh
+.386
+.model flat
+_FUN_005615de PROTO
+.SAFESEH _FUN_005615de
+END

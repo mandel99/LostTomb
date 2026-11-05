@@ -1,23 +1,20 @@
-#include "restore_types.h"
-#define DAT_012666a4 (*(undefined4 *)0x012666a4u)
-extern void FUN_005637ee();
-extern bool FUN_005687a7();
+#include "crt_exception_runtime.h"
 
-undefined4 FUN_0056870b(int *param_1)
+/* The existing predicate returns unsigned char, matching restore_types bool. */
+uint8_t FUN_005687a7(FARPROC candidate);
+#define RESTORE_PREVIOUS_FILTER (*(LPTOP_LEVEL_EXCEPTION_FILTER volatile *)(uintptr_t)0x012666a4u)
 
+int32_t restore_crt_unhandled_filter(EXCEPTION_POINTERS *exception)
 {
-  int *piVar1;
-  undefined4 uVar2;
-  int iVar3;
-  
-  piVar1 = (int *)*param_1;
-  if (((*piVar1 == -0x1f928c9d) && (piVar1[4] == 3)) && (piVar1[5] == 0x19930520)) {
-    uVar2 = (FUN_005637ee(), restore_unresolved_return(0x005637eeu));
-    return uVar2;
-  }
-  if ((DAT_012666a4 != (code *)0x0) && (iVar3 = FUN_005687a7(DAT_012666a4), iVar3 != 0)) {
-    uVar2 = ((code *)DAT_012666a4)(param_1);
-    return uVar2;
-  }
-  return 0;
+ EXCEPTION_RECORD *record=exception->ExceptionRecord;
+ LPTOP_LEVEL_EXCEPTION_FILTER candidate;
+ if(record->ExceptionCode==0xe06d7363u && record->NumberParameters==3u &&
+    record->ExceptionInformation[0]==0x19930520u)
+  restore_crt_terminate();
+ candidate=RESTORE_PREVIOUS_FILTER;
+ if(candidate!=0 && FUN_005687a7((FARPROC)candidate)!=0){
+  /* The validator can change this global: native reloads the actual target. */
+  return (int32_t)RESTORE_PREVIOUS_FILTER(exception);
+ }
+ return 0;
 }

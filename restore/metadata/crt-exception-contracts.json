@@ -1,0 +1,122 @@
+{
+  "schema": "crt-exception-runtime-C-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "nlg": {
+    "register_inputs": [
+      "EAX destination",
+      "ECX code",
+      "EBP frame"
+    ],
+    "stores": [
+      "DWORD604930 code",
+      "DWORD60492C destination",
+      "DWORD604934 frame"
+    ],
+    "canonical": "RET4; actual registers and EFLAGS preserved. Stack code copy is not read.",
+    "ranges": [
+      {
+        "start": "0x561875",
+        "end": "0x56187d"
+      },
+      {
+        "start": "0x561888",
+        "end": "0x561895"
+      }
+    ],
+    "adjacent_entry": "56187E/5617EA local-unwind path is unchanged and still requires reconstruction."
+  },
+  "frame": {
+    "canonical": "RET12; ordinary C API remains cdecl3",
+    "callback": "Actual EAX target, ECX code and EBP=frame+12. Actual returned EAX and post-callback EBP are captured before restoration.",
+    "after": "Code100 becomes2 for the second notification; other codes remain unchanged.",
+    "scope": "Funclet EBP and logical return contract only. Arbitrary targetless callbacks, volatile EFLAGS and unspecified register inputs have no completed equivalence proof."
+  },
+  "terminate": {
+    "scope_table": "570638: {-1,0,56383F},{0,56382B,56382F}",
+    "inner": "Filter56382B returns1; catch body56382F restores dispatcher stack. Native86-byte span includes these funclets.",
+    "outer": "Real compiler SEH: outer finally invokes existing5686F4 on completion/unwind, including a caught terminate-handler exception.",
+    "abort": "Unchanged5686F4 calls diagnostic10, signal22 and5646FE(3); unchanged quick exit56470F(3,1,0) reaches ExitProcess with no normal return."
+  },
+  "filter": {
+    "exception": "E06D7363 with3 parameters and magic19930520 reaches noreturn terminate; no fabricated result.",
+    "fallback": "Read previous-filter candidate, test actual unsigned-char predicate5687A7, reload global12666A4, invoke WINAPI1 filter and preserve its full LONG result.",
+    "canonical": "RET4; no source stdcall symbol decoration change."
+  },
+  "reused_source_sha256": {
+    "src/unit_02957.c": "6010a27d877f9239135d0af5840ff47fb4fa1cac16f280fb7b4446d2a15a8a7f",
+    "src/unit_02885.c": "468e9c555038c432baf7451dd284072450fc9282ed2c7ed80e4caf9e8c8f32aa",
+    "src/unit_02886.c": "baf90a7d6318e5d721cb9b09202b85208fd789931c477bd393bf2c3062393095",
+    "src/unit_02961.c": "65b9935e90be59c054aeba355d01f5e0d7e19a87d47cb2f717de35f96e365c7b"
+  },
+  "coverage": {
+    "strict_build": "Shared strict main build recorded in source-cohort ledger; compilation is not behavior equivalence.",
+    "joint_native_C_comparison": false,
+    "full_game_equivalence": false,
+    "milestone": "Approximately100 source entries: include normal/exception funclet paths, compiled-only definitions and explicit unresolved downstream exception closure. No host launch."
+  },
+  "dispatch": {
+    "schema": 1,
+    "pin": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "source_scope": "Three named algorithm candidates, one unchanged canonical dispatch core, one ABI-only downstream callsite repair, one typed header and three minimal canonical wrappers. No public source edit, build, host launch, replay or Git action.",
+    "primary_credit": [
+      "0x56158a",
+      "0x5615de",
+      "0x563935"
+    ],
+    "reuse_no_primary_credit": [
+      "0x56389a"
+    ],
+    "abi_only_no_primary_credit": [
+      "0x563be1"
+    ],
+    "registration": [
+      "56158A installs an actual current-thread FS:[0] link, never a C variable pretending to be the exception chain. The volatile record has exactly five initialized DWORDs: previous, actual handler pointer, descriptor, frame, wrapping depth+1. Layout assertions prove size20 and offsets4/8/12/16.",
+      "Previous link is first cleared as native, then loaded from FS:[0]; compiler barriers preserve publication of the initialized record. On normal callback return the actual prior link is restored and the child's full EAX is returned.",
+      "5615DE clears hardware DF and reads descriptor+8, frame+12, depth+16 from the installed record. It calls the existing dispatch with eight arguments: exception,frame,context,0,descriptor,depth,registration,0, then returns the actual child EAX. No void return sampler or invented register input is used.",
+      "The record points to the real canonical FUN_005615de bridge, retaining handler identity and its cdecl stack contract. Windows may supply a fourth dispatcher-context argument; the original handler reads only its first three and returns cdecl. The extra argument remains caller-owned."
+    ],
+    "dispatch_core_reuse": [
+      "src/unit_02858.c is copied byte-for-byte from the existing public source. The 61 native instructions/155 bytes confirm its complete existing C algorithm: descriptor magic check; low exception-flag BYTE mask0x66; unwind only when descriptor state count is nonzero and depth iszero; search only when try count is nonzero.",
+      "The forward-compatible C++ exception branch requires codeE06D7363, unsigned exception information magic greater than19930520, and a nonnull throw-info+8 callback. It passes all eight arguments with only the low BYTE of must_catch zero-extended, and returns actual full callback EAX. Ordinary unwind/search paths return full EAX1.",
+      "No new algorithm credit is assigned merely for reading, copying, renaming or adding prototypes to this existing correct body. No duplicate canonical core is added."
+    ],
+    "search": [
+      "563935 validates the signed frame state against[-1,descriptor state count). A rethrow marker requires C++ codeE06D7363, parameter count3, exact magic19930520 and null throw info. It substitutes the currently active exception DWORD1266418 and saved context DWORD126641C; null active exception returns immediately. IsBadReadPtr wrapper56876F remains an existing BYTE bool source contract; native full results are strictly0 or1, and only that logical Boolean is consumed.",
+      "Typed catches retain native signed try-state ranges, five-DWORD try records, signed handler/conversion counts, four-DWORD handler stride, conversion pointer reload after matcher return, and next-try behavior after a matched catch returns. Each handler reloads throw-info and its conversion array at the native phase.",
+      "Native563935 initializes only a BYTE in a local DWORD, then pushes the whole DWORD as outgoing arg11 to563C95. The complete native callee's largest stack argument access isEBP+2C(arg10); it never readsEBP+30(arg11). That byte and the uninitialized upper24 bits have no consumer, so the candidate omits the unused arg11 entirely. No stack garbage is invented as an API parameter.",
+      "The caller's must_catch value is logically one BYTE. The canonical bridge accepts the original DWORD stack slot and narrows it explicitly. Non-C++/wrong-version exceptions use563ADC only when must_catch iszero; otherwise the native tailJMP5637EE is the root-provided noreturn restore_crt_terminate. A completed typed search with must_catch nonzero retains the original outgoing initialized( exception,1 ) call to56400A.",
+      "All global accesses here are independently confirmed native DWORD loads; this does not assert every DAT pointer unit elsewhere is a DWORD. Signed counts/state and unsigned index limits retain the native comparison widths."
+    ],
+    "abi_repair_563be1": [
+      "src/unit_02862.c preserves all original bytes except adding crt_exception_runtime.h, removing its stale cdecl FUN5640A0 declaration, and routing the one call through restore_crt_invoke_frame(handler,frame,0x103). The root canonical FUN5640A0 retains native RET12 and must never be called through this old cdecl declaration.",
+      "This is only an ABI callsite repair. The existing generated563BE1 body still does not reconstruct its compiler-generated SEH registration/scope and cleanup handler; no new algorithm or exception-path credit is claimed. Native cached coverage has103 bytes at563BE1 plus29 at563C62 and omits the intervening exception helper."
+    ],
+    "downstream_blockers": [
+      "561554 existing generated C forwards four arguments to eight-argument56389A and loses the live incoming EAX function descriptor; native explicitly saves EAX and adds descriptor,0,0,0. It remains broken and is not used as a replacement for5615DE.",
+      "563BE1 still has the generated compiler-SEH record/scope problem described above. Its call ABI is repaired, not its exceptional execution. Core unwind branch coverage remains blocked until that closure is reconstructed.",
+      "561505 native RET8 calls RtlUnwind with an actual in-function continuation, repairs exception flags and FS chain. Its generated ordinary C uses the original absolute continuation address and cdecl; that nonlocal ABI is not repaired in this packet.",
+      "5614C3 native removes a registration, restores original ESP/EBP from frame data and jumps to a continuation. Its generated ordinary C cannot perform the native nonlocal transfer.",
+      "563D10/563DD6 retain original-frame saved slots, active-exception/context restoration and out-of-line cleanup semantics that generated C loses. The new56158A callback return fixes its own result, not these callers' compiler-EH closure.",
+      "563844 unexpected-handler path,563ADC optional translator561603/5616B7 path,56400A destructor/compiler-EH path and563E46 catch-object construction contain other generated SEH/member-call limitations outside this packet. Direct563C95 has ten consumed arguments as native, but its calls reach the unresolved unwind/continuation paths above.",
+      "No claim of exception dispatch equivalence or complete gameplay equivalence follows from these authored bodies or a later successful compilation."
+    ],
+    "verification": [
+      "Every cached instruction byte for all16 selected primary/reuse/dependency entries matches the SHA-pinned PE through native_test_pe.PE.data/.base. Full cached records and compact range hashes remain in files. Parent owns authenticated REA raw-span records.",
+      "Parent performs shared strict MSVC i386 compilation and integrates only three primary entries. No private compiler invocation or per-function replay framework was created.",
+      "At the approximately100-entry milestone compare native/C jointly, including compiled-only definitions and controlled endpoints. Cover actual FS chain visibility/restoration, wrapping depth, full callback return propagation, DF clear, forwarded version callback result, all flags0x66 unwind choices, null/invalid/recursive active rethrows, signed state boundaries, zero/exhausted try and conversion sets, matched-catch return then next-block behavior, and terminate/destructor/translator exceptional continuations. The listed downstream blockers must be repaired or reported unresolved before corresponding equivalence claims.",
+      "Direct-reference coverage is established for known cached callers, but arbitrary address-computed/indirect callbacks remain unresolved. No no-use claim is made for unobserved register flags or external exception consumers."
+    ]
+  },
+  "safe_handler_registration": {
+    "handler": "FUN_005615de",
+    "metadata_source": "runtime/crt_exception_handlers.asm",
+    "kind": "No instructions: MASM .SAFESEH external-procedure annotation only, linked directly into both main images",
+    "C4733": "Suppressed only around manual FS record owner; handler is separately registered",
+    "reference": "https://learn.microsoft.com/en-us/cpp/assembler/masm/dot-safeseh",
+    "PE_verification": {
+      "path": "metadata/crt-exception-safe-handler.json",
+      "sha256": "5990986ade36951ded8440fa67c7155733151e953bc862d49b8ee443b183d855",
+      "both_main_images_registered": true
+    }
+  }
+}

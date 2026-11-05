@@ -2509,3 +2509,14 @@ unset(_music_config_entry)
 # Native CRT floating formatter and its decimal arithmetic closure.
 target_sources(pharaoh_restored PRIVATE runtime/crt_format_entries.c)
 set_source_files_properties(src/unit_02875.c src/unit_02876.c src/unit_02877.c src/unit_02878.c src/unit_02879.c src/unit_02880.c src/unit_02979.c src/unit_03010.c src/unit_03014.c src/unit_03015.c runtime/crt_format_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Native exception notification, funclet ABI, dispatch registration and terminate.
+target_sources(pharaoh_restored PRIVATE runtime/crt_exception_entries.c runtime/crt_exception_dispatch_entries.c)
+if(MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+ enable_language(ASM_MASM)
+ # Metadata-only object must be present even when archive extraction changes.
+ target_sources(restore_link_check PRIVATE runtime/crt_exception_handlers.asm)
+ target_sources(restore_game PRIVATE runtime/crt_exception_handlers.asm)
+ set_source_files_properties(runtime/crt_exception_handlers.asm PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/safeseh")
+endif()
+set_source_files_properties(src/unit_02794.c src/unit_02869.c src/unit_02856.c src/unit_02958.c src/unit_02786.c src/unit_02787.c src/unit_02859.c runtime/crt_exception_entries.c runtime/crt_exception_dispatch_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

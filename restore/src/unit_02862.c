@@ -1,8 +1,8 @@
 #include "restore_types.h"
+#include "crt_exception_runtime.h"
 #define LAB_00561a90 (*(undefined1 *)0x00561a90u)
 #define DAT_00570668 (*(undefined4 *)0x00570668u)
 extern void FUN_00563844();
-extern void FUN_005640a0();
 
 void FUN_00563be1(int param_1,undefined4 param_2,int param_3,int param_4)
 
@@ -26,7 +26,7 @@ void FUN_00563be1(int param_1,undefined4 param_2,int param_3,int param_4)
     local_8 = 0;
     iVar1 = *(int *)(*(int *)(param_3 + 8) + 4 + iVar2 * 8);
     if (iVar1 != 0) {
-      FUN_005640a0(iVar1,param_1,0x103);
+      (void)restore_crt_invoke_frame((uint32_t)iVar1,(uint32_t)param_1,0x103u);
     }
   }
   *(int *)(param_1 + 8) = iVar2;

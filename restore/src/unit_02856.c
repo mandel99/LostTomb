@@ -1,27 +1,19 @@
-#include "restore_types.h"
-#define LAB_00561a90 (*(undefined1 *)0x00561a90u)
-#define DAT_00570638 (*(undefined4 *)0x00570638u)
-#define DAT_01266414 (*(undefined4 *)0x01266414u)
-extern void FUN_005686f4();
+#include "crt_exception_runtime.h"
 
-void FUN_005637ee(void)
+/* Existing abort C retains the diagnostic, SIGABRT and quick-exit sequence. */
+__declspec(noreturn) void FUN_005686f4(void);
 
+__declspec(noreturn) void restore_crt_terminate(void)
 {
-  void *pvStack_14;
-  undefined1 *puStack_10;
-  undefined *puStack_c;
-  undefined4 local_8;
-  
-  puStack_c = &DAT_00570638;
-  puStack_10 = &LAB_00561a90;
-  pvStack_14 = ExceptionList;
-  ExceptionList = &pvStack_14;
-  if (DAT_01266414 != (code *)0x0) {
-    local_8 = 1;
-    ExceptionList = &pvStack_14;
-    ((code *)DAT_01266414)();
+ void (__cdecl *handler)(void);
+ /* Native scope570638 has an inner execute-handler filter and an outer
+    finally which aborts on normal completion and on structured unwind. */
+ __try {
+  handler=*(void (__cdecl * volatile *)(void))(uintptr_t)0x01266414u;
+  if(handler!=0){
+   __try { handler(); }
+   __except(EXCEPTION_EXECUTE_HANDLER) { }
   }
-  local_8 = 0xffffffff;
-  FUN_005686f4();
-  return;
+ }
+ __finally { FUN_005686f4(); }
 }
