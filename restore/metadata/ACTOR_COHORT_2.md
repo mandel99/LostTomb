@@ -1,10 +1,11 @@
 # Second connected C cohort
 
-This source-first cohort selects 12 related native entrypoints /2,144 static
+This source-first cohort selects 17 related native entrypoints /3,682 static
 instructions. Eight C owners were already published in a5e4547 and are now
-selected unchanged; only four new algorithms were created in this checkpoint.
-They add Engineer, Fireman and two fire-selection helpers to the civic and
-route-pixel block. Source bodies are owned once in
+selected unchanged. Nine algorithms were created since611f3cc, including
+five in the latest checkpoint.
+They add Engineer/Fireman, warehouse delivery and service-patrol logic to
+the civic and route-pixel block. Source bodies are owned once in
 `artifacts/actor_civic_followup/`.
 
 Shared strict Win32 C11 compilation and both Release main links pass.

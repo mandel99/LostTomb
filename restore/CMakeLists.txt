@@ -404,7 +404,9 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_route_pixels.c
  artifacts/actor_civic_followup/actor_route_leaves.c
  artifacts/actor_civic_followup/actor_engineer.c
- artifacts/actor_civic_followup/actor_fireman.c)
+ artifacts/actor_civic_followup/actor_fireman.c
+ artifacts/actor_civic_followup/actor_warehouseman.c
+ artifacts/actor_civic_followup/actor_walking_service.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -412,6 +414,8 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_route_leaves.c
  artifacts/actor_civic_followup/actor_engineer.c
  artifacts/actor_civic_followup/actor_fireman.c
+ artifacts/actor_civic_followup/actor_warehouseman.c
+ artifacts/actor_civic_followup/actor_walking_service.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

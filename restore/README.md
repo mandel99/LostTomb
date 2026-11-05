@@ -1,8 +1,8 @@
 # Pharaoh restore
 
-The current source-first cohort selects 12 connected C entrypoints /2,144
+The current source-first cohort selects 17 connected C entrypoints /3,682
 static native instructions. Eight previously published bodies are selected
-unchanged; four new Engineer/Fireman algorithms were created. Shared strict
+unchanged; nine new Engineer/Fireman, warehouse and patrol algorithms were created. Shared strict
 C11 compilation and both Release main links pass. Detailed native comparison
 will follow at the next approximately 100-function milestone.
 See [the current cohort](metadata/ACTOR_COHORT_2.md).

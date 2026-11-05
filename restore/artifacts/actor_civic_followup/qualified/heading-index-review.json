@@ -1,0 +1,139 @@
+{
+  "status": "OPEN conditional domain; no selection or RAWdrop allowed",
+  "index_register": "ECX at4906BC/4906C8; no masking/clamping",
+  "index_pipeline": [
+    {
+      "site": "0x4905d7",
+      "instruction": "movsx ecx, byte ptr [esi + 0xbcd60b]"
+    },
+    {
+      "site": "0x490626",
+      "instruction": "and ecx, 0xff"
+    },
+    {
+      "site": "0x490648",
+      "instruction": "and ecx, 0xff"
+    },
+    {
+      "site": "0x49065a",
+      "instruction": "movsx ecx, byte ptr [esi + 0xbcd60a]"
+    },
+    {
+      "site": "0x490663",
+      "instruction": "movsx ecx, al"
+    },
+    {
+      "site": "0x490666",
+      "instruction": "sub ecx, dword ptr [0xbca2e0]"
+    },
+    {
+      "site": "0x490676",
+      "instruction": "add ecx, 8"
+    },
+    {
+      "site": "0x490684",
+      "instruction": "sub ecx, 8"
+    },
+    {
+      "site": "0x4906bc",
+      "instruction": "mov al, byte ptr [esp + ecx*2 + 0x28]"
+    },
+    {
+      "site": "0x4906c8",
+      "instruction": "mov dl, byte ptr [esp + ecx*2 + 0x29]"
+    }
+  ],
+  "sources": [
+    "State5: signed attackheadingBYTEBCD60B via4905D7, no local range guard.",
+    "Nonzero formationcooldown: signed currentBYTEBCD609, then previousBYTEBCD60A; values<8 are accepted, including negative signedBYTEs.",
+    "State12 facing fallback: formationBYTEBCBA33 thenBCBA38 accepted unsigned<8 only when attacktimerBYTE is0.",
+    "Final fallback: signed currentBCD609 if<8, otherwise signed previousBCD60A without another upper/lower bound.",
+    "Raw heading = wrappedDWORD selectedheading - DWORD BCA2E0; one signednegative+8 then one signed>=8-8."
+  ],
+  "necessary_and_sufficient_index_condition": "The signed raw heading immediately after490666 must be in[-8,15] for final ECX to be in[0,7]. This condition is not established by the body for every input.",
+  "sufficient_example_not_invariant": "Nonnegative direction0..7 plus rotation0..7 gives signedraw[-7,7], but complete writer/caller/save lifecycle and alias invariants have not been proved.",
+  "static_counterexample_not_execution": "Kind13,state18,cooldown0,currentdirectionBYTE80,rotationDWORD0 selects-128 and normalizes once to-120. Native then reads beyond its16 initialized stack bytes. This is a logical static path example, not a claimed valid gameplay state or native execution receipt.",
+  "all_direct_field_writers_in_this_native_body": {
+    "0xbcd609": [
+      {
+        "site": "0x48f3b8",
+        "instruction": "mov byte ptr [edx*4 + 0xbcd609], al"
+      },
+      {
+        "site": "0x48f58b",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48f686",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48f990",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48faa3",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48fbd3",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48fc3a",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x48fe14",
+        "instruction": "mov byte ptr [edx*4 + 0xbcd609], al"
+      },
+      {
+        "site": "0x48ffcb",
+        "instruction": "mov byte ptr [esi + 0xbcd609], al"
+      },
+      {
+        "site": "0x49025d",
+        "instruction": "mov byte ptr [edi + 0xbcd609], al"
+      }
+    ],
+    "0xbcd60a": [],
+    "0xbcd60b": [],
+    "0xbcba33": [],
+    "0xbcba38": [],
+    "0xbca2e0": []
+  },
+  "writer_value_provenance": "All10 direct BCD609 writes store AL from existing51CD80 direction queries; no direct writes to previous/attack direction, formation facing bytes or rotation occur in this body.",
+  "known_external_source_writers": [
+    {
+      "path": "runtime/actor_movement.c",
+      "sha256": "028fd49d5d75c852bc1978530631bc629079c68db922a4ca82252555593d9171",
+      "assignment": "4B27E0 copiesBCD609 toBCD60A after a signedBCD609<8 guard, which alone also admits negative BYTE values."
+    },
+    {
+      "path": "runtime/actor_movement_validation.c",
+      "sha256": "7e40eda51879f85e2b3ac640b7e2ed4860152a5b75d6ee5fb15ef28246c1435a",
+      "assignment": "4B3530 may copy signedcurrentdirection intoBCD60B and setBCD609=11; its initial direction>=8 rejection alone does not reject negatives."
+    },
+    {
+      "path": "runtime/actor_command.c",
+      "sha256": "d692134594c475c567a1d8b172d35b2438e22699dcc50dd3557eb993bfdc45c9",
+      "assignment": "contact_begin_pair writes query51CBA0 AL toownattackheading with signed>=8 reset, and opponentheading=(own+4)BYTE with signed>=8 subtract8."
+    },
+    {
+      "path": "runtime/menu_rotation_model.c",
+      "sha256": "05b362aea7a6da6e4bc0cb96a0e7cc5a9d8b08d993d1f7b84d504ebc881d9cf2",
+      "assignment": "Contains rotationDWORD assignments; no global allwriter/alias/save invariant is established here."
+    },
+    {
+      "path": "runtime/editor_map_reset.c",
+      "sha256": "e99181c508fba570897195aaee476ffbf536b929d94754df094a39105df6384a",
+      "assignment": "Known reset writes rotationDWORD0; reset value is not a lifetime invariant."
+    }
+  ],
+  "global_writer_completeness": false,
+  "external_lifecycle_proof": false,
+  "native_stack_bytes_synthesized": false,
+  "mask_or_clamp_added": false,
+  "native_C_invocations": 0,
+  "production_selection_allowed": false
+}

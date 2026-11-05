@@ -362,10 +362,10 @@ void FUN_00421120(int32_t building,int32_t actor,uint8_t state)
 {const uint32_t a[]={(uint32_t)building,(uint32_t)actor,state};(void)invoke(0x421120u,a,3);}
 
 /* Reuse complete existing movement bodies and the shared event patrol body. */
-void FUN_004b1df0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x004b1df0u,a,1);}
-void FUN_004b1ef0(int32_t actor,int32_t steps)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)steps};(void)invoke(0x004b1ef0u,a,2);}
+__declspec(noinline) void FUN_004b1df0(int32_t actor)
+{(void)restore_actor_prepare_service_patrol(actor);}
+__declspec(noinline) void FUN_004b1ef0(int32_t actor,int32_t steps)
+{restore_actor_advance_service_patrol(actor,steps);}
 __declspec(noinline) int32_t FUN_004b3ff0(int32_t actor,int32_t steps)
 {return restore_actor_advance_route_pixels(actor,steps);}
 __declspec(noinline) void FUN_004b4180(int32_t actor)

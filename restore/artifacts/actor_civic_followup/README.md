@@ -1,8 +1,8 @@
 # Civic and route-pixel C owners awaiting main selection
 
-These twelve ordinary C algorithms are selected directly by the main build.
-Eight source owners were created in a5e4547 and are reused unchanged; four
-new Engineer/Fireman algorithms were added in the second cohort. Original
+These seventeen ordinary C algorithms are selected directly by the main build.
+Eight source owners were created in a5e4547 and are reused unchanged; nine
+new Engineer/Fireman, warehouse and patrol algorithms were added in the second cohort. Original
 frame models remain available. Selection does not count an algorithm twice.
 
 | Native entry | Named C owner | Native instructions |
@@ -20,8 +20,8 @@ frame models remain available. Selection does not count an algorithm twice.
 | 48E5E0 | restore_fireman_try_assign_fire | 112 |
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
 
-The total is 2,144 static native instructions, not execution coverage.
-The six C files are the source owners. Keep them selected directly; do not
+The total is 3,682 static native instructions, not execution coverage.
+The eight C files are the source owners. Keep them selected directly; do not
 copy their bodies into another runtime module or count selection as another
 new algorithm. Existing removal-effects, service-state, storage and grid
 algorithms are called through their APIs and receive no new rewrite credit.
@@ -47,3 +47,6 @@ are in `../../metadata/actor-cohort-2-rea-records.json`. The older vagrant
 queue's 1,823-byte extent is corrected by fresh authenticated bytes and a
 complete direct CFG to 1,840 bytes /491 instructions. No historical report
 has been rewritten.
+
+Warehouseman, delivery/query helpers and two service-patrol owners are also
+selected. The qualified formation-soldier draft remains excluded.

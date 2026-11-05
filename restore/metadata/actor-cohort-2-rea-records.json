@@ -1729,6 +1729,1178 @@
       "relationship_coverage": null,
       "locations": [],
       "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_f666258573999e6a23220d3d99a3ab24425f310ad70a35b4362bfe7082da4280",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x0048ce30",
+        "length": 4256
+      },
+      "raw_result": {
+        "address": "0x48ce30",
+        "requested_bytes": 4256,
+        "returned_bytes": 4256,
+        "bytes_hex": "8b0df856d00083ec1833d28d044953c1e00503c155c1e00256bb010000008a9002d6bc0088986ad6bc00578d34d5000000002bf28a90f9d5bc00fec28b3cf5ec90700080fa0c8890f9d5bc007207c680f9d5bc0000c78078d7bc00000000008bb018d6bc0033d2bd040000008a96ec6aa7008bf28a9030d6bc0080fa05750b51e81b490200e98b0b000080fa04750b51e88b4e0200e97b0b000080fa080f85fa0400000fbfa852d6bc008bfdc1e70503fdc1e703389fd899790075210fbf97029a79003bd1741d0fbf97049a79003bd174120fbf978e9a79003bd17407c68006d6bc000266ff802ed6bc006683b82ed6bc00020f8e89040000668b97e89979006683fa470f84770200006681fabf000f846c0200008a8803d6bc0084c90f8507010000b8640000008d4c241c89442424894424208d4424188d54242050518d44242c528d4c241c508d5424245133f65255897424308974242c8974243889742434e8eae8fcff0fbf878e9a79008b0df856d00083c41c3bc1750a8b4424103bc68bd875048b5c241433ff575355e88eebfcff8bf083c40c3bf774728b0df856d000c1e0058d144903c6c1e20503d1c1e20266833cc5e899790048889a72d6bc006689ba6cd6bc006689b256d6bc007509c68230d6bc000feb07c68230d6bc001266a1e4b4d3006689ba2ed6bc006689821cd6bc0066a1e0b4d3006689821ed6bc00c6826ad6bc0003e975030000a1f856d0005f5e5d8d0c405bc1e10503c8c6048d06d6bc000283c418c30fbf900ed6bc000fbf800cd6bc0081e1ff00000056515250e83927fdff83c41085c00f8575020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e8101afdff83c40c85c00f854c020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc0052506a00e81509fdff83c41085c00f8521020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e8cc0bfdff83c40c85c00f85f8010000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc00525055e8d2dbfcff83c41085c00f85ce010000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e80923fdff83c40c85c00f85a50100008b0df856d00051e842e3ffff8b0df856d00033d28a97999a790083c4048d0449c1e0058d345203c1c1e604c1e00203f233d28a9003d6bc008a94b2c200790080fa03750cc68030d6bc0008e91002000080fa02c68030d6bc0008e9010200008a8003d6bc0084c00f85d500000055e8bb0cfdff33f683c4043bc674458b0df856d0008d1449c1e20503d1c1e20266898256d6bc00c68230d6bc00126689b22ed6bc0066a1e4b4d3006689821cd6bc0066a1e0b4d3006689821ed6bc00e99f010000a1f856d00033d2568d0c40c1e10503c88a148d72d6bc005255e81fe9fcff83c40c3bc674338b0df856d0008bf8c1e7058d144903f8c1e20503d1c1e20266833cfde89979004866898256d6bc007584c68230d6bc0014eb82a1f856d000508d0c40c1e10503c8c6048d30d6bc0008e81ae2ffff8b0df856d00083c404e91e01000025ff0000005650516a00e83d07fdff83c41085c0754da1f856d00033c9568d1440c1e20503d08a0c9503d6bc0051506a00e826dafcff83c41085c07526a1f856d00033c9568d1440c1e20503d08a0c9503d6bc00515053e8f006fdff83c41085c0742d8b0df856d0008d1449c1e20503d1c1e20266898256d6bc00c68230d6bc000966c7822ed6bc000000e9d0feffff8b0df856d00051e870e1ffff8b0df856d00033d28a97999a790083c4048d0449c1e0058d345203c1c1e604c1e00203f233d28a9003d6bc008a94b2c200790080fa037509c68030d6bc0008eb4180fa027509c68030d6bc0008eb33668b97de9979006689a856d6bc00c68030d6bc000966c7802ed6bc0000006689901cd6bc00668b97e09979006689901ed6bc008d044951c1e00503c1c60485f9d5bc0000e8d8e0ffffe97806000080fa09755c51e8c8e0ffff8b0df856d0005751e8bb8901008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa08750cc68030d6bc000ae93e06000080fa090f842606000080fa0a0f852c060000c68006d6bc0002e92006000080fa0a0f857f0100000fbfb856d6bc0057e80c87feff8b15f856d00052e850e0ffff8b0df856d00083c4088d0449c1e00503c166ff04852ed6bc0066392c852ed6bc008d04852ed6bc000f8e2301000051e81ce0ffff8bcf83c404c1e10503cf0fbf04cde899790083c0b983f87a0f87be00000033d28a90f8dd4800ff2495e8dd48008b0df856d00033d28d0449c1e00503c1c1e0020fbf886cd6bc008a9003d6bc00a128acea0051525750e8c1ddfcff8b0df856d0006a00565150e8b1f5ffff83c420e9a40000008b0df856d0008d0449c1e00503c133c9c1e0020fbf906cd6bc008a8803d6bc00526a005157e8ff0cfdff8b15f856d0006a00565250e86ff5ffff83c420eb658b0df856d0008d0449c1e00503c133c9c1e0020fbf906cd6bc008a8803d6bc00515257e83233fdffeb288b0df856d00033d28d0449c1e00503c1c1e0028a9003d6bc000fbf806cd6bc00525057e89828fdff8b0df856d0006a00565150e808f5ffff83c41c8b0df856d0008d1449c1e20503d1c60495f9d5bc0000e99804000080fa0b754151e8dfdeffffa1f856d0005750e8d38701008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f8546040000c68006d6bc0002e95204000080fa0c754251e899deffff8b0df856d0005751e88c8701008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f85ff030000c68030d6bc000de90b04000080fa0d0f85990000000fbf9052d6bc000fbfb856d6bc0066ff802ed6bc006639a82ed6bc007e668d344957c1e60503f152c1e602e8d40afdff8a159cd978006689866cd6bc00889603d6bc008b15f856d000c68630d6bc000e66c7862ed6bc000000668b8624d6bc00526689861cd6bc00668b8e26d6bc0066898e1ed6bc00e8895b02008b0df856d00083c40c8d0449c1e00503c1c60485f9d5bc0000e96903000080fa12754251e8b0ddffff8b0df856d0005751e8a38601008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f8516030000c68030d6bc0013e92203000080fa130f851a01000051e865ddffff8b0df856d00083c4048d0449c1e00503c1c1e0020fbfb052d6bc000fbf9056d6bc0066ff802ed6bc006639a82ed6bc000f8e30feffff33c968900100008a8872d6bc0051528b1528acea0052e8d40bfdff83c4103d90010000751c8b15f856d0008d0c52c1e10503cac1e10266c7816cd6bc000000eb2f8b15f856d00085c08d0c527513c1e10503cac1e10266c7816cd6bc009001eb0fc1e10503cac1e1026689816cd6bc006683b96cd6bc0000751cc68103d6bc000052c68130d6bc0008e8515a020083c404e994fdffff8a8172d6bc00888103d6bc008bc6c1e00503c666833cc5e8997900477515c68130d6bc000e66c7812ed6bc000000e93e030000c68130d6bc001166c7812ed6bc000000e92903000080fa14754151e846dcffffa1f856d0005750e83a8501008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f85ad010000c68030d6bc0015e9b901000080fa150f85f60000000fbfb856d6bc0066ff802ed6bc006639a82ed6bc000f8ee8fcffff8a8072d6bc008bc881e1ff0000008d71e883fe0b770f33d28a967cde4800ff249574de48003c0c740d3c1c74093c0abe900100007505be64000000a128acea0056515750e86edcfcff83c4103bc6751c8b15f856d0008d0c52c1e10503cac1e10266c7816cd6bc000000eb288b15f856d00085c08d0c52750ac1e10503cac1e102eb0ac1e10503cac1e1022bf06689b16cd6bc006683b96cd6bc0000751cc68103d6bc000052c68130d6bc0008e8e558020083c404e928fcffff8a8172d6bc00888103d6bc00c68130d6bc000e66c7812ed6bc000000e9e401000080fa0e75560fbfa852d6bc0051e8fadaffffa1f856d0005750e8ee8301008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa0875650fbf886cd6bc0033d2518a9003d6bc006a005255e83608fdffe91802000080fa0f757f51c6806ad6bc0003e89fdaffff8b15f856d0005752e8928301008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa087509c68030d6bc0010eb1880fa090f85daf9ffff51e80b58020083c4048b0df856d0008d3449c1e60503f1c1e6028a8609d6bc003c080f8c730200000fbe8e0ad6bc00e96a02000080fa100f8526010000c6806ad6bc00030fbfb856d6bc0066ff802ed6bc006639a82ed6bc000f8e03fbffff33ed6689a86cd6bc008a8072d6bc008bc881e1ff0000008d71e883fe0b770f33d28a9690de4800ff249588de48003c0c740d3c1c74093c0abe900100007505be64000000a128acea0056515750e880dafcff83c4103bc6751a8b15f856d0008d0c52c1e10503cac1e1026689a96cd6bc00eb288b15f856d0003bc58d0c52750ac1e10503cac1e102eb0ac1e10503cac1e1022bf06689b16cd6bc006639a96cd6bc00751cc68103d6bc000052c68130d6bc0008e8fa56020083c404e93dfaffff8a8172d6bc00888103d6bc00c68130d6bc00116689a92ed6bc00668b8124d6bc00526689811cd6bc00668b8126d6bc006689811ed6bc00e8b656020083c404e9f9f9ffff80fa117577c6806ad6bc0003510fbfa852d6bc00e8e5d8ffffa1f856d0005750e8d98101008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f854cfeffff0fbf886cd6bc0033d2518a9003d6bc00a128acea00525550e899d6fcff8b0df856d00053565150e88aeeffff83c420e92afeffff80fa070f858100000051c680f9d5bc0000e86cd8ffff8b0df856d0008b15004ee9008b35445ef50083c4048d0449c1e00503c18d541601c1e0028990fcd5bc0066ff802ed6bc006683b82ed6bc00640f8edbfdffff5166c7802ed6bc000000e85e59010083c40484c00f85bbfdffff8b0df856d0008d0449c1e00503c1c6048530d6bc0008e9a6fdffff80fa06752133d28990fcd5bc008bb078d7bc003bf20f848bfdffff899078d7bc00e980fdffffc68030d6bc0008e974fdffff0fbec82b0de0a2bc0085c9890d004ee9007d0983c108890d004ee9008a8630d6bc003c04752d0fbf862ed6bc00992bc233d2d1f88a908c045d00a14c5ef50003d08996fcd5bc00c78678d7bc0000000000eb1d3c0674198b15445ef50033c08a86f9d5bc008d04c203c18986fcd5bc008b8678d7bc0085c00f848500000003c18bf9898678d7bc008a8603d6bc008bc881e1ff0000008d51e883fa0b770f33c98a8aa4de4800ff248d9cde48003c0c742d84c075348a8672d6bc008bd081e2ff0000008d4ae883f90b770f33d28a91b8de4800ff2495b0de48003c0c750b83c70483ff087c0383ef088a047d3cc25d008a0c7d3dc25d00888664d6bc00888e65d6bc005f5e5d5b83c418c38d4900f7d44800b1d4480036d5480060d5480000010103030303030303030303030303030303030303030302030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030300030190efd84800ded84800000000010101000101010100ddda4800ccda4800000000010101000101010100b8dd480087dd4800000000010101000101010100b8dd4800b4dd4800000000010101000101010100909090909090909090909090",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x48ce30",
+        "requested_bytes": 4256,
+        "returned_bytes": 4256,
+        "bytes_hex": "8b0df856d00083ec1833d28d044953c1e00503c155c1e00256bb010000008a9002d6bc0088986ad6bc00578d34d5000000002bf28a90f9d5bc00fec28b3cf5ec90700080fa0c8890f9d5bc007207c680f9d5bc0000c78078d7bc00000000008bb018d6bc0033d2bd040000008a96ec6aa7008bf28a9030d6bc0080fa05750b51e81b490200e98b0b000080fa04750b51e88b4e0200e97b0b000080fa080f85fa0400000fbfa852d6bc008bfdc1e70503fdc1e703389fd899790075210fbf97029a79003bd1741d0fbf97049a79003bd174120fbf978e9a79003bd17407c68006d6bc000266ff802ed6bc006683b82ed6bc00020f8e89040000668b97e89979006683fa470f84770200006681fabf000f846c0200008a8803d6bc0084c90f8507010000b8640000008d4c241c89442424894424208d4424188d54242050518d44242c528d4c241c508d5424245133f65255897424308974242c8974243889742434e8eae8fcff0fbf878e9a79008b0df856d00083c41c3bc1750a8b4424103bc68bd875048b5c241433ff575355e88eebfcff8bf083c40c3bf774728b0df856d000c1e0058d144903c6c1e20503d1c1e20266833cc5e899790048889a72d6bc006689ba6cd6bc006689b256d6bc007509c68230d6bc000feb07c68230d6bc001266a1e4b4d3006689ba2ed6bc006689821cd6bc0066a1e0b4d3006689821ed6bc00c6826ad6bc0003e975030000a1f856d0005f5e5d8d0c405bc1e10503c8c6048d06d6bc000283c418c30fbf900ed6bc000fbf800cd6bc0081e1ff00000056515250e83927fdff83c41085c00f8575020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e8101afdff83c40c85c00f854c020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc0052506a00e81509fdff83c41085c00f8521020000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e8cc0bfdff83c40c85c00f85f8010000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc00525055e8d2dbfcff83c41085c00f85ce010000a1f856d00033d2568d0c40c1e10503c88a148d03d6bc005250e80923fdff83c40c85c00f85a50100008b0df856d00051e842e3ffff8b0df856d00033d28a97999a790083c4048d0449c1e0058d345203c1c1e604c1e00203f233d28a9003d6bc008a94b2c200790080fa03750cc68030d6bc0008e91002000080fa02c68030d6bc0008e9010200008a8003d6bc0084c00f85d500000055e8bb0cfdff33f683c4043bc674458b0df856d0008d1449c1e20503d1c1e20266898256d6bc00c68230d6bc00126689b22ed6bc0066a1e4b4d3006689821cd6bc0066a1e0b4d3006689821ed6bc00e99f010000a1f856d00033d2568d0c40c1e10503c88a148d72d6bc005255e81fe9fcff83c40c3bc674338b0df856d0008bf8c1e7058d144903f8c1e20503d1c1e20266833cfde89979004866898256d6bc007584c68230d6bc0014eb82a1f856d000508d0c40c1e10503c8c6048d30d6bc0008e81ae2ffff8b0df856d00083c404e91e01000025ff0000005650516a00e83d07fdff83c41085c0754da1f856d00033c9568d1440c1e20503d08a0c9503d6bc0051506a00e826dafcff83c41085c07526a1f856d00033c9568d1440c1e20503d08a0c9503d6bc00515053e8f006fdff83c41085c0742d8b0df856d0008d1449c1e20503d1c1e20266898256d6bc00c68230d6bc000966c7822ed6bc000000e9d0feffff8b0df856d00051e870e1ffff8b0df856d00033d28a97999a790083c4048d0449c1e0058d345203c1c1e604c1e00203f233d28a9003d6bc008a94b2c200790080fa037509c68030d6bc0008eb4180fa027509c68030d6bc0008eb33668b97de9979006689a856d6bc00c68030d6bc000966c7802ed6bc0000006689901cd6bc00668b97e09979006689901ed6bc008d044951c1e00503c1c60485f9d5bc0000e8d8e0ffffe97806000080fa09755c51e8c8e0ffff8b0df856d0005751e8bb8901008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa08750cc68030d6bc000ae93e06000080fa090f842606000080fa0a0f852c060000c68006d6bc0002e92006000080fa0a0f857f0100000fbfb856d6bc0057e80c87feff8b15f856d00052e850e0ffff8b0df856d00083c4088d0449c1e00503c166ff04852ed6bc0066392c852ed6bc008d04852ed6bc000f8e2301000051e81ce0ffff8bcf83c404c1e10503cf0fbf04cde899790083c0b983f87a0f87be00000033d28a90f8dd4800ff2495e8dd48008b0df856d00033d28d0449c1e00503c1c1e0020fbf886cd6bc008a9003d6bc00a128acea0051525750e8c1ddfcff8b0df856d0006a00565150e8b1f5ffff83c420e9a40000008b0df856d0008d0449c1e00503c133c9c1e0020fbf906cd6bc008a8803d6bc00526a005157e8ff0cfdff8b15f856d0006a00565250e86ff5ffff83c420eb658b0df856d0008d0449c1e00503c133c9c1e0020fbf906cd6bc008a8803d6bc00515257e83233fdffeb288b0df856d00033d28d0449c1e00503c1c1e0028a9003d6bc000fbf806cd6bc00525057e89828fdff8b0df856d0006a00565150e808f5ffff83c41c8b0df856d0008d1449c1e20503d1c60495f9d5bc0000e99804000080fa0b754151e8dfdeffffa1f856d0005750e8d38701008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f8546040000c68006d6bc0002e95204000080fa0c754251e899deffff8b0df856d0005751e88c8701008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f85ff030000c68030d6bc000de90b04000080fa0d0f85990000000fbf9052d6bc000fbfb856d6bc0066ff802ed6bc006639a82ed6bc007e668d344957c1e60503f152c1e602e8d40afdff8a159cd978006689866cd6bc00889603d6bc008b15f856d000c68630d6bc000e66c7862ed6bc000000668b8624d6bc00526689861cd6bc00668b8e26d6bc0066898e1ed6bc00e8895b02008b0df856d00083c40c8d0449c1e00503c1c60485f9d5bc0000e96903000080fa12754251e8b0ddffff8b0df856d0005751e8a38601008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f8516030000c68030d6bc0013e92203000080fa130f851a01000051e865ddffff8b0df856d00083c4048d0449c1e00503c1c1e0020fbfb052d6bc000fbf9056d6bc0066ff802ed6bc006639a82ed6bc000f8e30feffff33c968900100008a8872d6bc0051528b1528acea0052e8d40bfdff83c4103d90010000751c8b15f856d0008d0c52c1e10503cac1e10266c7816cd6bc000000eb2f8b15f856d00085c08d0c527513c1e10503cac1e10266c7816cd6bc009001eb0fc1e10503cac1e1026689816cd6bc006683b96cd6bc0000751cc68103d6bc000052c68130d6bc0008e8515a020083c404e994fdffff8a8172d6bc00888103d6bc008bc6c1e00503c666833cc5e8997900477515c68130d6bc000e66c7812ed6bc000000e93e030000c68130d6bc001166c7812ed6bc000000e92903000080fa14754151e846dcffffa1f856d0005750e83a8501008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f85ad010000c68030d6bc0015e9b901000080fa150f85f60000000fbfb856d6bc0066ff802ed6bc006639a82ed6bc000f8ee8fcffff8a8072d6bc008bc881e1ff0000008d71e883fe0b770f33d28a967cde4800ff249574de48003c0c740d3c1c74093c0abe900100007505be64000000a128acea0056515750e86edcfcff83c4103bc6751c8b15f856d0008d0c52c1e10503cac1e10266c7816cd6bc000000eb288b15f856d00085c08d0c52750ac1e10503cac1e102eb0ac1e10503cac1e1022bf06689b16cd6bc006683b96cd6bc0000751cc68103d6bc000052c68130d6bc0008e8e558020083c404e928fcffff8a8172d6bc00888103d6bc00c68130d6bc000e66c7812ed6bc000000e9e401000080fa0e75560fbfa852d6bc0051e8fadaffffa1f856d0005750e8ee8301008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa0875650fbf886cd6bc0033d2518a9003d6bc006a005255e83608fdffe91802000080fa0f757f51c6806ad6bc0003e89fdaffff8b15f856d0005752e8928301008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa087509c68030d6bc0010eb1880fa090f85daf9ffff51e80b58020083c4048b0df856d0008d3449c1e60503f1c1e6028a8609d6bc003c080f8c730200000fbe8e0ad6bc00e96a02000080fa100f8526010000c6806ad6bc00030fbfb856d6bc0066ff802ed6bc006639a82ed6bc000f8e03fbffff33ed6689a86cd6bc008a8072d6bc008bc881e1ff0000008d71e883fe0b770f33d28a9690de4800ff249588de48003c0c740d3c1c74093c0abe900100007505be64000000a128acea0056515750e880dafcff83c4103bc6751a8b15f856d0008d0c52c1e10503cac1e1026689a96cd6bc00eb288b15f856d0003bc58d0c52750ac1e10503cac1e102eb0ac1e10503cac1e1022bf06689b16cd6bc006639a96cd6bc00751cc68103d6bc000052c68130d6bc0008e8fa56020083c404e93dfaffff8a8172d6bc00888103d6bc00c68130d6bc00116689a92ed6bc00668b8124d6bc00526689811cd6bc00668b8126d6bc006689811ed6bc00e8b656020083c404e9f9f9ffff80fa117577c6806ad6bc0003510fbfa852d6bc00e8e5d8ffffa1f856d0005750e8d98101008b0df856d00083c40c8d0449c1e00503c1c1e0028a9009d6bc0080fa080f854cfeffff0fbf886cd6bc0033d2518a9003d6bc00a128acea00525550e899d6fcff8b0df856d00053565150e88aeeffff83c420e92afeffff80fa070f858100000051c680f9d5bc0000e86cd8ffff8b0df856d0008b15004ee9008b35445ef50083c4048d0449c1e00503c18d541601c1e0028990fcd5bc0066ff802ed6bc006683b82ed6bc00640f8edbfdffff5166c7802ed6bc000000e85e59010083c40484c00f85bbfdffff8b0df856d0008d0449c1e00503c1c6048530d6bc0008e9a6fdffff80fa06752133d28990fcd5bc008bb078d7bc003bf20f848bfdffff899078d7bc00e980fdffffc68030d6bc0008e974fdffff0fbec82b0de0a2bc0085c9890d004ee9007d0983c108890d004ee9008a8630d6bc003c04752d0fbf862ed6bc00992bc233d2d1f88a908c045d00a14c5ef50003d08996fcd5bc00c78678d7bc0000000000eb1d3c0674198b15445ef50033c08a86f9d5bc008d04c203c18986fcd5bc008b8678d7bc0085c00f848500000003c18bf9898678d7bc008a8603d6bc008bc881e1ff0000008d51e883fa0b770f33c98a8aa4de4800ff248d9cde48003c0c742d84c075348a8672d6bc008bd081e2ff0000008d4ae883f90b770f33d28a91b8de4800ff2495b0de48003c0c750b83c70483ff087c0383ef088a047d3cc25d008a0c7d3dc25d00888664d6bc00888e65d6bc005f5e5d5b83c418c38d4900f7d44800b1d4480036d5480060d5480000010103030303030303030303030303030303030303030302030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030300030190efd84800ded84800000000010101000101010100ddda4800ccda4800000000010101000101010100b8dd480087dd4800000000010101000101010100b8dd4800b4dd4800000000010101000101010100909090909090909090909090",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_75bd33dbc6a553a2ca7780b7602e591d216fe2c2841f393bd17d5314faa397e8",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x0048ae50",
+        "length": 160
+      },
+      "raw_result": {
+        "address": "0x48ae50",
+        "requested_bytes": 160,
+        "returned_bytes": 160,
+        "bytes_hex": "5356578b7c24108b5c241433c08d347f53c1e60503f7c1e6020fbf8e0ed6bc008a8603d6bc000fbf960cd6bc00505152e82b49fdff83c41085c075588a8603d6bc00535057e8163cfdff83c40c85c0754333c9538a8e03d6bc00515750e83efefcff83c41085c0752b33d2538a9603d6bc00525750e8162bfdff83c41085c075138a8603d6bc005350576a01e8ff2afdff83c41066898656d6bc005f5e5bc390",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x48ae50",
+        "requested_bytes": 160,
+        "returned_bytes": 160,
+        "bytes_hex": "5356578b7c24108b5c241433c08d347f53c1e60503f7c1e6020fbf8e0ed6bc008a8603d6bc000fbf960cd6bc00505152e82b49fdff83c41085c075588a8603d6bc00535057e8163cfdff83c40c85c0754333c9538a8e03d6bc00515750e83efefcff83c41085c0752b33d2538a9603d6bc00525750e8162bfdff83c41085c075138a8603d6bc005350576a01e8ff2afdff83c41066898656d6bc005f5e5bc390",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_c2aa5a6443127fb3542a9b90c576d97a5c61d8a38197105abc5cbfe81253ea83",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_info",
+      "parameters": {
+        "procedure": "0x0048ae50"
+      },
+      "raw_result": {
+        "value": {
+          "name": "FUN_0048ae50",
+          "entrypoint": "0x48ae50",
+          "basicblock_count": 6,
+          "length": 159,
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x48ae50",
+                "end": "0x48aeee"
+              }
+            ],
+            "total_bytes": 159,
+            "span_bytes": 159,
+            "non_contiguous": false,
+            "contains_entry": true
+          },
+          "signature": "undefined FUN_0048ae50()",
+          "locals": [],
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          }
+        },
+        "limitations": []
+      },
+      "normalized_result": {
+        "name": "FUN_0048ae50",
+        "entrypoint": "0x48ae50",
+        "basicblock_count": 6,
+        "length": 159,
+        "signature": "undefined FUN_0048ae50()",
+        "locals": [],
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x48ae50",
+              "end": "0x48aeee"
+            }
+          ],
+          "total_bytes": 159,
+          "span_bytes": 159,
+          "non_contiguous": false,
+          "contains_entry": true
+        }
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_07cb672eb2677600c7d3dcf3e2f9773ed90a54044f05e1276d59103744bc294c",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x004b1df0",
+        "length": 249
+      },
+      "raw_result": {
+        "address": "0x4b1df0",
+        "requested_bytes": 249,
+        "returned_bytes": 249,
+        "bytes_hex": "8b442404568d3440c1e60503f0c1e6020fbf8e52d6bc008a8602d6bc00c68631d6bc000f3c058bc1c1e00503c1c6863ed6bc0000c1e003c68641d6bc00ffc68640d6bc00028a900c9a79008bca80c20281e1ff00000080fa0688900c9a79007607c6800c9a7900000fbf90de9979000fbf80e099790085c9750583e808eb1c83f902750583c208eb1283f904750583c008eb0883f906750383ea0885d27d0233d285c07d0233c08b0dd0a2bc003bd17c038d51ff8b0dd4a2bc003bc17c038d41ff6a066a015052e8a4dffcff83c41085c0741d66a1e4b4d300668b0de0b4d3006689861cd6bc0066898e1ed6bc005ec3c6863ed6bc00015ec3",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x4b1df0",
+        "requested_bytes": 249,
+        "returned_bytes": 249,
+        "bytes_hex": "8b442404568d3440c1e60503f0c1e6020fbf8e52d6bc008a8602d6bc00c68631d6bc000f3c058bc1c1e00503c1c6863ed6bc0000c1e003c68641d6bc00ffc68640d6bc00028a900c9a79008bca80c20281e1ff00000080fa0688900c9a79007607c6800c9a7900000fbf90de9979000fbf80e099790085c9750583e808eb1c83f902750583c208eb1283f904750583c008eb0883f906750383ea0885d27d0233d285c07d0233c08b0dd0a2bc003bd17c038d51ff8b0dd4a2bc003bc17c038d41ff6a066a015052e8a4dffcff83c41085c0741d66a1e4b4d300668b0de0b4d3006689861cd6bc0066898e1ed6bc005ec3c6863ed6bc00015ec3",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_8f7884ebbfabc62e348858b40ec7c9bb6183aa3c5217c2d4380d4c0712765285",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x004b1ef0",
+        "length": 727
+      },
+      "raw_result": {
+        "address": "0x4b1ef0",
+        "requested_bytes": 727,
+        "returned_bytes": 727,
+        "bytes_hex": "53558b6c240c5633db578d746d00c1e60503f5c1e6028a863ed6bc0084c0757b33c0c705e8d5bc00010000008a8602d6bc008d0cc5000000002bc8a1f856d0008b14cdec9070005250e8623effff8a8609d6bc0083c4083c0974183c0a74143c087517c6863ed6bc000166899e3cd6bc00eb07c6863ed6bc00018a863ed6bc0084c00f844a020000c68641d6bc00648a8e0ad6bc00888e09d6bc00395c24180f8e2d0200008b5424188a8e31d6bc004afec18ac1895424183c0f888e31d6bc000f8cc0010000c68631d6bc000f0fbebe0ad6bc0083c70481e70700008079054f83cff8478a963fd6bc006a00fec25588963fd6bc00e8268a000083c40885c00f85cd0100008b9618d6bc005552e83ec3fcff83c40885c00f8e9601000083f8017f458ac3d0e0888609d6bc000fbec08b0c85c097bc0085c90f852e0100008bcb4383f9040f8d220100008ac3d0e00fbed0888609d6bc008b0495c097bc0085c074dce90501000083f802756880be41d6bc00ff750c55e86501000083c40483cfff8a8e09d6bc000fbec18b1485c097bc0085d274083bc70f85cf0000008a8640d6bc0002c13c06888609d6bc007e07c68609d6bc00008a8609d6bc0084c07d07c68609d6bc00068bc34383f8047cb2e9980000008b8e18d6bc008a815cf8ac008a8e3fd6bc0002c12406888609d6bc000fbec08b0c85c097bc0085c974043bc7756a8a8e41d6bc00fec98ac1888e41d6bc0084c07f0c55e8c400000083c40483cfff8a8e09d6bc000fbec18b1485c097bc0085d274043bc775328a8640d6bc0002c13c06888609d6bc007e07c68609d6bc00008a8609d6bc0084c07d07c68609d6bc00068bd34383fa047cb666ff8634d6bc008a8609d6bc0088860ad6bc00c68631d6bc000055e8841d00008a8631d6bc0083c4043c08750955e8d11a000083c4048b44241885c00f8ff7fdffff5f5e5d5bc38b0df856d0008d0449c1e00503c1c1e002668b883ad6bc006689883cd6bc005f5e5d5bc3",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x4b1ef0",
+        "requested_bytes": 727,
+        "returned_bytes": 727,
+        "bytes_hex": "53558b6c240c5633db578d746d00c1e60503f5c1e6028a863ed6bc0084c0757b33c0c705e8d5bc00010000008a8602d6bc008d0cc5000000002bc8a1f856d0008b14cdec9070005250e8623effff8a8609d6bc0083c4083c0974183c0a74143c087517c6863ed6bc000166899e3cd6bc00eb07c6863ed6bc00018a863ed6bc0084c00f844a020000c68641d6bc00648a8e0ad6bc00888e09d6bc00395c24180f8e2d0200008b5424188a8e31d6bc004afec18ac1895424183c0f888e31d6bc000f8cc0010000c68631d6bc000f0fbebe0ad6bc0083c70481e70700008079054f83cff8478a963fd6bc006a00fec25588963fd6bc00e8268a000083c40885c00f85cd0100008b9618d6bc005552e83ec3fcff83c40885c00f8e9601000083f8017f458ac3d0e0888609d6bc000fbec08b0c85c097bc0085c90f852e0100008bcb4383f9040f8d220100008ac3d0e00fbed0888609d6bc008b0495c097bc0085c074dce90501000083f802756880be41d6bc00ff750c55e86501000083c40483cfff8a8e09d6bc000fbec18b1485c097bc0085d274083bc70f85cf0000008a8640d6bc0002c13c06888609d6bc007e07c68609d6bc00008a8609d6bc0084c07d07c68609d6bc00068bc34383f8047cb2e9980000008b8e18d6bc008a815cf8ac008a8e3fd6bc0002c12406888609d6bc000fbec08b0c85c097bc0085c974043bc7756a8a8e41d6bc00fec98ac1888e41d6bc0084c07f0c55e8c400000083c40483cfff8a8e09d6bc000fbec18b1485c097bc0085d274043bc775328a8640d6bc0002c13c06888609d6bc007e07c68609d6bc00008a8609d6bc0084c07d07c68609d6bc00068bd34383fa047cb666ff8634d6bc008a8609d6bc0088860ad6bc00c68631d6bc000055e8841d00008a8631d6bc0083c4043c08750955e8d11a000083c4048b44241885c00f8ff7fdffff5f5e5d5bc38b0df856d0008d0449c1e00503c1c1e002668b883ad6bc006689883cd6bc005f5e5d5bc3",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_59344bf61aac136a162f818ab41b824db0902b04b3cb60244eca8a4037422862",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_info",
+      "parameters": {
+        "procedure": "0x004b1df0"
+      },
+      "raw_result": {
+        "value": {
+          "name": "FUN_004b1df0",
+          "entrypoint": "0x4b1df0",
+          "basicblock_count": 21,
+          "length": 249,
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x4b1df0",
+                "end": "0x4b1ee8"
+              }
+            ],
+            "total_bytes": 249,
+            "span_bytes": 249,
+            "non_contiguous": false,
+            "contains_entry": true
+          },
+          "signature": "undefined FUN_004b1df0()",
+          "locals": [],
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          }
+        },
+        "limitations": []
+      },
+      "normalized_result": {
+        "name": "FUN_004b1df0",
+        "entrypoint": "0x4b1df0",
+        "basicblock_count": 21,
+        "length": 249,
+        "signature": "undefined FUN_004b1df0()",
+        "locals": [],
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4b1df0",
+              "end": "0x4b1ee8"
+            }
+          ],
+          "total_bytes": 249,
+          "span_bytes": 249,
+          "non_contiguous": false,
+          "contains_entry": true
+        }
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_8bfbc1a9384697a93e2301129fcaa3e82ccffa91108c7f785d7df6bf3925fe6e",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_info",
+      "parameters": {
+        "procedure": "0x004b1ef0"
+      },
+      "raw_result": {
+        "value": {
+          "name": "FUN_004b1ef0",
+          "entrypoint": "0x4b1ef0",
+          "basicblock_count": 48,
+          "length": 727,
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x4b1ef0",
+                "end": "0x4b21c6"
+              }
+            ],
+            "total_bytes": 727,
+            "span_bytes": 727,
+            "non_contiguous": false,
+            "contains_entry": true
+          },
+          "signature": "undefined FUN_004b1ef0()",
+          "locals": [],
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          }
+        },
+        "limitations": []
+      },
+      "normalized_result": {
+        "name": "FUN_004b1ef0",
+        "entrypoint": "0x4b1ef0",
+        "basicblock_count": 48,
+        "length": 727,
+        "signature": "undefined FUN_004b1ef0()",
+        "locals": [],
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4b1ef0",
+              "end": "0x4b21c6"
+            }
+          ],
+          "total_bytes": 727,
+          "span_bytes": 727,
+          "non_contiguous": false,
+          "contains_entry": true
+        }
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_8f832c0a94deb81883e033c32717f143cbc4a52186d66b9095fbca8e6277ffa8",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_info",
+      "parameters": {
+        "procedure": "0x004baa10"
+      },
+      "raw_result": {
+        "value": {
+          "name": "FUN_004baa10",
+          "entrypoint": "0x4baa10",
+          "basicblock_count": 106,
+          "length": 1650,
+          "body": {
+            "available": true,
+            "provenance": "ghidra-function-body-address-set",
+            "ranges": [
+              {
+                "start": "0x4baa10",
+                "end": "0x4bb081"
+              }
+            ],
+            "total_bytes": 1650,
+            "span_bytes": 1650,
+            "non_contiguous": false,
+            "contains_entry": true
+          },
+          "signature": "undefined FUN_004baa10()",
+          "locals": [],
+          "classification": {
+            "external": false,
+            "thunk": false,
+            "thunk_target": null,
+            "provenance": "ghidra-function-manager"
+          }
+        },
+        "limitations": []
+      },
+      "normalized_result": {
+        "name": "FUN_004baa10",
+        "entrypoint": "0x4baa10",
+        "basicblock_count": 106,
+        "length": 1650,
+        "signature": "undefined FUN_004baa10()",
+        "locals": [],
+        "classification": {
+          "external": false,
+          "thunk": false,
+          "thunk_target": null,
+          "provenance": "ghidra-function-manager"
+        },
+        "body": {
+          "available": true,
+          "provenance": "ghidra-function-body-address-set",
+          "ranges": [
+            {
+              "start": "0x4baa10",
+              "end": "0x4bb081"
+            }
+          ],
+          "total_bytes": 1650,
+          "span_bytes": 1650,
+          "non_contiguous": false,
+          "contains_entry": true
+        }
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_a020bb0e2f3728a06c5b782e77889d61d06e2bde896762a33a30e4c1e7252df1",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x004baa10",
+        "length": 1650
+      },
+      "raw_result": {
+        "address": "0x4baa10",
+        "requested_bytes": 1650,
+        "returned_bytes": 1650,
+        "bytes_hex": "8b442404535633db8d3440c1e60503f0c1e6028a8602d6bc003c280f844c060000553c0557751a0fbf860ed6bc000fbf8e0cd6bc005051e8449ffcffe9ca0500003c07752b0fbf960ed6bc000fbf860cd6bc005250e826a0fcff8a0de8b99a0083c4088bd8888e5ed6bc00e9a00500003c1a75250fbf960ed6bc000fbf860cd6bc000fbf8e52d6bc00525051e86f8efcff83c40ce9750500003c57751a0fbf960ed6bc000fbf860cd6bc005250e8ce93fcffe9540500003c20753a0fbf8e0ed6bc000fbf960cd6bc005152e87099fcff0fbf8e0ed6bc000fbf960cd6bc008bd8a1f87e7000505152e8f383fcff83c414e91b0500003c1d751a0fbf860ed6bc000fbf8e0cd6bc005051e80296fcffe9f80400003c1e751a0fbf960ed6bc000fbf860cd6bc005250e8f496fcffe9da0400003c1f751a0fbf8e0ed6bc000fbf960cd6bc005152e8e697fcffe9bc0400003c2175720fbf860ed6bc000fbf8e0cd6bc005051e8e899fcff8b15f86570008bd80fbf860ed6bc000fbf8e0cd6bc00525051e83a82fcff8a8e5ed6bc0083c4148bd181e2ff0000003bc27e0b88865ed6bc00e96a04000080f90a760e80e90a888e5ed6bc00e957040000c6865ed6bc0000e94b0400003c62751d0fbf860ed6bc000fbf8e0cd6bc005051e83253f7ff83c408e92a0400003c22751a0fbf960ed6bc000fbf860cd6bc005250e8719bfcffe9070400003c40751a0fbf8e0ed6bc000fbf960cd6bc005152e8639cfcffe9e90300003c1b0f85db010000a128acea000fbfbe52d6bc0069c0d84900008ba89c5fea008bcfc1e10503cf668b04cde8997900663d3c0075046a00eb78663d410075046a00eb3a663d3d0075046a01eb4a663d420075046a01eb5a663d3e0075046a02eb1c663d430075046a02eb2c663d3f0075046a03eb3c663d440075146a030fbf8e0ed6bc000fbf960cd6bc005152eb32663d400075146a040fbf860ed6bc000fbf8e0cd6bc005051eb18663d4500751c6a040fbf960ed6bc000fbf860cd6bc005250e8b892fcff83c40c8bd8a128acea0069c0d84900006683b8e85cea00000f840a03000055e804a400008bd0578954241ce8f8a300008b4c241c83c4083bc10f85e902000055e8e3a3000083c404480f84a200000083e8027449480f85cd0200008b1528acea006a0a69d2d84900008b829c5fea0050e863a5000083c40884c00f84a80200000fbf8e0ed6bc000fbf960cd6bc005152e8d383fcff83c408e98b020000a128acea006a0269c0d84900008b889c5fea0051e822a5000083c40884c00f84670200008b15686970000fbf860ed6bc000fbf8e0cd6bc00525051e88b84fcff8a15dcb99a0083c40c88965ed6bc00e937020000a128acea006a0169c0d84900008b889c5fea0051e8cea4000083c40884c00f84130200008b1518697000ebaa3c0875520fbf860ed6bc000fbf8e0cd6bc005051e8e27dfcff8b0de0b99a008bd88a865ed6bc0083c4088bd081e2ff0000003bca7e0b888e5ed6bc00e9ca0100003c0a0f866bfdffff2c0a88865ed6bc00e9b50100003c0a75250fbf860ed6bc000fbf8e0cd6bc005051e87c81fcff8bd883c408889e5ed6bc00e98c0100003c58750b8b1560677000e91cffffff3c5975440fbf8e0ed6bc00a1887b70000fbf960cd6bc00505152e89e83fcff0fbf860ed6bc000fbf8e0cd6bc005051e89997fcff8a15dcb99a0083c41488965ed6bc00e9350100003c0f751a0fbf860ed6bc000fbf8e0cd6bc005051e8bc84fcffe9120100003c10756e8a8630d6bc003c0c740d3c0d74090fbf8656d6bc00eb070fbf8652d6bc008bd0c1e20503d08a04d5809a790084c0741f0fbf860ed6bc000fbf8e0cd6bc006a025051e87c85fcff83c40ce9c20000000fbf960ed6bc000fbf860cd6bc006a015250e85d85fcff83c40ce9a30000003c1175688a8630d6bc003c0c740d3c0d74090fbf8656d6bc00eb070fbf8652d6bc008bc8c1e10503c88a04cd809a790084c0741c0fbf960ed6bc000fbf860cd6bc006a025250e81a86fcff83c40ceb530fbf8e0ed6bc000fbf960cd6bc006a015152e8fe85fcff83c40ceb373c1275170fbf860ed6bc000fbf8e0cd6bc005051e8f086fcffeb193c69751a0fbf960ed6bc000fbf860cd6bc005250e8e587fcff83c4088bd80fbf8652d6bc008a9602d6bc005f80fa055d85c0742a8bc8c1e10503c866011ccdf09979008d04cdf0997900668b0ccdf09979006681f92c017e0566c7002c018b8618d6bc0081e2ff000000508b0c9570bf5d0051e8d631fcff83c4085e33c05bc3",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x4baa10",
+        "requested_bytes": 1650,
+        "returned_bytes": 1650,
+        "bytes_hex": "8b442404535633db8d3440c1e60503f0c1e6028a8602d6bc003c280f844c060000553c0557751a0fbf860ed6bc000fbf8e0cd6bc005051e8449ffcffe9ca0500003c07752b0fbf960ed6bc000fbf860cd6bc005250e826a0fcff8a0de8b99a0083c4088bd8888e5ed6bc00e9a00500003c1a75250fbf960ed6bc000fbf860cd6bc000fbf8e52d6bc00525051e86f8efcff83c40ce9750500003c57751a0fbf960ed6bc000fbf860cd6bc005250e8ce93fcffe9540500003c20753a0fbf8e0ed6bc000fbf960cd6bc005152e87099fcff0fbf8e0ed6bc000fbf960cd6bc008bd8a1f87e7000505152e8f383fcff83c414e91b0500003c1d751a0fbf860ed6bc000fbf8e0cd6bc005051e80296fcffe9f80400003c1e751a0fbf960ed6bc000fbf860cd6bc005250e8f496fcffe9da0400003c1f751a0fbf8e0ed6bc000fbf960cd6bc005152e8e697fcffe9bc0400003c2175720fbf860ed6bc000fbf8e0cd6bc005051e8e899fcff8b15f86570008bd80fbf860ed6bc000fbf8e0cd6bc00525051e83a82fcff8a8e5ed6bc0083c4148bd181e2ff0000003bc27e0b88865ed6bc00e96a04000080f90a760e80e90a888e5ed6bc00e957040000c6865ed6bc0000e94b0400003c62751d0fbf860ed6bc000fbf8e0cd6bc005051e83253f7ff83c408e92a0400003c22751a0fbf960ed6bc000fbf860cd6bc005250e8719bfcffe9070400003c40751a0fbf8e0ed6bc000fbf960cd6bc005152e8639cfcffe9e90300003c1b0f85db010000a128acea000fbfbe52d6bc0069c0d84900008ba89c5fea008bcfc1e10503cf668b04cde8997900663d3c0075046a00eb78663d410075046a00eb3a663d3d0075046a01eb4a663d420075046a01eb5a663d3e0075046a02eb1c663d430075046a02eb2c663d3f0075046a03eb3c663d440075146a030fbf8e0ed6bc000fbf960cd6bc005152eb32663d400075146a040fbf860ed6bc000fbf8e0cd6bc005051eb18663d4500751c6a040fbf960ed6bc000fbf860cd6bc005250e8b892fcff83c40c8bd8a128acea0069c0d84900006683b8e85cea00000f840a03000055e804a400008bd0578954241ce8f8a300008b4c241c83c4083bc10f85e902000055e8e3a3000083c404480f84a200000083e8027449480f85cd0200008b1528acea006a0a69d2d84900008b829c5fea0050e863a5000083c40884c00f84a80200000fbf8e0ed6bc000fbf960cd6bc005152e8d383fcff83c408e98b020000a128acea006a0269c0d84900008b889c5fea0051e822a5000083c40884c00f84670200008b15686970000fbf860ed6bc000fbf8e0cd6bc00525051e88b84fcff8a15dcb99a0083c40c88965ed6bc00e937020000a128acea006a0169c0d84900008b889c5fea0051e8cea4000083c40884c00f84130200008b1518697000ebaa3c0875520fbf860ed6bc000fbf8e0cd6bc005051e8e27dfcff8b0de0b99a008bd88a865ed6bc0083c4088bd081e2ff0000003bca7e0b888e5ed6bc00e9ca0100003c0a0f866bfdffff2c0a88865ed6bc00e9b50100003c0a75250fbf860ed6bc000fbf8e0cd6bc005051e87c81fcff8bd883c408889e5ed6bc00e98c0100003c58750b8b1560677000e91cffffff3c5975440fbf8e0ed6bc00a1887b70000fbf960cd6bc00505152e89e83fcff0fbf860ed6bc000fbf8e0cd6bc005051e89997fcff8a15dcb99a0083c41488965ed6bc00e9350100003c0f751a0fbf860ed6bc000fbf8e0cd6bc005051e8bc84fcffe9120100003c10756e8a8630d6bc003c0c740d3c0d74090fbf8656d6bc00eb070fbf8652d6bc008bd0c1e20503d08a04d5809a790084c0741f0fbf860ed6bc000fbf8e0cd6bc006a025051e87c85fcff83c40ce9c20000000fbf960ed6bc000fbf860cd6bc006a015250e85d85fcff83c40ce9a30000003c1175688a8630d6bc003c0c740d3c0d74090fbf8656d6bc00eb070fbf8652d6bc008bc8c1e10503c88a04cd809a790084c0741c0fbf960ed6bc000fbf860cd6bc006a025250e81a86fcff83c40ceb530fbf8e0ed6bc000fbf960cd6bc006a015152e8fe85fcff83c40ceb373c1275170fbf860ed6bc000fbf8e0cd6bc005051e8f086fcffeb193c69751a0fbf960ed6bc000fbf860cd6bc005250e8e587fcff83c4088bd80fbf8652d6bc008a9602d6bc005f80fa055d85c0742a8bc8c1e10503c866011ccdf09979008d04cdf0997900668b0ccdf09979006681f92c017e0566c7002c018b8618d6bc0081e2ff000000508b0c9570bf5d0051e8d631fcff83c4085e33c05bc3",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    },
+    {
+      "evidence_id": "ev_8360e7cc162f9e683980ae9f801b8e58da8f4d64dc8044ce360326459d20f706",
+      "subject": {
+        "name": "Pharaoh.exe",
+        "digest": {
+          "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+        },
+        "local_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\build\\smoke-game\\Pharaoh.exe",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "application",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "disabled-windows-p0",
+          "process_launch": "official-headless-script-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default"
+        },
+        "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "read_bytes",
+      "parameters": {
+        "address": "0x0048e9e0",
+        "length": 8560
+      },
+      "raw_result": {
+        "address": "0x48e9e0",
+        "requested_bytes": 8560,
+        "returned_bytes": 8560,
+        "bytes_hex": "8b0df856d00083ec2855568d3449c1e60503f1c1e6028b8618d6bc008b14858c59af0081e20400010081fa04000100750f51e839e8020083c4045e5d83c428c353578b3d28acea00c64424281669ffd84900000fbf9658d6bc008b9fe85eea00c6866ad6bc00098a86f9d5bc0043fec0c6442429ee3c0cc644242a1bc644242bfdc644242c17c644242d11c644242e00c644242f0bc6442430ebc644243111c6442432e7c6442433ffc6442434e9c6442435efc644243600c6442437f4c644241300899fe85eea008886f9d5bc007207c686f9d5bc00008d1cd2c78678d7bc0000000000c1e304895c241c80bbc8b9bc00017407c68630d6bc00048a9602d6bc008bc225ff0000008d2cc5000000002be86683bb46babc00008b04edec907000894424147420668b8348babc00663dd0078d68016689ab48babc007e0966c78346babc000000668b83f2b9bc0080be5bd6bc0000894424180fbfc08be8750980be30d6bc00097505bd0700000080fa0d756a83fd01753033d28a965ad6bc00668b14d578dd5c00660393feb9bc0066899628d6bc0033d28a965ad6bc00668b14d57cdd5c00eb6a83fd02753033d28a965ad6bc00668b14d5f8dd5c00660393feb9bc0066899628d6bc0033d28a965ad6bc00668b14d5fcdd5c00eb3533d28a965ad6bc00c1e50403d5668b14d5f8d65c00660393feb9bc0066899628d6bc0033d28a965ad6bc0003d5668b14d5fcd65c0066039300babc006689962ad6bc008a9630d6bc0080fa05750b51e8c02b0200e9f609000080fa04750b51e830310200e9e609000080fa12751566c7862ed6bc000000c6865bd6bc0000e9d509000080fa08756151e8666702008b0df856d00083c4048d0449c1e00503c1c1e00266c7802ed6bc000000c6805bd6bc0001c680f9d5bc0000668b900cd6bc00663b9028d6bc007514668b900ed6bc00663b902ad6bc000f847b090000c68030d6bc0009e96f09000080fa09741780fa030f85980000008b834cbabc0085c00f855309000066c7862ed6bc000000c6865bd6bc0001668b8628d6bc006689861cd6bc00668b862ad6bc008b3dd8a2bc006689861ed6bc000fbfc08d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8847001008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f8558160000c68030d6bc0008e9c908000080fa0a755dc6865bd6bc0001668b8624d6bc006689861cd6bc008b442414668b9626d6bc0050516689961ed6bc00e8227001008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f85f6150000c68006d6bc0002e96708000080fa0b0f85be010000c6865bd6bc00008a9602d6bc0080fa0d75708b5424186683fa01753033d28a965ad6bc00668b04d578dd5c00660383fab9bc0033d26689861cd6bc008a965ad6bc00668b04d57cdd5c00eb6d6683fa02753033d28a965ad6bc00668b04d5f8dd5c00660383fab9bc0033d26689861cd6bc008a965ad6bc00668b04d5fcdd5c00eb37c1e00433d28bf88a965ad6bc0003d7668b04d5f8d65c0033d2660383fab9bc006689861cd6bc008a965ad6bc0003d7668b04d5fcd65c00660383fcb9bc006689861ed6bc008a86f8d5bc0084c0742d25ff000000660fbe144506a55c006601961cd6bc0033c08a86f8d5bc00660fbe144507a55c006601961ed6bc000fbf861ed6bc008b3dd8a2bc008d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8b96e01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa0875306683bbf2b9bc000f7513c68030d6bc0014c680f9d5bc0000e9f1060000c68030d6bc000cc680f9d5bc0000e9de06000080fa090f84c606000080fa0a0f85cc0600008a98f8d5bc00fec38ad38898f8d5bc0080faa80f8616020000c68006d6bc0002c680f9d5bc0000e9a006000080fa130f8514020000c6865bd6bc00008a9602d6bc0080fa0d75708b5424186683fa01753033c08a865ad6bc00668b14c578dd5c00660393fab9bc0033c06689961cd6bc008a865ad6bc00668b14c57cdd5c00eb6d6683fa02753033c08a865ad6bc00668b14c5f8dd5c00660393fab9bc0033c06689961cd6bc008a865ad6bc00668b14c5fcdd5c00eb37c1e0048bf833c08a865ad6bc0003c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc008a86f8d5bc0084c0742d25ff00000033d2660fbe044506a55c006601861cd6bc008a96f8d5bc00660fbe045507a55c006601861ed6bc000fbf861ed6bc008b3dd8a2bc008d14c08d04500fbf961cd6bc008d044003fa8d0487898620d6bc008b9634d7bc000fbf860cd6bc003bc2750f0fbf960ed6bc003b9638d7bc007420898634d7bc000fbf860ed6bc00898638d7bc008b862cd7bc004089862cd7bc008bb62cd7bc0083fe057e0f83fe147d0a8b5424148d041250eb058b5424145251e8986c01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa087526c68030d6bc0014c680f9d5bc000066c783f2b9bc000f00c7802cd7bc0000000000e9c704000080fa090f84af04000080fa0a75288a98f8d5bc00fec38ad38898f8d5bc0080faa87607c68006d6bc0002c680f9d5bc0000e99104000066c783f2b9bc000000e98304000080fa140f85440500000fbfabfab9bc0033d2c6865bd6bc00008a965ad6bc00c1e00403c2c1e00303a8f8d65c000fbf93fcb9bc008b98fcd65c008a86f8d5bc0003d3896c242484c089542420742125ff000000d1e00fbeb806a55c000fbe8007a55c0003ef03d0896c2424895424200fbfbe7ad6bc008d147fc1e20503d7803c9506d6bc0001740d33d233ff6689967ad6bc00eb0233d28d047fc1e00503c7803c8530d6bc000475096689967ad6bc0033ff8d047fc1e00503c78a048502d6bc003c0b74083c0c74043c0d750933ff6689967ad6bc000fbf9e0cd6bc000fbf860ed6bc003bdd894424187e068bd32bd5eb067d048bd52bd38b6c24208915fcb4d3003bc57e042bc5eb177d138bc58b6c24182bc58b6c2420a3f8b4d300eb0733c0a3f8b4d3003bd07c028bc283f8060f8dfc03000085ff0f8f980100008a8602d6bc003c0b74223c0d741e518b4c241c6a065153e8f6a600008b0df856d00083c4108bf8e9d40000008a9e63d6bc0033d2fec3889e63d6bc008a9602d6bc008ac38d1cd50000000025ff0000002bda3b04dde89070000f8ea100000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e490700083c0065051e8faa700008b0df856d0008bf883c40885ff8d04497459c1e00503c18d0c7fc1e10503cfc1e002c1e102c68062d6bc00010fbf910ed6bc000fbf890cd6bc0052510fbf900ed6bc000fbf800cd6bc005250e8d9d908008b0df856d00083c4108d1449c1e20503d188049509d6bc00eb0dc1e00503c1c6048562d6bc000085ff74508d047f8d1449c1e00503c7c1e205c1e00203d1668bb00cd6bc00c1e2026689b21cd6bc00668bb00ed6bc006689b21ed6bc006689ba7ad6bc006689887cd6bc00668b807ed6bc0066898280d6bc00eb358d04498b742424c1e00503c1c1e0020fbf900cd6bc003bf275140fbf900ed6bc003bea7509c680f9d5bc0000eb07c68030d6bc000c51e8f33d02008b0df856d00083c4048d1449c1e20503d1c1e2028a9a02d6bc0080fb0b740c80fb0d7407c644241300eb798d047f0fbfaa0ed6bc00c1e0050fbf920cd6bc0003c7c1e0020fbfb00ed6bc000fbf800cd6bc003bd07e062bd08bc2eb087d042bc2eb0233c03beea3fcb4d3007e062bee8bf5eb087d042bf5eb0233f63bc68935f8b4d3007c028bf081e3ff0000008bc38d14c5000000002bd03b34d5e49070000f9e44241385ff0f840b0100008a5c241384db75148b4424145051e8846801008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa090f846701000080fa0a0f845e01000084db0f84910d00008d2c7f8d3449c1e50503efc1e502c1e6050fbf950cd6bc0003f10fbf8d0ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8f5d70800888609d6bc008a8662d6bc0083c4103c07753d0fbf950ed6bc000fbf850cd6bc000fbf8e0ed6bc006a3c520fbf960cd6bc0050a1f856d000515250e8f54f02008b4c243483c41866c78124babc0006008b0df856d0008d1449c1e20503d18a1c9562d6bc008d049562d6bc00fec38ad3881880fa647603c6000051e8453c020083c4048b0df856d0008d344933edc1e60503f133d2c1e60280be02d6bc000b0f859c0f0000668b867ad6bc00663bc5745080be30d6bc000c75470fbfd08d34498d0452c1e00503c2c1e002c1e6050fbf900cd6bc0003f10fbf880ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8fdd6080083c410888609d6bc008a8609d6bc003c080f8c0f0f00000fbe8e0ad6bc00e9060f0000c68030d6bc000c66c7807ad6bc000000c680f9d5bc0000e952ffffffc68630d6bc000c66c7867ad6bc000000c686f9d5bc0000e936ffffff80fa0c0f85e2050000c6865bd6bc0000c686f9d5bc000080be02d6bc000d0f85d90000008b6c24186683fd01754133c08a865ad6bc00668b14c578dd5c0033c0660393fab9bc006689961cd6bc008a865ad6bc00668b14c57cdd5c00660393fcb9bc006689961ed6bc00e9d70000006683fd02754133c08a865ad6bc00668b14c5f8dd5c0033c0660393fab9bc006689961cd6bc008a865ad6bc00668b14c5fcdd5c00660393fcb9bc006689961ed6bc00e990000000c1e0048bf833c08a865ad6bc0003c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc00eb49c1e0048bf833c08a865ad6bc008b6c241803c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc008a86f8d5bc0084c0742d25ff00000033d2660fbe044506a55c006601861cd6bc008a96f8d5bc00660fbe045507a55c006601861ed6bc00668b960cd6bc00663b961cd6bc007518668b860ed6bc00663b861ed6bc0075086683fd0f752eeb1e6683bb24babc00007f226683bb18babc00007f186683bb26babc00007f0ec68630d6bc000bc686f8d5bc00008a8602d6bc003c0b0f8540020000388630d6bc000f84340200008a8663d6bc0033d20fbfbe7ad6bc00fec0888663d6bc008a9602d6bc0025ff0000008d1cd5000000002bda3b04dde89070000f8e9500000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e49070005051e829a200008b0df856d0008bf883c40885ff8d04490f84c1000000c1e00503c18d3449c1e002c1e605c68062d6bc00018d047fc1e00503c703f1c1e002c1e6020fbf880ed6bc000fbf900cd6bc000fbf860ed6bc0051520fbf8e0cd6bc005051e8f9d308008b0df856d00083c410888609d6bc0085ff0f8476fcffff8d2c7f6689be7ad6bc00c1e50503efc644241300c1e50266898d7cd6bc00668b957ed6bc0066899680d6bc000fbf850cd6bc000fbfbe0cd6bc000fbf960ed6bc000fbf9d0ed6bc003bf8895424187e2d8bd72bd08915fcb4d3008b542418eb39c1e00503c1c1e002c68062d6bc000066c7807ad6bc000000e9f9fbffff7d108bd02bd78915fcb4d3008b542418eb0ac705fcb4d300000000003bd37e042bd3eb0e7d0a8bd38b5c24182bd3eb0233d28b1dfcb4d3008915f8b4d3003bda7c028bd333db8a9e02d6bc008bf38d1cf5000000002bde3b14dde49070000f8f95fbffff8d3449c644241301c1e60503f10fbf8d0ed6bc0051508b4424205057c1e602e8ddd20800888609d6bc008a8662d6bc0083c4103c070f8521fbffff0fbf8d0ed6bc000fbf950cd6bc000fbf860ed6bc006a3c510fbf8e0cd6bc00528b15f856d000505152e8d84a02008b44243483c41866c78024babc000600e9defaffff3c0d0f850ffbffff80be30d6bc000b0f8402fbffff8a8663d6bc0033d2fec0888663d6bc008a9602d6bc0025ff0000008d3cd5000000002bfa3b04fde89070000f8e9f00000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e49070005051e8e79f00008b0df856d00083c4088d3449c1e60503f1c1e60285c06689867ad6bc0074538d1440c68662d6bc0001c1e20503d08d3449c1e202c1e60503f10fbf8a0ed6bc000fbf920cd6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8b6d108008b0df856d00083c410888609d6bc00eb07c68662d6bc00008a8662d6bc0084c00f84ce0000000fbf867ad6bc0085c00f84920000008d3c408d3449c1e70503f8c1e702c1e6050fbf970ed6bc000fbf870cd6bc0003f152c1e602500fbf8e0ed6bc000fbf960cd6bc005152e846d10800888609d6bc008a8662d6bc0083c4103c07753e0fbf870ed6bc000fbf8f0cd6bc000fbf960ed6bc006a3c500fbf860cd6bc00518b0df856d000525051e8454902008b54243483c41866c78224babc0006008b0df856d0008d0449c1e00503c18a1c8562d6bc008d048562d6bc00fec38ad3881880fa640f865ef9ffffc60000e956f9ffff51e83c1a0200e942f9ffff80fa0e0f8579030000c6865bd6bc00000fbfbe7ad6bc008d147fc1e20503d7803c9506d6bc0001740933ff6689be7ad6bc008d047fc1e00503c7803c8530d6bc0004750d66c7867ad6bc00000033ffeb0885ff0f8f840100008a8602d6bc003c0b742c3c0d74280fbf960cd6bc00516a140fbf8e0ed6bc005152e8989c00008b0df856d00083c4108bf8e9d20000008a8663d6bc0033d2fec0888663d6bc008a9602d6bc0025ff0000008d1cd5000000002bda3b04dde89070000f8ea100000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e490700083c0145051e89e9d00008b0df856d0008bf883c40885ff8d04497459c1e00503c18d0c7fc1e10503cfc1e002c1e102c68062d6bc00010fbf910ed6bc000fbf890cd6bc0052510fbf900ed6bc000fbf800cd6bc005250e87dcf08008b0df856d00083c4108d1449c1e20503d188049509d6bc00eb0dc1e00503c1c6048562d6bc000085ff74508d047f8d1449c1e00503c7c1e205c1e00203d1668bb00cd6bc00c1e2026689b21cd6bc00668bb00ed6bc006689b21ed6bc006689ba7ad6bc006689887cd6bc00668b807ed6bc0066898280d6bc00eb198d0449c1e00503c1c1e002c68030d6bc000cc680f9d5bc000051e8b33302008b0df856d00083c4048d1449c1e20503d1c1e2028a9a02d6bc0080fb0b740c80fb0d7407c644241300eb798d047f0fbfaa0ed6bc00c1e0050fbf920cd6bc0003c7c1e0020fbfb00ed6bc000fbf800cd6bc003bd07e062bd08bc2eb087d042bc2eb0233c03beea3fcb4d3007e062bee8bf5eb087d042bf5eb0233f63bc68935f8b4d3007c028bf081e3ff0000008bc38d14c5000000002bd03b34d5e49070000f9e44241385ff0f84cbf6ffff8a5c241384db75148b4424145051e8445e01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa090f8427f7ffff80fa0a0f841ef7ffff84db0f84510300008d2c7f8d3449c1e50503efc1e502c1e6050fbf950cd6bc0003f10fbf8d0ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8b5cd0800888609d6bc008a8662d6bc0083c4103c07753d0fbf950ed6bc000fbf850cd6bc000fbf8e0ed6bc006a3c520fbf960cd6bc0050a1f856d000515250e8b54502008b4c243483c41866c78124babc0006008b0df856d0008d1449c1e20503d18a1c9562d6bc008d049562d6bc00fec38ad3881880fa640f86bff5ffffe9b7f5ffff80fa150f85f1020000c6865bd6bc00000fbf867ad6bc008d1440c1e20503d0803c9506d6bc0001740933c06689867ad6bc008d1440c1e20503d0803c9530d6bc0004750933c06689867ad6bc008d14408bbb54babc00c1e20503d00fbf149558d6bc003bd7740b66c7867ad6bc000000eb0485c07f4480be02d6bc000c751d0fbf860ed6bc00516a640fbf8e0cd6bc005051e8fe98000083c410eb0b6a6451e8619a000083c4088bbb54babc0083ffff757d33c08b0df856d00083ffff0f840f02000085c00f84070200008d3c49c1e70503f9c1e7028a9702d6bc0080fa0b88542424740980fa0d0f857e0100000fbf9f0ed6bc008d34408d970ed6bc00c1e60503f089542420c1e6028d970cd6bc000fbf860cd6bc000fbfae0ed6bc00895424180fbf123bd07e632bd08bc2eb6585c074818b0df856d0008d1440c1e2058d344903d0c1e605c1e20203f1668baa0cd6bc00c1e6026689ae1cd6bc00668baa0ed6bc006689ae1ed6bc006689867ad6bc0066898a7cd6bc00668b927ed6bc0066899680d6bc00e92effffff7d042bc2eb0233c03bdda3fcb4d3007e042bddeb0a7d062beb8bddeb0233db3bc3891df8b4d3007c028bd88b44242425ff0000008d14c5000000002bd03b1cd5e49070000f8f96000000c687f9d5bc00008d3c490fbf960cd6bc00c1e7058b44242003f90fbf8e0ed6bc0051528b542420c644241b010fbf080fbf025150c1e702e823cb0800888709d6bc008a8762d6bc0083c4103c070f8567f3ffff0fbf8e0ed6bc000fbf960cd6bc000fbf870ed6bc006a3c510fbf8f0cd6bc00528b15f856d000505152e81e4302008b44243483c41866c78024babc000600e924f3ffff8b442414c6442413005051e8d95a01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f852af3ffff0fbfb07ad6bc008d1476c1e20503d6c1e202668bb20cd6bc006689b01cd6bc00668b920ed6bc006689901ed6bc00e9e8f2ffff8d0449c78354babc00ffffffffc1e00503c1c1e002c68030d6bc000bc680f9d5bc0000e9cff2ffff80fa0d755b8b442414c6866ad6bc000a505166c78310babc000100c6865bd6bc0001e8345a01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa08750cc68030d6bc0017e97df2ffff80fa090f85f4010000e960f2ffff80fa0f757b668b97f03fea00668b87f23fea00c6865bd6bc00006689961cd6bc008b5424146689861ed6bc005251e8c85901008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa08740e80fa09740980fa0a0f850ff2ffff51c68030d6bc0011e83e2e0200a1f856d00050e80350020083c408e9e9f1ffff80fa117513c6865dd6bc0001c6865bd6bc0001e9d7f1ffff80fa10752ac6865dd6bc000066c7862ed6bc000000c6865bd6bc0001668b9628d6bc006689961cd6bc00e973e8ffff80fa160f849100000080fa170f848800000080fa06751a33c0c6866ad6bc000a8986fcd5bc00898678d7bc00e977f1ffff80fa077558c6866ad6bc000ac686f9d5bc000066ff862ed6bc006683be2ed6bc00640f8e4ff1ffff5166c7862ed6bc000000e80c31010083c40484c00f852ff1ffff8b0df856d0008d0449c1e00503c1c6048506d6bc0002e91af1ffffc68630d6bc0008e90ef1ffffc6866ad6bc000a66c7862ed6bc000000c6865bd6bc0001668b9628d6bc006689961cd6bc00668b862ad6bc006689861ed6bc008b3dd8a2bc000fbfc08d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8385801008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f84b4e7ffff80fa090f8471f0ffff80fa0a0f8577f0ffffc68006d6bc0002e96bf0ffff0fbec82b0de0a2bc00890d004ee9008d510283fa070f8eae00000083ea08e9a60000008a9e30d6bc0080fb05750c0fbe8e0bd6bc00e9830000008b7c241c668b8f24babc00663bcd74198a8609d6bc003c087c66663bcd740a8a860ad6bc003c087c5780fb0c753f8a8f33babc0080f90873128a8662d6bc0084c0750881e1ff000000eb3880fb0c751d8a8f38babc0080f90873128a8662d6bc0084c0750881e1ff000000eb168a8609d6bc003c087c090fbe8e0ad6bc00eb030fbec82b0de0a2bc00890d004ee9003bcd7d0983c108890d004ee90083f9087c0983e908890d004ee90033c08a8602d6bc0083e80b0f84c5020000480f84bf010000480f857c040000a17460f50033d28a96f9d5bc008d14d08a444c2803d1899678d7bc008a544c29888664d6bc00889665d6bc008a8630d6bc003c05756a8a8662d6bc003c0c7326a0bd4c780084c0740aa11464f500e9210400008b15145ff50003d18996fcd5bc00e9160400008a15bd4c780084d2741825ff00000083e80c992bc28b151464f500d1f8e9e903000025ff00000083e80c992bc28b15145ff500d1f8e9d10300003c0c7526a0bd4c780084c074138b150464f50003d18996fcd5bc00e9bc030000a1045ff500e9aa0300003c140f85950000008a8662d6bc0084c074528a15bd4c780084d2742425ff00000033d2d1e88a908c055d00a11464f5008d14d003d18996fcd5bc00e97203000025ff00000033d2d1e88a908c055d00a1145ff5008d14d003d18996fcd5bc00e94e030000a0bd4c780084c074138b150464f50033c08a86f9d5bc00e927030000a1045ff50033d28a96f9d5bc008d14d003d18996fcd5bc00e9150300003c04a0bd4c780075c384c00fbf862ed6bc0099741e2bc233c9d1f88a888c045d00a10c64f50003c8898efcd5bc00e9e20200002bc233d2d1f88a908c045d00a10c5ff50003d08996fcd5bc00e9c402000089ae78d7bc008a8630d6bc003c05756a8a8662d6bc003c0c7326a0bd4c780084c0740aa1cc63f500e98f0200008b15fc5ef50003d18996fcd5bc00e9840200008a15bd4c780084d2741825ff00000083e80c992bc28b15cc63f500d1f8e95702000025ff00000083e80c992bc28b15fc5ef500d1f8e93f0200003c04a0bd4c7800754884c00fbf862ed6bc0099741e2bc233c9d1f88a888c045d00a1c463f50003c8898efcd5bc00e9170200002bc233d2d1f88a908c045d00a1f45ef50003d08996fcd5bc00e9f901000084c074138b15bc63f50033c08a86f9d5bc00e9d7010000a1ec5ef50033d28a96f9d5bc008d14d003d18996fcd5bc00e9c501000089ae78d7bc008a8630d6bc003c0575368a8662d6bc003c0c0f82d3000000a0bd4c780084c074138b0dac63f50003ca898efcd5bc00e98b010000a1e45ef50003c2e9790100003c0c757b6639ae7ad6bc008a1dbd4c7800752d84db74108b3d9c63f50033c08a86f9d5bc00eb0e8b3dd45ef50033c08a86f9d5bc008d04c703c18986fcd5bc008a8662d6bc0084c0741d3c0c731984db74788b0dac63f50025ff0000008d04c103c2e91201000084db757da1e45ef5008d4c1058898efcd5bc00e9000100003c14757a8a44241384c07512a0bd4c780084c00f84ce000000e9af0000008a8662d6bc0084c074383c0c73348a0dbd4c780084c974158b0dac63f50025ff0000008d04c103c2e9af0000008b0de45ef50025ff0000008d04c103c2e99a000000a0bd4c780084c074838b0dac63f5008d5411588996fcd5bc00e9820000003c04a0bd4c7800754284c00fbf862ed6bc0099741b2bc233d2d1f88a908c045d00a1a463f50003d08996fcd5bc00eb522bc233c9d1f88a888c045d00a1dc5ef50003c8898efcd5bc00eb3784c0741aa19c63f50033d28a96f9d5bc008d14d003d18996fcd5bc00eb198b15d45ef50033c08a86f9d5bc008d04c203c18986fcd5bc008a8630d6bc005f3c125b750c89aefcd5bc0089ae78d7bc005e5d83c428c390909090909090909090",
+        "complete": true
+      },
+      "normalized_result": {
+        "address": "0x48e9e0",
+        "requested_bytes": 8560,
+        "returned_bytes": 8560,
+        "bytes_hex": "8b0df856d00083ec2855568d3449c1e60503f1c1e6028b8618d6bc008b14858c59af0081e20400010081fa04000100750f51e839e8020083c4045e5d83c428c353578b3d28acea00c64424281669ffd84900000fbf9658d6bc008b9fe85eea00c6866ad6bc00098a86f9d5bc0043fec0c6442429ee3c0cc644242a1bc644242bfdc644242c17c644242d11c644242e00c644242f0bc6442430ebc644243111c6442432e7c6442433ffc6442434e9c6442435efc644243600c6442437f4c644241300899fe85eea008886f9d5bc007207c686f9d5bc00008d1cd2c78678d7bc0000000000c1e304895c241c80bbc8b9bc00017407c68630d6bc00048a9602d6bc008bc225ff0000008d2cc5000000002be86683bb46babc00008b04edec907000894424147420668b8348babc00663dd0078d68016689ab48babc007e0966c78346babc000000668b83f2b9bc0080be5bd6bc0000894424180fbfc08be8750980be30d6bc00097505bd0700000080fa0d756a83fd01753033d28a965ad6bc00668b14d578dd5c00660393feb9bc0066899628d6bc0033d28a965ad6bc00668b14d57cdd5c00eb6a83fd02753033d28a965ad6bc00668b14d5f8dd5c00660393feb9bc0066899628d6bc0033d28a965ad6bc00668b14d5fcdd5c00eb3533d28a965ad6bc00c1e50403d5668b14d5f8d65c00660393feb9bc0066899628d6bc0033d28a965ad6bc0003d5668b14d5fcd65c0066039300babc006689962ad6bc008a9630d6bc0080fa05750b51e8c02b0200e9f609000080fa04750b51e830310200e9e609000080fa12751566c7862ed6bc000000c6865bd6bc0000e9d509000080fa08756151e8666702008b0df856d00083c4048d0449c1e00503c1c1e00266c7802ed6bc000000c6805bd6bc0001c680f9d5bc0000668b900cd6bc00663b9028d6bc007514668b900ed6bc00663b902ad6bc000f847b090000c68030d6bc0009e96f09000080fa09741780fa030f85980000008b834cbabc0085c00f855309000066c7862ed6bc000000c6865bd6bc0001668b8628d6bc006689861cd6bc00668b862ad6bc008b3dd8a2bc006689861ed6bc000fbfc08d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8847001008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f8558160000c68030d6bc0008e9c908000080fa0a755dc6865bd6bc0001668b8624d6bc006689861cd6bc008b442414668b9626d6bc0050516689961ed6bc00e8227001008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f85f6150000c68006d6bc0002e96708000080fa0b0f85be010000c6865bd6bc00008a9602d6bc0080fa0d75708b5424186683fa01753033d28a965ad6bc00668b04d578dd5c00660383fab9bc0033d26689861cd6bc008a965ad6bc00668b04d57cdd5c00eb6d6683fa02753033d28a965ad6bc00668b04d5f8dd5c00660383fab9bc0033d26689861cd6bc008a965ad6bc00668b04d5fcdd5c00eb37c1e00433d28bf88a965ad6bc0003d7668b04d5f8d65c0033d2660383fab9bc006689861cd6bc008a965ad6bc0003d7668b04d5fcd65c00660383fcb9bc006689861ed6bc008a86f8d5bc0084c0742d25ff000000660fbe144506a55c006601961cd6bc0033c08a86f8d5bc00660fbe144507a55c006601961ed6bc000fbf861ed6bc008b3dd8a2bc008d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8b96e01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa0875306683bbf2b9bc000f7513c68030d6bc0014c680f9d5bc0000e9f1060000c68030d6bc000cc680f9d5bc0000e9de06000080fa090f84c606000080fa0a0f85cc0600008a98f8d5bc00fec38ad38898f8d5bc0080faa80f8616020000c68006d6bc0002c680f9d5bc0000e9a006000080fa130f8514020000c6865bd6bc00008a9602d6bc0080fa0d75708b5424186683fa01753033c08a865ad6bc00668b14c578dd5c00660393fab9bc0033c06689961cd6bc008a865ad6bc00668b14c57cdd5c00eb6d6683fa02753033c08a865ad6bc00668b14c5f8dd5c00660393fab9bc0033c06689961cd6bc008a865ad6bc00668b14c5fcdd5c00eb37c1e0048bf833c08a865ad6bc0003c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc008a86f8d5bc0084c0742d25ff00000033d2660fbe044506a55c006601861cd6bc008a96f8d5bc00660fbe045507a55c006601861ed6bc000fbf861ed6bc008b3dd8a2bc008d14c08d04500fbf961cd6bc008d044003fa8d0487898620d6bc008b9634d7bc000fbf860cd6bc003bc2750f0fbf960ed6bc003b9638d7bc007420898634d7bc000fbf860ed6bc00898638d7bc008b862cd7bc004089862cd7bc008bb62cd7bc0083fe057e0f83fe147d0a8b5424148d041250eb058b5424145251e8986c01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa087526c68030d6bc0014c680f9d5bc000066c783f2b9bc000f00c7802cd7bc0000000000e9c704000080fa090f84af04000080fa0a75288a98f8d5bc00fec38ad38898f8d5bc0080faa87607c68006d6bc0002c680f9d5bc0000e99104000066c783f2b9bc000000e98304000080fa140f85440500000fbfabfab9bc0033d2c6865bd6bc00008a965ad6bc00c1e00403c2c1e00303a8f8d65c000fbf93fcb9bc008b98fcd65c008a86f8d5bc0003d3896c242484c089542420742125ff000000d1e00fbeb806a55c000fbe8007a55c0003ef03d0896c2424895424200fbfbe7ad6bc008d147fc1e20503d7803c9506d6bc0001740d33d233ff6689967ad6bc00eb0233d28d047fc1e00503c7803c8530d6bc000475096689967ad6bc0033ff8d047fc1e00503c78a048502d6bc003c0b74083c0c74043c0d750933ff6689967ad6bc000fbf9e0cd6bc000fbf860ed6bc003bdd894424187e068bd32bd5eb067d048bd52bd38b6c24208915fcb4d3003bc57e042bc5eb177d138bc58b6c24182bc58b6c2420a3f8b4d300eb0733c0a3f8b4d3003bd07c028bc283f8060f8dfc03000085ff0f8f980100008a8602d6bc003c0b74223c0d741e518b4c241c6a065153e8f6a600008b0df856d00083c4108bf8e9d40000008a9e63d6bc0033d2fec3889e63d6bc008a9602d6bc008ac38d1cd50000000025ff0000002bda3b04dde89070000f8ea100000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e490700083c0065051e8faa700008b0df856d0008bf883c40885ff8d04497459c1e00503c18d0c7fc1e10503cfc1e002c1e102c68062d6bc00010fbf910ed6bc000fbf890cd6bc0052510fbf900ed6bc000fbf800cd6bc005250e8d9d908008b0df856d00083c4108d1449c1e20503d188049509d6bc00eb0dc1e00503c1c6048562d6bc000085ff74508d047f8d1449c1e00503c7c1e205c1e00203d1668bb00cd6bc00c1e2026689b21cd6bc00668bb00ed6bc006689b21ed6bc006689ba7ad6bc006689887cd6bc00668b807ed6bc0066898280d6bc00eb358d04498b742424c1e00503c1c1e0020fbf900cd6bc003bf275140fbf900ed6bc003bea7509c680f9d5bc0000eb07c68030d6bc000c51e8f33d02008b0df856d00083c4048d1449c1e20503d1c1e2028a9a02d6bc0080fb0b740c80fb0d7407c644241300eb798d047f0fbfaa0ed6bc00c1e0050fbf920cd6bc0003c7c1e0020fbfb00ed6bc000fbf800cd6bc003bd07e062bd08bc2eb087d042bc2eb0233c03beea3fcb4d3007e062bee8bf5eb087d042bf5eb0233f63bc68935f8b4d3007c028bf081e3ff0000008bc38d14c5000000002bd03b34d5e49070000f9e44241385ff0f840b0100008a5c241384db75148b4424145051e8846801008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa090f846701000080fa0a0f845e01000084db0f84910d00008d2c7f8d3449c1e50503efc1e502c1e6050fbf950cd6bc0003f10fbf8d0ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8f5d70800888609d6bc008a8662d6bc0083c4103c07753d0fbf950ed6bc000fbf850cd6bc000fbf8e0ed6bc006a3c520fbf960cd6bc0050a1f856d000515250e8f54f02008b4c243483c41866c78124babc0006008b0df856d0008d1449c1e20503d18a1c9562d6bc008d049562d6bc00fec38ad3881880fa647603c6000051e8453c020083c4048b0df856d0008d344933edc1e60503f133d2c1e60280be02d6bc000b0f859c0f0000668b867ad6bc00663bc5745080be30d6bc000c75470fbfd08d34498d0452c1e00503c2c1e002c1e6050fbf900cd6bc0003f10fbf880ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8fdd6080083c410888609d6bc008a8609d6bc003c080f8c0f0f00000fbe8e0ad6bc00e9060f0000c68030d6bc000c66c7807ad6bc000000c680f9d5bc0000e952ffffffc68630d6bc000c66c7867ad6bc000000c686f9d5bc0000e936ffffff80fa0c0f85e2050000c6865bd6bc0000c686f9d5bc000080be02d6bc000d0f85d90000008b6c24186683fd01754133c08a865ad6bc00668b14c578dd5c0033c0660393fab9bc006689961cd6bc008a865ad6bc00668b14c57cdd5c00660393fcb9bc006689961ed6bc00e9d70000006683fd02754133c08a865ad6bc00668b14c5f8dd5c0033c0660393fab9bc006689961cd6bc008a865ad6bc00668b14c5fcdd5c00660393fcb9bc006689961ed6bc00e990000000c1e0048bf833c08a865ad6bc0003c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc00eb49c1e0048bf833c08a865ad6bc008b6c241803c7668b14c5f8d65c0033c0660393fab9bc006689961cd6bc008a865ad6bc0003c7668b14c5fcd65c00660393fcb9bc006689961ed6bc008a86f8d5bc0084c0742d25ff00000033d2660fbe044506a55c006601861cd6bc008a96f8d5bc00660fbe045507a55c006601861ed6bc00668b960cd6bc00663b961cd6bc007518668b860ed6bc00663b861ed6bc0075086683fd0f752eeb1e6683bb24babc00007f226683bb18babc00007f186683bb26babc00007f0ec68630d6bc000bc686f8d5bc00008a8602d6bc003c0b0f8540020000388630d6bc000f84340200008a8663d6bc0033d20fbfbe7ad6bc00fec0888663d6bc008a9602d6bc0025ff0000008d1cd5000000002bda3b04dde89070000f8e9500000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e49070005051e829a200008b0df856d0008bf883c40885ff8d04490f84c1000000c1e00503c18d3449c1e002c1e605c68062d6bc00018d047fc1e00503c703f1c1e002c1e6020fbf880ed6bc000fbf900cd6bc000fbf860ed6bc0051520fbf8e0cd6bc005051e8f9d308008b0df856d00083c410888609d6bc0085ff0f8476fcffff8d2c7f6689be7ad6bc00c1e50503efc644241300c1e50266898d7cd6bc00668b957ed6bc0066899680d6bc000fbf850cd6bc000fbfbe0cd6bc000fbf960ed6bc000fbf9d0ed6bc003bf8895424187e2d8bd72bd08915fcb4d3008b542418eb39c1e00503c1c1e002c68062d6bc000066c7807ad6bc000000e9f9fbffff7d108bd02bd78915fcb4d3008b542418eb0ac705fcb4d300000000003bd37e042bd3eb0e7d0a8bd38b5c24182bd3eb0233d28b1dfcb4d3008915f8b4d3003bda7c028bd333db8a9e02d6bc008bf38d1cf5000000002bde3b14dde49070000f8f95fbffff8d3449c644241301c1e60503f10fbf8d0ed6bc0051508b4424205057c1e602e8ddd20800888609d6bc008a8662d6bc0083c4103c070f8521fbffff0fbf8d0ed6bc000fbf950cd6bc000fbf860ed6bc006a3c510fbf8e0cd6bc00528b15f856d000505152e8d84a02008b44243483c41866c78024babc000600e9defaffff3c0d0f850ffbffff80be30d6bc000b0f8402fbffff8a8663d6bc0033d2fec0888663d6bc008a9602d6bc0025ff0000008d3cd5000000002bfa3b04fde89070000f8e9f00000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e49070005051e8e79f00008b0df856d00083c4088d3449c1e60503f1c1e60285c06689867ad6bc0074538d1440c68662d6bc0001c1e20503d08d3449c1e202c1e60503f10fbf8a0ed6bc000fbf920cd6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8b6d108008b0df856d00083c410888609d6bc00eb07c68662d6bc00008a8662d6bc0084c00f84ce0000000fbf867ad6bc0085c00f84920000008d3c408d3449c1e70503f8c1e702c1e6050fbf970ed6bc000fbf870cd6bc0003f152c1e602500fbf8e0ed6bc000fbf960cd6bc005152e846d10800888609d6bc008a8662d6bc0083c4103c07753e0fbf870ed6bc000fbf8f0cd6bc000fbf960ed6bc006a3c500fbf860cd6bc00518b0df856d000525051e8454902008b54243483c41866c78224babc0006008b0df856d0008d0449c1e00503c18a1c8562d6bc008d048562d6bc00fec38ad3881880fa640f865ef9ffffc60000e956f9ffff51e83c1a0200e942f9ffff80fa0e0f8579030000c6865bd6bc00000fbfbe7ad6bc008d147fc1e20503d7803c9506d6bc0001740933ff6689be7ad6bc008d047fc1e00503c7803c8530d6bc0004750d66c7867ad6bc00000033ffeb0885ff0f8f840100008a8602d6bc003c0b742c3c0d74280fbf960cd6bc00516a140fbf8e0ed6bc005152e8989c00008b0df856d00083c4108bf8e9d20000008a8663d6bc0033d2fec0888663d6bc008a9602d6bc0025ff0000008d1cd5000000002bda3b04dde89070000f8ea100000033c0c68663d6bc00008a8602d6bc008d14c5000000002bd08b04d5e490700083c0145051e89e9d00008b0df856d0008bf883c40885ff8d04497459c1e00503c18d0c7fc1e10503cfc1e002c1e102c68062d6bc00010fbf910ed6bc000fbf890cd6bc0052510fbf900ed6bc000fbf800cd6bc005250e87dcf08008b0df856d00083c4108d1449c1e20503d188049509d6bc00eb0dc1e00503c1c6048562d6bc000085ff74508d047f8d1449c1e00503c7c1e205c1e00203d1668bb00cd6bc00c1e2026689b21cd6bc00668bb00ed6bc006689b21ed6bc006689ba7ad6bc006689887cd6bc00668b807ed6bc0066898280d6bc00eb198d0449c1e00503c1c1e002c68030d6bc000cc680f9d5bc000051e8b33302008b0df856d00083c4048d1449c1e20503d1c1e2028a9a02d6bc0080fb0b740c80fb0d7407c644241300eb798d047f0fbfaa0ed6bc00c1e0050fbf920cd6bc0003c7c1e0020fbfb00ed6bc000fbf800cd6bc003bd07e062bd08bc2eb087d042bc2eb0233c03beea3fcb4d3007e062bee8bf5eb087d042bf5eb0233f63bc68935f8b4d3007c028bf081e3ff0000008bc38d14c5000000002bd03b34d5e49070000f9e44241385ff0f84cbf6ffff8a5c241384db75148b4424145051e8445e01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa090f8427f7ffff80fa0a0f841ef7ffff84db0f84510300008d2c7f8d3449c1e50503efc1e502c1e6050fbf950cd6bc0003f10fbf8d0ed6bc00c1e60251520fbf860ed6bc000fbf8e0cd6bc005051e8b5cd0800888609d6bc008a8662d6bc0083c4103c07753d0fbf950ed6bc000fbf850cd6bc000fbf8e0ed6bc006a3c520fbf960cd6bc0050a1f856d000515250e8b54502008b4c243483c41866c78124babc0006008b0df856d0008d1449c1e20503d18a1c9562d6bc008d049562d6bc00fec38ad3881880fa640f86bff5ffffe9b7f5ffff80fa150f85f1020000c6865bd6bc00000fbf867ad6bc008d1440c1e20503d0803c9506d6bc0001740933c06689867ad6bc008d1440c1e20503d0803c9530d6bc0004750933c06689867ad6bc008d14408bbb54babc00c1e20503d00fbf149558d6bc003bd7740b66c7867ad6bc000000eb0485c07f4480be02d6bc000c751d0fbf860ed6bc00516a640fbf8e0cd6bc005051e8fe98000083c410eb0b6a6451e8619a000083c4088bbb54babc0083ffff757d33c08b0df856d00083ffff0f840f02000085c00f84070200008d3c49c1e70503f9c1e7028a9702d6bc0080fa0b88542424740980fa0d0f857e0100000fbf9f0ed6bc008d34408d970ed6bc00c1e60503f089542420c1e6028d970cd6bc000fbf860cd6bc000fbfae0ed6bc00895424180fbf123bd07e632bd08bc2eb6585c074818b0df856d0008d1440c1e2058d344903d0c1e605c1e20203f1668baa0cd6bc00c1e6026689ae1cd6bc00668baa0ed6bc006689ae1ed6bc006689867ad6bc0066898a7cd6bc00668b927ed6bc0066899680d6bc00e92effffff7d042bc2eb0233c03bdda3fcb4d3007e042bddeb0a7d062beb8bddeb0233db3bc3891df8b4d3007c028bd88b44242425ff0000008d14c5000000002bd03b1cd5e49070000f8f96000000c687f9d5bc00008d3c490fbf960cd6bc00c1e7058b44242003f90fbf8e0ed6bc0051528b542420c644241b010fbf080fbf025150c1e702e823cb0800888709d6bc008a8762d6bc0083c4103c070f8567f3ffff0fbf8e0ed6bc000fbf960cd6bc000fbf870ed6bc006a3c510fbf8f0cd6bc00528b15f856d000505152e81e4302008b44243483c41866c78024babc000600e924f3ffff8b442414c6442413005051e8d95a01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f852af3ffff0fbfb07ad6bc008d1476c1e20503d6c1e202668bb20cd6bc006689b01cd6bc00668b920ed6bc006689901ed6bc00e9e8f2ffff8d0449c78354babc00ffffffffc1e00503c1c1e002c68030d6bc000bc680f9d5bc0000e9cff2ffff80fa0d755b8b442414c6866ad6bc000a505166c78310babc000100c6865bd6bc0001e8345a01008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa08750cc68030d6bc0017e97df2ffff80fa090f85f4010000e960f2ffff80fa0f757b668b97f03fea00668b87f23fea00c6865bd6bc00006689961cd6bc008b5424146689861ed6bc005251e8c85901008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa08740e80fa09740980fa0a0f850ff2ffff51c68030d6bc0011e83e2e0200a1f856d00050e80350020083c408e9e9f1ffff80fa117513c6865dd6bc0001c6865bd6bc0001e9d7f1ffff80fa10752ac6865dd6bc000066c7862ed6bc000000c6865bd6bc0001668b9628d6bc006689961cd6bc00e973e8ffff80fa160f849100000080fa170f848800000080fa06751a33c0c6866ad6bc000a8986fcd5bc00898678d7bc00e977f1ffff80fa077558c6866ad6bc000ac686f9d5bc000066ff862ed6bc006683be2ed6bc00640f8e4ff1ffff5166c7862ed6bc000000e80c31010083c40484c00f852ff1ffff8b0df856d0008d0449c1e00503c1c6048506d6bc0002e91af1ffffc68630d6bc0008e90ef1ffffc6866ad6bc000a66c7862ed6bc000000c6865bd6bc0001668b9628d6bc006689961cd6bc00668b862ad6bc006689861ed6bc008b3dd8a2bc000fbfc08d14c08d04500fbf961cd6bc008d044003fa8b5424148d04875251898620d6bc00e8385801008b0df856d00083c4088d0449c1e00503c1c1e0028a9009d6bc0080fa080f84b4e7ffff80fa090f8471f0ffff80fa0a0f8577f0ffffc68006d6bc0002e96bf0ffff0fbec82b0de0a2bc00890d004ee9008d510283fa070f8eae00000083ea08e9a60000008a9e30d6bc0080fb05750c0fbe8e0bd6bc00e9830000008b7c241c668b8f24babc00663bcd74198a8609d6bc003c087c66663bcd740a8a860ad6bc003c087c5780fb0c753f8a8f33babc0080f90873128a8662d6bc0084c0750881e1ff000000eb3880fb0c751d8a8f38babc0080f90873128a8662d6bc0084c0750881e1ff000000eb168a8609d6bc003c087c090fbe8e0ad6bc00eb030fbec82b0de0a2bc00890d004ee9003bcd7d0983c108890d004ee90083f9087c0983e908890d004ee90033c08a8602d6bc0083e80b0f84c5020000480f84bf010000480f857c040000a17460f50033d28a96f9d5bc008d14d08a444c2803d1899678d7bc008a544c29888664d6bc00889665d6bc008a8630d6bc003c05756a8a8662d6bc003c0c7326a0bd4c780084c0740aa11464f500e9210400008b15145ff50003d18996fcd5bc00e9160400008a15bd4c780084d2741825ff00000083e80c992bc28b151464f500d1f8e9e903000025ff00000083e80c992bc28b15145ff500d1f8e9d10300003c0c7526a0bd4c780084c074138b150464f50003d18996fcd5bc00e9bc030000a1045ff500e9aa0300003c140f85950000008a8662d6bc0084c074528a15bd4c780084d2742425ff00000033d2d1e88a908c055d00a11464f5008d14d003d18996fcd5bc00e97203000025ff00000033d2d1e88a908c055d00a1145ff5008d14d003d18996fcd5bc00e94e030000a0bd4c780084c074138b150464f50033c08a86f9d5bc00e927030000a1045ff50033d28a96f9d5bc008d14d003d18996fcd5bc00e9150300003c04a0bd4c780075c384c00fbf862ed6bc0099741e2bc233c9d1f88a888c045d00a10c64f50003c8898efcd5bc00e9e20200002bc233d2d1f88a908c045d00a10c5ff50003d08996fcd5bc00e9c402000089ae78d7bc008a8630d6bc003c05756a8a8662d6bc003c0c7326a0bd4c780084c0740aa1cc63f500e98f0200008b15fc5ef50003d18996fcd5bc00e9840200008a15bd4c780084d2741825ff00000083e80c992bc28b15cc63f500d1f8e95702000025ff00000083e80c992bc28b15fc5ef500d1f8e93f0200003c04a0bd4c7800754884c00fbf862ed6bc0099741e2bc233c9d1f88a888c045d00a1c463f50003c8898efcd5bc00e9170200002bc233d2d1f88a908c045d00a1f45ef50003d08996fcd5bc00e9f901000084c074138b15bc63f50033c08a86f9d5bc00e9d7010000a1ec5ef50033d28a96f9d5bc008d14d003d18996fcd5bc00e9c501000089ae78d7bc008a8630d6bc003c0575368a8662d6bc003c0c0f82d3000000a0bd4c780084c074138b0dac63f50003ca898efcd5bc00e98b010000a1e45ef50003c2e9790100003c0c757b6639ae7ad6bc008a1dbd4c7800752d84db74108b3d9c63f50033c08a86f9d5bc00eb0e8b3dd45ef50033c08a86f9d5bc008d04c703c18986fcd5bc008a8662d6bc0084c0741d3c0c731984db74788b0dac63f50025ff0000008d04c103c2e91201000084db757da1e45ef5008d4c1058898efcd5bc00e9000100003c14757a8a44241384c07512a0bd4c780084c00f84ce000000e9af0000008a8662d6bc0084c074383c0c73348a0dbd4c780084c974158b0dac63f50025ff0000008d04c103c2e9af0000008b0de45ef50025ff0000008d04c103c2e99a000000a0bd4c780084c074838b0dac63f5008d5411588996fcd5bc00e9820000003c04a0bd4c7800754284c00fbf862ed6bc0099741b2bc233d2d1f88a908c045d00a1a463f50003d08996fcd5bc00eb522bc233c9d1f88a888c045d00a1dc5ef50003c8898efcd5bc00eb3784c0741aa19c63f50033d28a96f9d5bc008d14d003d18996fcd5bc00eb198b15d45ef50033c08a86f9d5bc008d04c203c18986fcd5bc008a8630d6bc005f3c125b750c89aefcd5bc0089ae78d7bc005e5d83c428c390909090909090909090",
+        "complete": true
+      },
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Bytes reflect Ghidra's initialized memory, including loader fixups. Reads stop at an unmapped or uninitialized byte and report completeness explicitly.",
+        "Windows Ghidra P0 accepts native x86, x86-64, ARMNT (Thumb-2) and ARM64 PE applications and DLLs, and explicitly selected raw 6502 images; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+        "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+        "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
     }
   ]
 }

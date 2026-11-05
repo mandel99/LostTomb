@@ -1,4 +1,5 @@
 #include "city_supply.h"
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "industry_logistics.h"
 #include "granary.h"
 #include "storage_transactions.h"
@@ -49,8 +50,8 @@ int32_t FUN_0045f7b0(uint32_t param_1,uint32_t param_2,int32_t param_3,uint32_t 
 int32_t FUN_00460890(int32_t param_1,int32_t param_2,int32_t param_3)
 {return restore_industry_deliver(param_1,param_2,param_3);}
 
-void FUN_0048ae50(int32_t param_1,uint32_t param_2)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2};(void)invoke(0x48ae50u,a,2);}
+__declspec(noinline) void FUN_0048ae50(int32_t param_1,uint32_t param_2)
+{(void)restore_actor_find_remaining_delivery_destination(param_1,param_2);}
 
 void FUN_0048aef0(int32_t param_1,int32_t param_2,uint32_t param_3)
 {const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3};(void)invoke(0x48aef0u,a,3);}
@@ -64,8 +65,8 @@ void FUN_0048b4a0(int32_t param_1)
 void FUN_0048b620(void)
 {(void)invoke(0x48b620u,0,0);}
 
-void FUN_0048ce30(void)
-{(void)invoke(0x48ce30u,0,0);}
+__declspec(noinline) void FUN_0048ce30(void)
+{(void)restore_actor_update_warehouseman();}
 
 
 int32_t FUN_00518dd0(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
