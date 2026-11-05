@@ -43,6 +43,12 @@
   their shared algorithm before replacing or renaming a runtime owner.
 - Reuse saved REA evidence for an unchanged pinned executable. Keep complete
   records in files; return only the needed excerpt or compact result to context.
+- Check the result type before summarizing it: report string/array lengths,
+  and bound object-key lists. Never enumerate a decompiled string's keys.
+- Generated DAT pointer units and native load/store widths are separate facts.
+  Reuse cached REA type observations; qualify unavailable/undefined types,
+  signedness and overlay aliases against the native instructions. Do not replace
+  every global with a DWORD or assume its pointer unit from one load width.
 - Give each function one author. Do not start a second review agent or another
   round of discovery for a completed handoff without a concrete unresolved issue.
 - At the approximately100-entry cohort milestone, perform the joint native/C

@@ -1,5 +1,10 @@
 # Second connected C cohort
 
+The build, MAP counts and finite comparison below describe checkpoint871eea0.
+The next city-controller foundation changes the current images while leaving
+all100 primary bodies unchanged. Current build/visibility records are in
+[CITY_ACTIVE_BUILDINGS.md](CITY_ACTIVE_BUILDINGS.md); no previous receipt is rebound.
+
 The cohort selects 100 related native entrypoints /13,285 static instructions:
 eight C owners created before611f3cc, 38 created since that baseline and
 54 prior-C owners reused, including narrow type/access repairs. The latest checkpoint adds

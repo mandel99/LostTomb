@@ -1,11 +1,15 @@
 # Pharaoh restore
 
-The current source-first cohort selects 100 connected C entrypoints /13,285
-static native instructions. Eight previously published bodies are selected
-unchanged; 38 algorithms were created since611f3cc. 54 prior-C owners
-were reused, including narrow type/access repairs with zero algorithm credit. Shared strict compilation and both Release main
-links pass. An offline comparison agrees in 285 finite cases across all100 entries; branch and input coverage remain incomplete.
-See [the current cohort](metadata/ACTOR_COHORT_2.md).
+The current city-controller foundation restores two original C owners /5,337
+static native instructions. The full00462180 controller now uses typed memory
+views and genuine child returns;004620C0 repairs the basic actor initializer.
+Shared strict compilation and both Release links pass. Detailed native
+comparison follows with the next connected source batch. See
+[the controller ledger](metadata/CITY_ACTIVE_BUILDINGS.md).
+
+The previous100-entry cohort's285-case comparison is historical at871eea0.
+Its source bodies are unchanged; its earlier PE/MAP and source bindings are
+not rebound to the current images. See [the comparison](metadata/actor-cohort-2-comparison.json).
 
 The last finite API comparison is [611f3cc](https://github.com/mandel99/LostTomb/commit/611f3cc8cf001595c682fc99932ad102ad66ea9c):
 1,649 scenarios for 105 entrypoints agreed against the pinned original and

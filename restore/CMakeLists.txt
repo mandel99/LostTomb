@@ -428,6 +428,9 @@ set_source_files_properties(src/unit_01345.c src/unit_01475.c src/unit_00954.c s
 # Complete the connected city-worker cohort using original source owners.
 target_sources(pharaoh_restored PRIVATE src/unit_00919.c src/unit_00920.c src/unit_00921.c src/unit_00922.c src/unit_00929.c src/unit_00930.c src/unit_00931.c src/unit_00816.c src/unit_00818.c src/unit_00915.c src/unit_00925.c src/unit_01569.c)
 set_source_files_properties(src/unit_00919.c src/unit_00920.c src/unit_00921.c src/unit_00922.c src/unit_00929.c src/unit_00930.c src/unit_00931.c src/unit_00816.c src/unit_00818.c src/unit_00915.c src/unit_00925.c src/unit_01569.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# City controller and basic actor profile retain their original source owners.
+target_sources(pharaoh_restored PRIVATE src/unit_00928.c)
+set_source_files_properties(src/unit_00926.c src/unit_00928.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

@@ -1,26 +1,21 @@
-#include "restore_types.h"
-#define DAT_007090d0 (*(undefined4 *)0x007090d0u)
-#define DAT_007090ec (*(undefined4 *)0x007090ecu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd71c (*(undefined4 *)0x00bcd71cu)
-#define DAT_00bcd720 (*(undefined4 *)0x00bcd720u)
-#define DAT_00bcd724 (*(undefined4 *)0x00bcd724u)
-#define DAT_00bcd728 (*(undefined4 *)0x00bcd728u)
-#define DAT_00bcd734 (*(undefined4 *)0x00bcd734u)
-#define DAT_00bcd74c (*(undefined4 *)0x00bcd74cu)
+#include "actor_basic_profile.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_004620c0(int param_1)
-
+/* Whole004620C0,30 instructions. Preserve the three separate kind loads and
+   the narrow flags; this initializes fewer fields than00461F90. */
+void restore_actor_initialize_basic_profile(int32_t actor)
 {
-  param_1 = param_1 * 0x184;
-  *(undefined4 *)(&DAT_00bcd71c + param_1) = 0;
-  *(undefined4 *)(&DAT_00bcd720 + param_1) =
-       *(undefined4 *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd724 + param_1) =
-       *(undefined4 *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  (&DAT_00bcd728)[param_1] = 0;
-  *(undefined4 *)(&DAT_00bcd734 + param_1) =
-       *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  (&DAT_00bcd74c)[param_1] = 0;
-  return;
+    uint32_t offset=(uint32_t)actor*388u;
+    U(0xbcd71cu+offset)=0u;
+    U(0xbcd720u+offset)=U(0x7090d0u+(uint32_t)B(0xbcd602u+offset)*56u);
+    U(0xbcd724u+offset)=U(0x7090d0u+(uint32_t)B(0xbcd602u+offset)*56u);
+    B(0xbcd728u+offset)=0u;
+    U(0xbcd734u+offset)=U(0x7090ecu+(uint32_t)B(0xbcd602u+offset)*56u);
+    B(0xbcd74cu+offset)=0u;
+}
+
+void FUN_004620c0(int32_t actor)
+{
+    restore_actor_initialize_basic_profile(actor);
 }

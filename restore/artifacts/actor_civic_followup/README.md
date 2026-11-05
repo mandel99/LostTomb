@@ -1,5 +1,9 @@
 # Civic, delivery and walking C owners
 
+The following source/body selections remain unchanged after the city-controller
+foundation. Their285-case result and earlier main MAP counts are historical
+at871eea0; current image bindings are in metadata/CITY_ACTIVE_BUILDINGS.md.
+
 These 100 native entries map to 98 named C functions in the main build. Eight owners
 were created before611f3cc; 38 were created since it and 54 prior-C
 owners were reused, including narrow type/access repairs. Selection never counts a body twice.

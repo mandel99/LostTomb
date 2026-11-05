@@ -1,3 +1,4 @@
+#include "city_active_buildings.h"
 #include "city_worker_updates.h"
 #include "city_spawn_helpers.h"
 #include "city_worker_supply.h"
@@ -344,7 +345,7 @@ static uint32_t invoke_member(uint32_t entry,uint32_t self,const uint32_t *args,
 }
 static uint32_t invoke(uint32_t entry,const uint32_t *args,uint32_t count)
 {return invoke_member(entry,0,args,count,0);}
-void FUN_00462180(void){(void)invoke(0x462180u,0,0);}
+void FUN_00462180(void){restore_city_update_active_buildings();}
 int32_t FUN_00456fc0(int32_t building,uint8_t goods,int32_t selected[4],uint8_t *routes_ready)
 {const uint32_t a[]={(uint32_t)building,goods,(uint32_t)(uintptr_t)selected,(uint32_t)(uintptr_t)routes_ready};return (int32_t)invoke(0x456fc0u,a,4);}
 void FUN_00468860(void)
