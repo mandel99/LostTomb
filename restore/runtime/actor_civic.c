@@ -50,6 +50,37 @@
 #pragma comment(linker, "/include:_FUN_0049e8b0")
 #pragma comment(linker, "/include:_FUN_0049d0f0")
 #pragma comment(linker, "/include:_FUN_0049dc50")
+#pragma comment(linker, "/include:_FUN_00495950")
+#pragma comment(linker, "/include:_FUN_00495840")
+#pragma comment(linker, "/include:_FUN_004450c0")
+#pragma comment(linker, "/include:_FUN_00445ac0")
+#pragma comment(linker, "/include:_FUN_00445670")
+#pragma comment(linker, "/include:_FUN_00445e50")
+#pragma comment(linker, "/include:_FUN_00445980")
+#pragma comment(linker, "/include:_FUN_004454d0")
+#pragma comment(linker, "/include:_FUN_00444bd0")
+#pragma comment(linker, "/include:_FUN_00444b80")
+#pragma comment(linker, "/include:_FUN_004b7ab0")
+#pragma comment(linker, "/include:_FUN_004bc4a0")
+#pragma comment(linker, "/include:_FUN_004b1210")
+#pragma comment(linker, "/include:_FUN_004b1700")
+#pragma comment(linker, "/include:_FUN_004b5770")
+#pragma comment(linker, "/include:_FUN_004b56d0")
+#pragma comment(linker, "/include:_FUN_004b53b0")
+#pragma comment(linker, "/include:_FUN_004b45c0")
+#pragma comment(linker, "/include:_FUN_004b4420")
+#pragma comment(linker, "/include:_FUN_004947a0")
+#pragma comment(linker, "/include:_FUN_004946b0")
+#pragma comment(linker, "/include:_FUN_004945c0")
+#pragma comment(linker, "/include:_FUN_004944d0")
+#pragma comment(linker, "/include:_FUN_004943e0")
+#pragma comment(linker, "/include:_FUN_004942f0")
+#pragma comment(linker, "/include:_FUN_00494200")
+#pragma comment(linker, "/include:_FUN_004941b0")
+#pragma comment(linker, "/include:_FUN_00499e50")
+#pragma comment(linker, "/include:_FUN_00494b30")
+#pragma comment(linker, "/include:_FUN_00494800")
+#pragma comment(linker, "/include:_FUN_004998f0")
 #pragma comment(linker, "/include:_FUN_00499010")
 #pragma comment(linker, "/include:_FUN_00498c60")
 #pragma comment(linker, "/include:_FUN_004991a0")
@@ -244,12 +275,9 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     RAW(00519a30);
     RAW(0045d4d0);
     RAW(00494800);
-    RAW(00494b30);
     RAW(00498160);
     RAW(00498df0);
     RAW(004991a0);
-    RAW(004998f0);
-    RAW(00499e50);
     RAW(004b4420);
     RAW(004b45c0);
     RAW(004b53b0);
@@ -303,6 +331,9 @@ void restore_actor_civic_dispatch(uint32_t site,uint32_t target,struct restore_c
     case 0x498a10u:f->r[0]=restore_actor_update_enemy_kind53();break;
     case 0x498c60u:f->r[0]=restore_actor_update_egyptian_archers();break;
     case 0x499010u:f->r[0]=restore_actor_update_enemy_kind57();break;
+    case 0x4998f0u:f->r[0]=(uint32_t)restore_actor_find_soldier_target((int32_t)A(1),(int32_t)A(2));break;
+    case 0x494b30u:f->r[0]=restore_actor_update_flotsam();break;
+    case 0x499e50u:f->r[0]=(uint32_t)restore_actor_find_priority_target((int32_t)A(1),(int32_t)A(2));break;
     case 0x49e8b0u:f->r[0]=restore_actor_update_hippo();break;
     case 0x4eaac0u:f->r[0]=restore_actor_route_line_mode(A(1));break;
     case 0x4eab10u:f->r[0]=(uint32_t)FUN_004eab10((int32_t)A(1),(int32_t)A(2),(int32_t)A(3),(int32_t)A(4),(int32_t)A(5),(int32_t)A(6));break;
@@ -504,18 +535,26 @@ ACTOR_MOVING_ENTRY(004a6d40)
 #undef ACTOR_MOVING_ENTRY
 uint8_t FUN_004a4340(int32_t actor,int32_t building)
 {const uint32_t a[]={(uint32_t)actor,(uint32_t)building};return (uint8_t)invoke(0x4a4340u,a,2);}
-void FUN_00494200(void){(void)invoke(0x00494200u,0,0);}
-void FUN_004942f0(void){(void)invoke(0x004942f0u,0,0);}
-void FUN_004943e0(void){(void)invoke(0x004943e0u,0,0);}
-void FUN_004944d0(void){(void)invoke(0x004944d0u,0,0);}
-void FUN_004945c0(void){(void)invoke(0x004945c0u,0,0);}
-void FUN_004946b0(void){(void)invoke(0x004946b0u,0,0);}
+__declspec(noinline) void FUN_00494200(void)
+{(void)restore_actor_update_teacher();}
+__declspec(noinline) void FUN_004942f0(void)
+{(void)restore_actor_update_librarian();}
+__declspec(noinline) void FUN_004943e0(void)
+{(void)restore_actor_update_dentist();}
+__declspec(noinline) void FUN_004944d0(void)
+{(void)restore_actor_update_physician();}
+__declspec(noinline) void FUN_004945c0(void)
+{(void)restore_actor_update_herbalist();}
+__declspec(noinline) void FUN_004946b0(void)
+{(void)restore_actor_update_embalmer();}
 void FUN_004abd50(void){(void)invoke(0x004abd50u,0,0);}
 void FUN_0048bff0(void){(void)invoke(0x0048bff0u,0,0);}
 void FUN_0048c6a0(void){(void)invoke(0x0048c6a0u,0,0);}
 void FUN_004ac450(void){(void)invoke(0x004ac450u,0,0);}
-void FUN_004941b0(void){(void)invoke(0x004941b0u,0,0);}
-void FUN_004947a0(void){(void)invoke(0x004947a0u,0,0);}
+__declspec(noinline) void FUN_004941b0(void)
+{(void)restore_actor_update_schoolchild();}
+__declspec(noinline) void FUN_004947a0(void)
+{(void)restore_actor_update_worker();}
 __declspec(noinline) void FUN_0049b2a0(void)
 {(void)restore_actor_update_missionary();}
 void FUN_0048c200(void){(void)invoke(0x0048c200u,0,0);}
@@ -542,8 +581,10 @@ void FUN_004e91e0(int32_t player,int32_t amount)
 {const uint32_t a[]={(uint32_t)player,(uint32_t)amount};(void)invoke(0x4e91e0u,a,2);}
 
 
-void FUN_00494800(void){(void)invoke(0x00494800u,0,0);}
-void FUN_00494b30(void){(void)invoke(0x00494b30u,0,0);}
+__declspec(noinline) void FUN_00494800(void)
+{(void)restore_actor_update_map_flag();}
+__declspec(noinline) void FUN_00494b30(void)
+{(void)restore_actor_update_flotsam();}
 __declspec(noinline) void FUN_00497dc0(void)
 {(void)restore_actor_update_enemy_kind43();}
 __declspec(noinline) void FUN_00497fc0(void)
@@ -574,16 +615,16 @@ __declspec(noinline) void FUN_00499010(void)
 {(void)restore_actor_update_enemy_kind57();}
 __declspec(noinline) void FUN_004991a0(void)
 {(void)restore_actor_update_enemy_group();}
-int32_t FUN_004998f0(int32_t x,int32_t y)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y};return (int32_t)invoke(0x4998f0u,a,2);}
-int32_t FUN_00499e50(int32_t actor,int32_t max_distance)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)max_distance};return (int32_t)invoke(0x499e50u,a,2);}
-uint32_t FUN_004b4420(int32_t x,int32_t y,int32_t tx,int32_t ty)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty};return invoke(0x4b4420u,a,4);}
-int32_t FUN_004b45c0(int32_t actor,int32_t x,int32_t y,int32_t tx,int32_t ty,int32_t kind)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty,(uint32_t)kind};return (int32_t)invoke(0x4b45c0u,a,6);}
-void FUN_004b53b0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x4b53b0u,a,1);}
+__declspec(noinline) int32_t FUN_004998f0(int32_t x,int32_t y)
+{return restore_actor_find_soldier_target(x,y);}
+__declspec(noinline) int32_t FUN_00499e50(int32_t actor,int32_t max_distance)
+{return restore_actor_find_priority_target(actor,max_distance);}
+__declspec(noinline) uint32_t FUN_004b4420(int32_t x,int32_t y,int32_t target_x,int32_t target_y)
+{return restore_actor_test_projectile_path(x,y,target_x,target_y);}
+__declspec(noinline) int32_t FUN_004b45c0(int32_t owner,int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t kind)
+{return restore_actor_create_projectile(owner,x,y,target_x,target_y,kind);}
+__declspec(noinline) void FUN_004b53b0(int32_t actor_id)
+{(void)restore_actor_refresh_grid_ordinal(actor_id);}
 void FUN_004be4a0(int32_t actor)
 {const uint32_t a[]={(uint32_t)actor};(void)invoke(0x4be4a0u,a,1);}
 
@@ -605,29 +646,29 @@ int32_t FUN_004999e0(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
 int32_t FUN_00499b50(int32_t p0,int32_t p1)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};return (int32_t)invoke(0x00499b50u,args,2);}
 
-void FUN_004b1700(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004b1700u,args,1);}
+__declspec(noinline) void FUN_004b1700(int32_t actor)
+{(void)restore_actor_scan_neighbor_contacts(actor);}
 
 __declspec(noinline) void FUN_004b5050(int32_t p0)
 {(void)restore_actor_play_kind_cue(p0);}
 
-void FUN_004b7ab0(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};(void)invoke(0x004b7ab0u,args,1);}
+__declspec(noinline) void FUN_004b7ab0(int32_t group)
+{(void)restore_formation_apply_loss_penalty(group);}
 
 void FUN_00468530(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};(void)invoke(0x00468530u,args,1);}
 
-void FUN_004b1210(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x004b1210u,args,2);}
+__declspec(noinline) void FUN_004b1210(int32_t actor,int32_t first_candidate)
+{(void)restore_actor_process_contact_chain(actor,first_candidate);}
 
-void FUN_004bc4a0(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x004bc4a0u,args,2);}
+__declspec(noinline) void FUN_004bc4a0(int32_t actor,int32_t target)
+{(void)restore_actor_apply_contact_damage(actor,target);}
 
-void FUN_00444bd0(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x00444bd0u,args,2);}
+__declspec(noinline) void FUN_00444bd0(int32_t p0,int32_t p1)
+{(void)restore_trader_record_city_export(p0,p1);}
 
-void FUN_00444b80(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x00444b80u,args,2);}
+__declspec(noinline) void FUN_00444b80(int32_t p0,int32_t p1)
+{(void)restore_trader_record_city_import(p0,p1);}
 
 void FUN_00519a30(int32_t p0,int32_t p1)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x00519a30u,args,2);}
@@ -635,8 +676,8 @@ void FUN_00519a30(int32_t p0,int32_t p1)
 int32_t FUN_00467450(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00467450u,args,1);}
 
-int32_t FUN_004450c0(int32_t p0,uint32_t p1,uint32_t p2,int32_t p3,uint32_t p4)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4};return (int32_t)invoke(0x004450c0u,args,5);}
+__declspec(noinline) int32_t FUN_004450c0(int32_t p0,uint32_t p1,uint32_t p2,int32_t p3,uint32_t p4)
+{return restore_trader_find_storage(p0,p1,p2,p3,p4);}
 
 int32_t FUN_0045d010(int32_t p0,int32_t p1,uint32_t p2)
 {return restore_storage_export(p0,p1,p2);}
@@ -740,11 +781,11 @@ __declspec(noinline) void FUN_0049b280(void)
 __declspec(noinline) void FUN_0049b610(void)
 {(void)restore_actor_update_shipwreck();}
 
-int32_t FUN_00495840(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00495840u,args,1);}
+__declspec(noinline) int32_t FUN_00495840(int32_t p0)
+{return restore_docker_find_import_destination(p0);}
 
-int32_t FUN_00495950(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00495950u,args,1);}
+__declspec(noinline) int32_t FUN_00495950(int32_t p0)
+{return restore_docker_find_export_destination(p0);}
 
 int32_t FUN_00497cf0(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00497cf0u,args,1);}
@@ -752,11 +793,11 @@ int32_t FUN_00497cf0(int32_t p0)
 int32_t FUN_00497a30(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00497a30u,args,1);}
 
-int32_t FUN_004b56d0(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x004b56d0u,args,1);}
+__declspec(noinline) int32_t FUN_004b56d0(int32_t actor_id)
+{return restore_actor_find_combat_target_on_tile(actor_id);}
 
-int32_t FUN_004b5770(int32_t p0)
-{const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x004b5770u,args,1);}
+__declspec(noinline) int32_t FUN_004b5770(int32_t actor_id)
+{return restore_actor_find_projectile_victim_on_tile(actor_id);}
 
 int32_t FUN_00480e90(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00480e90u,args,1);}
@@ -767,20 +808,20 @@ int32_t FUN_004807d0(int32_t p0,int32_t p1,int32_t p2)
 void FUN_004b28a0(int32_t p0,int32_t p1)
 {const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x004b28a0u,args,2);}
 
-int32_t FUN_00445980(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3};return (int32_t)invoke(0x00445980u,args,4);}
+__declspec(noinline) int32_t FUN_00445980(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
+{return restore_dock_import_resource(p0,p1,p2,p3);}
 
-int32_t FUN_00445e50(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3};return (int32_t)invoke(0x00445e50u,args,4);}
+__declspec(noinline) int32_t FUN_00445e50(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
+{return restore_dock_export_resource(p0,p1,p2,p3);}
 
-int32_t FUN_004454d0(int32_t p0,int32_t p1,int32_t p2)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2};return (int32_t)invoke(0x004454d0u,args,3);}
+__declspec(noinline) int32_t FUN_004454d0(int32_t p0,int32_t p1,int32_t p2)
+{return restore_storage_import_batch_limit(p0,p1,p2);}
 
-int32_t FUN_00445670(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4};return (int32_t)invoke(0x00445670u,args,5);}
+__declspec(noinline) int32_t FUN_00445670(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
+{return restore_dock_find_import_storage(p0,p1,p2,p3,p4);}
 
-int32_t FUN_00445ac0(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1,(uint32_t)p2,(uint32_t)p3,(uint32_t)p4};return (int32_t)invoke(0x00445ac0u,args,5);}
+__declspec(noinline) int32_t FUN_00445ac0(uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4)
+{return restore_dock_find_export_storage(p0,p1,p2,p3,p4);}
 
 __declspec(noinline) void FUN_0049b750(void)
 {(void)restore_actor_update_birds();}

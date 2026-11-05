@@ -6,15 +6,23 @@ Connected blocks are being written into ordinary C with immediate compilation
 and focused interface checks, followed by joint main/native comparison at a
 larger milestone. Verification totals below describe the last accepted
 checkpoint; they are not a current-main proof for the new source blocks.
-Thirty-two functions across four source-first blocks are now transcribed
-and linked: 30 registry callbacks and two shared state handlers. See the
+The active connected cohort now contains 63 transcribed functions: 40 registry
+callbacks and 23 shared helpers, totaling 11,770 static native instructions.
+Detailed native comparison and broad regressions are scheduled for roughly 100
+connected functions, following the requested workflow. Current sources pass
+cheap strict compilation; the current main executables have not been rebuilt.
+See the [current cohort and queue](metadata/ACTOR_COHORT_100.md).
+
+Thirty-two of these functions were linked across four earlier source-first
+blocks: 30 registry callbacks and two shared state handlers. See the
 [six-animal record](metadata/ANIMAL_TRANSLATION_BATCH.md),
 [eleven-service record](metadata/SERVICE_TRANSLATION_BATCH.md) and
 [six-function combat/state record](metadata/COMBAT_TRANSLATION_BATCH.md) and
 [nine-function army/state record](metadata/ARMY_TRANSLATION_BATCH.md).
-These scopes total 8,493 static native instructions. Joint native verification
-and broad regressions remain pending; unresolved Enemy45 and Egyptian Chariots
-keep their original canonical/frame implementations.
+Those earlier scopes total 8,493 static native instructions; their reports keep
+historical source/build hashes. Unresolved Enemy45 and Egyptian Chariots keep
+their original canonical/frame implementations. Joint native verification and
+broad regressions remain pending for the connected cohort.
 
 Crocodile/hyena updates, kind cues, weighted state selection and state entry
 now use five named C bodies. Both Release images pass4,951 scenarios /

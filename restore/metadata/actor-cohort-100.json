@@ -1,0 +1,2228 @@
+{
+  "schema_version": 1,
+  "cohort": "connected actor callbacks, state, movement, grid and target helpers",
+  "target_approximate_functions": 100,
+  "workflow": "Translate connected C blocks first; cheap compilation and uncertain interfaces during writing; joint detailed native comparison and broad regression at the cohort milestone.",
+  "last_accepted_native_checkpoint": "168385711131ca23708013c5303218b7ea5d8bb1",
+  "last_linked_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+  "transcribed_functions": 63,
+  "registry_callbacks": 40,
+  "shared_helpers": 23,
+  "static_native_instructions": 11770,
+  "count_scope": "New ordinary C functions after1683857; not total game functions or verification coverage.",
+  "members": [
+    {
+      "address": "0x444b80",
+      "name": "restore_trader_record_city_import",
+      "kind": null,
+      "ctype": "uint32_t",
+      "parameters": "int32_t actor,int32_t resource",
+      "canonical_ctype": "void",
+      "canonical_parameters": "int32_t p0,int32_t p1",
+      "call_arguments": "p0,p1",
+      "native_instructions": 19,
+      "role": "trader record city import",
+      "body_sha256": "b02b0354d7be08e77d8393303e1cd16ba34dd1e61265e9379f16a118c0edeb52",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x444b80",
+        "length": 77,
+        "bytes_evidence_id": "ev_65f47cb5958076efe635c6c10211aa19bfcd4d3d971e9ed74f3c64d9c17c1a83",
+        "window_offset": 0,
+        "sha256": "5819083697611fc9b142da5d68ef63fcc87ed3481351462e02c44b848b81b1aa",
+        "kind": "body",
+        "native_instructions": 19
+      }
+    },
+    {
+      "address": "0x444bd0",
+      "name": "restore_trader_record_city_export",
+      "kind": null,
+      "ctype": "uint32_t",
+      "parameters": "int32_t actor,int32_t resource",
+      "canonical_ctype": "void",
+      "canonical_parameters": "int32_t p0,int32_t p1",
+      "call_arguments": "p0,p1",
+      "native_instructions": 19,
+      "role": "trader record city export",
+      "body_sha256": "40e42d73c3f3c3b5099b5b43aea42efd157d0212bb11bf39fad29cbe90964bbc",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x444bd0",
+        "length": 77,
+        "bytes_evidence_id": "ev_748f11570788486afe115e74f4b4d3733e74e7a966bdc3b1b128e83943b1eeb1",
+        "window_offset": 0,
+        "sha256": "7eba24c9d719aedb797e32d7884c7854903543d85a7944010e1ed31d59c3ee17",
+        "kind": "body",
+        "native_instructions": 19
+      }
+    },
+    {
+      "address": "0x4450c0",
+      "name": "restore_trader_find_storage",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t actor,uint32_t x,uint32_t y,int32_t trader,uint32_t region",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0,uint32_t p1,uint32_t p2,int32_t p3,uint32_t p4",
+      "call_arguments": "p0,p1,p2,p3,p4",
+      "native_instructions": 258,
+      "role": "trader storage destination",
+      "body_sha256": "f1cb7bd6f626196f2ea539b1c067b5f1e1613011992aa4d40424e74fa2a62fd7",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4450c0",
+        "length": 914,
+        "bytes_evidence_id": "ev_0a11bd17e06dfb919fe867f5095a198f4c3d35bca5db4710036c59afa24968b2",
+        "window_offset": 0,
+        "sha256": "b97b17d2272ebb061fa5ad2d9e130ec3bb6095c26d31ab3e7d2bdbddd966ead8",
+        "kind": "body",
+        "native_instructions": 258
+      }
+    },
+    {
+      "address": "0x4454d0",
+      "name": "restore_storage_import_batch_limit",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t building,int32_t resource,int32_t requested",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0,int32_t p1,int32_t p2",
+      "call_arguments": "p0,p1,p2",
+      "native_instructions": 167,
+      "role": "import capacity in100-unit batches",
+      "body_sha256": "cfa877b6ad627e7717b7ad83672fa6003473002ded9af5b6f94dd400e8009e3f",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4454d0",
+        "length": 403,
+        "bytes_evidence_id": "ev_a43bf3d6a4b91dd810ecab3e69ddcf1ae0bbbb9c0cc507726a8352d395e90c40",
+        "window_offset": 0,
+        "sha256": "3a65e3053f82c69eadb180b403874e9cd918c33d8ac3f6acde2d66a21cabaf91",
+        "kind": "body",
+        "native_instructions": 167
+      }
+    },
+    {
+      "address": "0x445670",
+      "name": "restore_dock_find_import_storage",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "uint32_t x,uint32_t y,int32_t trader,uint32_t region,uint32_t network",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4",
+      "call_arguments": "p0,p1,p2,p3,p4",
+      "native_instructions": 216,
+      "role": "dock import destination",
+      "body_sha256": "8f4b91e1cae14805e4c93fe147f46581fc76ef949d196f7b3946b3f57980faab",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x445670",
+        "length": 769,
+        "bytes_evidence_id": "ev_c73dd20f997ec7fbdb3cd5bd9c81d098a30c81daac982f5c61647cc63fb40289",
+        "window_offset": 0,
+        "sha256": "0762c0a48f9fb385a53ba1c272387445eea4dea61fdbb0a5bf28f675a72d25bd",
+        "kind": "body",
+        "native_instructions": 216
+      }
+    },
+    {
+      "address": "0x445980",
+      "name": "restore_dock_import_resource",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t building,int32_t resource,int32_t trader,int32_t ship_actor",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0,int32_t p1,int32_t p2,int32_t p3",
+      "call_arguments": "p0,p1,p2,p3",
+      "native_instructions": 106,
+      "role": "dock import transaction",
+      "body_sha256": "563fffe4fce3a57a63ca8e7d8417654d5a2792afc0d46a6c7941960a19af7912",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x445980",
+        "length": 320,
+        "bytes_evidence_id": "ev_aae092e2c03db942e43fbc922dafdfd3ec83c645553a096c45775c94b4a4335a",
+        "window_offset": 0,
+        "sha256": "ee1d2f580b532bf787f5782898e735d5c8de431cd45d74ad1382d7c1b0f8e7e5",
+        "kind": "body",
+        "native_instructions": 106
+      }
+    },
+    {
+      "address": "0x445ac0",
+      "name": "restore_dock_find_export_storage",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "uint32_t x,uint32_t y,int32_t trader,uint32_t region,uint32_t network",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "uint32_t p0,uint32_t p1,int32_t p2,uint32_t p3,uint32_t p4",
+      "call_arguments": "p0,p1,p2,p3,p4",
+      "native_instructions": 175,
+      "role": "dock export destination",
+      "body_sha256": "a90ef5eaf083b62ae2aecabaf023ce985fdb254a244c6d0201693469a1bdbda1",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x445ac0",
+        "length": 584,
+        "bytes_evidence_id": "ev_738c2498e7aca15bb10d6f0dc53944e9238dd5cd94d854d05e7e547d21eb26c4",
+        "window_offset": 0,
+        "sha256": "9eb8d730c61c3356e425786847c67d66f9077dbf8c7d5726d9644fb81cfc26a0",
+        "kind": "body",
+        "native_instructions": 175
+      }
+    },
+    {
+      "address": "0x445e50",
+      "name": "restore_dock_export_resource",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t building,int32_t resource,int32_t trader,int32_t ship_actor",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0,int32_t p1,int32_t p2,int32_t p3",
+      "call_arguments": "p0,p1,p2,p3",
+      "native_instructions": 183,
+      "role": "dock export transaction",
+      "body_sha256": "ebc07082e2fd63597e2948cd895b75ae26f5f542e82381c7cdf35484a8f27a57",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x445e50",
+        "length": 601,
+        "bytes_evidence_id": "ev_efd98364cb23836f2e02e583f65b5b2642ecc554476913daba2c1e0ac369f2d2",
+        "window_offset": 0,
+        "sha256": "cf33b57775677f4f4f8c36032f6f84d5e23963d879f0a9b31717cfa4eea2f42e",
+        "kind": "body",
+        "native_instructions": 183
+      }
+    },
+    {
+      "address": "0x493610",
+      "name": "restore_actor_update_service_state",
+      "kind": null,
+      "native_instructions": 117,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "9ab0a8bb0b18e0929fd471f1d27c6304669162f7e0d9954b51e94259cea028dc",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "shared actor helper"
+    },
+    {
+      "address": "0x4941b0",
+      "name": "restore_actor_update_schoolchild",
+      "kind": 28,
+      "ctype": "uint32_t",
+      "native_instructions": 16,
+      "role": "Schoolchild callback",
+      "body_sha256": "274b6de3a48f6aa60575e3d1ff8ee78933991cdbaf72a876968ee78af31c2a12",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4941b0",
+        "length": 71,
+        "bytes_evidence_id": "ev_6de595e63aa874459fd6024e451dabcd7142fdea62a76293575870b55663e475",
+        "window_offset": 0,
+        "sha256": "020d38004ca0580bab53f57835a46616d97f81a30c135bf127502c1bf5ecb0f5",
+        "kind": "body",
+        "native_instructions": 16
+      }
+    },
+    {
+      "address": "0x494200",
+      "name": "restore_actor_update_teacher",
+      "kind": 29,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Teacher callback",
+      "body_sha256": "153032d914e7e00dec507dfc1fb914ed8295785738945f3c253d31bfe26a1bb0",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x494200",
+        "length": 240,
+        "bytes_evidence_id": "ev_c7abd7c8a319e321131e37554bf6d008034678a1604033985633ef37bb1f4867",
+        "window_offset": 0,
+        "sha256": "3e6f16fd7dc6bf137886a77ec9aff28b4ae6dcfc172c1394d5cae36d73246f7c",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4942f0",
+      "name": "restore_actor_update_librarian",
+      "kind": 30,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Librarian callback",
+      "body_sha256": "91e27bfcc67812fb7eeac986520599182adb527f9b72cd6100aa85453df0ea66",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4942f0",
+        "length": 240,
+        "bytes_evidence_id": "ev_8280ca528c4acc4996e299999b73fbc3026643ac336ecd58e2fbef50ec910904",
+        "window_offset": 0,
+        "sha256": "ce6dfd0d106f93cfbdb49e4e413315a1e88f6b887030313496b03ae26eb2a07f",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4943e0",
+      "name": "restore_actor_update_dentist",
+      "kind": 31,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Dentist callback",
+      "body_sha256": "c9278db0c95ca24778dd2c51084e2c52dca8cdfa8f9ea2d0b18819318328b0fc",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4943e0",
+        "length": 240,
+        "bytes_evidence_id": "ev_50d5a38f9b343c3935e95bdedc248eb31916b86c1a761a575ce58a0766a89369",
+        "window_offset": 0,
+        "sha256": "0fe9bfc4102e8e8ac69b4a47f05a42ab358f3573e2260629e873a393a560b645",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4944d0",
+      "name": "restore_actor_update_physician",
+      "kind": 32,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Physician callback",
+      "body_sha256": "2af2fb140fca834325388f0a2d9bafb84b0907f3125d2878664920b78bbad4f5",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4944d0",
+        "length": 240,
+        "bytes_evidence_id": "ev_abf6ab7a111c30d7e22699296abead5b4efbe2c4c6771de1c7a49080e6864674",
+        "window_offset": 0,
+        "sha256": "a8e23030746590ec708b5c5cf5b8f5e14e7c0b1d71dad26fe63d75e2c74263b5",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4945c0",
+      "name": "restore_actor_update_herbalist",
+      "kind": 33,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Herbalist callback",
+      "body_sha256": "6f1c252cccb17e1c40910c346bdb01ece3f60bd2b55e4421dacdff77fefec90c",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4945c0",
+        "length": 240,
+        "bytes_evidence_id": "ev_fecc79aa9af0018dcf6d27258a2e1b518872f8197f06c7f78273bc0db5a62a7c",
+        "window_offset": 0,
+        "sha256": "1fae8b3571590fea98e5541dafa4b392ac99a9e353a2c812a5f357c8899848b8",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4946b0",
+      "name": "restore_actor_update_embalmer",
+      "kind": 34,
+      "ctype": "uint32_t",
+      "native_instructions": 63,
+      "role": "Embalmer callback",
+      "body_sha256": "3b98d4b58258cf6403f541afad956bd894b00ac29299519bcec113bd33523b0d",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4946b0",
+        "length": 240,
+        "bytes_evidence_id": "ev_6f3fec808eacb48d6db80275f502452b5fa693f6706f29a074ac24d02e3c1b83",
+        "window_offset": 0,
+        "sha256": "d044c277138564ae9e8e35a8a2763170e2736cec134a19d927f4eda0aab28bb6",
+        "kind": "body",
+        "native_instructions": 63
+      }
+    },
+    {
+      "address": "0x4947a0",
+      "name": "restore_actor_update_worker",
+      "kind": 35,
+      "ctype": "uint32_t",
+      "native_instructions": 25,
+      "role": "Worker callback",
+      "body_sha256": "8c5452271f7ffad436d4fcfcbe9ccc5cbce19ec20d6dacec341961486ab4ac77",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "4a2e7b9eed454b5331a95e8463be1cd6dc207e90e5567832f8b8bcbe4b7d289d",
+      "candidate_manifest_sha256": "1c9108ee5e60624d652140c990bdfe7c0dd25d878ba06cb46666aacbd7b1a09b",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4947a0",
+        "length": 91,
+        "bytes_evidence_id": "ev_52df3c28243c23e5b535aeda43a0115d167d322f7a858467f12532f98cdb6ee3",
+        "window_offset": 0,
+        "sha256": "3952c5e72c9e87c8aeaf27d5d598cfe34ad51f7a217b501e8df2887d5beb1f4c",
+        "kind": "body",
+        "native_instructions": 25
+      }
+    },
+    {
+      "address": "0x494800",
+      "name": "restore_actor_update_map_flag",
+      "kind": 36,
+      "native_instructions": 167,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "a38381b62bc253a7ac935ccaf957f9e08f1f974a8badde989ea09f47c1b40952",
+      "candidate_source_sha256": "dfbf159e535e35e1e282043c58495867eb2166d93be19137975150f1fd0b6bcc",
+      "candidate_manifest_sha256": "0fc8e368ec9daa5ce06a7f6b20a6e3fa581f8f686fb39de6f52306b126f1a0b5",
+      "role": "registry callback",
+      "evidence_record": "metadata/actor-support-translation-rea-records.json",
+      "raw_model_retained": true,
+      "signature": "uint32_t(void)",
+      "named_return_closed": true,
+      "return_contract": "Exact result of actual grid-link API; whole frame RAW retained for separate physical qualification"
+    },
+    {
+      "address": "0x494b30",
+      "name": "restore_actor_update_flotsam",
+      "kind": 37,
+      "native_instructions": 250,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "8cd388cb43f8e472998eaa26d8cf83505bb76b8b7c5c9175a6b9a0df5d75aa23",
+      "candidate_source_sha256": "5f080521b35a04f9bb583e21b739f134846b19c703acae55d651a1edbab35ec6",
+      "candidate_manifest_sha256": "2a5700f2ffd2b26f1d9b0da2ec79bf044a352f534215f13bd6c3681818223bdd",
+      "role": "registry callback",
+      "evidence_record": "metadata/actor-support-translation-rea-records.json",
+      "raw_model_retained": false,
+      "signature": "uint32_t(void)"
+    },
+    {
+      "address": "0x494f70",
+      "name": "restore_actor_update_docker",
+      "kind": 38,
+      "native_instructions": 567,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "aace787c3a4d385a3ffa0f071bdaa99d8228665eafcca1f6d9b4d620da892f8a",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x495840",
+      "name": "restore_docker_find_import_destination",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t home",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0",
+      "call_arguments": "p0",
+      "native_instructions": 77,
+      "role": "docker import transition",
+      "body_sha256": "bbcd5d6c4b8f9f7e31979a30f2c784156db8f37c6bc757e86794a62818b9455d",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x495840",
+        "length": 272,
+        "bytes_evidence_id": "ev_544d1992f737b564a367b6c881d9778066a6de2ae4fec5828f0a6bf1b7cbfabe",
+        "window_offset": 0,
+        "sha256": "9d10c33bab9a9b28fd8e61099c9df1dde8b836cd8e281bf339f0b60e8c995487",
+        "kind": "body",
+        "native_instructions": 77
+      }
+    },
+    {
+      "address": "0x495950",
+      "name": "restore_docker_find_export_destination",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t home",
+      "canonical_ctype": "int32_t",
+      "canonical_parameters": "int32_t p0",
+      "call_arguments": "p0",
+      "native_instructions": 67,
+      "role": "docker export transition",
+      "body_sha256": "d4e9505cfe433310322e5f394178af19d3561a63ad26b7453452bb9e55841149",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "6d517067e3b8611f67b74fce600d256788ba8651e2a8d2fe800701248e317d73",
+      "candidate_manifest_sha256": "13e24c8a66076e57b2108a70b85f9fb91512b41c37044f2e1b39a1acc57048c3",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x495950",
+        "length": 235,
+        "bytes_evidence_id": "ev_b79e927b5138704ff3d97b61dd3f011a39209b9918dcf896c0fa4eb2716d5914",
+        "window_offset": 0,
+        "sha256": "09b965bd8ccdad24ad67d3a0a4f0f41c48e24e687f1f1ebdd8242a12f8228823",
+        "kind": "body",
+        "native_instructions": 67
+      }
+    },
+    {
+      "address": "0x497010",
+      "name": "restore_actor_update_barbarian",
+      "kind": 41,
+      "native_instructions": 278,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "116ec38abe3d4ad72a6891d58db9aaee5659e5eaf283775ac90609d1241f88cf",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x497450",
+      "name": "restore_actor_update_sentry",
+      "kind": 42,
+      "native_instructions": 383,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "1636698c602a458173ce9b2f6389b5fb6083ec864e60e4d5774aa6ed3ce0d832",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x497dc0",
+      "name": "restore_actor_update_enemy_kind43",
+      "kind": 43,
+      "native_instructions": 157,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "3c71fa5fd21c8c797b88390c66c7ff25fa421bfe59229bba90ee423e5b519492",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x497fc0",
+      "name": "restore_actor_update_enemy_kind44",
+      "kind": 44,
+      "native_instructions": 122,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "955742535f9e766efea448146ef70d085a03caa4383aac34f0fd770bb8719883",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498370",
+      "name": "restore_actor_update_enemy_kind46",
+      "kind": 46,
+      "native_instructions": 87,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "a3e61112be934af0e3aa859e844d48aab874ee7e60af10d26734f8bddaa0bccb",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4984a0",
+      "name": "restore_actor_update_enemy_kind47",
+      "kind": 47,
+      "native_instructions": 64,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "181279e0cd6d46f5a0ed80ecdfdea7c66ab01f7adccdec3aa459a52f04abaaed",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498590",
+      "name": "restore_actor_update_enemy_kind48",
+      "kind": 48,
+      "native_instructions": 80,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "4e38f2f0462d2d8f74da81f8e550eebeeb6513790e31f5953d994007558c7d38",
+      "prior_source_record": "metadata/actor-combat-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4986b0",
+      "name": "restore_actor_update_barbarian_kind49",
+      "kind": 49,
+      "native_instructions": 36,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "112d785083b5da5cf6fff46eda294e8d0a085ba38ce363d2156f43124d627412",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498750",
+      "name": "restore_actor_update_barbarian_kind50",
+      "kind": 50,
+      "native_instructions": 36,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "3add059b87089f1d5431fa1ae579690a71217060fc9cdadd5723d96a4fd9137c",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4987f0",
+      "name": "restore_actor_update_barbarian_kind51",
+      "kind": 51,
+      "native_instructions": 46,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "2d694c6e466dbec6cd47c7a94f90d3ea9c97c37a9f24b4c9042f6b357d90cc98",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4988b0",
+      "name": "restore_actor_update_barbarian_kind52",
+      "kind": 52,
+      "native_instructions": 98,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "22accd42d10761af2790c11a8c88ce056902e375653fce7b2aec9dc4a2241952",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498a10",
+      "name": "restore_actor_update_enemy_kind53",
+      "kind": 53,
+      "native_instructions": 45,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "98d87e27810d80591670dad73a5218ab1bd6e5638a04256dd082bece51d60e3e",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498ad0",
+      "name": "restore_actor_update_egyptian_infantry",
+      "kind": 54,
+      "native_instructions": 116,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "88f09170ecfcdb0597ab823f682d4a3dbe146ef9ae138d864f60eca9f8c4988c",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x498c60",
+      "name": "restore_actor_update_egyptian_archers",
+      "kind": 55,
+      "native_instructions": 114,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "9d4dc807098aa7609b99815dce9927ac6dc38aa221bf2d39c5c2168015c64d4a",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x499010",
+      "name": "restore_actor_update_enemy_kind57",
+      "kind": 57,
+      "native_instructions": 118,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "0829f30a6e8da8bd355f21e9eefab31047602a00a7912f0060476d61c7bc1c6f",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4991a0",
+      "name": "restore_actor_update_enemy_group",
+      "kind": null,
+      "native_instructions": 523,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "38acc17f78e58fbca4d5b4c4f8aac11cc9b505ea923219ab0a38cbc304294a21",
+      "prior_source_record": "metadata/actor-army-translation-batch.json",
+      "role": "shared actor helper"
+    },
+    {
+      "address": "0x4998f0",
+      "name": "restore_actor_find_soldier_target",
+      "kind": null,
+      "native_instructions": 82,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "cf0e9b09fe251f51e4ae1293b1185fabbb5142e3cc2f9632dce693b4beb9eaad",
+      "candidate_source_sha256": "bffe55de2d8c8efc06ce4cc5282a05cf8fe85a6344a57396712faf1ed0e0e487",
+      "candidate_manifest_sha256": "60cf627d5ea31e2a29919b13bcf3df978359f25dc07877f63b81aa36cbad1fff",
+      "role": "shared actor helper",
+      "evidence_record": "metadata/actor-support-translation-rea-records.json",
+      "raw_model_retained": false,
+      "signature": "int32_t(int32_t x,int32_t y)"
+    },
+    {
+      "address": "0x499e50",
+      "name": "restore_actor_find_priority_target",
+      "kind": null,
+      "native_instructions": 206,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "24095031355aa5c9ece937689d7725e8c7705b50129ffd5a40189c2e1069fa52",
+      "candidate_source_sha256": "cbc66f7a619409b0d2037bf48674fdbe45d1cd3bdbc353b6516269f7a36de5d7",
+      "candidate_manifest_sha256": "e530fab0bd0eb0e5efc0043bd2fd009cb81fd56c1dd275daa8bf8511c6a5fc00",
+      "role": "shared actor helper",
+      "evidence_record": "metadata/actor-support-translation-rea-records.json",
+      "raw_model_retained": false,
+      "signature": "int32_t(int32_t acting_actor,int32_t max_distance)"
+    },
+    {
+      "address": "0x49a150",
+      "name": "restore_actor_update_native_trader",
+      "kind": 58,
+      "native_instructions": 276,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "280af50f936f2703f545aee338637ddc2f26432c1f07784e3cc5061a46d350f0",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49a5a0",
+      "name": "restore_actor_update_arrow",
+      "kind": 59,
+      "native_instructions": 208,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "87c950aa86f04a2f3a1238fb5b390c677442a60cb257467622f0a8473a826986",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49a880",
+      "name": "restore_actor_update_javelin",
+      "kind": 60,
+      "native_instructions": 238,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "3417034b63a33f41bd9b2297a928668b9bb30fd5c61075872e4e23d94d71c71c",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49ac00",
+      "name": "restore_actor_update_bolt",
+      "kind": 61,
+      "native_instructions": 201,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "bd33cce81ba25e297db7e70e6bb66809d0dfe69b14ca353dcee65792a4611233",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49aeb0",
+      "name": "restore_actor_update_ballista",
+      "kind": 62,
+      "native_instructions": 247,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "47390a2a874b9654c0d031ea6e196c1788f2166a6e5b085410f59b36043744f2",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49b280",
+      "name": "restore_actor_update_creature",
+      "kind": 63,
+      "native_instructions": 7,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "6bef1305b359d6480911a5184a62cfbe6303cca36b2b18f6c4c09be55f777e98",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49b2a0",
+      "name": "restore_actor_update_missionary",
+      "kind": 64,
+      "native_instructions": 63,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "d852886a6bf31d3a963c290742c72509845fa2feeb95d5a7a2bd4aa983c23f77",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49b610",
+      "name": "restore_actor_update_shipwreck",
+      "kind": 67,
+      "native_instructions": 72,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "20ace2641e84496d0216dac89bbe42bccd8d79793a185f0faa227ea4441f87ed",
+      "prior_source_record": "metadata/actor-service-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49b750",
+      "name": "restore_actor_update_birds",
+      "kind": 68,
+      "native_instructions": 376,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "1ccbd12e51f83f7cd0a88453cfaef4ed791fd5175fd26c8416e108b77cb03cb5",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49bd40",
+      "name": "restore_actor_update_ostrich",
+      "kind": 69,
+      "native_instructions": 668,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "85aa6ade693e56c8450b73e90dbbada77f6f3059deadf1bb65ba3a2831e6f8c1",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49c750",
+      "name": "restore_actor_update_antelope",
+      "kind": 70,
+      "native_instructions": 640,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "2ca5220709e7814b3011a10e581806a2a52d9e04a44bb93840cd68bc48440faa",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x49f710",
+      "name": "restore_actor_update_scorpion",
+      "kind": 104,
+      "native_instructions": 866,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "85d47b248ea9ed7caa8d047c6cadc30963cbc3a29f0630a47459de6683452987",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4a04d0",
+      "name": "restore_actor_update_lion",
+      "kind": 103,
+      "native_instructions": 777,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "83994f026089edf0e46de4925a1eb0d2347a363b68656a47bc01fce5a9f93a3b",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4a1130",
+      "name": "restore_actor_update_asp",
+      "kind": 102,
+      "native_instructions": 867,
+      "stage": "C_transcribed_pending_joint_verification",
+      "body_sha256": "5e891b0c84f1495336405e9ea4c2a8c2aacead25e256804f88dad7cc2cd15099",
+      "prior_source_record": "metadata/actor-animal-translation-batch.json",
+      "role": "registry callback"
+    },
+    {
+      "address": "0x4b1210",
+      "name": "restore_actor_process_contact_chain",
+      "kind": null,
+      "ctype": "void",
+      "parameters": "int32_t actor,int32_t first_candidate",
+      "call_arguments": "actor,first_candidate",
+      "native_instructions": 333,
+      "role": "Contact list state processing",
+      "body_sha256": "50e27d3f44ec32e33ccdfe0aed0603e0d999ca67104a9a9b474d2dfbca367690",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "10db971826c7af307158bd67eabddb1882ac7552799fe8e068bee000e34ec076",
+      "candidate_manifest_sha256": "318484b934318c75b6a3908bfbc25ad1386c59f7d93a47024089159c4ab685a2",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b1210",
+        "length": 1166,
+        "bytes_evidence_id": "ev_a5e417065c7fdc75d841508212f3109fdff4cd5647c890b95215057bc8724ef6",
+        "window_offset": 0,
+        "sha256": "a54c9e1ce86982b3f2180b769c7cd3d7214bffee9d846568c0a7ca305fb45439",
+        "kind": "body",
+        "native_instructions": 333
+      }
+    },
+    {
+      "address": "0x4b1700",
+      "name": "restore_actor_scan_neighbor_contacts",
+      "kind": null,
+      "ctype": "void",
+      "parameters": "int32_t actor",
+      "call_arguments": "actor",
+      "native_instructions": 36,
+      "role": "Neighbor contact scan",
+      "body_sha256": "e6c367e9a3fd2950ca1d03b4235ed6c3261f1a311f2b83ef95eca079f73f1e30",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "10db971826c7af307158bd67eabddb1882ac7552799fe8e068bee000e34ec076",
+      "candidate_manifest_sha256": "318484b934318c75b6a3908bfbc25ad1386c59f7d93a47024089159c4ab685a2",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b1700",
+        "length": 109,
+        "bytes_evidence_id": "ev_36e92b2954c2aaf7cb03ca11f016227c6244bd6b8eab2aabb9b85b5c7d165f63",
+        "window_offset": 0,
+        "sha256": "d9587f107107997ae119b055f706ebe47bdd945dc0a273e51122402c4cd31b3f",
+        "kind": "body",
+        "native_instructions": 36
+      }
+    },
+    {
+      "address": "0x4b4420",
+      "name": "restore_actor_test_projectile_path",
+      "kind": null,
+      "ctype": "uint32_t",
+      "parameters": "int32_t x,int32_t y,int32_t target_x,int32_t target_y",
+      "canonical_ctype": "uint32_t",
+      "call_arguments": "x,y,target_x,target_y",
+      "native_instructions": 127,
+      "role": "Projectile path check",
+      "body_sha256": "77f759efc3ea34a057e737698a1a669f7c27a45dddeed1f063f2cfd692e6dd15",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "2290999c3374ace3d4f2b8d1c7bdbc65d58c3f70afb8c1159764ab2aeaae41f3",
+      "candidate_manifest_sha256": "ceb5e2c84ed4f97b0ebb8661d6a20b204f199ae77418e895b9eafd4f6e856bf8",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b4420",
+        "length": 410,
+        "bytes_evidence_id": "ev_d923a3d37bc1f892e9268e0139fffc3dbd0cf03f04c6345c0ee9b3b933294965",
+        "window_offset": 0,
+        "sha256": "3a2f56a960a211b9ab1573403401fdc416739df6e97bbe61832b8337e1fe9b1c",
+        "kind": "body",
+        "native_instructions": 127
+      }
+    },
+    {
+      "address": "0x4b45c0",
+      "name": "restore_actor_create_projectile",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t owner,int32_t x,int32_t y,int32_t target_x,int32_t target_y,int32_t kind",
+      "canonical_ctype": "int32_t",
+      "call_arguments": "owner,x,y,target_x,target_y,kind",
+      "native_instructions": 73,
+      "role": "Projectile creation and initialization",
+      "body_sha256": "d85aac37ff28821dd8e9cf57fb947cfc64afc0c66684998e804d7341b87dc72e",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "2290999c3374ace3d4f2b8d1c7bdbc65d58c3f70afb8c1159764ab2aeaae41f3",
+      "candidate_manifest_sha256": "ceb5e2c84ed4f97b0ebb8661d6a20b204f199ae77418e895b9eafd4f6e856bf8",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b45c0",
+        "length": 233,
+        "bytes_evidence_id": "ev_a5ceac4921d5386e8b3471f64e03f36de71bd89376f12b07cd820ee4d656e3fb",
+        "window_offset": 0,
+        "sha256": "48dc02a34e0280a8198313165b1d310be6f5417c9f94c701ed6e4e0272df5f96",
+        "kind": "body",
+        "native_instructions": 73
+      }
+    },
+    {
+      "address": "0x4b53b0",
+      "name": "restore_actor_refresh_grid_ordinal",
+      "kind": null,
+      "ctype": "uint32_t",
+      "parameters": "int32_t actor_id",
+      "call_arguments": "actor_id",
+      "native_instructions": 31,
+      "role": "Grid-list ordinal refresh",
+      "body_sha256": "3450d184637e981eccefaf4198f9712b82e35c35dec3ab4cb33ea7d41f29d5cf",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "2290999c3374ace3d4f2b8d1c7bdbc65d58c3f70afb8c1159764ab2aeaae41f3",
+      "candidate_manifest_sha256": "ceb5e2c84ed4f97b0ebb8661d6a20b204f199ae77418e895b9eafd4f6e856bf8",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b53b0",
+        "length": 101,
+        "bytes_evidence_id": "ev_c1ecd56e16a5cad0e9aca6ae529e15b114fd9452541e513b7975562856617372",
+        "window_offset": 0,
+        "sha256": "2df6633b5d116e7ad6fb3b539aa18af02cc480e7e37338c52f9376f561bce01f",
+        "kind": "body",
+        "native_instructions": 31
+      }
+    },
+    {
+      "address": "0x4b56d0",
+      "name": "restore_actor_find_combat_target_on_tile",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t actor_id",
+      "canonical_ctype": "int32_t",
+      "call_arguments": "actor_id",
+      "native_instructions": 55,
+      "role": "Combat target lookup on tile",
+      "body_sha256": "5ae3e808488c5c11fa37637baa22a34d673e6b9089d4cc7e8157805a33381fca",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "2290999c3374ace3d4f2b8d1c7bdbc65d58c3f70afb8c1159764ab2aeaae41f3",
+      "candidate_manifest_sha256": "ceb5e2c84ed4f97b0ebb8661d6a20b204f199ae77418e895b9eafd4f6e856bf8",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b56d0",
+        "length": 155,
+        "bytes_evidence_id": "ev_aef2ccd0f219f031fb3ff9cbd6db70753c06316f529e48a01aba8a68eece5920",
+        "window_offset": 0,
+        "sha256": "9df592a57a250e774a4795169d6837740e767af64c25484a11e6dfd70eb73848",
+        "kind": "body",
+        "native_instructions": 55
+      }
+    },
+    {
+      "address": "0x4b5770",
+      "name": "restore_actor_find_projectile_victim_on_tile",
+      "kind": null,
+      "ctype": "int32_t",
+      "parameters": "int32_t actor_id",
+      "canonical_ctype": "int32_t",
+      "call_arguments": "actor_id",
+      "native_instructions": 36,
+      "role": "Projectile victim lookup on tile",
+      "body_sha256": "f33cbb160be9aea38926aa8b9fc547f54a35cea9c53a4f9939c8dea01d108f3a",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "2290999c3374ace3d4f2b8d1c7bdbc65d58c3f70afb8c1159764ab2aeaae41f3",
+      "candidate_manifest_sha256": "ceb5e2c84ed4f97b0ebb8661d6a20b204f199ae77418e895b9eafd4f6e856bf8",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b5770",
+        "length": 110,
+        "bytes_evidence_id": "ev_e252ac6820e96f947db7221cc3177e609c043f17f400760d1b29423fbeb6a7cd",
+        "window_offset": 0,
+        "sha256": "c519e7015e29653c809c079d9c36a2f616b67bcf73624f1915f100c0179987a4",
+        "kind": "body",
+        "native_instructions": 36
+      }
+    },
+    {
+      "address": "0x4b7ab0",
+      "name": "restore_formation_apply_loss_penalty",
+      "kind": null,
+      "ctype": "void",
+      "parameters": "int32_t group",
+      "call_arguments": "group",
+      "native_instructions": 59,
+      "role": "Formation loss penalty",
+      "body_sha256": "0e49769e6fe3c58efff54e5414ab409fcbed791da6d6f86e4ad35b88c0b28ecd",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "10db971826c7af307158bd67eabddb1882ac7552799fe8e068bee000e34ec076",
+      "candidate_manifest_sha256": "318484b934318c75b6a3908bfbc25ad1386c59f7d93a47024089159c4ab685a2",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4b7ab0",
+        "length": 146,
+        "bytes_evidence_id": "ev_9bc6439742c04b9ed9e75a87954c0e7164726e0d8fac824b838b2d4844ab903e",
+        "window_offset": 0,
+        "sha256": "a06f623c4a57351ee478022f75803255afe6781880cea82d9b406f8ed6bf0529",
+        "kind": "body",
+        "native_instructions": 59
+      }
+    },
+    {
+      "address": "0x4bc4a0",
+      "name": "restore_actor_apply_contact_damage",
+      "kind": null,
+      "ctype": "void",
+      "parameters": "int32_t actor,int32_t target",
+      "call_arguments": "actor,target",
+      "native_instructions": 116,
+      "role": "Actor contact damage and states",
+      "body_sha256": "4f1d67a834e619f07537fc00a0eb73d79b6323236adb1af46de60720eb7c887e",
+      "stage": "C_transcribed_pending_joint_verification",
+      "raw_model_retained": true,
+      "candidate_source_sha256": "10db971826c7af307158bd67eabddb1882ac7552799fe8e068bee000e34ec076",
+      "candidate_manifest_sha256": "318484b934318c75b6a3908bfbc25ad1386c59f7d93a47024089159c4ab685a2",
+      "evidence_record": "metadata/actor-cohort-100-new-rea-records.json",
+      "native_body_evidence": {
+        "address": "0x4bc4a0",
+        "length": 382,
+        "bytes_evidence_id": "ev_aea070b9cb9302830428abe85d12dade0cf5bcf625174d04a2690b38045428c5",
+        "window_offset": 0,
+        "sha256": "13b54ac64d8d0efcd1a33f88d7eaddedf065a5e5ea7fd398b1c4b93a1740d614",
+        "kind": "body",
+        "native_instructions": 116
+      }
+    }
+  ],
+  "planned_remaining": [
+    {
+      "address": "0x497a30",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x497450"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x497cf0",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x497450"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4807d0",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x497010"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4b28a0",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x497450"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4999e0",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x48e9e0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x499b50",
+      "group": "sentry_target_children",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x48e9e0",
+        "0x497450",
+        "0x497cf0",
+        "0x49aeb0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x491a90",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4923a0",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x492580",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x492650",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x492770"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x492770",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x492d20",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4930b0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4930b0",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4937a0",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4b22e0",
+      "group": "human_walker_states",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4923a0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4f6420",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x492d20",
+        "0x4930b0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480860",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x491a90"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4808a0",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x491a90"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4809b0",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x491a90"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480b80",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4937a0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480c60",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4937a0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480d60",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4937a0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x495a40",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x491a90"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x495af0",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x491a90"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x459ff0",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x492650"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x490b50",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x490e00",
+      "group": "human_walker_states",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "same actor callback registry",
+      "related_source_parents": [],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4b4220",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x48a720",
+        "0x48c2b0",
+        "0x48c6a0",
+        "0x48ded0",
+        "0x490e00",
+        "0x4ac450",
+        "0x4af4e0",
+        "0x4afeb0",
+        "0x4b4420",
+        "0x4b45c0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4b46b0",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4ac450"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4b3340",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4a7030"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4bce90",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4bcf70"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4bcf40",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4ae650",
+        "0x4aed10"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4bcf70",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4bcf40"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4be4a0",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x4a4fd0"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4e91e0",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x48a720"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480e90",
+      "group": "actor_path_children",
+      "stage": "planned",
+      "owner": null,
+      "relationship": "static child path from actor callback/state helpers",
+      "related_source_parents": [
+        "0x49b610"
+      ],
+      "planning_only": true,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x480060",
+      "group": "discovered_direct_query_dependencies",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "Direct typed query dependency discovered while translating the connected parents",
+      "related_source_parents": [
+        "0x497a30"
+      ],
+      "planning_only": true,
+      "new_rewrite_credit": 0,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x4800b0",
+      "group": "discovered_direct_query_dependencies",
+      "stage": "reserved_for_C_translation",
+      "owner": "actor_c750_c",
+      "relationship": "Direct typed query dependency discovered while translating the connected parents",
+      "related_source_parents": [
+        "0x480060"
+      ],
+      "planning_only": true,
+      "new_rewrite_credit": 0,
+      "native_scope_authentication_required": true
+    },
+    {
+      "address": "0x459ec0",
+      "group": "discovered_direct_query_dependencies",
+      "stage": "reserved_for_C_translation",
+      "owner": "animal_parent",
+      "relationship": "Direct typed query dependency discovered while translating the connected parents",
+      "related_source_parents": [
+        "0x492650",
+        "0x492d20"
+      ],
+      "planning_only": true,
+      "new_rewrite_credit": 0,
+      "native_scope_authentication_required": true
+    }
+  ],
+  "already_ordinary_excluded_from_new_count": [
+    "0x45d010",
+    "0x45d370",
+    "0x492fc0"
+  ],
+  "new_algorithm_provider_selection_audit": [
+    {
+      "address": "0x4998f0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "c2ba99765e67211dab94538addf451dd62f930ee5c4c78c73d57e14fe82939dc",
+      "before_model_sha256": "490d7f4e59b9b253bd3fce8de2210ce429f913b7cbfa67d0e912cd553ba9b773",
+      "native_instruction_tags": 82,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x494800",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "35d10892512c79ed4edcbf425f848f53851f801c2191b937a685341fc1413371",
+      "before_model_sha256": "2c46bc61955a3290ccce9d8771fc6cfd59935c875f5c8ae1ae7960ea9135084d",
+      "native_instruction_tags": 167,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x494b30",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "c9a713ebb7400971309ab2b3d3fd29ea14ea672466e83a995ed27f03c767e0d9",
+      "before_model_sha256": "0b7a25d7cd01c7a6dce6ff52647c7098fe8e897761afac9b764deb0c1e272fd6",
+      "native_instruction_tags": 250,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x499e50",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "cece77cb3f3764fb6fc57e69d5b71277d676c11f77bc1a2f5dcc406793e95b7e",
+      "before_model_sha256": "fd3902f2a9cb0c0dfcc2d4151112f70e87b963e631d26f13107d4069802c47f0",
+      "native_instruction_tags": 206,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4941b0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "8729a5239b994bae7126f4ce46956e2606fcfec2490db1d3a770eac10cc92f54",
+      "before_model_sha256": "3b2806f55896f9e652767117eec6eec984d6ab6896ad35582aa23c8531f3571d",
+      "native_instruction_tags": 16,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x494200",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "8fe2309f9d0581a9d3340620630745522fab2e42ce8279eafd58dfcd6ca78fe2",
+      "before_model_sha256": "aa4332248b570354b1ab67dce047ebeeb070385775bd73cd8732c8a49df760d0",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4942f0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "d25d4b9cc92664fd1db3c7c71de46c9c49ab0d2ff73f1d85f336236bc580a8a2",
+      "before_model_sha256": "d3717847ee96d1c85498082209f2e5258823a649674118234105c61236b9d3f9",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4943e0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "c49e33b1d3960d3174cd395bb178bacdbd452924293477e7b31ffc8f691cc891",
+      "before_model_sha256": "73557155209de4017fccc4808ee7eb14d397b9e1058db173169be442517ac696",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4944d0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "7a919a7a4a38eb7b36828fcee723accc2cd5341e623ac9e604f39f317a14b7d3",
+      "before_model_sha256": "e656f0ae514629bb639ab6c0999d92cafa3b395e25e59c3d704699477c81cf9a",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4945c0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "e0db84f947276c689f6959eb8ba0b45798bf8495bb9e3d1ee92210f17f350872",
+      "before_model_sha256": "8f0243a2ef7424529a5a1270c86336faee8606933300c50fd1fed08b0ec0f425",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4946b0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "180d5be1da44c43dcf88cc775a7ee0b1dfc872f60377ad54f3d1e9af551330a1",
+      "before_model_sha256": "ff9d50e4922fea7b869821b121fe2dc3af6e741128e3c819f3f5db2033d2bfe6",
+      "native_instruction_tags": 0,
+      "shared_frame_model": true,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4947a0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "176d33e26baaa2a6a9438b644c69a6e1fc3528233628fbe05019157e2431497c",
+      "before_model_sha256": "513b282bf1b85a3c13cdaabe38f55bbd211323a1411f25b26f88961360d637b3",
+      "native_instruction_tags": 25,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b4420",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "ef5852007f3110c420a1ab0440ed77c94ca9e8c492a3d818696cbb344be9b5f6",
+      "before_model_sha256": "55c5109f0b8d57f2519413ff82e59d4554947d4f65ed8bac6c8de4bb11c4b241",
+      "native_instruction_tags": 127,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b45c0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "ccfc779e20efac690fc64e4bc2234c7deb30edc6b1e1dd943684100e61eb3dfc",
+      "before_model_sha256": "9e3f2351e69f11b2bb58bf82232bc9a187c2e5470a71301b65f3b5c327d04632",
+      "native_instruction_tags": 73,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b53b0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "283506340310a7143b85cf71952109ad6b45e2e76afcec90d3d43cd0f0a15a7c",
+      "before_model_sha256": "7941e2d34fd6c12ddbe8af28f0fe04b971a0d3d7dcebdbe489e2fb8b09ddaedc",
+      "native_instruction_tags": 31,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b56d0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "1bc112a4dd30d8d1752f7fe33d629ee31586642ea7de6a2aeb5ecbb2103fb6f3",
+      "before_model_sha256": "5deffb1e6b3aff8a3da839a70fdb469e251f78efae905085967e0e6ee42daa8d",
+      "native_instruction_tags": 55,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b5770",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "20f899087bbf485f459c7014a79303513a0eeedb7492c1286a8645a5e16919e9",
+      "before_model_sha256": "bd520ed80d3883ebdde31459b188c3c2d60093305c45045296513cd14dbe7210",
+      "native_instruction_tags": 36,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b1700",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "e836dc6a2d4aa2ebecfb0ab8607663200220512eb6be6efd6456ee27950f81a8",
+      "before_model_sha256": "7fe90e218493f06cb29a455599ce228700fceaa6232f84ae2a720dc58da98650",
+      "native_instruction_tags": 36,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b1210",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "cad67f942edb33116ac6bbb889f62deeceb7942d8e4bea6d10ea6f5c45dba502",
+      "before_model_sha256": "93a7037fb48116fc907f6f8b401f6631d21656cdf64b89f882cde9e8bfbad987",
+      "native_instruction_tags": 333,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4bc4a0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "e6d0287260da62624daa5170f2a50ae760046c1ec837738d45cafba09aee8fb5",
+      "before_model_sha256": "6e258713dc52deeebd79f7b7205315b89049d4ec728a90b1a1a943d4be950148",
+      "native_instruction_tags": 116,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4b7ab0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "aac986c150839ee6f7277fa8a94d644b4d09e796148b18a58c0bda818d8f101f",
+      "before_model_sha256": "3f3b963aa91e6d1478ea8e3cdc358a9e5246c3dbd8826105cda12c1297948c82",
+      "native_instruction_tags": 59,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x444b80",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "7329b8ec543e2083f17fe0a28a30b219798aa23adf894d3be53ff3b28337beb8",
+      "before_model_sha256": "d3237a8a5cbc38f7ba05dfe149ca5c5775263c74976c519f16e9f7e321c06de3",
+      "native_instruction_tags": 19,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x444bd0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "783892de7fb11b5f6ec2271816f95947ca04756c51c5325f936f221aa5315f81",
+      "before_model_sha256": "6952b648512893f7c028a336312691977cd966205af3bf8ea6857516bea41e7e",
+      "native_instruction_tags": 19,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4454d0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "ccdf1e4d5c9617437d4987d53ebbbec1663473c4ffce642df920297430869b31",
+      "before_model_sha256": "7d5e4d89bf09246eb8e3c3c51aa2f8d3c5ac398effcebcad8bc75ba40a19013a",
+      "native_instruction_tags": 167,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x445980",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "72bee22ebb9bed3e79433f769e1254491708d15ad3cb2bb7770b0451357b6341",
+      "before_model_sha256": "046bd77afc4e263b5364deb16bbf93c5c3986be3c20b3638d747fa6075655659",
+      "native_instruction_tags": 106,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x445e50",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "6ef67d81743c43dee0856dbe802c55a5d67924227de3fd86d7ac93e0f8977797",
+      "before_model_sha256": "373f68e41d10dcbc09e71e5b73020e5a0c1e3b9056ad005fa7965cb0c64ccd54",
+      "native_instruction_tags": 183,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x445670",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "eeef768ca1bbb46a1b8ad376ad0b1720b532f226f90d499281eb539939a601a1",
+      "before_model_sha256": "c989ce818806f765e5d4e88891c02aaff1943aac4537ad3e77aba377c86b4e8f",
+      "native_instruction_tags": 216,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x445ac0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "7cacedf71f4b10afb944a416d14bed457b2aa1b9ee412c6a1d4817a9eaf5e310",
+      "before_model_sha256": "0be24b946142783fc7d5adbe4c9b35ef32b4452709bf88289d11e413c6bab968",
+      "native_instruction_tags": 175,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x4450c0",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "8676c46422ac943b0b52a2f08406a818619babb760bbd08eaa113bd3fbde74d4",
+      "before_model_sha256": "75138f09536699b0eb0858cd46c5976f292f1fef0edead38ac2d3ff44eaaf848",
+      "native_instruction_tags": 258,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x495840",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "c262a167ff92751b62ee2e0cae9630deeb21b40d3530ec10b9618cae84019295",
+      "before_model_sha256": "bb5a2417cf02484d0335877c312cea9bbc680a2c834e4311c7955052ac68bb7d",
+      "native_instruction_tags": 77,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    },
+    {
+      "address": "0x495950",
+      "before_source_checkpoint": "1c63f52aca41e4d0c46b3e20576672206d401933",
+      "before_canonical_sha256": "1a793af52ba948ba2b0a1e8969d4c7a700f73ba350e923b15ddb0f9dae4f8759",
+      "before_model_sha256": "ef604d582950191684fcf1ea3851986d189dcbf36c8b09bb68c7b1ace2f7a135",
+      "native_instruction_tags": 67,
+      "shared_frame_model": false,
+      "linked_native_alias_provider": {
+        "PharaohRestoreC.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        },
+        "restore_link_check.exe": {
+          "status": "no standalone symbol listed; inlining/removal possible; map ownership not inferred"
+        }
+      },
+      "new_ordinary_algorithm": true
+    }
+  ],
+  "new_cue_context": {
+    "native_site": "0x4bc5f9",
+    "typed_contract": "void parent; outward physical result unpromised",
+    "global_cue_audit_passed": false,
+    "full_RAW_parent_retained": true
+  },
+  "typed_creator_BYTE_boundary": {
+    "proof_path": "metadata/actor-cohort-100-creator-byte-contract.json",
+    "sha256": "93d5c39e7478633b85c0098be359e55b569d95e80d8acdf2fa4e8fb7328820e2",
+    "physical_DWORD_argument_slot_equality_claimed": false
+  },
+  "new_scope_evidence": {
+    "path": "metadata/actor-cohort-100-new-rea-records.json",
+    "sha256": "70b625fc587a88f7d30c165fc81f96945e50f7686227473a8f36287654665bd3"
+  },
+  "qualified_pending_domains": [
+    {
+      "address": "0x492770",
+      "domain": "difficulty0..4 for private native stack array",
+      "counted_as_transcribed": false
+    },
+    {
+      "address": "0x4930b0",
+      "domain": "difficulty0..4 for private native stack array",
+      "counted_as_transcribed": false
+    }
+  ],
+  "existing_ordinary_refinements": {
+    "new_rewrite_credit": 0,
+    "functions": [
+      "restore_actor_link_to_grid",
+      "restore_actor_unlink_from_grid"
+    ],
+    "source_changes": [
+      {
+        "path": "runtime/menu_drag_actor_walk_link.c",
+        "old_sha256": "f9b3690e713005ad5e5c45f87b59cacd1cba58a3e4c1b830b99a3e0369d4478f",
+        "candidate": "next4b52f0/link_result_candidate.c",
+        "candidate_sha256": "8df43269631cf0aa15fbf2b295d365a4f6211d84d0fefa5156c251584653b663",
+        "new_sha256": "8df43269631cf0aa15fbf2b295d365a4f6211d84d0fefa5156c251584653b663"
+      },
+      {
+        "path": "runtime/menu_drag_actor_walk_unlink.c",
+        "old_sha256": "071df66f95eedcaca4e86870d50194a87c62e4abe78bc37673a84a4f42ff1efe",
+        "candidate": "next4b5420/projected_provider.c",
+        "candidate_sha256": "908ee9ccea2333e1b3b367d2003193716cf8f33e64ac23ec258e602d94be4386",
+        "new_sha256": "0ff7ab3a68b3668869dc2291494c2fa448b688ee3535807f88f1709286b1a950"
+      }
+    ]
+  },
+  "source_hashes": {
+    "runtime/actor_command.c": "0b4b772e4b0a206a0057e72e93b215810334811f1a601b557cbc9375e258b18e",
+    "runtime/actor_civic.c": "597bd5b4eb03884f479808ce63cb3f36f81136b2628a2cf527383b75b2cfcd64",
+    "runtime/actor_civic_model.c": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
+    "include/actor_command.h": "62d89c254a84ae29b7b3dde4b2eca430c3d1afd68e9a2412f49c15edd761544c",
+    "include/actor_civic.h": "7a414c15168e1bf472ee0761434b5c137769c289c2462a3325cb70c995f2113e",
+    "runtime/menu_drag_actor_walk_link.c": "8df43269631cf0aa15fbf2b295d365a4f6211d84d0fefa5156c251584653b663",
+    "runtime/menu_drag_actor_walk_unlink.c": "0ff7ab3a68b3668869dc2291494c2fa448b688ee3535807f88f1709286b1a950",
+    "include/actor_walking.h": "1874c8858272b4ab67fea4c5f97c908bf1832f7446766a5c6aadd3e1f6d6b58d"
+  },
+  "protected_frame_models": {
+    "restore_civic_C_00444b80": "d3237a8a5cbc38f7ba05dfe149ca5c5775263c74976c519f16e9f7e321c06de3",
+    "restore_civic_C_00444bd0": "6952b648512893f7c028a336312691977cd966205af3bf8ea6857516bea41e7e",
+    "restore_civic_C_004450c0": "75138f09536699b0eb0858cd46c5976f292f1fef0edead38ac2d3ff44eaaf848",
+    "restore_civic_C_004454d0": "7d5e4d89bf09246eb8e3c3c51aa2f8d3c5ac398effcebcad8bc75ba40a19013a",
+    "restore_civic_C_00445670": "c989ce818806f765e5d4e88891c02aaff1943aac4537ad3e77aba377c86b4e8f",
+    "restore_civic_C_00445980": "046bd77afc4e263b5364deb16bbf93c5c3986be3c20b3638d747fa6075655659",
+    "restore_civic_C_00445ac0": "0be24b946142783fc7d5adbe4c9b35ef32b4452709bf88289d11e413c6bab968",
+    "restore_civic_C_00445e50": "373f68e41d10dcbc09e71e5b73020e5a0c1e3b9056ad005fa7965cb0c64ccd54",
+    "restore_civic_C_00493610": "176297b86e3ba65f07eced6df46ad0eba37b6e28d9429dc510a8380ebb02e3e6",
+    "restore_civic_C_004941b0": "3b2806f55896f9e652767117eec6eec984d6ab6896ad35582aa23c8531f3571d",
+    "restore_civic_C_00494200": "aa4332248b570354b1ab67dce047ebeeb070385775bd73cd8732c8a49df760d0",
+    "restore_civic_C_004942f0": "d3717847ee96d1c85498082209f2e5258823a649674118234105c61236b9d3f9",
+    "restore_civic_C_004943e0": "73557155209de4017fccc4808ee7eb14d397b9e1058db173169be442517ac696",
+    "restore_civic_C_004944d0": "e656f0ae514629bb639ab6c0999d92cafa3b395e25e59c3d704699477c81cf9a",
+    "restore_civic_C_004945c0": "8f0243a2ef7424529a5a1270c86336faee8606933300c50fd1fed08b0ec0f425",
+    "restore_civic_C_004946b0": "ff9d50e4922fea7b869821b121fe2dc3af6e741128e3c819f3f5db2033d2bfe6",
+    "restore_civic_C_004947a0": "513b282bf1b85a3c13cdaabe38f55bbd211323a1411f25b26f88961360d637b3",
+    "restore_civic_C_00494800": "2c46bc61955a3290ccce9d8771fc6cfd59935c875f5c8ae1ae7960ea9135084d",
+    "restore_civic_C_00495840": "bb5a2417cf02484d0335877c312cea9bbc680a2c834e4311c7955052ac68bb7d",
+    "restore_civic_C_00495950": "ef604d582950191684fcf1ea3851986d189dcbf36c8b09bb68c7b1ace2f7a135",
+    "restore_civic_C_00498160": "8cac231dda48457e01d54877a8e11a44235a8c94afc1be8467606bdb164ad42d",
+    "restore_civic_C_00498df0": "0ae8700bb292796c933be2f44a18283d825d0863d52778d06f2534964fef0be2",
+    "restore_civic_C_004991a0": "9943608e7ec2a712e37d3eab243d67c6caaf420c11a4912ac3896ef55142e8d0",
+    "restore_civic_C_0049bd40": "75ee563dd98e01a1e7a7d8c99c4879d5f7fd3968168bd8b122f5085229d18303",
+    "mi_read_0049bd40": "9993a8ddd4ae3f3ac7fb13bb6efc9d655ec9981272580814dc9495987ee25402",
+    "mi_rom_0049c6d8": "0ef0f6595ae1965eaa4d984abd0c6e2d55aa8a3de95973f30872aedd6835d010",
+    "mi_rom_0049c704": "50147f7c8d6f79fdb89e0eb25cb29a761bb9ff1e5dfe9096e7d7d10cd80f3af7",
+    "mi_rom_0049c738": "1285ac586b328d4c8969ae0cb25c70663dca52b7f144821f91f8332af50e06a6",
+    "mi_rom_0049c71c": "14cc8f699ae9270408a3d09a9bf85d4b789443ce873ea59d5508e58b6dcdece4",
+    "restore_civic_C_0049c750": "355557418f5b5d3bcd40acc585d4cefbfd9722c41705e1284da8b7a5a586d2eb",
+    "mi_read_0049c750": "2d5cdb7b6baef27d9d666f90ab9c15a10b0927c9831c11c376c0589c2b4b53fc",
+    "mi_rom_0049d07c": "46a7224f86f72d19d0d4bc3a62b9d7038ffd0336b57edeea9c8dc33fd76e0335",
+    "mi_rom_0049d0a8": "a5abc93102a94e9417c6ea32041040501dce007e921695f427c50d29bbc87371",
+    "mi_rom_0049d0e0": "60da2c4ae482d13075ab2bd7b8dd8bfc2ba5d19f42b41068694bd6bcf79118b5",
+    "mi_rom_0049d0c0": "61cc65608625f7a80ceac093795759779f8c57efcbb2a3059aaa3e5d8cb3bd8b",
+    "restore_civic_C_004b1210": "93a7037fb48116fc907f6f8b401f6631d21656cdf64b89f882cde9e8bfbad987",
+    "mi_read_004b1210": "d918ba7291fc7ffce9ceda50dd6db176a0b315ea0d262304d72da8c13eaf0b35",
+    "mi_rom_004b16a8": "f8e7e4c23f228bf932759ac56cf407c767b11ea3f22b2eb120ac8b46d1d264ae",
+    "mi_rom_004b16a0": "927c624a757d102589b605ef55988773a82c60f5a678891c33888cc70d4f5aca",
+    "restore_civic_C_004b1700": "7fe90e218493f06cb29a455599ce228700fceaa6232f84ae2a720dc58da98650",
+    "mi_read_004b1700": "0e5c91b9c5f4ae0439f49d04ac61a0cb2fee430ae0470968425c634f7e76ece0",
+    "mi_rom_004b1778": "936fba7ea4ade17aa70e324c9bc95fec2d023ca4fe8f16f6f960fe8f8bec0dd9",
+    "mi_rom_004b1770": "1fd5a6de5e4573c6d0834bd99203b01199b87ee4e3f9a3f408a02e6a42b0ce3d",
+    "restore_civic_C_004b4420": "55c5109f0b8d57f2519413ff82e59d4554947d4f65ed8bac6c8de4bb11c4b241",
+    "restore_civic_C_004b45c0": "9e3f2351e69f11b2bb58bf82232bc9a187c2e5470a71301b65f3b5c327d04632",
+    "restore_civic_C_004b5050": "e71a7950651cb8aa7759c71b0de7afcc2715690c2edf0499205de8c8e7bc170b",
+    "mi_read_004b5050": "1666142c466022c0f3cfa6df86efb953b516331a6468fd8599f3d2ceeb40d008",
+    "mi_rom_004b5174": "f57bd2e963e93ab8c0a8c42622243c1df4ea735594353c1c5d0b80bd5d9790fc",
+    "mi_rom_004b51a8": "e1f03604b0447b670cc2bf0a2079a1c01cc022909d9d1abff433c8f701cff6df",
+    "restore_civic_C_004b53b0": "7941e2d34fd6c12ddbe8af28f0fe04b971a0d3d7dcebdbe489e2fb8b09ddaedc",
+    "restore_civic_C_004b56d0": "5deffb1e6b3aff8a3da839a70fdb469e251f78efae905085967e0e6ee42daa8d",
+    "restore_civic_C_004b5770": "bd520ed80d3883ebdde31459b188c3c2d60093305c45045296513cd14dbe7210",
+    "restore_civic_C_004b7ab0": "3f3b963aa91e6d1478ea8e3cdc358a9e5246c3dbd8826105cda12c1297948c82",
+    "restore_civic_C_004bc4a0": "6e258713dc52deeebd79f7b7205315b89049d4ec728a90b1a1a943d4be950148",
+    "laborer_RAW_delegation": "1b36ff8cda96f17490748501efd739eba8d3d554f7f912846e9884fd6e53ddd6"
+  },
+  "syntax_validation": {
+    "strict_Win32_C11_exit": 0,
+    "options": [
+      "/W4",
+      "/WX",
+      "/GS-",
+      "/Ob0",
+      "/O2"
+    ],
+    "sources": [
+      "runtime/actor_command.c",
+      "runtime/menu_drag_actor_walk_link.c",
+      "runtime/menu_drag_actor_walk_unlink.c"
+    ],
+    "log_sha256": "a19ba7a923f7a0b70cea6d5d8400cec3a35f2cdaca32d235a11e2ae07b14f3b4"
+  },
+  "current_source_main_build": "not_run; deferred to approximately100-function cohort",
+  "joint_native_comparison": "not_run",
+  "broad_regressions": "not_run",
+  "complete_game_reconstruction": false,
+  "host_game_launched": false,
+  "CD_fallback": "original commented and disabled; unchanged",
+  "limitations": [
+    "Planning relationships from existing source/models are not a complete native call graph. Authenticate each pending scope before translation.",
+    "If a planned entry already has ordinary main C, do not count it again; replace the queue entry with a connected missing function.",
+    "Earlier compile/link and accepted reports remain historical; no main/native equivalence is claimed for this current tree.",
+    "Private focused witnesses cover only uncertain interfaces. Full physical register/flags and global RAW qualification remain open.",
+    "Enemy45 and Chariots stack-table invariants are unproved. Their original canonical/frame paths are retained."
+  ]
+}

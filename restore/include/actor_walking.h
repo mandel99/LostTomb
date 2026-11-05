@@ -11,6 +11,8 @@ void FUN_004a5da0(int32_t actor,uint32_t speed);
 void FUN_004b27e0(int32_t actor,int32_t substeps);
 void FUN_004b33d0(int32_t actor),FUN_004b3530(int32_t actor),FUN_004b3c60(int32_t actor);
 void FUN_004b52f0(int32_t actor),FUN_004b5420(int32_t actor);
+uint32_t restore_actor_link_to_grid(int32_t actor);
+uint32_t restore_actor_unlink_from_grid(int32_t actor);
 void FUN_004b3f00(int32_t actor),FUN_004b3250(int32_t actor),FUN_004b2d20(int32_t actor);
 void FUN_004b1210(int32_t actor,int32_t other);
 uint32_t FUN_0051cba0(int32_t x,int32_t y,int32_t target_x,int32_t target_y);
