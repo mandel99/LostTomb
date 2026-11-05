@@ -1,0 +1,2882 @@
+{
+  "schema": "cohort6-laborer-binding-contracts-v1",
+  "entries": 46,
+  "methods_or_thunks": 19,
+  "caller_closure_entries": 27,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_instructions": 4791,
+  "native_bytes": 14635,
+  "new_C_algorithms": 0,
+  "reused_C_entries": 46,
+  "whole_closed_set_required": true,
+  "incoming_saved_C_edges": 67,
+  "historical_candidate_manifest_sha256": "5a61d7dfd951ef4394848aed63e28f1fb04231012b234f8383fc3e36c6efa75a",
+  "historical_packet_bridge_sha256": "0bda894f7308e660177e3942138b03b9292d2b3e14844e5ea26eb908b63863a0",
+  "current_bridge": {
+    "path": "include/native_member_bridge.h",
+    "sha256": "0fba9aad02a03add593984fae66a7efa52f6abd83773747290287610c9dfe747"
+  },
+  "bridge_finite_gate": {
+    "path": "metadata/cohort5-joint-comparison.json",
+    "sha256": "3c062fe2bffd6599674270315e72564434c52392d5a67167e9c96e102c6ac539"
+  },
+  "capture_contract": {
+    "captured_state": "Actual PUSHFD/PUSHAD image: EDI,ESI,EBP,savedESP,EBX,EDX,ECX,EAX,EFLAGS. No register is zeroed or added as an invented logical input.",
+    "original_stack": "Modeled instructions keep the original entry ESP and actual caller argument/local addresses, so native stack aliases and parent EBP remain available. Only the C control stack is separated.",
+    "control_stack": "The canonical entry advances one page at a time below the64KB native workspace using paired register/flags-neutral XCHGs, restoring each touched DWORD. PUSHFD/PUSHAD capture occurs only below that workspace; savedESP is adjusted to the real original anchor. No initial native local is replaced by the snapshot. C executes below the snapshot; deeper frames and asynchronous/fault/unwind context remain qualified.",
+    "restore": "Existing C providers update the snapshot; original physical ESP and per-entry RETn are restored without changing the modeled flags. POPAD intentionally ignores its savedESP slot.",
+    "named_API": "Named snapshot calls require a separate physical C control stack, a real savedESP+4 native entry anchor, initialized original return/argument slots and a snapshot outside the borrowed workspace."
+  },
+  "immutable_algorithm_sources": {
+    "runtime/actor_laborer_model.c": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+    "runtime/actor_laborer.c": "6525218d6b37456c47349a3df4bf79d84e13bd5050df02c361d7a2528308dcda"
+  },
+  "native_cleanup": {
+    "0x00401be0": 4,
+    "0x0040ecf0": 4,
+    "0x0040f0d0": 12,
+    "0x00417640": 4,
+    "0x00417940": 12,
+    "0x004223f0": 0,
+    "0x004233f0": 0,
+    "0x00423530": 0,
+    "0x00423670": 0,
+    "0x004237b0": 0,
+    "0x004238f0": 0,
+    "0x00423a30": 0,
+    "0x00423b70": 0,
+    "0x00423cb0": 0,
+    "0x00423df0": 0,
+    "0x00423f30": 0,
+    "0x00424070": 0,
+    "0x004241b0": 0,
+    "0x004242f0": 0,
+    "0x00424430": 0,
+    "0x00424570": 0,
+    "0x004246b0": 0,
+    "0x004247f0": 0,
+    "0x00424930": 0,
+    "0x00424a70": 0,
+    "0x00424bb0": 0,
+    "0x00424cf0": 0,
+    "0x00424e30": 0,
+    "0x00424f70": 0,
+    "0x004250b0": 0,
+    "0x004251f0": 0,
+    "0x004beeb0": 4,
+    "0x004e6bd0": 4,
+    "0x004e6e70": 12,
+    "0x00545740": 8,
+    "0x00545bc0": 4,
+    "0x00546790": 12,
+    "0x00547870": 8,
+    "0x00547b60": 4,
+    "0x00547e20": 12,
+    "0x0054f470": 8,
+    "0x0054fb20": 4,
+    "0x00555e80": 8,
+    "0x00556410": 4,
+    "0x00558be0": 8,
+    "0x005590a0": 4
+  },
+  "members": [
+    {
+      "address": "0x00401be0",
+      "source": "src/unit_00011.c",
+      "name": "restore_laborer_native_00401be0",
+      "canonical_symbol": "FUN_00401be0",
+      "canonical_source": "src/unit_00011.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x401d11"
+      ],
+      "native_bytes": 308,
+      "native_byte_sha256": "85b3f4adef306e983b66d720e7fff76ca6672019bfb866b236b44f71a2b8a565",
+      "native_ranges": [
+        {
+          "start": "0x401be0",
+          "end": "0x401d13"
+        }
+      ],
+      "native_instructions": 101,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0000.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00401be0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "e9941c1fbef7f6542b069d94c3151f73f6af9f84ef82b3389bc0d0c39f5f095b",
+      "source_definition_symbol": "restore_laborer_native_00401be0",
+      "source_sha256": "7a3f5c56863d72491bf9803dda5c6d1b94fda27d4496a10663fd813e0cd3b87e",
+      "body_sha256": "7a3f5c56863d72491bf9803dda5c6d1b94fda27d4496a10663fd813e0cd3b87e",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_ca7cf8ddf8ae06dcab5854a80d6f5240b8d8f24a053fce5ebbbd5b19349dd8e5"
+      ],
+      "native_evidence_id": "ev_ca7cf8ddf8ae06dcab5854a80d6f5240b8d8f24a053fce5ebbbd5b19349dd8e5",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x378680",
+          "owner": "f   pharaoh_restored:unit_00011.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x378580",
+          "owner": "f   pharaoh_restored:unit_00011.obj"
+        }
+      }
+    },
+    {
+      "address": "0x0040ecf0",
+      "source": "src/unit_00110.c",
+      "name": "restore_laborer_native_0040ecf0",
+      "canonical_symbol": "FUN_0040ecf0",
+      "canonical_source": "src/unit_00110.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x40ed6b"
+      ],
+      "native_bytes": 126,
+      "native_byte_sha256": "395956d4fb28240f1977cdee047fc589e18ec8444febdda2b1190a079cffb82b",
+      "native_ranges": [
+        {
+          "start": "0x40ecf0",
+          "end": "0x40ed6d"
+        }
+      ],
+      "native_instructions": 48,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0064.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_0040ecf0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "e5a35b0ec2a623615bf6ac14b3ba458cdbb1435a9992a7a12ea35751e7494bf7",
+      "source_definition_symbol": "restore_laborer_native_0040ecf0",
+      "source_sha256": "677c3bc39912dfcf3d45e309a8c580dde2c47cb18ea5a59eb27675501d8a3f06",
+      "body_sha256": "677c3bc39912dfcf3d45e309a8c580dde2c47cb18ea5a59eb27675501d8a3f06",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_46512fde01597fdf3a48413cefdd3841e770a4e5480428767857501789e21b90"
+      ],
+      "native_evidence_id": "ev_46512fde01597fdf3a48413cefdd3841e770a4e5480428767857501789e21b90",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x372b90",
+          "owner": "f   pharaoh_restored:unit_00110.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x372a90",
+          "owner": "f   pharaoh_restored:unit_00110.obj"
+        }
+      }
+    },
+    {
+      "address": "0x0040f0d0",
+      "source": "src/unit_00113.c",
+      "name": "restore_laborer_native_0040f0d0",
+      "canonical_symbol": "FUN_0040f0d0",
+      "canonical_source": "src/unit_00113.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 12,
+      "native_ret_sites": [
+        "0x40f21e",
+        "0x40f22f",
+        "0x40f249"
+      ],
+      "native_bytes": 380,
+      "native_byte_sha256": "46309c047d0e5b77de282812e5d6cb05d3b2116e0447993336c209f5085b6cbe",
+      "native_ranges": [
+        {
+          "start": "0x40f0d0",
+          "end": "0x40f24b"
+        }
+      ],
+      "native_instructions": 129,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0064.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_0040f0d0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "20217d994f44c679df10cb642465669ae0ff56616284bbce189c2763642b9c74",
+      "source_definition_symbol": "restore_laborer_native_0040f0d0",
+      "source_sha256": "32ad1bda2f0605ad4d5194c5d963e4085d79e7c0c30708c9e8783f912e7ae5c1",
+      "body_sha256": "32ad1bda2f0605ad4d5194c5d963e4085d79e7c0c30708c9e8783f912e7ae5c1",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_65e1ffa2f4578aaac0c9efa001c123d3d311e92425f8e37100d2b975199f9627"
+      ],
+      "native_evidence_id": "ev_65e1ffa2f4578aaac0c9efa001c123d3d311e92425f8e37100d2b975199f9627",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x372400",
+          "owner": "f   pharaoh_restored:unit_00113.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x372300",
+          "owner": "f   pharaoh_restored:unit_00113.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00417640",
+      "source": "src/unit_00204.c",
+      "name": "restore_laborer_native_00417640",
+      "canonical_symbol": "FUN_00417640",
+      "canonical_source": "src/unit_00204.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x417698"
+      ],
+      "native_bytes": 91,
+      "native_byte_sha256": "bdf07212bd0ce104ec376530b75f4458432d3bf6ca0cca81df8b83ee1210177f",
+      "native_ranges": [
+        {
+          "start": "0x417640",
+          "end": "0x41769a"
+        }
+      ],
+      "native_instructions": 35,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0192.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00417640",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "1660cd98cb813524d38973dba4202a84f5f476c02758327686d9b37fec81a2a1",
+      "source_definition_symbol": "restore_laborer_native_00417640",
+      "source_sha256": "3d548b6c353da1041e51b58d8a633d9704552840ba286d821bceca73ea0cbdef",
+      "body_sha256": "3d548b6c353da1041e51b58d8a633d9704552840ba286d821bceca73ea0cbdef",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_27aa430008a5e587a33045deeeb828f5175950590b0aa50d772d5f84e6b016b4"
+      ],
+      "native_evidence_id": "ev_27aa430008a5e587a33045deeeb828f5175950590b0aa50d772d5f84e6b016b4",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x36e240",
+          "owner": "f   pharaoh_restored:unit_00204.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x36e140",
+          "owner": "f   pharaoh_restored:unit_00204.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00417940",
+      "source": "src/unit_00207.c",
+      "name": "restore_laborer_native_00417940",
+      "canonical_symbol": "FUN_00417940",
+      "canonical_source": "src/unit_00207.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 12,
+      "native_ret_sites": [
+        "0x417976"
+      ],
+      "native_bytes": 57,
+      "native_byte_sha256": "4f62dfa221708e2f0dbebf11a085a5d2d0d7abf997dfd5f2d87da33562fcffd4",
+      "native_ranges": [
+        {
+          "start": "0x417940",
+          "end": "0x417978"
+        }
+      ],
+      "native_instructions": 20,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0192.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00417940",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "93336485943e3292b0248514fe37872339fd4ea85c0b95c43d26ca088a400df5",
+      "source_definition_symbol": "restore_laborer_native_00417940",
+      "source_sha256": "b5a7f46e7175fd700504aa6b6b1b2ac2211cbcdf9b75cccc6525c0c8bf49dda7",
+      "body_sha256": "b5a7f46e7175fd700504aa6b6b1b2ac2211cbcdf9b75cccc6525c0c8bf49dda7",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_b8778e7f6920c75aa1179a6e3b644ccc5b30fc221c143a30470012c45516026c"
+      ],
+      "native_evidence_id": "ev_b8778e7f6920c75aa1179a6e3b644ccc5b30fc221c143a30470012c45516026c",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x36dce0",
+          "owner": "f   pharaoh_restored:unit_00207.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x36dbe0",
+          "owner": "f   pharaoh_restored:unit_00207.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004223f0",
+      "source": "src/unit_00369.c",
+      "name": "restore_laborer_native_004223f0",
+      "canonical_symbol": "FUN_004223f0",
+      "canonical_source": "src/unit_00369.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x422457",
+        "0x42248f",
+        "0x4224c7",
+        "0x4224ff",
+        "0x422537",
+        "0x42256f",
+        "0x4225a7",
+        "0x4225df",
+        "0x422617",
+        "0x42264f",
+        "0x422687",
+        "0x4226bf",
+        "0x4226f7",
+        "0x42272f",
+        "0x422767",
+        "0x42279f",
+        "0x4227d7",
+        "0x42280f",
+        "0x422847",
+        "0x42287f",
+        "0x4228b7",
+        "0x4228ef",
+        "0x422927",
+        "0x42295b",
+        "0x42298f",
+        "0x4229bb",
+        "0x4229cb",
+        "0x4229db",
+        "0x4229eb"
+      ],
+      "native_bytes": 1532,
+      "native_byte_sha256": "8526b674d14f1826dfc17eac51a99dc1a32bea8b5d3d0c74cf2bde548720a3b8",
+      "native_ranges": [
+        {
+          "start": "0x4223f0",
+          "end": "0x4229eb"
+        }
+      ],
+      "native_instructions": 579,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_004223f0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "da9f71bd7368d6d2b685f66676480497766fbcb4beb7c0b644af0e082cd3d3ec",
+      "source_definition_symbol": "restore_laborer_native_004223f0",
+      "source_sha256": "1f1d02d071ce732163a7b8a8ccded19d78c0b45355066d13ab3f7798e47306d2",
+      "body_sha256": "1f1d02d071ce732163a7b8a8ccded19d78c0b45355066d13ab3f7798e47306d2",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_9bc8ea547eb2893390071db715c828caf050d1f729843bc0ea898732ad3e0545"
+      ],
+      "native_evidence_id": "ev_9bc8ea547eb2893390071db715c828caf050d1f729843bc0ea898732ad3e0545",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366690",
+          "owner": "f   pharaoh_restored:unit_00369.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3665a0",
+          "owner": "f   pharaoh_restored:unit_00369.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004233f0",
+      "source": "src/unit_00371.c",
+      "name": "restore_laborer_native_004233f0",
+      "canonical_symbol": "FUN_004233f0",
+      "canonical_source": "src/unit_00371.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423463",
+        "0x4234b9",
+        "0x423528"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "e25f3e7dcbe6c315557378894cf2fd99940ec44d7c21198ebb6f148c6e1b5d95",
+      "native_ranges": [
+        {
+          "start": "0x4233f0",
+          "end": "0x423528"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "79dfdc2fa3302026631f3af701656fa1be165065f41f5b884861a32cae8006eb",
+      "specialization_descriptor": "0x5be508",
+      "source_definition_symbol": "restore_laborer_native_004233f0",
+      "source_sha256": "0b2b29ef709efdeecd4207a66c7adae9cb39eefd6123a75491cc96a335b7dac8",
+      "body_sha256": "0b2b29ef709efdeecd4207a66c7adae9cb39eefd6123a75491cc96a335b7dac8",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_e61c81d98491d0d7ff4fc95e034b8dd749d74c16387fd156eeb2786c237557cb"
+      ],
+      "native_evidence_id": "ev_e61c81d98491d0d7ff4fc95e034b8dd749d74c16387fd156eeb2786c237557cb",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366580",
+          "owner": "f   pharaoh_restored:unit_00371.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x366490",
+          "owner": "f   pharaoh_restored:unit_00371.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423530",
+      "source": "src/unit_00372.c",
+      "name": "restore_laborer_native_00423530",
+      "canonical_symbol": "FUN_00423530",
+      "canonical_source": "src/unit_00372.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4235a3",
+        "0x4235f9",
+        "0x423668"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "ea7359f09c9a360b4da2a52fc1b51eaf9d827cbb5d354d973b73fdffc10585b9",
+      "native_ranges": [
+        {
+          "start": "0x423530",
+          "end": "0x423668"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "054bb384b6246fd9160fc61203e53aba6528de3ba00738039eba2333cde1355e",
+      "specialization_descriptor": "0x5be538",
+      "source_definition_symbol": "restore_laborer_native_00423530",
+      "source_sha256": "8bbf4849b207a7485e131f83a1f0962750f697e2ab3a33d40b0a519e31641a86",
+      "body_sha256": "8bbf4849b207a7485e131f83a1f0962750f697e2ab3a33d40b0a519e31641a86",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_1f443d3af3a35caafe978492e1fa511e8caf01b815c2f94fb7e9941e818a4e0a"
+      ],
+      "native_evidence_id": "ev_1f443d3af3a35caafe978492e1fa511e8caf01b815c2f94fb7e9941e818a4e0a",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366470",
+          "owner": "f   pharaoh_restored:unit_00372.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x366380",
+          "owner": "f   pharaoh_restored:unit_00372.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423670",
+      "source": "src/unit_00373.c",
+      "name": "restore_laborer_native_00423670",
+      "canonical_symbol": "FUN_00423670",
+      "canonical_source": "src/unit_00373.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4236e3",
+        "0x423739",
+        "0x4237a8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "bae45bcb602cf8fa6f98f48a93c5dddd83c58d393c4236e80d8a8f2851dcd935",
+      "native_ranges": [
+        {
+          "start": "0x423670",
+          "end": "0x4237a8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "72beb8b8f21864be9b69a9d71bd284f00176246754a7bdb1086a8b873ffcf481",
+      "specialization_descriptor": "0x5be568",
+      "source_definition_symbol": "restore_laborer_native_00423670",
+      "source_sha256": "2f83720938e5e8e7836a69c0346cc0569fe657bb3f61cc7f519a8b7e8c59e609",
+      "body_sha256": "2f83720938e5e8e7836a69c0346cc0569fe657bb3f61cc7f519a8b7e8c59e609",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_2665e23a8a08cb0d33c88ff6a8393747789710ea694d88260f05b08114b1fb6a"
+      ],
+      "native_evidence_id": "ev_2665e23a8a08cb0d33c88ff6a8393747789710ea694d88260f05b08114b1fb6a",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366360",
+          "owner": "f   pharaoh_restored:unit_00373.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x366270",
+          "owner": "f   pharaoh_restored:unit_00373.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004237b0",
+      "source": "src/unit_00374.c",
+      "name": "restore_laborer_native_004237b0",
+      "canonical_symbol": "FUN_004237b0",
+      "canonical_source": "src/unit_00374.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423823",
+        "0x423879",
+        "0x4238e8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "16db5e137cd114197ea4c3202bfed6a8244622b3f83a89a1dd88f1dd440e259f",
+      "native_ranges": [
+        {
+          "start": "0x4237b0",
+          "end": "0x4238e8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "20d43efdc4e0bfdde3112fc320f21e173582ca7b64f59e56844df1169da27316",
+      "specialization_descriptor": "0x5be748",
+      "source_definition_symbol": "restore_laborer_native_004237b0",
+      "source_sha256": "7cf5ff9c0866d74322774eb8a08f6f1fbd751c59345e051528808d49cc1fb894",
+      "body_sha256": "7cf5ff9c0866d74322774eb8a08f6f1fbd751c59345e051528808d49cc1fb894",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_b3645f385788f3efd0bf0593deed31bdf77435c1eaaf57bcbb760dc683b07e3b"
+      ],
+      "native_evidence_id": "ev_b3645f385788f3efd0bf0593deed31bdf77435c1eaaf57bcbb760dc683b07e3b",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366250",
+          "owner": "f   pharaoh_restored:unit_00374.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x366160",
+          "owner": "f   pharaoh_restored:unit_00374.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004238f0",
+      "source": "src/unit_00375.c",
+      "name": "restore_laborer_native_004238f0",
+      "canonical_symbol": "FUN_004238f0",
+      "canonical_source": "src/unit_00375.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423963",
+        "0x4239b9",
+        "0x423a28"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "045b7cd9a35028d996f80117f397077b23d8028388e9230d4fd467d16d00c11b",
+      "native_ranges": [
+        {
+          "start": "0x4238f0",
+          "end": "0x423a28"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "65013dbe17bf107a2d96532e853f1a8a98ea123931ce73e3232791e7640c1d74",
+      "specialization_descriptor": "0x5be778",
+      "source_definition_symbol": "restore_laborer_native_004238f0",
+      "source_sha256": "5ff252f64826beecd0477bbf106cfd27f25f6f5d745a331a90b43b1fcedb57ce",
+      "body_sha256": "5ff252f64826beecd0477bbf106cfd27f25f6f5d745a331a90b43b1fcedb57ce",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_8be01ff13d23df9db3295e2462a4d2b4559656ba1b0a9897c1db349f074a243c"
+      ],
+      "native_evidence_id": "ev_8be01ff13d23df9db3295e2462a4d2b4559656ba1b0a9897c1db349f074a243c",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366140",
+          "owner": "f   pharaoh_restored:unit_00375.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x366050",
+          "owner": "f   pharaoh_restored:unit_00375.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423a30",
+      "source": "src/unit_00376.c",
+      "name": "restore_laborer_native_00423a30",
+      "canonical_symbol": "FUN_00423a30",
+      "canonical_source": "src/unit_00376.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423aa3",
+        "0x423af9",
+        "0x423b68"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "688be5264fd0c5834459e0e522d006ed718bb729a72b4fb7b5610d6963ca455c",
+      "native_ranges": [
+        {
+          "start": "0x423a30",
+          "end": "0x423b68"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "abc2b21a05afbe294e59da916560d22d2e5899009a744644125a6a9ea9845c30",
+      "specialization_descriptor": "0x5be598",
+      "source_definition_symbol": "restore_laborer_native_00423a30",
+      "source_sha256": "c7e6dec72a34b9e05acf95c6801eca8b514feb1283b43a6ed7ed809bba2b0181",
+      "body_sha256": "c7e6dec72a34b9e05acf95c6801eca8b514feb1283b43a6ed7ed809bba2b0181",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_c9d6641ad39583f31314548fee59ba9c63e7623c3fa2cfa3dc36c6a53be7403c"
+      ],
+      "native_evidence_id": "ev_c9d6641ad39583f31314548fee59ba9c63e7623c3fa2cfa3dc36c6a53be7403c",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x366030",
+          "owner": "f   pharaoh_restored:unit_00376.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365f40",
+          "owner": "f   pharaoh_restored:unit_00376.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423b70",
+      "source": "src/unit_00377.c",
+      "name": "restore_laborer_native_00423b70",
+      "canonical_symbol": "FUN_00423b70",
+      "canonical_source": "src/unit_00377.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423be3",
+        "0x423c39",
+        "0x423ca8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "0248dbc3c495b28d80fe143f741b5495a83466ab5a021913beef47607c7b40bf",
+      "native_ranges": [
+        {
+          "start": "0x423b70",
+          "end": "0x423ca8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "427e500998eea860340fb952ef8b335ea6725e0687773d0a0083601c06f31aa7",
+      "specialization_descriptor": "0x5be5c8",
+      "source_definition_symbol": "restore_laborer_native_00423b70",
+      "source_sha256": "d613c1da05aa8d0af8d1714056784e8a7bc6e0efa7b2432c4a115c4c5f7a81ed",
+      "body_sha256": "d613c1da05aa8d0af8d1714056784e8a7bc6e0efa7b2432c4a115c4c5f7a81ed",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_f19241b0f919a2b06889d3b042b5ca4f620025b27d1ba6094bc6642b5a45540f"
+      ],
+      "native_evidence_id": "ev_f19241b0f919a2b06889d3b042b5ca4f620025b27d1ba6094bc6642b5a45540f",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365f20",
+          "owner": "f   pharaoh_restored:unit_00377.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365e30",
+          "owner": "f   pharaoh_restored:unit_00377.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423cb0",
+      "source": "src/unit_00378.c",
+      "name": "restore_laborer_native_00423cb0",
+      "canonical_symbol": "FUN_00423cb0",
+      "canonical_source": "src/unit_00378.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423d23",
+        "0x423d79",
+        "0x423de8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "9ab5cc5cbc5d09cdc8b9aa8e991a7eecc1ed33a08df247f3f8763a71d9d0dc23",
+      "native_ranges": [
+        {
+          "start": "0x423cb0",
+          "end": "0x423de8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "38a49c77eb6b1ec8868d42c3cc5d3ae1eb9e63842593356f7077cb386c172ec8",
+      "specialization_descriptor": "0x5be5f8",
+      "source_definition_symbol": "restore_laborer_native_00423cb0",
+      "source_sha256": "fdc276628b06dec2ee39d59afb35822a4a187bb9ede7a1b10f2d7fedc446d9ba",
+      "body_sha256": "fdc276628b06dec2ee39d59afb35822a4a187bb9ede7a1b10f2d7fedc446d9ba",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_1e037d81c64eabbccfa1aee334f7a179cdac98a57bfa9da237630016b8fce5a1"
+      ],
+      "native_evidence_id": "ev_1e037d81c64eabbccfa1aee334f7a179cdac98a57bfa9da237630016b8fce5a1",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365e10",
+          "owner": "f   pharaoh_restored:unit_00378.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365d20",
+          "owner": "f   pharaoh_restored:unit_00378.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423df0",
+      "source": "src/unit_00379.c",
+      "name": "restore_laborer_native_00423df0",
+      "canonical_symbol": "FUN_00423df0",
+      "canonical_source": "src/unit_00379.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423e63",
+        "0x423eb9",
+        "0x423f28"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "b323a7403342624ece78d3963efba66f23c8cc37ae9ab92c23c054b462d2bb18",
+      "native_ranges": [
+        {
+          "start": "0x423df0",
+          "end": "0x423f28"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0320.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "56d6462bad9d6efeb9073dbedb7725b0d5d5aae04f4ff13e7e668f98e41e94c4",
+      "specialization_descriptor": "0x5be628",
+      "source_definition_symbol": "restore_laborer_native_00423df0",
+      "source_sha256": "11ccebf3f7d2c22693a0e4eccd7341c2b5e38377c2bee9887db29f7112e7c690",
+      "body_sha256": "11ccebf3f7d2c22693a0e4eccd7341c2b5e38377c2bee9887db29f7112e7c690",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_f49ce82b363f5e0103a733b3109961d94ee967f75cc974d2de50e60661ee6f1c"
+      ],
+      "native_evidence_id": "ev_f49ce82b363f5e0103a733b3109961d94ee967f75cc974d2de50e60661ee6f1c",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365d00",
+          "owner": "f   pharaoh_restored:unit_00379.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365c10",
+          "owner": "f   pharaoh_restored:unit_00379.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00423f30",
+      "source": "src/unit_00380.c",
+      "name": "restore_laborer_native_00423f30",
+      "canonical_symbol": "FUN_00423f30",
+      "canonical_source": "src/unit_00380.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x423fa3",
+        "0x423ff9",
+        "0x424068"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "1a6f0e689b8cd56f16f43f592208e686657421614cc58f8ae607e79d050c8236",
+      "native_ranges": [
+        {
+          "start": "0x423f30",
+          "end": "0x424068"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "c86a9501736a2dae6a439b1cd99c537fccd0397a82318e714ec91612bd56c85c",
+      "specialization_descriptor": "0x5be7a8",
+      "source_definition_symbol": "restore_laborer_native_00423f30",
+      "source_sha256": "72e86870f51a74188674c496daa36282991d60d2e9fc6ec386c68e617576a05c",
+      "body_sha256": "72e86870f51a74188674c496daa36282991d60d2e9fc6ec386c68e617576a05c",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_d18aadf44625ba7a6b2e1ab7a9f318ae4283b63e21b7b9284c48b0fda5cda793"
+      ],
+      "native_evidence_id": "ev_d18aadf44625ba7a6b2e1ab7a9f318ae4283b63e21b7b9284c48b0fda5cda793",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365bf0",
+          "owner": "f   pharaoh_restored:unit_00380.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365b00",
+          "owner": "f   pharaoh_restored:unit_00380.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424070",
+      "source": "src/unit_00381.c",
+      "name": "restore_laborer_native_00424070",
+      "canonical_symbol": "FUN_00424070",
+      "canonical_source": "src/unit_00381.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4240e3",
+        "0x424139",
+        "0x4241a8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "f33ada5d239e0d78b3d5f970cb37a1791265b4ac33055b86f5dd2c40c7ba97fd",
+      "native_ranges": [
+        {
+          "start": "0x424070",
+          "end": "0x4241a8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "5e8fff7172b4691f46240f65edcdcf55bcf29a7507125d6642f31d4a7cb67292",
+      "specialization_descriptor": "0x5be7d8",
+      "source_definition_symbol": "restore_laborer_native_00424070",
+      "source_sha256": "1e77abc584530ad87e68b5765aa7e23f0ae2c434b5554d0cde37002d497c4a6f",
+      "body_sha256": "1e77abc584530ad87e68b5765aa7e23f0ae2c434b5554d0cde37002d497c4a6f",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_e6331db18565432b7efbabf74824349d996b1f0b0dfc675e826822825fdb155a"
+      ],
+      "native_evidence_id": "ev_e6331db18565432b7efbabf74824349d996b1f0b0dfc675e826822825fdb155a",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365ae0",
+          "owner": "f   pharaoh_restored:unit_00381.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3659f0",
+          "owner": "f   pharaoh_restored:unit_00381.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004241b0",
+      "source": "src/unit_00382.c",
+      "name": "restore_laborer_native_004241b0",
+      "canonical_symbol": "FUN_004241b0",
+      "canonical_source": "src/unit_00382.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424223",
+        "0x424279",
+        "0x4242e8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "29dbf8c50bcac508bcaffdd0bef83cc5aa2015e06f12194b21ad8304ec45039b",
+      "native_ranges": [
+        {
+          "start": "0x4241b0",
+          "end": "0x4242e8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "78d3d59ee5e7d29f0c392ae397e7fadb2ce5050b2e3acf1b0252f5e07bf50dde",
+      "specialization_descriptor": "0x5be658",
+      "source_definition_symbol": "restore_laborer_native_004241b0",
+      "source_sha256": "7757dc49f8a56221273ba45c97547cc1b954a05b068081114f19b549ca6b93af",
+      "body_sha256": "7757dc49f8a56221273ba45c97547cc1b954a05b068081114f19b549ca6b93af",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_093f2adb93a91e50585a00a08b91b2ece27fc6ca15174283081e0a2a286d205c"
+      ],
+      "native_evidence_id": "ev_093f2adb93a91e50585a00a08b91b2ece27fc6ca15174283081e0a2a286d205c",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x3659d0",
+          "owner": "f   pharaoh_restored:unit_00382.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3658e0",
+          "owner": "f   pharaoh_restored:unit_00382.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004242f0",
+      "source": "src/unit_00383.c",
+      "name": "restore_laborer_native_004242f0",
+      "canonical_symbol": "FUN_004242f0",
+      "canonical_source": "src/unit_00383.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424363",
+        "0x4243b9",
+        "0x424428"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "d51fd4a7dead5a97cb4c7a7230508756523a027910d6074c24f4bb4350b0168f",
+      "native_ranges": [
+        {
+          "start": "0x4242f0",
+          "end": "0x424428"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "8334a35f93c559f238335e1489d6ddf8c047364a93386a5c2cb0f68835cb0ed6",
+      "specialization_descriptor": "0x5be688",
+      "source_definition_symbol": "restore_laborer_native_004242f0",
+      "source_sha256": "514581038bc2611642b7547d76794aab9a1d30b62fffbd246d5911af2c9a9f85",
+      "body_sha256": "514581038bc2611642b7547d76794aab9a1d30b62fffbd246d5911af2c9a9f85",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_247c26d07f6b1e0326c86ff6708c01eabc1ce1469bbc3a58e0a83ba0958a1bbd"
+      ],
+      "native_evidence_id": "ev_247c26d07f6b1e0326c86ff6708c01eabc1ce1469bbc3a58e0a83ba0958a1bbd",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x3658c0",
+          "owner": "f   pharaoh_restored:unit_00383.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3657d0",
+          "owner": "f   pharaoh_restored:unit_00383.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424430",
+      "source": "src/unit_00384.c",
+      "name": "restore_laborer_native_00424430",
+      "canonical_symbol": "FUN_00424430",
+      "canonical_source": "src/unit_00384.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4244a3",
+        "0x4244f9",
+        "0x424568"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "d4eb68021c40d3e473a11d6fc5ada1807c194ace1a9cf33befcf5591ead832a6",
+      "native_ranges": [
+        {
+          "start": "0x424430",
+          "end": "0x424568"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "dc854405b6f2553bdb08afa3ecefd920d9c9dbc09a0962546fcd0beb0292df88",
+      "specialization_descriptor": "0x5be898",
+      "source_definition_symbol": "restore_laborer_native_00424430",
+      "source_sha256": "777adb6191db35df7c24f2b4b1a7a129ff8a73049833883258e25cf497bc577e",
+      "body_sha256": "777adb6191db35df7c24f2b4b1a7a129ff8a73049833883258e25cf497bc577e",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_858d1b65dcf682fe0e36ebced953f16c76286fa64fc25f5a29850af32e385184"
+      ],
+      "native_evidence_id": "ev_858d1b65dcf682fe0e36ebced953f16c76286fa64fc25f5a29850af32e385184",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x3657b0",
+          "owner": "f   pharaoh_restored:unit_00384.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3656c0",
+          "owner": "f   pharaoh_restored:unit_00384.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424570",
+      "source": "src/unit_00385.c",
+      "name": "restore_laborer_native_00424570",
+      "canonical_symbol": "FUN_00424570",
+      "canonical_source": "src/unit_00385.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4245e3",
+        "0x424639",
+        "0x4246a8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "eca444758478a3a49854a4b5614d7164aaca43c2ed59f4faa8003ce39ee9da0d",
+      "native_ranges": [
+        {
+          "start": "0x424570",
+          "end": "0x4246a8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "964dc8d08247cb440480ac0eb5d55b95d9c30890ae4748dbaa8cebf300a66467",
+      "specialization_descriptor": "0x5be808",
+      "source_definition_symbol": "restore_laborer_native_00424570",
+      "source_sha256": "1ece832229cdb48eae8db740cb9e719ebb669e6f7373970c991cad2d97c81ae0",
+      "body_sha256": "1ece832229cdb48eae8db740cb9e719ebb669e6f7373970c991cad2d97c81ae0",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_c5b37cddbf07baf127a9dfcf3c49eb39f285906a88724cb19026b0a9d501e725"
+      ],
+      "native_evidence_id": "ev_c5b37cddbf07baf127a9dfcf3c49eb39f285906a88724cb19026b0a9d501e725",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x3656a0",
+          "owner": "f   pharaoh_restored:unit_00385.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3655b0",
+          "owner": "f   pharaoh_restored:unit_00385.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004246b0",
+      "source": "src/unit_00386.c",
+      "name": "restore_laborer_native_004246b0",
+      "canonical_symbol": "FUN_004246b0",
+      "canonical_source": "src/unit_00386.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424723",
+        "0x424779",
+        "0x4247e8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "7165d8cd96a53e4b25a6a5757d1915f2a0f581ebe01656bbedac13bca91a94cd",
+      "native_ranges": [
+        {
+          "start": "0x4246b0",
+          "end": "0x4247e8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "054309978328badb1a43c8c8e166e2c773e6699ac2272b7cdabdd631effd041d",
+      "specialization_descriptor": "0x5be8c8",
+      "source_definition_symbol": "restore_laborer_native_004246b0",
+      "source_sha256": "31708b2124b999467464367484b8a71cb6c0e353bbc61045f35d489bdd74a649",
+      "body_sha256": "31708b2124b999467464367484b8a71cb6c0e353bbc61045f35d489bdd74a649",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_36dd5b49fefb8133cef7d088290577234a5b2e790dfd2c26867340fc5392a889"
+      ],
+      "native_evidence_id": "ev_36dd5b49fefb8133cef7d088290577234a5b2e790dfd2c26867340fc5392a889",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365590",
+          "owner": "f   pharaoh_restored:unit_00386.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x3654a0",
+          "owner": "f   pharaoh_restored:unit_00386.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004247f0",
+      "source": "src/unit_00387.c",
+      "name": "restore_laborer_native_004247f0",
+      "canonical_symbol": "FUN_004247f0",
+      "canonical_source": "src/unit_00387.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424863",
+        "0x4248b9",
+        "0x424928"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "0cb41143a2a9f5b52ab97086ad8dd2b8a37b542ecf8cc09739f39869953ce1e7",
+      "native_ranges": [
+        {
+          "start": "0x4247f0",
+          "end": "0x424928"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "76eca50720f03f6894aa1dcecf9b228cf6ae5f9f3122d85d46e130ffa88d441d",
+      "specialization_descriptor": "0x5be8f8",
+      "source_definition_symbol": "restore_laborer_native_004247f0",
+      "source_sha256": "33c2a56a36689beb6963e6ea4c29a494953bac5dedcc763041d63c5b3002d689",
+      "body_sha256": "33c2a56a36689beb6963e6ea4c29a494953bac5dedcc763041d63c5b3002d689",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_14eb644ef09968ab6a3dc921dd2c1d1fd57b76bebaf8d79e0a3c2545c4883a3f"
+      ],
+      "native_evidence_id": "ev_14eb644ef09968ab6a3dc921dd2c1d1fd57b76bebaf8d79e0a3c2545c4883a3f",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365480",
+          "owner": "f   pharaoh_restored:unit_00387.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365390",
+          "owner": "f   pharaoh_restored:unit_00387.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424930",
+      "source": "src/unit_00388.c",
+      "name": "restore_laborer_native_00424930",
+      "canonical_symbol": "FUN_00424930",
+      "canonical_source": "src/unit_00388.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x4249a3",
+        "0x4249f9",
+        "0x424a68"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "7f103f104631b03c0cf9acfd072a1c413dd53bf9e5235bcca54479b2172f2f31",
+      "native_ranges": [
+        {
+          "start": "0x424930",
+          "end": "0x424a68"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "7debaf6dd5607554f15d22541054ddac15b57870c5f5e5c18837a3200b05ad4e",
+      "specialization_descriptor": "0x5be6b8",
+      "source_definition_symbol": "restore_laborer_native_00424930",
+      "source_sha256": "3c83f4d07448f424871ad53c1de6f04b5a6feb15b8377e740c344abb80e5cac9",
+      "body_sha256": "3c83f4d07448f424871ad53c1de6f04b5a6feb15b8377e740c344abb80e5cac9",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_d6c578319436575c121e061f4ed5e92b4744ab274a5689760b2aff92072d1c84"
+      ],
+      "native_evidence_id": "ev_d6c578319436575c121e061f4ed5e92b4744ab274a5689760b2aff92072d1c84",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365370",
+          "owner": "f   pharaoh_restored:unit_00388.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365280",
+          "owner": "f   pharaoh_restored:unit_00388.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424a70",
+      "source": "src/unit_00389.c",
+      "name": "restore_laborer_native_00424a70",
+      "canonical_symbol": "FUN_00424a70",
+      "canonical_source": "src/unit_00389.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424ae3",
+        "0x424b39",
+        "0x424ba8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "7edb50005420b003a16a00ef385f4450e32b0d5311f2b0cd546f2d1e67409356",
+      "native_ranges": [
+        {
+          "start": "0x424a70",
+          "end": "0x424ba8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "5a2c854de467daac3a76e7620d7aa4a03c624b62938fb1aef58901577ee002c7",
+      "specialization_descriptor": "0x5be6e8",
+      "source_definition_symbol": "restore_laborer_native_00424a70",
+      "source_sha256": "4fa3dbd6847a6f4bcddbda3eab8c24dedd0a398b5985371c9088200a2ccc99cb",
+      "body_sha256": "4fa3dbd6847a6f4bcddbda3eab8c24dedd0a398b5985371c9088200a2ccc99cb",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_314f7f2ada1ff524bc22148ebc1c27124543f8a1d64c7013b2e86f1418f15c16"
+      ],
+      "native_evidence_id": "ev_314f7f2ada1ff524bc22148ebc1c27124543f8a1d64c7013b2e86f1418f15c16",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365260",
+          "owner": "f   pharaoh_restored:unit_00389.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365170",
+          "owner": "f   pharaoh_restored:unit_00389.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424bb0",
+      "source": "src/unit_00390.c",
+      "name": "restore_laborer_native_00424bb0",
+      "canonical_symbol": "FUN_00424bb0",
+      "canonical_source": "src/unit_00390.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424c23",
+        "0x424c79",
+        "0x424ce8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "c5a791c57425f71bdefcd257638eb413584a51052d38e109d47f614f6fa2cf17",
+      "native_ranges": [
+        {
+          "start": "0x424bb0",
+          "end": "0x424ce8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "b406ae4e8208a6bf194205916de714321faf495e6e3d6709db96ede942354374",
+      "specialization_descriptor": "0x5be718",
+      "source_definition_symbol": "restore_laborer_native_00424bb0",
+      "source_sha256": "e1010115528abb3a61a7f9145884cd788ce6929f219e1569a70dfcd1ee06182c",
+      "body_sha256": "e1010115528abb3a61a7f9145884cd788ce6929f219e1569a70dfcd1ee06182c",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_03b8ab2e527aa9a0daa9e926410f055a8399120f862830a9a5f1b8dd1065ee38"
+      ],
+      "native_evidence_id": "ev_03b8ab2e527aa9a0daa9e926410f055a8399120f862830a9a5f1b8dd1065ee38",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365150",
+          "owner": "f   pharaoh_restored:unit_00390.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x365060",
+          "owner": "f   pharaoh_restored:unit_00390.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424cf0",
+      "source": "src/unit_00391.c",
+      "name": "restore_laborer_native_00424cf0",
+      "canonical_symbol": "FUN_00424cf0",
+      "canonical_source": "src/unit_00391.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424d63",
+        "0x424db9",
+        "0x424e28"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "a01147b0d57848f60731bde23f5d4c2e7eca8fac6712243388c167c80e6a2086",
+      "native_ranges": [
+        {
+          "start": "0x424cf0",
+          "end": "0x424e28"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "5f16a29d72b68848e32d1af0047e8171abfffdcbd4d5959910c38af41ae819b6",
+      "specialization_descriptor": "0x5be838",
+      "source_definition_symbol": "restore_laborer_native_00424cf0",
+      "source_sha256": "2e51cd0fcc5c0d0a221b524a7d8054c4981f185d3f5e0e71e0888c82d3090be6",
+      "body_sha256": "2e51cd0fcc5c0d0a221b524a7d8054c4981f185d3f5e0e71e0888c82d3090be6",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_7da1be9260abf27c88af7e2c78e4a0f9584d5f174602e1bbba560276025ecb1d"
+      ],
+      "native_evidence_id": "ev_7da1be9260abf27c88af7e2c78e4a0f9584d5f174602e1bbba560276025ecb1d",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x365040",
+          "owner": "f   pharaoh_restored:unit_00391.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x364f50",
+          "owner": "f   pharaoh_restored:unit_00391.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424e30",
+      "source": "src/unit_00392.c",
+      "name": "restore_laborer_native_00424e30",
+      "canonical_symbol": "FUN_00424e30",
+      "canonical_source": "src/unit_00392.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424ea3",
+        "0x424ef9",
+        "0x424f68"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "c6233b955d799b0fe83894c29c9b00e7eadcf0e8d744d66606e3e3dfdf2b2255",
+      "native_ranges": [
+        {
+          "start": "0x424e30",
+          "end": "0x424f68"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "ca819c9cc6671927191d198e8d01820958b0bf6388d75c087c0817ddf1e2ce1f",
+      "specialization_descriptor": "0x5be868",
+      "source_definition_symbol": "restore_laborer_native_00424e30",
+      "source_sha256": "1dee403afae637574b5ac325c3af09e89f0d2398b50a1ec1a47a14356312eee9",
+      "body_sha256": "1dee403afae637574b5ac325c3af09e89f0d2398b50a1ec1a47a14356312eee9",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_c0a3c9d436380bc1c7eeba5ab924637edb3a2d6946023bf87f547de260e38305"
+      ],
+      "native_evidence_id": "ev_c0a3c9d436380bc1c7eeba5ab924637edb3a2d6946023bf87f547de260e38305",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x364f30",
+          "owner": "f   pharaoh_restored:unit_00392.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x364e40",
+          "owner": "f   pharaoh_restored:unit_00392.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00424f70",
+      "source": "src/unit_00393.c",
+      "name": "restore_laborer_native_00424f70",
+      "canonical_symbol": "FUN_00424f70",
+      "canonical_source": "src/unit_00393.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x424fe3",
+        "0x425039",
+        "0x4250a8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "abe32fedf5e2266b27f42c475de3ad0ecf3dd417ca6b0ea14ed714591d8cc8a6",
+      "native_ranges": [
+        {
+          "start": "0x424f70",
+          "end": "0x4250a8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "742e5fc4a07a4a5df2895bf16373efc71571150919686dd1864b01ee8bdf5159",
+      "specialization_descriptor": "0x5be928",
+      "source_definition_symbol": "restore_laborer_native_00424f70",
+      "source_sha256": "235c76a15eb5817c61f227f1f3d846548de371970cdeac631de2ceda3e531f09",
+      "body_sha256": "235c76a15eb5817c61f227f1f3d846548de371970cdeac631de2ceda3e531f09",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_a84c1677e67f2abc7f2f4d9c82730b05e6fc2747ada5b6c94a18da6c0e0c7a2d"
+      ],
+      "native_evidence_id": "ev_a84c1677e67f2abc7f2f4d9c82730b05e6fc2747ada5b6c94a18da6c0e0c7a2d",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x364e20",
+          "owner": "f   pharaoh_restored:unit_00393.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x364d30",
+          "owner": "f   pharaoh_restored:unit_00393.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004250b0",
+      "source": "src/unit_00394.c",
+      "name": "restore_laborer_native_004250b0",
+      "canonical_symbol": "FUN_004250b0",
+      "canonical_source": "src/unit_00394.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x425123",
+        "0x425179",
+        "0x4251e8"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "ffbc5e7ecd540a8d842e549e73bbbcc9ccc3ff7fdf54d730f360dc742aaa85e8",
+      "native_ranges": [
+        {
+          "start": "0x4250b0",
+          "end": "0x4251e8"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "76faf85e56205fa2470389e89993ba0be7949771fd4f910784a32a368703fd85",
+      "specialization_descriptor": "0x5be958",
+      "source_definition_symbol": "restore_laborer_native_004250b0",
+      "source_sha256": "8acc23f96a75f80cb292584447194050ddbaf82587819b61e61369a36020f118",
+      "body_sha256": "8acc23f96a75f80cb292584447194050ddbaf82587819b61e61369a36020f118",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_b278484714125ea8c07499954678c9d24c55850704000ee7d2bc85870977d68b"
+      ],
+      "native_evidence_id": "ev_b278484714125ea8c07499954678c9d24c55850704000ee7d2bc85870977d68b",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x364d10",
+          "owner": "f   pharaoh_restored:unit_00394.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x364c20",
+          "owner": "f   pharaoh_restored:unit_00394.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004251f0",
+      "source": "src/unit_00395.c",
+      "name": "restore_laborer_native_004251f0",
+      "canonical_symbol": "FUN_004251f0",
+      "canonical_source": "src/unit_00395.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 0,
+      "native_ret_sites": [
+        "0x425263",
+        "0x4252b9",
+        "0x425328"
+      ],
+      "native_bytes": 313,
+      "native_byte_sha256": "30f9ad2f5d338cbfa672131077a183104b2c765797b4b745dfd8372881538b11",
+      "native_ranges": [
+        {
+          "start": "0x4251f0",
+          "end": "0x425328"
+        }
+      ],
+      "native_instructions": 105,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-0384.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_part_work",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "6774cf1d499568f7dcb0a5416910128547c75af67ec6ff8113e71a88a8b9a357",
+      "specialization_descriptor": "0x5be988",
+      "source_definition_symbol": "restore_laborer_native_004251f0",
+      "source_sha256": "662fe17a7ccfffcbb4ae9b28f033e2877c66329068840485148f14745ad21b36",
+      "body_sha256": "662fe17a7ccfffcbb4ae9b28f033e2877c66329068840485148f14745ad21b36",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_3dbdf1de1b80daca1e7e6e000ed34dac5fdc87a433f9394fcf457e1ecb7d3bbe"
+      ],
+      "native_evidence_id": "ev_3dbdf1de1b80daca1e7e6e000ed34dac5fdc87a433f9394fcf457e1ecb7d3bbe",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x364c00",
+          "owner": "f   pharaoh_restored:unit_00395.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x364b10",
+          "owner": "f   pharaoh_restored:unit_00395.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004beeb0",
+      "source": "src/unit_01570.c",
+      "name": "restore_laborer_native_004beeb0",
+      "canonical_symbol": "FUN_004beeb0",
+      "canonical_source": "src/unit_01570.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x4bf8fb"
+      ],
+      "native_bytes": 2638,
+      "native_byte_sha256": "e7861d14188b1d1c7fd8357a9599eeafb42f8a65cd383c74a0c6e38af832a80f",
+      "native_ranges": [
+        {
+          "start": "0x4beeb0",
+          "end": "0x4bf8fd"
+        }
+      ],
+      "native_instructions": 684,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-1536.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_004beeb0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "a1ce2541b57a1a75e78894a9d6fbc0ad4e3bcca9d52b8287f39e294748e495bb",
+      "source_definition_symbol": "restore_laborer_native_004beeb0",
+      "source_sha256": "622b7ff7993726f92837f649737c5a547267eb4557d4ab34814b5a52bd372ab4",
+      "body_sha256": "622b7ff7993726f92837f649737c5a547267eb4557d4ab34814b5a52bd372ab4",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_9213f1e6d93ca708d124693812fde8c02512a0310db5dfc3bcdf4912be2c68ab"
+      ],
+      "native_evidence_id": "ev_9213f1e6d93ca708d124693812fde8c02512a0310db5dfc3bcdf4912be2c68ab",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x328310",
+          "owner": "f   pharaoh_restored:unit_01570.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x328210",
+          "owner": "f   pharaoh_restored:unit_01570.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004e6bd0",
+      "source": "src/unit_02004.c",
+      "name": "restore_laborer_native_004e6bd0",
+      "canonical_symbol": "FUN_004e6bd0",
+      "canonical_source": "src/unit_02004.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x4e6c04"
+      ],
+      "native_bytes": 55,
+      "native_byte_sha256": "fa1cdffc94cef119d419dcb90f3f45f5937dd98ca250d919b045c728becd140a",
+      "native_ranges": [
+        {
+          "start": "0x4e6bd0",
+          "end": "0x4e6c06"
+        }
+      ],
+      "native_instructions": 19,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-1984.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_004e6bd0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "c8381379d628a0af579c45edf827086ad9a12877a18fbf6d3f3fe4a80ff54dd9",
+      "source_definition_symbol": "restore_laborer_native_004e6bd0",
+      "source_sha256": "0c2ddc8878ddf269a1102503fc62ee3c783ed9bf8a639e4e5dc648fdd22c3259",
+      "body_sha256": "0c2ddc8878ddf269a1102503fc62ee3c783ed9bf8a639e4e5dc648fdd22c3259",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_48140c0492a5752f55b5347ffea87e5695eb9fe271e922c617ba7570a2443777"
+      ],
+      "native_evidence_id": "ev_48140c0492a5752f55b5347ffea87e5695eb9fe271e922c617ba7570a2443777",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x30d430",
+          "owner": "f   pharaoh_restored:unit_02004.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x30d330",
+          "owner": "f   pharaoh_restored:unit_02004.obj"
+        }
+      }
+    },
+    {
+      "address": "0x004e6e70",
+      "source": "src/unit_02007.c",
+      "name": "restore_laborer_native_004e6e70",
+      "canonical_symbol": "FUN_004e6e70",
+      "canonical_source": "src/unit_02007.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 12,
+      "native_ret_sites": [
+        "0x4e6ea6"
+      ],
+      "native_bytes": 57,
+      "native_byte_sha256": "6d1caa6c113e244dcbafc7415a25ed1ecf0b5f3d839f2f6eb93bfe65767eafee",
+      "native_ranges": [
+        {
+          "start": "0x4e6e70",
+          "end": "0x4e6ea8"
+        }
+      ],
+      "native_instructions": 20,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-1984.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_004e6e70",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "8f138e5bf5d60dae2d20acabffbe3e13f1f99c075450ad46415a129ddb1c0d49",
+      "source_definition_symbol": "restore_laborer_native_004e6e70",
+      "source_sha256": "ca819e66ad836a6b703ee06ced18c2277ebded318d34d3a6d86fc63f7c6602d1",
+      "body_sha256": "ca819e66ad836a6b703ee06ced18c2277ebded318d34d3a6d86fc63f7c6602d1",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_10b229bef489055209bb37e2ea372833a1342e981fddfbbb24e698d1e2402134"
+      ],
+      "native_evidence_id": "ev_10b229bef489055209bb37e2ea372833a1342e981fddfbbb24e698d1e2402134",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x30cf30",
+          "owner": "f   pharaoh_restored:unit_02007.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x30ce30",
+          "owner": "f   pharaoh_restored:unit_02007.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00545740",
+      "source": "src/unit_02568.c",
+      "name": "restore_laborer_native_00545740",
+      "canonical_symbol": "FUN_00545740",
+      "canonical_source": "src/unit_02568.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 8,
+      "native_ret_sites": [
+        "0x545751"
+      ],
+      "native_bytes": 20,
+      "native_byte_sha256": "50dec584a133a0bed8bdb9a8a3a855915e99700c6ac82601a636d6c1c7586a38",
+      "native_ranges": [
+        {
+          "start": "0x545740",
+          "end": "0x545753"
+        }
+      ],
+      "native_instructions": 7,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00545740",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "c8bbb857ebb1f800e5eab271fb21ffde3c5c38d12b2fe40f4e4c02f78a28016a",
+      "source_definition_symbol": "restore_laborer_native_00545740",
+      "source_sha256": "bd48a71ee07524e6f40090468360f8c9a587b2db238f73f3bf02d76bb592ed39",
+      "body_sha256": "bd48a71ee07524e6f40090468360f8c9a587b2db238f73f3bf02d76bb592ed39",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_cc2662eecb087e6c87bb23ce5efea24053213ba4d7ac5f23f5634ad890a414a2"
+      ],
+      "native_evidence_id": "ev_cc2662eecb087e6c87bb23ce5efea24053213ba4d7ac5f23f5634ad890a414a2",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e9f20",
+          "owner": "f   pharaoh_restored:unit_02568.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e9e20",
+          "owner": "f   pharaoh_restored:unit_02568.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00545bc0",
+      "source": "src/unit_02570.c",
+      "name": "restore_laborer_native_00545bc0",
+      "canonical_symbol": "FUN_00545bc0",
+      "canonical_source": "src/unit_02570.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x545bcf"
+      ],
+      "native_bytes": 18,
+      "native_byte_sha256": "cb38a5b6b949c000d30a90267bb1cd62748b7df4341f431c55b384df17666933",
+      "native_ranges": [
+        {
+          "start": "0x545bc0",
+          "end": "0x545bd1"
+        }
+      ],
+      "native_instructions": 5,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00545bc0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "7017568e99254b947b7dce02d1b2baaf3d932ed13fe850d04c86856b019881a7",
+      "source_definition_symbol": "restore_laborer_native_00545bc0",
+      "source_sha256": "e60a50c4bfe027083a111dcd53f5f4803f706cc2a14520c344d39053c47c2ee7",
+      "body_sha256": "e60a50c4bfe027083a111dcd53f5f4803f706cc2a14520c344d39053c47c2ee7",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_8c3d4f4205b0bcbb9fc3161d72de0b33ba9d73fb4de965cc8a9ce2a5c6c188ff"
+      ],
+      "native_evidence_id": "ev_8c3d4f4205b0bcbb9fc3161d72de0b33ba9d73fb4de965cc8a9ce2a5c6c188ff",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e9e00",
+          "owner": "f   pharaoh_restored:unit_02570.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e9d00",
+          "owner": "f   pharaoh_restored:unit_02570.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00546790",
+      "source": "src/unit_02580.c",
+      "name": "restore_laborer_native_00546790",
+      "canonical_symbol": "FUN_00546790",
+      "canonical_source": "src/unit_02580.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 12,
+      "native_ret_sites": [
+        "0x5468c5"
+      ],
+      "native_bytes": 312,
+      "native_byte_sha256": "c7b6820f54a8dbf601aa4566aa7ff9b9b44e299bfdf90c871d9da43d01db7a3d",
+      "native_ranges": [
+        {
+          "start": "0x546790",
+          "end": "0x5468c7"
+        }
+      ],
+      "native_instructions": 106,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00546790",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "694be24c692866a29683b8821e5d4d13a45a777e181d7a453ad2a79f289a63cf",
+      "source_definition_symbol": "restore_laborer_native_00546790",
+      "source_sha256": "31f678a8f341699e8ae45b477cf66418a643f375d1fd52dd1e7aa98d31e0f909",
+      "body_sha256": "31f678a8f341699e8ae45b477cf66418a643f375d1fd52dd1e7aa98d31e0f909",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_40bd0de06c7f4657f78446119aa423f5a65be4b1d56dbde341f782d075ef39f8"
+      ],
+      "native_evidence_id": "ev_40bd0de06c7f4657f78446119aa423f5a65be4b1d56dbde341f782d075ef39f8",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e99b0",
+          "owner": "f   pharaoh_restored:unit_02580.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e98b0",
+          "owner": "f   pharaoh_restored:unit_02580.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00547870",
+      "source": "src/unit_02582.c",
+      "name": "restore_laborer_native_00547870",
+      "canonical_symbol": "FUN_00547870",
+      "canonical_source": "src/unit_02582.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 8,
+      "native_ret_sites": [
+        "0x5479a9",
+        "0x5479d8",
+        "0x547a07",
+        "0x547a36"
+      ],
+      "native_bytes": 457,
+      "native_byte_sha256": "ed68b02b9db74e14efeeb3dc8d15ac4717018d3d7f0fb48aae7b1d327405e498",
+      "native_ranges": [
+        {
+          "start": "0x547870",
+          "end": "0x547a38"
+        }
+      ],
+      "native_instructions": 141,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00547870",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "6c76b7c28fb0fec627576a6d83ed1fe6c252dc21562b0e76a0f42b0a0c58ec66",
+      "source_definition_symbol": "restore_laborer_native_00547870",
+      "source_sha256": "8d57b1727266624787cd868c66b9b87c0ac3ed9470b75a753a5067a3519d627d",
+      "body_sha256": "8d57b1727266624787cd868c66b9b87c0ac3ed9470b75a753a5067a3519d627d",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_759c39710539e54ece2a55132eafb539aa64ff00573ddf54d9a5ad2a8980a5b9"
+      ],
+      "native_evidence_id": "ev_759c39710539e54ece2a55132eafb539aa64ff00573ddf54d9a5ad2a8980a5b9",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e93e0",
+          "owner": "f   pharaoh_restored:unit_02582.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e92e0",
+          "owner": "f   pharaoh_restored:unit_02582.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00547b60",
+      "source": "src/unit_02585.c",
+      "name": "restore_laborer_native_00547b60",
+      "canonical_symbol": "FUN_00547b60",
+      "canonical_source": "src/unit_02585.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x547b9a"
+      ],
+      "native_bytes": 61,
+      "native_byte_sha256": "264c64bee410a7a6b987c9dfb879b98620b9c5aa314e8754e26e474f95d532e2",
+      "native_ranges": [
+        {
+          "start": "0x547b60",
+          "end": "0x547b9c"
+        }
+      ],
+      "native_instructions": 28,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00547b60",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "95553f3a284a8e6de0b6a623e29d1835c0ec3a81615c24f194a144dadade9364",
+      "source_definition_symbol": "restore_laborer_native_00547b60",
+      "source_sha256": "71ad5d0828dbe7427c015d0483fc6a46c2bbf201b181724d19b83554bea71bf7",
+      "body_sha256": "71ad5d0828dbe7427c015d0483fc6a46c2bbf201b181724d19b83554bea71bf7",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_76bd4764d9208d7c466cd1fa6ebc8ac9cda8a64dc8c66c259e272de747e91d48"
+      ],
+      "native_evidence_id": "ev_76bd4764d9208d7c466cd1fa6ebc8ac9cda8a64dc8c66c259e272de747e91d48",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e90c0",
+          "owner": "f   pharaoh_restored:unit_02585.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e8fc0",
+          "owner": "f   pharaoh_restored:unit_02585.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00547e20",
+      "source": "src/unit_02588.c",
+      "name": "restore_laborer_native_00547e20",
+      "canonical_symbol": "FUN_00547e20",
+      "canonical_source": "src/unit_02588.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 12,
+      "native_ret_sites": [
+        "0x547e55",
+        "0x547e6b",
+        "0x547e81",
+        "0x547e97",
+        "0x547ead",
+        "0x547ec3",
+        "0x547ed9",
+        "0x547eef",
+        "0x547f05",
+        "0x547f1b",
+        "0x547f31",
+        "0x547f47",
+        "0x547f5d",
+        "0x547f73",
+        "0x547f89",
+        "0x547f9f",
+        "0x547fb5",
+        "0x547fcb",
+        "0x547fe1",
+        "0x547ff7",
+        "0x54800d",
+        "0x548023",
+        "0x548039",
+        "0x54804f",
+        "0x548065"
+      ],
+      "native_bytes": 584,
+      "native_byte_sha256": "d45bf59cf7850c4a51398f33ff1ce69b440d1cbabeb939aad473532e97149f28",
+      "native_ranges": [
+        {
+          "start": "0x547e20",
+          "end": "0x548067"
+        }
+      ],
+      "native_instructions": 208,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00547e20",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "direct_C_caller",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "a3956991fc218c8276c4a183e629411195e8e6aac111190d88a8257d35e4394a",
+      "source_definition_symbol": "restore_laborer_native_00547e20",
+      "source_sha256": "e8ea150008e9b66aba335747d696169a0f97bb6c5bc99f5aa91f81770e1662c8",
+      "body_sha256": "e8ea150008e9b66aba335747d696169a0f97bb6c5bc99f5aa91f81770e1662c8",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_53b0bfa92fb10e637b09403653734d8cb2e533ad9edbb81530b28f7d7b6f9eb9"
+      ],
+      "native_evidence_id": "ev_53b0bfa92fb10e637b09403653734d8cb2e533ad9edbb81530b28f7d7b6f9eb9",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e8cd0",
+          "owner": "f   pharaoh_restored:unit_02588.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e8bd0",
+          "owner": "f   pharaoh_restored:unit_02588.obj"
+        }
+      }
+    },
+    {
+      "address": "0x0054f470",
+      "source": "src/unit_02596.c",
+      "name": "restore_laborer_native_0054f470",
+      "canonical_symbol": "FUN_0054f470",
+      "canonical_source": "src/unit_02596.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 8,
+      "native_ret_sites": [
+        "0x54f481"
+      ],
+      "native_bytes": 20,
+      "native_byte_sha256": "f07fe173d1585b7528f6894a9a3bda4e2bf6e46207653cd52fd6f90ead5d1097",
+      "native_ranges": [
+        {
+          "start": "0x54f470",
+          "end": "0x54f483"
+        }
+      ],
+      "native_instructions": 7,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_0054f470",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "432a7546c32bd84b0150037b15ce3bf7ccb30bc2b0420919289b4db79c77ff64",
+      "source_definition_symbol": "restore_laborer_native_0054f470",
+      "source_sha256": "7371c6f4b04032a87486954c0b7bdae5445eb28f1d9fc432b9d440a148997e62",
+      "body_sha256": "7371c6f4b04032a87486954c0b7bdae5445eb28f1d9fc432b9d440a148997e62",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_7298ea5e973c2b4128e0f060e1ff17ff493a3e18a16dcce154a55894416b8fa4"
+      ],
+      "native_evidence_id": "ev_7298ea5e973c2b4128e0f060e1ff17ff493a3e18a16dcce154a55894416b8fa4",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e5f60",
+          "owner": "f   pharaoh_restored:unit_02596.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e5e60",
+          "owner": "f   pharaoh_restored:unit_02596.obj"
+        }
+      }
+    },
+    {
+      "address": "0x0054fb20",
+      "source": "src/unit_02598.c",
+      "name": "restore_laborer_native_0054fb20",
+      "canonical_symbol": "FUN_0054fb20",
+      "canonical_source": "src/unit_02598.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x54fb2f"
+      ],
+      "native_bytes": 18,
+      "native_byte_sha256": "820b3d6dbe35eaf1d4a11fcd53975887b1467fda033e1855425737b3de589c26",
+      "native_ranges": [
+        {
+          "start": "0x54fb20",
+          "end": "0x54fb31"
+        }
+      ],
+      "native_instructions": 5,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_0054fb20",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "691a40882b01f392939fe53a8a4c92a1d25e4c1be66e5f78d2a357246d4d2946",
+      "source_definition_symbol": "restore_laborer_native_0054fb20",
+      "source_sha256": "2077d8e7b57852c6b1b438b9ce07d0f7293362b1e663b337aa6d2f92966e1576",
+      "body_sha256": "2077d8e7b57852c6b1b438b9ce07d0f7293362b1e663b337aa6d2f92966e1576",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_ed12c1f51e6b51d662fe321187dc6359a6b5b4bfbeb691828d73dbc08ea98782"
+      ],
+      "native_evidence_id": "ev_ed12c1f51e6b51d662fe321187dc6359a6b5b4bfbeb691828d73dbc08ea98782",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e5e40",
+          "owner": "f   pharaoh_restored:unit_02598.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e5d40",
+          "owner": "f   pharaoh_restored:unit_02598.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00555e80",
+      "source": "src/unit_02609.c",
+      "name": "restore_laborer_native_00555e80",
+      "canonical_symbol": "FUN_00555e80",
+      "canonical_source": "src/unit_02609.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 8,
+      "native_ret_sites": [
+        "0x555e91"
+      ],
+      "native_bytes": 20,
+      "native_byte_sha256": "5b55a4893b0c35514bf467fb4189eceae7a720134e66c20277b3b88379e6c117",
+      "native_ranges": [
+        {
+          "start": "0x555e80",
+          "end": "0x555e93"
+        }
+      ],
+      "native_instructions": 7,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00555e80",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "7817c97c75cefe2e6037236cdc52176389006f18800ea97686f717066245e384",
+      "source_definition_symbol": "restore_laborer_native_00555e80",
+      "source_sha256": "414a8f30257e9db74e62134e6e4f285632cd6b85e8745eea64dfb471c4c0f534",
+      "body_sha256": "414a8f30257e9db74e62134e6e4f285632cd6b85e8745eea64dfb471c4c0f534",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_66de60c2dab8b3cc63a8e40d17b9d71a021d68d762fc3f5790a30f371624a4ec"
+      ],
+      "native_evidence_id": "ev_66de60c2dab8b3cc63a8e40d17b9d71a021d68d762fc3f5790a30f371624a4ec",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e3e10",
+          "owner": "f   pharaoh_restored:unit_02609.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e3d10",
+          "owner": "f   pharaoh_restored:unit_02609.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00556410",
+      "source": "src/unit_02611.c",
+      "name": "restore_laborer_native_00556410",
+      "canonical_symbol": "FUN_00556410",
+      "canonical_source": "src/unit_02611.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x55641f"
+      ],
+      "native_bytes": 18,
+      "native_byte_sha256": "58cf03ee68971f8e26f010af7aab3a0864f0b594c70201b64ddf624f3f376830",
+      "native_ranges": [
+        {
+          "start": "0x556410",
+          "end": "0x556421"
+        }
+      ],
+      "native_instructions": 5,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00556410",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "6a9a54fb7532ff496b447d5d0725f6a61d6a1b9db4ef8ddb83b16778c24835e6",
+      "source_definition_symbol": "restore_laborer_native_00556410",
+      "source_sha256": "020edbafeef14d6acea154bd4886d6e41fd5a13cbef25ffce1bf26f0b44d7d78",
+      "body_sha256": "020edbafeef14d6acea154bd4886d6e41fd5a13cbef25ffce1bf26f0b44d7d78",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_d2bae44f44a2ea196c4d55449abbbc34b2fa9b4bca0b15b86874afe92a69c7ca"
+      ],
+      "native_evidence_id": "ev_d2bae44f44a2ea196c4d55449abbbc34b2fa9b4bca0b15b86874afe92a69c7ca",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e3cf0",
+          "owner": "f   pharaoh_restored:unit_02611.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e3bf0",
+          "owner": "f   pharaoh_restored:unit_02611.obj"
+        }
+      }
+    },
+    {
+      "address": "0x00558be0",
+      "source": "src/unit_02622.c",
+      "name": "restore_laborer_native_00558be0",
+      "canonical_symbol": "FUN_00558be0",
+      "canonical_source": "src/unit_02622.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 8,
+      "native_ret_sites": [
+        "0x558bf1"
+      ],
+      "native_bytes": 20,
+      "native_byte_sha256": "a76236de7f0eef0ad5d7e2f626f02e9168bfc0644229617065807e62b98c5adc",
+      "native_ranges": [
+        {
+          "start": "0x558be0",
+          "end": "0x558bf3"
+        }
+      ],
+      "native_instructions": 7,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_00558be0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "63e677c9cfd5e81b8b060957108085745d76cace7b83f5611a4a32dcd87e92ff",
+      "source_definition_symbol": "restore_laborer_native_00558be0",
+      "source_sha256": "f2d32a5e37d126e0f835049e3cadc3b3b32f8941847b54b85eb172c1628b8163",
+      "body_sha256": "f2d32a5e37d126e0f835049e3cadc3b3b32f8941847b54b85eb172c1628b8163",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_fc72fd9cac5bca365fdcceb1be1dec753e15ab4e2e9409b45637d45963d7c660"
+      ],
+      "native_evidence_id": "ev_fc72fd9cac5bca365fdcceb1be1dec753e15ab4e2e9409b45637d45963d7c660",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e2850",
+          "owner": "f   pharaoh_restored:unit_02622.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e2750",
+          "owner": "f   pharaoh_restored:unit_02622.obj"
+        }
+      }
+    },
+    {
+      "address": "0x005590a0",
+      "source": "src/unit_02624.c",
+      "name": "restore_laborer_native_005590a0",
+      "canonical_symbol": "FUN_005590a0",
+      "canonical_source": "src/unit_02624.c",
+      "body_hash_scope": "whole_native_context_macro_unit",
+      "logical_signature": "void cdecl1(struct RestoreNativeMemberFrame *actual_snapshot); actual GPR/flags/stack anchor; separated C control stack",
+      "native_cleanup": 4,
+      "native_ret_sites": [
+        "0x5590af"
+      ],
+      "native_bytes": 18,
+      "native_byte_sha256": "b409effab35fff228d565d02207174c3b8fb8165ae9deb28e4d71d1a479ccee9",
+      "native_ranges": [
+        {
+          "start": "0x5590a0",
+          "end": "0x5590b1"
+        }
+      ],
+      "native_instructions": 5,
+      "native_cache_paths": [
+        "metadata/native-function-audit-cache/batch-2688.json"
+      ],
+      "algorithm_source": "runtime/actor_laborer_model.c",
+      "reused_C_function": "restore_laborer_C_005590a0",
+      "raw_provider": "restore_actor_laborer_raw",
+      "closure_role": "method_or_thunk",
+      "x87_contract": "Live hardware x87 state is forwarded unchanged into the existing provider; no fabricated zero FPU input.",
+      "original_source_sha256": "c302333ab86d24da0de6e1dbeeb3b6c73200bfae529037f09cf9e6fa2e13e843",
+      "source_definition_symbol": "restore_laborer_native_005590a0",
+      "source_sha256": "e45a9b45e0a5346730fd5e11d2a909a96757896de11c2c47013c0d854c71d969",
+      "body_sha256": "e45a9b45e0a5346730fd5e11d2a909a96757896de11c2c47013c0d854c71d969",
+      "algorithm_source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+      "native_evidence_ids": [
+        "ev_a801d612df7cc727d1ebc449e8ee462b1646696fc55e0e1c5720bcda9a4ed0eb"
+      ],
+      "native_evidence_id": "ev_a801d612df7cc727d1ebc449e8ee462b1646696fc55e0e1c5720bcda9a4ed0eb",
+      "native_final_mnemonic": "ret",
+      "family": "actor_laborer",
+      "new_C_algorithm": false,
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "stage": "shared_strict_build_passed_connected_native_cases_pending",
+      "linked_providers": {
+        "retained": {
+          "va": "0x2e2730",
+          "owner": "f   pharaoh_restored:unit_02624.obj"
+        }
+      },
+      "current_canonical_providers": {
+        "retained": {
+          "va": "0x2e2630",
+          "owner": "f   pharaoh_restored:unit_02624.obj"
+        }
+      }
+    }
+  ],
+  "qualification": [
+    "All46 sources are selected together:19 existing laborer methods/thunks and27 existing direct-C callers; no new algorithm credit.",
+    "The existing laborer provider/model and native cache are unchanged. Source/COFF, exact REA bytes and strict shared compilation/linking passed; finite46-entry native cases remain pending.",
+    "Actual GPR/flags, original caller-stack addresses and live hardware x87 are inherited. The shared capture bridge is the gate94-verified revision; the earlier packet bridge hash remains historical.",
+    "The inherited64KB native-frame workspace, guard faults, exceptional/asynchronous state, discarded volatile outputs and unresolved indirect consumers remain qualified. No whole-game equivalence or host execution."
+  ],
+  "strict_build_complete": true,
+  "fresh_cases": 0,
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false,
+  "source_stage": "shared_strict_build_passed_connected_native_cases_pending",
+  "strict_build": {
+    "exit_code": 0,
+    "log_sha256": "19bf69e064f7c4e01cc3639d8e7d2c0ad3baea12fffa77826f084ee9804bcc17",
+    "per_source_options": "/W4 /WX /O2 /GS- /Ob0; no PCH",
+    "compiled_artifacts": {
+      "game": {
+        "path": "build/c-only/Release/PharaohRestoreC.exe",
+        "sha256": "a1dd69214be81c5254709c71e7a3e744b2da0ee83842efb1587ad7133214d5c1",
+        "map_path": "build/c-only/Release/PharaohRestoreC.map",
+        "map_sha256": "82a39a0dcb435576fd0a5c8b908d9f2490fd8524c08368cffd1b17c7876ff84a"
+      },
+      "diagnostic": {
+        "path": "build/c-only/Release/restore_link_check.exe",
+        "sha256": "d045fac0e5627c2a1ed1a1feea83c378472bf336b5a2e1ac2b6006b28b917576",
+        "map_path": "build/c-only/Release/restore_link_check.map",
+        "map_sha256": "5377e2d75b176078275de6a59541a7f62d32a665ab9f13e5d9a40ded7687f980"
+      }
+    },
+    "status": "shared_strict_build_passed_cohort6_native_cases_pending",
+    "final_diagnostic_link": {
+      "path": "build/actor-animal-following/cohort6-final-diagnostic-build.log",
+      "sha256": "65cef7068843faaf83759cc8ea6d452fe1f6718579bcff9ddc05678e14f17467"
+    },
+    "source_options_audit": {
+      "path": "build/actor-animal-following/cohort6-strict-source-options.json",
+      "sha256": "dff74d976c85781c580d9a4e879f5d2f1c71bac2f658b7bdda023ceb59da8193"
+    }
+  },
+  "defined_named_and_canonical_owners": {
+    "path": "metadata/cohort6-source-ownership.json",
+    "sha256": "fdb3becff15dd9324e7c63fee48dbc526b0e621a52bb4d47dbb819c090e8f9e0"
+  }
+}

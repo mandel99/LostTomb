@@ -53,3 +53,5 @@ checkpoint stages. The measured scan currently has **0 safe automatic candidates
 unsupported semantics are reported explicitly rather than replaced with stubs.
 The compact published queue is
 [metadata/bulk-reconstruction-next-queue.json](metadata/bulk-reconstruction-next-queue.json).
+
+The current cohort6 source scan covers4527 saved addresses and leaves196 review/reuse leads in two connected packets (100/96). It finds no new exact-rule C candidate. These are not196 newly missing algorithms:162 have existing C to inspect/reuse and34 need native/source review. The preparation tool retains1192 original source paths as867 unique exact blobs,539 member/dependency records and50 native cache files. One dependency remains outside the saved catalogue. See metadata/bulk-reconstruction-next-queue.json for snapshot hashes. The driver now defaults to the highest-numbered cohort progress manifest.

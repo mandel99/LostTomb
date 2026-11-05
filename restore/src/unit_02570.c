@@ -1,9 +1,4 @@
-#include "restore_types.h"
-extern void FUN_00547870();
-
-void FUN_00545bc0(undefined4 param_1)
-
-{
-  FUN_00547870(param_1,0xa7);
-  return;
-}
+#include "native_member_bridge.h"
+#include "actor_laborer.h"
+/* Reuse existing laborer C with actual native GPR/flags/stack; keep live x87. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_00545bc0,restore_laborer_native_00545bc0,0x00545bc0,4,restore_actor_laborer_raw)

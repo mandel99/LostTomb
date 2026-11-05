@@ -1,7 +1,7 @@
 # Pharaoh restore
 
-The current connected city, draw and monument-worker batch repairs292 original
-C owners /21,642 static native instructions. Its controller, initializer, widget
+The current connected city, draw and monument-worker batch repairs338 original
+C owners /26,433 static native instructions. Its controller, initializer, widget
 groups and worker selection use explicit widths, child contracts and returns.
 Shared strict compilation and both Release links pass. Cohort4 passed its
 100-entry finite native/C gate:944 scenarios /3608 invocations, including all
@@ -9,12 +9,17 @@ named and canonical definitions. The preceding98-entry finite gate retains
 its archived images. Further source reconstruction remains incomplete. See
 [the controller ledger](metadata/CITY_ACTIVE_BUILDINGS.md).
 
-Active cohort5 reaches a closed94-entry milestone:13 new C algorithms and
+Closed cohort5 reached94 entries:13 new C algorithms and
 81 C reuse/input/ABI repairs. All94 named/canonical entries passed872 finite
 scenarios /3182 invocations. The shared bridge now preserves original stack
 history, including untouched bytes copied into event packets. Further connected
 source reconstruction may proceed; whole-game equivalence remains incomplete.
 Prior finite receipts retain archived images.
+Active cohort6 adds46 connected laborer/monument input and ABI repairs,
+reusing existing C algorithms over4791 native instructions. Shared strict
+compilation and all links pass. Native comparison is deferred to the next
+approximately100-entry milestone;54 further entries remain before that gate.
+
 
 The previous100-entry cohort's285-case comparison is historical at871eea0.
 Its source bodies are unchanged; its earlier PE/MAP and source bindings are

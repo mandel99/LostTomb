@@ -41,7 +41,8 @@ Cohort4 rozsiril generator o cele vzory clear/read, hledani DWORD klice v zaznam
 Pracovní balíky všech již sestavených front připraví samostatný nástroj:
 
 ```powershell
-python restore/tools/prepare_remaining_batches.py --inventory restore/build/bulk-reconstruction/cohort5-remaining-inventory.json --output restore/build/remaining-review-packets
+python restore/tools/bulk_remaining.py --report restore/build/remaining-plan.json
+python restore/tools/prepare_remaining_batches.py --inventory restore/build/remaining-plan.json --output restore/build/remaining-review-packets
 ```
 
 Nástroj znovu neprochází katalog a nemění seskupení `review_batches`. Ověří

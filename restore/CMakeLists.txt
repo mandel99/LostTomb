@@ -2553,3 +2553,15 @@ set_source_files_properties(runtime/placement_destructor.c src/unit_00001.c src/
 # Connected source cohort5: live native context reuses existing C graphs.
 target_sources(pharaoh_restored PRIVATE runtime/native_member_bridge.c runtime/campaign_unlock.c)
 set_source_files_properties(src/unit_00006.c src/unit_00100.c src/unit_00104.c src/unit_00199.c src/unit_00698.c src/unit_00699.c src/unit_00701.c src/unit_00702.c src/unit_00703.c src/unit_00705.c src/unit_00707.c src/unit_00711.c src/unit_00714.c src/unit_00733.c src/unit_00735.c src/unit_00736.c src/unit_00739.c src/unit_00740.c src/unit_00748.c src/unit_00749.c src/unit_00750.c src/unit_00751.c src/unit_00752.c src/unit_00753.c src/unit_00754.c src/unit_00755.c src/unit_00756.c src/unit_00757.c src/unit_00758.c src/unit_00759.c src/unit_00760.c src/unit_00761.c src/unit_00762.c src/unit_00763.c src/unit_00764.c src/unit_00765.c src/unit_00766.c src/unit_00769.c src/unit_00770.c src/unit_00771.c src/unit_00773.c src/unit_00774.c src/unit_00775.c src/unit_00776.c src/unit_00777.c src/unit_00778.c src/unit_00780.c src/unit_00781.c src/unit_00782.c src/unit_00783.c src/unit_00784.c src/unit_00786.c src/unit_01994.c src/unit_01998.c src/unit_02567.c src/unit_02579.c src/unit_02584.c src/unit_02595.c src/unit_02608.c src/unit_02621.c src/unit_00683.c src/unit_00687.c src/unit_00688.c runtime/native_member_bridge.c runtime/campaign_unlock.c src/unit_00260.c src/unit_00274.c src/unit_02532.c src/unit_02534.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Connected source cohort6: laborer methods and their direct callers.
+set_source_files_properties(
+src/unit_00011.c src/unit_00110.c src/unit_00113.c src/unit_00204.c src/unit_00207.c src/unit_00369.c
+src/unit_00371.c src/unit_00372.c src/unit_00373.c src/unit_00374.c src/unit_00375.c src/unit_00376.c
+src/unit_00377.c src/unit_00378.c src/unit_00379.c src/unit_00380.c src/unit_00381.c src/unit_00382.c
+src/unit_00383.c src/unit_00384.c src/unit_00385.c src/unit_00386.c src/unit_00387.c src/unit_00388.c
+src/unit_00389.c src/unit_00390.c src/unit_00391.c src/unit_00392.c src/unit_00393.c src/unit_00394.c
+src/unit_00395.c src/unit_01570.c src/unit_02004.c src/unit_02007.c src/unit_02568.c src/unit_02570.c
+src/unit_02580.c src/unit_02582.c src/unit_02585.c src/unit_02588.c src/unit_02596.c src/unit_02598.c
+src/unit_02609.c src/unit_02611.c src/unit_02622.c src/unit_02624.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
