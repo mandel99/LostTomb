@@ -1,0 +1,193 @@
+{
+  "schema": "cohort3-fresh-formatter-cases-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "186 authored fresh recipes for ten existing formatter definitions; no image execution, build or source transcription was performed by this packet.",
+  "module": "build/actor-animal-following/cohort3-numeric-cases-c/formatter_cases.py",
+  "module_sha256": "a76018b171b830aa922b01253066378a90d1ce0d82ad8adfe588ca5c39492a1e",
+  "counts": {
+    "cases": 186,
+    "entries": 10,
+    "void_cases": 55,
+    "by_entry": {
+      "0x564263": 19,
+      "0x564367": 20,
+      "0x564445": 14,
+      "0x5644e0": 6,
+      "0x564507": 7,
+      "0x56452a": 12,
+      "0x568d88": 20,
+      "0x56a47e": 33,
+      "0x56a904": 27,
+      "0x56ab24": 28
+    }
+  },
+  "current_source_hashes": {
+    "src/unit_02875.c": "935a1a15a17cdbdaad42b5d8c6fc93811e994fa48b37aa87e934b09154048ab5",
+    "src/unit_02876.c": "68206eb2302ee78b1190a00ba3f726cc792d953e4fe74268889f4b76f513bc73",
+    "src/unit_02877.c": "d8d256b1798139d7e3ee2f3b8c966600cea0e9e1c24ce8138ca9328a3b4647fa",
+    "src/unit_02878.c": "f073d8c2d9cef832ee9b78efe9be10bcd01a88a630271262bec7a2915cb17fa0",
+    "src/unit_02879.c": "2cc9c423d0c3a0b37063d34df5ba8f716e0654c1fccbb2dbddf329e34d0e48e9",
+    "src/unit_02880.c": "1868c10d86a34d76ba6c34f4c9cecca274ba7c251e9a3a1ec3d66627e2d4d415",
+    "src/unit_02979.c": "3b5f200d480ab3b3f9efb0da4576916149c32e225cd6457ee4320c7965f905d7",
+    "src/unit_03010.c": "7288e278af4784796e1614bd3586e44e43d94bf55fd4565bf18e5271a8ebec10",
+    "src/unit_03014.c": "9980d445112da9bc01dd6160224bcd614ec8bfabd09055d9625838714dd2f7f5",
+    "src/unit_03015.c": "15fa5178fcee142aebf6b63c840116b61643821170ea73515b02171fb0e2f3b5",
+    "include/crt_format.h": "a6833d7480ed5ccbf24f2a314724bd897744b394723d873facc8650390188149",
+    "runtime/crt_format_entries.c": "1ea90461647addc58bf3c4a609940d2d9f3f80cecbb661d121895f3150c3bd55"
+  },
+  "reused_evidence_hashes": {
+    "build/actor-animal-following/cohort3-crt-format-c/cached-byte-records.json": "b080b6cdb6aee6bf92535b0657001734928a59103ba72fe31177d59d00d38d90",
+    "build/actor-animal-following/cohort3-crt-format-c/byte-records.json": "64363b7b6deb2f7468ba051b1fb1edd8781d560a1135167ac7b0a8d3f051a32a",
+    "build/actor-animal-following/cohort3-crt-format-c/offline-byte-binding.json": "c52a11bb1e3ee1945bc0867d72f95e7655dd8057ba646aba094b6cfa9430ca26",
+    "build/actor-animal-following/cohort3-crt-format-c/return-width.json": "837078dc58a332e02fe026689d5686bed7315d8054c496cac3a17014c9cc754f",
+    "build/actor-animal-following/cohort3-crt-format-c/0056a47e.txt": "19dbd11abfa924b127c332be2f64f62e288f4029e093c749424d5d943f57e47f",
+    "build/actor-animal-following/cohort3-crt-format-c/0056a904.txt": "fd1c6ecd936bfc1199d33ef872c5e5701753608f7fcde48c6ea4facb921a55e2"
+  },
+  "ledger_sha256": "4ae63e37f82c7111f43686561596222975997fc3a85f05e6088bf57defda2280",
+  "binding_policy": "Current selected public sources and current metadata supplied the entry signatures. Reused evidence is input justification only, never a receipt for a current native/C run. The shared root replay must bind actual current source/image/module hashes at execution.",
+  "abi": {
+    "calling_convention": "All ten entries are cdecl. Native, named C and canonical cleanup are zero bytes; outer caller removes arguments. Nonvolatile EBX/EBP/ESI/EDI and return-to-STOP/ESP checks are mandatory.",
+    "564263": "[binary64_pointer,buffer,precision,capitals]; full EAX equals the original buffer argument (native 564360 MOV EAX,[EBP+C]).",
+    "564367": "[binary64_pointer,buffer,precision]; full EAX equals buffer (native 56443F MOV EAX,EBP).",
+    "564445": "[binary64_pointer,buffer,precision,capitals]; full child pointer result, not void.",
+    "5644e0": "[binary64_pointer,buffer,precision,capitals]; full scientific child pointer result; reuse BYTE set1 then clear0.",
+    "564507": "[binary64_pointer,buffer,precision]; full fixed child pointer result; reuse BYTE set1 then clear0.",
+    "56452a": "[binary64_pointer,buffer,format,precision,capitals]; exactly five DWORDs; full child buffer pointer. e/E, f and fallback arms all execute actual children.",
+    "568d88": "uint64_t binary64_bits is passed by value as two little-endian stack DWORDs, identically in native and named routes. Full EAX is actual static descriptor pointer0x12666c8.",
+    "56a47e": "[low,high,sign_exponent,requested,flags,output_pointer]; full EAX DWORD status0 for exceptional exponent7fff,1 for ordinary/zero. Third argument consumes only low16; selected high16 sentinels are ignored.",
+    "56a904": "[left_pointer,right_pointer], void; result_mask=null. Native EAX is diagnostic and MUST NOT be zeroed, masked to an invented width or compared as a logical result. Compare all12 result bytes and unchanged right operand.",
+    "56ab24": "[value_pointer,signed_power,signed_preserve_tail], void; result_mask=null. Compare all12 value bytes; zero power allows no writes and leaves even the low tail unchanged.",
+    "register_inputs": "ECX receiver seed is a non-semantic sentinel. Live x87 value inputs are actual stored binary64 payloads. Case EFLAGS202/AD7 both have DF clear; shared driver initial FPCW037f retains native FLD64/FSTP64 semantics. No fabricated live EAX or flags parameter is introduced."
+  },
+  "memory_contracts": [
+    {
+      "range": "0x1266420+4",
+      "type": "DWORD descriptor pointer",
+      "access": "general writes; reuse paths read; nonreuse scientific/fixed preserve",
+      "native_sites": [
+        "564274 read",
+        "564381 read",
+        "56445a write"
+      ]
+    },
+    {
+      "range": "0x1266424+1",
+      "type": "BYTE reuse flag",
+      "access": "scientific/fixed read twice; general child wrappers set1/clear0; direct reuse cases use7f to cover nonzero",
+      "native_sites": [
+        "564266",
+        "5642fb",
+        "564367",
+        "564416",
+        "5644e4",
+        "5644fc",
+        "56450b",
+        "56451f"
+      ]
+    },
+    {
+      "range": "0x1266428+4",
+      "type": "signed DWORD exponent",
+      "access": "general writes; fixed reuse reads",
+      "native_sites": [
+        "564378",
+        "564466",
+        "56448d",
+        "5644a3"
+      ]
+    },
+    {
+      "range": "0x126642c+1",
+      "type": "BYTE rounded flag",
+      "access": "general writes, otherwise preserve",
+      "native_sites": [
+        "564496"
+      ]
+    },
+    {
+      "range": "0x604e68+1",
+      "type": "BYTE decimal separator",
+      "access": "read only, cases supply dot/comma and watch surrounding bytes",
+      "native_sites": [
+        "5642e9",
+        "564405"
+      ]
+    },
+    {
+      "range": "0x12666a8+28",
+      "type": "RestoreCrtDecimalDigits: signed WORD exponent, signed BYTE sign, signed BYTE length,24 digit bytes",
+      "access": "568d88 and its callers write through actual56a47e; no adjacent gap writes allowed",
+      "native_sites": [
+        "568da2 passes output",
+        "56a47e.txt byte/word stores and final signed length indexing"
+      ]
+    },
+    {
+      "range": "0x12666c8+16",
+      "type": "descriptor: sign DWORD, exponent DWORD, status DWORD, digit pointer DWORD",
+      "access": "568d88 writes; actual568d11 may round exponent in same descriptor",
+      "native_sites": [
+        "568db9 status",
+        "568dc8 sign",
+        "568dd5 exponent",
+        "568dda digits",
+        "568de4 return"
+      ]
+    },
+    {
+      "range": "scratch buffer+0x400 maximum",
+      "type": "bounded writable output storage",
+      "access": "full0x440-byte canary region watched, each format case permits only its actual buffer onwards; largest fixed case is340 fractional digits or309 integer digits",
+      "source": "unit_02875..02880 and reused unit_02881/02978/02917/02835/02849/02854"
+    },
+    {
+      "range": "scratch output+28",
+      "type": "raw80 output structure",
+      "access": "write only this28-byte structure;128-byte surrounding region watched; alignment0..3 varied"
+    },
+    {
+      "range": "scratch left+12",
+      "type": "contiguous raw96: five little-endian significand WORDs and sign/exponent WORD",
+      "access": "multiply writes left only; scale writes value only;44-byte canary regions watched. Right is read only including full surrounding region. Alias square uses same pointer deliberately."
+    },
+    {
+      "range": "0x605438+0x400",
+      "type": "native positive/negative decimal power tables",
+      "access": "read only, watched unchanged; magnitude bounded through4932 (five base8 digits)",
+      "source": "unit_03015 table increments54 and factor index*12; child multiply writes only its left operand"
+    }
+  ],
+  "input_and_evidence_shapes": {
+    "case_module": "definitions(registry)->list[dict];186 recipes, no executable imports. Stores are list[(absolute_int,bytes)], watched/write_ranges are list[(absolute_int,length)]. arguments/named_arguments are lists of stack DWORD integer values, signed values packed modulo2^32 by engine. result_mask is full0xffffffff or null for void.",
+    "registry": "dict with members:list[dict]; only member address strings are inspected. All ten entries must be present. No prior test result is loaded.",
+    "cached_byte_records": "JSON dict(native_sha256,sources,entries);entries:list length18, each assembly is dict(items:list,total:int,has_more:bool). Relevant assembly items contain address/bytes/instruction scalars. The stale decompiler info.signature is not used as ABI authority.",
+    "byte_records": "JSON dict with records:list; normalized_result bytes_hex and pinned subject digest are evidence, never an executable fixture.",
+    "source_contracts": "Public restore/include/crt_format.h and current source/meta are authoritative; old packet contract prose is reused only after matching native instruction observations."
+  },
+  "coverage": {
+    "formatting": "Signed/unsigned zero, sign, binary64 subnormals/max finite, infinity/NaN and real x87 quieting spill, scientific positive/negative three-digit exponent, precision0/1/17/340, rounding exponent carry, fixed leading zero insertion, general exponent-4/-5 and precision threshold, rounded fixed trim, decimal separator/capitalization, every dispatcher arm, actual descriptor reuse and wrapper clear, nonzero7f reuse flag.",
+    "binary64": "20 direct by-value payloads including exact IEEE boundaries, special payloads, signed minimum subnormal and NaN/indefinite distinction.",
+    "raw80": "33 payload/precision/flag combinations including high third-DWORD padding, zeros, denormals, extreme exponent, exact1.25 rounding and9.5 carry,21-digit clamp, flags bit0 and ignored upper flag bits, INF/QNAN/IND/SNAN paths.",
+    "multiply": "27 cases: zero/negative zero, all sign combinations, underflow threshold,63/1 right shifts with sticky bits, denormal operands, normalization, exact guard half even/odd, below/above half, one/two DWORD and exponent carry chains, all-ones partial diagonals, overflow signs and alias square.",
+    "multiply_input_justification": "For A=2^79+2^32 and B=2^79+(k<<32), native five retained partial diagonals followed by one normalization shift yield guard WORD2*k mod65536. k4000/c000 gives8000 with retained bit16 even/odd; k3fff/4001 gives7ffe/8002. B800000004001ffffffff yields guard8002 with retained low DWORDffffffff; B8000fffffffefffe0000 gives guardfffc and retained low64 all ones; Bfffffffffffe00000000 gives guardfffc and all80 retained bits ones. This derives input labels from the native diagonal arithmetic; outputs remain exclusively native/C compared.",
+    "scale": "28 cases: power0 untouched for both modes, positive/negative tail clear/preserve, base8 boundary digits7/8/9/63/64, table levels512/4096,4932 exponent extreme, signed nonzero preserve mode, zero operand, overflow/underflow; actual56a904 child always runs where reached."
+  },
+  "required_engine_features": [
+    "result_mask=null skips logical EAX comparison for void while retaining EAX as diagnostic and all memory/ABI checks",
+    "Native and named uint64 parameter transported as two stack DWORDs (already supported by arguments list)",
+    "Actual child execution; no hooks or controlled external endpoint required by these ten recipes"
+  ],
+  "blockers": [],
+  "pending_domains": [
+    "Fresh shared root native/C execution is required; recipe validation alone establishes no behavior equivalence.",
+    "56AB24 INT_MIN and powers beyond finite table are excluded, not masked into passing tests.",
+    "Unmasked x87 exceptions and alternative control words are not exercised by the current037f engine contract.",
+    "Native569FAD parser->56AB24 compiled dependency edge, table install5618AE and printf indirect call564F70 remain root cohort integration responsibilities.",
+    "Targetless indirect604C44 uses and complete gameplay equivalence remain unresolved."
+  ],
+  "native_execution": false,
+  "host_execution": false,
+  "source_edits": false,
+  "build_performed": false,
+  "whole_game_equivalence": false
+}

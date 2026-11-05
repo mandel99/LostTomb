@@ -79,10 +79,10 @@ def execute(registry,cases,directory):
     if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
     if [values[i]for i in [3,5,6,7]]!=saved:errors.append(dict(kind='nonvolatile-registers'))
     if route=='native':
-     reference=(values[0]&case['result_mask'],ram);reference_regs=(values,flags)
+     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram);reference_regs=(values,flags)
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
     else:
-     if reference!=(values[0]&case['result_mask'],ram):errors.append(dict(kind='native-C-result-or-memory'))
+     if reference!=(None if case['result_mask']is None else values[0]&case['result_mask'],ram):errors.append(dict(kind='native-C-result-or-memory'))
      if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
     row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),errors=errors)
     routes.append(row);failures+=errors
@@ -92,12 +92,14 @@ def execute(registry,cases,directory):
  assert load(True)==registry,'Input/artifact registry changed during execution'
  for name,sha in sources.items():assert digest(ROOT/name)==sha,('source changed during replay',name)
  compared=sorted({hex(c['entry'])for c in cases});pending=[m['address']for m in registry['members']if hex(int(m['address'],16))not in compared]
- report=dict(schema='cohort3-staged-native-C-comparison-v1',source_entries=registry['source_entries'],entries_compared=len(compared),cases=len(rows),invocations=attempts,passed_cases=sum(r['passed']for r in rows),failed_cases=sum(not r['passed']for r in rows),compared_entries=compared,pending_entries=pending,cases_detail=rows,binding_sha256=digest(directory/'binding.json'),case_inputs_sha256=digest(directory/'case-inputs.json'),cohort_validation_complete=False,whole_game_equivalence=False,host_execution=False,scope='Fresh nonfaulting lookup and96-bit carry/rounding cases; actual helpers execute. Pending entries and unvisited domains remain explicit.')
+ report=dict(schema='cohort3-staged-native-C-comparison-v1',source_entries=registry['source_entries'],entries_compared=len(compared),cases=len(rows),invocations=attempts,passed_cases=sum(r['passed']for r in rows),failed_cases=sum(not r['passed']for r in rows),compared_entries=compared,pending_entries=pending,cases_detail=rows,binding_sha256=digest(directory/'binding.json'),case_inputs_sha256=digest(directory/'case-inputs.json'),cohort_validation_complete=False,whole_game_equivalence=False,host_execution=False,scope='Fresh authored cases for the selected families; actual helpers execute unless endpoints are declared. Pending entries and unvisited domains remain explicit.')
  save(directory/'result.json',report);return report
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--run',action='store_true');p.add_argument('--output-dir',type=Path,default=ROOT/'build/actor-animal-following/cohort3-verification/runs');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--run',action='store_true');p.add_argument('--group',action='append',default=[]);p.add_argument('--output-dir',type=Path,default=ROOT/'build/actor-animal-following/cohort3-verification/runs');a=p.parse_args()
  registry=load(a.run);cases=definitions(registry)
+ if a.group:cases=[c for c in cases if c['id'].split('/')[0]in a.group]
+ assert cases and len({c['id']for c in cases})==len(cases),'Empty or duplicate case selection'
  if not a.run:print(json.dumps(dict(source_entries=registry['source_entries'],planned_cases=len(cases),planned_entries=len({c['entry']for c in cases}),execution_performed=False)));return
  directory=a.output_dir/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d-%H%M%S-%f');directory.mkdir(parents=True,exist_ok=False)
  r=execute(registry,cases,directory);print(json.dumps(dict(source_entries=r['source_entries'],entries_compared=r['entries_compared'],cases=r['cases'],invocations=r['invocations'],failed_cases=r['failed_cases'],cohort_validation_complete=False,result=str(directory/'result.json'))));sys.exit(bool(r['failed_cases']))
