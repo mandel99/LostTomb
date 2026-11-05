@@ -1,10 +1,10 @@
 # Pharaoh restore
 
-The current source-first cohort selects 88 connected C entrypoints /12,311
+The current source-first cohort selects 100 connected C entrypoints /13,285
 static native instructions. Eight previously published bodies are selected
-unchanged; 38 algorithms were created since611f3cc. 42 prior-C owners
+unchanged; 38 algorithms were created since611f3cc. 54 prior-C owners
 were reused, including narrow type/access repairs with zero algorithm credit. Shared strict compilation and both Release main
-links pass. Detailed native comparison follows at approximately100 functions.
+links pass. The100-entry source milestone is reached; joint native comparison is pending.
 See [the current cohort](metadata/ACTOR_COHORT_2.md).
 
 The last finite API comparison is [611f3cc](https://github.com/mandel99/LostTomb/commit/611f3cc8cf001595c682fc99932ad102ad66ea9c):

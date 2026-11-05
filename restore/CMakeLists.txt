@@ -425,6 +425,9 @@ set_property(SOURCE src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_
 # City census, road regions, hazards and sentry refresh: original owners only.
 target_sources(pharaoh_restored PRIVATE src/unit_00954.c src/unit_00933.c src/unit_00934.c src/unit_00935.c src/unit_00939.c src/unit_00942.c src/unit_01147.c)
 set_source_files_properties(src/unit_01345.c src/unit_01475.c src/unit_00954.c src/unit_00933.c src/unit_00934.c src/unit_00935.c src/unit_00939.c src/unit_00942.c src/unit_01147.c src/unit_00940.c src/unit_00941.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Complete the connected city-worker cohort using original source owners.
+target_sources(pharaoh_restored PRIVATE src/unit_00919.c src/unit_00920.c src/unit_00921.c src/unit_00922.c src/unit_00929.c src/unit_00930.c src/unit_00931.c src/unit_00816.c src/unit_00818.c src/unit_00915.c src/unit_00925.c src/unit_01569.c)
+set_source_files_properties(src/unit_00919.c src/unit_00920.c src/unit_00921.c src/unit_00922.c src/unit_00929.c src/unit_00930.c src/unit_00931.c src/unit_00816.c src/unit_00818.c src/unit_00915.c src/unit_00925.c src/unit_01569.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

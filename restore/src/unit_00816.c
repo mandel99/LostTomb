@@ -1,26 +1,21 @@
-#include "restore_types.h"
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a14 (*(undefined4 *)0x00799a14u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799aa4 (*(undefined4 *)0x00799aa4u)
+#include "city_worker_supply.h"
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_00455c30(int param_1)
-
+/* Whole455C30; reuse the existing algorithm with WORD fields/264-byte stride. */
+void restore_city_reset_dispatch_reservations(int32_t building)
 {
-  short sVar1;
-  
-  (&DAT_00799a2c)[param_1 * 0x84] = 0;
-  if (((&DAT_007999ea)[param_1 * 0x84] != 0) && ((&DAT_00799a14)[param_1 * 0x84] != 0)) {
-    (&DAT_00799a14)[param_1 * 0x84] = (&DAT_00799a14)[param_1 * 0x84] + -100;
-  }
-  if ((*(short *)((int)&DAT_00799aa4 + param_1 * 0x108 + 2) != 0) &&
-     (sVar1 = *(short *)(&DAT_00799aa4 + param_1 * 0x42), sVar1 != 0)) {
-    if ((&DAT_007999e8)[param_1 * 0x84] == 0xcc) {
-      *(short *)(&DAT_00799aa4 + param_1 * 0x42) = sVar1 + -0x19;
-      return;
+    uint32_t off=(uint32_t)building*264u;
+    uint16_t value;
+    W(0x799a2cu+off)=0u;
+    if(W(0x7999eau+off)!=0u){
+        value=W(0x799a14u+off);
+        if(value!=0u)W(0x799a14u+off)=(uint16_t)(value-100u);
     }
-    *(short *)(&DAT_00799aa4 + param_1 * 0x42) = sVar1 + -100;
-  }
-  return;
+    if(W(0x799aa6u+off)!=0u){
+        value=W(0x799aa4u+off);
+        if(value!=0u){
+            if(W(0x7999e8u+off)==204u)W(0x799aa4u+off)=(uint16_t)(value-25u);
+            else W(0x799aa4u+off)=(uint16_t)(value-100u);
+        }
+    }
 }

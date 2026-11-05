@@ -45,6 +45,8 @@
   records in files; return only the needed excerpt or compact result to context.
 - Give each function one author. Do not start a second review agent or another
   round of discovery for a completed handoff without a concrete unresolved issue.
-- After the current prepared packet, finish the approximately100-entry cohort
-  before another detailed replay. Batch build fixes and keep progress messages
-  brief; do not rebuild or recheck an unchanged successful checkpoint.
+- At the approximately100-entry cohort milestone, perform the joint native/C
+  comparison before expanding the cohort. Include compiled-only definitions
+  in the verification plan; a successful build is not behavior equivalence.
+  Batch build fixes, keep reports brief and do not rebuild or recheck an
+  unchanged successful checkpoint.

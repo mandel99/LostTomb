@@ -1,56 +1,35 @@
-#include "restore_types.h"
-#define DAT_007999d9 (*(undefined4 *)0x007999d9u)
-#define DAT_00799a04 (*(undefined4 *)0x00799a04u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd652 (*(undefined4 *)0x00bcd652u)
-#define DAT_00ea1894 (*(undefined4 *)0x00ea1894u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
-extern undefined4 FUN_00488050();
-extern void FUN_004b1df0();
-extern int FUN_004b4800();
+#include "city_spawn_helpers.h"
+#include "actor_teardown_model.h"
+#include "actor_create.h"
+#include "actor_work.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define S(a) ((int32_t)(int16_t)W(a))
+#define I(v) ((int32_t)(uint32_t)(v))
 
-void FUN_00467220(int param_1)
-
+/* Native00467220: reuse the existing algorithm with byte-addressed records. */
+void restore_city_ensure_labor_seeker(int32_t building)
 {
-  short sVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  char cVar4;
-  int iVar5;
-  
-  cVar4 = FUN_00488050(param_1);
-  uVar3 = _DAT_00d3b4e4;
-  uVar2 = _DAT_00d3b4e0;
-  _DAT_00d3b4e0 = uVar2;
-  _DAT_00d3b4e4 = uVar3;
-  if ((cVar4 == '\0') && (0 < *(int *)(&DAT_00ea1894 + DAT_00eaac28 * 0x49d8))) {
-    sVar1 = (&DAT_00799a04)[param_1 * 0x84];
-    if (sVar1 == 0) {
-      iVar5 = FUN_004b4800((&DAT_007999d9)[param_1 * 0x108],5,_DAT_00d3b4e4,_DAT_00d3b4e0,0);
-      (&DAT_00799a04)[param_1 * 0x84] = (short)iVar5;
-      (&DAT_00bcd630)[iVar5 * 0x184] = 1;
-      (&DAT_00bcd652)[iVar5 * 0xc2] = (short)param_1;
-      FUN_004b1df0(iVar5);
-      _DAT_00d3b4e0 = uVar2;
-      _DAT_00d3b4e4 = uVar3;
-    }
-    else {
-      iVar5 = sVar1 * 0x184;
-      if ((&DAT_00bcd606)[iVar5] == '\0') {
-        (&DAT_00799a04)[param_1 * 0x84] = 0;
-      }
-      if ((&DAT_00bcd602)[iVar5] != '\x05') {
-        (&DAT_00799a04)[param_1 * 0x84] = 0;
-      }
-      if ((short)(&DAT_00bcd652)[sVar1 * 0xc2] != param_1) {
-        (&DAT_00799a04)[param_1 * 0x84] = 0;
+    uint32_t record,actor_record,actor,cached_x,cached_y;
+    int32_t existing;
+    if((uint8_t)restore_actor_building_gate(building)!=0)return;
+    if(I(U(0xea1894u+U(0xeaac28u)*0x49d8u))<=0)return;
+    record=(uint32_t)building*264u;
+    existing=S(0x799a04u+record);
+    if(existing!=0){
+        actor_record=(uint32_t)existing*388u;
+        if(B(0xbcd606u+actor_record)==0)W(0x799a04u+record)=0;
+        if(B(0xbcd602u+actor_record)!=5u)W(0x799a04u+record)=0;
+        if(S(0xbcd652u+actor_record)!=building)W(0x799a04u+record)=0;
         return;
-      }
     }
-  }
-  return;
+    cached_y=U(0xd3b4e0u);cached_x=U(0xd3b4e4u);
+    actor=(uint32_t)FUN_004b4800(B(0x7999d9u+record),5,I(cached_x),I(cached_y),0);
+    actor_record=actor*388u;
+    W(0x799a04u+record)=(uint16_t)actor;
+    B(0xbcd630u+actor_record)=1;
+    W(0xbcd652u+actor_record)=(uint16_t)building;
+    FUN_004b1df0(I(actor));
+    U(0xd3b4e4u)=cached_x;U(0xd3b4e0u)=cached_y;
 }

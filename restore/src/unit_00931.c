@@ -1,30 +1,22 @@
-#include "restore_types.h"
-#define DAT_007999d8 (*(undefined4 *)0x007999d8u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_00ac2d4c (*(undefined4 *)0x00ac2d4cu)
-#define DAT_00f564cc (*(undefined *)0x00f564ccu)
-#define DAT_00f56584 (*(undefined *)0x00f56584u)
-extern void FUN_0047bf50();
+#include "city_spawn_helpers.h"
+#include "road_place.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define S(a) ((int32_t)(int16_t)W(a))
 
-undefined4 FUN_004673c0(int param_1)
-
+/* Native004673C0: logical AL output; do not claim a full EAX result. */
+uint8_t restore_city_refresh_fertility_building_image(int32_t building)
 {
-  int iVar1;
-  
-  iVar1 = param_1 * 0x108;
-  if ((&DAT_007999d8)[iVar1] == '\x01') {
-    if ('\x1e' < (char)(&DAT_00ac2d4c)[*(int *)(&DAT_007999e4 + iVar1)]) {
-      FUN_0047bf50(param_1,(int)*(short *)((int)&DAT_007999dc + iVar1 + 2),
-                   (int)*(short *)(&DAT_007999e0 + iVar1),(&DAT_007999db)[iVar1],
-                   (&DAT_007999db)[iVar1],DAT_00f56584,8);
-      return 1;
-    }
-    FUN_0047bf50(param_1,(int)*(short *)((int)&DAT_007999dc + iVar1 + 2),
-                 (int)*(short *)(&DAT_007999e0 + iVar1),(&DAT_007999db)[iVar1],
-                 (&DAT_007999db)[iVar1],DAT_00f564cc,8);
-  }
-  return 0;
+    uint32_t record=(uint32_t)building*264u,tile,image,side;
+    int32_t x,y;
+    uint8_t fertile;
+    if(B(0x7999d8u+record)!=1u)return 0;
+    tile=U(0x7999e4u+record);
+    fertile=(uint8_t)((int8_t)B(0xac2d4cu+tile)>30);
+    image=U(fertile?0xf56584u:0xf564ccu);
+    side=B(0x7999dbu+record);
+    y=S(0x7999e0u+record);x=S(0x7999deu+record);
+    FUN_0047bf50((uint16_t)building,x,y,(int32_t)side,(int32_t)side,image,8);
+    return fertile;
 }

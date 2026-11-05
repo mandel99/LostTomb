@@ -1,7 +1,7 @@
 # Civic, delivery and walking C owners
 
-These 88 native entries map to 86 named C functions in the main build. Eight owners
-were created before611f3cc; 38 were created since it and 42 prior-C
+These 100 native entries map to 98 named C functions in the main build. Eight owners
+were created before611f3cc; 38 were created since it and 54 prior-C
 owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
@@ -21,6 +21,17 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 420910 | FUN_00420910 | 48 |
 | 420F50 | FUN_00420f50 | 42 |
 | 421230 | FUN_00421230 | 42 |
+| 455C30 | restore_city_reset_dispatch_reservations | 26 |
+| 455CC0 | restore_city_refresh_nearby_house_needs | 98 |
+| 460EA0 | restore_city_find_vacant_service_building | 68 |
+| 4612C0 | restore_city_update_delayed_stock_worker | 125 |
+| 461490 | restore_city_update_service_worker | 91 |
+| 4615D0 | restore_city_update_stock_reset_worker | 92 |
+| 461720 | restore_city_update_dual_stock_worker | 153 |
+| 461F90 | restore_actor_initialize_type_parameters | 66 |
+| 467220 | restore_city_ensure_labor_seeker | 69 |
+| 467310 | restore_city_refresh_masked_building_image | 52 |
+| 4673C0 | restore_city_refresh_fertility_building_image | 48 |
 | 4677C0 | restore_city_rebuild_building_counts | 558 |
 | 468170 | restore_city_rebuild_service_coverage | 240 |
 | 4684E0 | restore_city_rebuild_building_requirements | 25 |
@@ -69,6 +80,7 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 4BC2E0 | restore_actor_find_approach_building_state2 | 71 |
 | 4BC3B0 | restore_actor_find_approach_building_state3 | 71 |
 | 4BC480 | restore_actor_approach_common_result | 9 |
+| 4BED70 | restore_city_dispatch_kind85 | 86 |
 | 4E05F0 | restore_actor_accept_kind222_work | 429 |
 | 4E0C00 | restore_actor_find_approach_kind222 | 31 |
 | 4E6B20 | restore_monument_base_worker_result | 59 |
@@ -95,7 +107,7 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 12,311 static native instructions, not execution coverage.
+The total is 13,285 static native instructions, not execution coverage.
 Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
@@ -169,3 +181,15 @@ and routing remain unchanged; detailed native comparison is pending.
 Eight already-correct path variants remain unchanged and earn no additional
 entry/rewrite credit. The narrow EAX witness is historical at6cc75a8; its old
 image hashes are not rebound to this build.
+
+The final12 entries repair original city-worker, dispatch and actor-profile
+source owners; no additional algorithm creation is claimed. Wrapped BYTE
+timers, signed WORD links,264/388-byte records, cached coordinates and
+pre/post-patrol publication order remain explicit. Existing correct460F70
+and462140 C bodies are unchanged and receive no additional entry credit.
+673C0 promises AL only; its full-EAX canonical and physical RAW path remain.
+
+The100-entry translation milestone is reached. Seventeen named definitions
+are compiled but linker-eliminated in both main images. Dedicated retention
+and joint offline native/C comparison are next; neither full-cohort behavior
+nor complete game equivalence is claimed by this source/build checkpoint.

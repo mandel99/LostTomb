@@ -1,99 +1,45 @@
-#include "restore_types.h"
-#define DAT_0070cdf8 (*(undefined4 *)0x0070cdf8u)
-#define DAT_0070cdfc (*(undefined4 *)0x0070cdfcu)
-#define DAT_0070ce00 (*(undefined4 *)0x0070ce00u)
-#define DAT_0070ce04 (*(undefined4 *)0x0070ce04u)
-#define DAT_0078d790 (*(undefined *)0x0078d790u)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00799a76 (*(undefined4 *)0x00799a76u)
-#define DAT_00799a78 (*(undefined4 *)0x00799a78u)
-#define DAT_00799a7a (*(undefined4 *)0x00799a7au)
-#define DAT_00799ae5 (*(undefined4 *)0x00799ae5u)
-#define DAT_00d3b4fc (*(undefined *)0x00d3b4fcu)
-#define _DAT_00d3b4f8 (*(undefined4 *)0x00d3b4f8u)
+#include "city_worker_supply.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define H(a) ((int32_t)(int16_t)W(a))
 
-void FUN_00455cc0(int param_1,int param_2)
-
+/* Whole455CC0. Cached high-water/countdown, signed WORD coordinates/model,
+   DWORD scratch distances, and the native table/store sequence are retained. */
+void restore_city_refresh_nearby_house_needs(int32_t building,int32_t radius)
 {
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  char *pcVar4;
-  int iVar5;
-  int local_4;
-  
-  if (0 < DAT_0078d790) {
-    pcVar4 = &DAT_00799ae5;
-    local_4 = DAT_0078d790;
-    do {
-      if (((pcVar4[-5] == '\x01') && (*pcVar4 != '\0')) && (*(short *)(pcVar4 + 0x17) != 0)) {
-        iVar2 = (int)*(short *)(pcVar4 + 1);
-        iVar3 = param_1 * 0x108;
-        _DAT_00d3b4f8 = (int)*(short *)(pcVar4 + 3);
-        iVar1 = (int)*(short *)((int)&DAT_007999dc + iVar3 + 2);
-        iVar5 = (int)*(short *)(&DAT_007999e0 + iVar3);
-        if (iVar1 < iVar2) {
-          DAT_00d3b4fc = iVar2 - iVar1;
+    uint32_t count=U(0x78d790u),cursor=0x799ae5u,off,model,value,dx,dy,size;
+    int32_t x,y,house_x,house_y,level;
+    if((int32_t)count<1)return;
+    do{
+        if(B(cursor-5u)==1u && B(cursor)!=0u && W(cursor+0x17u)!=0u){
+            off=(uint32_t)building*264u;
+            house_x=H(cursor+1u);house_y=H(cursor+3u);
+            x=H(0x7999deu+off);y=H(0x7999e0u+off);
+            dx=(uint32_t)(house_x>x?house_x-x:x-house_x);
+            U(0xd3b4fcu)=dx;
+            dy=(uint32_t)(house_y>y?house_y-y:y-house_y);
+            U(0xd3b4f8u)=dy;
+            if((int32_t)(dx>=dy?dx:dy)<=radius){
+                level=H(cursor+0xdu);
+                if(level<19)++level;
+                model=(uint32_t)level*88u;
+                size=B(cursor-2u);value=U(0x70ce04u+model);
+                if(size>1u)value<<=2;
+                if(value!=0u)W(0x799a7cu+off)=10u;
+                size=B(cursor-2u);value=U(0x70cdf8u+model);
+                if(size>1u)value<<=2;
+                if(value!=0u)W(0x799a76u+off)=10u;
+                size=B(cursor-2u);value=U(0x70cdfcu+model);
+                if(size>1u)value<<=2;
+                if(value!=0u)W(0x799a7au+off)=10u;
+                value=B(cursor-2u);
+                if(value>1u)value=U(0x70ce00u+model)<<2;
+                else value=U(0x70ce00u+model);
+                if(value!=0u)W(0x799a78u+off)=10u;
+            }
         }
-        else if (iVar2 < iVar1) {
-          DAT_00d3b4fc = iVar1 - iVar2;
-        }
-        else {
-          DAT_00d3b4fc = 0;
-        }
-        if (iVar5 < _DAT_00d3b4f8) {
-          _DAT_00d3b4f8 = _DAT_00d3b4f8 - iVar5;
-        }
-        else if (_DAT_00d3b4f8 < iVar5) {
-          _DAT_00d3b4f8 = iVar5 - _DAT_00d3b4f8;
-        }
-        else {
-          _DAT_00d3b4f8 = 0;
-        }
-        iVar1 = _DAT_00d3b4f8;
-        if (_DAT_00d3b4f8 <= DAT_00d3b4fc) {
-          iVar1 = DAT_00d3b4fc;
-        }
-        if (iVar1 <= param_2) {
-          iVar1 = (int)*(short *)(pcVar4 + 0xd);
-          if (iVar1 < 0x13) {
-            iVar1 = iVar1 + 1;
-          }
-          iVar1 = iVar1 * 0x58;
-          iVar2 = *(int *)(&DAT_0070ce04 + iVar1);
-          if (1 < (byte)pcVar4[-2]) {
-            iVar2 = iVar2 << 2;
-          }
-          if (iVar2 != 0) {
-            *(undefined2 *)((int)&DAT_00799a7a + iVar3 + 2) = 10;
-          }
-          iVar2 = *(int *)(&DAT_0070cdf8 + iVar1);
-          if (1 < (byte)pcVar4[-2]) {
-            iVar2 = iVar2 << 2;
-          }
-          if (iVar2 != 0) {
-            *(undefined2 *)(&DAT_00799a76 + iVar3) = 10;
-          }
-          iVar2 = *(int *)(&DAT_0070cdfc + iVar1);
-          if (1 < (byte)pcVar4[-2]) {
-            iVar2 = iVar2 << 2;
-          }
-          if (iVar2 != 0) {
-            *(undefined2 *)(&DAT_00799a7a + param_1 * 0x42) = 10;
-          }
-          iVar1 = *(int *)(&DAT_0070ce00 + iVar1);
-          if (1 < (byte)pcVar4[-2]) {
-            iVar1 = iVar1 << 2;
-          }
-          if (iVar1 != 0) {
-            *(undefined2 *)(&DAT_00799a78 + iVar3) = 10;
-          }
-        }
-      }
-      pcVar4 = pcVar4 + 0x108;
-      local_4 = local_4 + -1;
-    } while (local_4 != 0);
-  }
-  return;
+        cursor+=264u;
+        --count;
+    }while(count!=0u);
 }

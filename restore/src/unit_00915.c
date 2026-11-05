@@ -1,49 +1,30 @@
-#include "restore_types.h"
-#define DAT_00799a8e (*(undefined4 *)0x00799a8eu)
-#define DAT_00799b96 (*(undefined4 *)0x00799b96u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00bcd652 (*(undefined4 *)0x00bcd652u)
+#include "city_worker_supply.h"
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define H(a) ((int32_t)(int16_t)W(a))
 
-int FUN_00460ea0(uint param_1)
-
+/* Whole460EA0. Native fixed scan, signed links, and stale-link clearing. */
+int32_t restore_city_find_vacant_service_building(uint32_t actor_kind)
 {
-  short sVar1;
-  int iVar2;
-  int iVar3;
-  short *psVar4;
-  int iVar5;
-  
-  if (param_1 == 0x19) {
-    iVar5 = 0x4c;
-  }
-  else {
-    iVar5 = (param_1 != 0x4d) + 0xb5;
-  }
-  iVar2 = 1;
-  psVar4 = &DAT_00799b96;
-  do {
-    if (((char)psVar4[-0x5b] != '\0') && (psVar4[-0x53] == iVar5)) {
-      sVar1 = *psVar4;
-      if (sVar1 < 1) {
-        return iVar2;
-      }
-      iVar3 = sVar1 * 0x184;
-      if ((&DAT_00bcd606)[iVar3] == '\0') {
-LAB_00460f4b: ;
-        *(undefined2 *)(&DAT_00799a8e + iVar2 * 0x108) = 0;
-        return iVar2;
-      }
-      if (((byte)(&DAT_00bcd602)[iVar3] != param_1) && ((&DAT_00bcd602)[iVar3] != 0)) {
-        *(undefined2 *)(&DAT_00799a8e + iVar2 * 0x108) = 0;
-        return iVar2;
-      }
-      if ((short)(&DAT_00bcd652)[sVar1 * 0xc2] != iVar2) goto LAB_00460f4b;
-    }
-    psVar4 = psVar4 + 0x84;
-    iVar2 = iVar2 + 1;
-    if (0x89b78d < (int)psVar4) {
-      return 0;
-    }
-  } while( true );
+    uint32_t index=1u,cursor=0x799b96u,off,kind;
+    int32_t wanted=actor_kind==25u?76:actor_kind==77u?181:182;
+    int32_t linked;
+    do{
+        if(B(cursor-0xb6u)!=0u && H(cursor-0xa6u)==wanted){
+            linked=H(cursor);
+            if(linked<1)return (int32_t)index;
+            off=(uint32_t)linked*388u;
+            if(B(0xbcd606u+off)!=0u){
+                kind=B(0xbcd602u+off);
+                if((kind==actor_kind || kind==0u) && H(0xbcd652u+off)==(int32_t)index){
+                    cursor+=264u;++index;
+                    continue;
+                }
+            }
+            W(0x799a8eu+index*264u)=0u;
+            return (int32_t)index;
+        }
+        cursor+=264u;++index;
+    }while((int32_t)cursor<0x89b78e);
+    return 0;
 }

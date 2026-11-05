@@ -1,3 +1,6 @@
+#include "city_worker_updates.h"
+#include "city_spawn_helpers.h"
+#include "city_worker_supply.h"
 #include "city_capacity.h"
 #include "city_maintenance.h"
 #include "../artifacts/actor_civic_followup/actor_civic_followup.h"
@@ -509,25 +512,25 @@ uint32_t FUN_0047fd30(int32_t building,int32_t radius)
 /* Canonical production helpers share the complete dispatcher bodies.
  * Public C members take an explicit receiver; native RET4 stays in the frame. */
 void FUN_00467220(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x00467220u,a,1);}
+{restore_city_ensure_labor_seeker(building);}
 uint32_t FUN_00488400(void * self,int32_t building)
 {const uint32_t a[]={(uint32_t)building};return (uint32_t)invoke_member(0x00488400u,(uint32_t)(uintptr_t)self,a,1,4);}
 uint8_t FUN_00455bf0(int32_t building)
 {const uint32_t a[]={(uint32_t)building};return (uint8_t)invoke(0x00455bf0u,a,1);}
 void FUN_00455c30(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x00455c30u,a,1);}
+{restore_city_reset_dispatch_reservations(building);}
 int32_t FUN_00462140(int32_t building,uint32_t kind)
 {const uint32_t a[]={(uint32_t)building,(uint32_t)kind};return (int32_t)invoke(0x00462140u,a,2);}
 void FUN_004612c0(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x004612c0u,a,1);}
+{restore_city_update_delayed_stock_worker(building);}
 void FUN_00461490(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x00461490u,a,1);}
+{restore_city_update_service_worker(building);}
 void FUN_004615d0(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x004615d0u,a,1);}
+{restore_city_update_stock_reset_worker(building);}
 void FUN_00461720(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x00461720u,a,1);}
+{restore_city_update_dual_stock_worker(building);}
 void FUN_004bed70(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x004bed70u,a,1);}
+{restore_city_dispatch_kind85(building);}
 int32_t FUN_0045bf00(int32_t building,int32_t resource)
 {const uint32_t a[]={(uint32_t)building,(uint32_t)resource};return (int32_t)invoke(0x0045bf00u,a,2);}
 uint8_t FUN_0045bb30(int32_t first,int32_t second)
@@ -537,15 +540,15 @@ int32_t FUN_0045ce90(int32_t building,int32_t resource)
 uint32_t FUN_004673c0(int32_t building)
 {const uint32_t a[]={(uint32_t)building};return (uint32_t)invoke(0x004673c0u,a,1);}
 void FUN_00455cc0(int32_t kind,int32_t amount)
-{const uint32_t a[]={(uint32_t)kind,(uint32_t)amount};(void)invoke(0x00455cc0u,a,2);}
+{restore_city_refresh_nearby_house_needs(kind,amount);}
 void FUN_00467310(int32_t building)
-{const uint32_t a[]={(uint32_t)building};(void)invoke(0x00467310u,a,1);}
+{restore_city_refresh_masked_building_image(building);}
 int32_t FUN_00460ea0(uint32_t kind)
-{const uint32_t a[]={(uint32_t)kind};return (int32_t)invoke(0x00460ea0u,a,1);}
+{return restore_city_find_vacant_service_building(kind);}
 uint8_t FUN_00460fb0(int32_t * kind)
 {const uint32_t a[]={(uint32_t)(uintptr_t)kind};return (uint8_t)invoke(0x00460fb0u,a,1);}
 void FUN_00461f90(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x00461f90u,a,1);}
+{restore_actor_initialize_type_parameters(actor);}
 uint8_t FUN_00460f70(int32_t building,int32_t * actor)
 {const uint32_t a[]={(uint32_t)building,(uint32_t)(uintptr_t)actor};return (uint8_t)invoke(0x00460f70u,a,2);}
 int32_t FUN_0046f140(void)

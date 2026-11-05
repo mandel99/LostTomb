@@ -1,53 +1,25 @@
-#include "restore_types.h"
-#define DAT_007090d0 (*(undefined4 *)0x007090d0u)
-#define DAT_007090d4 (*(undefined4 *)0x007090d4u)
-#define DAT_007090ec (*(undefined4 *)0x007090ecu)
-#define DAT_007090f4 (*(undefined4 *)0x007090f4u)
-#define DAT_007090fc (*(undefined4 *)0x007090fcu)
-#define DAT_00709100 (*(undefined4 *)0x00709100u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd71c (*(undefined4 *)0x00bcd71cu)
-#define DAT_00bcd720 (*(undefined4 *)0x00bcd720u)
-#define DAT_00bcd724 (*(undefined4 *)0x00bcd724u)
-#define DAT_00bcd728 (*(undefined4 *)0x00bcd728u)
-#define DAT_00bcd72c (*(undefined4 *)0x00bcd72cu)
-#define DAT_00bcd730 (*(undefined4 *)0x00bcd730u)
-#define DAT_00bcd734 (*(undefined4 *)0x00bcd734u)
-#define DAT_00bcd738 (*(undefined4 *)0x00bcd738u)
-#define DAT_00bcd73c (*(undefined4 *)0x00bcd73cu)
-#define DAT_00bcd740 (*(undefined4 *)0x00bcd740u)
-#define DAT_00bcd748 (*(undefined4 *)0x00bcd748u)
-#define DAT_00bcd74c (*(undefined4 *)0x00bcd74cu)
-#define DAT_00bcd750 (*(undefined4 *)0x00bcd750u)
-extern int FUN_004cde40();
+#include "city_worker_supply.h"
+#include "menu_list_scroll.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_00461f90(int param_1)
-
+/* Whole461F90. Reload the actor kind for each native table access. */
+void restore_actor_initialize_type_parameters(int32_t actor)
 {
-  undefined4 uVar1;
-  
-  param_1 = param_1 * 0x184;
-  *(undefined4 *)(&DAT_00bcd71c + param_1) = 0;
-  *(undefined4 *)(&DAT_00bcd720 + param_1) =
-       *(undefined4 *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd724 + param_1) =
-       *(undefined4 *)(&DAT_007090d0 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  (&DAT_00bcd728)[param_1] = 0;
-  *(undefined4 *)(&DAT_00bcd730 + param_1) = 0;
-  *(undefined4 *)(&DAT_00bcd72c + param_1) = 0;
-  *(undefined4 *)(&DAT_00bcd734 + param_1) =
-       *(undefined4 *)(&DAT_007090ec + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd738 + param_1) =
-       *(undefined4 *)(&DAT_007090f4 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd73c + param_1) =
-       *(undefined4 *)(&DAT_007090fc + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd740 + param_1) =
-       *(undefined4 *)(&DAT_00709100 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  *(undefined4 *)(&DAT_00bcd748 + param_1) =
-       *(undefined4 *)(&DAT_007090d4 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38);
-  (&DAT_00bcd74c)[param_1] = 0;
-  uVar1 = FUN_004cde40(*(undefined4 *)(&DAT_007090d4 + (uint)(byte)(&DAT_00bcd602)[param_1] * 0x38),
-                       0x14);
-  *(undefined4 *)(&DAT_00bcd750 + param_1) = uVar1;
-  return;
+    uint32_t off=(uint32_t)actor*388u,value;
+    U(0xbcd71cu+off)=0u;
+    U(0xbcd720u+off)=U(0x7090d0u+(uint32_t)B(0xbcd602u+off)*56u);
+    U(0xbcd724u+off)=U(0x7090d0u+(uint32_t)B(0xbcd602u+off)*56u);
+    B(0xbcd728u+off)=0u;
+    U(0xbcd730u+off)=0u;
+    U(0xbcd72cu+off)=0u;
+    U(0xbcd734u+off)=U(0x7090ecu+(uint32_t)B(0xbcd602u+off)*56u);
+    U(0xbcd738u+off)=U(0x7090f4u+(uint32_t)B(0xbcd602u+off)*56u);
+    U(0xbcd73cu+off)=U(0x7090fcu+(uint32_t)B(0xbcd602u+off)*56u);
+    U(0xbcd740u+off)=U(0x709100u+(uint32_t)B(0xbcd602u+off)*56u);
+    U(0xbcd748u+off)=U(0x7090d4u+(uint32_t)B(0xbcd602u+off)*56u);
+    B(0xbcd74cu+off)=0u;
+    value=U(0x7090d4u+(uint32_t)B(0xbcd602u+off)*56u);
+    value=(uint32_t)FUN_004cde40((int32_t)value,20);
+    U(0xbcd750u+off)=value;
 }

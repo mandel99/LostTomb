@@ -1,125 +1,89 @@
-#include "restore_types.h"
-#define DAT_00705eb8 (*(undefined4 *)0x00705eb8u)
-#define DAT_007999d9 (*(undefined4 *)0x007999d9u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999f0 (*(undefined4 *)0x007999f0u)
-#define DAT_00799a0a (*(undefined4 *)0x00799a0au)
-#define DAT_00799a14 (*(undefined4 *)0x00799a14u)
-#define DAT_00799a18 (*(undefined4 *)0x00799a18u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a7e (*(undefined4 *)0x00799a7eu)
-#define DAT_00799a9a (*(undefined4 *)0x00799a9au)
-#define DAT_00799aa4 (*(undefined4 *)0x00799aa4u)
-#define DAT_00bcd60c (*(undefined4 *)0x00bcd60cu)
-#define DAT_00bcd60e (*(undefined4 *)0x00bcd60eu)
-#define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd63c (*(undefined4 *)0x00bcd63cu)
-#define DAT_00bcd652 (*(undefined4 *)0x00bcd652u)
-#define DAT_00bcd65d (*(undefined4 *)0x00bcd65du)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
-extern void FUN_00467220();
-extern undefined4 FUN_00480180();
-extern void FUN_004b1df0();
-extern void FUN_004b3250();
-extern int FUN_004b4800();
-extern int FUN_004bc2e0();
-extern int FUN_004bc3b0();
-extern int FUN_004cde60();
+#include "city_worker_updates.h"
+#include "actor_create.h"
+#include "actor_work.h"
+#include "actor_order_action.h"
+#include "actor_laborer.h"
+#include "menu_resource_neighbors.h"
+#include "city_updates.h"
 
-void FUN_00461720(int param_1)
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+extern int32_t FUN_004cde60(int32_t value,int32_t divisor);
 
+/* 461720: kind108 worker tries stock at+CC before stock at+3C.
+   A successful approach consumes100 from its WORD stock and clears the
+   callback-selected actor's counter; failed approaches keep the new actor. */
+void restore_city_update_dual_stock_worker(int32_t building)
 {
-  char cVar1;
-  short sVar2;
-  byte bVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  
-  iVar6 = param_1 * 0x108;
-  if ((short)(&DAT_007999f0)[param_1 * 0x84] < 1) {
-    *(undefined1 *)((int)&DAT_00799a9a + iVar6 + 1) = 2;
-  }
-  iVar4 = FUN_00480180((int)*(short *)((int)&DAT_007999dc + iVar6 + 2),
-                       (int)*(short *)(&DAT_007999e0 + iVar6),(&DAT_007999db)[iVar6]);
-  if (iVar4 != 0) {
-    if ((short)(&DAT_007999f0)[param_1 * 0x84] < 0x33) {
-      FUN_00467220(param_1);
-    }
-    iVar4 = FUN_004cde60((int)(short)(&DAT_00799a18)[param_1 * 0x84],
-                         *(undefined4 *)
-                          (&DAT_00705eb8 + (short)(&DAT_007999e8)[param_1 * 0x84] * 0x28));
-    if (iVar4 < 100) {
-      if (iVar4 < 0x4b) {
-        if (iVar4 < 0x32) {
-          if (iVar4 < 0x19) {
-            return;
-          }
-          bVar3 = 1;
-        }
-        else {
-          bVar3 = 2;
-        }
-      }
-      else {
-        bVar3 = 3;
-      }
-    }
+    uint32_t b=(uint32_t)building*264u,a,current,spawn_x,spawn_y;
+    uint8_t orientation,player,workers;
+    int32_t x,y,kind,employed,maximum,percentage,limit,actor,remaining;
+
+    if((int16_t)W(0x7999f0u+b)<=0)B(0x799a9bu+b)=2;
+    y=(int16_t)W(0x7999e0u+b);
+    x=(int16_t)W(0x7999deu+b);
+    orientation=B(0x7999dbu+b);
+    if(FUN_00480180(x,y,orientation)==0u)return;
+    if((int16_t)W(0x7999f0u+b)<=50)FUN_00467220(building);
+    kind=(int16_t)W(0x7999e8u+b);
+    employed=(int16_t)W(0x799a18u+b);
+    maximum=(int32_t)U(0x705eb8u+(uint32_t)kind*40u);
+    percentage=FUN_004cde60(employed,maximum);
+    if(percentage>=100)limit=4;
+    else if(percentage>=75)limit=3;
+    else if(percentage>=50)limit=2;
     else {
-      bVar3 = 4;
+        if(percentage<25)return;
+        limit=1;
     }
-    if ((*(byte *)(&DAT_00799a7e + param_1 * 0x84) < bVar3) &&
-       ((&DAT_00799a0a)[iVar6] = 0, *(byte *)(&DAT_00799a7e + param_1 * 0x84) < bVar3)) {
-      iVar6 = FUN_004b4800((&DAT_007999d9)[iVar6],0x6c,_DAT_00d3b4e4,_DAT_00d3b4e0,0);
-      iVar4 = iVar6 * 0x184;
-      (&DAT_00bcd630)[iVar4] = 8;
-      (&DAT_00bcd652)[iVar6 * 0xc2] = (undefined2)param_1;
-      *(undefined2 *)(&DAT_00bcd62e + iVar4) = 0;
-      FUN_004b1df0(iVar6);
-      cVar1 = *(char *)(&DAT_00799a7e + param_1 * 0x84);
-      *(undefined2 *)(&DAT_00bcd63c + iVar4) = 0;
-      *(char *)(&DAT_00799a7e + param_1 * 0x84) = cVar1 + '\x01';
-      (&DAT_00799a2c)[param_1 * 0x84] = 0;
-      if ((99 < *(short *)(&DAT_00799aa4 + param_1 * 0x42)) &&
-         (iVar5 = FUN_004bc2e0((int)(short)(&DAT_00bcd60c)[iVar6 * 0xc2],
-                               (int)(short)(&DAT_00bcd60e)[iVar6 * 0xc2],iVar6), iVar5 != 0)) {
-        (&DAT_00bcd630)[iVar4] = 9;
-        FUN_004b3250(iVar6);
-        iVar6 = DAT_00d056f8;
-        *(short *)(&DAT_00799aa4 + param_1 * 0x42) =
-             *(short *)(&DAT_00799aa4 + param_1 * 0x42) + -100;
-        sVar2 = *(short *)(&DAT_00799aa4 + param_1 * 0x42);
-        *(undefined2 *)(&DAT_00bcd63c + iVar6 * 0x184) = 0;
-        if (-1 < sVar2) {
-          return;
+    workers=B(0x799a7eu+b);
+    if((int32_t)workers>=limit)return;
+    B(0x799a0au+b)=0;
+    workers=B(0x799a7eu+b);
+    if((int32_t)workers>=limit)return;
+    spawn_y=U(0xd3b4e0u);
+    spawn_x=U(0xd3b4e4u);
+    player=B(0x7999d9u+b);
+    actor=FUN_004b4800(player,108,(int32_t)spawn_x,(int32_t)spawn_y,0);
+    a=(uint32_t)actor*388u;
+    B(0xbcd630u+a)=8;
+    W(0xbcd652u+a)=(uint16_t)building;
+    W(0xbcd62eu+a)=0;
+    FUN_004b1df0(actor);
+    workers=B(0x799a7eu+b);
+    workers=(uint8_t)(workers+1u);
+    W(0xbcd63cu+a)=0;
+    B(0x799a7eu+b)=workers;
+    W(0x799a2cu+b)=0;
+    if((int16_t)W(0x799aa4u+b)>=100) {
+        y=(int16_t)W(0xbcd60eu+a);
+        x=(int16_t)W(0xbcd60cu+a);
+        if(FUN_004bc2e0(x,y,actor)!=0) {
+            B(0xbcd630u+a)=9;
+            FUN_004b3250(actor);
+            current=U(0xd056f8u);
+            W(0x799aa4u+b)=(uint16_t)(W(0x799aa4u+b)-100u);
+            remaining=(int16_t)W(0x799aa4u+b);
+            W(0xbcd63cu+current*388u)=0;
+            if(remaining<0)W(0x799aa4u+b)=0;
+            return;
         }
-        *(undefined2 *)(&DAT_00799aa4 + param_1 * 0x42) = 0;
-        return;
-      }
-      if ((99 < (short)(&DAT_00799a14)[param_1 * 0x84]) &&
-         (iVar5 = FUN_004bc3b0((int)(short)(&DAT_00bcd60c)[iVar6 * 0xc2],
-                               (int)(short)(&DAT_00bcd60e)[iVar6 * 0xc2],iVar6), iVar5 != 0)) {
-        (&DAT_00bcd630)[iVar4] = 9;
-        FUN_004b3250(iVar6);
-        iVar6 = DAT_00d056f8;
-        (&DAT_00799a14)[param_1 * 0x84] = (&DAT_00799a14)[param_1 * 0x84] + -100;
-        sVar2 = (&DAT_00799a14)[param_1 * 0x84];
-        *(undefined2 *)(&DAT_00bcd63c + iVar6 * 0x184) = 0;
-        if (-1 < sVar2) {
-          return;
-        }
-        (&DAT_00799a14)[param_1 * 0x84] = 0;
-        return;
-      }
-      (&DAT_00bcd65d)[iVar4] = 1;
-      (&DAT_00bcd630)[iVar4] = 4;
     }
-  }
-  return;
+    if((int16_t)W(0x799a14u+b)>=100) {
+        y=(int16_t)W(0xbcd60eu+a);
+        x=(int16_t)W(0xbcd60cu+a);
+        if(FUN_004bc3b0(x,y,actor)!=0) {
+            B(0xbcd630u+a)=9;
+            FUN_004b3250(actor);
+            current=U(0xd056f8u);
+            W(0x799a14u+b)=(uint16_t)(W(0x799a14u+b)-100u);
+            remaining=(int16_t)W(0x799a14u+b);
+            W(0xbcd63cu+current*388u)=0;
+            if(remaining<0)W(0x799a14u+b)=0;
+            return;
+        }
+    }
+    B(0xbcd65du+a)=1;
+    B(0xbcd630u+a)=4;
 }
