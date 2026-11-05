@@ -423,6 +423,11 @@ uint32_t restore_route_member_approach(uint32_t entry,uint32_t receiver,
     case 0x4e6e10u:return (uint32_t)restore_actor_find_approach_kind228(receiver,x,y,actor);
     case 0x40f070u:return (uint32_t)restore_actor_find_approach_kind225(receiver,x,y,actor);
     case 0x401f30u:return restore_actor_find_approach_kind230(receiver,x,y,actor);
+    case 0x545be0u:return (uint32_t)restore_actor_find_approach_kind229(receiver,x,y,actor);
+    case 0x5590c0u:return (uint32_t)restore_actor_find_approach_kind234(receiver,x,y,actor);
+    case 0x556430u:return (uint32_t)restore_actor_find_approach_kind235(receiver,x,y,actor);
+    case 0x54fb40u:return (uint32_t)restore_actor_find_approach_kind236(receiver,x,y,actor);
+    case 0x547c10u:return restore_actor_member_accept_building_core(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
     case 0x559110u:return restore_actor_member_accept_building(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
     default:return route_member_invoke(entry,receiver,x,y,(uint32_t)actor);
     }
@@ -439,17 +444,10 @@ uint32_t restore_route_approach_004e0c00(uint32_t x,uint32_t y,int32_t actor)
 {return (uint32_t)restore_actor_find_approach_kind222(x,y,(uint32_t)actor);}
 
 /* Native401ED0 consumes four explicit slots and returns with RET16. */
+/* Compatibility logical endpoint; physical401ED0 remains in the RAW model. */
 uint32_t restore_actor_member_find_kind230_raw(uint32_t receiver,uint32_t x,
                                              uint32_t y,int32_t actor,uint32_t mode)
-{
-    uint32_t stack[8192],sp=(uint32_t)(uintptr_t)(stack+8000);
-    struct restore_laborer_frame f={{0},2,dispatch};
-    stack[8000]=0;stack[8001]=x;stack[8002]=y;
-    stack[8003]=(uint32_t)actor;stack[8004]=mode;
-    f.r[1]=receiver;f.r[4]=sp;dispatch(0,0x401ed0u,&f);
-    if(f.r[4]!=sp+20u)abort();
-    return f.r[0];
-}
+{return (uint32_t)restore_actor_find_approach_kind230_mode(receiver,x,y,actor,mode);}
 uint32_t restore_route_approach_004f0190(uint32_t x,uint32_t y,int32_t actor)
 {const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x4f0190u,a,3);}
 uint32_t restore_route_approach_004f01c0(uint32_t x,uint32_t y,int32_t actor)
@@ -464,3 +462,29 @@ int32_t FUN_004e0c00(uint32_t x,uint32_t y,uint32_t actor)
 {return restore_actor_find_approach_kind222(x,y,actor);}
 int32_t FUN_00542a80(uint32_t x,uint32_t y,uint32_t actor)
 {return restore_actor_find_approach_kind213(x,y,actor);}
+
+/* Native acceptance endpoints use either one explicit slot/RET4 or
+   four explicit slots/RET16. Receiver and complete modeled EAX are kept. */
+static uint32_t acceptance_member_invoke(uint32_t entry,uint32_t receiver,
+                                         const uint32_t *args,uint32_t count)
+{
+    uint32_t stack[8192],i,sp=(uint32_t)(uintptr_t)(stack+8000);
+    struct restore_laborer_frame f={{0},2,dispatch};
+    stack[8000]=0;for(i=0;i<count;++i)stack[8001+i]=args[i];
+    f.r[1]=receiver;f.r[4]=sp;dispatch(0,entry,&f);
+    if(f.r[4]!=sp+4u*(count+1u))abort();
+    return f.r[0];
+}
+uint32_t restore_acceptance_member_check_raw(uint32_t entry,uint32_t receiver,int32_t building)
+{const uint32_t a[]={(uint32_t)building};return acceptance_member_invoke(entry,receiver,a,1);}
+uint32_t restore_acceptance_kind230_check_raw(uint32_t receiver,int32_t building,
+                                            int32_t actor,uint32_t accept,uint32_t mode)
+{const uint32_t a[]={(uint32_t)building,(uint32_t)actor,accept,mode};return acceptance_member_invoke(0x401d40u,receiver,a,4);}
+uint32_t restore_actor_approach_kind213_stage_worker_available_raw(int32_t building,int32_t actor)
+{const uint32_t a[]={(uint32_t)building,(uint32_t)actor};return invoke(0x420430u,a,2);}
+
+uint32_t restore_actor_approach_kind222_accept(int32_t building,int32_t actor,char mode)
+{return (uint32_t)restore_actor_accept_kind222_work(building,actor,(uint8_t)mode);}
+
+uint32_t restore_actor_approach_kind213_accept(int32_t building,int32_t actor,char mode)
+{return (uint32_t)restore_actor_accept_kind213_work(building,actor,(uint8_t)mode);}

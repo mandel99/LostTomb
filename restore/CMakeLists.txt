@@ -405,9 +405,12 @@ set_property(SOURCE src/unit_01310.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<ST
 target_sources(pharaoh_restored PRIVATE src/unit_01907.c src/unit_02555.c)
 set_source_files_properties(src/unit_01907.c src/unit_02555.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_property(SOURCE src/unit_01907.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004e0c00=restore_actor_find_approach_kind222>")
-set_property(SOURCE src/unit_01907.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004e05f0=restore_actor_approach_kind222_accept_raw>")
+set_property(SOURCE src/unit_01907.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004e05f0=restore_actor_approach_kind222_accept>")
 set_property(SOURCE src/unit_02555.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_00542a80=restore_actor_find_approach_kind213>")
-set_property(SOURCE src/unit_02555.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_005421d0=restore_actor_approach_kind213_accept_raw>")
+set_property(SOURCE src/unit_02555.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_005421d0=restore_actor_approach_kind213_accept>")
+# Repair existing acceptance owners in place; retain full-result RAW canonicals.
+set_source_files_properties(src/unit_01906.c src/unit_02554.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_property(SOURCE src/unit_01906.c src/unit_02554.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c
@@ -422,7 +425,9 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_cart_delivery.c
  artifacts/actor_civic_followup/actor_route_approach.c
  artifacts/actor_civic_followup/actor_approach_members.c
- artifacts/actor_civic_followup/actor_approach_search.c)
+ artifacts/actor_civic_followup/actor_approach_search.c
+ artifacts/actor_civic_followup/actor_approach_building_scans.c
+ artifacts/actor_civic_followup/actor_acceptance_members.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -437,6 +442,8 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_route_approach.c
  artifacts/actor_civic_followup/actor_approach_members.c
  artifacts/actor_civic_followup/actor_approach_search.c
+ artifacts/actor_civic_followup/actor_approach_building_scans.c
+ artifacts/actor_civic_followup/actor_acceptance_members.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

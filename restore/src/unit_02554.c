@@ -1,348 +1,111 @@
-#include "restore_types.h"
-#define DAT_00601de4 (*(undefined4 *)0x00601de4u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_007999fe (*(undefined4 *)0x007999feu)
-#define DAT_00799a00 (*(undefined4 *)0x00799a00u)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00799a34 (*(undefined4 *)0x00799a34u)
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
-#define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd63c (*(undefined4 *)0x00bcd63cu)
-#define DAT_00bcd656 (*(undefined4 *)0x00bcd656u)
-#define DAT_00bcd660 (*(undefined4 *)0x00bcd660u)
-#define DAT_00bcd66a (*(undefined4 *)0x00bcd66au)
-#define DAT_00bcd66c (*(undefined4 *)0x00bcd66cu)
-#define DAT_00bcd672 (*(undefined4 *)0x00bcd672u)
-#define DAT_00d3b4e0 (*(undefined *)0x00d3b4e0u)
-#define DAT_00d3b4e4 (*(undefined *)0x00d3b4e4u)
-extern int FUN_00420430();
-extern int FUN_0045bb50();
-extern uint FUN_00542110();
+#include "acceptance_predicates_internal.h"
+#include "monument_complex_queries.h"
 
-uint FUN_005421d0(int param_1,int param_2,char param_3)
+/* Exact 420430 two-slot endpoint: native case0 tests its complete EAX. */
+extern uint32_t restore_actor_approach_kind213_stage_worker_available_raw(
+    int32_t building, int32_t actor);
 
+/* Logical AL repair of the existing 5421D0 source owner. */
+uint8_t restore_actor_accept_kind213_work(int32_t building, int32_t actor,
+                                        uint8_t commit_changes)
 {
-  char cVar1;
-  ushort uVar2;
-  undefined2 uVar3;
-  undefined2 uVar4;
-  undefined4 uVar5;
-  uint uVar6;
-  undefined4 uVar7;
-  undefined3 uVar11;
-  uint uVar8;
-  uint uVar9;
-  int iVar10;
-  int iVar12;
-  int iVar13;
-  char local_3;
-  char local_2;
-  char local_1;
-  
-  iVar12 = param_2 * 0x184;
-  iVar13 = param_1 * 0x108;
-  uVar8 = *(uint *)(&DAT_00799a3c + (param_1 - (short)(&DAT_007999ea)[param_1 * 0x84]) * 0x84);
-  uVar6 = CONCAT12((char)(uVar8 >> 1),CONCAT11((char)uVar8,(&DAT_00bcd602)[iVar12] == 'U')) &
-          0x101ff;
-  uVar9 = uVar8 >> 4 & 0xffffff01;
-  uVar11 = (undefined3)(uVar9 >> 8);
-  local_3 = (char)uVar6;
-  local_2 = (char)(uVar6 >> 8);
-  switch((&DAT_00601de4)[(short)(&DAT_007999ea)[param_1 * 0x84] * 0xd]) {
-  case 0: ;
-    uVar9 = FUN_00542110(param_1);
-    if ((char)uVar9 != '\0') goto switchD_0054225d_default;
-    iVar10 = FUN_00420430(param_1,param_2);
-    uVar9 = 0;
-    if (iVar10 == 0) goto switchD_0054225d_default;
-    uVar7 = CONCAT31((int3)((uint)iVar10 >> 8),param_3);
-    if (param_3 != '\0') {
-      if ((&DAT_00bcd602)[iVar12] == 'O') {
-        (&DAT_00bcd630)[iVar12] = 10;
-      }
-      else if ((&DAT_00bcd602)[iVar12] == 'Q') {
-        (&DAT_00bcd630)[iVar12] = 0xb;
-      }
-      *(int *)(&DAT_00799a34 + iVar13) = param_2;
-      uVar3 = (&DAT_00799a00)[param_1 * 0x84];
-      uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-      *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-      *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-      *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-      *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-      *(undefined2 *)(&DAT_00bcd62e + iVar12) = 0;
-      return 1;
-    }
-    goto LAB_00542a3d;
-  case 1: ;
-    uVar9 = CONCAT31(uVar11,local_2);
-    if ((local_2 == '\0') || (uVar9 = (&DAT_00799a30)[param_1 * 0x42], uVar9 == 0)) {
-      if ((((&DAT_00799a30)[param_1 * 0x42] == 0) &&
-          (uVar9 = CONCAT31((int3)(uVar9 >> 8),local_3), local_3 != '\0')) &&
-         (uVar9 = FUN_00542110(param_1), (char)uVar9 == '\0')) {
-        uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-        if (param_3 != '\0') {
-          (&DAT_00bcd630)[iVar12] = 0x18;
-          *(int *)(&DAT_00799a34 + iVar13) = param_2;
-          uVar3 = (&DAT_00799a00)[param_1 * 0x84];
-          uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-          *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-          *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-          *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-          *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
+    uint32_t actor_offset = ap_actor_offset((uint32_t)actor);
+    uint8_t laborer = (uint8_t)(AP_B(0xbcd602u + actor_offset) == 0x55u);
+    uint32_t building_offset = ap_building_offset(building);
+    int32_t relative = AP_S(0x7999eau + building_offset);
+    uint32_t root = (uint32_t)building - (uint32_t)relative;
+    uint32_t flags = AP_U(0x799a3cu + root * 264u);
+    uint32_t kind = AP_U(0x601de4u + (uint32_t)relative * 52u);
+    uint8_t phase1 = (uint8_t)(flags & 1u);
+    uint8_t phase2 = (uint8_t)((flags >> 1) & 1u);
+    uint32_t work, worker;
+    enum ap_source_coordinate_phase source_phase;
+
+    switch (kind) {
+    case 0:
+        if (FUN_00542110((uint32_t)building) != 0) return 0;
+        if (restore_actor_approach_kind213_stage_worker_available_raw(
+                building, actor) == 0) return 0;
+        if (commit_changes != 0) {
+            uint8_t type = AP_B(0xbcd602u + actor_offset);
+            if (type == 0x4fu) AP_B(0xbcd630u + actor_offset) = 10;
+            else if (type == 0x51u) AP_B(0xbcd630u + actor_offset) = 11;
+            ap_claim_destination(building_offset, actor_offset, actor);
+            AP_W(0xbcd62eu + actor_offset) = 0;
         }
-        return CONCAT31((int3)((uint)uVar7 >> 8),1);
-      }
-      goto switchD_0054225d_default;
-    }
-    if (uVar9 != 1) goto switchD_0054225d_default;
-    if (local_3 == '\0') {
-      uVar9 = FUN_00542110(param_1);
-      if (((char)uVar9 != '\0') || ((&DAT_00bcd602)[iVar12] != 'Q')) goto switchD_0054225d_default;
-      uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-      if (param_3 == '\0') goto LAB_00542a3d;
-      (&DAT_00bcd630)[iVar12] = 9;
-      *(int *)(&DAT_00799a34 + iVar13) = param_2;
-      goto LAB_00542a0e;
-    }
-    uVar9 = FUN_00542110(param_1);
-    if ((char)uVar9 == '\0') goto switchD_0054225d_default;
-    iVar13 = *(int *)(&DAT_00799a34 + iVar13);
-    uVar9 = iVar13 * 0x61;
-    if (*(short *)(&DAT_00bcd660 + iVar13 * 0x184) != 0) {
-      uVar9 = *(short *)(&DAT_00bcd660 + iVar13 * 0x184) * 0x184;
-      if (((((&DAT_00bcd606)[uVar9] != '\0') && ((&DAT_00bcd602)[uVar9] == 'U')) &&
-          (((cVar1 = (&DAT_00bcd630)[uVar9], cVar1 == '\x06' ||
-            (((cVar1 == '\a' || (cVar1 == '\x0f')) || (cVar1 == '\x10')))) || (cVar1 == '\x17'))))
-         && (*(short *)(&DAT_00bcd660 + uVar9) == iVar13)) goto switchD_0054225d_default;
-      *(undefined2 *)(&DAT_00bcd660 + iVar13 * 0x184) = 0;
-    }
-    uVar11 = (undefined3)(uVar9 >> 8);
-    if (param_3 == '\0') goto LAB_00542954;
-    iVar10 = FUN_0045bb50(param_1,0x1e,1);
-    uVar3 = DAT_00d3b4e0;
-    if (iVar10 != 0) {
-      (&DAT_00bcd672)[iVar12] = 0x1e;
-      *(undefined2 *)(&DAT_00bcd66c + iVar12) = 0;
-      (&DAT_00bcd656)[param_2 * 0xc2] = (short)iVar10;
-      uVar4 = DAT_00d3b4e4;
-      uVar7 = CONCAT22((short)((uint)iVar10 >> 0x10),DAT_00d3b4e4);
-      *(short *)(&DAT_00bcd660 + iVar12) = (short)iVar13;
-      (&DAT_00bcd630)[iVar12] = 0xf;
-      *(undefined2 *)(&DAT_00bcd62e + iVar12) = 0;
-      *(undefined2 *)(&DAT_00bcd61c + iVar12) = uVar4;
-      *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-      *(undefined2 *)(&DAT_00bcd660 + iVar13 * 0x184) = (undefined2)param_2;
-      return CONCAT31((int3)((uint)uVar7 >> 8),1);
-    }
-    break;
-  case 2: ;
-  case 3: ;
-  case 4: ;
-  case 5: ;
-  case 6: ;
-  case 7: ;
-    if (((uVar8 >> 2 & 1) == 0) || (uVar9 = (&DAT_00799a30)[param_1 * 0x42], uVar9 == 0)) {
-      if ((((&DAT_00799a30)[param_1 * 0x42] == 0) &&
-          (uVar9 = CONCAT31((int3)(uVar9 >> 8),local_3), local_3 != '\0')) &&
-         (uVar9 = FUN_00542110(param_1), (char)uVar9 == '\0')) {
-        uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-        if (param_3 != '\0') {
-          (&DAT_00bcd630)[iVar12] = 0x18;
-          *(int *)(&DAT_00799a34 + iVar13) = param_2;
-          uVar7 = CONCAT22((short)(uVar9 >> 0x10),(&DAT_007999fe)[param_1 * 0x84]);
-          uVar3 = (&DAT_00799a00)[param_1 * 0x84];
-          uVar5 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-          *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-          *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-          *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar5;
-          *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
+        return 1;
+
+    case 1:
+        if (phase1 == 0) goto initial_laborer;
+        work = AP_U(0x799a30u + building_offset);
+        if (work == 0) goto initial_laborer;
+        if (work != 1u) return 0;
+        source_phase = AP_SOURCE_Y_THEN_LATE_X;
+        goto occupied_stage;
+
+    case 2: case 3: case 4: case 5: case 6: case 7:
+        if (((flags >> 2) & 1u) == 0) goto initial_laborer;
+        work = AP_U(0x799a30u + building_offset);
+        if (work == 0) goto initial_laborer;
+        if (work != 1u) return 0;
+        source_phase = AP_SOURCE_X_THEN_LATE_Y;
+        goto occupied_stage;
+
+    case 8: case 9: case 10: case 11:
+        if (laborer == 0 || FUN_00542110((uint32_t)building) != 0)
+            return 0;
+        if (phase2 == 0) {
+            if (AP_U(0x799a30u + building_offset) != 0) return 0;
+        } else if (phase1 == 0 || AP_U(0x799a30u + building_offset) != 1u) {
+            return 0;
         }
-        return CONCAT31((int3)((uint)uVar7 >> 8),1);
-      }
-      goto switchD_0054225d_default;
-    }
-    if (uVar9 != 1) goto switchD_0054225d_default;
-    if (local_3 == '\0') {
-      uVar9 = FUN_00542110(param_1);
-      if (((char)uVar9 == '\0') && ((&DAT_00bcd602)[iVar12] == 'Q')) {
-        uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-        if (param_3 != '\0') {
-          (&DAT_00bcd630)[iVar12] = 9;
-          *(int *)(&DAT_00799a34 + iVar13) = param_2;
-          uVar3 = (&DAT_00799a00)[param_1 * 0x84];
-          uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-          *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-          *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-          *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-          *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-          return CONCAT31((int3)((uint)uVar7 >> 8),1);
+        if (commit_changes != 0) {
+            AP_B(0xbcd630u + actor_offset) = 24;
+            ap_claim_destination(building_offset, actor_offset, actor);
         }
-        goto LAB_00542a3d;
-      }
-      goto switchD_0054225d_default;
+        return 1;
+
+    case 12:
+        if (((flags >> 4) & 1u) == 0 || ((flags >> 3) & 1u) == 0)
+            goto initial_laborer;
+        work = AP_U(0x799a30u + building_offset);
+        if (work == 0) goto initial_laborer;
+        if (work != 1u && work != 2u && work != 3u) return 0;
+        source_phase = AP_SOURCE_X_AND_Y_EARLY;
+        goto occupied_stage;
+
+    default:
+        return 0;
     }
-    uVar9 = FUN_00542110(param_1);
-    if ((char)uVar9 == '\0') goto switchD_0054225d_default;
-    uVar8 = *(uint *)(&DAT_00799a34 + iVar13);
-    if (*(short *)(&DAT_00bcd660 + uVar8 * 0x184) != 0) {
-      uVar9 = *(short *)(&DAT_00bcd660 + uVar8 * 0x184) * 0x184;
-      if ((((&DAT_00bcd606)[uVar9] != '\0') && ((&DAT_00bcd602)[uVar9] == 'U')) &&
-         ((((cVar1 = (&DAT_00bcd630)[uVar9], cVar1 == '\x06' ||
-            (((cVar1 == '\a' || (cVar1 == '\x0f')) || (cVar1 == '\x10')))) || (cVar1 == '\x17')) &&
-          (uVar9 = (uint)*(short *)(&DAT_00bcd660 + uVar9), uVar9 == uVar8))))
-      goto switchD_0054225d_default;
-      *(undefined2 *)(&DAT_00bcd660 + uVar8 * 0x184) = 0;
+
+initial_laborer:
+    if (AP_U(0x799a30u + building_offset) != 0 || laborer == 0 ||
+        FUN_00542110((uint32_t)building) != 0) return 0;
+    if (commit_changes != 0) {
+        AP_B(0xbcd630u + actor_offset) = 24;
+        ap_claim_destination(building_offset, actor_offset, actor);
     }
-    uVar11 = (undefined3)(uVar9 >> 8);
-    if (param_3 == '\0') goto LAB_00542954;
-    iVar13 = FUN_0045bb50(param_1,0x1e,1);
-    uVar3 = DAT_00d3b4e4;
-    if (iVar13 != 0) {
-      (&DAT_00bcd672)[iVar12] = 0x1e;
-      *(undefined2 *)(&DAT_00bcd66c + iVar12) = 0;
-      (&DAT_00bcd656)[param_2 * 0xc2] = (short)iVar13;
-      uVar4 = DAT_00d3b4e0;
-      uVar7 = CONCAT22((short)((uint)iVar13 >> 0x10),DAT_00d3b4e0);
-      *(short *)(&DAT_00bcd660 + iVar12) = (short)uVar8;
-      (&DAT_00bcd630)[iVar12] = 0xf;
-      *(undefined2 *)(&DAT_00bcd62e + iVar12) = 0;
-      *(undefined2 *)(&DAT_00bcd61c + iVar12) = uVar3;
-      *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar4;
-      *(undefined2 *)(&DAT_00bcd660 + uVar8 * 0x184) = (undefined2)param_2;
-      return CONCAT31((int3)((uint)uVar7 >> 8),1);
-    }
-    break;
-  case 8: ;
-  case 9: ;
-  case 10: ;
-  case 0xb: ;
-    uVar9 = CONCAT31(uVar11,local_3);
-    if ((local_3 != '\0') && (uVar8 = FUN_00542110(param_1), uVar9 = uVar8, (char)uVar8 == '\0')) {
-      local_1 = (char)(uVar6 >> 0x10);
-      uVar11 = (undefined3)(uVar8 >> 8);
-      if (local_1 == '\0') {
-        uVar9 = (&DAT_00799a30)[param_1 * 0x42];
-        if (uVar9 == 0) {
-          uVar8 = 0;
-          if (param_3 != '\0') {
-            (&DAT_00bcd630)[iVar12] = 0x18;
-            *(int *)(&DAT_00799a34 + iVar13) = param_2;
-            uVar2 = (&DAT_00799a00)[param_1 * 0x84];
-            uVar8 = (uint)uVar2;
-            uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-            *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-            *(ushort *)(&DAT_00bcd61e + iVar12) = uVar2;
-            *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-            *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-          }
-          return CONCAT31((int3)(uVar8 >> 8),1);
+    return 1;
+
+occupied_stage:
+    if (laborer == 0) {
+        if (FUN_00542110((uint32_t)building) != 0 ||
+            AP_B(0xbcd602u + actor_offset) != 0x51u) return 0;
+        if (commit_changes != 0) {
+            AP_B(0xbcd630u + actor_offset) = 9;
+            ap_claim_destination(building_offset, actor_offset, actor);
         }
-      }
-      else {
-        uVar9 = CONCAT31(uVar11,local_2);
-        if ((local_2 != '\0') && ((&DAT_00799a30)[param_1 * 0x42] == 1)) {
-          uVar7 = CONCAT31(uVar11,param_3);
-          if (param_3 != '\0') {
-            (&DAT_00bcd630)[iVar12] = 0x18;
-            *(int *)(&DAT_00799a34 + iVar13) = param_2;
-            uVar3 = (&DAT_007999fe)[param_1 * 0x84];
-            uVar4 = (&DAT_00799a00)[param_1 * 0x84];
-            uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-            *(undefined2 *)(&DAT_00bcd61c + iVar12) = uVar3;
-            *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar4;
-            *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-            *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-            return CONCAT31((int3)(CONCAT22((short)(uVar8 >> 0x10),uVar3) >> 8),1);
-          }
-          goto LAB_00542a3d;
-        }
-      }
+        return 1;
     }
-default: ;
-switchD_0054225d_default: ;
-    return uVar9 & 0xffffff00;
-  case 0xc: ;
-    if ((((char)uVar9 == '\0') || ((uVar8 >> 3 & 1) == 0)) ||
-       (uVar9 = (&DAT_00799a30)[param_1 * 0x42], uVar9 == 0)) {
-      if ((((&DAT_00799a30)[param_1 * 0x42] != 0) ||
-          (uVar9 = CONCAT31((int3)(uVar9 >> 8),local_3), local_3 == '\0')) ||
-         (uVar9 = FUN_00542110(param_1), (char)uVar9 != '\0')) goto switchD_0054225d_default;
-      uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-      if (param_3 == '\0') goto LAB_00542a3d;
-      (&DAT_00bcd630)[iVar12] = 0x18;
-      *(int *)(&DAT_00799a34 + iVar13) = param_2;
-LAB_00542a0e: ;
-      uVar3 = (&DAT_00799a00)[param_1 * 0x84];
-      uVar7 = CONCAT22((short)((uint)uVar7 >> 0x10),uVar3);
-      uVar5 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-      *(undefined2 *)(&DAT_00bcd61c + iVar12) = (&DAT_007999fe)[param_1 * 0x84];
-      *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-      *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar5;
-      *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-LAB_00542a3d: ;
-      return CONCAT31((int3)((uint)uVar7 >> 8),1);
-    }
-    if (((uVar9 != 1) && (uVar9 != 2)) && (uVar9 != 3)) goto switchD_0054225d_default;
-    if (local_3 == '\0') {
-      uVar9 = FUN_00542110(param_1);
-      if (((char)uVar9 == '\0') && ((&DAT_00bcd602)[iVar12] == 'Q')) {
-        uVar7 = CONCAT31((int3)(uVar9 >> 8),param_3);
-        if (param_3 != '\0') {
-          (&DAT_00bcd630)[iVar12] = 9;
-          *(int *)(&DAT_00799a34 + iVar13) = param_2;
-          uVar3 = (&DAT_007999fe)[param_1 * 0x84];
-          uVar4 = (&DAT_00799a00)[param_1 * 0x84];
-          uVar7 = *(undefined4 *)(&DAT_007999e4 + iVar13);
-          *(undefined2 *)(&DAT_00bcd61c + iVar12) = uVar3;
-          *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar4;
-          *(undefined4 *)(&DAT_00bcd620 + iVar12) = uVar7;
-          *(undefined2 *)(&DAT_00bcd63c + iVar12) = 0;
-          return CONCAT31((int3)(CONCAT22((short)(uVar9 >> 0x10),uVar3) >> 8),1);
-        }
-        goto LAB_00542a3d;
-      }
-      goto switchD_0054225d_default;
-    }
-    uVar9 = FUN_00542110(param_1);
-    if ((char)uVar9 == '\0') goto switchD_0054225d_default;
-    iVar13 = *(int *)(&DAT_00799a34 + iVar13);
-    if (*(short *)(&DAT_00bcd660 + iVar13 * 0x184) != 0) {
-      uVar9 = *(short *)(&DAT_00bcd660 + iVar13 * 0x184) * 0x184;
-      if (((((&DAT_00bcd606)[uVar9] != '\0') && ((&DAT_00bcd602)[uVar9] == 'U')) &&
-          ((cVar1 = (&DAT_00bcd630)[uVar9], cVar1 == '\x06' ||
-           ((((cVar1 == '\a' || (cVar1 == '\x0f')) || (cVar1 == '\x10')) || (cVar1 == '\x17'))))))
-         && (*(short *)(&DAT_00bcd660 + uVar9) == iVar13)) goto switchD_0054225d_default;
-      *(undefined2 *)(&DAT_00bcd660 + iVar13 * 0x184) = 0;
-    }
-    uVar11 = (undefined3)(uVar9 >> 8);
-    if (param_3 == '\0') goto LAB_00542954;
-    iVar10 = FUN_0045bb50(param_1,0x1e,1);
-    uVar4 = DAT_00d3b4e4;
-    uVar3 = DAT_00d3b4e0;
-    if (iVar10 != 0) {
-      (&DAT_00bcd672)[iVar12] = 0x1e;
-      *(undefined2 *)(&DAT_00bcd66c + iVar12) = 0;
-      (&DAT_00bcd656)[param_2 * 0xc2] = (short)iVar10;
-      *(short *)(&DAT_00bcd660 + iVar12) = (short)iVar13;
-      (&DAT_00bcd630)[iVar12] = 0xf;
-      *(undefined2 *)(&DAT_00bcd62e + iVar12) = 0;
-      *(undefined2 *)(&DAT_00bcd61c + iVar12) = uVar4;
-      *(undefined2 *)(&DAT_00bcd61e + iVar12) = uVar3;
-      (&DAT_00bcd66a)[iVar12] = 3;
-      *(undefined2 *)(&DAT_00bcd660 + iVar13 * 0x184) = (undefined2)param_2;
-      return CONCAT31((int3)(CONCAT22((short)((uint)iVar10 >> 0x10),(undefined2)param_2) >> 8),1);
-    }
-  }
-  uVar11 = 0;
-  (&DAT_00bcd606)[iVar12] = 2;
-LAB_00542954: ;
-  return CONCAT31(uVar11,1);
+    if (FUN_00542110((uint32_t)building) == 0) return 0;
+    worker = AP_U(0x799a34u + building_offset);
+    if (ap_linked_laborer_blocks(worker, 0x17) != 0) return 0;
+    if (commit_changes != 0)
+        ap_commit_linked_delivery(building, actor, worker, source_phase);
+    return 1;
 }
+
+/* Keep the existing cdecl full-result surface on the physical RAW path. */
+extern uint32_t restore_actor_approach_kind213_accept_raw(int32_t,int32_t,char);
+uint32_t FUN_005421d0(int32_t building,int32_t actor,char mode)
+{return restore_actor_approach_kind213_accept_raw(building,actor,mode);}

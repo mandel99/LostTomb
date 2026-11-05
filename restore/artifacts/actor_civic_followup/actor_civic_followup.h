@@ -29,4 +29,10 @@ void restore_actor_apply_cart_delivery(int32_t delivered,int32_t actor,uint32_t 
 #include "approach_search_candidates.h"
 int32_t restore_actor_find_approach_kind213(uint32_t x,uint32_t y,uint32_t actor);
 int32_t restore_actor_find_approach_kind222(uint32_t x,uint32_t y,uint32_t actor);
+#include "acceptance_member_candidates.h"
+int32_t restore_actor_find_approach_kind229(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
+int32_t restore_actor_find_approach_kind234(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
+int32_t restore_actor_find_approach_kind235(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
+int32_t restore_actor_find_approach_kind236(uint32_t receiver,uint32_t x,uint32_t y,int32_t actor);
+#include "acceptance_predicates.h"
 #endif

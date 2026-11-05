@@ -1,11 +1,12 @@
 # Civic, delivery and walking C owners
 
-These 36 C entrypoints are selected directly by the main build. Eight owners
-were created before611f3cc; 25 were created since it and 3 prior-C
+These 44 C entrypoints are selected directly by the main build. Eight owners
+were created before611f3cc; 31 were created since it and 5 prior-C
 owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
+| 401ED0 | restore_actor_find_approach_kind230_mode | 35 |
 | 401F30 | restore_actor_find_approach_kind230 | 9 |
 | 40F070 | restore_actor_find_approach_kind225 | 34 |
 | 4178E0 | restore_actor_find_approach_kind227 | 34 |
@@ -38,12 +39,19 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 4BC2E0 | restore_actor_find_approach_building_state2 | 71 |
 | 4BC3B0 | restore_actor_find_approach_building_state3 | 71 |
 | 4BC480 | restore_actor_approach_common_result | 9 |
+| 4E05F0 | restore_actor_accept_kind222_work | 429 |
 | 4E0C00 | restore_actor_find_approach_kind222 | 31 |
 | 4E6E10 | restore_actor_find_approach_kind228 | 34 |
+| 5421D0 | restore_actor_accept_kind213_work | 576 |
 | 542A80 | restore_actor_find_approach_kind213 | 31 |
+| 545BE0 | restore_actor_find_approach_kind229 | 33 |
+| 547C10 | restore_actor_member_accept_building_core | 125 |
+| 54FB40 | restore_actor_find_approach_kind236 | 35 |
+| 556430 | restore_actor_find_approach_kind235 | 33 |
+| 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 5,498 static native instructions, not execution coverage.
+The total is 6,797 static native instructions, not execution coverage.
 Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
@@ -70,3 +78,15 @@ has been rewritten.
 
 Warehouseman, delivery/query helpers and two service-patrol owners are also
 selected. The qualified formation-soldier draft remains excluded.
+
+The acceptance predicates4E05F0/5421D0 keep their original source owners
+(unit01906/unit02554) and receive zero new algorithm credit. Named C APIs
+return BYTE; actual typed adapters zero-extend that result for the existing
+logical loops. Their canonical full-result entrypoints retain the original
+RAW models. A probe with commit0 can still clear stale links.
+
+The explicit-receiver547C10 C owner captures kind85 before its virtual
+child. Native SETZ overwrites a byte of the saved argument area; the later
+loads refer to that captured flag and to the separate mode byte. This
+stack phase is represented explicitly in the logical C owner. Physical
+caller-stack/register/flags behavior remains available through RAW.
