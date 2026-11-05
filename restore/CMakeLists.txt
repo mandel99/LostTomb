@@ -397,6 +397,22 @@ target_sources(pharaoh_restored PRIVATE src/unit_01320.c)
 set_property(SOURCE src/unit_01320.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_00493610=restore_actor_update_service_state>")
 set_property(SOURCE src/unit_01460.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b56d0=restore_actor_find_combat_target_on_tile>")
 set_property(SOURCE src/unit_01461.c APPEND PROPERTY COMPILE_DEFINITIONS "$<$<STREQUAL:$<TARGET_PROPERTY:NAME>,pharaoh_restored>:FUN_004b5770=restore_actor_find_projectile_victim_on_tile>")
+# Select the published C owners once; their bodies are not copied or counted again.
+target_sources(pharaoh_restored PRIVATE
+ artifacts/actor_civic_followup/actor_civic_updates.c
+ artifacts/actor_civic_followup/actor_vagrant.c
+ artifacts/actor_civic_followup/actor_route_pixels.c
+ artifacts/actor_civic_followup/actor_route_leaves.c
+ artifacts/actor_civic_followup/actor_engineer.c
+ artifacts/actor_civic_followup/actor_fireman.c)
+set_source_files_properties(
+ artifacts/actor_civic_followup/actor_civic_updates.c
+ artifacts/actor_civic_followup/actor_vagrant.c
+ artifacts/actor_civic_followup/actor_route_pixels.c
+ artifacts/actor_civic_followup/actor_route_leaves.c
+ artifacts/actor_civic_followup/actor_engineer.c
+ artifacts/actor_civic_followup/actor_fireman.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)
 target_sources(pharaoh_restored PRIVATE runtime/mission_schema.c runtime/vegetation_farm_init.c)

@@ -1,4 +1,5 @@
 #include "actor_laborer.h"
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "pyramid_worker_state.h"
 #include "game_diagnostics.h"
 #include "actor_work.h"
@@ -365,14 +366,14 @@ void FUN_004b1df0(int32_t actor)
 {const uint32_t a[]={(uint32_t)actor};(void)invoke(0x004b1df0u,a,1);}
 void FUN_004b1ef0(int32_t actor,int32_t steps)
 {const uint32_t a[]={(uint32_t)actor,(uint32_t)steps};(void)invoke(0x004b1ef0u,a,2);}
-int32_t FUN_004b3ff0(int32_t actor,int32_t mode)
-{const uint32_t a[]={(uint32_t)actor,(uint32_t)mode};return (int32_t)invoke(0x004b3ff0u,a,2);}
-void FUN_004b4180(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x004b4180u,a,1);}
-void FUN_004b43a0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x004b43a0u,a,1);}
-void FUN_004b43e0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};(void)invoke(0x004b43e0u,a,1);}
+__declspec(noinline) int32_t FUN_004b3ff0(int32_t actor,int32_t steps)
+{return restore_actor_advance_route_pixels(actor,steps);}
+__declspec(noinline) void FUN_004b4180(int32_t actor)
+{restore_actor_update_route_error(actor);}
+__declspec(noinline) void FUN_004b43a0(int32_t actor)
+{restore_actor_step_route_pixel_y(actor);}
+__declspec(noinline) void FUN_004b43e0(int32_t actor)
+{restore_actor_step_route_pixel_x(actor);}
 void FUN_004200f0(int32_t building)
 {const uint32_t a[]={(uint32_t)building};(void)invoke(0x004200f0u,a,1);}
 void FUN_00420240(int32_t building,int32_t actor,uint8_t state)

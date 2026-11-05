@@ -1,31 +1,19 @@
 # Pharaoh restore
 
-Source translation is in progress beyond verified checkpoint
-[1683857](https://github.com/mandel99/LostTomb/commit/168385711131ca23708013c5303218b7ea5d8bb1).
-Connected blocks are being written into ordinary C with immediate compilation
-and focused interface checks, followed by joint main/native comparison at a
-larger milestone. Verification totals below describe the last accepted
-checkpoint; they are not a current-main proof for the new source blocks.
-The active connected cohort now contains 92 new algorithms: 45 registry
-callbacks and 47 shared helpers, totaling 14,744 static native instructions.
-Another 13 entries reuse, repair or adapt prior C and receive no new rewrite
-credit. Independent whole-tree provider audits corrected four earlier
-source-only attributions and removed duplicate tile/service bodies.
-The 105-entry workload has reached the requested joint verification milestone.
-Current sources pass strict compilation and both main Release executables
-build successfully. All 1,649 selected API scenarios for 105 entrypoints agree
-against the pinned original and both current main images, across 6,588
-compiled-route comparisons. Instruction/branch coverage, RAW qualification
-and broad current-main regression remain pending; this is not a whole-game
-equivalence claim.
-See the [current cohort and queue](metadata/ACTOR_COHORT_100.md).
+The current source-first cohort selects 12 connected C entrypoints /2,144
+static native instructions. Eight previously published bodies are selected
+unchanged; four new Engineer/Fireman algorithms were created. Shared strict
+C11 compilation and both Release main links pass. Detailed native comparison
+will follow at the next approximately 100-function milestone.
+See [the current cohort](metadata/ACTOR_COHORT_2.md).
 
-Eight further ordinary C source owners are prepared for civic callbacks and
-route-pixel movement, covering 1,218 static native instructions. They pass
-shared strict object compilation and remain outside current main selection
-and its verification count. Integration will select these files directly,
-without copying their bodies or counting them twice. See the
-[prepared civic and movement block](artifacts/actor_civic_followup/README.md).
+The last finite API comparison is [611f3cc](https://github.com/mandel99/LostTomb/commit/611f3cc8cf001595c682fc99932ad102ad66ea9c):
+1,649 scenarios for 105 entrypoints agreed against the pinned original and
+both then-current main images. Those results keep their original hashes;
+they are not a behavior proof for the new source cohort. Instruction/branch
+coverage, RAW/global-cue qualification and whole-game reconstruction remain
+incomplete. The earlier coverage-accepted checkpoint is
+[1683857](https://github.com/mandel99/LostTomb/commit/168385711131ca23708013c5303218b7ea5d8bb1).
 
 Four earlier source-first blocks reported 32 functions. The current ledger
 classifies two of those as prior-C reuse/adaptation with zero new rewrite

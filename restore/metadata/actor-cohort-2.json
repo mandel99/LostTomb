@@ -1,0 +1,2387 @@
+{
+  "schema": 1,
+  "cohort": 2,
+  "target_approximate_entrypoints": 100,
+  "baseline": "611f3cc8cf001595c682fc99932ad102ad66ea9c",
+  "last_finite_API_comparison": {
+    "checkpoint": "611f3cc8cf001595c682fc99932ad102ad66ea9c",
+    "proof": "metadata/actor-cohort-100-main-comparison.json",
+    "cases": 1649,
+    "entries": 105,
+    "historical_not_rebound": true
+  },
+  "last_instruction_coverage_accepted_checkpoint": "168385711131ca23708013c5303218b7ea5d8bb1",
+  "selected_entrypoints": 12,
+  "registry_callbacks": 6,
+  "shared_helpers": 6,
+  "static_native_instructions": 2144,
+  "already_published_body_selections": 8,
+  "new_body_creations_in_this_checkpoint": 4,
+  "count_scope": "Second source-first cohort;8 bodies created earlier are selected unchanged, only4 new source algorithms are created here. Not the total game inventory.",
+  "members": [
+    {
+      "address": "0x469a50",
+      "name": "restore_fireman_find_nearest_fire",
+      "source": "artifacts/actor_civic_followup/actor_fireman.c",
+      "registry_kind": null,
+      "native_instructions": 92,
+      "body_bytes": 305,
+      "native_scope": {
+        "entry": "0x469a50",
+        "bytes": 305,
+        "instructions": 92,
+        "end_exclusive": "0x469b81",
+        "byte_sha256": "9e01a5673b415735017a12cd52aab23f73174c5f504fa56ee26da93c988bbdbe",
+        "rea_evidence": "ev_53124084a13d98fd5a4fbc323899dec04ad8ba5592dae05d990be2fb332bc329",
+        "plain_returns": [
+          "0x469b80"
+        ],
+        "conditional_outcomes": 32,
+        "reachable_instructions": 92,
+        "calls": [],
+        "bounded_direct_CFG_closed": true,
+        "all_local_stack_paths_balanced": true,
+        "signature": "int32_t restore_fireman_find_nearest_fire(int32_t x,int32_t y)",
+        "provider_owned_range": true,
+        "canonical_definitions_including_inactive": [
+          {
+            "path": "runtime/actor_civic.c",
+            "sha256": "0fe9d23540a67fb707a06e756016f2911033d8243d6d4dcfd531fbab6bf1e237"
+          },
+          {
+            "path": "src/unit_00948.c",
+            "sha256": "f28ba6aed97f98040f95aff80e7539f0268554117786dc1050b4ed1d949d1a96"
+          }
+        ],
+        "inactive_units_listed_but_removed": [
+          "unit_00948.c"
+        ]
+      },
+      "creation_credit_in_this_checkpoint": 1,
+      "selection_credit": 0,
+      "named_result_contract": "full-DWORD-bits",
+      "stage": "C_selected_pending_next_joint_comparison",
+      "body_sha256": "da77752f767aef242f0f1183883eca64d9b42e8afef307acc3fdaa3ae8604892",
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x0029fc10",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_00469a50",
+          "canonical_requested_present": false,
+          "effective_canonical_symbol": "restore_fireman_find_nearest_fire",
+          "canonical": {
+            "va": "0x0029fc10",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "note": "Unused full-result facade removed by actual linker; available named full-result owner has the identical logical signature."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x0029fb90",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_00469a50",
+          "canonical_requested_present": false,
+          "effective_canonical_symbol": "restore_fireman_find_nearest_fire",
+          "canonical": {
+            "va": "0x0029fb90",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "note": "Unused full-result facade removed by actual linker; available named full-result owner has the identical logical signature."
+        }
+      }
+    },
+    {
+      "address": "0x48a720",
+      "end_exclusive": "0x48ae50",
+      "name": "restore_actor_update_vagrant",
+      "registry_kind": 3,
+      "body_bytes": 1840,
+      "native_instructions": 491,
+      "cfg_reachable_instructions": 491,
+      "bytes_sha256": "0b8d93793bfb572e10e57ea9659a8d66ee83d0b2a2dc985c88d1f569d2a0efcf",
+      "calls": [
+        {
+          "site": "0x48a7ac",
+          "target": "0x4b17d0"
+        },
+        {
+          "site": "0x48a7c4",
+          "target": "0x4b1d50"
+        },
+        {
+          "site": "0x48a80b",
+          "target": "0x458c30"
+        },
+        {
+          "site": "0x48a894",
+          "target": "0x47fe60"
+        },
+        {
+          "site": "0x48a913",
+          "target": "0x4a5da0"
+        },
+        {
+          "site": "0x48a9aa",
+          "target": "0x4b4220"
+        },
+        {
+          "site": "0x48a9f2",
+          "target": "0x4a5da0"
+        },
+        {
+          "site": "0x48aa20",
+          "target": "0x4b3250"
+        },
+        {
+          "site": "0x48aa71",
+          "target": "0x458c30"
+        },
+        {
+          "site": "0x48aaa7",
+          "target": "0x47fe60"
+        },
+        {
+          "site": "0x48ab01",
+          "target": "0x4b3250"
+        },
+        {
+          "site": "0x48ab34",
+          "target": "0x4b3ff0"
+        },
+        {
+          "site": "0x48abe6",
+          "target": "0x46cea0"
+        },
+        {
+          "site": "0x48ac2a",
+          "target": "0x4e91e0"
+        },
+        {
+          "site": "0x48acc7",
+          "target": "0x47a1c0"
+        },
+        {
+          "site": "0x48add8",
+          "target": "0x47a1c0"
+        }
+      ],
+      "returns": [
+        "0x48ad21",
+        "0x48ad76",
+        "0x48ada0",
+        "0x48adc7",
+        "0x48ae4f"
+      ],
+      "conditional_outcomes": 78,
+      "new_rewrite_credit": 1,
+      "historical_extent_correction": "Old review queue1823B/484 instructions contradicted by fresh authenticated1840B/491 direct-CFG scope; old report unchanged.",
+      "result_contract": "Full32. Death/special=false returns signed half-age with lowBYTE cleared; alive/special=true returns freshly loaded direction. Other special death paths return image ID.",
+      "source": "artifacts/actor_civic_followup/actor_vagrant.c",
+      "body_sha256": "1a5fc33ba61740e35e7db345d83181ddc278700c8bac176aa62e26c59959ae38",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "full-DWORD-bits",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0500",
+            "owner": "f   pharaoh_restored:actor_vagrant.obj"
+          },
+          "canonical_requested": "FUN_0048a720",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048a720",
+          "canonical": {
+            "va": "0x0005ea90",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0480",
+            "owner": "f   pharaoh_restored:actor_vagrant.obj"
+          },
+          "canonical_requested": "FUN_0048a720",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048a720",
+          "canonical": {
+            "va": "0x0005e4c0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x48bff0",
+      "end_exclusive": "0x48c0e0",
+      "name": "restore_actor_update_ghost",
+      "registry_kind": 5,
+      "body_bytes": 240,
+      "native_instructions": 63,
+      "cfg_reachable_instructions": 63,
+      "bytes_sha256": "2d8b1a7f00830026e343112278a06fa9c344731b1d02ea07d8c04248f78fff56",
+      "calls": [
+        {
+          "site": "0x48c063",
+          "target": "0x493610"
+        }
+      ],
+      "returns": [
+        "0x48c0c4",
+        "0x48c0df"
+      ],
+      "conditional_outcomes": 10,
+      "new_rewrite_credit": 1,
+      "source": "artifacts/actor_civic_followup/actor_civic_updates.c",
+      "body_sha256": "be20bf7d50d65ab8ce9026951956f1fd71412639166b99f56cb48e0f29d5833f",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "full-DWORD-bits",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0d30",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_0048bff0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048bff0",
+          "canonical": {
+            "va": "0x0005eaa0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0cb0",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_0048bff0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048bff0",
+          "canonical": {
+            "va": "0x0005e4d0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x48c200",
+      "end_exclusive": "0x48c2aa",
+      "name": "restore_actor_update_explosion",
+      "registry_kind": 6,
+      "body_bytes": 170,
+      "native_instructions": 54,
+      "cfg_reachable_instructions": 54,
+      "bytes_sha256": "5dd2e28c5efaa315f327f9fdb4681a56c85f246327518719d9fbf8a824d3303c",
+      "calls": [
+        {
+          "site": "0x48c275",
+          "target": "0x4b3ff0"
+        }
+      ],
+      "returns": [
+        "0x48c2a9"
+      ],
+      "conditional_outcomes": 4,
+      "new_rewrite_credit": 1,
+      "source": "artifacts/actor_civic_followup/actor_civic_updates.c",
+      "body_sha256": "f44bc3f5b7c90172044d781c8680aec1ee582789ab73c9decf902cd6e55ea817",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "full-DWORD-bits",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0c90",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_0048c200",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048c200",
+          "canonical": {
+            "va": "0x0005eab0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0c10",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_0048c200",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048c200",
+          "canonical": {
+            "va": "0x0005e4e0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x48c6a0",
+      "name": "restore_actor_update_engineer",
+      "naming_evidence": {
+        "kind": 8,
+        "shipped_name": "Engineer",
+        "symbol": "restore_actor_update_engineer",
+        "naming_authority": "provider-search.json shippedmodel rows + pinned registry/loaderchain"
+      },
+      "source": "artifacts/actor_civic_followup/actor_engineer.c",
+      "registry_kind": 8,
+      "native_instructions": 259,
+      "body_bytes": 1012,
+      "native_scope": {
+        "entry": "0x48c6a0",
+        "end_exclusive": "0x48ca94",
+        "bytes": 1012,
+        "instructions": 259,
+        "normal_call_fallthrough_CFG": true,
+        "body_bytes_sha256": "927d1bf21fe19dcdc74dae00e8c8e03df5718ad5e5c77efa4d5b87db2f2c1bd0",
+        "returns": [
+          {
+            "site": "0x48ca93",
+            "cleanup": 0
+          },
+          {
+            "site": "0x48c79d",
+            "cleanup": 0
+          }
+        ],
+        "calls": [
+          {
+            "site": "0x48c735",
+            "target": "0x4b17d0"
+          },
+          {
+            "site": "0x48c7a4",
+            "target": "0x4b1d50"
+          },
+          {
+            "site": "0x48c7f0",
+            "target": "0x47fe60"
+          },
+          {
+            "site": "0x48c874",
+            "target": "0x4b4220"
+          },
+          {
+            "site": "0x48c8ac",
+            "target": "0x4b3ff0"
+          },
+          {
+            "site": "0x48c8f3",
+            "target": "0x4b1df0"
+          },
+          {
+            "site": "0x48c941",
+            "target": "0x47fe60"
+          },
+          {
+            "site": "0x48c965",
+            "target": "0x4b1ef0"
+          },
+          {
+            "site": "0x48c9a3",
+            "target": "0x4b1ef0"
+          },
+          {
+            "site": "0x48c9bb",
+            "target": "0x4a5da0"
+          },
+          {
+            "site": "0x48ca41",
+            "target": "0x4b4220"
+          }
+        ],
+        "switches": [],
+        "direct_edges": [
+          [
+            "0x48c6a0",
+            "0x48c6a5"
+          ],
+          [
+            "0x48c6a5",
+            "0x48c6a7"
+          ],
+          [
+            "0x48c6a7",
+            "0x48c6a8"
+          ],
+          [
+            "0x48c6a8",
+            "0x48c6a9"
+          ],
+          [
+            "0x48c6a9",
+            "0x48c6ac"
+          ],
+          [
+            "0x48c6ac",
+            "0x48c6ae"
+          ],
+          [
+            "0x48c6ae",
+            "0x48c6b1"
+          ],
+          [
+            "0x48c6b1",
+            "0x48c6b3"
+          ],
+          [
+            "0x48c6b3",
+            "0x48c6b4"
+          ],
+          [
+            "0x48c6b4",
+            "0x48c6b7"
+          ],
+          [
+            "0x48c6b7",
+            "0x48c6b8"
+          ],
+          [
+            "0x48c6b8",
+            "0x48c6be"
+          ],
+          [
+            "0x48c6be",
+            "0x48c6c5"
+          ],
+          [
+            "0x48c6c5",
+            "0x48c6cb"
+          ],
+          [
+            "0x48c6cb",
+            "0x48c6d4"
+          ],
+          [
+            "0x48c6d4",
+            "0x48c6db"
+          ],
+          [
+            "0x48c6db",
+            "0x48c6e2"
+          ],
+          [
+            "0x48c6e2",
+            "0x48c6e4"
+          ],
+          [
+            "0x48c6e4",
+            "0x48c6eb"
+          ],
+          [
+            "0x48c6eb",
+            "0x48c6ed"
+          ],
+          [
+            "0x48c6ed",
+            "0x48c6f0"
+          ],
+          [
+            "0x48c6f0",
+            "0x48c6f2"
+          ],
+          [
+            "0x48c6f2",
+            "0x48c6f5"
+          ],
+          [
+            "0x48c6f5",
+            "0x48c6fc"
+          ],
+          [
+            "0x48c6fc",
+            "0x48c6fe"
+          ],
+          [
+            "0x48c6fc",
+            "0x48c709"
+          ],
+          [
+            "0x48c709",
+            "0x48c710"
+          ],
+          [
+            "0x48c710",
+            "0x48c716"
+          ],
+          [
+            "0x48c716",
+            "0x48c718"
+          ],
+          [
+            "0x48c718",
+            "0x48c71b"
+          ],
+          [
+            "0x48c71b",
+            "0x48c721"
+          ],
+          [
+            "0x48c721",
+            "0x48c723"
+          ],
+          [
+            "0x48c721",
+            "0x48c729"
+          ],
+          [
+            "0x48c729",
+            "0x48c72f"
+          ],
+          [
+            "0x48c72f",
+            "0x48c732"
+          ],
+          [
+            "0x48c732",
+            "0x48c734"
+          ],
+          [
+            "0x48c732",
+            "0x48c79e"
+          ],
+          [
+            "0x48c79e",
+            "0x48c7a1"
+          ],
+          [
+            "0x48c7a1",
+            "0x48c7a3"
+          ],
+          [
+            "0x48c7a1",
+            "0x48c7ab"
+          ],
+          [
+            "0x48c7ab",
+            "0x48c7ae"
+          ],
+          [
+            "0x48c7ae",
+            "0x48c7b4"
+          ],
+          [
+            "0x48c7ae",
+            "0x48c896"
+          ],
+          [
+            "0x48c896",
+            "0x48c899"
+          ],
+          [
+            "0x48c899",
+            "0x48c89b"
+          ],
+          [
+            "0x48c899",
+            "0x48c900"
+          ],
+          [
+            "0x48c900",
+            "0x48c903"
+          ],
+          [
+            "0x48c903",
+            "0x48c909"
+          ],
+          [
+            "0x48c903",
+            "0x48c9b0"
+          ],
+          [
+            "0x48c9b0",
+            "0x48c9b3"
+          ],
+          [
+            "0x48c9b3",
+            "0x48c9b9"
+          ],
+          [
+            "0x48c9b3",
+            "0x48ca63"
+          ],
+          [
+            "0x48ca63",
+            "0x48ca6a"
+          ],
+          [
+            "0x48ca6a",
+            "0x48ca71"
+          ],
+          [
+            "0x48ca71",
+            "0x48c742"
+          ],
+          [
+            "0x48c742",
+            "0x48c745"
+          ],
+          [
+            "0x48c745",
+            "0x48c74b"
+          ],
+          [
+            "0x48c74b",
+            "0x48c74e"
+          ],
+          [
+            "0x48c74e",
+            "0x48c750"
+          ],
+          [
+            "0x48c750",
+            "0x48c753"
+          ],
+          [
+            "0x48c753",
+            "0x48c75a"
+          ],
+          [
+            "0x48c75a",
+            "0x48c75c"
+          ],
+          [
+            "0x48c75c",
+            "0x48c761"
+          ],
+          [
+            "0x48c761",
+            "0x48c763"
+          ],
+          [
+            "0x48c761",
+            "0x48c76b"
+          ],
+          [
+            "0x48c76b",
+            "0x48c772"
+          ],
+          [
+            "0x48c772",
+            "0x48c778"
+          ],
+          [
+            "0x48c772",
+            "0x48ca76"
+          ],
+          [
+            "0x48ca76",
+            "0x48ca7c"
+          ],
+          [
+            "0x48ca7c",
+            "0x48ca7e"
+          ],
+          [
+            "0x48ca7e",
+            "0x48ca84"
+          ],
+          [
+            "0x48ca84",
+            "0x48ca85"
+          ],
+          [
+            "0x48ca85",
+            "0x48ca88"
+          ],
+          [
+            "0x48ca88",
+            "0x48ca89"
+          ],
+          [
+            "0x48ca89",
+            "0x48ca8b"
+          ],
+          [
+            "0x48ca8b",
+            "0x48ca8c"
+          ],
+          [
+            "0x48ca8c",
+            "0x48ca92"
+          ],
+          [
+            "0x48ca92",
+            "0x48ca93"
+          ],
+          [
+            "0x48c778",
+            "0x48c77f"
+          ],
+          [
+            "0x48c77f",
+            "0x48c780"
+          ],
+          [
+            "0x48c780",
+            "0x48c782"
+          ],
+          [
+            "0x48c782",
+            "0x48c784"
+          ],
+          [
+            "0x48c784",
+            "0x48c786"
+          ],
+          [
+            "0x48c786",
+            "0x48c787"
+          ],
+          [
+            "0x48c787",
+            "0x48c788"
+          ],
+          [
+            "0x48c788",
+            "0x48c78e"
+          ],
+          [
+            "0x48c78e",
+            "0x48c793"
+          ],
+          [
+            "0x48c793",
+            "0x48c795"
+          ],
+          [
+            "0x48c795",
+            "0x48c796"
+          ],
+          [
+            "0x48c796",
+            "0x48c79c"
+          ],
+          [
+            "0x48c79c",
+            "0x48c79d"
+          ],
+          [
+            "0x48c763",
+            "0x48c766"
+          ],
+          [
+            "0x48c766",
+            "0x48c76b"
+          ],
+          [
+            "0x48c9b9",
+            "0x48c9ba"
+          ],
+          [
+            "0x48c9ba",
+            "0x48c9bb"
+          ],
+          [
+            "0x48c9bb",
+            "0x48c9c0"
+          ],
+          [
+            "0x48c9c0",
+            "0x48c9c5"
+          ],
+          [
+            "0x48c9c5",
+            "0x48c9c8"
+          ],
+          [
+            "0x48c9c8",
+            "0x48c9cb"
+          ],
+          [
+            "0x48c9cb",
+            "0x48c9ce"
+          ],
+          [
+            "0x48c9ce",
+            "0x48c9d0"
+          ],
+          [
+            "0x48c9d0",
+            "0x48c9d3"
+          ],
+          [
+            "0x48c9d3",
+            "0x48c9d9"
+          ],
+          [
+            "0x48c9d9",
+            "0x48c9dc"
+          ],
+          [
+            "0x48c9dc",
+            "0x48c9e2"
+          ],
+          [
+            "0x48c9dc",
+            "0x48c8df"
+          ],
+          [
+            "0x48c8df",
+            "0x48c8e6"
+          ],
+          [
+            "0x48c8e6",
+            "0x48c742"
+          ],
+          [
+            "0x48c9e2",
+            "0x48c9e5"
+          ],
+          [
+            "0x48c9e5",
+            "0x48c9eb"
+          ],
+          [
+            "0x48c9e5",
+            "0x48c8df"
+          ],
+          [
+            "0x48c9eb",
+            "0x48c9ee"
+          ],
+          [
+            "0x48c9ee",
+            "0x48c9f4"
+          ],
+          [
+            "0x48c9ee",
+            "0x48c742"
+          ],
+          [
+            "0x48c9f4",
+            "0x48c9fb"
+          ],
+          [
+            "0x48c9fb",
+            "0x48ca02"
+          ],
+          [
+            "0x48ca02",
+            "0x48ca09"
+          ],
+          [
+            "0x48ca09",
+            "0x48ca10"
+          ],
+          [
+            "0x48ca10",
+            "0x48ca13"
+          ],
+          [
+            "0x48ca13",
+            "0x48ca14"
+          ],
+          [
+            "0x48ca14",
+            "0x48ca1b"
+          ],
+          [
+            "0x48ca1b",
+            "0x48ca1e"
+          ],
+          [
+            "0x48ca1e",
+            "0x48ca21"
+          ],
+          [
+            "0x48ca21",
+            "0x48ca22"
+          ],
+          [
+            "0x48ca22",
+            "0x48ca29"
+          ],
+          [
+            "0x48ca29",
+            "0x48ca2c"
+          ],
+          [
+            "0x48ca2c",
+            "0x48ca2f"
+          ],
+          [
+            "0x48ca2f",
+            "0x48ca30"
+          ],
+          [
+            "0x48ca30",
+            "0x48ca37"
+          ],
+          [
+            "0x48ca37",
+            "0x48ca3e"
+          ],
+          [
+            "0x48ca3e",
+            "0x48ca3f"
+          ],
+          [
+            "0x48ca3f",
+            "0x48ca40"
+          ],
+          [
+            "0x48ca40",
+            "0x48ca41"
+          ],
+          [
+            "0x48ca41",
+            "0x48ca46"
+          ],
+          [
+            "0x48ca46",
+            "0x48ca4b"
+          ],
+          [
+            "0x48ca4b",
+            "0x48ca4e"
+          ],
+          [
+            "0x48ca4e",
+            "0x48ca51"
+          ],
+          [
+            "0x48ca51",
+            "0x48ca54"
+          ],
+          [
+            "0x48ca54",
+            "0x48ca56"
+          ],
+          [
+            "0x48ca56",
+            "0x48ca5e"
+          ],
+          [
+            "0x48ca5e",
+            "0x48c742"
+          ],
+          [
+            "0x48c909",
+            "0x48c90f"
+          ],
+          [
+            "0x48c90f",
+            "0x48c916"
+          ],
+          [
+            "0x48c916",
+            "0x48c91d"
+          ],
+          [
+            "0x48c91d",
+            "0x48c924"
+          ],
+          [
+            "0x48c924",
+            "0x48c926"
+          ],
+          [
+            "0x48c924",
+            "0x48c9a0"
+          ],
+          [
+            "0x48c9a0",
+            "0x48c9a2"
+          ],
+          [
+            "0x48c9a2",
+            "0x48c9a3"
+          ],
+          [
+            "0x48c9a3",
+            "0x48c9a8"
+          ],
+          [
+            "0x48c9a8",
+            "0x48c9ab"
+          ],
+          [
+            "0x48c9ab",
+            "0x48c73d"
+          ],
+          [
+            "0x48c73d",
+            "0x48c742"
+          ],
+          [
+            "0x48c926",
+            "0x48c92d"
+          ],
+          [
+            "0x48c92d",
+            "0x48c934"
+          ],
+          [
+            "0x48c934",
+            "0x48c936"
+          ],
+          [
+            "0x48c936",
+            "0x48c938"
+          ],
+          [
+            "0x48c938",
+            "0x48c93e"
+          ],
+          [
+            "0x48c93e",
+            "0x48c93f"
+          ],
+          [
+            "0x48c93f",
+            "0x48c940"
+          ],
+          [
+            "0x48c940",
+            "0x48c941"
+          ],
+          [
+            "0x48c941",
+            "0x48c946"
+          ],
+          [
+            "0x48c946",
+            "0x48c949"
+          ],
+          [
+            "0x48c949",
+            "0x48c94b"
+          ],
+          [
+            "0x48c94b",
+            "0x48c950"
+          ],
+          [
+            "0x48c950",
+            "0x48c952"
+          ],
+          [
+            "0x48c950",
+            "0x48c972"
+          ],
+          [
+            "0x48c972",
+            "0x48c975"
+          ],
+          [
+            "0x48c975",
+            "0x48c97c"
+          ],
+          [
+            "0x48c97c",
+            "0x48c97f"
+          ],
+          [
+            "0x48c97f",
+            "0x48c981"
+          ],
+          [
+            "0x48c981",
+            "0x48c984"
+          ],
+          [
+            "0x48c984",
+            "0x48c98b"
+          ],
+          [
+            "0x48c98b",
+            "0x48c992"
+          ],
+          [
+            "0x48c992",
+            "0x48c999"
+          ],
+          [
+            "0x48c999",
+            "0x48c9a0"
+          ],
+          [
+            "0x48c952",
+            "0x48c955"
+          ],
+          [
+            "0x48c955",
+            "0x48c957"
+          ],
+          [
+            "0x48c957",
+            "0x48c95a"
+          ],
+          [
+            "0x48c95a",
+            "0x48c95c"
+          ],
+          [
+            "0x48c95c",
+            "0x48c95d"
+          ],
+          [
+            "0x48c95d",
+            "0x48c965"
+          ],
+          [
+            "0x48c965",
+            "0x48c96a"
+          ],
+          [
+            "0x48c96a",
+            "0x48c96d"
+          ],
+          [
+            "0x48c96d",
+            "0x48c73d"
+          ],
+          [
+            "0x48c89b",
+            "0x48c89d"
+          ],
+          [
+            "0x48c89d",
+            "0x48c8a4"
+          ],
+          [
+            "0x48c8a4",
+            "0x48c8a5"
+          ],
+          [
+            "0x48c8a5",
+            "0x48c8ac"
+          ],
+          [
+            "0x48c8ac",
+            "0x48c8b1"
+          ],
+          [
+            "0x48c8b1",
+            "0x48c8b4"
+          ],
+          [
+            "0x48c8b4",
+            "0x48c8b7"
+          ],
+          [
+            "0x48c8b7",
+            "0x48c8bd"
+          ],
+          [
+            "0x48c8b7",
+            "0x48c73d"
+          ],
+          [
+            "0x48c8bd",
+            "0x48c8c2"
+          ],
+          [
+            "0x48c8c2",
+            "0x48c8c5"
+          ],
+          [
+            "0x48c8c5",
+            "0x48c8c8"
+          ],
+          [
+            "0x48c8c8",
+            "0x48c8ca"
+          ],
+          [
+            "0x48c8ca",
+            "0x48c8cd"
+          ],
+          [
+            "0x48c8cd",
+            "0x48c8d3"
+          ],
+          [
+            "0x48c8d3",
+            "0x48c8db"
+          ],
+          [
+            "0x48c8db",
+            "0x48c8dd"
+          ],
+          [
+            "0x48c8dd",
+            "0x48c8df"
+          ],
+          [
+            "0x48c8dd",
+            "0x48c8eb"
+          ],
+          [
+            "0x48c8eb",
+            "0x48c8ec"
+          ],
+          [
+            "0x48c8ec",
+            "0x48c8f3"
+          ],
+          [
+            "0x48c8f3",
+            "0x48c8f8"
+          ],
+          [
+            "0x48c8f8",
+            "0x48c8fb"
+          ],
+          [
+            "0x48c8fb",
+            "0x48c87c"
+          ],
+          [
+            "0x48c87c",
+            "0x48c881"
+          ],
+          [
+            "0x48c881",
+            "0x48c884"
+          ],
+          [
+            "0x48c884",
+            "0x48c887"
+          ],
+          [
+            "0x48c887",
+            "0x48c889"
+          ],
+          [
+            "0x48c889",
+            "0x48c891"
+          ],
+          [
+            "0x48c891",
+            "0x48c742"
+          ],
+          [
+            "0x48c7b4",
+            "0x48c7bb"
+          ],
+          [
+            "0x48c7bb",
+            "0x48c7c1"
+          ],
+          [
+            "0x48c7c1",
+            "0x48c7c8"
+          ],
+          [
+            "0x48c7c8",
+            "0x48c7cf"
+          ],
+          [
+            "0x48c7cf",
+            "0x48c7d5"
+          ],
+          [
+            "0x48c7cf",
+            "0x48c742"
+          ],
+          [
+            "0x48c7d5",
+            "0x48c7dc"
+          ],
+          [
+            "0x48c7dc",
+            "0x48c7e3"
+          ],
+          [
+            "0x48c7e3",
+            "0x48c7e5"
+          ],
+          [
+            "0x48c7e5",
+            "0x48c7e7"
+          ],
+          [
+            "0x48c7e7",
+            "0x48c7ed"
+          ],
+          [
+            "0x48c7ed",
+            "0x48c7ee"
+          ],
+          [
+            "0x48c7ee",
+            "0x48c7ef"
+          ],
+          [
+            "0x48c7ef",
+            "0x48c7f0"
+          ],
+          [
+            "0x48c7f0",
+            "0x48c7f5"
+          ],
+          [
+            "0x48c7f5",
+            "0x48c7f8"
+          ],
+          [
+            "0x48c7f8",
+            "0x48c7fa"
+          ],
+          [
+            "0x48c7fa",
+            "0x48c7fc"
+          ],
+          [
+            "0x48c7fa",
+            "0x48c816"
+          ],
+          [
+            "0x48c816",
+            "0x48c81c"
+          ],
+          [
+            "0x48c81c",
+            "0x48c823"
+          ],
+          [
+            "0x48c823",
+            "0x48c82a"
+          ],
+          [
+            "0x48c82a",
+            "0x48c82b"
+          ],
+          [
+            "0x48c82b",
+            "0x48c82e"
+          ],
+          [
+            "0x48c82e",
+            "0x48c831"
+          ],
+          [
+            "0x48c831",
+            "0x48c833"
+          ],
+          [
+            "0x48c833",
+            "0x48c836"
+          ],
+          [
+            "0x48c836",
+            "0x48c83d"
+          ],
+          [
+            "0x48c83d",
+            "0x48c844"
+          ],
+          [
+            "0x48c844",
+            "0x48c847"
+          ],
+          [
+            "0x48c847",
+            "0x48c84e"
+          ],
+          [
+            "0x48c84e",
+            "0x48c851"
+          ],
+          [
+            "0x48c851",
+            "0x48c854"
+          ],
+          [
+            "0x48c854",
+            "0x48c855"
+          ],
+          [
+            "0x48c855",
+            "0x48c85c"
+          ],
+          [
+            "0x48c85c",
+            "0x48c85f"
+          ],
+          [
+            "0x48c85f",
+            "0x48c862"
+          ],
+          [
+            "0x48c862",
+            "0x48c863"
+          ],
+          [
+            "0x48c863",
+            "0x48c86a"
+          ],
+          [
+            "0x48c86a",
+            "0x48c871"
+          ],
+          [
+            "0x48c871",
+            "0x48c872"
+          ],
+          [
+            "0x48c872",
+            "0x48c873"
+          ],
+          [
+            "0x48c873",
+            "0x48c874"
+          ],
+          [
+            "0x48c874",
+            "0x48c879"
+          ],
+          [
+            "0x48c879",
+            "0x48c87c"
+          ],
+          [
+            "0x48c7fc",
+            "0x48c801"
+          ],
+          [
+            "0x48c801",
+            "0x48c804"
+          ],
+          [
+            "0x48c804",
+            "0x48c807"
+          ],
+          [
+            "0x48c807",
+            "0x48c809"
+          ],
+          [
+            "0x48c809",
+            "0x48c811"
+          ],
+          [
+            "0x48c811",
+            "0x48c742"
+          ],
+          [
+            "0x48c7a3",
+            "0x48c7a4"
+          ],
+          [
+            "0x48c7a4",
+            "0x48c7a9"
+          ],
+          [
+            "0x48c7a9",
+            "0x48c73a"
+          ],
+          [
+            "0x48c73a",
+            "0x48c73d"
+          ],
+          [
+            "0x48c734",
+            "0x48c735"
+          ],
+          [
+            "0x48c735",
+            "0x48c73a"
+          ],
+          [
+            "0x48c723",
+            "0x48c729"
+          ],
+          [
+            "0x48c6fe",
+            "0x48c705"
+          ],
+          [
+            "0x48c705",
+            "0x48c707"
+          ],
+          [
+            "0x48c707",
+            "0x48c709"
+          ],
+          [
+            "0x48c707",
+            "0x48c710"
+          ]
+        ]
+      },
+      "creation_credit_in_this_checkpoint": 1,
+      "selection_credit": 0,
+      "named_result_contract": "full-DWORD-bits",
+      "stage": "C_selected_pending_next_joint_comparison",
+      "body_sha256": "2d32b59330a289327c1b1c55432a1da9a9cb244a35d41d432d0180ab718eb903",
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x0029ff60",
+            "owner": "f   pharaoh_restored:actor_engineer.obj"
+          },
+          "canonical_requested": "FUN_0048c6a0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048c6a0",
+          "canonical": {
+            "va": "0x0005eac0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x0029fee0",
+            "owner": "f   pharaoh_restored:actor_engineer.obj"
+          },
+          "canonical_requested": "FUN_0048c6a0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048c6a0",
+          "canonical": {
+            "va": "0x0005e4f0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x48ded0",
+      "name": "restore_actor_update_fireman",
+      "source": "artifacts/actor_civic_followup/actor_fireman.c",
+      "registry_kind": 10,
+      "native_instructions": 463,
+      "body_bytes": 1801,
+      "native_scope": {
+        "entry": "0x48ded0",
+        "bytes": 1801,
+        "instructions": 463,
+        "end_exclusive": "0x48e5d9",
+        "byte_sha256": "7037b8ae2ce0a04cb1d3e8ed7589730e7805a298a94b82ae5820c7c583ef6ccc",
+        "rea_evidence": "ev_8570c0db8e9743d050cbc3e8d29e0d5a4ed7eb6d4808f499f780adc1c4be5440",
+        "plain_returns": [
+          "0x48e547",
+          "0x48e55f",
+          "0x48e57f",
+          "0x48e591",
+          "0x48e5bb",
+          "0x48e5d8"
+        ],
+        "conditional_outcomes": 92,
+        "reachable_instructions": 463,
+        "calls": [
+          {
+            "site": "0x48df5a",
+            "target": "0x48e5e0"
+          },
+          {
+            "site": "0x48df7f",
+            "target": "0x4b17d0"
+          },
+          {
+            "site": "0x48dfb9",
+            "target": "0x4b1d50"
+          },
+          {
+            "site": "0x48e003",
+            "target": "0x47fe60"
+          },
+          {
+            "site": "0x48e069",
+            "target": "0x4b3ff0"
+          },
+          {
+            "site": "0x48e0b1",
+            "target": "0x4b1df0"
+          },
+          {
+            "site": "0x48e11c",
+            "target": "0x47fe60"
+          },
+          {
+            "site": "0x48e141",
+            "target": "0x4b1ef0"
+          },
+          {
+            "site": "0x48e17d",
+            "target": "0x4b3250"
+          },
+          {
+            "site": "0x48e18e",
+            "target": "0x4b1ef0"
+          },
+          {
+            "site": "0x48e1a6",
+            "target": "0x4a5da0"
+          },
+          {
+            "site": "0x48e22e",
+            "target": "0x4b4220"
+          },
+          {
+            "site": "0x48e265",
+            "target": "0x4a5da0"
+          },
+          {
+            "site": "0x48e2a7",
+            "target": "0x4b3250"
+          },
+          {
+            "site": "0x48e393",
+            "target": "0x47d350"
+          },
+          {
+            "site": "0x48e3cc",
+            "target": "0x51cba0"
+          },
+          {
+            "site": "0x48e421",
+            "target": "0x48e5e0"
+          },
+          {
+            "site": "0x48e46b",
+            "target": "0x47fe60"
+          },
+          {
+            "site": "0x48e4be",
+            "target": "0x4b3250"
+          }
+        ],
+        "bounded_direct_CFG_closed": true,
+        "all_local_stack_paths_balanced": true,
+        "signature": "uint32_t restore_actor_update_fireman(void)",
+        "provider_owned_range": false,
+        "canonical_definitions_including_inactive": [
+          {
+            "path": "runtime/actor_civic.c",
+            "sha256": "0fe9d23540a67fb707a06e756016f2911033d8243d6d4dcfd531fbab6bf1e237"
+          }
+        ],
+        "inactive_units_listed_but_removed": []
+      },
+      "creation_credit_in_this_checkpoint": 1,
+      "selection_credit": 0,
+      "named_result_contract": "full-DWORD-bits",
+      "stage": "C_selected_pending_next_joint_comparison",
+      "body_sha256": "024d28e5c660be0564e411b5ba5e6b93f1a3e0da0e19053c73f05449f0430e61",
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x0029f570",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_0048ded0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048ded0",
+          "canonical": {
+            "va": "0x0005ead0",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x0029f4f0",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_0048ded0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_0048ded0",
+          "canonical": {
+            "va": "0x0005e500",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x48e5e0",
+      "name": "restore_fireman_try_assign_fire",
+      "source": "artifacts/actor_civic_followup/actor_fireman.c",
+      "registry_kind": null,
+      "native_instructions": 112,
+      "body_bytes": 266,
+      "native_scope": {
+        "entry": "0x48e5e0",
+        "bytes": 266,
+        "instructions": 112,
+        "end_exclusive": "0x48e6ea",
+        "byte_sha256": "76dd73acad79697449e5a000455ae08cf7f499e8a0060d32bb3128226f18a325",
+        "rea_evidence": "ev_8570c0db8e9743d050cbc3e8d29e0d5a4ed7eb6d4808f499f780adc1c4be5440",
+        "plain_returns": [
+          "0x48e5ef",
+          "0x48e60d",
+          "0x48e616",
+          "0x48e61f",
+          "0x48e628",
+          "0x48e631",
+          "0x48e63a",
+          "0x48e643",
+          "0x48e64c",
+          "0x48e665",
+          "0x48e686",
+          "0x48e694",
+          "0x48e6e9"
+        ],
+        "conditional_outcomes": 24,
+        "reachable_instructions": 112,
+        "calls": [
+          {
+            "site": "0x48e676",
+            "target": "0x469a50"
+          },
+          {
+            "site": "0x48e6d2",
+            "target": "0x4b3250"
+          }
+        ],
+        "bounded_direct_CFG_closed": true,
+        "all_local_stack_paths_balanced": true,
+        "signature": "uint32_t restore_fireman_try_assign_fire(int32_t actor)",
+        "provider_owned_range": false,
+        "canonical_definitions_including_inactive": [
+          {
+            "path": "runtime/actor_civic.c",
+            "sha256": "0fe9d23540a67fb707a06e756016f2911033d8243d6d4dcfd531fbab6bf1e237"
+          },
+          {
+            "path": "src/unit_01313.c",
+            "sha256": "ef349f41d148d3cfcc037416095a033b4b2dcfe1492e2690dbb15a95eb027c7f"
+          }
+        ],
+        "inactive_units_listed_but_removed": [
+          "unit_01313.c"
+        ]
+      },
+      "creation_credit_in_this_checkpoint": 1,
+      "selection_credit": 0,
+      "named_result_contract": "full-DWORD-bits",
+      "stage": "C_selected_pending_next_joint_comparison",
+      "body_sha256": "22dc76ba0de42d84709d726a1483063ce506caa69781d43fdd26f5824e3865f6",
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x0029fd30",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_0048e5e0",
+          "canonical_requested_present": false,
+          "effective_canonical_symbol": "restore_fireman_try_assign_fire",
+          "canonical": {
+            "va": "0x0029fd30",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "note": "Unused full-result facade removed by actual linker; available named full-result owner has the identical logical signature."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x0029fcb0",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "canonical_requested": "FUN_0048e5e0",
+          "canonical_requested_present": false,
+          "effective_canonical_symbol": "restore_fireman_try_assign_fire",
+          "canonical": {
+            "va": "0x0029fcb0",
+            "owner": "f   pharaoh_restored:actor_fireman.obj"
+          },
+          "note": "Unused full-result facade removed by actual linker; available named full-result owner has the identical logical signature."
+        }
+      }
+    },
+    {
+      "address": "0x491420",
+      "end_exclusive": "0x491a88",
+      "name": "restore_actor_update_trade_caravan",
+      "registry_kind": 19,
+      "body_bytes": 1640,
+      "native_instructions": 425,
+      "cfg_reachable_instructions": 425,
+      "bytes_sha256": "14c71c60875dedea94b369232ca62fe63997e1c34e8024f7ef135c48c49e49f0",
+      "calls": [
+        {
+          "site": "0x491489",
+          "target": "0x4b17d0"
+        },
+        {
+          "site": "0x4914c1",
+          "target": "0x4b1d50"
+        },
+        {
+          "site": "0x491500",
+          "target": "0x4450c0"
+        },
+        {
+          "site": "0x4915ca",
+          "target": "0x4a5da0"
+        },
+        {
+          "site": "0x4915ff",
+          "target": "0x4b3250"
+        },
+        {
+          "site": "0x491660",
+          "target": "0x4b3250"
+        },
+        {
+          "site": "0x4916de",
+          "target": "0x45cf50"
+        },
+        {
+          "site": "0x491719",
+          "target": "0x45d010"
+        },
+        {
+          "site": "0x491760",
+          "target": "0x444bd0"
+        },
+        {
+          "site": "0x4917b9",
+          "target": "0x45d180"
+        },
+        {
+          "site": "0x4917f4",
+          "target": "0x45d370"
+        },
+        {
+          "site": "0x49183b",
+          "target": "0x444b80"
+        },
+        {
+          "site": "0x491899",
+          "target": "0x4450c0"
+        },
+        {
+          "site": "0x491943",
+          "target": "0x4a5da0"
+        },
+        {
+          "site": "0x49197f",
+          "target": "0x4b3250"
+        },
+        {
+          "site": "0x4919db",
+          "target": "0x4a35e0"
+        }
+      ],
+      "returns": [
+        "0x491a69",
+        "0x491a87"
+      ],
+      "conditional_outcomes": 64,
+      "new_rewrite_credit": 1,
+      "source": "artifacts/actor_civic_followup/actor_civic_updates.c",
+      "body_sha256": "7f4c349f1b2f65fb686ce98e39a24e3cfd2fd59429a0e5519c0d419cfc02cf20",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "full-DWORD-bits",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0df0",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_00491420",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_00491420",
+          "canonical": {
+            "va": "0x0005eb20",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0d70",
+            "owner": "f   pharaoh_restored:actor_civic_updates.obj"
+          },
+          "canonical_requested": "FUN_00491420",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_00491420",
+          "canonical": {
+            "va": "0x0005e550",
+            "owner": "f   pharaoh_restored:actor_civic.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x4b3ff0",
+      "end_exclusive": "0x4b4172",
+      "name": "restore_actor_advance_route_pixels",
+      "native_instructions": 118,
+      "body_bytes": 386,
+      "cfg_reachable_instructions": 118,
+      "calls": [
+        {
+          "site": "0x4b4000",
+          "target": "0x4b5420"
+        },
+        {
+          "site": "0x4b404f",
+          "target": "0x4b4180"
+        },
+        {
+          "site": "0x4b4062",
+          "target": "0x4b43a0"
+        },
+        {
+          "site": "0x4b407c",
+          "target": "0x4b43e0"
+        },
+        {
+          "site": "0x4b4083",
+          "target": "0x4b43e0"
+        },
+        {
+          "site": "0x4b409d",
+          "target": "0x4b43a0"
+        },
+        {
+          "site": "0x4b413b",
+          "target": "0x4b52f0"
+        },
+        {
+          "site": "0x4b4160",
+          "target": "0x4b52f0"
+        }
+      ],
+      "returns": [
+        "0x4b414c",
+        "0x4b4171"
+      ],
+      "conditional_outcomes": 18,
+      "registry_kind": null,
+      "source": "artifacts/actor_civic_followup/actor_route_pixels.c",
+      "body_sha256": "39f9ee4ad6035e37e1cda9d7f1407134617becdb593a733ca5abb3d1148bfdf5",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "full-DWORD-bits",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0380",
+            "owner": "f   pharaoh_restored:actor_route_pixels.obj"
+          },
+          "canonical_requested": "FUN_004b3ff0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b3ff0",
+          "canonical": {
+            "va": "0x000d07d0",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0300",
+            "owner": "f   pharaoh_restored:actor_route_pixels.obj"
+          },
+          "canonical_requested": "FUN_004b3ff0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b3ff0",
+          "canonical": {
+            "va": "0x000d0200",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x4b4180",
+      "end_exclusive": "0x4b4213",
+      "name": "restore_actor_update_route_error",
+      "native_instructions": 35,
+      "body_bytes": 147,
+      "cfg_reachable_instructions": 35,
+      "calls": [],
+      "returns": [
+        "0x4b41c0",
+        "0x4b41d9",
+        "0x4b41f9",
+        "0x4b4212"
+      ],
+      "conditional_outcomes": 6,
+      "registry_kind": null,
+      "provider_review": {
+        "entry": "0x4b4180",
+        "bytes": 147,
+        "instructions": 35,
+        "end_exclusive": "0x4b4213",
+        "normal_returns": [
+          "0x4b41c0",
+          "0x4b41d9",
+          "0x4b41f9",
+          "0x4b4212"
+        ],
+        "conditional_outcomes": 6,
+        "statically_reachable": 35,
+        "byte_evidence_id": "ev_0443824ca170019eb5ede81c712b70bb31a0448f437e8aa15bd4298925e22578",
+        "signature": "void restore_actor_update_route_error(int32_t actor)",
+        "source_providers_including_inactive": [
+          {
+            "path": "runtime/actor_laborer.c",
+            "sha256": "6b3c2e896b5b4ee657686f9a13b79c235df8276b8456c7ffae84d27826f42e6f"
+          },
+          {
+            "path": "src/unit_01437.c",
+            "sha256": "ebd5b63f5632deb9aa67c024cc329230fbb10150ff0ee00db3d9de5beea8418b"
+          }
+        ],
+        "legacy_unit_listed_but_removed": true,
+        "old_source_reuse_rejected": "DWORD macro pointer indexing scales actor*194 into776bytes and actor*388 into1552bytes, versus native388byte stride and WORD/BYTE effects. Old error helper also reads error before axis; old pixel helpers reread target.",
+        "shared_field_displacement_masks": []
+      },
+      "source": "artifacts/actor_civic_followup/actor_route_leaves.c",
+      "body_sha256": "2b79a36f9b4678903e39ffe61f9dadf3ea786ae4c5bb82671260db00b115b0e6",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "discard-physical-EAX",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a02d0",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b4180",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b4180",
+          "canonical": {
+            "va": "0x000d07e0",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0250",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b4180",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b4180",
+          "canonical": {
+            "va": "0x000d0210",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x4b43a0",
+      "end_exclusive": "0x4b43d6",
+      "name": "restore_actor_step_route_pixel_y",
+      "native_instructions": 16,
+      "body_bytes": 54,
+      "cfg_reachable_instructions": 16,
+      "calls": [],
+      "returns": [
+        "0x4b43ca",
+        "0x4b43d5"
+      ],
+      "conditional_outcomes": 4,
+      "registry_kind": null,
+      "provider_review": {
+        "entry": "0x4b43a0",
+        "bytes": 54,
+        "instructions": 16,
+        "end_exclusive": "0x4b43d6",
+        "normal_returns": [
+          "0x4b43ca",
+          "0x4b43d5"
+        ],
+        "conditional_outcomes": 4,
+        "statically_reachable": 16,
+        "byte_evidence_id": "ev_06705c8805462d06385175c6e85427673899d6e4423adca80e43a368b62ae301",
+        "signature": "void restore_actor_step_route_pixel_y(int32_t actor)",
+        "source_providers_including_inactive": [
+          {
+            "path": "runtime/actor_laborer.c",
+            "sha256": "6b3c2e896b5b4ee657686f9a13b79c235df8276b8456c7ffae84d27826f42e6f"
+          },
+          {
+            "path": "src/unit_01439.c",
+            "sha256": "28bcfea5a4e265d42d92ab8ad9e0a3ce829c0e08d1190ad6224c362975c49524"
+          }
+        ],
+        "legacy_unit_listed_but_removed": true,
+        "old_source_reuse_rejected": "DWORD macro pointer indexing scales actor*194 into776bytes and actor*388 into1552bytes, versus native388byte stride and WORD/BYTE effects. Old error helper also reads error before axis; old pixel helpers reread target.",
+        "shared_field_displacement_masks": [
+          {
+            "offset": 18,
+            "length": 4
+          },
+          {
+            "offset": 25,
+            "length": 4
+          },
+          {
+            "offset": 38,
+            "length": 4
+          },
+          {
+            "offset": 49,
+            "length": 4
+          }
+        ]
+      },
+      "source": "artifacts/actor_civic_followup/actor_route_leaves.c",
+      "body_sha256": "f5d75db4ba798daba759a5e49ff15023eb67e172aa69569208d3c3d29f8cc0d6",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "discard-physical-EAX",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a02a0",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b43a0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b43a0",
+          "canonical": {
+            "va": "0x000d07f0",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a0220",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b43a0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b43a0",
+          "canonical": {
+            "va": "0x000d0220",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    },
+    {
+      "address": "0x4b43e0",
+      "end_exclusive": "0x4b4416",
+      "name": "restore_actor_step_route_pixel_x",
+      "native_instructions": 16,
+      "body_bytes": 54,
+      "cfg_reachable_instructions": 16,
+      "calls": [],
+      "returns": [
+        "0x4b440a",
+        "0x4b4415"
+      ],
+      "conditional_outcomes": 4,
+      "registry_kind": null,
+      "provider_review": {
+        "entry": "0x4b43e0",
+        "bytes": 54,
+        "instructions": 16,
+        "end_exclusive": "0x4b4416",
+        "normal_returns": [
+          "0x4b440a",
+          "0x4b4415"
+        ],
+        "conditional_outcomes": 4,
+        "statically_reachable": 16,
+        "byte_evidence_id": "ev_8127fa2f9a8ae26aae099f8264418b055ad95b4edb73da358a53fa15f3994539",
+        "signature": "void restore_actor_step_route_pixel_x(int32_t actor)",
+        "source_providers_including_inactive": [
+          {
+            "path": "runtime/actor_laborer.c",
+            "sha256": "6b3c2e896b5b4ee657686f9a13b79c235df8276b8456c7ffae84d27826f42e6f"
+          },
+          {
+            "path": "src/unit_01440.c",
+            "sha256": "1b7d06623502f5d8427c8b3bd24e8628b5d4c51d29cb57c96dcd4e494d04ec24"
+          }
+        ],
+        "legacy_unit_listed_but_removed": true,
+        "old_source_reuse_rejected": "DWORD macro pointer indexing scales actor*194 into776bytes and actor*388 into1552bytes, versus native388byte stride and WORD/BYTE effects. Old error helper also reads error before axis; old pixel helpers reread target.",
+        "shared_field_displacement_masks": [
+          {
+            "offset": 18,
+            "length": 4
+          },
+          {
+            "offset": 25,
+            "length": 4
+          },
+          {
+            "offset": 38,
+            "length": 4
+          },
+          {
+            "offset": 49,
+            "length": 4
+          }
+        ]
+      },
+      "source": "artifacts/actor_civic_followup/actor_route_leaves.c",
+      "body_sha256": "3b0cb7ed1be0aae255a5852c2cca4090088440d31ef5fc07ef3957cda385a4c9",
+      "new_algorithm_credit_on_source_creation": 1,
+      "subsequent_main_selection_credit": 0,
+      "stage": "C_selected_pending_next_joint_comparison",
+      "named_result_contract": "discard-physical-EAX",
+      "native_C_invocations": 0,
+      "creation_checkpoint": "a5e45473880ddc58bfa8c2b04ee23dc9931888bd",
+      "creation_credit_in_this_checkpoint": 0,
+      "selection_credit": 0,
+      "linked_providers": {
+        "game": {
+          "named": {
+            "va": "0x002a0270",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b43e0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b43e0",
+          "canonical": {
+            "va": "0x000d0800",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        },
+        "diagnostic": {
+          "named": {
+            "va": "0x002a01f0",
+            "owner": "f   pharaoh_restored:actor_route_leaves.obj"
+          },
+          "canonical_requested": "FUN_004b43e0",
+          "canonical_requested_present": true,
+          "effective_canonical_symbol": "FUN_004b43e0",
+          "canonical": {
+            "va": "0x000d0230",
+            "owner": "f   pharaoh_restored:actor_laborer.obj"
+          },
+          "note": "Canonical facade observed in actual MAP."
+        }
+      }
+    }
+  ],
+  "source_hashes": {
+    "CMakeLists.txt": "6f35c2b010bc060a08bba8aa22a710d6d4e89aa05de4eb03645fd37c31866afb",
+    "runtime/actor_civic.c": "20b5fb90089655a77d313f289b513f7ea314de2a9b526c9c0410fe68d149812d",
+    "runtime/actor_laborer.c": "3affc7679bdcd3b65ea642c26ac4b0252c0a5d2726bf4bd7f564b148e92d5396",
+    "artifacts/actor_civic_followup/CMakeLists.txt": "0931af2778ddd9336c6d8da433d13c539c83ff95b8820148f7b4ff3e739aa24f",
+    "artifacts/actor_civic_followup/actor_civic_followup.h": "d7977d8b4ac26658fc3bcf4104d9f77d74e5c6d30cddba152f26f5d18d76e7e8",
+    "artifacts/actor_civic_followup/actor_civic_updates.c": "c57f18c7229bf5c212e22da4c514e594d9a0f11af45e073fea48894f0f13c75d",
+    "artifacts/actor_civic_followup/actor_engineer.c": "7be1dad539fad338e12a4a174efd0539c8d51e9498f7e9e32e12e8329880b79e",
+    "artifacts/actor_civic_followup/actor_fireman.c": "dfe7715cff88399d64c620db706d7ae51ecf9b739656905f283e357aaf2cd96c",
+    "artifacts/actor_civic_followup/actor_route_leaves.c": "9ac374c9c35ec03bd6c5c73ba5d357a327b709be92243499c3f7b889325b75da",
+    "artifacts/actor_civic_followup/actor_route_pixels.c": "f8501aad6aa2b23c0130116dcabe48f02ba078522bf7e65eb185f0b1f3b7ff57",
+    "artifacts/actor_civic_followup/actor_vagrant.c": "a7d795efcbeb07ff94f28d74e5eb920bde2363e4a61f2f496db7ba0c56b089ac"
+  },
+  "evidence": {
+    "path": "metadata/actor-cohort-2-rea-records.json",
+    "sha256": "29e6d102dda5c33d35b935c5db025c1345d0ee7373e12b4a059431639331fe8d"
+  },
+  "raw_models_and_routing_retained": {
+    "runtime/actor_civic_model.c": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
+    "runtime/actor_laborer_model.c": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+    "runtime/actor_transport_model.c": "9462e0d008d0e0c26462a82aa1442f09c6b06244c046a40373d3b4d5e338fdca",
+    "runtime/actor_civic.c:restore_actor_civic_dispatch": "73aba38d81768fee25aebf9cc28b18935fe9474f5a9514ff76de33783ce536df",
+    "runtime/actor_laborer.c:dispatch": "e048af06192e57164baeb14270f72e7895b8176ab7485b44c5dcbf63f2c89e73"
+  },
+  "strict_object_compilation": {
+    "exit_code": 0,
+    "options": [
+      "/std:c11",
+      "/W4",
+      "/WX",
+      "/GS-",
+      "/Ob0",
+      "/O2"
+    ],
+    "log_sha256": "244457ec6461986e96bce02e33852ac28e292ead5fa7a5536890c196df69540a"
+  },
+  "main_build": {
+    "exit_code": 0,
+    "log_sha256": "41c10d0e934d477a472181b23f95e8dd28a62b99f29978a653e25df0f128f4f6",
+    "compiled_artifacts": {
+      "game": {
+        "path": "build/c-only/Release/PharaohRestoreC.exe",
+        "sha256": "9102da31e71cc1ae8ac55c5f4f45ea83340106328d70855ece6aeef6848bab8d",
+        "map_path": "build/c-only/Release/PharaohRestoreC.map",
+        "map_sha256": "c5f063681f8cc31344776efc36f8b878f0306556fb91f24a8223f02a6bddf91b"
+      },
+      "diagnostic": {
+        "path": "build/c-only/Release/restore_link_check.exe",
+        "sha256": "859bea6cf2c2f490e2f521b036c32118dc465489a13414e29477b24ececf70bf",
+        "map_path": "build/c-only/Release/restore_link_check.map",
+        "map_sha256": "af4cb555c09ca30046905e49ec71582db51fb5f3ee58cc5241301b0044de36a2"
+      }
+    }
+  },
+  "current_cohort_native_comparison": "not_run; deferred to next connected cohort milestone",
+  "broad_current_main_regression": "not_run",
+  "full_cohort_validation_complete": false,
+  "complete_game_reconstruction": false,
+  "host_game_launched": false,
+  "global_RAW_drop_authorized": false,
+  "qualified_unselected": [
+    {
+      "address": "0x48e9e0",
+      "reason": "Kind13 private stack table index0..7 is unproved; new2099-instruction draft remains unselected. Existing canonical and complete RAW path unchanged.",
+      "new_selected_rewrite_credit": 0
+    }
+  ],
+  "pending_connected_source_blocks": [
+    "4B1DF0/4B1EF0 walking/service helpers",
+    "48CE30/48CAA0/48AE50 warehouseman state/query/return closure"
+  ],
+  "limitations": [
+    "Linking and finite earlier comparisons are not a current-main behavior proof for these12 selected functions.",
+    "The old105-entry receipt remains bound to611f3cc source/PE hashes; it is not relabeled as a pass for this tree.",
+    "Original full RAW models and routing are retained. Unknown physical flags/scratch and global cue closure are not promised.",
+    "No source body created earlier is copied into another runtime module or credited again at selection."
+  ]
+}

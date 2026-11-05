@@ -9,4 +9,8 @@ int32_t restore_actor_advance_route_pixels(int32_t actor,int32_t steps);
 void restore_actor_update_route_error(int32_t actor);
 void restore_actor_step_route_pixel_y(int32_t actor);
 void restore_actor_step_route_pixel_x(int32_t actor);
+uint32_t restore_actor_update_engineer(void);
+uint32_t restore_actor_update_fireman(void);
+uint32_t restore_fireman_try_assign_fire(int32_t actor);
+int32_t restore_fireman_find_nearest_fire(int32_t x,int32_t y);
 #endif

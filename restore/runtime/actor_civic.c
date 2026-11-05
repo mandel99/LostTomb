@@ -1,4 +1,5 @@
 #include "storage_transactions.h"
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "actor_civic.h"
 #include "monument_footprint.h"
 #include "actor_predicate.h"
@@ -581,8 +582,10 @@ __declspec(noinline) void FUN_004945c0(void)
 __declspec(noinline) void FUN_004946b0(void)
 {(void)restore_actor_update_embalmer();}
 void FUN_004abd50(void){(void)invoke(0x004abd50u,0,0);}
-void FUN_0048bff0(void){(void)invoke(0x0048bff0u,0,0);}
-void FUN_0048c6a0(void){(void)invoke(0x0048c6a0u,0,0);}
+__declspec(noinline) void FUN_0048bff0(void)
+{(void)restore_actor_update_ghost();}
+__declspec(noinline) void FUN_0048c6a0(void)
+{(void)restore_actor_update_engineer();}
 void FUN_004ac450(void){(void)invoke(0x004ac450u,0,0);}
 __declspec(noinline) void FUN_004941b0(void)
 {(void)restore_actor_update_schoolchild();}
@@ -590,19 +593,22 @@ __declspec(noinline) void FUN_004947a0(void)
 {(void)restore_actor_update_worker();}
 __declspec(noinline) void FUN_0049b2a0(void)
 {(void)restore_actor_update_missionary();}
-void FUN_0048c200(void){(void)invoke(0x0048c200u,0,0);}
+__declspec(noinline) void FUN_0048c200(void)
+{(void)restore_actor_update_explosion();}
 __declspec(noinline) void FUN_00493610(void)
 {(void)restore_actor_update_service_state();}
 __declspec(noinline) uint32_t FUN_004b46b0(int32_t actor)
 {return restore_actor_has_valid_linked_target(actor);}
 
-void FUN_0048ded0(void){(void)invoke(0x48ded0u,0,0);}
-uint32_t FUN_0048e5e0(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};return invoke(0x48e5e0u,a,1);}
-int32_t FUN_00469a50(int32_t x,int32_t y)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y};return (int32_t)invoke(0x469a50u,a,2);}
+__declspec(noinline) void FUN_0048ded0(void)
+{(void)restore_actor_update_fireman();}
+__declspec(noinline) uint32_t FUN_0048e5e0(int32_t actor)
+{return restore_fireman_try_assign_fire(actor);}
+__declspec(noinline) int32_t FUN_00469a50(int32_t x,int32_t y)
+{return restore_fireman_find_nearest_fire(x,y);}
 
-void FUN_0048a720(void){(void)invoke(0x48a720u,0,0);}
+__declspec(noinline) void FUN_0048a720(void)
+{(void)restore_actor_update_vagrant();}
 int32_t FUN_00458c30(int32_t x,int32_t y)
 {const uint32_t a[]={(uint32_t)x,(uint32_t)y};return (int32_t)invoke(0x458c30u,a,2);}
 __declspec(noinline) void FUN_004e91e0(int32_t player,int32_t amount)
@@ -665,8 +671,8 @@ __declspec(noinline) void FUN_00490b50(void)
 __declspec(noinline) void FUN_00490e00(void)
 {(void)restore_actor_update_entertainer();}
 
-void FUN_00491420(void)
-{(void)invoke(0x00491420u,0,0);}
+__declspec(noinline) void FUN_00491420(void)
+{(void)restore_actor_update_trade_caravan();}
 
 __declspec(noinline) int32_t FUN_004999e0(int32_t p0,int32_t p1,int32_t p2,int32_t p3)
 {return restore_actor_find_nearest_combat_target(p0,p1,p2,p3);}
