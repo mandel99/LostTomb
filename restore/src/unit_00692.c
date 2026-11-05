@@ -1,10 +1,30 @@
-#include "restore_types.h"
-#define PTR_DAT_005d9c38 (*(unsigned char * *)0x005d9c38u)
-
-undefined1 FUN_00449380(void)
-
+#include <stdint.h>
+#if !defined(_MSC_VER) || !defined(_M_IX86)
+#error This entry preserves the original MSVC i386 register ABI.
+#endif
+/* Generated from a complete native MOV/LEA rule; nonfaulting accesses.
+   Logical result, access width and canonical register/flag preservation
+   are explicit. Whole-game/exception-context equivalence is unproved. */
+uint32_t restore_object_lookup_u8_00449380(uint32_t self)
 {
-  int in_ECX;
-  
-  return *(undefined1 *)((int)&PTR_DAT_005d9c38 + (uint)*(byte *)(in_ECX + 2));
+ uint32_t index=*(volatile uint8_t *)(uintptr_t)(self+0x00000002u);
+ return (uint32_t)*(volatile uint8_t *)(uintptr_t)(0x005d9c38u+index);
+}
+__declspec(naked) void FUN_00449380(void)
+{
+ __asm {
+  pushfd
+  push ecx
+  push edx
+  push ecx
+  call restore_object_lookup_u8_00449380
+  add esp,4
+  pop edx
+  pop ecx
+  popfd
+  push eax
+  xor eax,eax
+  pop eax
+  ret
+ }
 }

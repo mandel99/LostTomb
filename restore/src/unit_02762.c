@@ -1,13 +1,9 @@
-#include "restore_types.h"
-extern void FUN_00560f4b();
-extern void FUN_00561a2b();
+#include "crt_stream_destructor.h"
 
-void FUN_00560f2f(byte param_1)
-
+uint32_t restore_stream_buffer_scalar_delete(uint32_t self, uint32_t flags)
 {
-  FUN_00560f4b();
-  if ((param_1 & 1) != 0) {
-    FUN_00561a2b();
-  }
-  return;
+    restore_stream_buffer_destroy(self);
+    if ((flags & 1u) != 0u)
+        FUN_00561a2b((void *)(uintptr_t)self);
+    return self;
 }

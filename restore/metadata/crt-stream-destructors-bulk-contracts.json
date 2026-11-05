@@ -1,0 +1,136 @@
+{
+  "schema": "stream-destructors-and-bulk-C-contracts-v1",
+  "stream": {
+    "schema": 1,
+    "pin": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "source_scope": "22 repaired entries: six C algorithms (two structured destructor scopes and four missing scalar-deleting vtable endpoints) plus sixteen necessary receiver/result/member/native-frame ABI repairs. Only private packet files are authored.",
+    "primary_repaired_entries": [
+      "0x56062c",
+      "0x5606c6",
+      "0x560f2f",
+      "0x5606e2",
+      "0x560f4b",
+      "0x561090",
+      "0x560d87",
+      "0x5612ed",
+      "0x560a9b",
+      "0x53dfd0",
+      "0x56b7d0",
+      "0x56e17c",
+      "0x56e190",
+      "0x56e1c0",
+      "0x56e1e4",
+      "0x56e208",
+      "0x56e222",
+      "0x56e238",
+      "0x560a70",
+      "0x560cf7",
+      "0x56119d",
+      "0x56124d"
+    ],
+    "substantive_C_algorithms": [
+      "0x5606e2",
+      "0x5612ed",
+      "0x560a70",
+      "0x560cf7",
+      "0x56119d",
+      "0x56124d"
+    ],
+    "reused_core_ABI_repairs_creation_credit0": [
+      "0x56062c",
+      "0x5606c6",
+      "0x560f2f",
+      "0x560f4b",
+      "0x561090",
+      "0x560d87",
+      "0x560a9b",
+      "0x53dfd0",
+      "0x56b7d0",
+      "0x56e17c",
+      "0x56e190",
+      "0x56e1c0",
+      "0x56e1e4",
+      "0x56e208",
+      "0x56e222",
+      "0x56e238"
+    ],
+    "native_state_and_cleanup": [
+      "5606E2 establishes actual compiler SEH before the vfptr store. State -1 becomes0 only after vfptr57053C is published. If DWORDself+48 and DWORDself+16 are nonzero, load release function at+68; call it with both ECX=buffer and one cdecl stack buffer, or call unchanged561A2B(buffer). State returns -1 before base destruction. A failure during owned-buffer release runs buffer_destroy(self) exactly once via __finally. A failure during base destruction does not retry it.",
+      "Native descriptor573D30 has one unwind row(-1,56E17C); its action loads receiver DWORD[original EBP-16] and destroys the buffer base. Canonical56E17C forwards actual incoming EBP to a named C action; ordinary C destruction calls the base directly and never synthesizes a legacy parent frame.",
+      "5612ED publishes5705D8 through the current vbtable at argument-20, then state0. Native NEG/SBB/AND constructs ostream argument=((argument-20)!=0 ? argument-8 :0)+8, preserving modulo2^32 semantics and the argument20 edge. On successful ostream_destroy, state becomes-1 before istream_destroy(argument-8). Failure in ostream destruction invokes the istream cleanup once. Failure before state0 or in the final istream destruction does not invent additional cleanup.",
+      "Native descriptor573E08 has one row(-1,56E238); its action uses DWORD[original EBP-16]-8. Canonical56E238 passes actual original EBP. Compiler __finally owns actual FS registration/restoration and SafeSEH for rebuilt C scopes; no fake ExceptionList, unknown EBP, or handler-address constant is used.",
+      "Assigned56E190/56E1C0/56E1E4/56E208 preserve actual original EBP, test low bit of DWORD[EBP-16], and only then read DWORD[EBP-20] and destroy ios at+20/+8/+12/+20 respectively.56E222 loads DWORD[EBP-20]+12 and destroys istream. These actions were already expressed by constructor C finally blocks; this packet repairs only their remaining callable legacy frame entries, without duplicate algorithm creation credit.",
+      "56B7D0 forwards actual original EBP-84 as the fstream complete object receiver.53DFD0 computes self+20 once, passes it to fstream destruction and then ios destruction. It has no native SEH scope; if the first child raises, the second is not called."
+    ],
+    "scalar_deleting_contracts": [
+      "56062C/5606C6/560F2F take actual ECX=self, call the exact named destructor, test flags low bit1, optionally free that exact self pointer and return the original complete self in full EAX. Other flag bits are ignored; there is no array-count/vector-delete phase. Canonical callee RET4 is preserved.",
+      "Missing concrete vfptr endpoints560A70/560CF7/56119D/56124D subtract20/8/12/20 from incoming ECX to save the complete allocation pointer. They pass the unadjusted incoming virtual-base argument to fstream/ostream/istream/iostream destruction and then ios destruction; only after both return does lowbit1 free the saved complete pointer. They return that complete pointer in full EAX and RET4, even when the virtual-base argument or tables imply another address. No invented null guard is added.",
+      "Vtable first slots are byte-bound:570534->56062C,57053C->5606C6,57056C->560A70,570588->560CF7,570598->560F2F,5705C8->56119D,5705D8->56124D. The four missing endpoints have43-byte offline decoded spans and require parent authenticated REA raw records."
+    ],
+    "reused_core_details": [
+      "560A9B reloads actual current vbtable displacement from argument-20 and writes57056C before forwarding the same argument to5612ED.560D87 writes570588 through the vbtable at argument-8. Neither exposes incidental native EAX as a logical result.",
+      "560F4B writes570598, calls561090 with actual receiver, then rereads DWORDself+4 and DWORDself+16 before optional561A2B(buffer). The predicate result is deliberately ignored but its ordered volatile native reads remain. Both destructor ownership flags are full DWORD nonzero tests, not byte/bit coercions.",
+      "561090 compares unsigned cursor DWORD+40 with end DWORD+44; if cursor<end returnFFFFFFFF without loading the second pair. Otherwise load DWORD+28 and DWORD+24, returningFFFFFFFF when first>second or0 otherwise. Full EAX is defined on every path and exposed as uint32_t.",
+      "The callback adapter only marshals target, actual buffer ECX and the cdecl stack pointer. Its result is not sampled; it does not invent register inputs or register-return semantics."
+    ],
+    "remaining_limits": [
+      "Nested exceptions raised by a destructor while another exception is unwinding remain dependent on original C++ dispatcher/termination behavior. Compiler SEH local unwind does not prove original MSVC C++ search phase, handler identity, original frame layout, or second-exception propagation/termination equivalence. No catch-all terminate policy is added.",
+      "No claim is made that arbitrary original fixed addresses, relocated vtable storage, computed callbacks or unrelated member owners are repaired by these concrete entries. Canonical raw-vtable dispatch still needs existing image relocation/integration contracts; only recorded direct references are closed here.",
+      "No host execution, private compile, native replay, complete exception equivalence or complete gameplay equivalence is claimed. Parent owns shared strict compilation, necessary ABI checks and the approximately100-entry native/C milestone."
+    ],
+    "verification_plan": [
+      "Compare all22 entries, including16 ABI repairs. Validate live ECX, actual original-parent EBP, callee RET0/RET4 deltas, full pointer EAX from7 scalar deletes, full predicate EAX, and preservation of nonvolatile registers. Do not infer destructor EAX when native callers ignore it.",
+      "Use custom nonstandard vbtable displacements, flags0/1/2/3/highbits, ownership0/nonzero/null buffer, both destructor ownership flags simultaneously, null/non-null release target, and callback mutation of self+4/+16/+48/+68. Verify the captured first buffer argument, callback ECX and cdecl stack argument, reload timing, vfptr order, complete-pointer free argument and untouched fields.",
+      "Trigger failures before state0, during release, during ostream destruction, during final/base destruction, and during cleanup. Verify one cleanup in the evidenced phase, state decremented before its call, real FS-chain installation/restoration, and no extra cleanup after a normal-phase final destructor raises. Keep nested-exception policy unresolved unless proven.",
+      "Frame cleanup actions need allocated native-shaped test parent frames, exact EBP-16/-20 slots, conditional read behavior, and56B7D0 inline object EBP-84. Compiler C scopes must be tested with their actual compiler registration rather than pretending their frames use original offsets.",
+      "All18 cached exact-entry assembly records are byte-bound against the pinned PE; four missing endpoint bodies are43-byte offline Capstone decodes, and18 compact raw spans cover functions, tables and descriptors. Parent authenticates byte-specs.json without new whole-program analysis."
+    ]
+  },
+  "bulk": {
+    "schema": "bulk-reconstruction-summary-v1",
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "catalogue_entries": 4527,
+    "status_counts": {
+      "outside_current_automatic_rules": 3839,
+      "existing_C_definition_requires_reuse_audit": 104,
+      "native_pattern_requires_analysis": 40,
+      "source_owner_requires_audit": 370,
+      "excluded_existing_cohort_or_assigned_owner": 172,
+      "candidate_emitted_comparison_pending": 2
+    },
+    "automatic_C_candidates": 2,
+    "generated_sources": [
+      "src/unit_00691.c",
+      "src/unit_00692.c"
+    ],
+    "script": "tools/bulk_reconstruct.py",
+    "script_sha256": "7b1d9c60e8a0f20f351770088281fcb162883020de115418bd30fde59f79f20f",
+    "full_plan_path": "build/bulk-reconstruction/plan.json",
+    "full_plan_sha256": "09b1e95537b8f1240da88607295c23c5ef811a3dc65ce3cf3984258323f83dd6",
+    "native_catalogue_closed": false,
+    "complete_game_reconstruction": false,
+    "behavior_comparison_complete": false,
+    "note": "Outside current automatic rules is a work queue, never a completed-C claim. Current compilation is recorded separately in the source-cohort ledger."
+  },
+  "automatic_rule": "Native XOR EAX,EAX; MOV AL,[ECX+2]; MOV AL,[EAX+table]; RET. Named C reads an unsigned byte index then table byte. Complete EAX is0..255. Canonical entry restores caller registers/nonarithmetic flags, repeats actual XOR for native arithmetic flags, and retains the returned EAX.",
+  "ownership": "Generated source had a read of uninitialized ECX; complete native bytes match the pinned PE, primary active source and defined COFF symbol are bound. Existing explicit/macro C owners are reserved for reuse audit.",
+  "safe_handler_registration": {
+    "handlers": [
+      "FUN_005615de",
+      "FUN_005617c8"
+    ],
+    "metadata_source": "runtime/crt_exception_handlers.asm",
+    "reference": "https://learn.microsoft.com/en-us/cpp/assembler/masm/dot-safeseh",
+    "PE_verification": {
+      "path": "metadata/crt-stream-destructors-safe-handler.json",
+      "sha256": "7d520282d26caae3b2a64af881084a84c98b634123a60b5329dab058b1afb789",
+      "both_main_images_registered": true
+    }
+  },
+  "coverage": {
+    "whole_game_equivalence": false,
+    "joint_native_C_comparison": false,
+    "host_execution": false,
+    "milestone": "Approximately100 repaired entries; include new deleting endpoints, frame cleanup, indirect targets and all compiled-only definitions. Memory-rule equivalence is scoped to nonfaulting accesses; nested C++ exceptions and indirect relocation closure remain qualified."
+  }
+}

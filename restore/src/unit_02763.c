@@ -1,17 +1,13 @@
-#include "restore_types.h"
-#define PTR_FUN_00570598 (*(unsigned char * *)0x00570598u)
-extern undefined4 FUN_00561090();
-extern void FUN_00561a2b();
+#include "crt_stream_destructor.h"
 
-void FUN_00560f4b(void)
-
+void restore_stream_buffer_destroy(uint32_t self)
 {
-  undefined4 *in_ECX;
-  
-  *in_ECX = &PTR_FUN_00570598;
-  FUN_00561090();
-  if ((in_ECX[1] != 0) && (in_ECX[4] != 0)) {
-    FUN_00561a2b(in_ECX[4]);
-  }
-  return;
+    uint32_t buffer;
+    restore_stream_write32(self, 0x570598u);
+    (void)restore_stream_buffer_pending(self);
+    if (restore_stream_read32(self + 4u) != 0u) {
+        buffer = restore_stream_read32(self + 16u);
+        if (buffer != 0u)
+            FUN_00561a2b((void *)(uintptr_t)buffer);
+    }
 }

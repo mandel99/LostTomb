@@ -1,24 +1,26 @@
-#include "restore_types.h"
-#define PTR_LAB_005705d8 (*(unsigned char * *)0x005705d8u)
-extern void FUN_00560d87();
-extern void FUN_0056123e();
-extern void FUN_00563354();
+#include "crt_stream_destructor.h"
 
-void FUN_005612ed(void)
-
+void restore_stream_iostream_destroy(uint32_t virtual_base_argument)
 {
-  int iVar1;
-  int extraout_ECX;
-  int unaff_EBP;
-  
-  FUN_00563354();
-  iVar1 = *(int *)(extraout_ECX + -0x14);
-  *(int *)(unaff_EBP + -0x10) = extraout_ECX;
-  *(undefined ***)(*(int *)(iVar1 + 4) + -0x14 + extraout_ECX) = &PTR_LAB_005705d8;
-  *(undefined4 *)(unaff_EBP + -4) = 0;
-  FUN_00560d87();
-  *(undefined4 *)(unaff_EBP + -4) = 0xffffffff;
-  FUN_0056123e();
-  ExceptionList = *(void **)(unaff_EBP + -0xc);
-  return;
+    volatile int32_t state = -1;
+    uint32_t base;
+    uint32_t ostream_argument;
+    __try {
+        base = restore_stream_virtual_base(virtual_base_argument - 20u);
+        restore_stream_write32(base, 0x5705d8u);
+        state = 0;
+        /* Native null-most-derived adjustment: LEA(arg-8), NEG(arg-20),
+           SBB/AND, ADD8. Preserve wrapping arithmetic even for arg==20. */
+        ostream_argument = ((virtual_base_argument - 20u) != 0u ?
+            virtual_base_argument - 8u : 0u) + 8u;
+        restore_stream_ostream_destroy(ostream_argument);
+        state = -1;
+        restore_stream_istream_destroy(virtual_base_argument - 8u);
+    }
+    __finally {
+        if (AbnormalTermination() && state >= 0) {
+            state = -1;
+            restore_stream_istream_destroy(virtual_base_argument - 8u);
+        }
+    }
 }

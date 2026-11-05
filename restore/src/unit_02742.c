@@ -1,29 +1,30 @@
-#include "restore_types.h"
-#define PTR_FUN_0057053c (*(unsigned char * *)0x0057053cu)
-extern void FUN_00560f4b();
-extern void FUN_00561a2b();
-extern void FUN_00563354();
+#include "crt_stream_destructor.h"
 
-void FUN_005606e2(void)
-
+void restore_stream_filebuf_destroy(uint32_t self)
 {
-  undefined4 *extraout_ECX;
-  int unaff_EBP;
-  
-  FUN_00563354();
-  *(undefined4 **)(unaff_EBP + -0x10) = extraout_ECX;
-  *extraout_ECX = &PTR_FUN_0057053c;
-  *(undefined4 *)(unaff_EBP + -4) = 0;
-  if ((extraout_ECX[0xc] != 0) && (extraout_ECX[4] != 0)) {
-    if ((code *)extraout_ECX[0x11] == (code *)0x0) {
-      FUN_00561a2b(extraout_ECX[4]);
+    volatile int32_t state = -1;
+    uint32_t buffer;
+    uint32_t release;
+    __try {
+        restore_stream_write32(self, 0x57053cu);
+        state = 0;
+        if (restore_stream_read32(self + 48u) != 0u) {
+            buffer = restore_stream_read32(self + 16u);
+            if (buffer != 0u) {
+                release = restore_stream_read32(self + 68u);
+                if (release != 0u)
+                    restore_stream_release_call(release, buffer);
+                else
+                    FUN_00561a2b((void *)(uintptr_t)buffer);
+            }
+        }
+        state = -1;
+        restore_stream_buffer_destroy(self);
     }
-    else {
-      (*(code *)extraout_ECX[0x11])();
+    __finally {
+        if (AbnormalTermination() && state >= 0) {
+            state = -1;
+            restore_stream_buffer_destroy(self);
+        }
     }
-  }
-  *(undefined4 *)(unaff_EBP + -4) = 0xffffffff;
-  FUN_00560f4b();
-  ExceptionList = *(void **)(unaff_EBP + -0xc);
-  return;
 }

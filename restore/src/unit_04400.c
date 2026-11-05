@@ -1,9 +1,6 @@
-#include "restore_types.h"
-extern void FUN_0056123e();
+#include "crt_stream_destructor.h"
 
-void FUN_0056e222(void)
-
+void restore_stream_cleanup_56e222(uint32_t native_frame)
 {
-  FUN_0056123e();
-  return;
+    restore_stream_istream_destroy(restore_stream_read32(native_frame - 20u) + 12u);
 }

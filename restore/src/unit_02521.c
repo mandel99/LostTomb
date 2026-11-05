@@ -1,11 +1,8 @@
-#include "restore_types.h"
-extern void FUN_00560648();
-extern void FUN_00560a9b();
+#include "crt_stream_destructor.h"
 
-void FUN_0053dfd0(void)
-
+void restore_stream_fstream_complete_destroy(uint32_t self)
 {
-  FUN_00560a9b();
-  FUN_00560648();
-  return;
+    uint32_t virtual_base_argument = self + 20u;
+    restore_stream_fstream_destroy(virtual_base_argument);
+    restore_stream_ios_destroy(virtual_base_argument);
 }
