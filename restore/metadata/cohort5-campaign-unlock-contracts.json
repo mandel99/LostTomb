@@ -1,0 +1,72 @@
+{
+  "schema": "cohort5-window-candidate-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "members": [
+    {
+      "address": "0x0041bae0",
+      "source": "runtime/campaign_unlock.c",
+      "name": "restore_campaign_unlock_all",
+      "source_definition_symbol": "restore_campaign_unlock_all",
+      "canonical_symbol": "FUN_0041bae0",
+      "canonical_source": "src/unit_00260.c",
+      "logical_signature": "void cdecl1(RestoreCampaignIndex *self)",
+      "native_bytes": 35,
+      "native_instructions": 14,
+      "native_body_start": "0041bae0",
+      "native_body_end_inclusive": "0041bb02",
+      "new_C_algorithm": true,
+      "algorithm_source": "runtime/campaign_unlock.c",
+      "cache": "metadata/native-function-audit-cache/batch-0256.json",
+      "receiver": "native ECX; exact pointer forwarded by canonical bridge, known native callers use 0x006fdd08",
+      "stack_argument_bytes": 0,
+      "logical_result": "void",
+      "result_width_basis": "Both saved direct native consumers immediately call 00516A20, which overwrites EAX before reading it; no scalar result is consumed. No full EAX, flags, or stack garbage is exposed as API input.",
+      "native_count_field": {
+        "offset": "0x1900",
+        "width_bits": 32,
+        "signed_comparison": true,
+        "reload": "after each flag store"
+      },
+      "native_flag_field": {
+        "first_offset": "0x3c",
+        "width_bits": 8,
+        "value": 1,
+        "record_stride_bytes": 64
+      },
+      "caller_changes": [
+        {
+          "path": "src/unit_00274.c",
+          "change": "Real explicit RESTORE_CAMPAIGN_INDEX receiver; explicit pointer-to-native-DWORD cast in same branch avoids the preexisting C4047 warning."
+        },
+        {
+          "path": "runtime/window_platform_win32.c",
+          "change": "41BAE0 uses explicit RESTORE_CAMPAIGN_INDEX native singleton; adjacent 41B8A0 uses existing two-argument profile API and real RESTORE_CAMPAIGN_PROFILE receiver, removing incorrect one-argument extern."
+        },
+        {
+          "path": "tests/menu_keyboard_modal.c",
+          "change": "Rename existing unexpected-branch stub to explicit helper signature. No new test or behavior fixture."
+        }
+      ],
+      "unresolved": "No unresolved input/result contract for the two observed direct call paths. Indirect coverage and behavior equivalence await cohort milestone."
+    }
+  ],
+  "new_member_count": 1,
+  "CMake_integration_required": {
+    "production_runtime": [
+      "runtime/campaign_unlock.c"
+    ],
+    "canonical_source_already_in_generated_build": "src/unit_00260.c",
+    "new_test_targets": []
+  },
+  "verification": {
+    "strict_compile": "passed",
+    "strict_flags": "MSVC x86 /std:c11 /W4 /WX /O2 /GS- /Ob0; existing test gets _CRT_SECURE_NO_WARNINGS; existing Win32 API table alone gets /wd4232",
+    "log": "strict/compile.log",
+    "canonical_abi": "strict/canonical-abi.asm",
+    "algorithm_widths": "strict/algorithm.asm",
+    "source_phase_only": true,
+    "behavioral_replay": "deferred to cohort milestone",
+    "host_game_launched": false,
+    "root_shared_strict_compile_link": "passed; new native/C behavior gate pending"
+  }
+}

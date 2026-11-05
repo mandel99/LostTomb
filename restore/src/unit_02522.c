@@ -1,4 +1,5 @@
 #include "sprite_reader.h"
+#include "sprite_tag_list.h"
 #include "host_allocator.h"
 #include <string.h>
 
@@ -38,6 +39,12 @@ static SpriteTagNode *reader_tag_find_before(SpriteTagNode *unused,SpriteTagNode
 {(void)unused;while(head->key<key)head=head->next;return head;}
 static void reader_tag_insert_before(SpriteTagNode *node,SpriteTagNode *next)
 {node->next=next;node->previous=next->previous;next->previous->next=node;next->previous=node;}
+
+/* Public bindings reuse the complete private algorithms above verbatim. */
+void restore_sprite_tag_append(void *list,void *node)
+{reader_tag_append((SpriteTagList *)list,(SpriteTagNode *)node);}
+void restore_sprite_tag_prepend(void *list,void *node)
+{reader_tag_prepend((SpriteTagList *)list,(SpriteTagNode *)node);}
 
 uint8_t FUN_0053dff0(RestoreSpriteLibrary *self,const char *name,int index,
  RestoreSpriteImage *images,uint32_t first_image,RestoreSpriteTag *tags,uint32_t first_tag)

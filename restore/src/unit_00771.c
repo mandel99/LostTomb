@@ -1,11 +1,4 @@
-#include "restore_types.h"
-
-void FUN_0044ef90(void)
-
-{
-  int in_ECX;
-  
-  *(undefined1 *)(in_ECX + 0x32) = 0;
-  *(uint *)(in_ECX + 0x28) = *(uint *)(in_ECX + 0x28) | 4;
-  return;
-}
+#include "native_member_bridge.h"
+#include "menu_event_actions.h"
+/* Existing event C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_0044ef90,restore_native_context_0044ef90,0x0044ef90,0,restore_event_actions_raw)

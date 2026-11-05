@@ -1,10 +1,4 @@
-#include "restore_types.h"
-#define DAT_005d9d88 (*(undefined4 *)0x005d9d88u)
-
-undefined4 FUN_004495c0(void)
-
-{
-  int in_ECX;
-  
-  return *(undefined4 *)(&DAT_005d9d88 + (uint)*(byte *)(in_ECX + 2) * 4);
-}
+#include "native_member_bridge.h"
+#include "editor_event_detail_actions.h"
+/* Existing detail C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_004495c0,restore_native_context_004495c0,0x004495c0,0,restore_event_detail_raw)

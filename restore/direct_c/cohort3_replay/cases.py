@@ -11,6 +11,7 @@ from cohort4_gameplay_cases import definitions as cohort4_gameplay_definitions
 from cohort4_stream_io_cases import definitions as cohort4_stream_io_definitions
 from cohort4_crt_math_cases import definitions as cohort4_crt_math_definitions
 from cohort4_crt_runtime_cases import definitions as cohort4_crt_runtime_definitions
+from cohort5_bridge_cases import definitions as cohort5_bridge_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -48,6 +49,7 @@ def definitions(registry):
  out.extend(cohort4_stream_io_definitions(registry))
  out.extend(cohort4_crt_math_definitions(registry))
  out.extend(cohort4_crt_runtime_definitions(registry))
+ out.extend(cohort5_bridge_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):

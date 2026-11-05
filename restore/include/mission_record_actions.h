@@ -4,6 +4,7 @@
 struct restore_mission_record_frame;
 typedef void (*restore_mission_record_call)(uint32_t,uint32_t,struct restore_mission_record_frame *);
 struct restore_mission_record_frame {uint32_t r[8],flags;restore_mission_record_call boundary;};
+void restore_mission_record_raw(uint32_t target,uint32_t registers[8],uint32_t *flags);
 void restore_mission_record_C_00418bf0(struct restore_mission_record_frame *);
 void restore_mission_record_C_004e1770(struct restore_mission_record_frame *);
 void restore_mission_record_C_004e1830(struct restore_mission_record_frame *);

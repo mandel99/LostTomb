@@ -5,6 +5,7 @@
 #include "text_selection.h"
 #include "standalone_data.h"
 #include "campaign_profile.h"
+#include "campaign_unlock.h"
 #include <stdio.h>
 #include <string.h>
 #define BASE 0x30000000u
@@ -50,7 +51,7 @@ const RestoreMenuActionApi *restore_menu_action_platform(void){return &action_ap
 static LRESULT WINAPI default_window(HWND window,UINT message,WPARAM key,LPARAM value)
 {uint32_t a[]={(uint32_t)(uintptr_t)window,message,(uint32_t)key,(uint32_t)value};event(0x56f1f8,4,a);return (LRESULT)p[P_EXTRA];}
 SHORT WINAPI restore_modal_async_key(int key){uint32_t a[]={(uint32_t)key};event(0x56f1e4,1,a);return (SHORT)p[P_TRACE];}
-void FUN_0041bae0(void){fputs("Unexpected non-Escape cheat branch.\n",stderr);ExitProcess(2);}
+void restore_campaign_unlock_all(RestoreCampaignIndex *self){(void)self;fputs("Unexpected non-Escape cheat branch.\n",stderr);ExitProcess(2);}
 void FUN_0041d3d0(void){fputs("Unexpected non-Escape cheat branch.\n",stderr);ExitProcess(2);}
 uint32_t FUN_004ceed0(char *name){(void)name;fputs("Unexpected screenshot branch.\n",stderr);ExitProcess(2);}
 uint32_t *FUN_00516a20(void){fputs("Unexpected non-Escape profile branch.\n",stderr);ExitProcess(2);}

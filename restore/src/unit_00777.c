@@ -1,17 +1,4 @@
-#include "restore_types.h"
-
-undefined4 FUN_0044f440(void)
-
-{
-  int in_ECX;
-  
-  if (*(char *)(in_ECX + 2) == '\x01') {
-    if (*(char *)(in_ECX + 0x60) == '\x01') {
-      return 1;
-    }
-    if (*(char *)(in_ECX + 0x60) == '\x02') {
-      return 5;
-    }
-  }
-  return 0xffffffff;
-}
+#include "native_member_bridge.h"
+#include "menu_event_actions.h"
+/* Existing event C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_0044f440,restore_native_context_0044f440,0x0044f440,0,restore_event_actions_raw)

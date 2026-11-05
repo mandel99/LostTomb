@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects226 original C owners /17,320 native
+The current connected batch selects292 original C owners /21,642 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -119,3 +119,9 @@ Current cohort4 milestone:100/100 new entries,68 new C algorithms and32 reuse/AB
 Cohort4 joint finite gate passed:100 named +100 canonical entries,944 unique scenarios /3608 invocations,0 failed cases. Live raw80 x87 inputs, partial-register results, private output aliases, callbacks and relocated stack-return context are explicit. Further source expansion may proceed. Indirect/fault/unwind and optional-output domains remain qualified in cohort4-joint-comparison.json; no whole-game equivalence or host launch.
 
 Cohort5 source expansion begins with28 entries /674 normalized native instructions:10 placement destructors,16 actual-EBP cleanup adapters and2 complete NLS text algorithms. Correct array/empty-element/bounded-count C is reused. Shared strict compile/link passed; detailed native/C comparison waits for approximately100 new connected entries. Cohort4 finite receipts retain their original198-entry images, now privately archived; no host game launch or full equivalence claim.
+
+Cohort5 adds66 connected entry repairs /4322 normalized native instructions, reaching94 new entries. Sixty capture genuine native GPR/flags and retain actual caller-stack aliases while reusing untouched C graphs; three reuse event-list C, two reuse sprite-tag C and one adds the missing campaign unlock member. The active direct-C caller graph is closed. Shared strict links pass. This closed94-entry group reaches the approximately100-entry milestone: no further source expansion before common-ABI and full joint native/C comparison. No behavior equivalence or host execution is claimed.
+
+Current cohort5 milestone:94 connected entries,13 new C algorithms +81 reuse/ABI repairs,4996 normalized native instructions. All94 named and canonical definitions have unique production COFF owners. Source expansion is suspended until common-ABI preflight and joint native/C comparison finish. No new behavior equivalence claim.
+
+Cohort5 common-ABI preflight:7 entries /15 scenarios /45 native+retained named/canonical invocations,0 failures. Includes actual upper EAX, seven GPR outputs, defined flags, RET0/RET4 and original caller-stack alias. Full94-entry joint comparison remains pending;87 entries need fresh cases. Source expansion remains suspended.

@@ -1,9 +1,4 @@
-#include "restore_types.h"
-
-bool FUN_00449630(void)
-
-{
-  int in_ECX;
-  
-  return *(char *)(in_ECX + 2) == '\x02';
-}
+#include "native_member_bridge.h"
+#include "editor_event_detail_actions.h"
+/* Existing detail C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_00449630,restore_native_context_00449630,0x00449630,0,restore_event_detail_raw)

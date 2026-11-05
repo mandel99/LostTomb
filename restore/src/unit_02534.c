@@ -1,18 +1,12 @@
-#include "restore_types.h"
-
-void FUN_00540540(int *param_1)
-
+#include "sprite_tag_list.h"
+/* Forward the real native ECX and node stack slot; native callee pops4. */
+__declspec(naked) void FUN_00540540(void)
 {
-  int *in_ECX;
-  
-  *param_1 = *in_ECX;
-  if (*in_ECX != 0) {
-    *(int **)(*in_ECX + 4) = param_1;
-  }
-  param_1[1] = 0;
-  *in_ECX = (int)param_1;
-  if (in_ECX[1] == 0) {
-    in_ECX[1] = (int)param_1;
-  }
-  return;
+    __asm {
+        push dword ptr [esp+4]
+        push ecx
+        call restore_sprite_tag_prepend
+        add esp,8
+        ret 4
+    }
 }

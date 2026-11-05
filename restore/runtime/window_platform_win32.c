@@ -1,4 +1,6 @@
 #include "window_messages.h"
+#include "campaign_unlock.h"
+#include "campaign_profile.h"
 #include "sound_streams.h"
 #include "graphics_session.h"
 #include "unit_button_actions.h"
@@ -11,7 +13,7 @@ extern uint32_t FUN_004cffe0(void);
 extern uint32_t FUN_00502780(void);
 extern int FUN_00538cd0(uint32_t,uint32_t,uint32_t);
 extern char *FUN_00516a20(void);
-extern unsigned char FUN_0041b8a0(uint32_t);
+
 extern void FUN_004ce6e0(char *,int,int);
 extern void FUN_004cc110(int,int);
 extern void FUN_004cc160(int,int);
@@ -47,7 +49,7 @@ extern void FUN_004cc360(void);
 extern void FUN_00403770(void);
 extern void FUN_00404350(void);
 extern void FUN_004051a0(void);
-extern void FUN_0041bae0(void);
+
 extern void FUN_004035a0(void);
 extern void FUN_00414bd0(void);
 extern void FUN_004e2ab0(void);
@@ -67,7 +69,7 @@ static uintptr_t game_call(uint32_t entry,uintptr_t a,uintptr_t b,uintptr_t c)
     case 0x502780: return FUN_00502780();
     case 0x538cd0: return FUN_00538cd0((uint32_t)a,(uint32_t)b,(uint32_t)c);
     case 0x516a20: return (uintptr_t)FUN_00516a20();
-    case 0x41b8a0: return FUN_0041b8a0((uint32_t)a);
+    case 0x41b8a0: return FUN_0041b8a0(RESTORE_CAMPAIGN_PROFILE,(const char *)a);
     case 0x55f561: restore_sound_close_stream((void *)0x00e92bf8u,(uint32_t)a); return 0;
     case 0x4d01e0: FUN_004d01e0((uint32_t)a); return 0;
     case 0x4d0280: FUN_004d0280((int)a); return 0;
@@ -106,7 +108,7 @@ static uintptr_t game_call(uint32_t entry,uintptr_t a,uintptr_t b,uintptr_t c)
     VOID0(0x403770,FUN_00403770);
     VOID0(0x404350,FUN_00404350);
     VOID0(0x4051a0,FUN_004051a0);
-    VOID0(0x41bae0,FUN_0041bae0);
+    case 0x41bae0: restore_campaign_unlock_all(RESTORE_CAMPAIGN_INDEX); return 0;
     VOID0(0x4035a0,FUN_004035a0);
     VOID0(0x414bd0,FUN_00414bd0);
     VOID0(0x4e2ab0,FUN_004e2ab0);

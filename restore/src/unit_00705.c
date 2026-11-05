@@ -1,15 +1,4 @@
-#include "restore_types.h"
-
-undefined1 FUN_00449600(void)
-
-{
-  undefined1 uVar1;
-  int in_ECX;
-  
-  uVar1 = 1;
-  if (((*(char *)(in_ECX + 2) != '\x01') || (*(byte *)(in_ECX + 0x60) == 0)) ||
-     (2 < *(byte *)(in_ECX + 0x60))) {
-    uVar1 = 0;
-  }
-  return uVar1;
-}
+#include "native_member_bridge.h"
+#include "editor_event_detail_actions.h"
+/* Existing detail C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_00449600,restore_native_context_00449600,0x00449600,0,restore_event_detail_raw)

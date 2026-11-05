@@ -1,11 +1,4 @@
-#include "restore_types.h"
-extern void FUN_00546660();
-
-void FUN_00558bc0(undefined4 param_1)
-
-{
-  int in_ECX;
-  
-  FUN_00546660(param_1,in_ECX + 0x1cbc,0x9e);
-  return;
-}
+#include "native_member_bridge.h"
+#include "sidebar_undo.h"
+/* Existing sidebar C algorithm; real GPR/flags and original stack aliases. */
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_00558bc0,restore_native_context_00558bc0,0x00558bc0,4,restore_sidebar_raw)

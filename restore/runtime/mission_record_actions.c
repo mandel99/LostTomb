@@ -65,3 +65,12 @@ void FUN_00418bf0(void){invoke(0x418bf0u);}
 void FUN_004e1770(void){invoke(0x4e1770u);}
 void FUN_004e1830(void){invoke(0x4e1830u);}
 void FUN_00481f20(void){invoke(0x481f20u);}
+
+/* Share the existing graph with genuine captured native entry context. */
+void restore_mission_record_raw(uint32_t target,uint32_t registers[8],uint32_t *flags)
+{
+    struct restore_mission_record_frame f;
+    memcpy(f.r,registers,sizeof(f.r));f.flags=*flags;f.boundary=dispatch;
+    dispatch(0,target,&f);
+    memcpy(registers,f.r,sizeof(f.r));*flags=f.flags;
+}

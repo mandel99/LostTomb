@@ -1,0 +1,120 @@
+{
+  "schema": "cohort5-small-members-binding-repairs-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "members": [
+    {
+      "address": "0x005404b0",
+      "source": "src/unit_02522.c",
+      "name": "restore_sprite_tag_append",
+      "source_definition_symbol": "restore_sprite_tag_append",
+      "canonical_symbol": "FUN_005404b0",
+      "canonical_source": "src/unit_02532.c",
+      "logical_signature": "void cdecl2(void *list,void *node)",
+      "native_bytes": 39,
+      "native_instructions": 14,
+      "native_body_start": "005404b0",
+      "native_body_end_inclusive": "005404d6",
+      "new_C_algorithm": false,
+      "algorithm_reuse": {
+        "path": "src/unit_02522.c",
+        "symbol": "reader_tag_append",
+        "body_byte_identical": true
+      },
+      "binding_repair": true,
+      "receiver": "actual native ECX=list; captured into first explicit C argument",
+      "stack_argument_bytes": 4,
+      "stack_argument": "actual caller node pointer at native ESP+4",
+      "native_return_cleanup": "RET4",
+      "logical_result": "void",
+      "result_width_basis": "Both saved native calls in53DFF0 discard EAX; next EAX read is preceded by MOV EAX at53E287. Native EAX=node is not exposed as a C API result. No flags or stack garbage inputs invented.",
+      "callers": [
+        "src/unit_02522.c:FUN_0053dff0 retains existing direct typed private helper call; no caller byte changes"
+      ],
+      "cache": "metadata/native-function-audit-cache/batch-2624.json",
+      "unresolved": "No new observed caller gap; unresolved indirect coverage remains outside this binding repair."
+    },
+    {
+      "address": "0x00540540",
+      "source": "src/unit_02522.c",
+      "name": "restore_sprite_tag_prepend",
+      "source_definition_symbol": "restore_sprite_tag_prepend",
+      "canonical_symbol": "FUN_00540540",
+      "canonical_source": "src/unit_02534.c",
+      "logical_signature": "void cdecl2(void *list,void *node)",
+      "native_bytes": 39,
+      "native_instructions": 14,
+      "native_body_start": "00540540",
+      "native_body_end_inclusive": "00540566",
+      "new_C_algorithm": false,
+      "algorithm_reuse": {
+        "path": "src/unit_02522.c",
+        "symbol": "reader_tag_prepend",
+        "body_byte_identical": true
+      },
+      "binding_repair": true,
+      "receiver": "actual native ECX=list; captured into first explicit C argument",
+      "stack_argument_bytes": 4,
+      "stack_argument": "actual caller node pointer at native ESP+4",
+      "native_return_cleanup": "RET4",
+      "logical_result": "void",
+      "result_width_basis": "Both saved native calls in53DFF0 discard EAX; next EAX read is preceded by MOV EAX at53E287. Native EAX=node is not exposed as a C API result. No flags or stack garbage inputs invented.",
+      "callers": [
+        "src/unit_02522.c:FUN_0053dff0 retains existing direct typed private helper call; no caller byte changes"
+      ],
+      "cache": "metadata/native-function-audit-cache/batch-2624.json",
+      "unresolved": "No new observed caller gap; unresolved indirect coverage remains outside this binding repair."
+    }
+  ],
+  "new_bound_entry_count": 2,
+  "new_C_algorithm_count": 0,
+  "excluded_existing_correct_C": [
+    {
+      "address": "0x004be0f0",
+      "source": "src/unit_01557.c",
+      "logical_signature": "void FUN_004be0f0(void *world)",
+      "reason": "Already explicit real C receiver; calls actual typed004BD6A0 on each 28-byte region and sets exact native fields.",
+      "callers": [
+        "src/unit_01013.c",
+        "src/unit_01558.c"
+      ],
+      "source_sha256": "61afc8f0bb65e87e6913c42bf7dc913a7a4ad30be957069d1c3325e15d3ce61b",
+      "prior_evidence": {
+        "path": "metadata/city-prepare-emulation.json",
+        "checked": 2449,
+        "owner_source_matches": true
+      },
+      "new_algorithm": false
+    }
+  ],
+  "source_changes": [
+    "include/sprite_tag_list.h",
+    "src/unit_02522.c",
+    "src/unit_02532.c",
+    "src/unit_02534.c"
+  ],
+  "existing_source_preservation": {
+    "reader_tag_append": {
+      "sha256": "ad334b3e5e7e49f3ea7431754917d85f29cdf45e9d27e21fd20049d4db9708cd",
+      "byte_identical": true
+    },
+    "reader_tag_prepend": {
+      "sha256": "2d77a4744396fffd342f75593afe542e049247fd2eed015e96ea957d2071d44b",
+      "byte_identical": true
+    },
+    "FUN_0053dff0": {
+      "sha256": "f91161ab2b5081d94e8c00a826426cb6f6f9df04f92112716bbc781e13c3fbb7",
+      "byte_identical": true
+    }
+  },
+  "CMake_required_changes": "No new source list entry; all three src units already compile. Apply shared strict source properties as appropriate.",
+  "verification": {
+    "strict_compile": "passed",
+    "flags": "MSVC x86 /std:c11 /W4 /WX /O2 /GS- /Ob0 /D_CRT_SECURE_NO_WARNINGS",
+    "log": "strict/compile.log",
+    "canonical_abi": "strict/canonical-abi.asm",
+    "original_game_executed": false,
+    "behavioral_replay": "deferred to cohort milestone",
+    "root_shared_strict_compile_link": "passed; new native/C behavior gate pending"
+  },
+  "scope": "Two canonical binding repairs reuse existing algorithms.4BE0F0 remains untouched correct explicit C. No root raw-frame families changed."
+}

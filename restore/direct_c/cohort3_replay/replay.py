@@ -169,7 +169,7 @@ def execute(registry,cases,directory):
  save(directory/'case-inputs.json',[{k:([[a,v.hex()]for a,v in value]if k=='stores'else value)for k,value in c.items()}for c in cases])
  members={int(m['address'],16):m for m in registry['members']};rows=[];attempts=0
  for case in cases:
-  m=members[case['entry']];reference=None;reference_regs=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
+  m=members[case['entry']];reference=None;reference_regs=None;reference_context=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
   preserved=[case.get('initial_'+name,value)for name,value in zip(['ebx','ebp','esi','edi'],saved)]
   for label,(u,state)in machines.items():
    if label=='native':selected=[('native',case['entry'],case['arguments'])]
@@ -207,15 +207,22 @@ def execute(registry,cases,directory):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
      u.mem_write(fixup['address'],struct.pack('<I',value));fixed.append((fixup['address'],value))
-    initial=[case.get('initial_eax',0xa5b6c7d8),case['receiver'],case.get('initial_edx',0x33333333),preserved[0],SP,*preserved[1:]]
+    machine_sp=case.get('machine_sp',{}).get(route,SP)
+    assert STACK+0x2000<=machine_sp and machine_sp+0x2000<=STACK+STACK_SIZE
+    if machine_sp!=SP:u.mem_write(machine_sp-0x2000,b'\xcc'*0x4000)
+    initial=[case.get('initial_eax',0xa5b6c7d8),case['receiver'],case.get('initial_edx',0x33333333),preserved[0],machine_sp,*preserved[1:]]
     for reg,value in zip(registers,initial):u.reg_write(reg,value)
     for reg,value in [(x.UC_X86_REG_EFLAGS,case['eflags']),(x.UC_X86_REG_FPCW,case.get('initial_fpcw',0x37f)),(x.UC_X86_REG_FPSW,0),(x.UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
     for payload in reversed(case.get('initial_x87',[])):push_raw80(u,x,payload)
     if 'initial_fpsw'in case:
      u.reg_write(x.UC_X86_REG_FPSW,(u.reg_read(x.UC_X86_REG_FPSW)&0x3800)|(case['initial_fpsw']&~0x3800))
     prefix=case.get('stack_prefix',{}).get(route,[]);assert len(prefix)<=8
-    for i,value in enumerate(prefix):u.mem_write(SP+i*4,struct.pack('<I',value&0xffffffff))
-    return_slot=SP+len(prefix)*4;u.mem_write(return_slot,struct.pack('<I',STOP))
+    if route=='named'and case.get('borrowed_native_stack'):
+     assert machine_sp<SP-0x10000
+     u.mem_write(SP,struct.pack('<I',STOP))
+     for i,value in enumerate(case['arguments']):u.mem_write(SP+4+i*4,struct.pack('<I',value&0xffffffff))
+    for i,value in enumerate(prefix):u.mem_write(machine_sp+i*4,struct.pack('<I',value&0xffffffff))
+    return_slot=machine_sp+len(prefix)*4;u.mem_write(return_slot,struct.pack('<I',STOP))
     for i,value in enumerate(args):u.mem_write(return_slot+4+i*4,struct.pack('<I',value&0xffffffff))
     for at,payload in case.get('route_stores',{}).get(route,[]):u.mem_write(at,bytes.fromhex(payload))
     watched=case.get('route_watched',{}).get(route,case['watched'])
@@ -227,6 +234,15 @@ def execute(registry,cases,directory):
     values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in watched]
     result_register=case.get('result_registers',{}).get(route,'eax').upper();assert result_register in ['EAX','ECX','EDX']
     result=u.reg_read(getattr(x,'UC_X86_REG_'+result_register))
+    result_memory=case.get('result_memory',{}).get(route)
+    if result_memory:
+     at,width=result_memory;assert width in[1,2,4];result=int.from_bytes(u.mem_read(at,width),'little')
+    context=None
+    if case.get('context_outputs'):
+     values_by_name=dict(zip(['eax','ecx','edx','ebx','esp','ebp','esi','edi'],values));values_by_name['eflags']=flags
+     locations=case['context_outputs'].get(route,{})
+     context={name:int.from_bytes(u.mem_read(*locations[name]),'little')if name in locations else values_by_name[name]for name in case['context_compare']}
+     if 'eflags'in context:context['eflags']&=case.get('context_flag_mask',0xffffffff)
     if route in case.get('expected_route_results',{})and result!=case['expected_route_results'][route]:
      errors.append(dict(kind='authored-route-result',register=result_register,actual=hex(result),expected=hex(case['expected_route_results'][route])))
     fp=[u.reg_read(r)for r in [x.UC_X86_REG_FPCW,x.UC_X86_REG_FPSW,x.UC_X86_REG_FPTAG]]
@@ -236,7 +252,7 @@ def execute(registry,cases,directory):
      if state['terminated']!=case['noreturn_endpoint']:errors.append(dict(kind='missing-noreturn-boundary'))
     else:
      if state['terminated']:errors.append(dict(kind='unexpected-noreturn-boundary'))
-     if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
+     if values[4]!=machine_sp+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
      if [values[i]for i in [3,5,6,7]]!=preserved:errors.append(dict(kind='nonvolatile-registers'))
      if 'initial_fs0'in case and int.from_bytes(u.mem_read(0,4),'little')!=case['initial_fs0']:errors.append(dict(kind='exception-chain-not-restored'))
     if 'expected_flags'in case:
@@ -249,7 +265,7 @@ def execute(registry,cases,directory):
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched'])
      if int.from_bytes(u.mem_read(fixup['address'],4),'little')!=value:errors.append(dict(kind='expected-function-pointer',address=hex(fixup['address'])))
     if route=='native':
-     reference=(None if case['result_mask']is None else result&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_x87=fp;reference_live_x87=fp_live;reference_reads=list(state['reads'])
+     reference=(None if case['result_mask']is None else result&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_context=context;reference_x87=fp;reference_live_x87=fp_live;reference_reads=list(state['reads'])
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
      if 'expected_result'in case and result!=case['expected_result']:errors.append(dict(kind='native-authored-logical-result',actual=hex(result)))
      if 'expected_reads'in case and state['reads']!=case['expected_reads']:errors.append(dict(kind='native-authored-probe-reads'))
@@ -267,8 +283,10 @@ def execute(registry,cases,directory):
      if case.get('compare_x87_values')and reference_live_x87!=fp_live:errors.append(dict(kind='native-C-x87-values',native=reference_live_x87,compiled=fp_live))
      if case.get('compare_x87_control',case.get('compare_x87_values',False))and reference_x87[0]!=fp[0]:errors.append(dict(kind='native-C-x87-control',native=reference_x87[0],compiled=fp[0]))
      if case.get('read_ranges')and reference_reads!=state['reads']:errors.append(dict(kind='native-C-probe-reads',native=reference_reads,compiled=state['reads']))
-     if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,value=hex(result)),eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
+     if context!=reference_context:errors.append(dict(kind='native-C-context-outputs',native=reference_context,compiled=context))
+     if route=='canonical'and case['canonical_registers_and_flags']and(reference_regs[0]!=values or(reference_regs[1]^flags)&case.get('canonical_flag_mask',0xffffffff)):
+      errors.append(dict(kind='canonical-registers-or-flags'))
+    row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,memory=result_memory,value=hex(result)),context_outputs=context,eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))

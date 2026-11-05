@@ -1,12 +1,13 @@
 #include "restore_types.h"
 #include "campaign_profile.h"
+#include "campaign_unlock.h"
 #define DAT_00e38dda (*(char *)0x00e38ddau)
 #define DAT_00e38e74 (*(char *)0x00e38e74u)
 #define DAT_00e92e20 (*(undefined *)0x00e92e20u)
 #define s_shot1_bmp_0057c768 (*(char (*)[10])0x0057c768u)
 #define s_shot2_bmp_0057c774 (*(char (*)[10])0x0057c774u)
 
-extern void FUN_0041bae0();
+
 extern void FUN_0041d3d0();
 extern undefined4 FUN_004ceed0();
 extern undefined4 * FUN_00516a20();
@@ -48,8 +49,8 @@ LAB_0041d166: ;
   case 0x66: ;
     if ((((DAT_00e92e20 != 0) && ((uVar1 & 0xff00) != 0)) && (DAT_00e38e74 != '\0')) &&
        (DAT_00e38dda != '6')) {
-      FUN_0041bae0();
-      uVar2 = FUN_00516a20();
+      restore_campaign_unlock_all(RESTORE_CAMPAIGN_INDEX);
+      uVar2 = (undefined4)(uintptr_t)FUN_00516a20();
       FUN_0041b8a0(RESTORE_CAMPAIGN_PROFILE,(const char *)(uintptr_t)uVar2);
       return 1;
     }
