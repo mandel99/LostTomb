@@ -125,3 +125,5 @@ Cohort5 adds66 connected entry repairs /4322 normalized native instructions, rea
 Current cohort5 milestone:94 connected entries,13 new C algorithms +81 reuse/ABI repairs,4996 normalized native instructions. All94 named and canonical definitions have unique production COFF owners. Source expansion is suspended until common-ABI preflight and joint native/C comparison finish. No new behavior equivalence claim.
 
 Cohort5 common-ABI preflight:7 entries /15 scenarios /45 native+retained named/canonical invocations,0 failures. Includes actual upper EAX, seven GPR outputs, defined flags, RET0/RET4 and original caller-stack alias. Full94-entry joint comparison remains pending;87 entries need fresh cases. Source expansion remains suspended.
+
+Cohort5 finite joint gate passed:94 named/canonical entries,872 scenarios /3182 native/C invocations,0 failures. Actual initial stack history is preserved below the capture workspace, including untouched message-packet bytes. Earlier common-ABI images remain archived. Further connected source work may proceed; whole-game and qualified fault/indirect domains remain incomplete.

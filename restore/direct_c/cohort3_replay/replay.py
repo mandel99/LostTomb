@@ -93,7 +93,7 @@ def execute(registry,cases,directory):
      spec={**spec,**spec['responses'][visit]}
     sp=uc.reg_read(x.UC_X86_REG_ESP)
     def get(at,width=4):return int.from_bytes(uc.mem_read(at,width),'little')
-    arity=spec['arity']if state['label']=='native'else spec.get('compiled_arity',spec['arity'])
+    arity=spec.get('native_arity',spec['arity'])if state['label']=='native'else spec.get('compiled_arity',spec['arity'])
     raw=[get(sp+4+i*4)for i in range(arity)];logical=list(raw)
     roles={int(i):role for i,role in spec.get('pointer_args',{}).items()};private=[]
     for i,role in roles.items():
@@ -101,6 +101,8 @@ def execute(registry,cases,directory):
      private.append(raw[i]);logical[i]=['stack-output',role]
     for i,info in spec.get('private_input_args',{}).items():
      i=int(i)
+     if info.get('nullable')and raw[i]==0:
+      logical[i]=0;continue
      if 'cstring_max'in info:
       limit=info['cstring_max'];assert 0<limit<=512 and STACK<=raw[i]and raw[i]+limit<=STACK+STACK_SIZE
       data=bytes(uc.mem_read(raw[i],limit));assert b'\0'in data,('unterminated private input',spec['token'])
@@ -116,6 +118,10 @@ def execute(registry,cases,directory):
      assert uc.reg_read(x.UC_X86_REG_ECX)==spec['native_receiver'],('endpoint receiver',spec['token'])
     if state['label']!='native'and'compiled_receiver_arg'in spec:
      i=spec['compiled_receiver_arg'];assert raw[i]==spec['native_receiver'],('compiled receiver',spec['token']);logical.pop(i)
+    if state['label']=='native':
+     for i,name in sorted((int(i),name)for i,name in spec.get('native_register_args',{}).items()):
+      assert name.upper()in['EAX','ECX','EDX','EBX','EBP','ESI','EDI']
+      logical.insert(i,uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper())))
     assert len(logical)==spec['arity'],('endpoint logical arity',spec['token'])
     event=dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])])
     if spec.get('registers'):event['registers']={name:uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))for name in spec['registers']}
@@ -151,6 +157,8 @@ def execute(registry,cases,directory):
    if state['active']and address!=STOP and not any(lo<=address<hi for lo,hi in state['allowed']):
     state['faults'].append(dict(kind='non-executable-or-unknown-target',address=hex(address)));uc.emu_stop()
   def write(uc,access,address,size,value,state):
+   if state['active']and any(lo<=address and address+size<=lo+n for lo,n in state.get('write_trace_ranges',[])):
+    state['write_trace'].append([address,size,value&((1<<(size*8))-1)])
    if state['active']and not(STACK<=address and address+size<=STACK+STACK_SIZE)and not any(lo<=address and address+size<=lo+n for lo,n in state['write_ranges']):
     state['faults'].append(dict(kind='unexpected-write',address=hex(address),size=size));uc.emu_stop()
   def read(uc,access,address,size,value,state):
@@ -169,7 +177,7 @@ def execute(registry,cases,directory):
  save(directory/'case-inputs.json',[{k:([[a,v.hex()]for a,v in value]if k=='stores'else value)for k,value in c.items()}for c in cases])
  members={int(m['address'],16):m for m in registry['members']};rows=[];attempts=0
  for case in cases:
-  m=members[case['entry']];reference=None;reference_regs=None;reference_context=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
+  m=members[case['entry']];reference=None;reference_regs=None;reference_context=None;reference_writes=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
   preserved=[case.get('initial_'+name,value)for name,value in zip(['ebx','ebp','esi','edi'],saved)]
   for label,(u,state)in machines.items():
    if label=='native':selected=[('native',case['entry'],case['arguments'])]
@@ -180,10 +188,10 @@ def execute(registry,cases,directory):
     if canonical and (Path(m['source']).stem+'.obj'in canonical['owner']or case.get('canonical_owner')and case['canonical_owner']in canonical['owner']):
      selected.append(('canonical',canonical['va'],case['arguments']))
    for route,pc,args in selected:
-    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
+    state.update(active=False,faults=[],write_ranges=case['write_ranges'],write_trace=[],write_trace_ranges=case.get('write_trace_ranges',[]),events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
     import_fixups=[]
     for spec in case.get('endpoints',[]):
-     assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16
+     assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16 and 0<=spec.get('native_arity',spec['arity'])<=16
      if spec['result_kind']!='void':assert 'value'in spec,('missing endpoint result',spec['token'])
      if 'import_name'in spec:
       pcs=[STOP+0x100+len(import_fixups)*16];import_fixups.append((state['imports'][spec['import_name']],pcs[0]))
@@ -265,12 +273,17 @@ def execute(registry,cases,directory):
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched'])
      if int.from_bytes(u.mem_read(fixup['address'],4),'little')!=value:errors.append(dict(kind='expected-function-pointer',address=hex(fixup['address'])))
     if route=='native':
-     reference=(None if case['result_mask']is None else result&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_context=context;reference_x87=fp;reference_live_x87=fp_live;reference_reads=list(state['reads'])
+     reference=(None if case['result_mask']is None else result&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_context=context;reference_writes=list(state['write_trace']);reference_x87=fp;reference_live_x87=fp_live;reference_reads=list(state['reads'])
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
      if 'expected_result'in case and result!=case['expected_result']:errors.append(dict(kind='native-authored-logical-result',actual=hex(result)))
+     if 'expected_masked_result'in case and result&case['result_mask']!=case['expected_masked_result']:errors.append(dict(kind='native-authored-masked-result',actual=hex(result&case['result_mask'])))
      if 'expected_reads'in case and state['reads']!=case['expected_reads']:errors.append(dict(kind='native-authored-probe-reads'))
+     if 'expected_write_trace'in case and state['write_trace']!=case['expected_write_trace']:errors.append(dict(kind='native-authored-write-sequence'))
      counts={token:sum(e['token']==token for e in state['events'])for token in case.get('expected_endpoint_counts',{})}
      if counts!=case.get('expected_endpoint_counts',{}):errors.append(dict(kind='native-authored-endpoint-counts',actual=counts,expected=case['expected_endpoint_counts']))
+     for token,expected in case.get('expected_endpoint_arguments',{}).items():
+      actual=[e['arguments']for e in state['events']if e['token']==token]
+      if actual!=expected:errors.append(dict(kind='native-authored-endpoint-arguments',token=token))
     else:
      if reference[:2]!=(None if case['result_mask']is None else result&case['result_mask'],ram):
       differences=[]
@@ -279,6 +292,7 @@ def execute(registry,cases,directory):
         i=next(i for i,(aa,bb)in enumerate(zip(a,b))if aa!=bb);differences.append(dict(address=hex(base+i),native=a[i],compiled=b[i]))
       errors.append(dict(kind='native-C-result-or-memory',native_result=reference[0],compiled_result=result,memory_differences=differences))
      if reference[2]!=state['events']:errors.append(dict(kind='native-C-endpoint-sequence'))
+     if reference_writes!=state['write_trace']:errors.append(dict(kind='native-C-write-sequence',native=reference_writes,compiled=state['write_trace']))
      if case.get('compare_x87')and reference_x87!=fp:errors.append(dict(kind='native-C-x87-state',native=reference_x87,compiled=fp))
      if case.get('compare_x87_values')and reference_live_x87!=fp_live:errors.append(dict(kind='native-C-x87-values',native=reference_live_x87,compiled=fp_live))
      if case.get('compare_x87_control',case.get('compare_x87_values',False))and reference_x87[0]!=fp[0]:errors.append(dict(kind='native-C-x87-control',native=reference_x87[0],compiled=fp[0]))
@@ -286,15 +300,20 @@ def execute(registry,cases,directory):
      if context!=reference_context:errors.append(dict(kind='native-C-context-outputs',native=reference_context,compiled=context))
      if route=='canonical'and case['canonical_registers_and_flags']and(reference_regs[0]!=values or(reference_regs[1]^flags)&case.get('canonical_flag_mask',0xffffffff)):
       errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,memory=result_memory,value=hex(result)),context_outputs=context,eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
+    row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,memory=result_memory,value=hex(result)),context_outputs=context,eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),write_trace=list(state['write_trace']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))
   if len(rows)%8==0:print('Fresh staged cases:',len(rows),'/',len(cases),flush=True)
- assert load(True)==registry,'Input/artifact registry changed during execution'
- for name,sha in sources.items():assert digest(ROOT/name)==sha,('source changed during replay',name)
+ integrity=[]
+ try:
+  if load(True)!=registry:integrity.append('Input/artifact registry changed during execution')
+ except Exception as exc:integrity.append(repr(exc))
+ for name,sha in sources.items():
+  if digest(ROOT/name)!=sha:integrity.append('source changed during replay: '+name)
  compared=sorted({hex(c['entry'])for c in cases});pending=[m['address']for m in registry['members']if hex(int(m['address'],16))not in compared]
  report=dict(schema='cohort3-staged-native-C-comparison-v1',source_entries=registry['source_entries'],entries_compared=len(compared),cases=len(rows),invocations=attempts,passed_cases=sum(r['passed']for r in rows),failed_cases=sum(not r['passed']for r in rows),compared_entries=compared,pending_entries=pending,cases_detail=rows,binding_sha256=digest(directory/'binding.json'),case_inputs_sha256=digest(directory/'case-inputs.json'),cohort_validation_complete=False,whole_game_equivalence=False,host_execution=False,scope='Fresh authored cases for the selected families; actual helpers execute unless endpoints are declared. Pending entries and unvisited domains remain explicit.')
+ report.update(inputs_stable=not integrity,input_integrity_errors=integrity)
  save(directory/'result.json',report);return report
 
 def main():
@@ -305,6 +324,6 @@ def main():
  assert cases and len({c['id']for c in cases})==len(cases),'Empty or duplicate case selection'
  if not a.run:print(json.dumps(dict(source_entries=registry['source_entries'],planned_cases=len(cases),planned_entries=len({c['entry']for c in cases}),execution_performed=False)));return
  directory=a.output_dir/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d-%H%M%S-%f');directory.mkdir(parents=True,exist_ok=False)
- r=execute(registry,cases,directory);print(json.dumps(dict(source_entries=r['source_entries'],entries_compared=r['entries_compared'],cases=r['cases'],invocations=r['invocations'],failed_cases=r['failed_cases'],cohort_validation_complete=False,result=str(directory/'result.json'))));sys.exit(bool(r['failed_cases']))
+ r=execute(registry,cases,directory);print(json.dumps(dict(source_entries=r['source_entries'],entries_compared=r['entries_compared'],cases=r['cases'],invocations=r['invocations'],failed_cases=r['failed_cases'],inputs_stable=r['inputs_stable'],cohort_validation_complete=False,result=str(directory/'result.json'))));sys.exit(bool(r['failed_cases']or not r['inputs_stable']))
 
 if __name__=='__main__':main()

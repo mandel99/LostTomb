@@ -1,5 +1,6 @@
 """Current cohort byte/source/provider binding; no executable is launched."""
 from pathlib import Path
+from functools import lru_cache
 import hashlib,json,re,sys
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[2]
@@ -11,6 +12,7 @@ def save(path,value):
  path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
  path.write_bytes((json.dumps(value,indent=2)+'\n').encode())
 
+@lru_cache(maxsize=4096)
 def symbol(text,name):
  matches=re.findall(r'^\s+\w+:\w+\s+_'+re.escape(name)+r'\s+([0-9a-fA-F]+)\s+(.+)$',text,re.M)
  if not matches:return None

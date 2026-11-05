@@ -333,10 +333,16 @@ def main():
     parser.add_argument("--write-candidates", type=Path, help="Opt-in separate packets under restore/build; never installs sources")
     parser.add_argument("--batch-size", type=int, default=100)
     parser.add_argument("--exclude-manifest", type=Path, action="append", default=[])
-    parser.add_argument("--progress-manifest", type=Path, default=ROOT / "metadata/cohort4-source-progress.json")
+    parser.add_argument("--progress-manifest", type=Path, help="Default: highest-numbered cohort source-progress manifest")
     parser.add_argument("--project", type=Path, default=ROOT / "build/c-only/pharaoh_restored.vcxproj")
     parser.add_argument("--binary", type=Path, default=ROOT / "build/smoke-game/Pharaoh.exe")
     args = parser.parse_args()
+    if args.progress_manifest is None:
+        choices = [(int(match[1]), path) for path in (ROOT / "metadata").glob("cohort*-source-progress.json")
+                   if (match := re.fullmatch(r"cohort(\d+)-source-progress\.json", path.name))]
+        if not choices:
+            parser.error("No cohort progress manifest; pass --progress-manifest explicitly")
+        args.progress_manifest = max(choices)[1]
     if args.batch_size < 1:
         parser.error("--batch-size must be positive")
     args.report = build_output(args.report)

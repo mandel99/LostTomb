@@ -21,25 +21,39 @@ typedef void (*RestoreNativeRaw)(uint32_t target,uint32_t registers[8],uint32_t 
    aliases and parent EBP. C execution uses a probed control stack below the
    borrowed64KB native-frame workspace. The named verification interface needs
    the same separation and an out-of-workspace snapshot. Deeper frames and
-   guard-fault/unwind context are not asserted by this bounded bridge contract. */
+   guard-fault/unwind context are not asserted by this bounded bridge contract.
+   Capture below the entire workspace: even unwritten native locals can be
+   copied to an observable packet. PUSHFD/PUSHAD at the original ESP would
+   replace their incoming bytes with register values. */
 void restore_native_member_run(uint32_t target,struct RestoreNativeMemberFrame *frame,
                                uint32_t cleanup,RestoreNativeRaw body);
 void FUN_00561f30(void);
+
+/* Advance one stack page without changing registers, flags or final memory.
+   The paired XCHGs touch the page and restore its original DWORD. Every page
+   is visited before capture; asynchronous observers/exception context are
+   outside the existing bridge contract. */
+#define RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ __asm { lea esp,[esp-1000h] } \
+ __asm { xchg eax,dword ptr[esp] } \
+ __asm { xchg eax,dword ptr[esp] }
 
 #define RESTORE_NATIVE_MEMBER_ENTRY(canonical,named,target,cleanup,body) \
  void named(struct RestoreNativeMemberFrame *frame) \
  {restore_native_member_run(target,frame,cleanup,body);} \
  __declspec(naked) void canonical(void) { \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
+ RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
  __asm { pushfd } \
  __asm { pushad } \
- __asm { mov ebx,esp } \
+ __asm { add dword ptr[esp+12],10000h } \
  __asm { cld } \
- __asm { mov eax,10000h } \
- __asm { call FUN_00561f30 } \
- __asm { mov esi,ebx } \
- __asm { mov edi,esp } \
- __asm { mov ecx,9 } \
- __asm { rep movsd } \
  __asm { push esp } \
  __asm { call named } \
  __asm { add esp,4 } \

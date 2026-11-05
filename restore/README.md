@@ -10,9 +10,10 @@ its archived images. Further source reconstruction remains incomplete. See
 [the controller ledger](metadata/CITY_ACTIVE_BUILDINGS.md).
 
 Active cohort5 reaches a closed94-entry milestone:13 new C algorithms and
-81 C reuse/input/ABI repairs. Shared strict build, both links and common-ABI
-preflight (7 entries /15 cases /45 invocations) pass. Source expansion waits
-for the complete94-entry joint native/C gate.
+81 C reuse/input/ABI repairs. All94 named/canonical entries passed872 finite
+scenarios /3182 invocations. The shared bridge now preserves original stack
+history, including untouched bytes copied into event packets. Further connected
+source reconstruction may proceed; whole-game equivalence remains incomplete.
 Prior finite receipts retain archived images.
 
 The previous100-entry cohort's285-case comparison is historical at871eea0.

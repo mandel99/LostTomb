@@ -4,7 +4,7 @@
   "new_C_algorithms": 0,
   "captured_state": "Actual PUSHFD/PUSHAD image: EDI,ESI,EBP,savedESP,EBX,EDX,ECX,EAX,EFLAGS. No register is zeroed or added as an invented logical input.",
   "original_stack": "Modeled instructions keep the original entry ESP and actual caller argument/local addresses, so native stack aliases and parent EBP remain available. Only the C control stack is separated.",
-  "control_stack": "The canonical entry probes64KB with the existing original-compatible561F30 C primitive before copying its36-byte snapshot. C executes below that workspace; the modeled frame and control frame do not overlap within the inherited64KB raw-model domain.",
+  "control_stack": "The canonical entry advances one page at a time below the64KB native workspace using paired register/flags-neutral XCHGs, restoring each touched DWORD. PUSHFD/PUSHAD capture occurs only below that workspace; savedESP is adjusted to the real original anchor. No initial native local is replaced by the snapshot. C executes below the snapshot; deeper frames and asynchronous/fault/unwind context remain qualified.",
   "restore": "Existing C providers update the snapshot; original physical ESP and per-entry RETn are restored without changing the modeled flags. POPAD intentionally ignores its savedESP slot.",
   "named_API": "Named snapshot calls require a separate physical C control stack, a real savedESP+4 native entry anchor, initialized original return/argument slots and a snapshot outside the borrowed workspace.",
   "immutable_algorithm_sources": {
@@ -83,5 +83,6 @@
     "The underlying reviewed providers retain their existing qualified boundary outputs; discarded volatile/undefined flags and unresolved indirect consumers are not newly claimed."
   ],
   "whole_game_equivalence": false,
-  "host_execution": false
+  "host_execution": false,
+  "capture_regression": "44CDC0 publishes30 bytes including four untouched native local bytes. Both uniform and nonuniform original-stack histories must agree against named and canonical C. The earlier snapshot-at-entry sequence overwrote those bytes and is replaced."
 }
