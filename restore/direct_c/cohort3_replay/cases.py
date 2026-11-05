@@ -2,6 +2,7 @@
 import struct
 from formatter_cases import definitions as formatter_definitions
 from draw_cases import definitions as draw_definitions
+from fp_control_cases import definitions as fp_control_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -30,4 +31,5 @@ def definitions(registry):
       native_cleanup=0,named_cleanup=0,canonical_cleanup=0,canonical_registers_and_flags=False))
  out.extend(formatter_definitions(registry))
  out.extend(draw_definitions(registry))
+ out.extend(fp_control_definitions(registry))
  return out

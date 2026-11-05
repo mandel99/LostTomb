@@ -33,7 +33,7 @@ def execute(registry,cases,directory):
   u.mem_map(pe.base,size);u.mem_write(pe.base,bytes(pe.data));end=pe.base+size
   if DATA_START<pe.base:u.mem_map(DATA_START,pe.base-DATA_START)
   if DATA_END>end:u.mem_map(end,(DATA_END-end+4095)&~4095)
-  u.mem_map(STACK,STACK_SIZE);u.mem_map(STOP,4096);u.mem_map(SCRATCH,0x50000)
+  u.mem_map(0,4096);u.mem_map(STACK,STACK_SIZE);u.mem_map(STOP,4096);u.mem_map(SCRATCH,0x50000)
   state=dict(active=False,label=label,map_text=''if label=='native'else(ROOT/item['map_path']).read_text(),allowed=executable_ranges(ROOT/item['path'],pe.base),faults=[])
   def code(uc,address,size,state):
    if not state['active']:return
@@ -81,7 +81,8 @@ def execute(registry,cases,directory):
  save(directory/'case-inputs.json',[{k:([[a,v.hex()]for a,v in value]if k=='stores'else value)for k,value in c.items()}for c in cases])
  members={int(m['address'],16):m for m in registry['members']};rows=[];attempts=0
  for case in cases:
-  m=members[case['entry']];reference=None;reference_regs=None;routes=[];failures=[]
+  m=members[case['entry']];reference=None;reference_regs=None;reference_x87=None;routes=[];failures=[]
+  preserved=list(saved);preserved[1]=case.get('initial_ebp',preserved[1])
   for label,(u,state)in machines.items():
    if label=='native':selected=[('native',case['entry'],case['arguments'])]
    else:
@@ -102,11 +103,19 @@ def execute(registry,cases,directory):
      for at in pcs:
       assert at not in state['endpoints']or state['endpoints'][at]['token']==spec['token']
       state['endpoints'][at]=spec
-    u.mem_write(DATA_START,bytes(seed));u.mem_write(SCRATCH,b'\xa5'*0x50000);u.mem_write(SP-0x2000,b'\xcc'*0x4000)
+    u.mem_write(DATA_START,bytes(seed));u.mem_write(SCRATCH,b'\xa5'*0x50000);u.mem_write(SP-0x2000,b'\xcc'*0x4000);u.mem_write(0,b'\xcc'*4096)
+    if 'initial_fs0'in case:
+     assert (0,4)in case['write_ranges']or[0,4]in case['write_ranges']
+     u.mem_write(0,struct.pack('<I',case['initial_fs0']))
     for at,value in case['stores']:u.mem_write(at,value)
-    initial=[0xa5b6c7d8,case['receiver'],0x33333333,saved[0],SP,*saved[1:]]
+    fixed=[]
+    for fixup in case.get('function_pointers',[]):
+     value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
+     assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
+     u.mem_write(fixup['address'],struct.pack('<I',value));fixed.append((fixup['address'],value))
+    initial=[0xa5b6c7d8,case['receiver'],0x33333333,preserved[0],SP,*preserved[1:]]
     for reg,value in zip(registers,initial):u.reg_write(reg,value)
-    for reg,value in [(x.UC_X86_REG_EFLAGS,case['eflags']),(x.UC_X86_REG_FPCW,0x37f),(x.UC_X86_REG_FPSW,0),(x.UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
+    for reg,value in [(x.UC_X86_REG_EFLAGS,case['eflags']),(x.UC_X86_REG_FPCW,case.get('initial_fpcw',0x37f)),(x.UC_X86_REG_FPSW,0),(x.UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
     u.mem_write(SP,struct.pack('<I',STOP))
     for i,value in enumerate(args):u.mem_write(SP+4+i*4,struct.pack('<I',value&0xffffffff))
     attempts+=1;state['active']=True
@@ -114,11 +123,15 @@ def execute(registry,cases,directory):
     except Exception as exc:errors.append(dict(kind='execution-error',detail=repr(exc)))
     finally:state['active']=False
     values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in case['watched']]
+    fp=[u.reg_read(r)for r in [x.UC_X86_REG_FPCW,x.UC_X86_REG_FPSW,x.UC_X86_REG_FPTAG]]
     if u.reg_read(x.UC_X86_REG_EIP)!=STOP or state['faults']:errors.append(dict(kind='return/fault',faults=state['faults']))
     if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
-    if [values[i]for i in [3,5,6,7]]!=saved:errors.append(dict(kind='nonvolatile-registers'))
+    if [values[i]for i in [3,5,6,7]]!=preserved:errors.append(dict(kind='nonvolatile-registers'))
+    if 'initial_fs0'in case and int.from_bytes(u.mem_read(0,4),'little')!=case['initial_fs0']:errors.append(dict(kind='exception-chain-not-restored'))
+    for at,value in fixed:
+     if int.from_bytes(u.mem_read(at,4),'little')!=value:errors.append(dict(kind='function-pointer-slot-modified',address=hex(at)))
     if route=='native':
-     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram,state['events']);reference_regs=(values,flags)
+     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_x87=fp
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
      counts={token:sum(e['token']==token for e in state['events'])for token in case.get('expected_endpoint_counts',{})}
      if counts!=case.get('expected_endpoint_counts',{}):errors.append(dict(kind='native-authored-endpoint-counts',actual=counts,expected=case['expected_endpoint_counts']))
@@ -130,8 +143,9 @@ def execute(registry,cases,directory):
         i=next(i for i,(aa,bb)in enumerate(zip(a,b))if aa!=bb);differences.append(dict(address=hex(base+i),native=a[i],compiled=b[i]))
       errors.append(dict(kind='native-C-result-or-memory',native_eax=reference[0],compiled_eax=values[0],memory_differences=differences))
      if reference[2]!=state['events']:errors.append(dict(kind='native-C-endpoint-sequence'))
+     if case.get('compare_x87')and reference_x87!=fp:errors.append(dict(kind='native-C-x87-state',native=reference_x87,compiled=fp))
      if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),errors=errors)
+    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),x87=fp,physical_argument_words=[int.from_bytes(u.mem_read(SP+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))

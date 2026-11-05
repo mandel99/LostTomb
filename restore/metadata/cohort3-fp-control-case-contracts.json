@@ -1,0 +1,33 @@
+{
+  "schema": "cohort3-fp-control-case-contracts-v1",
+  "entries": 3,
+  "recipes": 126,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "sources": [
+    "src/unit_02871.c",
+    "src/unit_02962.c",
+    "src/unit_02963.c"
+  ],
+  "native_audit_cache": [
+    "metadata/native-function-audit-cache/batch-2944.json",
+    "metadata/native-function-audit-cache/batch-3072.json"
+  ],
+  "coverage": [
+    "96 control87/controlfp cases over six initial x87 control words and eight value/mask combinations.",
+    "30 actual FDIV probe cases: exact/inexact arithmetic, positive/negative thresholds and unordered comparison over six control words.",
+    "Native overwritten incoming control87 mask DWORD compared to explicit named API slot at SP+8.",
+    "Full returned DWORD, watched RAM, stack cleanup, preserved registers and final full FPCW/FPSW/FPTAG compare."
+  ],
+  "endpoints": [],
+  "limitations": [
+    "Finite emulator behavior; physical Pentium FDIV erratum and actual hardware exception timing are not established.",
+    "Initial x87 stack is empty with cleared status; inherited nonempty stacks/pending unmasked exceptions remain outside this phase.",
+    "controlfp has no caller output pointer; its by-value mask argument storage may be reused for a C compiler spill. Physical argument words remain recorded but are outside logical memory comparison. control87 explicit output slot remains strict."
+  ],
+  "host_execution": false,
+  "corrected_case_contract": {
+    "prior_receipt": "build/actor-animal-following/cohort3-verification/runs/20261105-174031-928210/result.json",
+    "failed_cases": 48,
+    "reason": "Overconstrained controlfp input parameter storage after return. Native5687F4 instructions copy mask into a nested call; ordinary C may reuse its own by-value incoming mask slot. Return, full x87 state and preserved registers already agreed. No selected C implementation changed."
+  }
+}
