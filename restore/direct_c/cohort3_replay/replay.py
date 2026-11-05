@@ -76,6 +76,8 @@ def execute(registry,cases,directory):
     for i,info in spec.get('private_input_args',{}).items():
      i=int(i);width=info['width'];assert i not in roles and 0<width<=256 and STACK<=raw[i]and raw[i]+width<=STACK+STACK_SIZE,('private input pointer',spec['token'])
      logical[i]=['stack-input',info['role'],bytes(uc.mem_read(raw[i],width)).hex()]
+    for i,role in spec.get('continuation_args',{}).items():
+     i=int(i);assert raw[i]==get(sp),('actual return continuation',spec['token']);logical[i]=['return-continuation',role]
     assert len(private)==len(set(private)),('unexpected output alias',spec['token'])
     if state['label']=='native'and'native_receiver'in spec:
      assert uc.reg_read(x.UC_X86_REG_ECX)==spec['native_receiver'],('endpoint receiver',spec['token'])
@@ -84,6 +86,11 @@ def execute(registry,cases,directory):
     assert len(logical)==spec['arity'],('endpoint logical arity',spec['token'])
     event=dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])])
     if spec.get('registers'):event['registers']={name:uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))for name in spec['registers']}
+    if spec.get('fs0_registration'):
+     record=spec['fs0_registration'];at=get(0);assert STACK<=at and at+record['size']<=STACK+STACK_SIZE
+     target=record['native_handler']if state['label']=='native'else symbol(state['map_text'],record['compiled_handler_symbol'])['va']
+     assert get(at+4)==target,('active registration handler',spec['token'])
+     event['registration']=dict(handler_token=hex(record['native_handler']),fields=[[off,width,get(at+off,width)]for off,width in record['fields']])
     state['events'].append(event)
     state['physical_endpoint_arguments'].append(dict(token=spec['token'],arguments=raw))
     for i,width,value in spec.get('writes_args',[]):
@@ -97,8 +104,10 @@ def execute(registry,cases,directory):
     elif kind=='al8':uc.reg_write(x.UC_X86_REG_EAX,(uc.reg_read(x.UC_X86_REG_EAX)&0xffffff00)|(spec['value']&255))
     elif kind=='x87_float32':push_float32(uc,x,spec['value'])
     else:assert kind=='void','Unknown endpoint result contract'
-    for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX)]:
+    for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX),('clobber_ebp',x.UC_X86_REG_EBP)]:
      if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
+    if spec.get('noreturn'):
+     state['terminated']=spec['token'];uc.reg_write(x.UC_X86_REG_EIP,STOP);uc.emu_stop();return
     cleanup=spec['native_cleanup']if state['label']=='native'else spec['compiled_cleanup']
     assert cleanup>=0 and cleanup%4==0
     uc.reg_write(x.UC_X86_REG_ESP,sp+4+cleanup);uc.reg_write(x.UC_X86_REG_EIP,get(sp));return
@@ -129,7 +138,7 @@ def execute(registry,cases,directory):
     if canonical and (Path(m['source']).stem+'.obj'in canonical['owner']or case.get('canonical_owner')and case['canonical_owner']in canonical['owner']):
      selected.append(('canonical',canonical['va'],case['arguments']))
    for route,pc,args in selected:
-    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={});errors=[]
+    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={},terminated=None);errors=[]
     import_fixups=[]
     for spec in case.get('endpoints',[]):
      assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16
@@ -156,7 +165,7 @@ def execute(registry,cases,directory):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
      u.mem_write(fixup['address'],struct.pack('<I',value));fixed.append((fixup['address'],value))
-    initial=[0xa5b6c7d8,case['receiver'],0x33333333,preserved[0],SP,*preserved[1:]]
+    initial=[case.get('initial_eax',0xa5b6c7d8),case['receiver'],0x33333333,preserved[0],SP,*preserved[1:]]
     for reg,value in zip(registers,initial):u.reg_write(reg,value)
     for reg,value in [(x.UC_X86_REG_EFLAGS,case['eflags']),(x.UC_X86_REG_FPCW,case.get('initial_fpcw',0x37f)),(x.UC_X86_REG_FPSW,0),(x.UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
     u.mem_write(SP,struct.pack('<I',STOP))
@@ -168,9 +177,16 @@ def execute(registry,cases,directory):
     values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in case['watched']]
     fp=[u.reg_read(r)for r in [x.UC_X86_REG_FPCW,x.UC_X86_REG_FPSW,x.UC_X86_REG_FPTAG]]
     if u.reg_read(x.UC_X86_REG_EIP)!=STOP or state['faults']:errors.append(dict(kind='return/fault',faults=state['faults']))
-    if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
-    if [values[i]for i in [3,5,6,7]]!=preserved:errors.append(dict(kind='nonvolatile-registers'))
-    if 'initial_fs0'in case and int.from_bytes(u.mem_read(0,4),'little')!=case['initial_fs0']:errors.append(dict(kind='exception-chain-not-restored'))
+    if case.get('noreturn_endpoint'):
+     if state['terminated']!=case['noreturn_endpoint']:errors.append(dict(kind='missing-noreturn-boundary'))
+    else:
+     if state['terminated']:errors.append(dict(kind='unexpected-noreturn-boundary'))
+     if values[4]!=SP+4+case[route+'_cleanup']:errors.append(dict(kind='stack-cleanup',actual=hex(values[4])))
+     if [values[i]for i in [3,5,6,7]]!=preserved:errors.append(dict(kind='nonvolatile-registers'))
+     if 'initial_fs0'in case and int.from_bytes(u.mem_read(0,4),'little')!=case['initial_fs0']:errors.append(dict(kind='exception-chain-not-restored'))
+    if 'expected_flags'in case:
+     mask,wanted=case['expected_flags']
+     if flags&mask!=wanted:errors.append(dict(kind='authored-flags',actual=hex(flags),mask=hex(mask),expected=hex(wanted)))
     for at,value in fixed:
      if int.from_bytes(u.mem_read(at,4),'little')!=value:errors.append(dict(kind='function-pointer-slot-modified',address=hex(at)))
     for fixup in case.get('expected_function_pointers',[]):
@@ -192,7 +208,7 @@ def execute(registry,cases,directory):
      if reference[2]!=state['events']:errors.append(dict(kind='native-C-endpoint-sequence'))
      if case.get('compare_x87')and reference_x87!=fp:errors.append(dict(kind='native-C-x87-state',native=reference_x87,compiled=fp))
      if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),x87=fp,physical_argument_words=[int.from_bytes(u.mem_read(SP+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
+    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),x87=fp,termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(SP+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))

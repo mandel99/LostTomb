@@ -103,3 +103,5 @@ fp-control comparison:126 fresh cases /300 invocations pass for3 existing entrie
 stream comparison:152 fresh cases /304 invocations pass for32 existing entries. Combined epochs:59/98 entries,605 cases /1967 invocations;39 pending. See cohort3-stream-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.
 
 crt-lifecycle comparison:102 fresh cases /393 invocations pass for4 existing entries. Combined epochs:63/98 entries,707 cases /2360 invocations;35 pending. See cohort3-crt-lifecycle-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.
+
+exception comparison:59 fresh cases /324 invocations pass for12 existing entries. Combined epochs:75/98 entries,766 cases /2684 invocations;23 pending. See cohort3-exception-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.

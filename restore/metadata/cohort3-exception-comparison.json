@@ -1,0 +1,348 @@
+{
+  "schema": "cohort3-exception-comparison-v1",
+  "source_entries": 98,
+  "entries_compared": 12,
+  "cases": 59,
+  "invocations": 324,
+  "failed_cases": 0,
+  "entry_results": [
+    {
+      "address": "0x56158a",
+      "name": "restore_crt_invoke_registered",
+      "source": "src/unit_02786.c",
+      "source_sha256": "a692c6fc541bcf4e675a9953a4b4b8b9e54c7d2d20c65dc824605c4325dee244",
+      "body_sha256": "bc27fa56b5f9bc7de8af39dc9467a710902e68d58e6beb666ba62690a63155af",
+      "cases": 6,
+      "case_ids": [
+        "exception/0056158a/100/0",
+        "exception/0056158a/100/1",
+        "exception/0056158a/101/0",
+        "exception/0056158a/101/1",
+        "exception/0056158a/fedcba98/0",
+        "exception/0056158a/fedcba98/1"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "game/canonical": 6,
+        "diagnostic/named": 6,
+        "diagnostic/canonical": 6,
+        "retained/named": 6,
+        "retained/canonical": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5615de",
+      "name": "restore_crt_registration_handler",
+      "source": "src/unit_02787.c",
+      "source_sha256": "66ca6e8861310a79fb1ce1db05a8cb505caa8047545d8220e4580a9cea30961e",
+      "body_sha256": "d64418ecbc5000e59bba0576b6ddd56636f7e8e19ce851f2772d699ce15bde2e",
+      "cases": 6,
+      "case_ids": [
+        "exception/005615de/0/0",
+        "exception/005615de/0/80000001",
+        "exception/005615de/2/0",
+        "exception/005615de/2/80000001",
+        "exception/005615de/66/0",
+        "exception/005615de/66/80000001"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "game/canonical": 6,
+        "diagnostic/named": 6,
+        "diagnostic/canonical": 6,
+        "retained/named": 6,
+        "retained/canonical": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5617a8",
+      "name": "restore_crt_global_unwind",
+      "source": "src/unit_02791.c",
+      "source_sha256": "4bb21d40975932c93d86540b35892c72fd2be5f7bc0cd3a7a23d8901ec237548",
+      "body_sha256": "b6bbca56bfdb2d9a63e204972c85eb2345fb5d3e054b23ab21c36c1faf6c1e12",
+      "cases": 2,
+      "case_ids": [
+        "exception/005617a8/target-32003000",
+        "exception/005617a8/target-32003040"
+      ],
+      "routes": {
+        "native/native": 2,
+        "retained/named": 2
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5617c8",
+      "name": "restore_crt_unwind_guard",
+      "source": "src/unit_02791.c",
+      "source_sha256": "4bb21d40975932c93d86540b35892c72fd2be5f7bc0cd3a7a23d8901ec237548",
+      "body_sha256": "ff7a388f1bf9790861934296c3f236209778c39879d7d8bc09d5709d6d1703cc",
+      "cases": 6,
+      "case_ids": [
+        "exception/005617c8/flags-0",
+        "exception/005617c8/flags-2",
+        "exception/005617c8/flags-4",
+        "exception/005617c8/flags-6",
+        "exception/005617c8/flags-40",
+        "exception/005617c8/flags-80000002"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "game/canonical": 6,
+        "diagnostic/named": 6,
+        "diagnostic/canonical": 6,
+        "retained/named": 6,
+        "retained/canonical": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5617ea",
+      "name": "restore_crt_local_unwind",
+      "source": "src/unit_02792.c",
+      "source_sha256": "802c4c71759565ea699035b2567f403059eff08334863e443544f856f86e0f01",
+      "body_sha256": "b1ed60b2c2b9ea55ab5b1fc64c77d0d72f00677d74001c7dab8ba752c084cf32",
+      "cases": 6,
+      "case_ids": [
+        "exception/005617ea/empty",
+        "exception/005617ea/stop",
+        "exception/005617ea/filtered",
+        "exception/005617ea/cleanup",
+        "exception/005617ea/two-cleanups",
+        "exception/005617ea/callback-mutates-level"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "game/canonical": 6,
+        "diagnostic/named": 6,
+        "diagnostic/canonical": 6,
+        "retained/named": 6,
+        "retained/canonical": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x561852",
+      "name": "restore_crt_abnormal_termination",
+      "source": "src/unit_02793.c",
+      "source_sha256": "0caf80699cf9cd5250cbd4656d5e80aead18c42cdf6b2b6fc3bb6a62784fe044",
+      "body_sha256": "9506bc4d07c261656edc95ba77230e4dcab3a885ef7daedc215734b99b5a295c",
+      "cases": 3,
+      "case_ids": [
+        "exception/00561852/wrong-handler",
+        "exception/00561852/equal",
+        "exception/00561852/unequal"
+      ],
+      "routes": {
+        "native/native": 3,
+        "game/named": 3,
+        "game/canonical": 3,
+        "diagnostic/named": 3,
+        "diagnostic/canonical": 3,
+        "retained/named": 3,
+        "retained/canonical": 3
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x561875",
+      "name": "restore_crt_notify_jump",
+      "source": "src/unit_02794.c",
+      "source_sha256": "d8bdbb09d83ad663fdcbde2c209b334ffdd30c01f30c41bdfe132818ad649a09",
+      "body_sha256": "44388f3a748fa82b4118b65efe495e962483fe69fb766eaeae6aee5ad57faefa",
+      "cases": 6,
+      "case_ids": [
+        "exception/00561875/13579bdf/0",
+        "exception/00561875/13579bdf/100",
+        "exception/00561875/13579bdf/fedcba98",
+        "exception/00561875/fdb97531/0",
+        "exception/00561875/fdb97531/100",
+        "exception/00561875/fdb97531/fedcba98"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "diagnostic/named": 6,
+        "retained/named": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x56187e",
+      "name": "restore_crt_notify_frame",
+      "source": "src/unit_02795.c",
+      "source_sha256": "3a9670f762d60ddb1909b9429da70eef85fd7ef4b247f6360c616132c74fb201",
+      "body_sha256": "893c35133609cc9d61a2a5090f2b3b2d767a4b714fefb3d94e61efb459f55bf2",
+      "cases": 6,
+      "case_ids": [
+        "exception/0056187e/13579bdf/0",
+        "exception/0056187e/13579bdf/100",
+        "exception/0056187e/13579bdf/fedcba98",
+        "exception/0056187e/fdb97531/0",
+        "exception/0056187e/fdb97531/100",
+        "exception/0056187e/fdb97531/fedcba98"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "diagnostic/named": 6,
+        "retained/named": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5637ee",
+      "name": "restore_crt_terminate",
+      "source": "src/unit_02856.c",
+      "source_sha256": "d82807b70a636348f654730980a2ddf761faa9199528a7d9f0e807b652d7ea56",
+      "body_sha256": "57424a1fcd79926367aab8facf8b75e9c06471e80adf2f23b4d288e87c65cbee",
+      "cases": 2,
+      "case_ids": [
+        "exception/005637ee/handler-0",
+        "exception/005637ee/handler-31000b00"
+      ],
+      "routes": {
+        "native/native": 2,
+        "game/named": 2,
+        "game/canonical": 2,
+        "diagnostic/named": 2,
+        "diagnostic/canonical": 2,
+        "retained/named": 2,
+        "retained/canonical": 2
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x563935",
+      "name": "restore_crt_search_handlers",
+      "source": "src/unit_02859.c",
+      "source_sha256": "8f7a07561b4a5ca2b9788b2a91ff830d9f47ee564739f0e148e10514c8eff9d6",
+      "body_sha256": "c3096c388e6ac7ccecff5cd86ceeba2cd042f58346fdddb31ec397c246c796f8",
+      "cases": 5,
+      "case_ids": [
+        "exception/00563935/foreign",
+        "exception/00563935/foreign-high-depth",
+        "exception/00563935/rethrow-empty",
+        "exception/00563935/cpp-empty",
+        "exception/00563935/cpp-must-catch"
+      ],
+      "routes": {
+        "native/native": 5,
+        "game/named": 5,
+        "game/canonical": 5,
+        "diagnostic/named": 5,
+        "diagnostic/canonical": 5,
+        "retained/named": 5,
+        "retained/canonical": 5
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x5640a0",
+      "name": "restore_crt_invoke_frame",
+      "source": "src/unit_02869.c",
+      "source_sha256": "5cc58aaed528eb84890b934849d58a5afd84c1b81d7101078d5ee3a1da1004a0",
+      "body_sha256": "9658d2c11b64e5ccc4592c5f7f81970362a49492fc346694e81f6ca326df8b98",
+      "cases": 6,
+      "case_ids": [
+        "exception/005640a0/100/0",
+        "exception/005640a0/100/1",
+        "exception/005640a0/101/0",
+        "exception/005640a0/101/1",
+        "exception/005640a0/fedcba98/0",
+        "exception/005640a0/fedcba98/1"
+      ],
+      "routes": {
+        "native/native": 6,
+        "game/named": 6,
+        "diagnostic/named": 6,
+        "retained/named": 6
+      },
+      "authored_cases_passed": true
+    },
+    {
+      "address": "0x56870b",
+      "name": "restore_crt_unhandled_filter",
+      "source": "src/unit_02958.c",
+      "source_sha256": "fcd7a868e3b7a2c66e02c1bd18cab734e23397cb025dc8d6cb99865bc136e0e7",
+      "body_sha256": "ee2afb1053508d925eff9e7d8e1c76ebb9c7848a13764054804e6b68e8995749",
+      "cases": 5,
+      "case_ids": [
+        "exception/0056870b/no-filter",
+        "exception/0056870b/invalid",
+        "exception/0056870b/valid",
+        "exception/0056870b/validator-reloads",
+        "exception/0056870b/cpp-terminate"
+      ],
+      "routes": {
+        "native/native": 5,
+        "retained/named": 5
+      },
+      "authored_cases_passed": true
+    }
+  ],
+  "native_endpoint_calls": {
+    "handler": 12,
+    "rtl-unwind": 2,
+    "cleanup": 3,
+    "cleanup-two": 2,
+    "abort": 3,
+    "terminate-handler": 1,
+    "foreign-search": 2,
+    "release-exception": 1,
+    "validate-filter": 3,
+    "filter": 1,
+    "filter-two": 1
+  },
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "b3966285846ba66bc9b9835e3c762692f192e5f1a566b243e12d173f19cc7d1b",
+      "map_sha256": "9d80fa3f0e0b0e9804736a8788d82e736f8fa7517886db187ab82962597eb4ef"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "4f49a701ca266a71e97a0bb4566c041c002b4edeeeb4c28d661bdb47edeeb52a",
+      "map_sha256": "f060c0f97b28307878bdfa28f49e5589754fc6b03362206e1f738e18d82f107d"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "58e360663d1040ff5cc23e43de617abe37a4d0771d04597e3d39ea9bb16c0a99",
+      "map_sha256": "86888bc21704079c661c551c3392d8eed6df5d2271f350365ae0e4f31eb4fffd"
+    }
+  },
+  "binding_sha256": "329a127ece7ad86a492ebd183c30fe9e891de9c321f8c5f4640d34ae6fa21143",
+  "case_inputs_sha256": "fb36da3ab5aa86ef5c01706332d21a81430a6f17c3c037c43deb0504054e5cfb",
+  "private_receipt": {
+    "path": "build/actor-animal-following/cohort3-verification/runs/20261105-180451-805975/result.json",
+    "sha256": "bb3f7a0b79bd0a3e185ae272825d370d339477288bf245bab6574e21bcb7c2d6"
+  },
+  "source_snapshot_files": 5494,
+  "source_ledger_input_sha256": "4eb98b5c72625c2a7d547bb083b64b60fd1fec4257dc8147c1febb480524c79c",
+  "case_contracts": {
+    "path": "metadata/cohort3-exception-case-contracts.json",
+    "sha256": "dbb8e27d1fedcb3fe113ed4fc5af8fdd1f3b1115e3402e78268b9b5bb4238619"
+  },
+  "publisher_sha256": "aa72ca046dfdf985db62416136f9768997353b75a54cf8e0262b93ceec35f81e",
+  "scope": "Finite CRT exception notification, invocation, registration/guard/local unwind and search/filter normal-flow cases. Actual selected bodies execute; abort and OS/foreign boundaries are explicit. Full Windows exception/unwind behavior remains unproven.",
+  "limitations": [
+    "Finite logical normal-return and explicitly controlled abort-boundary cases only. Full Windows structured exception dispatch, hardware faults and real OS nonlocal unwind are not established.",
+    "Selected bodies and named child algorithms execute; callback, validator, foreign exception search/release, abort and RtlUnwind are controlled boundaries.",
+    "Nonreturning cases compare ordered events/declared RAM until the abort boundary. They have no normal stack/register/FS restoration obligation.",
+    "C++ conversion matching, actual catch execution, abnormal finally paths and arbitrary indirect targets remain outside this phase.",
+    "Available canonical runtime wrappers are compared; absent retained canonical symbols remain explicit until the complete retained-image milestone."
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}
