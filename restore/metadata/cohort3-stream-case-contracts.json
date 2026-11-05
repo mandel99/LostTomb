@@ -1,0 +1,136 @@
+{
+  "schema": "cohort3-stream-pure-case-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "case_module": "build/actor-animal-following/cohort3-stream-cases/stream_cases.py",
+  "selected_entries": 32,
+  "authored_cases": 152,
+  "full32_result_cases": 97,
+  "void_result_cases": 55,
+  "execution_performed": false,
+  "source_modified": false,
+  "coverage_complete": false,
+  "whole_game_equivalence": false,
+  "host_game_launched": false,
+  "family_cases": {
+    "simple_constructors": 6,
+    "ios_destroy_initialize": 16,
+    "buffer_pending_destroy": 17,
+    "filebuf_destroy": 8,
+    "base_scalar_deletes": 15,
+    "stream_constructors": 33,
+    "stream_destructors_and_virtual_scalar_deletes": 32,
+    "original_parent_frame_cleanup_actions": 25
+  },
+  "evidence_sources": [
+    "metadata/city-active-buildings-reconstruction.json: all32 restore_stream_* members and logical signatures",
+    "metadata/city-active-buildings-rea-records.json: authenticated member byte records and vbtable/descriptor spans",
+    "build/actor-animal-following/cohort3-crt-stream-constructor-c/cached-rea-selection.json: complete saved exact-entry assembly for10 constructor/helper members and563354 normal registration prolog",
+    "build/actor-animal-following/cohort3-crt-stream-constructor-c/contracts.json: logical full-pointer returns, widths, virtual-base/member-call contracts and normal/unwind limits",
+    "build/actor-animal-following/cohort3-crt-stream-constructor-c/offline-byte-binding.json: saved pinned vbtable bytes at570570/57058C/5705CC/5705DC",
+    "build/actor-animal-following/cohort3-crt-stream-destructors-c/cached-rea-selection.json: complete saved exact-entry assembly for18 destructor/helper members",
+    "build/actor-animal-following/cohort3-crt-stream-destructors-c/missing-endpoint-offline-decode.json: saved43-byte bodies560A70/560CF7/56119D/56124D; authenticated byte records are in the cohort evidence",
+    "build/actor-animal-following/cohort3-crt-stream-destructors-c/contracts.json: scalar deleting return/receiver adjustments, real EBP actions, release callback ECX and unsigned pending predicate",
+    "include/crt_stream_constructor.h and include/crt_stream_destructor.h: byte-addressed field/vbtable algorithms and explicit named signatures",
+    "runtime/crt_stream_constructor_entries.c and runtime/crt_stream_destructor_entries.c: canonical native ECX/RET adaptation and original EBP forwarding",
+    "runtime/crt_stream_deleting_endpoints.c and ledger-selected src/unit_*.c: existing selected algorithms; no source expansion"
+  ],
+  "result_contracts": {
+    "full32": [
+      "5605FA/5606A0/560F02 and four high stream constructors return the complete original self pointer",
+      "560671 returns the complete incoming buffer pointer, including zero",
+      "561090 defines all EAX bits asFFFFFFFF or0 via unsigned cursor comparisons",
+      "56062C/5606C6/560F2F return the saved complete self pointer after optional free",
+      "560A70/560CF7/56119D/56124D return incomingECX minus20/8/12/20, independently of current vbtable displacement"
+    ],
+    "void": [
+      "All destructor helpers, complete destructor and eight cleanup funclets ignore incidental native EAX; result_mask is None",
+      "Free and fixture release callback are void endpoints; the runner retains live native EAX and never supplies a fabricated zero result"
+    ],
+    "external_allocate": "561A1D receives one raw scalar size0x48, cdecl RET0, and returns the explicitly authored full32 pointer0 or BUFFER. Caller argument forwarding and actual nested filebuf construction execute.",
+    "no_al_only_child": "This stream family has no controlled AL-only result endpoint. No high EAX bits are zeroed or invented by these recipes."
+  },
+  "abi_and_memory": [
+    "Native ECX receiver is authored separately from named explicit receiver argument. Member stack arguments and native RET0/4/8 deltas are exact; named C cleanup is0.",
+    "Cleanup native entries use actual initial_ebp=FRAME, have no stack arguments and native RET0. Named cleanup takes FRAME explicitly. The runner must compare EBP against the authored initial frame value rather than its default sentinel.",
+    "All cases author initial_fs0=FFFFFFFF and explicitly allow only the low DWORD write range(0,4). The real native563354/compiler SEH prologs execute; the shared runner checks final FS:[0] restoration. Physical registration stack layouts and handler identities are not compared.",
+    "Objects, both old/new buffer objects, two payload extents, parent-frame bytes and both custom vbtable extents have nonuniform sentinels and full physical watched memory. Only a release callback code-pointer word is split out because its per-image VA differs; the runner separately checks that seeded function-pointer slot remains unchanged.",
+    "The constant original vfptr values remain byte-exact. Only code pointers in vtable slots57053C and570598 are fixed to each compiled image's existing FUN_005606c6/FUN_00560f2f canonical bridge VA, or to their original native code VAs. The actual selected deleting destructor bodies execute. These code slots receive their own unchanged-value check.",
+    "Normal scalar endpoint arguments are compared raw. No stack-output normalization is needed; pointer_args is empty for every endpoint.",
+    "Callback effects are explicit byte/word/DWORD mutations inside authored write ranges. The release field+68 is not allowed to mutate so per-image code-pointer integrity remains checked.",
+    "The shared engine checks all saved registers and stack deltas. Volatile registers/flags are not claimed logical outputs; canonical_registers_and_flags is false. Two representative initial flag patterns exercise each predicate path and constructor sentinel preservation."
+  ],
+  "controlled_boundaries": [
+    {
+      "token": "allocate",
+      "native": "0x561a1d",
+      "compiled_symbols": [
+        "FUN_00561a1d"
+      ],
+      "arity": 1,
+      "native_cleanup": 0,
+      "compiled_cleanup": 0,
+      "result_kind": "full32",
+      "values": [
+        0,
+        "BUFFER"
+      ],
+      "selected_body_replaced": false
+    },
+    {
+      "token": "free",
+      "native": "0x561a2b",
+      "compiled_symbols": [
+        "FUN_00561a2b"
+      ],
+      "arity": 1,
+      "native_cleanup": 0,
+      "compiled_cleanup": 0,
+      "result_kind": "void",
+      "selected_body_replaced": false,
+      "effects": "Controlled allocation boundary records exact complete-object/payload free arguments. Selected destructor ownership and callback algorithms execute and determine ordering/counts."
+    },
+    {
+      "token": "release",
+      "native": "0x31000100",
+      "compiled_symbols": [
+        "FUN_00561a1d"
+      ],
+      "arity": 1,
+      "native_cleanup": 0,
+      "compiled_cleanup": 0,
+      "result_kind": "void",
+      "native_receiver": "PAYLOAD",
+      "selected_body_replaced": false,
+      "effects": "Explicit fixture-supplied external callback in filebuf field+68. Callback-only cases never allocate; existing allocator code VA serves solely as a distinct compiled executable boundary. Native ECX and cdecl argument both carry the captured payload pointer."
+    }
+  ],
+  "coverage": [
+    "All32 ledger stream members have fresh direct entry cases, including all ten constructor/helper members and all22 destructor/helper members.",
+    "Simple constructors compare every field and untouched byte, including ios byte+44 versus sentinels45..47, untouched+20/+24, and filebuf untouched+56.",
+    "High constructors use virtual-base flags0,1,80000000; null/non-null input buffers; standard8/12/20 and custom70-byte vbtable displacements. Fstream allocation null/non-null invokes actual combined stream and actual filebuf algorithms.",
+    "Owned existing buffers invoke real selected buffer/filebuf deleting destructors through fixed vtable slots, retaining receiver/RET4 and full return contracts. Iostream initialization with ownership set performs both actual initialization/delete phases when the new buffer is nonnull.",
+    "Mutation during the free boundary changes ios state and current vbtable displacement from70 to90. Subsequent selected volatile field/vbtable reloads and OR/state stores are compared at their actual target addresses.",
+    "Buffer pending covers first unsigned less, unsigned equality/greater, second unsigned greater/equality/less, high-bit boundaries and zero. It has independent direct full-EAX cases and executes inside all selected buffer destruction paths.",
+    "Filebuf destruction covers neither ownership flag, file-owned null, file-only, base-only, both flags simultaneously, direct-free mutation suppressing the later base free, external release, and release mutation changing base ownership/payload before actual base destruction. A native double free request is recorded twice as evidenced, without inventing a guard.",
+    "All seven scalar deleting entrypoints test flags0,1,2,3,80000001. The complete pointer free/result differs from virtual-base argument and from custom vbtable displacement where appropriate.",
+    "All eight original-frame actions execute directly. Conditional constructed flags0/1/2/80000001 cover low-bit behavior;56B7D0 uses an actual inline object atFRAME-84;56E17C uses FRAME-16 buffer;56E222/56E238 use their distinct exact parent slots and recover child argumentSELF+12."
+  ],
+  "required_shared_runner_features": [
+    "initial_ebp: authored initial EBP and corresponding nonvolatile reference for every route",
+    "initial_fs0: controlled low page, explicit FS:[0] writes and final chain restoration check",
+    "function_pointers: per-image canonical code-VA fixture fixups and separate final unchanged-slot check; physical patched slots must not enter ordinary cross-image byte comparison"
+  ],
+  "remaining_domains": [
+    "These are pure inputs and contracts only. They have not been imported, executed, compiled or native/C replayed by their author. Root must integrate into the existing engine, perform joint replay and inspect failures.",
+    "No exception injection is attempted. Phase-specific failures, compiler finally dispatch, native C++ search/unwind, nested cleanup exceptions and second-exception termination remain unproven.",
+    "Final FS:[0] restoration is checked; handler identity, scope-table pointers and intermediate physical registration stack shapes differ by compiler and remain outside this logical normal-return comparison.",
+    "The iostream argument20/null-most-derived arithmetic edge is not included. A meaningful dereferenceable zero-address object conflicts with the shared runner's current FS base0/FS:[0] fixture. The preserved source arithmetic has static evidence; this edge requires separate controlled FS-base/zero-page modeling rather than invented inputs.",
+    "Duplicate ownership stores and internal read/write multiplicity with no external observation are not independently certified by final-memory comparison. Existing pinned instruction evidence remains authoritative for those source-preserved operations.",
+    "Arbitrary indirect vtables/callbacks, alias-heavy or invalid object layouts, nonstandard negative/wrapping displacements and out-of-domain pointers are not exhaustive. Valid custom positive displacements and explicit old/new objects are compared.",
+    "Finite cases do not establish full gameplay or complete function-domain equivalence. No original/restored host game is launched."
+  ],
+  "entries": 32,
+  "recipes": 152,
+  "module_path": "direct_c/cohort3_replay/stream_cases.py",
+  "module_sha256": "59ee530b3c52e1a9543ffb5929000783b5b1daa9266535bb9af64cedddb9cac4"
+}
