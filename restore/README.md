@@ -17,6 +17,13 @@ build successfully. Joint native comparison is in progress; broad regression
 and complete cohort qualification remain pending.
 See the [current cohort and queue](metadata/ACTOR_COHORT_100.md).
 
+Eight further ordinary C source owners are prepared for civic callbacks and
+route-pixel movement, covering 1,218 static native instructions. They pass
+shared strict object compilation and remain outside current main selection
+and its verification count. Integration will select these files directly,
+without copying their bodies or counting them twice. See the
+[prepared civic and movement block](artifacts/actor_civic_followup/README.md).
+
 Four earlier source-first blocks reported 32 functions. The current ledger
 classifies two of those as prior-C reuse/adaptation with zero new rewrite
 credit; their original reports remain historical. See the
