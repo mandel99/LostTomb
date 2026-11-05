@@ -1,70 +1,79 @@
-#include "restore_types.h"
-extern void FUN_0055d290();
-extern void FUN_0055d2e0();
-extern void FUN_0055d300();
-extern undefined2 FUN_0055d750();
-extern uint FUN_0055d840();
+#include "sprite_controller.h"
 
-void FUN_0055d330(ushort param_1,undefined4 param_2,undefined4 param_3)
+#define SC_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define SC_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define SC_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
+static uint16_t sprite_count_compare(uint32_t count,RestoreSpriteCycle *self)
 {
-  ushort uVar1;
-  undefined1 *puVar2;
-  int iVar3;
-  undefined4 uVar4;
-  int in_ECX;
-  int iVar5;
-  undefined4 extraout_ECX;
-  undefined4 extraout_ECX_00;
-  uint uVar6;
-  undefined2 uVar7;
-  undefined2 extraout_var;
-  short sVar8;
-  
-  if (*(int *)(in_ECX + 0x38) != 0) {
-    if ((param_1 != 0) &&
-       (iVar5 = *(int *)(*(int *)(in_ECX + 0x38) + 8), *(ushort *)(iVar5 + 0x1a) <= param_1)) {
-      param_1 = *(short *)(iVar5 + 0x1a) - 1;
+    uint16_t status;
+    __asm { fild count }
+    __asm { mov eax,self }
+    __asm { fcomp dword ptr[eax+48h] }
+    __asm { fnstsw status }
+    return status;
+}
+static void sprite_action_rate(RestoreSpriteCycle *self,uint32_t rate)
+{
+    __asm { fild rate }
+    __asm { mov eax,self }
+    __asm { fstp dword ptr[eax+50h] }
+}
+
+void restore_sprite_cycle_select_action(RestoreSpriteCycle *self,
+    uint32_t requested,uint32_t frame,uint32_t *native_action_slot)
+{
+    uint32_t base=(uint32_t)(uintptr_t)self,source,data,descriptor;
+    uint32_t variant,mode,repeats,count,rate,directions,variants;
+    uint32_t middle,first,width,height,anchor;
+    uint16_t action=(uint16_t)requested,status;
+    source=SC_U(base+0x38u);
+    if(!source)return;
+    if(action){
+        data=SC_U(source+8u);
+        count=SC_W(data+0x1au);
+        if(action>=count)action=(uint16_t)(SC_W(data+0x1au)-1u);
     }
-    *(uint *)(in_ECX + 0x34) = *(uint *)(in_ECX + 0x34) & 0xfffffeff;
-    *(ushort *)(in_ECX + 0x3c) = param_1;
-    iVar5 = 0;
-    if (*(int *)(in_ECX + 0x38) != 0) {
-      iVar5 = *(int *)(*(int *)(in_ECX + 0x38) + 8);
+    SC_U(base+0x34u)=SC_U(base+0x34u)&0xfffffeffu;
+    source=SC_U(base+0x38u);
+    SC_W(base+0x3cu)=action;
+    data=source?SC_U(source+8u):0;
+    descriptor=SC_U(data+0x1cu)+(uint32_t)action*16u;
+    SC_U(base+0x40u)=descriptor;
+    /* Both native paths reach 55D2E0's AND index,0xffff. The reconstructed
+       logical direction API therefore returns the observed WORD index. */
+    variant=restore_sprite_cycle_direction(self);
+    if((uint16_t)frame==1000u)restore_sprite_cycle_select_variant(self,variant);
+    else restore_sprite_cycle_select_frame(self,variant,(int16_t)frame);
+    descriptor=SC_U(base+0x40u);
+    mode=SC_B(descriptor);
+    repeats=SC_B(descriptor+3u);
+    SC_W(base+0x78u)=(uint16_t)(repeats<<((mode&7u)==4u));
+    /* 55D750 is XOR AX,AX;RET. Its retained high16 is dead because the
+       complete set-frame method consumes only a signed low16 frame. */
+    if((uint16_t)frame==0)restore_sprite_cycle_set_frame(self,0);
+    variant=SC_U(base+0x44u);
+    count=SC_W(variant+2u);
+    if(native_action_slot)*(volatile uint32_t *)native_action_slot=count;
+    status=sprite_count_compare(count,self);
+    /* Native TEST AH,41h also selects the correction for unordered input. */
+    if(status&0x4100u)restore_sprite_cycle_set_frame(self,(int32_t)(count-1u));
+    descriptor=SC_U(base+0x40u);
+    rate=SC_B(descriptor+2u);
+    if(native_action_slot)*(volatile uint32_t *)native_action_slot=rate;
+    sprite_action_rate(self,rate);
+    directions=SC_B(descriptor+11u);
+    if(directions>1u){
+        variants=SC_U(descriptor+12u);
+        directions=SC_B(descriptor+11u);
+        middle=SC_U(variants+(directions>>1)*8u+4u);
+        first=SC_U(variants+4u);
+        width=SC_W(first+2u);
+        SC_U(base+0x18u)=width;
+        height=SC_W(middle+2u);
+        SC_U(base+0x1cu)=height;
+        anchor=SC_W(middle+4u);
+        width=SC_U(base+0x18u);
+        SC_U(base+0x20u)=anchor-(uint32_t)((int32_t)width/2);
     }
-    sVar8 = (short)param_3;
-    *(uint *)(in_ECX + 0x40) = (uint)param_1 * 0x10 + *(int *)(iVar5 + 0x1c);
-    if (sVar8 == 1000) {
-      uVar4 = FUN_0055d840();
-      FUN_0055d2e0(uVar4);
-      uVar4 = extraout_ECX_00;
-    }
-    else {
-      uVar4 = FUN_0055d840(param_3);
-      FUN_0055d300(uVar4,param_3);
-      uVar4 = extraout_ECX;
-    }
-    puVar2 = *(undefined1 **)(in_ECX + 0x40);
-    uVar6 = CONCAT31((int3)((uint)uVar4 >> 8),*puVar2) & 0xffffff07;
-    uVar7 = (undefined2)(uVar6 >> 0x10);
-    *(ushort *)(in_ECX + 0x78) = (ushort)(byte)puVar2[3] << ((char)uVar6 == '\x04');
-    if (sVar8 == 0) {
-      uVar4 = FUN_0055d750(puVar2,*(undefined4 *)(in_ECX + 0x44));
-      FUN_0055d290(uVar4);
-      uVar7 = extraout_var;
-    }
-    uVar1 = *(ushort *)(*(int *)(in_ECX + 0x44) + 2);
-    if ((float)uVar1 <= *(float *)(in_ECX + 0x48)) {
-      FUN_0055d290(CONCAT22(uVar7,uVar1) + -1);
-    }
-    iVar5 = *(int *)(in_ECX + 0x40);
-    *(float *)(in_ECX + 0x50) = (float)*(byte *)(iVar5 + 2);
-    if (1 < *(byte *)(iVar5 + 0xb)) {
-      iVar3 = *(int *)(*(int *)(iVar5 + 0xc) + 4 + (uint)(*(byte *)(iVar5 + 0xb) >> 1) * 8);
-      *(uint *)(in_ECX + 0x18) = (uint)*(ushort *)(*(int *)(*(int *)(iVar5 + 0xc) + 4) + 2);
-      *(uint *)(in_ECX + 0x1c) = (uint)*(ushort *)(iVar3 + 2);
-      *(uint *)(in_ECX + 0x20) = (uint)*(ushort *)(iVar3 + 4) - *(int *)(in_ECX + 0x18) / 2;
-    }
-  }
-  return;
 }

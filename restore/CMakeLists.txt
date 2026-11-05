@@ -447,6 +447,11 @@ set_source_files_properties(src/unit_02016.c src/unit_02017.c src/unit_02403.c P
 set_source_files_properties(src/unit_02966.c src/unit_02967.c src/unit_02968.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Complete4728A0 ordinary C replaces its retired production register model.
 set_source_files_properties(src/unit_01022.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# CRT floating initialization and exit-list owners retain their original filenames.
+set_source_files_properties(src/unit_02796.c src/unit_02798.c src/unit_02799.c src/unit_02871.c src/unit_02872.c src/unit_02962.c src/unit_02963.c src/unit_02870.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Sprite controller source owners share canonical receiver/RET bridges.
+target_sources(pharaoh_restored PRIVATE runtime/sprite_controller_entries.c)
+set_source_files_properties(src/unit_02663.c src/unit_02664.c src/unit_02670.c src/unit_02675.c src/unit_02676.c runtime/sprite_controller_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

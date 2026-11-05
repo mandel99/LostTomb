@@ -1,5 +1,5 @@
-#include "restore_types.h"
-extern void FUN_005687f4();
+#include "crt_runtime_init.h"
+
 
 void FUN_005640ec(void)
 

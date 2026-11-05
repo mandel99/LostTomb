@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects20 original C owners /10,631 native
+The current connected batch selects32 original C owners /10,964 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -73,3 +73,11 @@ The original4728A0 owner is now ordinary C for all2160 native instructions and10
 56896E now returns the actual last add-with-carry result and5689C4 consumes it before retaining its native mask and clearing later words. The correct569E0C add algorithm is unchanged.568925 keeps its zero-tail algorithm with one unsigned-mask correction. Signed division, shift masking and wrapped addresses are explicit.
 
 The connected source batch now contains20 entries /10,631 native instructions. Shared strict compilation and both Release links pass. Joint native/C comparison, including all compiled-only definitions, remains pending at the approximately100-entry milestone. The placeholder inventory now separates15 existing ordinary C owners from10 active legacy units still needing result/ABI reconstruction. Neither host game was launched.
+
+## Sprite controller, floating runtime and exit callbacks
+
+Five original sprite-controller owners now use named C and minimal receiver/RET bridges. Actual source/descriptor/callback phases, five modes, flag reloads and argument-slot writes are retained. The55D840 logical result is WORD: both recorded direct uses reach AND EDX,0xffff. Cached references contain no data/vtable use; targetless indirect coverage remains unproved. No phase-incorrect early snapshot of private stack padding is used. Existing timing/direction algorithms remain unchanged.
+
+Seven CRT owners now preserve actual initialization/query/callback results. The old constant-zero fallback was an incorrect decomp of a hardware x87 probe. The new C-owned x87 primitives retain the native binary64 spills and extended operations, waiting FSTCW, encoded argument-slot write/FLDCW, and nonwaiting FNCLEX. Existing conversion maps, function-table initialization and allocator algorithms are reused. Exit-list pointers are DWORDs and advance four bytes with native capacity/reallocation/read phases.
+
+Shared strict compilation and both Release links pass. Detailed joint comparison at the approximately100-entry milestone remains pending, including exception behavior, unknown indirect edges and all compiled-only definitions. Neither host game was launched.

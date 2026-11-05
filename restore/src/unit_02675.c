@@ -1,17 +1,12 @@
-#include "restore_types.h"
-extern void FUN_0055d460();
-extern void FUN_0055d4f0();
+#include "sprite_controller.h"
 
-undefined4 FUN_0055d810(void)
-
+uint32_t restore_sprite_cycle_next_action(RestoreSpriteCycle *self)
 {
-  int iVar1;
-  int in_ECX;
-  
-  iVar1 = (FUN_0055d4f0(), restore_unresolved_return(0x0055d4f0u));
-  if (iVar1 != 0) {
-    FUN_0055d460(*(undefined1 *)(*(int *)(in_ECX + 0x40) + 4));
+    uint32_t descriptor,next;
+    if(!restore_sprite_cycle_tick(self))return 0;
+    /* The descriptor is reloaded after the timing/cycle call completes. */
+    descriptor=*(volatile uint32_t *)(uintptr_t)((uint32_t)(uintptr_t)self+0x40u);
+    next=*(volatile uint8_t *)(uintptr_t)(descriptor+4u);
+    restore_sprite_cycle_set_action(self,next);
     return 1;
-  }
-  return 0;
 }

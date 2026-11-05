@@ -1,9 +1,6 @@
-#include "restore_types.h"
-extern void FUN_0055d330();
+#include "sprite_controller.h"
 
-void FUN_0055d460(undefined4 param_1)
-
+void restore_sprite_cycle_set_action(RestoreSpriteCycle *self,uint32_t action)
 {
-  FUN_0055d330(param_1,0,0);
-  return;
+    restore_sprite_cycle_select_action(self,action,0,NULL);
 }

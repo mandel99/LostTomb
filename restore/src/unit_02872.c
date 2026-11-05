@@ -1,20 +1,22 @@
-#include "restore_types.h"
-extern undefined4 FUN_005640fe();
+#include "crt_runtime_init.h"
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+typedef BOOL(WINAPI *RestoreProcessorFeatureQuery)(DWORD);
 
-void FUN_0056413c(void)
-
+uint32_t restore_crt_query_fdiv_erratum(void)
 {
-  HMODULE hModule;
-  FARPROC pFVar1;
-  
-  hModule = GetModuleHandleA("KERNEL32");
-  if (hModule != (HMODULE)0x0) {
-    pFVar1 = GetProcAddress(hModule,"IsProcessorFeaturePresent");
-    if (pFVar1 != (FARPROC)0x0) {
-      (*pFVar1)(0);
-      return;
-    }
+ HMODULE module=GetModuleHandleA((LPCSTR)(uintptr_t)0x5706dcu);
+ FARPROC query;
+ if(module){
+  query=GetProcAddress(module,(LPCSTR)(uintptr_t)0x5706c0u);
+  if(query){
+   /* The pinned symbol is IsProcessorFeaturePresent(DWORD), WINAPI. */
+   #pragma warning(suppress:4191)
+   return(uint32_t)((RestoreProcessorFeatureQuery)query)(0u);
   }
-  FUN_005640fe();
-  return;
+ }
+ return restore_crt_probe_fdiv_erratum();
 }
+uint32_t FUN_0056413c(void){return restore_crt_query_fdiv_erratum();}

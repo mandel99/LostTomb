@@ -1,9 +1,8 @@
-#include "restore_types.h"
-extern uint FUN_005687bf();
-
-void FUN_005687f4(undefined4 param_1,uint param_2)
-
+#include "crt_runtime_init.h"
+uint32_t restore_crt_controlfp(uint32_t value,uint32_t mask)
 {
-  FUN_005687bf(param_1,param_2 & 0xfff7ffff);
-  return;
+ uint32_t native_mask=mask&0xfff7ffffu;
+ return restore_crt_control87(value,native_mask,&native_mask);
 }
+uint32_t FUN_005687f4(uint32_t value,uint32_t mask)
+{return restore_crt_controlfp(value,mask);}

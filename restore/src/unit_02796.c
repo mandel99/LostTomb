@@ -1,14 +1,12 @@
-#include "restore_types.h"
-#define _DAT_012663c4 (*(undefined4 *)0x012663c4u)
-extern void FUN_005618ae();
-extern void FUN_005640ec();
-extern void FUN_0056413c();
+#include "crt_runtime_init.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_00561896(void)
-
+void restore_crt_initialize_floating_runtime(void)
 {
-  FUN_005618ae();
-  _DAT_012663c4 = (FUN_0056413c(), restore_unresolved_return(0x0056413cu));
-  FUN_005640ec();
-  return;
+ FUN_005618ae();
+ U(0x12663c4u)=restore_crt_query_fdiv_erratum();
+ FUN_005640ec();
+ /* Native FNCLEX is nonwaiting and affects x87, not SSE state. */
+ __asm fnclex
 }
+void FUN_00561896(void){restore_crt_initialize_floating_runtime();}
