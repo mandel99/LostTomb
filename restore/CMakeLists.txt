@@ -163,7 +163,7 @@ unset(_score_unit)
  00043 00983 00984 01002 01201 02153 02158
  01949 01951 01953 01954 01955 01956 01958 01959 01961 01962
  00316 00322 00323 00338 00345 00352 00359 00366 01982 01900 02155
- 01020 00046 01022 02247 02367 02440 02450 01848
+ 01020 00046  02247 02367 02440 02450 01848
  00127 00640 01713 01714 01715 01716 01718 01719 01720 01721 01722 01723 01727 02414 02415 02416 02417 00233
  02435 00092 01717 01856 02447 02633 02634 02635 02636 01832
  00312 00313 01985 00324 00325 00340 00354 00361 00368 00347
@@ -272,7 +272,7 @@ target_sources(restore_menu_selection PRIVATE
  runtime/building_image.c runtime/building_image_model.c
  runtime/building_create.c runtime/building_create_model.c runtime/building_methods.c runtime/monument_create.c runtime/monument_entrance.c runtime/monument_map.c runtime/monument_images.c runtime/sun_temple.c runtime/monument_complex_create.c runtime/monument_complex_positions.c runtime/monument_complex_images.c
  runtime/building_refresh_helpers.c runtime/building_refresh_model.c runtime/placement_palette.c
- runtime/map_commit_controller_model.c runtime/map_commit_complete.c
+  runtime/map_commit_complete.c
  runtime/menu_render_list_queries.c runtime/menu_building_overlay.c runtime/menu_building_overlay_model.c
  runtime/menu_resource_render.c runtime/menu_resource_render_model.c runtime/input_monument_summary.c
  runtime/validation_dialog.c runtime/menu_training_render.c runtime/menu_training_render_model.c
@@ -443,6 +443,10 @@ set_source_files_properties(src/unit_01363.c runtime/actor_cadence_closure.c run
 # Random building patrol and complete chief storage menu use original C owners.
 target_sources(pharaoh_restored PRIVATE src/unit_02016.c src/unit_02017.c)
 set_source_files_properties(src/unit_02016.c src/unit_02017.c src/unit_02403.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Existing CRT significand owners: explicit carry and unsigned native masks.
+set_source_files_properties(src/unit_02966.c src/unit_02967.c src/unit_02968.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Complete4728A0 ordinary C replaces its retired production register model.
+set_source_files_properties(src/unit_01022.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

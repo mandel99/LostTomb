@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects17 original C owners /8,357 native
+The current connected batch selects20 original C owners /10,631 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -65,3 +65,11 @@ The connected source batch now contains14 entries /7,226 native instructions. Bo
 4E7AC0 and4E7C90 now use explicit DWORD state, signed WORD fields and full EAX results, while consuming only AL as eligibility. The correct4B1DF0 patrol provider is reused unchanged. Both scans preserve cached/live phases around the history ring and31-step random generator. No child algorithm was copied.
 
 The batch now contains17 entries /8,357 native instructions. Shared strict compilation and both Release links pass; joint native/C comparison remains pending. The ownership audit records15 existing ordinary C owners covering16 stale source placeholders, so these must be reused. The remaining29 source placeholders are not29 missing functions. Neither host game was launched.
+
+## Full map commit and CRT96 carry
+
+The original4728A0 owner is now ordinary C for all2160 native instructions and100 existing child targets. Production uses the direct canonical facade. Its former register-model dispatcher and the forced-zero470900 housing exception are retired; the original protected-region test is restored. The model source remains unchanged as inactive evidence;405E90 is unchanged. Native city flag WORDs, player DWORD,264-byte building records and40/20-byte table strides replace bad generated pointer units.
+
+56896E now returns the actual last add-with-carry result and5689C4 consumes it before retaining its native mask and clearing later words. The correct569E0C add algorithm is unchanged.568925 keeps its zero-tail algorithm with one unsigned-mask correction. Signed division, shift masking and wrapped addresses are explicit.
+
+The connected source batch now contains20 entries /10,631 native instructions. Shared strict compilation and both Release links pass. Joint native/C comparison, including all compiled-only definitions, remains pending at the approximately100-entry milestone. The placeholder inventory now separates15 existing ordinary C owners from10 active legacy units still needing result/ABI reconstruction. Neither host game was launched.

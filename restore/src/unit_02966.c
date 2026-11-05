@@ -6,7 +6,7 @@ undefined4 FUN_00568925(int param_1,int param_2)
   int *piVar1;
   int iVar2;
   
-  if ((*(uint *)(param_1 + (param_2 / 0x20) * 4) & ~(-1 << (0x1fU - (char)(param_2 % 0x20) & 0x1f)))
+  if ((*(uint *)(param_1 + (param_2 / 0x20) * 4) & ~(0xffffffffu << (0x1fU - (char)(param_2 % 0x20) & 0x1f)))
       != 0) {
     return 0;
   }
