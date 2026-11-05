@@ -1,3 +1,4 @@
+#include "chief_storage_menu.h"
 #include "city_monument_completion.h"
 #include "menu_building_overlay.h"
 #include "chief_advisor_render.h"
@@ -397,7 +398,7 @@ void restore_menu_overlay_dispatch(uint32_t site,uint32_t target,struct restore_
  case 0x005292b0u:FUN_005292b0();break;
  case 0x00529320u:FUN_00529320();break;
  case 0x00529530u:FUN_00529530();break;
- case 0x0052b6d0u:restore_menu_overlay_C_0052b6d0(f);return;
+ case 0x0052b6d0u:restore_chief_storage_menu_draw();f->r[0]=3u;f->r[4]+=4u;return;
  case 0x0052d4d0u:FUN_0052d4d0();break;
  case 0x0052d4e0u:FUN_0052d4e0();break;
  case 0x0052d940u:FUN_0052d940();break;
@@ -897,7 +898,6 @@ const char *restore_menu_overlay_text_callback(uint32_t address)
 {return (const char *)(uintptr_t)invoke(address,0,0);}
 char *FUN_00447840(void){return (char *)(uintptr_t)invoke(0x447840u,0,0);}
 void FUN_0046f200(void){restore_city_publish_completed_monument();}
-void FUN_0052b6d0(void){(void)invoke(0x52b6d0u,0,0);}
 uint32_t FUN_00446610(void){return invoke(0x446610u,0,0);}
 void FUN_004d6200(uint32_t group,uint32_t text,const int16_t *point,uint32_t font,uint32_t color,int32_t dx,int32_t dy,int32_t origin_x,int32_t origin_y)
 {const uint32_t a[]={group,text,(uint32_t)(uintptr_t)point,font,color,(uint32_t)dx,(uint32_t)dy,(uint32_t)origin_x,(uint32_t)origin_y};(void)invoke(0x4d6200u,a,9);}

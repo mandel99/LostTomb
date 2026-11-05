@@ -1,24 +1,19 @@
-#include "restore_types.h"
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999fe (*(undefined4 *)0x007999feu)
-#define DAT_00799a00 (*(undefined4 *)0x00799a00u)
-extern undefined4 FUN_0047fe60();
+#include "random_building_patrol.h"
+#include "actor_callbacks_human.h"
+#define W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define H(a) ((int32_t)(int16_t)W(a))
 
-undefined4 FUN_004e7c90(int param_1)
-
+/* 4E7C90: AL is Boolean; rejected kinds retain the building offset above
+   AL. An accepted kind instead retains the cell query's full upper EAX. */
+uint32_t restore_building_patrol_eligibility_result(int32_t building)
 {
-  short sVar1;
-  int iVar2;
-  
-  sVar1 = (&DAT_007999e8)[param_1 * 0x84];
-  if ((((((0x3b < sVar1) && (sVar1 < 0x41)) || (sVar1 == 0x2f)) ||
-       ((sVar1 == 0xb7 || (sVar1 == 0xde)))) ||
-      ((sVar1 == 0xe5 || ((sVar1 == 0xea || (sVar1 == 0xeb)))))) || (sVar1 == 0xec)) {
-    iVar2 = FUN_0047fe60((int)(short)(&DAT_007999fe)[param_1 * 0x84],
-                         (int)(short)(&DAT_00799a00)[param_1 * 0x84],1,6);
-    if (iVar2 != 0) {
-      return 1;
-    }
-  }
-  return 0;
+ uint32_t offset=(uint32_t)building*264u,eax=offset;
+ int32_t kind=H(0x7999e8u+offset),x,y;
+ if((kind>=0x3c&&kind<=0x40)||kind==0x2f||kind==0xb7||kind==0xde||
+    kind==0xe5||kind==0xea||kind==0xeb||kind==0xec){
+  y=H(0x799a00u+offset);x=H(0x7999feu+offset);
+  eax=FUN_0047fe60(x,y,1,6);
+  if(eax)return(eax&0xffffff00u)|1u;
+ }
+ return eax&0xffffff00u;
 }

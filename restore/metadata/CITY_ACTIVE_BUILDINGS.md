@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects14 original C owners /7,226 native
+The current connected batch selects17 original C owners /8,357 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -57,3 +57,11 @@ The original46F200 owner now publishes completion messages using14 native type c
 4A3B00 now forwards actual incoming EAX through its retained physical child closure. The canonical entry captures it explicitly; the dedicated RAW parent path forwards the actual entry register frame. Its named C and canonical shim are compiled-only in both main links. A COFF check qualifies shim EAX/arguments/RET0; full behavior and volatile-register/flag comparison remain pending, including a linked exercise of those compiled-only definitions. See the cadence closure contracts in the JSON ledger. Global routing dispatch stays unchanged.
 
 The connected source batch now contains14 entries /7,226 native instructions. Both shared Release links and strict compilation pass. Joint native/C comparison remains pending at the approximately100-entry milestone; neither host game was launched.
+
+## Full storage menu and random building patrol
+
+52B6D0 now executes its complete ordinary C owner, covering the36-slot resource scan and three selected descriptors. All12 native ROM maps and the full951-instruction span are bound to the pinned original; the provider1052-byte partial body was not treated as complete. Only its production dispatcher case changed; it publishes the native EAX3/RET0 contract for its qualified caller.
+
+4E7AC0 and4E7C90 now use explicit DWORD state, signed WORD fields and full EAX results, while consuming only AL as eligibility. The correct4B1DF0 patrol provider is reused unchanged. Both scans preserve cached/live phases around the history ring and31-step random generator. No child algorithm was copied.
+
+The batch now contains17 entries /8,357 native instructions. Shared strict compilation and both Release links pass; joint native/C comparison remains pending. The ownership audit records15 existing ordinary C owners covering16 stale source placeholders, so these must be reused. The remaining29 source placeholders are not29 missing functions. Neither host game was launched.

@@ -1,3 +1,4 @@
+#include "random_building_patrol.h"
 #include "menu_event_actions.h"
 #include "menu_resource_render.h"
 #include "editor_event_list_actions.h"
@@ -290,15 +291,9 @@ void restore_event_schedule_0044c490(RestoreTownRecord *self,int32_t template_id
 /* Use the same complete 142/38-instruction bodies as the event graph.
    4E7C90 defines AL only; retain its native upper EAX bits at this facade. */
 int32_t FUN_004e7ac0(int32_t duration)
-{
-    uint32_t word=(uint32_t)duration;
-    return (int32_t)invoke_words(0x4e7ac0u,0,&word,1,0);
-}
+{return (int32_t)restore_spawn_patrol_at_random_building(duration);}
 uint32_t FUN_004e7c90(int32_t building)
-{
-    uint32_t word=(uint32_t)building;
-    return invoke_words(0x4e7c90u,0,&word,1,0);
-}
+{return restore_building_patrol_eligibility_result(building);}
 
 int restore_menu_event_action(uint32_t token)
 {
