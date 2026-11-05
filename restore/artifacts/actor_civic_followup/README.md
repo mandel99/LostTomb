@@ -1,7 +1,7 @@
 # Civic, delivery and walking C owners
 
-These 77 native entries map to 75 named C functions in the main build. Eight owners
-were created before611f3cc; 38 were created since it and 31 prior-C
+These 88 native entries map to 86 named C functions in the main build. Eight owners
+were created before611f3cc; 38 were created since it and 42 prior-C
 owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
@@ -21,6 +21,13 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 420910 | FUN_00420910 | 48 |
 | 420F50 | FUN_00420f50 | 42 |
 | 421230 | FUN_00421230 | 42 |
+| 4677C0 | restore_city_rebuild_building_counts | 558 |
+| 468170 | restore_city_rebuild_service_coverage | 240 |
+| 4684E0 | restore_city_rebuild_building_requirements | 25 |
+| 468860 | restore_city_rebuild_road_regions | 104 |
+| 4689E0 | restore_city_color_road_region | 88 |
+| 468B20 | restore_city_mark_linked_fire | 22 |
+| 468B70 | restore_city_update_building_hazards | 392 |
 | 4690F0 | restore_actor_increment_tile_heat | 26 |
 | 469140 | restore_city_apply_disaster_at_cell | 267 |
 | 4696B0 | restore_building_disaster_spread_result | 15 |
@@ -28,6 +35,8 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
 | 469B90 | restore_city_update_migration_requests | 63 |
 | 469F80 | restore_city_remove_first_building_kind | 76 |
+| 46A060 | restore_city_clear_periodic_counters | 6 |
+| 47E290 | restore_city_decay_overlay_counters | 60 |
 | 47E340 | restore_actor_prune_service_road_exits | 182 |
 | 48A720 | restore_actor_update_vagrant | 491 |
 | 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
@@ -44,6 +53,7 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 48E5E0 | restore_fireman_try_assign_fire | 112 |
 | 491420 | restore_actor_update_trade_caravan | 425 |
 | 496640 | restore_transport_assert_no_predecessor | 8 |
+| 497B90 | restore_actor_refresh_sentries_on_marked_tiles | 98 |
 | 4A34F0 | restore_actor_find_linked_kind85 | 25 |
 | 4B1DF0 | restore_actor_prepare_service_patrol | 73 |
 | 4B1EF0 | restore_actor_advance_service_patrol | 203 |
@@ -53,6 +63,7 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 4B4180 | restore_actor_update_route_error | 35 |
 | 4B43A0 | restore_actor_step_route_pixel_y | 16 |
 | 4B43E0 | restore_actor_step_route_pixel_x | 16 |
+| 4B7510 | restore_actor_mark_sentries_near_cell | 49 |
 | 4BC140 | restore_actor_approach_destination_result | 71 |
 | 4BC1E0 | restore_actor_approach_fallback_chain_result | 99 |
 | 4BC2E0 | restore_actor_find_approach_building_state2 | 71 |
@@ -84,7 +95,7 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 10,669 static native instructions, not execution coverage.
+The total is 12,311 static native instructions, not execution coverage.
 Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
@@ -128,7 +139,7 @@ The virtual worker queries preserve incoming EAX high24 and define AL.
 547C10 loads EAX from the receiver vtable before its virtual call. Its full
 C result therefore forwards that cached value through the query adapter;
 a zeroed generic frame loses observable high bits. One before/after offline
-return-value witness now agrees with both main images. Other query targets
+return-value witness agrees with both images at6cc75a8. Other query targets
 keep RAW with explicit incoming EAX; no complete runtime domain is claimed.
 
 The route/transport block repairs11 original C units,with zero creation
@@ -145,3 +156,16 @@ raw80 truncation; no binary64 intermediate is introduced.496640 reads its
 link once, returns the input actor only for zero,and keeps the original
 constant loop otherwise. These source changes have shared strict build/link
 validation; current-cohort native comparison remains pending.
+
+The city census/maintenance block reuses11 original C owners, with zero new
+algorithm credit. Width/stride and callback-phase repairs cover counts,
+service coverage, requirements, road regions, fire chains, hazards and sentry
+refresh. Coverage retains FILD32/FIDIV32 under inherited x87 control and raw80
+truncation. Road fill retains cached shade until final publication and the
+1000-DWORD scratch ring; linked fire rereads its signed link after the child.
+Packed overlay decay keeps the native XOR0000FFFF quirk. Physical RAW models
+and routing remain unchanged; detailed native comparison is pending.
+
+Eight already-correct path variants remain unchanged and earn no additional
+entry/rewrite credit. The narrow EAX witness is historical at6cc75a8; its old
+image hashes are not rebound to this build.

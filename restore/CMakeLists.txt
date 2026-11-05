@@ -422,6 +422,9 @@ set_property(SOURCE src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_
 target_sources(pharaoh_restored PRIVATE runtime/city_reconstruction_bridges.c src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00947.c)
 set_source_files_properties(runtime/city_reconstruction_bridges.c src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00944.c src/unit_00946.c src/unit_00947.c src/unit_00953.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_property(SOURCE src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00944.c src/unit_00946.c src/unit_00947.c src/unit_00953.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
+# City census, road regions, hazards and sentry refresh: original owners only.
+target_sources(pharaoh_restored PRIVATE src/unit_00954.c src/unit_00933.c src/unit_00934.c src/unit_00935.c src/unit_00939.c src/unit_00942.c src/unit_01147.c)
+set_source_files_properties(src/unit_01345.c src/unit_01475.c src/unit_00954.c src/unit_00933.c src/unit_00934.c src/unit_00935.c src/unit_00939.c src/unit_00942.c src/unit_01147.c src/unit_00940.c src/unit_00941.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

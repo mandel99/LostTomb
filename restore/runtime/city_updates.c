@@ -1,3 +1,5 @@
+#include "city_capacity.h"
+#include "city_maintenance.h"
 #include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "access_repair_flood.h"
 #include "building_access.h"
@@ -343,7 +345,7 @@ void FUN_00462180(void){(void)invoke(0x462180u,0,0);}
 int32_t FUN_00456fc0(int32_t building,uint8_t goods,int32_t selected[4],uint8_t *routes_ready)
 {const uint32_t a[]={(uint32_t)building,goods,(uint32_t)(uintptr_t)selected,(uint32_t)(uintptr_t)routes_ready};return (int32_t)invoke(0x456fc0u,a,4);}
 void FUN_00468860(void)
-{(void)invoke(0x00468860u,0,0);}
+{restore_city_rebuild_road_regions();}
 /* Canonical population entries reuse the existing complete city models.
    Keep the full EAX counts; the old void declarations lost these results. */
 int32_t FUN_00458e20(int32_t player,int32_t requested)
@@ -424,17 +426,15 @@ void FUN_004550e0(void)
 void FUN_00469b90(void)
 {restore_city_update_migration_requests();}
 void FUN_0047e290(void)
-{(void)invoke(0x0047e290u,0,0);}
-void FUN_0046a060(void)
-{(void)invoke(0x0046a060u,0,0);}
+{restore_city_decay_overlay_counters();}
 void FUN_00468b70(void)
-{(void)invoke(0x00468b70u,0,0);}
+{restore_city_update_building_hazards();}
 uint32_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty)
 {return restore_access_clear_first_blocker(x,y,tx,ty);}
 
-void FUN_004677c0(void){(void)invoke(0x004677c0u,0,0);}
-void FUN_00468170(void){(void)invoke(0x00468170u,0,0);}
-void FUN_004684e0(void){(void)invoke(0x004684e0u,0,0);}
+void FUN_004677c0(void){restore_city_rebuild_building_counts();}
+void FUN_00468170(void){restore_city_rebuild_service_coverage();}
+void FUN_004684e0(void){restore_city_rebuild_building_requirements();}
 uint32_t FUN_004c06e0(uint32_t category,int32_t tier)
 {
     const uint32_t args[]={category,(uint32_t)tier};

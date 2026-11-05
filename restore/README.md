@@ -1,8 +1,8 @@
 # Pharaoh restore
 
-The current source-first cohort selects 77 connected C entrypoints /10,669
+The current source-first cohort selects 88 connected C entrypoints /12,311
 static native instructions. Eight previously published bodies are selected
-unchanged; 38 algorithms were created since611f3cc. 31 prior-C owners
+unchanged; 38 algorithms were created since611f3cc. 42 prior-C owners
 were reused, including narrow type/access repairs with zero algorithm credit. Shared strict compilation and both Release main
 links pass. Detailed native comparison follows at approximately100 functions.
 See [the current cohort](metadata/ACTOR_COHORT_2.md).

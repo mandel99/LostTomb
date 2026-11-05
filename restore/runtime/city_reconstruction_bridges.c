@@ -1,3 +1,4 @@
+#include "actor_city_refresh.h"
 #include "invasion_commands.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -23,12 +24,7 @@ uint32_t restore_actor_tile_heat_overflow_raw(int32_t x,int32_t y,int32_t tile)
 }
 
 void restore_city_disaster_actors_004b7510(int32_t x,int32_t y)
-{
-    const uint32_t arguments[]={(uint32_t)x,(uint32_t)y};
-    (void)city_raw_call(0x4b7510u,arguments,2);
-}
+{restore_actor_mark_sentries_near_cell(x,y);}
 
 void restore_city_disaster_refresh_00497b90(void)
-{
-    (void)city_raw_call(0x497b90u,0,0);
-}
+{restore_actor_refresh_sentries_on_marked_tiles();}

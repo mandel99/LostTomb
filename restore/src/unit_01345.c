@@ -1,75 +1,74 @@
-#include "restore_types.h"
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd624 (*(undefined4 *)0x00bcd624u)
-#define DAT_00bcd626 (*(undefined4 *)0x00bcd626u)
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00bcd7d6 (*(undefined4 *)0x00bcd7d6u)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-#define DAT_00ebab20 (*(undefined4 *)0x00ebab20u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
-extern undefined4 FUN_00480060();
-extern void FUN_004b3250();
-extern void FUN_004b52f0();
-extern void FUN_004b5420();
+#include "actor_city_refresh.h"
+#include "actor_walking.h"
+#define REFRESH_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define REFRESH_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define REFRESH_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define REFRESH_H(a) ((int32_t)(int16_t)REFRESH_W(a))
+
+/* Complete existing native480060 radius loop in src/unit_01171.c; its
+   child uses restore_map_find_unmarked_tile. Full EAX is always0 or1. */
+extern uint32_t FUN_00480060(uint32_t x,uint32_t y,uint32_t size,int32_t max_radius);
+
+/* Whole497B90,98 instructions. Preserve the existing scan and both repair
+   branches in their original source owner. Repairs: BYTE map/kind/action,
+   388-byte actors, signed WORD building IDs, 264-byte buildings, DWORD map
+   offset/current actor, and the native loads on both sides of callbacks. */
+void restore_actor_refresh_sentries_on_marked_tiles(void)
+{
+    uint32_t cursor=0xbcd7d6u,index=1u,building,coord_x,coord_y,base,record;
+    uint16_t x,y;
+
+    do {
+        if(REFRESH_B(cursor-0x50u)==42u &&
+           REFRESH_B(0xebab20u+REFRESH_U(cursor-0x3au))!=0u){
+            coord_y=(uint32_t)REFRESH_H(cursor-0x44u);
+            coord_x=(uint32_t)REFRESH_H(cursor-0x46u);
+            if(FUN_00480060(coord_x,coord_y,1u,2)==0u){
+                REFRESH_B(cursor-0x22u)=8u;
+                FUN_004b5420((int32_t)index);
+                building=(uint32_t)REFRESH_H(cursor)*264u;
+                x=REFRESH_W(0x7999deu+building);
+                y=REFRESH_W(0x7999e0u+building);
+                REFRESH_W(cursor-0x46u)=x;
+                REFRESH_W(cursor-0x2eu)=x;
+                REFRESH_W(cursor-0x44u)=y;
+                REFRESH_W(cursor-0x2cu)=y;
+                coord_y=(uint32_t)REFRESH_H(cursor-0x44u);
+                base=REFRESH_U(0xbca2d8u);
+                coord_x=(uint32_t)REFRESH_H(cursor-0x46u);
+                REFRESH_U(cursor-0x3au)=base+coord_x+coord_y*228u;
+                FUN_004b52f0((int32_t)index);
+                REFRESH_B(cursor-0x22u)=8u;
+                FUN_004b3250((int32_t)index);
+            }else{
+                FUN_004b3250((int32_t)REFRESH_U(0xd056f8u));
+                REFRESH_B(cursor-0x21u)=0u;
+                FUN_004b5420((int32_t)index);
+                coord_x=REFRESH_U(0xd3b4e4u);
+                coord_y=REFRESH_U(0xd3b4e0u);
+                REFRESH_W(cursor-0x46u)=(uint16_t)coord_x;
+                REFRESH_W(cursor-0x42u)=(uint16_t)coord_x;
+                REFRESH_W(cursor-0x44u)=(uint16_t)coord_y;
+                REFRESH_W(cursor-0x40u)=(uint16_t)coord_y;
+                REFRESH_W(cursor-0x10u)=(uint16_t)(coord_x*15u);
+                REFRESH_W(cursor-0x0eu)=(uint16_t)(coord_y*15u);
+                base=REFRESH_U(0xbca2d8u);
+                REFRESH_U(cursor-0x3au)=base+coord_x+coord_y*228u;
+                FUN_004b52f0((int32_t)index);
+                record=REFRESH_U(0xd056f8u)*388u;
+                REFRESH_B(0xbcd630u+record)=11u;
+                x=REFRESH_W(0xbcd624u+record);
+                REFRESH_W(0xbcd61cu+record)=x;
+                y=REFRESH_W(0xbcd626u+record);
+                REFRESH_W(0xbcd61eu+record)=y;
+            }
+        }
+        cursor+=388u;
+        ++index;
+    }while((int32_t)cursor<(int32_t)0xc8ad92u);
+}
 
 void FUN_00497b90(void)
-
 {
-  int iVar1;
-  short sVar2;
-  int iVar3;
-  short sVar4;
-  short *psVar5;
-  int iVar6;
-  
-  iVar6 = 1;
-  psVar5 = &DAT_00bcd7d6;
-  do {
-    if (((char)psVar5[-0x28] == '*') && ((&DAT_00ebab20)[*(int *)(psVar5 + -0x1d)] != '\0')) {
-      iVar3 = FUN_00480060((int)psVar5[-0x23],(int)psVar5[-0x22],1,2);
-      if (iVar3 == 0) {
-        *(undefined1 *)(psVar5 + -0x11) = 8;
-        FUN_004b5420(iVar6);
-        sVar2 = *(short *)((int)&DAT_007999dc + *psVar5 * 0x108 + 2);
-        sVar4 = *(short *)(&DAT_007999e0 + *psVar5 * 0x108);
-        psVar5[-0x23] = sVar2;
-        psVar5[-0x17] = sVar2;
-        psVar5[-0x22] = sVar4;
-        psVar5[-0x16] = sVar4;
-        *(int *)(psVar5 + -0x1d) = DAT_00bca2d8 + psVar5[-0x23] + psVar5[-0x22] * 0xe4;
-        FUN_004b52f0(iVar6);
-        *(undefined1 *)(psVar5 + -0x11) = 8;
-        FUN_004b3250(iVar6);
-      }
-      else {
-        FUN_004b3250(DAT_00d056f8);
-        *(undefined1 *)((int)psVar5 + -0x21) = 0;
-        FUN_004b5420(iVar6);
-        iVar1 = _DAT_00d3b4e4;
-        iVar3 = _DAT_00d3b4e0;
-        sVar4 = (short)_DAT_00d3b4e4;
-        psVar5[-0x23] = sVar4;
-        psVar5[-0x21] = sVar4;
-        sVar2 = (short)iVar3;
-        psVar5[-0x22] = sVar2;
-        psVar5[-0x20] = sVar2;
-        psVar5[-8] = sVar4 * 0xf;
-        psVar5[-7] = sVar2 * 0xf;
-        *(int *)(psVar5 + -0x1d) = iVar1 + iVar3 * 0xe4 + DAT_00bca2d8;
-        FUN_004b52f0(iVar6);
-        iVar3 = DAT_00d056f8 * 0x184;
-        (&DAT_00bcd630)[iVar3] = 0xb;
-        *(undefined2 *)(&DAT_00bcd61c + iVar3) = *(undefined2 *)(&DAT_00bcd624 + iVar3);
-        *(undefined2 *)(&DAT_00bcd61e + iVar3) = *(undefined2 *)(&DAT_00bcd626 + iVar3);
-      }
-    }
-    psVar5 = psVar5 + 0xc2;
-    iVar6 = iVar6 + 1;
-  } while ((int)psVar5 < 0xc8ad92);
-  return;
+    restore_actor_refresh_sentries_on_marked_tiles();
 }

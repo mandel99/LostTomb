@@ -1,46 +1,38 @@
-#include "restore_types.h"
-#define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00d3b4fc (*(undefined *)0x00d3b4fcu)
-#define _DAT_00d3b4f8 (*(undefined4 *)0x00d3b4f8u)
+#include "actor_city_refresh.h"
+#define SENTRIES_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define SENTRIES_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define SENTRIES_H(a) ((int32_t)*(volatile int16_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_004b7510(int param_1,int param_2)
-
+/* Whole4B7510,49 instructions. Reuse the original complete scan with BYTE
+   fields, 388-byte actors and DWORD scratch distances. Signed comparisons
+   follow each original wrapping x86 subtraction, including extreme inputs. */
+void restore_actor_mark_sentries_near_cell(int32_t x,int32_t y)
 {
-  int iVar1;
-  char *pcVar2;
-  
-  pcVar2 = &DAT_00bcd630;
-  do {
-    if (((pcVar2[-0x2a] == '\x01') && (pcVar2[-0x2e] == '*')) && (*pcVar2 != '\x04')) {
-      iVar1 = (int)*(short *)(pcVar2 + -0x24);
-      _DAT_00d3b4f8 = (int)*(short *)(pcVar2 + -0x22);
-      if (param_1 < iVar1) {
-        DAT_00d3b4fc = iVar1 - param_1;
-      }
-      else if (iVar1 < param_1) {
-        DAT_00d3b4fc = param_1 - iVar1;
-      }
-      else {
-        DAT_00d3b4fc = 0;
-      }
-      if (param_2 < _DAT_00d3b4f8) {
-        _DAT_00d3b4f8 = _DAT_00d3b4f8 - param_2;
-      }
-      else if (_DAT_00d3b4f8 < param_2) {
-        _DAT_00d3b4f8 = param_2 - _DAT_00d3b4f8;
-      }
-      else {
-        _DAT_00d3b4f8 = 0;
-      }
-      iVar1 = _DAT_00d3b4f8;
-      if (_DAT_00d3b4f8 <= DAT_00d3b4fc) {
-        iVar1 = DAT_00d3b4fc;
-      }
-      if (iVar1 < 2) {
-        pcVar2[-0x2a] = '\x02';
-      }
-    }
-    pcVar2 = pcVar2 + 0x184;
-  } while ((int)pcVar2 < 0xc8ad70);
-  return;
+    uint32_t cursor=0xbcd630u,dx,dy,distance;
+    int32_t coord_x,coord_y;
+
+    do {
+        if(SENTRIES_B(cursor-0x2au)==1u &&
+           SENTRIES_B(cursor-0x2eu)==42u && SENTRIES_B(cursor)!=4u){
+            coord_x=SENTRIES_H(cursor-0x24u);
+            coord_y=SENTRIES_H(cursor-0x22u);
+            if(x<coord_x)dx=(uint32_t)coord_x-(uint32_t)x;
+            else if(coord_x<x)dx=(uint32_t)x-(uint32_t)coord_x;
+            else dx=0u;
+            SENTRIES_U(0xd3b4fcu)=dx;
+            if(y<coord_y)dy=(uint32_t)coord_y-(uint32_t)y;
+            else if(coord_y<y)dy=(uint32_t)y-(uint32_t)coord_y;
+            else dy=0u;
+            SENTRIES_U(0xd3b4f8u)=dy;
+            distance=dy;
+            if((int32_t)dy<=(int32_t)dx)distance=dx;
+            if((int32_t)distance<=1)SENTRIES_B(cursor-0x2au)=2u;
+        }
+        cursor+=388u;
+    }while((int32_t)cursor<(int32_t)0xc8ad70u);
+}
+
+void FUN_004b7510(int32_t x,int32_t y)
+{
+    restore_actor_mark_sentries_near_cell(x,y);
 }

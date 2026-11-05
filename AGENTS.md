@@ -41,3 +41,10 @@
   or AX, forward the caller's actual EAX instead of using a zeroed ABI frame.
 - Macro-generated QUERY/METHOD entrypoints may already contain complete C. Read
   their shared algorithm before replacing or renaming a runtime owner.
+- Reuse saved REA evidence for an unchanged pinned executable. Keep complete
+  records in files; return only the needed excerpt or compact result to context.
+- Give each function one author. Do not start a second review agent or another
+  round of discovery for a completed handoff without a concrete unresolved issue.
+- After the current prepared packet, finish the approximately100-entry cohort
+  before another detailed replay. Batch build fixes and keep progress messages
+  brief; do not rebuild or recheck an unchanged successful checkpoint.
