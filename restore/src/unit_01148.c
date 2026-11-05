@@ -1,105 +1,45 @@
-#include "restore_types.h"
-#define DAT_005dbf70 (*(undefined4 *)0x005dbf70u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_00af55fc (*(undefined4 *)0x00af55fcu)
-#define DAT_00af5988 (*(undefined4 *)0x00af5988u)
-#define DAT_00af5990 (*(undefined4 *)0x00af5990u)
-#define DAT_00af5d1c (*(undefined4 *)0x00af5d1cu)
-#define DAT_00b4e534 (*(undefined4 *)0x00b4e534u)
-#define DAT_00b4e6fa (*(undefined4 *)0x00b4e6fau)
-#define DAT_00b4e6fe (*(undefined4 *)0x00b4e6feu)
-#define DAT_00b4e8c4 (*(undefined4 *)0x00b4e8c4u)
-#define DAT_00bc97c0 (*(undefined *)0x00bc97c0u)
-#define DAT_00bc97c4 (*(undefined *)0x00bc97c4u)
-#define DAT_00bc97c8 (*(undefined *)0x00bc97c8u)
-#define DAT_00bc97cc (*(undefined *)0x00bc97ccu)
-#define DAT_00bc97d0 (*(undefined *)0x00bc97d0u)
-#define DAT_00bc97d4 (*(undefined *)0x00bc97d4u)
-#define DAT_00bc97d8 (*(undefined *)0x00bc97d8u)
-#define DAT_00bc97dc (*(undefined *)0x00bc97dcu)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-extern uint FUN_0047e230();
+#include "actor_route_queries_internal.h"
 
-uint FUN_0047e340(int param_1,uint param_2)
-
+/* Whole 47E340, repaired in its original owner. Building records are 264
+   bytes and their kind is a WORD; the actor kind is sampled once as a BYTE.
+   Initial terrain flags are read before building filtering. */
+uint32_t restore_actor_prune_service_road_exits(int32_t tile,uint32_t actor)
 {
-  short sVar1;
-  undefined4 uVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  bool bVar7;
-  int aiStack_20 [8];
-  
-  iVar3 = param_1;
-  iVar4 = param_2 * 0x184;
-  bVar7 = (&DAT_00bcd602)[iVar4] != 0x62;
-  DAT_00bc97dc = 0;
-  DAT_00bc97d4 = 0;
-  DAT_00bc97cc = 0;
-  DAT_00bc97d0 = *(uint *)(&DAT_00af5d1c + param_1 * 4) & 0x440;
-  DAT_00bc97c4 = 0;
-  DAT_00bc97c0 = *(uint *)(&DAT_00af55fc + param_1 * 4) & 0x440;
-  DAT_00bc97c8 = *(uint *)(&DAT_00af5990 + param_1 * 4) & 0x440;
-  DAT_00bc97d8 = *(uint *)(&DAT_00af5988 + param_1 * 4) & 0x440;
-  if (((*(uint *)(&DAT_00af55fc + param_1 * 4) & 8) != 0) &&
-     ((((sVar1 = (&DAT_007999e8)[*(short *)(&DAT_00b4e534 + param_1 * 2) * 0x84], sVar1 == 0xab ||
-        (sVar1 == 0xca)) || ((sVar1 == 0x8a && (bVar7)))) || (sVar1 == 0x88)))) {
-    DAT_00bc97c0 = 0;
-  }
-  if (((*(uint *)(&DAT_00af5990 + param_1 * 4) & 8) != 0) &&
-     (((sVar1 = (&DAT_007999e8)[*(short *)(&DAT_00b4e6fe + param_1 * 2) * 0x84], sVar1 == 0xab ||
-       (sVar1 == 0xca)) || (((sVar1 == 0x8a && (bVar7)) || (sVar1 == 0x88)))))) {
-    DAT_00bc97c8 = 0;
-  }
-  if (((*(uint *)(&DAT_00af5d1c + param_1 * 4) & 8) != 0) &&
-     ((((sVar1 = (&DAT_007999e8)[*(short *)(&DAT_00b4e8c4 + param_1 * 2) * 0x84], sVar1 == 0xab ||
-        (sVar1 == 0xca)) || ((sVar1 == 0x8a && (bVar7)))) || (sVar1 == 0x88)))) {
-    DAT_00bc97d0 = 0;
-  }
-  if (((*(uint *)(&DAT_00af5988 + param_1 * 4) & 8) != 0) &&
-     (((sVar1 = (&DAT_007999e8)[*(short *)(&DAT_00b4e6fa + param_1 * 2) * 0x84], sVar1 == 0xab ||
-       (sVar1 == 0xca)) || (((sVar1 == 0x8a && (bVar7)) || (sVar1 == 0x88)))))) {
-    DAT_00bc97d8 = 0;
-  }
-  param_2 = (uint)(DAT_00bc97c0 != 0);
-  if (DAT_00bc97c8 != 0) {
-    param_2 = (DAT_00bc97c0 != 0) + 1;
-  }
-  if (DAT_00bc97d0 != 0) {
-    param_2 = param_2 + 1;
-  }
-  if (DAT_00bc97d8 != 0) {
-    param_2 = param_2 + 1;
-  }
-  if (2 < param_2) {
-    iVar5 = 7;
-    iVar6 = 0;
-    param_1 = 0;
-    uVar2 = *(undefined4 *)(&DAT_005dbf70 + (uint)(byte)(&DAT_00bcd602)[iVar4] * 4);
-    do {
-      if (*(int *)((int)&DAT_00bc97c0 + iVar6) != 0) {
-        iVar4 = FUN_0047e230(uVar2,*(int *)(iVar6 + 0x5dc128) + iVar3);
-        *(int *)((int)aiStack_20 + iVar6) = iVar4;
-        if (iVar4 <= iVar5) {
-          iVar5 = iVar4;
+    uint32_t cell=(uint32_t)tile,flags[4],count=0,i,channel;
+    uint32_t kind=(uint32_t)RQ_B(0xbcd602u+actor*388u);
+    int32_t building_kind,minimum=7,cost[4];
+    RQ_U(0xbc97dcu)=0;RQ_U(0xbc97d4u)=0;
+    flags[2]=RQ_U(0xaf5d1cu+cell*4u);
+    flags[0]=RQ_U(0xaf55fcu+cell*4u);
+    RQ_U(0xbc97ccu)=0;RQ_U(0xbc97c4u)=0;
+    flags[1]=RQ_U(0xaf5990u+cell*4u);
+    RQ_U(0xbc97d0u)=flags[2]&0x440u;
+    flags[3]=RQ_U(0xaf5988u+cell*4u);
+    RQ_U(0xbc97c0u)=flags[0]&0x440u;
+    RQ_U(0xbc97c8u)=flags[1]&0x440u;
+    RQ_U(0xbc97d8u)=flags[3]&0x440u;
+    for(i=0;i<4u;++i){
+        static const uint32_t building_map[4]={0xb4e534u,0xb4e6feu,0xb4e8c4u,0xb4e6fau};
+        if(flags[i]&8u){
+            building_kind=RQ_H(0x7999e8u+(uint32_t)RQ_H(building_map[i]+cell*2u)*264u);
+            if(building_kind==0xab||building_kind==0xca||building_kind==0x88||
+               (building_kind==0x8a&&kind!=0x62u))RQ_U(0xbc97c0u+i*8u)=0;
         }
-        if (param_1 <= iVar4) {
-          param_1 = iVar4;
+    }
+    for(i=0;i<4u;++i)if(RQ_U(0xbc97c0u+i*8u))++count;
+    if(count<3u)return count;
+    channel=RQ_U(0x5dbf70u+kind*4u);
+    for(i=0;i<4u;++i){
+        if(!RQ_U(0xbc97c0u+i*8u))continue;
+        cost[i]=RQ_I(FUN_0047e230(channel,RQ_I(cell+RQ_U(0x5dc128u+i*8u))));
+        if(cost[i]<=minimum)minimum=cost[i];
+    }
+    for(i=0;i<4u;++i){
+        if(RQ_U(0xbc97c0u+i*8u)&&minimum<cost[i]){
+            RQ_U(0xbc97c0u+i*8u)=0;--count;
         }
-      }
-      iVar6 = iVar6 + 8;
-    } while (iVar6 < 0x20);
-    iVar4 = 0;
-    do {
-      if ((*(int *)((int)&DAT_00bc97c0 + iVar4) != 0) && (iVar5 < *(int *)((int)aiStack_20 + iVar4))
-         ) {
-        *(undefined4 *)((int)&DAT_00bc97c0 + iVar4) = 0;
-        param_2 = param_2 - 1;
-      }
-      iVar4 = iVar4 + 8;
-    } while (iVar4 < 0x20);
-  }
-  return param_2;
+    }
+    return count;
 }
+uint32_t FUN_0047e340(int32_t tile,uint32_t actor)
+{return restore_actor_prune_service_road_exits(tile,actor);}

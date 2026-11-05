@@ -38,4 +38,10 @@ int32_t restore_actor_find_approach_kind236(uint32_t receiver,uint32_t x,uint32_
 #include "worker_availability_candidates.h"
 #include "worker_query_candidate.h"
 int32_t FUN_00420430(int32_t building,int32_t actor);
+int32_t FUN_00420910(int32_t building,int32_t actor);
+int32_t FUN_00420f50(int32_t building,int32_t actor);
+int32_t FUN_00421230(int32_t building,int32_t actor);
+#include "base_acceptance_candidates.h"
+#include "actor_route_queries.h"
+#include "transport_path_candidates.h"
 #endif

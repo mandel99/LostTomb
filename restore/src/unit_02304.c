@@ -1,127 +1,75 @@
-#include "restore_types.h"
-#define DAT_00af5988 (*(undefined4 *)0x00af5988u)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00af5990 (*(undefined4 *)0x00af5990u)
-#define DAT_00af5d1c (*(undefined4 *)0x00af5d1cu)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define DAT_00eadfd4 (*(undefined *)0x00eadfd4u)
-#define DAT_00eae004 (*(undefined *)0x00eae004u)
-#define DAT_00eae008 (*(undefined *)0x00eae008u)
-#define DAT_00eae00c (*(undefined *)0x00eae00cu)
-#define DAT_00ee0b6c (*(undefined4 *)0x00ee0b6cu)
-#define DAT_00ee0c4f (*(undefined4 *)0x00ee0c4fu)
-#define DAT_00ee0c50 (*(undefined4 *)0x00ee0c50u)
-#define DAT_00ee0d34 (*(undefined4 *)0x00ee0d34u)
-#define DAT_00eed75c (*(undefined4 *)0x00eed75cu)
-#define DAT_00eed760 (*(undefined4 *)0x00eed760u)
-#define DAT_00f203a0 (*(undefined *)0x00f203a0u)
-extern void FUN_0040f8f0();
-extern undefined4 FUN_0051aff0();
+#include "transport_path_internal.h"
 
-int FUN_00518dd0(int param_1,int param_2,int param_3,int param_4)
-
+/* Width/stride repair of the complete src/unit_02304.c owner (00518dd0).
+   Neighbor order is north, east, south, west; tail stays cached on a visited
+   neighbor and is reloaded after a rejected occupancy/classification check. */
+uint32_t restore_transport_find_animal_land_target(int32_t x, int32_t y,
+                                                    int32_t targets, int32_t count)
 {
-  char cVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
-  int *piVar6;
-  int iVar7;
-  bool bVar8;
-  
-  FUN_0040f8f0(&DAT_00eed760,0x32c40,0);
-  DAT_00eae004 = DAT_00bca2d8 + param_2 * 0xe4 + param_1;
-  DAT_00eadfd4 = DAT_00eadfd4 + 1;
-  (&DAT_00eed760)[DAT_00eae004] = 1;
-  iVar3 = 1;
-  DAT_00f203a0 = DAT_00eae004;
-  DAT_00eae00c = 0;
-  DAT_00eae008 = 1;
-  do {
-    iVar2 = (&DAT_00f203a0)[DAT_00eae00c];
-    if (param_4 != 0) {
-      piVar6 = (int *)(param_3 + (param_4 + -1) * 4);
-      iVar5 = param_4 + -1;
-      do {
-        if (*piVar6 == iVar2) {
-          if (iVar5 < 0) {
-            return 0;
-          }
-          return iVar5 + 1;
+    static const int32_t delta[4] = {-228, 1, 228, -1};
+    uint32_t generation, start, current, next, distance;
+    uint32_t head = 0, tail = 1, direction, index, pointer, previous;
+    int32_t terrain;
+    FUN_0040f8f0((uint32_t *)(uintptr_t)0xeed760u, 0x32c40u, 0);
+    generation = TP_U(0xeadfd4u);
+    start = TP_U(0xbca2d8u) + (uint32_t)y * 228u + (uint32_t)x;
+    TP_U(0xeae004u) = start;
+    TP_U(0xeadfd4u) = generation + 1u;
+    TP_U(0xeed760u + start * 4u) = 1;
+    TP_U(0xf203a0u) = TP_U(0xeae004u);
+    TP_U(0xeae00cu) = 0;
+    TP_U(0xeae008u) = 1;
+    do {
+        head = TP_U(0xeae00cu);
+        current = TP_U(0xf203a0u + head * 4u);
+        /* The list is read backwards again for every dequeued cell. It may
+           alias the live queue or distance array. Signed-negative matches
+           return zero rather than their wrapped one-based index. */
+        if (count != 0) {
+            index = (uint32_t)count - 1u;
+            pointer = (uint32_t)targets + index * 4u;
+            do {
+                if (TP_U(pointer) == current)
+                    return TP_I(index) < 0 ? 0u : index + 1u;
+                pointer -= 4u;
+                previous = index;
+                --index;
+            } while (previous != 0);
         }
-        piVar6 = piVar6 + -1;
-        bVar8 = iVar5 != 0;
-        iVar5 = iVar5 + -1;
-      } while (bVar8);
-    }
-    iVar5 = iVar2 + -0xe4;
-    iVar7 = (&DAT_00eed760)[iVar2] + 1;
-    if (((((&DAT_00eed760)[iVar5] == 0) &&
-         (iVar4 = FUN_0051aff0(iVar5), iVar3 = DAT_00eae008, iVar4 != 0)) &&
-        ((((cVar1 = (&DAT_00ee0b6c)[iVar2], -1 < cVar1 || (cVar1 == -3)) ||
-          ((cVar1 == -1 && (((&DAT_00af598c)[iVar5] & 0x1000) != 0)))) && (cVar1 != '\x03')))) &&
-       ((cVar1 != '\x01' && ((cVar1 < '\x05' || (cVar1 == '\x06')))))) {
-      (&DAT_00eed760)[iVar5] = iVar7;
-      (&DAT_00f203a0)[DAT_00eae008] = iVar5;
-      DAT_00eae008 = DAT_00eae008 + 1;
-      iVar3 = DAT_00eae008;
-      if (0xcb0f < DAT_00eae008) {
-        DAT_00eae008 = 0;
-        iVar3 = 0;
-      }
-    }
-    iVar5 = iVar2 + 1;
-    if ((((&DAT_00eed760)[iVar5] == 0) &&
-        (iVar4 = FUN_0051aff0(iVar5), iVar3 = DAT_00eae008, iVar4 != 0)) &&
-       ((((cVar1 = *(char *)((int)&DAT_00ee0c50 + iVar2 + 1), -1 < cVar1 || (cVar1 == -3)) ||
-         ((cVar1 == -1 && ((*(uint *)(&DAT_00af5990 + iVar2 * 4) & 0x1000) != 0)))) &&
-        ((cVar1 != '\x03' && ((cVar1 != '\x01' && ((cVar1 < '\x05' || (cVar1 == '\x06')))))))))) {
-      (&DAT_00eed760)[iVar5] = iVar7;
-      (&DAT_00f203a0)[DAT_00eae008] = iVar5;
-      DAT_00eae008 = DAT_00eae008 + 1;
-      iVar3 = DAT_00eae008;
-      if (0xcb0f < DAT_00eae008) {
-        DAT_00eae008 = 0;
-        iVar3 = 0;
-      }
-    }
-    iVar5 = iVar2 + 0xe4;
-    if (((((&DAT_00eed760)[iVar5] == 0) &&
-         (iVar4 = FUN_0051aff0(iVar5), iVar3 = DAT_00eae008, iVar4 != 0)) &&
-        (((cVar1 = (&DAT_00ee0d34)[iVar2], -1 < cVar1 || (cVar1 == -3)) ||
-         ((cVar1 == -1 && ((*(uint *)(&DAT_00af5d1c + iVar2 * 4) & 0x1000) != 0)))))) &&
-       ((cVar1 != '\x03' && ((cVar1 != '\x01' && ((cVar1 < '\x05' || (cVar1 == '\x06')))))))) {
-      (&DAT_00eed760)[iVar5] = iVar7;
-      (&DAT_00f203a0)[DAT_00eae008] = iVar5;
-      DAT_00eae008 = DAT_00eae008 + 1;
-      iVar3 = DAT_00eae008;
-      if (0xcb0f < DAT_00eae008) {
-        DAT_00eae008 = 0;
-        iVar3 = 0;
-      }
-    }
-    if (*(int *)(&DAT_00eed75c + iVar2 * 4) == 0) {
-      iVar5 = FUN_0051aff0(iVar2 + -1);
-      iVar3 = DAT_00eae008;
-      if ((((iVar5 != 0) &&
-           (((cVar1 = (&DAT_00ee0c4f)[iVar2], -1 < cVar1 || (cVar1 == -3)) ||
-            ((cVar1 == -1 && ((*(uint *)(&DAT_00af5988 + iVar2 * 4) & 0x1000) != 0)))))) &&
-          ((cVar1 != '\x03' && (cVar1 != '\x01')))) && ((cVar1 < '\x05' || (cVar1 == '\x06')))) {
-        *(int *)(&DAT_00eed75c + iVar2 * 4) = iVar7;
-        (&DAT_00f203a0)[DAT_00eae008] = iVar2 + -1;
-        DAT_00eae008 = DAT_00eae008 + 1;
-        iVar3 = DAT_00eae008;
-        if (0xcb0f < DAT_00eae008) {
-          DAT_00eae008 = 0;
-          iVar3 = 0;
+        distance = TP_U(0xeed760u + current * 4u) + 1u;
+        for (direction = 0; direction < 4u; ++direction) {
+            next = current + (uint32_t)delta[direction];
+            if (TP_U(0xeed760u + next * 4u) != 0) continue;
+            if (FUN_0051aff0(TP_I(next)) == 0) {
+                tail = TP_U(0xeae008u);
+                continue;
+            }
+            terrain = TP_C(0xee0c50u + next);
+            if (terrain < 0 && terrain != -3 &&
+                (terrain != -1 || (TP_U(0xaf598cu + next * 4u) & 0x1000u) == 0)) {
+                tail = TP_U(0xeae008u);
+                continue;
+            }
+            if (terrain == 3 || terrain == 1 || (terrain > 4 && terrain != 6)) {
+                tail = TP_U(0xeae008u);
+                continue;
+            }
+            TP_U(0xeed760u + next * 4u) = distance;
+            tail = TP_U(0xeae008u);
+            TP_U(0xf203a0u + tail * 4u) = next;
+            ++tail;
+            TP_U(0xeae008u) = tail;
+            if (TP_I(tail) > 51983) {
+                tail = 0;
+                TP_U(0xeae008u) = 0;
+            }
         }
-      }
-    }
-    DAT_00eae00c = DAT_00eae00c + 1;
-    if (0xcb0f < DAT_00eae00c) {
-      DAT_00eae00c = 0;
-    }
-  } while (DAT_00eae00c != iVar3);
-  return 0;
+        head = TP_U(0xeae00cu) + 1u;
+        TP_U(0xeae00cu) = head;
+        if (TP_I(head) > 51983) {
+            head = 0;
+            TP_U(0xeae00cu) = 0;
+        }
+    } while (TP_U(0xeae00cu) != tail);
+    return 0;
 }

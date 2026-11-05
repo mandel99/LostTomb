@@ -1,22 +1,29 @@
 # Civic, delivery and walking C owners
 
-These51 native entrypoints map to49 named C functions selected by the main
-build. Shared generic providers receive no additional creation credit. Eight owners
-were created before611f3cc; 33 were created since it and 10 prior-C
-owners were reused, including narrow type/access repairs. Selection never counts a body twice.
+These69 native entries map to67 named C functions in the main build.
+Eight owners were created before611f3cc;37 were created since it and24
+prior-C mappings were reused, including narrow repairs. Shared providers
+receive zero additional algorithm credit.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
 | 401B40 | restore_monument_worker_query_00401b40 | 56 |
 | 401D40 | restore_actor_kind230_accept | 97 |
+| 401EB0 | restore_actor_accept_kind230_mode0 | 9 |
 | 401ED0 | restore_actor_find_approach_kind230_mode | 35 |
 | 401F30 | restore_actor_find_approach_kind230 | 9 |
 | 40EC20 | restore_monument_base_worker_result | 71 |
+| 40ED70 | restore_actor_accept_base_kind225 | 208 |
 | 40F070 | restore_actor_find_approach_kind225 | 34 |
 | 417590 | restore_monument_base_worker_result | 59 |
+| 4176A0 | restore_actor_accept_base_kind227 | 166 |
 | 4178E0 | restore_actor_find_approach_kind227 | 34 |
 | 420430 | FUN_00420430 | 42 |
+| 420910 | FUN_00420910 | 48 |
+| 420F50 | FUN_00420f50 | 42 |
+| 421230 | FUN_00421230 | 42 |
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
+| 47E340 | restore_actor_prune_service_road_exits | 182 |
 | 48A720 | restore_actor_update_vagrant | 491 |
 | 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
 | 48AEF0 | restore_actor_apply_cart_delivery | 156 |
@@ -48,7 +55,18 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 4E05F0 | restore_actor_accept_kind222_work | 429 |
 | 4E0C00 | restore_actor_find_approach_kind222 | 31 |
 | 4E6B20 | restore_monument_base_worker_result | 59 |
+| 4E6C10 | restore_actor_accept_base_kind228 | 144 |
 | 4E6E10 | restore_actor_find_approach_kind228 | 34 |
+| 518DD0 | restore_transport_find_animal_land_target | 219 |
+| 5190A0 | restore_transport_find_marked_free_land_target | 221 |
+| 519E30 | restore_transport_find_road_target | 139 |
+| 51A220 | restore_transport_find_secondary_road_target | 139 |
+| 51B220 | restore_transport_find_destructible_land_target | 129 |
+| 51D160 | restore_actor_flood_unblocked_terrain | 174 |
+| 51D420 | restore_actor_search_accessible_terrain | 198 |
+| 51D6D0 | restore_actor_search_accessible_candidates | 203 |
+| 51D980 | restore_actor_build_straight_gradient_route | 207 |
+| 51DC10 | restore_actor_build_terrain_gradient_route | 188 |
 | 5421D0 | restore_actor_accept_kind213_work | 576 |
 | 542A80 | restore_actor_find_approach_kind213 | 31 |
 | 545BE0 | restore_actor_find_approach_kind229 | 33 |
@@ -59,8 +77,8 @@ owners were reused, including narrow type/access repairs. Selection never counts
 | 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 7,228 static native instructions, not execution coverage.
-Bodies remain in their existing source owners; canonical facades delegate.
+The total is9,886 static native instructions,not execution coverage.
+Bodies stay in their original owners;canonical callers delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
 Release links. Native/C behavioral comparison for this new cohort remains
@@ -105,3 +123,10 @@ C result therefore forwards that cached value through the query adapter;
 a zeroed generic frame loses observable high bits. One before/after offline
 return-value witness now agrees with both main images. Other query targets
 keep RAW with explicit incoming EAX; no complete runtime domain is claimed.
+
+The route/transport block repairs11 original C units,with zero creation
+credit. Native cardinal order,signed classifications,51984-cell queue wrap,
+tail reload phases,reverse target scans,marker-hit store order and500-byte
+route failure/copy boundaries remain explicit. Three stage-worker helpers
+retain original bodies with BYTE/WORD base fixes. The narrow EAX witness
+is historical at6cc75a8,not current-main replay.

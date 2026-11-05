@@ -70,20 +70,17 @@ __declspec(noinline) void FUN_0048ce30(void)
 
 
 int32_t FUN_00518dd0(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x518dd0u,a,4);}
+{return (int32_t)restore_transport_find_animal_land_target(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_005190a0(int32_t param_1,int32_t param_2,int32_t *param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x5190a0u,a,4);}
+{return (int32_t)restore_transport_find_marked_free_land_target(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_00519e30(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x519e30u,a,4);}
+{return (int32_t)restore_transport_find_road_target(param_1,param_2,param_3,param_4);}
 
 int32_t FUN_0051a220(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x51a220u,a,4);}
+{return (int32_t)restore_transport_find_secondary_road_target(param_1,param_2,param_3,param_4);}
 
 
 int32_t FUN_0051b220(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x51b220u,a,4);}
-
-int32_t FUN_0051d6d0(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4)
-{const uint32_t a[]={(uint32_t)(uintptr_t)param_1,(uint32_t)(uintptr_t)param_2,(uint32_t)(uintptr_t)param_3,(uint32_t)(uintptr_t)param_4};return (int32_t)invoke(0x51d6d0u,a,4);}
+{return (int32_t)restore_transport_find_destructible_land_target(param_1,param_2,param_3,param_4);}

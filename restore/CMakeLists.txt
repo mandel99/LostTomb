@@ -414,6 +414,10 @@ set_property(SOURCE src/unit_01906.c src/unit_02554.c APPEND PROPERTY INCLUDE_DI
 # Existing stage query keeps its canonical source and receives only the BYTE-base repair.
 set_source_files_properties(src/unit_00331.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_property(SOURCE artifacts/actor_civic_followup/actor_acceptance_members.c APPEND PROPERTY COMPILE_DEFINITIONS "restore_acceptance_kind230_check_raw=restore_acceptance_kind230_check_logical")
+# Select repaired original route owners explicitly; their old facades are removed.
+target_sources(pharaoh_restored PRIVATE src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c)
+set_source_files_properties(src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c src/unit_00343.c src/unit_00357.c src/unit_00364.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_property(SOURCE src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c
@@ -432,7 +436,8 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_approach_building_scans.c
  artifacts/actor_civic_followup/actor_acceptance_members.c
  artifacts/actor_civic_followup/actor_worker_availability.c
- artifacts/actor_civic_followup/actor_worker_query.c)
+ artifacts/actor_civic_followup/actor_worker_query.c
+ artifacts/actor_civic_followup/actor_base_acceptance.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -451,6 +456,7 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_acceptance_members.c
  artifacts/actor_civic_followup/actor_worker_availability.c
  artifacts/actor_civic_followup/actor_worker_query.c
+ artifacts/actor_civic_followup/actor_base_acceptance.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

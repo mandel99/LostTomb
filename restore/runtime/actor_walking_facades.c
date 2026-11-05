@@ -133,14 +133,6 @@ static uint32_t routing_invoke(uint32_t entry,const uint32_t *args,uint32_t coun
     if(f.r[4]!=sp+4u)abort();
     return f.r[0];
 }
-uint32_t FUN_0051d160(int32_t x,int32_t y)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y};return (uint32_t)routing_invoke(0x51d160u,a,2);}
-int32_t FUN_0051d980(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4,int32_t param_5,int32_t param_6)
-{const uint32_t a[]={(uint32_t)param_1,(uint32_t)param_2,(uint32_t)param_3,(uint32_t)param_4,(uint32_t)param_5,(uint32_t)param_6};return (int32_t)routing_invoke(0x51d980u,a,6);}
-int32_t FUN_0051dc10(int32_t param_1,int32_t param_2,int32_t param_3,int32_t param_4,int32_t param_5,int32_t param_6)
-{const uint32_t a[]={(uint32_t)param_1,(uint32_t)param_2,(uint32_t)param_3,(uint32_t)param_4,(uint32_t)param_5,(uint32_t)param_6};return (int32_t)routing_invoke(0x51dc10u,a,6);}
-uint32_t FUN_0051d420(int32_t x,int32_t y,int32_t tx,int32_t ty)
-{const uint32_t a[]={(uint32_t)x,(uint32_t)y,(uint32_t)tx,(uint32_t)ty};return (uint32_t)routing_invoke(0x51d420u,a,4);}
 void FUN_004690f0(int32_t tile,int32_t limit)
 {const uint32_t a[]={(uint32_t)tile,(uint32_t)limit};(void)routing_invoke(0x4690f0u,a,2);}
 
@@ -149,7 +141,5 @@ __declspec(noinline) void FUN_004b21d0(int32_t actor)
 {restore_actor_choose_nearby_road_direction(actor);}
 int32_t FUN_0045bb50(int32_t building,int32_t resource,char require_stock)
 {return restore_storage_find_source(building,resource,require_stock);}
-uint32_t FUN_0047e340(int32_t tile,uint32_t actor)
-{const uint32_t a[]={(uint32_t)tile,(uint32_t)actor};return (uint32_t)routing_invoke(0x0047e340u,a,2);}
 int32_t FUN_0045dc50(int32_t x1,int32_t y1,int32_t x2,int32_t y2,int32_t region1,int32_t region2)
 {return restore_storage_distance(x1,y1,x2,y2,region1,region2);}

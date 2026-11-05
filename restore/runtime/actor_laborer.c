@@ -427,6 +427,10 @@ uint32_t restore_route_member_approach(uint32_t entry,uint32_t receiver,
     case 0x5590c0u:return (uint32_t)restore_actor_find_approach_kind234(receiver,x,y,actor);
     case 0x556430u:return (uint32_t)restore_actor_find_approach_kind235(receiver,x,y,actor);
     case 0x54fb40u:return (uint32_t)restore_actor_find_approach_kind236(receiver,x,y,actor);
+    case 0x4176a0u:return (uint32_t)restore_actor_accept_base_kind227(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
+    case 0x4e6c10u:return (uint32_t)restore_actor_accept_base_kind228(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
+    case 0x40ed70u:return (uint32_t)restore_actor_accept_base_kind225(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
+    case 0x401eb0u:return (uint32_t)restore_actor_accept_kind230_mode0(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
     case 0x547c10u:return restore_actor_member_accept_building_core(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
     case 0x559110u:return restore_actor_member_accept_building(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
     default:return route_member_invoke(entry,receiver,x,y,(uint32_t)actor);
