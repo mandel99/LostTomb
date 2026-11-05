@@ -1,0 +1,67 @@
+{
+  "schema": "cohort5-NLS-mapping-comparison-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": 2,
+  "algorithms": [
+    "Map multibyte text through ANSI or wide LCMapString, preserving sort-key and required-capacity paths.",
+    "Compare multibyte strings through ANSI or wide CompareString, including zero-length/DBCS lead-byte handling."
+  ],
+  "explicit_argument_records": "Actual eight/seven DWORD parameter slots have named fields. Positive length trimming and default codepage selection write their original slots. No synthetic CPU inputs, stack padding or merged fake buffers.",
+  "width_evidence": {
+    "native_globals": {
+      "0x012666e0": "DWORD LCMap backend cache",
+      "0x0126670c": "DWORD CompareString backend cache",
+      "0x0126649c": "UINT default codepage"
+    },
+    "provider_types": {
+      "path": "metadata/cohort5-nls-native-data-types.json",
+      "sha256": "df8167464fd417b3e038f238f3257d04a6930a8e00fe2bb3353c3b3d9a4e273e"
+    },
+    "counts": "Signed32; UINT codepage/flags and DWORD caches; CPINFO.MaxCharSize DWORD, LeadByte elements unsigned BYTE."
+  },
+  "allocation": "Two independent dynamic wide buffers per function; exact wrapped (count*2+3)&FFFFFFFC allocation. Only each allocation belongs to its own constant-1 SEH filter; Win32 calls outside it retain original propagation. No new zero-fill.",
+  "scope_tables": [
+    {
+      "address": "0x00570bb0",
+      "bytes": 24,
+      "entries": [
+        {
+          "filter": "0x0056958e",
+          "handler": "0x00569592"
+        },
+        {
+          "filter": "0x00569642",
+          "handler": "0x00569646"
+        }
+      ]
+    },
+    {
+      "address": "0x00570c28",
+      "bytes": 24,
+      "entries": [
+        {
+          "filter": "0x0056adcd",
+          "handler": "0x0056add1"
+        },
+        {
+          "filter": "0x0056ae3c",
+          "handler": "0x0056ae40"
+        }
+      ]
+    }
+  ],
+  "reused_dependency": {
+    "source": "src/unit_03018.c",
+    "sha256": "ec336c4aac2e5be333de14adf431e250a99a126d57db39b28506314f00eb78d9",
+    "symbol": "FUN_0056ae93",
+    "meaning": "Existing complete bounded-byte-count implementation, including native exhausted-limit probe; unchanged."
+  },
+  "return_contract": "Both physical entries use cdecl RET0 and full signed32 EAX. Thin adapters pass real argument-slot records to C.",
+  "qualifications": [
+    "Shared strict build only; new native/C cases deferred to the cohort5 milestone.",
+    "Mapped stack with allocation guard headroom and valid Win32 conversion/CPINFO outputs; precise fault context/resumption is unproved.",
+    "Indirect callers, arbitrary asynchronous input mutation and malformed/unterminated external CPINFO ranges remain unproved."
+  ],
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

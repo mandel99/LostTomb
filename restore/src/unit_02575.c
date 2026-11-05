@@ -1,13 +1,11 @@
-#include "restore_types.h"
-#define PTR_LAB_005701a0 (*(unsigned char * *)0x005701a0u)
-extern void FUN_004e5290();
-
-void FUN_00545fa0(void)
-
+#include "placement_destructor.h"
+/* Receiver-only canonical ABI bridge. Native RET has no stack arguments. */
+__declspec(naked) void FUN_00545fa0(void)
 {
-  undefined4 *in_ECX;
-  
-  *in_ECX = &PTR_LAB_005701a0;
-  FUN_004e5290();
-  return;
+    __asm {
+        push ecx
+        call restore_placement_destroy_00545fa0
+        add esp,4
+        ret
+    }
 }

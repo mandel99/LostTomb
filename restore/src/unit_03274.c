@@ -1,9 +1,9 @@
-#include "restore_types.h"
-extern void FUN_00545fa0();
-
-void FUN_0056bda0(void)
-
+#include "placement_destructor.h"
+/* Pure EH ABI adapter: EBP belongs to the original parent, not this C function. */
+__declspec(naked) void FUN_0056bda0(void)
 {
-  FUN_00545fa0();
-  return;
+    __asm {
+        mov ecx,dword ptr[ebp-0x44]
+        jmp FUN_00545fa0
+    }
 }
