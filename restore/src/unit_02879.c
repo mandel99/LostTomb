@@ -1,12 +1,10 @@
-#include "restore_types.h"
-#define DAT_01266424 (*(undefined4 *)0x01266424u)
-extern undefined1 * FUN_00564367();
+#include "crt_format.h"
 
-void FUN_00564507(undefined4 param_1,undefined4 param_2,undefined4 param_3)
-
+char *restore_crt_general_fixed(const double *value,char *buffer,int32_t precision)
 {
-  DAT_01266424 = 1;
-  FUN_00564367(param_1,param_2,param_3);
-  DAT_01266424 = 0;
-  return;
+ char *result;
+ RESTORE_CRT_REUSE=1;
+ result=FUN_00564367(value,buffer,precision);
+ RESTORE_CRT_REUSE=0;
+ return result;
 }

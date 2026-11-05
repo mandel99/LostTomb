@@ -1,55 +1,30 @@
-#include "restore_types.h"
-#define DAT_00604e68 (*(undefined4 *)0x00604e68u)
-#define DAT_01266420 (*(undefined4 *)0x01266420u)
-#define DAT_01266424 (*(undefined4 *)0x01266424u)
-extern void FUN_0056457b();
-extern uint * FUN_00566750();
-extern void FUN_00568d11();
-extern undefined * FUN_00568d88();
+#include "crt_format.h"
 
-undefined1 * FUN_00564263(undefined8 *param_1,undefined1 *param_2,int param_3,int param_4)
-
+char *restore_crt_format_scientific(const double *value,char *buffer,int32_t precision,int32_t capitals)
 {
-  int *piVar1;
-  undefined1 *puVar2;
-  int iVar3;
-  
-  piVar1 = DAT_01266420;
-  if (DAT_01266424 == '\0') {
-    piVar1 = (int *)FUN_00568d88(*param_1);
-    FUN_00568d11(param_2 + (uint)(0 < param_3) + (uint)(*piVar1 == 0x2d),param_3 + 1,piVar1);
-  }
-  else {
-    FUN_0056457b(param_2 + (*(undefined4 *)(DAT_01266420) == 0x2d));
-  }
-  puVar2 = param_2;
-  if (*piVar1 == 0x2d) {
-    *param_2 = 0x2d;
-    puVar2 = param_2 + 1;
-  }
-  if (0 < param_3) {
-    *puVar2 = puVar2[1];
-    puVar2[1] = DAT_00604e68;
-  }
-  puVar2 = (undefined1 *)FUN_00566750();
-  if (param_4 != 0) {
-    *puVar2 = 0x45;
-  }
-  if (*(char *)piVar1[3] != '0') {
-    iVar3 = piVar1[1] + -1;
-    if (iVar3 < 0) {
-      iVar3 = -iVar3;
-      puVar2[1] = 0x2d;
-    }
-    if (99 < iVar3) {
-      puVar2[2] = puVar2[2] + (char)(iVar3 / 100);
-      iVar3 = iVar3 % 100;
-    }
-    if (9 < iVar3) {
-      puVar2[3] = puVar2[3] + (char)(iVar3 / 10);
-      iVar3 = iVar3 % 10;
-    }
-    puVar2[4] = puVar2[4] + (char)iVar3;
-  }
-  return param_2;
+ RestoreCrtDecimal *decimal;
+ char *number,*exponent;
+ int32_t magnitude;
+ if(RESTORE_CRT_REUSE!=0){
+  decimal=RESTORE_CRT_DECIMAL;
+  FUN_0056457b(buffer+(decimal->sign=='-'),precision>0);
+ }else{
+  decimal=FUN_00568d88(restore_crt_binary64_load_spill(value));
+  FUN_00568d11(buffer+(decimal->sign=='-')+(precision>0),restore_crt_add32(precision,1),decimal);
+ }
+ number=buffer;
+ if(decimal->sign=='-'){*number='-';++number;}
+ if(precision>0){number[0]=number[1];++number;*number=RESTORE_CRT_POINT;}
+ /* The reuse byte is reloaded here, after conversion/insertion. */
+ exponent=restore_crt_offset(number,restore_crt_add32(precision,RESTORE_CRT_REUSE==0));
+ exponent=(char *)FUN_00566750(exponent,(const void *)(uintptr_t)0x5706e8u);
+ if(capitals!=0)*exponent='E';
+ if(decimal->digits[0]!='0'){
+  magnitude=restore_crt_add32(decimal->exponent,-1);
+  if(magnitude<0){magnitude=restore_crt_neg32(magnitude);exponent[1]='-';}
+  if(magnitude>=100){exponent[2]=(char)((uint8_t)exponent[2]+(uint8_t)(magnitude/100));magnitude%=100;}
+  if(magnitude>=10){exponent[3]=(char)((uint8_t)exponent[3]+(uint8_t)(magnitude/10));magnitude%=10;}
+  exponent[4]=(char)((uint8_t)exponent[4]+(uint8_t)magnitude);
+ }
+ return buffer;
 }

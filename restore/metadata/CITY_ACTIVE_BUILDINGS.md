@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects32 original C owners /10,964 native
+The current connected batch selects42 original C owners /11,775 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -81,3 +81,5 @@ Five original sprite-controller owners now use named C and minimal receiver/RET 
 Seven CRT owners now preserve actual initialization/query/callback results. The old constant-zero fallback was an incorrect decomp of a hardware x87 probe. The new C-owned x87 primitives retain the native binary64 spills and extended operations, waiting FSTCW, encoded argument-slot write/FLDCW, and nonwaiting FNCLEX. Existing conversion maps, function-table initialization and allocator algorithms are reused. Exit-list pointers are DWORDs and advance four bytes with native capacity/reallocation/read phases.
 
 Shared strict compilation and both Release links pass. Detailed joint comparison at the approximately100-entry milestone remains pending, including exception behavior, unknown indirect edges and all compiled-only definitions. Neither host game was launched.
+
+CRT floating formatter closure: ten original C owners,811 native instructions. Corrected five-argument formatter and actual returned buffer pointers; reconstructed binary64/raw80/raw96 conversion, multiplication, scaling and rounding. Eleven correct C sources are reused unchanged. Exact x87 load/spill remains a hardware boundary. The strict main links pass; joint native/C comparison is pending at the approximately100-entry milestone, including compiled-only definitions and the shared569FAD parser consumer. See crt-format-contracts.json and crt-format-return-width.json for ABI, memory phases and qualified indirect coverage. No host game was launched.

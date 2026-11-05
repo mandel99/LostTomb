@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "pin": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_scope": "Ten named original-file C owner candidates, one shared typed header, one minimal canonical cdecl bridge file. No public edits or local build/native replay.",
+  "widths": [
+    {
+      "address": "0x1266420",
+      "native": "DWORD decimal descriptor pointer"
+    },
+    {
+      "address": "0x1266424",
+      "native": "BYTE reuse flag; read again at scientific suffix offset and negative fixed exponent zero insertion"
+    },
+    {
+      "address": "0x1266428",
+      "native": "signed DWORD decimal exponent"
+    },
+    {
+      "address": "0x126642c",
+      "native": "BYTE rounded flag"
+    },
+    {
+      "address": "0x604e68",
+      "native": "BYTE decimal separator"
+    },
+    {
+      "address": "0x12666a8",
+      "native": "signed WORD decimal exponent"
+    },
+    {
+      "address": "0x12666aa",
+      "native": "signed BYTE sign, sign-extended to descriptor DWORD"
+    },
+    {
+      "address": "0x12666ab",
+      "native": "signed BYTE length; native AL subtraction then MOVSX indexes terminator"
+    },
+    {
+      "address": "0x12666ac",
+      "native": "decimal digit bytes"
+    },
+    {
+      "address": "0x12666c8",
+      "native": "16-byte descriptor: signed DWORD sign, signed DWORD exponent, DWORD conversion status, DWORD digit pointer"
+    }
+  ],
+  "floating_phases": [
+    "564263/564367/564445 perform FLD binary64 then FSTP binary64 before passing8 raw by-value bytes to568D88; explicit inline x87 primitive retains NaN/exception/current control-word behavior and spill boundary.",
+    "568DEC is reused unchanged; integer IEEE binary64 to ten-byte raw80 conversion including native zero, subnormal and exceptional encodings.",
+    "568D88 converts its actual by-value input, not generated uninitialized stack memory; copies logical ten raw80 bytes into three DWORD parameters to56A47E.",
+    "Native two upper padding bytes of the third raw80 DWORD are not meaningful inputs:56A47E reads only exponent mask0x7fff and sign mask0x8000; candidate supplies zero ignored pad. No stack garbage is introduced as a C API input.",
+    "56A47E/56A904/56AB24 use actual contiguous12-byte raw96 containers; native integer product/scale/rounding algorithms retained. No host decimal formatting call, long-double substitution or precision simplification."
+  ],
+  "reloads": [
+    "General conversion stores returned descriptor pointer, reads exponent/sign, calls real568D11, reloads descriptor pointer, compares old global exponent, stores rounded BYTE, rereads descriptor exponent and stores exponent DWORD before branch.",
+    "Scientific/fixed keep their own returned descriptor pointer as in ESI; shared reuse BYTE and decimal separator are loaded at their native post-call phases.",
+    "5644E0/564507 write reuse BYTE1, call real child, clear BYTE0, return actual full child pointer; no fabricated result sampler."
+  ],
+  "multiply": [
+    "Native five partial16-bit diagonals, unaligned DWORD sums, WORD carry increments, exponent normalization, right shifts and sticky-bit retention, tie-to-even test, carry propagation and native infinity sentinel preserved.",
+    "The last diagonal cannot carry beyond the96-bit accumulator: all significand operands are unsigned80-bit values and their top96-bit product is strictly less than2^96; earlier partial sums are monotone. Native scratch beyond accumulator therefore remains unobserved.",
+    "First-zero-operand early exit writes only exponent WORD to zero; second-zero/underflow clears all three DWORDs. Overflow sign uses native7fff8000 plus80000000 encoding."
+  ],
+  "abi": [
+    "56452A is cdecl5, char * result; e/E and fallback pass4 child args, f passes3; every final EAX is original buffer pointer.",
+    "568D88 is cdecl binary64-by-value8bytes (modeled uint64_t bit payload), pointer result16-byte static descriptor.",
+    "56A47E retains six DWORD parameters, first three raw80 payload words; low16 of third consumed.56A904 and56AB24 retain native pointer and count argument layouts.",
+    "Existing canonical table initializer and printf consumer source bytes can remain unchanged; their stale broad declarations are address/indirect ABI artifacts. New header gives precise entry types."
+  ],
+  "reused_sources": "hashes.json binds11 unchanged existing source files for binary64 conversion, decimal rounding/insertion,96-bit add/shift/carry and string/memory primitives.",
+  "coverage": [
+    "Cache-wide four table/direct-reference matches retained;604C30 call564F70 ignores returned EAX but exact pointer result is preserved.",
+    "604C44/address-computed indirect consumers are not established by cache listings; no blanket no-use assertion.",
+    "56AB24 also has native direct caller569FAD (parser). Include that compiled-only dependency edge in the joint batch comparison; no parser expansion here.",
+    "Strict shared compilation and joint native/C comparison are root tasks. Detailed native replay, exception outcomes and all compiled-only definitions remain pending at approximately100. Finite tests/builds cannot establish complete gameplay equivalence."
+  ]
+}

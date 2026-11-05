@@ -1,161 +1,94 @@
-#include "restore_types.h"
-extern undefined4 FUN_00569e0c();
-extern void FUN_00569e8b();
-extern void FUN_00569eb9();
+#include "crt_format.h"
 
-void FUN_0056a904(int *param_1,int *param_2)
-
+/* Unaligned DWORD phases in the native twelve-byte product accumulator. */
+static uint32_t product_dword(const RestoreCrt96 *p,uint32_t offset)
 {
-  short sVar1;
-  int iVar2;
-  ushort uVar3;
-  int *piVar4;
-  int *piVar5;
-  ushort uVar6;
-  int iVar7;
-  ushort uVar8;
-  ushort uVar9;
-  byte local_28;
-  undefined1 uStack_27;
-  undefined2 uStack_26;
-  short local_24;
-  undefined2 uStack_22;
-  undefined2 local_20;
-  undefined1 uStack_1e;
-  byte bStack_1d;
-  int local_1c;
-  int local_18;
-  int local_14;
-  ushort *local_10;
-  ushort *local_c;
-  short *local_8;
-  
-  piVar5 = param_2;
-  piVar4 = param_1;
-  local_18 = 0;
-  local_28 = 0;
-  uStack_27 = 0;
-  uStack_26 = 0;
-  local_24 = 0;
-  uStack_22 = 0;
-  local_20 = 0;
-  uStack_1e = 0;
-  bStack_1d = 0;
-  uVar6 = *(ushort *)((int)param_1 + 10) & 0x7fff;
-  uVar8 = *(ushort *)((int)param_2 + 10) & 0x7fff;
-  uVar9 = (*(ushort *)((int)param_2 + 10) ^ *(ushort *)((int)param_1 + 10)) & 0x8000;
-  uVar3 = uVar8 + uVar6;
-  if (((uVar6 < 0x7fff) && (uVar8 < 0x7fff)) && (uVar3 < 0xbffe)) {
-    if (uVar3 < 0x3fc0) {
-LAB_0056a9a7: ;
-      param_1[2] = 0;
-      param_1[1] = 0;
-      *param_1 = 0;
-      return;
-    }
-    if (((uVar6 != 0) || (uVar3 = uVar3 + 1, (param_1[2] & 0x7fffffffU) != 0)) ||
-       ((uVar6 = 0, param_1[1] != 0 || (*param_1 != 0)))) {
-      if (((uVar8 == 0) && (uVar3 = uVar3 + 1, (param_2[2] & 0x7fffffffU) == 0)) &&
-         ((param_2[1] == 0 && (*param_2 == 0)))) goto LAB_0056a9a7;
-      local_14 = 0;
-      local_8 = &local_24;
-      param_2 = (int *)0x5;
-      do {
-        if (0 < (int)param_2) {
-          local_c = (ushort *)(local_14 * 2 + (int)param_1);
-          local_10 = (ushort *)(piVar5 + 2);
-          local_1c = (int)param_2;
-          do {
-            iVar7 = FUN_00569e0c(*(undefined4 *)(local_8 + -2),(uint)*local_c * (uint)*local_10,
-                                 local_8 + -2);
-            if (iVar7 != 0) {
-              *local_8 = *local_8 + 1;
-            }
-            local_c = local_c + 1;
-            local_10 = local_10 + -1;
-            local_1c = local_1c + -1;
-          } while (local_1c != 0);
-        }
-        local_8 = local_8 + 1;
-        local_14 = local_14 + 1;
-        param_2 = (int *)((int)param_2 + -1);
-      } while (0 < (int)param_2);
-      RESTORE_SLICE2(param_1,0) = uVar3 + 0xc002;
-      if ((short)(ushort)param_1 < 1) {
-LAB_0056aa5b: ;
-        RESTORE_SLICE2(param_1,0) = (ushort)param_1 - 1;
-        if ((short)(ushort)param_1 < 0) {
-          iVar7 = -(int)(short)(ushort)param_1;
-          RESTORE_SLICE2(param_1,0) = (ushort)param_1 + (short)iVar7;
-          do {
-            if ((local_28 & 1) != 0) {
-              local_18 = local_18 + 1;
-            }
-            FUN_00569eb9(&local_28);
-            iVar7 = iVar7 + -1;
-          } while (iVar7 != 0);
-          if (local_18 != 0) {
-            local_28 = local_28 | 1;
-          }
-        }
-      }
-      else {
-        do {
-          if ((bStack_1d & 0x80) != 0) break;
-          FUN_00569e8b(&local_28);
-          RESTORE_SLICE2(param_1,0) = (ushort)param_1 - 1;
-        } while (0 < (short)(ushort)param_1);
-        if ((short)(ushort)param_1 < 1) goto LAB_0056aa5b;
-      }
-      if ((0x8000 < CONCAT11(uStack_27,local_28)) ||
-         (sVar1 = CONCAT11(bStack_1d,uStack_1e), iVar2 = CONCAT22(local_20,uStack_22),
-         iVar7 = CONCAT22(local_24,uStack_26),
-         (CONCAT22(uStack_26,CONCAT11(uStack_27,local_28)) & 0x1ffff) == 0x18000)) {
-        if (CONCAT22(local_24,uStack_26) == -1) {
-          iVar7 = 0;
-          if (CONCAT22(local_20,uStack_22) == -1) {
-            if (CONCAT11(bStack_1d,uStack_1e) == -1) {
-              RESTORE_SLICE2(param_1,0) = (ushort)param_1 + 1;
-              sVar1 = -0x8000;
-              iVar2 = 0;
-              iVar7 = 0;
-            }
-            else {
-              sVar1 = CONCAT11(bStack_1d,uStack_1e) + 1;
-              iVar2 = 0;
-              iVar7 = 0;
-            }
-          }
-          else {
-            sVar1 = CONCAT11(bStack_1d,uStack_1e);
-            iVar2 = CONCAT22(local_20,uStack_22) + 1;
-          }
-        }
-        else {
-          iVar7 = CONCAT22(local_24,uStack_26) + 1;
-          sVar1 = CONCAT11(bStack_1d,uStack_1e);
-          iVar2 = CONCAT22(local_20,uStack_22);
-        }
-      }
-      local_24 = (short)((uint)iVar7 >> 0x10);
-      uStack_26 = (undefined2)iVar7;
-      local_20 = (undefined2)((uint)iVar2 >> 0x10);
-      uStack_22 = (undefined2)iVar2;
-      bStack_1d = (byte)((ushort)sVar1 >> 8);
-      uStack_1e = (undefined1)sVar1;
-      if (0x7ffe < (ushort)param_1) goto LAB_0056ab04;
-      uVar6 = (ushort)param_1 | uVar9;
-      *(undefined2 *)piVar4 = uStack_26;
-      *(uint *)((int)piVar4 + 2) = CONCAT22(uStack_22,local_24);
-      *(uint *)((int)piVar4 + 6) = CONCAT13(bStack_1d,CONCAT12(uStack_1e,local_20));
-    }
-    *(ushort *)((int)piVar4 + 10) = uVar6;
+ return *(const uint32_t *)(const void *)(p->byte+offset);
+}
+static void product_store(RestoreCrt96 *p,uint32_t offset,uint32_t value)
+{
+ *(uint32_t *)(void *)(p->byte+offset)=value;
+}
+void restore_crt_multiply_raw96(RestoreCrt96 *left,const RestoreCrt96 *right)
+{
+ RestoreCrt96 product={{0,0,0}};
+ uint16_t left_exponent=(uint16_t)(left->half[5]&0x7fffu);
+ uint16_t right_exponent=(uint16_t)(right->half[5]&0x7fffu);
+ uint16_t sign=(uint16_t)((left->half[5]^right->half[5])&0x8000u);
+ uint32_t exponent=(uint32_t)left_exponent+(uint32_t)right_exponent;
+ uint32_t outer,inner,offset,a,b,sum;
+ int32_t shifts;
+ uint32_t sticky=0;
+ if(left_exponent>=0x7fffu||right_exponent>=0x7fffu||(uint16_t)exponent>0xbffdu)goto overflow;
+ if((uint16_t)exponent<=0x3fbfu)goto zero;
+ if(left_exponent==0){
+  ++exponent;
+  if((left->word[2]&0x7fffffffu)==0&&left->word[1]==0&&left->word[0]==0){
+   /* This native early exit writes only the sign/exponent WORD. */
+   left->half[5]=0;
+   return;
   }
-  else {
-LAB_0056ab04: ;
-    piVar4[1] = 0;
-    *piVar4 = 0;
-    piVar4[2] = (-(uint)(uVar9 != 0) & 0x80000000) + 0x7fff8000;
+ }
+ if(right_exponent==0){
+  ++exponent;
+  if((right->word[2]&0x7fffffffu)==0&&right->word[1]==0&&right->word[0]==0)goto zero;
+ }
+ /* Five partial diagonals, each accumulating a DWORD and a WORD carry.
+    The lower discarded diagonals are absent in the original algorithm. */
+ for(outer=0;outer<5u;++outer){
+  offset=outer*2u;
+  for(inner=0;inner<5u-outer;++inner){
+   a=product_dword(&product,offset);
+   b=(uint32_t)left->half[outer+inner]*(uint32_t)right->half[4u-inner];
+   sum=a+b;
+   product_store(&product,offset,sum);
+   if(sum<a||sum<b)product.half[outer+2u]=(uint16_t)(product.half[outer+2u]+1u);
   }
-  return;
+ }
+ exponent+=0xc002u;
+ if((int16_t)exponent>0){
+  while((product.byte[11]&0x80u)==0&&(int16_t)exponent>0){
+   FUN_00569e8b(product.word);
+   exponent+=0xffffu;
+  }
+ }
+ if((int16_t)exponent<=0){
+  exponent+=0xffffu;
+  if((int16_t)exponent<0){
+   shifts=-(int32_t)(int16_t)exponent;
+   exponent+=(uint32_t)shifts;
+   do{
+    if((product.byte[0]&1u)!=0)++sticky;
+    FUN_00569eb9(product.word);
+    --shifts;
+   }while(shifts!=0);
+   if(sticky!=0)product.byte[0]|=1u;
+  }
+ }
+ if(product.half[0]>0x8000u||(product.word[0]&0x1ffffu)==0x18000u){
+  a=product_dword(&product,2);
+  if(a!=0xffffffffu)product_store(&product,2,a+1u);
+  else{
+   product_store(&product,2,0);
+   a=product_dword(&product,6);
+   if(a!=0xffffffffu)product_store(&product,6,a+1u);
+   else{
+    product_store(&product,6,0);
+    if(product.half[5]!=0xffffu)++product.half[5];
+    else{++exponent;product.half[5]=0x8000u;}
+   }
+  }
+ }
+ if((uint16_t)exponent>=0x7fffu)goto overflow;
+ left->half[0]=product.half[1];
+ product_store(left,2,product.word[1]);
+ product_store(left,6,product.word[2]);
+ left->half[5]=(uint16_t)((uint16_t)exponent|sign);
+ return;
+zero:
+ left->word[2]=0;left->word[1]=0;left->word[0]=0;
+ return;
+overflow:
+ left->word[1]=0;left->word[0]=0;
+ left->word[2]=0x7fff8000u+(sign!=0?0x80000000u:0u);
 }

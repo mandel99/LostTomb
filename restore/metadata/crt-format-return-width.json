@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "signature": {
+    "address": "0x56452a",
+    "logical_return": "real char * buffer, full EAX",
+    "arguments": [
+      "binary64 input pointer",
+      "buffer pointer",
+      "format int32",
+      "precision int32",
+      "capitalization int32"
+    ],
+    "proof": "Native function uses only [EBP+8,+C,+10,+14,+18]; f branch forwards3 arguments, e/E and general forward4, caller cleans0x14. Decompiler errno_t/six-argument signature is rejected."
+  },
+  "return_chain": [
+    {
+      "address": "0x564263",
+      "proof": "564360 MOV EAX,[EBP+C], then POP/RET; returns original buffer"
+    },
+    {
+      "address": "0x564367",
+      "proof": "564370 captures buffer from caller slot in EBP;56443F MOV EAX,EBP, then POP/RET"
+    },
+    {
+      "address": "0x5644e0",
+      "proof": "5644F7 calls564263; byte AND and ADD ESP/RET preserve full EAX"
+    },
+    {
+      "address": "0x564507",
+      "proof": "56451A calls564367; byte AND and ADD ESP/RET preserve full EAX"
+    },
+    {
+      "address": "0x564445",
+      "proof": "Both exits call pointer-returning5644E0/564507; ADD ESP and POP/RET preserve full EAX"
+    },
+    {
+      "address": "0x56452a",
+      "proof": "All three exits preserve the returned pointer from their real child"
+    }
+  ],
+  "observed_native_consumer": {
+    "call": "0x564f70",
+    "target_slot": "0x604c30",
+    "caller": "0x564bc6",
+    "arguments": 5,
+    "return_consumption": "No instruction consumes the returned EAX before a later overwrite; generated printf consumes output buffer bytes directly. Full pointer still returned because all exits prove it."
+  },
+  "table_installation": {
+    "caller": "0x5618ae",
+    "writes": [
+      "0x5618bd ->604c30",
+      "0x5618e0 ->604c44"
+    ],
+    "target": "0x56452a"
+  },
+  "coverage": {
+    "cache_scan": "All cached native-function-audit-cache batch instruction listings; four matches retained in table-reference-scan.json",
+    "direct_call_56452a": 0,
+    "reads_604c44": 0,
+    "unknown": "Targetless indirect edges and any address-computed/aliased604C44 use are unproved. No universal no-use claim. No junk EAX/flags inputs were added."
+  }
+}

@@ -2505,3 +2505,7 @@ foreach(_music_config_entry IN ITEMS 00539250 005395e0 00539730 00539a50 00561db
  target_link_options(restore_game PRIVATE /INCLUDE:_FUN_${_music_config_entry})
 endforeach()
 unset(_music_config_entry)
+
+# Native CRT floating formatter and its decimal arithmetic closure.
+target_sources(pharaoh_restored PRIVATE runtime/crt_format_entries.c)
+set_source_files_properties(src/unit_02875.c src/unit_02876.c src/unit_02877.c src/unit_02878.c src/unit_02879.c src/unit_02880.c src/unit_02979.c src/unit_03010.c src/unit_03014.c src/unit_03015.c runtime/crt_format_entries.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

@@ -1,186 +1,97 @@
-#include "restore_types.h"
-extern uint * FUN_00566750();
-extern void FUN_00569e2d();
-extern void FUN_00569e8b();
-extern void FUN_00569eb9();
-extern void FUN_0056a904();
-extern void FUN_0056ab24();
+#include "crt_format.h"
 
-undefined4
-FUN_0056a47e(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6)
-
+uint32_t restore_crt_raw80_decimal(uint32_t low,uint32_t high,uint32_t sign_exponent,int32_t requested,uint32_t flags,RestoreCrtDecimalDigits *output)
 {
-  short *psVar1;
-  short *psVar2;
-  char cVar3;
-  uint uVar4;
-  short *psVar5;
-  short *psVar6;
-  short sVar7;
-  int iVar8;
-  int iVar9;
-  char *pcVar10;
-  undefined1 local_20;
-  undefined1 local_1f;
-  undefined1 local_1e;
-  undefined1 local_1d;
-  undefined1 local_1c;
-  undefined1 local_1b;
-  undefined1 local_1a;
-  undefined1 local_19;
-  undefined1 local_18;
-  undefined1 local_17;
-  undefined1 local_16;
-  undefined1 local_15;
-  undefined2 local_14;
-  undefined2 local_12;
-  undefined2 uStack_10;
-  undefined2 local_e;
-  undefined2 uStack_c;
-  undefined1 local_a;
-  char cStack_9;
-  undefined4 local_8;
-  
-  psVar2 = param_6;
-  uVar4 = param_3 & 0x7fff;
-  local_20 = 0xcc;
-  local_1f = 0xcc;
-  local_1e = 0xcc;
-  local_1d = 0xcc;
-  local_1c = 0xcc;
-  local_1b = 0xcc;
-  local_1a = 0xcc;
-  local_19 = 0xcc;
-  local_18 = 0xcc;
-  local_17 = 0xcc;
-  local_16 = 0xfb;
-  local_15 = 0x3f;
-  local_8 = 1;
-  if ((param_3 & 0x8000) == 0) {
-    *(undefined1 *)(param_6 + 1) = 0x20;
+ RestoreCrt96 tenth={{0xccccccccu,0xccccccccu,0x3ffbccccu}};
+ RestoreCrt96 fraction,previous;
+ uint32_t exponent=sign_exponent&0x7fffu;
+ uint32_t estimate_bits;
+ int16_t decimal_exponent;
+ int32_t count,shift,remaining;
+ char *next,*last,*first;
+ int8_t length;
+ uint8_t rounding_digit;
+ const char *special;
+ output->sign=(int8_t)((sign_exponent&0x8000u)?'-':' ');
+ if(exponent==0&&high==0&&low==0)goto zero;
+ if(exponent==0x7fffu){
+  output->exponent=1;
+  if((high==0x80000000u&&low==0)||(high&0x40000000u)!=0){
+   if((sign_exponent&0x8000u)!=0&&high==0xc0000000u&&low==0)special=(const char *)(uintptr_t)0x570c14u;
+   else if(high==0x80000000u&&low==0)special=(const char *)(uintptr_t)0x570c0cu;
+   else special=(const char *)(uintptr_t)0x570c04u;
+   FUN_00566750(output->digits,special);
+   output->length=(int8_t)((special==(const char *)(uintptr_t)0x570c04u)?6:5);
+  }else{
+   FUN_00566750(output->digits,(const void *)(uintptr_t)0x570c1cu);
+   output->length=6;
   }
-  else {
-    *(undefined1 *)(param_6 + 1) = 0x2d;
-  }
-  if ((((short)uVar4 != 0) || (param_2 != 0)) || (param_1 != 0)) {
-    if ((short)uVar4 == 0x7fff) {
-      *param_6 = 1;
-      if (((param_2 == 0x80000000) && (param_1 == 0)) || ((param_2 & 0x40000000) != 0)) {
-        if (((param_3 & 0x8000) == 0) || (param_2 != 0xc0000000)) {
-          if ((param_2 != 0x80000000) || (param_1 != 0)) goto LAB_0056a573;
-          pcVar10 = "1#INF";
-        }
-        else {
-          if (param_1 != 0) {
-LAB_0056a573: ;
-            pcVar10 = "1#QNAN";
-            goto LAB_0056a578;
-          }
-          pcVar10 = "1#IND";
-        }
-        FUN_00566750(param_6 + 2,pcVar10);
-        *(undefined1 *)((int)psVar2 + 3) = 5;
-      }
-      else {
-        pcVar10 = "1#SNAN";
-LAB_0056a578: ;
-        FUN_00566750(param_6 + 2,pcVar10);
-        *(undefined1 *)((int)psVar2 + 3) = 6;
-      }
-      return 0;
-    }
-    local_14 = 0;
-    local_a = (undefined1)uVar4;
-    cStack_9 = (char)(uVar4 >> 8);
-    local_e = (undefined2)param_2;
-    uStack_c = (undefined2)(param_2 >> 0x10);
-    local_12 = (undefined2)param_1;
-    uStack_10 = (undefined2)((uint)param_1 >> 0x10);
-    sVar7 = (short)(((uVar4 >> 8) + (param_2 >> 0x18) * 2) * 0x4d + -0x134312f4 + uVar4 * 0x4d10 >>
-                   0x10);
-    FUN_0056ab24(&local_14,-(int)sVar7,1);
-    if (0x3ffe < CONCAT11(cStack_9,local_a)) {
-      sVar7 = sVar7 + 1;
-      FUN_0056a904(&local_14,&local_20);
-    }
-    *psVar2 = sVar7;
-    iVar9 = param_4;
-    if (((param_5 & 1) == 0) || (iVar9 = param_4 + sVar7, 0 < param_4 + sVar7)) {
-      if (0x15 < iVar9) {
-        iVar9 = 0x15;
-      }
-      iVar8 = CONCAT11(cStack_9,local_a) - 0x3ffe;
-      local_a = 0;
-      cStack_9 = '\0';
-      param_6 = (short *)0x8;
-      do {
-        FUN_00569e8b(&local_14);
-        param_6 = (short *)((int)param_6 + -1);
-      } while (param_6 != (short *)0x0);
-      if (iVar8 < 0) {
-        param_6 = (short *)0x0;
-        for (uVar4 = -iVar8 & 0xff; uVar4 != 0; uVar4 = uVar4 - 1) {
-          FUN_00569eb9(&local_14);
-        }
-      }
-      param_4 = iVar9 + 1;
-      psVar5 = psVar2 + 2;
-      param_6 = psVar5;
-      if (0 < param_4) {
-        do {
-          param_1 = CONCAT22(local_12,local_14);
-          param_2 = CONCAT22(local_e,uStack_10);
-          param_3 = CONCAT13(cStack_9,CONCAT12(local_a,uStack_c));
-          FUN_00569e8b(&local_14);
-          FUN_00569e8b(&local_14);
-          FUN_00569e2d(&local_14,&param_1);
-          FUN_00569e8b(&local_14);
-          cVar3 = cStack_9;
-          cStack_9 = '\0';
-          psVar5 = (short *)((int)param_6 + 1);
-          param_4 = param_4 + -1;
-          *(char *)param_6 = cVar3 + '0';
-          param_6 = psVar5;
-        } while (param_4 != 0);
-      }
-      psVar6 = psVar5 + -1;
-      psVar1 = psVar2 + 2;
-      if ('4' < *(char *)((int)psVar5 + -1)) {
-        for (; psVar1 <= psVar6; psVar6 = (short *)((int)psVar6 + -1)) {
-          if ((char)*psVar6 != '9') {
-            if (psVar1 <= psVar6) goto LAB_0056a6d0;
-            break;
-          }
-          *(char *)psVar6 = '0';
-        }
-        psVar6 = (short *)((int)psVar6 + 1);
-        *psVar2 = *psVar2 + 1;
-LAB_0056a6d0: ;
-        *(char *)psVar6 = (char)*psVar6 + '\x01';
-LAB_0056a6d2: ;
-        cVar3 = ((char)psVar6 - (char)psVar2) + -3;
-        *(char *)((int)psVar2 + 3) = cVar3;
-        *(undefined1 *)(cVar3 + 4 + (int)psVar2) = 0;
-        return local_8;
-      }
-      for (; psVar1 <= psVar6; psVar6 = (short *)((int)psVar6 + -1)) {
-        if ((char)*psVar6 != '0') {
-          if (psVar1 <= psVar6) goto LAB_0056a6d2;
-          break;
-        }
-      }
-      *psVar2 = 0;
-      *(undefined1 *)(psVar2 + 1) = 0x20;
-      *(undefined1 *)((int)psVar2 + 3) = 1;
-      *(char *)psVar1 = '0';
-      goto LAB_0056a708;
-    }
-  }
-  *psVar2 = 0;
-  *(undefined1 *)(psVar2 + 1) = 0x20;
-  *(undefined1 *)((int)psVar2 + 3) = 1;
-  *(undefined1 *)(psVar2 + 2) = 0x30;
-LAB_0056a708: ;
-  *(undefined1 *)((int)psVar2 + 5) = 0;
-  return 1;
+  return 0;
+ }
+ /* Native approximate log10 estimate, with DWORD arithmetic and SAR. */
+ estimate_bits=((exponent>>8)+(high>>24)*2u)*0x4du+exponent*0x4d10u+0xecbced0cu;
+ decimal_exponent=(int16_t)((int32_t)estimate_bits>>16);
+ fraction.half[0]=0;
+ fraction.half[1]=(uint16_t)low;
+ fraction.half[2]=(uint16_t)(low>>16);
+ fraction.half[3]=(uint16_t)high;
+ fraction.half[4]=(uint16_t)(high>>16);
+ fraction.half[5]=(uint16_t)exponent;
+ FUN_0056ab24(&fraction,-(int32_t)decimal_exponent,1);
+ if(fraction.half[5]>=0x3fffu){
+  decimal_exponent=(int16_t)((uint16_t)decimal_exponent+1u);
+  FUN_0056a904(&fraction,&tenth);
+ }
+ output->exponent=decimal_exponent;
+ count=requested;
+ if((flags&1u)!=0){
+  count=restore_crt_add32(requested,(int32_t)decimal_exponent);
+  if(count<=0)goto zero;
+ }
+ if(count>21)count=21;
+ shift=(int32_t)fraction.half[5]-0x3ffe;
+ fraction.half[5]=0;
+ for(remaining=8;remaining!=0;--remaining)FUN_00569e8b(fraction.word);
+ if(shift<0){
+  remaining=(int32_t)((0u-(uint32_t)shift)&0xffu);
+  while(remaining>0){FUN_00569eb9(fraction.word);--remaining;}
+ }
+ next=output->digits;
+ remaining=restore_crt_add32(count,1);
+ if(remaining>0){
+  do{
+   previous=fraction;
+   FUN_00569e8b(fraction.word);
+   FUN_00569e8b(fraction.word);
+   FUN_00569e2d(fraction.word,previous.word);
+   FUN_00569e8b(fraction.word);
+   rounding_digit=fraction.byte[11];
+   fraction.byte[11]=0;
+   *next=(char)(rounding_digit+(uint8_t)'0');
+   ++next;--remaining;
+  }while(remaining!=0);
+ }
+ rounding_digit=(uint8_t)*restore_crt_offset(next,-1);
+ last=restore_crt_offset(next,-2);
+ first=output->digits;
+ if((int8_t)rounding_digit>='5'){
+  while((uintptr_t)last>=(uintptr_t)first&&*last=='9'){*last='0';--last;}
+  if((uintptr_t)last<(uintptr_t)first){++last;output->exponent=(int16_t)((uint16_t)output->exponent+1u);}
+  *last=(char)((uint8_t)*last+1u);
+ }else{
+  while((uintptr_t)last>=(uintptr_t)first&&*last=='0')--last;
+  if((uintptr_t)last<(uintptr_t)first)goto zero;
+ }
+ /* Native AL subtraction yields the logical signed byte digit length. */
+ length=(int8_t)((uint8_t)(uintptr_t)last-(uint8_t)(uintptr_t)output-3u);
+ output->length=length;
+ *((char *)output+4+(int32_t)length)=0;
+ return 1;
+zero:
+ output->exponent=0;
+ output->sign=' ';
+ output->length=1;
+ output->digits[0]='0';
+ output->digits[1]=0;
+ return 1;
 }

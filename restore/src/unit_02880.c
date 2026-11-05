@@ -1,23 +1,8 @@
-#include "restore_types.h"
-extern undefined1 * FUN_00564263();
-extern undefined1 * FUN_00564367();
-extern void FUN_00564445();
+#include "crt_format.h"
 
-errno_t __cdecl
-FUN_0056452a(double *arg,char *buffer,size_t sizeInBytes,int format,int precision,int caps)
-
+char *restore_crt_format_float(const double *value,char *buffer,int32_t format,int32_t precision,int32_t capitals)
 {
-  errno_t eVar1;
-  
-  if ((sizeInBytes == 0x65) || (sizeInBytes == 0x45)) {
-    eVar1 = FUN_00564263(arg,buffer,format,precision);
-  }
-  else {
-    if (sizeInBytes == 0x66) {
-      eVar1 = FUN_00564367(arg,buffer,format);
-      return eVar1;
-    }
-    eVar1 = (FUN_00564445(arg,buffer,format,precision), restore_unresolved_return(0x00564445u));
-  }
-  return eVar1;
+ if(format=='e'||format=='E')return FUN_00564263(value,buffer,precision,capitals);
+ if(format=='f')return FUN_00564367(value,buffer,precision);
+ return FUN_00564445(value,buffer,precision,capitals);
 }
