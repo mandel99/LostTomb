@@ -705,7 +705,7 @@ __declspec(noinline) void FUN_00444b80(int32_t p0,int32_t p1)
 {(void)restore_trader_record_city_import(p0,p1);}
 
 void FUN_00519a30(int32_t p0,int32_t p1)
-{const uint32_t args[]={(uint32_t)p0,(uint32_t)p1};(void)invoke(0x00519a30u,args,2);}
+{restore_transport_build_road_distance_map(p0,p1);}
 
 int32_t FUN_00467450(int32_t p0)
 {const uint32_t args[]={(uint32_t)p0};return (int32_t)invoke(0x00467450u,args,1);}

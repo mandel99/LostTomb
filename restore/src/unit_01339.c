@@ -1,13 +1,13 @@
-#include "restore_types.h"
-#define DAT_00bcd660 (*(undefined4 *)0x00bcd660u)
+#include "route_helper_internal.h"
 
-void FUN_00496640(int param_1)
-
+/* Width/ABI repair of the original complete 496640 owner. The address is
+   a BYTE base plus actor*388; the old DWORD-base expression scaled twice. */
+int32_t restore_transport_assert_no_predecessor(int32_t actor)
 {
-  if (*(short *)(&DAT_00bcd660 + param_1 * 0x184) != 0) {
-    do {
-                    /* WARNING: Do nothing block with infinite loop */
-    } while( true );
-  }
-  return;
+    if (RH_W(0xbcd660u + (uint32_t)actor * 388u) != 0) {
+        /* Native 496657 jumps to itself. It does not reread the link. */
+        for (;;) {
+        }
+    }
+    return actor;
 }

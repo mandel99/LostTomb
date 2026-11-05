@@ -23,7 +23,7 @@ static uint32_t invoke(uint32_t entry,const uint32_t *args,uint32_t count)
  restore_actor_transport_dispatch(0,entry,&f);if(f.r[4]!=sp+4u)abort();return f.r[0];
 }
 int32_t FUN_00496640(int32_t actor)
-{const uint32_t a[]={(uint32_t)actor};return (int32_t)invoke(0x00496640u,a,1);}
+{return restore_transport_assert_no_predecessor(actor);}
 
 uint32_t FUN_0045acf0(int32_t param_1,uint32_t param_2,int32_t param_3,uint32_t param_4)
 {return restore_storage_delivery_destination(param_1,param_2,param_3,param_4);}

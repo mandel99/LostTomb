@@ -1,14 +1,15 @@
-#include "restore_types.h"
-#define DAT_00a9cc1c (*(undefined4 *)0x00a9cc1cu)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-extern void FUN_00469140();
+#include "route_helper_internal.h"
 
-void FUN_004690f0(int param_1,int param_2)
-
+/* Repair the original complete 4690F0 owner: heat is a WORD, while the
+   map base is a DWORD. Native arithmetic wraps before signed division. */
+void restore_actor_increment_tile_heat(int32_t tile, int32_t limit)
 {
-  *(short *)(&DAT_00a9cc1c + param_1 * 2) = *(short *)(&DAT_00a9cc1c + param_1 * 2) + 1;
-  if (param_2 < *(short *)(&DAT_00a9cc1c + param_1 * 2)) {
-    FUN_00469140((param_1 - DAT_00bca2d8) % 0xe4,(param_1 - DAT_00bca2d8) / 0xe4,param_1);
-  }
-  return;
+    uint32_t address = 0xa9cc1cu + (uint32_t)tile * 2u;
+    int32_t relative;
+    RH_W(address) = (uint16_t)(RH_W(address) + 1u);
+    if ((int32_t)(int16_t)RH_W(address) > limit) {
+        relative = RH_I((uint32_t)tile - RH_U(0xbca2d8u));
+        (void)restore_actor_tile_heat_overflow_raw(relative % 228,
+                                                 relative / 228, tile);
+    }
 }

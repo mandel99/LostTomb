@@ -1,52 +1,46 @@
-#include "restore_types.h"
-#define DAT_0078d790 (*(undefined *)0x0078d790u)
-#define DAT_007999d8 (*(undefined4 *)0x007999d8u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_00799af0 (*(undefined4 *)0x00799af0u)
-#define DAT_00bc9694 (*(undefined *)0x00bc9694u)
-extern void FUN_0047c2b0();
-extern void FUN_00516f90();
-extern void FUN_005173a0();
-extern void FUN_0053b090();
+#include "city_migration_actions.h"
+#include "building_footprint.h"
+#include "mission_unlock.h"
+#include "map_commit_connect.h"
+#include "map_commit_costs.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define H(a) ((int32_t)*(volatile int16_t *)(uintptr_t)(uint32_t)(a))
+#define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 
-undefined4 FUN_00469f80(int param_1)
-
+/* Whole469F80, original-owner repair: preserve the existing complete scan
+   and removal algorithm, correcting generated field widths and array scales.
+   The count is cached for the scan. The result DWORD is cached before state4
+   and all callbacks; each rectangle reloads y, x and size after the callback. */
+uint32_t restore_city_remove_first_building_kind(int32_t kind)
 {
-  undefined4 uVar1;
-  int iVar2;
-  uint uVar3;
-  short *psVar4;
-  int iVar5;
-  
-  iVar2 = 1;
-  if (0 < DAT_0078d790) {
-    psVar4 = &DAT_00799af0;
+    uint32_t count=U(0x78d790u),index=1u,cursor=0x799af0u,offset,result,size;
+    uint32_t x,y;
+    if((int32_t)count<1)return 0;
     do {
-      if (((char)psVar4[-8] == '\x01') && (*psVar4 == param_1)) {
-        DAT_00bc9694 = 0;
-        iVar5 = iVar2 * 0x108;
-        uVar1 = *(undefined4 *)(&DAT_007999e4 + iVar5);
-        (&DAT_007999d8)[iVar5] = 4;
-        FUN_0047c2b0(iVar2,(int)*(short *)((int)&DAT_007999dc + iVar5 + 2),
-                     (int)*(short *)(&DAT_007999e0 + iVar5),(&DAT_007999db)[iVar5],
-                     (&DAT_007999db)[iVar5]);
-        FUN_0053b090(0x11);
-        iVar2 = (int)*(short *)((int)&DAT_007999dc + iVar5 + 2);
-        uVar3 = (uint)(byte)(&DAT_007999db)[iVar5];
-        FUN_00516f90(iVar2 - uVar3,(int)*(short *)(&DAT_007999e0 + iVar5) - uVar3,iVar2 + uVar3,
-                     (int)*(short *)(&DAT_007999e0 + iVar5) + uVar3,1);
-        iVar2 = (int)*(short *)((int)&DAT_007999dc + iVar5 + 2);
-        uVar3 = (uint)(byte)(&DAT_007999db)[iVar5];
-        FUN_005173a0(iVar2 - uVar3,(int)*(short *)(&DAT_007999e0 + iVar5) - uVar3,iVar2 + uVar3,
-                     (int)*(short *)(&DAT_007999e0 + iVar5) + uVar3);
-        return uVar1;
-      }
-      iVar2 = iVar2 + 1;
-      psVar4 = psVar4 + 0x84;
-    } while (iVar2 <= DAT_0078d790);
-  }
-  return 0;
+        if(B(cursor-0x10u)==1u&&H(cursor)==kind){
+            offset=index*264u;
+            U(0xbc9694u)=0;
+            result=U(0x7999e4u+offset);
+            B(0x7999d8u+offset)=4;
+            size=B(0x7999dbu+offset);
+            x=(uint32_t)H(0x7999deu+offset);
+            y=(uint32_t)H(0x7999e0u+offset);
+            FUN_0047c2b0((int32_t)index,(int32_t)x,(int32_t)y,(int32_t)size,(int32_t)size);
+            FUN_0053b090(0x11);
+            y=(uint32_t)H(0x7999e0u+offset);
+            x=(uint32_t)H(0x7999deu+offset);
+            size=B(0x7999dbu+offset);
+            FUN_00516f90((int32_t)(x-size),(int32_t)(y-size),(int32_t)(x+size),(int32_t)(y+size),1);
+            y=(uint32_t)H(0x7999e0u+offset);
+            x=(uint32_t)H(0x7999deu+offset);
+            size=B(0x7999dbu+offset);
+            FUN_005173a0((int32_t)(x-size),(int32_t)(y-size),(int32_t)(x+size),(int32_t)(y+size));
+            return result;
+        }
+        ++index;cursor+=264u;
+    }while((int32_t)index<=(int32_t)count);
+    return 0;
 }
+
+uint32_t FUN_00469f80(int32_t kind)
+{return restore_city_remove_first_building_kind(kind);}

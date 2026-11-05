@@ -1,3 +1,4 @@
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "access_repair_flood.h"
 #include "building_access.h"
 #include "building_access_search.h"
@@ -421,13 +422,11 @@ void FUN_004525f0(void)
 void FUN_004550e0(void)
 {(void)invoke(0x004550e0u,0,0);}
 void FUN_00469b90(void)
-{(void)invoke(0x00469b90u,0,0);}
+{restore_city_update_migration_requests();}
 void FUN_0047e290(void)
 {(void)invoke(0x0047e290u,0,0);}
 void FUN_0046a060(void)
 {(void)invoke(0x0046a060u,0,0);}
-void FUN_00469730(void)
-{(void)invoke(0x00469730u,0,0);}
 void FUN_00468b70(void)
 {(void)invoke(0x00468b70u,0,0);}
 uint32_t FUN_00517c20(int32_t x,int32_t y,int32_t tx,int32_t ty)
@@ -575,4 +574,3 @@ int32_t FUN_004b75c0(int32_t formation)
 {const uint32_t a[]={(uint32_t)formation};return (int32_t)invoke(0x004b75c0u,a,1);}
 uint8_t FUN_004c4160(int32_t resource)
 {const uint32_t a[]={(uint32_t)resource};return (uint8_t)invoke(0x004c4160u,a,1);}
-

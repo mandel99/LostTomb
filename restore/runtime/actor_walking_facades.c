@@ -134,7 +134,7 @@ static uint32_t routing_invoke(uint32_t entry,const uint32_t *args,uint32_t coun
     return f.r[0];
 }
 void FUN_004690f0(int32_t tile,int32_t limit)
-{const uint32_t a[]={(uint32_t)tile,(uint32_t)limit};(void)routing_invoke(0x4690f0u,a,2);}
+{restore_actor_increment_tile_heat(tile,limit);}
 
 /* Shared service coverage, patrol direction and storage selection. */
 __declspec(noinline) void FUN_004b21d0(int32_t actor)

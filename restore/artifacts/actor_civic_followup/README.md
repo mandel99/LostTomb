@@ -1,9 +1,8 @@
 # Civic, delivery and walking C owners
 
-These69 native entries map to67 named C functions in the main build.
-Eight owners were created before611f3cc;37 were created since it and24
-prior-C mappings were reused, including narrow repairs. Shared providers
-receive zero additional algorithm credit.
+These 77 native entries map to 75 named C functions in the main build. Eight owners
+were created before611f3cc; 38 were created since it and 31 prior-C
+owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
@@ -22,7 +21,13 @@ receive zero additional algorithm credit.
 | 420910 | FUN_00420910 | 48 |
 | 420F50 | FUN_00420f50 | 42 |
 | 421230 | FUN_00421230 | 42 |
+| 4690F0 | restore_actor_increment_tile_heat | 26 |
+| 469140 | restore_city_apply_disaster_at_cell | 267 |
+| 4696B0 | restore_building_disaster_spread_result | 15 |
+| 469730 | restore_city_tick_burning_fields | 218 |
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
+| 469B90 | restore_city_update_migration_requests | 63 |
+| 469F80 | restore_city_remove_first_building_kind | 76 |
 | 47E340 | restore_actor_prune_service_road_exits | 182 |
 | 48A720 | restore_actor_update_vagrant | 491 |
 | 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
@@ -38,6 +43,7 @@ receive zero additional algorithm credit.
 | 48DED0 | restore_actor_update_fireman | 463 |
 | 48E5E0 | restore_fireman_try_assign_fire | 112 |
 | 491420 | restore_actor_update_trade_caravan | 425 |
+| 496640 | restore_transport_assert_no_predecessor | 8 |
 | 4A34F0 | restore_actor_find_linked_kind85 | 25 |
 | 4B1DF0 | restore_actor_prepare_service_patrol | 73 |
 | 4B1EF0 | restore_actor_advance_service_patrol | 203 |
@@ -59,6 +65,7 @@ receive zero additional algorithm credit.
 | 4E6E10 | restore_actor_find_approach_kind228 | 34 |
 | 518DD0 | restore_transport_find_animal_land_target | 219 |
 | 5190A0 | restore_transport_find_marked_free_land_target | 221 |
+| 519A30 | restore_transport_build_road_distance_map | 110 |
 | 519E30 | restore_transport_find_road_target | 139 |
 | 51A220 | restore_transport_find_secondary_road_target | 139 |
 | 51B220 | restore_transport_find_destructible_land_target | 129 |
@@ -77,8 +84,8 @@ receive zero additional algorithm credit.
 | 5590C0 | restore_actor_find_approach_kind234 | 33 |
 | 559110 | restore_actor_member_accept_building | 8 |
 
-The total is9,886 static native instructions,not execution coverage.
-Bodies stay in their original owners;canonical callers delegate.
+The total is 10,669 static native instructions, not execution coverage.
+Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main
 Release links. Native/C behavioral comparison for this new cohort remains
@@ -130,3 +137,11 @@ tail reload phases,reverse target scans,marker-hit store order and500-byte
 route failure/copy boundaries remain explicit. Three stage-worker helpers
 retain original bodies with BYTE/WORD base fixes. The narrow EAX witness
 is historical at6cc75a8,not current-main replay.
+
+The city follow-up preserves signed-WORD type classification including its
+derived high EAX bits, exact disaster/message selectors and burning-field
+update phases. Migration uses the native binary32 factor through x87 and
+raw80 truncation; no binary64 intermediate is introduced.496640 reads its
+link once, returns the input actor only for zero,and keeps the original
+constant loop otherwise. These source changes have shared strict build/link
+validation; current-cohort native comparison remains pending.

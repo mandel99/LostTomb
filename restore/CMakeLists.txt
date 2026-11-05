@@ -418,6 +418,10 @@ set_property(SOURCE artifacts/actor_civic_followup/actor_acceptance_members.c AP
 target_sources(pharaoh_restored PRIVATE src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c)
 set_source_files_properties(src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c src/unit_00343.c src/unit_00357.c src/unit_00364.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_property(SOURCE src/unit_01148.c src/unit_02336.c src/unit_02337.c src/unit_02338.c src/unit_02339.c src/unit_02340.c src/unit_02304.c src/unit_02305.c src/unit_02311.c src/unit_02313.c src/unit_02319.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
+# City follow-up: preserve active owners and reselect only excluded repairs.
+target_sources(pharaoh_restored PRIVATE runtime/city_reconstruction_bridges.c src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00947.c)
+set_source_files_properties(runtime/city_reconstruction_bridges.c src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00944.c src/unit_00946.c src/unit_00947.c src/unit_00953.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_property(SOURCE src/unit_01339.c src/unit_00943.c src/unit_02309.c src/unit_00944.c src/unit_00946.c src/unit_00947.c src/unit_00953.c APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/artifacts/actor_civic_followup")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c
@@ -437,7 +441,8 @@ target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_acceptance_members.c
  artifacts/actor_civic_followup/actor_worker_availability.c
  artifacts/actor_civic_followup/actor_worker_query.c
- artifacts/actor_civic_followup/actor_base_acceptance.c)
+ artifacts/actor_civic_followup/actor_base_acceptance.c
+ artifacts/actor_civic_followup/actor_city_migration.c)
 set_source_files_properties(
  artifacts/actor_civic_followup/actor_civic_updates.c
  artifacts/actor_civic_followup/actor_vagrant.c
@@ -457,6 +462,7 @@ set_source_files_properties(
  artifacts/actor_civic_followup/actor_worker_availability.c
  artifacts/actor_civic_followup/actor_worker_query.c
  artifacts/actor_civic_followup/actor_base_acceptance.c
+ artifacts/actor_civic_followup/actor_city_migration.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 target_sources(pharaoh_restored PRIVATE runtime/actor_bazaar_targets.c)
 target_sources(pharaoh_restored PRIVATE runtime/buyer_transfer.c)

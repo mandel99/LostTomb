@@ -1,163 +1,127 @@
-#include "restore_types.h"
-#define DAT_0077567c (*(undefined *)0x0077567cu)
-#define DAT_007999d8 (*(undefined4 *)0x007999d8u)
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_00799a90 (*(undefined4 *)0x00799a90u)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00e39080 (*(undefined *)0x00e39080u)
-#define DAT_00e950dc (*(undefined *)0x00e950dcu)
-#define DAT_00ea187c (*(undefined4 *)0x00ea187cu)
-#define DAT_00ea44f4 (*(undefined4 *)0x00ea44f4u)
-#define DAT_00ea5cc0 (*(undefined4 *)0x00ea5cc0u)
-#define DAT_00ea5cfc (*(undefined4 *)0x00ea5cfcu)
-#define DAT_00ea5ec8 (*(undefined4 *)0x00ea5ec8u)
-#define DAT_00ea5fd4 (*(undefined4 *)0x00ea5fd4u)
-#define DAT_00ea5ff4 (*(undefined4 *)0x00ea5ff4u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
-extern void FUN_0043fd00();
-extern undefined4 FUN_00459ec0();
-extern undefined4 FUN_00459ef0();
-extern void FUN_004684e0();
-extern void FUN_004695d0();
-extern int FUN_0046d0f0();
-extern undefined4 FUN_00474380();
-extern int FUN_00475b50();
-extern void FUN_0047afd0();
-extern void FUN_0047bae0();
-extern void FUN_0047c2b0();
-extern void FUN_0048c0e0();
-extern void FUN_00497b90();
-extern void FUN_004b7510();
-extern void FUN_004c03d0();
-extern int FUN_004cde40();
-extern void FUN_004e2970();
-extern void FUN_00517370();
-extern void FUN_00517660();
-extern void FUN_005178e0();
+#include "city_disaster_fields.h"
+#include "actor_command.h"
+#include "building_destruction.h"
+#include "building_footprint.h"
+#include "building_removal.h"
+#include "canal_region_model.h"
+#include "city_updates.h"
+#include "construction_refresh.h"
+#include "map_commit_connect.h"
+#include "map_commit_costs.h"
+#include "menu_list_scroll.h"
+#include "menu_prepare_integer.h"
+#include "placement_support.h"
+#include "remaining_menu_actions.h"
 
-void FUN_00469140(int param_1,int param_2,int param_3)
+#define DISASTER_U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+#define DISASTER_W(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
+#define DISASTER_B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
+#define DISASTER_H(a) ((int32_t)(int16_t)DISASTER_W(a))
+#define DISASTER_I(a) ((int32_t)(uint32_t)(a))
+extern uint32_t FUN_00474380(int32_t kind);
 
+/* Whole469140. Repair the complete original algorithm in its original
+   owner: DWORD city/player fields, 264-byte records, signed WORD coordinates
+   and types, BYTE state/size. Native difficulty indexes the five local rates
+   directly; retain that original index contract without a substitute rate. */
+void restore_city_apply_disaster_at_cell(int32_t x,int32_t y,uint32_t cell)
 {
-  short sVar1;
-  char cVar2;
-  int iVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  undefined4 local_14 [5];
-  
-  local_14[0] = 0;
-  local_14[1] = 0xf;
-  local_14[2] = 0x1e;
-  local_14[3] = 0x3c;
-  local_14[4] = 100;
-  if (*(short *)(&DAT_00b4e6fc + param_3 * 2) < 1) {
-    if (((&DAT_00af598c)[param_3] & 0x4000) != 0) {
-      FUN_004b7510(param_1,param_2);
-    }
-    FUN_0047c2b0(0,param_1,param_2,1,1);
-  }
-  else {
-    iVar3 = FUN_00475b50((int)*(short *)(&DAT_00b4e6fc + param_3 * 2));
-    iVar7 = iVar3 * 0x108;
-    cVar2 = FUN_00474380((int)(short)(&DAT_007999e8)[iVar3 * 0x84]);
-    if (cVar2 != '\0') {
-      return;
-    }
-    sVar1 = (&DAT_007999e8)[iVar3 * 0x84];
-    if (sVar1 == 0xca) {
-      FUN_004c03d0(iVar3);
-    }
-    else if ((((sVar1 == 0x1f) || (sVar1 == 0x1e)) || (sVar1 == 0x21)) || (sVar1 == 0xd1)) {
-      iVar5 = FUN_0046d0f0(iVar3);
-      if (0 < iVar5) {
-        DAT_0077567c = 1;
-        FUN_0043fd00(iVar5,(int)(short)(&DAT_007999e8)[iVar5 * 0x84]);
-      }
-    }
-    else {
-      FUN_0047c2b0(iVar3,(int)*(short *)((int)&DAT_007999dc + iVar7 + 2),
-                   (int)*(short *)(&DAT_007999e0 + iVar7),(&DAT_007999db)[iVar7],
-                   (&DAT_007999db)[iVar7]);
-    }
-    if ((&DAT_007999d8)[iVar7] == '\x01') {
-      sVar1 = (&DAT_007999e8)[iVar3 * 0x84];
-      if ((((((sVar1 != 10) && (sVar1 != 0xb)) &&
-            ((sVar1 != 0x37 && ((sVar1 != 0x51 && (sVar1 != 0x5c)))))) && (sVar1 != 0x39)) &&
-          ((((sVar1 != 0x36 && (sVar1 != 0x3a)) && (sVar1 != 0xaa)) &&
-           ((sVar1 != 0xab && (sVar1 != 200)))))) &&
-         (((sVar1 != 0xc9 && ((sVar1 != 0xca && (sVar1 != 0x3b)))) &&
-          ((sVar1 != 0xac && (sVar1 != 0xad)))))) {
-        iVar4 = FUN_00459ec0(iVar3);
-        iVar6 = DAT_00eaac28;
-        iVar5 = DAT_00e39080;
-        if (iVar4 == 0) {
-          iVar6 = FUN_00459ef0(iVar3);
-          iVar5 = DAT_00e39080;
-          if (iVar6 == 0) {
-            (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] = (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] + 1;
-          }
-          else {
-            (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] = (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] + 1;
-            iVar5 = FUN_004cde40((&DAT_00799a90)[iVar3 * 0x42],local_14[iVar5]);
-            if (iVar5 != 0) {
-              FUN_004684e0();
-              iVar6 = DAT_00eaac28;
-              DAT_00e950dc = 1;
-              iVar4 = DAT_00eaac28 * 0x49d8;
-              *(short *)(&DAT_00ea5cfc + DAT_00eaac28 * 0x1276) =
-                   *(short *)(&DAT_00ea5cfc + DAT_00eaac28 * 0x1276) + 1;
-              (&DAT_00ea44f4)[iVar6 * 0x1276] = (&DAT_00ea44f4)[iVar6 * 0x1276] + iVar5;
-              *(int *)(&DAT_00ea5fd4 + iVar4) = *(int *)(&DAT_00ea5fd4 + iVar4) + iVar5;
-              *(int *)(&DAT_00ea187c + iVar4) = *(int *)(&DAT_00ea187c + iVar4) - iVar5;
-              switch((&DAT_007999e8)[iVar3 * 0x84]) {
-              case 0x54: ;
-              case 0x55: ;
-              case 0x56: ;
-              case 0x57: ;
-                FUN_004e2970(0xc9,0,0);
-                break;
-              case 0xb8: ;
-                FUN_004e2970(0xca,0,0);
-                break;
-              case 0xbb: ;
-              case 0xbc: ;
-              case 0xbd: ;
-                FUN_004e2970(200,0,0);
-              }
+    const int32_t rates[5]={0,15,30,60,100};
+    uint32_t building,record,owner_offset,difficulty,amount,size;
+    int32_t linked,occupant,kind,coord_x,coord_y;
+    uint16_t type;
+
+    occupant=DISASTER_H(0xb4e6fcu+cell*2u);
+    if(occupant<=0){
+        if((DISASTER_U(0xaf598cu+cell*4u)&0x4000u)!=0u)
+            restore_city_disaster_actors_004b7510(x,y);
+        FUN_0047c2b0(0,x,y,1,1);
+    }else{
+        building=FUN_00475b50((uint32_t)occupant);
+        record=building*264u;
+        kind=DISASTER_H(0x7999e8u+record);
+        if((uint8_t)FUN_00474380(kind)!=0u)return;
+        type=DISASTER_W(0x7999e8u+record);
+        if(type==202u){
+            FUN_004c03d0(DISASTER_I(building));
+        }else if(type==31u||type==30u||type==33u||type==209u){
+            linked=DISASTER_I(FUN_0046d0f0(building));
+            if(linked>0){
+                DISASTER_U(0x77567cu)=1u;
+                kind=DISASTER_H(0x7999e8u+(uint32_t)linked*264u);
+                FUN_0043fd00(linked,kind);
             }
-          }
+        }else{
+            coord_y=DISASTER_H(0x7999e0u+record);
+            coord_x=DISASTER_H(0x7999deu+record);
+            size=DISASTER_B(0x7999dbu+record);
+            FUN_0047c2b0(DISASTER_I(building),coord_x,coord_y,DISASTER_I(size),DISASTER_I(size));
         }
-        else {
-          (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] = (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] + 1;
-          iVar5 = FUN_004cde40((&DAT_00ea5cc0)[iVar6 * 0x1276],local_14[iVar5]);
-          if (iVar5 != 0) {
-            iVar6 = DAT_00eaac28 * 0x49d8;
-            (&DAT_00ea5cc0)[DAT_00eaac28 * 0x1276] = (&DAT_00ea5cc0)[DAT_00eaac28 * 0x1276] - iVar5;
-            *(int *)(&DAT_00ea5ff4 + iVar6) = *(int *)(&DAT_00ea5ff4 + iVar6) + iVar5;
-            FUN_004e2970(199,0,0);
-          }
+        if(DISASTER_B(0x7999d8u+record)==1u){
+            type=DISASTER_W(0x7999e8u+record);
+            if(type!=10u&&type!=11u&&type!=55u&&type!=81u&&type!=92u&&
+               type!=57u&&type!=54u&&type!=58u&&type!=170u&&type!=171u&&
+               type!=200u&&type!=201u&&type!=202u&&type!=59u&&type!=172u&&type!=173u){
+                if(restore_building_is_kind_77_to_79(DISASTER_I(building))!=0u){
+                    owner_offset=DISASTER_U(0xeaac28u)*0x49d8u;
+                    difficulty=DISASTER_U(0xe39080u);
+                    DISASTER_U(0xea5ec8u+owner_offset)=DISASTER_U(0xea5ec8u+owner_offset)+1u;
+                    amount=(uint32_t)FUN_004cde40(DISASTER_I(DISASTER_U(0xea5cc0u+owner_offset)),rates[difficulty]);
+                    if(amount!=0u){
+                        owner_offset=DISASTER_U(0xeaac28u)*0x49d8u;
+                        DISASTER_U(0xea5cc0u+owner_offset)=DISASTER_U(0xea5cc0u+owner_offset)-amount;
+                        DISASTER_U(0xea5ff4u+owner_offset)=DISASTER_U(0xea5ff4u+owner_offset)+amount;
+                        restore_remaining_message_4e2970(199,0u,0u);
+                    }
+                }else if(FUN_00459ef0(DISASTER_I(building))!=0u){
+                    owner_offset=DISASTER_U(0xeaac28u)*0x49d8u;
+                    difficulty=DISASTER_U(0xe39080u);
+                    DISASTER_U(0xea5ec8u+owner_offset)=DISASTER_U(0xea5ec8u+owner_offset)+1u;
+                    amount=(uint32_t)FUN_004cde40(DISASTER_I(DISASTER_U(0x799a90u+record)),rates[difficulty]);
+                    if(amount!=0u){
+                        FUN_004684e0();
+                        owner_offset=DISASTER_U(0xeaac28u);
+                        DISASTER_U(0xe950dcu)=1u;
+                        owner_offset*=0x49d8u;
+                        DISASTER_W(0xea5cfcu+owner_offset)=(uint16_t)(DISASTER_W(0xea5cfcu+owner_offset)+1u);
+                        DISASTER_U(0xea44f4u+owner_offset)=DISASTER_U(0xea44f4u+owner_offset)+amount;
+                        DISASTER_U(0xea5fd4u+owner_offset)=DISASTER_U(0xea5fd4u+owner_offset)+amount;
+                        DISASTER_U(0xea187cu+owner_offset)=DISASTER_U(0xea187cu+owner_offset)-amount;
+                        kind=DISASTER_H(0x7999e8u+record);
+                        switch(kind){
+                        case 84:case 85:case 86:case 87:
+                            restore_remaining_message_4e2970(201,0u,0u);break;
+                        case 184:
+                            restore_remaining_message_4e2970(202,0u,0u);break;
+                        case 187:case 188:case 189:
+                            restore_remaining_message_4e2970(200,0u,0u);break;
+                        default:break;
+                        }
+                    }
+                }else{
+                    owner_offset=DISASTER_U(0xeaac28u)*0x49d8u;
+                    DISASTER_U(0xea5ec8u+owner_offset)=DISASTER_U(0xea5ec8u+owner_offset)+1u;
+                }
+            }
+            owner_offset=DISASTER_U(0xeaac28u)*0x49d8u;
+            if(DISASTER_I(DISASTER_U(0xea5ec8u+owner_offset))>=12)
+                DISASTER_U(0xea5ec8u+owner_offset)=12u;
+            DISASTER_B(0x7999d8u+record)=4u;
+            coord_y=DISASTER_H(0x7999e0u+record);
+            size=DISASTER_B(0x7999dbu+record);
+            coord_x=DISASTER_H(0x7999deu+record);
+            FUN_0048c0e0(coord_x,coord_y,size,1u);
+            FUN_004695d0(DISASTER_I(building),0);
         }
-      }
-      if (0xb < (int)(&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276]) {
-        (&DAT_00ea5ec8)[DAT_00eaac28 * 0x1276] = 0xc;
-      }
-      (&DAT_007999d8)[iVar7] = 4;
-      FUN_0048c0e0((int)*(short *)((int)&DAT_007999dc + iVar7 + 2),
-                   (int)*(short *)(&DAT_007999e0 + iVar7),(&DAT_007999db)[iVar7],1);
-      FUN_004695d0(iVar3,0);
     }
-  }
-  FUN_00497b90();
-  FUN_0047afd0(param_1,param_2,3);
-  FUN_0047bae0(param_1 + -2,param_2 + -2,param_1 + 2,param_2 + 2,0);
-  FUN_00517370();
-  FUN_00517660();
-  FUN_005178e0();
-  return;
+    restore_city_disaster_refresh_00497b90();
+    FUN_0047afd0(x,y,3);
+    FUN_0047bae0(DISASTER_I((uint32_t)x-2u),DISASTER_I((uint32_t)y-2u),
+                 DISASTER_I((uint32_t)x+2u),DISASTER_I((uint32_t)y+2u),0u);
+    FUN_00517370();
+    FUN_00517660();
+    FUN_005178e0();
 }
+
+void FUN_00469140(int32_t x,int32_t y,int32_t cell)
+{restore_city_apply_disaster_at_cell(x,y,(uint32_t)cell);}

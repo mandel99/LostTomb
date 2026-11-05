@@ -39,3 +39,5 @@
   that its symbol is absent from the build.
 - A full register result requires its live inputs. If a child writes only AL
   or AX, forward the caller's actual EAX instead of using a zeroed ABI frame.
+- Macro-generated QUERY/METHOD entrypoints may already contain complete C. Read
+  their shared algorithm before replacing or renaming a runtime owner.

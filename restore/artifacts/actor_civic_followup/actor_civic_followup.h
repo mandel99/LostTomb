@@ -44,4 +44,7 @@ int32_t FUN_00421230(int32_t building,int32_t actor);
 #include "base_acceptance_candidates.h"
 #include "actor_route_queries.h"
 #include "transport_path_candidates.h"
+#include "route_helper_candidates.h"
+#include "city_disaster_fields.h"
+#include "city_migration_actions.h"
 #endif
