@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "pin": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "22 typed C owners:15 requested entries,3 connected existing owners(56090C,560CA6,5610A7),4 previously omitted native vtable endpoints. Prior32 constructor/destructor entries reused without changes.",
+  "abi_and_result": [
+    "All22 canonical entries preserve native ECX receiver and RET byte count. All arithmetic decisions and object operations live in C; assembly contains only receiver/stack/result adaptation and indirect-call edges. 561104 has no logical input and returns the constant FFFFFFFF while removing12 native stack bytes.",
+    "560845 ignores first native stack DWORD and reads SECOND DWORD [ESP+8] as optional growth value; RET8. No ignored/unknown stack value becomes a C API parameter.",
+    "560AAE,560B4C,560CA6,560CCF and560D96 return actual full self. 5610D4 returns actual last pointer from its final native MOV; no child result is sampled or fabricated. 560C26 is logical void: its three callers AAE/B4C/CA6 overwrite/ignore EAX, and it is not a vtable endpoint. Its incidental path-dependent EAX and flags are not exposed as a C result.",
+    "560B2A direct path zeroextends stored byte to EAX; fallback forwards entire incoming DWORD to slot1C and returns complete child EAX. 561178 signextends the low byte both for direct result and fallback stack argument to slot24. 56111C first calls61178 with original full DWORD when direct putback is possible; seek failure returnsFFFFFFFF, seek success returns original full argument unchanged.",
+    "56111C seek callback has THREE arguments(FFFFFFFF,1,1), not the two in the old decompile. Successful buffered fallback calls62880(current+1,current,end-current-1), reloads current afterward, then stores original argument BL. The old C fabricated1 both as data and result; this implementation does neither.",
+    "No uninitialized in_ECX, zero ABI frame, unknown register input, invented output character or native instruction-block replay occurs.",
+    "Known numeric original function tokens resolve in typed C to actual compiled canonical addresses BEFORE indirect calls. All57 stream tokens are mapped:prior32+this22+root560734+existing560909+root562CF7. Native-entry count credit remains22; resolver is a shared ownership mechanism, not a newly reconstructed native entry."
+  ],
+  "fields_and_arithmetic": [
+    "All object addressing is wrapping uint32 byte-address arithmetic. Pointer ordering uses unsigned comparisons; growth/capacity comparisons and positive transfer/padding checks retain native signed int32 interpretation. DWORD load width does not assert the generated DAT pointer unit or global type.",
+    "streambuf DWORD offsets:0 vtable;4 owned allocation;8 unbuffered;0C cached character;10/14 allocation first/last;18/1C/20 output first/current/last;24/28/2C input first/current/last. Filebuf extends30 growth enabled,34 growth amount,40 allocation callback,44 release callback. Constructor/destructor layouts come from reused headers/evidence.",
+    "ios addressing uses current self vbtable DWORD displacement+4 on every native reload. DWORD4 is buffer;8 state;20 tie;24 flags;30 width. Fill at2C is BYTE. Suffix tests BYTE25 masks20/40, preserving native flag width; format tests BYTE24 masks0A/08/02.",
+    "560F6F setbuf refuses an already nonnull allocation first pointer(return0). A nonnull buffer and nonzero count set first, clear unbuffered and set last=buffer+count, preserving ownership and other fields. Otherwise set only unbuffered1; return self. 560845 stores nonzero second argument at34 and returns self.",
+    "610D4 conditionally releases the old owned nonnull allocation before first/owned/last stores, preserving callback mutations through subsequent volatile reloads. 610A7 allocates exactly200 hex and forwards ownership1.",
+    "6090C input/output candidate selection follows origin0/1/2 and low mode bits1/2. Input seek calls underflow first. Output growth keeps the PRE-growth candidate even if storage relocates, matching native behavior rather than correcting it."
+  ],
+  "callbacks_and_reload_timing": [
+    "6073C custom allocator is cdecl(target(size)) with EAX=target and actual live ECX. ECX equals old allocation last when requested growth exceeds signed(capacity+max(growth,1)); otherwise it equals computed allocation bytes. The C algorithm derives it from live native inputs; it is not an invented public input.",
+    "6073C allocation size is signed growth/capacity logic with uint32 wrapping. Allocation failure returnsFFFFFFFF without releases or field changes. After success reload first/last; copy full positive unsigned old extent via63400; reload first after copy when copied; retain delta0 when no extent. Release callback44 is cdecl(buffer) with ECX=callback TARGET and EAX=buffer. This is intentionally distinct from destructor release-call ECX=buffer.",
+    "After release and610D4,6073C only relocates input fields if delta nonzero and input last nonzero. Output fields are relocated whenever old output last nonzero; start/current stores and conditional current restore retain native order.",
+    "Virtual calls reload actual object/vtable and preserve receiver ECX with native stack arguments and full child EAX. Slot offsets are bytes:04 sync,0C seek,14 bulk write,1C overflow,20 underflow,24 putback. 6110A forwards(offset,0,mode) to slot0C and returns full child EAX.",
+    "Output prepare ORs state2 and fails if existing state nonzero; otherwise flushes the ACTUAL tie stream at ios+20 when nonnull and succeeds irrespective of its returned self. All errors after callback reload the receiver vbtable/base before state changes.",
+    "Suffix clears width before callbacks. Flag2000 invokes buffer sync and onFFFFFFFF SETS state6; flag4000 then calls562BEA(6049C0),562BEA(6049E0), in that order, ORing state2 separately on-1. All flag/base reloads remain volatile. No Win32 error value is fabricated or cleared; external562BEA owns its CRT/OS behavior.",
+    "Seven saved native vtables(570534,57053C,57056C,570588,570598,5705C8,5705D8) contain27 slots and22 unique code tokens; all resolve. Saved prior REA192-byte record570530..5705EF exactly matches the pinned PE. Resolver addresses actual canonical functions, including scalar destructors and562CF7, rather than dereferencing original code pointers as compiled code. No vtable contents or prior32 C algorithm bytes are changed.",
+    "The four virtual adapters save their actual native vtable value and self across the C resolver call, restore EAX=vtable and ECX=self, push original args, then CALL the resolved target. The prior constructor-owned restore_stream_virtual_delete slot0 edge receives the same exact adapter-only repair in prior-virtual-delete-adapter.patch. Saved29 prior algorithm files bind all32 entries and remain untouched."
+  ],
+  "format_and_transfer": [
+    "Integer output copies native3 bytes at5D9A18 (%d\\0) and3 zero bytes at570580 into separate4-byte format/prefix buffers, then explicit NUL fourth byte. It preserves decimal plus-sign, octal/hex case and showbase behavior, including zero-value suppression, using existing561A36. Its12-byte converted text buffer matches native capacity.",
+    "Character output with width uses a2-byte NUL-terminated low-byte string and native empty prefix7027D4. With width0 it zeroextends byte, calls560B2A, and on-1 retries slot1C explicitly before OR state6; this repeated overflow call is intentional.",
+    "Formatting computes prefix and text lengths in native order using63380; unsigned length sum and width comparison wrap. Right/internal padding tests/decrements retain native postdecrement behavior, including decrement on a zero or negative signed count; output text slot14 is called even for text length0. Prefix slot14 is conditional on nonzero prefix length. Fill and errors reload mutable object fields every iteration/callback; later flags are reread after earlier callbacks.",
+    "Bulk write decrements a uint32 count before each attempted byte, uses direct path only when unbuffered0 and current<last, zeroextends callback bytes, and stops onFFFFFFFF without counting the failed byte.",
+    "Buffered bulk read calls underflow each nonzero-count iteration; signed min(end-current,count), copy only when positive, then reload current after copy and update count/result. The native non-progress possibility for nonpositive extents is preserved. Unbuffered bulk read fills cached character onFFFFFFFF EVEN for a zero incoming count, then forwards each byte and prefetches the next character, preserving callback/cache mutation timing."
+  ],
+  "source_migration": {
+    "old_sources_to_exclude": [
+      "src/unit_02744.c",
+      "src/unit_02745.c",
+      "src/unit_02746.c",
+      "src/unit_02748.c",
+      "src/unit_02751.c",
+      "src/unit_02752.c",
+      "src/unit_02753.c",
+      "src/unit_02754.c",
+      "src/unit_02755.c",
+      "src/unit_02756.c",
+      "src/unit_02757.c",
+      "src/unit_02760.c",
+      "src/unit_02764.c",
+      "src/unit_02765.c",
+      "src/unit_02767.c",
+      "src/unit_02768.c",
+      "src/unit_02769.c",
+      "src/unit_02770.c"
+    ],
+    "install": "Copy files per manifest.install_files, apply integration.patch and prior-virtual-delete-adapter.patch. All direct canonical callsites occur in the18 excluded owners with typed coherent replacements. The separate adapter patch changes only prior virtual-delete dispatch; prior32 C algorithm bodies remain byte-identical.",
+    "public_modifications_by_agent": false
+  },
+  "shared_milestone_native_C_scenarios": [
+    "6073C allocation failure/success, custom callback liveECX branch variations, custom release ECX=target/EAX=buffer, zero/positive/reversed extents, callback mutations, input/output relocation, owned/unowned buffer replacement, signed growth boundary/wrap.",
+    "60855 unsigned pointer fullness, growth fail/success, end0/current restoration, EOF no-store;608CC current/end/cross-output boundaries;6090C every mode/origin, wrap, invalid origin, rejected input/output bounds, growth relocation retaining candidate.",
+    "AAE width0/nonzero, embedded NUL byte, double overflow and state errors;B2A zeroextend versus fallback full DWORD;B4C zero/negative/INT_MIN/nonzero decimal/oct/hex upper/lower/showpos/showbase;prepare tie callback receiver and state mutation;C26 both flags and all sync/stdio fail combinations;CCF self result.",
+    "D96 right/internal/left flags and mutable flag combinations, zero-length prefix/text, count0/negative/wrapped padding, failed character/bulk callbacks with subsequent state/vbtable changes and order assertions.",
+    "FA3 andFF9 zero/positive counts, buffered/unbuffered modes, direct/callback transfers, EOF and short transfer, callback mutation, signed extent boundaries, cache fill on count0 and prefetch on final byte.",
+    "6111C direct versus seek fallback;seek arguments(-1,1,1);failure versus full original argument success;overlap-safe insertion and postmove cursor reload.61178 bytes00/7F/80/FF and high argument bits on direct/fallback paths. Omitted endpoints:60845 first ignored/second zero/nonzero;F6F existing storage/null/count0;1104 RET12;110A slot argument/order/full result.",
+    "Known numeric-vtable tokens must reach compiled C for every one of27 slots; verify the7 destructor slots plusfilebuf sync/seek/put/underflow/bulk and buffer defaults. Resolver unknown compiled callback identity path retains actual ECX and argument layout. Root562CF7 canonical entry owns purecall runtime-error25 and its _amsg_exit descendant qualification."
+  ],
+  "remaining_limits": [
+    "No compiler, focused ABI executable or native/C replay was run by this private author. Root owns shared strict compile and delayed joint gate. Source-only ownership checks are recorded separately and do not establish gameplay equivalence.",
+    "External descendants561A1D/561A2B,561A36,562BEA and its CRT file/OS closure,62880/63400/63380, and arbitrary runtime-provided virtual callbacks remain outside this22-entry packet. This packet preserves their actual arguments/order and reports their returned results; it does not establish complete behavior of every external descendant.",
+    "General callback register/flag side effects beyond evidenced ECX/stack/result contracts are not promoted into public API inputs. Unobserved suffix EAX/flags and arbitrary indirect consumer expectations remain qualified, not claimed equivalent.",
+    "Native constant observations at5D9A18/570580 were read from pinned PE without execution; root shared evidence/byte authentication remains the gate. Existing32 constructor/destructor claims are reused, not rerun or recredited.",
+    "Default streambuf raw562CF7 is now mapped to the root-owned canonical FUN_00562cf7(void), whose authenticated native9 bytes invoke5630E0(25). Its complete _amsg_exit descendant closure remains an explicit root boundary audit. All normal known virtual paths resolve to reconstructed owners; arbitrary unknown callback addresses retain identity and require separately established native ABI/compiled ownership."
+  ],
+  "root_validation": {
+    "strict_compile_and_link": "passed",
+    "build_log_sha256": "2d15e4a7b8366b772fb067590060e679e957e274efd91eb0d9ab1ee17f56cdb4",
+    "ownership_proof": {
+      "path": "metadata/cohort4-source-ownership.json",
+      "sha256": "b4c77257d91f5650331cf1409bb9a36d44a3f285d2e1cd0cd54f764e5e0a2754"
+    },
+    "behavior_comparison": "Deferred to approximately100 new connected entries; no fresh behavior claim for this source cohort.",
+    "host_execution": false
+  }
+}

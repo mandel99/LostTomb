@@ -331,6 +331,11 @@ target_sources(restore_menu_selection PRIVATE
  runtime/building_food_render.c)
 target_compile_definitions(restore_menu_selection PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_compile_options(restore_menu_selection PRIVATE /W4 /WX "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:Release>:/O2>")
+# Typed CRT stream owners replace only the18 incomplete generated bindings.
+foreach(_crt_stream_io_unit IN ITEMS 02744 02745 02746 02748 02751 02752 02753 02754 02755 02756 02757 02760 02764 02765 02767 02768 02769 02770)
+ list(REMOVE_ITEM _restore_compiled_units "${CMAKE_CURRENT_SOURCE_DIR}/src/unit_${_crt_stream_io_unit}.c")
+endforeach()
+unset(_crt_stream_io_unit)
 add_library(pharaoh_restored STATIC ${_restore_compiled_units} $<TARGET_OBJECTS:restore_score_submission> $<TARGET_OBJECTS:restore_menu_selection> runtime/decompiler_support.c runtime/city_history.c
   runtime/media_loader.c runtime/media_bindings.c runtime/legacy_member_calls.c runtime/city_migration.c runtime/compression.c runtime/chunk_migrations.c
   runtime/video_platform_win32.c runtime/display_configuration.c runtime/sound_streams.c runtime/startup_probe.c
@@ -2532,3 +2537,7 @@ set_source_files_properties(src/unit_02521.c src/unit_02737.c src/unit_02741.c s
 
 # Native draw member/forwarder bridges generated over existing C algorithms.
 set_source_files_properties(src/unit_00004.c src/unit_00102.c src/unit_00197.c src/unit_01970.c src/unit_01996.c src/unit_02565.c src/unit_02577.c src/unit_02593.c src/unit_02606.c src/unit_02619.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Connected source cohort4: live x87/error semantics and stream buffer I/O.
+target_sources(pharaoh_restored PRIVATE runtime/crt_asin_math.c runtime/crt_asin_entries.c runtime/crt_stream_io.c runtime/crt_stream_io_resolver.c runtime/crt_stream_io_entries.c runtime/crt_purecall.c)
+set_source_files_properties(runtime/crt_asin_math.c runtime/crt_asin_entries.c runtime/crt_stream_io.c runtime/crt_stream_io_resolver.c runtime/crt_stream_io_entries.c runtime/crt_purecall.c src/unit_02840.c src/unit_02841.c src/unit_02932.c src/unit_02933.c src/unit_02934.c src/unit_02935.c src/unit_02936.c src/unit_02947.c src/unit_02948.c src/unit_02950.c src/unit_02951.c src/unit_02952.c src/unit_02953.c src/unit_02954.c src/unit_02955.c src/unit_02992.c src/unit_00254.c src/unit_00670.c src/unit_02743.c src/unit_00003.c src/unit_00101.c src/unit_00196.c src/unit_01969.c src/unit_01995.c src/unit_02564.c src/unit_02578.c src/unit_02592.c src/unit_02605.c src/unit_02618.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

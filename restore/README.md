@@ -1,7 +1,7 @@
 # Pharaoh restore
 
-The current connected city, draw and monument-worker batch repairs98 original
-C owners /13,214 static native instructions. Its controller, initializer, widget
+The current connected city, draw and monument-worker batch repairs150 original
+C owners /15,333 static native instructions. Its controller, initializer, widget
 groups and worker selection use explicit widths, child contracts and returns.
 Shared strict compilation and both Release links pass. Detailed native
 comparison follows at the approximately100-entry milestone. See
@@ -1025,3 +1025,5 @@ full-game equivalence.
 Local cleanup on2026-11-04 removed10.728 GiB of obsolete generated outputs.
 Current builds, original assets and referenced evidence remain available; see
 [the cleanup record](metadata/RESTORE_CLEANUP_2026-11-04.md).
+
+Active source cohort4:52 new/repaired entries beyond the separately verified98-entry cohort3 baseline. The52 entries contain41 new complete C algorithm definitions and11 reused-algorithm/physical-bridge repairs. Shared strict links pass; detailed native/C replay is deferred to approximately100 new connected entries. See metadata/cohort4-source-progress.json. Prior verified PE/MAP bytes are privately archived by exact hash; no whole-game equivalence claim.

@@ -41,10 +41,11 @@ def load(require_retained=True):
  for m in d['members']:
   assert digest(ROOT/m['source'])==m['source_sha256'],m['source']
   a=int(m['address'],16);ranges=[(int(r['start'],16),int(r['end'],16)+1)for r in m.get('native_ranges',[])]or[(a,a+m['native_bytes'])]
-  rec=evidence[m['native_evidence_id']];base=int(rec['parameters']['address'],16);payload=bytes.fromhex(rec['normalized_result']['bytes_hex'])
-  assert rec['subject']['digest']['sha256']==PIN and rec['normalized_result']['complete']
+  record_ids=m.get('native_evidence_ids',[m['native_evidence_id']]*len(ranges));assert len(record_ids)==len(ranges)
   chunks=[];decoded=[]
-  for start,end in ranges:
+  for (start,end),record_id in zip(ranges,record_ids):
+   rec=evidence[record_id];base=int(rec['parameters']['address'],16);payload=bytes.fromhex(rec['normalized_result']['bytes_hex'])
+   assert rec['subject']['digest']['sha256']==PIN and rec['normalized_result']['complete']
    assert base<=start<end<=base+len(payload)
    raw=payload[start-base:end-base];assert raw==native.data[start-native.base:end-native.base]
    chunks.append(raw);ins=list(Cs(CS_ARCH_X86,CS_MODE_32).disasm(raw,start));assert sum(i.size for i in ins)==end-start;decoded+=ins

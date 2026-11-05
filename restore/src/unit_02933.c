@@ -1,7 +1,3 @@
-#include "restore_types.h"
-
-void FUN_00567575(void)
-
-{
-  return;
-}
+#include "crt_asin_math.h"
+/* Canonical 00567575 is defined by runtime/crt_asin_entries.c;
+   typed C decisions and hardware primitives are in crt_asin_math.c. */

@@ -14,6 +14,7 @@ import re
 import struct
 import sys
 import xml.etree.ElementTree as ET
+from bulk_compound_rules import recognize as compound_rule,emit as emit_compound
 
 ROOT = Path(__file__).resolve().parents[1]
 PIN = 'fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d'
@@ -74,12 +75,14 @@ def native_bytes(entry):
     return bytes(out)
 
 def rule(ins):
-    """Whole-EAX MOV/LEA rules and zeroed-EAX byte lookups; no calls/branches."""
+    """Complete recognized native templates, including bounded field algorithms."""
     from capstone.x86_const import X86_OP_REG,X86_OP_IMM,X86_OP_MEM
     core=list(ins)
     if len(core)>=4 and [(x.mnemonic,x.op_str) for x in core[:2]]==[('push','ebp'),('mov','ebp, esp')]:
         if (core[-2].mnemonic,core[-2].op_str)!=('pop','ebp'): return None
         core=core[2:-2]+[core[-1]]
+    extra=compound_rule(core)
+    if extra:return extra
     if len(core)==4 and core[-1].mnemonic=='ret' and not core[-1].op_str:
         first,a,b=core[:3]
         if (first.mnemonic,first.op_str)==('xor','eax, eax') and a.mnemonic==b.mnemonic=='mov':
@@ -115,6 +118,8 @@ def rule(ins):
     return None
 
 def generate(address, canonical, r):
+    compound=emit_compound(address,canonical,r)
+    if compound:return compound
     width=r.get('width',4);tag=('i' if r.get('signed') else 'u')+str(width*8)
     name=f'restore_object_{r["kind"]}_{tag}_{address:08x}'
     offset=r['offset']&0xffffffff;pointer=f'(uintptr_t)(self+0x{offset:08x}u)'
@@ -208,8 +213,8 @@ def main():
                             name,code=generate(address,canonical,r);dest=args.write_candidates/row['source'];dest.parent.mkdir(parents=True,exist_ok=True)
                             if dest.exists() and dest.read_bytes()!=code: raise ValueError('Candidate already differs: '+str(dest))
                             dest.write_bytes(code);candidate_hashes[row['source']]=sha(dest);original_hashes[row['source']]=sha(path)
-                            signature=r['result']+f' cdecl{2 if "value_register"in r else 1}(uint32_t self'+(',uint32_t value'if'value_register'in r else '')+')'
-                            members.append(dict(address=row['address'],source=row['source'],name=name,canonical_symbol=canonical,logical_signature=signature,native_bytes=len(raw),native_instructions=len(ins),native_final_mnemonic='ret',native_byte_sha256=hashlib.sha256(raw).hexdigest(),repair_kind='Unbound ECX replaced by an exact native memory/LEA C rule',rule=r,ownership=dict(object_path=obj.relative_to(ROOT).as_posix(),object_sha256=sha(obj),original_source_sha256=sha(path))))
+                            signature=r.get('signature')or(r['result']+f' cdecl{2 if "value_register"in r else 1}(uint32_t self'+(',uint32_t value'if'value_register'in r else '')+')')
+                            members.append(dict(address=row['address'],source=row['source'],name=name,canonical_symbol=canonical,logical_signature=signature,native_bytes=len(raw),native_instructions=len(ins),native_final_mnemonic='ret',native_byte_sha256=hashlib.sha256(raw).hexdigest(),repair_kind='Unbound ECX replaced by a complete recognized native C template',rule=r,ownership=dict(object_path=obj.relative_to(ROOT).as_posix(),object_sha256=sha(obj),original_source_sha256=sha(path))))
                             row['status']='candidate_emitted_comparison_pending'
         rows.append(row)
     report=dict(schema='bulk-native-C-rule-plan-v1',native_sha256=PIN,catalogue_entries=len(entries),native_catalogue_closed=False,complete_game_reconstruction=False,behavior_comparison_complete=False,status_counts=dict(Counter(x['status']for x in rows)),functions=rows)

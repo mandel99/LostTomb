@@ -1,0 +1,44 @@
+{
+  "schema": "cohort4-connected-C-source-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": 52,
+  "baseline_completed_entries": 98,
+  "target_new_entries": 100,
+  "families": {
+    "compound_native_templates": 3,
+    "placement_query_ABI_repairs": 10,
+    "CRT_purecall_forwarder": 1,
+    "CRT_x87_math_error": 16,
+    "CRT_stream_IO": 22
+  },
+  "new_C_algorithms": 41,
+  "query_reuse": {
+    "sources": [
+      "runtime/general_placement.c",
+      "runtime/placement_context.c"
+    ],
+    "entries": 10,
+    "algorithms_unchanged": true,
+    "closed_legacy_cdecl_callers": 8
+  },
+  "compound": {
+    "search": "Signed32 cached count, DWORD key,64-byte records; captured count is an optional native EDX output, never a second global reload.",
+    "scale": "Low32 unsigned multiplication is reinterpreted signed; exact truncating /400 then max1. Native ECX sign and EDX quotient are optional private C output slots.",
+    "division_proof": "0x51EB851F*400=2^39+112. The approximation error over signed32 magnitude is below1/400, so SAR7 of signed high product plus sign adjustment equals truncation /400.",
+    "clear_read": "Native DWORD read/modify/write AND0 is retained with volatile compound assignment; final AND flags are reconstructed on a private slot."
+  },
+  "purecall": "562CF7 reports runtime error25 through existing5630E0. Its fatal-error/exit descendants remain an explicit independent obligation.",
+  "math": {
+    "path": "metadata/cohort4-crt-math-contracts.json",
+    "sha256": "5243cd0ffc2fce35afc03b8c64156731719828a9861860f983662d68e2e8d2f3"
+  },
+  "stream": {
+    "path": "metadata/cohort4-crt-stream-io-contracts.json",
+    "sha256": "e8c3417fb28ad109ae7bef446ec4b0217177fcdc026463d841fbaacb8db48cc5"
+  },
+  "deferred_comparison": "Strict shared build and ownership/ABI source contracts only. Detailed native/C replay is deferred until approximately100 new connected entries; compilation is not equivalence.",
+  "whole_game_equivalence": false,
+  "host_execution": false,
+  "native_instructions": 2119,
+  "instruction_count_note": "Normalized decoder count. Original provider counts are retained where Capstone splits waiting x87 prefixes."
+}

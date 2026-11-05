@@ -1,10 +1,13 @@
-#include "restore_types.h"
-extern char FUN_005463e0();
-
-char FUN_00558b60(undefined4 param_1)
-
+#include "placement_context.h"
+/* Existing typed C query is reused unchanged. This is only ECX/RET adaptation.
+   Full EAX is forwarded; legacy cdecl callers migrate as one closed group. */
+__declspec(naked) uint32_t FUN_00558b60(void)
 {
-  int in_ECX;
-  
-  return FUN_005463e0(param_1,in_ECX + 0x1cbc,0x9e);
+ __asm {
+  push dword ptr[esp+4]
+  push ecx
+  call restore_placement_check_00558b60
+  add esp,8
+  ret 4
+ }
 }

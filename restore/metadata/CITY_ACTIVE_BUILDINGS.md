@@ -1,6 +1,6 @@
 # Active building controller: third connected C batch
 
-The current connected batch selects98 original C owners /13,214 native
+The current connected batch selects150 original C owners /15,333 native
 instructions. Ten draw/worker additions extend the following two-owner foundation;
 their contracts and deferred work are recorded below and in the JSON ledger.
 
@@ -107,3 +107,7 @@ crt-lifecycle comparison:102 fresh cases /393 invocations pass for4 existing ent
 exception comparison:59 fresh cases /324 invocations pass for12 existing entries. Combined epochs:75/98 entries,766 cases /2684 invocations;23 pending. See cohort3-exception-comparison.json and its explicit contracts/limitations. Selected C and compiled artifacts remain unchanged. Full cohort/game equivalence remains false.
 
 Joint finite milestone:98/98 named C definitions and98/98 retained canonical entries pass 1017 unique scenarios, 1203 case passes and 5841 native/C invocations. The rebuilt offline image retains all canonical symbols; original game/diagnostic hashes and historical receipts remain unchanged. Cohort source expansion may resume. Full gameplay, branch and input-domain equivalence remain unproven. See cohort3-joint-comparison.json.
+
+Cohort4 source expansion adds52 entries /2119 decoded native instructions over completed cohort3 baseline98. It includes16 live-x87/error entries,22 stream I/O entries,3 generated compound rules,10 ABI-only query repairs reusing C and1 purecall error forwarder. All share strict compile/link checks. Native/C comparison for these52 remains deferred to the approximately100-new-entry milestone. Previous verified image bytes are privately archived and previous finite reports are not rebound.
+
+Cohort4 active progress:52/approximately100 new entries,2119 decoded instructions, shared strict compile/link passed. Cohort3 remains a separate completed98-entry finite gate with its original PE/MAP bytes archived privately. New52 entries have no claimed behavioral comparison yet. Two live-x87 unresolved scalar substitutions were removed; a zero active literal-return inventory is not whole-game reconstruction completeness.

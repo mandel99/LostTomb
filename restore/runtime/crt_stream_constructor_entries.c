@@ -1,5 +1,7 @@
 #include "crt_stream_constructor.h"
 
+uint32_t restore_stream_io_resolve(uint32_t token);
+
 /* Only canonical ECX/stack adaptation lives here. All object operations,
    state transitions and cleanup decisions are in the C source owners. */
 __declspec(naked) uint32_t FUN_005605fa(void)
@@ -118,8 +120,16 @@ __declspec(naked) void restore_stream_virtual_delete(uint32_t buffer,
     __asm {
         mov ecx, dword ptr [esp + 4]
         mov eax, dword ptr [ecx]
+        push eax
+        push ecx
+        push dword ptr [eax]
+        call restore_stream_io_resolve
+        add esp, 4
+        mov edx, eax
+        pop ecx
+        pop eax
         push dword ptr [esp + 8]
-        call dword ptr [eax]
+        call edx
         ret
     }
 }

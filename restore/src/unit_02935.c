@@ -1,10 +1,3 @@
-#include "restore_types.h"
-
-uint FUN_005675e8(undefined4 param_1,uint param_2)
-
-{
-  if ((param_2 & 0x7ff00000) != 0x7ff00000) {
-    return param_2 & 0x7ff00000;
-  }
-  return param_2;
-}
+#include "crt_asin_math.h"
+/* Canonical 005675e8 is defined by runtime/crt_asin_entries.c;
+   typed C decisions and hardware primitives are in crt_asin_math.c. */

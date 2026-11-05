@@ -1,0 +1,58 @@
+{
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "status": "Private source candidate. Shared strict compilation and joint cohort native/C comparison are pending.",
+  "numeric_representation": {
+    "operands": "uint64_t contains exact binary64 memory bits; no C double or MSVC long double conversion.",
+    "live_result": "ST0 remains live through integer C decisions. Native x87 primitives perform the arithmetic and raw80 loads. Lower live x87 stack values remain in hardware.",
+    "raw80_constants": "6050A0 indefinite,6050AA pi/2,6052E8 huge trigger,6052F4 tiny trigger; exact 10-byte PE values bound in native-byte-check.json.",
+    "control": "Actual waiting FSTCW reads the caller CW. Normalization retains PC bits0300, sets low007F and clears RC. Original CW is restored on native paths; default027F error paths retain dispatcher/handler control changes as native.",
+    "domain": "Valid live x87 stack with two spare entries for interior asin/exception primitives; mapped native globals and caller slots. Hardware handles values, masked exceptions, status, precision and rounding. Unmasked trap delivery/resumption still needs controlled milestone evidence.",
+    "exception_records": "Native _exception is32 bytes (type/name at0/4, binary64 arg1/arg2/result at8/16/24). Native IEEE scratch is88 owned uninitialized bytes, not generated40 bytes. Value/flags offsets are16/32,40/56,64/80. Valid flags/types, exception masks/status and operation fields are reconstructed. Reserved bits are neither initialized nor additional API inputs.",
+    "owned_scratch_masks": "Byte-mask RMW preserves owned unspecified bits without reading uninitialized DWORD scalars. Header RC maskFFFFFFFC; PC masksFFFFFFEB/FFFFFFE7/FFFFFFE3; operation maskFFFE001F; operand/result flagsFFFFFFE3|3. Dispatcher operand2 flags areFFFFFFE3|3 for valid binary operations orFFFFFFFE for unary invalidation. Full native words1/2/3 and binary64 data are the only whole-field writes. No memset/zero initialization and no unary arg2 store."
+  },
+  "entries": {
+    "00562d00": "Physical ST0 bridge makes the native binary64 FST without popping, calls classifier and core, then discards its eight-byte spill. Arithmetic and decisions live in typed C.",
+    "00562d1d": "Consumes ACTUAL entry EAX classification, ZF, ST0 and binary64 spill; adapter captures flags before any flag-writing instruction. Checks special inputs before CW normalization. Finite interior executes FLD1/FADD/FLD1/FSUB/FMULP/FSQRT/FPATAN in original order. Exact endpoints replace ST0 with signed pinned raw80 pi/2; outside-domain values use pinned raw80 indefinite. Global12663C0 selects error/precision handling or shared native5675FE restoration. Final EDX reconstructs the saved scratch DWORD, including normalization's upper-WORD write.",
+    "00567517": "Canonical EAX type/ECX name/EDX operation are actual live inputs. Operand bits come from the caller's original two spill slots, not a guessed C floating argument. Pop result to binary64, dispatch typed32-byte record, reload result to ST0, conditionally restore original CW. Unary arg2 has no defined native producer or valid unary consumer.",
+    "00567575": "Reads saved-CW DWORD at native caller slot; normalizedCW=(slot&0300)|007F. Writes normalizedCW to the UPPER WORD, loads it as CW and returns it in EDX while preserving EAX/ECX. Canonical flags reproduce defined TEST-equivalent OR flags.",
+    "0056758c": "EAX bit00080000 chooses quiet-NaN type7 without arithmetic; otherwise native FADD binary64 one quiets ST0 and produces type1. Full EAX return7/1 is proven by MOV EAX immediates. Canonical TEST flags and preserved ECX/EDX retained.",
+    "005675e8": "Returns exponent bits for finite values, actual signed high DWORD for exponent-all-ones values. Canonical adapter reproduces CMP(exponent,7FF00000) flags even when returned EAX contains signed high bits; ZF is consumed by core.",
+    "0056760b": "Tail ABI: ESP addresses saved-CW scratch, then return PC and two operand words. Default027F exits. Otherwise saved precision-mask bit20 and waiting FPSW precision bit20 select type8 one-argument error dispatch; else restore CW. Pop ENTIRE scratch DWORD to EDX. This entry must never be called as an ordinary no-argument cdecl function.",
+    "0056971f": "Maps record type1/5->invalid8,2->divide4,3->overflow+precision11,4->underflow+precision12,7->type1 with no masked helper,8->precision10. Typed masked handler/IEEE raise precede control restoration and existing correct matherr/errno endpoints. Operations10/16/1D initialize valid second-operand binary64 at IEEE offset40 and flags56; unary operations leave it invalid.",
+    "00567f58": "Constructs defined IEEE fields, selects native Windows exception-code precedence, copies binary64 operands/result using x87, reads and clears hardware status, then calls actual RaiseException(code,0,1,&recordPointer). After a returning handler, apply its enable/rounding/precision fields and binary64 result. Preserve native post-handler FFFFF3FF mask in precision decoding, even though it clears RC rather than PC.",
+    "0056820b": "Full EAX Boolean return is defined by native XOR EAX/SETZ AL. Implements invalid/divide/overflow/underflow/precision masks and precedence. Overflow chooses sign and infinity/maxfinite using native ordered-positive comparison and saved RC. Underflow uses native frexp exponent-minus600, threshold-432, mantissa implicit bit, shift/sticky loop and sign conversion. x87 primitive exception generation remains actual hardware.",
+    "00568448": "Binary64 argument roundtrip, replace high WORD with ((exponent+3FE)<<4)|(oldHigh&800F), then FLD binary64 leaving ST0. uint32 wrapping and16-bit write are explicit; no double-return approximation.",
+    "00568471": "Native FCOMP zero/unordered branch, signed subnormal normalization by whole64-bit left shifts, native exponent adjustment, set-exponent call, binary64 roundtrips and final ST0 load. Caller-visible exponent is int32. Native NaN/unordered returns positive zero/exponent0; this is not replaced by generic frexp.",
+    "00568532": "Waiting hardware FSTSW, full signed16-to32 status result.",
+    "00568540": "Nonwaiting FNSTSW followed by FNCLEX, full signed16-to32 old status result.",
+    "0056854f": "Waiting CW read, low16 masked replacement and FLDCW, signed16-to32 old-CW return. Physical adapter forwards ACTUAL incoming ECX upper WORD from native PUSH ECX scratch, writes original caller's mask slot, restores EDX and leaves new slot value in ECX. Defined OR flags are retained.",
+    "00568572": "C branches select native primitive sequences: huge raw80/FISTP invalid, huge raw80/FSTP64 overflow, tiny raw80/FSTP64 underflow, FLDZ/FLD1/FDIVRP divide-by-zero, FLDPI/FSTP64 precision; waits and status reads retained. No generic fenv substitution."
+  },
+  "reused_without_rewrite": {
+    "00560909": "Existing unit02747 returns full EAX zero and has no record reads. It is a correct C matherr default.",
+    "00568422": "Existing unit02949 sets DWORD1266430 to21 for type1 or22 for signed types2/3; otherwise no write. It is correct C."
+  },
+  "consumer_evidence": {
+    "scope": "Saved native-function audit cache only; caller-summary.json retains compact callsites.",
+    "asin": "Observed native51CAE0 uses only ST0 from both562D00 calls, then uses FNSTSW AX/AH conditions and later calls ftol, which defines the integer result. It does not consume asin's EAX/ECX/EDX as a C numeric result.562D00 calls562D1D and consumes only ST0; EDX scratch is nevertheless preserved.",
+    "narrow_results": "Status/control routines explicitly MOVSX16->EAX; masked-error Boolean explicitly clears EAX before SETZ AL. NaN helper writes full EAX immediate7/1. No fabricated zero ABI frame supplies a live AL/AX producer.",
+    "unresolved": "Indirect/native-cache-external consumers are not enumerated. Core/error/exception-generator EAX/ECX/EFLAGS scratch outputs are not claimed identical; logical ST0/CW/record/global behavior and documented classifier/CW bridges are the contract."
+  },
+  "residual_domains": [
+    "Joint native/C finite cohort comparison, including compiled-only entries, is pending. No gameplay-equivalence claim follows from this source packet.",
+    "Exact host delivery/resumption of unmasked x87 traps and external SEH handlers remains unverified.",
+    "Handlers inspecting reserved IEEE bytes or invalid unary operand2 bytes are outside the defined-field contract. Candidate retains owned unspecified bytes and exact native partial-field masks; it does not supply invented initialized values or extra API inputs.",
+    "Full x87 environment instruction/data addresses and undocumented GPR/EFLAGS scratch effects are not equivalent-address claims.",
+    "Native indirect consumer coverage remains open."
+  ],
+  "root_validation": {
+    "strict_compile_and_link": "passed",
+    "build_log_sha256": "2d15e4a7b8366b772fb067590060e679e957e274efd91eb0d9ab1ee17f56cdb4",
+    "ownership_proof": {
+      "path": "metadata/cohort4-source-ownership.json",
+      "sha256": "b4c77257d91f5650331cf1409bb9a36d44a3f285d2e1cd0cd54f764e5e0a2754"
+    },
+    "behavior_comparison": "Deferred to approximately100 new connected entries; no fresh behavior claim for this source cohort.",
+    "host_execution": false
+  }
+}
