@@ -1,33 +1,26 @@
-#include "restore_types.h"
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-#define PTR_DAT_0059edf0 (*(unsigned char * *)0x0059edf0u)
-extern uint FUN_0041f8b0();
-extern void FUN_0041f8c0();
-extern void FUN_0041f910();
-extern int FUN_0053e590();
+#include "widget_group_draw.h"
+#include "widget_position.h"
+#include "sprite_render.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_004206f0(int param_1,int param_2)
+#include "pyramid_widget_draw.h"
 
+/* 4206F0 reads the whole signed DWORD, divides toward zero, then masks bit0.
+   The original src DAT byte declaration cannot express the native load. */
+void restore_draw_widget_group_004206f0(int32_t x,int32_t y)
 {
-  uint uVar1;
-  uint uVar2;
-  undefined **ppuVar3;
-  int local_c;
-  int local_8;
-  int local_4;
-  
-  uVar2 = DAT_00bca2e0 / 2 & 1;
-  uVar1 = FUN_0041f8b0();
-  if (uVar2 != uVar1) {
-    FUN_0041f8c0(uVar2);
+ uint32_t orientation=(uint32_t)((int32_t)U(0x00bca2e0u)/2)&1u;
+ uint32_t base_x,base_y,table,image;
+ int32_t out_x,out_y;
+ if(orientation!=FUN_0041f8b0())FUN_0041f8c0((int32_t)orientation);
+ base_y=(uint32_t)y;base_x=(uint32_t)x;table=0x0059edf0u;
+ do{
+  uint32_t self=U(table);
+  restore_widget_position_0041f910(self,&out_x,&out_y,&image);
+  if(image){
+   (void)restore_sprite_draw(RESTORE_SPRITE_LIBRARIES,(int32_t)image,
+     (int32_t)(base_x+(uint32_t)out_x),(int32_t)(base_y+(uint32_t)out_y));
   }
-  ppuVar3 = &PTR_DAT_0059edf0;
-  do {
-    FUN_0041f910(&local_4,&local_8,&local_c);
-    if (local_c != 0) {
-      FUN_0053e590(local_c,local_4 + param_1,local_8 + param_2);
-    }
-    ppuVar3 = ppuVar3 + 4;
-  } while ((int)ppuVar3 < 0x59efa0);
-  return;
+  table+=16u;
+ }while(table<0x0059efa0u);
 }

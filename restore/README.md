@@ -1,10 +1,10 @@
 # Pharaoh restore
 
-The current city-controller foundation restores two original C owners /5,337
-static native instructions. The full00462180 controller now uses typed memory
-views and genuine child returns;004620C0 repairs the basic actor initializer.
+The current connected city, draw and monument-worker batch repairs12 original
+C owners /6,861 static native instructions. Its controller, initializer, widget
+groups and worker selection use explicit widths, child contracts and returns.
 Shared strict compilation and both Release links pass. Detailed native
-comparison follows with the next connected source batch. See
+comparison follows at the approximately100-entry milestone. See
 [the controller ledger](metadata/CITY_ACTIVE_BUILDINGS.md).
 
 The previous100-entry cohort's285-case comparison is historical at871eea0.

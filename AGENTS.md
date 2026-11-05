@@ -51,6 +51,14 @@
   every global with a DWORD or assume its pointer unit from one load width.
 - Give each function one author. Do not start a second review agent or another
   round of discovery for a completed handoff without a concrete unresolved issue.
+- Integrate completed handoffs before commissioning more analysis. Agent briefs
+  and final handoffs should contain paths, counts, contracts and blockers; keep
+  full evidence in files and do not paste complete manifests into tool output.
+- Default to small structured tool summaries (about 1000 output tokens). Read
+  function bodies only when needed for an edit or a specific unresolved contract.
+- Prefer the root plus one implementation agent for routine batches. Additional
+  agents need separate substantial work; idle agents and completed packets do
+  not justify rediscovery, duplicate reviews or frequent status polling.
 - At the approximately100-entry cohort milestone, perform the joint native/C
   comparison before expanding the cohort. Include compiled-only definitions
   in the verification plan; a successful build is not behavior equivalence.

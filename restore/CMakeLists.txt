@@ -431,6 +431,9 @@ set_source_files_properties(src/unit_00919.c src/unit_00920.c src/unit_00921.c s
 # City controller and basic actor profile retain their original source owners.
 target_sources(pharaoh_restored PRIVATE src/unit_00928.c)
 set_source_files_properties(src/unit_00926.c src/unit_00928.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+# Ordinary widget groups and monument worker values: original owners only.
+target_sources(pharaoh_restored PRIVATE src/unit_00324.c src/unit_00325.c src/unit_00340.c src/unit_00347.c src/unit_00354.c src/unit_00361.c src/unit_00368.c src/unit_01981.c src/unit_02107.c src/unit_02110.c)
+set_source_files_properties(src/unit_00324.c src/unit_00325.c src/unit_00340.c src/unit_00347.c src/unit_00354.c src/unit_00361.c src/unit_00368.c src/unit_01981.c src/unit_02107.c src/unit_02110.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 # Select the published C owners once; their bodies are not copied or counted again.
 target_sources(pharaoh_restored PRIVATE
  artifacts/actor_civic_followup/actor_civic_updates.c

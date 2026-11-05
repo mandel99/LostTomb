@@ -1,3 +1,4 @@
+#include "actor_value_contracts.h"
 #include "building_refresh_helpers.h"
 #include "building_image.h"
 #include "building_allocator.h"
@@ -81,4 +82,15 @@ void restore_building_refresh_raw(uint32_t target,uint32_t registers[8],uint32_t
  for(i=0;i<8;++i)f.r[i]=registers[i];f.flags=*flags;f.boundary=restore_building_refresh_dispatch;
  restore_building_refresh_dispatch(0,target,&f);
  for(i=0;i<8;++i)registers[i]=f.r[i];*flags=f.flags;
+}
+
+/* 4E5840 has no incoming receiver/scratch input. Its cdecl result is void;
+   the retained physical C provider owns widths, sprite receiver and children. */
+void restore_obelisk_refresh_progress(int32_t building,int32_t x,int32_t y)
+{
+ uint32_t stack[8192],r[8]={0},flags=2,sp=(uint32_t)(uintptr_t)(stack+8000);
+ stack[8000]=0;stack[8001]=(uint32_t)building;
+ stack[8002]=(uint32_t)x;stack[8003]=(uint32_t)y;r[4]=sp;
+ restore_building_refresh_raw(0x4e5840u,r,&flags);
+ if(r[4]!=sp+4u)abort();
 }

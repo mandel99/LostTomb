@@ -1,6 +1,10 @@
 # Active building controller: third connected C batch
 
-The new foundation selects two repaired original source owners: the full
+The current connected batch selects12 original C owners /6,861 native
+instructions. Ten draw/worker additions extend the following two-owner foundation;
+their contracts and deferred work are recorded below and in the JSON ledger.
+
+The foundation selects two repaired original source owners: the full
 00462180 city controller (5,307 native instructions) and the 004620C0 basic
 actor initializer (30). Both named C definitions and their canonical facades
 are retained in the game and diagnostic images. Shared strict Win32 C11
@@ -37,3 +41,11 @@ The remaining 62 placeholder callsites in 35 generated units are recorded as
 [candidates](unresolved-return-candidates.json). Their active/inactive ordinary
 C and macro owners must be audited before any further repair; these numbers
 do not measure missing functions or whole-game completion.
+
+## Connected draw and monument-worker additions
+
+Ten original owners now use ordinary C: six widget groups, building-widget selection, obelisk progress, idle pyramid-piece/access selection and available-worker assignment. The connected batch now contains12 entries /6,861 native instructions. Existing correct child algorithms and physical dispatch remain unchanged; no new-algorithm credit is claimed.
+
+Twenty-eight placeholder calls were removed: two consumed values now have explicit contracts (4E5AE0 AL and4F3000 full EAX);26 values are discarded in the native parent. The remaining source inventory is34 sites in31 units, which requires ownership auditing before selection.4A3B00 remains deferred until its transitive full-EAX contract is proven.
+
+Both shared Release links and strict compilation pass. Joint native/C behavior comparison remains pending at the approximately100-entry milestone. Historical finite receipts retain their original bindings. Neither host game was launched.

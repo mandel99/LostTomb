@@ -1,27 +1,22 @@
-#include "restore_types.h"
-#define PTR_DAT_005ad218 (*(unsigned char * *)0x005ad218u)
-extern void FUN_0041f910();
-extern int FUN_0053e590();
+#include "widget_group_draw.h"
+#include "widget_position.h"
+#include "sprite_render.h"
+#define U(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 
-void FUN_00420d60(int param_1,int param_2)
-
+/* 420D60: original table walk, with the omitted thiscall receiver explicit.
+   x and y are deliberately reused as the child's out_y and out_image slots. */
+void restore_draw_widget_group_00420d60(int32_t x,int32_t y)
 {
-  int iVar1;
-  int iVar2;
-  int in_ECX;
-  undefined **ppuVar3;
-  int local_4;
-  
-  iVar2 = param_2;
-  iVar1 = param_1;
-  ppuVar3 = &PTR_DAT_005ad218;
-  local_4 = in_ECX;
-  do {
-    FUN_0041f910(&local_4,&param_1,&param_2);
-    if (param_2 != 0) {
-      FUN_0053e590(param_2,local_4 + iVar1,param_1 + iVar2);
-    }
-    ppuVar3 = ppuVar3 + 4;
-  } while ((int)ppuVar3 < 0x5ad3c8);
-  return;
+ uint32_t base_x=(uint32_t)x,base_y=(uint32_t)y,table=0x005ad218u;
+ int32_t out_x;
+ do{
+  uint32_t self=U(table),image;
+  restore_widget_position_0041f910(self,&out_x,&x,(uint32_t *)&y);
+  image=(uint32_t)y;
+  if(image){
+   (void)restore_sprite_draw(RESTORE_SPRITE_LIBRARIES,(int32_t)image,
+     (int32_t)(base_x+(uint32_t)out_x),(int32_t)(base_y+(uint32_t)x));
+  }
+  table+=16u;
+ }while(table<0x005ad3c8u);
 }

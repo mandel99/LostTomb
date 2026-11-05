@@ -1,3 +1,4 @@
+#include "actor_value_contracts.h"
 #include "actor_laborer.h"
 #include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 #include "pyramid_worker_state.h"
@@ -311,7 +312,7 @@ static uint32_t invoke(uint32_t entry,const uint32_t *args,uint32_t count)
     return f.r[0];
 }
 int32_t FUN_004efe30(uint32_t x,uint32_t y,int32_t actor,int32_t mode)
-{const uint32_t a[]={x,y,(uint32_t)actor,(uint32_t)mode};return (int32_t)invoke(0x4efe30u,a,4);}
+{(void)x;(void)y;return restore_pyramid_select_idle_piece_or_access(actor,mode);}
 void FUN_004a98b0(void){(void)invoke(0x4a98b0u,0,0);}
 void FUN_004a7600(void){(void)invoke(0x4a7600u,0,0);}
 void FUN_004a7ea0(void){(void)invoke(0x4a7ea0u,0,0);}
@@ -337,7 +338,7 @@ uint32_t FUN_004a9730(int32_t actor)
 int64_t FUN_004e5ae0(int32_t building)
 {const uint32_t a[]={(uint32_t)building};return (int64_t)invoke(0x4e5ae0u,a,1);}
 uint8_t FUN_004e5b20(int32_t building)
-{const uint32_t a[]={(uint32_t)building};return (uint8_t)invoke(0x4e5b20u,a,1);}
+{return restore_obelisk_advance_progress(building);}
 int32_t FUN_004e5c00(uint32_t unused1,uint32_t unused2,int32_t actor)
 {const uint32_t a[]={unused1,unused2,(uint32_t)actor};return (int32_t)invoke(0x4e5c00u,a,3);}
 void FUN_004e5d10(int32_t building,int32_t actor,uint8_t state)
@@ -347,7 +348,7 @@ void FUN_004ef200(int32_t building)
 void FUN_004ef3a0(int32_t building,int32_t actor)
 {const uint32_t a[]={(uint32_t)building,(uint32_t)actor};(void)invoke(0x4ef3a0u,a,2);}
 uint32_t FUN_004f01e0(uint32_t unused1,uint32_t unused2,uint32_t actor)
-{const uint32_t a[]={unused1,unused2,actor};return invoke(0x4f01e0u,a,3);}
+{(void)unused1;(void)unused2;return restore_pyramid_assign_available_worker((int32_t)actor);}
 void FUN_00420a90(int32_t building,uint32_t descriptor)
 {const uint32_t a[]={(uint32_t)building,descriptor};(void)invoke(0x420a90u,a,2);}
 void FUN_00420b10(int32_t building,int32_t actor,uint8_t state)
@@ -511,3 +512,7 @@ uint32_t restore_acceptance_member_check_eax(uint32_t entry,uint32_t receiver,
 uint32_t restore_acceptance_kind230_check_logical(uint32_t receiver,int32_t building,
                                                 int32_t actor,uint32_t accept,uint32_t mode)
 {return (uint32_t)restore_actor_kind230_accept(receiver,building,actor,accept,mode);}
+
+/* 4F3000 overwrites EAX from piece before use; its full result is retained. */
+uint32_t restore_monument_worker_publish_target_eax(int32_t actor,int32_t piece)
+{const uint32_t a[]={(uint32_t)actor,(uint32_t)piece};return invoke(0x4f3000u,a,2);}

@@ -1,3 +1,4 @@
+#include "widget_group_draw.h"
 #include "widget_draw.h"
 #include "widget_position.h"
 #include "pyramid_widget_draw.h"
@@ -41,24 +42,10 @@ void restore_widget_draw_raw(uint32_t target,uint32_t registers[8],uint32_t *fla
  memcpy(registers,f.r,sizeof(f.r));*flags=f.flags;
 }
 
-static void draw(uint32_t target,int32_t x,int32_t y,int32_t building)
-{
- uint32_t stack[128],registers[8]={0},flags=2,sp,i;
- /* Each native draw body is cdecl/RET0. Position methods consume their
-    explicit argument frames; their output slots may alias native draw args. */
- for(i=0;i<128;++i)stack[i]=0x41fff0a1u;
- sp=(uint32_t)(uintptr_t)(stack+64);
- stack[65]=(uint32_t)x;stack[66]=(uint32_t)y;stack[67]=(uint32_t)building;
- registers[4]=sp;
- restore_widget_draw_raw(target,registers,&flags);
- if(registers[4]!=sp+4u||registers[3]||registers[5]||registers[6]||registers[7])abort();
- for(i=0;i<16;++i)if(stack[i]!=0x41fff0a1u)abort();
- for(i=68;i<128;++i)if(stack[i]!=0x41fff0a1u)abort();
-}
-void FUN_0041fff0(int32_t x,int32_t y){draw(0x41fff0u,x,y,0);}
-void FUN_00420050(int32_t x,int32_t y){draw(0x420050u,x,y,0);}
-void FUN_004206f0(int32_t x,int32_t y){draw(0x4206f0u,x,y,0);}
-void FUN_00420a30(int32_t x,int32_t y){draw(0x420a30u,x,y,0);}
-void FUN_00420d60(int32_t x,int32_t y){draw(0x420d60u,x,y,0);}
-void FUN_00421060(int32_t x,int32_t y){draw(0x421060u,x,y,0);}
-void FUN_00421920(int32_t x,int32_t y,int32_t building){draw(0x421920u,x,y,building);}
+void FUN_0041fff0(int32_t x,int32_t y){restore_draw_widget_group_0041fff0(x,y);}
+void FUN_00420050(int32_t x,int32_t y){restore_draw_widget_group_00420050(x,y);}
+void FUN_004206f0(int32_t x,int32_t y){restore_draw_widget_group_004206f0(x,y);}
+void FUN_00420a30(int32_t x,int32_t y){restore_draw_widget_group_00420a30(x,y);}
+void FUN_00420d60(int32_t x,int32_t y){restore_draw_widget_group_00420d60(x,y);}
+void FUN_00421060(int32_t x,int32_t y){restore_draw_widget_group_00421060(x,y);}
+void FUN_00421920(int32_t x,int32_t y,int32_t building){restore_draw_building_widget_group(x,y,building);}

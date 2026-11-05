@@ -1,30 +1,19 @@
-#include "restore_types.h"
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-extern void FUN_004e5840();
-extern void FUN_004e5ae0();
+#include "actor_value_contracts.h"
+#include "animation_state.h"
 
-bool FUN_004e5b20(int param_1)
-
+/* 4E5B20: only AL is a logical Boolean. Add the child's AL to a
+   freshly reloaded progress BYTE, wrap, then apply the unsigned cap. */
+uint8_t restore_obelisk_advance_progress(int32_t building)
 {
-  char cVar1;
-  byte bVar2;
-  int iVar3;
-  bool bVar4;
-  
-  bVar4 = true;
-  iVar3 = param_1 * 0x108;
-  if (*(char *)((int)&DAT_00799a2c + iVar3 + 1) != 'd') {
-    cVar1 = (FUN_004e5ae0(param_1), restore_unresolved_return(0x004e5ae0u));
-    bVar2 = *(char *)((int)&DAT_00799a2c + iVar3 + 1) + cVar1;
-    *(byte *)((int)&DAT_00799a2c + iVar3 + 1) = bVar2;
-    if (100 < bVar2) {
-      *(undefined1 *)((int)&DAT_00799a2c + iVar3 + 1) = 100;
-    }
-    FUN_004e5840(param_1,(int)*(short *)((int)&DAT_007999dc + iVar3 + 2),
-                 (int)*(short *)(&DAT_007999e0 + iVar3));
-    bVar4 = *(char *)((int)&DAT_00799a2c + iVar3 + 1) == 'd';
-  }
-  return bVar4;
+ uint32_t record=restore_monument_worker_building(building);
+ int32_t x,y;
+ uint8_t increment,progress;
+ if(MW_B(record+85u)==100u)return 1;
+ increment=(uint8_t)FUN_004e5ae0(building);
+ progress=(uint8_t)(MW_B(record+85u)+increment);
+ MW_B(record+85u)=progress;
+ if(progress>100u)MW_B(record+85u)=100;
+ y=MW_H(record+8u);x=MW_H(record+6u);
+ restore_obelisk_refresh_progress(building,x,y);
+ return (uint8_t)(MW_B(record+85u)==100u);
 }
