@@ -26,6 +26,28 @@ def push_float32(uc,x,bits):
  uc.reg_write(x.UC_X86_REG_FPTAG,(tags&~(3<<(top*2)))|(tag<<(top*2)))
  uc.reg_write(x.UC_X86_REG_FPSW,(status&~0x3a00)|(top<<11))
 
+def push_raw80(uc,x,payload):
+ """Exact live x87 fixture; bytes are little-endian significand then sign/exponent."""
+ raw=bytes.fromhex(payload);assert len(raw)==10
+ mantissa=int.from_bytes(raw[:8],'little');exponent=int.from_bytes(raw[8:],'little')
+ tag=1 if not(mantissa or exponent&0x7fff)else 0 if 0<exponent&0x7fff<0x7fff and mantissa>>63 else 2
+ status=uc.reg_read(x.UC_X86_REG_FPSW);tags=uc.reg_read(x.UC_X86_REG_FPTAG);top=(((status>>11)&7)-1)&7
+ assert (tags>>(top*2))&3==3,'Live input requires a free x87 slot'
+ uc.reg_write(x.UC_X86_REG_FP0+top,(mantissa,exponent))
+ uc.reg_write(x.UC_X86_REG_FPTAG,(tags&~(3<<(top*2)))|(tag<<(top*2)))
+ uc.reg_write(x.UC_X86_REG_FPSW,(status&~0x3a00)|(top<<11))
+
+def live_x87(uc,x):
+ """Logical ST order, with empty physical register payloads excluded."""
+ top=(uc.reg_read(x.UC_X86_REG_FPSW)>>11)&7;tags=uc.reg_read(x.UC_X86_REG_FPTAG);out=[]
+ for i in range(8):
+  physical=(top+i)&7;tag=(tags>>(physical*2))&3
+  if tag==3:out.append(None)
+  else:
+   significand,exponent=uc.reg_read(x.UC_X86_REG_FP0+physical)
+   out.append(dict(tag=tag,raw80=significand.to_bytes(8,'little').hex()+exponent.to_bytes(2,'little').hex()))
+ return out
+
 def executable_ranges(path,base):
  b=Path(path).read_bytes();nt=struct.unpack_from('<I',b,60)[0];n=struct.unpack_from('<H',b,nt+6)[0];table=nt+24+struct.unpack_from('<H',b,nt+20)[0];out=[]
  for i in range(n):
@@ -48,7 +70,7 @@ def import_slots(pe):
 def execute(registry,cases,directory):
  sys.path[:0]=[str(ROOT/'build/offline-verification-deps'),str(ROOT/'direct_c')]
  import unicorn
- from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
+ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE,UC_HOOK_MEM_READ
  import unicorn.x86_const as x
  from native_test_pe import PE
  registers=[x.UC_X86_REG_EAX,x.UC_X86_REG_ECX,x.UC_X86_REG_EDX,x.UC_X86_REG_EBX,x.UC_X86_REG_ESP,x.UC_X86_REG_EBP,x.UC_X86_REG_ESI,x.UC_X86_REG_EDI]
@@ -65,7 +87,11 @@ def execute(registry,cases,directory):
   def code(uc,address,size,state):
    if not state['active']:return
    if address in state['endpoints']:
-    spec=state['endpoints'][address];sp=uc.reg_read(x.UC_X86_REG_ESP)
+    spec=state['endpoints'][address];visit=state['endpoint_visits'].get(spec['token'],0);state['endpoint_visits'][spec['token']]=visit+1
+    if 'responses'in spec:
+     assert visit<len(spec['responses']),('unexpected extra endpoint call',spec['token'])
+     spec={**spec,**spec['responses'][visit]}
+    sp=uc.reg_read(x.UC_X86_REG_ESP)
     def get(at,width=4):return int.from_bytes(uc.mem_read(at,width),'little')
     arity=spec['arity']if state['label']=='native'else spec.get('compiled_arity',spec['arity'])
     raw=[get(sp+4+i*4)for i in range(arity)];logical=list(raw)
@@ -74,8 +100,15 @@ def execute(registry,cases,directory):
      assert 0<=i<len(raw)and STACK<=raw[i]<STACK+STACK_SIZE-3,('private output pointer',spec['token'],i,hex(raw[i]))
      private.append(raw[i]);logical[i]=['stack-output',role]
     for i,info in spec.get('private_input_args',{}).items():
-     i=int(i);width=info['width'];assert i not in roles and 0<width<=256 and STACK<=raw[i]and raw[i]+width<=STACK+STACK_SIZE,('private input pointer',spec['token'])
-     logical[i]=['stack-input',info['role'],bytes(uc.mem_read(raw[i],width)).hex()]
+     i=int(i)
+     if 'cstring_max'in info:
+      limit=info['cstring_max'];assert 0<limit<=512 and STACK<=raw[i]and raw[i]+limit<=STACK+STACK_SIZE
+      data=bytes(uc.mem_read(raw[i],limit));assert b'\0'in data,('unterminated private input',spec['token'])
+      logical[i]=['stack-cstring',info['role'],data[:data.index(0)+1].hex()];continue
+     segments=info.get('segments')or[[0,info['width']]]
+     assert i not in roles and segments and all(0<=off<=256 and 0<width<=256 and STACK<=raw[i]+off and raw[i]+off+width<=STACK+STACK_SIZE for off,width in segments),('private input pointer',spec['token'])
+     payload=[bytes(uc.mem_read(raw[i]+off,width)).hex()for off,width in segments]
+     logical[i]=['stack-input',info['role'],payload if 'segments'in info else payload[0]]
     for i,role in spec.get('continuation_args',{}).items():
      i=int(i);assert raw[i]==get(sp),('actual return continuation',spec['token']);logical[i]=['return-continuation',role]
     assert len(private)==len(set(private)),('unexpected output alias',spec['token'])
@@ -96,6 +129,10 @@ def execute(registry,cases,directory):
     for i,width,value in spec.get('writes_args',[]):
      assert int(i)in roles and width in [1,2,4]
      uc.mem_write(raw[int(i)],(value&((1<<(8*width))-1)).to_bytes(width,'little'))
+    for i,offset,payload in spec.get('writes_arg_bytes',[]):
+     i=int(i);data=bytes.fromhex(payload);assert i in roles and 0<=offset<=256 and 0<len(data)<=256
+     at=raw[i]+offset;assert STACK<=at and at+len(data)<=STACK+STACK_SIZE
+     uc.mem_write(at,data)
     for at,width,value in spec.get('mutations',[]):
      assert width in [1,2,4]and any(lo<=at and at+width<=lo+n for lo,n in state['write_ranges'])
      uc.mem_write(at,(value&((1<<(8*width))-1)).to_bytes(width,'little'))
@@ -116,7 +153,12 @@ def execute(registry,cases,directory):
   def write(uc,access,address,size,value,state):
    if state['active']and not(STACK<=address and address+size<=STACK+STACK_SIZE)and not any(lo<=address and address+size<=lo+n for lo,n in state['write_ranges']):
     state['faults'].append(dict(kind='unexpected-write',address=hex(address),size=size));uc.emu_stop()
-  u.hook_add(UC_HOOK_CODE,code,state);u.hook_add(UC_HOOK_MEM_WRITE,write,state);machines[label]=(u,state)
+  def read(uc,access,address,size,value,state):
+   if state['active']and any(lo<=address and address+size<=lo+n for lo,n in state.get('read_ranges',[])):
+    if state.get('read_skip_return_fetches')and bytes(uc.mem_read(uc.reg_read(x.UC_X86_REG_EIP),1))in(b'\xc2',b'\xc3'):
+     state['return_reads'].append([address,size]);return
+    state['reads'].append([address,size])
+  u.hook_add(UC_HOOK_CODE,code,state);u.hook_add(UC_HOOK_MEM_WRITE,write,state);u.hook_add(UC_HOOK_MEM_READ,read,state);machines[label]=(u,state)
  sources={name:digest(ROOT/name)for name in json.loads(LEDGER.read_bytes())['source_hashes']}
  for folder in ['src','runtime','include']:
   for path in (ROOT/folder).rglob('*'):
@@ -127,8 +169,8 @@ def execute(registry,cases,directory):
  save(directory/'case-inputs.json',[{k:([[a,v.hex()]for a,v in value]if k=='stores'else value)for k,value in c.items()}for c in cases])
  members={int(m['address'],16):m for m in registry['members']};rows=[];attempts=0
  for case in cases:
-  m=members[case['entry']];reference=None;reference_regs=None;reference_x87=None;routes=[];failures=[]
-  preserved=list(saved);preserved[1]=case.get('initial_ebp',preserved[1])
+  m=members[case['entry']];reference=None;reference_regs=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
+  preserved=[case.get('initial_'+name,value)for name,value in zip(['ebx','ebp','esi','edi'],saved)]
   for label,(u,state)in machines.items():
    if label=='native':selected=[('native',case['entry'],case['arguments'])]
    else:
@@ -138,7 +180,7 @@ def execute(registry,cases,directory):
     if canonical and (Path(m['source']).stem+'.obj'in canonical['owner']or case.get('canonical_owner')and case['canonical_owner']in canonical['owner']):
      selected.append(('canonical',canonical['va'],case['arguments']))
    for route,pc,args in selected:
-    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={},terminated=None);errors=[]
+    state.update(active=False,faults=[],write_ranges=case['write_ranges'],events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
     import_fixups=[]
     for spec in case.get('endpoints',[]):
      assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16
@@ -165,17 +207,30 @@ def execute(registry,cases,directory):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
      u.mem_write(fixup['address'],struct.pack('<I',value));fixed.append((fixup['address'],value))
-    initial=[case.get('initial_eax',0xa5b6c7d8),case['receiver'],0x33333333,preserved[0],SP,*preserved[1:]]
+    initial=[case.get('initial_eax',0xa5b6c7d8),case['receiver'],case.get('initial_edx',0x33333333),preserved[0],SP,*preserved[1:]]
     for reg,value in zip(registers,initial):u.reg_write(reg,value)
     for reg,value in [(x.UC_X86_REG_EFLAGS,case['eflags']),(x.UC_X86_REG_FPCW,case.get('initial_fpcw',0x37f)),(x.UC_X86_REG_FPSW,0),(x.UC_X86_REG_FPTAG,0xffff)]:u.reg_write(reg,value)
-    u.mem_write(SP,struct.pack('<I',STOP))
-    for i,value in enumerate(args):u.mem_write(SP+4+i*4,struct.pack('<I',value&0xffffffff))
+    for payload in reversed(case.get('initial_x87',[])):push_raw80(u,x,payload)
+    if 'initial_fpsw'in case:
+     u.reg_write(x.UC_X86_REG_FPSW,(u.reg_read(x.UC_X86_REG_FPSW)&0x3800)|(case['initial_fpsw']&~0x3800))
+    prefix=case.get('stack_prefix',{}).get(route,[]);assert len(prefix)<=8
+    for i,value in enumerate(prefix):u.mem_write(SP+i*4,struct.pack('<I',value&0xffffffff))
+    return_slot=SP+len(prefix)*4;u.mem_write(return_slot,struct.pack('<I',STOP))
+    for i,value in enumerate(args):u.mem_write(return_slot+4+i*4,struct.pack('<I',value&0xffffffff))
+    for at,payload in case.get('route_stores',{}).get(route,[]):u.mem_write(at,bytes.fromhex(payload))
+    watched=case.get('route_watched',{}).get(route,case['watched'])
+    assert [n for at,n in watched]==[n for at,n in case['watched']],'ABI logical views must have identical widths'
     attempts+=1;state['active']=True
     try:u.emu_start(pc,STOP,count=case.get('budget',200000))
     except Exception as exc:errors.append(dict(kind='execution-error',detail=repr(exc)))
     finally:state['active']=False
-    values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in case['watched']]
+    values=[u.reg_read(r)for r in registers];flags=u.reg_read(x.UC_X86_REG_EFLAGS);ram=[bytes(u.mem_read(a,n))for a,n in watched]
+    result_register=case.get('result_registers',{}).get(route,'eax').upper();assert result_register in ['EAX','ECX','EDX']
+    result=u.reg_read(getattr(x,'UC_X86_REG_'+result_register))
+    if route in case.get('expected_route_results',{})and result!=case['expected_route_results'][route]:
+     errors.append(dict(kind='authored-route-result',register=result_register,actual=hex(result),expected=hex(case['expected_route_results'][route])))
     fp=[u.reg_read(r)for r in [x.UC_X86_REG_FPCW,x.UC_X86_REG_FPSW,x.UC_X86_REG_FPTAG]]
+    fp_live=live_x87(u,x)
     if u.reg_read(x.UC_X86_REG_EIP)!=STOP or state['faults']:errors.append(dict(kind='return/fault',faults=state['faults']))
     if case.get('noreturn_endpoint'):
      if state['terminated']!=case['noreturn_endpoint']:errors.append(dict(kind='missing-noreturn-boundary'))
@@ -194,21 +249,26 @@ def execute(registry,cases,directory):
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched'])
      if int.from_bytes(u.mem_read(fixup['address'],4),'little')!=value:errors.append(dict(kind='expected-function-pointer',address=hex(fixup['address'])))
     if route=='native':
-     reference=(None if case['result_mask']is None else values[0]&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_x87=fp
+     reference=(None if case['result_mask']is None else result&case['result_mask'],ram,state['events']);reference_regs=(values,flags);reference_x87=fp;reference_live_x87=fp_live;reference_reads=list(state['reads'])
      if 'expected_eax'in case and values[0]!=case['expected_eax']:errors.append(dict(kind='native-authored-result',actual=hex(values[0])))
+     if 'expected_result'in case and result!=case['expected_result']:errors.append(dict(kind='native-authored-logical-result',actual=hex(result)))
+     if 'expected_reads'in case and state['reads']!=case['expected_reads']:errors.append(dict(kind='native-authored-probe-reads'))
      counts={token:sum(e['token']==token for e in state['events'])for token in case.get('expected_endpoint_counts',{})}
      if counts!=case.get('expected_endpoint_counts',{}):errors.append(dict(kind='native-authored-endpoint-counts',actual=counts,expected=case['expected_endpoint_counts']))
     else:
-     if reference[:2]!=(None if case['result_mask']is None else values[0]&case['result_mask'],ram):
+     if reference[:2]!=(None if case['result_mask']is None else result&case['result_mask'],ram):
       differences=[]
-      for (base,n),a,b in zip(case['watched'],reference[1],ram):
+      for (base,n),a,b in zip(watched,reference[1],ram):
        if a!=b:
         i=next(i for i,(aa,bb)in enumerate(zip(a,b))if aa!=bb);differences.append(dict(address=hex(base+i),native=a[i],compiled=b[i]))
-      errors.append(dict(kind='native-C-result-or-memory',native_eax=reference[0],compiled_eax=values[0],memory_differences=differences))
+      errors.append(dict(kind='native-C-result-or-memory',native_result=reference[0],compiled_result=result,memory_differences=differences))
      if reference[2]!=state['events']:errors.append(dict(kind='native-C-endpoint-sequence'))
      if case.get('compare_x87')and reference_x87!=fp:errors.append(dict(kind='native-C-x87-state',native=reference_x87,compiled=fp))
+     if case.get('compare_x87_values')and reference_live_x87!=fp_live:errors.append(dict(kind='native-C-x87-values',native=reference_live_x87,compiled=fp_live))
+     if case.get('compare_x87_control',case.get('compare_x87_values',False))and reference_x87[0]!=fp[0]:errors.append(dict(kind='native-C-x87-control',native=reference_x87[0],compiled=fp[0]))
+     if case.get('read_ranges')and reference_reads!=state['reads']:errors.append(dict(kind='native-C-probe-reads',native=reference_reads,compiled=state['reads']))
      if route=='canonical'and case['canonical_registers_and_flags']and reference_regs!=(values,flags):errors.append(dict(kind='canonical-registers-or-flags'))
-    row=dict(image=label,route=route,eax=hex(values[0]),eflags=hex(flags),x87=fp,termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(SP+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
+    row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,value=hex(result)),eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
   assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))

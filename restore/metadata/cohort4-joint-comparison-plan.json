@@ -2,9 +2,9 @@
   "schema": "cohort4-joint-comparison-plan-v1",
   "source_entries": 100,
   "cumulative_selected_entries": 198,
-  "entries_compared": 0,
-  "source_expansion_suspended": true,
-  "phase": "retained_image_ready_cases_and_engine_contracts_pending",
+  "entries_compared": 100,
+  "source_expansion_suspended": false,
+  "phase": "finite100_entry_joint_gate_passed",
   "compiled_images": {
     "game": {
       "path": "build/c-only/Release/PharaohRestoreC.exe",
@@ -4138,11 +4138,6 @@
     "sha256": "2a214f4eec57047045d4fb196e04a1ba83b25414836fbd2f2c49b8d6f35043a5",
     "all_198_named_and_canonical_symbols_present": true
   },
-  "engine_contracts_to_add": [
-    "Live raw80 x87 input values and explicit value comparison, in addition to control/status/tag words.",
-    "Native tail-context argument prefix for56760B and actual negative/dynamic ESP cleanup for __chkstk561F30.",
-    "Physical native argument aliases for565F66 ctype/NLS output and569335 code-page argument slot; compare logical views without inventing padding inputs."
-  ],
   "case_obligations": [
     "All100 named definitions and canonical ABI entries, including compiled-only owners.",
     "Logical result widths, live EAX/ECX/EBP/ESI/EDI/EBX inputs, output aliases, endpoint sequence, stack cleanup and qualified x87/control state.",
@@ -4151,6 +4146,16 @@
   ],
   "host_execution": false,
   "behavior_execution": false,
-  "cohort_validation_complete": false,
-  "whole_game_equivalence": false
+  "cohort_validation_complete": true,
+  "whole_game_equivalence": false,
+  "engine_contracts_added": [
+    "Live raw80 x87 input values and explicit value comparison, in addition to control/status/tag words.",
+    "Native tail-context argument prefix for56760B and actual negative/dynamic ESP cleanup for __chkstk561F30.",
+    "Physical native argument aliases for565F66 ctype/NLS output and569335 code-page argument slot; compare logical views without inventing padding inputs."
+  ],
+  "comparison": {
+    "path": "metadata/cohort4-joint-comparison.json",
+    "sha256": "c4ab9ac9bd43baecce55fdc6af5e0627254da2eed564ee9d5d9268e18db6bcb3"
+  },
+  "initial_source_plan_sha256": "a663e34a797b3087cf8e774247a6ae636218c161c5f05454c2f4e51c8419a608"
 }

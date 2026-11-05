@@ -7,6 +7,10 @@ from stream_cases import definitions as stream_definitions
 from crt_lifecycle_cases import definitions as crt_lifecycle_definitions
 from exception_cases import definitions as exception_definitions
 from gameplay_cases import definitions as gameplay_definitions
+from cohort4_gameplay_cases import definitions as cohort4_gameplay_definitions
+from cohort4_stream_io_cases import definitions as cohort4_stream_io_definitions
+from cohort4_crt_math_cases import definitions as cohort4_crt_math_definitions
+from cohort4_crt_runtime_cases import definitions as cohort4_crt_runtime_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -17,10 +21,10 @@ def definitions(registry):
    self=SCRATCH+0x1000
    for index,value in [(0,0),(1,0xa5),(127,128),(255,255)]:
     for flags in [0x202,0xad7]:
-     table=rule['table_base']+index
+     width=rule.get('table_width',1);table=rule['table_base']+index*width
      out.append(dict(id=f'lookup/{a:08x}/{index}/{flags:x}',entry=a,
       receiver=self,arguments=[],named_arguments=[self],eflags=flags,
-      stores=[(self,b'\xa5'*64),(self+rule['offset'],bytes([index])),(table,bytes([value]))],
+      stores=[(self,b'\xa5'*64),(self+rule['offset'],bytes([index])),(table,value.to_bytes(width,'little'))],
       watched=[(self,64),(rule['table_base']&~4095,4096)],write_ranges=[],
       expected_eax=value,result_mask=0xffffffff,native_cleanup=0,named_cleanup=0,
       canonical_cleanup=0,canonical_registers_and_flags=True))
@@ -40,6 +44,10 @@ def definitions(registry):
  out.extend(crt_lifecycle_definitions(registry))
  out.extend(exception_definitions(registry))
  out.extend(gameplay_definitions(registry))
+ out.extend(cohort4_gameplay_definitions(registry))
+ out.extend(cohort4_stream_io_definitions(registry))
+ out.extend(cohort4_crt_math_definitions(registry))
+ out.extend(cohort4_crt_runtime_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):
