@@ -1,4 +1,5 @@
 #include "restore_types.h"
+#include "../artifacts/actor_civic_followup/actor_civic_followup.h"
 extern int FUN_00401f30();
 extern int FUN_0040f070();
 extern int FUN_004178e0();
@@ -13,47 +14,5 @@ extern int FUN_0054fb40();
 extern int FUN_00556430();
 extern int FUN_005590c0();
 
-void FUN_004bc1e0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
-
-{
-  int iVar1;
-  
-  iVar1 = FUN_004f0190(param_1,param_2,param_3);
-  if (iVar1 == 0) {
-    iVar1 = FUN_00420350(param_1,param_2,param_3);
-    if (iVar1 == 0) {
-      iVar1 = FUN_004e5c00(param_1,param_2,param_3);
-      if (iVar1 == 0) {
-        iVar1 = FUN_00542a80(param_1,param_2,param_3);
-        if (iVar1 == 0) {
-          iVar1 = FUN_0040f070(param_1,param_2,param_3);
-          if (iVar1 == 0) {
-            iVar1 = FUN_00401f30(param_1,param_2,param_3);
-            if (iVar1 == 0) {
-              iVar1 = FUN_004e6e10(param_1,param_2,param_3);
-              if (iVar1 == 0) {
-                iVar1 = FUN_00545be0(param_1,param_2,param_3);
-                if (iVar1 == 0) {
-                  iVar1 = FUN_005590c0(param_1,param_2,param_3);
-                  if (iVar1 == 0) {
-                    iVar1 = FUN_00556430(param_1,param_2,param_3);
-                    if (iVar1 == 0) {
-                      iVar1 = FUN_0054fb40(param_1,param_2,param_3);
-                      if (iVar1 == 0) {
-                        iVar1 = FUN_004178e0(param_1,param_2,param_3);
-                        if (iVar1 == 0) {
-                          FUN_004e0c00(param_1,param_2,param_3);
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  return;
-}
+void FUN_004bc1e0(undefined4 x,undefined4 y,undefined4 actor)
+{(void)restore_actor_approach_fallback_chain_result(x,y,(int32_t)actor);}

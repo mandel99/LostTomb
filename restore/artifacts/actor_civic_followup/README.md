@@ -1,11 +1,14 @@
 # Civic, delivery and walking C owners
 
-These 27 C entrypoints are selected directly by the main build. Eight owners
-were created before611f3cc; 18 were created since it and 1 correct
-inactive owner was reused unchanged. Selection never counts a body twice.
+These 36 C entrypoints are selected directly by the main build. Eight owners
+were created before611f3cc; 25 were created since it and 3 prior-C
+owners were reused, including narrow type/access repairs. Selection never counts a body twice.
 
 | Native entry | Named C owner | Native instructions |
 | --- | --- | ---: |
+| 401F30 | restore_actor_find_approach_kind230 | 9 |
+| 40F070 | restore_actor_find_approach_kind225 | 34 |
+| 4178E0 | restore_actor_find_approach_kind227 | 34 |
 | 469A50 | restore_fireman_find_nearest_fire | 92 |
 | 48A720 | restore_actor_update_vagrant | 491 |
 | 48AE50 | restore_actor_find_remaining_delivery_destination | 61 |
@@ -31,10 +34,16 @@ inactive owner was reused unchanged. Selection never counts a body twice.
 | 4B43A0 | restore_actor_step_route_pixel_y | 16 |
 | 4B43E0 | restore_actor_step_route_pixel_x | 16 |
 | 4BC140 | restore_actor_approach_destination_result | 71 |
+| 4BC1E0 | restore_actor_approach_fallback_chain_result | 99 |
 | 4BC2E0 | restore_actor_find_approach_building_state2 | 71 |
 | 4BC3B0 | restore_actor_find_approach_building_state3 | 71 |
+| 4BC480 | restore_actor_approach_common_result | 9 |
+| 4E0C00 | restore_actor_find_approach_kind222 | 31 |
+| 4E6E10 | restore_actor_find_approach_kind228 | 34 |
+| 542A80 | restore_actor_find_approach_kind213 | 31 |
+| 559110 | restore_actor_member_accept_building | 8 |
 
-The total is 5,209 static native instructions, not execution coverage.
+The total is 5,498 static native instructions, not execution coverage.
 Bodies remain in their existing source owners; canonical facades delegate.
 
 The block passes shared strict Win32 C11 object compilation and both main

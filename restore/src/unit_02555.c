@@ -1,19 +1,21 @@
 #include "restore_types.h"
-#define DAT_00799af0 (*(undefined4 *)0x00799af0u)
-extern uint FUN_005421d0();
+#define DAT_00799af0 (*(volatile short *)0x00799af0u)
+extern uint FUN_005421d0(int building,int actor,char mode);
 
 int FUN_00542a80(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   char cVar1;
-  short *psVar2;
+  volatile short *psVar2;
   int iVar3;
   
+  (void)param_1;
+  (void)param_2;
   iVar3 = 1;
   psVar2 = &DAT_00799af0;
   do {
-    if (((char)psVar2[-8] == '\x01') && (*psVar2 == 0xd5)) {
-      cVar1 = FUN_005421d0(iVar3,param_3,1);
+    if ((*(volatile unsigned char *)(psVar2 - 8) == '\x01') && (*psVar2 == 0xd5)) {
+      cVar1 = (char)FUN_005421d0(iVar3,(int)param_3,1);
       if (cVar1 != '\0') {
         return iVar3;
       }

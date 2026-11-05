@@ -25,4 +25,8 @@ int32_t restore_actor_resource_booking_kind(int32_t kind);
 int32_t restore_actor_resource_for_subtype(int32_t subtype);
 void restore_actor_apply_cart_delivery(int32_t delivered,int32_t actor,uint32_t network);
 #include "route_approach_candidates.h"
+#include "approach_member_candidates.h"
+#include "approach_search_candidates.h"
+int32_t restore_actor_find_approach_kind213(uint32_t x,uint32_t y,uint32_t actor);
+int32_t restore_actor_find_approach_kind222(uint32_t x,uint32_t y,uint32_t actor);
 #endif

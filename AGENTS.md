@@ -34,3 +34,6 @@
   native replay to the batch milestone. Do not create per-function frameworks.
 - Reuse existing correct C and evidence, including inactive source. Read only
   relevant excerpts and keep handoffs, progress reports and tool output short.
+- `src/` also contains active generated units. Check CMake and symbol ownership
+  before adding canonical wrappers; a missing runtime wrapper does not prove
+  that its symbol is absent from the build.

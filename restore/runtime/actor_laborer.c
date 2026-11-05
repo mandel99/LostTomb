@@ -417,7 +417,16 @@ static uint32_t route_member_invoke(uint32_t entry,uint32_t receiver,
 }
 uint32_t restore_route_member_approach(uint32_t entry,uint32_t receiver,
                                      uint32_t x,uint32_t y,int32_t actor)
-{return route_member_invoke(entry,receiver,x,y,(uint32_t)actor);}
+{
+    switch(entry){
+    case 0x4178e0u:return (uint32_t)restore_actor_find_approach_kind227(receiver,x,y,actor);
+    case 0x4e6e10u:return (uint32_t)restore_actor_find_approach_kind228(receiver,x,y,actor);
+    case 0x40f070u:return (uint32_t)restore_actor_find_approach_kind225(receiver,x,y,actor);
+    case 0x401f30u:return restore_actor_find_approach_kind230(receiver,x,y,actor);
+    case 0x559110u:return restore_actor_member_accept_building(receiver,(int32_t)x,(int32_t)y,(uint32_t)actor);
+    default:return route_member_invoke(entry,receiver,x,y,(uint32_t)actor);
+    }
+}
 uint32_t restore_route_member_building_accept(uint32_t receiver,int32_t building,
                                              int32_t actor,uint32_t mode)
 {return route_member_invoke(0x559110u,receiver,(uint32_t)building,(uint32_t)actor,mode);}
@@ -425,6 +434,33 @@ uint32_t restore_route_advance_travel(int32_t actor,uint32_t mode)
 {const uint32_t a[]={(uint32_t)actor,mode};return invoke(0x4f1d10u,a,2);}
 
 uint32_t restore_route_approach_00542a80(uint32_t x,uint32_t y,int32_t actor)
-{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x542a80u,a,3);}
+{return (uint32_t)restore_actor_find_approach_kind213(x,y,(uint32_t)actor);}
 uint32_t restore_route_approach_004e0c00(uint32_t x,uint32_t y,int32_t actor)
-{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x4e0c00u,a,3);}
+{return (uint32_t)restore_actor_find_approach_kind222(x,y,(uint32_t)actor);}
+
+/* Native401ED0 consumes four explicit slots and returns with RET16. */
+uint32_t restore_actor_member_find_kind230_raw(uint32_t receiver,uint32_t x,
+                                             uint32_t y,int32_t actor,uint32_t mode)
+{
+    uint32_t stack[8192],sp=(uint32_t)(uintptr_t)(stack+8000);
+    struct restore_laborer_frame f={{0},2,dispatch};
+    stack[8000]=0;stack[8001]=x;stack[8002]=y;
+    stack[8003]=(uint32_t)actor;stack[8004]=mode;
+    f.r[1]=receiver;f.r[4]=sp;dispatch(0,0x401ed0u,&f);
+    if(f.r[4]!=sp+20u)abort();
+    return f.r[0];
+}
+uint32_t restore_route_approach_004f0190(uint32_t x,uint32_t y,int32_t actor)
+{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x4f0190u,a,3);}
+uint32_t restore_route_approach_004f01c0(uint32_t x,uint32_t y,int32_t actor)
+{const uint32_t a[]={x,y,(uint32_t)actor};return invoke(0x4f01c0u,a,3);}
+
+uint32_t restore_actor_approach_kind222_accept_raw(int32_t building,int32_t actor,char mode)
+{const uint32_t a[]={(uint32_t)building,(uint32_t)actor,(uint32_t)(int32_t)mode};return invoke(0x4e05f0u,a,3);}
+uint32_t restore_actor_approach_kind213_accept_raw(int32_t building,int32_t actor,char mode)
+{const uint32_t a[]={(uint32_t)building,(uint32_t)actor,(uint32_t)(int32_t)mode};return invoke(0x5421d0u,a,3);}
+
+int32_t FUN_004e0c00(uint32_t x,uint32_t y,uint32_t actor)
+{return restore_actor_find_approach_kind222(x,y,actor);}
+int32_t FUN_00542a80(uint32_t x,uint32_t y,uint32_t actor)
+{return restore_actor_find_approach_kind213(x,y,actor);}
