@@ -1,45 +1,38 @@
-#include "restore_types.h"
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
-extern undefined4 FUN_005669c6();
-extern void FUN_005672c8();
+#include "crt_lowio.h"
+#include <windows.h>
 
-DWORD FUN_005662e3(uint param_1,LONG param_2,DWORD param_3)
-
+uint32_t restore_crt_seek(uint32_t descriptor,int32_t offset,uint32_t origin)
 {
-  byte *pbVar1;
-  HANDLE hFile;
-  DWORD DVar2;
-  DWORD DVar3;
-  int iVar4;
-  
-  if (param_1 < DAT_01266a60) {
-    iVar4 = (param_1 & 0x1f) * 8;
-    if ((*(byte *)((&DAT_01266960)[(int)param_1 >> 5] + 4 + iVar4) & 1) != 0) {
-      hFile = (HANDLE)FUN_005669c6(param_1);
-      if (hFile == (HANDLE)0xffffffff) {
-        _DAT_01266430 = 9;
-        return 0xffffffff;
-      }
-      DVar2 = SetFilePointer(hFile,param_2,(PLONG)0x0,param_3);
-      if (DVar2 == 0xffffffff) {
-        DVar3 = GetLastError();
-      }
-      else {
-        DVar3 = 0;
-      }
-      if (DVar3 != 0) {
-        FUN_005672c8(DVar3);
-        return 0xffffffff;
-      }
-      pbVar1 = (byte *)((&DAT_01266960)[(int)param_1 >> 5] + 4 + iVar4);
-      *pbVar1 = *pbVar1 & 0xfd;
-      return DVar2;
-    }
+ if(descriptor<RESTORE_CRT_LOWIO_CAPACITY){
+  uint32_t record_offset=(descriptor&31u)*8u;
+  RestoreCrtLowioRecord *volatile *slot=(RestoreCrtLowioRecord *volatile *)(uintptr_t)
+   ((uint32_t)(uintptr_t)RESTORE_CRT_LOWIO_BLOCKS+
+    (uint32_t)((int32_t)descriptor>>5)*4u);
+  volatile RestoreCrtLowioRecord *record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+   ((uint32_t)(uintptr_t)*slot+record_offset);
+  if((record->flags&1u)!=0){
+   uint32_t handle=FUN_005669c6(descriptor),position;
+   if(handle==0xffffffffu){
+    /* Unlike descriptor validation, this path leaves DOSerrno alone. */
+    RESTORE_CRT_ERRNO=9;
+    return 0xffffffffu;
+   }
+   position=SetFilePointer((HANDLE)(uintptr_t)handle,offset,0,origin);
+   if(position==0xffffffffu){
+    uint32_t error=GetLastError();
+    if(error!=0){FUN_005672c8(error);return 0xffffffffu;}
+   }
+   /* Same captured table cell and byte offset; record validity/capacity
+      are not rechecked after the accessor or either Win32 callback. */
+   record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+    ((uint32_t)(uintptr_t)*slot+record_offset);
+   record->flags&=0xfdu;
+   return position;
   }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
-  return 0xffffffff;
+ }
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return 0xffffffffu;
 }
+uint32_t FUN_005662e3(uint32_t descriptor,int32_t offset,uint32_t origin)
+{return restore_crt_seek(descriptor,offset,origin);}

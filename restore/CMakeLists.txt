@@ -2666,3 +2666,13 @@ foreach(_record_action_target IN ITEMS restore_link_check restore_game restore_c
 endforeach()
 unset(_record_action_target)
 unset(_record_action_symbol)
+
+# Monument table units, exact partial-register query results and low-I/O seeks.
+set_source_files_properties(src/unit_02093.c src/unit_02108.c src/unit_02126.c src/unit_02134.c src/unit_02173.c src/unit_01862.c src/unit_02913.c src/unit_03025.c src/unit_02930.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_monument_seek_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_monument_seek_symbol IN ITEMS FUN_004ee560 FUN_004f0190 FUN_004f2720 FUN_004f3000 FUN_004f5d10 FUN_004d6aa0 FUN_005662e3 FUN_0056b1b6 FUN_005672c8 restore_monument_refresh_all restore_monument_dispatch_work restore_monument_find_layout_pair restore_monument_set_layout_target restore_monument_worker_query_raw restore_record_grid_candidate_004d6aa0 restore_crt_seek restore_crt_file_length restore_crt_translate_os_error)
+  target_link_options(${_monument_seek_target} PRIVATE "/INCLUDE:_${_monument_seek_symbol}")
+ endforeach()
+endforeach()
+unset(_monument_seek_target)
+unset(_monument_seek_symbol)

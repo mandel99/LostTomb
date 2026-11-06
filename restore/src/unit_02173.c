@@ -1,31 +1,22 @@
-#include "restore_types.h"
-#define DAT_00570070 (*(undefined4 *)0x00570070u)
-#define DAT_005e4ef4 (*(undefined *)0x005e4ef4u)
-#define DAT_005f3878 (*(undefined4 *)0x005f3878u)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-extern undefined4 FUN_004ef100();
-
-undefined4 FUN_004f5d10(int param_1)
-
+#include "monument_layout_queries.h"
+#include "pyramid_work_selection.h"
+uint32_t restore_monument_worker_query_raw(int32_t building)
 {
-  byte bVar1;
-  int iVar2;
-  int iVar3;
-  
-  if (DAT_005e4ef4 != 5) {
-    iVar3 = 0;
-    bVar1 = *(byte *)(&DAT_00799a2c + param_1 * 0x84);
-    if (0 < *(int *)(&DAT_00570070 + (uint)bVar1 * 4)) {
-      do {
-        iVar2 = FUN_004ef100(*(int *)(&DAT_005f3878 +
-                                     ((uint)*(byte *)(&DAT_00799a2c + param_1 * 0x84) * 0x30 + iVar3
-                                     ) * 0x14) + param_1);
-        if (iVar2 != 0) {
-          return 1;
-        }
-        iVar3 = iVar3 + 1;
-      } while (iVar3 < *(int *)(&DAT_00570070 + (uint)bVar1 * 4));
-    }
-  }
-  return 0;
+ uint32_t record,initial_kind,count,i=0,result;
+ if (MW_U(0x5e4ef4u)==5u) return 0;
+ record=restore_monument_worker_building(building);
+ initial_kind=MW_B(record+84u);
+ count=MW_U(0x570070u+initial_kind*4u);
+ if ((int32_t)count<=0) return count&0xffffff00u;
+ do {
+  uint32_t kind=MW_B(record+84u);
+  uint32_t part=MW_U(0x5f3878u+kind*960u+i*20u)+(uint32_t)building;
+  result=(uint32_t)FUN_004ef100((int32_t)part);
+  if (result!=0) return (result&0xffffff00u)|1u;
+  count=MW_U(0x570070u+initial_kind*4u);
+  ++i;
+ } while ((int32_t)i<(int32_t)count);
+ return count&0xffffff00u;
 }
+uint32_t FUN_004f5d10(int32_t building)
+{ return restore_monument_worker_query_raw(building); }
