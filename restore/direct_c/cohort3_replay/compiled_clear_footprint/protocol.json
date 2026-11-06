@@ -1,0 +1,51 @@
+{
+  "schema": "cohort7-clear-footprint-recipe-contract-v1",
+  "entry": "0x47c480",
+  "source": "runtime/menu_drag_clear_footprint.c",
+  "source_sha256": "1bef5a342d67c17a772f4f591053c46a7e3f6564dff215c8f1e9b16206fc4b14",
+  "source_body_replaced": false,
+  "authored_cases": 19,
+  "expected_invocations": 133,
+  "logical_result": "void",
+  "native_arguments": [
+    "building signedDWORD",
+    "x signedDWORD",
+    "y signedDWORD"
+  ],
+  "native_cleanup": 0,
+  "actual_children": [
+    "47C7B0 origin/dimensions",
+    "488030 ->487F80 AL classification",
+    "541AB0 monument dimensions"
+  ],
+  "controlled_boundaries": [
+    "47A220 road placement",
+    "4767D0",
+    "4746D0",
+    "477500",
+    "4777C0",
+    "475CC0",
+    "4776F0",
+    "477890"
+  ],
+  "oracles": "Explicit cleared-cell index sets, native-width final fields, caller arguments and dimension snapshots at every callback. Original2x2/3x3 offset table data are used.",
+  "coverage": [
+    "invalid coordinates",
+    "full-DWORD flag2 versus low-byte2",
+    "signed owner WORD versus full ID",
+    "building0 and type99 owner preservation",
+    "processing3x3",
+    "type138 mask",
+    "monument0/-1/2 dimensions",
+    "callback dimension reload and loop shrinking"
+  ],
+  "coverage_limits": [
+    "Finite3x3-or-smaller domains",
+    "Actual deeper redraw/road bodies are controlled, not claimed equivalent",
+    "Concurrent arbitrary terrain mutation and huge or invalid indices remain unproved"
+  ],
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

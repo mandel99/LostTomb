@@ -1,0 +1,19 @@
+{
+  "confirmed_semantic_C_gaps": [],
+  "confirmed_provider_gaps": [],
+  "source_repairs_prepared": 0,
+  "preserved_donors": [
+    "runtime/actor_callbacks_small.c",
+    "runtime/actor_callbacks_human.c",
+    "runtime/actor_callbacks_small_state_adapter.c",
+    "runtime/actor_callbacks_human_boundary.c"
+  ],
+  "precise_contracts": [
+    "All six callbacks are logical void/noargs; no zeroed GPR return frame is introduced.",
+    "Native493610 does not consume caller push1. Fixtures observe the real nullary FUN493610 endpoint and execute the C adapter normally.",
+    "Native7A1C0 consumes only X and defines logical AL; both native callers push X,Y, C boundary preserves its declared two-argument call before the real one-input leaf.",
+    "Human image phase retains water classification from the original actor while actual current actor/image fields reload after callbacks.",
+    "Native fixed-image directions sign-extend BYTE and add8 once; negative orientation can remain negative. Death timer/2 truncates toward zero."
+  ],
+  "no_new_algorithm_credit": true
+}
