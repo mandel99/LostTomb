@@ -1,0 +1,22 @@
+{
+  "schema": "cohort7-shared-arithmetic-fault-boundary-v1",
+  "entry": "0x4cde60",
+  "source": "src/unit_01731.c",
+  "source_sha256": "df759ba4e710a0a8b7eb154c571a6331fd7eeae1635e1051126f3d8c9596ce99",
+  "cases": 15,
+  "invocations": 60,
+  "logical_result": "full32 EAX /cdecl2",
+  "normal_and_fault_behavior": "Native zero-divisor return0; signed wrap32 scale100; actual #DE/vector0 for quotient overflow; continued EAX/EDX/ECX contexts",
+  "fault_operand_registers": [
+    "eax",
+    "edx",
+    "ecx"
+  ],
+  "defined_shift_flag_mask": "0xc5",
+  "physical_stack_locations_equal": false,
+  "before_abort_regression": "metadata/cohort7-percent-idiv-fault-repair.json",
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

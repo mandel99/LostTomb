@@ -1,0 +1,72 @@
+{
+  "schema": "cohort7-percent-idiv-fault-C-repair-v1",
+  "entry": "0x4cde60",
+  "source_repair": {
+    "source": "src/unit_01731.c",
+    "before_sha256": "4e40648404bf3ce4b39357144a55d7a755e2b993aed9a0e11676270c6e068899",
+    "sha256": "df759ba4e710a0a8b7eb154c571a6331fd7eeae1635e1051126f3d8c9596ce99",
+    "newlines_preserved": true,
+    "algorithm_rewrite": false,
+    "new_source_credit": 0,
+    "new_entry_credit": 0,
+    "normal_C_arithmetic_preserved": true,
+    "fault_boundary": "x86 IDIV with original LEA/LEA/SHL/CDQ operands; native processor fault replaces abort"
+  },
+  "original_owner": "unit_01731.obj",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_fault": "Actual x86 IDIV #DE/vector0 on signed quotient overflow; zero divisor explicitly returns0 before IDIV.",
+  "before_C_problem": "abort terminated instead of delivering processor divide fault",
+  "preserved": "Normal unsigned32 wrapped scaling, signed quotient and full EAX/cdecl output.",
+  "repair": "Fault-only original LEA/LEA/SHL/CDQ/IDIV boundary avoids C signed-division overflow and preserves arithmetic operands and defined shift flags; resumed contexts return their actual quotient.",
+  "cases": 15,
+  "probe_invocations": 150,
+  "current_production_routes": 45,
+  "before_images_verified": 3,
+  "normal_and_continued_contexts_passed": true,
+  "physical_stack_locations_equal": false,
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "c78f01533100bfa8434377fce39892607ce529771806544171d8f214de4ffd77",
+      "map_sha256": "ef0d41887e99d1484934c44cdd1785f5f00fb0d02596dcf4a8da7eb78307eae8"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "5ed42c5ffc6c099024dbf42ecdaa49d2aa7644af7942fd4a3ccf4349417814cf",
+      "map_sha256": "94f72997ce9e2d1c4606c3f99614fef0da29a908eb1a5c12a46b6320df6fc9e4"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "a3d875918cd0068ff5276f4135382ac35168b61b7558e01a8c30f758895d21fe",
+      "map_sha256": "8da02ba9bee9ff318dfa0c9dd0ceba19d2e4a437ec26ddfee1a541b1ebaf616a"
+    }
+  },
+  "comparison": {
+    "path": "build/actor-animal-following/cohort7-percent-fault/comparison.json",
+    "sha256": "aeb9b43d406c8313b9fea4e8f4a9ba4add3ec6f7b997099df2310a4c3759bad1"
+  },
+  "probe_source": {
+    "path": "build/actor-animal-following/cohort7-percent-fault/verify.py",
+    "sha256": "cd80cc3051b85bec0751687bacfddd0cb0d36fdadce792b999983696f577ae71"
+  },
+  "private_strict_build": {
+    "path": "build/actor-animal-following/cohort7-percent-fault/strict-safe-build.log",
+    "sha256": "3a9ae05d01922c831a16dd71490f18844c18c6b21819693334fd77a9e84ffce2"
+  },
+  "shared_three_target_build": {
+    "path": "build/actor-animal-following/cohort7-percent-fault/shared-build.log",
+    "sha256": "66dfcfff700a7b5ef5f3957ca81fcdb58dc4f24cad9fa990954acbf1b9ff2c47"
+  },
+  "previous_images": {
+    "path": "metadata/cohort7-pre-percent-fault-image-archive.json",
+    "sha256": "525070d923eca456e2ac199a3d142dfa9110fa6a0e7f71762cb1924c14fdfea3"
+  },
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "new_algorithm": false,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}
