@@ -66,3 +66,5 @@ schválení zdrojové expanze ani důkaz shody chování.
 Závislost `outside_saved_catalogue` zůstává výslovně nevyřešená a nedostává
 vymyšlený záznam funkce. Dokončovací `index.json` se zapisuje jako poslední,
 až po opětovném ověření inventáře, vstupů a použitých zdrojů.
+
+The inventory reuses saved *-reuse-dispositions.json source triage only while its active named C model and exact SHA-256 still agree. Matching definitions are preserved without new reconstruction credit. Native-scope gaps remain review items, even when their C source is known. A changed/inactive model restores ordinary review; this is not a native-behavior certificate.

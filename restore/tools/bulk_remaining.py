@@ -247,6 +247,40 @@ def manifest_addresses(path):
     return result
 
 
+def reuse_dispositions(inputs, owners):
+    """Reuse saved source triage only while its active model bytes still agree.
+
+    This proves that an existing C definition is present, not native behavior.
+    Stale evidence falls back to ordinary review and cannot generate C.
+    """
+    accepted = {}
+    unavailable = []
+    for path in sorted((ROOT / "metadata").glob("*-reuse-dispositions.json")):
+        data = load(path)
+        inputs[relative(path)] = rules.sha(path)
+        name, expected = data.get("model_source"), data.get("model_sha256")
+        model = (ROOT / name).resolve() if isinstance(name, str) else None
+        if (model is None or not model.is_relative_to(ROOT.resolve()) or
+                not model.is_file() or rules.sha(model) != expected):
+            unavailable.append(dict(path=relative(path), reason="Missing or changed model source; review is retained"))
+            continue
+        inputs[relative(model)] = expected
+        for item in data.get("primary_excluded", []):
+            address = addr(item.get("address"))
+            if address is None or item.get("new_entry_credit") != 0:
+                continue
+            current = [owner for owner in owners[address]
+                       if owner["source"] == name and owner["source_sha256"] == expected
+                       and owner["active"] and owner["kind"] == "named_model_definition"]
+            if not current:
+                continue
+            accepted[address] = dict(path=relative(path), sha256=inputs[relative(path)],
+                                     model_source=name, model_sha256=expected,
+                                     symbols=sorted({owner["symbol"] for owner in current}),
+                                     reason=item["reason"], correctness_proved=False, new_entry_credit=0)
+    return accepted, unavailable
+
+
 def connected_batches(candidates, calls, size):
     """Pack whole weak call components where possible; declare oversized splits."""
     eligible = set(candidates)
@@ -362,6 +396,7 @@ def main():
     addresses, records, units = catalogue(inputs)
     active = active_sources(args.project, inputs)
     owners, source_info = scan_sources(active)
+    dispositions, unavailable_dispositions = reuse_dispositions(inputs, owners)
     selected = defaultdict(list)
     manifests = [ROOT / "metadata/city-active-buildings-reconstruction.json",
                  ROOT / "metadata/actor-cohort-100.json", ROOT / "metadata/actor-cohort-2.json",
@@ -386,6 +421,8 @@ def main():
                                         cache_files=sorted({path for path, _ in records[address]})),
                    cached_direct_callees=[label(child) for child in direct], cached_indirect_calls=indirect,
                    existing_owners=owners[address], selected_by=selected[address])
+        if address in dispositions:
+            row["existing_C_source_disposition"] = dispositions[address]
         primary = units[address]
         source = primary[0]["file"] if len(primary) == 1 else None
         if source:
@@ -399,6 +436,8 @@ def main():
             row.update(category="uncached", reason=evidence_reason)
         elif evidence_status != "complete_pinned":
             row.update(reason=evidence_reason)
+        elif address in dispositions:
+            row.update(category="existing_C_preserved", reason="Saved source triage and matching active model preserve existing C; native behavior remains unproved")
         elif len(primary) > 1:
             row.update(reason="Multiple catalogue source mappings; canonical ownership requires review")
         else:
@@ -465,6 +504,10 @@ def main():
                   grouping="Deterministic weak components of cached direct candidate calls; whole components packed to batch size, oversized splits declared",
                   review_grouping="Same grouping restricted to unresolved/reuse-review functions; planning only, never emits replacement C",
                   indirect_call_coverage_complete=False, batches=summaries,
+                  source_reuse_dispositions=dict(matched_entries=len(dispositions),
+                      preserved_entries=sum(row["category"] == "existing_C_preserved" and "existing_C_source_disposition" in row for row in rows),
+                      native_scope_review_retained=sum(row["category"] == "review_needed" and "existing_C_source_disposition" in row for row in rows),
+                      unavailable=unavailable_dispositions, correctness_proved=False),
                   review_entries=len(review), review_batches=review_summaries, functions=rows)
     if args.write_candidates:
         emit_candidates(args.write_candidates, batches, summaries, candidates, suspended)

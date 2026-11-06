@@ -15,12 +15,12 @@ scenarios /3182 invocations. The shared bridge now preserves original stack
 history, including untouched bytes copied into event packets. Further connected
 source reconstruction may proceed; whole-game equivalence remains incomplete.
 Prior finite receipts retain archived images.
-Closed cohort6 contains49 real input/ABI repairs over5775 native instructions,
-reusing existing C algorithms. Shared strict compilation and all links pass.
-The3 latest advisor/overlay entries pass18 necessary ABI cases plus17 shared
-regressions (145 invocations). Full49-entry native/C comparison is pending;
-source expansion waits for that gate. The nominal100 target is recorded
-separately;101 already-existing overlay C paths receive no new rewrite credit.
+Closed cohort6 passed its49-entry finite native/C gate:157 scenarios /511
+invocations, including every retained named and canonical entry. Its139 new
+labourer cases reuse no endpoint stubs;18 prior advisor/overlay cases are
+combined only after exact program, artifact and serialized-input equality.
+Further source work may proceed. Full gameplay/domain equivalence remains
+incomplete;101 already-existing overlay C paths receive no new rewrite credit.
 
 
 The previous100-entry cohort's285-case comparison is historical at871eea0.
