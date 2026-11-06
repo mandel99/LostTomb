@@ -1,35 +1,32 @@
-#include "restore_types.h"
-#define DAT_00799a3c (*(undefined4 *)0x00799a3cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define DAT_00bcd60c (*(undefined4 *)0x00bcd60cu)
-#define DAT_00bcd60e (*(undefined4 *)0x00bcd60eu)
-#define DAT_00bcd61c (*(undefined4 *)0x00bcd61cu)
-#define DAT_00bcd61e (*(undefined4 *)0x00bcd61eu)
-#define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
-extern int FUN_004f3690();
-extern undefined4 FUN_004f4420();
+#include <stdint.h>
+#include <stdbool.h>
 
-undefined4 FUN_004f4440(int param_1)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define actor_x (*(int16_t *)0x00bcd60cu)
+#define actor_y (*(int16_t *)0x00bcd60eu)
+#define actor_target_x (*(int16_t *)0x00bcd61cu)
+#define actor_target_y (*(int16_t *)0x00bcd61eu)
+#define actor_wait (*(int16_t *)0x00bcd62eu)
+#define building_owner (*(int16_t *)0x00799a3cu)
+#define tile_building (*(int16_t *)0x00b4e6fcu)
+#define city_origin (*(uint32_t *)0x00bca2d8u)
 
+extern int32_t FUN_004f3690(int32_t x, int32_t y);
+extern int32_t FUN_004f4420(uint32_t tile);
+
+uint8_t FUN_004f4440(int32_t actor)
 {
-  short sVar1;
-  int iVar2;
-  int iVar3;
-  
-  iVar3 = param_1 * 0x184;
-  iVar2 = DAT_00bca2d8 + (short)(&DAT_00bcd60c)[param_1 * 0xc2] +
-          (short)(&DAT_00bcd60e)[param_1 * 0xc2] * 0xe4;
-  sVar1 = *(short *)(&DAT_00b4e6fc + iVar2 * 2);
-  if (sVar1 == 0) {
-    return 0;
-  }
-  iVar2 = FUN_004f4420(iVar2);
-  *(short *)(&DAT_00bcd62e + iVar3) = *(short *)(&DAT_00bcd62e + iVar3) + 1;
-  if (iVar2 <= *(short *)(&DAT_00bcd62e + iVar3)) {
-    FUN_004f3690((int)*(short *)(&DAT_00bcd61c + iVar3),(int)*(short *)(&DAT_00bcd61e + iVar3));
-    (&DAT_00799a3c)[sVar1 * 0x84] = 0;
-    return 0;
-  }
-  return 1;
+    uint32_t word = (uint32_t)actor * 194u;
+    uint32_t tile = city_origin + (uint32_t)(int32_t)(&actor_x)[word]
+        + (uint32_t)(int32_t)(&actor_y)[word] * 228u;
+    int16_t building = (&tile_building)[tile];
+    if (building == 0) return 0;
+    int32_t delay = FUN_004f4420(tile);
+    (&actor_wait)[word] = (int16_t)((uint16_t)(&actor_wait)[word] + 1u);
+    if (delay <= (&actor_wait)[word]) {
+        (void)FUN_004f3690((&actor_target_x)[word], (&actor_target_y)[word]);
+        (&building_owner)[(int32_t)building * 132] = 0;
+        return 0;
+    }
+    return 1;
 }

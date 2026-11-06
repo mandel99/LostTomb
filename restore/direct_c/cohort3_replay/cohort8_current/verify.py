@@ -57,7 +57,11 @@ def protocol(packet,base,changes=None):
             before=p[key];p[key]=rebind_guards(before,packet)
             if changes is not None:
                 changes.extend(dict(packet=packet,path=n,before_sha256=s,sha256=p[key][n])for n,s in before.items()if p[key][n]!=s)
-    for item in p.get('evidence_inputs',[]):assert digest(R/item['path'])==item['sha256'],item['path']
+    for item in p.get('evidence_inputs',[]):
+        path=R/item['path']
+        if packet=='cohort8_city_grid25'and item['path']=='build/actor-animal-following/cohort8-city-index-local-views/field-role-and-consumer-proof.json':
+            path=folder/'original-field-role-proof.json'
+        assert digest(path)==item['sha256'],item['path']
     if 'native'in p:assert p['native']==base['native']and digest(R/p['native']['path'])==p['native']['sha256']
     if 'compiled_images'in p:
         assert p['compiled_images']==read(OUT/'epoch.json')['original_packet_profiles'][packet],packet
@@ -123,7 +127,44 @@ def canonical_registry(base,addresses):
     return result
 
 
+def city25(base):
+    packet='cohort8_city_grid25';folder=PUBLIC/packet;p=protocol(packet,base)
+    profile=read(folder/'current-image-profile.json');assert profile['compiled_images']==base['compiled_images']
+    changes=read(folder/'source-and-image-rebind.json')['route_applicability']
+    from native_test_pe import PE
+    native=PE(R/p['native']['path']);maps={k:(R/v['map_path']).read_text()for k,v in base['compiled_images'].items()}
+    registry=copy.deepcopy(base)
+    assert not {int(m['address'],16)for m in p['members']}&{int(m['address'],16)for m in base['members']}
+    for m in p['members']:
+        address=int(m['address'],16);raw=native.data[address-native.base:m['native_end_inclusive']-native.base+1]
+        assert hashlib.sha256(raw).hexdigest()==m['native_contiguous_scope_sha256']
+        providers={}
+        for label,text in maps.items():
+            hit=symbol(text,m['symbol']);expected=bool(m['providers'][label])
+            if m['address']in changes and label!='retained':expected=changes[m['address']]['now'][label]
+            assert bool(hit)==expected,(m['address'],label)
+            if label=='retained':assert hit
+            if hit:
+                assert m['owner_object']in hit['owner'];hit=dict(hit,symbol=m['symbol'])
+            providers[label]=dict(named=None,canonical=hit)
+        source_sha=digest(R/m['source']);assert p['source_guards'][m['source']]==source_sha
+        registry['members'].append(dict(address=m['address'],name=m['symbol'],source=m['source'],source_definition_symbol=m['symbol'],source_sha256=source_sha,
+            body_sha256=source_sha,body_hash_scope='Complete current typed C source unit, existing algorithm;22 exact source rebindings.',algorithm_source=m['source'],
+            providers=providers,rule=None,native_ranges=[dict(start=hex(address),end=hex(m['native_end_inclusive']))],native_ret_immediates=[m['native_cleanup']],
+            logical_signature=m['logical_signature'],case_status='authored_current_binding_not_executed',supplemental_comparison_only=True,new_source_credit=0,new_entry_credit=0))
+    registry['comparison_entries']=len(registry['members']);registry['city_grid25_comparison_only']=True
+    authored=module('c8_city25_recipes',folder/'city_cases.py');oracle=module('c8_city25_oracle',folder/'oracle_repair.py')
+    extra=module('c8_city25_occupied',folder/'tile_occupancy_cases.py');checker=module('c8_city25_audit',folder/'current_audit.py')
+    cases=oracle.correct_cases(authored.cases())+extra.cases();assert len(cases)==64
+    for c in cases:
+        m=next(m for m in registry['members']if int(m['address'],16)==c['entry'])
+        c['expected_invocations']=1+sum(bool(v['canonical'])for v in m['providers'].values())
+    assert sum(c['expected_invocations']for c in cases)==212
+    return registry,cases,checker.audit,64,212
+
+
 def recipes(scope,base):
+    if scope=='city25':return city25(base)
     matrix=module('c8_authored_audit',PUBLIC/'current_matrix/verify.py')
     if scope=='player10':
         folder=PUBLIC/'cohort8_player10';manifest(folder)
@@ -280,7 +321,7 @@ def run_script(scope,base):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support','functional4','player10','ui25'])
+    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support','functional4','player10','ui25','city25'])
     ap.add_argument('--run',action='store_true');args=ap.parse_args()
     base=checked_base()
     if args.scope in ['funclets','arithmetic']:

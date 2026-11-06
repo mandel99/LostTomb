@@ -1,106 +1,88 @@
-#include "restore_types.h"
-#define DAT_0096e6b0 (*(undefined4 *)0x0096e6b0u)
-#define DAT_0096e6b4 (*(undefined4 *)0x0096e6b4u)
-#define DAT_00978d98 (*(char *)0x00978d98u)
-#define DAT_00978d9a (*(char *)0x00978d9au)
-#define DAT_00a43eac (*(undefined4 *)0x00a43eacu)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b350dc (*(undefined4 *)0x00b350dcu)
-#define DAT_00bc9804 (*(undefined4 *)0x00bc9804u)
-#define DAT_00bc9b94 (*(undefined4 *)0x00bc9b94u)
-#define DAT_00bc9f24 (*(undefined4 *)0x00bc9f24u)
+#include <stdint.h>
+#define DAT_0096e6b0 (*(uint32_t *)0x0096e6b0u)
+#define DAT_0096e6b4 (*(uint32_t *)0x0096e6b4u)
+#define DAT_00978d98 (*(uint8_t *)0x00978d98u)
+#define DAT_00978d9a (*(uint8_t *)0x00978d9au)
+#define DAT_00a43eac (*(int8_t *)0x00a43eacu)
+#define DAT_00af598c (*(uint32_t *)0x00af598cu)
+#define DAT_00b350dc (*(int16_t *)0x00b350dcu)
+#define DAT_00bc9804 (*(uint32_t *)0x00bc9804u)
+#define DAT_00bc9b94 (*(int32_t *)0x00bc9b94u)
+#define DAT_00bc9f24 (*(int32_t *)0x00bc9f24u)
 #define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
-extern char FUN_00477690();
-extern int FUN_005190a0();
+#define DAT_00bcd602 (*(uint8_t *)0x00bcd602u)
+#define _DAT_00d3b4e0 (*(int32_t *)0x00d3b4e0u)
+#define _DAT_00d3b4e4 (*(int32_t *)0x00d3b4e4u)
+/* Existing C neighbor count is in 0..8 and has a char return facade. */
+extern char FUN_00477690(uint32_t,int32_t);
+extern int32_t FUN_005190a0(uint32_t,uint32_t,uint32_t *,int32_t);
 
-undefined4
-FUN_00486810(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,int param_5,
-            int param_6,int param_7,int param_8)
-
+/* Native 486810: collect eligible tiles in 3999-entry batches, select one,
+   and publish its signed map coordinates. Preserve the genuine child calls. */
+uint32_t FUN_00486810(uint32_t request_a,uint32_t request_b,uint32_t reserved,
+                     uint32_t tile_mask,int32_t min_x,int32_t min_y,
+                     int32_t max_x,int32_t max_y)
 {
-  char cVar1;
-  int iVar2;
-  short *psVar3;
-  int iVar4;
-  int iVar5;
-  uint *puVar6;
-  int iVar7;
-  int iVar8;
-  int local_10;
-  
-  if (param_4 == 0x40000) {
-    if (DAT_00978d9a == '\0') {
-      return 0;
+    uint8_t rejected_actor_kind;
+    int32_t row,count=0,selection;
+    (void)reserved; /* No native read of the third argument. */
+    if(tile_mask==0x40000u){
+        if(DAT_00978d9a==0)return 0;
+        rejected_actor_kind=0x5a;
+    }else{
+        if(DAT_00978d98==0)return 0;
+        rejected_actor_kind=0x4b;
     }
-    cVar1 = 'Z';
-  }
-  else {
-    if (DAT_00978d98 == '\0') {
-      return 0;
-    }
-    cVar1 = 'K';
-  }
-  local_10 = 0;
-  if (param_6 < param_8) {
-    iVar5 = param_6 * 0xe4;
-    iVar4 = param_6;
-    do {
-      if (param_5 < (int)(&DAT_00bc9f24)[iVar4]) {
-        iVar7 = (&DAT_00bc9804)[iVar4];
-        iVar8 = (&DAT_00bc9f24)[iVar4];
-      }
-      else {
-        iVar7 = DAT_00bca2d8 + iVar5 + param_5;
-        iVar8 = param_5;
-      }
-      param_6 = (&DAT_00bc9b94)[iVar4];
-      if (param_7 <= param_6) {
-        param_6 = param_7;
-      }
-      if (iVar8 < param_6) {
-        psVar3 = (short *)(&DAT_00b350dc + iVar7 * 2);
-        puVar6 = &DAT_00af598c + iVar7;
-        do {
-          if ((*puVar6 & 0x80000) == 0) {
-            if ((param_4 & *puVar6) != 0) {
-              if (((param_4 == 0x40000) && (iVar2 = FUN_00477690(0x40000,iVar7), iVar2 != 8)) ||
-                 ((&DAT_00bcd602)[*psVar3 * 0x184] == cVar1)) goto LAB_0048695e;
-              if (*(char *)((int)&DAT_00a43eac + iVar7) == -1) {
-                (&DAT_0096e6b4)[local_10] = iVar7;
-                local_10 = local_10 + 1;
-              }
+    for(row=min_y;row<max_y;++row){
+        uint32_t tile;
+        int32_t x,right;
+        if(min_x<(&DAT_00bc9f24)[(uint32_t)row]){
+            tile=(&DAT_00bc9804)[(uint32_t)row];
+            x=(&DAT_00bc9f24)[(uint32_t)row];
+        }else{
+            tile=DAT_00bca2d8+(uint32_t)row*228u+(uint32_t)min_x;
+            x=min_x;
+        }
+        right=(&DAT_00bc9b94)[(uint32_t)row];
+        if(max_x<=right)right=max_x;
+        for(;x<right;++x,++tile){
+            uint32_t flags=(&DAT_00af598c)[tile];
+            if((flags&0x80000u)!=0)continue;
+            if((tile_mask&flags)!=0){
+                int32_t actor;
+                if(tile_mask==0x40000u && FUN_00477690(0x40000u,(int32_t)tile)!=8)
+                    continue;
+                /* Native 4868C2/4868FB use a signed WORD at tile*2,
+                   followed by a BYTE actor field at signedID*388. */
+                actor=(&DAT_00b350dc)[tile];
+                if((&DAT_00bcd602)[(uint32_t)actor*388u]==rejected_actor_kind)
+                    continue;
+                if((&DAT_00a43eac)[tile]==-1){
+                    (&DAT_0096e6b4)[(uint32_t)count]=tile;
+                    ++count;
+                }
             }
-            if (local_10 == 3999) {
-              iVar2 = FUN_005190a0(param_1,param_2,&DAT_0096e6b4,3999);
-              if (iVar2 != 0) goto LAB_004869bd;
-              local_10 = 0;
+            if(count==3999){
+                selection=FUN_005190a0(request_a,request_b,&DAT_0096e6b4,3999);
+                if(selection!=0)goto selected;
+                count=0;
             }
-          }
-LAB_0048695e: ;
-          iVar8 = iVar8 + 1;
-          iVar7 = iVar7 + 1;
-          puVar6 = puVar6 + 1;
-          psVar3 = psVar3 + 1;
-        } while (iVar8 < param_6);
-      }
-      iVar4 = iVar4 + 1;
-      iVar5 = iVar5 + 0xe4;
-    } while (iVar4 < param_8);
-    if ((local_10 != 0) &&
-       (iVar2 = FUN_005190a0(param_1,param_2,&DAT_0096e6b4,local_10), iVar2 != 0)) {
-LAB_004869bd: ;
-      _DAT_00d3b4e4 = ((int32_t)((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8)) % 0xe4;
-      _DAT_00d3b4e0 = ((int32_t)((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8)) / 0xe4;
-      return 1;
+        }
     }
-  }
-  if (param_4 != 0x40000) {
-    DAT_00978d98 = 0;
+    if(count!=0){
+        selection=FUN_005190a0(request_a,request_b,&DAT_0096e6b4,count);
+        if(selection!=0)goto selected;
+    }
+    if(tile_mask==0x40000u)DAT_00978d9a=0;
+    else DAT_00978d98=0;
     return 0;
-  }
-  DAT_00978d9a = 0;
-  return 0;
+selected:
+    {
+        /* The selected index is one-based. Native IDIV treats the wrapped
+           tile-origin difference as signed32; negative remainders survive. */
+        int32_t delta=(int32_t)((&DAT_0096e6b0)[(uint32_t)selection]-DAT_00bca2d8);
+        _DAT_00d3b4e4=delta%228;
+        _DAT_00d3b4e0=delta/228;
+        return 1;
+    }
 }

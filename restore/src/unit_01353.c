@@ -1,54 +1,47 @@
-#include "restore_types.h"
-#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define DAT_00bcd636 (*(undefined4 *)0x00bcd636u)
-#define DAT_00bcd652 (*(undefined4 *)0x00bcd652u)
-#define DAT_00bcd7b4 (*(undefined4 *)0x00bcd7b4u)
-#define DAT_00d056f8 (*(undefined *)0x00d056f8u)
-extern void FUN_004b3250();
-extern undefined4 FUN_004ea9a0();
-extern int FUN_005190a0();
+#include <stdint.h>
+#include <stdbool.h>
 
-int FUN_004a2320(undefined4 param_1,undefined4 param_2,int param_3)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define city_origin (*(uint32_t *)0x00bca2d8u)
+#define current_actor (*(uint32_t *)0x00d056f8u)
+#define actor_active (*(uint8_t *)0x00bcd606u)
+#define actor_kind (*(uint8_t *)0x00bcd602u)
+#define actor_state (*(uint8_t *)0x00bcd630u)
+#define actor_owner (*(int32_t *)0x00bcd730u)
+#define actor_reference (*(int16_t *)0x00bcd652u)
+#define actor_x (*(int16_t *)0x00bcd60cu)
+#define actor_y (*(int16_t *)0x00bcd60eu)
+#define actor_distance (*(int16_t *)0x00bcd636u)
 
+extern void FUN_004b3250(int32_t actor);
+extern uint8_t FUN_004ea9a0(int32_t kind);
+extern int32_t FUN_005190a0(uint32_t request, uint32_t target, const uint32_t *tiles, int32_t count);
+
+int32_t FUN_004a2320(uint32_t request, uint32_t target, int32_t maximum_distance)
 {
-  short sVar1;
-  char cVar2;
-  int iVar3;
-  int iVar4;
-  char *pcVar5;
-  int iVar6;
-  int local_f0 [30];
-  int aiStack_78 [30];
-  
-  iVar4 = 1;
-  pcVar5 = &DAT_00bcd7b4;
-  iVar3 = 0;
-  do {
-    iVar6 = iVar3;
-    if (pcVar5[-0x2a] == '\x01') {
-      cVar2 = FUN_004ea9a0(pcVar5[-0x2e]);
-      if (cVar2 != '\0') {
-        if (((*pcVar5 != '\x04') && (*pcVar5 != '\f')) &&
-           ((*(int *)(pcVar5 + 0x100) == 0 ||
-            (*(int *)(pcVar5 + 0x100) == (int)(short)(&DAT_00bcd652)[DAT_00d056f8 * 0xc2])))) {
-          sVar1 = *(short *)(pcVar5 + -0x22);
-          local_f0[iVar3 + 0x1e] = iVar4;
-          iVar6 = iVar3 + 1;
-          local_f0[iVar3] = DAT_00bca2d8 + *(short *)(pcVar5 + -0x24) + sVar1 * 0xe4;
-          if (iVar6 == 0x1e) break;
+    /* Native ESP+0..239 is one 60-DWORD allocation: tiles[30], then IDs[30]. */
+    uint32_t candidates[60];
+    int32_t count = 0;
+    for (int32_t actor = 1; actor < 2000; ++actor) {
+        uint32_t offset = (uint32_t)actor * 388u;
+        if ((&actor_active)[offset] == 1 && FUN_004ea9a0((&actor_kind)[offset]) != 0) {
+            uint8_t state = (&actor_state)[offset];
+            int32_t owner = (&actor_owner)[(uint32_t)actor * 97u];
+            if (state != 4 && state != 12 &&
+                (owner == 0 || owner == (&actor_reference)[current_actor * 194u])) {
+                candidates[count] = city_origin + (uint32_t)(int32_t)(&actor_x)[(uint32_t)actor * 194u]
+                    + (uint32_t)(int32_t)(&actor_y)[(uint32_t)actor * 194u] * 228u;
+                candidates[count + 30] = (uint32_t)actor;
+                if (++count == 30) break;
+            }
         }
-      }
     }
-    pcVar5 = pcVar5 + 0x184;
-    iVar4 = iVar4 + 1;
-    iVar3 = iVar6;
-  } while ((int)pcVar5 < 0xc8ad70);
-  if (iVar6 != 0) {
-    iVar3 = FUN_005190a0(param_1,param_2,local_f0,iVar6);
-    if ((iVar3 != 0) && (*(short *)(&DAT_00bcd636 + DAT_00d056f8 * 0x184) <= param_3)) {
-      FUN_004b3250(DAT_00d056f8);
-      return local_f0[iVar3 + 0x1d];
+    if (count != 0) {
+        int32_t selected = FUN_005190a0(request, target, candidates, count);
+        if (selected != 0 && (&actor_distance)[current_actor * 194u] <= maximum_distance) {
+            FUN_004b3250((int32_t)current_actor);
+            return (int32_t)candidates[selected + 29];
+        }
     }
-  }
-  return 0;
+    return 0;
 }

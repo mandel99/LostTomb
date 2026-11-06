@@ -1,62 +1,45 @@
-#include "restore_types.h"
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00799a17 (*(undefined4 *)0x00799a17u)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bca2d0 (*(int32_t *)0x00bca2d0u)
-#define DAT_00bca2d4 (*(int32_t *)0x00bca2d4u)
-#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
+#include <stdint.h>
+#include <stdbool.h>
 
-void FUN_0047fc40(int param_1,int param_2)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define building_x (*(int16_t *)0x007999deu)
+#define building_y (*(int16_t *)0x007999e0u)
+#define building_dirty (*(uint8_t *)0x00799a17u)
+#define tile_building (*(int16_t *)0x00b4e6fcu)
+#define city_width (*(int32_t *)0x00bca2d0u)
+#define city_height (*(int32_t *)0x00bca2d4u)
+#define city_origin (*(uint32_t *)0x00bca2d8u)
+#define scan_y (*(int32_t *)0x00d3b4e0u)
+#define scan_x (*(int32_t *)0x00d3b4e4u)
 
+void FUN_0047fc40(int32_t building, int32_t radius)
 {
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  short *psVar4;
-  int iVar5;
-  
-  iVar2 = (int)*(short *)((int)&DAT_007999dc + param_1 * 0x108 + 2);
-  iVar3 = iVar2 + param_2;
-  iVar2 = iVar2 - param_2;
-  iVar1 = *(short *)(&DAT_007999e0 + param_1 * 0x108) + param_2;
-  _DAT_00d3b4e0 = *(short *)(&DAT_007999e0 + param_1 * 0x108) - param_2;
-  if (iVar2 < 0) {
-    iVar2 = 0;
-  }
-  if (_DAT_00d3b4e0 < 0) {
-    _DAT_00d3b4e0 = 0;
-  }
-  if (DAT_00bca2d0 <= iVar3) {
-    iVar3 = DAT_00bca2d0 + -1;
-  }
-  if (DAT_00bca2d4 <= iVar1) {
-    iVar1 = DAT_00bca2d4 + -1;
-  }
-  iVar5 = DAT_00bca2d8 + _DAT_00d3b4e0 * 0xe4 + iVar2;
-  if (_DAT_00d3b4e0 <= iVar1) {
-    param_2 = (iVar1 - _DAT_00d3b4e0) + 1;
-    _DAT_00d3b4e0 = param_2 + _DAT_00d3b4e0;
-    do {
-      _DAT_00d3b4e4 = iVar2;
-      if (iVar2 <= iVar3) {
-        psVar4 = (short *)(&DAT_00b4e6fc + iVar5 * 2);
-        iVar1 = (iVar3 - iVar2) + 1;
-        iVar5 = iVar5 + iVar1;
-        _DAT_00d3b4e4 = iVar1 + iVar2;
+    int32_t x = (&building_x)[(uint32_t)building * 132u];
+    int32_t y = (&building_y)[(uint32_t)building * 132u];
+    int32_t left = x - radius, right = x + radius;
+    int32_t bottom = y + radius;
+    scan_y = y - radius;
+    if (left < 0) left = 0;
+    if (scan_y < 0) scan_y = 0;
+    if (city_width <= right) right = city_width - 1;
+    if (city_height <= bottom) bottom = city_height - 1;
+    uint32_t tile = city_origin + (uint32_t)scan_y * 228u + (uint32_t)left;
+    if (scan_y <= bottom) {
+        int32_t rows = bottom - scan_y + 1;
+        scan_y += rows;
         do {
-          if (*psVar4 != 0) {
-            (&DAT_00799a17)[*psVar4 * 0x108] = 1;
-          }
-          psVar4 = psVar4 + 1;
-          iVar1 = iVar1 + -1;
-        } while (iVar1 != 0);
-      }
-      iVar5 = iVar5 + (iVar2 - iVar3) + 0xe3;
-      param_2 = param_2 + -1;
-    } while (param_2 != 0);
-  }
-  return;
+            scan_x = left;
+            if (left <= right) {
+                int16_t *building_at = &tile_building + tile;
+                int32_t columns = right - left + 1;
+                tile += (uint32_t)columns;
+                scan_x = columns + left;
+                do {
+                    int16_t occupant = *building_at++;
+                    if (occupant != 0) (&building_dirty)[(int32_t)occupant * 264] = 1;
+                } while (--columns != 0);
+            }
+            tile += (uint32_t)(left - right) + 227u;
+        } while (--rows != 0);
+    }
 }

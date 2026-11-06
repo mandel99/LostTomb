@@ -2,11 +2,11 @@
   "schema": "cohort8-source100-local-value-repairs-v1",
   "source_base_checkpoint": "b0b0a5eb35a59cc83316c8b6ff5e1310b0543253",
   "changed_existing_C_functions": 100,
-  "explicit_local_view_repairs": 395,
-  "macro_only_sources": 90,
+  "explicit_local_view_repairs": 641,
+  "macro_only_sources": 69,
   "existing_RAW_algorithm_redirects": 2,
   "signed_division_consumer_functions": 1,
-  "signed_division_cast_sites": 2,
+  "signed_division_cast_sites": 1,
   "new_algorithms": 0,
   "new_selected_entries": 0,
   "complete_functions_claimed": 0,
@@ -40,15 +40,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3552320,
+          "va": 3541696,
           "owner": "f   pharaoh_restored:unit_00074.obj"
         },
         "diagnostic": {
-          "va": 3554208,
+          "va": 3543584,
           "owner": "f   pharaoh_restored:unit_00074.obj"
         },
         "retained": {
-          "va": 3605216,
+          "va": 3599600,
           "owner": "f   pharaoh_restored:unit_00074.obj"
         }
       },
@@ -94,15 +94,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3527824,
+          "va": 3517200,
           "owner": "f   pharaoh_restored:unit_00185.obj"
         },
         "diagnostic": {
-          "va": 3529568,
+          "va": 3518944,
           "owner": "f   pharaoh_restored:unit_00185.obj"
         },
         "retained": {
-          "va": 3579472,
+          "va": 3573856,
           "owner": "f   pharaoh_restored:unit_00185.obj"
         }
       },
@@ -148,15 +148,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3527568,
+          "va": 3516944,
           "owner": "f   pharaoh_restored:unit_00187.obj"
         },
         "diagnostic": {
-          "va": 3529312,
+          "va": 3518688,
           "owner": "f   pharaoh_restored:unit_00187.obj"
         },
         "retained": {
-          "va": 3579216,
+          "va": 3573600,
           "owner": "f   pharaoh_restored:unit_00187.obj"
         }
       },
@@ -172,27 +172,93 @@
       "name": "FUN_00416a20",
       "source": "src/unit_00188.c",
       "before_sha256": "48955498b08ea04042bc30eb496d436f9cd2b419d2fb55172c5b374cb705363e",
-      "source_sha256": "8c42af4931121a9174d0f0f40146a276c6e762b784cb99c943c7f874cae2d267",
-      "change_kind": "macro_view_only",
+      "source_sha256": "f445326ea9612d78257c1bccd74325c289ea30b28c3d12a6232f51d89fef2768",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "selection_mode",
+          "address": "0x00e38dda",
+          "expression": "(*(uint8_t *)0x00e38ddau)",
+          "before": "(*(char *)0x00e38ddau)",
+          "before_name": "DAT_00e38dda",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "selected_formation",
+          "address": "0x00578c6c",
+          "expression": "(*(uint32_t *)0x00578c6cu)",
+          "before": "(*(undefined4 *)0x00578c6cu)",
+          "before_name": "DAT_00578c6c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "formation_active",
+          "address": "0x00bcb9c8",
+          "expression": "(*(uint8_t *)0x00bcb9c8u)",
+          "before": "(*(undefined4 *)0x00bcb9c8u)",
+          "before_name": "DAT_00bcb9c8",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_busy",
+          "address": "0x00bcba31",
+          "expression": "(*(uint8_t *)0x00bcba31u)",
+          "before": "(*(undefined4 *)0x00bcba31u)",
+          "before_name": "DAT_00bcba31",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_count",
+          "address": "0x00bcba0a",
+          "expression": "(*(uint8_t *)0x00bcba0au)",
+          "before": "(*(undefined4 *)0x00bcba0au)",
+          "before_name": "DAT_00bcba0a",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_x",
+          "address": "0x00bcb9f6",
+          "expression": "(*(int16_t *)0x00bcb9f6u)",
+          "before": "(*(undefined4 *)0x00bcb9f6u)",
+          "before_name": "DAT_00bcb9f6",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_y",
+          "address": "0x00bcb9f8",
+          "expression": "(*(int16_t *)0x00bcb9f8u)",
+          "before": "(*(undefined4 *)0x00bcb9f8u)",
+          "before_name": "DAT_00bcb9f8",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "selection_dirty",
+          "address": "0x00e38dca",
+          "expression": "(*(uint8_t *)0x00e38dcau)",
+          "before": "(*(byte *)0x00e38dcau)",
+          "before_name": "DAT_00e38dca",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3527392,
+          "va": 3516768,
           "owner": "f   pharaoh_restored:unit_00188.obj"
         },
         "diagnostic": {
-          "va": 3529136,
+          "va": 3518512,
           "owner": "f   pharaoh_restored:unit_00188.obj"
         },
         "retained": {
-          "va": 3579040,
+          "va": 3573424,
           "owner": "f   pharaoh_restored:unit_00188.obj"
         }
       },
@@ -201,7 +267,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "8c42af4931121a9174d0f0f40146a276c6e762b784cb99c943c7f874cae2d267"
     },
     {
       "address": "0x00417e80",
@@ -232,15 +299,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3524832,
+          "va": 3514208,
           "owner": "f   pharaoh_restored:unit_00215.obj"
         },
         "diagnostic": {
-          "va": 3526464,
+          "va": 3515840,
           "owner": "f   pharaoh_restored:unit_00215.obj"
         },
         "retained": {
-          "va": 3575520,
+          "va": 3569904,
           "owner": "f   pharaoh_restored:unit_00215.obj"
         }
       },
@@ -280,15 +347,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3524800,
+          "va": 3514176,
           "owner": "f   pharaoh_restored:unit_00216.obj"
         },
         "diagnostic": {
-          "va": 3526432,
+          "va": 3515808,
           "owner": "f   pharaoh_restored:unit_00216.obj"
         },
         "retained": {
-          "va": 3575488,
+          "va": 3569872,
           "owner": "f   pharaoh_restored:unit_00216.obj"
         }
       },
@@ -328,15 +395,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3524768,
+          "va": 3514144,
           "owner": "f   pharaoh_restored:unit_00217.obj"
         },
         "diagnostic": {
-          "va": 3526400,
+          "va": 3515776,
           "owner": "f   pharaoh_restored:unit_00217.obj"
         },
         "retained": {
-          "va": 3575456,
+          "va": 3569840,
           "owner": "f   pharaoh_restored:unit_00217.obj"
         }
       },
@@ -436,15 +503,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3524544,
+          "va": 3513920,
           "owner": "f   pharaoh_restored:unit_00218.obj"
         },
         "diagnostic": {
-          "va": 3526176,
+          "va": 3515552,
           "owner": "f   pharaoh_restored:unit_00218.obj"
         },
         "retained": {
-          "va": 3575232,
+          "va": 3569616,
           "owner": "f   pharaoh_restored:unit_00218.obj"
         }
       },
@@ -496,15 +563,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3509024,
+          "va": 3498400,
           "owner": "f   pharaoh_restored:unit_00279.obj"
         },
         "diagnostic": {
-          "va": 3510640,
+          "va": 3500016,
           "owner": "f   pharaoh_restored:unit_00279.obj"
         },
         "retained": {
-          "va": 3559552,
+          "va": 3553936,
           "owner": "f   pharaoh_restored:unit_00279.obj"
         }
       },
@@ -534,7 +601,7 @@
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3548064,
+          "va": 3542448,
           "owner": "f   pharaoh_restored:unit_00335.obj"
         }
       },
@@ -562,15 +629,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3497360,
+          "va": 3486736,
           "owner": "f   pharaoh_restored:unit_00337.obj"
         },
         "diagnostic": {
-          "va": 3498928,
+          "va": 3488304,
           "owner": "f   pharaoh_restored:unit_00337.obj"
         },
         "retained": {
-          "va": 3547744,
+          "va": 3542128,
           "owner": "f   pharaoh_restored:unit_00337.obj"
         }
       },
@@ -618,7 +685,7 @@
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3531520,
+          "va": 3525904,
           "owner": "f   pharaoh_restored:unit_00423.obj"
         }
       },
@@ -652,15 +719,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3487632,
+          "va": 3477008,
           "owner": "f   pharaoh_restored:unit_00426.obj"
         },
         "diagnostic": {
-          "va": 3489200,
+          "va": 3478576,
           "owner": "f   pharaoh_restored:unit_00426.obj"
         },
         "retained": {
-          "va": 3530848,
+          "va": 3525232,
           "owner": "f   pharaoh_restored:unit_00426.obj"
         }
       },
@@ -708,7 +775,7 @@
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3451504,
+          "va": 3445888,
           "owner": "f   pharaoh_restored:unit_00659.obj"
         }
       },
@@ -861,16 +928,10 @@
         }
       ],
       "providers": {
-        "game": {
-          "va": 3408352,
-          "owner": "f   pharaoh_restored:unit_00663.obj"
-        },
-        "diagnostic": {
-          "va": 3409920,
-          "owner": "f   pharaoh_restored:unit_00663.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3451200,
+          "va": 3445584,
           "owner": "f   pharaoh_restored:unit_00663.obj"
         }
       },
@@ -886,27 +947,471 @@
       "name": "FUN_00446a30",
       "source": "src/unit_00665.c",
       "before_sha256": "10973ee17eda0f698463419f42095555690609eeaca3ee0903b3ec043065c12c",
-      "source_sha256": "1e6ce45fb9762fda1683f224cfecb83d2fb4f4034a897d2235a6a5f480daf12c",
-      "change_kind": "macro_view_only",
+      "source_sha256": "451918700c1d024959b25acf9d989f172db4250550ff7beabc56885eb659641f",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "population_scale",
+          "address": "0x005d19b0",
+          "expression": "(*(uint32_t *)0x005d19b0u)",
+          "before": "(*(undefined4 *)0x005d19b0u)",
+          "before_name": "DAT_005d19b0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709a58",
+          "address": "0x00709a58",
+          "expression": "(*(uint32_t *)0x00709a58u)",
+          "before": "(*(undefined *)0x00709a58u)",
+          "before_name": "DAT_00709a58",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709a90",
+          "address": "0x00709a90",
+          "expression": "(*(uint32_t *)0x00709a90u)",
+          "before": "(*(undefined *)0x00709a90u)",
+          "before_name": "DAT_00709a90",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709ac8",
+          "address": "0x00709ac8",
+          "expression": "(*(uint32_t *)0x00709ac8u)",
+          "before": "(*(undefined *)0x00709ac8u)",
+          "before_name": "DAT_00709ac8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709cc0",
+          "address": "0x00709cc0",
+          "expression": "(*(uint32_t *)0x00709cc0u)",
+          "before": "(*(undefined *)0x00709cc0u)",
+          "before_name": "DAT_00709cc0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709cf8",
+          "address": "0x00709cf8",
+          "expression": "(*(uint32_t *)0x00709cf8u)",
+          "before": "(*(undefined *)0x00709cf8u)",
+          "before_name": "DAT_00709cf8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_00709d30",
+          "address": "0x00709d30",
+          "expression": "(*(uint32_t *)0x00709d30u)",
+          "before": "(*(undefined *)0x00709d30u)",
+          "before_name": "DAT_00709d30",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_fraction_0070a698",
+          "address": "0x0070a698",
+          "expression": "(*(uint32_t *)0x0070a698u)",
+          "before": "(*(undefined *)0x0070a698u)",
+          "before_name": "DAT_0070a698",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "spawn_sequence",
+          "address": "0x00775900",
+          "expression": "(*(int16_t *)0x00775900u)",
+          "before": "(*(undefined *)0x00775900u)",
+          "before_name": "DAT_00775900",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "entry_width",
+          "address": "0x00784904",
+          "expression": "(*(int32_t *)0x00784904u)",
+          "before": "(*(undefined *)0x00784904u)",
+          "before_name": "DAT_00784904",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "entry_height",
+          "address": "0x00784908",
+          "expression": "(*(int32_t *)0x00784908u)",
+          "before": "(*(undefined *)0x00784908u)",
+          "before_name": "DAT_00784908",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "entrance_x",
+          "address": "0x00784bc0",
+          "expression": "(*(int16_t *)0x00784bc0u)",
+          "before": "(*(undefined4 *)0x00784bc0u)",
+          "before_name": "DAT_00784bc0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "entrance_x_second_half",
+          "address": "0x00784bd0",
+          "expression": "(*(uint16_t *)0x00784bd0u)",
+          "before": "(*(undefined4 *)0x00784bd0u)",
+          "before_name": "DAT_00784bd0",
+          "view_kind": "unused_address_cursor"
+        },
+        {
+          "name": "entrance_y",
+          "address": "0x00784be0",
+          "expression": "(*(int16_t *)0x00784be0u)",
+          "before": "(*(undefined4 *)0x00784be0u)",
+          "before_name": "DAT_00784be0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "optional_entry_coordinates",
+          "address": "0x00784dc4",
+          "expression": "(*(int32_t *)0x00784dc4u)",
+          "before": "(*(undefined *)0x00784dc4u)",
+          "before_name": "DAT_00784dc4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "source_row_count",
+          "address": "0x00785d70",
+          "expression": "(*(int32_t *)0x00785d70u)",
+          "before": "(*(undefined *)0x00785d70u)",
+          "before_name": "DAT_00785d70",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "source_rows",
+          "address": "0x00785d74",
+          "expression": "(*(uint32_t *)0x00785d74u)",
+          "before": "(*(undefined4 *)0x00785d74u)",
+          "before_name": "DAT_00785d74",
+          "view_kind": "record_address_base"
+        },
+        {
+          "name": "source_row_active",
+          "address": "0x00785da6",
+          "expression": "(*(uint8_t *)0x00785da6u)",
+          "before": "(*(undefined4 *)0x00785da6u)",
+          "before_name": "DAT_00785da6",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "actor_generation_tag",
+          "address": "0x0078d7c0",
+          "expression": "(*(uint8_t *)0x0078d7c0u)",
+          "before": "(*(undefined1 *)0x0078d7c0u)",
+          "before_name": "DAT_0078d7c0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "formation_tag_field",
+          "address": "0x00bcba0c",
+          "expression": "(*(uint16_t *)0x00bcba0cu)",
+          "before": "(*(undefined4 *)0x00bcba0cu)",
+          "before_name": "DAT_00bcba0c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_population_class",
+          "address": "0x00bcba32",
+          "expression": "(*(uint8_t *)0x00bcba32u)",
+          "before": "(*(undefined4 *)0x00bcba32u)",
+          "before_name": "DAT_00bcba32",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_direction",
+          "address": "0x00bcba39",
+          "expression": "(*(uint8_t *)0x00bcba39u)",
+          "before": "(*(undefined4 *)0x00bcba39u)",
+          "before_name": "DAT_00bcba39",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_source_row",
+          "address": "0x00bcba40",
+          "expression": "(*(uint16_t *)0x00bcba40u)",
+          "before": "(*(undefined4 *)0x00bcba40u)",
+          "before_name": "DAT_00bcba40",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "formation_sequence",
+          "address": "0x00bcba50",
+          "expression": "(*(int16_t *)0x00bcba50u)",
+          "before": "(*(undefined4 *)0x00bcba50u)",
+          "before_name": "DAT_00bcba50",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_flag5",
+          "address": "0x00bcd605",
+          "expression": "(*(uint8_t *)0x00bcd605u)",
+          "before": "(*(undefined4 *)0x00bcd605u)",
+          "before_name": "DAT_00bcd605",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_destination_x",
+          "address": "0x00bcd628",
+          "expression": "(*(uint16_t *)0x00bcd628u)",
+          "before": "(*(undefined4 *)0x00bcd628u)",
+          "before_name": "DAT_00bcd628",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_destination_y",
+          "address": "0x00bcd62a",
+          "expression": "(*(uint16_t *)0x00bcd62au)",
+          "before": "(*(undefined4 *)0x00bcd62au)",
+          "before_name": "DAT_00bcd62a",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_wait",
+          "address": "0x00bcd62e",
+          "expression": "(*(int16_t *)0x00bcd62eu)",
+          "before": "(*(undefined4 *)0x00bcd62eu)",
+          "before_name": "DAT_00bcd62e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_state",
+          "address": "0x00bcd630",
+          "expression": "(*(uint8_t *)0x00bcd630u)",
+          "before": "(*(undefined4 *)0x00bcd630u)",
+          "before_name": "DAT_00bcd630",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_formation",
+          "address": "0x00bcd658",
+          "expression": "(*(int16_t *)0x00bcd658u)",
+          "before": "(*(undefined4 *)0x00bcd658u)",
+          "before_name": "DAT_00bcd658",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_initialized",
+          "address": "0x00bcd65d",
+          "expression": "(*(uint8_t *)0x00bcd65du)",
+          "before": "(*(undefined4 *)0x00bcd65du)",
+          "before_name": "DAT_00bcd65d",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_migration_flag",
+          "address": "0x00bcd66e",
+          "expression": "(*(uint8_t *)0x00bcd66eu)",
+          "before": "(*(undefined4 *)0x00bcd66eu)",
+          "before_name": "DAT_00bcd66e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_generation",
+          "address": "0x00bcd678",
+          "expression": "(*(uint8_t *)0x00bcd678u)",
+          "before": "(*(undefined4 *)0x00bcd678u)",
+          "before_name": "DAT_00bcd678",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_arrival_flag",
+          "address": "0x00bcd728",
+          "expression": "(*(uint8_t *)0x00bcd728u)",
+          "before": "(*(undefined4 *)0x00bcd728u)",
+          "before_name": "DAT_00bcd728",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_population",
+          "address": "0x00bcd764",
+          "expression": "(*(uint32_t *)0x00bcd764u)",
+          "before": "(*(undefined4 *)0x00bcd764u)",
+          "before_name": "DAT_00bcd764",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_sequence",
+          "address": "0x00bcd768",
+          "expression": "(*(uint32_t *)0x00bcd768u)",
+          "before": "(*(undefined4 *)0x00bcd768u)",
+          "before_name": "DAT_00bcd768",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_population_class",
+          "address": "0x00bcd76c",
+          "expression": "(*(uint32_t *)0x00bcd76cu)",
+          "before": "(*(undefined4 *)0x00bcd76cu)",
+          "before_name": "DAT_00bcd76c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_formation_tag",
+          "address": "0x00bcd770",
+          "expression": "(*(uint32_t *)0x00bcd770u)",
+          "before": "(*(undefined4 *)0x00bcd770u)",
+          "before_name": "DAT_00bcd770",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_source_row",
+          "address": "0x00bcd774",
+          "expression": "(*(uint32_t *)0x00bcd774u)",
+          "before": "(*(undefined4 *)0x00bcd774u)",
+          "before_name": "DAT_00bcd774",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_zero_field",
+          "address": "0x00bcd778",
+          "expression": "(*(uint32_t *)0x00bcd778u)",
+          "before": "(*(undefined4 *)0x00bcd778u)",
+          "before_name": "DAT_00bcd778",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "rng_history_index",
+          "address": "0x00d3b1c4",
+          "expression": "(*(int32_t *)0x00d3b1c4u)",
+          "before": "(*(undefined *)0x00d3b1c4u)",
+          "before_name": "DAT_00d3b1c4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_history",
+          "address": "0x00d3b1c8",
+          "expression": "(*(uint32_t *)0x00d3b1c8u)",
+          "before": "(*(undefined4 *)0x00d3b1c8u)",
+          "before_name": "DAT_00d3b1c8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_value",
+          "address": "0x00d3b374",
+          "expression": "(*(uint32_t *)0x00d3b374u)",
+          "before": "(*(undefined *)0x00d3b374u)",
+          "before_name": "DAT_00d3b374",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_state_b",
+          "address": "0x00d3b380",
+          "expression": "(*(uint32_t *)0x00d3b380u)",
+          "before": "(*(undefined *)0x00d3b380u)",
+          "before_name": "DAT_00d3b380",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_state_a",
+          "address": "0x00d3b384",
+          "expression": "(*(uint32_t *)0x00d3b384u)",
+          "before": "(*(undefined *)0x00d3b384u)",
+          "before_name": "DAT_00d3b384",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "population_scale_index",
+          "address": "0x00e39080",
+          "expression": "(*(uint32_t *)0x00e39080u)",
+          "before": "(*(undefined *)0x00e39080u)",
+          "before_name": "DAT_00e39080",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "primary_entry_x",
+          "address": "0x00784c64",
+          "expression": "(*(int16_t *)0x00784c64u)",
+          "before": "(*(undefined4 *)0x00784c64u)",
+          "before_name": "_DAT_00784c64",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "primary_entry_y",
+          "address": "0x00784c66",
+          "expression": "(*(int16_t *)0x00784c66u)",
+          "before": "(*(undefined4 *)0x00784c66u)",
+          "before_name": "_DAT_00784c66",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "fallback_entry_x",
+          "address": "0x00784c68",
+          "expression": "(*(int16_t *)0x00784c68u)",
+          "before": "(*(undefined4 *)0x00784c68u)",
+          "before_name": "_DAT_00784c68",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "fallback_entry_y",
+          "address": "0x00784c6a",
+          "expression": "(*(int16_t *)0x00784c6au)",
+          "before": "(*(undefined4 *)0x00784c6au)",
+          "before_name": "_DAT_00784c6a",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_mask15_b",
+          "address": "0x00d3b364",
+          "expression": "(*(uint32_t *)0x00d3b364u)",
+          "before": "(*(undefined4 *)0x00d3b364u)",
+          "before_name": "_DAT_00d3b364",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_mask7_b",
+          "address": "0x00d3b368",
+          "expression": "(*(uint32_t *)0x00d3b368u)",
+          "before": "(*(undefined4 *)0x00d3b368u)",
+          "before_name": "_DAT_00d3b368",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_mask3_b",
+          "address": "0x00d3b36c",
+          "expression": "(*(uint32_t *)0x00d3b36cu)",
+          "before": "(*(undefined4 *)0x00d3b36cu)",
+          "before_name": "_DAT_00d3b36c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_mask15_a",
+          "address": "0x00d3b370",
+          "expression": "(*(uint32_t *)0x00d3b370u)",
+          "before": "(*(undefined4 *)0x00d3b370u)",
+          "before_name": "_DAT_00d3b370",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "rng_mask3_a",
+          "address": "0x00d3b378",
+          "expression": "(*(uint32_t *)0x00d3b378u)",
+          "before": "(*(undefined4 *)0x00d3b378u)",
+          "before_name": "_DAT_00d3b378",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3404608,
-          "owner": "f   pharaoh_restored:unit_00665.obj"
-        },
-        "diagnostic": {
-          "va": 3406176,
-          "owner": "f   pharaoh_restored:unit_00665.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3447456,
+          "va": 3443168,
           "owner": "f   pharaoh_restored:unit_00665.obj"
         }
       },
@@ -915,7 +1420,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "1e6ce45fb9762fda1683f224cfecb83d2fb4f4034a897d2235a6a5f480daf12c"
     },
     {
       "address": "0x004474e0",
@@ -982,15 +1488,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3404192,
+          "va": 3397536,
           "owner": "f   pharaoh_restored:unit_00667.obj"
         },
         "diagnostic": {
-          "va": 3405760,
+          "va": 3399104,
           "owner": "f   pharaoh_restored:unit_00667.obj"
         },
         "retained": {
-          "va": 3447040,
+          "va": 3442752,
           "owner": "f   pharaoh_restored:unit_00667.obj"
         }
       },
@@ -1042,15 +1548,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3403472,
+          "va": 3396816,
           "owner": "f   pharaoh_restored:unit_00679.obj"
         },
         "diagnostic": {
-          "va": 3405040,
+          "va": 3398384,
           "owner": "f   pharaoh_restored:unit_00679.obj"
         },
         "retained": {
-          "va": 3446192,
+          "va": 3441904,
           "owner": "f   pharaoh_restored:unit_00679.obj"
         }
       },
@@ -1071,15 +1577,15 @@
       "local_view_changes": [],
       "providers": {
         "game": {
-          "va": 3395008,
+          "va": 3388352,
           "owner": "f   pharaoh_restored:unit_00730.obj"
         },
         "diagnostic": {
-          "va": 3396384,
+          "va": 3389728,
           "owner": "f   pharaoh_restored:unit_00730.obj"
         },
         "retained": {
-          "va": 3434800,
+          "va": 3430512,
           "owner": "f   pharaoh_restored:unit_00730.obj"
         }
       },
@@ -1155,15 +1661,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3394528,
+          "va": 3387872,
           "owner": "f   pharaoh_restored:unit_00743.obj"
         },
         "diagnostic": {
-          "va": 3395840,
+          "va": 3389184,
           "owner": "f   pharaoh_restored:unit_00743.obj"
         },
         "retained": {
-          "va": 3432912,
+          "va": 3428624,
           "owner": "f   pharaoh_restored:unit_00743.obj"
         }
       },
@@ -1191,15 +1697,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3382976,
+          "va": 3376320,
           "owner": "f   pharaoh_restored:unit_00882.obj"
         },
         "diagnostic": {
-          "va": 3384208,
+          "va": 3377552,
           "owner": "f   pharaoh_restored:unit_00882.obj"
         },
         "retained": {
-          "va": 3412080,
+          "va": 3407792,
           "owner": "f   pharaoh_restored:unit_00882.obj"
         }
       },
@@ -1227,15 +1733,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3381856,
+          "va": 3375200,
           "owner": "f   pharaoh_restored:unit_00908.obj"
         },
         "diagnostic": {
-          "va": 3383088,
+          "va": 3376432,
           "owner": "f   pharaoh_restored:unit_00908.obj"
         },
         "retained": {
-          "va": 3410960,
+          "va": 3406672,
           "owner": "f   pharaoh_restored:unit_00908.obj"
         }
       },
@@ -1263,15 +1769,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3378544,
+          "va": 3371888,
           "owner": "f   pharaoh_restored:unit_00913.obj"
         },
         "diagnostic": {
-          "va": 3379776,
+          "va": 3373120,
           "owner": "f   pharaoh_restored:unit_00913.obj"
         },
         "retained": {
-          "va": 3407648,
+          "va": 3403360,
           "owner": "f   pharaoh_restored:unit_00913.obj"
         }
       },
@@ -1287,27 +1793,79 @@
       "name": "FUN_00461950",
       "source": "src/unit_00923.c",
       "before_sha256": "2accde0a239e093699fddb0b0c6745efc495376cf20bbb74e771a7afc6f7c229",
-      "source_sha256": "eeb7847f2d1e5488ee37b22b7750880e74e0075fd5ef613939dc3811e8779174",
-      "change_kind": "macro_view_only",
+      "source_sha256": "5b2efe9fd731f137e95a3b8502b169fb06b13ed60a5956e9676b2c9c47f2f733",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_0078d790",
+          "name": "quota_weights",
+          "address": "0x005da544",
+          "expression": "(*(int32_t *)0x005da544u)",
+          "before": "(*(undefined *)0x005da544u)",
+          "before_name": "DAT_005da544",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "resource_groups",
+          "address": "0x005da554",
+          "expression": "(*(int32_t *)0x005da554u)",
+          "before": "(*(undefined4 *)0x005da554u)",
+          "before_name": "DAT_005da554",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "resource_capacity",
+          "address": "0x0070573c",
+          "expression": "(*(int32_t *)0x0070573cu)",
+          "before": "(*(undefined4 *)0x0070573cu)",
+          "before_name": "DAT_0070573c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_bound",
           "address": "0x0078d790",
           "expression": "(*(int32_t *)0x0078d790u)",
-          "before": "(*(undefined *)0x0078d790u)"
+          "before": "(*(undefined *)0x0078d790u)",
+          "before_name": "DAT_0078d790",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_status",
+          "address": "0x007999dc",
+          "expression": "(*(uint8_t *)0x007999dcu)",
+          "before": "(*(undefined4 *)0x007999dcu)",
+          "before_name": "DAT_007999dc",
+          "view_kind": "record_address_base"
+        },
+        {
+          "name": "building_kind",
+          "address": "0x007999e8",
+          "expression": "(*(int16_t *)0x007999e8u)",
+          "before": "(*(undefined *)0x007999e8u)",
+          "before_name": "DAT_007999e8",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_stock",
+          "address": "0x007999f4",
+          "expression": "(*(int16_t *)0x007999f4u)",
+          "before": "(*(undefined4 *)0x007999f4u)",
+          "before_name": "DAT_007999f4",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_capacity",
+          "address": "0x00799a18",
+          "expression": "(*(int16_t *)0x00799a18u)",
+          "before": "(*(undefined4 *)0x00799a18u)",
+          "before_name": "DAT_00799a18",
+          "view_kind": "shifted_field_view"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3377600,
-          "owner": "f   pharaoh_restored:unit_00923.obj"
-        },
-        "diagnostic": {
-          "va": 3378832,
-          "owner": "f   pharaoh_restored:unit_00923.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3406704,
+          "va": 3402640,
           "owner": "f   pharaoh_restored:unit_00923.obj"
         }
       },
@@ -1316,34 +1874,85 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "eeb7847f2d1e5488ee37b22b7750880e74e0075fd5ef613939dc3811e8779174"
     },
     {
       "address": "0x0046a320",
       "name": "FUN_0046a320",
       "source": "src/unit_00962.c",
       "before_sha256": "78dce0039a40d537288a5508fd403f147bd253b1a7dc7be358b58f4edc468085",
-      "source_sha256": "abecb75765a70c28912d56c0a79fef147316583ee1b2a7d4bf451756a7e7af1f",
-      "change_kind": "macro_view_only",
+      "source_sha256": "7fb58cc69008b83875f3802d8290b08c994ae31bca75e0d85ae88495368e035a",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_0078d790",
+          "name": "building_bound",
           "address": "0x0078d790",
           "expression": "(*(int32_t *)0x0078d790u)",
-          "before": "(*(undefined *)0x0078d790u)"
+          "before": "(*(undefined *)0x0078d790u)",
+          "before_name": "DAT_0078d790",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_active",
+          "address": "0x007999d8",
+          "expression": "(*(uint8_t *)0x007999d8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_kind",
+          "address": "0x007999e8",
+          "expression": "(*(int16_t *)0x007999e8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_group",
+          "address": "0x00799aa3",
+          "expression": "(*(uint8_t *)0x00799aa3u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "group_clear_links",
+          "address": "0x009783d8",
+          "expression": "(*(uint32_t *)0x009783d8u)",
+          "before": "(*(undefined4 *)0x009783d8u)",
+          "before_name": "DAT_009783d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "group_used",
+          "address": "0x009783a4",
+          "expression": "(*(uint8_t *)0x009783a4u)",
+          "before": "(*(undefined4 *)0x009783a4u)",
+          "before_name": "DAT_009783a4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "group_links",
+          "address": "0x009783bc",
+          "expression": "(*(uint32_t *)0x009783bcu)",
+          "before": "(*(undefined4 *)0x009783bcu)",
+          "before_name": "DAT_009783bc",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3373600,
+          "va": 3367744,
           "owner": "f   pharaoh_restored:unit_00962.obj"
         },
         "diagnostic": {
-          "va": 3374832,
+          "va": 3368976,
           "owner": "f   pharaoh_restored:unit_00962.obj"
         },
         "retained": {
-          "va": 3402704,
+          "va": 3398752,
           "owner": "f   pharaoh_restored:unit_00962.obj"
         }
       },
@@ -1352,34 +1961,101 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "abecb75765a70c28912d56c0a79fef147316583ee1b2a7d4bf451756a7e7af1f"
     },
     {
       "address": "0x0046b320",
       "name": "FUN_0046b320",
       "source": "src/unit_00968.c",
       "before_sha256": "cfba060a7d50d0aa11df8e67f9f41b6db178e271706845ec1c27f596b68dec6f",
-      "source_sha256": "3239725d160fd48d29f0b73a2ccfb816af401442309b136bd51a26ef8da654a0",
-      "change_kind": "macro_view_only",
+      "source_sha256": "4c0557c1ea65d35b8aa84f6e35515cbd8a20a9559029b5597d424577570573ff",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_0078d790",
+          "name": "building_bound",
           "address": "0x0078d790",
           "expression": "(*(int32_t *)0x0078d790u)",
-          "before": "(*(undefined *)0x0078d790u)"
+          "before": "(*(undefined *)0x0078d790u)",
+          "before_name": "DAT_0078d790",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "highest_group",
+          "address": "0x0078d788",
+          "expression": "(*(int32_t *)0x0078d788u)",
+          "before": "(*(undefined *)0x0078d788u)",
+          "before_name": "DAT_0078d788",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_active",
+          "address": "0x007999d8",
+          "expression": "(*(uint8_t *)0x007999d8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_kind",
+          "address": "0x007999e8",
+          "expression": "(*(int16_t *)0x007999e8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_group",
+          "address": "0x00799a99",
+          "expression": "(*(uint8_t *)0x00799a99u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "group_clear_links",
+          "address": "0x00790180",
+          "expression": "(*(uint16_t *)0x00790180u)",
+          "before": "(*(undefined4 *)0x00790180u)",
+          "before_name": "DAT_00790180",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "group_used",
+          "address": "0x007900c0",
+          "expression": "(*(uint8_t *)0x007900c0u)",
+          "before": "(*(undefined4 *)0x007900c0u)",
+          "before_name": "DAT_007900c0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "group_links",
+          "address": "0x007900bc",
+          "expression": "(*(uint16_t *)0x007900bcu)",
+          "before": "(*(undefined4 *)0x007900bcu)",
+          "before_name": "DAT_007900bc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "group_scan_flags",
+          "address": "0x00790184",
+          "expression": "(*(uint8_t *)0x00790184u)",
+          "before": "(*(undefined4 *)0x00790184u)",
+          "before_name": "DAT_00790184",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3372864,
+          "va": 3367296,
           "owner": "f   pharaoh_restored:unit_00968.obj"
         },
         "diagnostic": {
-          "va": 3374096,
+          "va": 3368528,
           "owner": "f   pharaoh_restored:unit_00968.obj"
         },
         "retained": {
-          "va": 3401968,
+          "va": 3398304,
           "owner": "f   pharaoh_restored:unit_00968.obj"
         }
       },
@@ -1388,7 +2064,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "3239725d160fd48d29f0b73a2ccfb816af401442309b136bd51a26ef8da654a0"
     },
     {
       "address": "0x0046d480",
@@ -1407,15 +2084,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3371264,
+          "va": 3365696,
           "owner": "f   pharaoh_restored:unit_00987.obj"
         },
         "diagnostic": {
-          "va": 3372128,
+          "va": 3366560,
           "owner": "f   pharaoh_restored:unit_00987.obj"
         },
         "retained": {
-          "va": 3400368,
+          "va": 3396704,
           "owner": "f   pharaoh_restored:unit_00987.obj"
         }
       },
@@ -1443,15 +2120,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3370256,
+          "va": 3364688,
           "owner": "f   pharaoh_restored:unit_00992.obj"
         },
         "diagnostic": {
-          "va": 3371120,
+          "va": 3365552,
           "owner": "f   pharaoh_restored:unit_00992.obj"
         },
         "retained": {
-          "va": 3399360,
+          "va": 3395696,
           "owner": "f   pharaoh_restored:unit_00992.obj"
         }
       },
@@ -1479,15 +2156,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3368720,
+          "va": 3363152,
           "owner": "f   pharaoh_restored:unit_00993.obj"
         },
         "diagnostic": {
-          "va": 3369584,
+          "va": 3364016,
           "owner": "f   pharaoh_restored:unit_00993.obj"
         },
         "retained": {
-          "va": 3397824,
+          "va": 3394160,
           "owner": "f   pharaoh_restored:unit_00993.obj"
         }
       },
@@ -1515,15 +2192,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3368512,
+          "va": 3362944,
           "owner": "f   pharaoh_restored:unit_00994.obj"
         },
         "diagnostic": {
-          "va": 3369376,
+          "va": 3363808,
           "owner": "f   pharaoh_restored:unit_00994.obj"
         },
         "retained": {
-          "va": 3397616,
+          "va": 3393952,
           "owner": "f   pharaoh_restored:unit_00994.obj"
         }
       },
@@ -1551,15 +2228,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3368336,
+          "va": 3362768,
           "owner": "f   pharaoh_restored:unit_00996.obj"
         },
         "diagnostic": {
-          "va": 3369200,
+          "va": 3363632,
           "owner": "f   pharaoh_restored:unit_00996.obj"
         },
         "retained": {
-          "va": 3397440,
+          "va": 3393776,
           "owner": "f   pharaoh_restored:unit_00996.obj"
         }
       },
@@ -1587,15 +2264,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3368240,
+          "va": 3362672,
           "owner": "f   pharaoh_restored:unit_00997.obj"
         },
         "diagnostic": {
-          "va": 3369104,
+          "va": 3363536,
           "owner": "f   pharaoh_restored:unit_00997.obj"
         },
         "retained": {
-          "va": 3397344,
+          "va": 3393680,
           "owner": "f   pharaoh_restored:unit_00997.obj"
         }
       },
@@ -1623,15 +2300,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3367488,
+          "va": 3361920,
           "owner": "f   pharaoh_restored:unit_00998.obj"
         },
         "diagnostic": {
-          "va": 3368352,
+          "va": 3362784,
           "owner": "f   pharaoh_restored:unit_00998.obj"
         },
         "retained": {
-          "va": 3396592,
+          "va": 3392928,
           "owner": "f   pharaoh_restored:unit_00998.obj"
         }
       },
@@ -1659,15 +2336,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3367152,
+          "va": 3361584,
           "owner": "f   pharaoh_restored:unit_00999.obj"
         },
         "diagnostic": {
-          "va": 3368016,
+          "va": 3362448,
           "owner": "f   pharaoh_restored:unit_00999.obj"
         },
         "retained": {
-          "va": 3396256,
+          "va": 3392592,
           "owner": "f   pharaoh_restored:unit_00999.obj"
         }
       },
@@ -1683,27 +2360,77 @@
       "name": "FUN_0046f030",
       "source": "src/unit_01003.c",
       "before_sha256": "f2ae058af16aeb175854e2b8e651efa29d25a502bc020d99c168da9ca2a45e82",
-      "source_sha256": "d772e46e1c8147450b6157a589ba0dfba2f86355f613aa494588084f805a6976",
-      "change_kind": "macro_view_only",
+      "source_sha256": "a25fe52ea7483e5b8d9c67209f24d0c83c382bc5a8218b2c64095ea75e7e352f",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_0078d790",
+          "name": "building_bound",
           "address": "0x0078d790",
           "expression": "(*(int32_t *)0x0078d790u)",
-          "before": "(*(undefined *)0x0078d790u)"
+          "before": "(*(undefined *)0x0078d790u)",
+          "before_name": "DAT_0078d790",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_active",
+          "address": "0x007999d8",
+          "expression": "(*(uint8_t *)0x007999d8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_kind",
+          "address": "0x007999e8",
+          "expression": "(*(int16_t *)0x007999e8u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_dock",
+          "address": "0x00799aa2",
+          "expression": "(*(uint8_t *)0x00799aa2u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "dock_clear_links",
+          "address": "0x00eab124",
+          "expression": "(*(uint32_t *)0x00eab124u)",
+          "before": "(*(undefined4 *)0x00eab124u)",
+          "before_name": "DAT_00eab124",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "dock_used",
+          "address": "0x00eaaf68",
+          "expression": "(*(uint32_t *)0x00eaaf68u)",
+          "before": "(*(undefined4 *)0x00eaaf68u)",
+          "before_name": "DAT_00eaaf68",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "dock_links",
+          "address": "0x00eab044",
+          "expression": "(*(uint32_t *)0x00eab044u)",
+          "before": "(*(undefined4 *)0x00eab044u)",
+          "before_name": "DAT_00eab044",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3366736,
+          "va": 3361312,
           "owner": "f   pharaoh_restored:unit_01003.obj"
         },
         "diagnostic": {
-          "va": 3367600,
+          "va": 3362176,
           "owner": "f   pharaoh_restored:unit_01003.obj"
         },
         "retained": {
-          "va": 3395840,
+          "va": 3392320,
           "owner": "f   pharaoh_restored:unit_01003.obj"
         }
       },
@@ -1712,7 +2439,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "d772e46e1c8147450b6157a589ba0dfba2f86355f613aa494588084f805a6976"
     },
     {
       "address": "0x0046f190",
@@ -1731,15 +2459,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3366592,
+          "va": 3361168,
           "owner": "f   pharaoh_restored:unit_01006.obj"
         },
         "diagnostic": {
-          "va": 3367456,
+          "va": 3362032,
           "owner": "f   pharaoh_restored:unit_01006.obj"
         },
         "retained": {
-          "va": 3395696,
+          "va": 3392176,
           "owner": "f   pharaoh_restored:unit_01006.obj"
         }
       },
@@ -1755,27 +2483,93 @@
       "name": "FUN_00476750",
       "source": "src/unit_01042.c",
       "before_sha256": "8fadfd3bd9779297f52caccc28f731924e5f0d95b1f0c5e708af5d7a81b37c27",
-      "source_sha256": "a3a365befd56631509699b59e5f916973d4883062e5758d90ef11c72d3f772a7",
-      "change_kind": "macro_view_only",
+      "source_sha256": "968f92024e3feb058de249a4cd70b474f522f449d83c26985851c93f2c6296eb",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d4",
+          "name": "sprite_base",
+          "address": "0x00f565f4",
+          "expression": "(*(uint32_t *)0x00f565f4u)",
+          "before": "(*(undefined *)0x00f565f4u)",
+          "before_name": "DAT_00f565f4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_tile",
+          "address": "0x00bc9804",
+          "expression": "(*(int32_t *)0x00bc9804u)",
+          "before": "(*(undefined4 *)0x00bc9804u)",
+          "before_name": "DAT_00bc9804",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_left",
+          "address": "0x00bc9f24",
+          "expression": "(*(int32_t *)0x00bc9f24u)",
+          "before": "(*(undefined4 *)0x00bc9f24u)",
+          "before_name": "DAT_00bc9f24",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_right",
+          "address": "0x00bc9b94",
+          "expression": "(*(int32_t *)0x00bc9b94u)",
+          "before": "(*(undefined4 *)0x00bc9b94u)",
+          "before_name": "DAT_00bc9b94",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_sprite",
+          "address": "0x00b7482c",
+          "expression": "(*(uint32_t *)0x00b7482cu)",
+          "before": "(*(undefined4 *)0x00b7482cu)",
+          "before_name": "DAT_00b7482c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_terrain",
+          "address": "0x00b285cc",
+          "expression": "(*(uint8_t *)0x00b285ccu)",
+          "before": "(*(undefined4 *)0x00b285ccu)",
+          "before_name": "DAT_00b285cc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_overlay",
+          "address": "0x00ae8e7c",
+          "expression": "(*(uint8_t *)0x00ae8e7cu)",
+          "before": "(*(undefined4 *)0x00ae8e7cu)",
+          "before_name": "DAT_00ae8e7c",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3356960,
+          "va": 3351664,
           "owner": "f   pharaoh_restored:unit_01042.obj"
         },
         "diagnostic": {
-          "va": 3357824,
+          "va": 3352528,
           "owner": "f   pharaoh_restored:unit_01042.obj"
         },
         "retained": {
-          "va": 3386064,
+          "va": 3382672,
           "owner": "f   pharaoh_restored:unit_01042.obj"
         }
       },
@@ -1784,34 +2578,85 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "a3a365befd56631509699b59e5f916973d4883062e5758d90ef11c72d3f772a7"
     },
     {
       "address": "0x0047d720",
       "name": "FUN_0047d720",
       "source": "src/unit_01135.c",
       "before_sha256": "d81b91c468419a9d07756d74f5d5f344d08c7bbb9ca9d7bcae3a356684b18ab1",
-      "source_sha256": "b82f8eacbccacd09fb5e3efd7548ecd1b5f2ea92ae7e9b0952a0b581e96e3b2b",
-      "change_kind": "macro_view_only",
+      "source_sha256": "df83987ff932905497cd139da356c15189b70e0f436c0f6447437cfd921d964a",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d4",
+          "name": "map_rotation",
+          "address": "0x00e94e04",
+          "expression": "(*(int32_t *)0x00e94e04u)",
+          "before": "(*(undefined *)0x00e94e04u)",
+          "before_name": "DAT_00e94e04",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_tile",
+          "address": "0x00bc9804",
+          "expression": "(*(int32_t *)0x00bc9804u)",
+          "before": "(*(undefined4 *)0x00bc9804u)",
+          "before_name": "DAT_00bc9804",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_left",
+          "address": "0x00bc9f24",
+          "expression": "(*(int32_t *)0x00bc9f24u)",
+          "before": "(*(undefined4 *)0x00bc9f24u)",
+          "before_name": "DAT_00bc9f24",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_right",
+          "address": "0x00bc9b94",
+          "expression": "(*(int32_t *)0x00bc9b94u)",
+          "before": "(*(undefined4 *)0x00bc9b94u)",
+          "before_name": "DAT_00bc9b94",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_terrain",
+          "address": "0x00b285cc",
+          "expression": "(*(uint8_t *)0x00b285ccu)",
+          "before": "(*(undefined4 *)0x00b285ccu)",
+          "before_name": "DAT_00b285cc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_marker",
+          "address": "0x00b67d1c",
+          "expression": "(*(uint8_t *)0x00b67d1cu)",
+          "before": "(*(undefined4 *)0x00b67d1cu)",
+          "before_name": "DAT_00b67d1c",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3329408,
+          "va": 3324832,
           "owner": "f   pharaoh_restored:unit_01135.obj"
         },
         "diagnostic": {
-          "va": 3330272,
+          "va": 3325696,
           "owner": "f   pharaoh_restored:unit_01135.obj"
         },
         "retained": {
-          "va": 3358512,
+          "va": 3355840,
           "owner": "f   pharaoh_restored:unit_01135.obj"
         }
       },
@@ -1820,34 +2665,133 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "b82f8eacbccacd09fb5e3efd7548ecd1b5f2ea92ae7e9b0952a0b581e96e3b2b"
     },
     {
       "address": "0x0047f200",
       "name": "FUN_0047f200",
       "source": "src/unit_01161.c",
       "before_sha256": "26d3c3dce32571a7ae6fa6eb260e180e4880ee50c90a10fe37813f766e81625d",
-      "source_sha256": "10057145ca3cacb63b9c489550b6d02daf2afcc5d5f9076b4f4f2ea65af1b577",
-      "change_kind": "macro_view_only",
+      "source_sha256": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "clearance_offsets",
+          "address": "0x005f80fc",
+          "expression": "(*(int32_t *)0x005f80fcu)",
+          "before": "(*(undefined4 *)0x005f80fcu)",
+          "before_name": "DAT_005f80fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "north_flags",
+          "address": "0x00af55fc",
+          "expression": "(*(uint32_t *)0x00af55fcu)",
+          "before": "(*(undefined4 *)0x00af55fcu)",
+          "before_name": "DAT_00af55fc",
+          "view_kind": "low_byte_projection"
+        },
+        {
+          "name": "west_flags",
+          "address": "0x00af5988",
+          "expression": "(*(uint32_t *)0x00af5988u)",
+          "before": "(*(undefined4 *)0x00af5988u)",
+          "before_name": "DAT_00af5988",
+          "view_kind": "low_byte_projection"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "east_flags",
+          "address": "0x00af5990",
+          "expression": "(*(uint32_t *)0x00af5990u)",
+          "before": "(*(undefined4 *)0x00af5990u)",
+          "before_name": "DAT_00af5990",
+          "view_kind": "low_byte_projection"
+        },
+        {
+          "name": "south_flags",
+          "address": "0x00af5d1c",
+          "expression": "(*(uint32_t *)0x00af5d1cu)",
+          "before": "(*(undefined4 *)0x00af5d1cu)",
+          "before_name": "DAT_00af5d1c",
+          "view_kind": "low_byte_projection"
+        },
+        {
+          "name": "walk_direction",
+          "address": "0x00bc96f4",
+          "expression": "(*(uint32_t *)0x00bc96f4u)",
+          "before": "(*(undefined *)0x00bc96f4u)",
+          "before_name": "DAT_00bc96f4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "walk_count",
+          "address": "0x00bc96f8",
+          "expression": "(*(uint32_t *)0x00bc96f8u)",
+          "before": "(*(undefined *)0x00bc96f8u)",
+          "before_name": "DAT_00bc96f8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "walk_end",
+          "address": "0x00bc96fc",
+          "expression": "(*(uint32_t *)0x00bc96fcu)",
+          "before": "(*(undefined *)0x00bc96fcu)",
+          "before_name": "DAT_00bc96fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "walk_step",
+          "address": "0x00bc9700",
+          "expression": "(*(int32_t *)0x00bc9700u)",
+          "before": "(*(undefined *)0x00bc9700u)",
+          "before_name": "DAT_00bc9700",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_clearance",
+          "address": "0x00ee0c50",
+          "expression": "(*(uint8_t *)0x00ee0c50u)",
+          "before": "(*(undefined4 *)0x00ee0c50u)",
+          "before_name": "DAT_00ee0c50",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "walk_start",
+          "address": "0x00bc9704",
+          "expression": "(*(uint32_t *)0x00bc9704u)",
+          "before": "(*(undefined4 *)0x00bc9704u)",
+          "before_name": "_DAT_00bc9704",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3319104,
+          "va": 3314720,
           "owner": "f   pharaoh_restored:unit_01161.obj"
         },
         "diagnostic": {
-          "va": 3319968,
+          "va": 3315584,
           "owner": "f   pharaoh_restored:unit_01161.obj"
         },
         "retained": {
-          "va": 3348208,
+          "va": 3345728,
           "owner": "f   pharaoh_restored:unit_01161.obj"
         }
       },
@@ -1856,34 +2800,85 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "10057145ca3cacb63b9c489550b6d02daf2afcc5d5f9076b4f4f2ea65af1b577"
     },
     {
       "address": "0x0047fb70",
       "name": "FUN_0047fb70",
       "source": "src/unit_01166.c",
       "before_sha256": "bd9930cb3de71a8c3a8a4c7334ea68377edec0ed53c87758957aa29c35969ac8",
-      "source_sha256": "c95c7b6109270f4ad3ac2a6250ae555edfebc59d0f69f5d3616f7edeb7b285ec",
-      "change_kind": "macro_view_only",
+      "source_sha256": "38efe3ebf226e6132a4d4f9e2640157b0daf5b5d017a8beb58464f99f784a7d7",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d4",
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "map_turn",
+          "address": "0x00bc96c8",
+          "expression": "(*(uint32_t *)0x00bc96c8u)",
+          "before": "(*(undefined4 *)0x00bc96c8u)",
+          "before_name": "DAT_00bc96c8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_tile",
+          "address": "0x00bc9804",
+          "expression": "(*(int32_t *)0x00bc9804u)",
+          "before": "(*(undefined4 *)0x00bc9804u)",
+          "before_name": "DAT_00bc9804",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_left",
+          "address": "0x00bc9f24",
+          "expression": "(*(int32_t *)0x00bc9f24u)",
+          "before": "(*(undefined4 *)0x00bc9f24u)",
+          "before_name": "DAT_00bc9f24",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_right",
+          "address": "0x00bc9b94",
+          "expression": "(*(int32_t *)0x00bc9b94u)",
+          "before": "(*(undefined4 *)0x00bc9b94u)",
+          "before_name": "DAT_00bc9b94",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "low_byte_projection"
+        },
+        {
+          "name": "tile_direction",
+          "address": "0x00adc36c",
+          "expression": "(*(uint8_t *)0x00adc36cu)",
+          "before": "(*(undefined4 *)0x00adc36cu)",
+          "before_name": "DAT_00adc36c",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3318192,
+          "va": 3314064,
           "owner": "f   pharaoh_restored:unit_01166.obj"
         },
         "diagnostic": {
-          "va": 3319056,
+          "va": 3314928,
           "owner": "f   pharaoh_restored:unit_01166.obj"
         },
         "retained": {
-          "va": 3347296,
+          "va": 3345072,
           "owner": "f   pharaoh_restored:unit_01166.obj"
         }
       },
@@ -1892,46 +2887,95 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "c95c7b6109270f4ad3ac2a6250ae555edfebc59d0f69f5d3616f7edeb7b285ec"
     },
     {
       "address": "0x0047fc40",
       "name": "FUN_0047fc40",
       "source": "src/unit_01167.c",
       "before_sha256": "007b6807de44148948f4870698a44622602961b4699beb54dd5cf35c46c6a608",
-      "source_sha256": "62c7389e46f41ea16d367f575eb96602c0f77ecbc1847783e406b8a13971123a",
-      "change_kind": "macro_view_only",
+      "source_sha256": "32779112ba1c68caf6777030f39943d555df702272838ad950ea939fbca0093b",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d0",
+          "name": "building_x",
+          "address": "0x007999de",
+          "expression": "(*(int16_t *)0x007999deu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_y",
+          "address": "0x007999e0",
+          "expression": "(*(int16_t *)0x007999e0u)",
+          "before": "(*(undefined4 *)0x007999e0u)",
+          "before_name": "DAT_007999e0",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_dirty",
+          "address": "0x00799a17",
+          "expression": "(*(uint8_t *)0x00799a17u)",
+          "before": "(*(undefined4 *)0x00799a17u)",
+          "before_name": "DAT_00799a17",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "tile_building",
+          "address": "0x00b4e6fc",
+          "expression": "(*(int16_t *)0x00b4e6fcu)",
+          "before": "(*(undefined4 *)0x00b4e6fcu)",
+          "before_name": "DAT_00b4e6fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_width",
           "address": "0x00bca2d0",
           "expression": "(*(int32_t *)0x00bca2d0u)",
-          "before": "(*(undefined *)0x00bca2d0u)"
+          "before": "(*(undefined *)0x00bca2d0u)",
+          "before_name": "DAT_00bca2d0",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d4",
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d8",
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "scan_y",
+          "address": "0x00d3b4e0",
+          "expression": "(*(int32_t *)0x00d3b4e0u)",
+          "before": "(*(undefined4 *)0x00d3b4e0u)",
+          "before_name": "_DAT_00d3b4e0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "scan_x",
+          "address": "0x00d3b4e4",
+          "expression": "(*(int32_t *)0x00d3b4e4u)",
+          "before": "(*(undefined4 *)0x00d3b4e4u)",
+          "before_name": "_DAT_00d3b4e4",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3317792,
-          "owner": "f   pharaoh_restored:unit_01167.obj"
-        },
-        "diagnostic": {
-          "va": 3318656,
-          "owner": "f   pharaoh_restored:unit_01167.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3346896,
+          "va": 3344816,
           "owner": "f   pharaoh_restored:unit_01167.obj"
         }
       },
@@ -1940,7 +2984,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "62c7389e46f41ea16d367f575eb96602c0f77ecbc1847783e406b8a13971123a"
     },
     {
       "address": "0x00482a90",
@@ -1995,15 +3040,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3310720,
+          "va": 3306992,
           "owner": "f   pharaoh_restored:unit_01207.obj"
         },
         "diagnostic": {
-          "va": 3311584,
+          "va": 3307856,
           "owner": "f   pharaoh_restored:unit_01207.obj"
         },
         "retained": {
-          "va": 3339824,
+          "va": 3337744,
           "owner": "f   pharaoh_restored:unit_01207.obj"
         }
       },
@@ -2067,15 +3112,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3310448,
+          "va": 3306720,
           "owner": "f   pharaoh_restored:unit_01208.obj"
         },
         "diagnostic": {
-          "va": 3311312,
+          "va": 3307584,
           "owner": "f   pharaoh_restored:unit_01208.obj"
         },
         "retained": {
-          "va": 3339552,
+          "va": 3337472,
           "owner": "f   pharaoh_restored:unit_01208.obj"
         }
       },
@@ -2091,27 +3136,31 @@
       "name": "FUN_004867e0",
       "source": "src/unit_01251.c",
       "before_sha256": "561feb24bf1e88ea9dadd8ceeb6af3b16eaeaa4c399ee2daba403f3332d3dfd5",
-      "source_sha256": "612b3eb8e706f71d752f2716b4d0e2fa0275bbc55506ec5e53895462dea04c66",
-      "change_kind": "macro_view_only",
+      "source_sha256": "35707086bd2e933c699b91cc1e6418b7f097755c4e6b6b16ec705db66099564c",
+      "change_kind": "explicit_full32_C_return_contract",
       "local_view_changes": [
         {
           "name": "DAT_00bca2d0",
           "address": "0x00bca2d0",
           "expression": "(*(int32_t *)0x00bca2d0u)",
-          "before": "(*(undefined *)0x00bca2d0u)"
+          "before": "(*(undefined *)0x00bca2d0u)",
+          "before_name": "DAT_00bca2d0",
+          "view_kind": "operand_or_word_array"
         },
         {
           "name": "DAT_00bca2d4",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3335824,
+          "va": 3333744,
           "owner": "f   pharaoh_restored:unit_01251.obj"
         }
       },
@@ -2120,34 +3169,135 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "612b3eb8e706f71d752f2716b4d0e2fa0275bbc55506ec5e53895462dea04c66"
     },
     {
       "address": "0x00486810",
       "name": "FUN_00486810",
       "source": "src/unit_01252.c",
       "before_sha256": "04cf75c3ac29569ef844b32d80a46707a53348ba6675fd346715993944afde78",
-      "source_sha256": "83d6de60167e2e96602735498b05744df712c0011cd392a3bc014443c120923d",
-      "change_kind": "native_signed_division_consumers",
+      "source_sha256": "11c92eed396cb8145388d0ec06641cd41aee1e926224d1040d7c6325c421654b",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
           "name": "DAT_00bca2d8",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0096e6b0",
+          "address": "0x0096e6b0",
+          "expression": "(*(uint32_t *)0x0096e6b0u)",
+          "before": "(*(undefined4 *)0x0096e6b0u)",
+          "before_name": "DAT_0096e6b0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0096e6b4",
+          "address": "0x0096e6b4",
+          "expression": "(*(uint32_t *)0x0096e6b4u)",
+          "before": "(*(undefined4 *)0x0096e6b4u)",
+          "before_name": "DAT_0096e6b4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00978d98",
+          "address": "0x00978d98",
+          "expression": "(*(uint8_t *)0x00978d98u)",
+          "before": "(*(char *)0x00978d98u)",
+          "before_name": "DAT_00978d98",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00978d9a",
+          "address": "0x00978d9a",
+          "expression": "(*(uint8_t *)0x00978d9au)",
+          "before": "(*(char *)0x00978d9au)",
+          "before_name": "DAT_00978d9a",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00a43eac",
+          "address": "0x00a43eac",
+          "expression": "(*(int8_t *)0x00a43eacu)",
+          "before": "(*(undefined4 *)0x00a43eacu)",
+          "before_name": "DAT_00a43eac",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00af598c",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00b350dc",
+          "address": "0x00b350dc",
+          "expression": "(*(int16_t *)0x00b350dcu)",
+          "before": "(*(undefined4 *)0x00b350dcu)",
+          "before_name": "DAT_00b350dc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bc9804",
+          "address": "0x00bc9804",
+          "expression": "(*(uint32_t *)0x00bc9804u)",
+          "before": "(*(undefined4 *)0x00bc9804u)",
+          "before_name": "DAT_00bc9804",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bc9b94",
+          "address": "0x00bc9b94",
+          "expression": "(*(int32_t *)0x00bc9b94u)",
+          "before": "(*(undefined4 *)0x00bc9b94u)",
+          "before_name": "DAT_00bc9b94",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bc9f24",
+          "address": "0x00bc9f24",
+          "expression": "(*(int32_t *)0x00bc9f24u)",
+          "before": "(*(undefined4 *)0x00bc9f24u)",
+          "before_name": "DAT_00bc9f24",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bcd602",
+          "address": "0x00bcd602",
+          "expression": "(*(uint8_t *)0x00bcd602u)",
+          "before": "(*(undefined4 *)0x00bcd602u)",
+          "before_name": "DAT_00bcd602",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "_DAT_00d3b4e0",
+          "address": "0x00d3b4e0",
+          "expression": "(*(int32_t *)0x00d3b4e0u)",
+          "before": "(*(undefined4 *)0x00d3b4e0u)",
+          "before_name": "_DAT_00d3b4e0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "_DAT_00d3b4e4",
+          "address": "0x00d3b4e4",
+          "expression": "(*(int32_t *)0x00d3b4e4u)",
+          "before": "(*(undefined4 *)0x00d3b4e4u)",
+          "before_name": "_DAT_00d3b4e4",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3306128,
-          "owner": "f   pharaoh_restored:unit_01252.obj"
-        },
-        "diagnostic": {
-          "va": 3306992,
-          "owner": "f   pharaoh_restored:unit_01252.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3335184,
+          "va": 3333280,
           "owner": "f   pharaoh_restored:unit_01252.obj"
         }
       },
@@ -2156,34 +3306,246 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "signed_division_qualification": "One wrapped signed32 delta feeds both native signed quotient and remainder consumers.",
+      "previous_current_sha256": "83d6de60167e2e96602735498b05744df712c0011cd392a3bc014443c120923d"
     },
     {
       "address": "0x00488840",
       "name": "FUN_00488840",
       "source": "src/unit_01285.c",
       "before_sha256": "0019ae239cd594abcdb4ff227f1a468f241ffcf9b2dae7dae2ddf9fdc938305b",
-      "source_sha256": "00e2ecadab78546d236f489d7f6c32c6ee7c3b3da88108999f3e80867cab5dc4",
-      "change_kind": "macro_view_only",
+      "source_sha256": "9381587877c1c1aae040df80b17f9c77088db959020e21cdd25f14b553787af9",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
           "name": "DAT_00bca2d8",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_005cc888",
+          "address": "0x005cc888",
+          "expression": "(*(uint8_t *)0x005cc888u)",
+          "before": "(*(undefined4 *)0x005cc888u)",
+          "before_name": "DAT_005cc888",
+          "view_kind": "byte_address_base"
+        },
+        {
+          "name": "DAT_005cc890",
+          "address": "0x005cc890",
+          "expression": "(*(uint8_t *)0x005cc890u)",
+          "before": "(*(undefined4 *)0x005cc890u)",
+          "before_name": "DAT_005cc890",
+          "view_kind": "byte_address_base"
+        },
+        {
+          "name": "DAT_005cc8b8",
+          "address": "0x005cc8b8",
+          "expression": "(*(uint8_t *)0x005cc8b8u)",
+          "before": "(*(undefined4 *)0x005cc8b8u)",
+          "before_name": "DAT_005cc8b8",
+          "view_kind": "byte_address_base"
+        },
+        {
+          "name": "DAT_005cc8c0",
+          "address": "0x005cc8c0",
+          "expression": "(*(int32_t *)0x005cc8c0u)",
+          "before": "(*(undefined *)0x005cc8c0u)",
+          "before_name": "DAT_005cc8c0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0070e448",
+          "address": "0x0070e448",
+          "expression": "(*(int32_t *)0x0070e448u)",
+          "before": "(*(undefined *)0x0070e448u)",
+          "before_name": "DAT_0070e448",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0070e44c",
+          "address": "0x0070e44c",
+          "expression": "(*(int32_t *)0x0070e44cu)",
+          "before": "(*(undefined *)0x0070e44cu)",
+          "before_name": "DAT_0070e44c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0070e45c",
+          "address": "0x0070e45c",
+          "expression": "(*(int32_t *)0x0070e45cu)",
+          "before": "(*(undefined *)0x0070e45cu)",
+          "before_name": "DAT_0070e45c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0078d79c",
+          "address": "0x0078d79c",
+          "expression": "(*(int32_t *)0x0078d79cu)",
+          "before": "(*(undefined *)0x0078d79cu)",
+          "before_name": "DAT_0078d79c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0078d7c4",
+          "address": "0x0078d7c4",
+          "expression": "(*(uint32_t *)0x0078d7c4u)",
+          "before": "(*(undefined *)0x0078d7c4u)",
+          "before_name": "DAT_0078d7c4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0078d7cc",
+          "address": "0x0078d7cc",
+          "expression": "(*(int32_t *)0x0078d7ccu)",
+          "before": "(*(undefined *)0x0078d7ccu)",
+          "before_name": "DAT_0078d7cc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_007999db",
+          "address": "0x007999db",
+          "expression": "(*(uint8_t *)0x007999dbu)",
+          "before": "(*(undefined4 *)0x007999dbu)",
+          "before_name": "DAT_007999db",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_007999e0",
+          "address": "0x007999e0",
+          "expression": "(*(int16_t *)0x007999e0u)",
+          "before": "(*(undefined4 *)0x007999e0u)",
+          "before_name": "DAT_007999e0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00799a18",
+          "address": "0x00799a18",
+          "expression": "(*(int16_t *)0x00799a18u)",
+          "before": "(*(undefined4 *)0x00799a18u)",
+          "before_name": "DAT_00799a18",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00acf85c",
+          "address": "0x00acf85c",
+          "expression": "(*(uint8_t *)0x00acf85cu)",
+          "before": "(*(undefined4 *)0x00acf85cu)",
+          "before_name": "DAT_00acf85c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00adc36c",
+          "address": "0x00adc36c",
+          "expression": "(*(uint8_t *)0x00adc36cu)",
+          "before": "(*(undefined4 *)0x00adc36cu)",
+          "before_name": "DAT_00adc36c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bca2e0",
+          "address": "0x00bca2e0",
+          "expression": "(*(uint32_t *)0x00bca2e0u)",
+          "before": "(*(undefined *)0x00bca2e0u)",
+          "before_name": "DAT_00bca2e0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00bca34c",
+          "address": "0x00bca34c",
+          "expression": "(*(int32_t *)0x00bca34cu)",
+          "before": "(*(undefined *)0x00bca34cu)",
+          "before_name": "DAT_00bca34c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00d386d4",
+          "address": "0x00d386d4",
+          "expression": "(*(int32_t *)0x00d386d4u)",
+          "before": "(*(undefined *)0x00d386d4u)",
+          "before_name": "DAT_00d386d4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00f5609c",
+          "address": "0x00f5609c",
+          "expression": "(*(int32_t *)0x00f5609cu)",
+          "before": "(*(undefined *)0x00f5609cu)",
+          "before_name": "DAT_00f5609c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00f560a4",
+          "address": "0x00f560a4",
+          "expression": "(*(int32_t *)0x00f560a4u)",
+          "before": "(*(undefined *)0x00f560a4u)",
+          "before_name": "DAT_00f560a4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00f560ac",
+          "address": "0x00f560ac",
+          "expression": "(*(int32_t *)0x00f560acu)",
+          "before": "(*(undefined *)0x00f560acu)",
+          "before_name": "DAT_00f560ac",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_00f56544",
+          "address": "0x00f56544",
+          "expression": "(*(int32_t *)0x00f56544u)",
+          "before": "(*(undefined *)0x00f56544u)",
+          "before_name": "DAT_00f56544",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_010d6a0e",
+          "address": "0x010d6a0e",
+          "expression": "(*(int16_t *)0x010d6a0eu)",
+          "before": "(*(undefined4 *)0x010d6a0eu)",
+          "before_name": "DAT_010d6a0e",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_010d6a1a",
+          "address": "0x010d6a1a",
+          "expression": "(*(int16_t *)0x010d6a1au)",
+          "before": "(*(undefined4 *)0x010d6a1au)",
+          "before_name": "DAT_010d6a1a",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_010d6a1c",
+          "address": "0x010d6a1c",
+          "expression": "(*(int16_t *)0x010d6a1cu)",
+          "before": "(*(undefined4 *)0x010d6a1cu)",
+          "before_name": "DAT_010d6a1c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "DAT_0126517c",
+          "address": "0x0126517c",
+          "expression": "(*(int32_t *)0x0126517cu)",
+          "before": "(*(undefined *)0x0126517cu)",
+          "before_name": "DAT_0126517c",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3298768,
+          "va": 3296192,
           "owner": "f   pharaoh_restored:unit_01285.obj"
         },
         "diagnostic": {
-          "va": 3299632,
+          "va": 3297056,
           "owner": "f   pharaoh_restored:unit_01285.obj"
         },
         "retained": {
-          "va": 3327824,
+          "va": 3326432,
           "owner": "f   pharaoh_restored:unit_01285.obj"
         }
       },
@@ -2192,7 +3554,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "00e2ecadab78546d236f489d7f6c32c6ee7c3b3da88108999f3e80867cab5dc4"
     },
     {
       "address": "0x00489510",
@@ -2211,15 +3574,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3293248,
+          "va": 3290672,
           "owner": "f   pharaoh_restored:unit_01300.obj"
         },
         "diagnostic": {
-          "va": 3294112,
+          "va": 3291536,
           "owner": "f   pharaoh_restored:unit_01300.obj"
         },
         "retained": {
-          "va": 3322304,
+          "va": 3320912,
           "owner": "f   pharaoh_restored:unit_01300.obj"
         }
       },
@@ -2235,27 +3598,95 @@
       "name": "FUN_004a2320",
       "source": "src/unit_01353.c",
       "before_sha256": "08daeac86f02ef97938270b4b39be1bb32d865d075b318a62470d4dcb7359050",
-      "source_sha256": "548b4292a27cab470b32ef1cfa25802ccb70d20b20d09eb0841ca02ea39cde37",
-      "change_kind": "macro_view_only",
+      "source_sha256": "5d571d84201c66f99e13f7be70c570032c9d9e7dda7f1deda9b8981a31de7259",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "current_actor",
+          "address": "0x00d056f8",
+          "expression": "(*(uint32_t *)0x00d056f8u)",
+          "before": "(*(undefined *)0x00d056f8u)",
+          "before_name": "DAT_00d056f8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "actor_active",
+          "address": "0x00bcd606",
+          "expression": "(*(uint8_t *)0x00bcd606u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_kind",
+          "address": "0x00bcd602",
+          "expression": "(*(uint8_t *)0x00bcd602u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_state",
+          "address": "0x00bcd630",
+          "expression": "(*(uint8_t *)0x00bcd630u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_owner",
+          "address": "0x00bcd730",
+          "expression": "(*(int32_t *)0x00bcd730u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_reference",
+          "address": "0x00bcd652",
+          "expression": "(*(int16_t *)0x00bcd652u)",
+          "before": "(*(undefined4 *)0x00bcd652u)",
+          "before_name": "DAT_00bcd652",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_x",
+          "address": "0x00bcd60c",
+          "expression": "(*(int16_t *)0x00bcd60cu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_y",
+          "address": "0x00bcd60e",
+          "expression": "(*(int16_t *)0x00bcd60eu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_distance",
+          "address": "0x00bcd636",
+          "expression": "(*(int16_t *)0x00bcd636u)",
+          "before": "(*(undefined4 *)0x00bcd636u)",
+          "before_name": "DAT_00bcd636",
+          "view_kind": "shifted_field_view"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3290352,
-          "owner": "f   pharaoh_restored:unit_01353.obj"
-        },
-        "diagnostic": {
-          "va": 3291216,
-          "owner": "f   pharaoh_restored:unit_01353.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3319408,
+          "va": 3318208,
           "owner": "f   pharaoh_restored:unit_01353.obj"
         }
       },
@@ -2264,34 +3695,175 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "548b4292a27cab470b32ef1cfa25802ccb70d20b20d09eb0841ca02ea39cde37"
     },
     {
       "address": "0x004a38a0",
       "name": "FUN_004a38a0",
       "source": "src/unit_01362.c",
       "before_sha256": "f7dee9e84f10e668edee355012d815b3b9a4abc1aa286c18b15c90612e10a1e6",
-      "source_sha256": "4dc9f7c63b24703fa31804722c332f41f2ca9248633a7cf912b8aff644761ccd",
-      "change_kind": "macro_view_only",
+      "source_sha256": "870e16c994e3a791460aed4b804f8192b410c18d30cebc91d08d06fe4ed7b203",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "actor_group",
+          "address": "0x00bcd714",
+          "expression": "(*(int32_t *)0x00bcd714u)",
+          "before": "(*(undefined4 *)0x00bcd714u)",
+          "before_name": "DAT_00bcd714",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "group_children",
+          "address": "0x009784dc",
+          "expression": "(*(int32_t *)0x009784dcu)",
+          "before": "(*(undefined4 *)0x009784dcu)",
+          "before_name": "DAT_009784dc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_x",
+          "address": "0x007999de",
+          "expression": "(*(int16_t *)0x007999deu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_y",
+          "address": "0x007999e0",
+          "expression": "(*(int16_t *)0x007999e0u)",
+          "before": "(*(undefined4 *)0x007999e0u)",
+          "before_name": "DAT_007999e0",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_active",
+          "address": "0x00bcd606",
+          "expression": "(*(uint8_t *)0x00bcd606u)",
+          "before": "(*(undefined4 *)0x00bcd606u)",
+          "before_name": "DAT_00bcd606",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_kind",
+          "address": "0x00bcd602",
+          "expression": "(*(uint8_t *)0x00bcd602u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_state",
+          "address": "0x00bcd630",
+          "expression": "(*(uint8_t *)0x00bcd630u)",
+          "before": "(*(undefined4 *)0x00bcd630u)",
+          "before_name": "DAT_00bcd630",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_saved_state",
+          "address": "0x00bcd608",
+          "expression": "(*(uint8_t *)0x00bcd608u)",
+          "before": "(*(undefined4 *)0x00bcd608u)",
+          "before_name": "DAT_00bcd608",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_marker",
+          "address": "0x00bcd631",
+          "expression": "(*(uint8_t *)0x00bcd631u)",
+          "before": "(*(undefined4 *)0x00bcd631u)",
+          "before_name": "DAT_00bcd631",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_next_x",
+          "address": "0x00bcd610",
+          "expression": "(*(int16_t *)0x00bcd610u)",
+          "before": "(*(undefined4 *)0x00bcd610u)",
+          "before_name": "DAT_00bcd610",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_next_y",
+          "address": "0x00bcd612",
+          "expression": "(*(int16_t *)0x00bcd612u)",
+          "before": "(*(undefined4 *)0x00bcd612u)",
+          "before_name": "DAT_00bcd612",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_x",
+          "address": "0x00bcd60c",
+          "expression": "(*(int16_t *)0x00bcd60cu)",
+          "before": "(*(undefined4 *)0x00bcd60cu)",
+          "before_name": "DAT_00bcd60c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_y",
+          "address": "0x00bcd60e",
+          "expression": "(*(int16_t *)0x00bcd60eu)",
+          "before": "(*(undefined4 *)0x00bcd60eu)",
+          "before_name": "DAT_00bcd60e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_tile",
+          "address": "0x00bcd618",
+          "expression": "(*(uint32_t *)0x00bcd618u)",
+          "before": "(*(undefined4 *)0x00bcd618u)",
+          "before_name": "DAT_00bcd618",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_pixel_x",
+          "address": "0x00bcd642",
+          "expression": "(*(int16_t *)0x00bcd642u)",
+          "before": "(*(undefined4 *)0x00bcd642u)",
+          "before_name": "DAT_00bcd642",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_pixel_y",
+          "address": "0x00bcd644",
+          "expression": "(*(int16_t *)0x00bcd644u)",
+          "before": "(*(undefined4 *)0x00bcd644u)",
+          "before_name": "DAT_00bcd644",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "placement_x",
+          "address": "0x00d3b4e4",
+          "expression": "(*(int32_t *)0x00d3b4e4u)",
+          "before": "(*(undefined4 *)0x00d3b4e4u)",
+          "before_name": "_DAT_00d3b4e4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "placement_y",
+          "address": "0x00d3b4e0",
+          "expression": "(*(int32_t *)0x00d3b4e0u)",
+          "before": "(*(undefined4 *)0x00d3b4e0u)",
+          "before_name": "_DAT_00d3b4e0",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3288352,
-          "owner": "f   pharaoh_restored:unit_01362.obj"
-        },
-        "diagnostic": {
-          "va": 3289216,
-          "owner": "f   pharaoh_restored:unit_01362.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3317408,
+          "va": 3316464,
           "owner": "f   pharaoh_restored:unit_01362.obj"
         }
       },
@@ -2300,7 +3872,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "4dc9f7c63b24703fa31804722c332f41f2ca9248633a7cf912b8aff644761ccd"
     },
     {
       "address": "0x004b8360",
@@ -2319,15 +3892,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3278992,
+          "va": 3277824,
           "owner": "f   pharaoh_restored:unit_01496.obj"
         },
         "diagnostic": {
-          "va": 3279856,
+          "va": 3278688,
           "owner": "f   pharaoh_restored:unit_01496.obj"
         },
         "retained": {
-          "va": 3308048,
+          "va": 3307104,
           "owner": "f   pharaoh_restored:unit_01496.obj"
         }
       },
@@ -2355,15 +3928,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3278032,
+          "va": 3276864,
           "owner": "f   pharaoh_restored:unit_01498.obj"
         },
         "diagnostic": {
-          "va": 3278896,
+          "va": 3277728,
           "owner": "f   pharaoh_restored:unit_01498.obj"
         },
         "retained": {
-          "va": 3307088,
+          "va": 3306144,
           "owner": "f   pharaoh_restored:unit_01498.obj"
         }
       },
@@ -2391,15 +3964,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3277136,
+          "va": 3275968,
           "owner": "f   pharaoh_restored:unit_01499.obj"
         },
         "diagnostic": {
-          "va": 3278000,
+          "va": 3276832,
           "owner": "f   pharaoh_restored:unit_01499.obj"
         },
         "retained": {
-          "va": 3306192,
+          "va": 3305248,
           "owner": "f   pharaoh_restored:unit_01499.obj"
         }
       },
@@ -2427,15 +4000,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3276288,
+          "va": 3275120,
           "owner": "f   pharaoh_restored:unit_01500.obj"
         },
         "diagnostic": {
-          "va": 3277152,
+          "va": 3275984,
           "owner": "f   pharaoh_restored:unit_01500.obj"
         },
         "retained": {
-          "va": 3305344,
+          "va": 3304400,
           "owner": "f   pharaoh_restored:unit_01500.obj"
         }
       },
@@ -2463,15 +4036,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3276176,
+          "va": 3275008,
           "owner": "f   pharaoh_restored:unit_01501.obj"
         },
         "diagnostic": {
-          "va": 3277040,
+          "va": 3275872,
           "owner": "f   pharaoh_restored:unit_01501.obj"
         },
         "retained": {
-          "va": 3305232,
+          "va": 3304288,
           "owner": "f   pharaoh_restored:unit_01501.obj"
         }
       },
@@ -2499,15 +4072,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3275840,
+          "va": 3274672,
           "owner": "f   pharaoh_restored:unit_01530.obj"
         },
         "diagnostic": {
-          "va": 3276704,
+          "va": 3275536,
           "owner": "f   pharaoh_restored:unit_01530.obj"
         },
         "retained": {
-          "va": 3304896,
+          "va": 3303952,
           "owner": "f   pharaoh_restored:unit_01530.obj"
         }
       },
@@ -2535,15 +4108,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3262736,
+          "va": 3261568,
           "owner": "f   pharaoh_restored:unit_01593.obj"
         },
         "diagnostic": {
-          "va": 3263488,
+          "va": 3262320,
           "owner": "f   pharaoh_restored:unit_01593.obj"
         },
         "retained": {
-          "va": 3291504,
+          "va": 3290560,
           "owner": "f   pharaoh_restored:unit_01593.obj"
         }
       },
@@ -2566,7 +4139,7 @@
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3288432,
+          "va": 3287488,
           "owner": "f   pharaoh_restored:unit_01599.obj"
         }
       },
@@ -2594,15 +4167,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3258336,
+          "va": 3257168,
           "owner": "f   pharaoh_restored:unit_01607.obj"
         },
         "diagnostic": {
-          "va": 3259088,
+          "va": 3257920,
           "owner": "f   pharaoh_restored:unit_01607.obj"
         },
         "retained": {
-          "va": 3286832,
+          "va": 3285888,
           "owner": "f   pharaoh_restored:unit_01607.obj"
         }
       },
@@ -2630,15 +4203,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3196336,
+          "va": 3195168,
           "owner": "f   pharaoh_restored:unit_01813.obj"
         },
         "diagnostic": {
-          "va": 3197088,
+          "va": 3195920,
           "owner": "f   pharaoh_restored:unit_01813.obj"
         },
         "retained": {
-          "va": 3224832,
+          "va": 3223888,
           "owner": "f   pharaoh_restored:unit_01813.obj"
         }
       },
@@ -2666,15 +4239,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3185360,
+          "va": 3184192,
           "owner": "f   pharaoh_restored:unit_01834.obj"
         },
         "diagnostic": {
-          "va": 3186112,
+          "va": 3184944,
           "owner": "f   pharaoh_restored:unit_01834.obj"
         },
         "retained": {
-          "va": 3213856,
+          "va": 3212912,
           "owner": "f   pharaoh_restored:unit_01834.obj"
         }
       },
@@ -2690,39 +4263,101 @@
       "name": "FUN_004de200",
       "source": "src/unit_01889.c",
       "before_sha256": "9727bbee28ac57ad20b36d968321c353e78a48a31489335fcdc45ced49a81435",
-      "source_sha256": "2077381c0ff4e5c99b0c1381bdb5a5b24e8e6fd1c1d7150681bbc8ded0bdd00f",
-      "change_kind": "macro_view_only",
+      "source_sha256": "803805abf2ed76c1617a20cc1b06d928a6d058d4aea5fe2317b8dd73e43178f6",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d0",
+          "name": "city_width",
           "address": "0x00bca2d0",
           "expression": "(*(int32_t *)0x00bca2d0u)",
-          "before": "(*(undefined *)0x00bca2d0u)"
+          "before": "(*(undefined *)0x00bca2d0u)",
+          "before_name": "DAT_00bca2d0",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d4",
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d8",
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "row_skip",
+          "address": "0x00bca2dc",
+          "expression": "(*(int32_t *)0x00bca2dcu)",
+          "before": "(*(undefined *)0x00bca2dcu)",
+          "before_name": "DAT_00bca2dc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "mask_buffer",
+          "address": "0x00e94dd4",
+          "expression": "(*(uint32_t *)0x00e94dd4u)",
+          "before": "(*(undefined4 *)0x00e94dd4u)",
+          "before_name": "DAT_00e94dd4",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "mask_buffer_offset",
+          "address": "0x00e94dd8",
+          "expression": "(*(uint32_t *)0x00e94dd8u)",
+          "before": "(*(undefined4 *)0x00e94dd8u)",
+          "before_name": "DAT_00e94dd8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "mask_x",
+          "address": "0x005e2950",
+          "expression": "(*(int32_t *)0x005e2950u)",
+          "before": "(*(undefined4 *)0x005e2950u)",
+          "before_name": "DAT_005e2950",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "mask_y",
+          "address": "0x005e2954",
+          "expression": "(*(int32_t *)0x005e2954u)",
+          "before": "(*(undefined4 *)0x005e2954u)",
+          "before_name": "DAT_005e2954",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_terrain",
+          "address": "0x00b285cc",
+          "expression": "(*(uint8_t *)0x00b285ccu)",
+          "before": "(*(undefined4 *)0x00b285ccu)",
+          "before_name": "DAT_00b285cc",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
         "game": {
-          "va": 3175296,
+          "va": 3174128,
           "owner": "f   pharaoh_restored:unit_01889.obj"
         },
         "diagnostic": {
-          "va": 3176048,
+          "va": 3174880,
           "owner": "f   pharaoh_restored:unit_01889.obj"
         },
         "retained": {
-          "va": 3203792,
+          "va": 3202848,
           "owner": "f   pharaoh_restored:unit_01889.obj"
         }
       },
@@ -2731,7 +4366,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "2077381c0ff4e5c99b0c1381bdb5a5b24e8e6fd1c1d7150681bbc8ded0bdd00f"
     },
     {
       "address": "0x004e0f90",
@@ -2756,15 +4392,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3166576,
+          "va": 3165408,
           "owner": "f   pharaoh_restored:unit_01912.obj"
         },
         "diagnostic": {
-          "va": 3167328,
+          "va": 3166160,
           "owner": "f   pharaoh_restored:unit_01912.obj"
         },
         "retained": {
-          "va": 3195072,
+          "va": 3194128,
           "owner": "f   pharaoh_restored:unit_01912.obj"
         }
       },
@@ -2780,27 +4416,111 @@
       "name": "FUN_004e7200",
       "source": "src/unit_02011.c",
       "before_sha256": "51fce1a1f3fc59fe2be2c46756ed92d4e7a30e472391b1eaaba68d0ed3cba711",
-      "source_sha256": "2e8f97cbb6baeef81688529a8a91d773e661abd5973e17373b4cb5aa8da8e823",
-      "change_kind": "macro_view_only",
+      "source_sha256": "c31e0e59dcb3a46aa212a32605b7be488291a3f10f0254e9a389182cca0976be",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_0078d790",
+          "name": "building_bound",
           "address": "0x0078d790",
           "expression": "(*(int32_t *)0x0078d790u)",
-          "before": "(*(undefined *)0x0078d790u)"
+          "before": "(*(undefined *)0x0078d790u)",
+          "before_name": "DAT_0078d790",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_timer",
+          "address": "0x00799bc8",
+          "expression": "(*(uint32_t *)0x00799bc8u)",
+          "before": "(*(undefined4 *)0x00799bc8u)",
+          "before_name": "DAT_00799bc8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "actor_active",
+          "address": "0x00bcd606",
+          "expression": "(*(uint8_t *)0x00bcd606u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_kind",
+          "address": "0x00bcd602",
+          "expression": "(*(uint8_t *)0x00bcd602u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_state",
+          "address": "0x00bcd630",
+          "expression": "(*(uint8_t *)0x00bcd630u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_wait",
+          "address": "0x00bcd62e",
+          "expression": "(*(uint16_t *)0x00bcd62eu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_x",
+          "address": "0x00bcd61c",
+          "expression": "(*(uint16_t *)0x00bcd61cu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_y",
+          "address": "0x00bcd61e",
+          "expression": "(*(uint16_t *)0x00bcd61eu)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_saved_x",
+          "address": "0x00bcd624",
+          "expression": "(*(uint16_t *)0x00bcd624u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_saved_y",
+          "address": "0x00bcd626",
+          "expression": "(*(uint16_t *)0x00bcd626u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "city_rate_a",
+          "address": "0x0078d7ac",
+          "expression": "(*(uint32_t *)0x0078d7acu)",
+          "before": "(*(undefined *)0x0078d7acu)",
+          "before_name": "DAT_0078d7ac",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_rate_b",
+          "address": "0x0078d7b0",
+          "expression": "(*(uint32_t *)0x0078d7b0u)",
+          "before": "(*(undefined *)0x0078d7b0u)",
+          "before_name": "DAT_0078d7b0",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
-        "game": {
-          "va": 3158400,
-          "owner": "f   pharaoh_restored:unit_02011.obj"
-        },
-        "diagnostic": {
-          "va": 3159024,
-          "owner": "f   pharaoh_restored:unit_02011.obj"
-        },
+        "game": null,
+        "diagnostic": null,
         "retained": {
-          "va": 3185536,
+          "va": 3184864,
           "owner": "f   pharaoh_restored:unit_02011.obj"
         }
       },
@@ -2809,7 +4529,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "2e8f97cbb6baeef81688529a8a91d773e661abd5973e17373b4cb5aa8da8e823"
     },
     {
       "address": "0x004e7f00",
@@ -2828,15 +4549,15 @@
       ],
       "providers": {
         "game": {
-          "va": 3157120,
+          "va": 3156496,
           "owner": "f   pharaoh_restored:unit_02024.obj"
         },
         "diagnostic": {
-          "va": 3157744,
+          "va": 3157120,
           "owner": "f   pharaoh_restored:unit_02024.obj"
         },
         "retained": {
-          "va": 3184256,
+          "va": 3183584,
           "owner": "f   pharaoh_restored:unit_02024.obj"
         }
       },
@@ -2852,39 +4573,85 @@
       "name": "FUN_004eb800",
       "source": "src/unit_02076.c",
       "before_sha256": "3cd8f23ef277cbb829044a07aba89fe36ec12c62b27a591f788c4db5353967a4",
-      "source_sha256": "ff8687d062c512394cdfbfb93c24ca6e3105f803ce241890b711f65b2d91301c",
-      "change_kind": "macro_view_only",
+      "source_sha256": "01927368429f2fddd09876cf94bd9f30bef4cd95bdc4a3a216d750d09acc1638",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d0",
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_actor",
+          "address": "0x00b350dc",
+          "expression": "(*(int16_t *)0x00b350dcu)",
+          "before": "(*(undefined4 *)0x00b350dcu)",
+          "before_name": "DAT_00b350dc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "search_tile",
+          "address": "0x00bc9768",
+          "expression": "(*(uint32_t *)0x00bc9768u)",
+          "before": "(*(undefined *)0x00bc9768u)",
+          "before_name": "DAT_00bc9768",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_width",
           "address": "0x00bca2d0",
           "expression": "(*(int32_t *)0x00bca2d0u)",
-          "before": "(*(undefined *)0x00bca2d0u)"
+          "before": "(*(undefined *)0x00bca2d0u)",
+          "before_name": "DAT_00bca2d0",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d4",
+          "name": "city_height",
           "address": "0x00bca2d4",
           "expression": "(*(int32_t *)0x00bca2d4u)",
-          "before": "(*(undefined *)0x00bca2d4u)"
+          "before": "(*(undefined *)0x00bca2d4u)",
+          "before_name": "DAT_00bca2d4",
+          "view_kind": "operand_or_word_array"
         },
         {
-          "name": "DAT_00bca2d8",
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "actor_next",
+          "address": "0x00bcd600",
+          "expression": "(*(int16_t *)0x00bcd600u)",
+          "before": "(*(undefined4 *)0x00bcd600u)",
+          "before_name": "DAT_00bcd600",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_kind",
+          "address": "0x00bcd602",
+          "expression": "(*(uint8_t *)0x00bcd602u)",
+          "before": "(*(undefined4 *)0x00bcd602u)",
+          "before_name": "DAT_00bcd602",
+          "view_kind": "shifted_field_view"
         }
       ],
       "providers": {
         "game": {
-          "va": 3151024,
+          "va": 3150880,
           "owner": "f   pharaoh_restored:unit_02076.obj"
         },
         "diagnostic": {
-          "va": 3151648,
+          "va": 3151504,
           "owner": "f   pharaoh_restored:unit_02076.obj"
         },
         "retained": {
-          "va": 3178160,
+          "va": 3177968,
           "owner": "f   pharaoh_restored:unit_02076.obj"
         }
       },
@@ -2893,7 +4660,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "ff8687d062c512394cdfbfb93c24ca6e3105f803ce241890b711f65b2d91301c"
     },
     {
       "address": "0x004eef10",
@@ -2914,7 +4682,7 @@
         "game": null,
         "diagnostic": null,
         "retained": {
-          "va": 3167232,
+          "va": 3167040,
           "owner": "f   pharaoh_restored:unit_02100.obj"
         }
       },
@@ -2930,14 +4698,96 @@
       "name": "FUN_004f3690",
       "source": "src/unit_02139.c",
       "before_sha256": "81dd2026f860e51db4f12e60209cb41425c9fb92122b9997e84a4d4ba82df2da",
-      "source_sha256": "824b36b17e6513c39f81ab85fb3f5b637dda5163e241116e04a2311ce868ab7c",
-      "change_kind": "macro_view_only",
+      "source_sha256": "f2aeca2e3981b71eda8bf269826999eca6a22e7edda1cdb32a2e67a8c05e62d0",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_building",
+          "address": "0x00b4e6fc",
+          "expression": "(*(int16_t *)0x00b4e6fcu)",
+          "before": "(*(undefined4 *)0x00b4e6fcu)",
+          "before_name": "DAT_00b4e6fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "building_tile",
+          "address": "0x007999e4",
+          "expression": "(*(uint32_t *)0x007999e4u)",
+          "before": "(*(undefined4 *)0x007999e4u)",
+          "before_name": "DAT_007999e4",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_sibling",
+          "address": "0x007999ea",
+          "expression": "(*(int16_t *)0x007999eau)",
+          "before": "(*(undefined4 *)0x007999eau)",
+          "before_name": "DAT_007999ea",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_stage",
+          "address": "0x00799a2d",
+          "expression": "(*(uint8_t *)0x00799a2du)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_mask",
+          "address": "0x00799a33",
+          "expression": "(*(uint8_t *)0x00799a33u)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "corner_offsets",
+          "address": "0x005f6bdc",
+          "expression": "(*(int32_t *)0x005f6bdcu)",
+          "before": "(*(undefined4 *)0x005f6bdcu)",
+          "before_name": "DAT_005f6bdc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "sprite_base",
+          "address": "0x00f56b54",
+          "expression": "(*(uint32_t *)0x00f56b54u)",
+          "before": "(*(undefined *)0x00f56b54u)",
+          "before_name": "DAT_00f56b54",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_flags",
+          "address": "0x00af598c",
+          "expression": "(*(uint32_t *)0x00af598cu)",
+          "before": "(*(undefined4 *)0x00af598cu)",
+          "before_name": "DAT_00af598c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_sprite",
+          "address": "0x00b7482c",
+          "expression": "(*(uint32_t *)0x00b7482cu)",
+          "before": "(*(undefined4 *)0x00b7482cu)",
+          "before_name": "DAT_00b7482c",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "tile_noise",
+          "address": "0x00acf85c",
+          "expression": "(*(uint8_t *)0x00acf85cu)",
+          "before": "(*(undefined4 *)0x00acf85cu)",
+          "before_name": "DAT_00acf85c",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
@@ -2950,7 +4800,7 @@
           "owner": "f   pharaoh_restored:unit_02139.obj"
         },
         "retained": {
-          "va": 3150720,
+          "va": 3150672,
           "owner": "f   pharaoh_restored:unit_02139.obj"
         }
       },
@@ -2959,7 +4809,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "824b36b17e6513c39f81ab85fb3f5b637dda5163e241116e04a2311ce868ab7c"
     },
     {
       "address": "0x004f3890",
@@ -2986,7 +4837,7 @@
           "owner": "f   pharaoh_restored:unit_02141.obj"
         },
         "retained": {
-          "va": 3149936,
+          "va": 3149888,
           "owner": "f   pharaoh_restored:unit_02141.obj"
         }
       },
@@ -3002,14 +4853,104 @@
       "name": "FUN_004f4320",
       "source": "src/unit_02147.c",
       "before_sha256": "36ae712d8b41a93b44b693ccfb0597a32b088effd3b8a760159267ac884852a6",
-      "source_sha256": "603d6131d43be3b4033ce5d7d4f5dbcb86da8534e8a30d7206f753fee4702943",
-      "change_kind": "macro_view_only",
+      "source_sha256": "4905ee9d417068137d98c6d463300485ee1fe7c8ba1fa374fcc3ff5a93116e34",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "actor_building",
+          "address": "0x00bcd656",
+          "expression": "(*(int16_t *)0x00bcd656u)",
+          "before": "(*(undefined4 *)0x00bcd656u)",
+          "before_name": "DAT_00bcd656",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_x",
+          "address": "0x00bcd61c",
+          "expression": "(*(int16_t *)0x00bcd61cu)",
+          "before": "(*(undefined4 *)0x00bcd61cu)",
+          "before_name": "DAT_00bcd61c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_y",
+          "address": "0x00bcd61e",
+          "expression": "(*(int16_t *)0x00bcd61eu)",
+          "before": "(*(undefined4 *)0x00bcd61eu)",
+          "before_name": "DAT_00bcd61e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_pixel_x",
+          "address": "0x00bcd642",
+          "expression": "(*(int16_t *)0x00bcd642u)",
+          "before": "(*(undefined4 *)0x00bcd642u)",
+          "before_name": "DAT_00bcd642",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_pixel_y",
+          "address": "0x00bcd644",
+          "expression": "(*(int16_t *)0x00bcd644u)",
+          "before": "(*(undefined4 *)0x00bcd644u)",
+          "before_name": "DAT_00bcd644",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_wait",
+          "address": "0x00bcd63c",
+          "expression": "(*(uint16_t *)0x00bcd63cu)",
+          "before": "(*(undefined4 *)0x00bcd63cu)",
+          "before_name": "DAT_00bcd63c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_kind",
+          "address": "0x007999e8",
+          "expression": "(*(int16_t *)0x007999e8u)",
+          "before": "(*(undefined *)0x007999e8u)",
+          "before_name": "DAT_007999e8",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_stage",
+          "address": "0x00799a2d",
+          "expression": "(*(uint8_t *)0x00799a2du)",
+          "before": null,
+          "before_name": null,
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_sibling",
+          "address": "0x007999ea",
+          "expression": "(*(int16_t *)0x007999eau)",
+          "before": "(*(undefined4 *)0x007999eau)",
+          "before_name": "DAT_007999ea",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_owner",
+          "address": "0x00799a3c",
+          "expression": "(*(int16_t *)0x00799a3cu)",
+          "before": "(*(undefined4 *)0x00799a3cu)",
+          "before_name": "DAT_00799a3c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "tile_building",
+          "address": "0x00b4e6fc",
+          "expression": "(*(int16_t *)0x00b4e6fcu)",
+          "before": "(*(undefined4 *)0x00b4e6fcu)",
+          "before_name": "DAT_00b4e6fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
@@ -3025,21 +4966,80 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "603d6131d43be3b4033ce5d7d4f5dbcb86da8534e8a30d7206f753fee4702943"
     },
     {
       "address": "0x004f4440",
       "name": "FUN_004f4440",
       "source": "src/unit_02149.c",
       "before_sha256": "6c2b80072cd9d9154a93bb726fe55afdb60126b38e868c0cd1ed4fb23d7bb87a",
-      "source_sha256": "20c5dc923de5999c79be242c6386ece42971de77081790dc499566c634f8d2b2",
-      "change_kind": "macro_view_only",
+      "source_sha256": "3cdc9bec2053221ce9863873d0300b7254e095cdf3abccb7accb8e5932398ccc",
+      "change_kind": "readable_typed_C_value_and_address_repairs",
       "local_view_changes": [
         {
-          "name": "DAT_00bca2d8",
+          "name": "actor_x",
+          "address": "0x00bcd60c",
+          "expression": "(*(int16_t *)0x00bcd60cu)",
+          "before": "(*(undefined4 *)0x00bcd60cu)",
+          "before_name": "DAT_00bcd60c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_y",
+          "address": "0x00bcd60e",
+          "expression": "(*(int16_t *)0x00bcd60eu)",
+          "before": "(*(undefined4 *)0x00bcd60eu)",
+          "before_name": "DAT_00bcd60e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_x",
+          "address": "0x00bcd61c",
+          "expression": "(*(int16_t *)0x00bcd61cu)",
+          "before": "(*(undefined4 *)0x00bcd61cu)",
+          "before_name": "DAT_00bcd61c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_target_y",
+          "address": "0x00bcd61e",
+          "expression": "(*(int16_t *)0x00bcd61eu)",
+          "before": "(*(undefined4 *)0x00bcd61eu)",
+          "before_name": "DAT_00bcd61e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "actor_wait",
+          "address": "0x00bcd62e",
+          "expression": "(*(int16_t *)0x00bcd62eu)",
+          "before": "(*(undefined4 *)0x00bcd62eu)",
+          "before_name": "DAT_00bcd62e",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "building_owner",
+          "address": "0x00799a3c",
+          "expression": "(*(int16_t *)0x00799a3cu)",
+          "before": "(*(undefined4 *)0x00799a3cu)",
+          "before_name": "DAT_00799a3c",
+          "view_kind": "shifted_field_view"
+        },
+        {
+          "name": "tile_building",
+          "address": "0x00b4e6fc",
+          "expression": "(*(int16_t *)0x00b4e6fcu)",
+          "before": "(*(undefined4 *)0x00b4e6fcu)",
+          "before_name": "DAT_00b4e6fc",
+          "view_kind": "operand_or_word_array"
+        },
+        {
+          "name": "city_origin",
           "address": "0x00bca2d8",
           "expression": "(*(uint32_t *)0x00bca2d8u)",
-          "before": "(*(undefined *)0x00bca2d8u)"
+          "before": "(*(undefined *)0x00bca2d8u)",
+          "before_name": "DAT_00bca2d8",
+          "view_kind": "operand_or_word_array"
         }
       ],
       "providers": {
@@ -3055,7 +5055,8 @@
       ],
       "source_credit": 0,
       "new_algorithm_credit": 0,
-      "complete_function_behavior_proved": false
+      "complete_function_behavior_proved": false,
+      "previous_current_sha256": "20c5dc923de5999c79be242c6386ece42971de77081790dc499566c634f8d2b2"
     },
     {
       "address": "0x004f5770",
@@ -5406,8 +7407,8 @@
     "interpretation": "Read-only leads were independently qualified against native consumers, local address units and signedness before editing. No blanket global-type replacement."
   },
   "strict_status": {
-    "clean_sources": 55,
-    "old_warning_blocked_sources": 45,
+    "clean_sources": 72,
+    "old_warning_blocked_sources": 28,
     "introduced_diagnostics": 0,
     "meaning": "Clean sources pass /W4 /WX /O2 /Ob0 /GS /std:c11. Other sources retain the documented existing diagnostics; no /WX relaxation is called a strict pass."
   },
@@ -5416,11 +7417,11 @@
   "joint_behavior_comparison_pending": true,
   "native_operand_local_type_facts": {
     "path": "metadata/cohort8-native-local-view-facts.json",
-    "sha256": "d7df2a2c4e76819b723391c68c9673b5bb2bfee39522d66f4c6c01bf855c4cbd"
+    "sha256": "99cb9a14e1c086c31fb0867162069adee996519ef6ba92899dc7140dd30a9212"
   },
   "source_phase_verifier": {
     "path": "tools/verify_cohort8_source.py",
-    "sha256": "79b915e6dfc8911d3694a1cd56f7be1e60505af9878b3e4b5d46912c7ae6e8d7"
+    "sha256": "235e1c056a7265e8b7fcd47553a0883fb649cfbb41fa1a9d124493cb66926239"
   },
   "signed_UI_wrap_consumer_functions": 1,
   "signed_UI_wrap_sites": 2,
@@ -5432,5 +7433,9 @@
   "player_ui35_integration": {
     "path": "build/actor-animal-following/cohort8-player-ui35-integration.json",
     "sha256": "4749b74a14f764ccbe794a09b077917645442a8655acd03027b650e25b19031e"
+  },
+  "city22_integration": {
+    "path": "build/actor-animal-following/cohort8-city22-integration.json",
+    "sha256": "dd00e9c53405fb8d537648aa17c92d3b4893ecf91786035a0185cace03ca2537"
   }
 }

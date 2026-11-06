@@ -1,107 +1,110 @@
-#include "restore_types.h"
-#define DAT_005da544 (*(undefined *)0x005da544u)
-#define DAT_005da554 (*(undefined4 *)0x005da554u)
-#define DAT_0070573c (*(undefined4 *)0x0070573cu)
-#define DAT_0078d790 (*(int32_t *)0x0078d790u)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_007999f4 (*(undefined4 *)0x007999f4u)
-#define DAT_00799a18 (*(undefined4 *)0x00799a18u)
-extern void FUN_00461b20();
-extern int FUN_00475b50();
+#include <stdint.h>
+#include <stdbool.h>
 
-void FUN_00461950(int param_1)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define quota_weights (*(int32_t *)0x005da544u)
+#define resource_groups (*(int32_t *)0x005da554u)
+#define resource_capacity (*(int32_t *)0x0070573cu)
+#define building_bound (*(int32_t *)0x0078d790u)
+#define building_status (*(uint8_t *)0x007999dcu)
+#define building_kind (*(int16_t *)0x007999e8u)
+#define building_stock (*(int16_t *)0x007999f4u)
+#define building_capacity (*(int16_t *)0x00799a18u)
+
+extern void FUN_00461b20(int32_t building);
+extern int32_t FUN_00475b50(int32_t building);
+
+void FUN_00461950(int32_t requested_total)
 
 {
-  int *piVar1;
-  int iVar2;
-  bool bVar3;
-  int *piVar4;
-  int iVar5;
-  int iVar6;
-  int *piVar7;
-  int *piVar8;
-  int *piVar9;
-  short *local_28;
-  int local_24;
-  int local_20 [4];
-  int local_10 [4];
+  int32_t *resource;
+  int32_t requested;
+  bool all_quotas_empty;
+  int32_t *quota_or_resource;
+  int32_t group_or_building;
+  int32_t capacity_or_resource;
+  int32_t *group_begin;
+  int32_t *group_cursor;
+  int32_t *resource_cursor;
+  int16_t *kind_cursor;
+  int32_t building;
+  int32_t quotas_and_capacities [8]; /* Native adjacent quota/capacity DWORDs. */
   
-  iVar5 = 0;
+  group_or_building = 0;
   do {
-    if (iVar5 == 0) {
-      local_20[0] = (DAT_005da544 * param_1) / 100;
+    if (group_or_building == 0) {
+      quotas_and_capacities[0] = (int32_t)((uint32_t)quota_weights * (uint32_t)requested_total) / 100;
     }
     else {
-      local_20[iVar5] = local_20[iVar5] + ((&DAT_005da544)[iVar5] * param_1) / 100;
+      quotas_and_capacities[group_or_building] = (int32_t)((uint32_t)quotas_and_capacities[group_or_building] + (uint32_t)((int32_t)((uint32_t)(&quota_weights)[group_or_building] * (uint32_t)requested_total) / 100));
     }
-    local_20[iVar5 + 4] = 0;
-    iVar6 = (&DAT_005da554)[iVar5 * 0xc];
-    if (iVar6 != 0) {
-      piVar4 = &DAT_005da554 + iVar5 * 0xc;
+    quotas_and_capacities[group_or_building + 4] = 0;
+    capacity_or_resource = (&resource_groups)[group_or_building * 0xc];
+    if (capacity_or_resource != 0) {
+      quota_or_resource = &resource_groups + group_or_building * 0xc;
       do {
-        piVar4 = piVar4 + 1;
-        local_20[iVar5 + 4] = local_20[iVar5 + 4] + (&DAT_0070573c)[iVar6];
-        iVar6 = *piVar4;
-      } while (iVar6 != 0);
+        quota_or_resource = quota_or_resource + 1;
+        quotas_and_capacities[group_or_building + 4] = (int32_t)((uint32_t)quotas_and_capacities[group_or_building + 4] + (uint32_t)(&resource_capacity)[capacity_or_resource]);
+        capacity_or_resource = *quota_or_resource;
+      } while (capacity_or_resource != 0);
     }
-    if (iVar5 != 3) {
-      local_20[iVar5 + 1] = 0;
+    if (group_or_building != 3) {
+      quotas_and_capacities[group_or_building + 1] = 0;
     }
-    iVar6 = local_20[iVar5 + 4];
-    iVar2 = local_20[iVar5];
-    if (iVar2 < iVar6) {
-      local_20[iVar5 + 4] = iVar2;
+    capacity_or_resource = quotas_and_capacities[group_or_building + 4];
+    requested = quotas_and_capacities[group_or_building];
+    if (requested < capacity_or_resource) {
+      quotas_and_capacities[group_or_building + 4] = requested;
     }
-    else if ((iVar6 < iVar2) && (iVar5 != 3)) {
-      local_20[iVar5 + 1] = iVar2 - iVar6;
+    else if ((capacity_or_resource < requested) && (group_or_building != 3)) {
+      quotas_and_capacities[group_or_building + 1] = (int32_t)((uint32_t)requested - (uint32_t)capacity_or_resource);
     }
-    iVar5 = iVar5 + 1;
-  } while (iVar5 < 4);
-  local_24 = 0;
-  if (-1 < DAT_0078d790) {
-    local_28 = &DAT_007999e8;
+    group_or_building = group_or_building + 1;
+  } while (group_or_building < 4);
+  building = 0;
+  if (-1 < building_bound) {
+    kind_cursor = &building_kind;
     do {
-      if ((char)local_28[-8] == '\x01') {
-        iVar5 = FUN_00475b50(local_24);
-        if ((((&DAT_00799a18)[iVar5 * 0x84] != 0) ||
-            (*(char *)((int)&DAT_007999dc + iVar5 * 0x108 + 1) != '\0')) &&
-           ((*(char *)((int)&DAT_007999dc + iVar5 * 0x108 + 1) == '\0' ||
-            ((&DAT_007999f4)[iVar5 * 0x84] != 0)))) {
-          piVar7 = &DAT_005da554;
-          bVar3 = true;
-          piVar4 = local_20 + 4;
-          piVar8 = &DAT_005da554;
+      if (*((uint8_t *)kind_cursor - 16) == '\x01') {
+        group_or_building = FUN_00475b50(building);
+        if ((((&building_capacity)[group_or_building * 0x84] != 0) ||
+            (*(char *)((int32_t)&building_status + group_or_building * 0x108 + 1) != '\0')) &&
+           ((*(char *)((int32_t)&building_status + group_or_building * 0x108 + 1) == '\0' ||
+            ((&building_stock)[group_or_building * 0x84] != 0)))) {
+          group_begin = &resource_groups;
+          all_quotas_empty = true;
+          quota_or_resource = quotas_and_capacities + 4;
+          group_cursor = &resource_groups;
           do {
-            if (*piVar4 != 0) {
-              bVar3 = false;
-              iVar5 = *piVar8;
-              piVar9 = piVar7;
-              piVar1 = piVar8;
-              while (iVar5 != 0) {
-                if ((int)*local_28 == *piVar1) {
-                  *piVar4 = *piVar4 + -1;
-                  FUN_00461b20(local_24);
+            if (*quota_or_resource != 0) {
+              all_quotas_empty = false;
+              group_or_building = *group_cursor;
+              resource_cursor = group_begin;
+              resource = group_cursor;
+              while (group_or_building != 0) {
+                if ((int32_t)*kind_cursor == *resource) {
+                  *quota_or_resource = (int32_t)((uint32_t)*quota_or_resource - 1u);
+                  FUN_00461b20(building);
                 }
-                if (*piVar4 == 0) break;
-                piVar1 = piVar9 + 1;
-                piVar9 = piVar9 + 1;
-                iVar5 = *piVar1;
-                piVar1 = piVar9;
+                if (*quota_or_resource == 0) break;
+                resource = resource_cursor + 1;
+                resource_cursor = resource_cursor + 1;
+                group_or_building = *resource;
+                resource = resource_cursor;
               }
             }
-            piVar8 = piVar8 + 0xc;
-            piVar7 = piVar7 + 0xc;
-            piVar4 = piVar4 + 1;
-          } while ((int)piVar8 < 0x5da614);
-          if (bVar3) {
+            group_cursor = group_cursor + 0xc;
+            group_begin = group_begin + 0xc;
+            quota_or_resource = quota_or_resource + 1;
+          } while ((int32_t)group_cursor < 0x5da614);
+          if (all_quotas_empty) {
             return;
           }
         }
       }
-      local_24 = local_24 + 1;
-      local_28 = local_28 + 0x84;
-    } while (local_24 <= DAT_0078d790);
+      building = building + 1;
+      kind_cursor = kind_cursor + 0x84;
+    } while (building <= building_bound);
   }
   return;
 }

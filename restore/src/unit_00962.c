@@ -1,54 +1,37 @@
-#include "restore_types.h"
-#define DAT_0078d790 (*(int32_t *)0x0078d790u)
-#define DAT_00799bab (*(undefined4 *)0x00799babu)
-#define DAT_009783a4 (*(undefined4 *)0x009783a4u)
-#define DAT_009783bc (*(undefined4 *)0x009783bcu)
-#define DAT_009783d8 (*(undefined4 *)0x009783d8u)
-extern void FUN_0046a280();
+#include <stdint.h>
+#include <stdbool.h>
+
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define building_bound (*(int32_t *)0x0078d790u)
+#define building_active (*(uint8_t *)0x007999d8u)
+#define building_kind (*(int16_t *)0x007999e8u)
+#define building_group (*(uint8_t *)0x00799aa3u)
+#define group_clear_links (*(uint32_t *)0x009783d8u)
+#define group_used (*(uint8_t *)0x009783a4u)
+#define group_links (*(uint32_t *)0x009783bcu)
+
+extern void FUN_0046a280(int32_t building);
 
 void FUN_0046a320(void)
-
 {
-  byte bVar1;
-  undefined4 *puVar2;
-  byte *pbVar3;
-  int iVar4;
-  
-  puVar2 = &DAT_009783d8;
-  do {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 7;
-  } while ((int)puVar2 < 0x9784f0);
-  if (0 < DAT_0078d790) {
-    pbVar3 = &DAT_00799bab;
-    iVar4 = DAT_0078d790;
-    do {
-      if (((pbVar3[-0xcb] != 0) && (*(short *)(pbVar3 + -0xbb) == 0x4a)) && (*pbVar3 != 0)) {
-        (&DAT_009783a4)[(uint)*pbVar3 * 0x1c] = 1;
-      }
-      pbVar3 = pbVar3 + 0x108;
-      iVar4 = iVar4 + -1;
-    } while (iVar4 != 0);
-  }
-  iVar4 = 1;
-  if (0 < DAT_0078d790) {
-    pbVar3 = &DAT_00799bab;
-    do {
-      if ((pbVar3[-0xcb] != 0) && (*(short *)(pbVar3 + -0xbb) == 0x4a)) {
-        bVar1 = *pbVar3;
-        if (bVar1 == 0) {
-          FUN_0046a280(iVar4);
+    uint32_t *clear = &group_clear_links;
+    do { *clear = 0; clear += 7; } while ((uintptr_t)clear < 0x9784f0u);
+    int32_t initial_bound = building_bound;
+    for (int32_t building = 1; building <= initial_bound; ++building) {
+        uint32_t offset = (uint32_t)building * 264u;
+        uint8_t group = (&building_group)[offset];
+        if ((&building_active)[offset] != 0 &&
+            (&building_kind)[(uint32_t)building * 132u] == 0x4a && group != 0)
+            (&group_used)[(uint32_t)group * 28u] = 1;
+    }
+    for (int32_t building = 1; building <= building_bound; ++building) {
+        uint32_t offset = (uint32_t)building * 264u;
+        if ((&building_active)[offset] != 0 && (&building_kind)[(uint32_t)building * 132u] == 0x4a) {
+            uint8_t group = (&building_group)[offset];
+            if (group == 0) FUN_0046a280(building);
+            else if ((&group_links)[(uint32_t)group * 7u] == 0)
+                (&group_links)[(uint32_t)group * 7u] = (uint32_t)building;
+            else FUN_0046a280(building);
         }
-        else if (*(int *)(&DAT_009783bc + (uint)bVar1 * 0x1c) == 0) {
-          *(int *)(&DAT_009783bc + (uint)bVar1 * 0x1c) = iVar4;
-        }
-        else {
-          FUN_0046a280(iVar4);
-        }
-      }
-      iVar4 = iVar4 + 1;
-      pbVar3 = pbVar3 + 0x108;
-    } while (iVar4 <= DAT_0078d790);
-  }
-  return;
+    }
 }

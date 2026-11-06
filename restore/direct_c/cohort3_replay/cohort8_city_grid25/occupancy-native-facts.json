@@ -1,0 +1,384 @@
+{
+  "facts": [
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_0096e6b0",
+      "global_address": "0x0096e6b0",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "int32_t delta=(int32_t)((&DAT_0096e6b0)[(uint32_t)selection]-DAT_00bca2d8);"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004869bd",
+          "bytes": "8b0c85b0e69600",
+          "instruction": "MOV ECX,dword ptr [EAX*0x4 + 0x96e6b0]",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_0096e6b4",
+      "global_address": "0x0096e6b4",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "(&DAT_0096e6b4)[(uint32_t)count]=tile;",
+        "selection=FUN_005190a0(request_a,request_b,&DAT_0096e6b4,3999);",
+        "selection=FUN_005190a0(request_a,request_b,&DAT_0096e6b4,count);"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x00486924",
+          "bytes": "893485b4e69600",
+          "instruction": "MOV dword ptr [EAX*0x4 + 0x96e6b4],ESI",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00978d98",
+      "global_address": "0x00978d98",
+      "local_type": "uint8_t",
+      "local_unit_bytes": 1,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        1
+      ],
+      "source_use_lines": [
+        "if(DAT_00978d98==0)return 0;",
+        "else DAT_00978d98=0;"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0048683a",
+          "bytes": "a0988d9700",
+          "instruction": "MOV AL,[0x00978d98]",
+          "native_access_bytes": 1,
+          "indexed": true
+        },
+        {
+          "pc": "0x00486a1d",
+          "bytes": "c605988d970000",
+          "instruction": "MOV byte ptr [0x00978d98],0x0",
+          "native_access_bytes": 1,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00978d9a",
+      "global_address": "0x00978d9a",
+      "local_type": "uint8_t",
+      "local_unit_bytes": 1,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        1
+      ],
+      "source_use_lines": [
+        "if(DAT_00978d9a==0)return 0;",
+        "if(tile_mask==0x40000u)DAT_00978d9a=0;"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x00486823",
+          "bytes": "a09a8d9700",
+          "instruction": "MOV AL,[0x00978d9a]",
+          "native_access_bytes": 1,
+          "indexed": true
+        },
+        {
+          "pc": "0x00486a0f",
+          "bytes": "c6059a8d970000",
+          "instruction": "MOV byte ptr [0x00978d9a],0x0",
+          "native_access_bytes": 1,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00a43eac",
+      "global_address": "0x00a43eac",
+      "local_type": "int8_t",
+      "local_unit_bytes": 1,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        1
+      ],
+      "source_use_lines": [
+        "if((&DAT_00a43eac)[tile]==-1){"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x00486917",
+          "bytes": "80beac3ea400ff",
+          "instruction": "CMP byte ptr [ESI + 0xa43eac],0xff",
+          "native_access_bytes": 1,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00af598c",
+      "global_address": "0x00af598c",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "uint32_t flags=(&DAT_00af598c)[tile];"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004868d6",
+          "bytes": "8b4500",
+          "instruction": "MOV EAX,dword ptr [EBP]",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "address": "004868c9",
+          "bytes": "8d2cb58c59af00",
+          "instruction": "LEA EBP,[ESI*0x4 + 0xaf598c]"
+        }
+      ]
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00b350dc",
+      "global_address": "0x00b350dc",
+      "local_type": "int16_t",
+      "local_unit_bytes": 2,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        2
+      ],
+      "source_use_lines": [
+        "actor=(&DAT_00b350dc)[tile];"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004868fb",
+          "bytes": "0fbf03",
+          "instruction": "MOVSX EAX,word ptr [EBX]",
+          "native_access_bytes": 2,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "address": "004868c2",
+          "bytes": "8d1c75dc50b300",
+          "instruction": "LEA EBX,[ESI*0x2 + 0xb350dc]"
+        }
+      ]
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00bc9804",
+      "global_address": "0x00bc9804",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "tile=(&DAT_00bc9804)[(uint32_t)row];"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0048688c",
+          "bytes": "8b349d0498bc00",
+          "instruction": "MOV ESI,dword ptr [EBX*0x4 + 0xbc9804]",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00bc9b94",
+      "global_address": "0x00bc9b94",
+      "local_type": "int32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "right=(&DAT_00bc9b94)[(uint32_t)row];"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004868a1",
+          "bytes": "8b049d949bbc00",
+          "instruction": "MOV EAX,dword ptr [EBX*0x4 + 0xbc9b94]",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00bc9f24",
+      "global_address": "0x00bc9f24",
+      "local_type": "int32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "if(min_x<(&DAT_00bc9f24)[(uint32_t)row]){",
+        "x=(&DAT_00bc9f24)[(uint32_t)row];"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0048687d",
+          "bytes": "8b049d249fbc00",
+          "instruction": "MOV EAX,dword ptr [EBX*0x4 + 0xbc9f24]",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "DAT_00bcd602",
+      "global_address": "0x00bcd602",
+      "local_type": "uint8_t",
+      "local_unit_bytes": 1,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        1
+      ],
+      "source_use_lines": [
+        "if((&DAT_00bcd602)[(uint32_t)actor*388u]==rejected_actor_kind)"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0048690c",
+          "bytes": "8a148d02d6bc00",
+          "instruction": "MOV DL,byte ptr [ECX*0x4 + 0xbcd602]",
+          "native_access_bytes": 1,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "address": "004868fb",
+          "bytes": "0fbf03",
+          "instruction": "MOVSX EAX,word ptr [EBX]"
+        },
+        {
+          "address": "00486900",
+          "bytes": "8d0c40",
+          "instruction": "LEA ECX,[EAX + EAX*0x2]"
+        },
+        {
+          "address": "00486903",
+          "bytes": "c1e105",
+          "instruction": "SHL ECX,0x5"
+        },
+        {
+          "address": "00486906",
+          "bytes": "03c8",
+          "instruction": "ADD ECX,EAX"
+        }
+      ]
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "_DAT_00d3b4e0",
+      "global_address": "0x00d3b4e0",
+      "local_type": "int32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "_DAT_00d3b4e0=delta/228;"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004869f8",
+          "bytes": "8915e0b4d300",
+          "instruction": "MOV dword ptr [0x00d3b4e0],EDX",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    },
+    {
+      "function": "0x00486810",
+      "source": "src/unit_01252.c",
+      "view": "_DAT_00d3b4e4",
+      "global_address": "0x00d3b4e4",
+      "local_type": "int32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "operand_or_word_array",
+      "explicit_native_access_widths": [
+        4
+      ],
+      "source_use_lines": [
+        "_DAT_00d3b4e4=delta%228;"
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x004869df",
+          "bytes": "8915e4b4d300",
+          "instruction": "MOV dword ptr [0x00d3b4e4],EDX",
+          "native_access_bytes": 4,
+          "indexed": true
+        }
+      ],
+      "address_producer_instructions": []
+    }
+  ],
+  "direct_operand_or_word_units": 13,
+  "byte_address_bases": 0,
+  "host_execution": false
+}

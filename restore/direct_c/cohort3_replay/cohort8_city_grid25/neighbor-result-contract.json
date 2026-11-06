@@ -1,0 +1,177 @@
+{
+  "schema": "cohort8-486810-neighbor-logical-result-contract-v1",
+  "callee": "0x00477690",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "cache": {
+    "path": "metadata/native-function-audit-cache/batch-1024.json",
+    "sha256": "bc12e9f74632c6d54e25c082e3d12d8f80bb83bd2453c7c275887ea538d569cc"
+  },
+  "source": {
+    "path": "src/unit_01050.c",
+    "sha256": "f37d7bfd5cb7088a11eb1f46846a8f407a39879d37bc212bc571105f231026dc"
+  },
+  "native_instructions": [
+    {
+      "address": "00477690",
+      "bytes": "8b542408",
+      "instruction": "MOV EDX,dword ptr [ESP + 0x8]"
+    },
+    {
+      "address": "00477694",
+      "bytes": "8b4c2404",
+      "instruction": "MOV ECX,dword ptr [ESP + 0x4]"
+    },
+    {
+      "address": "00477698",
+      "bytes": "33c0",
+      "instruction": "XOR EAX,EAX"
+    },
+    {
+      "address": "0047769a",
+      "bytes": "850c95fc55af00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf55fc],ECX"
+    },
+    {
+      "address": "004776a1",
+      "bytes": "7405",
+      "instruction": "JZ 0x004776a8"
+    },
+    {
+      "address": "004776a3",
+      "bytes": "b801000000",
+      "instruction": "MOV EAX,0x1"
+    },
+    {
+      "address": "004776a8",
+      "bytes": "850c950056af00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5600],ECX"
+    },
+    {
+      "address": "004776af",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776b2"
+    },
+    {
+      "address": "004776b1",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776b2",
+      "bytes": "850c959059af00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5990],ECX"
+    },
+    {
+      "address": "004776b9",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776bc"
+    },
+    {
+      "address": "004776bb",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776bc",
+      "bytes": "850c95205daf00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5d20],ECX"
+    },
+    {
+      "address": "004776c3",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776c6"
+    },
+    {
+      "address": "004776c5",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776c6",
+      "bytes": "850c951c5daf00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5d1c],ECX"
+    },
+    {
+      "address": "004776cd",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776d0"
+    },
+    {
+      "address": "004776cf",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776d0",
+      "bytes": "850c95185daf00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5d18],ECX"
+    },
+    {
+      "address": "004776d7",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776da"
+    },
+    {
+      "address": "004776d9",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776da",
+      "bytes": "850c958859af00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf5988],ECX"
+    },
+    {
+      "address": "004776e1",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776e4"
+    },
+    {
+      "address": "004776e3",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776e4",
+      "bytes": "850c95f855af00",
+      "instruction": "TEST dword ptr [EDX*0x4 + 0xaf55f8],ECX"
+    },
+    {
+      "address": "004776eb",
+      "bytes": "7401",
+      "instruction": "JZ 0x004776ee"
+    },
+    {
+      "address": "004776ed",
+      "bytes": "40",
+      "instruction": "INC EAX"
+    },
+    {
+      "address": "004776ee",
+      "bytes": "c3",
+      "instruction": "RET"
+    }
+  ],
+  "proof": [
+    "477698 clears complete EAX before eight independent DWORD flag tests. A taken first test sets EAX=1; each of the remaining seven taken tests increments complete EAX once. No other path writes EAX.",
+    "All256 Boolean test outcomes therefore return the sum in0..8 with native upper24 bits zero; the eight DWORD inputs remain arbitrary and use wrapped tile*4.",
+    "Existing C unit01050 initializes a char from the first Boolean and adds the remaining seven Boolean tests. The char never exceeds8; its ordinary C result is exactly the same sum.",
+    "4868F6 compares complete native EAX with8. The preserved C char API compares its actual logical0..8 value with8, so no missing high-register input or changed callee declaration is required.",
+    "Parent ADD ESP8 then CMP EAX8 replaces arithmetic flags before any branch; native child flag residue is not consumed."
+  ],
+  "enumerated_boolean_results": {
+    "0": 1,
+    "1": 8,
+    "2": 28,
+    "3": 56,
+    "4": 70,
+    "5": 56,
+    "6": 28,
+    "7": 8,
+    "8": 1
+  },
+  "C_callee_rewritten": false,
+  "new_algorithm_credit": 0,
+  "full_game_equivalence": false,
+  "host_execution": false
+}

@@ -1,103 +1,78 @@
-#include "restore_types.h"
-#define DAT_005f6bdc (*(undefined4 *)0x005f6bdcu)
-#define DAT_007999e4 (*(undefined4 *)0x007999e4u)
-#define DAT_007999ea (*(undefined4 *)0x007999eau)
-#define DAT_00799a2c (*(undefined4 *)0x00799a2cu)
-#define DAT_00799a30 (*(undefined4 *)0x00799a30u)
-#define DAT_00acf85c (*(undefined4 *)0x00acf85cu)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00b7482c (*(undefined4 *)0x00b7482cu)
-#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define DAT_00f56b54 (*(undefined *)0x00f56b54u)
-extern void FUN_004ee4a0();
-extern void FUN_004ee630();
-extern int FUN_004f3360();
+#include <stdint.h>
+#include <stdbool.h>
 
-int FUN_004f3690(int param_1,int param_2)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define city_origin (*(uint32_t *)0x00bca2d8u)
+#define tile_building (*(int16_t *)0x00b4e6fcu)
+#define building_tile (*(uint32_t *)0x007999e4u)
+#define building_sibling (*(int16_t *)0x007999eau)
+#define building_stage (*(uint8_t *)0x00799a2du)
+#define building_mask (*(uint8_t *)0x00799a33u)
+#define corner_offsets (*(int32_t *)0x005f6bdcu)
+#define sprite_base (*(uint32_t *)0x00f56b54u)
+#define tile_flags (*(uint32_t *)0x00af598cu)
+#define tile_sprite (*(uint32_t *)0x00b7482cu)
+#define tile_noise (*(uint8_t *)0x00acf85cu)
 
+extern void FUN_004ee4a0(int32_t building);
+extern void FUN_004ee630(int32_t building);
+extern uint8_t FUN_004f3360(uint32_t stage);
+
+int32_t FUN_004f3690(int32_t x, int32_t y)
 {
-  int iVar1;
-  int iVar2;
-  char cVar3;
-  int *piVar4;
-  undefined1 *puVar5;
-  int iVar6;
-  byte bVar7;
-  byte bVar8;
-  int iVar9;
-  int iVar10;
-  
-  bVar8 = 0;
-  piVar4 = &DAT_005f6bdc;
-  param_1 = DAT_00bca2d8 + param_2 * 0xe4 + param_1;
-  bVar7 = 0;
-  iVar9 = (int)*(short *)(&DAT_00b4e6fc + param_1 * 2);
-  iVar10 = iVar9 * 0x108;
-  do {
-    if (*(int *)(&DAT_007999e4 + iVar10) + *piVar4 == param_1) {
-      bVar8 = (byte)(1 << (bVar7 & 0x1f));
-      break;
+    uint32_t tile = city_origin + (uint32_t)y * 228u + (uint32_t)x;
+    int32_t building = (&tile_building)[tile];
+    uint32_t offset = (uint32_t)building * 264u;
+    uint8_t bit = 0;
+    for (uint32_t corner = 0; corner < 4; ++corner) {
+        if ((&building_tile)[(uint32_t)building * 66u] + (uint32_t)(&corner_offsets)[corner] == tile) {
+            bit = (uint8_t)(1u << corner);
+            break;
+        }
     }
-    piVar4 = piVar4 + 1;
-    bVar7 = bVar7 + 1;
-  } while ((int)piVar4 < 0x5f6bec);
-  bVar7 = *(byte *)((int)&DAT_00799a30 + iVar10 + 3);
-  if (bVar7 == 0xf) {
-    bVar7 = *(byte *)((int)&DAT_00799a2c + iVar10 + 1);
-    if (bVar7 < 10) {
-      cVar3 = FUN_004f3360(bVar7);
-      *(char *)((int)&DAT_00799a2c + iVar10 + 1) = cVar3;
-      if (cVar3 == '\x05') {
-        bVar8 = 0xf;
-      }
-      *(byte *)((int)&DAT_00799a30 + iVar10 + 3) = bVar8;
+    uint8_t mask = (&building_mask)[offset];
+    if (mask == 15) {
+        uint8_t stage = (&building_stage)[offset];
+        if (stage < 10) {
+            uint8_t advanced = FUN_004f3360(stage);
+            (&building_stage)[offset] = advanced;
+            if (advanced == 5) bit = 15;
+            (&building_mask)[offset] = bit;
+        } else {
+            if ((&building_sibling)[(uint32_t)building * 132u] != 0) return 0;
+            if ((uint32_t)stage + 1u < 12u) {
+                for (int32_t part = 0; part < 4; ++part) {
+                    uint32_t part_offset = (uint32_t)(building + part) * 264u;
+                    (&building_stage)[part_offset] = (uint8_t)(stage + 1u);
+                    (&building_mask)[part_offset] = 15;
+                }
+                FUN_004ee4a0(building);
+                FUN_004ee630(building);
+                return building;
+            }
+        }
+    } else {
+        if ((&building_stage)[offset] == 5) bit = 15;
+        (&building_mask)[offset] = (uint8_t)(mask | bit);
+        uint32_t base_sprite = sprite_base;
+        if ((&building_stage)[offset] == 3) {
+            (&building_stage)[offset] = 4;
+            uint32_t origin = (&building_tile)[(uint32_t)building * 66u];
+            for (uint32_t corner = 0; corner < 4; ++corner) {
+                uint32_t corner_tile = origin + (uint32_t)(&corner_offsets)[corner];
+                uint8_t noise = (&tile_noise)[corner_tile];
+                (&tile_flags)[corner_tile] = 0x10000008u;
+                (&tile_sprite)[corner_tile] = base_sprite + (noise & 7u);
+            }
+        }
     }
-    else {
-      if ((&DAT_007999ea)[iVar9 * 0x84] != 0) {
-        return 0;
-      }
-      if (bVar7 + 1 < 0xc) {
-        iVar10 = 4;
-        puVar5 = (undefined1 *)((int)&DAT_00799a30 + iVar9 * 0x108 + 3);
-        do {
-          puVar5[-6] = (char)(bVar7 + 1);
-          *puVar5 = 0xf;
-          puVar5 = puVar5 + 0x108;
-          iVar10 = iVar10 + -1;
-        } while (iVar10 != 0);
-        FUN_004ee4a0(iVar9);
-        FUN_004ee630(iVar9);
-        return iVar9;
-      }
+    uint32_t base_sprite = sprite_base;
+    if ((&building_stage)[offset] < 5) {
+        uint8_t noise = (&tile_noise)[tile];
+        (&tile_flags)[tile] = 0x10000008u;
+        (&tile_sprite)[tile] = base_sprite + (noise & 7u);
     }
-  }
-  else {
-    if (*(char *)((int)&DAT_00799a2c + iVar10 + 1) == '\x05') {
-      bVar8 = 0xf;
-    }
-    *(byte *)((int)&DAT_00799a30 + iVar10 + 3) = bVar7 | bVar8;
-    iVar2 = DAT_00f56b54;
-    if (*(char *)((int)&DAT_00799a2c + iVar10 + 1) == '\x03') {
-      *(undefined1 *)((int)&DAT_00799a2c + iVar10 + 1) = 4;
-      iVar1 = *(int *)(&DAT_007999e4 + iVar10);
-      piVar4 = &DAT_005f6bdc;
-      do {
-        iVar6 = iVar1 + *piVar4;
-        piVar4 = piVar4 + 1;
-        bVar7 = (&DAT_00acf85c)[iVar6];
-        (&DAT_00af598c)[iVar6] = 0x10000008;
-        (&DAT_00b7482c)[iVar6] = (bVar7 & 7) + iVar2;
-      } while ((int)piVar4 < 0x5f6bec);
-    }
-  }
-  iVar2 = DAT_00f56b54;
-  if (*(byte *)((int)&DAT_00799a2c + iVar10 + 1) < 5) {
-    bVar7 = (&DAT_00acf85c)[param_1];
-    (&DAT_00af598c)[param_1] = 0x10000008;
-    (&DAT_00b7482c)[param_1] = (bVar7 & 7) + iVar2;
-  }
-  FUN_004ee630(iVar9 - (short)(&DAT_007999ea)[iVar9 * 0x84]);
-  FUN_004ee4a0(iVar9 - (short)(&DAT_007999ea)[iVar9 * 0x84]);
-  return iVar9;
+    FUN_004ee630(building - (&building_sibling)[(uint32_t)building * 132u]);
+    FUN_004ee4a0(building - (&building_sibling)[(uint32_t)building * 132u]);
+    return building;
 }

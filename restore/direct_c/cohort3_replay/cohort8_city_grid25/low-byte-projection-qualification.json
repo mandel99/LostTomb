@@ -1,0 +1,653 @@
+{
+  "facts": [
+    {
+      "function": "0x0047f200",
+      "source": "src/unit_01161.c",
+      "source_sha256": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+      "view": "north_flags",
+      "global_address": "0x00af55fc",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "low_byte_projection",
+      "source_declaration_lines": [
+        "#define north_flags (*(uint32_t *)0x00af55fcu)"
+      ],
+      "source_use_lines": [
+        "if (((&north_flags)[tile_or_x] & 4) == 0) {"
+      ],
+      "explicit_native_access_widths": [
+        1
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0047f284",
+          "bytes": "841cb5fc55af00",
+          "instruction": "TEST byte ptr [ESI*0x4 + 0xaf55fc],BL",
+          "native_access_bytes": 1,
+          "indexed": true,
+          "access_role": "view_value",
+          "operand_address": {
+            "base": null,
+            "index": "esi",
+            "scale": 4,
+            "displacement": "0xaf55fc"
+          },
+          "address_producer_instructions": [
+            {
+              "pc": "0x0047f200",
+              "bytes": "8b442408",
+              "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+            },
+            {
+              "pc": "0x0047f207",
+              "bytes": "8d0cc0",
+              "instruction": "LEA ECX,[EAX + EAX*0x8]"
+            },
+            {
+              "pc": "0x0047f212",
+              "bytes": "8d0448",
+              "instruction": "LEA EAX,[EAX + ECX*0x2]"
+            },
+            {
+              "pc": "0x0047f227",
+              "bytes": "8d1440",
+              "instruction": "LEA EDX,[EAX + EAX*0x2]"
+            },
+            {
+              "pc": "0x0047f22a",
+              "bytes": "a1d8a2bc00",
+              "instruction": "MOV EAX,[0x00bca2d8]"
+            },
+            {
+              "pc": "0x0047f235",
+              "bytes": "8d3490",
+              "instruction": "LEA ESI,[EAX + EDX*0x4]"
+            },
+            {
+              "pc": "0x0047f238",
+              "bytes": "8b542414",
+              "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+            },
+            {
+              "pc": "0x0047f23c",
+              "bytes": "03f2",
+              "instruction": "ADD ESI,EDX"
+            }
+          ],
+          "absolute_address_encoded_in_access": false
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "pc": "0x0047f200",
+          "bytes": "8b442408",
+          "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+        },
+        {
+          "pc": "0x0047f207",
+          "bytes": "8d0cc0",
+          "instruction": "LEA ECX,[EAX + EAX*0x8]"
+        },
+        {
+          "pc": "0x0047f212",
+          "bytes": "8d0448",
+          "instruction": "LEA EAX,[EAX + ECX*0x2]"
+        },
+        {
+          "pc": "0x0047f227",
+          "bytes": "8d1440",
+          "instruction": "LEA EDX,[EAX + EAX*0x2]"
+        },
+        {
+          "pc": "0x0047f22a",
+          "bytes": "a1d8a2bc00",
+          "instruction": "MOV EAX,[0x00bca2d8]"
+        },
+        {
+          "pc": "0x0047f235",
+          "bytes": "8d3490",
+          "instruction": "LEA ESI,[EAX + EDX*0x4]"
+        },
+        {
+          "pc": "0x0047f238",
+          "bytes": "8b542414",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "pc": "0x0047f23c",
+          "bytes": "03f2",
+          "instruction": "ADD ESI,EDX"
+        },
+        {
+          "address": "0047f20a",
+          "bytes": "bb04000000",
+          "instruction": "MOV EBX,0x4"
+        }
+      ],
+      "related_consumer_observations": [],
+      "storage_contract": {
+        "field_base": "0xaf55fc",
+        "qualification": "Standalone scalar/grid/group view; actual element width and additional byte stride are explicit in candidate expression and pinned instructions."
+      },
+      "stride_bound_qualification": "Exact absolute operand observations are listed; interior/overlay fields also require the function-local base/stride instructions in the pinned dossier. This is not a global type claim.",
+      "address_base_value_width_qualification": null,
+      "declaration_unit_is_native_operand_width_claim": false,
+      "qualification": "The C uint32 array preserves native tile*4 indexing. The only source use masks bit4, so upper24 bits are discarded. Native TEST reads the low BYTE at that DWORD address. This is a projection, not a full scalar-width match.",
+      "projection_mask": 4,
+      "array_stride_bytes": 4
+    },
+    {
+      "function": "0x0047f200",
+      "source": "src/unit_01161.c",
+      "source_sha256": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+      "view": "west_flags",
+      "global_address": "0x00af5988",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "low_byte_projection",
+      "source_declaration_lines": [
+        "#define west_flags (*(uint32_t *)0x00af5988u)"
+      ],
+      "source_use_lines": [
+        "if (((&west_flags)[tile_or_x] & 4) != 0) {"
+      ],
+      "explicit_native_access_widths": [
+        1
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0047f2fb",
+          "bytes": "841cb58859af00",
+          "instruction": "TEST byte ptr [ESI*0x4 + 0xaf5988],BL",
+          "native_access_bytes": 1,
+          "indexed": true,
+          "access_role": "view_value",
+          "operand_address": {
+            "base": null,
+            "index": "esi",
+            "scale": 4,
+            "displacement": "0xaf5988"
+          },
+          "address_producer_instructions": [
+            {
+              "pc": "0x0047f200",
+              "bytes": "8b442408",
+              "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+            },
+            {
+              "pc": "0x0047f207",
+              "bytes": "8d0cc0",
+              "instruction": "LEA ECX,[EAX + EAX*0x8]"
+            },
+            {
+              "pc": "0x0047f212",
+              "bytes": "8d0448",
+              "instruction": "LEA EAX,[EAX + ECX*0x2]"
+            },
+            {
+              "pc": "0x0047f227",
+              "bytes": "8d1440",
+              "instruction": "LEA EDX,[EAX + EAX*0x2]"
+            },
+            {
+              "pc": "0x0047f22a",
+              "bytes": "a1d8a2bc00",
+              "instruction": "MOV EAX,[0x00bca2d8]"
+            },
+            {
+              "pc": "0x0047f235",
+              "bytes": "8d3490",
+              "instruction": "LEA ESI,[EAX + EDX*0x4]"
+            },
+            {
+              "pc": "0x0047f238",
+              "bytes": "8b542414",
+              "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+            },
+            {
+              "pc": "0x0047f23c",
+              "bytes": "03f2",
+              "instruction": "ADD ESI,EDX"
+            }
+          ],
+          "absolute_address_encoded_in_access": false
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "pc": "0x0047f200",
+          "bytes": "8b442408",
+          "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+        },
+        {
+          "pc": "0x0047f207",
+          "bytes": "8d0cc0",
+          "instruction": "LEA ECX,[EAX + EAX*0x8]"
+        },
+        {
+          "pc": "0x0047f212",
+          "bytes": "8d0448",
+          "instruction": "LEA EAX,[EAX + ECX*0x2]"
+        },
+        {
+          "pc": "0x0047f227",
+          "bytes": "8d1440",
+          "instruction": "LEA EDX,[EAX + EAX*0x2]"
+        },
+        {
+          "pc": "0x0047f22a",
+          "bytes": "a1d8a2bc00",
+          "instruction": "MOV EAX,[0x00bca2d8]"
+        },
+        {
+          "pc": "0x0047f235",
+          "bytes": "8d3490",
+          "instruction": "LEA ESI,[EAX + EDX*0x4]"
+        },
+        {
+          "pc": "0x0047f238",
+          "bytes": "8b542414",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "pc": "0x0047f23c",
+          "bytes": "03f2",
+          "instruction": "ADD ESI,EDX"
+        },
+        {
+          "address": "0047f20a",
+          "bytes": "bb04000000",
+          "instruction": "MOV EBX,0x4"
+        }
+      ],
+      "related_consumer_observations": [],
+      "storage_contract": {
+        "field_base": "0xaf5988",
+        "qualification": "Standalone scalar/grid/group view; actual element width and additional byte stride are explicit in candidate expression and pinned instructions."
+      },
+      "stride_bound_qualification": "Exact absolute operand observations are listed; interior/overlay fields also require the function-local base/stride instructions in the pinned dossier. This is not a global type claim.",
+      "address_base_value_width_qualification": null,
+      "declaration_unit_is_native_operand_width_claim": false,
+      "qualification": "The C uint32 array preserves native tile*4 indexing. The only source use masks bit4, so upper24 bits are discarded. Native TEST reads the low BYTE at that DWORD address. This is a projection, not a full scalar-width match.",
+      "projection_mask": 4,
+      "array_stride_bytes": 4
+    },
+    {
+      "function": "0x0047f200",
+      "source": "src/unit_01161.c",
+      "source_sha256": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+      "view": "east_flags",
+      "global_address": "0x00af5990",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "low_byte_projection",
+      "source_declaration_lines": [
+        "#define east_flags (*(uint32_t *)0x00af5990u)"
+      ],
+      "source_use_lines": [
+        "else if (((&east_flags)[tile_or_x] & 4) == 0) {"
+      ],
+      "explicit_native_access_widths": [
+        1
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0047f2ab",
+          "bytes": "841cb59059af00",
+          "instruction": "TEST byte ptr [ESI*0x4 + 0xaf5990],BL",
+          "native_access_bytes": 1,
+          "indexed": true,
+          "access_role": "view_value",
+          "operand_address": {
+            "base": null,
+            "index": "esi",
+            "scale": 4,
+            "displacement": "0xaf5990"
+          },
+          "address_producer_instructions": [
+            {
+              "pc": "0x0047f200",
+              "bytes": "8b442408",
+              "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+            },
+            {
+              "pc": "0x0047f207",
+              "bytes": "8d0cc0",
+              "instruction": "LEA ECX,[EAX + EAX*0x8]"
+            },
+            {
+              "pc": "0x0047f212",
+              "bytes": "8d0448",
+              "instruction": "LEA EAX,[EAX + ECX*0x2]"
+            },
+            {
+              "pc": "0x0047f227",
+              "bytes": "8d1440",
+              "instruction": "LEA EDX,[EAX + EAX*0x2]"
+            },
+            {
+              "pc": "0x0047f22a",
+              "bytes": "a1d8a2bc00",
+              "instruction": "MOV EAX,[0x00bca2d8]"
+            },
+            {
+              "pc": "0x0047f235",
+              "bytes": "8d3490",
+              "instruction": "LEA ESI,[EAX + EDX*0x4]"
+            },
+            {
+              "pc": "0x0047f238",
+              "bytes": "8b542414",
+              "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+            },
+            {
+              "pc": "0x0047f23c",
+              "bytes": "03f2",
+              "instruction": "ADD ESI,EDX"
+            }
+          ],
+          "absolute_address_encoded_in_access": false
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "pc": "0x0047f200",
+          "bytes": "8b442408",
+          "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+        },
+        {
+          "pc": "0x0047f207",
+          "bytes": "8d0cc0",
+          "instruction": "LEA ECX,[EAX + EAX*0x8]"
+        },
+        {
+          "pc": "0x0047f212",
+          "bytes": "8d0448",
+          "instruction": "LEA EAX,[EAX + ECX*0x2]"
+        },
+        {
+          "pc": "0x0047f227",
+          "bytes": "8d1440",
+          "instruction": "LEA EDX,[EAX + EAX*0x2]"
+        },
+        {
+          "pc": "0x0047f22a",
+          "bytes": "a1d8a2bc00",
+          "instruction": "MOV EAX,[0x00bca2d8]"
+        },
+        {
+          "pc": "0x0047f235",
+          "bytes": "8d3490",
+          "instruction": "LEA ESI,[EAX + EDX*0x4]"
+        },
+        {
+          "pc": "0x0047f238",
+          "bytes": "8b542414",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "pc": "0x0047f23c",
+          "bytes": "03f2",
+          "instruction": "ADD ESI,EDX"
+        },
+        {
+          "address": "0047f20a",
+          "bytes": "bb04000000",
+          "instruction": "MOV EBX,0x4"
+        }
+      ],
+      "related_consumer_observations": [],
+      "storage_contract": {
+        "field_base": "0xaf5990",
+        "qualification": "Standalone scalar/grid/group view; actual element width and additional byte stride are explicit in candidate expression and pinned instructions."
+      },
+      "stride_bound_qualification": "Exact absolute operand observations are listed; interior/overlay fields also require the function-local base/stride instructions in the pinned dossier. This is not a global type claim.",
+      "address_base_value_width_qualification": null,
+      "declaration_unit_is_native_operand_width_claim": false,
+      "qualification": "The C uint32 array preserves native tile*4 indexing. The only source use masks bit4, so upper24 bits are discarded. Native TEST reads the low BYTE at that DWORD address. This is a projection, not a full scalar-width match.",
+      "projection_mask": 4,
+      "array_stride_bytes": 4
+    },
+    {
+      "function": "0x0047f200",
+      "source": "src/unit_01161.c",
+      "source_sha256": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+      "view": "south_flags",
+      "global_address": "0x00af5d1c",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "low_byte_projection",
+      "source_declaration_lines": [
+        "#define south_flags (*(uint32_t *)0x00af5d1cu)"
+      ],
+      "source_use_lines": [
+        "else if (((&south_flags)[tile_or_x] & 4) == 0) {"
+      ],
+      "explicit_native_access_widths": [
+        1
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0047f2d4",
+          "bytes": "841cb51c5daf00",
+          "instruction": "TEST byte ptr [ESI*0x4 + 0xaf5d1c],BL",
+          "native_access_bytes": 1,
+          "indexed": true,
+          "access_role": "view_value",
+          "operand_address": {
+            "base": null,
+            "index": "esi",
+            "scale": 4,
+            "displacement": "0xaf5d1c"
+          },
+          "address_producer_instructions": [
+            {
+              "pc": "0x0047f200",
+              "bytes": "8b442408",
+              "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+            },
+            {
+              "pc": "0x0047f207",
+              "bytes": "8d0cc0",
+              "instruction": "LEA ECX,[EAX + EAX*0x8]"
+            },
+            {
+              "pc": "0x0047f212",
+              "bytes": "8d0448",
+              "instruction": "LEA EAX,[EAX + ECX*0x2]"
+            },
+            {
+              "pc": "0x0047f227",
+              "bytes": "8d1440",
+              "instruction": "LEA EDX,[EAX + EAX*0x2]"
+            },
+            {
+              "pc": "0x0047f22a",
+              "bytes": "a1d8a2bc00",
+              "instruction": "MOV EAX,[0x00bca2d8]"
+            },
+            {
+              "pc": "0x0047f235",
+              "bytes": "8d3490",
+              "instruction": "LEA ESI,[EAX + EDX*0x4]"
+            },
+            {
+              "pc": "0x0047f238",
+              "bytes": "8b542414",
+              "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+            },
+            {
+              "pc": "0x0047f23c",
+              "bytes": "03f2",
+              "instruction": "ADD ESI,EDX"
+            }
+          ],
+          "absolute_address_encoded_in_access": false
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "pc": "0x0047f200",
+          "bytes": "8b442408",
+          "instruction": "MOV EAX,dword ptr [ESP + 0x8]"
+        },
+        {
+          "pc": "0x0047f207",
+          "bytes": "8d0cc0",
+          "instruction": "LEA ECX,[EAX + EAX*0x8]"
+        },
+        {
+          "pc": "0x0047f212",
+          "bytes": "8d0448",
+          "instruction": "LEA EAX,[EAX + ECX*0x2]"
+        },
+        {
+          "pc": "0x0047f227",
+          "bytes": "8d1440",
+          "instruction": "LEA EDX,[EAX + EAX*0x2]"
+        },
+        {
+          "pc": "0x0047f22a",
+          "bytes": "a1d8a2bc00",
+          "instruction": "MOV EAX,[0x00bca2d8]"
+        },
+        {
+          "pc": "0x0047f235",
+          "bytes": "8d3490",
+          "instruction": "LEA ESI,[EAX + EDX*0x4]"
+        },
+        {
+          "pc": "0x0047f238",
+          "bytes": "8b542414",
+          "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+        },
+        {
+          "pc": "0x0047f23c",
+          "bytes": "03f2",
+          "instruction": "ADD ESI,EDX"
+        },
+        {
+          "address": "0047f20a",
+          "bytes": "bb04000000",
+          "instruction": "MOV EBX,0x4"
+        }
+      ],
+      "related_consumer_observations": [],
+      "storage_contract": {
+        "field_base": "0xaf5d1c",
+        "qualification": "Standalone scalar/grid/group view; actual element width and additional byte stride are explicit in candidate expression and pinned instructions."
+      },
+      "stride_bound_qualification": "Exact absolute operand observations are listed; interior/overlay fields also require the function-local base/stride instructions in the pinned dossier. This is not a global type claim.",
+      "address_base_value_width_qualification": null,
+      "declaration_unit_is_native_operand_width_claim": false,
+      "qualification": "The C uint32 array preserves native tile*4 indexing. The only source use masks bit4, so upper24 bits are discarded. Native TEST reads the low BYTE at that DWORD address. This is a projection, not a full scalar-width match.",
+      "projection_mask": 4,
+      "array_stride_bytes": 4
+    },
+    {
+      "function": "0x0047fb70",
+      "source": "src/unit_01166.c",
+      "source_sha256": "38efe3ebf226e6132a4d4f9e2640157b0daf5b5d017a8beb58464f99f784a7d7",
+      "view": "tile_flags",
+      "global_address": "0x00af598c",
+      "local_type": "uint32_t",
+      "local_unit_bytes": 4,
+      "view_kind": "low_byte_projection",
+      "source_declaration_lines": [
+        "#define tile_flags (*(uint32_t *)0x00af598cu)"
+      ],
+      "source_use_lines": [
+        "if (((&tile_flags)[tile] & 4u) != 0 && direction != 0) {"
+      ],
+      "explicit_native_access_widths": [
+        1
+      ],
+      "matching_native_observations": [
+        {
+          "pc": "0x0047fbb8",
+          "bytes": "f60204",
+          "instruction": "TEST byte ptr [EDX],0x4",
+          "native_access_bytes": 1,
+          "indexed": true,
+          "access_role": "view_value",
+          "operand_address": {
+            "base": "edx",
+            "index": null,
+            "scale": 1,
+            "displacement": "0x0"
+          },
+          "address_producer_instructions": [
+            {
+              "pc": "0x0047fb78",
+              "bytes": "33ed",
+              "instruction": "XOR EBP,EBP"
+            },
+            {
+              "pc": "0x0047fb98",
+              "bytes": "8b14ad0498bc00",
+              "instruction": "MOV EDX,dword ptr [EBP*0x4 + 0xbc9804]"
+            },
+            {
+              "pc": "0x0047fbaf",
+              "bytes": "8d14958c59af00",
+              "instruction": "LEA EDX,[EDX*0x4 + 0xaf598c]"
+            },
+            {
+              "pc": "0x0047fc26",
+              "bytes": "83c204",
+              "instruction": "ADD EDX,0x4"
+            },
+            {
+              "pc": "0x0047fc2d",
+              "bytes": "45",
+              "instruction": "INC EBP"
+            }
+          ],
+          "absolute_address_encoded_in_access": false
+        }
+      ],
+      "address_producer_instructions": [
+        {
+          "pc": "0x0047fb78",
+          "bytes": "33ed",
+          "instruction": "XOR EBP,EBP"
+        },
+        {
+          "pc": "0x0047fb98",
+          "bytes": "8b14ad0498bc00",
+          "instruction": "MOV EDX,dword ptr [EBP*0x4 + 0xbc9804]"
+        },
+        {
+          "pc": "0x0047fbaf",
+          "bytes": "8d14958c59af00",
+          "instruction": "LEA EDX,[EDX*0x4 + 0xaf598c]"
+        },
+        {
+          "pc": "0x0047fc26",
+          "bytes": "83c204",
+          "instruction": "ADD EDX,0x4"
+        },
+        {
+          "pc": "0x0047fc2d",
+          "bytes": "45",
+          "instruction": "INC EBP"
+        }
+      ],
+      "related_consumer_observations": [],
+      "storage_contract": {
+        "field_base": "0xaf598c",
+        "qualification": "Standalone scalar/grid/group view; actual element width and additional byte stride are explicit in candidate expression and pinned instructions."
+      },
+      "stride_bound_qualification": "Exact absolute operand observations are listed; interior/overlay fields also require the function-local base/stride instructions in the pinned dossier. This is not a global type claim.",
+      "address_base_value_width_qualification": null,
+      "declaration_unit_is_native_operand_width_claim": false,
+      "qualification": "The C uint32 array preserves native tile*4 indexing. The only source use masks bit4, so upper24 bits are discarded. Native TEST reads the low BYTE at that DWORD address. This is a projection, not a full scalar-width match.",
+      "projection_mask": 4,
+      "array_stride_bytes": 4
+    }
+  ],
+  "projection_mask": 4,
+  "array_stride_bytes": 4,
+  "C_or_image_changes": false,
+  "complete_behavior_proved": false
+}

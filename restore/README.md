@@ -1,5 +1,14 @@
 # Pharaoh restore
 
+Latest city/grid checkpoint: 22 existing generated functions now use typed C
+with native inputs and address units. 64 scenarios at 25 entries passed 212 actual
+invocations. The 100-entry cohort remains frozen with 35 direct entries pending.
+See [the bounded comparison](metadata/cohort8-city25-native-C-checkpoint.json).
+
+See [what progress counts mean](PROGRESS.md) for the distinction between
+source coverage, structural C classification and verified behavior. No overall
+completion percentage has been established.
+
 The current connected city, draw and monument-worker batch repairs341 original
 C owners /27,417 static native instructions. Its controller, initializer, widget
 groups and worker selection use explicit widths, child contracts and returns.

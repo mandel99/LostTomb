@@ -1,78 +1,48 @@
-#include "restore_types.h"
-#define DAT_0078d788 (*(undefined *)0x0078d788u)
-#define DAT_0078d790 (*(int32_t *)0x0078d790u)
-#define DAT_007900bc (*(undefined4 *)0x007900bcu)
-#define DAT_007900c0 (*(undefined4 *)0x007900c0u)
-#define DAT_00790180 (*(undefined4 *)0x00790180u)
-#define DAT_00790184 (*(undefined4 *)0x00790184u)
-#define DAT_00799af0 (*(undefined4 *)0x00799af0u)
-extern int FUN_0046b100();
+#include <stdint.h>
+#include <stdbool.h>
+
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define building_bound (*(int32_t *)0x0078d790u)
+#define highest_group (*(int32_t *)0x0078d788u)
+#define building_active (*(uint8_t *)0x007999d8u)
+#define building_kind (*(int16_t *)0x007999e8u)
+#define building_group (*(uint8_t *)0x00799a99u)
+#define group_clear_links (*(uint16_t *)0x00790180u)
+#define group_used (*(uint8_t *)0x007900c0u)
+#define group_links (*(uint16_t *)0x007900bcu)
+#define group_scan_flags (*(uint8_t *)0x00790184u)
+
+extern uint8_t FUN_0046b100(int32_t building);
 
 void FUN_0046b320(void)
-
 {
-  byte bVar1;
-  short sVar2;
-  undefined1 uVar3;
-  undefined2 *puVar4;
-  char *pcVar5;
-  short *psVar6;
-  int iVar7;
-  int iVar8;
-  
-  puVar4 = &DAT_00790180;
-  do {
-    *puVar4 = 0;
-    iVar7 = DAT_0078d790;
-    puVar4 = puVar4 + 0x62;
-  } while ((int)puVar4 < 0x7999dc);
-  if (0 < DAT_0078d790) {
-    psVar6 = &DAT_00799af0;
-    iVar8 = DAT_0078d790;
-    do {
-      if (((char)psVar6[-8] != '\0') &&
-         (((((sVar2 = *psVar6, sVar2 == 0x47 || (sVar2 == 0x48)) || (sVar2 == 0x46)) ||
-           (((sVar2 == 0xbf || (sVar2 == 0xc1)) || (sVar2 == 0xbe)))) &&
-          (*(byte *)((int)psVar6 + 0xb1) != 0)))) {
-        (&DAT_007900c0)[(uint)*(byte *)((int)psVar6 + 0xb1) * 0xc4] = 1;
-      }
-      psVar6 = psVar6 + 0x84;
-      iVar8 = iVar8 + -1;
-    } while (iVar8 != 0);
-  }
-  iVar8 = 1;
-  if (0 < iVar7) {
-    psVar6 = &DAT_00799af0;
-    do {
-      if (((char)psVar6[-8] != '\0') &&
-         (((sVar2 = *psVar6, sVar2 == 0x47 || (sVar2 == 0x48)) ||
-          ((sVar2 == 0x46 || (((sVar2 == 0xbf || (sVar2 == 0xc1)) || (sVar2 == 0xbe)))))))) {
-        bVar1 = *(byte *)((int)psVar6 + 0xb1);
-        if (bVar1 == 0) {
-          uVar3 = FUN_0046b100(iVar8);
-          *(undefined1 *)((int)psVar6 + 0xb1) = uVar3;
-        }
-        else if (*(short *)(&DAT_007900bc + (uint)bVar1 * 0x31) == 0) {
-          *(short *)(&DAT_007900bc + (uint)bVar1 * 0x31) = (short)iVar8;
-        }
-        else {
-          uVar3 = FUN_0046b100(iVar8);
-          *(undefined1 *)((int)psVar6 + 0xb1) = uVar3;
-        }
-      }
-      iVar8 = iVar8 + 1;
-      psVar6 = psVar6 + 0x84;
-    } while (iVar8 <= DAT_0078d790);
-  }
-  DAT_0078d788 = 0;
-  iVar7 = 1;
-  pcVar5 = &DAT_00790184;
-  do {
-    if (*pcVar5 != '\0') {
-      DAT_0078d788 = iVar7;
+    uint16_t *clear = &group_clear_links;
+    int32_t initial_bound;
+    do { *clear = 0; initial_bound = building_bound; clear += 98; }
+    while ((uintptr_t)clear < 0x7999dcu);
+    for (int32_t building = 1; building <= initial_bound; ++building) {
+        uint32_t offset = (uint32_t)building * 264u;
+        int16_t kind = (&building_kind)[(uint32_t)building * 132u];
+        uint8_t group = (&building_group)[offset];
+        if ((&building_active)[offset] != 0 &&
+            (kind == 0x47 || kind == 0x48 || kind == 0x46 || kind == 0xbf || kind == 0xc1 || kind == 0xbe) && group != 0)
+            (&group_used)[(uint32_t)group * 196u] = 1;
     }
-    pcVar5 = pcVar5 + 0xc4;
-    iVar7 = iVar7 + 1;
-  } while ((int)pcVar5 < 0x7999e0);
-  return;
+    for (int32_t building = 1; building <= building_bound; ++building) {
+        uint32_t offset = (uint32_t)building * 264u;
+        int16_t kind = (&building_kind)[(uint32_t)building * 132u];
+        if ((&building_active)[offset] != 0 &&
+            (kind == 0x47 || kind == 0x48 || kind == 0x46 || kind == 0xbf || kind == 0xc1 || kind == 0xbe)) {
+            uint8_t group = (&building_group)[offset];
+            if (group == 0) (&building_group)[offset] = FUN_0046b100(building);
+            else if ((&group_links)[(uint32_t)group * 98u] == 0)
+                (&group_links)[(uint32_t)group * 98u] = (uint16_t)building;
+            else (&building_group)[offset] = FUN_0046b100(building);
+        }
+    }
+    highest_group = 0;
+    int32_t group = 1;
+    uint8_t *used = &group_scan_flags;
+    do { if (*used != 0) highest_group = group; used += 196; ++group; }
+    while ((uintptr_t)used < 0x7999e0u);
 }

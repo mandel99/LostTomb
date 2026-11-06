@@ -1,61 +1,40 @@
-#include "restore_types.h"
-#define DAT_0078d790 (*(int32_t *)0x0078d790u)
-#define DAT_00799baa (*(undefined4 *)0x00799baau)
-#define DAT_00eaaf68 (*(undefined4 *)0x00eaaf68u)
-#define DAT_00eab044 (*(undefined4 *)0x00eab044u)
-#define DAT_00eab124 (*(undefined4 *)0x00eab124u)
-extern int FUN_0046efd0();
+#include <stdint.h>
+#include <stdbool.h>
+
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define building_bound (*(int32_t *)0x0078d790u)
+#define building_active (*(uint8_t *)0x007999d8u)
+#define building_kind (*(int16_t *)0x007999e8u)
+#define building_dock (*(uint8_t *)0x00799aa2u)
+#define dock_clear_links (*(uint32_t *)0x00eab124u)
+#define dock_used (*(uint32_t *)0x00eaaf68u)
+#define dock_links (*(uint32_t *)0x00eab044u)
+
+extern uint8_t FUN_0046efd0(int32_t building);
 
 void FUN_0046f030(void)
-
 {
-  byte bVar1;
-  undefined4 *puVar2;
-  byte *pbVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  
-  puVar2 = &DAT_00eab124;
-  do {
-    *puVar2 = 0;
-    iVar4 = DAT_0078d790;
-    puVar2 = puVar2 + 0x38;
-  } while ((int)puVar2 < 0xeadc04);
-  iVar6 = 1;
-  if (0 < DAT_0078d790) {
-    pbVar3 = &DAT_00799baa;
-    iVar5 = DAT_0078d790;
-    do {
-      if (((pbVar3[-0xca] != 0) && (*(short *)(pbVar3 + -0xba) == 0x88)) && (*pbVar3 != 0)) {
-        (&DAT_00eaaf68)[(uint)*pbVar3 * 0x38] = 1;
-      }
-      pbVar3 = pbVar3 + 0x108;
-      iVar5 = iVar5 + -1;
-    } while (iVar5 != 0);
-    if (0 < iVar4) {
-      pbVar3 = &DAT_00799baa;
-      do {
-        if ((pbVar3[-0xca] != 0) && (*(short *)(pbVar3 + -0xba) == 0x88)) {
-          if (*pbVar3 == 0) {
-            bVar1 = FUN_0046efd0(iVar6);
-            *pbVar3 = bVar1;
-          }
-          else {
-            iVar4 = (uint)*pbVar3 * 0xe0;
-            if (*(int *)(&DAT_00eab044 + iVar4) == 0) {
-              *(int *)(&DAT_00eab044 + iVar4) = iVar6;
-            }
-            else {
-              bVar1 = FUN_0046efd0(iVar6);
-              *pbVar3 = bVar1;
-            }
-          }
-        }
-        iVar6 = iVar6 + 1;
-        pbVar3 = pbVar3 + 0x108;
-      } while (iVar6 <= DAT_0078d790);
+    uint32_t *clear = &dock_clear_links;
+    int32_t initial_bound;
+    do { *clear = 0; initial_bound = building_bound; clear += 56; }
+    while ((uintptr_t)clear < 0xeadc04u);
+    int32_t initial_scan_bound = building_bound;
+    for (int32_t building = 1; building <= initial_scan_bound; ++building) {
+        uint32_t offset = (uint32_t)building * 264u;
+        uint8_t group = (&building_dock)[offset];
+        if ((&building_active)[offset] != 0 && (&building_kind)[(uint32_t)building * 132u] == 0x88 && group != 0)
+            (&dock_used)[(uint32_t)group * 56u] = 1;
     }
-  }
-  return;
+    if (initial_scan_bound > 0 && initial_bound > 0) {
+        for (int32_t building = 1; building <= building_bound; ++building) {
+            uint32_t offset = (uint32_t)building * 264u;
+            if ((&building_active)[offset] != 0 && (&building_kind)[(uint32_t)building * 132u] == 0x88) {
+                uint8_t group = (&building_dock)[offset];
+                if (group == 0) (&building_dock)[offset] = FUN_0046efd0(building);
+                else if ((&dock_links)[(uint32_t)group * 56u] == 0)
+                    (&dock_links)[(uint32_t)group * 56u] = (uint32_t)building;
+                else (&building_dock)[offset] = FUN_0046efd0(building);
+            }
+        }
+    }
 }

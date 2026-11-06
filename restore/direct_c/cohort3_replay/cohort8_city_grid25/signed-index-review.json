@@ -1,0 +1,90 @@
+{
+  "scope": "Only analogous unsigned index/counter relational comparisons in the19 handed-off candidates; no broad rereview, source change, build or execution.",
+  "handed_off_manifest_sha256": "748245cdb1e66402ab2914ecf66949c4af05bf90c04b02dbb4bfbdf11ac5b52e",
+  "native_evidence_sha256": "cbadf81e34e99ab5796fd96020f96be669762a1fed96d53ff6b7fadcd8048548",
+  "necessary_corrections": [
+    {
+      "source": "src/unit_00188.c",
+      "candidate": "../cohort8-city-grid-candidates/candidates/unit_00188.c",
+      "candidate_sha256": "e3e0065b8ce2e730df462446f1ce86b18b9136b78550ce4b0ecf9cff45d7f143",
+      "before": "if (selected_formation > 6) selected_formation = 1;",
+      "after": "if ((int32_t)selected_formation > 6) selected_formation = 1;",
+      "native_proof": [
+        {
+          "address": "00416a47",
+          "bytes": "41",
+          "instruction": "INC ECX"
+        },
+        {
+          "address": "00416a48",
+          "bytes": "83f906",
+          "instruction": "CMP ECX,0x6"
+        },
+        {
+          "address": "00416a4b",
+          "bytes": "7e02",
+          "instruction": "JLE 0x00416a4f"
+        },
+        {
+          "address": "00416a4d",
+          "bytes": "8bcb",
+          "instruction": "MOV ECX,EBX"
+        }
+      ],
+      "derivation": "INC ECX wraps32; CMP ECX,6 followed by signed JLE retains every signed value<=6, including high-bit values. Keep uint32 storage/increment for defined wrapping, reinterpret as int32 only at the branch. Existing later chosen>0 branch already explicitly casts int32."
+    }
+  ],
+  "other_relational_unsigned_sites": [
+    {
+      "source": "src/unit_00665.c",
+      "qualification": "flags_or_rng entrance wrap uses (int32_t); remaining_or_selected_x positive/loop comparisons explicitly cast int32; source_row_count/entry_width/entry_height/rng_history_index are already int32 views. No additional correction."
+    },
+    {
+      "sources": [
+        "src/unit_00962.c",
+        "src/unit_00968.c",
+        "src/unit_01003.c"
+      ],
+      "qualification": "New offsets are used for addressing/equality only. Building loop bounds remain int32. uintptr_t clear/scan end comparisons cover fixed positive native address intervals wholly below0x80000000, so signed/unsigned comparisons are equivalent on these constructed intervals."
+    },
+    {
+      "source": "src/unit_01042.c",
+      "qualification": "Sprite range casts sprite/base to int32, including explicit int32 interpretation after low32 base+7. Signed native range remains signed."
+    },
+    {
+      "source": "src/unit_01135.c",
+      "qualification": "kind<=5 consumes masked BYTE0..15, so integer-promotion signedness cannot change branch. Rotation is int32."
+    },
+    {
+      "source": "src/unit_02139.c",
+      "qualification": "New uint32 corner iterators are constructed0 and incremented only until4; signed/unsigned loop comparisons are identical. stage is BYTE0..255; stage+1 is1..256, so signed/unsigned comparison with12 is identical. Stage thresholds consume BYTE values."
+    },
+    {
+      "qualification": "Remaining candidate unsigned values participate only in bitwise operations, equality, address arithmetic, or are explicitly converted to int32 before relational comparison. Existing signed scalar/WORD loop and delay predicates remain signed."
+    }
+  ],
+  "checked_candidate_sha256": {
+    "unit_00188.c": "e3e0065b8ce2e730df462446f1ce86b18b9136b78550ce4b0ecf9cff45d7f143",
+    "unit_00665.c": "451918700c1d024959b25acf9d989f172db4250550ff7beabc56885eb659641f",
+    "unit_00923.c": "5b2efe9fd731f137e95a3b8502b169fb06b13ed60a5956e9676b2c9c47f2f733",
+    "unit_00962.c": "7fb58cc69008b83875f3802d8290b08c994ae31bca75e0d85ae88495368e035a",
+    "unit_00968.c": "4c0557c1ea65d35b8aa84f6e35515cbd8a20a9559029b5597d424577570573ff",
+    "unit_01003.c": "a25fe52ea7483e5b8d9c67209f24d0c83c382bc5a8218b2c64095ea75e7e352f",
+    "unit_01042.c": "968f92024e3feb058de249a4cd70b474f522f449d83c26985851c93f2c6296eb",
+    "unit_01135.c": "df83987ff932905497cd139da356c15189b70e0f436c0f6447437cfd921d964a",
+    "unit_01161.c": "15778eb031f1add59a92eb8e39506314ee6ab48b2db71dc7bea6123f9ad49c91",
+    "unit_01166.c": "38efe3ebf226e6132a4d4f9e2640157b0daf5b5d017a8beb58464f99f784a7d7",
+    "unit_01167.c": "32779112ba1c68caf6777030f39943d555df702272838ad950ea939fbca0093b",
+    "unit_01353.c": "5d571d84201c66f99e13f7be70c570032c9d9e7dda7f1deda9b8981a31de7259",
+    "unit_01362.c": "870e16c994e3a791460aed4b804f8192b410c18d30cebc91d08d06fe4ed7b203",
+    "unit_01889.c": "803805abf2ed76c1617a20cc1b06d928a6d058d4aea5fe2317b8dd73e43178f6",
+    "unit_02011.c": "c31e0e59dcb3a46aa212a32605b7be488291a3f10f0254e9a389182cca0976be",
+    "unit_02076.c": "01927368429f2fddd09876cf94bd9f30bef4cd95bdc4a3a216d750d09acc1638",
+    "unit_02139.c": "f2aeca2e3981b71eda8bf269826999eca6a22e7edda1cdb32a2e67a8c05e62d0",
+    "unit_02147.c": "4905ee9d417068137d98c6d463300485ee1fe7c8ba1fa374fcc3ff5a93116e34",
+    "unit_02149.c": "3cdc9bec2053221ce9863873d0300b7254e095cdf3abccb7accb8e5932398ccc"
+  },
+  "files_modified": [],
+  "compile_run": false,
+  "emulation_run": false
+}

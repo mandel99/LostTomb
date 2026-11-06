@@ -1,62 +1,38 @@
-#include "restore_types.h"
-#define DAT_005e2950 (*(undefined4 *)0x005e2950u)
-#define DAT_005e2954 (*(undefined4 *)0x005e2954u)
-#define DAT_00af598c (*(undefined4 *)0x00af598cu)
-#define DAT_00b285cc (*(undefined4 *)0x00b285ccu)
-#define DAT_00bca2d0 (*(int32_t *)0x00bca2d0u)
-#define DAT_00bca2d4 (*(int32_t *)0x00bca2d4u)
-#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
-#define DAT_00bca2dc (*(undefined *)0x00bca2dcu)
-#define DAT_00e94dd4 (*(undefined4 *)0x00e94dd4u)
-#define DAT_00e94dd8 (*(undefined4 *)0x00e94dd8u)
+#include <stdint.h>
+#include <stdbool.h>
 
-void FUN_004de200(int param_1)
+/* Native-address local views. Indices below are in the declared C element unit. */
+#define city_width (*(int32_t *)0x00bca2d0u)
+#define city_height (*(int32_t *)0x00bca2d4u)
+#define city_origin (*(uint32_t *)0x00bca2d8u)
+#define row_skip (*(int32_t *)0x00bca2dcu)
+#define mask_buffer (*(uint32_t *)0x00e94dd4u)
+#define mask_buffer_offset (*(uint32_t *)0x00e94dd8u)
+#define mask_x (*(int32_t *)0x005e2950u)
+#define mask_y (*(int32_t *)0x005e2954u)
+#define tile_flags (*(uint32_t *)0x00af598cu)
+#define tile_terrain (*(uint8_t *)0x00b285ccu)
 
+void FUN_004de200(int32_t mask_index)
 {
-  char cVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  int iVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  
-  iVar2 = DAT_00bca2d0;
-  if (0 < DAT_00bca2d4) {
-    iVar6 = DAT_00e94dd4 + *(int *)(&DAT_005e2954 + param_1 * 8) * 1000 + DAT_00e94dd8 +
-            *(int *)(&DAT_005e2950 + param_1 * 8);
-    iVar5 = DAT_00bca2d4;
-    iVar7 = DAT_00bca2d8;
-    do {
-      iVar4 = 0;
-      if (0 < iVar2) {
-        puVar3 = &DAT_00af598c + iVar7;
+    int32_t width = city_width;
+    if (city_height > 0) {
+        uint32_t source = mask_buffer + (uint32_t)(&mask_y)[(uint32_t)mask_index * 2u] * 1000u
+            + mask_buffer_offset + (uint32_t)(&mask_x)[(uint32_t)mask_index * 2u];
+        int32_t rows = city_height;
+        uint32_t tile = city_origin;
         do {
-          cVar1 = *(char *)(iVar6 + iVar4);
-          if (cVar1 == '\x10') {
-            *puVar3 = 2;
-          }
-          else if (cVar1 == '\v') {
-            *puVar3 = 1;
-          }
-          else if (cVar1 == '\x04') {
-            *puVar3 = 4;
-          }
-          else if (cVar1 == '\b') {
-            *puVar3 = 0x40;
-          }
-          else if (cVar1 == '\x03') {
-            (&DAT_00b285cc)[iVar7] = (&DAT_00b285cc)[iVar7] | 0x20;
-          }
-          iVar4 = iVar4 + 1;
-          iVar7 = iVar7 + 1;
-          puVar3 = puVar3 + 1;
-        } while (iVar4 < iVar2);
-      }
-      iVar6 = iVar6 + 1000;
-      iVar7 = iVar7 + DAT_00bca2dc;
-      iVar5 = iVar5 + -1;
-    } while (iVar5 != 0);
-  }
-  return;
+            for (int32_t x = 0; x < width; ++x) {
+                uint8_t value = *(uint8_t *)(uintptr_t)(source + (uint32_t)x);
+                if (value == 16) (&tile_flags)[tile] = 2;
+                else if (value == 11) (&tile_flags)[tile] = 1;
+                else if (value == 4) (&tile_flags)[tile] = 4;
+                else if (value == 8) (&tile_flags)[tile] = 0x40;
+                else if (value == 3) (&tile_terrain)[tile] |= 0x20u;
+                ++tile;
+            }
+            source += 1000u;
+            tile += (uint32_t)row_skip;
+        } while (--rows != 0);
+    }
 }

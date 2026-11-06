@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-11-06T20:52:38.725997+00:00",
+  "catalogued_functions": 4402,
+  "linked_catalogued_functions": 3765,
+  "status_counts": {
+    "ordinary_c_structure": 1317,
+    "assembly_boundary": 232,
+    "canonical_definition_unknown": 270,
+    "generated_decompiler_source": 1624,
+    "decompiler_style_or_unresolved": 714,
+    "instruction_model_or_frame_bridge": 194,
+    "provider_definition_unknown": 51
+  },
+  "ordinary_C_percent_of_catalogue": 29.92,
+  "compiler_unwind_functions": 1372,
+  "non_unwind_functions": 3030,
+  "non_unwind_status_counts": {
+    "ordinary_c_structure": 1314,
+    "assembly_boundary": 197,
+    "canonical_definition_unknown": 266,
+    "generated_decompiler_source": 294,
+    "decompiler_style_or_unresolved": 714,
+    "instruction_model_or_frame_bridge": 194,
+    "provider_definition_unknown": 51
+  },
+  "ordinary_C_percent_without_unwind": 43.37,
+  "manifest_sha256": "9aa8a42980391796e66d77f9e6c6d3aa00e4828840c70f1fcc8afd506278e683",
+  "tool_sha256": "54b2a0fd0893df64ff373fcc95f5e4d80e719f7fd352bf6cfc94f12ac3cdfcf7",
+  "source_snapshot_sha256": "ca13e42da263b624f49fa611750237783f13f6053a85d77cef12a0dcff4e8bd5",
+  "map_sha256": "bd92daa36d658661fec8b0de75d53e74a108f7e24d6fa0e353f9475823654f63",
+  "native_catalogue_sha256": "dc32099e257fe3dc38281ed74e2de14012f06481b771a99d18b849df38ef313c",
+  "limitations": [
+    "Structural classification only; ordinary C is not proof of correctness, completeness, native equivalence or current validation.",
+    "Counts original catalogue entries once; shared helpers, duplicate model copies and added runtime helpers do not inflate the denominator.",
+    "Resolve the canonical link object and its own body/providers. Calls to other original FUN_* entries are not treated as proof of their algorithms.",
+    "Unknown/macro-generated providers and canonical definitions are separate. Original CRT/runtime entries remain in the catalogue.",
+    "Generated sources that still include restore_types.h are not counted as reconstructed ordinary C, even if a tiny body is syntactically simple.",
+    "An absent canonical MAP symbol does not mean the algorithm is missing: unused entries or renamed providers can be omitted. Those rows fall back to their manifest/unique source definition."
+  ],
+  "schema": "reconstruction-structural-snapshot-v1",
+  "source_checkpoint": "46dbf8e8d2a39be865b0a7087a42ba301264afe0",
+  "tool": "tools/count_reconstruction.py",
+  "basis": "4402 original manifest functions; discovered entries outside that manifest are not counted.",
+  "completion_percentage": null,
+  "behavior_equivalence_proved": false
+}
