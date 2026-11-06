@@ -1,83 +1,65 @@
-#include "restore_types.h"
-#define DAT_00604e78 (*(undefined *)0x00604e78u)
-#define DAT_00604e7c (*(undefined *)0x00604e7cu)
-#define DAT_00604e80 (*(undefined *)0x00604e80u)
-extern void FUN_00566bae();
-extern bool FUN_00566e21();
-extern undefined * FUN_0056710d();
-
-int * FUN_00562644(int *param_1)
-
+#include "crt_calendar.h"
+#include "crt_eh3_frames.h"
+static void prepare_local_time(void *frame,const volatile uint32_t *arguments,uint32_t saved_sp)
+{(void)frame;(void)arguments;(void)saved_sp;}
+static RestoreCrtTm *run_local_time(void *frame,const volatile uint32_t *arguments,
+ uint32_t parent_frame,uint32_t recovered)
 {
-  int *piVar1;
-  int iVar2;
-  int iVar3;
-  
-  piVar1 = param_1;
-  if (*param_1 < 0) {
-    piVar1 = (int *)0x0;
+ volatile const int32_t *input=(volatile const int32_t *)(uintptr_t)arguments[0];
+ volatile uint32_t *scratch=(volatile uint32_t *)arguments;
+ RestoreCrtTm *time;
+ int32_t seconds,value,remainder,days;
+ (void)frame;(void)parent_frame;(void)recovered;
+ if(*input<0)return 0;
+ FUN_00566bae();
+ seconds=*input;
+ if(seconds>0x3f480 && seconds<0x7ffc0b7f){
+  *scratch=(uint32_t)seconds-RESTORE_CRT_TIMEZONE_SECONDS;
+  time=(RestoreCrtTm *)FUN_0056710d((int32_t *)scratch);
+  if(RESTORE_CRT_DAYLIGHT!=0 && FUN_00566e21(time)!=0){
+   *scratch=*scratch-RESTORE_CRT_DAYLIGHT_SECONDS;
+   time=(RestoreCrtTm *)FUN_0056710d((int32_t *)scratch);
+   time->daylight=1;
   }
-  else {
-    FUN_00566bae();
-    iVar2 = *piVar1;
-    if ((iVar2 < 0x3f481) || (0x7ffc0b7e < iVar2)) {
-      piVar1 = (int *)FUN_0056710d(piVar1);
-      iVar3 = FUN_00566e21(piVar1);
-      iVar2 = *piVar1;
-      if (iVar3 != 0) {
-        iVar2 = iVar2 - DAT_00604e80;
-      }
-      param_1 = (int *)(iVar2 - DAT_00604e78);
-      iVar2 = (int)param_1 % 0x3c;
-      *piVar1 = iVar2;
-      if (iVar2 < 0) {
-        *piVar1 = iVar2 + 0x3c;
-        param_1 = (int *)((int)param_1 + -0x3c);
-      }
-      param_1 = (int *)((int)param_1 / 0x3c + piVar1[1]);
-      iVar2 = (int)param_1 % 0x3c;
-      piVar1[1] = iVar2;
-      if (iVar2 < 0) {
-        piVar1[1] = iVar2 + 0x3c;
-        param_1 = (int *)((int)param_1 + -0x3c);
-      }
-      param_1 = (int *)((int)param_1 / 0x3c + piVar1[2]);
-      iVar2 = (int)param_1 % 0x18;
-      piVar1[2] = iVar2;
-      if (iVar2 < 0) {
-        piVar1[2] = iVar2 + 0x18;
-        param_1 = (int *)((int)param_1 + -0x18);
-      }
-      iVar2 = (int)param_1 / 0x18;
-      if (iVar2 < 1) {
-        if (-1 < iVar2) {
-          return piVar1;
-        }
-        piVar1[6] = (piVar1[6] + 7 + iVar2) % 7;
-        piVar1[3] = piVar1[3] + iVar2;
-        if (piVar1[3] < 1) {
-          piVar1[5] = piVar1[5] + -1;
-          piVar1[3] = piVar1[3] + 0x1f;
-          piVar1[7] = 0x16c;
-          piVar1[4] = 0xb;
-          return piVar1;
-        }
-      }
-      else {
-        piVar1[6] = (piVar1[6] + iVar2) % 7;
-        piVar1[3] = piVar1[3] + iVar2;
-      }
-      piVar1[7] = piVar1[7] + iVar2;
-    }
-    else {
-      param_1 = (int *)(iVar2 - DAT_00604e78);
-      piVar1 = (int *)FUN_0056710d(&param_1);
-      if ((DAT_00604e7c != 0) && (iVar2 = FUN_00566e21(piVar1), iVar2 != 0)) {
-        param_1 = (int *)((int)param_1 - DAT_00604e80);
-        piVar1 = (int *)FUN_0056710d(&param_1);
-        piVar1[8] = 1;
-      }
-    }
+  return time;
+ }
+ time=(RestoreCrtTm *)FUN_0056710d((int32_t *)input);
+ {
+  uint32_t daylight=FUN_00566e21(time);
+  value=time->second;
+  if(daylight!=0)value=(int32_t)((uint32_t)value-RESTORE_CRT_DAYLIGHT_SECONDS);
+ }
+ *scratch=(uint32_t)value-RESTORE_CRT_TIMEZONE_SECONDS;
+ value=(int32_t)*scratch;
+ remainder=value%60;time->second=remainder;
+ if(remainder<0){time->second=remainder+60;*scratch=*scratch-60u;}
+ *scratch=(uint32_t)((int32_t)*scratch/60)+(uint32_t)time->minute;
+ value=(int32_t)*scratch;remainder=value%60;time->minute=remainder;
+ if(remainder<0){time->minute=remainder+60;*scratch=*scratch-60u;}
+ *scratch=(uint32_t)((int32_t)*scratch/60)+(uint32_t)time->hour;
+ value=(int32_t)*scratch;remainder=value%24;time->hour=remainder;
+ if(remainder<0){time->hour=remainder+24;*scratch=*scratch-24u;}
+ days=(int32_t)*scratch/24;*scratch=(uint32_t)days;
+ if(days>0){
+  time->weekday=restore_crt_calendar_add32(time->weekday,days)%7;
+  time->day=restore_crt_calendar_add32(time->day,days);
+ }else if(days<0){
+  time->weekday=restore_crt_calendar_add32(restore_crt_calendar_add32(time->weekday,7),days)%7;
+  time->day=restore_crt_calendar_add32(time->day,days);
+  if(time->day<=0){
+   int32_t previous_day=restore_crt_calendar_add32(time->day,31);
+   time->year=restore_crt_calendar_sub32(time->year,1);
+   time->day=previous_day;
+   time->yearday=364;time->month=11;return time;
   }
-  return piVar1;
+ }else return time;
+ time->yearday=restore_crt_calendar_add32(time->yearday,days);
+ return time;
 }
+RESTORE_EH3_PARENT(restore_crt_local_time,RestoreCrtTm *,
+ (const int32_t *seconds),0,prepare_local_time,run_local_time)
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) RestoreCrtTm *FUN_00562644(int32_t *seconds)
+{__asm jmp restore_crt_local_time}
+#pragma warning(pop)

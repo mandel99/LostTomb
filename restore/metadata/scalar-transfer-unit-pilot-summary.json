@@ -1,0 +1,29 @@
+{
+  "schema": "scalar-transfer-unit-pilot-summary-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "script": {
+    "path": "tools/scan_scalar_units.py",
+    "sha256": "b171133e70e203fbc4db88e97bed01b94d65f44fd4e957795fc33ae9e7d78bdc"
+  },
+  "report": {
+    "path": "build/bulk-reconstruction/cohort7-scalar-unit-pilot-final.json",
+    "sha256": "ba4adb351639f3487eb3b0446b022eac310cda0a55966b35fad16aa7eca8cd94"
+  },
+  "source_snapshot": "cohort7_source37; four calendar owners explicitly excluded",
+  "reviewed_flat_functions": 298,
+  "candidate_functions": 99,
+  "candidate_fields": 132,
+  "rules": [
+    "Exact current source hash and unique C owner",
+    "Complete contiguous cache bytes match pinned PE",
+    "Only narrow undefined/undefined1 scalar macros with literal assignment/equality/self+1 uses",
+    "Every direct native field transfer is DWORD with no address escape/indexed view/overlap",
+    "Unbound/native-stack models excluded"
+  ],
+  "source_replacements_emitted": 0,
+  "source_installation": false,
+  "selected_cohort_entries_added": 0,
+  "meaning": "Native transfer-unit review leads only; later masks, logical signedness, caller ABI and complete behavior need owner review. These counts are not missing-function counts.",
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

@@ -2636,3 +2636,13 @@ foreach(_crt_env_target IN ITEMS restore_link_check restore_game restore_cohort3
 endforeach()
 unset(_crt_env_target)
 unset(_crt_env_symbol)
+
+# Calendar consumers preserve native tm fields, month strides and stack aliases.
+set_source_files_properties(src/unit_02833.c src/unit_02926.c src/unit_02927.c src/unit_02929.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_crt_calendar_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_crt_calendar_symbol IN ITEMS FUN_00562644 FUN_00566e21 FUN_00566fcd FUN_00567206 restore_crt_local_time restore_crt_is_daylight restore_crt_build_dst_transition restore_crt_make_time)
+  target_link_options(${_crt_calendar_target} PRIVATE "/INCLUDE:_${_crt_calendar_symbol}")
+ endforeach()
+endforeach()
+unset(_crt_calendar_target)
+unset(_crt_calendar_symbol)

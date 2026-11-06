@@ -1,0 +1,87 @@
+{
+  "schema": "cohort7-necessary-calendar-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 382,
+  "current_cohort_source_entries": 41,
+  "entries_compared": 4,
+  "cases": 18,
+  "invocations": 126,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-calendar-ABI-runs/20261106-051119-575191/result.json",
+    "sha256": "abf68ced618e30a26638c7750743f4227da14f0b7b4aed71837e9f72d9763be3"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-calendar-ABI-runs/20261106-051119-575191/binding.json",
+    "sha256": "f56e2f605f5126ab6852aeecb15b8540d0dd381fd349d79364505e4565d3ee96"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-calendar-ABI-runs/20261106-051119-575191/case-inputs.json",
+    "sha256": "3bde5c9c2524c069229674b5675f12b502608345bdfd7efa48cda071e37edcc3"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "673c2ab4d18ed820edce6c5aa78c1ceac8e9ca799386f8f63c3bf00f0d193a52",
+      "map_sha256": "dcd9b379fa9a6c04f4787f1c5efff250450a6d2ba8797a6817a518e2f0c1b00a"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "6980762e444d3f6455c8697bde856488935eb99029ea37b5408430260983b40a",
+      "map_sha256": "00e35f95e51e7aa4b29ee4244a656faa9657cdec022e3684f883a7388640790e"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "003bc07082bb34ba1b9ebc982eb7a46e96785da7d31ecffbea32a646fbfffd27",
+      "map_sha256": "5824091bca2d1131d74ba2481cb564f15181c2fc0f5ec28c16d3658df6bab915"
+    }
+  },
+  "source_hashes": {
+    "include/crt_calendar.h": "b45b398e3bef190eb3d113038bb50d78abdf2f3a132d1a409452af4039bbaea8",
+    "include/crt_eh3_frames.h": "262d6c34e5762f59351afcd0553ebd5119c8dc6adafede7964fb8762739510a4",
+    "src/unit_02833.c": "607cd1f31551186446432676c56201aff43230c5765813b84b1ea29eaff64e82",
+    "src/unit_02926.c": "b1b1de51625151b0faa08938be2f23ea474c8609c4deb9f2663f23765a000269",
+    "src/unit_02927.c": "9a7b0b0b7b3e758571aa224d470d71ca13d3e76181b4c9de54731afc3ba474e4",
+    "src/unit_02929.c": "0da4f8db877dbc611c2153fb9b112e742eafb2db5a688bac689cc7a9282da1ac",
+    "src/unit_02928.c": "0394b6d8e00e7f80af61474a0b55fccf863678b6bb49fd8e26d4cb894e17d07b",
+    "direct_c/cohort3_replay/cohort7_calendar_cases.py": "f2ade8be5e3992e3b6eb5f27a264c28c1a5bad382a5443c105e252c2ed0edf61",
+    "direct_c/cohort3_replay/cases.py": "a5986eb56bbba84e315281460e2d053f8af98f2763e97111e0f02121ba25b5e9",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-calendar-publication/executed-master.json",
+    "sha256": "7e1b28ca34abaf05502b937e08ce4595f517aee8c14f1d790c7fc67bbf112544"
+  },
+  "partial_frame_address_checks": {
+    "path": "build/actor-animal-following/cohort7-calendar-ABI-runs/20261106-051119-575191/partial-frame-address-checks.json",
+    "sha256": "464578017c9652278e7e77b3aa8d055168552b6f2280510160950cbf2aa81b8a"
+  },
+  "coverage": [
+    "Relative leap/last-week transition uses DWORD month-table stride and mutates native incoming year word; absolute end transitions roll one day backward/forward",
+    "DST disabled/cached exact-start/exact-end/southern-gap and rebuilt default April/October rules return fullEAX0/1",
+    "OS rule rebuild consumes WORD SYSTEMTIME fields including milliseconds258 and DWORD fromOS0x100",
+    "Actual unchanged native/C UTC helper runs on localtime fast standard/daylight and epoch/INT_MAX edge paths; native incoming pointer word becomes actual scratch",
+    "Make-time invalid year leaves frame/args untouched; forced DST uses correct base and return adjustment",
+    "Partial tm retains five supplied native stack fields while four native fields are written; year/month/day snapshots precede callback, hour/minute/second inputs follow callback",
+    "Seven raw native/named/canonical routes confirm DST input frame atentrySP-40, exact nine DWORD payload and mutable year cell atentrySP+4; callback-updated timestamp is reloaded before final DST addition"
+  ],
+  "controlled_boundaries": [
+    "Timezone-once callback is controlled to isolate calendar logic and expose input reloads",
+    "One DST callback is controlled for partial-frame and year-slot mutation; actual rebuilt predicate/transition code executes in other cases",
+    "UTC56710D runs actual native/C and remains unchanged with zero new credit",
+    "No host game or host Windows API executes"
+  ],
+  "limitations": [
+    "Necessary finite checks only; complete boundary/overflow/calendar matrices remain at detailed joint gate",
+    "Legacy rules and lack of validation are preserved; current civil-time regulations are not substituted",
+    "Actual uninitialized native stack cells are modeled, not zeroed",
+    "Malformed pointers, arbitrary concurrent updates and whole-game equivalence remain unqualified"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}
