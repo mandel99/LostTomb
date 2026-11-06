@@ -1,3 +1,4 @@
+#include "native_member_bridge.h"
 #include "chief_storage_menu.h"
 #include "city_monument_completion.h"
 #include "menu_building_overlay.h"
@@ -845,7 +846,7 @@ void FUN_005101b0(int32_t actor){const uint32_t a[]={(uint32_t)actor};(void)invo
 char FUN_0050fc10(int32_t actor){const uint32_t a[]={(uint32_t)actor};return (char)invoke(0x0050fc10u,a,1);}
 char FUN_0050fc70(int32_t actor){const uint32_t a[]={(uint32_t)actor};return (char)invoke(0x0050fc70u,a,1);}
 int32_t FUN_0050e3c0(int32_t counts[16],char alternative){const uint32_t a[]={(uint32_t)(uintptr_t)counts,(uint32_t)(uint8_t)alternative};return (int32_t)invoke(0x0050e3c0u,a,2);}
-int32_t FUN_0053fa40(int32_t image,int32_t x,int32_t y){const uint32_t a[]={(uint32_t)image,(uint32_t)x,(uint32_t)y};return (int32_t)invoke(0x0053fa40u,a,3);}
+RESTORE_NATIVE_MEMBER_ENTRY(FUN_0053fa40,restore_overlay_native_0053fa40,0x0053fa40,12,restore_menu_overlay_raw)
 
 int32_t FUN_004883d0(int32_t id){const uint32_t a[]={(uint32_t)id};return (int32_t)invoke(0x004883d0u,a,1);}
 
@@ -913,3 +914,12 @@ void FUN_0041aaa0(void){(void)invoke(0x41aaa0u,0,0);}
 uint32_t FUN_004181a0(void){return invoke(0x4181a0u,0,0);}
 void FUN_00536710(int32_t style,int32_t x,int32_t y,int32_t segments,int32_t pressed)
 {const uint32_t a[]={(uint32_t)style,(uint32_t)x,(uint32_t)y,(uint32_t)segments,(uint32_t)pressed};(void)invoke(0x536710u,a,5);}
+
+/* Preserve actual GPR/flags, original stack aliases and live hardware x87. */
+void restore_menu_overlay_raw(uint32_t target,uint32_t registers[8],uint32_t *flags)
+{
+ struct restore_menu_overlay_frame f;uint32_t i;
+ for(i=0;i<8;++i)f.r[i]=registers[i];f.flags=*flags;f.boundary=restore_menu_overlay_dispatch;
+ restore_menu_overlay_dispatch(0,target,&f);
+ for(i=0;i<8;++i)registers[i]=f.r[i];*flags=f.flags;
+}

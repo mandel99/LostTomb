@@ -2565,3 +2565,6 @@ src/unit_00395.c src/unit_01570.c src/unit_02004.c src/unit_02007.c src/unit_025
 src/unit_02580.c src/unit_02582.c src/unit_02585.c src/unit_02588.c src/unit_02596.c src/unit_02598.c
 src/unit_02609.c src/unit_02611.c src/unit_02622.c src/unit_02624.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Cohort6 advisor and overlay live-input repairs.
+set_source_files_properties(src/unit_00789.c src/unit_02169.c runtime/menu_building_overlay.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

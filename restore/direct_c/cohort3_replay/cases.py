@@ -17,6 +17,8 @@ from cohort5_nls_cases import definitions as cohort5_nls_definitions
 from cohort5_raw_member_cases import definitions as cohort5_raw_definitions
 from cohort5_window_tag_cases import definitions as cohort5_window_tag_definitions
 from cohort5_event_list_cases import definitions as cohort5_event_list_definitions
+from cohort6_advisor_abi_cases import definitions as cohort6_advisor_abi_definitions
+from cohort6_overlay_abi_cases import definitions as cohort6_overlay_abi_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -60,6 +62,8 @@ def definitions(registry):
  out.extend(cohort5_raw_definitions(registry))
  out.extend(cohort5_window_tag_definitions(registry))
  out.extend(cohort5_event_list_definitions(registry))
+ out.extend(cohort6_advisor_abi_definitions(registry))
+ out.extend(cohort6_overlay_abi_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):

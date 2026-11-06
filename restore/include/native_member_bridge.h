@@ -38,10 +38,10 @@ void FUN_00561f30(void);
  __asm { xchg eax,dword ptr[esp] } \
  __asm { xchg eax,dword ptr[esp] }
 
-#define RESTORE_NATIVE_MEMBER_ENTRY(canonical,named,target,cleanup,body) \
+#define RESTORE_NATIVE_MEMBER_ENTRY_TYPED(result_type,canonical,named,target,cleanup,body) \
  void named(struct RestoreNativeMemberFrame *frame) \
  {restore_native_member_run(target,frame,cleanup,body);} \
- __declspec(naked) void canonical(void) { \
+ __declspec(naked) result_type canonical(void) { \
  RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
  RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
  RESTORE_NATIVE_MEMBER_STACK_PAGE RESTORE_NATIVE_MEMBER_STACK_PAGE \
@@ -62,4 +62,6 @@ void FUN_00561f30(void);
  __asm { mov esp,dword ptr[esp-24] } \
  __asm { lea esp,[esp+4] } \
  __asm { ret cleanup } }
+#define RESTORE_NATIVE_MEMBER_ENTRY(canonical,named,target,cleanup,body) \
+ RESTORE_NATIVE_MEMBER_ENTRY_TYPED(void,canonical,named,target,cleanup,body)
 #endif

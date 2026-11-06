@@ -1,13 +1,13 @@
 {
   "schema": "cohort6-connected-source-progress-v1",
   "baseline_selected_entries": 292,
-  "cumulative_selected_entries": 338,
-  "new_source_entries": 46,
-  "target_new_entries_before_joint_gate": 100,
-  "entries_remaining_until_joint_gate": 54,
-  "new_native_instructions": 4791,
+  "cumulative_selected_entries": 341,
+  "new_source_entries": 49,
+  "target_new_entries_before_joint_gate": 49,
+  "entries_remaining_until_joint_gate": 0,
+  "new_native_instructions": 5775,
   "new_C_algorithms": 0,
-  "reused_or_ABI_only_entries": 46,
+  "reused_or_ABI_only_entries": 49,
   "new_entries": [
     "0x00401be0",
     "0x0040ecf0",
@@ -54,15 +54,18 @@
     "0x00555e80",
     "0x00556410",
     "0x00558be0",
-    "0x005590a0"
+    "0x005590a0",
+    "0x00451b10",
+    "0x004f56d0",
+    "0x0053fa40"
   ],
-  "source_stage": "shared_strict_build_passed_connected_native_cases_pending",
-  "fresh_native_C_comparisons": 0,
-  "entries_with_fresh_cases": 0,
+  "source_stage": "closed49_strict_build_and_necessary_ABI_passed_full_joint_gate_pending",
+  "fresh_native_C_comparisons": 18,
+  "entries_with_fresh_cases": 3,
   "entries_pending_fresh_cases": 46,
   "cohort_validation_complete": false,
-  "source_expansion_suspended": false,
-  "comparison_policy": "Expand connected sources toward100 new entries, then jointly compare every new named/canonical entry including compiled-only definitions. Compilation is not complete gameplay equivalence.",
+  "source_expansion_suspended": true,
+  "comparison_policy": "Complete one joint comparison for all49 new named/canonical entries before further source expansion. The nominal100 target remains historical; already-existing C is not added to the count.",
   "prior_finite_gate": {
     "path": "metadata/cohort5-joint-comparison.json",
     "sha256": "3c062fe2bffd6599674270315e72564434c52392d5a67167e9c96e102c6ac539"
@@ -79,7 +82,7 @@
     "path": "metadata/cohort5-joint-comparison.json",
     "sha256": "3c062fe2bffd6599674270315e72564434c52392d5a67167e9c96e102c6ac539"
   },
-  "fresh_cohort6_common_ABI_comparison": false,
+  "fresh_cohort6_common_ABI_comparison": true,
   "strict_build_complete": true,
   "qualification": [
     "All46 sources are selected together:19 existing laborer methods/thunks and27 existing direct-C callers; no new algorithm credit.",
@@ -89,36 +92,46 @@
   ],
   "whole_game_equivalence": false,
   "host_execution": false,
+  "defined_named_and_canonical_owners": {
+    "path": "metadata/cohort6-source-ownership.json",
+    "sha256": "ee8cf661ce69d93e609d9e9c876ec24496d5c4f681f0488278c3236c181f5b36"
+  },
+  "additional_binding_contracts": [
+    {
+      "path": "metadata/cohort6-menu-input-binding-contracts.json",
+      "sha256": "e77c85b68f3719a0de399585deaac72ee9dc54289bdefe36f47ed59188e41dd1"
+    }
+  ],
+  "exclusions": {
+    "path": "metadata/cohort6-overlay-reuse-dispositions.json",
+    "sha256": "0ee235629c5160c36162945a204c82d5250f731f1e0e07a1030f503ba2c66363"
+  },
   "strict_build": {
     "exit_code": 0,
-    "log_sha256": "19bf69e064f7c4e01cc3639d8e7d2c0ad3baea12fffa77826f084ee9804bcc17",
+    "log_sha256": "43ae44ea0bb49545869c49822f45304bb65b7d2d6e7e0669196de6722904d2df",
     "per_source_options": "/W4 /WX /O2 /GS- /Ob0; no PCH",
     "compiled_artifacts": {
       "game": {
         "path": "build/c-only/Release/PharaohRestoreC.exe",
-        "sha256": "a1dd69214be81c5254709c71e7a3e744b2da0ee83842efb1587ad7133214d5c1",
+        "sha256": "73ddba4dec63c601dce73170183b9deecfb5a115be4f64faf5f606d9a7749531",
         "map_path": "build/c-only/Release/PharaohRestoreC.map",
-        "map_sha256": "82a39a0dcb435576fd0a5c8b908d9f2490fd8524c08368cffd1b17c7876ff84a"
+        "map_sha256": "e785f8eb1e66cf9d8a22dce87b9e0c2891c7e410acedbf473e6d616682a4021e"
       },
       "diagnostic": {
         "path": "build/c-only/Release/restore_link_check.exe",
-        "sha256": "d045fac0e5627c2a1ed1a1feea83c378472bf336b5a2e1ac2b6006b28b917576",
+        "sha256": "8ce1f6296ee9343a4c768e9545ead43c37688a601bcff690a90460571ec3938c",
         "map_path": "build/c-only/Release/restore_link_check.map",
-        "map_sha256": "5377e2d75b176078275de6a59541a7f62d32a665ab9f13e5d9a40ded7687f980"
+        "map_sha256": "8ad55f5d4b5e5723593c319a31af5ac585b6a9f718362d70f64a5d007afd0192"
       }
     },
-    "status": "shared_strict_build_passed_cohort6_native_cases_pending",
-    "final_diagnostic_link": {
-      "path": "build/actor-animal-following/cohort6-final-diagnostic-build.log",
-      "sha256": "65cef7068843faaf83759cc8ea6d452fe1f6718579bcff9ddc05678e14f17467"
-    },
-    "source_options_audit": {
-      "path": "build/actor-animal-following/cohort6-strict-source-options.json",
-      "sha256": "dff74d976c85781c580d9a4e879f5d2f1c71bac2f658b7bdda023ceb59da8193"
-    }
+    "status": "shared_strict_build_passed_49_entry_source_stage"
   },
-  "defined_named_and_canonical_owners": {
-    "path": "metadata/cohort6-source-ownership.json",
-    "sha256": "fdb3becff15dd9324e7c63fee48dbc526b0e621a52bb4d47dbb819c090e8f9e0"
+  "nominal_target_new_entries": 100,
+  "actual_closed_module_milestone": 49,
+  "nominal_entries_remaining": 51,
+  "milestone_reason": "The closed46-entry laborer caller closure plus the3 remaining real advisor/overlay input repairs form the actual scope. Overlay triage preserves101 existing C paths with zero new rewrite credit; the source module is closed before broader native-scope review.",
+  "necessary_ABI_comparison": {
+    "path": "metadata/cohort6-input-abi-comparison.json",
+    "sha256": "e70e45959c7fb8799e8e7e53f3beea35d66cb74b0a4ccc633ac26548a46aea8f"
   }
 }

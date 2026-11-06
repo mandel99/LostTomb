@@ -22,6 +22,7 @@ void FUN_00535080(void);
 void FUN_00536dc0(int32_t index,int32_t x,int32_t y,int32_t columns,int32_t rows,int32_t style);
 void FUN_004d6090(int32_t kind,int32_t x,int32_t y,int32_t width,int32_t height,int32_t relative_x,int32_t relative_y,int32_t origin_x,int32_t origin_y);
 void restore_menu_overlay_dispatch(uint32_t site,uint32_t target,struct restore_menu_overlay_frame *f);
+void restore_menu_overlay_raw(uint32_t target,uint32_t registers[8],uint32_t *flags);
 void restore_menu_overlay_C_004d6090(struct restore_menu_overlay_frame *f);
 void restore_menu_overlay_C_00535080(struct restore_menu_overlay_frame *f);
 void restore_menu_overlay_C_00536dc0(struct restore_menu_overlay_frame *f);
@@ -220,7 +221,8 @@ void FUN_005101b0(int32_t actor);
 char FUN_0050fc10(int32_t actor);
 char FUN_0050fc70(int32_t actor);
 int32_t FUN_0050e3c0(int32_t counts[16],char alternative);
-int32_t FUN_0053fa40(int32_t image,int32_t x,int32_t y);
+/* Native member entry: actual ECX and RET12, invoked through captured context. */
+void FUN_0053fa40(void);
 void restore_menu_overlay_C_004883d0(struct restore_menu_overlay_frame *f);
 void restore_menu_overlay_C_00489110(struct restore_menu_overlay_frame *f);
 void restore_menu_overlay_C_004a4300(struct restore_menu_overlay_frame *f);
