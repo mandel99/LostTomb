@@ -1,0 +1,127 @@
+{
+  "schema": "native-scope-conflicts-two-address-audit-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": [
+    "0x00516630",
+    "0x0056b670"
+  ],
+  "explicitly_excluded": [
+    "0x0048a720"
+  ],
+  "findings": [
+    {
+      "address": "0x00516630",
+      "role": "Genuine primary menu-render entry; lower-address owned tail, not an interior alias",
+      "analyzed_entry": "0x516630",
+      "analyzed_body_ranges": [
+        {
+          "start": "0x5165c0",
+          "end": "0x51671e"
+        }
+      ],
+      "execution_entry_range": [
+        {
+          "start": "0x516630",
+          "end": "0x51671e"
+        }
+      ],
+      "reached_preceding_tail": [
+        {
+          "start": "0x5165c0",
+          "end": "0x51662f"
+        }
+      ],
+      "native_bytes": 351,
+      "incoming": "Native direct CALL4D7439; fresh ReA xrefs contains that single address.",
+      "tail": "JMP51671A ->5165C0; tail ends RET at51662F. This is the same analyzed body. No separate tail entry is invented.",
+      "ABI": "cdecl void/no declared arguments, RET0. Original instructions define used GPRs from globals/outgoing calls; no parent EBP or caller stack-local input is read.",
+      "C": {
+        "source": "src/unit_02277.c",
+        "source_sha256": "2c931e5671ee8574379f2812f3bb578daf3151ef3520c2f04e2353b9536af50d",
+        "active": true,
+        "object": "build/c-only/pharaoh_restored.dir/Release/unit_02277.obj",
+        "object_sha256": "25104721bcddbc7f0ba333997d397eadbabaf4770520246ad730d2dca06b7d69",
+        "active_C_references": [
+          {
+            "source": "runtime/menu_building_overlay.c",
+            "line": 103,
+            "text": "extern void FUN_00516630(void);"
+          },
+          {
+            "source": "runtime/menu_building_overlay.c",
+            "line": 363,
+            "text": "case 0x00516630u:FUN_00516630();break;"
+          },
+          {
+            "source": "src/unit_02277.c",
+            "line": 23,
+            "text": "void FUN_00516630(void)"
+          }
+        ]
+      },
+      "C_disposition": "Preserve existing complete source; it already emits the entry and preceding tail logic as one C function. No concrete source/ABI gap identified.",
+      "conflict": "bulk_remaining.cached_scope incorrectly requires requested entry == lowest body_start; actual ReA entry matches requested and body contains it.",
+      "proposed_C_repair": null,
+      "new_entry_credit": 0,
+      "qualification": "Exact whole rendering/helper/pixel equivalence is not established by this read-only role/scope audit."
+    },
+    {
+      "address": "0x0056b670",
+      "role": "Genuine compiler unwind cleanup funclet reaching a shared empty destructor, not a primary gameplay function",
+      "analyzed_entry": "0x56b670",
+      "analyzed_body_ranges": [
+        {
+          "start": "0x5404a0",
+          "end": "0x5404a0"
+        },
+        {
+          "start": "0x56b670",
+          "end": "0x56b67a"
+        }
+      ],
+      "native_bytes": 12,
+      "incoming": "Single fresh ReA xref5711D4 is the action DWORD of native unwind-map5711D0 for FuncInfo5711B0; literal-pointer scan confirms the same exact occurrence.",
+      "parent": "Wrapper4BD660 installs handler56B67B, stores actual self at entryESP-16 and state0 at entryESP-4, then calls4BD6A0.",
+      "ABI": "__CallSettingFrame5640A0 supplies EBP=registration+12 (the4BD660 original entryESP). Funclet reads DWORD[EBP-10], sets volatile ECX=self+10, then JMP5404A0/C3. Net RET0, EBP/nonvolatiles unchanged, no memory store.",
+      "consumers": "563BE1 calls5640A0 at563C3D and ignores its returned value. After CALL EAX at5640C5, POP EDI/ESI; MOV EBX,EBP; POP EBP; MOV ECX,[EBP+10] at5640CC overwrites funclet ECX. CMP ECX,100 at5640D2 defines branch flags before any flag-consuming branch; funclet ADD flags are dead.",
+      "C": {
+        "source": "src/unit_03090.c",
+        "source_sha256": "8715ba2a12efd7a00bdf1a7559a6d801cc69d8ad507eb789d65d8bfc11c7a9b7",
+        "active": true,
+        "object": "build/c-only/pharaoh_restored.dir/Release/unit_03090.obj",
+        "object_sha256": "d71b6e88b5ffbbf3a21e2f749922b68351d533737938fdb3919b110d7c888345",
+        "active_C_references": [
+          {
+            "source": "src/unit_03090.c",
+            "line": 3,
+            "text": "void FUN_0056b670(void)"
+          }
+        ]
+      },
+      "C_disposition": "Preserve empty void C. Current canonical COFF is558BEC5DC3: ordinary PUSH EBP;MOV EBP,ESP;POP EBP;RET, with no action and unchanged EAX. It retains the logical normal-unwind no-op; do not invent EBP as a C API input for dead ECX/flags.",
+      "conflict": "Valid noncontiguous body includes shared RET5404A0 below actual entry56B670; flat body_start/body_size gate misclassifies it.",
+      "proposed_C_repair": null,
+      "new_entry_credit": 0,
+      "qualification": "Allocated/nonfaulting unwind parent context only. The omitted native read can fault in invalid EBP contexts; exception/fault ordering and arbitrary standalone callers are not asserted equivalent."
+    }
+  ],
+  "evidence": {
+    "path": "metadata/native-function-scope-rea-records.json",
+    "sha256": "cdf71867056226f366c77b625e4cd89f4057d03dc3400bac55eced7319981f11"
+  },
+  "compiler_unwind_catalogue": {
+    "path": "metadata/compiler-unwind-catalogue.json",
+    "sha256": "dc32099e257fe3dc38281ed74e2de14012f06481b771a99d18b849df38ef313c"
+  },
+  "private_audit": {
+    "path": "build/actor-animal-following/native-scope-conflicts/findings.json",
+    "sha256": "9004638417a789725554ee698156982f6e6b6339cdc58dca4c9068f3a93cdddb"
+  },
+  "source_changed": false,
+  "new_C_repairs": 0,
+  "new_entry_credit": 0,
+  "scanner_followup": "Accept authenticated entrypoint within complete ordered ranges; compare every listed range against pinned PE, and record actual execution entry separately from lowest body address. Preserve noncontiguous/shared tails without changing Ghidra boundaries.",
+  "interpretation": "Existing C is retained for both entries. These facts resolve source-selection ambiguity; they are not a new native/C behavior certificate or complete function-boundary normalization for the whole catalogue.",
+  "host_execution": false,
+  "whole_game_equivalence": false
+}
