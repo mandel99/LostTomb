@@ -1,13 +1,11 @@
-#include "restore_types.h"
-#define DAT_01266568 (*(undefined *)0x01266568u)
-extern void FUN_00566bc3();
+#include "crt_environment.h"
 
-void FUN_00566bae(void)
-
+void restore_crt_initialize_timezone_once(void)
 {
-  if (DAT_01266568 == 0) {
-    FUN_00566bc3();
-    DAT_01266568 = DAT_01266568 + 1;
-  }
-  return;
+ if(RESTORE_CRT_TIMEZONE_INITIALIZED==0){
+  FUN_00566bc3();
+  /* Native INC reloads the callback's actual DWORD, including carry wrap. */
+  RESTORE_CRT_TIMEZONE_INITIALIZED=RESTORE_CRT_TIMEZONE_INITIALIZED+1u;
+ }
 }
+void FUN_00566bae(void){restore_crt_initialize_timezone_once();}

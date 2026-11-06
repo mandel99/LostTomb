@@ -1,25 +1,25 @@
-#include "restore_types.h"
-#define DAT_01266458 (*(undefined *)0x01266458u)
-extern int FUN_0056a857();
+#include "crt_environment.h"
 
-int FUN_0056b045(uchar *param_1,size_t param_2)
-
+int32_t restore_crt_find_environment_name(const uint8_t *name,uint32_t length)
 {
-  uchar *_Str2;
-  int iVar1;
-  int *piVar2;
-  
-  _Str2 = (uchar *)*(undefined4 *)(DAT_01266458);
-  piVar2 = DAT_01266458;
-  while( true ) {
-    if (_Str2 == (uchar *)0x0) {
-      return -((int)piVar2 - (int)DAT_01266458 >> 2);
-    }
-    iVar1 = FUN_0056a857(param_1,_Str2,param_2);
-    if ((iVar1 == 0) &&
-       ((*(char *)(*piVar2 + param_2) == '=' || (*(char *)(*piVar2 + param_2) == '\0')))) break;
-    _Str2 = (uchar *)piVar2[1];
-    piVar2 = piVar2 + 1;
+ char **slot=RESTORE_CRT_ENVIRONMENT_VECTOR;
+ char *entry=*slot;
+ uint32_t difference;
+ int32_t index;
+ uint32_t found=0;
+ while(entry!=0){
+  if(FUN_0056a857(name,(const uint8_t *)entry,length)==0){
+   uint8_t delimiter=(uint8_t)(*slot)[length];
+   if(delimiter=='=' || delimiter==0){found=1;break;}
   }
-  return (int)piVar2 - (int)DAT_01266458 >> 2;
+  entry=slot[1];
+  ++slot;
+ }
+ /* Native SAR of a wrapping DWORD difference uses a freshly loaded base,
+    even when comparison callbacks have replaced the global vector pointer. */
+ difference=(uint32_t)(uintptr_t)slot-(uint32_t)(uintptr_t)RESTORE_CRT_ENVIRONMENT_VECTOR;
+ index=(int32_t)difference>>2;
+ return found?index:(int32_t)(0u-(uint32_t)index);
 }
+int32_t FUN_0056b045(const uint8_t *name,uint32_t length)
+{return restore_crt_find_environment_name(name,length);}

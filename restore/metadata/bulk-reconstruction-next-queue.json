@@ -3,8 +3,8 @@
   "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
   "catalogue_entries": 4530,
   "category_counts": {
-    "existing_selected": 496,
-    "existing_C_preserved": 4006,
+    "existing_selected": 501,
+    "existing_C_preserved": 4001,
     "existing_C_reuse_review": 0,
     "review_needed": 28,
     "safe_rule_candidate": 0,
@@ -23,8 +23,8 @@
     28
   ],
   "active_source_cohort": 7,
-  "active_cohort_entries": 32,
-  "cumulative_selected_entries": 373,
+  "active_cohort_entries": 37,
+  "cumulative_selected_entries": 378,
   "source_expansion_suspended": false,
   "script": {
     "path": "tools/bulk_remaining.py",
@@ -32,15 +32,15 @@
   },
   "documentation": {
     "path": "BULK_REMAINING.md",
-    "sha256": "15a00cf5591a277621fa1bb260145cadce7d88914fd74c76cfc42aa92e0a63c1"
+    "sha256": "ea8bbe1ce378df0281dae4e99cb6bb847b7047f09a07cdfc1f3f61f3495c39ec"
   },
   "private_plan": {
-    "path": "build/bulk-reconstruction/cohort7-source32-preserved-inventory.json",
-    "sha256": "8da8eb2278d3cfb3a7a6423dbba780122b086e820785ae063013269aa147262a"
+    "path": "build/bulk-reconstruction/cohort7-source37-preserved-inventory.json",
+    "sha256": "ff2173313a2a516e89e090146c918394839d9b791e297dd2bddb49fcc23ebd42"
   },
-  "snapshot_scope": "Source32 after strict build and18 necessary ABI cases plus84 physical-address assertions. Exact pre-inventory master retained; source ownership/categories do not establish behavior.",
+  "snapshot_scope": "Source37 after strict build and17 necessary ABI cases. Exact pre-inventory master retained; source ownership/categories do not establish behavior.",
   "reuse_policy": "Any separate canonical, macro, frame or model definition is reserved for review regardless of variable names. Marker absence or a trial artifact does not prove correctness.",
-  "next_stage": "Continue the environment get/set/convert/name-lookup cluster and timezone lazy guard; repair verified full pointer/scalar units while preserving correct existing C.",
+  "next_stage": "Continue timezone/calendar consumers after confirming native DWORD/WORD units, month-table stride, partial tm frames and consumed return widths. Preserve correct UTC/string/duplication algorithms.",
   "catalogue_closed": false,
   "complete_game_reconstruction": false,
   "behavior_comparison_complete": false,
@@ -60,7 +60,7 @@
     "existing_C_preserved": 101,
     "correctness_proved": false
   },
-  "snapshot_source_checkpoint": "022e63f651e445964fc5563f988d75a73339406c",
+  "snapshot_source_checkpoint": "ce7b4b4ba761d1f3b33e9dc57f3fb130fe8c0bd9",
   "historical_work_packets_require_refresh": true,
   "source_reuse_dispositions": {
     "matched_entries": 160,
@@ -99,11 +99,11 @@
   },
   "current_source_progress": {
     "path": "metadata/cohort7-source-progress.json",
-    "sha256": "89f700be92af21e1e8426a1e2277f55d9a905cdb8e0c7007dd64f70f0adcfd8e"
+    "sha256": "528c39669a0cef0102f2636fb75a462f12c0b21254bdacd8de2c0dbed6f282f0"
   },
   "current_focused_comparison": {
-    "path": "metadata/cohort7-consumers-ABI-comparison.json",
-    "sha256": "40fbca727fa66ae91e18da79bee5de5d72a0778e85191a92de36b3be08d4944a"
+    "path": "metadata/cohort7-environment-ABI-comparison.json",
+    "sha256": "e25beb7c7ebcde5e8787d3a610ca29f7c6c3d4c135ccdadff027f222324f365d"
   },
   "known_history_source_dispositions": {
     "path": "metadata/cohort7-history-input-dispositions.json",
@@ -114,8 +114,8 @@
     "sha256": "aa8f177c3f1b21d3b9184a0e4d71403e112785ce8c258583c14ecc848f8cf8d2"
   },
   "mutable_inventory_input_snapshot": {
-    "path": "build/actor-animal-following/cohort7-consumers-publication/pre-inventory-master.json",
-    "sha256": "662f8f58624cfaf49766d9681975d684fee04ef1f0256300104074cb918e1516"
+    "path": "build/actor-animal-following/cohort7-environment-publication/pre-inventory-master.json",
+    "sha256": "f014ee2c186c88bdcaf89a88fe5aa2a09d0a03f7a562b245df9e4701d92fdb4b"
   },
   "known_remaining_source_dispositions": {
     "path": "metadata/cohort7-remaining-input-dispositions.json",
@@ -127,37 +127,39 @@
   },
   "next_concrete_semantic_work": [
     {
-      "address": "0x005696a2",
-      "source": "src/unit_02991.c",
-      "gap": "getenv still reads environment vector/wide vector/ready through BYTE DAT declarations; preserve real collation helper."
+      "address": "0x00562644",
+      "source": "src/unit_02833.c",
+      "gap": "Local-time conversion still reads timezone/daylight offsets through BYTE views; inspect wrapping time and tm record writes."
     },
     {
-      "address": "0x0056a896",
-      "source": "src/unit_03013.c",
-      "gap": "Wide-to-narrow environment conversion still truncates the wide-vector global to BYTE; inspect ownership/failure paths."
+      "address": "0x00566e21",
+      "source": "src/unit_02926.c",
+      "gap": "DST predicate has BYTE views of DWORD caches and WORD SYSTEMTIME components; derive logical result width from native consumers."
     },
     {
-      "address": "0x0056aebe",
-      "source": "src/unit_03019.c",
-      "gap": "Environment setter uses BYTE views of full vector/initial-vector/wide-vector pointers; inspect allocation/update ownership."
+      "address": "0x00566fcd",
+      "source": "src/unit_02927.c",
+      "gap": "DST transition builder has BYTE views of raw date/millisecond caches and timezone offset; inspect native record/layout arithmetic."
     },
     {
-      "address": "0x0056b045",
-      "source": "src/unit_03020.c",
-      "gap": "Environment name lookup still uses BYTE vector global; inspect full base pointer and signed missing-index result."
-    },
-    {
-      "address": "0x00566bae",
-      "source": "src/unit_02924.c",
-      "gap": "Timezone lazy-initialization guard currently BYTE; confirm native load/store width and retain callback reload order."
+      "address": "0x00567206",
+      "source": "src/unit_02929.c",
+      "gap": "Timestamp builder scales a DWORD month table index again and has a partial tm frame before DST call; inspect exact stack and observed fields."
     }
   ],
-  "joint_gate_pending_entries": 32,
+  "joint_gate_pending_entries": 37,
   "current_necessary_ABI_entries": 5,
   "source_review_queue_is_full_semantic_gap_inventory": false,
   "native_function_discovery": {
     "path": "metadata/cohort7-eh3-native-function-discovery.json",
     "sha256": "ade860412df527540d2f9f29bffff1dc4b05015e019fa44d4f3ca67d04f568b6"
   },
-  "known_active_legacy_EH3_sources_remaining": 0
+  "known_active_legacy_EH3_sources_remaining": 0,
+  "later_concrete_module_leads": [
+    {
+      "address": "0x00566a03",
+      "source": "src/unit_02923.c",
+      "gap": "Inspect standard-I/O startup block pointer units and byte flags; current scalar DAT pointer arithmetic may use wrong block bounds/offsets."
+    }
+  ]
 }

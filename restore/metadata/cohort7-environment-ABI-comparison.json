@@ -1,0 +1,86 @@
+{
+  "schema": "cohort7-necessary-environment-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 378,
+  "current_cohort_source_entries": 37,
+  "entries_compared": 5,
+  "cases": 17,
+  "invocations": 119,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-environment-ABI-runs/20261106-043633-414673/result.json",
+    "sha256": "a125216545f8c4411012cfbc323b560a0854ebc526c485baef9383a0c06b7475"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-environment-ABI-runs/20261106-043633-414673/binding.json",
+    "sha256": "8a2ddc22dc9ef6093aa108f1992b7bfb2739420339fd75729a3925fee52e8eae"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-environment-ABI-runs/20261106-043633-414673/case-inputs.json",
+    "sha256": "535ef9a5bea6657115be0e62a5f16997787d225a707cb5df0f789e7909e03003"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "9a349f9f4fe52d8be2a6f6ed2ae839831a85bc001ddf19593202edf0cf2b1d7b",
+      "map_sha256": "408f47f57413bc62bede183b23bad4b1b9c7a1d19c2744cd5ac6537b41b23e6b"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "4168a3b24efb72753310cbc4f5470188f97e836a16cc867625cbd2511413fb24",
+      "map_sha256": "f45f22fb01a2ba0e24bb7886208876f0a9bc770c4985dbdfcb5850fbfbfff12a"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "46b2d782e060e59f0003145192c9bf6d8c9cec9e383dceba7819f8f3e7358978",
+      "map_sha256": "08837ac94bd18b2a5bdb2445c9205c41926a88ba2be5a1b5ea61139556fd4b3b"
+    }
+  },
+  "source_hashes": {
+    "include/crt_environment.h": "36a55332ccf9e2610c385f825ef40ed5894efd16035dc6306484adf531861175",
+    "src/unit_02924.c": "6a1dfb866ac0300800e1a6050954bcbb91a24b7734fa1a7bb50080ac259302ab",
+    "src/unit_02991.c": "a27a8a697af96d23e082cc47917e14ba23385b1f9cc405f1d21db429d1097103",
+    "src/unit_03013.c": "42f77569c5d2ccdf41298f49a0020b597db375a21314ac169f6d9398714d4600",
+    "src/unit_03019.c": "a8d4610bac5a5b4355e16c6f0e63aea0cc6d3216519b893a8c41ce757c422959",
+    "src/unit_03020.c": "aeab97f97cfd6d932d83be3e1beab058f4b4ac14322b1b77784c2fc55ce562ca",
+    "direct_c/cohort3_replay/cohort7_environment_cases.py": "d10dd9f5dafe9476869d95c9c40f521aaf20943d6c8d963eadda658ed9752a9d",
+    "direct_c/cohort3_replay/cases.py": "cafba0fdfa283bb4113c1440b59a21917652f304ebceb10b58dc3d6b13fc3270",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-environment-publication/executed-master.json",
+    "sha256": "fe9f74eaacc4b20c9c20c95995246945cf3ea3bc3057a7f178406869901a9964"
+  },
+  "coverage": [
+    "Getter reads ready0x100 and full vector pointer; uses captured vector after global replacement and reloads matched slot after callback",
+    "Actual getter->wide converter->setter->name finder->collation chain executes with actual existing strlen/strchr and duplicate-vectorNULL branch",
+    "Getter not-ready skips invalid vector access; NULL name still follows native lazy-conversion order",
+    "Converter empty/query-error/second-error/ignored-setter-result paths preserve no-free failure ownership, current wide slot reload after malloc and captured traversal despite global replacement",
+    "Finder accepts exact prefix and computes missing index from fresh global base; empty vector returns negative-zero0",
+    "Timezone guard treats DWORD0x100 as initialized and increments callback-writtenffffffff with full32-bit wrap",
+    "Setter append/replace/delete preserves caller entry ownership, captured vector after callback, shift-through-NULL and failed-shrink success",
+    "SetEnvironmentVariableA0 still returns setter success; actual string copy runs before native name/value split"
+  ],
+  "controlled_boundaries": [
+    "Allocator/reallocator/free, WideCharToMultiByte, NLS comparison and OS environment update are declared endpoints",
+    "Some lookup/conversion/timezone callbacks are controlled to expose exact capture/reload behavior",
+    "Existing strlen, strchr and strcpy execute as native and actual compiled C on covered branches; duplicate-vector helper only its NULL branch executes",
+    "No host game or host Windows API is launched"
+  ],
+  "compiled_dependency_qualification": [
+    "56B09D nonNULL duplication and56B177 string duplication remain preserved source with detailed joint coverage pending",
+    "Earlier selected collation/search bodies execute inside this family but receive no repeated entry/algorithm credit"
+  ],
+  "limitations": [
+    "Necessary finite checks only; complete ownership/OS/error matrices remain at the joint cohort gate",
+    "Native leak and ignored-failure behavior are preserved, not corrected into different behavior",
+    "Malformed foreign writes, arbitrary concurrent updates and complete game equivalence remain unqualified"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

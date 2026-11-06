@@ -2626,3 +2626,13 @@ foreach(_crt_consumer_target IN ITEMS restore_link_check restore_game restore_co
 endforeach()
 unset(_crt_consumer_target)
 unset(_crt_consumer_symbol)
+
+# Environment vector updates and timezone-once state retain native DWORD units.
+set_source_files_properties(src/unit_02924.c src/unit_02991.c src/unit_03013.c src/unit_03019.c src/unit_03020.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_crt_env_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_crt_env_symbol IN ITEMS FUN_00566bae FUN_005696a2 FUN_0056a896 FUN_0056aebe FUN_0056b045 restore_crt_initialize_timezone_once restore_crt_get_environment_variable restore_crt_convert_wide_environment restore_crt_set_environment_entry restore_crt_find_environment_name)
+  target_link_options(${_crt_env_target} PRIVATE "/INCLUDE:_${_crt_env_symbol}")
+ endforeach()
+endforeach()
+unset(_crt_env_target)
+unset(_crt_env_symbol)
