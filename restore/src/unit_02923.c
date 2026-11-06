@@ -1,111 +1,103 @@
-#include "restore_types.h"
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266964 (*(undefined4 *)0x01266964u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-extern void * FUN_00561b68();
-extern void FUN_005630e0();
+#include "crt_lowio.h"
+#include "crt_runtime_tail.h"
+#include <stddef.h>
 
-void FUN_00566a03(void)
+extern void * __cdecl FUN_00561b68(size_t bytes);
+typedef char RestoreCrtLowioStartupLayout[(sizeof(void *)==4 &&
+ sizeof(STARTUPINFOA)==68 && offsetof(STARTUPINFOA,cbReserved2)==50 &&
+ offsetof(STARTUPINFOA,lpReserved2)==52)?1:-1];
 
+/* Reuse both native initialization loops. Reserved bytes6..7 stay untouched;
+   after each record the upper bound comes from the actual current table slot. */
+static void initialize_lowio_block(RestoreCrtLowioRecord *allocation,
+ RestoreCrtLowioRecord *volatile *slot)
 {
-  undefined4 *puVar1;
-  undefined4 *puVar2;
-  undefined4 *puVar3;
-  DWORD DVar4;
-  HANDLE hFile;
-  byte *pbVar5;
-  int iVar6;
-  UINT *pUVar7;
-  UINT UVar8;
-  UINT UVar9;
-  uint uVar10;
-  _STARTUPINFOA local_44;
-  
-  puVar2 = FUN_00561b68(0x100);
-  if (puVar2 == (undefined4 *)0x0) {
-    FUN_005630e0(0x1b);
-  }
-  DAT_01266a60 = 0x20;
-  DAT_01266960 = puVar2;
-  for (; puVar2 < DAT_01266960 + 0x40; puVar2 = puVar2 + 2) {
-    *(undefined1 *)(puVar2 + 1) = 0;
-    *puVar2 = 0xffffffff;
-    *(undefined1 *)((int)puVar2 + 5) = 10;
-  }
-  GetStartupInfoA(&local_44);
-  if ((local_44.cbReserved2 != 0) && ((UINT *)local_44.lpReserved2 != (UINT *)0x0)) {
-    UVar8 = *(UINT *)local_44.lpReserved2;
-    pUVar7 = (UINT *)((int)local_44.lpReserved2 + 4);
-    pbVar5 = (byte *)(UVar8 + (int)pUVar7);
-    if (0x7ff < (int)UVar8) {
-      UVar8 = 0x800;
-    }
-    UVar9 = UVar8;
-    if ((int)DAT_01266a60 < (int)UVar8) {
-      puVar2 = &DAT_01266964;
-      do {
-        puVar3 = FUN_00561b68(0x100);
-        UVar9 = DAT_01266a60;
-        if (puVar3 == (undefined4 *)0x0) break;
-        DAT_01266a60 = DAT_01266a60 + 0x20;
-        *puVar2 = puVar3;
-        puVar1 = puVar3;
-        for (; puVar3 < puVar1 + 0x40; puVar3 = puVar3 + 2) {
-          *(undefined1 *)(puVar3 + 1) = 0;
-          *puVar3 = 0xffffffff;
-          *(undefined1 *)((int)puVar3 + 5) = 10;
-          puVar1 = (undefined4 *)*puVar2;
-        }
-        puVar2 = puVar2 + 1;
-        UVar9 = UVar8;
-      } while ((int)DAT_01266a60 < (int)UVar8);
-    }
-    uVar10 = 0;
-    if (0 < (int)UVar9) {
-      do {
-        if (((*(HANDLE *)pbVar5 != (HANDLE)0xffffffff) && ((*pUVar7 & 1) != 0)) &&
-           (((*pUVar7 & 8) != 0 || (DVar4 = GetFileType(*(HANDLE *)pbVar5), DVar4 != 0)))) {
-          puVar2 = (undefined4 *)((int)(&DAT_01266960)[(int)uVar10 >> 5] + (uVar10 & 0x1f) * 8);
-          *puVar2 = *(undefined4 *)pbVar5;
-          *(byte *)(puVar2 + 1) = (byte)*pUVar7;
-        }
-        uVar10 = uVar10 + 1;
-        pUVar7 = (UINT *)((int)pUVar7 + 1);
-        pbVar5 = pbVar5 + 4;
-      } while ((int)uVar10 < (int)UVar9);
-    }
-  }
-  iVar6 = 0;
-  do {
-    puVar2 = DAT_01266960 + iVar6 * 2;
-    if (((undefined4 *)&DAT_01266960)[iVar6 * 2] == -1) {
-      *(undefined1 *)(puVar2 + 1) = 0x81;
-      if (iVar6 == 0) {
-        DVar4 = 0xfffffff6;
-      }
-      else {
-        DVar4 = 0xfffffff5 - (iVar6 != 1);
-      }
-      hFile = GetStdHandle(DVar4);
-      if ((hFile != (HANDLE)0xffffffff) && (DVar4 = GetFileType(hFile), DVar4 != 0)) {
-        *puVar2 = hFile;
-        if ((DVar4 & 0xff) != 2) {
-          if ((DVar4 & 0xff) == 3) {
-            *(byte *)(puVar2 + 1) = *(byte *)(puVar2 + 1) | 8;
-          }
-          goto LAB_00566b94;
-        }
-      }
-      *(byte *)(puVar2 + 1) = *(byte *)(puVar2 + 1) | 0x40;
-    }
-    else {
-      *(byte *)(puVar2 + 1) = *(byte *)(puVar2 + 1) | 0x80;
-    }
-LAB_00566b94: ;
-    iVar6 = iVar6 + 1;
-    if (2 < iVar6) {
-      SetHandleCount(DAT_01266a60);
-      return;
-    }
-  } while( true );
+ volatile RestoreCrtLowioRecord *record=allocation;
+ uint32_t limit=(uint32_t)(uintptr_t)allocation+0x100u;
+ while((uint32_t)(uintptr_t)record<limit){
+  record->flags=0;
+  record->handle=0xffffffffu;
+  record->text_state=10;
+  limit=(uint32_t)(uintptr_t)*slot+0x100u;
+  record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+   ((uint32_t)(uintptr_t)record+8u);
+ }
 }
+
+void restore_crt_initialize_lowio(void)
+{
+ RestoreCrtLowioRecord *block;
+ STARTUPINFOA startup;
+ uint32_t count,index,block_index;
+ volatile const uint8_t *inherited_flags;
+ volatile const uint32_t *inherited_handles;
+
+ block=FUN_00561b68(0x100);
+ /* 5630E0 can return through a custom exit callback. Native continues using
+    the original allocation result; do not substitute that callback's EAX. */
+ if(block==0)(void)FUN_005630e0(27);
+ RESTORE_CRT_LOWIO_BLOCKS[0]=block;
+ RESTORE_CRT_LOWIO_CAPACITY=32;
+ initialize_lowio_block(block,&RESTORE_CRT_LOWIO_BLOCKS[0]);
+ /* No invented cb or zero initialization precedes the native output call. */
+ GetStartupInfoA(&startup);
+ if(startup.cbReserved2!=0 && startup.lpReserved2!=0){
+  count=*(volatile const uint32_t *)startup.lpReserved2;
+  inherited_flags=(volatile const uint8_t *)(uintptr_t)
+   ((uint32_t)(uintptr_t)startup.lpReserved2+4u);
+  /* The handle array follows ORIGINAL count bytes, before the signed cap. */
+  inherited_handles=(volatile const uint32_t *)(uintptr_t)
+   ((uint32_t)(uintptr_t)inherited_flags+count);
+  if((int32_t)count>=0x800)count=0x800;
+  if((int32_t)RESTORE_CRT_LOWIO_CAPACITY<(int32_t)count){
+   block_index=1;
+   do{
+    block=FUN_00561b68(0x100);
+    if(block==0){count=RESTORE_CRT_LOWIO_CAPACITY;break;}
+    RESTORE_CRT_LOWIO_CAPACITY+=32u;
+    RESTORE_CRT_LOWIO_BLOCKS[block_index]=block;
+    initialize_lowio_block(block,&RESTORE_CRT_LOWIO_BLOCKS[block_index]);
+    ++block_index;
+   }while((int32_t)RESTORE_CRT_LOWIO_CAPACITY<(int32_t)count);
+  }
+  for(index=0;(int32_t)index<(int32_t)count;++index){
+   uint32_t handle=inherited_handles[index];
+   if(handle!=0xffffffffu){
+    uint8_t flags=inherited_flags[index];
+    if((flags&1u)!=0 && ((flags&8u)!=0 ||
+       GetFileType((HANDLE)(uintptr_t)handle)!=0)){
+     volatile RestoreCrtLowioRecord *record=
+      RESTORE_CRT_LOWIO_BLOCKS[(int32_t)index>>5]+(index&31u);
+     /* Native reloads the payload after GetFileType, using the fresh block
+        table cell but the captured inherited-buffer base addresses. */
+     record->handle=inherited_handles[index];
+     record->flags=inherited_flags[index];
+    }
+   }
+  }
+ }
+ for(index=0;index<3;++index){
+  /* Keep this record across both Win32 callbacks; reload block0 next time. */
+  volatile RestoreCrtLowioRecord *record=RESTORE_CRT_LOWIO_BLOCKS[0]+index;
+  if(record->handle==0xffffffffu){
+   uint32_t handle,type;
+   record->flags=0x81;
+   handle=(uint32_t)(uintptr_t)GetStdHandle(0xfffffff6u-index);
+   if(handle!=0xffffffffu){
+    type=GetFileType((HANDLE)(uintptr_t)handle);
+    if(type!=0){
+     type&=0xffu;
+     record->handle=handle;
+     if(type!=2){
+      if(type==3)record->flags|=8u;
+      continue;
+     }
+    }
+   }
+   record->flags|=0x40u;
+  }else record->flags|=0x80u;
+ }
+ (void)SetHandleCount(RESTORE_CRT_LOWIO_CAPACITY);
+}
+void FUN_00566a03(void)
+{restore_crt_initialize_lowio();}

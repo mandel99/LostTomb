@@ -1,17 +1,17 @@
-#include "restore_types.h"
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
-
-undefined4 FUN_005669c6(uint param_1)
-
+#include "crt_lowio.h"
+uint32_t restore_crt_get_os_handle(uint32_t descriptor)
 {
-  if ((param_1 < DAT_01266a60) &&
-     ((*(byte *)((&DAT_01266960)[(int)param_1 >> 5] + 4 + (param_1 & 0x1f) * 8) & 1) != 0)) {
-    return *(undefined4 *)((&DAT_01266960)[(int)param_1 >> 5] + (param_1 & 0x1f) * 8);
-  }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
-  return 0xffffffff;
+ if (descriptor<RESTORE_CRT_LOWIO_CAPACITY) {
+  /* Native SAR is retained even for a malformed capacity admitting bit31. */
+  int32_t block=(int32_t)descriptor>>5;
+  volatile RestoreCrtLowioRecord *record=RESTORE_CRT_LOWIO_BLOCKS[block]+(descriptor&31u);
+  if ((record->flags&1u)!=0) return record->handle;
+ }
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return UINT32_MAX;
+}
+uint32_t FUN_005669c6(uint32_t descriptor)
+{
+ return restore_crt_get_os_handle(descriptor);
 }

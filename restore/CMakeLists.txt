@@ -2646,3 +2646,13 @@ foreach(_crt_calendar_target IN ITEMS restore_link_check restore_game restore_co
 endforeach()
 unset(_crt_calendar_target)
 unset(_crt_calendar_symbol)
+
+# Native record strides, scalar units and eight-byte CRT low-I/O records.
+set_source_files_properties(src/unit_00501.c src/unit_00503.c src/unit_00504.c src/unit_00505.c src/unit_00506.c src/unit_00507.c src/unit_00508.c src/unit_00509.c src/unit_01863.c src/unit_02922.c src/unit_02923.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_scalar_lowio_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_scalar_lowio_symbol IN ITEMS FUN_004343a0 FUN_00434510 FUN_00434570 FUN_004345d0 FUN_00434630 FUN_00434690 FUN_004346f0 FUN_00434750 FUN_004d6b00 FUN_005669c6 FUN_00566a03 restore_record_gate_score_004343a0 restore_record_gate_score_00434510 restore_record_gate_score_00434570 restore_record_gate_score_004345d0 restore_record_gate_score_00434630 restore_record_gate_score_00434690 restore_record_gate_score_004346f0 restore_record_gate_score_00434750 restore_record_grid_allows_004d6b00 restore_crt_get_os_handle restore_crt_initialize_lowio)
+  target_link_options(${_scalar_lowio_target} PRIVATE "/INCLUDE:_${_scalar_lowio_symbol}")
+ endforeach()
+endforeach()
+unset(_scalar_lowio_target)
+unset(_scalar_lowio_symbol)
