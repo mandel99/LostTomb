@@ -2606,3 +2606,13 @@ foreach(_crt_startup_target IN ITEMS restore_link_check restore_game restore_coh
 endforeach()
 unset(_crt_startup_target)
 unset(_crt_startup_symbol)
+
+# Exact native scalar, WORD/BYTE table and parent-stack units in the codepage cluster.
+set_source_files_properties(src/unit_02994.c src/unit_02995.c src/unit_02996.c src/unit_02998.c src/unit_02999.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_crt_mb_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_crt_mb_symbol IN ITEMS FUN_00569800 FUN_00569831 FUN_005699ca FUN_00569a47 FUN_00569a70 restore_crt_test_multibyte_character restore_crt_set_multibyte_codepage restore_crt_resolve_codepage restore_crt_reset_multibyte restore_crt_build_multibyte_case_tables)
+  target_link_options(${_crt_mb_target} PRIVATE "/INCLUDE:_${_crt_mb_symbol}")
+ endforeach()
+endforeach()
+unset(_crt_mb_target)
+unset(_crt_mb_symbol)

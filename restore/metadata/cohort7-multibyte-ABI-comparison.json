@@ -1,0 +1,83 @@
+{
+  "schema": "cohort7-necessary-multibyte-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 368,
+  "current_cohort_source_entries": 27,
+  "entries_compared": 5,
+  "cases": 13,
+  "invocations": 91,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-multibyte-ABI-runs/20261106-035111-529654/result.json",
+    "sha256": "9ecf73c5ecbf52fda75281685ce8ba7a79070485983dc598b5cbe6db6d93812e"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-multibyte-ABI-runs/20261106-035111-529654/binding.json",
+    "sha256": "f448e1369b1f34687581bae23ec650a1d56fcc64820cc8ff6621758ca077ce6e"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-multibyte-ABI-runs/20261106-035111-529654/case-inputs.json",
+    "sha256": "27c33c0f08d55cc380db2f4199130d290d49962106924ff3f427e43f4ff51ecb"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "cb553c68d0b30eb5bf3db6892cb27855dc4edfdeb6be078dfcce8e3d9984f7b2",
+      "map_sha256": "8c194a7f94d6ecbc828d0ff944192336e181fa2f5cb5f5799218ed432da882fd"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "7a21e9342629510e5bb65ddd848239981466ffe4506e12c436a0eb8bfb4d969c",
+      "map_sha256": "845d4b641de85ec45e20bc1a345b22430fb64705f14707f21c55ced418806c13"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "d5ad468a16277afed81cebc6ee66d73b4687f89776df13b5e47d8202f0c8ea26",
+      "map_sha256": "9c738855d4f5be7888e5548658ed2f0e7a3aea2c1020acbe0941b2c04f8302a9"
+    }
+  },
+  "source_hashes": {
+    "include/crt_multibyte.h": "34be808599541b536d90d5a8d8f896e7f214c7524b7f43c3003b910aad926081",
+    "src/unit_02994.c": "ebae6c72c67b18034a5096759cc851b9a5ff0f859713c17960bda93825575f77",
+    "src/unit_02995.c": "dfd7de9987ad6b5d75f86d1a4cb6903abe61ecd18206b8937b2a6729770f23ee",
+    "src/unit_02996.c": "bc626802b18918dfb030d221ed307b7cee4e626edd589538b18a1ce6c345bb1c",
+    "src/unit_02998.c": "91ebba3a8757d1e9a5fc316ee9831df3250eabaa4beac04970a62c61d052c220",
+    "src/unit_02999.c": "1670f2ad6b5da3d8a2cfc3e9dd9a3a207669513253af42a60fddf5c493261725",
+    "include/crt_eh3_frames.h": "262d6c34e5762f59351afcd0553ebd5119c8dc6adafede7964fb8762739510a4",
+    "direct_c/cohort3_replay/cohort7_multibyte_cases.py": "588bbce9d308fe43329ac2a053c5eeaff67fe7225a2bb54a4901175f6fd29f6d",
+    "direct_c/cohort3_replay/cases.py": "c3d80a8bcdf4a85511e982e7ea54c500a40e67de7cfc097e9c4392f2d8e2c8b8",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-multibyte-publication/executed-master.json",
+    "sha256": "bb2b5d1f2a38a0077047ead7e69f5f3d9db34fc3a7d7a67c6f2b9082f94b091a"
+  },
+  "coverage": [
+    "WORD character attributes use2-byte stride; lowBYTE character/multibyte masks and disjoint scalar mask return exactDWORD0/1",
+    "Resolver clears/stores complete default-selection DWORD, reads locale codepage65001 intact, and exposes flag before real import tail-call boundary",
+    "Reset clears exactly257 flagBYTEs, three raw symbolDWORDs and all codepage/enabled/localeDWORD fields while retaining adjacent guards",
+    "Case map uses exactly256BYTE writes without corrupting adjacent flags/globals",
+    "GetCPInfo BOOL2 takes ASCII fallback; BOOL1 executes real table body despite zero return from controlled NLS children",
+    "Written child outputs and preexisting exact native parent-stack outputs both remain observable through ignored failures; no zero initialization substitutes for native locals",
+    "Setter exercises real resolver, existing locale mapping, real reset and real case builder: builtin932 BYTE masks, genericDBCS intervals and highDWORD default-failure fallback"
+  ],
+  "controlled_boundaries": [
+    "GetOEMCP, GetCPInfo and NLS helper outputs are controlled endpoints; no host API executes",
+    "The existing five48-byte built-in records and four BYTE masks come from the pinned image",
+    "Real native/C resolver, reset, existing569A14 locale helper and case builder execute inside setter cases",
+    "Parent EBP-0x514 layout is retained through existing physical frame macro without EH3 registration; all logical decisions remain C"
+  ],
+  "limitations": [
+    "Necessary finite checks only; exhaustive masks/codepages/locale/NLS failure combinations remain at the detailed joint gate",
+    "Raw12-byte symbol transfer view does not prove logical symbol element width",
+    "Reset requires normal x86 direction-flag-clear ABI; malformed foreign API outputs and asynchronous memory interleavings remain unqualified",
+    "No whole-game execution or complete game equivalence"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

@@ -2,13 +2,13 @@
   "schema": "cohort7-source-progress-v1",
   "source_base_checkpoint": "1c55dbab",
   "prior_selected_entries": 341,
-  "cumulative_selected_entries": 363,
-  "new_source_entries": 22,
+  "cumulative_selected_entries": 368,
+  "new_source_entries": 27,
   "nominal_target_entries": 100,
-  "nominal_target_remaining": 78,
+  "nominal_target_remaining": 73,
   "new_algorithm_creations": 5,
-  "new_input_binding_repairs": 16,
-  "source_stage": "cohort7_open22_shared_strict_build_and_necessary_startup_ABI_passed_joint_gate_pending",
+  "new_input_binding_repairs": 21,
+  "source_stage": "cohort7_open27_shared_strict_build_and_necessary_multibyte_ABI_passed_joint_gate_pending",
   "members": [
     {
       "address": "0x406460",
@@ -510,6 +510,116 @@
       "canonical_symbol": "FUN_00569bf5",
       "stage": "strict_build_and_necessary_startup_ABI_passed_detailed_joint_gate_pending",
       "repair_role": "DWORD_initialization_flag_load_and_store"
+    },
+    {
+      "address": "0x569800",
+      "name": "restore_crt_test_multibyte_character",
+      "source": "src/unit_02994.c",
+      "source_sha256": "ebae6c72c67b18034a5096759cc851b9a5ff0f859713c17960bda93825575f77",
+      "body_sha256": "ebae6c72c67b18034a5096759cc851b9a5ff0f859713c17960bda93825575f77",
+      "body_hash_scope": "Full C source with native units; physical frame entry macro separately bound by shared header",
+      "native_instructions": 16,
+      "native_bytes": 49,
+      "native_byte_sha256": "22178b0b7df31f37d68d9bf7079acfca2c83fea48906b687808c8c7d250dd557",
+      "native_evidence_id": "ev_4ce46abd4bf20f2b59b517cc744cb3c7f97651c116b766ed84b05833661ed015",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-multibyte-rea-records.json",
+        "sha256": "014900eb3190a93a2d0cbc57156ca178a977a4f65853eab5433db55e09ccd1e2"
+      },
+      "logical_signature": "uint32 cdecl3; lowBYTE character/multibyte mask, DWORD scalar mask",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00569800",
+      "stage": "strict_build_and_necessary_multibyte_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "WORD_character_type_table_stride"
+    },
+    {
+      "address": "0x569831",
+      "name": "restore_crt_set_multibyte_codepage",
+      "source": "src/unit_02995.c",
+      "source_sha256": "dfd7de9987ad6b5d75f86d1a4cb6903abe61ecd18206b8937b2a6729770f23ee",
+      "body_sha256": "dfd7de9987ad6b5d75f86d1a4cb6903abe61ecd18206b8937b2a6729770f23ee",
+      "body_hash_scope": "Full C source with native units; physical frame entry macro separately bound by shared header",
+      "native_instructions": 135,
+      "native_bytes": 409,
+      "native_byte_sha256": "98726fab32931c3e35be68a699971879d11d2f655e9b8474a5f0bfa00d017ab3",
+      "native_evidence_id": "ev_f51173781c76cf9f6715fb3915dfef653987cb91e728b35237df5b1721295a2e",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-multibyte-rea-records.json",
+        "sha256": "014900eb3190a93a2d0cbc57156ca178a977a4f65853eab5433db55e09ccd1e2"
+      },
+      "logical_signature": "uint32 cdecl1; signed requested DWORD; results0/0xffffffff",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00569831",
+      "stage": "strict_build_and_necessary_multibyte_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "BYTE_mask_stride_DWORD_state_and_12byte_symbol_copy_view"
+    },
+    {
+      "address": "0x5699ca",
+      "name": "restore_crt_resolve_codepage",
+      "source": "src/unit_02996.c",
+      "source_sha256": "bc626802b18918dfb030d221ed307b7cee4e626edd589538b18a1ce6c345bb1c",
+      "body_sha256": "bc626802b18918dfb030d221ed307b7cee4e626edd589538b18a1ce6c345bb1c",
+      "body_hash_scope": "Full C source with native units; physical frame entry macro separately bound by shared header",
+      "native_instructions": 15,
+      "native_bytes": 74,
+      "native_byte_sha256": "874973bb569679734e8e4ec3b5577e6fff4db7901fc7480d126fcf903958bc22",
+      "native_evidence_id": "ev_cae737766cbd563f81878cb46509843a993688cee062d401a872de2c9ab4c1fc",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-multibyte-rea-records.json",
+        "sha256": "014900eb3190a93a2d0cbc57156ca178a977a4f65853eab5433db55e09ccd1e2"
+      },
+      "logical_signature": "uint32 cdecl1; signed requested DWORD",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_005699ca",
+      "stage": "strict_build_and_necessary_multibyte_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "DWORD_default_selector_and_locale_codepage"
+    },
+    {
+      "address": "0x569a47",
+      "name": "restore_crt_reset_multibyte",
+      "source": "src/unit_02998.c",
+      "source_sha256": "91ebba3a8757d1e9a5fc316ee9831df3250eabaa4beac04970a62c61d052c220",
+      "body_sha256": "91ebba3a8757d1e9a5fc316ee9831df3250eabaa4beac04970a62c61d052c220",
+      "body_hash_scope": "Full C source with native units; physical frame entry macro separately bound by shared header",
+      "native_instructions": 17,
+      "native_bytes": 41,
+      "native_byte_sha256": "3f4b3072e1d6d263ed0d796064cf20e66747119aa2675de220a50c3e9bd4681d",
+      "native_evidence_id": "ev_3242a41c91ed10b6bc4f5c1c6da44b8168a1fcdda47097bd14aa5cec404717e3",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-multibyte-rea-records.json",
+        "sha256": "014900eb3190a93a2d0cbc57156ca178a977a4f65853eab5433db55e09ccd1e2"
+      },
+      "logical_signature": "void cdecl0; DF clear native calling convention",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00569a47",
+      "stage": "strict_build_and_necessary_multibyte_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "257_BYTE_flags_and_full_DWORD_field_reset"
+    },
+    {
+      "address": "0x569a70",
+      "name": "restore_crt_build_multibyte_case_tables",
+      "source": "src/unit_02999.c",
+      "source_sha256": "1670f2ad6b5da3d8a2cfc3e9dd9a3a207669513253af42a60fddf5c493261725",
+      "body_sha256": "1670f2ad6b5da3d8a2cfc3e9dd9a3a207669513253af42a60fddf5c493261725",
+      "body_hash_scope": "Full C source with native units; physical frame entry macro separately bound by shared header",
+      "native_instructions": 124,
+      "native_bytes": 389,
+      "native_byte_sha256": "49b2f09c59983fb99f9aa12cd09266239968349f84315d89ab10b45e99e43bf5",
+      "native_evidence_id": "ev_882cb4b7c83e41b1901bf1aafaf8e5d946988c29dcbbb00e9f18189c96608eb8",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-multibyte-rea-records.json",
+        "sha256": "014900eb3190a93a2d0cbc57156ca178a977a4f65853eab5433db55e09ccd1e2"
+      },
+      "logical_signature": "void cdecl0",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00569a70",
+      "stage": "strict_build_and_necessary_multibyte_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "BYTE_case_map_stride_DWORD_state_and_native_1300byte_output_frame"
     }
   ],
   "strict_build_complete": true,
@@ -544,8 +654,8 @@
     "focused_invocations": 2250
   },
   "current_image_necessary_ABI_entries": 5,
-  "current_image_necessary_ABI_cases": 10,
-  "current_image_necessary_ABI_invocations": 70,
+  "current_image_necessary_ABI_cases": 13,
+  "current_image_necessary_ABI_invocations": 91,
   "detailed_joint_comparison_pending": true,
   "historical_source14_necessary_EH3_ABI": {
     "path": "metadata/cohort7-eh3-ABI-comparison.json",
@@ -572,12 +682,20 @@
     "path": "metadata/cohort7-exception-lifetime-ABI-comparison.json",
     "sha256": "5654b442d68d3d9441299b3f77f4f7d65e95ae35862d48a3e1a8b12defd8a6ac"
   },
-  "necessary_startup_ABI": {
-    "path": "metadata/cohort7-startup-arguments-ABI-comparison.json",
-    "sha256": "94234d486aa8c3c62af8cc437e8a5b9e7236e715cfda71fa2e71478e8fff6a93"
-  },
   "startup_arguments_contracts": {
     "path": "metadata/cohort7-startup-arguments-source-contracts.json",
     "sha256": "bd6611d9b12e914e11f335c08afa7f5f20da619797e3d479cde3468074cc2b4c"
+  },
+  "historical_source22_necessary_startup_ABI": {
+    "path": "metadata/cohort7-startup-arguments-ABI-comparison.json",
+    "sha256": "94234d486aa8c3c62af8cc437e8a5b9e7236e715cfda71fa2e71478e8fff6a93"
+  },
+  "necessary_multibyte_ABI": {
+    "path": "metadata/cohort7-multibyte-ABI-comparison.json",
+    "sha256": "5a726e11bfbb8502ea875bd738a18245e0a685205f7a60914bd1677a0d21720f"
+  },
+  "multibyte_contracts": {
+    "path": "metadata/cohort7-multibyte-source-contracts.json",
+    "sha256": "4e9cf2b710afeb95b02ce1dd715149843441bd1ad13186231818ae6d27ee4b0a"
   }
 }
