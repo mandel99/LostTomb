@@ -1,0 +1,34 @@
+{
+  "schema": "cohort7-actor-tail-findings-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "execution_performed": false,
+  "confirmed_new_C_gaps": [],
+  "qualification": "No new concrete semantic C gap was identified in the bounded authored branches. This is not a behavior pass; only the root may execute the shared replay.",
+  "existing_limits": [
+    {
+      "source": "runtime/city_health.c",
+      "source_sha256": "0ea4177b3b6408665933f03204ac34db6d82a4ef62d22936bda65ec463ad829e",
+      "issue": "Weighted-health raw80 conversion explicitly does not reproduce original FTOL exception/status flags.",
+      "domain": "These fixtures avoid weighted first-scan population, preserve inherited x87 live stack/control, and do not certify the unvisited FTOL path."
+    },
+    {
+      "address": "0x542ee0",
+      "issue": "Native consumers use AL, while no-candidate full EAX retains actual incoming high24.",
+      "treatment": "Existing named helper receives the real seeded EAX; full physical result is authored from that input. No full-result API based on a zeroed frame is introduced."
+    }
+  ],
+  "missing_current_canonical": [
+    {
+      "symbol": "_FUN_00542ee0",
+      "owner_object": "monument_placement_queries.obj",
+      "existing_C_definition": true,
+      "new_wrapper_required": false,
+      "named_provider": "restore_monument_ready_00542ee0",
+      "available_named_images": [
+        "game",
+        "diagnostic",
+        "retained"
+      ]
+    }
+  ]
+}

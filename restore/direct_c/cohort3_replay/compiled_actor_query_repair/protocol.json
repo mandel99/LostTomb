@@ -1,0 +1,233 @@
+{
+  "schema": "cohort7-actor-tail-query-repair-protocol-v1",
+  "native": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "b549b4623ec38a8a19c4362ccbd29f62b4c9dd7542cc15dd6ef525868cce1e68",
+      "map_sha256": "5c05e1f56770764bbf14f6598f701173b0ce5bb5221dd0aa9404d1d9716bc2e4"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "04f1ad1d6fab7a0c58fc7372f49e9dfcb3fc6f7a772a80b4b7c101328e82001b",
+      "map_sha256": "d21c7e8d7f6c4fa73760ecf0705543f092c9785ce20fdde973925f5eb70b5e5f"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "a43ca009802861865c171c52d34387248672950ddf1d2e397e21f7bf247d4569",
+      "map_sha256": "0b2cf50163fca34773163e6710de0e6e7dfd660be18f68d1641eecf61d4a18f8"
+    }
+  },
+  "members": [
+    {
+      "address": "0x4f53d0",
+      "source": "runtime/monument_rating.c",
+      "owner_object": "monument_rating.obj",
+      "source_definition_symbol": "FUN_004f53d0",
+      "provider_symbol": "FUN_004f53d0",
+      "canonical_symbol": "FUN_004f53d0",
+      "available_images": {
+        "game": true,
+        "diagnostic": true,
+        "retained": true
+      },
+      "canonical_images": {
+        "game": true,
+        "diagnostic": true,
+        "retained": true
+      },
+      "current_replay_applicable": true,
+      "logical_signature": "logical AL; building DWORD cdecl1; native RET0",
+      "provider_adapter": "Exact owned FUN symbol is used. Named/canonical are ABI labels for the same body, not independent algorithms.",
+      "native_ranges": [
+        {
+          "start": "004f53d0",
+          "end": "004f546b"
+        }
+      ],
+      "native_instructions": 60,
+      "native_bytes": 156,
+      "native_bytes_sha256": "d33c0582c9081552c197d5ac3d9fed1eb36c2700063db82038c1e2bac4f08608",
+      "native_ret_immediates": [
+        0
+      ],
+      "new_source_credit": 0,
+      "new_entry_credit": 0
+    }
+  ],
+  "strict_source_guards": {
+    "runtime/monument_rating.c": "ab052e470c00304b735eabef6b20d8bcfa98ffb97f34857f8fef92194325dd7e",
+    "runtime/pyramid_summary.c": "dd9d47591ad5317a149e1c5b1726003f631ee69da975736d437c6daf26bd189c",
+    "include/editor_brush_validation.h": "837629f94988476b019b7bf7079d7bd67878d120785ffd384858d8d1efdd5349",
+    "include/pyramid_summary.h": "0852433b435819ab376f76cca189dbc52fac666247cc456baa829322a95bcf44",
+    "direct_c/cohort3_replay/compiled_flood_regions/cohort7_compiled_acceptance_cases.py": "bd679ea8ec70a0e32f4cef12fabb51cf11ff4d37588f9f238a2c91679d808f77",
+    "direct_c/cohort3_replay/replay.py": "3ec291c2f3ddfae8622198c229beb9fe0a3a30b655e96097858858eb09074ef1",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb",
+    "metadata/native-function-audit-cache/batch-2112.json": "78349ad2bf2de30fc15e8b3968a049e9a730633c9c825523044a22ea4186fbd9"
+  },
+  "original_packet": {
+    "path": "build/actor-animal-following/cohort7-joint-compiled-actor-tail",
+    "manifest_sha256": "8fe93c42a53e00264ef17f2acc1e1b5cd95a8747ff9f44ed4b27729c425ec780",
+    "manifest_files_unchanged": true,
+    "source_edits": false
+  },
+  "original_report": {
+    "path": "build/actor-animal-following/cohort7-actor-tail-runs/20261106-103601-378471/result.json",
+    "sha256": "248b9443326a13d8800ea8161ab1315ff2855b4b0ce1464aab79a0ddc11798e9",
+    "failed_case_ids": [
+      "c7-compiled-actor-tail/004f53d0/real-16-row-skip-query-classifier-false",
+      "c7-compiled-actor-tail/004f53d0/real-query-signed-coordinates-clear",
+      "c7-compiled-actor-tail/004f53d0/real-query-DWORD-blocked"
+    ],
+    "failure_class": "Both native and current C stop on legitimate, previously unwatched EAAC44 DWORD output; no semantic C difference is demonstrated."
+  },
+  "helper_evidence": {
+    "path": "native-evidence.json",
+    "sha256": "a4ca64292290472cdbc1560ef3b27a09a07c053f259a5fb43c6c887eb8716b45",
+    "write_contract": {
+      "path": "write-contract.json",
+      "sha256": "2c4f0749f6c42480751003e7413a7b736271aa1d9cc80498c3154bdb3a714a21"
+    }
+  },
+  "source_credit": {
+    "original_selected": 441,
+    "new_entry_credit": 0,
+    "new_source_credit": 0,
+    "helper_entry_credit": 0,
+    "public_ledger_written": false
+  },
+  "prepared_cases": 6,
+  "current_available_cases": 6,
+  "current_planned_invocations": 42,
+  "pending_cases": 0,
+  "cases": [
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/original-component1-appends16-before-parent-reject",
+      "helper_output_oracle": {
+        "count": 16,
+        "changed_prefix": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": false,
+        "helper_executed": true
+      },
+      "expected_AL": 0
+    },
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/best-row-reset-keeps-stale-output-tail",
+      "helper_output_oracle": {
+        "count": 2,
+        "changed_prefix": [
+          16,
+          17,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": true,
+        "helper_executed": true
+      },
+      "expected_AL": 0
+    },
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/component0-skips16-classifier-false",
+      "helper_output_oracle": {
+        "count": 0,
+        "changed_prefix": [],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": false,
+        "helper_executed": true
+      },
+      "expected_AL": 1
+    },
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/component0-skips16-signed-cell-clear",
+      "helper_output_oracle": {
+        "count": 0,
+        "changed_prefix": [],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": false,
+        "helper_executed": true
+      },
+      "expected_AL": 1
+    },
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/component0-skips16-DWORD-cell-blocked",
+      "helper_output_oracle": {
+        "count": 0,
+        "changed_prefix": [],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": false,
+        "helper_executed": true
+      },
+      "expected_AL": 0
+    },
+    {
+      "id": "c7-actor-tail-query-repair/004f53d0/BYTE-progress-early-return-preserves-helper-outputs",
+      "helper_output_oracle": {
+        "count": 2435007847,
+        "changed_prefix": [],
+        "remaining_word": 3351758791,
+        "output_base": 15379524,
+        "watched_words": 144,
+        "preserves_stale_tail": false,
+        "helper_executed": false
+      },
+      "expected_AL": 0
+    }
+  ],
+  "shared_integration": "Use temporary_registry(replay[,base]) and this packet definitions only. Do not rerun unchanged39 other actor-tail cases. Replacing the original4 pyramid fixtures with these6 yields45 actor-tail cases/300 total routes if combined with their unchanged same-binding results.",
+  "abi": {
+    "primary": "4F53D0 building DWORD cdecl1 RET0; named/canonical same1 argument; logical AL only.",
+    "helper": "4EF450 building DWORD cdecl1 RET0; four saved nonvolatile registers; no calls; parameter slot is overwritten with category DWORD.",
+    "current_C": "query_pyramid passes actual building into existing restore_pyramid_C_004ef450 frame. Only global count/vector are observed by parent; native caller discards helper GPR result before loading count.",
+    "callback_widths": "FUN4ECEA0 AL byte predicate; FUN4ED360 void cdecl4; EAAE90 full DWORD0x100 must reject."
+  },
+  "public_source_edits": false,
+  "replay_run": false,
+  "builds_run": false,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

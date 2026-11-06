@@ -1,0 +1,147 @@
+{
+  "schema": "cohort7-4ef450-write-contract-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "helper": {
+    "address": "0x4ef450",
+    "end": "0x4ef54f",
+    "instructions": 86,
+    "bytes": 256,
+    "bytes_sha256": "d416d65dc66a6aea24f2ced2a4f8b753e783a069419ca83328f0d8848e43962a",
+    "calls": 0
+  },
+  "writes": [
+    {
+      "site": "0x4ef463",
+      "address": "0xeaaf58",
+      "width": 4,
+      "value": "0",
+      "meaning": "Initialize selected-row count."
+    },
+    {
+      "site": "0x4ef47b",
+      "address": "entry ESP+4",
+      "width": 4,
+      "value": "zero-extended category BYTE",
+      "meaning": "After four pushes ESP+14 aliases incoming building argument; caller-owned private scratch, not an extra API input/global."
+    },
+    {
+      "site": "0x4ef51d",
+      "address": "0xeaaf58",
+      "width": 4,
+      "value": "0",
+      "meaning": "Reset count when a better row becomes the new best; output vector is not cleared."
+    },
+    {
+      "site": "0x4ef52e",
+      "address": "0xeaac44+EAX*4",
+      "width": 4,
+      "value": "EBX=current building ID",
+      "meaning": "Count is read at4EF529; each accepted row writes one DWORD, at most one per visited row."
+    },
+    {
+      "site": "0x4ef536",
+      "address": "0xeaaf58",
+      "width": 4,
+      "value": "previous count+1",
+      "meaning": "Publish incremented DWORD count."
+    }
+  ],
+  "output_units": "The native indexed scale4 and MOV DWORD establish a4-byte cell; this does not infer a generated DAT declaration or unconstrained array capacity.",
+  "bound": {
+    "fixture_category": 0,
+    "fixture_mode": 0,
+    "first_building": 2,
+    "rows": 16,
+    "original_normal_row_counts": [
+      16,
+      36,
+      64,
+      100,
+      144
+    ],
+    "original_alternate_row_counts": [
+      10,
+      21,
+      36,
+      12,
+      18
+    ],
+    "actual_fixture_write_indexes": "0..15 at most; each count reset only lowers the index.",
+    "watched_words": 144,
+    "watched_extent": "EAAC44..EAAE83, plus leading/trailing DWORD canaries.",
+    "qualification": "144 is the largest of the ten pinned ordinary table values. Helper has no category bounds check; no allocated capacity or behavior for arbitrary category bytes is asserted."
+  },
+  "changed_assumption": {
+    "original": "component BYTE at row+56 was1, incorrectly described as a skip.",
+    "evidence": "4EF4BB CMP byte ptr[ESI],0;4EF4BE JBE4EF53B. Only component0 takes that skip for nonzero stage in mode0.",
+    "consequence": "All16 original rows have stage1, amount0, component1. They append IDs2..17; count16 makes4F53D0 reject at4F53FA/FC before classifier."
+  },
+  "independent_finite_oracles": [
+    {
+      "label": "original-component1-appends16-before-parent-reject",
+      "count": 16,
+      "changed_prefix": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "parent_AL": 0,
+      "classifier_calls": 0,
+      "cell_validation_calls": 0
+    },
+    {
+      "label": "best-row-reset-keeps-stale-output-tail",
+      "count": 2,
+      "changed_prefix": [
+        16,
+        17,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "explanation": "Rows2..15 write indexes0..13. Higher component2 at ID16 takes4EF511/513 JA4EF51D and overwrites index0; ID17 appends index1. Old indexes2..13 remain4..15, not zero.",
+      "parent_AL": 0,
+      "classifier_calls": 0,
+      "cell_validation_calls": 0
+    },
+    {
+      "label": "three component0 domains",
+      "count": 0,
+      "changed_prefix": [],
+      "explanation": "Every row skips at4EF4BE. All144 output cells remain the authored C7 sentinel; classifier/cell checks then execute as separately declared."
+    },
+    {
+      "label": "early parent return",
+      "count": "initial0x91234567",
+      "changed_prefix": [],
+      "explanation": "4F53EA JA4F5466 bypasses helper entirely. All output words/canaries and count remain unchanged."
+    }
+  ],
+  "coverage_limits": [
+    "The helper is not stubbed; shared frame C algorithm executes unchanged.",
+    "This packet certifies only its admitted16-row inputs; arbitrary categories, mode3/5 selection and aliased record/output addresses remain unvisited.",
+    "Only count/vector global writes plus private argument/save-stack writes occur in the86-instruction scope. No other global output was found."
+  ]
+}
