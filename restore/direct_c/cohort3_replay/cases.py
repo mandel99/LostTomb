@@ -35,6 +35,7 @@ from cohort7_monument_seek_cases import definitions as cohort7_monument_seek_def
 from cohort7_view_read_cases import definitions as cohort7_view_read_definitions
 from cohort7_final_state_write_cases import definitions as cohort7_final_state_write_definitions
 from cohort7_joint_sprite_cases import definitions as cohort7_joint_sprite_definitions
+from cohort7_joint_storage_cases import definitions as cohort7_joint_storage_definitions
 
 def definitions(registry):
  out=[]
@@ -93,6 +94,7 @@ def definitions(registry):
  out.extend(cohort7_view_read_definitions(registry))
  out.extend(cohort7_final_state_write_definitions(registry))
  out.extend(cohort7_joint_sprite_definitions(registry))
+ out.extend(cohort7_joint_storage_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):
