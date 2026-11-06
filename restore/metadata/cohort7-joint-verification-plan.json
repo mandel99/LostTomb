@@ -12,20 +12,20 @@
     "game": {
       "path": "build/c-only/Release/PharaohRestoreC.exe",
       "map_path": "build/c-only/Release/PharaohRestoreC.map",
-      "sha256": "72269a9cc5e5bf8f21ed9ec59c5d317b39caee27b6389243b61961e0d9adc45c",
-      "map_sha256": "6b09b87f63ce4ae84f027cedc895d2418add065a2596c73dbdff5fd9481590f0"
+      "sha256": "c0875c72e4b379920aff53dc3831bf34c5ea7272761546701114b5303d48582f",
+      "map_sha256": "f76ca76286badbaa2ee7dbd2818a84af8323fff56ef730cd1b6530c727bd08d9"
     },
     "diagnostic": {
       "path": "build/c-only/Release/restore_link_check.exe",
       "map_path": "build/c-only/Release/restore_link_check.map",
-      "sha256": "d8e993872067afbce0266e82d2fbaa3a77662cfd8cfe9645e913147219eff89e",
-      "map_sha256": "5558258aa2d533f5c57485bae76cb694169c8999b553467520dfd3a386487343"
+      "sha256": "55b2660e2274faa25349072e91d64733506571968120decd3da5671af32d5257",
+      "map_sha256": "cc79b7df6b2d7efc5c9be7346f9c4e30071f00b1ebc4c8d8ae9020159f858d1c"
     },
     "retained": {
       "path": "build/c-only/Release/restore_cohort3_retained.exe",
       "map_path": "build/c-only/Release/restore_cohort3_retained.map",
-      "sha256": "684d9ffaff94b7f37062de34e18956019d3740debe334253a9ec42bb8f21b7a5",
-      "map_sha256": "d178c1ae4b14339ad561aca8b7734980054fddc28379217cd83126132528d9f9"
+      "sha256": "d4718f97eccecef600a33d0481dc3b49acc660d777ffe9bb330569fa2cd51764",
+      "map_sha256": "39fadac596137b7c0d9409f4a8c74722c230f16f138c140f7571b4a014685434"
     }
   },
   "input_inventory": {
@@ -130,10 +130,17 @@
       "source": "src/unit_02524.c",
       "source_sha256": "61d1dacccbc524ff3157ad914a8ddcea5e3c797cc00554a088760e978beaf9b2",
       "logical_signature": "int32 cdecl4 explicit-self API; canonical global cdecl3",
-      "existing_shared_case_ids": [],
-      "joint_current_image_executed": false,
+      "existing_shared_case_ids": [
+        "c7-joint-sprite/0053e590/global/direct-success",
+        "c7-joint-sprite/0053e590/global/zero-then-success",
+        "c7-joint-sprite/0053e590/global/zero-then-zero",
+        "c7-joint-sprite/0053e590/explicit/direct-success",
+        "c7-joint-sprite/0053e590/explicit/zero-then-success",
+        "c7-joint-sprite/0053e590/explicit/zero-then-zero"
+      ],
+      "joint_current_image_executed": true,
       "native_catalogue_entry_present": true,
-      "status": "no_unified_case_yet"
+      "status": "focused_current_image_lazy_fetch_comparison_passed_other_domains_pending"
     },
     {
       "address": "0x5614c3",
@@ -1618,8 +1625,8 @@
       "status": "unified_recipes_exist_matrix_and_fresh_joint_replay_pending"
     }
   ],
-  "existing_shared_case_count": 383,
-  "existing_shared_entry_count": 97,
+  "existing_shared_case_count": 389,
+  "existing_shared_entry_count": 98,
   "unified_case_gaps": [
     {
       "address": "0x406460",
@@ -1636,8 +1643,12 @@
     },
     {
       "address": "0x53e590",
-      "status": "previously_deferred_no_executed_receiver_correction_comparison",
-      "required": "Global facade plus non-global explicit-self lazy clipped fetch; same manager forwarded to53F7D0 and manager-relative counter"
+      "status": "focused_current_image_receiver_comparison_passed",
+      "required": "Global facade plus non-global explicit-self lazy clipped fetch; same manager forwarded to53F7D0 and manager-relative counter",
+      "comparison": {
+        "path": "metadata/cohort7-joint-sprite-path-comparison.json",
+        "sha256": "9086c06240ce4745afb138e487c17ddedb1ed92dd4d856e43238d04c42d2eefd"
+      }
     }
   ],
   "compiled_only_contract_entries": [
@@ -3802,5 +3813,45 @@
   ],
   "joint_gate_complete": false,
   "whole_game_equivalence": false,
-  "host_execution": false
+  "host_execution": false,
+  "runner_contracts": {
+    "path": "metadata/cohort7-joint-runner-contracts.json",
+    "sha256": "7c37d4001c01a86148297a1538cc56591e7d978e10e7e1fdec7574440739e00a"
+  },
+  "sprite_focused_case_ids": [
+    "c7-joint-sprite/0053e590/global/direct-success",
+    "c7-joint-sprite/0053e590/global/zero-then-success",
+    "c7-joint-sprite/0053e590/global/zero-then-zero",
+    "c7-joint-sprite/0053e590/explicit/direct-success",
+    "c7-joint-sprite/0053e590/explicit/zero-then-success",
+    "c7-joint-sprite/0053e590/explicit/zero-then-zero"
+  ],
+  "sprite_focused_execution": {
+    "path": "metadata/cohort7-joint-sprite-path-comparison.json",
+    "sha256": "9086c06240ce4745afb138e487c17ddedb1ed92dd4d856e43238d04c42d2eefd"
+  },
+  "sprite_path_supporting_C_repair": {
+    "path": "metadata/cohort7-joint-sprite-path-repair.json",
+    "sha256": "804fa33daa8223e20e517d816ffbcfd62108676eca3d321c9963e8b1d287bf76"
+  },
+  "pre_sprite_path_compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "72269a9cc5e5bf8f21ed9ec59c5d317b39caee27b6389243b61961e0d9adc45c",
+      "map_sha256": "6b09b87f63ce4ae84f027cedc895d2418add065a2596c73dbdff5fd9481590f0"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "d8e993872067afbce0266e82d2fbaa3a77662cfd8cfe9645e913147219eff89e",
+      "map_sha256": "5558258aa2d533f5c57485bae76cb694169c8999b553467520dfd3a386487343"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "684d9ffaff94b7f37062de34e18956019d3740debe334253a9ec42bb8f21b7a5",
+      "map_sha256": "d178c1ae4b14339ad561aca8b7734980054fddc28379217cd83126132528d9f9"
+    }
+  }
 }

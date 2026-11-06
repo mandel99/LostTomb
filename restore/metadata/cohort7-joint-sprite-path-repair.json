@@ -1,0 +1,218 @@
+{
+  "schema": "cohort7-joint-sprite-path-repair-v1",
+  "address": "0x53f7d0",
+  "name": "restore_sprite_fetch_clipped",
+  "source": "src/unit_02530.c",
+  "source_sha256": "31b0652d1f02ac142721b82d8cb0be472555caff138994b6e9c0ab0a8091c251",
+  "before_source": {
+    "path": "build/actor-animal-following/cohort7-joint-publication/pre-sprite-path-unit_02530.c",
+    "sha256": "5dca6f1589df8cf1c5d2c76328d525084270187faf1f884c9284267e14302204"
+  },
+  "native_cache": {
+    "path": "metadata/native-function-audit-cache/batch-2624.json",
+    "sha256": "70e409824d29c7b2747bcda649bcc0cd3480020eccb65e2fe520b0e7f618a58b"
+  },
+  "native_initialization": [
+    {
+      "address": "0053f7d0",
+      "bytes": "81ec10010000",
+      "instruction": "SUB ESP,0x110"
+    },
+    {
+      "address": "0053f7d6",
+      "bytes": "a1f8186000",
+      "instruction": "MOV EAX,[0x006018f8]"
+    },
+    {
+      "address": "0053f7db",
+      "bytes": "894c2408",
+      "instruction": "MOV dword ptr [ESP + 0x8],ECX"
+    },
+    {
+      "address": "0053f7df",
+      "bytes": "668b0dfc186000",
+      "instruction": "MOV CX,word ptr [0x006018fc]"
+    },
+    {
+      "address": "0053f7e6",
+      "bytes": "53",
+      "instruction": "PUSH EBX"
+    },
+    {
+      "address": "0053f7e7",
+      "bytes": "55",
+      "instruction": "PUSH EBP"
+    },
+    {
+      "address": "0053f7e8",
+      "bytes": "56",
+      "instruction": "PUSH ESI"
+    },
+    {
+      "address": "0053f7e9",
+      "bytes": "0fbf2dbeb5d300",
+      "instruction": "MOVSX EBP,word ptr [0x00d3b5be]"
+    },
+    {
+      "address": "0053f7f0",
+      "bytes": "57",
+      "instruction": "PUSH EDI"
+    },
+    {
+      "address": "0053f7f1",
+      "bytes": "8944241c",
+      "instruction": "MOV dword ptr [ESP + 0x1c],EAX"
+    },
+    {
+      "address": "0053f7f5",
+      "bytes": "66894c2420",
+      "instruction": "MOV word ptr [ESP + 0x20],CX"
+    },
+    {
+      "address": "0053f7fa",
+      "bytes": "b93f000000",
+      "instruction": "MOV ECX,0x3f"
+    },
+    {
+      "address": "0053f7ff",
+      "bytes": "33c0",
+      "instruction": "XOR EAX,EAX"
+    },
+    {
+      "address": "0053f801",
+      "bytes": "8d7c2422",
+      "instruction": "LEA EDI,[ESP + 0x22]"
+    },
+    {
+      "address": "0053f805",
+      "bytes": "f3ab",
+      "instruction": "STOSD.REP ES:EDI"
+    },
+    {
+      "address": "0053f807",
+      "bytes": "8b9c242c010000",
+      "instruction": "MOV EBX,dword ptr [ESP + 0x12c]"
+    },
+    {
+      "address": "0053f80e",
+      "bytes": "83c9ff",
+      "instruction": "OR ECX,0xffffffff"
+    },
+    {
+      "address": "0053f811",
+      "bytes": "66ab",
+      "instruction": "STOSW ES:EDI"
+    },
+    {
+      "address": "0053f813",
+      "bytes": "8bbc2424010000",
+      "instruction": "MOV EDI,dword ptr [ESP + 0x124]"
+    },
+    {
+      "address": "0053f81a",
+      "bytes": "33c0",
+      "instruction": "XOR EAX,EAX"
+    },
+    {
+      "address": "0053f81c",
+      "bytes": "d1e5",
+      "instruction": "SHL EBP,0x1"
+    },
+    {
+      "address": "0053f81e",
+      "bytes": "2beb",
+      "instruction": "SUB EBP,EBX"
+    },
+    {
+      "address": "0053f820",
+      "bytes": "8d54241c",
+      "instruction": "LEA EDX,[ESP + 0x1c]"
+    },
+    {
+      "address": "0053f824",
+      "bytes": "f2ae",
+      "instruction": "SCASB.REPNE ES:EDI"
+    },
+    {
+      "address": "0053f826",
+      "bytes": "f7d1",
+      "instruction": "NOT ECX"
+    },
+    {
+      "address": "0053f828",
+      "bytes": "2bf9",
+      "instruction": "SUB EDI,ECX"
+    },
+    {
+      "address": "0053f82a",
+      "bytes": "68e0065e00",
+      "instruction": "PUSH 0x5e06e0"
+    },
+    {
+      "address": "0053f82f",
+      "bytes": "8bf7",
+      "instruction": "MOV ESI,EDI"
+    },
+    {
+      "address": "0053f831",
+      "bytes": "8bfa",
+      "instruction": "MOV EDI,EDX"
+    },
+    {
+      "address": "0053f833",
+      "bytes": "8bd1",
+      "instruction": "MOV EDX,ECX"
+    },
+    {
+      "address": "0053f835",
+      "bytes": "83c9ff",
+      "instruction": "OR ECX,0xffffffff"
+    },
+    {
+      "address": "0053f838",
+      "bytes": "f2ae",
+      "instruction": "SCASB.REPNE ES:EDI"
+    }
+  ],
+  "correction": "Represent the native 260-byte pathname as one C object: DWORD prefix, WORD suffix, 63 zero DWORDs, final zero WORD. The former split locals had a two-byte write past local_fe[63] and assumed adjacency of unrelated C objects.",
+  "native_initialized_ranges": [
+    [
+      0,
+      4
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      6,
+      252
+    ],
+    [
+      258,
+      2
+    ]
+  ],
+  "unchanged": "Forward DWORD/byte filename append, fallback destination advancement, reads/seeks, receiver-relative scratch pointer, and returned accumulated byte count.",
+  "strict_options": "/W4 /WX /O2 /GS /Ob0; no PCH",
+  "source_credit": {
+    "new_algorithms": 0,
+    "new_selected_entries": 0,
+    "supporting_existing_C_repairs": 1
+  },
+  "pre_repair_failed_comparison": {
+    "path": "build/actor-animal-following/cohort7-joint-sprite-runs/20261106-075912-370796/result.json",
+    "sha256": "36f0ad07edc4a9eea15fb835910873cb23571ba7f356835f4b359322b531e956"
+  },
+  "pre_repair_diagnostic": {
+    "path": "build/actor-animal-following/cohort7-joint-sprite-diagnostics/20261106-080344-837015/result.json",
+    "sha256": "b1b9670a658f5c527ddc4625bfe42a4949324241ec7049f51591679ab7336dcc"
+  },
+  "current_comparison": {
+    "path": "metadata/cohort7-joint-sprite-path-comparison.json",
+    "sha256": "9086c06240ce4745afb138e487c17ddedb1ed92dd4d856e43238d04c42d2eefd"
+  },
+  "joint_gate_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

@@ -1,5 +1,6 @@
 #include "restore_types.h"
 #include "sprite_render.h"
+#include <string.h>
 #define DAT_005e05ac (*(uint32_t *)0x005e05acu)
 #define DAT_005e06e0 (*(undefined4 *)0x005e06e0u)
 #define DAT_006018f8 (*(uint32_t *)0x006018f8u)
@@ -27,24 +28,19 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
   int iVar5;
   uint uVar6;
   char *pcVar7;
-  undefined4 *puVar8;
   char *pcVar9;
   char *pcVar10;
   int local_110;
   int local_10c;
-  undefined4 local_104;
-  undefined2 local_100;
-  undefined4 local_fe [63];
-  
-  local_104 = DAT_006018f8;
-  local_100 = DAT_006018fc;
-  puVar8 = local_fe;
-  for (iVar3 = 0x3f; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
-  }
+  char native_path[260];
+  uint32_t path_prefix = DAT_006018f8;
+  uint16_t path_suffix = DAT_006018fc;
+
+  /* 53F7F1..53F811: one pathname object, including the final zero WORD. */
+  memcpy(native_path, &path_prefix, sizeof(path_prefix));
+  memcpy(native_path + 4, &path_suffix, sizeof(path_suffix));
+  memset(native_path + 6, 0, sizeof(native_path) - 6);
   uVar4 = 0xffffffff;
-  *(undefined2 *)puVar8 = 0;
   iVar3 = DAT_00d3b5be * 2 - param_3;
   do {
     pcVar7 = param_1;
@@ -56,7 +52,7 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
   } while (cVar1 != '\0');
   uVar4 = ~uVar4;
   iVar5 = -1;
-  pcVar10 = (char *)&local_104;
+  pcVar10 = native_path;
   do {
     pcVar9 = pcVar10;
     if (iVar5 == 0) break;
@@ -65,7 +61,7 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
     cVar1 = *pcVar10;
     pcVar10 = pcVar9;
   } while (cVar1 != '\0');
-  pcVar7 = pcVar7 + -uVar4;
+  pcVar7 = pcVar7 - uVar4;
   pcVar10 = pcVar9 + -1;
   for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
     *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
@@ -79,11 +75,11 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
   }
   local_10c = 0;
   local_110 = 1;
-  FUN_004ce310(&local_104,&DAT_005e06e0);
-  iVar5 = FUN_00568eab(&local_104,0x8000);
+  FUN_004ce310(native_path,&DAT_005e06e0);
+  iVar5 = FUN_00568eab(native_path,0x8000);
   if (iVar5 == -1) {
     uVar4 = 0xffffffff;
-    pcVar7 = (char *)&local_104;
+    pcVar7 = native_path;
     do {
       pcVar10 = pcVar7;
       if (uVar4 == 0) break;
@@ -105,7 +101,7 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
       cVar1 = *pcVar7;
       pcVar7 = pcVar9;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar10 + -uVar4;
+    pcVar7 = pcVar10 - uVar4;
     pcVar10 = pcVar9 + -1;
     for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
       *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
@@ -138,8 +134,8 @@ int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *param_1,
   FUN_005647eb(iVar5);
   if (local_10c < 1) {
 LAB_0053f987: ;
-    FUN_004ce100(&local_104);
-    iVar5 = FUN_00568eab(&local_104,0x8000);
+    FUN_004ce100(native_path);
+    iVar5 = FUN_00568eab(native_path,0x8000);
     if (iVar5 != -1) {
       iVar2 = FUN_005662e3(iVar5,param_5,0);
       if ((iVar2 != -1) && (0 < param_4)) {

@@ -70,7 +70,7 @@ def import_slots(pe):
 def execute(registry,cases,directory):
  sys.path[:0]=[str(ROOT/'build/offline-verification-deps'),str(ROOT/'direct_c')]
  import unicorn
- from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE,UC_HOOK_MEM_READ
+ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE,UC_HOOK_MEM_READ,UC_HOOK_MEM_INVALID
  import unicorn.x86_const as x
  from native_test_pe import PE
  registers=[x.UC_X86_REG_EAX,x.UC_X86_REG_ECX,x.UC_X86_REG_EDX,x.UC_X86_REG_EBX,x.UC_X86_REG_ESP,x.UC_X86_REG_EBP,x.UC_X86_REG_ESI,x.UC_X86_REG_EDI]
@@ -215,7 +215,11 @@ def execute(registry,cases,directory):
     if state.get('read_skip_return_fetches')and bytes(uc.mem_read(uc.reg_read(x.UC_X86_REG_EIP),1))in(b'\xc2',b'\xc3'):
      state['return_reads'].append([address,size]);return
     state['reads'].append([address,size])
-  u.hook_add(UC_HOOK_CODE,code,state);u.hook_add(UC_HOOK_MEM_WRITE,write,state);u.hook_add(UC_HOOK_MEM_READ,read,state);machines[label]=(u,state)
+  def invalid(uc,access,address,size,value,state):
+   if state['active']:
+    state['faults'].append(dict(kind='invalid-memory',access=access,address=hex(address),size=size,eip=hex(uc.reg_read(x.UC_X86_REG_EIP)),esp=hex(uc.reg_read(x.UC_X86_REG_ESP))))
+   return False
+  u.hook_add(UC_HOOK_CODE,code,state);u.hook_add(UC_HOOK_MEM_WRITE,write,state);u.hook_add(UC_HOOK_MEM_READ,read,state);u.hook_add(UC_HOOK_MEM_INVALID,invalid,state);machines[label]=(u,state)
  sources={name:digest(ROOT/name)for name in json.loads(LEDGER.read_bytes())['source_hashes']}
  for folder in ['src','runtime','include']:
   for path in (ROOT/folder).rglob('*'):
@@ -235,7 +239,12 @@ def execute(registry,cases,directory):
     if provider['named']:selected.append(('named',provider['named']['va'],case['named_arguments']))
     canonical=provider['canonical']
     if canonical and (Path(m['source']).stem+'.obj'in canonical['owner']or case.get('canonical_owner')and case['canonical_owner']in canonical['owner']):
-     selected.append(('canonical',canonical['va'],case['arguments']))
+     selected.append(('canonical',canonical['va'],case.get('canonical_arguments',case['arguments'])))
+   if 'routes'in case:
+    requested=set(case['routes'])
+    assert {'native','named'}<=requested<= {'native','named','canonical'},('invalid API route scope',case['id'])
+    assert case.get('routes_reason'),('missing API route scope reason',case['id'])
+    selected=[item for item in selected if item[0]in requested]
    for route,pc,args in selected:
     state.update(active=False,faults=[],write_ranges=case['write_ranges'],write_trace=[],write_trace_ranges=case.get('write_trace_ranges',[]),events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
     import_fixups=[]
@@ -294,6 +303,9 @@ def execute(registry,cases,directory):
     result_memory=case.get('result_memory',{}).get(route)
     if result_memory:
      at,width=result_memory;assert width in[1,2,4];result=int.from_bytes(u.mem_read(at,width),'little')
+    for at,payload in case.get('authored_final_memory',[]):
+     wanted=bytes.fromhex(payload);actual=bytes(u.mem_read(at,len(wanted)))
+     if actual!=wanted:errors.append(dict(kind='authored-final-memory',address=hex(at),expected=wanted.hex(),actual=actual.hex()))
     context=None
     if case.get('context_outputs'):
      values_by_name=dict(zip(['eax','ecx','edx','ebx','esp','ebp','esi','edi'],values));values_by_name['eflags']=flags

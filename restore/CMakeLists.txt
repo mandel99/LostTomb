@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
+set_source_files_properties(src/unit_02530.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS;/Ob0")
 project(PharaohRestore LANGUAGES C)
 set_source_files_properties(runtime/message_category.c runtime/actor_message.c src/unit_02503.c src/unit_02506.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 set_source_files_properties(runtime/labor_allocation.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
