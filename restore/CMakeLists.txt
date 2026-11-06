@@ -2585,3 +2585,14 @@ foreach(_translation_target IN ITEMS restore_link_check restore_game restore_coh
 endforeach()
 unset(_translation_target)
 unset(_translation_symbol)
+
+# Recovered EH3 handler and native parent-frame/continuation C owners.
+target_sources(pharaoh_restored PRIVATE runtime/crt_eh3_handler.c runtime/crt_eh3_frames.c)
+set_source_files_properties(src/unit_02781.c src/unit_02857.c src/unit_02862.c src/unit_02864.c runtime/crt_eh3_handler.c runtime/crt_eh3_frames.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_eh3_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_eh3_symbol IN ITEMS FUN_005614c3 FUN_00561a90 FUN_00563844 FUN_00563be1 FUN_00563d10 FUN_00563c7f FUN_00563e1c restore_crt_jump_to_catch restore_crt_eh3_handler restore_crt_invoke_terminate_handler restore_crt_cleanup_to_state restore_crt_invoke_catch restore_crt_cleanup_exception_filter restore_crt_rethrow_filter)
+  target_link_options(${_eh3_target} PRIVATE "/INCLUDE:_${_eh3_symbol}")
+ endforeach()
+endforeach()
+unset(_eh3_target)
+unset(_eh3_symbol)

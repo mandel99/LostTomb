@@ -1,6 +1,6 @@
 #include "restore_types.h"
 #include "crt_translation_guard.h"
-extern void FUN_005614c3();
+#include "crt_eh3_frames.h"
 extern void FUN_00563be1();
 extern undefined4 FUN_00563d10();
 extern void FUN_00563e46();
@@ -24,7 +24,7 @@ void FUN_00563c95(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
   iVar1 = FUN_00563d10(param_1,param_2,param_3,param_5,*(undefined4 *)(param_6 + 0xc),param_9,0x100)
   ;
   if (iVar1 != 0) {
-    FUN_005614c3(iVar1,param_2);
+    restore_crt_jump_to_catch((uint32_t)iVar1,(uint32_t)param_2);
   }
   return;
 }

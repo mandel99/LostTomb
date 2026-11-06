@@ -107,6 +107,19 @@ def catalogue(inputs):
                 raise ValueError("Cache entry has no requested address: " + str(path))
             addresses.add(address)
             records[address].append((relative(path), item))
+    for path in sorted((ROOT / "metadata").glob("*-native-function-discovery.json")):
+        data = load(path)
+        if data.get("schema") != "recovered-native-function-discovery-v1" or data.get("native_sha256") != PIN:
+            raise ValueError("Wrong recovered native discovery: " + str(path))
+        inputs[relative(path)] = rules.sha(path)
+        for item in data["entries"]:
+            address = addr(item["requested_address"])
+            if address is None:
+                raise ValueError("Recovered native entry has no address")
+            addresses.add(address)
+            records[address].append((relative(path), item))
+            if item.get("file"):
+                units[address].append(dict(address=label(address), file=item["file"]))
     return sorted(addresses), records, units
 
 

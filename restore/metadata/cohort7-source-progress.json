@@ -2,13 +2,13 @@
   "schema": "cohort7-source-progress-v1",
   "source_base_checkpoint": "1c55dbab",
   "prior_selected_entries": 341,
-  "cumulative_selected_entries": 348,
-  "new_source_entries": 7,
+  "cumulative_selected_entries": 355,
+  "new_source_entries": 14,
   "nominal_target_entries": 100,
-  "nominal_target_remaining": 93,
-  "new_algorithm_creations": 2,
-  "new_input_binding_repairs": 4,
-  "source_stage": "cohort7_open7_shared_strict_build_and_necessary_translation_ABI_passed_joint_gate_pending",
+  "nominal_target_remaining": 86,
+  "new_algorithm_creations": 5,
+  "new_input_binding_repairs": 8,
+  "source_stage": "cohort7_open14_shared_strict_build_and_necessary_EH3_ABI_passed_joint_gate_pending",
   "members": [
     {
       "address": "0x406460",
@@ -116,9 +116,9 @@
       "address": "0x563c95",
       "name": "FUN_00563c95",
       "source": "src/unit_02863.c",
-      "source_sha256": "dd1227e85198cbf22bc6d2413473cd4df6656c83c9edeee2527018885efe2d8b",
-      "body_sha256": "55f2ddf7411652a42eca90eb455d7631560384649f040cdd85d6774828e9c631",
-      "body_hash_scope": "Exact definition from function identifier through closing brace; helper source bound separately",
+      "source_sha256": "d149d7a6a26dcf57561bd37f5d8229e36842bbf9db1fb6469b5f4260589ef449",
+      "body_sha256": "d149d7a6a26dcf57561bd37f5d8229e36842bbf9db1fb6469b5f4260589ef449",
+      "body_hash_scope": "Full C source with typed nonlocal continuation call",
       "native_instructions": 50,
       "native_bytes": 123,
       "native_byte_sha256": "0662c2c9bdf037c76040f8fec95593fbe1e6627d94aa78aeddf217703890efac",
@@ -130,7 +130,7 @@
       "logical_signature": "void cdecl10",
       "creation_credit": 0,
       "prior_C_algorithm_reuse": true,
-      "stage": "strict_build_and_necessary_ABI_passed_detailed_joint_gate_pending",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
       "repair_role": "typed_C_caller_of_unwind_API",
       "canonical_symbol": "FUN_00563c95"
     },
@@ -177,6 +177,160 @@
       "stage": "strict_build_passed_current_image_detailed_joint_gate_pending",
       "repair_role": "actual_receiver_forwarding_to_existing_clipped_fetch",
       "canonical_symbol": "FUN_0053e590"
+    },
+    {
+      "address": "0x5614c3",
+      "name": "restore_crt_jump_to_catch",
+      "source": "src/unit_02781.c",
+      "source_sha256": "e468a6c8573957f42b2cc765b64f2c1a6391d00caf856a9f0e3a217d30fa9a41",
+      "body_sha256": "e468a6c8573957f42b2cc765b64f2c1a6391d00caf856a9f0e3a217d30fa9a41",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 17,
+      "native_bytes": 45,
+      "native_byte_sha256": "b49041c40c906d03627285a28e73db85a5aa2afb30c781c280caed2ef99391b4",
+      "native_evidence_id": "ev_4825a940553a094e8d1985e0ca3307b6709c1b3028c60d550ea058f45b9de209",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl2; nonlocal saved-ESP/frame+12 JMP",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_005614c3",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x561a90",
+      "name": "restore_crt_eh3_handler",
+      "source": "runtime/crt_eh3_handler.c",
+      "source_sha256": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e",
+      "body_sha256": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 73,
+      "native_bytes": 189,
+      "native_byte_sha256": "5a18ca87770d45ab935d77ec80e18b5d68a3e71b797e61246f031a1b0b8abe28",
+      "native_evidence_id": "ev_3b3c206fd3c5985098752e6dfa0080fbe4e029ea14a4a77ca7cb628af662149f",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "uint32 cdecl4 EH3 disposition",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00561a90",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563844",
+      "name": "restore_crt_invoke_terminate_handler",
+      "source": "src/unit_02857.c",
+      "source_sha256": "7b3bfec1756dbe4f03f6df81cb57c627d864f8795b9e622e4b718c6a583b0616",
+      "body_sha256": "7b3bfec1756dbe4f03f6df81cb57c627d864f8795b9e622e4b718c6a583b0616",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 29,
+      "native_bytes": 86,
+      "native_byte_sha256": "c833460753e28b8283208cabce7de1e60802b8e65fa986e54111178c64069ae0",
+      "native_evidence_id": "ev_af6718b4ce2740e32011084102c8149e85f6c64539d7d97e43223bf012fbae46",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl0 noreturn with native EH3 parent frame",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563844",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563be1",
+      "name": "restore_crt_cleanup_to_state",
+      "source": "src/unit_02862.c",
+      "source_sha256": "efc0aaf3d7742dda06870e01770e3fc4bd9e9e2b71a50bc9fe4c86bed452c38d",
+      "body_sha256": "efc0aaf3d7742dda06870e01770e3fc4bd9e9e2b71a50bc9fe4c86bed452c38d",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 56,
+      "native_bytes": 158,
+      "native_byte_sha256": "f43c657754a2e0a4ce543f96dd40b4d58fe9e6541daf58462261f65196f8d87d",
+      "native_evidence_id": "ev_5da761080517a2dba03a7380ed38160834655fe9781ab0a3f97fc7c880bb4657",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl4 with EH3 cleanup/filter/recovery",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563be1",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563d10",
+      "name": "restore_crt_invoke_catch",
+      "source": "src/unit_02864.c",
+      "source_sha256": "042663d66f8341b2b5562c61dd1595d5d204f69a01c27ed8a1c0aec36dbad52d",
+      "body_sha256": "042663d66f8341b2b5562c61dd1595d5d204f69a01c27ed8a1c0aec36dbad52d",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 66,
+      "native_bytes": 198,
+      "native_byte_sha256": "1cb4e92b4d0343a320294a8b2eb7a9289bdfd42a3fe72bdcb36ee1d346760485",
+      "native_evidence_id": "ev_bd021e924da33e083b112c68abf04d3296091595a731c64cd53cec298c64623d",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "uint32 cdecl7 with EH3 catch/finally/rethrow recovery",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563d10",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563c7f",
+      "name": "restore_crt_cleanup_exception_filter",
+      "source": "runtime/crt_eh3_frames.c",
+      "source_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 7,
+      "native_bytes": 22,
+      "native_byte_sha256": "bc3da163cd4301cf54df14b889e03587759852f7fa6abb5782fff8af5e84c84f",
+      "native_evidence_id": "ev_d2c7e423e6d19f3407da855276fed023167f286ab277b7ed96599e555cb8ba44",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "int32 cdecl1 EXCEPTION_POINTERS filter; C++ terminates",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00563c7f",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563e1c",
+      "name": "restore_crt_rethrow_filter",
+      "source": "runtime/crt_eh3_frames.c",
+      "source_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 15,
+      "native_bytes": 42,
+      "native_byte_sha256": "f0f5dbe69fb310efa0038c2524f469faee972ea0f54294bdd15eae978c1fc0ee",
+      "native_evidence_id": "ev_22086c5d7e3d1a300e747a38365a9001d39f8370ffd0823c52a0ec82be34fdf7",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "int32 cdecl1 exact C++ rethrow filter",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00563e1c",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
     }
   ],
   "strict_build_complete": true,
@@ -214,8 +368,16 @@
     "path": "metadata/cohort7-necessary-ABI-comparison.json",
     "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
   },
-  "current_image_necessary_ABI_entries": 4,
-  "current_image_necessary_ABI_cases": 16,
-  "current_image_necessary_ABI_invocations": 112,
-  "detailed_joint_comparison_pending": true
+  "current_image_necessary_ABI_entries": 8,
+  "current_image_necessary_ABI_cases": 35,
+  "current_image_necessary_ABI_invocations": 245,
+  "detailed_joint_comparison_pending": true,
+  "necessary_EH3_ABI": {
+    "path": "metadata/cohort7-eh3-ABI-comparison.json",
+    "sha256": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4"
+  },
+  "supporting_funclets": {
+    "path": "metadata/cohort7-eh3-supporting-funclets.json",
+    "sha256": "ca3d7f2b65fd2e589fb1f6842c38ee00effd0da9312898f7b0aebf2364533717"
+  }
 }

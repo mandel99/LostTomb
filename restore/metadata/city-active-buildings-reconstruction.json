@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "cohort": "cohort3_through_active_cohort7_connected_C_entries",
-  "status": "cohort7_open7_shared_strict_build_and_necessary_translation_ABI_passed_joint_gate_pending",
+  "status": "cohort7_open14_shared_strict_build_and_necessary_EH3_ABI_passed_joint_gate_pending",
   "base_source_checkpoint": "871eea0dd9b9d0237b1085876470d1157c7c4872",
-  "selected_entries": 348,
-  "static_native_instructions": 28952,
-  "new_algorithm_creations": 90,
+  "selected_entries": 355,
+  "static_native_instructions": 29215,
+  "new_algorithm_creations": 93,
   "members": [
     {
       "address": "0x462180",
@@ -16683,9 +16683,9 @@
       "address": "0x563c95",
       "name": "FUN_00563c95",
       "source": "src/unit_02863.c",
-      "source_sha256": "dd1227e85198cbf22bc6d2413473cd4df6656c83c9edeee2527018885efe2d8b",
-      "body_sha256": "55f2ddf7411652a42eca90eb455d7631560384649f040cdd85d6774828e9c631",
-      "body_hash_scope": "Exact definition from function identifier through closing brace; helper source bound separately",
+      "source_sha256": "d149d7a6a26dcf57561bd37f5d8229e36842bbf9db1fb6469b5f4260589ef449",
+      "body_sha256": "d149d7a6a26dcf57561bd37f5d8229e36842bbf9db1fb6469b5f4260589ef449",
+      "body_hash_scope": "Full C source with typed nonlocal continuation call",
       "native_instructions": 50,
       "native_bytes": 123,
       "native_byte_sha256": "0662c2c9bdf037c76040f8fec95593fbe1e6627d94aa78aeddf217703890efac",
@@ -16697,7 +16697,7 @@
       "logical_signature": "void cdecl10",
       "creation_credit": 0,
       "prior_C_algorithm_reuse": true,
-      "stage": "strict_build_and_necessary_ABI_passed_detailed_joint_gate_pending",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
       "repair_role": "typed_C_caller_of_unwind_API",
       "canonical_symbol": "FUN_00563c95"
     },
@@ -16744,6 +16744,160 @@
       "stage": "strict_build_passed_current_image_detailed_joint_gate_pending",
       "repair_role": "actual_receiver_forwarding_to_existing_clipped_fetch",
       "canonical_symbol": "FUN_0053e590"
+    },
+    {
+      "address": "0x5614c3",
+      "name": "restore_crt_jump_to_catch",
+      "source": "src/unit_02781.c",
+      "source_sha256": "e468a6c8573957f42b2cc765b64f2c1a6391d00caf856a9f0e3a217d30fa9a41",
+      "body_sha256": "e468a6c8573957f42b2cc765b64f2c1a6391d00caf856a9f0e3a217d30fa9a41",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 17,
+      "native_bytes": 45,
+      "native_byte_sha256": "b49041c40c906d03627285a28e73db85a5aa2afb30c781c280caed2ef99391b4",
+      "native_evidence_id": "ev_4825a940553a094e8d1985e0ca3307b6709c1b3028c60d550ea058f45b9de209",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl2; nonlocal saved-ESP/frame+12 JMP",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_005614c3",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x561a90",
+      "name": "restore_crt_eh3_handler",
+      "source": "runtime/crt_eh3_handler.c",
+      "source_sha256": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e",
+      "body_sha256": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 73,
+      "native_bytes": 189,
+      "native_byte_sha256": "5a18ca87770d45ab935d77ec80e18b5d68a3e71b797e61246f031a1b0b8abe28",
+      "native_evidence_id": "ev_3b3c206fd3c5985098752e6dfa0080fbe4e029ea14a4a77ca7cb628af662149f",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "uint32 cdecl4 EH3 disposition",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00561a90",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563844",
+      "name": "restore_crt_invoke_terminate_handler",
+      "source": "src/unit_02857.c",
+      "source_sha256": "7b3bfec1756dbe4f03f6df81cb57c627d864f8795b9e622e4b718c6a583b0616",
+      "body_sha256": "7b3bfec1756dbe4f03f6df81cb57c627d864f8795b9e622e4b718c6a583b0616",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 29,
+      "native_bytes": 86,
+      "native_byte_sha256": "c833460753e28b8283208cabce7de1e60802b8e65fa986e54111178c64069ae0",
+      "native_evidence_id": "ev_af6718b4ce2740e32011084102c8149e85f6c64539d7d97e43223bf012fbae46",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl0 noreturn with native EH3 parent frame",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563844",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563be1",
+      "name": "restore_crt_cleanup_to_state",
+      "source": "src/unit_02862.c",
+      "source_sha256": "efc0aaf3d7742dda06870e01770e3fc4bd9e9e2b71a50bc9fe4c86bed452c38d",
+      "body_sha256": "efc0aaf3d7742dda06870e01770e3fc4bd9e9e2b71a50bc9fe4c86bed452c38d",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 56,
+      "native_bytes": 158,
+      "native_byte_sha256": "f43c657754a2e0a4ce543f96dd40b4d58fe9e6541daf58462261f65196f8d87d",
+      "native_evidence_id": "ev_5da761080517a2dba03a7380ed38160834655fe9781ab0a3f97fc7c880bb4657",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "void cdecl4 with EH3 cleanup/filter/recovery",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563be1",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563d10",
+      "name": "restore_crt_invoke_catch",
+      "source": "src/unit_02864.c",
+      "source_sha256": "042663d66f8341b2b5562c61dd1595d5d204f69a01c27ed8a1c0aec36dbad52d",
+      "body_sha256": "042663d66f8341b2b5562c61dd1595d5d204f69a01c27ed8a1c0aec36dbad52d",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 66,
+      "native_bytes": 198,
+      "native_byte_sha256": "1cb4e92b4d0343a320294a8b2eb7a9289bdfd42a3fe72bdcb36ee1d346760485",
+      "native_evidence_id": "ev_bd021e924da33e083b112c68abf04d3296091595a731c64cd53cec298c64623d",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "uint32 cdecl7 with EH3 catch/finally/rethrow recovery",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563d10",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563c7f",
+      "name": "restore_crt_cleanup_exception_filter",
+      "source": "runtime/crt_eh3_frames.c",
+      "source_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 7,
+      "native_bytes": 22,
+      "native_byte_sha256": "bc3da163cd4301cf54df14b889e03587759852f7fa6abb5782fff8af5e84c84f",
+      "native_evidence_id": "ev_d2c7e423e6d19f3407da855276fed023167f286ab277b7ed96599e555cb8ba44",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "int32 cdecl1 EXCEPTION_POINTERS filter; C++ terminates",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00563c7f",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x563e1c",
+      "name": "restore_crt_rethrow_filter",
+      "source": "runtime/crt_eh3_frames.c",
+      "source_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_sha256": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+      "body_hash_scope": "Full C source, including shared logical helpers; frame-entry macros are separately SHA-bound in include/crt_eh3_frames.h",
+      "native_instructions": 15,
+      "native_bytes": 42,
+      "native_byte_sha256": "f0f5dbe69fb310efa0038c2524f469faee972ea0f54294bdd15eae978c1fc0ee",
+      "native_evidence_id": "ev_22086c5d7e3d1a300e747a38365a9001d39f8370ffd0823c52a0ec82be34fdf7",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-eh3-rea-records.json",
+        "sha256": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8"
+      },
+      "logical_signature": "int32 cdecl1 exact C++ rethrow filter",
+      "creation_credit": 1,
+      "prior_C_algorithm_reuse": false,
+      "canonical_symbol": "FUN_00563e1c",
+      "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
+      "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
     }
   ],
   "evidence": {
@@ -16751,7 +16905,7 @@
     "sha256": "4c3c053313752ba2c09f01d71cc20935c6e94d77378f9e388ae83c5f0f5c780e"
   },
   "source_hashes": {
-    "CMakeLists.txt": "24b9a4911d81af48a41c0ba32fa14e7096a62c5088a740fff24896c14ef03f1d",
+    "CMakeLists.txt": "b00a7c86b01bc230444410d14217803c88401844db417868788e0888ddb3241d",
     "runtime/city_updates.c": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
     "src/unit_00926.c": "e6d7fc112ea2c7a3ccc9306b2d72e8afbe88741d5ab21e9e519d69a56bbfc009",
     "src/unit_00928.c": "174233cbdddbac54a76f0bfb5938f070e544c8669e2eca508455392bb45585d8",
@@ -16858,9 +17012,9 @@
     "include/crt_exception_dispatch.h": "5c80eeff5c757a561c17d0acba54d48a639946654867c812aa53b7c62c5da86b",
     "runtime/crt_exception_entries.c": "5585a281c7133da59312f54dfc9162e6dc51061176006adb66d42964dccef896",
     "runtime/crt_exception_dispatch_entries.c": "0da569e1e9d19c1e5c995be32dce9c3861083dd2ee7d848d02604932a07784f4",
-    "src/unit_02862.c": "e19d4930f3d29188fdd0d955c4712819a55d469c5bfca4c5974269cbb1bec03e",
+    "src/unit_02862.c": "efc0aaf3d7742dda06870e01770e3fc4bd9e9e2b71a50bc9fe4c86bed452c38d",
     "metadata/crt-exception-contracts.json": "776e1b0704c2216fae75b15bf1cd99d93bde7f7edaf8629e83eb65d9d91c974b",
-    "runtime/crt_exception_handlers.asm": "46f36620e77be618790fac7ecba020612aa8de79b7b1914ae03e676bc0d75dc0",
+    "runtime/crt_exception_handlers.asm": "984411c7fc1444340a06a9db3a926ca32099daa1f5fad8fe25b943e3b3e1f7ae",
     "metadata/crt-exception-safe-handler.json": "5990986ade36951ded8440fa67c7155733151e953bc862d49b8ee443b183d855",
     "src/unit_02791.c": "4bb21d40975932c93d86540b35892c72fd2be5f7bc0cd3a7a23d8901ec237548",
     "src/unit_02792.c": "802c4c71759565ea699035b2567f403059eff08334863e443544f856f86e0f01",
@@ -16923,10 +17077,10 @@
     "src/unit_02619.c": "19b63c70f968a1a3fb11aa11bf8a8da2c0f7fb3ad40165d8689f6d52d0ac3339",
     "tools/draw_dispatch_reconstruct.py": "b1fb10252fbf2cb690d3ce4ba58051e344627fbbbf2918df13e60867dfb3b579",
     "metadata/bulk-draw-dispatch-contracts.json": "651e5c5917191c870ec7fab0d5d3145ab5ed209064ab43346cd1ef2c0a93db8e",
-    "direct_c/cohort3_replay/cases.py": "e22331a714a196b91a1b46a6ad109d53eef56159288a89568079f9e50fdc2f3f",
+    "direct_c/cohort3_replay/cases.py": "ade49dafdc4ed7a245d274fa7ef67105e22d2a426bbc0d75dc1b45f006a2e90e",
     "direct_c/cohort3_replay/README.md": "71fe6f1a31c159c8be0d73d4b9f225e4813334bb2b1baf23172fa534e04572fd",
     "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb",
-    "direct_c/cohort3_replay/replay.py": "9026f622bd5f1f4a2a79b5413549dec70a2316169b353fdee4f7614a9a71f634",
+    "direct_c/cohort3_replay/replay.py": "a7b87f35a1275a0981bdcdc8fc7598dec1c561c0aed4712d3e5b8d0605be5aed",
     "direct_c/cohort3_replay/retained_image.cmake": "d3232369e5f65b4f2a17035a31828fbae6e51e797a5aac244330b561332631e2",
     "metadata/bulk-draw-dispatch-safe-handler.json": "52c290fa9eea1424ed7bb07f997e566f2c6376060a7c8b5f05eeacaf88c57978",
     "runtime/placement_preview_members.c": "ee8a878130ea9620fccfff5b53e77e8d36a6ea00eca794acdf73e22e7811c92f",
@@ -16998,7 +17152,7 @@
     "metadata/cohort4-source-progress.json": "464ae8295c536ff2dac067120cb527632959e62a5114bee74128ca6b32c70d88",
     "metadata/cohort4-stream-token-layout.json": "c16b54441d33edc5b5dca4027ab00564a01128cf242d2c16e94393e711a861e8",
     "README.md": "f9834713d88fbed43ec19bb9f9e9f010bb6a864fa63d5955f6f6ade861dd704f",
-    "metadata/bulk-reconstruction-next-queue.json": "1d170394e3443abaf26bca4a4120fa3a72d320b6adf5a7a58f0be880c94b0a77",
+    "metadata/bulk-reconstruction-next-queue.json": "885aa9d600470f011f3d93079fdb024f5d1cb9db8a51bf438e339595fe903ef4",
     "metadata/cohort4-source-ownership.json": "206e9064562f4fd00963b89cb97703b66847c2bc2b6027d6d000d54ecf242d16",
     "src/unit_00005.c": "b59395b2dd6116b2c7e36f4bb65ec3c0d6181530f75ee1dc73234cecebabcd5e",
     "src/unit_00103.c": "2bd14684c2f574495875eda6ed73ac94a2ae79e6c3e1fbed7928aa89b0655806",
@@ -17062,8 +17216,8 @@
     "metadata/cohort4-actor-widget-contracts.json": "0395afd27ea1b8ed730972aebae7a9c57c239f5211bcbd1018a99ff4029b7708",
     "metadata/cohort4-crt-runtime-tail-contracts.json": "a190cca6820754150955917ce9f37b0ab8dd1f3785490b3a0de0d4b7e6dce29e",
     "metadata/cohort4-completion-contracts.json": "9014999958a2c56ecc8ddc4d92551ba2d17b81da0802d899d226f38f82192702",
-    "tools/bulk_remaining.py": "7546b82ffd7ffc3648335cef9a5e18b9a8dfdea2b7abb2a163bd27a69a629514",
-    "BULK_REMAINING.md": "aae46ec076b6ea6b8ca0b797d70ac01eeda67244df26eb2b77195e4972cd6e29",
+    "tools/bulk_remaining.py": "aa3877c27efd675d22ababd36d604a1de252c09191fddfcf1e7c31cf31755557",
+    "BULK_REMAINING.md": "dd01a8c4c2cd6df3f1290a5922772b4b4ca333411b2c4e4e099d3867a6d7eba7",
     "metadata/cohort4-joint-comparison-plan.json": "e6cc182be68ec48450f6018d462aebed5754d2346b7951a314bb079c5d165571",
     "direct_c/cohort3_replay/cohort4_gameplay_cases.py": "5b1a846237ed1aa2c4b24b353f6b4f04b2c5a7c59db04f6c21fe602811086650",
     "direct_c/cohort3_replay/cohort4_stream_io_cases.py": "4cfe9dc6bcb3ee93e40e96c07eafc49359c411e84ea0c3706b69e0bc0f2dca24",
@@ -17278,7 +17432,7 @@
     "include/storage_order_actions.h": "fd42d4e8f1fb0de77117bc8901dc7fd0940b47532decc495444cf439847b2d0e",
     "metadata/storage-order-limit-rea-records.json": "a796103393e9340933771f075146dc553679725a6a3da344f20670ee3eb4ead9",
     "metadata/cohort6-closed49-image-archive.json": "2788a39daaf62b8b3ad3e5f762bde92fea22d9ccf6b60a92b44535b501a49845",
-    "metadata/cohort7-source-progress.json": "51d3f90ad747a680e85e8cc7631641c2df40516acfd3222db3d484d480f9883e",
+    "metadata/cohort7-source-progress.json": "c9ab0ef6e6b157911180f6524e07132d0130cd28fdf2000b3df54c400d7cd0ae",
     "metadata/cohort7-history-input-dispositions.json": "375a46e25508bbd29f6233b0e07f067fe3279b44a0fcdcd84ca2bf62cbdcb2f5",
     "direct_c/verify_storage_order_limit.py": "73c8e5c3a012cbeb30026777332c5993f03196c21edd1aba1b021bc59befd9b1",
     "metadata/storage-order-limit-comparison.json": "fb78dde2cb1ba0336e1c99de27b35611c2049a5e6ad6f1d73cb09e0da8fc5a07",
@@ -17288,7 +17442,7 @@
     "src/unit_02784.c": "e002078df61133578e13fe40049d6e0ff48fbaa25d36a6ab6a6b41b561a26de1",
     "src/unit_02788.c": "34935cb86a9075552223b998ce94828aa4b2a6b6b08f801ea7e59256cd49deed",
     "src/unit_02789.c": "ca6a507bc8ee64ae28906f5fb7a9c44b0a6476fe1394519a2b3d973d4e1ae7b6",
-    "src/unit_02863.c": "dd1227e85198cbf22bc6d2413473cd4df6656c83c9edeee2527018885efe2d8b",
+    "src/unit_02863.c": "d149d7a6a26dcf57561bd37f5d8229e36842bbf9db1fb6469b5f4260589ef449",
     "src/unit_00269.c": "48ca7583a2eeee2634e72879e9297cbc68eab8d35ce914c4fe1e59e3478bf464",
     "src/unit_02524.c": "61d1dacccbc524ff3157ad914a8ddcea5e3c797cc00554a088760e978beaf9b2",
     "include/sprite_render.h": "b7e1c3a6f9cfaa87260dda99e501f0be6a2b894f89565459d33ac3fc74eb435f",
@@ -17298,32 +17452,42 @@
     "metadata/cohort7-source1-image-archive.json": "63a7524553e4dc9fd06c3fdbc1a9189f334c450a607ea5512aba00bd07ee2920",
     "metadata/cohort7-connected-source-contracts.json": "2ca98a23619d618774e9b401584ca7f77c14bd4268196cae28f7eca91471ca6b",
     "metadata/cohort7-necessary-ABI-comparison.json": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e",
-    "metadata/cohort7-remaining-source-triage-validation.json": "fda940580a24c05964b6a92e8303d29d09bb78c3d4072cec9f779211e3bf6f7d"
+    "metadata/cohort7-remaining-source-triage-validation.json": "fda940580a24c05964b6a92e8303d29d09bb78c3d4072cec9f779211e3bf6f7d",
+    "include/crt_eh3_handler.h": "82dcd690fafd77dbde61db020c1e147a6280e53fce38c568ad75bf5ecf037347",
+    "include/crt_eh3_frames.h": "ff9729ea30fabdeff18f0978360f626123006ad439af2f01597aea953e371747",
+    "runtime/crt_eh3_handler.c": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e",
+    "runtime/crt_eh3_frames.c": "ea0f404db032715e65dd14bf2401f763739ce1259cd4409c363b85a75192b8b1",
+    "src/unit_02781.c": "e468a6c8573957f42b2cc765b64f2c1a6391d00caf856a9f0e3a217d30fa9a41",
+    "src/unit_02857.c": "7b3bfec1756dbe4f03f6df81cb57c627d864f8795b9e622e4b718c6a583b0616",
+    "src/unit_02864.c": "042663d66f8341b2b5562c61dd1595d5d204f69a01c27ed8a1c0aec36dbad52d",
+    "direct_c/cohort3_replay/cohort7_eh3_cases.py": "8c3d3b8425f4068d4b1221e2d74beba293d27f76ee5e4fae8ba02dd3c5f22f7f",
+    "metadata/cohort7-eh3-rea-records.json": "bf8a6b027112ad7ebafad2279b02cb459914805441bbedfe2268ef93f4db8fd8",
+    "metadata/cohort7-eh3-native-function-discovery.json": "ade860412df527540d2f9f29bffff1dc4b05015e019fa44d4f3ca67d04f568b6",
+    "metadata/cohort7-source7-image-archive.json": "2b5ad670da906ab8455cd700224f10c2a302888bd7157d0dc141991687707de4",
+    "metadata/cohort7-eh3-ABI-comparison.json": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4",
+    "metadata/cohort7-eh3-handler-source-contract.json": "e32674430165af9cb0551ce542027bdabbd2e455d35b63f0462b204c21593abc",
+    "metadata/cohort7-eh3-supporting-funclets.json": "ca3d7f2b65fd2e589fb1f6842c38ee00effd0da9312898f7b0aebf2364533717"
   },
   "strict_main_build": {
     "exit_code": 0,
-    "log_sha256": "474b3723ba24e24c446a2473c1646d0af8e429612ec19cc7324c45ecdfd0a548",
+    "log_sha256": "e5d0c994189aea6c2671c866712a314a655d1771646a55d563190b4e8f1854cf",
     "per_source_options": "/W4 /WX /O2 /GS- /Ob0; no PCH",
     "compiled_artifacts": {
       "game": {
         "path": "build/c-only/Release/PharaohRestoreC.exe",
         "map_path": "build/c-only/Release/PharaohRestoreC.map",
-        "sha256": "4bb6eb0e4b92a27f5b0031216f1999935b8686c7ee3461bb04e425c3a9c7597a",
-        "map_sha256": "ca2be90b48771a05560fdb2615a11a520eba4df74fa13ef6fecc662b65315f8a",
-        "translation_handler_safeseh": true,
-        "safeseh_entries": 17
+        "sha256": "f7c2c247f7b895a79807c79258cd4d6b7e415d53d742da2a3aa5c4009c3728a3",
+        "map_sha256": "a9ca620e92a3ccd624e02ecd0ef1addd5ede75c63a3898a29f579db50fdafca4"
       },
       "diagnostic": {
         "path": "build/c-only/Release/restore_link_check.exe",
         "map_path": "build/c-only/Release/restore_link_check.map",
-        "sha256": "75e93f7002d3bb8cf14f817853b822b2fe9e8cdfeec53980d7bb88a9ef95f94a",
-        "map_sha256": "048292c62f69278f9b95ecadd659646ec293828a58a4656c253866f2980e48f1",
-        "translation_handler_safeseh": true,
-        "safeseh_entries": 17
+        "sha256": "62474ea5797415819846a1ca3de355c3b8483188f429d05dde65775367c7aef3",
+        "map_sha256": "e98be4465a06599893db52f23b30a915582de480776b0311d3b3215020e69e6c"
       }
     },
-    "status": "shared_strict_build_passed_cohort7_source7",
-    "log_path": "build/actor-animal-following/cohort7-translation-final-build.log"
+    "status": "shared_strict_build_passed_cohort7_source14",
+    "log_path": "build/actor-animal-following/cohort7-eh3-shared-build.log"
   },
   "previous_cohort_current_provider_visibility": {
     "game": {
@@ -19228,10 +19392,11 @@
   ],
   "latest_source_base_checkpoint": "ed67cce210987777b91216d58ceea83566df9871",
   "latest_addition": {
-    "entries": 6,
-    "new_algorithm_creations": 1,
-    "static_native_instructions": 1412,
-    "scope": "Three translation/unwind bodies, one typed caller, two existing C corrections; detailed joint gate deferred until cohort closure."
+    "entries": 7,
+    "new_algorithm_creations": 3,
+    "static_native_instructions": 263,
+    "native_bytes": 740,
+    "scope": "EH3 handler, two filters, three native-layout parent bodies and a nonlocal continuation; existing563C95 typed caller updated without new-entry credit. Supporting funclets are exercised through their owning parent frames."
   },
   "discarded_placeholder_returns": {
     "count": 26,
@@ -19652,36 +19817,40 @@
     }
   ],
   "joint_comparison_stage": {
-    "status": "cohort7_open7_shared_strict_build_and_necessary_translation_ABI_passed_joint_gate_pending",
+    "status": "cohort7_open14_shared_strict_build_and_necessary_EH3_ABI_passed_joint_gate_pending",
     "baseline_completed_source_entries": 341,
-    "current_new_entries": 7,
+    "current_new_entries": 14,
     "focused_entries_compared": 1,
     "target_new_entries": 100,
-    "entries_remaining_until_joint_gate": 93,
+    "entries_remaining_until_joint_gate": 86,
     "source_expansion_suspended": false,
     "complete": false,
     "progress": {
       "path": "metadata/cohort7-source-progress.json",
-      "sha256": "51d3f90ad747a680e85e8cc7631641c2df40516acfd3222db3d484d480f9883e"
+      "sha256": "c9ab0ef6e6b157911180f6524e07132d0130cd28fdf2000b3df54c400d7cd0ae"
     },
     "whole_game_equivalence": false,
     "necessary_ABI": {
       "path": "metadata/cohort7-necessary-ABI-comparison.json",
       "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
     },
-    "necessary_ABI_entries_compared": 4,
-    "detailed_joint_comparison_complete": false
+    "necessary_ABI_entries_compared": 8,
+    "detailed_joint_comparison_complete": false,
+    "necessary_EH3_ABI": {
+      "path": "metadata/cohort7-eh3-ABI-comparison.json",
+      "sha256": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4"
+    }
   },
   "retained_comparison_image": {
     "path": "build/c-only/Release/restore_cohort3_retained.exe",
     "map_path": "build/c-only/Release/restore_cohort3_retained.map",
-    "sha256": "174f50fb1318297b341fbef197fdaacf85151fcf99a016a9421092e2c4e4da73",
-    "map_sha256": "98ee93efe11c51e6c1cffe539e5a3c3cf3b66471fd032dd42d58123e40bb44a3",
-    "status": "current348_source_image_necessary_translation_ABI_passed_cohort7_open",
+    "sha256": "125807f457ad3eab7979b58975ba473705f2fd1a55f7e1b0ec77b1e5a1a6c358",
+    "map_sha256": "009a3f7cb06d323ed68f156d59686a1cd042e84bfbe5080d8859dd57540e23d9",
+    "status": "current355_source_image_necessary_EH3_ABI_passed_cohort7_open",
     "fresh_cohort5_entries_compared": 0,
     "previous_finite_receipts_rebound": false,
     "fresh_cohort6_entries_compared": 0,
-    "fresh_cohort7_entries_compared": 4,
+    "fresh_cohort7_entries_compared": 8,
     "translation_handler_safeseh": true,
     "safeseh_entries": 17
   },
@@ -19704,8 +19873,8 @@
   },
   "source_packet_contracts_are_historical": true,
   "current_finite_comparison": {
-    "path": "metadata/cohort7-necessary-ABI-comparison.json",
-    "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
+    "path": "metadata/cohort7-eh3-ABI-comparison.json",
+    "sha256": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4"
   },
   "completed_cohort4_joint_comparison_stage": {
     "status": "cohort4_100_entry_finite_joint_gate_passed",
@@ -19792,16 +19961,16 @@
     "sha256": "f118d1985f82392100eeb9112ae4932690ea85d333dec54ea2aa777c21ae5826"
   },
   "current_source_provider_registry": {
-    "path": "build/actor-animal-following/cohort7-translation-ABI-runs/20261106-014034-327148/binding.json",
-    "sha256": "2a5f57358404a6ba2b3d2dfd963be29a891fa6e02dfb2eadbbf672384f865ad4",
+    "path": "build/actor-animal-following/cohort7-eh3-unwind-ABI-runs/20261106-025702-014839/binding.json",
+    "sha256": "48657edeffe5d0d460c6b35c272d8689319b0e083b942ca731fcb311b95e6148",
     "json_pointer": "/registry",
-    "retained_named_and_canonical": 348,
+    "retained_named_and_canonical": 355,
     "structural_registry": true,
     "full_cohort_comparison": false,
     "prior_finite_receipts_rebound": false,
     "input_ledger_snapshot": {
-      "path": "build/actor-animal-following/cohort7-translation-pre-ABI/city-active-buildings-reconstruction.json",
-      "sha256": "b30b6d4beb3cdfcf350f49dbff963406412b1c97577731496a9783c9bd60fe85"
+      "path": "build/actor-animal-following/cohort7-eh3-pre-unwind-ABI/city-active-buildings-reconstruction.json",
+      "sha256": "66a255699317ff16a7270ba0dc0e4c104d419fe35da1fac8077c292a8f366f7d"
     }
   },
   "prior_source_checkpoints": [
@@ -19942,29 +20111,61 @@
   },
   "next_concrete_semantic_work": [
     {
-      "address": "0x005614c3",
-      "source": "src/unit_02781.c",
-      "gap": "UNRECOVERED_JUMPTABLE is called as a normal function; native saved-frame nonlocal transfer needs reconstruction."
+      "address": "0x00562fea",
+      "source": "src/unit_02844.c",
+      "gap": "Active unhandled-exception path retains a legacy EH3 handler/frame."
     },
     {
-      "address": "0x00563be1",
-      "source": "src/unit_02862.c",
-      "gap": "Legacy compiler EH3 registration still uses original handler literal and decompiled stack locals."
+      "address": "0x00563e46",
+      "source": "src/unit_02866.c",
+      "gap": "Active catch-object conversion/constructor path retains original EH3 scope/funclet addresses."
     },
     {
-      "address": "0x00563844",
-      "source": "src/unit_02857.c",
-      "gap": "Same legacy handler/frame issue on the termination path."
-    },
-    {
-      "address": "0x00563d10",
-      "source": "src/unit_02864.c",
-      "gap": "Same handler/frame issue on catch invocation; current caller ABI fixture controls this boundary."
-    },
-    {
-      "address": "0x00561a90",
-      "source": null,
-      "gap": "Referenced by legacy EH3 registration; absent from current saved catalogue, discovery/ownership required."
+      "address": "0x0056400a",
+      "source": "src/unit_02867.c",
+      "gap": "Active exception-object destruction path retains original EH3 scope/funclet addresses."
     }
-  ]
+  ],
+  "pre_cohort7_source14_strict_main_build": {
+    "exit_code": 0,
+    "log_sha256": "474b3723ba24e24c446a2473c1646d0af8e429612ec19cc7324c45ecdfd0a548",
+    "per_source_options": "/W4 /WX /O2 /GS- /Ob0; no PCH",
+    "compiled_artifacts": {
+      "game": {
+        "path": "build/c-only/Release/PharaohRestoreC.exe",
+        "map_path": "build/c-only/Release/PharaohRestoreC.map",
+        "sha256": "4bb6eb0e4b92a27f5b0031216f1999935b8686c7ee3461bb04e425c3a9c7597a",
+        "map_sha256": "ca2be90b48771a05560fdb2615a11a520eba4df74fa13ef6fecc662b65315f8a",
+        "translation_handler_safeseh": true,
+        "safeseh_entries": 17
+      },
+      "diagnostic": {
+        "path": "build/c-only/Release/restore_link_check.exe",
+        "map_path": "build/c-only/Release/restore_link_check.map",
+        "sha256": "75e93f7002d3bb8cf14f817853b822b2fe9e8cdfeec53980d7bb88a9ef95f94a",
+        "map_sha256": "048292c62f69278f9b95ecadd659646ec293828a58a4656c253866f2980e48f1",
+        "translation_handler_safeseh": true,
+        "safeseh_entries": 17
+      }
+    },
+    "status": "shared_strict_build_passed_cohort7_source7",
+    "log_path": "build/actor-animal-following/cohort7-translation-final-build.log"
+  },
+  "cohort7_source7_verified_images": {
+    "path": "metadata/cohort7-source7-image-archive.json",
+    "sha256": "2b5ad670da906ab8455cd700224f10c2a302888bd7157d0dc141991687707de4"
+  },
+  "historical_cohort7_source7_finite_comparison": {
+    "path": "metadata/cohort7-necessary-ABI-comparison.json",
+    "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
+  },
+  "remaining_active_legacy_EH3_sources": [
+    "src/unit_02844.c",
+    "src/unit_02866.c",
+    "src/unit_02867.c"
+  ],
+  "supporting_EH3_funclets": {
+    "path": "metadata/cohort7-eh3-supporting-funclets.json",
+    "sha256": "ca3d7f2b65fd2e589fb1f6842c38ee00effd0da9312898f7b0aebf2364533717"
+  }
 }

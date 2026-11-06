@@ -125,11 +125,30 @@ def execute(registry,cases,directory):
     assert len(logical)==spec['arity'],('endpoint logical arity',spec['token'])
     event=dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])])
     if spec.get('registers'):event['registers']={name:uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))for name in spec['registers']}
+    if spec.get('private_register_inputs'):
+     event['private_register_inputs']={}
+     for name,info in spec['private_register_inputs'].items():
+      at=uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()));width=info['width']
+      assert 0<width<=256 and STACK<=at and at+width<=STACK+STACK_SIZE
+      event['private_register_inputs'][name]=[info['role'],bytes(uc.mem_read(at,width)).hex()]
     if spec.get('fs0_registration'):
-     record=spec['fs0_registration'];at=get(0);assert STACK<=at and at+record['size']<=STACK+STACK_SIZE
+     record=spec['fs0_registration'];at=get(0)
+     for _ in range(record.get('chain_depth',0)):at=get(at)
+     assert STACK<=at and at+record['size']<=STACK+STACK_SIZE
      target=record['native_handler']if state['label']=='native'else symbol(state['map_text'],record['compiled_handler_symbol'])['va']
      assert get(at+4)==target,('active registration handler',spec['token'])
      event['registration']=dict(handler_token=hex(record['native_handler']),fields=[[off,width,get(at+off,width)]for off,width in record['fields']])
+     if record.get('scope_rows'):
+      table=get(at+8);scope_rows=[]
+      for i,row in enumerate(record['scope_rows']):
+       values=[get(table+i*12+offset)for offset in (0,4,8)]
+       wanted=[row['enclosing']&0xffffffff]
+       for role in ('filter','handler'):
+        native_value=row['native_'+role]
+        wanted.append(native_value if state['label']=='native' or not native_value else symbol(state['map_text'],row['compiled_'+role])['va'])
+       assert values==wanted,('relocated EH3 scope',spec['token'],i)
+       scope_rows.append([row['enclosing'],hex(row['native_filter']),hex(row['native_handler'])])
+      event['registration']['scopes']=scope_rows
     state['events'].append(event)
     state['physical_endpoint_arguments'].append(dict(token=spec['token'],arguments=raw))
     for i,width,value in spec.get('writes_args',[]):
@@ -149,6 +168,24 @@ def execute(registry,cases,directory):
     else:assert kind=='void','Unknown endpoint result contract'
     for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX),('clobber_ebp',x.UC_X86_REG_EBP)]:
      if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
+    if spec.get('fs0_target_frame'):
+     assert spec.get('import_name')=='RtlUnwind' and raw[0]!=0
+     uc.mem_write(0,struct.pack('<I',raw[0]))
+    if spec.get('dispatch_fs0'):
+     dispatch=spec['dispatch_fs0'];record=get(0)
+     wanted=dispatch['native_handler']if state['label']=='native'else symbol(state['map_text'],dispatch['compiled_handler'])['va']
+     for _ in range(8):
+      assert STACK<=record and record+16<=STACK+STACK_SIZE,('dispatch record',spec['token'])
+      if get(record+4)==wanted:break
+      record=get(record)
+     else:raise AssertionError(('missing dispatch target',spec['token']))
+     sentinel=STOP+0xff0
+     state['endpoints'][sentinel]=dict(token='dispatch-return',arity=0,native_cleanup=0,compiled_cleanup=0,result_kind='void',noreturn=True)
+     call_sp=sp-20
+     uc.mem_write(call_sp,struct.pack('<5I',sentinel,dispatch['exception'],record,dispatch['context'],0))
+     uc.reg_write(x.UC_X86_REG_ESP,call_sp)
+     uc.reg_write(x.UC_X86_REG_EIP,wanted)
+     return
     if spec.get('resume_fs_registration'):
      record=get(0)
      assert STACK<=record and record+40<=STACK+STACK_SIZE,('saved registration',spec['token'])

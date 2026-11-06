@@ -1,46 +1,46 @@
 {
   "schema": "bulk-reconstruction-next-queue-v3",
   "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
-  "catalogue_entries": 4527,
+  "catalogue_entries": 4530,
   "category_counts": {
-    "existing_selected": 471,
-    "existing_C_preserved": 4026,
+    "existing_selected": 478,
+    "existing_C_preserved": 4024,
     "existing_C_reuse_review": 0,
-    "review_needed": 30,
+    "review_needed": 28,
     "safe_rule_candidate": 0,
     "unsupported_rule": 0,
     "uncached": 0
   },
   "native_evidence_counts": {
-    "complete_pinned": 4492,
+    "complete_pinned": 4495,
     "conflicting": 1,
     "incomplete": 34
   },
   "new_automatic_candidates": 0,
-  "review_entries": 30,
+  "review_entries": 28,
   "review_batches": 1,
   "review_batch_entries": [
-    30
+    28
   ],
   "active_source_cohort": 7,
-  "active_cohort_entries": 7,
-  "cumulative_selected_entries": 348,
+  "active_cohort_entries": 14,
+  "cumulative_selected_entries": 355,
   "source_expansion_suspended": false,
   "script": {
     "path": "tools/bulk_remaining.py",
-    "sha256": "7546b82ffd7ffc3648335cef9a5e18b9a8dfdea2b7abb2a163bd27a69a629514"
+    "sha256": "aa3877c27efd675d22ababd36d604a1de252c09191fddfcf1e7c31cf31755557"
   },
   "documentation": {
     "path": "BULK_REMAINING.md",
-    "sha256": "aae46ec076b6ea6b8ca0b797d70ac01eeda67244df26eb2b77195e4972cd6e29"
+    "sha256": "dd01a8c4c2cd6df3f1290a5922772b4b4ca333411b2c4e4e099d3867a6d7eba7"
   },
   "private_plan": {
-    "path": "build/bulk-reconstruction/cohort7-source7-preserved-inventory.json",
-    "sha256": "6fe59914ca65e53339c485e1644552d0a86a2d06e58e8158915073f818218270"
+    "path": "build/bulk-reconstruction/cohort7-source14-preserved-inventory.json",
+    "sha256": "451b3b80bceb86dcfc200309a79a6785ed8cc8c99f253fd239562a1359e23c0a"
   },
-  "snapshot_scope": "Source7 scan after strict build and necessary16-case ABI comparison; before final queue/docs publication. Exact mutable master input retained; C and PE/MAP unchanged during publication.",
+  "snapshot_scope": "Source14 scan after34 necessary cases; a later unchanged-product epoch added the outer-finally case. Exact pre-publication master input retained. Source ownership/category counts do not depend on that recipe addition.",
   "reuse_policy": "Any separate canonical, macro, frame or model definition is reserved for review regardless of variable names. Marker absence or a trial artifact does not prove correctness.",
-  "next_stage": "Finish the connected exception-continuation semantics below; preserve the reviewed47 existing C paths. Build connected source work toward the cohort gate, then run the joint comparison including compiled-only definitions.",
+  "next_stage": "Reconstruct the remaining three active legacy EH3 frames below, using the shared typed frame/scope helpers. Preserve completed C; detailed joint cohort comparison remains pending.",
   "catalogue_closed": false,
   "complete_game_reconstruction": false,
   "behavior_comparison_complete": false,
@@ -60,7 +60,7 @@
     "existing_C_preserved": 101,
     "correctness_proved": false
   },
-  "snapshot_source_checkpoint": "a97afa08ca5358eac800fe629f694b6e7c0e825e",
+  "snapshot_source_checkpoint": "b155118625bb015d4d7a903434e3751b6e73f439",
   "historical_work_packets_require_refresh": true,
   "source_reuse_dispositions": {
     "matched_entries": 160,
@@ -99,11 +99,11 @@
   },
   "current_source_progress": {
     "path": "metadata/cohort7-source-progress.json",
-    "sha256": "51d3f90ad747a680e85e8cc7631641c2df40516acfd3222db3d484d480f9883e"
+    "sha256": "c9ab0ef6e6b157911180f6524e07132d0130cd28fdf2000b3df54c400d7cd0ae"
   },
   "current_focused_comparison": {
-    "path": "metadata/cohort7-necessary-ABI-comparison.json",
-    "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
+    "path": "metadata/cohort7-eh3-ABI-comparison.json",
+    "sha256": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4"
   },
   "known_history_source_dispositions": {
     "path": "metadata/cohort7-history-input-dispositions.json",
@@ -114,8 +114,8 @@
     "sha256": "aa8f177c3f1b21d3b9184a0e4d71403e112785ce8c258583c14ecc848f8cf8d2"
   },
   "mutable_inventory_input_snapshot": {
-    "path": "build/actor-animal-following/cohort7-source7-publication/pre-inventory-master.json",
-    "sha256": "296e7f5f8d0750740ab71dbbb2a6bc249fa65710e990c29ffdce653dc305003a"
+    "path": "build/actor-animal-following/cohort7-source14-publication/pre-inventory-master.json",
+    "sha256": "1d7d0c19153ff4ed1b21b3de0e4df7614f131216e21d5fa1504060929941c539"
   },
   "known_remaining_source_dispositions": {
     "path": "metadata/cohort7-remaining-input-dispositions.json",
@@ -127,32 +127,26 @@
   },
   "next_concrete_semantic_work": [
     {
-      "address": "0x005614c3",
-      "source": "src/unit_02781.c",
-      "gap": "UNRECOVERED_JUMPTABLE is called as a normal function; native saved-frame nonlocal transfer needs reconstruction."
+      "address": "0x00562fea",
+      "source": "src/unit_02844.c",
+      "gap": "Active unhandled-exception path retains a legacy EH3 handler/frame."
     },
     {
-      "address": "0x00563be1",
-      "source": "src/unit_02862.c",
-      "gap": "Legacy compiler EH3 registration still uses original handler literal and decompiled stack locals."
+      "address": "0x00563e46",
+      "source": "src/unit_02866.c",
+      "gap": "Active catch-object conversion/constructor path retains original EH3 scope/funclet addresses."
     },
     {
-      "address": "0x00563844",
-      "source": "src/unit_02857.c",
-      "gap": "Same legacy handler/frame issue on the termination path."
-    },
-    {
-      "address": "0x00563d10",
-      "source": "src/unit_02864.c",
-      "gap": "Same handler/frame issue on catch invocation; current caller ABI fixture controls this boundary."
-    },
-    {
-      "address": "0x00561a90",
-      "source": null,
-      "gap": "Referenced by legacy EH3 registration; absent from current saved catalogue, discovery/ownership required."
+      "address": "0x0056400a",
+      "source": "src/unit_02867.c",
+      "gap": "Active exception-object destruction path retains original EH3 scope/funclet addresses."
     }
   ],
-  "joint_gate_pending_entries": 7,
-  "current_necessary_ABI_entries": 4,
-  "source_review_queue_is_full_semantic_gap_inventory": false
+  "joint_gate_pending_entries": 14,
+  "current_necessary_ABI_entries": 8,
+  "source_review_queue_is_full_semantic_gap_inventory": false,
+  "native_function_discovery": {
+    "path": "metadata/cohort7-eh3-native-function-discovery.json",
+    "sha256": "ade860412df527540d2f9f29bffff1dc4b05015e019fa44d4f3ca67d04f568b6"
+  }
 }

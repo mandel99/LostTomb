@@ -1,0 +1,79 @@
+{
+  "native": {
+    "entry": "0x561a90",
+    "last_byte": "0x561b4c",
+    "length": 189,
+    "sha256": "5a18ca87770d45ab935d77ec80e18b5d68a3e71b797e61246f031a1b0b8abe28",
+    "binary_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "read_evidence": "ev_2ad637c09e0e2b5b33609885ccebbab1631be8143eabac73f04380ab46bc24ae",
+    "incoming_evidence": "ev_708c41a1d74276884fcb2ad9728b88cd21706d2428dd66613d7ec2905e92c75d",
+    "procedure_info": "unavailable(not_analyzed); exact instruction evidence supplies full decoded range"
+  },
+  "files": {
+    "include/crt_eh3_handler.h": "82dcd690fafd77dbde61db020c1e147a6280e53fce38c568ad75bf5ecf037347",
+    "runtime/crt_eh3_handler.c": "f4453d56e559d85d7cd371c557f46490ef5483d9f9c1175a1d836bc3e6beb72e"
+  },
+  "signature": "uint32_t __cdecl restore_crt_eh3_handler(EXCEPTION_RECORD*, RestoreCrtEh3Registration*, void*context, void*dispatcher); FUN_00561a90 alias matches",
+  "layout": {
+    "scope": {
+      "size": 12,
+      "enclosing": 0,
+      "filter": 4,
+      "handler": 8
+    },
+    "registration": {
+      "size": 16,
+      "previous": 0,
+      "handler": 4,
+      "scopes": 8,
+      "state": 12
+    },
+    "parent_ebp": "registration+16",
+    "exception_pointer_cell": "registration-4"
+  },
+  "control_flow": {
+    "0x561a90..0x561aa8": "save callee-saved registers, CLD, check exception flags&6",
+    "0x561aae..0x561ac0": "publish local EXCEPTION_POINTERS, load current state/table",
+    "0x561ac3..0x561ae4": "walk scope; filter absent skips; filter result signed<0 returns0, ==0 continues, >0 selects",
+    "0x561ae6..0x561b13": "snapshot table, global unwind, switch dispatch EBP to parent, local unwind to selected state, Notify1, set enclosing, call selected handler",
+    "0x561b17..0x561b20": "reload table/enclosing and continue, including when selected handler returns",
+    "0x561b22..0x561b2e": "explicit full DWORD return0 or1",
+    "0x561b30..0x561b40": "unwind-only local unwind to-1, return1",
+    "0x561b45..0x561b4c": "restore callee-saved and return cdecl"
+  },
+  "register_contract": {
+    "incoming": "all logical inputs are stack arguments; entry EAX/ECX overwritten before scope callbacks; entry EDX not asserted for arbitrary foreign funclets",
+    "filter": "physical EBP=registration+16; actual EAX threaded from EXCEPTION_POINTERS address, previous zero filter, or returning selected handler; ECX=3*state; actual returned EAX used with signed comparison",
+    "selected_handler": "physical EBP=registration+16; EAX=scope.enclosing; ECX=3*selected_state; normal selected handlers restore parent ESP and jump, never host-return",
+    "return": "EAX full32 0 or1; cdecl; nonvolatile preserved; DF cleared; ECX/EDX/EFLAGS not a C result",
+    "returning_handler": "loop continues; subsequent filter reloads registration at parentEBP+12. Typed returning callbacks must preserve callee-saved registers, including supplied EBP. Arbitrary foreign callbacks with other register contracts remain unqualified."
+  },
+  "integration": {
+    "runtime_helpers": [
+      "restore_crt_global_unwind",
+      "restore_crt_local_unwind",
+      "restore_crt_notify_frame"
+    ],
+    "relocations": [
+      "registration.handler=(uint32_t)(uintptr_t)FUN_00561a90",
+      "registration.scopes=C-owned typed table, never native raw570650/570668/570678",
+      "scope.filter and scope.handler=typed relocated callbacks",
+      "SafeSEH metadata should add _FUN_00561a90 to existing MASM metadata-only object"
+    ],
+    "build": "compile runtime/crt_eh3_handler.c with MSVCi386 /W4 /WX /O2 /GS- /Ob0, SKIP_PRECOMPILE_HEADERS"
+  },
+  "verification": {
+    "strict_compile": "PASS (MSVC14.44.35207 x86, Windows SDK10.0.26100.0)",
+    "native_c_joint": "deferred to root shared cohort milestone",
+    "necessary_cases": [
+      "flags&6 unwind path leaves exception-pointer cell untouched and local-unwinds state-1",
+      "state-1 returns1; null-filter skips to enclosing; nested null filter then nonzero filter",
+      "negative filter returns0; zero filter continues while forwarding EAX0 to next callback",
+      "positive filter global unwind then local unwind before notify and handler; state/table mutation probes; callback notify code from parent+8",
+      "capture filter and handler EBP,EAX,ECX and published EXCEPTION_POINTERS contents",
+      "selected native handler nonlocal continuation across parent savedSP and parent EBP, bypassing the handler bridge epilogue",
+      "synthetic returning selected handler with callee-saved preserved follows enclosing and subsequent parent+12 registration reload",
+      "joint integration includes canonical existing local-unwind and notify helpers rather than helper stubs alone"
+    ]
+  }
+}

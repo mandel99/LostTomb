@@ -1,0 +1,121 @@
+{
+  "schema": "cohort7-necessary-EH3-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 355,
+  "current_cohort_source_entries": 14,
+  "entries_compared": 8,
+  "cases": 35,
+  "invocations": 245,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "comparison_epochs": [
+    {
+      "result": {
+        "path": "build/actor-animal-following/cohort7-eh3-ABI-runs/20261106-023501-548487/result.json",
+        "sha256": "27a5510b1c59c354871ddf9d94d5ef07f205c2f5a82dbfca8a1292862665b15b"
+      },
+      "binding": {
+        "path": "build/actor-animal-following/cohort7-eh3-ABI-runs/20261106-023501-548487/binding.json",
+        "sha256": "8b223d00da4f546ba579a28096c2421b3ecb914521196d5a13a826974cca5da9"
+      },
+      "case_inputs": {
+        "path": "build/actor-animal-following/cohort7-eh3-ABI-runs/20261106-023501-548487/case-inputs.json",
+        "sha256": "debd8474f21ee152afc27282da3c69d3c9314c434cd7c806e51e78fbb89be237"
+      },
+      "cases": 31
+    },
+    {
+      "result": {
+        "path": "build/actor-animal-following/cohort7-eh3-caller-ABI-runs/20261106-024017-093119/result.json",
+        "sha256": "2a0770e36d7960ae5c326ecae08a81db90b0804eee5543cd81038787fdbc5ee2"
+      },
+      "binding": {
+        "path": "build/actor-animal-following/cohort7-eh3-caller-ABI-runs/20261106-024017-093119/binding.json",
+        "sha256": "0184080233d231d0a0fd61d4ad92522c5d650c33ce2ce4a97c73bc8f25599d71"
+      },
+      "case_inputs": {
+        "path": "build/actor-animal-following/cohort7-eh3-caller-ABI-runs/20261106-024017-093119/case-inputs.json",
+        "sha256": "4b83039c1a33dd5fc12d07586d890d8feade49dfd9ddcc6d8d39800ed71d7208"
+      },
+      "cases": 3
+    },
+    {
+      "result": {
+        "path": "build/actor-animal-following/cohort7-eh3-unwind-ABI-runs/20261106-025702-014839/result.json",
+        "sha256": "32214eb658f18c844d74a6981cc1d4d4550ce368895fd8bfda3cd310800eabb0"
+      },
+      "binding": {
+        "path": "build/actor-animal-following/cohort7-eh3-unwind-ABI-runs/20261106-025702-014839/binding.json",
+        "sha256": "48657edeffe5d0d460c6b35c272d8689319b0e083b942ca731fcb311b95e6148"
+      },
+      "case_inputs": {
+        "path": "build/actor-animal-following/cohort7-eh3-unwind-ABI-runs/20261106-025702-014839/case-inputs.json",
+        "sha256": "ef88bc19b8aaa007e7fed8f5b8663c08b8837fe0f29bc280bfd18e771e5f3378"
+      },
+      "cases": 1
+    }
+  ],
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "f7c2c247f7b895a79807c79258cd4d6b7e415d53d742da2a3aa5c4009c3728a3",
+      "map_sha256": "a9ca620e92a3ccd624e02ecd0ef1addd5ede75c63a3898a29f579db50fdafca4"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "62474ea5797415819846a1ca3de355c3b8483188f429d05dde65775367c7aef3",
+      "map_sha256": "e98be4465a06599893db52f23b30a915582de480776b0311d3b3215020e69e6c"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "125807f457ad3eab7979b58975ba473705f2fd1a55f7e1b0ec77b1e5a1a6c358",
+      "map_sha256": "009a3f7cb06d323ed68f156d59686a1cd042e84bfbe5080d8859dd57540e23d9"
+    }
+  },
+  "safeseh": {
+    "game": {
+      "handler_va": "0x219d30",
+      "table_entries": 18,
+      "listed": true
+    },
+    "diagnostic": {
+      "handler_va": "0x219c80",
+      "table_entries": 18,
+      "listed": true
+    },
+    "retained": {
+      "handler_va": "0x21a160",
+      "table_entries": 18,
+      "listed": true
+    }
+  },
+  "composition": "Product C/headers/assembly, PE/MAP and shared execution/registry code are identical across three epochs. All35 exact current recipes match saved inputs. Earlier receipts remain immutable; only recipe/ledger publication evolved.",
+  "scope": "Necessary ABI and frame/control checks, including actual guest EH3 dispatch, selected handlers restoring the original parent stack, both typed filters, catch rethrow/finally cleanup, and563C95 nonlocal continuation plus its two normal regressions. The actual outer finally/termination callback is also reached by guest unwind dispatch.",
+  "controlled_boundaries": [
+    "User callbacks return, mutate selected live memory or request actual guest EH3 dispatch. OS search to the matching EH3 record is controlled; skipped C++ registration has no actions in these fixtures.",
+    "RtlUnwind is a controlled boundary which restores FS0 to its actual target and resumes at the actual continuation. This is not a complete OS unwinder.",
+    "Termination/release are declared boundaries. The otherwise unreachable563C52 recovery is separately forced by a controlled filter result."
+  ],
+  "qualifications": [
+    "Temporary EXCEPTION_POINTERS addresses are compared by their live two-pointer payload; no persistent meaning is assigned to a dangling dispatch-stack address.",
+    "Original relocated scope rows are validated by native tokens and compiled symbols, not compared as raw code addresses.",
+    "Arbitrary foreign funclet EDX/flag contracts, invalid contexts, fault/asynchronous ordering and full gameplay equivalence remain unclosed.",
+    "The detailed cohort joint gate is still pending."
+  ],
+  "full_cohort_joint_gate_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false,
+  "recipe_epoch_snapshots": [
+    {
+      "path": "build/actor-animal-following/cohort7-eh3-ABI-runs/20261106-023501-548487/executed-case-recipes.py",
+      "sha256": "97f092f56b25bbbb1f7f86ae5304a741c528b03d0882feb2541f427802823a36"
+    },
+    {
+      "path": "build/actor-animal-following/cohort7-eh3-caller-ABI-runs/20261106-024017-093119/executed-case-recipes.py",
+      "sha256": "9de2f48a52ec31069ac75f5e2d572101c323262f2a18b4672a65774ff394a050"
+    }
+  ]
+}

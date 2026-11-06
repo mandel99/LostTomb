@@ -21,6 +21,7 @@ from cohort6_advisor_abi_cases import definitions as cohort6_advisor_abi_definit
 from cohort6_overlay_abi_cases import definitions as cohort6_overlay_abi_definitions
 from cohort6_laborer_cases import definitions as cohort6_laborer_definitions
 from cohort7_translation_cases import definitions as cohort7_translation_definitions
+from cohort7_eh3_cases import definitions as cohort7_eh3_definitions
 SCRATCH=0x32000000
 
 def definitions(registry):
@@ -68,6 +69,7 @@ def definitions(registry):
  out.extend(cohort6_overlay_abi_definitions(registry))
  out.extend(cohort6_laborer_definitions(registry))
  out.extend(cohort7_translation_definitions(registry))
+ out.extend(cohort7_eh3_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):
