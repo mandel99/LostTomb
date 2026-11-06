@@ -50,3 +50,10 @@ unset(_cohort3_no_canonical)
 unset(_cohort3_address)
 unset(_cohort3_hex)
 unset(_cohort3_hex_length)
+
+# Existing C definitions kept for independent offline comparison only.
+foreach(_cohort7_existing_symbol IN ITEMS
+ FUN_0041fd80 FUN_0044ba20 FUN_004be640 FUN_004beb90 FUN_004becc0)
+ target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort7_existing_symbol}")
+endforeach()
+unset(_cohort7_existing_symbol)

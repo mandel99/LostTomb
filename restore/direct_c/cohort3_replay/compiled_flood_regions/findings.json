@@ -1,0 +1,39 @@
+{
+  "schema": "cohort7-acceptance-static-native-C-gaps-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "public_source_edits": false,
+  "execution_performed": false,
+  "gaps": [
+    {
+      "address": "0x4bd740",
+      "source": "src/unit_01553.c",
+      "source_sha256": "b61c685d95df2afca861bac130c8a967e7d29b1ff077ffd9ff56f8d7af45e605",
+      "current_C": "Both allocation failures call abort(). No abort stub is supplied by these recipes.",
+      "native_proof": [
+        "4BD755 JZ4BD778;4BD778 XOR EBP,EBP continues into second allocate at4BD786.",
+        "4BD790 JZ4BD7A7;4BD7A7 XOR EAX,EAX continues into insertion.",
+        "On empty-list first-allocation failure,4BD838 stores new node into [EBP+4]=[4], count increases, EAX=EBP=0 returns.",
+        "On empty-list second-allocation failure,4BD818 and4BD824 write [0]/[4], head/tail remain0,4BD838 clears item backlink and4BD83F increments count; EAX=item returns."
+      ],
+      "cases": [
+        "c7-compiled-acceptance/004bd740/tile-allocation-zero",
+        "c7-compiled-acceptance/004bd740/node-allocation-zero"
+      ],
+      "oracle": "Controlled allocator returns0; explicit mapped low-page fixture observes native null-pointer fallthrough stores. Abort is neither intercepted nor bypassed. Actual OS unmapped-page fault/unwind behavior is not asserted."
+    },
+    {
+      "address": "0x4bd950",
+      "source": "runtime/flood_cell.c",
+      "source_sha256": "6300937d67265aeaab8eaa16e3493414f7ec153ca42092277367dfa7ae5c408f",
+      "current_C": "refresh() caches receiver x/y once before multiple external draw calls.",
+      "native_proof": [
+        "Land branch first draw4BDF40;4BDF45 MOV EAX,[ESI+10] and4BDF48 MOV ECX,[ESI+C] reload actual coordinates for4BDF59.",
+        "4BDF5E/61 reload again for4BDF74;4BDF79/7C reload again for4BDF91."
+      ],
+      "cases": [
+        "c7-compiled-acceptance/004bd950/land-live-coordinates"
+      ],
+      "oracle": "The declared first terrain endpoint changes actual receiver coordinates17/23 to100/200. Later native call arguments must use100/200. No output or comparison is weakened; production mutability of those endpoints is separately unproved."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "cohort7-flood-region-C-repairs-v1",
+  "baseline_checkpoint": "77132812ad09b0314d5993e93c0cb5d755f6aaef",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_changes": [
+    {
+      "address": "0x4bd740",
+      "source": "src/unit_01553.c",
+      "before": {
+        "path": "build/actor-animal-following/cohort7-flood-repair-publication/pre-unit_01553.c",
+        "sha256": "b61c685d95df2afca861bac130c8a967e7d29b1ff077ffd9ff56f8d7af45e605"
+      },
+      "after_sha256": "7298550ccdd329bbe67a1bffa73e0932ec244ffe2d0c72cf9b0fb95a6e579480",
+      "correction": "Preserve native null item/node allocation fallthrough instead of abort; initialize item result0 and keep insertion/count/backlink ordering. Explicitly store a pointer as a DWORD."
+    },
+    {
+      "address": "0x4bd950",
+      "source": "runtime/flood_cell.c",
+      "before": {
+        "path": "build/actor-animal-following/cohort7-flood-repair-publication/pre-flood_cell.c",
+        "sha256": "6300937d67265aeaab8eaa16e3493414f7ec153ca42092277367dfa7ae5c408f"
+      },
+      "after_sha256": "03650b4c83e15475ade3dc2d2414efe52ff045958d71c997b56acfce19f590fe",
+      "correction": "Reload receiver x/y for every rectangle callback and between the two building rectangle callbacks, as native MOVs do."
+    }
+  ],
+  "native_findings": {
+    "path": "build/actor-animal-following/cohort7-joint-compiled-acceptance/findings.json",
+    "sha256": "7b57629c68152a0cd68fa74fb0c971801b7d0c79a55f882caffeee5c6bb094a8"
+  },
+  "pre_repair_failed_comparison": {
+    "path": "build/actor-animal-following/cohort7-acceptance-pre-repair-runs/20261106-092452-142263/result.json",
+    "sha256": "119205f53d79af33c8a2e3912e3ab8ad18a0dc67e66a7dd5dff965c4365715cc"
+  },
+  "world_reset_budget_diagnosis": {
+    "path": "build/actor-animal-following/cohort7-world-reset-budget-runs/20261106-092812-869926/result.json",
+    "sha256": "3216fb3825a048529a330e070f21f2ff55b97f48cc93daceb81f08a341ef5fc7"
+  },
+  "world_reset_adjustment": "Only this large51984-DWORD reset gets budget1000000 instead of shared default200000; identical expected memory/endpoints. Old code passes1case/7routes with this bound.",
+  "retained_existing_C_symbols": [
+    "FUN_0041fd80",
+    "FUN_0044ba20",
+    "FUN_004be640",
+    "FUN_004beb90",
+    "FUN_004becc0"
+  ],
+  "archive": {
+    "path": "metadata/cohort7-pre-flood-repair-image-archive.json",
+    "sha256": "750c6e01d150852db4f18188e6a54fe826a69977f7070cec6dda6bed233c928f"
+  },
+  "source_credit": {
+    "new_selected_entries": 0,
+    "new_algorithms": 0,
+    "supporting_existing_C_repairs": 2
+  },
+  "limitations": [
+    "Low-page allocation cases are bounded mapped-memory fixtures; real unmapped-page fault/unwind is not asserted",
+    "Coordinate mutation endpoints establish load order; arbitrary production endpoint mutation domains remain unproved"
+  ],
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

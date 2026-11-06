@@ -37,17 +37,25 @@ static uint8_t fertility(uint32_t receiver)
 
 static void refresh(uint32_t receiver,int flooding,int water)
 {
-    int32_t x=(int32_t)U(receiver+12u),y=(int32_t)U(receiver+16u);
+    int32_t x,y;
     int radius=water&&!flooding?3:2,middle=water?2:1;
+    /* Each native draw call reloads coordinates after the previous callback. */
     if(water){
+        x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
         FUN_00517690(x-1,y-1,x+1,y+1);
+        x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
         FUN_00516f90(x-1,y-1,x+1,y+1,0);
+        x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
         FUN_005173a0(x-1,y-1,x+1,y+1);
     }
+    x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
     if(!water)FUN_004777c0(x,y,x+1,y+1);
     else {int inner=flooding?1:2;FUN_004777c0(x-inner,y-inner,x+inner,y+inner);}
+    x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
     FUN_00475cc0(x-middle,y-middle,x+middle,y+middle,0);
+    x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
     FUN_0047b590(x-radius,y-radius,x+radius,y+radius);
+    x=(int32_t)U(receiver+12u);y=(int32_t)U(receiver+16u);
     FUN_0047bae0(x-radius,y-radius,x+radius,y+radius,0);
 }
 
@@ -116,7 +124,9 @@ void FUN_004bd950(uintptr_t self,uint8_t flooding)
                     W(0x799a2cu+row)=0;W(0x799a18u+row)=0;
                     B(0x799a7eu+row)=0;B(0x799a7fu+row)=0;
                     {int32_t px=(int32_t)U(receiver+12u),py=(int32_t)U(receiver+16u);
-                     FUN_004777c0(px-2,py-2,px+2,py+2);FUN_00475cc0(px-2,py-2,px+2,py+2,0);}
+                     FUN_004777c0(px-2,py-2,px+2,py+2);
+                     px=(int32_t)U(receiver+12u);py=(int32_t)U(receiver+16u);
+                     FUN_00475cc0(px-2,py-2,px+2,py+2,0);}
                 }
             }
         }

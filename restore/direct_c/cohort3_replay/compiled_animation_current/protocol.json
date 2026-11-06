@@ -1,0 +1,76 @@
+{
+  "schema": "cohort7-animation-protocol-v1",
+  "native": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "b549b4623ec38a8a19c4362ccbd29f62b4c9dd7542cc15dd6ef525868cce1e68",
+      "map_sha256": "5c05e1f56770764bbf14f6598f701173b0ce5bb5221dd0aa9404d1d9716bc2e4"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "04f1ad1d6fab7a0c58fc7372f49e9dfcb3fc6f7a772a80b4b7c101328e82001b",
+      "map_sha256": "d21c7e8d7f6c4fa73760ecf0705543f092c9785ce20fdde973925f5eb70b5e5f"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "a43ca009802861865c171c52d34387248672950ddf1d2e397e21f7bf247d4569",
+      "map_sha256": "0b2cf50163fca34773163e6710de0e6e7dfd660be18f68d1641eecf61d4a18f8"
+    }
+  },
+  "strict_source_guards": {
+    "runtime/actor_laborer_model.c": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+    "include/actor_laborer.h": "a915b59bf8ed546b5f570b95007f09bd4fdb6564e20634273e8f033ff372ccd7",
+    "src/unit_00318.c": "af149098bcf2a6ffdb968f1f0987468271f936b09e4390e4f1b0bfed92950142",
+    "direct_c/cohort3_replay/replay.py": "3ec291c2f3ddfae8622198c229beb9fe0a3a30b655e96097858858eb09074ef1",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb"
+  },
+  "members": [
+    {
+      "address": "0x41fd80",
+      "source": "runtime/actor_laborer_model.c",
+      "source_definition_symbol": "restore_laborer_C_0041fd80",
+      "provider_symbol": "restore_laborer_C_0041fd80",
+      "canonical_symbol": null,
+      "owner_object": "actor_laborer_model.obj",
+      "native_bytes": 33,
+      "native_bytes_sha256": "7dafe5acc6c9fb36879c049dd94f9ba1cd520d99b23dcd901e037fd90219a1b0",
+      "native_ret_immediates": [
+        4
+      ],
+      "logical_signature": "void native member stack1 RET4; existing complete C register model(frame*)",
+      "provider_adapter": "Actual retained C model with every live register and physical native argument stack supplied; architectural context compared on return. Existing typed helper was inlined and is not rewritten.",
+      "canonical_not_applicable_reason": "This API compares the full C register model. The newly retained typed helper has a different C signature and is excluded from these already-authored raw-context routes."
+    },
+    {
+      "address": "0x41fdb0",
+      "source": "src/unit_00318.c",
+      "source_definition_symbol": "FUN_0041fdb0",
+      "provider_symbol": "FUN_0041fdb0",
+      "canonical_symbol": "FUN_0041fdb0",
+      "owner_object": "unit_00318.obj",
+      "native_bytes": 354,
+      "native_bytes_sha256": "9345d481cf44d5821c13802a893be65ac2efdb13c74bb6bb240f6024f7333dab",
+      "native_ret_immediates": [
+        0
+      ],
+      "logical_signature": "void native member RET0; existing explicit-self C(self)",
+      "provider_adapter": "Existing explicit-self C signature on both named and canonical aliases."
+    }
+  ],
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "host_execution": false,
+  "whole_game_equivalence": false,
+  "parent_packet_manifest": {
+    "path": "direct_c/cohort3_replay/compiled_animation/manifest.json",
+    "sha256": "d738a03552b57770eeb026d8d1ca4aa5adaa79b94d9b6fd124518f736596e4d8"
+  },
+  "binding_change": "Explicit current-image refresh; expected cases and algorithms unchanged."
+}

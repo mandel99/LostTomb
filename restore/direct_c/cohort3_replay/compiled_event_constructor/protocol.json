@@ -1,0 +1,65 @@
+{
+  "schema": "cohort7-event-constructor-protocol-v1",
+  "native": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "b549b4623ec38a8a19c4362ccbd29f62b4c9dd7542cc15dd6ef525868cce1e68",
+      "map_sha256": "5c05e1f56770764bbf14f6598f701173b0ce5bb5221dd0aa9404d1d9716bc2e4"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "04f1ad1d6fab7a0c58fc7372f49e9dfcb3fc6f7a772a80b4b7c101328e82001b",
+      "map_sha256": "d21c7e8d7f6c4fa73760ecf0705543f092c9785ce20fdde973925f5eb70b5e5f"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "a43ca009802861865c171c52d34387248672950ddf1d2e397e21f7bf247d4569",
+      "map_sha256": "0b2cf50163fca34773163e6710de0e6e7dfd660be18f68d1641eecf61d4a18f8"
+    }
+  },
+  "strict_source_guards": {
+    "runtime/menu_event_actions.c": "e6fb6ee61b8bf01ab6c93bf544f5851e80a44b2d9cff2629d41f966ab65f69db",
+    "runtime/menu_event_model.c": "416d2bece2debba88cd9202272485fe4e0cd2efd2ae0d9d3a4d92afc52fefd04",
+    "direct_c/cohort3_replay/retained_image.cmake": "eb1c11d2327c6cc7dd5fb4f2210cd53212bdc9c65c89213c0e0433b0feb7fec6",
+    "direct_c/cohort3_replay/replay.py": "3ec291c2f3ddfae8622198c229beb9fe0a3a30b655e96097858858eb09074ef1",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb"
+  },
+  "members": [
+    {
+      "address": "0x44ba20",
+      "source": "runtime/menu_event_actions.c",
+      "source_definition_symbol": "FUN_0044ba20",
+      "provider_symbol": "FUN_0044ba20",
+      "canonical_symbol": "FUN_0044ba20",
+      "owner_object": "menu_event_actions.obj",
+      "native_bytes": 111,
+      "native_bytes_sha256": "f6e4b7cd9a57687c2e77967caef79a0765c6c23f38a07f731026094c3057a0a1",
+      "native_ret_immediates": [
+        0
+      ],
+      "logical_signature": "Native ECX=self RET0/EAX=self; C explicit-self cdecl1 returns uint32_t",
+      "provider_adapter": "Existing C definition retained for independent comparison; game/diagnostic bodies remain inlined/unretained.",
+      "available_images": {
+        "game": false,
+        "diagnostic": false,
+        "retained": true
+      },
+      "current_replay_applicable": true
+    }
+  ],
+  "pending_domains": [
+    "Nonthrowing constructor path only; throwing vector-constructor/unwind and original failure policy remain unproved",
+    "Global startup facade and arbitrary overlapping receiver aliases are outside these cases"
+  ],
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}
