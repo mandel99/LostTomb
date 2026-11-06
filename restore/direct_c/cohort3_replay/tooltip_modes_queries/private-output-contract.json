@@ -1,0 +1,55 @@
+{
+  "schema": "cohort7-tooltip-private-output-contract-v1",
+  "private_BYTE": {
+    "parent_initializer": "004cabd6 MOV byte ptr[ESP+3],0",
+    "caller_pointer_sites": [
+      "004cac66 LEA ECX,[ESP+0xf]",
+      "004cac82 LEA EDX,[ESP+0xf]"
+    ],
+    "query20_write0_sites": [
+      "004c946f",
+      "004c95a0"
+    ],
+    "query20_write1_sites": [
+      "004c9480",
+      "004c95b2"
+    ],
+    "query21_write0_sites": [
+      "004c96c0"
+    ],
+    "query21_write1_sites": [
+      "004c96cd",
+      "004c973c"
+    ],
+    "observation": "Actual parent result19 chooses dynamic resource-label55 when output BYTE0, fixed-label38 when BYTE1. No fixed physical local address or substitute frame is supplied."
+  },
+  "private_array": {
+    "query": "00559fc0",
+    "actual_caller": "004cb300",
+    "initialized_DWORDs": 16,
+    "bytes": 64,
+    "controlled_writes": [
+      0,
+      3
+    ],
+    "observation": "Only two DWORDs are written by endpoint; all14 remaining actual caller-initialized DWORDs must stay zero or extra glyph events fail."
+  },
+  "live_model_endpoint": {
+    "header": "include/menu_resource_render.h",
+    "r_offset": 0,
+    "ESP_offset": 16,
+    "flags_offset": 32,
+    "boundary_offset": 36,
+    "size_x86": 40,
+    "dispatcher": "restore_resource_render_dispatch",
+    "return_site": 5036593,
+    "result": "void; preserve actual live r0",
+    "no_fake_frame": true
+  },
+  "source_body_hashes": {
+    "restore_tooltip_C_004cabd0": "78aa8a79f514362c1ab37c389e3f4aef271bab71c319f14cd265aa004257041a",
+    "restore_tooltip_C_004c9340": "83f4ad463b362c1cb5d7cc0b9fd497d05a567ef250b08bd003dfe8fa90da944a",
+    "restore_tooltip_C_004c95d0": "b1fc74d2e28dbc09a22ec22e813117ce8165a473c5cbf7a1fcc60b0de785c226",
+    "restore_tooltip_C_004cb300": "5ffc71ca542b14bc175054914507d7f2e632643bf4fc96f0fa3f09b36a376eab"
+  }
+}

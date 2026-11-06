@@ -1,0 +1,282 @@
+{
+  "schema": "cohort7-tooltip-query-snapshot-native-order-v1",
+  "basis": "Only pinned caller/child instruction bytes and original seeded RAM/declared endpoint effects; observed route values are not used.",
+  "caller_stores": [
+    {
+      "site": "004cac12",
+      "address": "00d3b168",
+      "width": 4,
+      "source": "EAX loaded from seededF56F84"
+    },
+    {
+      "site": "004cac17",
+      "address": "00d3b164",
+      "width": 4,
+      "source": "same fontDWORD"
+    },
+    {
+      "site": "004cac2c",
+      "address": "00d3a6d0",
+      "width": 4,
+      "value": 200
+    },
+    {
+      "site": "004cac36",
+      "address": "00d3b130",
+      "width": 4,
+      "value": 0
+    },
+    {
+      "site": "004cac3c",
+      "address": "00d3b13c",
+      "width": 4,
+      "value": 30
+    },
+    {
+      "site": "004cac42",
+      "address": "00d3b51c",
+      "width": 2,
+      "value": 7298
+    },
+    {
+      "site": "004cac4d",
+      "address": "00d3b51c",
+      "width": 2,
+      "value": 14626,
+      "condition": "seededE92DFC==2;4CAC29 SUB EAX,2 flags survive interveningMOVs to4CAC4B JNZ"
+    }
+  ],
+  "query_call_sites": [
+    "004cac6e CALL4C9340",
+    "004cac87 CALL4C95D0",
+    "004cac9a CALL4C92A0"
+  ],
+  "temporal_boundary": "All caller publications precede queryCALL and every query endpoint. First prepare endpoint is4CACE0 after query return. Snapshots at/after prepare already had correct caller state and are unchanged.",
+  "child_updates": {
+    "004c9340": "Row path zeroesE20778 at4C93AB and4C9403; eligible misses increment it by32 at4C93F6/4C9453. Grid path uses private stack columns/rows. Only actual private BYTE output stores otherwise occur.",
+    "004c95d0": "Globals for geometry/style are read only; relevant stores are private stack locals and output BYTE at4C96C0/4C96CD/4C973C.",
+    "004c92a0": "No stores to caller geometry/style globals; only stack and register traversal."
+  },
+  "untouched_fields": "Existing E20778 child-dependent snapshots remain exact. Child private output pointers are actual caller stack LEA objects and cannot alias D3A6D0 orD3B51C. Prefix controlled endpoints have no declared RAM writes.",
+  "oracle_error": "Case.default_finish published caller defaults after generating query snapshots, although native4CABD0 publishes them before queries. Final-memory oracle was already correct, explaining shared replayPASS and post-run snapshot guard failure.",
+  "cases": [
+    {
+      "id": "c7-tooltip-modes/query20-row-a-actual-BYTE-alias",
+      "mode": 0,
+      "state": 20,
+      "theme": 0,
+      "query_endpoint_snapshots": 21,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "06c107156f6456386780bf8b0587a292088417caa93f8730fbd52afdce1f3252",
+      "after_sha256": "f5d3dc13d2e66441f94f1ed9266b5afc5818b6546eba48ce8e96a48d24b3fbde",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query20-row-b-actual-BYTE-alias",
+      "mode": 0,
+      "state": 20,
+      "theme": 0,
+      "query_endpoint_snapshots": 56,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "891786129f05ad979022a7df3659958998575961c682917ea2d823f901fdb74e",
+      "after_sha256": "294b822034d9d5468532587ce3ebe352e296b7670257cfc7e655719cd086ccff",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query20-grid-a-actual-BYTE-alias",
+      "mode": 0,
+      "state": 20,
+      "theme": 0,
+      "query_endpoint_snapshots": 25,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "f24968c13490fcdf774adcdcee78bd00e27ec07165190610535f3979f085d2a7",
+      "after_sha256": "d1681282d37481f0addecb4a8b0a621922abfdd9b94293aab0bdd6a5b032fe0f",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query20-grid-b-actual-BYTE-alias",
+      "mode": 0,
+      "state": 20,
+      "theme": 0,
+      "query_endpoint_snapshots": 60,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "a3c303a709bb2a9ad757ed0be2c74393eee59ae6fe3758cf9e9983befac886e0",
+      "after_sha256": "5fbec508b3cfcf8e05dabb3947766e1d98461aed66323e4b5399fbc8c2bf497b",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query21-a-actual-BYTE-alias",
+      "mode": 0,
+      "state": 21,
+      "theme": 0,
+      "query_endpoint_snapshots": 20,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "e9ba241d653126c5c5b0e92d90a74fabb65a98b3c1c46fffd3ed229612c229e8",
+      "after_sha256": "9e6b0e1c83009ad7bce17fe92d7fc2b73744b71157f46cc2269734927d2ce871",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query21-b-actual-BYTE-alias",
+      "mode": 0,
+      "state": 21,
+      "theme": 0,
+      "query_endpoint_snapshots": 55,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "caeba348907bbf39d800a289a39da668c82063ac9a9a6e6bad5a9641aa3c8092",
+      "after_sha256": "1ece331e5759fd1fca7d6cdfff1630712252b437cd41d44fc972a6a04d5f5a31",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query21-zero-actual-BYTE-alias",
+      "mode": 0,
+      "state": 21,
+      "theme": 0,
+      "query_endpoint_snapshots": 20,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "d8db348058746734b218fa24e521514d4bc1f5a60afec7d673e7732765517187",
+      "after_sha256": "6c4f82bc10c9c5d9a2c925b86c205fafb1f8cc18e05743cde45bd1d87030c32f",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query78-a-parent-BYTE-one",
+      "mode": 0,
+      "state": 78,
+      "theme": 0,
+      "query_endpoint_snapshots": 1,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "e5495352c8b0cd3dbe7beb3ac19ce914f418d3d62e092366ed5a464f970a9047",
+      "after_sha256": "15d6afd0e2870bd0d01531556b6914a6a69e68acabf22548e35e9268d9390299",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query78-b-parent-BYTE-one",
+      "mode": 0,
+      "state": 78,
+      "theme": 0,
+      "query_endpoint_snapshots": 2,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "5083f37f99e2694d4404a6ba4bbf8631dce36fa60cd729d6f2a2e34d2c856cbe",
+      "after_sha256": "4bfb0fd94b24b070c6b5750e5491a7d1230774c0bf5f7baa0c1c0c2db2e2c7cd",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query20-full-scan-AL-reject-preserves-initial-BYTE",
+      "mode": 0,
+      "state": 20,
+      "theme": 0,
+      "query_endpoint_snapshots": 71,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "32c80ec68ea0fe1c624b879edd4cbc2b23cc34e567b89f1554dc4a03d5421618",
+      "after_sha256": "e0a81803be9b341eb7cd6f6823d5c864373aef9646f2e55ac165d33c561a906b",
+      "changed": true
+    },
+    {
+      "id": "c7-tooltip-modes/query21-unsupported-type-preserves-initial-BYTE",
+      "mode": 0,
+      "state": 21,
+      "theme": 0,
+      "query_endpoint_snapshots": 0,
+      "initial_width": 0,
+      "initial_style": 33059,
+      "published_width": 200,
+      "published_style": 7298,
+      "source_cell_widths": {
+        "width_DWORD": 4,
+        "style_WORD": 2
+      },
+      "before_sha256": "c2846f3e3c8f389eac68e83cf9b9bfe40326298036ea2e9e42de5d1fc5b5aa1d",
+      "after_sha256": "c2846f3e3c8f389eac68e83cf9b9bfe40326298036ea2e9e42de5d1fc5b5aa1d",
+      "changed": false
+    }
+  ],
+  "changed_cases": 10,
+  "unchanged_cases": 21,
+  "changed_snapshots": 331,
+  "changed_cells": 662,
+  "actual_width_style_pairs": [
+    [
+      "00d3a6d0",
+      4
+    ],
+    [
+      "00d3b51c",
+      2
+    ]
+  ],
+  "no_C_repair": true,
+  "no_inputs_changed": true,
+  "no_responses_changed": true,
+  "no_final_memory_changed": true,
+  "image_binding": false,
+  "replay_invoked": false
+}

@@ -1,0 +1,577 @@
+{
+  "schema": "cohort7-tooltip-mode2-native-PUSH-oracle-derivation-v1",
+  "basis": "Only pinned native instruction bytes, immediate operands and original authored stores. Observed native/C arguments are not an input to derivation.",
+  "symbolic_stack_origin": "S = actual entry ESP minus54h local bytes and four saved DWORDs = entryESP-64h. S is symbolic audit notation, not an invented invocation/frame.",
+  "local_layout": [
+    {
+      "slot": "S+10h",
+      "meaning": "front color"
+    },
+    {
+      "slot": "S+14h",
+      "meaning": "shadow color"
+    },
+    {
+      "slot": "S+18h",
+      "meaning": "pointer to separate format array"
+    },
+    {
+      "slot": "S+1Ch+4*i",
+      "meaning": "format pointers:5E03FC,57C048 x4,5E03FC"
+    },
+    {
+      "slot": "S+34h+8*i",
+      "meaning": "six label IDs"
+    },
+    {
+      "slot": "S+38h+8*i",
+      "meaning": "six seeded DWORD values"
+    }
+  ],
+  "pointer_derivation": [
+    "4CB229 before ADD ESP28h: EDX=(S-28h)+44h=S+1Ch, address of format array.",
+    "4CB22D restores ESP=S;4CB232 EBX=S+38h, address of first statistic value.",
+    "4CB236 stores format-array cursor atS+18h.",
+    "After two6-argument number calls, ESP=S-30h.4CB282 [ESP+48h] therefore loads cursor fromS+18h.",
+    "4CB28A EAX=[EBX] loads statistic.4CB28D EBP=[EDX] loads format pointer.",
+    "First formatted PUSH order at4CB28C/295/2A6/2A7/2A8/2A9/2AB is color,font,x,y,format,40h,value. Reverse order gives[value,40h,format,y,x,font,color].",
+    "4CB2B1 fetches shadow from(S-4Ch)+60h=S+14h;4CB2BB cleans4Ch bytes, restoring ESP=S.",
+    "Second PUSH at4CB2C2/2C8/2CE/2CF/2D2/2D3/2D5 is shadow,font,x,y,format,40h,value.4CB2D0 reloads value fromEBX; EBP still holds format.",
+    "4CB2DB/2E5/2E8/2EE increment the format cursor by4 and EBX by8 each row; ESI increments14."
+  ],
+  "correction": "The original two oracles had format pointer inarg0 and numeric value inarg2. Native has the opposite order in both formatted calls. Only24 expected argument records change.",
+  "cases": [
+    {
+      "id": "c7-tooltip-modes/mode2-six-live-DWORD-values-theme0",
+      "theme": 0,
+      "player": 1,
+      "seed_RAM": [
+        {
+          "native_load_site": "004cb166",
+          "address": "0xea8e44",
+          "value": "0x80000005"
+        },
+        {
+          "native_load_site": "004cb175",
+          "address": "0xeaa514",
+          "value": "0x0"
+        },
+        {
+          "native_load_site": "004cb17f",
+          "address": "0xeaa518",
+          "value": "0x7"
+        },
+        {
+          "native_load_site": "004cb189",
+          "address": "0xeaa51c",
+          "value": "0xffffffff"
+        },
+        {
+          "native_load_site": "004cb193",
+          "address": "0xeaa520",
+          "value": "0x63"
+        },
+        {
+          "native_load_site": "004cb199",
+          "address": "0xea6250",
+          "value": "0x12345678"
+        }
+      ],
+      "font": "0x44556677",
+      "mouse_x": 50,
+      "mouse_y": 100,
+      "incorrect_expected_arguments": [
+        [
+          6161404,
+          64,
+          2147483653,
+          260,
+          65,
+          1146447479,
+          7298
+        ],
+        [
+          6161404,
+          64,
+          2147483653,
+          259,
+          64,
+          1146447479,
+          32666
+        ],
+        [
+          5750856,
+          64,
+          0,
+          260,
+          79,
+          1146447479,
+          7298
+        ],
+        [
+          5750856,
+          64,
+          0,
+          259,
+          78,
+          1146447479,
+          32666
+        ],
+        [
+          5750856,
+          64,
+          7,
+          260,
+          93,
+          1146447479,
+          7298
+        ],
+        [
+          5750856,
+          64,
+          7,
+          259,
+          92,
+          1146447479,
+          32666
+        ],
+        [
+          5750856,
+          64,
+          4294967295,
+          260,
+          107,
+          1146447479,
+          7298
+        ],
+        [
+          5750856,
+          64,
+          4294967295,
+          259,
+          106,
+          1146447479,
+          32666
+        ],
+        [
+          5750856,
+          64,
+          99,
+          260,
+          121,
+          1146447479,
+          7298
+        ],
+        [
+          5750856,
+          64,
+          99,
+          259,
+          120,
+          1146447479,
+          32666
+        ],
+        [
+          6161404,
+          64,
+          305419896,
+          260,
+          135,
+          1146447479,
+          7298
+        ],
+        [
+          6161404,
+          64,
+          305419896,
+          259,
+          134,
+          1146447479,
+          32666
+        ]
+      ],
+      "derived_expected_arguments": [
+        [
+          2147483653,
+          64,
+          6161404,
+          260,
+          65,
+          1146447479,
+          7298
+        ],
+        [
+          2147483653,
+          64,
+          6161404,
+          259,
+          64,
+          1146447479,
+          32666
+        ],
+        [
+          0,
+          64,
+          5750856,
+          260,
+          79,
+          1146447479,
+          7298
+        ],
+        [
+          0,
+          64,
+          5750856,
+          259,
+          78,
+          1146447479,
+          32666
+        ],
+        [
+          7,
+          64,
+          5750856,
+          260,
+          93,
+          1146447479,
+          7298
+        ],
+        [
+          7,
+          64,
+          5750856,
+          259,
+          92,
+          1146447479,
+          32666
+        ],
+        [
+          4294967295,
+          64,
+          5750856,
+          260,
+          107,
+          1146447479,
+          7298
+        ],
+        [
+          4294967295,
+          64,
+          5750856,
+          259,
+          106,
+          1146447479,
+          32666
+        ],
+        [
+          99,
+          64,
+          5750856,
+          260,
+          121,
+          1146447479,
+          7298
+        ],
+        [
+          99,
+          64,
+          5750856,
+          259,
+          120,
+          1146447479,
+          32666
+        ],
+        [
+          305419896,
+          64,
+          6161404,
+          260,
+          135,
+          1146447479,
+          7298
+        ],
+        [
+          305419896,
+          64,
+          6161404,
+          259,
+          134,
+          1146447479,
+          32666
+        ]
+      ],
+      "original_oracle_sha256": "7bc7de783657a929ae70641816e2a0da9a89bdbd5437b124abc35efb9d1d1c7f",
+      "corrected_oracle_sha256": "260374a11d5779afcbb11d17ed7e1b717665cf78378e224d65d13b6fbcb939fd"
+    },
+    {
+      "id": "c7-tooltip-modes/mode2-six-live-DWORD-values-theme2",
+      "theme": 2,
+      "player": 1,
+      "seed_RAM": [
+        {
+          "native_load_site": "004cb166",
+          "address": "0xea8e44",
+          "value": "0x80000005"
+        },
+        {
+          "native_load_site": "004cb175",
+          "address": "0xeaa514",
+          "value": "0x0"
+        },
+        {
+          "native_load_site": "004cb17f",
+          "address": "0xeaa518",
+          "value": "0x7"
+        },
+        {
+          "native_load_site": "004cb189",
+          "address": "0xeaa51c",
+          "value": "0xffffffff"
+        },
+        {
+          "native_load_site": "004cb193",
+          "address": "0xeaa520",
+          "value": "0x63"
+        },
+        {
+          "native_load_site": "004cb199",
+          "address": "0xea6250",
+          "value": "0x12345678"
+        }
+      ],
+      "font": "0x44556677",
+      "mouse_x": 50,
+      "mouse_y": 100,
+      "incorrect_expected_arguments": [
+        [
+          6161404,
+          64,
+          2147483653,
+          260,
+          65,
+          1146447479,
+          14626
+        ],
+        [
+          6161404,
+          64,
+          2147483653,
+          259,
+          64,
+          1146447479,
+          65338
+        ],
+        [
+          5750856,
+          64,
+          0,
+          260,
+          79,
+          1146447479,
+          14626
+        ],
+        [
+          5750856,
+          64,
+          0,
+          259,
+          78,
+          1146447479,
+          65338
+        ],
+        [
+          5750856,
+          64,
+          7,
+          260,
+          93,
+          1146447479,
+          14626
+        ],
+        [
+          5750856,
+          64,
+          7,
+          259,
+          92,
+          1146447479,
+          65338
+        ],
+        [
+          5750856,
+          64,
+          4294967295,
+          260,
+          107,
+          1146447479,
+          14626
+        ],
+        [
+          5750856,
+          64,
+          4294967295,
+          259,
+          106,
+          1146447479,
+          65338
+        ],
+        [
+          5750856,
+          64,
+          99,
+          260,
+          121,
+          1146447479,
+          14626
+        ],
+        [
+          5750856,
+          64,
+          99,
+          259,
+          120,
+          1146447479,
+          65338
+        ],
+        [
+          6161404,
+          64,
+          305419896,
+          260,
+          135,
+          1146447479,
+          14626
+        ],
+        [
+          6161404,
+          64,
+          305419896,
+          259,
+          134,
+          1146447479,
+          65338
+        ]
+      ],
+      "derived_expected_arguments": [
+        [
+          2147483653,
+          64,
+          6161404,
+          260,
+          65,
+          1146447479,
+          14626
+        ],
+        [
+          2147483653,
+          64,
+          6161404,
+          259,
+          64,
+          1146447479,
+          65338
+        ],
+        [
+          0,
+          64,
+          5750856,
+          260,
+          79,
+          1146447479,
+          14626
+        ],
+        [
+          0,
+          64,
+          5750856,
+          259,
+          78,
+          1146447479,
+          65338
+        ],
+        [
+          7,
+          64,
+          5750856,
+          260,
+          93,
+          1146447479,
+          14626
+        ],
+        [
+          7,
+          64,
+          5750856,
+          259,
+          92,
+          1146447479,
+          65338
+        ],
+        [
+          4294967295,
+          64,
+          5750856,
+          260,
+          107,
+          1146447479,
+          14626
+        ],
+        [
+          4294967295,
+          64,
+          5750856,
+          259,
+          106,
+          1146447479,
+          65338
+        ],
+        [
+          99,
+          64,
+          5750856,
+          260,
+          121,
+          1146447479,
+          14626
+        ],
+        [
+          99,
+          64,
+          5750856,
+          259,
+          120,
+          1146447479,
+          65338
+        ],
+        [
+          305419896,
+          64,
+          6161404,
+          260,
+          135,
+          1146447479,
+          14626
+        ],
+        [
+          305419896,
+          64,
+          6161404,
+          259,
+          134,
+          1146447479,
+          65338
+        ]
+      ],
+      "original_oracle_sha256": "5ca0750585c0228f35a402cb7ba70ddfdc30b6098b0f2386c51fd6db40600482",
+      "corrected_oracle_sha256": "7397ec39ac0b5135a0874e0b54bd911755ffe09b20ecc1197f2f49ec2984d7b2"
+    }
+  ],
+  "unchanged_cases": 29,
+  "original_case_count": 31,
+  "corrected_case_count": 31,
+  "corrected_records": 24,
+  "production_C_repair": false,
+  "image_binding": false,
+  "replay_invoked": false,
+  "host_execution": false
+}

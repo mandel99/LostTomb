@@ -1,0 +1,17 @@
+# Expanded4CABD0 modes and actual private outputs
+
+31 additional cases /217 expected invocations; no replay or PE binding here. Groups: mode1 two, mode2 two, mode3 two, mode4 fourteen, query20 five, query21 four, query78 two. The original four default tooltip cases and their oracles remain in their original packet. C bodies are preserved; no native/C algorithm contradiction has been confirmed.
+
+The actual main4CABD0 and raw shared-stack children4CAF10/4CB0B0/4CB300/4CA9A0 run. Mode1 checks text-width remeasurement and near/far positioning. Mode2 checks six actual full-DWORD city values, per-row label/format fields, both themes and real clipping. Mode3 passes the real64-byte private object to559FC0: only DWORDs0 and3 are supplied by the endpoint, so the other14 actual caller-initialized DWORDs must remain zero. Mode4 checks each piecewise vessel message family, BYTE0/255, linked actor traversal, empty tile and style WORD restoration.
+
+Real4C9340/4C95D0 queries write through the actual pointer to the caller's scratch BYTE. Row/grid, both query halves, fallback type0, AL rejection and untouched-BYTE outcomes are covered. For result19, parent text selection must observe dynamic label55 when the actual BYTE is0 and fixed label38 when it is1. A wrong or non-aliased local therefore fails naturally; no fixed physical private address, zero register frame or replacement query result is supplied.4C92A0 separately checks the parent's explicit BYTE1 override.
+
+External boundaries are explicit: availability full32, eligibility AL, hit-test full32, text selection/render/format, measured width, item discovery and line drawing. Declared glyph-advance E20778 writes test the parent's actual reloads. Formatting arguments are compared as authentic pushed DWORDs; unknown external SDK semantics are not inferred. Border4CD680/fill4CD9D0 execute, with line endpoints bound consistently at typed FUN4CD510 and the actual live resource model4CD510.
+
+Expected2616 C live-model line visits are checked by the report guard. Each must retain its actual model ESP/registers, authenticated4CDA31 return token, current dispatcher pointer, physical C argument equal to the actual frame pointer and physical C SP. The line endpoint remains void. The hook preserves actual r0, uses native cleanup for model RET and physical cdecl RET0 separately.
+
+`protocol.json` retains the immutable508…985 authoring source contract. `replay-rebind.json` explicitly binds only the replay source to root's hardened910e34a50713b397f4e9a06b780a93d5e742517521eca959aad2256cc70dfbe2. No recipe/oracle/C bytes changed for that rebind. `supplemental_registry.py` applies this hash-bound overlay and requires910 before future image binding; no current PE/MAP hashes are present. Root can use `temporary_registry(replay)` with final images.
+
+Pure guard: `python guard.py --output guard-result.json`. After root replay: `python guard.py --registry <bound-registry.json> --report <result.json>`. The packet binds13 source files and three saved evidence batches, preserving1608 native instructions across12 relevant scopes. `private-output-contract.json` lists exact caller LEA and indirect BYTE-store sites.
+
+Controlled helper internals, arbitrary UI records and cyclic actor lists remain outside the finite proof. No source/entry credit, production C repair, build, replay, host EXE, Git or public write occurred during authoring.

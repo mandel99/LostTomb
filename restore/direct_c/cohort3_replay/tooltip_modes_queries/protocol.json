@@ -1,0 +1,235 @@
+{
+  "schema": "cohort7-tooltip-modes-queries-private-v1",
+  "native": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "source_guards": {
+    "runtime/tooltip_controller.c": "71f5242853188aea484d3aa9a95d3f4bf1b047e83cdceb019f0a70574fbc085f",
+    "runtime/tooltip_controller_model.c": "0fa211961550068b6dfb2e3592b54273e5998cdaa04690c002e0170685187ef1",
+    "include/tooltip_controller.h": "fefd8fee50f59c10113c9f3ecbce1a50c02c2d278b3bd2d08586ec0a9bf300b5",
+    "runtime/menu_training_render.c": "cb1d2a380840d8b502cb60472e997952f165e5681418c62abbbaedabf7f3e678",
+    "runtime/menu_training_render_model.c": "3596dfa736c19808033987dfa47825eee4d9c6ce2e11d0febb416b34037e4b85",
+    "include/menu_training_render.h": "2cb33de1bddd5c6c068815d400b0cc7aa7b5e7adb7247c35b649eaa0a7bd9103",
+    "runtime/menu_resource_render.c": "3814252f881811f0940ac52673f76086f3f49ea6ca5458292d31d2fd5b2472df",
+    "runtime/menu_resource_render_model.c": "cab4c00d6023564429187dcb71175b53568228b90e218c5148652381337c55bb",
+    "include/menu_resource_render.h": "553663edae50282c054ecda1d5de852709b91328f182cde32345fa826062ef51",
+    "direct_c/cohort3_replay/compiled_callbacks/callback_cases.py": "d828df54f1ea29ac0c1c57071001eb75cea7d36edaeddb12be03dd176d20e60e",
+    "direct_c/cohort3_replay/compiled_flood_regions/cohort7_compiled_acceptance_cases.py": "bd679ea8ec70a0e32f4cef12fabb51cf11ff4d37588f9f238a2c91679d808f77",
+    "direct_c/cohort3_replay/replay.py": "508c2d462ef080a44c1a0850fc5002dd0c03bb74d165600a1925408cb2953985",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb"
+  },
+  "evidence_inputs": [
+    {
+      "path": "metadata/native-function-audit-cache/batch-1600.json",
+      "sha256": "e16a1a0bee55b5dc943d84d6ea081432b74700b8e9c9e5c7485ab1e995888169"
+    },
+    {
+      "path": "metadata/native-function-audit-cache/batch-1664.json",
+      "sha256": "3450fb37c771c8e386384534fb012ebfadc4262b2749fef788c3ed5d93e4d970"
+    },
+    {
+      "path": "metadata/native-function-audit-cache/batch-1728.json",
+      "sha256": "cf4aa66c3570bc2b1fc3b52ea035eb5cf6d936b93e8af905b92702c91f30734a"
+    }
+  ],
+  "members": [
+    {
+      "address": "0x004cabd0",
+      "symbol": "FUN_004cabd0",
+      "canonical_symbol": "FUN_004cabd0",
+      "source": "runtime/tooltip_controller.c",
+      "algorithm_source": "runtime/tooltip_controller_model.c",
+      "owner_object": "tooltip_controller.obj",
+      "expected_images": {
+        "game": true,
+        "diagnostic": true,
+        "retained": true
+      },
+      "logical_signature": "Logical void/nullary/native RET0. Actual shared model stack supplies parent scratch BYTE and child output pointers; no incoming raw-frame API is invented.",
+      "native_bytes": 822,
+      "native_bytes_sha256": "54fc37542f614a27ce185b760d0e4995d529ce5a7d9865b5e7681342ba3b448b",
+      "native_instructions": 263,
+      "new_source_credit": 0,
+      "new_entry_credit": 0
+    }
+  ],
+  "replay_extension": {
+    "target": "direct_c/cohort3_replay/replay.py",
+    "before_sha256": "54e253b7db6cebedd628820c5789820584e8db17baf50215ab85320433368e69",
+    "after_sha256": "508c2d462ef080a44c1a0850fc5002dd0c03bb74d165600a1925408cb2953985",
+    "original_line_endings": "LF",
+    "private_source": "build/actor-animal-following/cohort7-tooltip-boundary-expansion/source/direct_c/cohort3_replay/replay.py",
+    "production_C_repair": false,
+    "replay_executed": false
+  },
+  "no_current_image_binding": true,
+  "authored_cases": 31,
+  "expected_route_invocations": 217,
+  "expected_live_model_visits": 2616,
+  "authored_oracles": [
+    {
+      "id": "c7-tooltip-modes/mode1-one-measure",
+      "sha256": "480a156f023a866658870444c5a6a29a961649805ae0cb189a8b628359169f64"
+    },
+    {
+      "id": "c7-tooltip-modes/mode1-width-remeasure",
+      "sha256": "9a5c1e55d6bd6263d27490ca6fd69e72eb5f689c13e435bbddd67a78aab819ed"
+    },
+    {
+      "id": "c7-tooltip-modes/mode2-six-live-DWORD-values-theme0",
+      "sha256": "7bc7de783657a929ae70641816e2a0da9a89bdbd5437b124abc35efb9d1d1c7f"
+    },
+    {
+      "id": "c7-tooltip-modes/mode2-six-live-DWORD-values-theme2",
+      "sha256": "5ca0750585c0228f35a402cb7ba70ddfdc30b6098b0f2386c51fd6db40600482"
+    },
+    {
+      "id": "c7-tooltip-modes/mode3-private-array-partial-writes-0-items",
+      "sha256": "08d3b619e627a53136910f778926ac32298b6588e9f51712889c15da4ddb37ab"
+    },
+    {
+      "id": "c7-tooltip-modes/mode3-private-array-partial-writes-2-items",
+      "sha256": "a799a5305abe6d9e8d2a9b6702c768ad6080c212224e12f8ebbe222085caf2a6"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind1",
+      "sha256": "c907cb907839fc77d9a47d1c6b814cc06142d10ad688a6a8737e155bef03de16"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind2",
+      "sha256": "989d32ed5b22660288307defc5c2daa7011e9b240221a799ca69909c5d2a3224"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind3",
+      "sha256": "1974b862eabe970f450d670fa16d72a3b9e6ffa2be7c35b574e57b7dc2b811a5"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind12",
+      "sha256": "627df7eabe139fa278a84bd2d4f4acb93ecf7c3089a835f64390df55f3be2641"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind13",
+      "sha256": "f6effe860277ad5f9c772ae4828858faf2ee58c88e1a2c4c607dc00a37584b3c"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind14",
+      "sha256": "a637bca04dc42149349ee35213af5ce81968afab3ad8dd1c485cae6c849052c0"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind26",
+      "sha256": "544af4066bc9255bf69b9afbbe5c37e32a50b8eaceb0600c71e460331d208033"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind30",
+      "sha256": "04ba4d292983443be492b3d7194861b7ca6dfa405c04be9409cb31df207ace99"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind33",
+      "sha256": "e6195e85eec4894433400c36f53ba825dd9d401480fbc7b697eb4cf36636c7a0"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind50",
+      "sha256": "8158dcee6fb7e910fdfea619b916308b295771a9842e8f586b72435fb316bdd1"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind58",
+      "sha256": "32f72795f518816d56063747971514aa7922df436178c51b636af54c2b2c2560"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind0",
+      "sha256": "eb7bdc4090977e14eb7fa66ebb41f682b15992d5d3d01c0a007b2d77d6c5daa1"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-vessel-BYTE-kind255",
+      "sha256": "54110fbb1a0723afccf6ce5a9b8dc3e01cf32540bbf624bae012ba1760aa3370"
+    },
+    {
+      "id": "c7-tooltip-modes/mode4-empty-selected-tile",
+      "sha256": "8b954ad23992e57b4f6d9014b796743b62ec822c6418e452900a6ed698872823"
+    },
+    {
+      "id": "c7-tooltip-modes/query20-row-a-actual-BYTE-alias",
+      "sha256": "06c107156f6456386780bf8b0587a292088417caa93f8730fbd52afdce1f3252"
+    },
+    {
+      "id": "c7-tooltip-modes/query20-row-b-actual-BYTE-alias",
+      "sha256": "891786129f05ad979022a7df3659958998575961c682917ea2d823f901fdb74e"
+    },
+    {
+      "id": "c7-tooltip-modes/query20-grid-a-actual-BYTE-alias",
+      "sha256": "f24968c13490fcdf774adcdcee78bd00e27ec07165190610535f3979f085d2a7"
+    },
+    {
+      "id": "c7-tooltip-modes/query20-grid-b-actual-BYTE-alias",
+      "sha256": "a3c303a709bb2a9ad757ed0be2c74393eee59ae6fe3758cf9e9983befac886e0"
+    },
+    {
+      "id": "c7-tooltip-modes/query21-a-actual-BYTE-alias",
+      "sha256": "e9ba241d653126c5c5b0e92d90a74fabb65a98b3c1c46fffd3ed229612c229e8"
+    },
+    {
+      "id": "c7-tooltip-modes/query21-b-actual-BYTE-alias",
+      "sha256": "caeba348907bbf39d800a289a39da668c82063ac9a9a6e6bad5a9641aa3c8092"
+    },
+    {
+      "id": "c7-tooltip-modes/query21-zero-actual-BYTE-alias",
+      "sha256": "d8db348058746734b218fa24e521514d4bc1f5a60afec7d673e7732765517187"
+    },
+    {
+      "id": "c7-tooltip-modes/query78-a-parent-BYTE-one",
+      "sha256": "e5495352c8b0cd3dbe7beb3ac19ce914f418d3d62e092366ed5a464f970a9047"
+    },
+    {
+      "id": "c7-tooltip-modes/query78-b-parent-BYTE-one",
+      "sha256": "5083f37f99e2694d4404a6ba4bbf8631dce36fa60cd729d6f2a2e34d2c856cbe"
+    },
+    {
+      "id": "c7-tooltip-modes/query20-full-scan-AL-reject-preserves-initial-BYTE",
+      "sha256": "32c80ec68ea0fe1c624b879edd4cbc2b23cc34e567b89f1554dc4a03d5421618"
+    },
+    {
+      "id": "c7-tooltip-modes/query21-unsupported-type-preserves-initial-BYTE",
+      "sha256": "c2846f3e3c8f389eac68e83cf9b9bfe40326298036ea2e9e42de5d1fc5b5aa1d"
+    }
+  ],
+  "case_groups": {
+    "mode1": 2,
+    "mode2": 2,
+    "mode3": 2,
+    "mode4": 14,
+    "query20": 5,
+    "query21": 4,
+    "query78": 2
+  },
+  "actual_children": [
+    "4CAF10/4CB0B0/4CB300/4CA9A0 selected by main modes1..4",
+    "4C9340/4C95D0 real private BYTE output queries",
+    "4C92A0 catalog query",
+    "4CD680 border and4CD9D0 fill"
+  ],
+  "external_boundaries": [
+    "4CC110 text selection void; glyph strings are declared inputs",
+    "4C8070 text wrapping/rendering void with declared line-count outputs",
+    "443000/443040 availability full32,447790 eligibility AL,4CF620 hit-test full32",
+    "559FC0 writes only two selected DWORDs in actual caller64B output object",
+    "4CCBB0/4CC770 glyph advance mutates declared E20778 offset;4CCE00 format data is observed as actual7 DWORD arguments",
+    "4CBF30 measured width full32;4CD510 line controlled consistently at typed/model entries"
+  ],
+  "coverage_limits": [
+    "Finite inputs are not all-domain or whole-game equivalence.",
+    "External text availability/hit-test/format/render internals remain controlled; SDK semantics are not guessed from raw argument widths.",
+    "Query IDs1..35 and result19 were selected to distinguish both actual output BYTE values. Parent explicit BYTE1 catalog path, AL rejection and untouched-byte fallbacks are included.",
+    "Mode3 validates16-DWORD initialization with two partial writes; full external item-discovery algorithms remain outside scope.",
+    "Mode4 covers each piecewise message mapping family plus0/255, linked traversal and empty tile; cyclic native actor chains are not clamped/executed.",
+    "This packet requires exact replay508c2d462ef080a44c1a0850fc5002dd0c03bb74d165600a1925408cb2953985. Any hardened-hook source change needs an explicit new source binding."
+  ],
+  "production_C_repairs": 0,
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "public_files_written": false,
+  "replay_invoked": false,
+  "builds_run": false,
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

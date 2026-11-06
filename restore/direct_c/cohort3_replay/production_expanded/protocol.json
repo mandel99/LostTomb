@@ -1,0 +1,60 @@
+{
+  "schema": "cohort7-city-production-expanded-v1",
+  "entry": "0x488400",
+  "cases": 26,
+  "invocations": 182,
+  "source_guards": {
+    "runtime/city_updates.c": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
+    "runtime/city_updates_model.c": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+    "runtime/building_refresh_helpers.c": "2889b406954af73977e7d7dc1511b643e4c2668977ab512ef2a4b0f727c0f7f2",
+    "runtime/building_refresh_model.c": "8d73cab4a3d2d957fcfd5b5c7344cafd82a0a084c0a8758180a188ed28968cf9",
+    "runtime/actor_message.c": "5c56f1c0d6dee611a0cff0fb8faa0d5bb5be345e719b976dda9309bfbd25c624",
+    "runtime/actor_laborer.c": "6525218d6b37456c47349a3df4bf79d84e13bd5050df02c361d7a2528308dcda",
+    "runtime/actor_laborer_model.c": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+    "include/city_updates.h": "9e6c50f8b5a419858db94c87e2b6cf521448dad8c558a62eb3fe3c72b5be1794",
+    "include/building_refresh_helpers.h": "b816e5b7a37e5d7cfe34927a124c9e22f68cd058e694f0b4bc1ec3d42b6e3416",
+    "include/actor_message.h": "ebe9b9aa4254f20d1ea4be3335b1053f883ae788e520852056abd3db31999457",
+    "include/actor_laborer.h": "a915b59bf8ed546b5f570b95007f09bd4fdb6564e20634273e8f033ff372ccd7",
+    "src/unit_01731.c": "df759ba4e710a0a8b7eb154c571a6331fd7eeae1635e1051126f3d8c9596ce99",
+    "direct_c/cohort3_replay/replay.py": "910e34a50713b397f4e9a06b780a93d5e742517521eca959aad2256cc70dfbe2",
+    "runtime/menu_building_overlay.c": "c5ccb27fb1cacbc08139ea49e24059c0f32e3e674b8db287a7ee0cb45720bd50",
+    "runtime/menu_building_overlay_model.c": "a9d653d4ab1c7a8911f049ab877cdfc0c85f61482f447ffba517e7faf7b2d58d",
+    "include/menu_building_overlay.h": "c9eef9ddca282b375dd728f4e27ef15450cba10adb131147da39d272b13334f4"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "c78f01533100bfa8434377fce39892607ce529771806544171d8f214de4ffd77",
+      "map_sha256": "ef0d41887e99d1484934c44cdd1785f5f00fb0d02596dcf4a8da7eb78307eae8"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "5ed42c5ffc6c099024dbf42ecdaa49d2aa7644af7942fd4a3ccf4349417814cf",
+      "map_sha256": "94f72997ce9e2d1c4606c3f99614fef0da29a908eb1a5c12a46b6320df6fc9e4"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "a3d875918cd0068ff5276f4135382ac35168b61b7558e01a8c30f758895d21fe",
+      "map_sha256": "8da02ba9bee9ff318dfa0c9dd0ceba19d2e4a437ec26ddfee1a541b1ebaf616a"
+    }
+  },
+  "source_rewrite": false,
+  "new_source_credit": 0,
+  "host_execution": false,
+  "whole_game_equivalence": false,
+  "supplemental_source_guards": "These three menu-overlay hashes were additionally captured after the successful run; their bytes match the unchanged committed source throughout execution.",
+  "logical_contract": "x86 thiscall one signed building argument; full EAX quantity, native RET4; C wrapper cdecl(manager,building).",
+  "actual_aliases": [
+    "D05720+32FB4 is D386D4; no second invented field.",
+    "Global receiver BCA350[-1] aliases the high BYTE of DWORD divisor BCA34C."
+  ],
+  "scope": "26 bounded production paths; real percentage/stock/terrain/BYTE queries and count0 worker reassignment execute. Only488E60 redraw is controlled, using the actual live building-refresh frame.",
+  "remaining_domains": [
+    "Nonzero-count worker search",
+    "Internal redraw/render behavior",
+    "Other resource kinds, callback mutation combinations and all-domain equivalence"
+  ]
+}
