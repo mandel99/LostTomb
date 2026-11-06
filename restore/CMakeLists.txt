@@ -2656,3 +2656,13 @@ foreach(_scalar_lowio_target IN ITEMS restore_link_check restore_game restore_co
 endforeach()
 unset(_scalar_lowio_target)
 unset(_scalar_lowio_symbol)
+
+# Related record scores and low-I/O descriptor actions retain native field units.
+set_source_files_properties(src/unit_00488.c src/unit_00490.c src/unit_00494.c src/unit_00495.c src/unit_00496.c src/unit_00497.c src/unit_00498.c src/unit_00499.c src/unit_00500.c src/unit_00510.c src/unit_01007.c src/unit_02919.c src/unit_02920.c src/unit_02921.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_record_action_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_record_action_symbol IN ITEMS FUN_00433c90 FUN_00433d50 FUN_00433ed0 FUN_00434060 FUN_004340e0 FUN_00434150 FUN_004341d0 FUN_00434250 FUN_004342c0 FUN_004347b0 FUN_0046f1c0 FUN_00566840 FUN_005668d5 FUN_0056694c restore_record_score_00433c90 restore_record_score_00433d50 restore_record_score_00433ed0 restore_record_score_00434060 restore_record_score_004340e0 restore_record_score_00434150 restore_record_score_004341d0 restore_record_score_00434250 restore_record_score_004342c0 restore_record_score_004347b0 restore_record_rounded_amount_0046f1c0 restore_crt_allocate_descriptor restore_crt_set_os_handle restore_crt_free_os_handle)
+  target_link_options(${_record_action_target} PRIVATE "/INCLUDE:_${_record_action_symbol}")
+ endforeach()
+endforeach()
+unset(_record_action_target)
+unset(_record_action_symbol)

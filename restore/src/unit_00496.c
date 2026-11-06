@@ -1,24 +1,13 @@
-#include "restore_types.h"
-#define DAT_007057b8 (*(undefined *)0x007057b8u)
-#define DAT_007057cc (*(undefined *)0x007057ccu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_00799a44 (*(undefined4 *)0x00799a44u)
-
-int FUN_004340e0(int param_1)
-
+#include "record_score_views.h"
+int32_t restore_record_score_004340e0(int32_t index)
 {
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0x1f) {
-    return 0;
-  }
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0x24) {
-    return 0;
-  }
-  if (*(char *)((int)&DAT_007999dc + param_1 * 0x108 + 1) == '\0') {
-    return 0;
-  }
-  if (DAT_007057cc + DAT_007057b8 == 0) {
-    return 0;
-  }
-  return 10 - *(byte *)(&DAT_00799a44 + param_1 * 0x84) / 10;
+ uint32_t offset=(uint32_t)index*264u,sum;
+ uint16_t type=SCORE_W(0x007999e8u+offset);
+ if (type==0x1fu || type==0x24u) return 0;
+ if (SCORE_B(0x007999ddu+offset)==0) return 0;
+ sum=SCORE_U(0x007057ccu);
+ sum+=SCORE_U(0x007057b8u);
+ if (sum==0) return 0;
+ return 10-(int32_t)(SCORE_B(0x00799a44u+offset)/10u);
 }
+SCORE_CANONICAL(004340e0)

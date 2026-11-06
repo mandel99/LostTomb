@@ -1,38 +1,29 @@
-#include "restore_types.h"
-#define DAT_0060496c (*(undefined *)0x0060496cu)
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
+#include "crt_lowio.h"
+#include <windows.h>
 
-undefined4 FUN_005668d5(uint param_1,HANDLE param_2)
-
+uint32_t restore_crt_set_os_handle(uint32_t descriptor,uint32_t handle_bits)
 {
-  int iVar1;
-  DWORD nStdHandle;
-  
-  if (param_1 < DAT_01266a60) {
-    iVar1 = (param_1 & 0x1f) * 8;
-    if (*(int *)((&DAT_01266960)[(int)param_1 >> 5] + iVar1) == -1) {
-      if (DAT_0060496c == 1) {
-        if (param_1 == 0) {
-          nStdHandle = 0xfffffff6;
-        }
-        else if (param_1 == 1) {
-          nStdHandle = 0xfffffff5;
-        }
-        else {
-          if (param_1 != 2) goto LAB_0056692b;
-          nStdHandle = 0xfffffff4;
-        }
-        SetStdHandle(nStdHandle,param_2);
-      }
-LAB_0056692b: ;
-      *(HANDLE *)((&DAT_01266960)[(int)param_1 >> 5] + iVar1) = param_2;
-      return 0;
-    }
+ if(descriptor<RESTORE_CRT_LOWIO_CAPACITY){
+  uint32_t offset=(descriptor&31u)*8u;
+  RestoreCrtLowioRecord *volatile *slot=(RestoreCrtLowioRecord *volatile *)(uintptr_t)
+   ((uint32_t)(uintptr_t)RESTORE_CRT_LOWIO_BLOCKS+
+    (uint32_t)((int32_t)descriptor>>5)*4u);
+  volatile RestoreCrtLowioRecord *record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+   ((uint32_t)(uintptr_t)*slot+offset);
+  if(record->handle==0xffffffffu){
+   if(RESTORE_CRT_LOWIO_STD_HANDLE_MODE==1 && descriptor<=2)
+    (void)SetStdHandle(0xfffffff6u-descriptor,(HANDLE)(uintptr_t)handle_bits);
+   /* Native retains the slot address/offset, then reloads this cell even if
+      the callback changed capacity, block pointer or record validity. */
+   record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+    ((uint32_t)(uintptr_t)*slot+offset);
+   record->handle=handle_bits;
+   return 0;
   }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
-  return 0xffffffff;
+ }
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return 0xffffffffu;
 }
+uint32_t FUN_005668d5(uint32_t descriptor,uint32_t handle_bits)
+{return restore_crt_set_os_handle(descriptor,handle_bits);}

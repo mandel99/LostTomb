@@ -18,4 +18,11 @@ void restore_crt_initialize_lowio(void);
 void FUN_00566a03(void);
 uint32_t restore_crt_get_os_handle(uint32_t descriptor);
 uint32_t FUN_005669c6(uint32_t descriptor);
+#define RESTORE_CRT_LOWIO_STD_HANDLE_MODE (*(volatile uint32_t *)0x0060496cu)
+int32_t restore_crt_allocate_descriptor(void);
+int32_t FUN_00566840(void);
+uint32_t restore_crt_set_os_handle(uint32_t descriptor,uint32_t handle_bits);
+uint32_t FUN_005668d5(uint32_t descriptor,uint32_t handle_bits);
+uint32_t restore_crt_free_os_handle(uint32_t descriptor);
+uint32_t FUN_0056694c(uint32_t descriptor);
 #endif

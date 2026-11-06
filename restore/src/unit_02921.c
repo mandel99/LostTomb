@@ -1,40 +1,29 @@
-#include "restore_types.h"
-#define DAT_0060496c (*(undefined *)0x0060496cu)
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
+#include "crt_lowio.h"
+#include <windows.h>
 
-undefined4 FUN_0056694c(uint param_1)
-
+uint32_t restore_crt_free_os_handle(uint32_t descriptor)
 {
-  int *piVar1;
-  int iVar2;
-  DWORD nStdHandle;
-  
-  if (param_1 < DAT_01266a60) {
-    iVar2 = (param_1 & 0x1f) * 8;
-    piVar1 = (int *)((&DAT_01266960)[(int)param_1 >> 5] + iVar2);
-    if (((*(byte *)(piVar1 + 1) & 1) != 0) && (*piVar1 != -1)) {
-      if (DAT_0060496c == 1) {
-        if (param_1 == 0) {
-          nStdHandle = 0xfffffff6;
-        }
-        else if (param_1 == 1) {
-          nStdHandle = 0xfffffff5;
-        }
-        else {
-          if (param_1 != 2) goto LAB_005669a5;
-          nStdHandle = 0xfffffff4;
-        }
-        SetStdHandle(nStdHandle,(HANDLE)0x0);
-      }
-LAB_005669a5: ;
-      *(undefined4 *)((&DAT_01266960)[(int)param_1 >> 5] + iVar2) = 0xffffffff;
-      return 0;
-    }
+ if(descriptor<RESTORE_CRT_LOWIO_CAPACITY){
+  uint32_t offset=(descriptor&31u)*8u;
+  RestoreCrtLowioRecord *volatile *slot=(RestoreCrtLowioRecord *volatile *)(uintptr_t)
+   ((uint32_t)(uintptr_t)RESTORE_CRT_LOWIO_BLOCKS+
+    (uint32_t)((int32_t)descriptor>>5)*4u);
+  volatile RestoreCrtLowioRecord *record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+   ((uint32_t)(uintptr_t)*slot+offset);
+  if((record->flags&1u)!=0 && record->handle!=0xffffffffu){
+   if(RESTORE_CRT_LOWIO_STD_HANDLE_MODE==1 && descriptor<=2)
+    (void)SetStdHandle(0xfffffff6u-descriptor,(HANDLE)0);
+   /* Free clears only the handle. Flags/text state/reserved bytes retain
+      their current values in the freshly reloaded target block. */
+   record=(volatile RestoreCrtLowioRecord *)(uintptr_t)
+    ((uint32_t)(uintptr_t)*slot+offset);
+   record->handle=0xffffffffu;
+   return 0;
   }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
-  return 0xffffffff;
+ }
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return 0xffffffffu;
 }
+uint32_t FUN_0056694c(uint32_t descriptor)
+{return restore_crt_free_os_handle(descriptor);}

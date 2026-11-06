@@ -1,43 +1,18 @@
-#include "restore_types.h"
-#define DAT_0070e488 (*(undefined *)0x0070e488u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_00799a20 (*(undefined4 *)0x00799a20u)
-#define DAT_00b67d1c (*(undefined4 *)0x00b67d1cu)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-extern int FUN_00488030();
-
-int FUN_00433c90(int param_1)
-
+#include "record_score_views.h"
+#include "menu_building_kind.h"
+int32_t restore_record_score_00433c90(int32_t index)
 {
-  char cVar1;
-  
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0xa7) {
-    return 0;
-  }
-  if ((&DAT_007999e8)[param_1 * 0x84] == 99) {
-    return 0;
-  }
-  cVar1 = FUN_00488030(param_1);
-  if (cVar1 != '\0') {
-    cVar1 = (&DAT_00b67d1c)[DAT_0070e488];
-    if (DAT_00bca2e0 == 0) {
-      if (cVar1 != 'P') {
-        return 0;
-      }
-    }
-    else if (DAT_00bca2e0 == 2) {
-      if (cVar1 != '@') {
-        return 0;
-      }
-    }
-    else if (DAT_00bca2e0 == 4) {
-      if (cVar1 != 'B') {
-        return 0;
-      }
-    }
-    else if ((DAT_00bca2e0 == 6) && (cVar1 != 'R')) {
-      return 0;
-    }
-  }
-  return (int)*(short *)(&DAT_00799a20 + param_1 * 0x108) / 100;
+ uint32_t offset=(uint32_t)index*264u,selection,mode;
+ uint16_t type=SCORE_W(0x7999e8u+offset);
+ uint8_t marker;
+ if (type==0xa7u || type==99u) return 0;
+ if ((uint8_t)FUN_00488030((uint32_t)index)!=0) {
+  selection=SCORE_U(0x70e488u);
+  marker=SCORE_B(0xb67d1cu+selection);
+  mode=SCORE_U(0xbca2e0u);
+  if ((mode==0 && marker!=0x50) || (mode==2 && marker!=0x40) ||
+      (mode==4 && marker!=0x42) || (mode==6 && marker!=0x52)) return 0;
+ }
+ return (int32_t)SCORE_S(0x799a20u+offset)/100;
 }
+SCORE_CANONICAL(00433c90)

@@ -1,43 +1,19 @@
-#include "restore_types.h"
-#define DAT_0070e488 (*(undefined *)0x0070e488u)
-#define DAT_007999e8 (*(undefined *)0x007999e8u)
-#define DAT_00799a1e (*(undefined4 *)0x00799a1eu)
-#define DAT_00b67d1c (*(undefined4 *)0x00b67d1cu)
-#define DAT_00b7482c (*(undefined4 *)0x00b7482cu)
-#define DAT_00bca2e0 (*(undefined *)0x00bca2e0u)
-#define DAT_00d3b5c0 (*(undefined *)0x00d3b5c0u)
-extern int FUN_00488030();
-
-int FUN_00433d50(int param_1)
-
+#include "record_score_views.h"
+#include "menu_building_kind.h"
+int32_t restore_record_score_00433d50(int32_t index)
 {
-  char cVar1;
-  
-  DAT_00d3b5c0 = (&DAT_00b7482c)[DAT_0070e488];
-  if ((&DAT_007999e8)[param_1 * 0x84] == 0x51) {
-    return 0;
-  }
-  cVar1 = FUN_00488030(param_1);
-  if (cVar1 != '\0') {
-    cVar1 = (&DAT_00b67d1c)[DAT_0070e488];
-    if (DAT_00bca2e0 == 0) {
-      if (cVar1 != 'P') {
-        return 0;
-      }
-    }
-    else if (DAT_00bca2e0 == 2) {
-      if (cVar1 != '@') {
-        return 0;
-      }
-    }
-    else if (DAT_00bca2e0 == 4) {
-      if (cVar1 != 'B') {
-        return 0;
-      }
-    }
-    else if ((DAT_00bca2e0 == 6) && (cVar1 != 'R')) {
-      return 0;
-    }
-  }
-  return (int)(short)(&DAT_00799a1e)[param_1 * 0x84] / 100;
+ uint32_t selection=SCORE_U(0x70e488u),offset,mode;
+ uint8_t marker;
+ SCORE_U(0xd3b5c0u)=SCORE_U(0xb7482cu+selection*4u);
+ offset=(uint32_t)index*264u;
+ if (SCORE_W(0x7999e8u+offset)==0x51u) return 0;
+ if ((uint8_t)FUN_00488030((uint32_t)index)!=0) {
+  selection=SCORE_U(0x70e488u);
+  mode=SCORE_U(0xbca2e0u);
+  marker=SCORE_B(0xb67d1cu+selection);
+  if ((mode==0 && marker!=0x50) || (mode==2 && marker!=0x40) ||
+      (mode==4 && marker!=0x42) || (mode==6 && marker!=0x52)) return 0;
+ }
+ return (int32_t)SCORE_S(0x799a1eu+offset)/100;
 }
+SCORE_CANONICAL(00433d50)
