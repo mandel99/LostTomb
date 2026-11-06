@@ -1,0 +1,489 @@
+{
+  "schema": "cohort7-history-input-dispositions-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": 12,
+  "preserved_existing_C_entries": 12,
+  "new_C_algorithms": 0,
+  "missing_logical_input_repairs": 0,
+  "replacement_files": [],
+  "members": [
+    {
+      "address": "0x004f6690",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "RestoreDynamicHistory *FUN_004f6690(RestoreDynamicHistory *self,int32_t capacity)",
+      "native_consumed_inputs": "self=ECX; capacity=DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "pointer DWORD EAX=self; all cached native callers discard constructor result",
+      "notes": "Initialization and destructive reserve are already explicit C; ctor passes actual self and capacity.",
+      "native_instructions": 15,
+      "native_instruction_bytes": 42,
+      "native_bytes_sha256": "8d1fa00b5dfe911f3c4139ca037f30c6ef7473fea95fe74f2becff9ebfb5c32d",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6690"
+        }
+      ]
+    },
+    {
+      "address": "0x004f66c0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "RestoreDynamicHistory *FUN_004f66c0(RestoreDynamicHistory *self,const RestoreDynamicHistory *source)",
+      "native_consumed_inputs": "self=ECX; source=pointer DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "pointer DWORD EAX=self; cached native caller 4F6A50 discards it",
+      "notes": "Copy constructor passes actual self/source to the existing destination-sized forward-copy model.",
+      "native_instructions": 15,
+      "native_instruction_bytes": 42,
+      "native_bytes_sha256": "ed706dc702b97a2059b8dcedea29fcdc2f481d66ba0bdb9da03d108e48a71a53",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f66c0"
+        }
+      ]
+    },
+    {
+      "address": "0x004f66f0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "void FUN_004f66f0(RestoreDynamicHistory *self)",
+      "native_consumed_inputs": "self=ECX",
+      "native_stack_ownership": "Native RET consumes return address plus 0 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical void; native 4F6760 leaves EAX=1, normal caller 4F6A50 overwrites it with1",
+      "notes": "Native jump alias is an ordinary explicit-self C call to existing reset.",
+      "native_instructions": 1,
+      "native_instruction_bytes": 5,
+      "native_bytes_sha256": "79c507f5dc01271dd9e93d5633aabf0169a830914b9428fa3da7182a50f6f260",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f66f0"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6700",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "uint8_t FUN_004f6700(RestoreDynamicHistory *self,int32_t capacity)",
+      "native_consumed_inputs": "self=ECX; capacity=signed DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical AL=1; no-grow native arm preserves incoming EAX upper24; all cached direct callers discard return before any upper-EAX read",
+      "notes": "No caller register is needed for the exposed byte result. Signed capacity compare and modulo DWORD byte count are present.",
+      "native_instructions": 37,
+      "native_instruction_bytes": 93,
+      "native_bytes_sha256": "c2e45ed691d1134011aec1dbd5545a365c89e204724861acf81c46af19c27658",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6700"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6760",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "void FUN_004f6760(RestoreDynamicHistory *self)",
+      "native_consumed_inputs": "self=ECX",
+      "native_stack_ownership": "Native RET consumes return address plus 0 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical void; native EAX=1 is internal scratch; normal callers discard",
+      "notes": "Existing release/reset retains flag byte and reserved tail, resets exact DWORD fields, and passes actual allocation to free.",
+      "native_instructions": 19,
+      "native_instruction_bytes": 45,
+      "native_bytes_sha256": "b318e17b062501e93f838478dbb0d8df38c7e1833096c5d147e5fdf10f326d86",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6760"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6790",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "void FUN_004f6790(RestoreDynamicHistory *self,const RestoreDynamicHistory *source)",
+      "native_consumed_inputs": "self=ECX; source=pointer DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical void; incidental native EAX=source tail is not consumed by cached callers",
+      "notes": "Actual self/source pointers are present. Destination-capacity copy extent and forward DWORD order are already documented in source.",
+      "native_instructions": 28,
+      "native_instruction_bytes": 70,
+      "native_bytes_sha256": "b861cafa61dab0914cc39a2fba588ed20c82f92a2d880fc9f55cc799a321ffb7",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6790"
+        }
+      ]
+    },
+    {
+      "address": "0x004f68a0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_actor_teardown.c",
+        "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+      },
+      "typed_signature": "uint32_t FUN_004f68a0(void *self)",
+      "native_consumed_inputs": "self=ECX",
+      "native_stack_ownership": "Native RET consumes return address plus 0 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "DWORD popped value, or DWORD0; native consumer 460F70 tests and stores full EAX",
+      "notes": "Native jump alias forwards explicit self to FUN_004f68b0. City raw dispatcher uses the existing frame model instead of a synthesized member frame.",
+      "native_instructions": 1,
+      "native_instruction_bytes": 5,
+      "native_bytes_sha256": "ec7d2aa54ab353ae3e298f2752ca2bce4eae1ebdb8c1ddeefde03cd044576859",
+      "existing_active_owners": [
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_004f68a0"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f68a0"
+        }
+      ]
+    },
+    {
+      "address": "0x004f68b0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_actor_teardown.c",
+        "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+      },
+      "typed_signature": "uint32_t FUN_004f68b0(void *self)",
+      "native_consumed_inputs": "self=ECX",
+      "native_stack_ownership": "Native RET consumes return address plus 0 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "DWORD popped value, or DWORD0; forwarded through68A0",
+      "notes": "Existing C uses actual self and index pointer. Existing city frame model captures self from r[1] and retains child ECX=r[6].",
+      "native_instructions": 24,
+      "native_instruction_bytes": 49,
+      "native_bytes_sha256": "4ce7fc9f8d204bd830f942164fe6858333e44ec946ab5351647fd611487f98fa",
+      "existing_active_owners": [
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_004f68b0"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f68b0"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6900",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_actor_teardown.c",
+        "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+      },
+      "typed_signature": "void FUN_004f6900(void *self,uint32_t value)",
+      "native_consumed_inputs": "self=ECX; value=DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical void; native final EAX is scratch count or buffer; cached 68F0 caller forwards and outer callers ignore",
+      "notes": "Existing civic raw dispatcher routes directly to complete6900 model; actual ECX becomes saved ESI and is forwarded into6A50/6A10.",
+      "native_instructions": 33,
+      "native_instruction_bytes": 77,
+      "native_bytes_sha256": "8d3ff1ae8c371b90a33eee293cf3fbb721236ceb16a8951f7338ff3f89c8ff5c",
+      "existing_active_owners": [
+        {
+          "source": "runtime/actor_civic_model.c",
+          "source_sha256": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_civic_C_004f6900"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6900"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6950",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_actor_teardown.c",
+        "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+      },
+      "typed_signature": "uint8_t FUN_004f6950(void *self,int32_t value)",
+      "native_consumed_inputs": "self=ECX; searched value=DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical AL boolean; only cached direct caller4A43A0 immediately overwrites AL and never consumes upper EAX",
+      "notes": "Explicit C forwards actual self/value to existing removal algorithm. Its4A43A0 source caller supplies actual mapped list receiver.",
+      "native_instructions": 79,
+      "native_instruction_bytes": 187,
+      "native_bytes_sha256": "43de81d80d6157b3943c748ef2ff568e37a3123ff11f2bdf59796a87e37e95ca",
+      "existing_active_owners": [
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6950"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_ring_004f6950"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6a10",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_actor_teardown.c",
+        "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+      },
+      "typed_signature": "uint8_t FUN_004f6a10(void *self,volatile uint32_t *index)",
+      "native_consumed_inputs": "self=ECX; index=pointer DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "logical AL boolean. Native zero-capacity EAX=0; successful EAX upper24 derives index pointer. All cached direct callers discard child result before a full-EAX read",
+      "notes": "Canonical C forwards explicit self/index. City raw model retains real r[1]. Civic typed boundary passes (void*)f->r[1] and A(1), advances sp8; no zero receiver.",
+      "native_instructions": 27,
+      "native_instruction_bytes": 61,
+      "native_bytes_sha256": "0c7216bbf3034fd996e3df317cd7e3cc2d0220c76e14b8d85d29665108224b6f",
+      "existing_active_owners": [
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_004f6a10"
+        },
+        {
+          "source": "runtime/history_ring_index.c",
+          "source_sha256": "4fcdcbf6feff15bcbc8536b5717550b07a3ce12d6ded440d530fbbdcda0f3e26",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_ring_004f6a10"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6a10"
+        }
+      ]
+    },
+    {
+      "address": "0x004f6a50",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/dynamic_history.c",
+        "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+      },
+      "typed_signature": "uint32_t FUN_004f6a50(RestoreDynamicHistory *self,int32_t capacity)",
+      "native_consumed_inputs": "self=ECX; capacity=signed DWORD [native ESP+4]",
+      "native_stack_ownership": "Native RET consumes return address plus 4 argument bytes; existing source API is ordinary typed C with explicit self, not a naked native member entry.",
+      "logical_result_contract": "full DWORD EAX=1; native6900 consumes TEST EAX,EAX",
+      "notes": "Existing algorithm retains native reserve/copy chain. Civic raw boundary forwards f->r[1] as explicit self and A(1) as signed capacity, assigns full1, and advances sp8.",
+      "native_instructions": 33,
+      "native_instruction_bytes": 116,
+      "native_bytes_sha256": "7d06e55ced35ec4567d285e83abd0604926730e34d6932c770681a0332905c21",
+      "existing_active_owners": [
+        {
+          "source": "runtime/dynamic_history.c",
+          "source_sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f6a50"
+        },
+        {
+          "source": "runtime/menu_drag_actor_teardown.c",
+          "source_sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_ring_004f6a50"
+        }
+      ]
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "59725b0f66ccfbee2715ca6c6ef431e7c3d61cca452c7815752677af9e6164f3"
+    },
+    {
+      "path": "include/mission_compat.h",
+      "sha256": "83a14b3d2523c4762507a3ce55dc47f4707a9241728708efc14aa5f06cbf4076"
+    },
+    {
+      "path": "include/actor_teardown_model.h",
+      "sha256": "e9f6e704c3e933160c3712e9262ebcaf1e1b71dc1df3e9a6902671a53e50e1cc"
+    },
+    {
+      "path": "runtime/dynamic_history.c",
+      "sha256": "8e2bf63c08659762070dade4e2865a67610b28d68c5f73782b603f292ed81783"
+    },
+    {
+      "path": "runtime/menu_drag_actor_teardown.c",
+      "sha256": "adc907e51824cc9ae544fb4d967973a0ab8e7761b55308fea83b36b5fe904d0d"
+    },
+    {
+      "path": "runtime/history_ring_index.c",
+      "sha256": "4fcdcbf6feff15bcbc8536b5717550b07a3ce12d6ded440d530fbbdcda0f3e26"
+    },
+    {
+      "path": "runtime/actor_civic.c",
+      "sha256": "c945dd90c2cd197bc9cfa95b35a427ccd044a4eac0ab8cdb179c9399d8c8270b"
+    },
+    {
+      "path": "runtime/actor_civic_model.c",
+      "sha256": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b"
+    },
+    {
+      "path": "runtime/city_updates.c",
+      "sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b"
+    },
+    {
+      "path": "runtime/city_updates_model.c",
+      "sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70"
+    },
+    {
+      "path": "src/unit_02199.c",
+      "sha256": "140c3e6921c322ff9a79481de087e20cd9e87eee287dd48ec5a58ee14fe93e67"
+    },
+    {
+      "path": "src/unit_02200.c",
+      "sha256": "f0a927cf446f72b5b8b5387e3b52c94a68a8008235e3e84906b0a83e8ee0176a"
+    },
+    {
+      "path": "src/unit_03098.c",
+      "sha256": "0d8397d2230515e9868b6b1f31f600a26f413c40018f6cd72a0418d8470b25ae"
+    }
+  ],
+  "review_basis": {
+    "path": "build/bulk-reconstruction/cohort6-source49-preserved-inventory.json",
+    "sha256": "d39447db9fc5f122e625d061fcffd3727d107ac27ad15c343460a98572f74068"
+  },
+  "raw_dispatcher_findings": {
+    "city68A0_68B0_6A10": "city_updates.c dispatches RAW entries into complete city_updates_model.c functions, preserving actual input registers and native argument stack.68B0 assigns ESI=r[1] and child ECX=ESI;6A10 reads r[1].",
+    "civic6900": "actor_civic.c RAW(004f6900) enters complete actor_civic_model.c; ESI=r[1] carries true self into child boundaries.",
+    "civic6A10_6A50": "actor_civic.c typed boundary explicitly passes (void*)(uintptr_t)f->r[1] and A(1).6A50 assigns full DWORD return.6A10 merges byte result into previous EAX; this is not the native full scratch result, but6900 immediately overwrites EAX before use, and other cached callers discard it. No full-register equivalence claim is made.",
+    "dynamic_and_other_canonical_C": "Existing ordinary C bodies pass explicit actual self/source/index arguments internally; no zero ABI frames introduced."
+  },
+  "qualifications": [
+    "This source/consumer review does not prove gameplay or whole-register behavior equivalence and performs no builds, native replay, or host execution.",
+    "No new canonical native-member bridges are introduced merely because source C signatures spell self explicitly. Native arbitrary direct invocation ABI remains distinct from ordinary typed C API.",
+    "Indirect callers and callbacks are unresolved in this bounded cached direct-consumer scan.",
+    "Native6A50 compiler SEH/unwind behavior is not established by the normal C reserve/copy algorithm. Existing src/unit_03098.c (56B730) retains a generated no-argument exceptional thunk to66F0; exceptional parent-EBP receiver reconstruction remains unresolved and is not a normal typed-source algorithm input.",
+    "DF, exception context, allocator behavior/failure, fault domains and native stack scratch/flags are not promoted into invented logical API parameters.",
+    "Signed/nontermination/overflow and destination-sized source overread behavior are retained as existing source contracts; finite tests and source reading do not establish all valid domains."
+  ]
+}

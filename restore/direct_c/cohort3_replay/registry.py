@@ -43,10 +43,14 @@ def load(require_retained=True):
  for m in d['members']:
   assert digest(ROOT/m['source'])==m['source_sha256'],m['source']
   a=int(m['address'],16);ranges=[(int(r['start'],16),int(r['end'],16)+1)for r in m.get('native_ranges',[])]or[(a,a+m['native_bytes'])]
+  member_evidence=evidence
+  if m.get('native_evidence_file'):
+   bound=m['native_evidence_file'];member_path=ROOT/bound['path'];assert digest(member_path)==bound['sha256']
+   member_evidence={r['evidence_id']:r for r in json.loads(member_path.read_bytes())['records']}
   record_ids=m.get('native_evidence_ids',[m['native_evidence_id']]*len(ranges));assert len(record_ids)==len(ranges)
   chunks=[];decoded=[]
   for (start,end),record_id in zip(ranges,record_ids):
-   rec=evidence[record_id];base=int(rec['parameters']['address'],16);payload=bytes.fromhex(rec['normalized_result']['bytes_hex'])
+   rec=member_evidence[record_id];base=int(rec['parameters']['address'],16);payload=bytes.fromhex(rec['normalized_result']['bytes_hex'])
    assert rec['subject']['digest']['sha256']==PIN and rec['normalized_result']['complete']
    assert base<=start<end<=base+len(payload)
    raw=payload[start-base:end-base];assert raw==native.data[start-native.base:end-native.base]

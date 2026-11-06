@@ -2568,3 +2568,10 @@ src/unit_02609.c src/unit_02611.c src/unit_02622.c src/unit_02624.c
 
 # Cohort6 advisor and overlay live-input repairs.
 set_source_files_properties(src/unit_00789.c src/unit_02169.c runtime/menu_building_overlay.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Newly reconstructed storage-limit button callback; retain both C routes.
+set_source_files_properties(runtime/storage_order_actions.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_storage_limit_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ target_link_options(${_storage_limit_target} PRIVATE "/INCLUDE:_FUN_00406460" "/INCLUDE:_restore_storage_adjust_limit_00406460")
+endforeach()
+unset(_storage_limit_target)

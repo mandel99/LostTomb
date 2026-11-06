@@ -54,6 +54,10 @@ unsupported semantics are reported explicitly rather than replaced with stubs.
 The compact published queue is
 [metadata/bulk-reconstruction-next-queue.json](metadata/bulk-reconstruction-next-queue.json).
 
-The latest source scan covers4527 saved addresses and leaves93 review/reuse leads in one connected packet. It finds no new exact-rule C candidate. These are not93 newly missing algorithms:61 have existing C to inspect/reuse and32 need native/source review. The driver defaults to the highest-numbered cohort progress manifest.
+The latest source scan covers4527 saved addresses and leaves80 review/reuse leads in one connected packet. It finds no new exact-rule C candidate. These are not80 newly missing algorithms:49 have existing C to inspect/reuse and31 need native/source review. The driver defaults to the highest-numbered cohort progress manifest.
 
 Reviewed native scope exceptions are deliberately narrow. `native_scope_policy.py` accepts only curated findings supported by agreeing pinned REA entry and containment records. It checks every saved instruction in every declared body range against the native PE, retaining the actual entry separately from the lowest address. The reviewed516630 preceding tail and56B670 shared unwind RET now retain their existing C. These ranges cannot enter the flat automatic template generator. Other scope gaps, including the qualified48A720 foreign epilogue, retain review. This establishes coverage of saved bytes, not native/C behavior equivalence.
+
+Reviewed logical-input dispositions also preserve ordinary typed canonical C while its exact reviewed source and current active owner still match. Twelve history/teardown paths use this rule; inactive owners and changed sources retain review. This proves source presence, not register/flag or gameplay equivalence.
+
+Cohort7 currently adds one previously missing algorithm:406460 storage-limit adjustment, with261 finite scenarios including60 original button records. It is compiled and compared in all three current images. The cohort remains open at1/100 nominal entries. The previous49-entry gate stays bound to its archived images; it is not rebound to the new layout.

@@ -48,8 +48,54 @@ static void storage_toggle(void)
     }
     B(0xe38dcau)=1;
 }
+/* Native406460..406615:123 instructions. The two buttons for each of
+   the30 resource rows publish action1/decrease or0/increase and a zero-based
+   row at5C81F8. Policies other than zero use the second signed WORD limit.
+   Keep native write ordering: some exits redraw before the limit store. */
+void restore_storage_adjust_limit_00406460(void)
+{
+    uint32_t building=U(0xeadd6cu),offset=building*264u;
+    uint32_t owner=B(0x799a99u+offset),position=U(0x799ab8u+offset);
+    uint32_t resource,action,policy,limit_at,redraw_first;
+    int32_t limit;
+    uint16_t kind;
+    if(position==0u)U(0x799ab8u+offset)=1;
+    else{
+        position=FUN_00502780();
+        if((int32_t)U(0x799ab8u+offset)>(int32_t)position){
+            building=U(0xeadd6cu);offset=building*264u;
+            position=FUN_00502780();
+            U(0x799ab8u+offset)=U(0xf53e6cu)-position+1u;
+        }
+    }
+    kind=W(0x7999e8u+offset);
+    if(kind==72u||kind==193u){
+        position=U(0x799ab8u+offset)+U(0xd3b194u);
+        resource=U(0xf53e6cu+position*4u);
+    }else resource=U(0xf53ddcu+U(0xd3b194u)*4u);
+    action=U(0xd3b198u);
+    if(action==0u||action==1u){
+        policy=B(0x7900c2u+owner*196u+resource);
+        limit_at=(policy==0u?0x7900ecu:0x790134u)+owner*196u+resource*2u;
+        limit=(int32_t)(int16_t)W(limit_at);
+        redraw_first=policy==0u;
+        if(action==1u){
+            limit-=800;
+            if(limit<800){limit=800;redraw_first=1;}
+        }else{
+            limit+=800;
+            if(limit>3200)limit=3200;
+        }
+        if(redraw_first){B(0xe38dcau)=1;W(limit_at)=(uint16_t)limit;}
+        else{W(limit_at)=(uint16_t)limit;B(0xe38dcau)=1;}
+    }else B(0xe38dcau)=1;
+}
+void FUN_00406460(void)
+{restore_storage_adjust_limit_00406460();}
+
 int restore_storage_order_action(uint32_t token)
 {
-    if(token!=0x406300u)return 0;
-    storage_toggle();return 1;
+    if(token==0x406300u){storage_toggle();return 1;}
+    if(token==0x406460u){restore_storage_adjust_limit_00406460();return 1;}
+    return 0;
 }

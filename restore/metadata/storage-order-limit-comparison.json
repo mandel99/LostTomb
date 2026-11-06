@@ -1,0 +1,59 @@
+{
+  "schema": "storage-order-limit-finite-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scenarios": 261,
+  "button_table_scenarios": 60,
+  "invocations": 2250,
+  "instructions_executed": 123,
+  "native_instructions": 123,
+  "conditional_edges": 24,
+  "missing_instructions": [],
+  "missing_conditional_edges": [],
+  "failed_cases": 0,
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "sha256": "7c49d2aa89e58534f2493f794dbdff2d501a3119d4c5211561e44fcb3362d608",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "map_sha256": "aee6f0ceb485a60f74040ab54123327dbfd0dd7a4c1f58b77aef8461284f86b5"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "sha256": "e1db858dc8d4cab423a8047a870280594e0d42133f03aae99f426dff88b5220f",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "map_sha256": "95f57bb4b5a883eb855a0bc59b81c7039e7a86c49d2bdba5cea27c70cbbe8da7"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "sha256": "bfe6134cb9a66b79905794053780f5f130b61c95710c9a54098f9134acf82f76",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "map_sha256": "34998e5d66b7b6c227539de867f5af08b5e5c0a73e505b1fc3ada82b81d86d12"
+    }
+  },
+  "source_hashes": {
+    "CMakeLists.txt": "d07de1730fddebaa7ac4a189aa9b834e398264fa3185d2e40feaef57bd79a02f",
+    "include/storage_order_actions.h": "fd42d4e8f1fb0de77117bc8901dc7fd0940b47532decc495444cf439847b2d0e",
+    "runtime/storage_order_actions.c": "fef5b0b19feca1c0d9aea659733c9f9bce59ed938c4ec0f25b9761ebd6e5895e",
+    "runtime/menu_callbacks.c": "9de12c1359dedadc7c69aba9045415e51974b7faedeb64d6fcb2b31d93dbcf95",
+    "runtime/small_button_input.c": "ffd5303f33ebffc93e90171a92b5b53d3c6bbe0ef1ea3338f526d83a90d6f028",
+    "src/unit_02246.c": "536b1ff41dd3aa47ee3e1686452dac2640e8001b1e6d4a560b521f9e262d49b4",
+    "direct_c/native_test_pe.py": "c98d2d1e68340be38c258b3c989e18bea6196b60e170519ec12603426d3a790b",
+    "direct_c/verify_storage_order_limit.py": "73c8e5c3a012cbeb30026777332c5993f03196c21edd1aba1b021bc59befd9b1",
+    "metadata/storage-order-limit-rea-records.json": "a796103393e9340933771f075146dc553679725a6a3da344f20670ee3eb4ead9",
+    "metadata/native-function-audit-cache/batch-0000.json": "f625dbb2c5674b2507fea7e1c6a5d8ccc87ffad0e09416bbec8159ecab57c8f4"
+  },
+  "controlled_endpoints": [],
+  "host_execution": false,
+  "whole_game_equivalence": false,
+  "qualification": "Finite allocated/static single-threaded contexts. All123 callback instructions and both edges of each conditional executed. All60 original button records dispatched through real425990 and menu callbacks. Incidental callback EAX/volatile flags, faults, asynchronous observation and complete UI rendering are not certified.",
+  "recipe_publication": {
+    "executed_recipe_sha256": "165149b9f676ead4d99a55e31ed7d97102eb1795856edbf6a760ec41c98cdb46",
+    "published_recipe_sha256": "73c8e5c3a012cbeb30026777332c5993f03196c21edd1aba1b021bc59befd9b1",
+    "only_change": "Correct a resource-list comment; complete Python AST identical to executed recipe. C sources and PE/MAP unchanged.",
+    "AST_identical": true,
+    "executed_recipe_snapshot": {
+      "path": "build/actor-animal-following/cohort7-checkpoint/executed-storage-limit-recipe.py",
+      "sha256": "165149b9f676ead4d99a55e31ed7d97102eb1795856edbf6a760ec41c98cdb46"
+    }
+  }
+}
