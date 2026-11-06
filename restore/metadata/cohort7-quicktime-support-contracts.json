@@ -1,0 +1,73 @@
+{
+  "schema": "cohort7-quicktime-C-support-contract-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "baseline_checkpoint": "18c3766be21fc2e25849258bffe747011edaa951",
+  "source_hashes": {
+    "direct_c/cohort3_replay/replay.py": "54e253b7db6cebedd628820c5789820584e8db17baf50215ab85320433368e69",
+    "include/quicktime_dispatch.h": "c3d0b8e5effa6548fda81a5e282147658c90aa0f78e4be76a3963408b11928b2",
+    "runtime/quicktime_dispatch.c": "694ab4840ded138e508ddf1a67da04793a744a0f2e8d06fbd1999a2cf6ba18e2",
+    "runtime/window_messages.c": "76e653041bbee0f4ef402e16780e743bc8f9361c8916b6bd4521cd2f3b8c9852",
+    "runtime/window_platform_win32.c": "66248eea36e9a042f2cc70adc67f496163f6e6a7f4520bd67078e6303093270f",
+    "src/unit_02727.c": "fcf9d2b77a82dee636d1b1b160ed516c1440a2e644244b12996838a2a58c2e09",
+    "src/unit_02728.c": "8fe45f377dafecb6018c5c7f503b55fa7ef176bda12ef206818847b381d5ebe1",
+    "src/unit_02729.c": "0ce7b4cee5378327d380c2da4a4b46d17127b95ff12e2fd441e981afa466330d",
+    "src/unit_02730.c": "e390424a3a1652c6038d5f3a8b97012c6d3c49ae8d7e8cd9b483a094dc35965b",
+    "src/unit_02731.c": "80cc7a57ac7929520cfa534bc381188e1146a1111a23f8e5958e55d6017e14ad",
+    "src/unit_02732.c": "158acdd202bd07d651ea74830548f9a84fd0a3e4e5021eee126f8b2bf930c8e3",
+    "src/unit_02733.c": "8ed0b392b0783630847645a304ce6a553c53eada32807dd74f1f8fb26e454555",
+    "src/unit_02734.c": "4b1769a20c8b10c980b69818f54f801015883744afa2c7b3ba4c60f423586930",
+    "src/unit_02735.c": "11f51f7abce2956f4d7539cbde06ead9624773d537f8c07f310bf368cc059ba2",
+    "CMakeLists.txt": "603b13a91e38d3096a96fdfb5b6f5842690958414eb6f442039515c763f0bf94",
+    "direct_c/cohort3_replay/retained_image.cmake": "64ab72565a70d88b04696c76343b6f36f8b8ac23b0d77ebcdd13a534b6053f21"
+  },
+  "archive": {
+    "path": "metadata/cohort7-pre-quicktime-image-archive.json",
+    "sha256": "bb0e915e0135dec331eda87b540a6618f0875e4f9f6209e6f69a651f9e50aea1"
+  },
+  "native_dossiers": [
+    {
+      "path": "build/actor-animal-following/cohort7-window-dispatch/560330-rea-dossier.json",
+      "sha256": "35b37ec4ebb63e2c03c682f40f435ef9c26567f4b5be4e724f975d66f02192a5"
+    },
+    {
+      "path": "build/actor-animal-following/cohort7-window-dispatch/560360-rea.json",
+      "sha256": "f3e9c577855188e8616d5418c6fddb1b787db63bf6f6dfaeda6feddc609c5c28"
+    },
+    {
+      "path": "build/actor-animal-following/cohort7-window-dispatch/5603f0-rea.json",
+      "sha256": "eba4bfd2cf115972fee25f2eb57b09dd05fd15f714dada76caa28991c8b7a30e"
+    },
+    {
+      "path": "build/actor-animal-following/cohort7-window-dispatch/controller-thunk-rea.json",
+      "sha256": "5f3e1ce2ae507ba1a9638a556d2001fbf87c0a5e8e45c4821343f33fc7cfb2e6"
+    },
+    {
+      "path": "build/actor-animal-following/cohort7-window-dispatch/5605e0-rea.json",
+      "sha256": "43beaaf2cdbd7109f6cbd930f366b103893ec0dc55d760c78d8fc9ad9a541fd6"
+    }
+  ],
+  "recovered_facts": [
+    "560330 is a QuickTime EAX-selector1D000A tail gate, not an ordinary nullary trace callback",
+    "Original414D33/34 pushes a16-byte event output pointer and a fully initialized28-byte MSG;414D39 calls560330, then414D50 forwards the event and freshly loaded controller to5602F0",
+    "5602F0 uses one contiguous8-byte block: flags=0 (BYTE), parameter_bytes=4 (BYTE), request=7 (WORD), event pointer (DWORD); actual5605E0 selector10000 child executes",
+    "560360 and5603F0 already contained the correct loader algorithms; only pointer/string bindings and strict-C spellings are repaired. Initializer output EAX is discarded by all observed selector gates",
+    "Selector gates preserve the original argument frame; native missing dispatcher changes only AX toF7D1. Only actually invoked default client pointers relocate to compiled C code",
+    "No original executable address is called as code; actual imported dispatcher addresses stay dynamic, and null export failures remain null"
+  ],
+  "integration_differences": [
+    "C11 static assertions use equivalent legacy-C typedef checks in public sources",
+    "Only pre-hook604804 and selector-dispatch604808 need runtime address relocation; export-output6080C/60810 retain initial opaque tokens until the original resolver writes them",
+    "Original CRLF source line endings restored before final build/replay; final PE/MAP hashes are freshly bound, not inherited from the LF build."
+  ],
+  "scope": "Supporting existing window/media C definitions; no new selected source entry or source cohort.",
+  "new_selected_entries": 0,
+  "new_algorithms": 0,
+  "source_expansion_suspended": true,
+  "verification": "strict_three_target_build_and_51_bounded_native_C_cases_passed",
+  "whole_game_equivalence": false,
+  "host_execution": false,
+  "public_native_evidence": {
+    "path": "direct_c/cohort3_replay/quicktime_support/native-evidence.json",
+    "sha256": "767935d0f366385382e441258aeb0ae8970d450586b94e84b346d48071cb0d3a"
+  }
+}

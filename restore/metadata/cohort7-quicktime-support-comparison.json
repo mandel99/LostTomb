@@ -1,0 +1,77 @@
+{
+  "schema": "cohort7-quicktime-support-comparison-v1",
+  "entries_compared": 10,
+  "cases": 51,
+  "invocations": 204,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "1908bcfaaa3ff87defb7c6a15b54ba25b7a7523866f9f1b786002b474ad521a6",
+      "map_sha256": "28493fc776d161363c5d015fe0e67d2300caba44ff2ee9e99cf949c18359332f"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "39c6e7d10af398dbc39bd031ca72f8ff0b668a576b5c23bc62adc253a6541866",
+      "map_sha256": "df01a677bef3c8bda0f68a88968251f417d9fea2afbba245eeb85d1e14dff410"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "c45f9ff2a5dee92ad82cff11ea8cbb38e261e1c6e5a3b4bb95c8d3013e0b1739",
+      "map_sha256": "4c01da847d6c7d8b79b0176f4166e13b9fe5d1849613a026c4f990eb77c0abfc"
+    }
+  },
+  "result": {
+    "path": "build/actor-animal-following/cohort7-quicktime-support-runs/20261106-121020-462505/result.json",
+    "sha256": "bd9ed9882feffb620e595f07e483106709e5f8b31ca80f45a070e1f68e266596"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-quicktime-support-runs/20261106-121020-462505/binding.json",
+    "sha256": "1c7421a9eeadc59b83d8f0867388f38cd239da32d28830dba4351e0d6f3a0333"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-quicktime-support-runs/20261106-121020-462505/case-inputs.json",
+    "sha256": "f4e48524df8148dec284d4fd65a07abeb6ea67078cbcaed711b7b9e38df1072f"
+  },
+  "authored_checks": {
+    "path": "build/actor-animal-following/cohort7-quicktime-support-runs/20261106-121020-462505/authored-checks.json",
+    "sha256": "b8ba61dae5b24024df2d897f32bbdf7a1c9a4fd1d486dc6d0e89efa4d0407b79"
+  },
+  "source_contract": {
+    "path": "metadata/cohort7-quicktime-support-contracts.json",
+    "sha256": "fdf5dfc6721c9e199707396cb8c3563c9d5611407877358757f73035775d49c9"
+  },
+  "recipe_protocol": {
+    "path": "direct_c/cohort3_replay/quicktime_support/protocol.json",
+    "sha256": "ac9475d329d29469d0d2acd96e36705630fe7db23bc8e38f189a163da38f75f2"
+  },
+  "core_entries": 9,
+  "core_cases": 46,
+  "window_entries": 1,
+  "window_cases": 5,
+  "named_export_is_canonical": true,
+  "duplicate_identical_PC_route_omitted": true,
+  "scope": "Exact bounded native/C loader, initializer, register selector and component contracts plus real callback capture/filtered-default paths. External imports and dispatcher endpoints controlled. Actual internal children execute.",
+  "coverage_limits": [
+    "Finite bounded paths do not prove all-domain equivalence.",
+    "Win32 imports are controlled; no actual DLL or host execution.",
+    "Only short NUL-terminated paths below260B and import writes below256B are authored. Truncation, unterminated/overflow paths and asynchronous module races remain unclaimed.",
+    "Unknown external QuickTime SDK arity and dispatcher internals are not inferred. The controlled callback provides explicitly declared RET0/RET8 cleanup.",
+    "Default missing path is actual native/C AX-only helper; its EAX-high oracle depends on the actual selector, not a zeroed ABI frame.",
+    "ExportA/B bodies are not invoked: their nonzero addresses are only resolver state.",
+    "Window checks use original mode T filter to cover capture disabled/enabled, controller reread after converter mutation, and filtered DefWindowProc return; general message dispatch and41D110 are outside this packet."
+  ],
+  "prior_fixture_failures": {
+    "initial_report": "build/actor-animal-following/cohort7-quicktime-support-runs/20261106-120315-129018/result.json",
+    "initial_failed_cases": 5,
+    "reason": "Window fixtures initially selected general message processing and unintentionally executed unmodeled41D110. Explicit native mode T filter now isolates intended capture/filtered-default path; no C change."
+  },
+  "new_selected_entries": 0,
+  "new_algorithms": 0,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

@@ -111,8 +111,23 @@ def execute(registry,cases,directory):
      assert i not in roles and segments and all(0<=off<=256 and 0<width<=256 and STACK<=raw[i]+off and raw[i]+off+width<=STACK+STACK_SIZE for off,width in segments),('private input pointer',spec['token'])
      payload=[bytes(uc.mem_read(raw[i]+off,width)).hex()for off,width in segments]
      logical[i]=['stack-input',info['role'],payload if 'segments'in info else payload[0]]
+     if info.get('indirect_inputs'):
+      indirect=[]
+      for item in info['indirect_inputs']:
+       offset,width=item['offset'],item['width']
+       assert 0<=offset<=252 and 0<width<=256 and STACK<=raw[i]+offset and raw[i]+offset+4<=STACK+STACK_SIZE
+       target=get(raw[i]+offset)
+       assert STACK<=target and target+width<=STACK+STACK_SIZE,('private referenced object',spec['token'])
+       if item.get('bound_role'):
+        assert state['private_roles'].get(item['bound_role'])==target,('forwarded output object',spec['token'],item['bound_role'])
+       indirect.append([item['role'],bytes(uc.mem_read(target,width)).hex()])
+      logical[i]=['stack-input',info['role'],dict(segments=payload,indirect_inputs=indirect)]
     for i,role in spec.get('continuation_args',{}).items():
      i=int(i);assert raw[i]==get(sp),('actual return continuation',spec['token']);logical[i]=['return-continuation',role]
+    for i,role in roles.items():
+     if role in spec.get('bind_pointer_roles',[]):
+      previous=state['private_roles'].setdefault(role,raw[i])
+      assert previous==raw[i],('changed bound output object',spec['token'],role)
     assert len(private)==len(set(private)),('unexpected output alias',spec['token'])
     if state['label']=='native'and'native_receiver'in spec:
      assert uc.reg_read(x.UC_X86_REG_ECX)==spec['native_receiver'],('endpoint receiver',spec['token'])
@@ -246,7 +261,7 @@ def execute(registry,cases,directory):
     assert case.get('routes_reason'),('missing API route scope reason',case['id'])
     selected=[item for item in selected if item[0]in requested]
    for route,pc,args in selected:
-    state.update(active=False,faults=[],write_ranges=case['write_ranges'],write_trace=[],write_trace_ranges=case.get('write_trace_ranges',[]),events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
+    state.update(active=False,faults=[],private_roles={},write_ranges=case['write_ranges'],write_trace=[],write_trace_ranges=case.get('write_trace_ranges',[]),events=[],physical_endpoint_arguments=[],endpoints={},endpoint_visits={},terminated=None,reads=[],return_reads=[],read_ranges=case.get('read_ranges',[]),read_skip_return_fetches=case.get('read_skip_return_fetches',False));errors=[]
     import_fixups=[]
     for spec in case.get('endpoints',[]):
      assert spec['result_kind']in ['void','al8','full32','x87_float32']and 0<=spec['arity']<=16 and 0<=spec.get('compiled_arity',spec['arity'])<=16 and 0<=spec.get('native_arity',spec['arity'])<=16
@@ -267,12 +282,15 @@ def execute(registry,cases,directory):
      assert (0,4)in case['write_ranges']or[0,4]in case['write_ranges']
      u.mem_write(0,struct.pack('<I',case['initial_fs0']))
     for at,value in case['stores']:u.mem_write(at,value)
-    fixed=list(import_fixups)
+    fixed=list(import_fixups);expected_fixed=list(import_fixups)
     for at,value in import_fixups:u.mem_write(at,struct.pack('<I',value))
     for fixup in case.get('function_pointers',[]):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']
      assert not any(at<fixup['address']+4 and fixup['address']<at+n for at,n in case['watched']),('physical relocation watched',fixup)
      u.mem_write(fixup['address'],struct.pack('<I',value));fixed.append((fixup['address'],value))
+     final_value=fixup.get('expected_final_value',value)
+     assert isinstance(final_value,int)and 0<=final_value<=0xffffffff,('invalid final pointer value',fixup)
+     expected_fixed.append((fixup['address'],final_value))
     machine_sp=case.get('machine_sp',{}).get(route,SP)
     assert STACK+0x2000<=machine_sp and machine_sp+0x2000<=STACK+STACK_SIZE
     if machine_sp!=SP:u.mem_write(machine_sp-0x2000,b'\xcc'*0x4000)
@@ -327,7 +345,7 @@ def execute(registry,cases,directory):
     if 'expected_flags'in case:
      mask,wanted=case['expected_flags']
      if flags&mask!=wanted:errors.append(dict(kind='authored-flags',actual=hex(flags),mask=hex(mask),expected=hex(wanted)))
-    for at,value in fixed:
+    for at,value in expected_fixed:
      if int.from_bytes(u.mem_read(at,4),'little')!=value:errors.append(dict(kind='function-pointer-slot-modified',address=hex(at)))
     for fixup in case.get('expected_function_pointers',[]):
      value=fixup['native']if label=='native'else symbol(state['map_text'],fixup['compiled_symbol'])['va']

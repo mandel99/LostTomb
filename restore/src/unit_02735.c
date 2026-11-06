@@ -1,15 +1,23 @@
-#include "restore_types.h"
-#define PTR_FUN_00604804 (*(unsigned char * *)0x00604804u)
-#define PTR_LAB_00604808 (*(unsigned char * *)0x00604808u)
-
-void FUN_005605e0(void)
-
+#include "quicktime_dispatch.h"
+/* ABI-only gate: EAX selector, original argument stack and tail result.
+   Untyped raw gates retain their caller stack; no argument values are invented. */
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) uint32_t FUN_005605e0(uint32_t controller,const RestoreQuickTimeComponentParameters *parameters)
 {
-  if (PTR_FUN_00604804 != (undefined *)0x0) {
-    (*(code *)PTR_FUN_00604804)();
-  }
-                    /* WARNING: Could not recover jumptable at 0x005605f4. Too many branches */
-                    /* WARNING: Treating indirect jump as call */
-  (*(code *)PTR_LAB_00604808)();
-  return;
+    __asm {
+        push ecx
+        push edx
+        call restore_quicktime_relocate_slots
+        pop edx
+        pop ecx
+        mov eax,dword ptr ds:[00604804h]
+        or eax,eax
+        jz dispatcher_ready
+        call dword ptr ds:[00604804h]
+dispatcher_ready:
+        mov eax,65536
+        jmp dword ptr ds:[00604808h]
+    }
 }
+#pragma warning(pop)

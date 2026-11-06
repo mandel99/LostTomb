@@ -2698,3 +2698,10 @@ foreach(_final_state_target IN ITEMS restore_link_check restore_game restore_coh
 endforeach()
 unset(_final_state_target)
 unset(_final_state_symbol)
+
+# QuickTime client ABI: reuse loader algorithms and preserve selector/stack gates.
+target_sources(pharaoh_restored PRIVATE runtime/quicktime_dispatch.c)
+set_source_files_properties(runtime/quicktime_dispatch.c
+ src/unit_02727.c src/unit_02728.c src/unit_02729.c src/unit_02730.c
+ src/unit_02731.c src/unit_02732.c src/unit_02733.c src/unit_02734.c src/unit_02735.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")

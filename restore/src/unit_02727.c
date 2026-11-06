@@ -1,18 +1,12 @@
-#include "restore_types.h"
-extern void FUN_005605e0();
-
-void FUN_005602f0(undefined4 param_1,undefined4 param_2)
-
+#include "quicktime_dispatch.h"
+/* Native5602F0 supplies one contiguous8-byte block, not separate C locals.
+   Return the actual child register result; the window caller discards it. */
+uint32_t FUN_005602f0(uint32_t controller,RestoreQuickTimeEvent *event)
 {
-  undefined1 local_8;
-  undefined1 local_7;
-  undefined2 local_6;
-  undefined4 local_4;
-  
-  local_8 = 0;
-  local_7 = 4;
-  local_6 = 7;
-  local_4 = param_2;
-  FUN_005605e0(param_1,&local_8);
-  return;
+    RestoreQuickTimeComponentParameters parameters;
+    parameters.flags=0;
+    parameters.parameter_bytes=4;
+    parameters.request=7;
+    parameters.event=(uint32_t)(uintptr_t)event;
+    return FUN_005605e0(controller,&parameters);
 }

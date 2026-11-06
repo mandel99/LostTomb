@@ -1,5 +1,6 @@
 #include "restore_types.h"
-#define DAT_005761d0 (*(undefined4 *)0x005761d0u)
+#include "quicktime_dispatch.h"
+#define DAT_005761d0 (*(char (*)[2])0x005761d0u)
 #define s_QuickTime_qts_00604860 (*(char (*)[14])0x00604860u)
 
 HMODULE FUN_005603f0(void)
@@ -71,7 +72,7 @@ code_r0x00560497: ;
     cVar1 = *pcVar4;
     pcVar4 = pcVar9;
   } while (cVar1 != '\0');
-  pcVar4 = pcVar10 + -uVar6;
+  pcVar4 = pcVar10 - uVar6;
   pcVar10 = pcVar9 + -1;
   for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
     *(undefined4 *)pcVar10 = *(undefined4 *)pcVar4;
@@ -93,7 +94,7 @@ LAB_005604cc: ;
     return (HMODULE)0x0;
   }
   uVar6 = 0xffffffff;
-  pcVar4 = &DAT_005761d0;
+  pcVar4 = DAT_005761d0;
   do {
     pcVar10 = pcVar4;
     if (uVar6 == 0) break;
@@ -113,7 +114,7 @@ LAB_005604cc: ;
     cVar1 = *pcVar4;
     pcVar4 = pcVar9;
   } while (cVar1 != '\0');
-  pcVar4 = pcVar10 + -uVar6;
+  pcVar4 = pcVar10 - uVar6;
   pcVar10 = pcVar9 + -1;
   for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
     *(undefined4 *)pcVar10 = *(undefined4 *)pcVar4;
@@ -146,7 +147,7 @@ LAB_005604cc: ;
     cVar1 = *pcVar4;
     pcVar4 = pcVar9;
   } while (cVar1 != '\0');
-  pcVar4 = pcVar10 + -uVar6;
+  pcVar4 = pcVar10 - uVar6;
   pcVar10 = pcVar9 + -1;
   for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
     *(undefined4 *)pcVar10 = *(undefined4 *)pcVar4;

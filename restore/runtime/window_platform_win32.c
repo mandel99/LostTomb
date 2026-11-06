@@ -1,4 +1,5 @@
 #include "window_messages.h"
+#include "quicktime_dispatch.h"
 #include "campaign_unlock.h"
 #include "campaign_profile.h"
 #include "sound_streams.h"
@@ -123,11 +124,8 @@ static uintptr_t game_call(uint32_t entry,uintptr_t a,uintptr_t b,uintptr_t c)
     VOID0(0x547a60,restore_remaining_selection_00547a60);
     VOID0(0x416a20,FUN_00416a20);
     VOID0(0x406090,FUN_00406090);
-    case 0x560330:
-        /* Optional legacy diagnostic dispatcher uses an EAX selector and
-           dynamically installed callbacks. Its ABI is still unresolved. */
-        fputs("Optional window trace dispatcher 0x00560330 is not reconstructed.\n",stderr);
-        abort();
+    case 0x560330:return FUN_00560330((const MSG *)a,(RestoreQuickTimeEvent *)b);
+    case 0x5602f0:return FUN_005602f0((uint32_t)a,(RestoreQuickTimeEvent *)b);
     default: fprintf(stderr,"Unknown recovered window action 0x%08x.\n",entry); abort();
     }
 #undef VOID0

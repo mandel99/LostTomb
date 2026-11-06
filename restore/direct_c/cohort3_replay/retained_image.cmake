@@ -57,3 +57,10 @@ foreach(_cohort7_existing_symbol IN ITEMS
  target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort7_existing_symbol}")
 endforeach()
 unset(_cohort7_existing_symbol)
+
+# Retain existing QuickTime boundaries and the EAX-capturing monument entry.
+foreach(_cohort7_abi_symbol IN ITEMS FUN_005602f0 FUN_00560330 FUN_00560360 FUN_005603f0
+ FUN_00560560 FUN_00560580 FUN_005605a0 FUN_005605c0 FUN_005605e0 FUN_00542ee0)
+ target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort7_abi_symbol}")
+endforeach()
+unset(_cohort7_abi_symbol)

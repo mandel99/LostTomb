@@ -1,4 +1,5 @@
 #include "window_messages.h"
+#include "quicktime_dispatch.h"
 #include "video_player.h"
 #define B(address) (*(uint8_t *)(uintptr_t)(address))
 #define W(address) (*(uint16_t *)(uintptr_t)(address))
@@ -248,11 +249,13 @@ LRESULT restore_window_message(const RestoreWindowApi *api,HWND window,UINT mess
     uint32_t packed=(uint32_t)value;
     if(I(0x6fdc40)) {
         MSG captured;
+        RestoreQuickTimeEvent converted;
         DWORD position;
         captured.hwnd=window; captured.message=message; captured.wParam=key; captured.lParam=value;
         captured.time=(DWORD)api->message_time(); position=api->message_pos();
         captured.pt.x=(LONG)(position&0xffff); captured.pt.y=(LONG)(position>>16);
-        C1(0x560330,&captured);
+        C2(0x560330,&captured,&converted);
+        if(U(0x6fdc3c))C2(0x5602f0,U(0x6fdc3c),&converted);
     }
     if((RESTORE_CURRENT_VIDEO&&!RESTORE_CURRENT_VIDEO->stopped)||
        (B(0xe38dda)=='T'&&message!=WM_SETCURSOR&&message!=WM_PAINT&&message!=WM_MOUSEMOVE&&
