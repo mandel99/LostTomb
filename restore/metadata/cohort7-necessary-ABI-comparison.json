@@ -1,0 +1,78 @@
+{
+  "schema": "cohort7-necessary-translation-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 348,
+  "current_cohort_source_entries": 7,
+  "entries_compared": 4,
+  "compared_entries": [
+    "0x561505",
+    "0x561603",
+    "0x5616b7",
+    "0x563c95"
+  ],
+  "cases": 16,
+  "invocations": 112,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-translation-ABI-runs/20261106-014034-327148/result.json",
+    "sha256": "b7da8a473db7708d66cb45fda392ea6981c9d9c7d9adf65b432624e5c6aa67f2"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-translation-ABI-runs/20261106-014034-327148/binding.json",
+    "sha256": "2a5f57358404a6ba2b3d2dfd963be29a891fa6e02dfb2eadbbf672384f865ad4"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-translation-ABI-runs/20261106-014034-327148/case-inputs.json",
+    "sha256": "2bb069febb7e0241df955bd8abe395a387f82f2599fc30bfca6fc45b3c549c3f"
+  },
+  "input_ledger_snapshot": {
+    "path": "build/actor-animal-following/cohort7-translation-pre-ABI/city-active-buildings-reconstruction.json",
+    "sha256": "b30b6d4beb3cdfcf350f49dbff963406412b1c97577731496a9783c9bd60fe85"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "4bb6eb0e4b92a27f5b0031216f1999935b8686c7ee3461bb04e425c3a9c7597a",
+      "map_sha256": "ca2be90b48771a05560fdb2615a11a520eba4df74fa13ef6fecc662b65315f8a"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "75e93f7002d3bb8cf14f817853b822b2fe9e8cdfeec53980d7bb88a9ef95f94a",
+      "map_sha256": "048292c62f69278f9b95ecadd659646ec293828a58a4656c253866f2980e48f1"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "174f50fb1318297b341fbef197fdaacf85151fcf99a016a9421092e2c4e4da73",
+      "map_sha256": "98ee93efe11c51e6c1cffe539e5a3c3cf3b66471fd032dd42d58123e40bb44a3"
+    }
+  },
+  "scope": "Necessary ABI only: native RET8 versus typed cdecl unwind; actual relocated OS continuation;40-byte translator guard/52-byte parent frame; normal and controlled nonlocal completion; saved ESP/EBP/EBX dispatch; typed563C95 normal caller path.",
+  "controlled_boundaries": [
+    "OS RtlUnwind changes the finite chain and returns at its observed actual continuation; no OS implementation is emulated.",
+    "User translator returns, marks unwind state, or resumes through the actual saved registration context.",
+    "563C95 catch-handler endpoint returns0; native/C remaining helper bodies execute."
+  ],
+  "full_cohort_joint_gate_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false,
+  "qualifications": [
+    "Real OS SEH/translator exceptions, arbitrary invalid contexts and fault ordering are unvisited.",
+    "41C740 delete/allocate schedule and53E590 non-global lazy-fetch cases remain explicitly pending the cohort gate.",
+    "Earlier storage261-case and cohort6-49-entry comparisons stay bound to archived images; not rebound to this layout."
+  ],
+  "source_hashes": {
+    "runtime/crt_exception_handlers.asm": "46f36620e77be618790fac7ecba020612aa8de79b7b1914ae03e676bc0d75dc0",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb",
+    "direct_c/cohort3_replay/replay.py": "9026f622bd5f1f4a2a79b5413549dec70a2316169b353fdee4f7614a9a71f634",
+    "include/crt_translation_guard.h": "18d4fac7d85f39278c8c5257474553d0b7f398d013c0a859ffcee31538bcbd0c",
+    "src/unit_02784.c": "e002078df61133578e13fe40049d6e0ff48fbaa25d36a6ab6a6b41b561a26de1",
+    "src/unit_02788.c": "34935cb86a9075552223b998ce94828aa4b2a6b6b08f801ea7e59256cd49deed",
+    "src/unit_02789.c": "ca6a507bc8ee64ae28906f5fb7a9c44b0a6476fe1394519a2b3d973d4e1ae7b6",
+    "src/unit_02863.c": "dd1227e85198cbf22bc6d2413473cd4df6656c83c9edeee2527018885efe2d8b",
+    "direct_c/cohort3_replay/cohort7_translation_cases.py": "09ba8dbc2a8b31983ec26fb974c230b1274a449516c1238bc66ae73e942e67a1"
+  }
+}

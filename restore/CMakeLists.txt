@@ -2575,3 +2575,13 @@ foreach(_storage_limit_target IN ITEMS restore_link_check restore_game restore_c
  target_link_options(${_storage_limit_target} PRIVATE "/INCLUDE:_FUN_00406460" "/INCLUDE:_restore_storage_adjust_limit_00406460")
 endforeach()
 unset(_storage_limit_target)
+
+# Cohort7 translation-guard continuations and two concrete source repairs.
+set_source_files_properties(src/unit_02784.c src/unit_02788.c src/unit_02789.c src/unit_02863.c src/unit_00269.c src/unit_02524.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_translation_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_translation_symbol IN ITEMS FUN_00561505 FUN_00561603 FUN_005616b7 FUN_00563c95 restore_crt_unwind_exception restore_crt_translate_exception restore_crt_translation_guard_handler)
+  target_link_options(${_translation_target} PRIVATE "/INCLUDE:_${_translation_symbol}")
+ endforeach()
+endforeach()
+unset(_translation_target)
+unset(_translation_symbol)

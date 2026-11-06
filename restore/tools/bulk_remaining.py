@@ -286,20 +286,23 @@ def reuse_dispositions(inputs, owners):
     # observations remain qualified and never certify register/flag behavior.
     for path in sorted((ROOT / "metadata").glob("*-input-dispositions.json")):
         data = load(path)
-        if (data.get("schema") != "cohort7-history-input-dispositions-v1" or
-                data.get("native_sha256") != PIN or data.get("new_C_algorithms") != 0 or
-                data.get("missing_logical_input_repairs") != 0):
+        if (data.get("schema") not in ("cohort7-history-input-dispositions-v1", "cohort7-remaining-input-dispositions-v1") or
+                data.get("native_sha256") != PIN or data.get("new_C_algorithms") != 0):
             continue
         inputs[relative(path)] = rules.sha(path)
         for item in data.get("members", []):
+            if item.get("disposition") != "preserve_existing_C_no_missing_logical_input_found":
+                continue
             address = addr(item.get("address"))
             owner = item.get("active_canonical_owner", {})
             name, expected = owner.get("path"), owner.get("sha256")
+            kind = owner.get("kind", "canonical_definition")
             model = (ROOT / name).resolve() if isinstance(name, str) else None
             current = [candidate for candidate in owners[address]
                        if candidate["source"] == name and candidate["source_sha256"] == expected
-                       and candidate["active"] and candidate["kind"] == "canonical_definition"]
-            if (item.get("disposition") != "preserve_existing_C_no_missing_logical_input_found" or
+                       and candidate["active"] and candidate["kind"] == kind
+                       and (not owner.get("symbol") or candidate["symbol"] == owner["symbol"])]
+            if (kind not in ("canonical_definition", "named_model_definition", "macro_entrypoint") or
                     not current or model is None or not model.is_relative_to(ROOT.resolve()) or
                     not model.is_file() or rules.sha(model) != expected):
                 unavailable.append(dict(path=relative(path), address=label(address) if address is not None else None,
@@ -309,7 +312,7 @@ def reuse_dispositions(inputs, owners):
             accepted.setdefault(address, dict(path=relative(path), sha256=inputs[relative(path)],
                 model_source=name, model_sha256=expected,
                 symbols=sorted({candidate["symbol"] for candidate in current}),
-                reason="Reviewed existing typed canonical C already receives the logical inputs; preserve source",
+                reason="Reviewed existing typed or shared C already receives the logical inputs; preserve source",
                 correctness_proved=False, new_entry_credit=0))
     return accepted, unavailable
 

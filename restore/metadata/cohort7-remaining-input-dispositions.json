@@ -1,0 +1,1919 @@
+{
+  "schema": "cohort7-remaining-input-dispositions-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": 49,
+  "preserved_existing_C_entries": 47,
+  "behavior_repairs": 1,
+  "missing_logical_input_repairs": 1,
+  "new_C_algorithms": 0,
+  "new_entry_credit": 0,
+  "whole_game_equivalence": false,
+  "indirect_call_coverage_complete": false,
+  "members": [
+    {
+      "address": "0x004062f0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/selection_button_actions.c",
+        "symbol": "restore_selection_button_004062f0",
+        "kind": "named_model_definition",
+        "sha256": "a1551f01448964499ddf082552745d4c5d4e45651be55a9c721d834a15cf9c35"
+      },
+      "typed_signature": "void restore_selection_button_004062f0(void)",
+      "native_consumed_inputs": "none; global stores only",
+      "logical_result_contract": "logical void; native sets EAX=1, registered menu action discards it",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/selection_button_actions.c",
+          "source_sha256": "a1551f01448964499ddf082552745d4c5d4e45651be55a9c721d834a15cf9c35",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_selection_button_004062f0"
+        }
+      ],
+      "native_instructions": 4,
+      "native_instruction_bytes": 16,
+      "native_bytes_sha256": "bd3184d207bf2a3e14aa55f2bd4bb907ba983e000512ca2b3bcdb38cde057dac",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x00406620",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/selection_button_actions.c",
+        "symbol": "restore_selection_button_00406620",
+        "kind": "named_model_definition",
+        "sha256": "a1551f01448964499ddf082552745d4c5d4e45651be55a9c721d834a15cf9c35"
+      },
+      "typed_signature": "void restore_selection_button_00406620(void)",
+      "native_consumed_inputs": "none; selection DWORD, owner BYTE, signed list-count DWORD and offset DWORDs are globals",
+      "logical_result_contract": "logical void; registered menu action discards incidental GPRs",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/selection_button_actions.c",
+          "source_sha256": "a1551f01448964499ddf082552745d4c5d4e45651be55a9c721d834a15cf9c35",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_selection_button_00406620"
+        }
+      ],
+      "native_instructions": 29,
+      "native_instruction_bytes": 85,
+      "native_bytes_sha256": "20d58393c82e728f4ab52315db5f0dd96c0ae7c945acbc9247cadd38dbbc53ce",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004192b0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/input_monument_summary.c",
+        "symbol": "FUN_004192b0",
+        "kind": "canonical_definition",
+        "sha256": "597b9949b8365f9908d82a586d65fba7cea6b2095d5068851c6d27eca1384d1e"
+      },
+      "typed_signature": "uint32_t FUN_004192b0(void)",
+      "native_consumed_inputs": "none; global selected player and three monument slots",
+      "logical_result_contract": "full DWORD EAX count; callers TEST EAX / copy EAX",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/input_monument_summary.c",
+          "source_sha256": "597b9949b8365f9908d82a586d65fba7cea6b2095d5068851c6d27eca1384d1e",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004192b0"
+        }
+      ],
+      "native_instructions": 126,
+      "native_instruction_bytes": 409,
+      "native_bytes_sha256": "c43ebee38a24a2eb9b2c53e6d8ef14326cf01c342f192675bbf360de9ef74b23",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0041c740",
+      "disposition": "repair_existing_C_native_delete_order",
+      "active_canonical_owner": {
+        "path": "src/unit_00269.c",
+        "symbol": "FUN_0041c740",
+        "kind": "canonical_definition",
+        "sha256": "4cf7e80c4574f18bd1eb5e96b4d9cccaf0c9f1176fbe46fe2eb7f1221b7f48a6"
+      },
+      "typed_signature": "uint8_t FUN_0041c740(RestoreFileList *receiver,const char *pattern,char append)",
+      "native_consumed_inputs": "ECX receiver; DWORD [entry ESP+4] pattern; BYTE [entry ESP+8] append",
+      "logical_result_contract": "logical AL success; child41C8F0 is tested in AL; wrappers tail-return AL or callers overwrite EAX",
+      "native_stack_ownership": "Native RET 0x8; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_00269.c",
+          "source_sha256": "4cf7e80c4574f18bd1eb5e96b4d9cccaf0c9f1176fbe46fe2eb7f1221b7f48a6",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0041c740"
+        }
+      ],
+      "native_instructions": 156,
+      "native_instruction_bytes": 430,
+      "native_bytes_sha256": "78d00f474cb1029927a16365a4d4061a7a7adfe36fe899b66295a30a36317a03",
+      "cached_direct_consumer_sites": 5,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing extra self+4 clear is absent from pinned instructions; remove it. Native self+10 clear at41C7D6 remains.",
+        "This deliberately retains original repeated-delete behavior with controlled offline delete endpoints; do not run this probe with host allocation/delete."
+      ]
+    },
+    {
+      "address": "0x0041c8f0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_00270.c",
+        "symbol": "FUN_0041c8f0",
+        "kind": "canonical_definition",
+        "sha256": "4d092db3aeb31286cb21eab9694f1b2198c1e31b3726635579a5738fcb19127a"
+      },
+      "typed_signature": "uint8_t FUN_0041c8f0(RestoreFileList *receiver,LPCSTR pattern,int *bytes,int *files)",
+      "native_consumed_inputs": "ECX receiver; DWORD [entry ESP+4/+8/+12] pattern,bytes,files",
+      "logical_result_contract": "logical AL success; both41C740 call sites TEST AL; receiver and output-pointer writes are explicit",
+      "native_stack_ownership": "Native RET 0xc; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_00270.c",
+          "source_sha256": "4d092db3aeb31286cb21eab9694f1b2198c1e31b3726635579a5738fcb19127a",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0041c8f0"
+        }
+      ],
+      "native_instructions": 95,
+      "native_instruction_bytes": 276,
+      "native_bytes_sha256": "212d44c9d8c3b81fd637ec059f58cd4cdb7d70401d5d8cdbaaaae484da9e20af",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0041df70",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_00284.c",
+        "symbol": "FUN_0041df70",
+        "kind": "canonical_definition",
+        "sha256": "6cffb56b0bc796a45eb93e67b44a8cdcb7a126fcaa1732ecd0f46b1378a0560f"
+      },
+      "typed_signature": "uint8_t FUN_0041df70(RestoreFileList *receiver,const char *pattern,char append)",
+      "native_consumed_inputs": "ECX receiver; DWORD pattern and low BYTE append from entry stack",
+      "logical_result_contract": "logical AL; direct caller discards by loading EAX immediately; inherited high24 from count are outside logical result",
+      "native_stack_ownership": "Native RET 0x8; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_00284.c",
+          "source_sha256": "6cffb56b0bc796a45eb93e67b44a8cdcb7a126fcaa1732ecd0f46b1378a0560f",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0041df70"
+        }
+      ],
+      "native_instructions": 25,
+      "native_instruction_bytes": 73,
+      "native_bytes_sha256": "2e73fd6c82f3f25839fdffd8a417fd8d457b0fdd79af29cbe3ad64ddd2af74d7",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0041fd80",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/carpenter_jobs.c",
+        "symbol": "FUN_0041fd80",
+        "kind": "canonical_definition",
+        "sha256": "a4b79952a2b627633ca70d20cd07ab2ca892bb662c4a8aec5ca47110684fcbbf"
+      },
+      "typed_signature": "void FUN_0041fd80(void *record,int32_t actor)",
+      "native_consumed_inputs": "ECX task object; actor DWORD [entry ESP+4], stored as WORD and indexed as DWORD",
+      "logical_result_contract": "logical void; member writes actor WORD and state BYTE; direct callers discard scratch EAX",
+      "native_stack_ownership": "Native RET 0x4; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_laborer_model.c",
+          "source_sha256": "e7cd153ef2a8e5186974a33266826225139902a0d33352139d2722fb26981191",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_laborer_C_0041fd80"
+        },
+        {
+          "source": "runtime/carpenter_jobs.c",
+          "source_sha256": "a4b79952a2b627633ca70d20cd07ab2ca892bb662c4a8aec5ca47110684fcbbf",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0041fd80"
+        }
+      ],
+      "native_instructions": 10,
+      "native_instruction_bytes": 33,
+      "native_bytes_sha256": "7dafe5acc6c9fb36879c049dd94f9ba1cd520d99b23dcd901e037fd90219a1b0",
+      "cached_direct_consumer_sites": 32,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0041fdb0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_00318.c",
+        "symbol": "FUN_0041fdb0",
+        "kind": "canonical_definition",
+        "sha256": "af149098bcf2a6ffdb968f1f0987468271f936b09e4390e4f1b0bfed92950142"
+      },
+      "typed_signature": "void FUN_0041fdb0(void *record)",
+      "native_consumed_inputs": "ECX animation/task object; no stack arguments",
+      "logical_result_contract": "logical void; animation record/global side effects; direct callers discard scratch result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_00318.c",
+          "source_sha256": "af149098bcf2a6ffdb968f1f0987468271f936b09e4390e4f1b0bfed92950142",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0041fdb0"
+        }
+      ],
+      "native_instructions": 144,
+      "native_instruction_bytes": 354,
+      "native_bytes_sha256": "9345d481cf44d5821c13802a893be65ac2efdb13c74bb6bb240f6024f7333dab",
+      "cached_direct_consumer_sites": 32,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0044ba20",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_event_actions.c",
+        "symbol": "FUN_0044ba20",
+        "kind": "canonical_definition",
+        "sha256": "e6fb6ee61b8bf01ab6c93bf544f5851e80a44b2d9cff2629d41f966ab65f69db"
+      },
+      "typed_signature": "uint32_t FUN_0044ba20(uint32_t self)",
+      "native_consumed_inputs": "ECX manager normalized to explicit self",
+      "logical_result_contract": "full DWORD EAX=self; sole thunk sets785D70 and caller discards result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/menu_event_actions.c",
+          "source_sha256": "e6fb6ee61b8bf01ab6c93bf544f5851e80a44b2d9cff2629d41f966ab65f69db",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0044ba20"
+        }
+      ],
+      "native_instructions": 29,
+      "native_instruction_bytes": 111,
+      "native_bytes_sha256": "f6e4b7cd9a57687c2e77967caef79a0765c6c23f38a07f731026094c3057a0a1",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing vector construction loop covers normal nonthrowing constructor path; SEH/vector-unwind context is not claimed equivalent."
+      ]
+    },
+    {
+      "address": "0x0044ba90",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_event_actions.c",
+        "symbol": "FUN_0044ba90",
+        "kind": "canonical_definition",
+        "sha256": "e6fb6ee61b8bf01ab6c93bf544f5851e80a44b2d9cff2629d41f966ab65f69db"
+      },
+      "typed_signature": "void FUN_0044ba90(void)",
+      "native_consumed_inputs": "ECX manager; native sole direct caller4523FB explicitly sets785D70; logical facade binds same manager",
+      "logical_result_contract": "logical void; caller discards scratch result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/menu_event_actions.c",
+          "source_sha256": "e6fb6ee61b8bf01ab6c93bf544f5851e80a44b2d9cff2629d41f966ab65f69db",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0044ba90"
+        },
+        {
+          "source": "runtime/menu_event_model.c",
+          "source_sha256": "416d2bece2debba88cd9202272485fe4e0cd2efd2ae0d9d3a4d92afc52fefd04",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_event_C_0044ba90"
+        }
+      ],
+      "native_instructions": 30,
+      "native_instruction_bytes": 85,
+      "native_bytes_sha256": "a5e03d02ff23d0779ae15f28fc6359756b60b811479784f8e6bb2b32aa965342",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Known native direct callers bind one global receiver. This is a logical C facade, not a physical arbitrary-ECX member entry.",
+        "Shared generated C algorithm and dispatcher were read; reuse carries no new algorithm credit. Unobserved saved registers/flags/scratch are not invented logical API inputs."
+      ]
+    },
+    {
+      "address": "0x00452160",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/calendar_updates.c",
+        "symbol": "FUN_00452160",
+        "kind": "canonical_definition",
+        "sha256": "c1c0f148c4fb9ecec3a279db008a5384c53478ff4739f8b8d70c125ebf84449e"
+      },
+      "typed_signature": "void FUN_00452160(void)",
+      "native_consumed_inputs": "none; player/cash/calendar globals",
+      "logical_result_contract": "logical void; sole direct caller discards EAX",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/calendar_updates.c",
+          "source_sha256": "c1c0f148c4fb9ecec3a279db008a5384c53478ff4739f8b8d70c125ebf84449e",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00452160"
+        }
+      ],
+      "native_instructions": 41,
+      "native_instruction_bytes": 150,
+      "native_bytes_sha256": "c2ef214d882585a88559b5ab03d085898d251d8e359edccf06e97286c23e8b90",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0045d630",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/city_updates.c",
+        "symbol": "FUN_0045d630",
+        "kind": "canonical_definition",
+        "sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b"
+      },
+      "typed_signature": "void FUN_0045d630(int32_t player)",
+      "native_consumed_inputs": "player DWORD [entry ESP+4]",
+      "logical_result_contract": "logical void; rebuilds global food accounting; cached callers discard incidental return",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/city_updates.c",
+          "source_sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0045d630"
+        },
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_0045d630"
+        },
+        {
+          "source": "runtime/menu_advisor_model.c",
+          "source_sha256": "5c5c67a291b8b471c918f7381439eaca9832d87d215b303d3724072f157256d6",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_advisor_C_0045d630"
+        }
+      ],
+      "native_instructions": 238,
+      "native_instruction_bytes": 867,
+      "native_bytes_sha256": "e85a605eddb7477a8dae74e823d3015aadbcf35b0eb5b46800d1c465f36cf637",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0045de80",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/granary.c",
+        "symbol": "FUN_0045de80",
+        "kind": "canonical_definition",
+        "sha256": "225165628210a1576673cd76d491edece083fd01bb6b21fe6a9d1137ae41eb4a"
+      },
+      "typed_signature": "int32_t FUN_0045de80(int32_t building)",
+      "native_consumed_inputs": "building DWORD [entry ESP+4]",
+      "logical_result_contract": "full DWORD building ID EAX; caller CMP EAX,0",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_transport_model.c",
+          "source_sha256": "9462e0d008d0e0c26462a82aa1442f09c6b06244c046a40373d3b4d5e338fdca",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_transport_C_0045de80"
+        },
+        {
+          "source": "runtime/granary.c",
+          "source_sha256": "225165628210a1576673cd76d491edece083fd01bb6b21fe6a9d1137ae41eb4a",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0045de80"
+        }
+      ],
+      "native_instructions": 143,
+      "native_instruction_bytes": 437,
+      "native_bytes_sha256": "0343b3e6631633891f646ba1c0e0155d29b786a7ff41ab7a43ec8d2c4afdcf4b",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0045e150",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/granary.c",
+        "symbol": "FUN_0045e150",
+        "kind": "canonical_definition",
+        "sha256": "225165628210a1576673cd76d491edece083fd01bb6b21fe6a9d1137ae41eb4a"
+      },
+      "typed_signature": "int32_t FUN_0045e150(int32_t destination,int32_t source)",
+      "native_consumed_inputs": "destination/source DWORDs [entry ESP+4/+8]",
+      "logical_result_contract": "logical signed amount; native returns DWORD EAX, direct consumer stores AX to payload WORD",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_transport_model.c",
+          "source_sha256": "9462e0d008d0e0c26462a82aa1442f09c6b06244c046a40373d3b4d5e338fdca",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_transport_C_0045e150"
+        },
+        {
+          "source": "runtime/granary.c",
+          "source_sha256": "225165628210a1576673cd76d491edece083fd01bb6b21fe6a9d1137ae41eb4a",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0045e150"
+        }
+      ],
+      "native_instructions": 73,
+      "native_instruction_bytes": 203,
+      "native_bytes_sha256": "540715779ae0f3f5b506190b7015107bb645959e5ee03b900acbc197746fd7dc",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0047c480",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_drag_clear_footprint.c",
+        "symbol": "FUN_0047c480",
+        "kind": "canonical_definition",
+        "sha256": "1bef5a342d67c17a772f4f591053c46a7e3f6564dff215c8f1e9b16206fc4b14"
+      },
+      "typed_signature": "void FUN_0047c480(int32_t building,int32_t x,int32_t y)",
+      "native_consumed_inputs": "building/x/y DWORDs [entry ESP+4/+8/+12]",
+      "logical_result_contract": "logical void; native terrain and redraw state writes, callers discard scratch result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/menu_drag_clear_footprint.c",
+          "source_sha256": "1bef5a342d67c17a772f4f591053c46a7e3f6564dff215c8f1e9b16206fc4b14",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0047c480"
+        }
+      ],
+      "native_instructions": 240,
+      "native_instruction_bytes": 813,
+      "native_bytes_sha256": "d133ee82b654d81b27b2a761cd6d403bfef41f6e9ec60f56ba56ebe0d9d98fe8",
+      "cached_direct_consumer_sites": 20,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x00488400",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/city_updates.c",
+        "symbol": "FUN_00488400",
+        "kind": "canonical_definition",
+        "sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b"
+      },
+      "typed_signature": "uint32_t FUN_00488400(void *self,int32_t building)",
+      "native_consumed_inputs": "ECX building manager; building DWORD [entry ESP+4]",
+      "logical_result_contract": "full DWORD EAX count; caller MOV EDI,EAX and compares full DWORD; raw model initializes EAX before any early return",
+      "native_stack_ownership": "Native RET 0x4; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/city_updates.c",
+          "source_sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00488400"
+        },
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_00488400"
+        }
+      ],
+      "native_instructions": 128,
+      "native_instruction_bytes": 387,
+      "native_bytes_sha256": "9254f3dd70461596dfcc49e54e5ae337ab5b865465036cf699baa643fec886fa",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Shared generated C algorithm and dispatcher were read; reuse carries no new algorithm credit. Unobserved saved registers/flags/scratch are not invented logical API inputs."
+      ]
+    },
+    {
+      "address": "0x00489ca0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_human.c",
+        "symbol": "restore_actor_00489ca0",
+        "kind": "named_model_definition",
+        "sha256": "14e32eac75ab837f7e77577f73bbf33afca24743720d423d60de2e609424dc6c"
+      },
+      "typed_signature": "void restore_actor_00489ca0(void)",
+      "native_consumed_inputs": "none; actor ID from D056F8; speed/building/water data from globals",
+      "logical_result_contract": "logical void callback; PUSH ECX is scratch/save, not a receiver input",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_human.c",
+          "source_sha256": "14e32eac75ab837f7e77577f73bbf33afca24743720d423d60de2e609424dc6c",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_actor_00489ca0"
+        }
+      ],
+      "native_instructions": 407,
+      "native_instruction_bytes": 1471,
+      "native_bytes_sha256": "4b373ef7e6829ec5c07a83e68ed5fec5cd505d186d1a1dd0abb54f0f16bdffd0",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x0048a260",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_human.c",
+        "symbol": "restore_actor_0048a260",
+        "kind": "named_model_definition",
+        "sha256": "14e32eac75ab837f7e77577f73bbf33afca24743720d423d60de2e609424dc6c"
+      },
+      "typed_signature": "void restore_actor_0048a260(void)",
+      "native_consumed_inputs": "none; actor ID from D056F8; speed/water/player data from globals",
+      "logical_result_contract": "logical void callback; PUSH ECX is scratch/save, not a receiver input",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_human.c",
+          "source_sha256": "14e32eac75ab837f7e77577f73bbf33afca24743720d423d60de2e609424dc6c",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_actor_0048a260"
+        }
+      ],
+      "native_instructions": 313,
+      "native_instruction_bytes": 1207,
+      "native_bytes_sha256": "d9f4e80d454ba8667f4c72f92cc3405703e2a91242909cff9fa33ed9b53c8a0a",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x0048e9e0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_civic.c",
+        "symbol": "FUN_0048e9e0",
+        "kind": "canonical_definition",
+        "sha256": "c945dd90c2cd197bc9cfa95b35a427ccd044a4eac0ab8cdb179c9399d8c8270b"
+      },
+      "typed_signature": "void FUN_0048e9e0(void)",
+      "native_consumed_inputs": "none; first instruction replaces ECX with D056F8 actor ID; native graph owns scratch locals",
+      "logical_result_contract": "logical void callback; existing raw C frame model shares register/stack state with descendants",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_civic.c",
+          "source_sha256": "c945dd90c2cd197bc9cfa95b35a427ccd044a4eac0ab8cdb179c9399d8c8270b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0048e9e0"
+        },
+        {
+          "source": "runtime/actor_civic_model.c",
+          "source_sha256": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_civic_C_0048e9e0"
+        }
+      ],
+      "native_instructions": 2099,
+      "native_instruction_bytes": 8550,
+      "native_bytes_sha256": "73d8b033d27d5c22f30505f059682ef0af5d08b3bcba3df62d31a8c4c0683592",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Shared generated C algorithm and dispatcher were read; reuse carries no new algorithm credit. Unobserved saved registers/flags/scratch are not invented logical API inputs.",
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x00493ec0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_small.c",
+        "symbol": "FUN_00493ec0",
+        "kind": "canonical_definition",
+        "sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828"
+      },
+      "typed_signature": "void FUN_00493ec0(void)",
+      "native_consumed_inputs": "none; global current actor and building/resource state",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_small.c",
+          "source_sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00493ec0"
+        }
+      ],
+      "native_instructions": 89,
+      "native_instruction_bytes": 333,
+      "native_bytes_sha256": "310ad7300429cf6061038ba61f89969513b62557199bb7d0b6e18783422befd1",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x00494010",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_small.c",
+        "symbol": "FUN_00494010",
+        "kind": "canonical_definition",
+        "sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828"
+      },
+      "typed_signature": "void FUN_00494010(void)",
+      "native_consumed_inputs": "none; global current actor and building kind/state",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_small.c",
+          "source_sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00494010"
+        }
+      ],
+      "native_instructions": 95,
+      "native_instruction_bytes": 383,
+      "native_bytes_sha256": "cbc329b6480db03316cd9fc474279ad06bec1c16ecc6c02d4649832fc2d51116",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x00496140",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callback_496140.c",
+        "symbol": "restore_actor_00496140",
+        "kind": "named_model_definition",
+        "sha256": "540d5b5cf85954ce27d1a20fe87197e028b9a727827c2cbf0941a2436ccd9acf"
+      },
+      "typed_signature": "void restore_actor_00496140(void)",
+      "native_consumed_inputs": "none; global current actor, building links and speed table",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callback_496140.c",
+          "source_sha256": "540d5b5cf85954ce27d1a20fe87197e028b9a727827c2cbf0941a2436ccd9acf",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_actor_00496140"
+        }
+      ],
+      "native_instructions": 154,
+      "native_instruction_bytes": 596,
+      "native_bytes_sha256": "cbc944b165c16646e97f5efce7f716629a425884dd96ef27d8020774632788ed",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x00496c70",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/buyer_transfer.c",
+        "symbol": "FUN_00496c70",
+        "kind": "canonical_definition",
+        "sha256": "a20444c0d8f1071cc19ae2123140caccf9388d97840f2b86208568e02e20219f"
+      },
+      "typed_signature": "int32_t FUN_00496c70(int32_t buyer,int32_t bazaar,int32_t source,int32_t category,int32_t committed,int32_t slot)",
+      "native_consumed_inputs": "six DWORD entry stack slots; bazaar is forwarded even where descendants do not use it",
+      "logical_result_contract": "full DWORD EAX 0/1; sole caller tail-forwards result after cdecl cleanup",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_transport_model.c",
+          "source_sha256": "9462e0d008d0e0c26462a82aa1442f09c6b06244c046a40373d3b4d5e338fdca",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_transport_C_00496c70"
+        },
+        {
+          "source": "runtime/buyer_transfer.c",
+          "source_sha256": "a20444c0d8f1071cc19ae2123140caccf9388d97840f2b86208568e02e20219f",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00496c70"
+        }
+      ],
+      "native_instructions": 114,
+      "native_instruction_bytes": 310,
+      "native_bytes_sha256": "23d3375e5e706696a75209cb6076187f29b72bb8b0caecad54e7d42bb3a6a30d",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x00496de0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/buyer_transfer.c",
+        "symbol": "FUN_00496de0",
+        "kind": "canonical_definition",
+        "sha256": "a20444c0d8f1071cc19ae2123140caccf9388d97840f2b86208568e02e20219f"
+      },
+      "typed_signature": "int32_t FUN_00496de0(int32_t buyer,int32_t bazaar,int32_t source,int32_t category,int32_t committed,int32_t slot)",
+      "native_consumed_inputs": "six DWORD entry stack slots; bazaar is forwarded even where descendants do not use it",
+      "logical_result_contract": "full DWORD EAX 0/1; sole caller tail-forwards result after cdecl cleanup",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_transport_model.c",
+          "source_sha256": "9462e0d008d0e0c26462a82aa1442f09c6b06244c046a40373d3b4d5e338fdca",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_transport_C_00496de0"
+        },
+        {
+          "source": "runtime/buyer_transfer.c",
+          "source_sha256": "a20444c0d8f1071cc19ae2123140caccf9388d97840f2b86208568e02e20219f",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00496de0"
+        }
+      ],
+      "native_instructions": 95,
+      "native_instruction_bytes": 257,
+      "native_bytes_sha256": "7aaa64d1ae6e18001c6c0d8dd2888f5dc5b20866b417e7f183955b1ebd830257",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x00496f20",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_small.c",
+        "symbol": "FUN_00496f20",
+        "kind": "canonical_definition",
+        "sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828"
+      },
+      "typed_signature": "void FUN_00496f20(void)",
+      "native_consumed_inputs": "none; global current actor/building state",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_small.c",
+          "source_sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00496f20"
+        }
+      ],
+      "native_instructions": 59,
+      "native_instruction_bytes": 227,
+      "native_bytes_sha256": "514710598eca83c2939dabe054939a0967bbfaea3e935eae296dc116a63b672c",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x0049b390",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_small.c",
+        "symbol": "FUN_0049b390",
+        "kind": "canonical_definition",
+        "sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828"
+      },
+      "typed_signature": "void FUN_0049b390(void)",
+      "native_consumed_inputs": "none; current actor DWORD from D056F8",
+      "logical_result_contract": "logical void callback; actor BYTE stores only",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_small.c",
+          "source_sha256": "5a7cdd9f541f27a54c81f7b5fe0089432048e2de847814b4248979a707825828",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0049b390"
+        }
+      ],
+      "native_instructions": 10,
+      "native_instruction_bytes": 39,
+      "native_bytes_sha256": "834459054739c0f8fb9bda8a9677908a978c7df46937083c90e337c4ac695417",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x0049b400",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_chain.c",
+        "symbol": "FUN_0049b400",
+        "kind": "canonical_definition",
+        "sha256": "dd778bd95d4b7af77143fc77412cc96ff66ab6d7535a686f12559e7e4573b2f0"
+      },
+      "typed_signature": "void FUN_0049b400(void)",
+      "native_consumed_inputs": "none; global current actor, signed predecessor/home WORDs cached across children",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_chain.c",
+          "source_sha256": "dd778bd95d4b7af77143fc77412cc96ff66ab6d7535a686f12559e7e4573b2f0",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0049b400"
+        }
+      ],
+      "native_instructions": 144,
+      "native_instruction_bytes": 515,
+      "native_bytes_sha256": "cdff6499b42cbbab489ace8fbc5222f255444d1beb535d179dcb94130150da78",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x004a2430",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_civic.c",
+        "symbol": "FUN_004a2430",
+        "kind": "canonical_definition",
+        "sha256": "c945dd90c2cd197bc9cfa95b35a427ccd044a4eac0ab8cdb179c9399d8c8270b"
+      },
+      "typed_signature": "void FUN_004a2430(void)",
+      "native_consumed_inputs": "none; current actor from D056F8; saved nonvolatile registers only restored, locals assigned before logical use",
+      "logical_result_contract": "logical void callback; existing raw C frame model shares register/stack state with descendants",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_civic.c",
+          "source_sha256": "c945dd90c2cd197bc9cfa95b35a427ccd044a4eac0ab8cdb179c9399d8c8270b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004a2430"
+        },
+        {
+          "source": "runtime/actor_civic_model.c",
+          "source_sha256": "0c73ff01a7a24afe0704070835057f1172ccf2e530eb252400eebc3d0103042b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_civic_C_004a2430"
+        }
+      ],
+      "native_instructions": 657,
+      "native_instruction_bytes": 2604,
+      "native_bytes_sha256": "57066fe63c652526f7313c100d419ae2d7c141146bca35e5870e1e02056ace1b",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Shared generated C algorithm and dispatcher were read; reuse carries no new algorithm credit. Unobserved saved registers/flags/scratch are not invented logical API inputs.",
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x004a2e90",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_callbacks_chain.c",
+        "symbol": "FUN_004a2e90",
+        "kind": "canonical_definition",
+        "sha256": "dd778bd95d4b7af77143fc77412cc96ff66ab6d7535a686f12559e7e4573b2f0"
+      },
+      "typed_signature": "void FUN_004a2e90(void)",
+      "native_consumed_inputs": "none; global actor, shooter link and projectile age",
+      "logical_result_contract": "logical void callback; no receiver or native stack argument",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_callbacks_chain.c",
+          "source_sha256": "dd778bd95d4b7af77143fc77412cc96ff66ab6d7535a686f12559e7e4573b2f0",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004a2e90"
+        }
+      ],
+      "native_instructions": 122,
+      "native_instruction_bytes": 475,
+      "native_bytes_sha256": "1cd40bb85094a98c4dc8cd9b3ee5b6b2a09a96afb57b0cdc81829dc137d85739",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Callback registration/indirect dispatch remains qualified; absence of cached direct calls is not proof of unused code."
+      ]
+    },
+    {
+      "address": "0x004bd6a0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_01552.c",
+        "symbol": "FUN_004bd6a0",
+        "kind": "canonical_definition",
+        "sha256": "906253561a9e04daf0455b65d27906a0d7ab522dcb0fc49ae6e73d7f83b3819d"
+      },
+      "typed_signature": "void FUN_004bd6a0(RestoreWorldRegion *region)",
+      "native_consumed_inputs": "ECX region normalized to explicit region",
+      "logical_result_contract": "logical void; list unlink/delete side effects; caller discards scratch result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_01552.c",
+          "source_sha256": "906253561a9e04daf0455b65d27906a0d7ab522dcb0fc49ae6e73d7f83b3819d",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004bd6a0"
+        }
+      ],
+      "native_instructions": 62,
+      "native_instruction_bytes": 158,
+      "native_bytes_sha256": "2ca9457ca7ded9f8a97e5fa03bf9ca6f6c7855ecdac8154554a143f0ff78e981",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004bd740",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_01553.c",
+        "symbol": "FUN_004bd740",
+        "kind": "canonical_definition",
+        "sha256": "b61c685d95df2afca861bac130c8a967e7d29b1ff077ffd9ff56f8d7af45e605"
+      },
+      "typed_signature": "void *FUN_004bd740(RestoreWorldRegion *region,int32_t kind,int32_t tile,int32_t x,int32_t y,uint8_t flag)",
+      "native_consumed_inputs": "ECX region plus five DWORD argument slots; final slot logically BYTE",
+      "logical_result_contract": "full DWORD EAX pointer to newly created tile; direct caller stores EAX into world cell array",
+      "native_stack_ownership": "Native RET 0x14; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_01553.c",
+          "source_sha256": "b61c685d95df2afca861bac130c8a967e7d29b1ff077ffd9ff56f8d7af45e605",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004bd740"
+        }
+      ],
+      "native_instructions": 107,
+      "native_instruction_bytes": 264,
+      "native_bytes_sha256": "25f0e393a61ecc1229c44852b67c6cb12db6283aa30f3de61460d45ab6b16b29",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing allocation-failure abort policy is retained. Native failure/unwind path is not certified by this input review; compare successful controlled-allocation path separately."
+      ]
+    },
+    {
+      "address": "0x004bd950",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/flood_cell.c",
+        "symbol": "FUN_004bd950",
+        "kind": "canonical_definition",
+        "sha256": "6300937d67265aeaab8eaa16e3493414f7ec153ca42092277367dfa7ae5c408f"
+      },
+      "typed_signature": "void FUN_004bd950(uintptr_t self,uint8_t flooding)",
+      "native_consumed_inputs": "ECX tile object; low BYTE [entry ESP+4] flooding",
+      "logical_result_contract": "logical void; tile/actor/building effects; native RET4 normalized to ordinary explicit C args",
+      "native_stack_ownership": "Native RET 0x4; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/flood_cell.c",
+          "source_sha256": "6300937d67265aeaab8eaa16e3493414f7ec153ca42092277367dfa7ae5c408f",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004bd950"
+        }
+      ],
+      "native_instructions": 577,
+      "native_instruction_bytes": 1786,
+      "native_bytes_sha256": "1676d2b2f8e89ebf01d5883440cdd97efc9e64150e945b17eab94e04a9a436c7",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004be0f0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_01557.c",
+        "symbol": "FUN_004be0f0",
+        "kind": "canonical_definition",
+        "sha256": "61afc8f0bb65e87e6913c42bf7dc913a7a4ad30be957069d1c3325e15d3ce61b"
+      },
+      "typed_signature": "void FUN_004be0f0(void *world)",
+      "native_consumed_inputs": "ECX world normalized to explicit world",
+      "logical_result_contract": "logical void; world reset and region teardown; direct callers discard scratch return",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_01557.c",
+          "source_sha256": "61afc8f0bb65e87e6913c42bf7dc913a7a4ad30be957069d1c3325e15d3ce61b",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004be0f0"
+        }
+      ],
+      "native_instructions": 31,
+      "native_instruction_bytes": 102,
+      "native_bytes_sha256": "a447776808204e21c8397db2360bc38ca94b061d92f9226324001ce9d7f2cc98",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004be640",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/calendar_updates.c",
+        "symbol": "FUN_004be640",
+        "kind": "canonical_definition",
+        "sha256": "c1c0f148c4fb9ecec3a279db008a5384c53478ff4739f8b8d70c125ebf84449e"
+      },
+      "typed_signature": "void FUN_004be640(void)",
+      "native_consumed_inputs": "ECX world; sole cached direct caller45253D binds D05720; logical facade uses same world",
+      "logical_result_contract": "logical void; quality category publishes event messages",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/calendar_updates.c",
+          "source_sha256": "c1c0f148c4fb9ecec3a279db008a5384c53478ff4739f8b8d70c125ebf84449e",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004be640"
+        }
+      ],
+      "native_instructions": 79,
+      "native_instruction_bytes": 266,
+      "native_bytes_sha256": "573dd84e72762660549c5202e1ba8578e1d77705bd3572a2afcc7ed5d2924651",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Known native direct callers bind one global receiver. This is a logical C facade, not a physical arbitrary-ECX member entry."
+      ]
+    },
+    {
+      "address": "0x004beb90",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/irrigation_updates.c",
+        "symbol": "FUN_004beb90",
+        "kind": "canonical_definition",
+        "sha256": "84a113398a549cea79c4764ae44a5cca3218f978540e77ca447031e3628254a2"
+      },
+      "typed_signature": "void FUN_004beb90(uintptr_t receiver)",
+      "native_consumed_inputs": "ECX world normalized to explicit receiver",
+      "logical_result_contract": "logical void; three irrigation buckets and live phase reloads",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/irrigation_updates.c",
+          "source_sha256": "84a113398a549cea79c4764ae44a5cca3218f978540e77ca447031e3628254a2",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004beb90"
+        }
+      ],
+      "native_instructions": 92,
+      "native_instruction_bytes": 290,
+      "native_bytes_sha256": "03d073cd2fedd666848768b4041e30c9159c0ac9c55356e05bc55dd031428efa",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004becc0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/irrigation_updates.c",
+        "symbol": "FUN_004becc0",
+        "kind": "canonical_definition",
+        "sha256": "84a113398a549cea79c4764ae44a5cca3218f978540e77ca447031e3628254a2"
+      },
+      "typed_signature": "void FUN_004becc0(uintptr_t tile)",
+      "native_consumed_inputs": "ECX tile normalized to explicit tile",
+      "logical_result_contract": "logical void; irrigation propagation on cell at tile+8",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/irrigation_updates.c",
+          "source_sha256": "84a113398a549cea79c4764ae44a5cca3218f978540e77ca447031e3628254a2",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004becc0"
+        }
+      ],
+      "native_instructions": 11,
+      "native_instruction_bytes": 33,
+      "native_bytes_sha256": "c77a3439e12f216112bd0803ad477fa79e12601ea8dc39a1eeaae76dd5dd22ea",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004becf0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/population_updates.c",
+        "symbol": "FUN_004becf0",
+        "kind": "canonical_definition",
+        "sha256": "c04c22ba9dd439a88b24ad9058eab28135e4e209166764a7d0f3f8a8458f616d"
+      },
+      "typed_signature": "int32_t FUN_004becf0(void)",
+      "native_consumed_inputs": "ECX world; both cached direct sites in4E7700 bind D05720; logical facade uses same world",
+      "logical_result_contract": "full DWORD EAX month-1 with one signed-negative wrap correction; both consumers CMP EAX",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/population_updates.c",
+          "source_sha256": "c04c22ba9dd439a88b24ad9058eab28135e4e209166764a7d0f3f8a8458f616d",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004becf0"
+        }
+      ],
+      "native_instructions": 5,
+      "native_instruction_bytes": 13,
+      "native_bytes_sha256": "3adc91c34b5245a01f9a4331a1f7cfe652f32d59565d4ea30e942f7024aae079",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Known native direct callers bind one global receiver. This is a logical C facade, not a physical arbitrary-ECX member entry."
+      ]
+    },
+    {
+      "address": "0x004cabd0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/tooltip_controller.c",
+        "symbol": "FUN_004cabd0",
+        "kind": "canonical_definition",
+        "sha256": "71f5242853188aea484d3aa9a95d3f4bf1b047e83cdceb019f0a70574fbc085f"
+      },
+      "typed_signature": "void FUN_004cabd0(void)",
+      "native_consumed_inputs": "none; PUSH ECX scratch DWORD has only its high BYTE logically read and that BYTE is initialized to0 at4CABD6",
+      "logical_result_contract": "logical void; source model retains original shared stack and child output-pointer aliasing",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/tooltip_controller.c",
+          "source_sha256": "71f5242853188aea484d3aa9a95d3f4bf1b047e83cdceb019f0a70574fbc085f",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004cabd0"
+        },
+        {
+          "source": "runtime/tooltip_controller_model.c",
+          "source_sha256": "0fa211961550068b6dfb2e3592b54273e5998cdaa04690c002e0170685187ef1",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_tooltip_C_004cabd0"
+        }
+      ],
+      "native_instructions": 263,
+      "native_instruction_bytes": 822,
+      "native_bytes_sha256": "54fc37542f614a27ce185b760d0e4995d529ce5a7d9865b5e7681342ba3b448b",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Shared generated C algorithm and dispatcher were read; reuse carries no new algorithm credit. Unobserved saved registers/flags/scratch are not invented logical API inputs."
+      ]
+    },
+    {
+      "address": "0x004e7300",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/god_frog_effect.c",
+        "symbol": "FUN_004e7300",
+        "kind": "canonical_definition",
+        "sha256": "50782f2d31014027561947958593aa5db81a8d6921a5347141e32724d1db3da7"
+      },
+      "typed_signature": "void FUN_004e7300(int32_t building)",
+      "native_consumed_inputs": "building DWORD [entry ESP+4]; global random state",
+      "logical_result_contract": "logical void; direct caller discards incidental EAX; full random state remains DWORD",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/god_frog_effect.c",
+          "source_sha256": "50782f2d31014027561947958593aa5db81a8d6921a5347141e32724d1db3da7",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004e7300"
+        },
+        {
+          "source": "runtime/god_frog_effect.c",
+          "source_sha256": "50782f2d31014027561947958593aa5db81a8d6921a5347141e32724d1db3da7",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_god_effect_004e7300"
+        },
+        {
+          "source": "runtime/menu_event_model.c",
+          "source_sha256": "416d2bece2debba88cd9202272485fe4e0cd2efd2ae0d9d3a4d92afc52fefd04",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_event_C_004e7300"
+        }
+      ],
+      "native_instructions": 82,
+      "native_instruction_bytes": 259,
+      "native_bytes_sha256": "536e3f474779b2ddaca23a03587283f43fa4323aa36ed38a2ae45c81e976c1f7",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004e81d0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/city_health.c",
+        "symbol": "FUN_004e81d0",
+        "kind": "canonical_definition",
+        "sha256": "0ea4177b3b6408665933f03204ac34db6d82a4ef62d22936bda65ec463ad829e"
+      },
+      "typed_signature": "void FUN_004e81d0(void)",
+      "native_consumed_inputs": "none; player/building/health globals; inherited x87 precision/rounding control, no incoming x87 operand",
+      "logical_result_contract": "logical void; direct caller discards incidental EAX; existing weighted health retains x87 operation order",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/city_health.c",
+          "source_sha256": "0ea4177b3b6408665933f03204ac34db6d82a4ef62d22936bda65ec463ad829e",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004e81d0"
+        }
+      ],
+      "native_instructions": 281,
+      "native_instruction_bytes": 1020,
+      "native_bytes_sha256": "0418e2d8705962bc595d14cb80b9846739bef263deb51f242d9c56f0e9e6814f",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing raw80 conversion documents that FTOL exception/status flags are not reproduced by software truncation; this review does not remove that limitation."
+      ]
+    },
+    {
+      "address": "0x004e8650",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/city_updates.c",
+        "symbol": "FUN_004e8650",
+        "kind": "canonical_definition",
+        "sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b"
+      },
+      "typed_signature": "void FUN_004e8650(void)",
+      "native_consumed_inputs": "none; current player and population age bins are globals",
+      "logical_result_contract": "logical void; direct caller discards scratch return",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/city_updates.c",
+          "source_sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004e8650"
+        },
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_004e8650"
+        }
+      ],
+      "native_instructions": 63,
+      "native_instruction_bytes": 207,
+      "native_bytes_sha256": "fc18e5d6caf709e6356644bdbf4f66a576dc090aa2cff60baab775dfe5ef6663",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004e8720",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/city_updates.c",
+        "symbol": "FUN_004e8720",
+        "kind": "canonical_definition",
+        "sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b"
+      },
+      "typed_signature": "void FUN_004e8720(void)",
+      "native_consumed_inputs": "none; current player and fertility/population globals",
+      "logical_result_contract": "logical void; direct caller discards scratch return",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/city_updates.c",
+          "source_sha256": "b791f5e334fdf8c79eb51142dad0744403fc2a64b981a08a773608f003fe645b",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004e8720"
+        },
+        {
+          "source": "runtime/city_updates_model.c",
+          "source_sha256": "f6008012a82752c97cdc8b9939fc7ce2c8181ca910c8c0e382a2774f3473ac70",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_city_C_004e8720"
+        }
+      ],
+      "native_instructions": 36,
+      "native_instruction_bytes": 120,
+      "native_bytes_sha256": "b1291cf6daf89cb666c42b8719371e2a529aea4556bb7cefc350d9b8d7adb875",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004ec4a0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/actor_command.c",
+        "symbol": "FUN_004ec4a0",
+        "kind": "canonical_definition",
+        "sha256": "d692134594c475c567a1d8b172d35b2438e22699dcc50dd3557eb993bfdc45c9"
+      },
+      "typed_signature": "uint32_t FUN_004ec4a0(int32_t actor,uint32_t state)",
+      "native_consumed_inputs": "actor/state DWORDs [entry ESP+4/+8]",
+      "logical_result_contract": "full DWORD EAX status; native sole caller tail-forwards after cleanup",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/actor_command.c",
+          "source_sha256": "d692134594c475c567a1d8b172d35b2438e22699dcc50dd3557eb993bfdc45c9",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004ec4a0"
+        }
+      ],
+      "native_instructions": 221,
+      "native_instruction_bytes": 800,
+      "native_bytes_sha256": "98a1cea6fc8be5ab7677201c24fa87232d3f0c93946300e0ea779794a9a0bd71",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x004f5050",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/menu_building_options.c",
+        "symbol": "FUN_004f5050",
+        "kind": "canonical_definition",
+        "sha256": "54f869b6fa5d054c938d94382052b59d576b65f335f8548c325155efc5218251"
+      },
+      "typed_signature": "uint32_t FUN_004f5050(uint32_t resource,uint8_t force)",
+      "native_consumed_inputs": "resource DWORD [entry ESP+4]; low BYTE force at [entry ESP+8]; no incoming ECX",
+      "logical_result_contract": "logical AL predicate; cached consumers TEST AL or tail-forward to predicate wrapper; reconstructed high24 are not a full-register equivalence claim",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/menu_building_options.c",
+          "source_sha256": "54f869b6fa5d054c938d94382052b59d576b65f335f8548c325155efc5218251",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f5050"
+        }
+      ],
+      "native_instructions": 148,
+      "native_instruction_bytes": 492,
+      "native_bytes_sha256": "75af8f81eaf196840e07e1d3aa996113c2823e46f612e54b6b4064f6b69e8d39",
+      "cached_direct_consumer_sites": 15,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Preserve current API bytes; only its AL result is supported by observed consumers. No incoming EAX is needed for that byte result."
+      ]
+    },
+    {
+      "address": "0x004f53d0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/monument_rating.c",
+        "symbol": "FUN_004f53d0",
+        "kind": "canonical_definition",
+        "sha256": "ab052e470c00304b735eabef6b20d8bcfa98ffb97f34857f8fef92194325dd7e"
+      },
+      "typed_signature": "uint8_t FUN_004f53d0(uint32_t building)",
+      "native_consumed_inputs": "building DWORD [entry ESP+4]; child4EF450 global output side effects",
+      "logical_result_contract": "logical AL predicate; native4F3BE7 consumer TEST AL",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/monument_rating.c",
+          "source_sha256": "ab052e470c00304b735eabef6b20d8bcfa98ffb97f34857f8fef92194325dd7e",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_004f53d0"
+        }
+      ],
+      "native_instructions": 60,
+      "native_instruction_bytes": 156,
+      "native_bytes_sha256": "d33c0582c9081552c197d5ac3d9fed1eb36c2700063db82038c1e2bac4f08608",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x00511c50",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/small_button_actions2.c",
+        "symbol": "restore_small_button2_00511c50",
+        "kind": "named_model_definition",
+        "sha256": "312acdd65252ec67390c80b1214d442279f1daaf0f5a8f5c2376e46222d18f05"
+      },
+      "typed_signature": "void restore_small_button2_00511c50(void)",
+      "native_consumed_inputs": "none; selected message DWORD from EADD54",
+      "logical_result_contract": "logical void registered menu action; native result discarded",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/small_button_actions2.c",
+          "source_sha256": "312acdd65252ec67390c80b1214d442279f1daaf0f5a8f5c2376e46222d18f05",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_small_button2_00511c50"
+        }
+      ],
+      "native_instructions": 15,
+      "native_instruction_bytes": 48,
+      "native_bytes_sha256": "ce76539819c4d1d56ea9b9e55e36afe84bc07ec7800fe68761cac5a297c95688",
+      "cached_direct_consumer_sites": 0,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    },
+    {
+      "address": "0x0053e590",
+      "disposition": "repair_existing_C_logical_receiver_forwarding",
+      "active_canonical_owner": {
+        "path": "src/unit_02524.c",
+        "symbol": "FUN_0053e590",
+        "kind": "canonical_definition",
+        "sha256": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9"
+      },
+      "typed_signature": "int FUN_0053e590(int image,int x,int y); int restore_sprite_draw(RestoreSpriteLibraries *self,int image,int x,int y)",
+      "native_consumed_inputs": "native ECX manager plus image/x/y DWORD entry arguments;614 cached direct sites all bind ECX=F55BB0; explicit model accepts actual self",
+      "logical_result_contract": "full DWORD EAX result; clip child result is discarded; lazy fetch must retain actual self in explicit model",
+      "native_stack_ownership": "Native RET 0xc; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_02524.c",
+          "source_sha256": "78a9111c3ed4a4e779d0fc3061cf77e2e1b4c5235fc6428880c52d1bb5af4ef9",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0053e590"
+        }
+      ],
+      "native_instructions": 1076,
+      "native_instruction_bytes": 3251,
+      "native_bytes_sha256": "195aac218cbe4aafed99f6cbba9794d84f55c170b7aa3a0c563fa2662166cc0f",
+      "cached_direct_consumer_sites": 614,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing algorithm and canonical global facade remain. Only explicit model child call is changed to forward actual self.",
+        "All614 cached direct native entry calls bind F55BB0, so the preserved legacy facade is qualified to that known graph. Arbitrary indirect receiver coverage remains unproved."
+      ]
+    },
+    {
+      "address": "0x0053f7d0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "src/unit_02530.c",
+        "symbol": "FUN_0053f7d0",
+        "kind": "canonical_definition",
+        "sha256": "5dca6f1589df8cf1c5d2c76328d525084270187faf1f884c9284267e14302204"
+      },
+      "typed_signature": "int FUN_0053f7d0(char *buffer,int destination,int width,int rows,uint32_t offset); int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *buffer,int32_t destination,int32_t width,int32_t rows,uint32_t offset)",
+      "native_consumed_inputs": "native ECX manager plus five DWORD entry args; explicit helper receives actual self; global facade remains for normalized legacy C",
+      "logical_result_contract": "full DWORD EAX total bytes read; both native parents discard child result",
+      "native_stack_ownership": "Native RET 0x14; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "src/unit_02530.c",
+          "source_sha256": "5dca6f1589df8cf1c5d2c76328d525084270187faf1f884c9284267e14302204",
+          "active": true,
+          "repair_markers": [
+            "in_ECX"
+          ],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_0053f7d0"
+        }
+      ],
+      "native_instructions": 194,
+      "native_instruction_bytes": 613,
+      "native_bytes_sha256": "2b0cdc136cca48c9f210e1cb537c607c6376174a00c331624247500bc550aa02",
+      "cached_direct_consumer_sites": 2,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": [
+        "Existing helper already has explicit self; no replacement of this source is needed. The draw caller now uses that helper. General non-global53FA40/indirect receiver coverage is not certified."
+      ]
+    },
+    {
+      "address": "0x00542ee0",
+      "disposition": "preserve_existing_C_no_missing_logical_input_found",
+      "active_canonical_owner": {
+        "path": "runtime/monument_placement_queries.c",
+        "symbol": "FUN_00542ee0",
+        "kind": "canonical_definition",
+        "sha256": "3d3a6f7c9d824aef0c8b191c0145997f6d704513c1b3122dbcdf0238ef6481b8"
+      },
+      "typed_signature": "uint32_t FUN_00542ee0(void); uint32_t restore_monument_ready_00542ee0(uint32_t incoming_eax)",
+      "native_consumed_inputs": "no logical incoming input for AL result; full physical result needs incoming EAX high24 on no-match path, captured by current naked PUSH EAX wrapper",
+      "logical_result_contract": "logical AL predicate; sole cached consumer473A79 TEST AL; existing physical wrapper also retains actual EAX for full register result",
+      "native_stack_ownership": "Native RET; explicit typed C APIs normalize receiver and cleanup where documented.",
+      "active_owners": [
+        {
+          "source": "runtime/monument_placement_queries.c",
+          "source_sha256": "3d3a6f7c9d824aef0c8b191c0145997f6d704513c1b3122dbcdf0238ef6481b8",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "canonical_definition",
+          "symbol": "FUN_00542ee0"
+        },
+        {
+          "source": "runtime/monument_placement_queries.c",
+          "source_sha256": "3d3a6f7c9d824aef0c8b191c0145997f6d704513c1b3122dbcdf0238ef6481b8",
+          "active": true,
+          "repair_markers": [],
+          "correctness_proved": false,
+          "ownership_meaning": "Reuse lead; correctness unproved",
+          "kind": "named_model_definition",
+          "symbol": "restore_monument_ready_00542ee0"
+        }
+      ],
+      "native_instructions": 34,
+      "native_instruction_bytes": 94,
+      "native_bytes_sha256": "f0c1a58b2c8fddc0b851992c745c2065c24783a400e17878b2915be4788ae5b1",
+      "cached_direct_consumer_sites": 1,
+      "new_C_algorithms": 0,
+      "new_entry_credit": 0,
+      "correctness_proved": false,
+      "notes": []
+    }
+  ]
+}

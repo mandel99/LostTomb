@@ -1,45 +1,106 @@
-#include "restore_types.h"
-#define DAT_01266410 (*(undefined4 *)0x01266410u)
-extern undefined4 FUN_005616b7();
-#define stack0xffffffbc (restore_stack[32700])
-#define stack0xfffffffc (restore_stack[32764])
+#include "crt_translation_guard.h"
 
-undefined4
-FUN_00561603(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-            undefined4 param_5,undefined4 param_6,undefined4 param_7)
+/* FS:[0] targets are listed in crt_exception_handlers.asm SafeSEH metadata. */
+#pragma warning(push)
+#pragma warning(disable:4733)
 
+typedef void (__cdecl *RestoreCrtSeTranslator)(uint32_t,EXCEPTION_POINTERS *);
+
+static void restore_crt_prepare_translation(volatile RestoreCrtTranslationFrame *f,
+    const uint32_t *arguments,uint32_t continuation,uint32_t saved_sp,
+    uint32_t saved_bp)
 {
-  unsigned char restore_stack[65536];
-  undefined4 *local_34;
-  undefined4 local_30;
-  undefined4 *local_2c;
-  code *local_28;
-  undefined4 local_24;
-  undefined4 local_20;
-  undefined4 local_1c;
-  undefined4 local_18;
-  undefined4 local_14;
-  undefined1 *local_10;
-  undefined1 *local_c;
-  int local_8;
-  
-  local_c = &stack0xfffffffc;
-  local_10 = &stack0xffffffbc;
-  local_28 = FUN_005616b7;
-  local_24 = param_5;
-  local_20 = param_2;
-  local_1c = param_6;
-  local_18 = param_7;
-  local_8 = 0;
-  local_14 = 0x561689;
-  local_2c = ExceptionList;
-  ExceptionList = &local_2c;
-  local_34 = param_1;
-  local_30 = param_3;
-  ((code *)DAT_01266410)(*param_1,&local_34);
-  if (local_8 != 0) {
-    *local_2c = *(undefined4 *)ExceptionList;
-  }
-  ExceptionList = local_2c;
-  return 0;
+    f->guard.previous=0;
+    f->guard.handler=(uint32_t)(uintptr_t)FUN_005616b7;
+    f->guard.descriptor=arguments[4];
+    f->guard.frame=arguments[1];
+    f->guard.depth=arguments[5];
+    f->guard.registration=arguments[6];
+    f->guard.continuation=0;
+    f->guard.saved_sp=0;
+    f->guard.saved_bp=0;
+    f->guard.unwind_seen=0;
+    f->guard.continuation=continuation;
+    f->guard.saved_sp=saved_sp;
+    f->guard.saved_bp=saved_bp;
+    f->guard.previous=__readfsdword(0);
+    _ReadWriteBarrier();
+    __writefsdword(0,(uint32_t)(uintptr_t)&f->guard);
+    _ReadWriteBarrier();
+    f->translated=1;
+    f->exception=arguments[0];
+    f->context=arguments[2];
 }
+
+static void restore_crt_run_translation(volatile RestoreCrtTranslationFrame *f)
+{
+    RestoreCrtSeTranslator translator=*(RestoreCrtSeTranslator volatile *)0x01266410u;
+    translator(restore_crt_eh_read32(f->exception),
+        (EXCEPTION_POINTERS *)(uintptr_t)&f->exception);
+    f->translated=0;
+}
+
+static uint32_t restore_crt_finish_translation(volatile RestoreCrtTranslationFrame *f)
+{
+    uint32_t previous=f->guard.previous;
+    if(f->guard.unwind_seen!=0){
+        uint32_t chain=__readfsdword(0);
+        *(volatile uint32_t *)(uintptr_t)previous=restore_crt_eh_read32(chain);
+    }
+    _ReadWriteBarrier();
+    __writefsdword(0,previous);
+    _ReadWriteBarrier();
+    return f->translated;
+}
+
+#pragma warning(pop)
+
+/* Capture the real52-byte frame and a relocated continuation. Both normal
+   return and handler-driven stack restoration finish in the same C owner. */
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) uint32_t restore_crt_translate_exception(uint32_t *exception,
+    uint32_t frame,uint32_t context,uint32_t reserved,uint32_t descriptor,
+    uint32_t depth,uint32_t registration)
+{
+    __asm {
+        push ebp
+        mov ebp,esp
+        sub esp,52
+        push ebx
+        push esi
+        push edi
+        mov edx,esp
+        push ebp
+        push edx
+        push offset translation_resumed
+        lea ecx,[ebp+8]
+        push ecx
+        lea eax,[ebp-52]
+        push eax
+        call restore_crt_prepare_translation
+        add esp,20
+        lea eax,[ebp-52]
+        push eax
+        call restore_crt_run_translation
+        add esp,4
+    translation_resumed:
+        lea eax,[ebp-52]
+        push eax
+        call restore_crt_finish_translation
+        add esp,4
+        pop edi
+        pop esi
+        pop ebx
+        mov esp,ebp
+        pop ebp
+        ret
+    }
+}
+__declspec(naked) uint32_t FUN_00561603(uint32_t *exception,uint32_t frame,
+    uint32_t context,uint32_t reserved,uint32_t descriptor,uint32_t depth,
+    uint32_t registration)
+{
+    __asm jmp restore_crt_translate_exception
+}
+#pragma warning(pop)

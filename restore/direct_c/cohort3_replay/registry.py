@@ -12,12 +12,20 @@ def save(path,value):
  path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
  path.write_bytes((json.dumps(value,indent=2)+'\n').encode())
 
+@lru_cache(maxsize=8)
+def symbol_index(text):
+ # A MAP is parsed once per image, rather than rescanned for every entry.
+ result={}
+ for name,va,owner in re.findall(r'^\s+\w+:\w+\s+_(\S+)\s+([0-9a-fA-F]+)\s+(.+)$',text,re.M):
+  result.setdefault(name,[]).append((va,owner))
+ return result
+
 @lru_cache(maxsize=4096)
 def symbol(text,name):
- matches=re.findall(r'^\s+\w+:\w+\s+_'+re.escape(name)+r'\s+([0-9a-fA-F]+)\s+(.+)$',text,re.M)
- if not matches:return None
- assert len({x[0]for x in matches})==1,name
- return dict(va=int(matches[0][0],16),owner=matches[0][1].strip())
+ hits=symbol_index(text).get(name)
+ if not hits:return None
+ assert len({x[0]for x in hits})==1,name
+ return dict(va=int(hits[0][0],16),owner=hits[0][1].strip())
 
 def load(require_retained=True):
  sys.path[:0]=[str(ROOT/'build/offline-verification-deps'),str(ROOT/'direct_c')]

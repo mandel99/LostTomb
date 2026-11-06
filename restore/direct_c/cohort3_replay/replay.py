@@ -149,6 +149,16 @@ def execute(registry,cases,directory):
     else:assert kind=='void','Unknown endpoint result contract'
     for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX),('clobber_ebp',x.UC_X86_REG_EBP)]:
      if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
+    if spec.get('resume_fs_registration'):
+     record=get(0)
+     assert STACK<=record and record+40<=STACK+STACK_SIZE,('saved registration',spec['token'])
+     target,saved_sp,saved_bp=(get(record+offset)for offset in (24,28,32))
+     assert STACK<=saved_sp<STACK+STACK_SIZE and STACK<=saved_bp<STACK+STACK_SIZE
+     uc.reg_write(x.UC_X86_REG_EBX,record)
+     uc.reg_write(x.UC_X86_REG_ESP,saved_sp)
+     uc.reg_write(x.UC_X86_REG_EBP,saved_bp)
+     uc.reg_write(x.UC_X86_REG_EIP,target)
+     return
     if spec.get('noreturn'):
      state['terminated']=spec['token'];uc.reg_write(x.UC_X86_REG_EIP,STOP);uc.emu_stop();return
     cleanup=spec['native_cleanup']if state['label']=='native'else spec['compiled_cleanup']

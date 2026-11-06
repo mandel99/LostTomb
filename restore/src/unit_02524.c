@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include "restore_types.h"
 #include "sprite_render.h"
 #include <stdio.h>
@@ -71,19 +72,11 @@ int restore_sprite_draw(RestoreSpriteLibraries *self,int param_1,int param_2,int
 
 {
   int *piVar1;
-  char cVar2;
   bool bVar3;
   int iVar4;
   uintptr_t in_ECX=(uintptr_t)self;
-  uint uVar5;
-  uint uVar6;
-  undefined2 uVar7;
   int iVar8;
   int *piVar9;
-  char *pcVar10;
-  undefined4 *puVar11;
-  char *pcVar12;
-  char *pcVar13;
   char local_104[260];
   
   DAT_00d3b57c = param_2;
@@ -196,11 +189,11 @@ int restore_sprite_draw(RestoreSpriteLibraries *self,int param_1,int param_2,int
         return iVar8;
       }
       if (DAT_00d3b531 == '\x01') {
-        FUN_0040ff50(*piVar1 + DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)((uint32_t)*piVar1+(uint32_t)DAT_00d3b5b8));
         return iVar8;
       }
       if (DAT_00d3b531 == '\x02') {
-        FUN_0040ff50(*piVar1 + DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)((uint32_t)*piVar1+(uint32_t)DAT_00d3b5b8));
         return iVar8;
       }
     }
@@ -219,15 +212,15 @@ int restore_sprite_draw(RestoreSpriteLibraries *self,int param_1,int param_2,int
         return iVar8;
       }
       if (DAT_00d3b531 == '\x01') {
-        FUN_0040ff50(*piVar1 + DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)((uint32_t)*piVar1+(uint32_t)DAT_00d3b5b8));
         return iVar8;
       }
       if (DAT_00d3b531 == '\x02') {
-        FUN_0040ff50(*piVar1 + DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)((uint32_t)*piVar1+(uint32_t)DAT_00d3b5b8));
         return iVar8;
       }
     }
-    FUN_0040fed0(*piVar1 + DAT_00d3b5b8);
+    FUN_0040fed0((void *)(uintptr_t)((uint32_t)*piVar1+(uint32_t)DAT_00d3b5b8));
     return iVar8;
   }
   if ((char)piVar9[0xd] != '\0') {
@@ -255,7 +248,7 @@ int restore_sprite_draw(RestoreSpriteLibraries *self,int param_1,int param_2,int
     *piVar9 = DAT_00e92e1c;
     DAT_00d3b5dc = 0;
     DAT_00d3b5e0 = 0;
-    FUN_0053f7d0(&DAT_00e38aa8,*piVar9,DAT_00d3b544 * 2,DAT_00d3b5d4,iVar4 * 2);
+    restore_sprite_fetch_clipped(self,(char *)&DAT_00e38aa8,*piVar9,DAT_00d3b544 * 2,DAT_00d3b5d4,iVar4 * 2);
     DAT_00d3b540 = 0;
     DAT_00d3b53c = 0;
     FUN_0040fb60((const void *)(uintptr_t)(uint32_t)(*piVar9));
@@ -314,13 +307,13 @@ LAB_0053ec1d: ;
         DAT_00d3b5b8 = DAT_00d3b5b8 + (DAT_00d3b5be * DAT_00d3b538 + DAT_00d3b54c) * 2;
         if (bVar3) {
           if (DAT_00d3b531 == '\x01') {
-            FUN_0040ff50(DAT_00d3b5b8);
+            FUN_0040ff50((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
           }
           else if (DAT_00d3b531 == '\x02') {
-            FUN_0040ff50(DAT_00d3b5b8);
+            FUN_0040ff50((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
           }
           else {
-            FUN_0040fed0(DAT_00d3b5b8);
+            FUN_0040fed0((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
           }
         }
         else if (DAT_00d3b531 == '\x01') {
@@ -404,7 +397,7 @@ LAB_0053ec1d: ;
         }
         if (DAT_00d3b5be != 0x1a) {
           if (DAT_00d3b5be != 10) {
-            FUN_0040ff50(DAT_00d3b5b8);
+            FUN_0040ff50((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
             return DAT_00d3b544;
           }
           FUN_0051f780(DAT_00d3b5b8,DAT_00d3b530);
@@ -481,15 +474,15 @@ LAB_0053ec1d: ;
         goto LAB_0053ec1d;
       }
       if (DAT_00d3b531 == '\x01') {
-        FUN_0040ff50(DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
         return DAT_00d3b544;
       }
       if (DAT_00d3b531 == '\x02') {
-        FUN_0040ff50(DAT_00d3b5b8);
+        FUN_0040ff50((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
         return DAT_00d3b544;
       }
     }
-    FUN_0040fed0(DAT_00d3b5b8);
+    FUN_0040fed0((void *)(uintptr_t)(uint32_t)DAT_00d3b5b8);
   }
   return DAT_00d3b544;
 }

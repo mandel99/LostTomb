@@ -78,8 +78,7 @@ uint8_t FUN_0041c740(RestoreFileList *receiver,const char *param_1,char param_2)
       if (param_2 == '\0') {
         if (*(int *)(in_ECX + 4) != 0) {
           FUN_00561a2b(*(int *)(in_ECX + 4));
-          /* Avoid the original second delete when growing a reused list. */
-          *(undefined4 *)(in_ECX + 4) = 0;
+          /* Native41C859 leaves self+4 unchanged until41C8B2. */
         }
         *(undefined4 *)(in_ECX + 0xc) = 0;
       }

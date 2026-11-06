@@ -4,6 +4,7 @@
 /* Original callers all bind ECX to the global manager. The recovered C
    symbol remains a three-argument facade over a testable explicit receiver. */
 int restore_sprite_draw(RestoreSpriteLibraries *self,int image,int x,int y);
+int32_t restore_sprite_fetch_clipped(RestoreSpriteLibraries *self,char *buffer,int32_t destination,int32_t width,int32_t rows,uint32_t offset);
 int FUN_0053e590(int image,int x,int y);
 void FUN_004cdad0(void);
 void FUN_004cdb80(void);

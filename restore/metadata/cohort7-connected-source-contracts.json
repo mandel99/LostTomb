@@ -1,0 +1,116 @@
+{
+  "schema": "cohort7-connected-source-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_source_entries": 6,
+  "cumulative_source_entries": 348,
+  "new_algorithm_creations": 1,
+  "entries": [
+    {
+      "address": "0x561505",
+      "name": "restore_crt_unwind_exception",
+      "source": "src/unit_02784.c",
+      "source_sha256": "e002078df61133578e13fe40049d6e0ff48fbaa25d36a6ab6a6b41b561a26de1",
+      "native_instructions": 29,
+      "logical_signature": "void cdecl2; native canonical RET8",
+      "repair_role": "relocated_OS_continuation_and_native_callee_cleanup",
+      "creation_credit": 0
+    },
+    {
+      "address": "0x561603",
+      "name": "restore_crt_translate_exception",
+      "source": "src/unit_02788.c",
+      "source_sha256": "34935cb86a9075552223b998ce94828aa4b2a6b6b08f801ea7e59256cd49deed",
+      "native_instructions": 56,
+      "logical_signature": "uint32 cdecl7",
+      "repair_role": "real_translation_frame_saved_context_and_nonlocal_result",
+      "creation_credit": 1
+    },
+    {
+      "address": "0x5616b7",
+      "name": "restore_crt_translation_guard_handler",
+      "source": "src/unit_02789.c",
+      "source_sha256": "ca6a507bc8ee64ae28906f5fb7a9c44b0a6476fe1394519a2b3d973d4e1ae7b6",
+      "native_instructions": 45,
+      "logical_signature": "uint32 cdecl3; dispatch path restores saved context and never returns",
+      "repair_role": "replace_C_CALL_with_saved_ESP_EBP_JMP",
+      "creation_credit": 0
+    },
+    {
+      "address": "0x563c95",
+      "name": "FUN_00563c95",
+      "source": "src/unit_02863.c",
+      "source_sha256": "dd1227e85198cbf22bc6d2413473cd4df6656c83c9edeee2527018885efe2d8b",
+      "native_instructions": 50,
+      "logical_signature": "void cdecl10",
+      "repair_role": "typed_C_caller_of_unwind_API",
+      "creation_credit": 0
+    },
+    {
+      "address": "0x41c740",
+      "name": "FUN_0041c740",
+      "source": "src/unit_00269.c",
+      "source_sha256": "48ca7583a2eeee2634e72879e9297cbc68eab8d35ce914c4fe1e59e3478bf464",
+      "native_instructions": 156,
+      "logical_signature": "uint8 cdecl3 explicit-self API; native member RET8",
+      "repair_role": "native_delete_allocate_delete_order",
+      "creation_credit": 0
+    },
+    {
+      "address": "0x53e590",
+      "name": "restore_sprite_draw",
+      "source": "src/unit_02524.c",
+      "source_sha256": "61d1dacccbc524ff3157ad914a8ddcea5e3c797cc00554a088760e978beaf9b2",
+      "native_instructions": 1076,
+      "logical_signature": "int32 cdecl4 explicit-self API; canonical global cdecl3",
+      "repair_role": "actual_receiver_forwarding_to_existing_clipped_fetch",
+      "creation_credit": 0
+    }
+  ],
+  "physical_context": "561603 uses actual52-byte translation frame and40-byte registration; saved ESP/EBP and relocated continuation are live values. 5616B7 restores them then JMPs; the continuation overwrites incidental EAX/flags before consumption.",
+  "unwind_API": "Typed cdecl restore_crt_unwind_exception supplies an actual compiled return label to RtlUnwind. Canonical FUN561505 separately retains native RET8. Both active C callers now use the typed API.",
+  "platform_reference": "https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-rtlunwind",
+  "strict_sprite_cleanup": "Eight unused declarations removed. Twelve file-handle edges cast native32-bit addresses to pointer APIs; five base-plus-offset expressions retain unsigned32-bit wrap. Original strcpy behavior retained through _CRT_SECURE_NO_WARNINGS.",
+  "safeseh_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "4bb6eb0e4b92a27f5b0031216f1999935b8686c7ee3461bb04e425c3a9c7597a",
+      "map_sha256": "ca2be90b48771a05560fdb2615a11a520eba4df74fa13ef6fecc662b65315f8a",
+      "translation_handler_safeseh": true,
+      "safeseh_entries": 17
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "75e93f7002d3bb8cf14f817853b822b2fe9e8cdfeec53980d7bb88a9ef95f94a",
+      "map_sha256": "048292c62f69278f9b95ecadd659646ec293828a58a4656c253866f2980e48f1",
+      "translation_handler_safeseh": true,
+      "safeseh_entries": 17
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "174f50fb1318297b341fbef197fdaacf85151fcf99a016a9421092e2c4e4da73",
+      "map_sha256": "98ee93efe11c51e6c1cffe539e5a3c3cf3b66471fd032dd42d58123e40bb44a3",
+      "translation_handler_safeseh": true,
+      "safeseh_entries": 17
+    }
+  },
+  "author_review": {
+    "path": "metadata/cohort7-remaining-input-dispositions.json",
+    "sha256": "4cd8c75341ce4d57c7f4b71e13df6364618a0ac58428b83a1ce8d3696e13ffc9"
+  },
+  "agent_replacements": "Exact guarded replacements integrated; additional strict-build pointer types/unused-local cleanup recorded here.",
+  "joint_plan": {
+    "path": "build/actor-animal-following/cohort7-remaining-inputs/joint-comparison-contract.json",
+    "sha256": "a49757e2665c61cadcb4cbb155a9b1835b71ade5c0401b1c0698833de3bef862"
+  },
+  "detailed_joint_gate_complete": false,
+  "host_execution": false,
+  "whole_game_equivalence": false,
+  "deferred": [
+    "41C740 controlled delete/allocate endpoint schedule and53E590 non-global lazy-fetch scenarios remain for joint cohort gate.",
+    "Real OS SEH unwinding, translator-raised exceptions, abnormal cleanup, invalid/faulting records and indirect callback domains remain unclosed.",
+    "563C95 nonzero continuation and legacy563BE1/563844 native EH3 registration/handler relocation need further reconstruction; normal finite caller flow does not prove them."
+  ]
+}
