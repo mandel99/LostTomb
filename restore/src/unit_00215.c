@@ -1,7 +1,7 @@
 #include "restore_types.h"
 #define DAT_00e38da4 (*(int32_t *)0x00e38da4u)
 #define DAT_00e38da8 (*(int32_t *)0x00e38da8u)
-#define DAT_00f55be4 (*(undefined *)0x00f55be4u)
+#define DAT_00f55be4 (*(uint32_t *)0x00f55be4u)
 extern void FUN_004cf1c0();
 extern int FUN_0053e590();
 

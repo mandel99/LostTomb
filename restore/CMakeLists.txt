@@ -2706,10 +2706,15 @@ set_source_files_properties(runtime/quicktime_dispatch.c
  src/unit_02731.c src/unit_02732.c src/unit_02733.c src/unit_02734.c src/unit_02735.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 
-# Cohort8 native scalar views: promote the50 clean canonical sources.
+# Cohort8 native scalar views: promote the55 clean canonical sources.
 # Other touched legacy bodies retain their existing flags; exact baseline
 # diagnostics are recorded separately, with no new diagnostics introduced.
 set_source_files_properties(
+ src/unit_00187.c
+ src/unit_00279.c
+ src/unit_00659.c
+ src/unit_00743.c
+ src/unit_02412.c
  src/unit_00185.c
  src/unit_00215.c
  src/unit_00216.c
@@ -2762,11 +2767,12 @@ set_source_files_properties(
  src/unit_02149.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/Ob0;/GS;/std:c11")
 
-# Cohort8 retain9: existing canonical definitions removed by /OPT:REF.
+# Cohort8 retain10: existing canonical definitions removed by /OPT:REF.
 # Keep only the comparison target; algorithm bodies and runtime routes are reused.
 foreach(_cohort8_existing_symbol IN ITEMS
  FUN_00420550
  FUN_004269b0
+ FUN_00446260
  FUN_004867e0
  FUN_004c42b0
  FUN_004eef10

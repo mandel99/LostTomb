@@ -1,14 +1,14 @@
 #include "restore_types.h"
-#define DAT_005d2e88 (*(undefined *)0x005d2e88u)
-#define DAT_00785d70 (*(undefined *)0x00785d70u)
-#define DAT_00785d74 (*(undefined4 *)0x00785d74u)
+#define DAT_005d2e88 (*(int32_t *)0x005d2e88u)
+#define DAT_00785d70 (*(int32_t *)0x00785d70u)
+#define DAT_00785d74 (*(uint16_t *)0x00785d74u)
 #define DAT_00e38da4 (*(int32_t *)0x00e38da4u)
 #define DAT_00e38da8 (*(int32_t *)0x00e38da8u)
-#define DAT_00e38dac (*(undefined *)0x00e38dacu)
-#define DAT_00e38db0 (*(undefined *)0x00e38db0u)
+#define DAT_00e38dac (*(int32_t *)0x00e38dacu)
+#define DAT_00e38db0 (*(int32_t *)0x00e38db0u)
 #define DAT_00e38dda (*(char *)0x00e38ddau)
 #define DAT_00f535d0 (*(undefined4 *)0x00f535d0u)
-#define DAT_00f56f8c (*(undefined *)0x00f56f8cu)
+#define DAT_00f56f8c (*(uint32_t *)0x00f56f8cu)
 extern void FUN_004d6160();
 
 void FUN_0052e610(void)
@@ -25,7 +25,7 @@ void FUN_0052e610(void)
       puVar3 = (undefined2 *)0x0;
     }
     else {
-      puVar3 = &DAT_00785d74 + iVar1 * 0x3e;
+      puVar3 = &DAT_00785d74 + (uint32_t)iVar1 * 0x3eu;
     }
     if (*(char *)(puVar3 + 1) == '\x01') {
       if (puVar3[0x18] == 5) {

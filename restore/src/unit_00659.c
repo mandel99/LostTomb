@@ -1,7 +1,7 @@
 #include "restore_types.h"
-#define DAT_00785d70 (*(undefined *)0x00785d70u)
-#define DAT_00785d74 (*(undefined4 *)0x00785d74u)
-#define DAT_00ea61fc (*(undefined4 *)0x00ea61fcu)
+#define DAT_00785d70 (*(int32_t *)0x00785d70u)
+#define DAT_00785d74 (*(uint16_t *)0x00785d74u)
+#define DAT_00ea61fc (*(uint8_t *)0x00ea61fcu)
 #define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 extern int FUN_004b8360();
 extern void FUN_004b8890();
@@ -18,7 +18,7 @@ undefined4 FUN_00446260(int param_1)
     puVar3 = (undefined2 *)0x0;
   }
   else {
-    puVar3 = &DAT_00785d74 + param_1 * 0x3e;
+    puVar3 = &DAT_00785d74 + (uint32_t)param_1 * 0x3eu;
   }
   iVar1 = FUN_004b8360(param_1,0,0);
   iVar2 = 1;

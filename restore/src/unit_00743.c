@@ -1,13 +1,13 @@
 #include "restore_types.h"
 #include "town_trade.h"
-#define DAT_007770f0 (*(undefined4 *)0x007770f0u)
-#define DAT_00ea187c (*(undefined4 *)0x00ea187cu)
-#define DAT_00ea5ed5 (*(undefined4 *)0x00ea5ed5u)
-#define DAT_00ea5ed6 (*(undefined4 *)0x00ea5ed6u)
-#define DAT_00ea5ed8 (*(undefined4 *)0x00ea5ed8u)
-#define DAT_00ea5ed9 (*(undefined4 *)0x00ea5ed9u)
-#define DAT_00ea5eda (*(undefined4 *)0x00ea5edau)
-#define DAT_00ea5edb (*(undefined4 *)0x00ea5edbu)
+#define DAT_007770f0 (*(uint8_t *)0x007770f0u)
+#define DAT_00ea187c (*(uint8_t *)0x00ea187cu)
+#define DAT_00ea5ed5 (*(uint8_t *)0x00ea5ed5u)
+#define DAT_00ea5ed6 (*(uint8_t *)0x00ea5ed6u)
+#define DAT_00ea5ed8 (*(uint8_t *)0x00ea5ed8u)
+#define DAT_00ea5ed9 (*(uint8_t *)0x00ea5ed9u)
+#define DAT_00ea5eda (*(uint8_t *)0x00ea5edau)
+#define DAT_00ea5edb (*(uint8_t *)0x00ea5edbu)
 #define DAT_00ea6160 (*(undefined4 *)0x00ea6160u)
 #define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 extern int * FUN_0044baf0();
@@ -27,7 +27,7 @@ int FUN_0044d520(int param_1,int *param_2)
     if (psVar3 == (short *)0x0) {
       return 0;
     }
-    cVar2 = FUN_0044d4c0((const struct RestoreTownRecord *)(uintptr_t)psVar3);
+    cVar2 = (char)(uint8_t)FUN_0044d4c0((const struct RestoreTownRecord *)(uintptr_t)psVar3);
     if (cVar2 != '\0') {
       if (iVar4 == param_1) {
         *param_2 = (int)*psVar3;

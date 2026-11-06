@@ -1,7 +1,7 @@
 #include "restore_types.h"
 #define DAT_005f89cc (*(undefined4 *)0x005f89ccu)
-#define DAT_007056c8 (*(undefined *)0x007056c8u)
-#define DAT_00e20778 (*(undefined *)0x00e20778u)
+#define DAT_007056c8 (*(int32_t *)0x007056c8u)
+#define DAT_00e20778 (*(int32_t *)0x00e20778u)
 #define DAT_00e38da4 (*(int32_t *)0x00e38da4u)
 #define DAT_00e38da8 (*(int32_t *)0x00e38da8u)
 #define DAT_00ea5cc0 (*(undefined4 *)0x00ea5cc0u)
@@ -13,11 +13,11 @@
 #define DAT_00ea5de8 (*(undefined4 *)0x00ea5de8u)
 #define DAT_00ea5dec (*(undefined4 *)0x00ea5decu)
 #define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
-#define DAT_00f53f08 (*(undefined *)0x00f53f08u)
-#define DAT_00f53f0c (*(undefined *)0x00f53f0cu)
-#define DAT_00f56f8c (*(undefined *)0x00f56f8cu)
-#define DAT_00f56f9c (*(undefined *)0x00f56f9cu)
-#define DAT_00f56fa4 (*(undefined *)0x00f56fa4u)
+#define DAT_00f53f08 (*(int32_t *)0x00f53f08u)
+#define DAT_00f53f0c (*(int32_t *)0x00f53f0cu)
+#define DAT_00f56f8c (*(uint32_t *)0x00f56f8cu)
+#define DAT_00f56f9c (*(uint32_t *)0x00f56f9cu)
+#define DAT_00f56fa4 (*(uint32_t *)0x00f56fa4u)
 extern void FUN_004d6160();
 extern void FUN_004d6250();
 extern void FUN_004d62f0();

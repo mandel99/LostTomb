@@ -1,0 +1,653 @@
+{
+  "schema": "cohort8-player10-native-result-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": [
+    {
+      "entry": "00416990",
+      "direct_callers": 0,
+      "noncall_refs": 0,
+      "test_mask": null,
+      "status": "unqualified indirect/callback scalar result",
+      "proof": "No direct call or immediate instruction reference in4527 cached records. Native path-dependent physical EAX includes player*49D8, a mode BYTE merged with prior high bits, or40A0E0 tail return. Native indirect callers/data-pointer tables are not covered by this instruction scan.",
+      "qualification": "C void prototype and current window-platform return0 are not proof of original native consumer behavior. Current finite cases verify memory/declared child effects only; full original callback ABI remains unresolved."
+    },
+    {
+      "entry": "0041d410",
+      "direct_callers": 1,
+      "test_mask": null,
+      "status": "observed direct caller discards scalar and arithmetic flags",
+      "proof": "43119E CALL;4311B3 ADD ESP8 kills arithmetic return flags. Conservative cached CFG reaches eight complete EAX overwrites before any EAX/AX/AL/AH read, call or RET.",
+      "qualification": "Supports side-effect-only tests for this actual direct call. No closed-world indirect/callback proof."
+    },
+    {
+      "entry": "00420550",
+      "direct_callers": 2,
+      "test_mask": 255,
+      "status": "AL8 logical result",
+      "proof": "511E60->511E68 TEST AL and511EA4->511EAC TEST AL; both first ADD ESP4 kills arithmetic flags. Callee42055E XOR AL,AL /4205A3 MOV AL,1 changes only low8; incoming high24 EAX survives.",
+      "qualification": "Do not expose fullEAX or zero its live high24 in an emulated child frame. Existing u8 API/result_maskFF is justified for these callers; indirect consumers remain outside cached direct evidence."
+    },
+    {
+      "entry": "00420600",
+      "direct_callers": 1,
+      "test_mask": null,
+      "status": "observed direct caller discards EAX",
+      "proof": "511FBF CALL; first following instruction511FC4 MOV EAX,[EADD8C] completely overwrites the result before any read.",
+      "qualification": "Output pointer writes are the tested logical outputs. This focused proof establishes EAX discard; it makes no all-flags or indirect-caller claim."
+    },
+    {
+      "entry": "004269b0",
+      "direct_callers": 0,
+      "tail_alias": "0046E1C0",
+      "test_mask": null,
+      "status": "clamped full EAX physically exists; observed tail callers discard it",
+      "proof": "4269BA..4269D9 computes signed clamp(sumDWORD,0,100);4269F0 stores EAX;4269FC RET retains it.46E1C0 is native JMP alias. Its two cached callers:46E180 reloads EAX at46E185 then46E970 first XOR EBX kills arithmetic flags;46E1D0 tail-jumps426B00 which immediately reloads EAX and then IMUL redefines arithmetic flags.",
+      "qualification": "Void is not inferred from source or RET alone. Known caller chains do not consume clamped EAX, so current side-effect-only tests are bounded; a hypothetical unobserved direct/indirect consumer of full32/AL/flags is unresolved."
+    },
+    {
+      "entry": "00426b00",
+      "direct_callers": 0,
+      "tail_caller": "0046E1D0",
+      "test_mask": null,
+      "status": "observed transitive caller discards scalar and arithmetic flags",
+      "proof": "Native physical EAX=PLAYER*49D8 atRET.46E1D0 tail-forwards that value to40A1B0. Next40A1B5 CALL46E410 starts SUB ESP10 (flags dead), then CALL4C38F0 starts MOV EAX,[PLAYER] before any EAX read. No return-value consumer in this cached chain.",
+      "qualification": "Side-effect-only tests are qualified to the actual chain. Unobserved callers of426B00/46E1D0 may not be declared void by inference."
+    },
+    {
+      "entry": "00446260",
+      "direct_callers": 1,
+      "test_mask": 4294967295,
+      "status": "fullEAX32 logical result",
+      "proof": "44CAFC CALL;44CB01 ADD ESP4;44CB04 TEST EAX,EAX consumes full32. Callee returns complete EAX0/1 (XOR EAX or MOV EAX,ESI withESI1); no partial-register zero invention.",
+      "qualification": "Full32 result assertion is required; flags are replaced by caller stack cleanup before test. Unknown indirect coverage remains explicit."
+    },
+    {
+      "entry": "00446650",
+      "direct_callers": 1,
+      "test_mask": null,
+      "status": "observed direct caller discards every result bit and arithmetic flags",
+      "proof": "446C9F CALL;446CA4 loads newAL;446CA9 ADD ESP8 kills flags;446CAC stores only this newAL;446CB2 writes complete newEAX. Incoming high24 is never read before that full overwrite.",
+      "qualification": "Supports current side-effect-only test on this actual direct path. A partialAL definition alone would not prove fullEAX dead; the subsequent full overwrite completes the proof."
+    },
+    {
+      "entry": "004474e0",
+      "direct_callers": 1,
+      "test_mask": null,
+      "status": "observed direct caller discards scalar and arithmetic flags",
+      "proof": "4523E7 CALL immediately followed by CALL45E420.45E420 begins SUB ESP14 (flag kill) then MOV EAX,[PLAYER] (complete result kill), before any EAX/flags consumer. Physical returned EAX at447529 is merely player byte offset, not automatically a logical API result.",
+      "qualification": "Supports side-effect-only tests for452370 chain; no blanket void claim for unvisited callers."
+    },
+    {
+      "entry": "0044d520",
+      "direct_callers": 1,
+      "test_mask": 4294967295,
+      "status": "fullEAX32 logical result, including signed sentinel and ID+1",
+      "proof": "44D50A CALL from44D500; ADD ESP8; RET forwards complete EAX. Five cached44D500 callers at524C84/CD5/D28/D7C/DCF use TEST EAX,EAX. Native callee has completeEAX zero, OR EAX,-1 and MOVSX WORDID;INC EAX returns (signedID+1), not just0/1.",
+      "qualification": "Full32 assertions must remain. The wrapper stack ADD discards flags. Any wider indirect-call population is not established by this cache scan."
+    }
+  ],
+  "cache_coverage": {
+    "files": 71,
+    "distinct_records": 4527,
+    "not_all_original_instructions": true,
+    "indirect_call_resolution_complete": false
+  },
+  "first41D410_EAX_kill_frontier": [
+    {
+      "address": "00431060",
+      "bytes": "8b44241c",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x1c]"
+    },
+    {
+      "address": "004311d9",
+      "bytes": "a1c4e37000",
+      "instruction": "MOV EAX,[0x0070e3c4]"
+    },
+    {
+      "address": "00431355",
+      "bytes": "a1ec72f500",
+      "instruction": "MOV EAX,[0x00f572ec]"
+    },
+    {
+      "address": "0043154d",
+      "bytes": "8b442414",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "0043156d",
+      "bytes": "a158e47000",
+      "instruction": "MOV EAX,[0x0070e458]"
+    },
+    {
+      "address": "00431585",
+      "bytes": "8b442418",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "004315b7",
+      "bytes": "8b442414",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "004315da",
+      "bytes": "a15ce47000",
+      "instruction": "MOV EAX,[0x0070e45c]"
+    }
+  ],
+  "first41D410_prefix": [
+    {
+      "address": "00431054",
+      "bytes": "8b3d80e47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e480]"
+    },
+    {
+      "address": "0043105a",
+      "bytes": "8b0d58e47000",
+      "instruction": "MOV ECX,dword ptr [0x0070e458]"
+    },
+    {
+      "address": "00431060",
+      "bytes": "8b44241c",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x1c]"
+    },
+    {
+      "address": "004311a3",
+      "bytes": "8b3d88e47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e488]"
+    },
+    {
+      "address": "004311a9",
+      "bytes": "8b2dc0b5d300",
+      "instruction": "MOV EBP,dword ptr [0x00d3b5c0]"
+    },
+    {
+      "address": "004311af",
+      "bytes": "8b4c242c",
+      "instruction": "MOV ECX,dword ptr [ESP + 0x2c]"
+    },
+    {
+      "address": "004311b3",
+      "bytes": "83c408",
+      "instruction": "ADD ESP,0x8"
+    },
+    {
+      "address": "004311b6",
+      "bytes": "f6c110",
+      "instruction": "TEST CL,0x10"
+    },
+    {
+      "address": "004311b9",
+      "bytes": "740c",
+      "instruction": "JZ 0x004311c7"
+    },
+    {
+      "address": "004311bb",
+      "bytes": "8b2ddc6bf500",
+      "instruction": "MOV EBP,dword ptr [0x00f56bdc]"
+    },
+    {
+      "address": "004311c1",
+      "bytes": "892dc0b5d300",
+      "instruction": "MOV dword ptr [0x00d3b5c0],EBP"
+    },
+    {
+      "address": "004311c7",
+      "bytes": "83e10f",
+      "instruction": "AND ECX,0xf"
+    },
+    {
+      "address": "004311ca",
+      "bytes": "0f8568030000",
+      "instruction": "JNZ 0x00431538"
+    },
+    {
+      "address": "004311d0",
+      "bytes": "f6c304",
+      "instruction": "TEST BL,0x4"
+    },
+    {
+      "address": "004311d3",
+      "bytes": "0f847c010000",
+      "instruction": "JZ 0x00431355"
+    },
+    {
+      "address": "004311d9",
+      "bytes": "a1c4e37000",
+      "instruction": "MOV EAX,[0x0070e3c4]"
+    },
+    {
+      "address": "00431355",
+      "bytes": "a1ec72f500",
+      "instruction": "MOV EAX,[0x00f572ec]"
+    },
+    {
+      "address": "00431538",
+      "bytes": "83f901",
+      "instruction": "CMP ECX,0x1"
+    },
+    {
+      "address": "0043153b",
+      "bytes": "7521",
+      "instruction": "JNZ 0x0043155e"
+    },
+    {
+      "address": "0043153d",
+      "bytes": "8b4c2418",
+      "instruction": "MOV ECX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "00431541",
+      "bytes": "8b3d4ce47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e44c]"
+    },
+    {
+      "address": "00431547",
+      "bytes": "8b155ce47000",
+      "instruction": "MOV EDX,dword ptr [0x0070e45c]"
+    },
+    {
+      "address": "0043154d",
+      "bytes": "8b442414",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "0043155e",
+      "bytes": "83f902",
+      "instruction": "CMP ECX,0x2"
+    },
+    {
+      "address": "00431561",
+      "bytes": "751d",
+      "instruction": "JNZ 0x00431580"
+    },
+    {
+      "address": "00431563",
+      "bytes": "8b542418",
+      "instruction": "MOV EDX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "00431567",
+      "bytes": "8b3d48e47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e448]"
+    },
+    {
+      "address": "0043156d",
+      "bytes": "a158e47000",
+      "instruction": "MOV EAX,[0x0070e458]"
+    },
+    {
+      "address": "00431580",
+      "bytes": "83f903",
+      "instruction": "CMP ECX,0x3"
+    },
+    {
+      "address": "00431583",
+      "bytes": "751d",
+      "instruction": "JNZ 0x004315a2"
+    },
+    {
+      "address": "00431585",
+      "bytes": "8b442418",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "004315a2",
+      "bytes": "83f904",
+      "instruction": "CMP ECX,0x4"
+    },
+    {
+      "address": "004315a5",
+      "bytes": "751e",
+      "instruction": "JNZ 0x004315c5"
+    },
+    {
+      "address": "004315a7",
+      "bytes": "8b4c2418",
+      "instruction": "MOV ECX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "004315ab",
+      "bytes": "8b3d40e47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e440]"
+    },
+    {
+      "address": "004315b1",
+      "bytes": "8b1550e47000",
+      "instruction": "MOV EDX,dword ptr [0x0070e450]"
+    },
+    {
+      "address": "004315b7",
+      "bytes": "8b442414",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "004315c5",
+      "bytes": "83f905",
+      "instruction": "CMP ECX,0x5"
+    },
+    {
+      "address": "004315c8",
+      "bytes": "7536",
+      "instruction": "JNZ 0x00431600"
+    },
+    {
+      "address": "004315ca",
+      "bytes": "8b542418",
+      "instruction": "MOV EDX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "004315ce",
+      "bytes": "8b1d40e47000",
+      "instruction": "MOV EBX,dword ptr [0x0070e440]"
+    },
+    {
+      "address": "004315d4",
+      "bytes": "8b3d4ce47000",
+      "instruction": "MOV EDI,dword ptr [0x0070e44c]"
+    },
+    {
+      "address": "004315da",
+      "bytes": "a15ce47000",
+      "instruction": "MOV EAX,[0x0070e45c]"
+    },
+    {
+      "address": "00431600",
+      "bytes": "8b157ce47000",
+      "instruction": "MOV EDX,dword ptr [0x0070e47c]"
+    },
+    {
+      "address": "00431606",
+      "bytes": "8b742414",
+      "instruction": "MOV ESI,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "0043160a",
+      "bytes": "8b5c2418",
+      "instruction": "MOV EBX,dword ptr [ESP + 0x18]"
+    },
+    {
+      "address": "0043160e",
+      "bytes": "66c70520e170000000",
+      "instruction": "MOV word ptr [0x0070e120],0x0"
+    },
+    {
+      "address": "00431617",
+      "bytes": "e938faffff",
+      "instruction": "JMP 0x00431054"
+    }
+  ],
+  "checked_key_instructions": [
+    {
+      "address": "0040a1b0",
+      "bytes": "e81b400600",
+      "instruction": "CALL 0x0046e1d0"
+    },
+    {
+      "address": "0040a1b5",
+      "bytes": "e856420600",
+      "instruction": "CALL 0x0046e410"
+    },
+    {
+      "address": "0042055e",
+      "bytes": "32c0",
+      "instruction": "XOR AL,AL"
+    },
+    {
+      "address": "004205a3",
+      "bytes": "b001",
+      "instruction": "MOV AL,0x1"
+    },
+    {
+      "address": "004269ea",
+      "bytes": "69c9d8490000",
+      "instruction": "IMUL ECX,ECX,0x49d8"
+    },
+    {
+      "address": "004269f0",
+      "bytes": "89813c5bea00",
+      "instruction": "MOV dword ptr [ECX + 0xea5b3c],EAX"
+    },
+    {
+      "address": "004269fc",
+      "bytes": "c3",
+      "instruction": "RET"
+    },
+    {
+      "address": "00426b00",
+      "bytes": "a128acea00",
+      "instruction": "MOV EAX,[0x00eaac28]"
+    },
+    {
+      "address": "00426b0b",
+      "bytes": "69c0d8490000",
+      "instruction": "IMUL EAX,EAX,0x49d8"
+    },
+    {
+      "address": "004311b3",
+      "bytes": "83c408",
+      "instruction": "ADD ESP,0x8"
+    },
+    {
+      "address": "00446ca4",
+      "bytes": "a0c0d77800",
+      "instruction": "MOV AL,[0x0078d7c0]"
+    },
+    {
+      "address": "00446ca9",
+      "bytes": "83c408",
+      "instruction": "ADD ESP,0x8"
+    },
+    {
+      "address": "00446cac",
+      "bytes": "888678d6bc00",
+      "instruction": "MOV byte ptr [ESI + 0xbcd678],AL"
+    },
+    {
+      "address": "00446cb2",
+      "bytes": "8b44242c",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x2c]"
+    },
+    {
+      "address": "0044cb04",
+      "bytes": "85c0",
+      "instruction": "TEST EAX,EAX"
+    },
+    {
+      "address": "0044d50a",
+      "bytes": "e811000000",
+      "instruction": "CALL 0x0044d520"
+    },
+    {
+      "address": "0044d50f",
+      "bytes": "83c408",
+      "instruction": "ADD ESP,0x8"
+    },
+    {
+      "address": "0044d512",
+      "bytes": "c3",
+      "instruction": "RET"
+    },
+    {
+      "address": "004523e7",
+      "bytes": "e8f450ffff",
+      "instruction": "CALL 0x004474e0"
+    },
+    {
+      "address": "004523ec",
+      "bytes": "e82fc00000",
+      "instruction": "CALL 0x0045e420"
+    },
+    {
+      "address": "0045e420",
+      "bytes": "83ec14",
+      "instruction": "SUB ESP,0x14"
+    },
+    {
+      "address": "0045e423",
+      "bytes": "a128acea00",
+      "instruction": "MOV EAX,[0x00eaac28]"
+    },
+    {
+      "address": "0046e180",
+      "bytes": "e83b000000",
+      "instruction": "CALL 0x0046e1c0"
+    },
+    {
+      "address": "0046e185",
+      "bytes": "8b442404",
+      "instruction": "MOV EAX,dword ptr [ESP + 0x4]"
+    },
+    {
+      "address": "0046e18a",
+      "bytes": "e8e1070000",
+      "instruction": "CALL 0x0046e970"
+    },
+    {
+      "address": "0046e1c0",
+      "bytes": "e9eb87fbff",
+      "instruction": "JMP 0x004269b0"
+    },
+    {
+      "address": "0046e1d0",
+      "bytes": "e8ebffffff",
+      "instruction": "CALL 0x0046e1c0"
+    },
+    {
+      "address": "0046e1d5",
+      "bytes": "e92689fbff",
+      "instruction": "JMP 0x00426b00"
+    },
+    {
+      "address": "0046e410",
+      "bytes": "83ec10",
+      "instruction": "SUB ESP,0x10"
+    },
+    {
+      "address": "0046e417",
+      "bytes": "e8d4540500",
+      "instruction": "CALL 0x004c38f0"
+    },
+    {
+      "address": "0046e971",
+      "bytes": "33db",
+      "instruction": "XOR EBX,EBX"
+    },
+    {
+      "address": "004c38f0",
+      "bytes": "a128acea00",
+      "instruction": "MOV EAX,[0x00eaac28]"
+    },
+    {
+      "address": "00511e60",
+      "bytes": "e8ebe6f0ff",
+      "instruction": "CALL 0x00420550"
+    },
+    {
+      "address": "00511e65",
+      "bytes": "83c404",
+      "instruction": "ADD ESP,0x4"
+    },
+    {
+      "address": "00511e68",
+      "bytes": "84c0",
+      "instruction": "TEST AL,AL"
+    },
+    {
+      "address": "00511ea4",
+      "bytes": "e8a7e6f0ff",
+      "instruction": "CALL 0x00420550"
+    },
+    {
+      "address": "00511ea9",
+      "bytes": "83c404",
+      "instruction": "ADD ESP,0x4"
+    },
+    {
+      "address": "00511eac",
+      "bytes": "84c0",
+      "instruction": "TEST AL,AL"
+    },
+    {
+      "address": "00511fc4",
+      "bytes": "a18cddea00",
+      "instruction": "MOV EAX,[0x00eadd8c]"
+    }
+  ],
+  "C_source_signatures": [
+    {
+      "entry": "00416990",
+      "source": "src/unit_00187.c",
+      "historical_source_sha256": "429795753f6af5fefbb38664db394156e168009bef47805b0b99889e10d96b42",
+      "signature": "void FUN_00416990(int param_1)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "0041d410",
+      "source": "src/unit_00279.c",
+      "historical_source_sha256": "101306b5ef936c8f74b13571c90688465623b37e737aec5e9ce2a5dad6ebfe11",
+      "signature": "void FUN_0041d410(int param_1,int param_2)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "00420550",
+      "source": "src/unit_00335.c",
+      "historical_source_sha256": "1077d54341f225d307e3636336b982cfc6ef2907f4dbe12c56ad609c0d173c6e",
+      "signature": "undefined1 FUN_00420550(undefined *param_1)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "00420600",
+      "source": "src/unit_00337.c",
+      "historical_source_sha256": "cc3c43bc76b1c84a73546c40137e13245ca1daccab4fdc673930f0f91c076928",
+      "signature": "void FUN_00420600(int *param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "004269b0",
+      "source": "src/unit_00423.c",
+      "historical_source_sha256": "465040251d54a1d0016f1ace69b35162e9f87e4c5b406916dc66f55ff6e5f34a",
+      "signature": "void FUN_004269b0(void)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "00426b00",
+      "source": "src/unit_00426.c",
+      "historical_source_sha256": "f7d0a3a552f531b27d7adcaea44faf4cd8b3f446e2e52b665df2a2b1029e12d4",
+      "signature": "void FUN_00426b00(void)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "00446260",
+      "source": "src/unit_00659.c",
+      "historical_source_sha256": "6134e53cc7cca760d744eebd036bd2ce67edb4cbed8d913fb3e49a5ebee3f4bf",
+      "signature": "undefined4 FUN_00446260(int param_1)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "00446650",
+      "source": "src/unit_00663.c",
+      "historical_source_sha256": "f7ba624b760dd089aea3297e07d89a6e4749f04ac3ad32e0289d8b33cb3508a2",
+      "signature": "void FUN_00446650(int param_1)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "004474e0",
+      "source": "src/unit_00667.c",
+      "historical_source_sha256": "c31ea8d70f341020368164b80ba1ec2438392985a153e035fcbce577032c5543",
+      "signature": "void FUN_004474e0(void)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    },
+    {
+      "entry": "0044d520",
+      "source": "src/unit_00743.c",
+      "historical_source_sha256": "210bb3843c1f86fa4e426929683ee6b3f25e2e6157a54cae7ddd7395335bb0e6",
+      "signature": "int FUN_0044d520(int param_1,int *param_2)",
+      "scope": "Signature snapshot is C API context only; native consumption clauses independently justify/qualify result mask. No C body change or equivalence proof."
+    }
+  ],
+  "source_edits": false,
+  "build_invoked": false,
+  "execution_performed": false,
+  "host_execution": false,
+  "qualification": "Physical return register contents alone do not make a logical return API. Scalar-discard clauses cover cited cached callers, not unvisited indirect callbacks. Flags here means arithmetic status flags; no all-EFLAGS/DF/x87 contract is added."
+}

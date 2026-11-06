@@ -10,13 +10,13 @@
 #define DAT_005f89f8 (*(undefined4 *)0x005f89f8u)
 #define DAT_005f89fc (*(undefined4 *)0x005f89fcu)
 #define DAT_005f8a00 (*(undefined4 *)0x005f8a00u)
-#define DAT_00605978 (*(undefined *)0x00605978u)
-#define DAT_0060597c (*(undefined *)0x0060597cu)
-#define DAT_007056c8 (*(undefined *)0x007056c8u)
+#define DAT_00605978 (*(int32_t *)0x00605978u)
+#define DAT_0060597c (*(int32_t *)0x0060597cu)
+#define DAT_007056c8 (*(int32_t *)0x007056c8u)
 #define DAT_00e38da4 (*(int32_t *)0x00e38da4u)
 #define DAT_00e38da8 (*(int32_t *)0x00e38da8u)
-#define DAT_00f56f8c (*(undefined *)0x00f56f8cu)
-#define DAT_00f56fb4 (*(undefined *)0x00f56fb4u)
+#define DAT_00f56f8c (*(uint32_t *)0x00f56f8cu)
+#define DAT_00f56fb4 (*(uint32_t *)0x00f56fb4u)
 extern void FUN_004cc720();
 extern void FUN_004cce90();
 extern void FUN_004cd680();

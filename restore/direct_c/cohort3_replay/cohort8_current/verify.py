@@ -125,6 +125,40 @@ def canonical_registry(base,addresses):
 
 def recipes(scope,base):
     matrix=module('c8_authored_audit',PUBLIC/'current_matrix/verify.py')
+    if scope=='player10':
+        folder=PUBLIC/'cohort8_player10';manifest(folder)
+        authored=module('c8_player10_recipes',folder/'player_cases.py')
+        registry=canonical_registry(base,authored.TARGETS);cases=authored.cases(registry)
+        return registry,cases,matrix.audit,51,sum(c['expected_invocations']for c in cases)
+    if scope=='ui25':
+        folder=PUBLIC/'cohort8_ui_origin25';p=protocol('cohort8_ui_origin25',base)
+        rebound=read(folder/'profile-rebind.json')
+        assert digest(folder/'protocol.json')==rebound['authoring_protocol_sha256']
+        assert p['image_profile_input']==rebound['authoring_profile_input']
+        profile=rebound['public_current_profile']
+        assert digest(R/profile['path'])==profile['sha256']and read(R/profile['path'])==base['compiled_images']
+        maps={label:(R/image['map_path']).read_text()for label,image in base['compiled_images'].items()}
+        authored=module('c8_ui25_recipes',folder/'ui_cases.py')
+        for m in p['members']:
+            m['source_sha256']=digest(R/m['source'])
+            assert p['source_guards'][m['source']]==m['source_sha256']
+            for label,text in maps.items():
+                actual=symbol(text,m['symbol']);assert actual and actual['owner']==m['providers'][label]['owner']
+                m['providers'][label]=actual
+        for token,providers in p['endpoint_providers'].items():
+            for label,text in maps.items():
+                actual=symbol(text,f'FUN_{authored.HELPERS[token][0]:08x}')
+                assert actual and actual['owner']==providers[label]['owner'];providers[label]=actual
+        binding=module('c8_ui25_binding',folder/'supplemental_registry.py')
+        guard=module('c8_ui25_guard',folder/'guard.py')
+        binding.checked_inputs=lambda:copy.deepcopy(p);guard.binding=binding;guard.recipes=authored
+        guard.checked_cases();registry=binding.extend_registry(base)
+        repair=module('c8_ui25_oracle_repair',folder/'oracle_repair.py')
+        cases=repair.correct_cases(authored.cases(registry))
+        def checker(cases,report):
+            result=matrix.audit(cases,report);result['independent_checks']=guard.audit(cases,report)
+            return result
+        return registry,cases,checker,50,200
     if scope=='functional4':
         folder=PUBLIC/'cohort8_functional4'
         p=protocol('cohort8_functional4',base)
@@ -246,7 +280,7 @@ def run_script(scope,base):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support','functional4'])
+    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support','functional4','player10','ui25'])
     ap.add_argument('--run',action='store_true');args=ap.parse_args()
     base=checked_base()
     if args.scope in ['funclets','arithmetic']:

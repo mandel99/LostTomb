@@ -1,0 +1,85 @@
+UI25 connected discrepancies, source-only baseline findings
+==========================================================
+No C source was edited, compiled, or executed by this packet. These are exact
+source/native-boundary differences, not reported emulator failures. Full cached
+records and every relevant PUSH/CALL window are in native-evidence.json and
+native-derivation.json; source hashes and all actual MAP owners are protocol.json.
+
+1. A source BYTE does not preserve the native rendered argument.
+   unit00185 colors F56FB4/F56F94; units00215/216/217 sprite bases
+   F55BE4/F55BDC/F55BD4; unit00679 sprite baseF56494; multiple later units'
+   F56F colors/F571FC sprite base remain unsigned BYTE local views. Native loads
+   and pushes DWORDs. Fixtures seed legitimate RGB565 colors1C82/3922, and image
+   bases3000/3456, retaining their complete native boundary words. This is not a
+   top-EAX contract or a request to widen unrelated generated globals.
+   unit00218/FUN417F10 already has correct full-width connected locals; preserve
+   that source. Its output/dimension/negative-odd-half oracles are calibration.
+
+2. F53F08/F53F0C panel offsets and E20778 text width retain BYTE locals in the
+   applicable panel sources. Native panel coordinate loads are DWORD; native
+   text-width resets and reloads are DWORD (e.g.5248F1/524925/524970/5249D1,
+   524EF2/524F52,525687/5256B3,533BC0/533BD4,53463B/53467A).
+   Variant1 panel offsets120h/130h expose coordinate truncation. Declared text
+   endpoint step273 exposes BYTE stores leaving stale upper bits and BYTE reads
+   truncating the native DWORD accumulation. All expected snapshots/final RAM
+   retain exact DWORD behavior. Step17 is the other declared boundary variant.
+   Text width is controlled endpoint behavior; no real glyph metric is guessed.
+
+3. 524840/unit02380 has two separate pointer-unit discrepancies:
+   Native PLAYER*49D8 is a BYTE displacement to EA5FF4/EA620C
+   (524999 MOV ECX,[EAX+EA5FF4],524A80 MOV EAX,[ECX+EA620C]).
+   Current source adds PLAYER*49D8 to &undefined4 lvalues, multiplying the byte
+   displacement by4. Fixtures seed the native fields4567 and0/1; source-offset
+   decoys are explicitly1357h and0, so no unstated PE-initial value supplies them.
+
+4. 52DB10/unit02411 native faction indexing computes106*index and reads BYTE
+   at77DE02+offset:52DB1F..52DB32. Current &undefined4 indexing multiplies
+   index*6A by4 (424-byte stride). Variant1 status2 is at native index1; explicit
+   source-decoy status0 is at+424. Expected native label is13h, not1. The viewport
+   dimensions also remain BYTE local views; their native loads are DWORD.
+   Trade states1/3/5 are outside this packet, not claimed repaired or verified.
+
+5. 52E610/unit02412 native row selection at52E650..52E657 is
+   (record*32-record)*4+785D74 =record*124+base. Current source
+   '&DAT785D74 + record*3E' uses a uint32_t pointer and advances248 bytes.
+   Both cases have valid records/count, typeBYTE+2=1 and WORD+30h=5/3. Explicit
+  248-stride decoy types are0. Expected native labels10h/11h must remain. The
+   native selected index/count/dimensions are DWORD inputs, distinct from row
+   storage units. Do not replace the record layout wholesale with DWORD fields.
+
+6. 5305E0/unit02418 salary7848D8 is signed WORD:53069A CMP WORD/JGE,
+   530720 MOV AX;530739 MOVSX;530745 NEG. Current unsigned BYTE makes the negative
+   branch unreachable. Expected signs/magnitudes are -5=>label0,value5 and
+   +345=>label1,value345. 532920/unit02430 and533470/unit02432 also MOVSX WORD
+   salary before passing/adding it; retain signed arithmetic in those consumers.
+
+7. 530780/unit02419 delay globalsD38360/64/68 are native signed DWORD operands
+   of the multiply/shift division sequences (5308FE,53088B,53081D onward). Current
+   BYTE locals cannot preserve450/900/600. Expected text indexesC8/D9/DF follow
+   +AA/BB/C1 after native /15,/30,/20. Descriptor rows remain28-byte records with
+   signed WORD y at+2; this is a separate, already correct storage-unit fact.
+
+8. 532920/unit02430 and533470/unit02432 retain BYTE locals for native DWORD
+   numeric settings. Pinned loads include532B01/532B82/532C27/532CFD/532DD2/
+   532E85/532F1F/532FB4 and53363C/5336B0/5337AB/5338D5/533A98/533B47/
+   533BA2/533C92/533CF0/533DF6/533E45. Fixtures seed values1000+ where relevant.
+   Packed settings784C3C and BYTE slice784CBE are real overlays, not scalar
+   widen-all candidates. The unusual row Y+71Dh when mode!=0 is native and kept.
+
+9. 534610/unit02438 debug values include full DWORD mouse coordinates and
+   counters. Native534610 starts CMP DWORD EA181C,1 and uses DWORD width clears;
+   E38E30=-567 and E38E34=456 are passed through the native DWORD number arguments.
+   The current BYTE locals lose these values. Dock IDs remain signed WORD with
+  2-byte stride; player/record strides49D8 are separate facts. The final seven
+   inactive records each clear the native DWORD width, yielding final zero.
+
+10. Do NOT repair533470 merely because the C source writes FUN4CCE90(uVar6).
+    Native533952 CALL4F4FF0;533957 PUSH EAX;533958 CALL4CCE90 leaves the seven
+    previous words live. Saved current GAME, DIAGNOSTIC AND RETAINED machine
+    windows prove the identical pending-argument continuation, followed by
+    caller cleanup. Both recipes assert eight words at the numeric boundary.
+    This is a current compiler qualification, not a demonstrated behavior gap.
+
+The remaining viewport/color/numeric local-view differences are recorded as
+connected input flows in the same25. No new function/algorithm credit is claimed.
+Root owns any minimal source changes after native-authored baseline execution.

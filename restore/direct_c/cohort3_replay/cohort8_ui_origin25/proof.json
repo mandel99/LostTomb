@@ -1,0 +1,238 @@
+{
+  "schema": "ui25-word-color-oracle-repair-v1",
+  "native": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "case": "c8-ui-origin-joint25/00532fe0/full-dword-x-negative-y",
+  "native_instructions": [
+    {
+      "address": "005333e0",
+      "bytes": "66833c5de04c780000",
+      "instruction": "CMP word ptr [EBX*0x2 + 0x784ce0],0x0"
+    },
+    {
+      "address": "005333e9",
+      "bytes": "7426",
+      "instruction": "JZ 0x00533411"
+    },
+    {
+      "address": "005333eb",
+      "bytes": "8b15a48de300",
+      "instruction": "MOV EDX,dword ptr [0x00e38da4]"
+    },
+    {
+      "address": "005333f1",
+      "bytes": "a1a88de300",
+      "instruction": "MOV EAX,[0x00e38da8]"
+    },
+    {
+      "address": "005333f6",
+      "bytes": "8b0d8c6ff500",
+      "instruction": "MOV ECX,dword ptr [0x00f56f8c]"
+    },
+    {
+      "address": "005333fc",
+      "bytes": "52",
+      "instruction": "PUSH EDX"
+    },
+    {
+      "address": "005333fd",
+      "bytes": "8b542414",
+      "instruction": "MOV EDX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "00533401",
+      "bytes": "50",
+      "instruction": "PUSH EAX"
+    },
+    {
+      "address": "00533402",
+      "bytes": "6a00",
+      "instruction": "PUSH 0x0"
+    },
+    {
+      "address": "00533404",
+      "bytes": "51",
+      "instruction": "PUSH ECX"
+    },
+    {
+      "address": "00533405",
+      "bytes": "8d441704",
+      "instruction": "LEA EAX,[EDI + EDX*0x1 + 0x4]"
+    },
+    {
+      "address": "00533409",
+      "bytes": "68be000000",
+      "instruction": "PUSH 0xbe"
+    },
+    {
+      "address": "0053340e",
+      "bytes": "50",
+      "instruction": "PUSH EAX"
+    },
+    {
+      "address": "0053340f",
+      "bytes": "eb24",
+      "instruction": "JMP 0x00533435"
+    },
+    {
+      "address": "00533411",
+      "bytes": "8b0da48de300",
+      "instruction": "MOV ECX,dword ptr [0x00e38da4]"
+    },
+    {
+      "address": "00533417",
+      "bytes": "8b15a88de300",
+      "instruction": "MOV EDX,dword ptr [0x00e38da8]"
+    },
+    {
+      "address": "0053341d",
+      "bytes": "a1a46ff500",
+      "instruction": "MOV EAX,[0x00f56fa4]"
+    },
+    {
+      "address": "00533422",
+      "bytes": "51",
+      "instruction": "PUSH ECX"
+    },
+    {
+      "address": "00533423",
+      "bytes": "8b4c2414",
+      "instruction": "MOV ECX,dword ptr [ESP + 0x14]"
+    },
+    {
+      "address": "00533427",
+      "bytes": "52",
+      "instruction": "PUSH EDX"
+    },
+    {
+      "address": "00533428",
+      "bytes": "6a00",
+      "instruction": "PUSH 0x0"
+    },
+    {
+      "address": "0053342a",
+      "bytes": "50",
+      "instruction": "PUSH EAX"
+    },
+    {
+      "address": "0053342b",
+      "bytes": "8d540f04",
+      "instruction": "LEA EDX,[EDI + ECX*0x1 + 0x4]"
+    },
+    {
+      "address": "0053342f",
+      "bytes": "68be000000",
+      "instruction": "PUSH 0xbe"
+    },
+    {
+      "address": "00533434",
+      "bytes": "52",
+      "instruction": "PUSH EDX"
+    },
+    {
+      "address": "00533435",
+      "bytes": "56",
+      "instruction": "PUSH ESI"
+    },
+    {
+      "address": "00533436",
+      "bytes": "53",
+      "instruction": "PUSH EBX"
+    },
+    {
+      "address": "00533437",
+      "bytes": "6a43",
+      "instruction": "PUSH 0x43"
+    },
+    {
+      "address": "00533439",
+      "bytes": "e8122efaff",
+      "instruction": "CALL 0x004d6250"
+    }
+  ],
+  "native_initial_table": {
+    "address": "0x00784ce0",
+    "bytes_hex": "0000000000000000"
+  },
+  "authored_table_byte_writes": [
+    [
+      7884000,
+      0
+    ],
+    [
+      7884001,
+      0
+    ],
+    [
+      7884002,
+      1
+    ],
+    [
+      7884003,
+      0
+    ]
+  ],
+  "effective_table_bytes_hex": "0000010000000000",
+  "derivation": [
+    {
+      "id": 1,
+      "address": "0x00784ce2",
+      "word": 1,
+      "branch": "JZ not taken; MOV ECX,[F56F8C]",
+      "old_color": 14626,
+      "new_color": 7298
+    },
+    {
+      "id": 2,
+      "address": "0x00784ce4",
+      "word": 0,
+      "branch": "JZ taken; MOV EAX,[F56FA4]",
+      "old_color": 7298,
+      "new_color": 14626
+    }
+  ],
+  "reason": "Original formula used BYTE table+ID; native uses WORD table+2*ID. This is independent of observed results.",
+  "changed_paths": [
+    "expected_endpoint_arguments.center[1][5]",
+    "expected_endpoint_arguments.center[2][5]"
+  ],
+  "old_case_commitment": "7df5fcc042af9b7cb019c9d5522f38d32fda0d7423598181133065794f264830",
+  "new_case_commitment": "0045d571adbb19180c741435f4183ad4be4defae19a1f32119a050c7fc73e02f",
+  "immutable_inputs": [
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/manifest.json",
+      "sha256": "7d5d960d785db2d79156b8173540758ddb361bf3385a80edafa56c4e17784744"
+    },
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/ui_cases.py",
+      "sha256": "411dce1b6e017bc05402d1968804895e3b9bd7912d46c17d47faaaa6522503ca"
+    },
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/case-commitments.json",
+      "sha256": "9116278fd7366a47b20b5029f3368fa599c101c60be0ef0b82d5dfa763b2d8de"
+    },
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/native-evidence.json",
+      "sha256": "796c22a9b560ab979c81d605908ceea02d525168ab43bfbe18cc11e5e097d5f2"
+    },
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/runs/baseline-20261106-194410-124588/result.json",
+      "sha256": "7d9fecf1ffcd35bebf3414f7a40a921f49d1da5dc7407f51d0fb89586e972692"
+    },
+    {
+      "path": "build/actor-animal-following/cohort8-ui-origin-joint25/runs/baseline-20261106-194410-124588/case-inputs.json",
+      "sha256": "1aa12a3cf688a0789f1ceec253c8f4697b7a549d944f36014d877b539455ccb5"
+    }
+  ],
+  "source_evidence": {
+    "path": "src/unit_02431.c",
+    "historical_sha256": "28a9ee5248303fe9c3a2b08ad30fbbcb8198e0b3b6969c7977c2d9064d80e0bd",
+    "qualification": "Current DAT784CE0 is undefined4 and indexed with ID; native storage unit is WORD. No C source edit by this packet."
+  },
+  "execution_inputs_responses_order_counts_snapshots_final_memory_unchanged": true,
+  "replay_invoked": false,
+  "build_invoked": false,
+  "host_execution": false
+}
