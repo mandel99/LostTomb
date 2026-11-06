@@ -1,17 +1,9 @@
-#include "restore_types.h"
-#define DAT_00d3b550 (*(undefined *)0x00d3b550u)
-#define DAT_00d3b554 (*(undefined *)0x00d3b554u)
-#define DAT_00d3b558 (*(undefined *)0x00d3b558u)
-#define DAT_00d3b55c (*(undefined *)0x00d3b55cu)
-#define DAT_00e38dac (*(undefined *)0x00e38dacu)
-#define DAT_00e38db0 (*(undefined *)0x00e38db0u)
-
-void FUN_005370d0(void)
-
+#include "view_state_actions.h"
+uint32_t restore_view_snapshot_bounds_raw(void)
 {
-  DAT_00d3b558 = DAT_00e38db0;
-  DAT_00d3b55c = 0;
-  DAT_00d3b554 = 0;
-  DAT_00d3b550 = DAT_00e38dac;
-  return;
+ uint32_t height=VIEW_U(0xe38db0u),width=VIEW_U(0xe38dacu);
+ VIEW_U(0xd3b558u)=height;VIEW_U(0xd3b55cu)=0;
+ VIEW_U(0xd3b554u)=0;VIEW_U(0xd3b550u)=width;
+ return 0;
 }
+void FUN_005370d0(void){(void)restore_view_snapshot_bounds_raw();}

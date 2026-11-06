@@ -1,29 +1,16 @@
-#include "restore_types.h"
-#define DAT_00605a3c (*(undefined *)0x00605a3cu)
-#define DAT_0077de03 (*(undefined4 *)0x0077de03u)
-#define DAT_0077f6e6 (*(undefined4 *)0x0077f6e6u)
-#define DAT_00784f14 (*(undefined *)0x00784f14u)
-#define DAT_00784f18 (*(undefined *)0x00784f18u)
-#define DAT_00e38da4 (*(undefined *)0x00e38da4u)
-#define DAT_00e38da8 (*(undefined *)0x00e38da8u)
-#define DAT_00e38dac (*(undefined *)0x00e38dacu)
-#define DAT_00e38db0 (*(undefined *)0x00e38db0u)
-#define DAT_00e39088 (*(char *)0x00e39088u)
-#define DAT_00f56fb4 (*(undefined *)0x00f56fb4u)
-extern void FUN_004d6250();
-
-void FUN_0052d940(void)
-
+#include "view_state_actions.h"
+extern void FUN_004d6250(uint32_t,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t);
+void restore_view_draw_selected_entry(void)
 {
-  if (((DAT_00605a3c != 1) && (0 < DAT_00784f14)) &&
-     ((&DAT_0077f6e6)[DAT_00784f14 * 0x62] == '\x01')) {
-    if (DAT_00e39088 != '\0') {
-      FUN_004d6250(0x15,(&DAT_0077de03)[DAT_00784f18 * 0x6a],(DAT_00e38db0 + -0x14c) / 2,
-                   DAT_00e38dac + -0x76,0x14c,DAT_00f56fb4,0,DAT_00e38da8,DAT_00e38da4);
-      return;
-    }
-    FUN_004d6250(0xc3,(&DAT_0077de03)[DAT_00784f18 * 0x6a],(DAT_00e38db0 + -0x14c) / 2,
-                 DAT_00e38dac + -0x76,0x14c,DAT_00f56fb4,0,DAT_00e38da8,DAT_00e38da4);
-  }
-  return;
+ uint32_t selected,id,a4,a8,color,width,height,item;uint8_t active;
+ if (VIEW_U(0x605a3cu)==1) return;
+ selected=VIEW_U(0x784f14u);
+ if ((int32_t)selected<=0 || VIEW_B(0x77f6e6u+selected*98u)!=1) return;
+ active=VIEW_B(0xe39088u);id=active ? 21u : 195u;
+ a4=VIEW_U(0xe38da4u);a8=VIEW_U(0xe38da8u);color=VIEW_U(0xf56fb4u);
+ if (active) {width=VIEW_U(0xe38dacu);height=VIEW_U(0xe38db0u);}
+ else {height=VIEW_U(0xe38db0u);width=VIEW_U(0xe38dacu);}
+ item=VIEW_B(0x77de03u+VIEW_U(0x784f18u)*106u);
+ FUN_004d6250(id,item,(uint32_t)((int32_t)(height-332u)/2),width-118u,332,color,0,a8,a4);
 }
+void FUN_0052d940(void){restore_view_draw_selected_entry();}

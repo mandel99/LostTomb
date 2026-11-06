@@ -2676,3 +2676,13 @@ foreach(_monument_seek_target IN ITEMS restore_link_check restore_game restore_c
 endforeach()
 unset(_monument_seek_target)
 unset(_monument_seek_symbol)
+
+# View/state field units, typed render arguments and physical CRT read frame.
+set_source_files_properties(src/unit_00075.c src/unit_00079.c src/unit_00186.c src/unit_00214.c src/unit_01847.c src/unit_01931.c src/unit_01932.c src/unit_02408.c src/unit_02437.c src/unit_02442.c src/unit_02453.c src/unit_02471.c src/unit_02889.c src/unit_02912.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_view_read_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_view_read_symbol IN ITEMS FUN_00409fa0 FUN_0040b590 FUN_004168e0 FUN_00417e70 FUN_004d6070 FUN_004e2d80 FUN_004e2dd0 FUN_0052d940 FUN_005345a0 FUN_00536620 FUN_005370d0 FUN_005391e0 FUN_005647eb FUN_005660ed restore_view_activate_primary_action restore_view_toggle_primary_action restore_view_toggle_tool restore_view_enable_selection_flag restore_view_invalidate_if_pending restore_city_check_notice_92 restore_city_check_notice_93 restore_view_draw_selected_entry restore_view_draw_setting_toggle restore_view_draw_network_hint restore_view_snapshot_bounds_raw restore_view_close_video restore_crt_close restore_crt_read)
+  target_link_options(${_view_read_target} PRIVATE "/INCLUDE:_${_view_read_symbol}")
+ endforeach()
+endforeach()
+unset(_view_read_target)
+unset(_view_read_symbol)

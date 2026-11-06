@@ -1,131 +1,139 @@
-#include "restore_types.h"
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
-extern DWORD FUN_005662e3();
-extern void FUN_005672c8();
+#include "crt_lowio.h"
+#include "crt_eh3_frames.h"
+#include <windows.h>
 
-int FUN_005660ed(uint param_1,char *param_2,char *param_3)
+/* Native EBP-12..EBP-1. Count and tail are ReadFile output cells, not zeroed
+   locals. The three bytes before tail are never initialized or consumed. */
+typedef struct RestoreCrtReadFrame {
+ uint32_t transferred,total_or_end;
+ uint8_t untouched[3],tail;
+} RestoreCrtReadFrame;
+typedef char RestoreCrtReadFrameLayout[(sizeof(RestoreCrtReadFrame)==12 &&
+ offsetof(RestoreCrtReadFrame,transferred)==0 &&
+ offsetof(RestoreCrtReadFrame,total_or_end)==4 &&
+ offsetof(RestoreCrtReadFrame,tail)==11)?1:-1];
+#define READ_RECORD(slot,offset) ((volatile RestoreCrtLowioRecord *)(uintptr_t) \
+ ((uint32_t)(uintptr_t)*(slot)+(offset)))
+#define READ_BYTE(address) (*(volatile uint8_t *)(uintptr_t)(address))
+static void prepare_read(volatile RestoreCrtReadFrame *frame,
+ const volatile uint32_t *arguments,uint32_t saved_sp)
+{(void)frame;(void)arguments;(void)saved_sp;}
 
+static int32_t run_read(volatile RestoreCrtReadFrame *frame,
+ const volatile uint32_t *arguments,uint32_t parent_frame,uint32_t recovered)
 {
-  int *piVar1;
-  byte *pbVar2;
-  char cVar3;
-  byte bVar4;
-  BOOL BVar5;
-  DWORD DVar6;
-  int iVar7;
-  char *pcVar8;
-  DWORD local_10;
-  char *local_c;
-  char local_5;
-  
-  if (param_1 < DAT_01266a60) {
-    iVar7 = (param_1 & 0x1f) * 8;
-    piVar1 = &DAT_01266960 + ((int)param_1 >> 5);
-    bVar4 = *(byte *)((&DAT_01266960)[(int)param_1 >> 5] + iVar7 + 4);
-    if ((bVar4 & 1) != 0) {
-      local_c = (char *)0x0;
-      if ((param_3 == (char *)0x0) || ((bVar4 & 2) != 0)) {
-        return 0;
-      }
-      pcVar8 = param_2;
-      if (((bVar4 & 0x48) != 0) &&
-         (cVar3 = *(char *)((&DAT_01266960)[(int)param_1 >> 5] + iVar7 + 5), cVar3 != '\n')) {
-        param_3 = (char *)((int)param_3 - 1);
-        *param_2 = cVar3;
-        pcVar8 = param_2 + 1;
-        local_c = (char *)0x1;
-        *(undefined1 *)(*piVar1 + 5 + iVar7) = 10;
-      }
-      BVar5 = ReadFile(*(HANDLE *)(*piVar1 + iVar7),pcVar8,(DWORD)param_3,&local_10,
-                       (LPOVERLAPPED)0x0);
-      if (BVar5 == 0) {
-        DVar6 = GetLastError();
-        if (DVar6 == 5) {
-          _DAT_01266430 = 9;
-          DAT_01266434 = 5;
-          return -1;
-        }
-        if (DVar6 != 0x6d) {
-          FUN_005672c8(DVar6);
-          return -1;
-        }
-        return 0;
-      }
-      bVar4 = *(byte *)(*piVar1 + 4 + iVar7);
-      if ((bVar4 & 0x80) == 0) {
-        return (int)local_c + local_10;
-      }
-      if ((local_10 == 0) || (*param_2 != '\n')) {
-        bVar4 = bVar4 & 0xfb;
-      }
-      else {
-        bVar4 = bVar4 | 4;
-      }
-      *(byte *)(*piVar1 + 4 + iVar7) = bVar4;
-      param_3 = param_2;
-      local_c = param_2 + (int)local_c + local_10;
-      pcVar8 = param_2;
-      if (param_2 < local_c) {
-        do {
-          cVar3 = *param_3;
-          if (cVar3 == '\x1a') {
-            pbVar2 = (byte *)(*piVar1 + 4 + iVar7);
-            bVar4 = *pbVar2;
-            if ((bVar4 & 0x40) == 0) {
-              *pbVar2 = bVar4 | 2;
-            }
-            break;
-          }
-          if (cVar3 == '\r') {
-            if (param_3 < local_c + -1) {
-              if (param_3[1] == '\n') {
-                param_3 = param_3 + 2;
-                goto LAB_00566283;
-              }
-              *pcVar8 = '\r';
-              pcVar8 = pcVar8 + 1;
-              param_3 = param_3 + 1;
-            }
-            else {
-              param_3 = param_3 + 1;
-              BVar5 = ReadFile(*(HANDLE *)(*piVar1 + iVar7),&local_5,1,&local_10,(LPOVERLAPPED)0x0);
-              if (((BVar5 == 0) && (DVar6 = GetLastError(), DVar6 != 0)) || (local_10 == 0)) {
-LAB_0056629d: ;
-                *pcVar8 = '\r';
-LAB_005662a0: ;
-                pcVar8 = pcVar8 + 1;
-              }
-              else if ((*(byte *)(*piVar1 + 4 + iVar7) & 0x48) == 0) {
-                if ((pcVar8 == param_2) && (local_5 == '\n')) {
-LAB_00566283: ;
-                  *pcVar8 = '\n';
-                  goto LAB_005662a0;
-                }
-                FUN_005662e3(param_1,0xffffffff,1);
-                if (local_5 != '\n') goto LAB_0056629d;
-              }
-              else {
-                if (local_5 == '\n') goto LAB_00566283;
-                *pcVar8 = '\r';
-                pcVar8 = pcVar8 + 1;
-                *(char *)(*piVar1 + 5 + iVar7) = local_5;
-              }
-            }
-          }
-          else {
-            *pcVar8 = cVar3;
-            pcVar8 = pcVar8 + 1;
-            param_3 = param_3 + 1;
-          }
-        } while (param_3 < local_c);
-      }
-      return (int)pcVar8 - (int)param_2;
-    }
+ volatile uint32_t *a=(volatile uint32_t *)(uintptr_t)arguments;
+ uint32_t descriptor=a[0],offset,output,destination;
+ RestoreCrtLowioRecord *volatile *slot;
+ volatile RestoreCrtLowioRecord *record;
+ uint8_t flags;
+ (void)parent_frame;(void)recovered;
+ if(descriptor>=RESTORE_CRT_LOWIO_CAPACITY)goto invalid;
+ offset=(descriptor&31u)*8u;
+ slot=(RestoreCrtLowioRecord *volatile *)(uintptr_t)
+  ((uint32_t)(uintptr_t)RESTORE_CRT_LOWIO_BLOCKS+
+   (uint32_t)((int32_t)descriptor>>5)*4u);
+ record=READ_RECORD(slot,offset);
+ flags=record->flags;
+ if((flags&1u)==0)goto invalid;
+ frame->total_or_end=0;
+ output=a[1];
+ destination=output;
+ if(a[2]==0 || (flags&2u)!=0)return 0;
+ if((flags&0x48u)!=0){
+  uint8_t pending=record->text_state;
+  if(pending!=10){
+   --a[2];
+   READ_BYTE(output)=pending;
+   destination=output+1u;
+   frame->total_or_end=1;
+   READ_RECORD(slot,offset)->text_state=10;
   }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
+ }
+ if(!ReadFile((HANDLE)(uintptr_t)READ_RECORD(slot,offset)->handle,
+   (void *)(uintptr_t)destination,a[2],(LPDWORD)&frame->transferred,0)){
+  uint32_t error=GetLastError();
+  if(error==5){RESTORE_CRT_ERRNO=9;RESTORE_CRT_DOSERRNO=5;return -1;}
+  if(error==109)return 0;
+  FUN_005672c8(error);
   return -1;
+ }
+ record=READ_RECORD(slot,offset);
+ {
+  uint32_t transferred=frame->transferred;
+  frame->total_or_end+=transferred;
+  flags=record->flags;
+  if((flags&0x80u)==0)return (int32_t)frame->total_or_end;
+  if(transferred!=0 && READ_BYTE(output)==10)flags|=4u;
+  else flags&=0xfbu;
+  record->flags=flags;
+ }
+ /* The native count argument becomes the text input cursor; keep its actual
+    caller cell, while EDI/output retains the earlier buffer snapshot. */
+ a[2]=a[1];
+ frame->total_or_end+=a[1];
+ for(;;){
+  uint32_t end=frame->total_or_end;
+  uint8_t character;
+  if(a[2]>=end)break;
+  character=READ_BYTE(a[2]);
+  if(character==0x1a){
+   record=READ_RECORD(slot,offset);
+   flags=record->flags;
+   if((flags&0x40u)==0)record->flags=flags|2u;
+   break;
+  }
+  if(character!=13){
+   READ_BYTE(output)=character;
+   ++output;
+   ++a[2];
+  }else if(a[2]<end-1u){
+   uint32_t next=a[2]+1u;
+   if(READ_BYTE(next)==10){
+    a[2]+=2u;
+    READ_BYTE(output)=10;
+    ++output;
+   }else{
+    READ_BYTE(output)=13;
+    ++output;
+    a[2]=next;
+   }
+  }else{
+   BOOL ok;
+   ++a[2];
+   ok=ReadFile((HANDLE)(uintptr_t)READ_RECORD(slot,offset)->handle,
+    (void *)&frame->tail,1,(LPDWORD)&frame->transferred,0);
+   if((!ok && GetLastError()!=0) || frame->transferred==0){
+    READ_BYTE(output)=13;
+    ++output;
+   }else if((READ_RECORD(slot,offset)->flags&0x48u)!=0){
+    uint8_t tail=frame->tail;
+    if(tail==10){READ_BYTE(output)=10;++output;}
+    else{
+     READ_BYTE(output)=13;
+     ++output;
+     READ_RECORD(slot,offset)->text_state=tail;
+    }
+   }else if(output==a[1] && frame->tail==10){
+    READ_BYTE(output)=10;
+    ++output;
+   }else{
+    (void)FUN_005662e3(a[0],-1,1);
+    if(frame->tail!=10){READ_BYTE(output)=13;++output;}
+   }
+  }
+ }
+ frame->total_or_end=output-a[1];
+ return (int32_t)frame->total_or_end;
+invalid:
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return -1;
 }
+RESTORE_EH3_PARENT(restore_crt_read,int32_t,
+ (uint32_t descriptor,uint8_t *buffer,uint32_t count),12,prepare_read,run_read)
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) int32_t FUN_005660ed(uint32_t descriptor,uint8_t *buffer,uint32_t count)
+{__asm jmp restore_crt_read}
+#pragma warning(pop)

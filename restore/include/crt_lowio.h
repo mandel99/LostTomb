@@ -31,4 +31,8 @@ int32_t restore_crt_file_length(uint32_t descriptor);
 int32_t FUN_0056b1b6(uint32_t descriptor);
 void restore_crt_translate_os_error(uint32_t error);
 void FUN_005672c8(uint32_t error);
+int32_t restore_crt_close(uint32_t descriptor);
+int32_t FUN_005647eb(uint32_t descriptor);
+int32_t restore_crt_read(uint32_t descriptor,uint8_t *buffer,uint32_t count);
+int32_t FUN_005660ed(uint32_t descriptor,uint8_t *buffer,uint32_t count);
 #endif

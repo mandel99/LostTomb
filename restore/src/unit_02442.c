@@ -1,20 +1,13 @@
-#include "restore_types.h"
-#define DAT_00e38da4 (*(undefined *)0x00e38da4u)
-#define DAT_00f53f68 (*(undefined *)0x00f53f68u)
-#define DAT_00f56f8c (*(undefined *)0x00f56f8cu)
-#define s_Network_info__F2__005f8f28 (*(char (*)[18])0x005f8f28u)
-extern void FUN_004cc720();
-extern void FUN_00536dc0();
-
-void FUN_00536620(void)
-
+#include "view_state_actions.h"
+#include "menu_building_overlay.h"
+#include "menu_text_glyph.h"
+void restore_view_draw_network_hint(void)
 {
-  int iVar1;
-  
-  if (DAT_00f53f68 != 0) {
-    iVar1 = DAT_00e38da4 * 2;
-    FUN_00536dc0(6,0,iVar1 + 0xdc,0xc,0xf,1);
-    FUN_004cc720(s_Network_info__F2__005f8f28,0,iVar1 + 0xe2,0xc0,DAT_00f56f8c,0xffff);
-  }
-  return;
+ uint32_t position,color;
+ if (VIEW_U(0xf53f68u)==0) return;
+ position=VIEW_U(0xe38da4u)*2u+220u;
+ FUN_00536dc0(6,0,(int32_t)position,12,15,1);
+ color=VIEW_U(0xf56f8cu);
+ FUN_004cc720((const uint8_t *)0x5f8f28u,0,(int32_t)(position+6u),192,(int32_t)color,65535);
 }
+void FUN_00536620(void){restore_view_draw_network_hint();}
