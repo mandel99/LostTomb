@@ -1,0 +1,254 @@
+{
+  "schema": "cohort7-joint-filelist-protocol-v1",
+  "native_image": {
+    "path": "build/smoke-game/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "strict_source_guards": {
+    "src/unit_00269.c": "48ca7583a2eeee2634e72879e9297cbc68eab8d35ce914c4fe1e59e3478bf464",
+    "src/unit_00270.c": "4d092db3aeb31286cb21eab9694f1b2198c1e31b3726635579a5738fcb19127a",
+    "include/file_list.h": "e52bbb4ed0a86430aaf28c530b9b724cb6c35c062b36247d43de81a32dca4de1",
+    "runtime/file_list_platform_win32.c": "06dd54001eead8d666901b34ca205ea069b366b94946c3713f4f965ab685920d",
+    "include/restore_types.h": "9bad148db813e8b32f07e734ec88526b98a0abb6de7a5667c8014a7e4ab2401e",
+    "direct_c/cohort3_replay/replay.py": "3ec291c2f3ddfae8622198c229beb9fe0a3a30b655e96097858858eb09074ef1",
+    "direct_c/cohort3_replay/registry.py": "96542ac8edaa3d3bbf9b06eeea780cff1b4e89c907e674210aa2a74bb010fdbb",
+    "build/actor-animal-following/cohort7-remaining-inputs/native-evidence.json": "9ed76dca8dd5dd0c2fbd27ab0992598b11ab4a5a9b120f83d3d1809017dea045",
+    "build/actor-animal-following/cohort7-remaining-inputs/joint-comparison-contract.json": "a49757e2665c61cadcb4cbb155a9b1835b71ade5c0401b1c0698833de3bef862"
+  },
+  "native_members": [
+    {
+      "address": "0x0041c740",
+      "start": "0041c740",
+      "end": "0041c8ed",
+      "instructions": 156,
+      "byte_count": 430,
+      "bytes_sha256": "78d00f474cb1029927a16365a4d4061a7a7adfe36fe899b66295a30a36317a03",
+      "native_ret_immediates": [
+        8
+      ]
+    },
+    {
+      "address": "0x0041c8f0",
+      "start": "0041c8f0",
+      "end": "0041ca03",
+      "instructions": 95,
+      "byte_count": 276,
+      "bytes_sha256": "212d44c9d8c3b81fd637ec059f58cd4cdb7d70401d5d8cdbaaaae484da9e20af",
+      "native_ret_immediates": [
+        12
+      ]
+    }
+  ],
+  "entry": {
+    "address": "0x0041c740",
+    "native": "ECX=self; [ESP+4]=path pointer DWORD; low BYTE [ESP+8]=append; RET8",
+    "named": "FUN_0041c740(self,path,append), three cdecl DWORD slots, caller cleanup12",
+    "canonical": "FUN_0041c740(self,path,append), same normalized three-argument cdecl API",
+    "return_contract": "AL only; compare mask0xFF against authored0/1. No invented incoming EAX, upper24 or flags contract.",
+    "nonvolatile": "Existing shared runner checks EBX/EBP/ESI/EDI and per-route ESP cleanup.",
+    "applicable_invocations_per_case": 7
+  },
+  "real_children": [
+    {
+      "address": "0x0041c8f0",
+      "native": "ECX=self; path/bytes-output/files-output stack DWORDs; RET12",
+      "compiled": "FUN_0041c8f0(self,path,bytes-output,files-output), explicit-self cdecl4",
+      "behavior": "Actual native/C enumeration algorithm executes; ephemeral output pointers stay private to their callers."
+    }
+  ],
+  "endpoints": [
+    {
+      "token": "find-first",
+      "native_slot": "0x0056f058",
+      "import_name": "FindFirstFileA",
+      "signature": "HANDLE stdcall(LPCSTR,WIN32_FIND_DATAA*)",
+      "arity": 2,
+      "cleanup": 8
+    },
+    {
+      "token": "find-next",
+      "native_slot": "0x0056f05c",
+      "import_name": "FindNextFileA",
+      "signature": "BOOL stdcall(HANDLE,WIN32_FIND_DATAA*)",
+      "arity": 2,
+      "cleanup": 8
+    },
+    {
+      "token": "find-close",
+      "native_slot": "0x0056f128",
+      "import_name": "FindClose",
+      "signature": "BOOL stdcall(HANDLE)",
+      "arity": 1,
+      "cleanup": 4
+    },
+    {
+      "token": "allocate",
+      "native": "0x00561a1d",
+      "compiled": "FUN_00561a1d",
+      "signature": "pointer DWORD cdecl(size DWORD)",
+      "cleanup": 0
+    },
+    {
+      "token": "delete",
+      "native": "0x00561a2b",
+      "compiled": "FUN_00561a2b",
+      "signature": "logical void cdecl(pointer DWORD)",
+      "cleanup": 0
+    }
+  ],
+  "endpoint_semantics": {
+    "enumeration": "WIN32_FIND_DATAA.cFileName begins at+44. Controlled APIs write only filename+NUL into the actual native/C private output object; pointer normalization uses existing pointer_args role.",
+    "allocator": "Preseeded mapped blocks returned as DWORDs. Allocation failure returns0. Delete records the pointer and leaves mapped bytes intact, including both releases of the same old offset pointer.",
+    "volatility": "Endpoint models may clobber ECX/EDX; actual nonvolatile registers and control stack remain preserved.",
+    "observation": "Every endpoint snapshots self7 DWORDs and first8 DWORDs of old/new offsets and old/new strings. All six watched blocks also have authored final bytes including untouched canaries."
+  },
+  "cached_instruction_proof": [
+    "41C859 delete(old self+4);41C861 zero only capacity self+0xC;41C877 allocate;41C885 recheck unchanged self+4;41C8AA delete(old self+4) again;41C8B2 publish replacement.",
+    "41C7CA string delete is followed by41C7D6 self+0x10=0 and41C7D9 capacity=0. This genuinely differs from offset growth.",
+    "41C893..41C8A4 copies existing offset count DWORDs before second delete;41C818/41C81F copy used string DWORDs and remainder BYTEs before delete.",
+    "41C781/41C8CE TEST AL;41C8D9 MOV AL,1 and41C8E5 XOR AL,AL establish logical byte success/failure."
+  ],
+  "shared_integration": {
+    "destination": "direct_c/cohort3_replay/cohort7_joint_filelist_cases.py",
+    "register_import": "from cohort7_joint_filelist_cases import definitions as cohort7_joint_filelist_definitions",
+    "register_extend": "out.extend(cohort7_joint_filelist_definitions(registry))",
+    "cases_py_reviewed_sha256": "065d38310d048ff5e691d5edc65244a0366e914f92024e5bc42b57a925b67bca",
+    "cases_py_guard_note": "Registration intentionally changes cases.py; its reviewed pre-integration hash is provenance only, not a strict post-integration guard.",
+    "runner_changes_required": false,
+    "guard": "guard.py validates inputs/recipes without execution; optional --report checks all authored endpoint sequences and snapshots from an already-completed shared replay."
+  },
+  "scenarios": [
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-repeated-offset-delete",
+      "expected_AL": 1,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close",
+        "delete",
+        "allocate",
+        "delete",
+        "find-first",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-offset-allocation-failure",
+      "expected_AL": 0,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close",
+        "delete",
+        "allocate"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/append-offset-copy",
+      "expected_AL": 1,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-next",
+        "find-next",
+        "find-close",
+        "allocate",
+        "delete",
+        "find-first",
+        "find-next",
+        "find-next",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/append-string-DWORD-and-tail-copy",
+      "expected_AL": 1,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-next",
+        "find-close",
+        "allocate",
+        "delete",
+        "find-first",
+        "find-next",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-string-growth-clears-pointer",
+      "expected_AL": 1,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close",
+        "delete",
+        "allocate",
+        "find-first",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-string-allocation-failure",
+      "expected_AL": 0,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close",
+        "delete",
+        "allocate"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/append-rejected-but-total-count-fits-no-growth",
+      "expected_AL": 0,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-first-enumeration-success",
+      "expected_AL": 1,
+      "endpoint_order": [
+        "find-first",
+        "find-next",
+        "find-close"
+      ],
+      "invocations": 7
+    },
+    {
+      "id": "c7-joint-filelist/0041c740/nonappend-no-files",
+      "expected_AL": 0,
+      "endpoint_order": [
+        "find-first"
+      ],
+      "invocations": 7
+    }
+  ],
+  "planned_cases": 9,
+  "planned_invocations": 63,
+  "execution_performed": false,
+  "coverage_limits": [
+    "Only41C740 is the selected comparison entry; real41C8F0 child executes in these fixtures but receives no new independent-entry coverage credit.",
+    "Real filesystem enumeration, host allocation/free, allocation reuse and OS error behavior are replaced by declared controlled endpoints.",
+    "Each successful enumeration pass returns one to three short filenames. Long strings, filename overflow, enormous counts/overflow, signed nonpositive allocation size, simultaneous string+offset growth, and exceptional/unwind behavior remain outside these nine cases.",
+    "No full EAX, volatile-register or flags equivalence is asserted. Finite offline cases do not establish complete gameplay equivalence."
+  ],
+  "public_source_edits": false,
+  "builds_run": false,
+  "replay_run": false,
+  "host_execution": false
+}

@@ -321,10 +321,20 @@
       "source": "src/unit_00269.c",
       "source_sha256": "48ca7583a2eeee2634e72879e9297cbc68eab8d35ce914c4fe1e59e3478bf464",
       "logical_signature": "uint8 cdecl3 explicit-self API; native member RET8",
-      "existing_shared_case_ids": [],
-      "joint_current_image_executed": false,
+      "existing_shared_case_ids": [
+        "c7-joint-filelist/0041c740/nonappend-repeated-offset-delete",
+        "c7-joint-filelist/0041c740/nonappend-offset-allocation-failure",
+        "c7-joint-filelist/0041c740/append-offset-copy",
+        "c7-joint-filelist/0041c740/append-string-DWORD-and-tail-copy",
+        "c7-joint-filelist/0041c740/nonappend-string-growth-clears-pointer",
+        "c7-joint-filelist/0041c740/nonappend-string-allocation-failure",
+        "c7-joint-filelist/0041c740/append-rejected-but-total-count-fits-no-growth",
+        "c7-joint-filelist/0041c740/nonappend-first-enumeration-success",
+        "c7-joint-filelist/0041c740/nonappend-no-files"
+      ],
+      "joint_current_image_executed": true,
       "native_catalogue_entry_present": true,
-      "status": "no_unified_case_yet"
+      "status": "focused_current_image_allocation_enumeration_comparison_passed_expanded_domains_pending"
     },
     {
       "address": "0x53e590",
@@ -1827,8 +1837,8 @@
       "status": "unified_recipes_exist_matrix_and_fresh_joint_replay_pending"
     }
   ],
-  "existing_shared_case_count": 590,
-  "existing_shared_entry_count": 99,
+  "existing_shared_case_count": 599,
+  "existing_shared_entry_count": 100,
   "unified_case_gaps": [
     {
       "address": "0x406460",
@@ -1844,8 +1854,12 @@
     },
     {
       "address": "0x41c740",
-      "status": "previously_deferred_no_executed_correction_comparison",
-      "required": "Native delete/allocate/delete order, append and string growth, allocation failure and AL/self/RET8 normalization"
+      "status": "focused_current_image_allocation_enumeration_comparison_passed",
+      "required": "Native delete/allocate/delete order, append and string growth, allocation failure and AL/self/RET8 normalization",
+      "comparison": {
+        "path": "metadata/cohort7-joint-filelist-comparison.json",
+        "sha256": "5670af55d311c84e14869ede1e53a61a69f8ea05191a7db0fadb8dc9eaf65b85"
+      }
     },
     {
       "address": "0x53e590",
@@ -1920,7 +1934,11 @@
       "native_category": "existing_C_preserved",
       "required_for_cohort_gate": true,
       "behavior_verified": false,
-      "status": "existing_C_contract_review_is_not_behavior_proof_current_image_cases_pending"
+      "status": "actual_child_executed_in_parent_focused_cases_independent_entry_domains_pending",
+      "parent_comparison": {
+        "path": "metadata/cohort7-joint-filelist-comparison.json",
+        "sha256": "5670af55d311c84e14869ede1e53a61a69f8ea05191a7db0fadb8dc9eaf65b85"
+      }
     },
     {
       "address": "0x41df70",
@@ -2592,7 +2610,11 @@
       "native_category": "existing_C_preserved",
       "required_for_cohort_gate": true,
       "behavior_verified": false,
-      "status": "existing_C_contract_review_is_not_behavior_proof_current_image_cases_pending"
+      "status": "actual_child_executed_in_parent_focused_cases_independent_entry_domains_pending",
+      "parent_comparison": {
+        "path": "metadata/cohort7-joint-sprite-path-comparison.json",
+        "sha256": "9086c06240ce4745afb138e487c17ddedb1ed92dd4d856e43238d04c42d2eefd"
+      }
     },
     {
       "address": "0x542ee0",
@@ -4022,7 +4044,7 @@
   "host_execution": false,
   "runner_contracts": {
     "path": "metadata/cohort7-joint-runner-contracts.json",
-    "sha256": "02dc0f188029314e65498073cc88619b4b245e1f3572b01ae2040b54eb978092"
+    "sha256": "98d5de66420a82289a7575c5f67462007d7ad6f0682fcea9a97f37786dbe9dc2"
   },
   "sprite_focused_case_ids": [
     "c7-joint-sprite/0053e590/global/direct-success",
@@ -4063,5 +4085,9 @@
   "storage_focused_execution": {
     "path": "metadata/cohort7-joint-storage-comparison.json",
     "sha256": "2638797a20e797b76b7b2882facb50e8bd8558f1ea5ef3f9ac7c4b1c59012ec0"
+  },
+  "filelist_focused_execution": {
+    "path": "metadata/cohort7-joint-filelist-comparison.json",
+    "sha256": "5670af55d311c84e14869ede1e53a61a69f8ea05191a7db0fadb8dc9eaf65b85"
   }
 }
