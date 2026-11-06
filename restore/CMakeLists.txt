@@ -2705,3 +2705,76 @@ set_source_files_properties(runtime/quicktime_dispatch.c
  src/unit_02727.c src/unit_02728.c src/unit_02729.c src/unit_02730.c
  src/unit_02731.c src/unit_02732.c src/unit_02733.c src/unit_02734.c src/unit_02735.c
  PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+
+# Cohort8 native scalar views: promote the50 clean canonical sources.
+# Other touched legacy bodies retain their existing flags; exact baseline
+# diagnostics are recorded separately, with no new diagnostics introduced.
+set_source_files_properties(
+ src/unit_00185.c
+ src/unit_00215.c
+ src/unit_00216.c
+ src/unit_00217.c
+ src/unit_00218.c
+ src/unit_00679.c
+ src/unit_02383.c
+ src/unit_02386.c
+ src/unit_02406.c
+ src/unit_02409.c
+ src/unit_02418.c
+ src/unit_02430.c
+ src/unit_02432.c
+ src/unit_02463.c
+ src/unit_00335.c
+ src/unit_00423.c
+ src/unit_00426.c
+ src/unit_00663.c
+ src/unit_00667.c
+ src/unit_00992.c
+ src/unit_00996.c
+ src/unit_00997.c
+ src/unit_00998.c
+ src/unit_00999.c
+ src/unit_01501.c
+ src/unit_01530.c
+ src/unit_01607.c
+ src/unit_01813.c
+ src/unit_02100.c
+ src/unit_02170.c
+ src/unit_02255.c
+ src/unit_02380.c
+ src/unit_02381.c
+ src/unit_02382.c
+ src/unit_02384.c
+ src/unit_02385.c
+ src/unit_02459.c
+ src/unit_02460.c
+ src/unit_02507.c
+ src/unit_00074.c
+ src/unit_00730.c
+ src/unit_01599.c
+ src/unit_01912.c
+ src/unit_00188.c
+ src/unit_01207.c
+ src/unit_01208.c
+ src/unit_01251.c
+ src/unit_01889.c
+ src/unit_02147.c
+ src/unit_02149.c
+ PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/Ob0;/GS;/std:c11")
+
+# Cohort8 retain9: existing canonical definitions removed by /OPT:REF.
+# Keep only the comparison target; algorithm bodies and runtime routes are reused.
+foreach(_cohort8_existing_symbol IN ITEMS
+ FUN_00420550
+ FUN_004269b0
+ FUN_004867e0
+ FUN_004c42b0
+ FUN_004eef10
+ FUN_004f4320
+ FUN_004f4440
+ FUN_004f5770
+ FUN_00508e00
+)
+ target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort8_existing_symbol}")
+endforeach()
+unset(_cohort8_existing_symbol)

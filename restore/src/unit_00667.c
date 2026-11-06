@@ -7,7 +7,7 @@
 #define DAT_00ea5fe8 (*(undefined4 *)0x00ea5fe8u)
 #define DAT_00ea5fec (*(undefined4 *)0x00ea5fecu)
 #define DAT_00ea5ff0 (*(undefined4 *)0x00ea5ff0u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
+#define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 
 void FUN_004474e0(void)
 

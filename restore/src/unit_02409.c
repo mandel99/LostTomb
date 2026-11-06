@@ -2,8 +2,8 @@
 #define DAT_005d2e88 (*(undefined *)0x005d2e88u)
 #define DAT_0077f748 (*(undefined4 *)0x0077f748u)
 #define DAT_00784f14 (*(undefined *)0x00784f14u)
-#define DAT_00e38da4 (*(undefined *)0x00e38da4u)
-#define DAT_00e38da8 (*(undefined *)0x00e38da8u)
+#define DAT_00e38da4 (*(int32_t *)0x00e38da4u)
+#define DAT_00e38da8 (*(int32_t *)0x00e38da8u)
 #define DAT_00e38dac (*(undefined *)0x00e38dacu)
 #define DAT_00f56f8c (*(undefined *)0x00f56f8cu)
 extern void FUN_004d6250();

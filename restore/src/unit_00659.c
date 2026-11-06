@@ -2,7 +2,7 @@
 #define DAT_00785d70 (*(undefined *)0x00785d70u)
 #define DAT_00785d74 (*(undefined4 *)0x00785d74u)
 #define DAT_00ea61fc (*(undefined4 *)0x00ea61fcu)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
+#define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 extern int FUN_004b8360();
 extern void FUN_004b8890();
 extern int FUN_004cde60();

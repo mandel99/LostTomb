@@ -9,7 +9,7 @@
 #define DAT_00bc9804 (*(undefined4 *)0x00bc9804u)
 #define DAT_00bc9b94 (*(undefined4 *)0x00bc9b94u)
 #define DAT_00bc9f24 (*(undefined4 *)0x00bc9f24u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
+#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
 #define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
 #define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
 #define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
@@ -92,8 +92,8 @@ LAB_0048695e: ;
     if ((local_10 != 0) &&
        (iVar2 = FUN_005190a0(param_1,param_2,&DAT_0096e6b4,local_10), iVar2 != 0)) {
 LAB_004869bd: ;
-      _DAT_00d3b4e4 = ((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8) % 0xe4;
-      _DAT_00d3b4e0 = ((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8) / 0xe4;
+      _DAT_00d3b4e4 = ((int32_t)((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8)) % 0xe4;
+      _DAT_00d3b4e0 = ((int32_t)((&DAT_0096e6b0)[iVar2] - DAT_00bca2d8)) / 0xe4;
       return 1;
     }
   }

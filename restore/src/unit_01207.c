@@ -1,11 +1,11 @@
 #include "restore_types.h"
-#define DAT_00b67d1c (*(undefined4 *)0x00b67d1cu)
-#define DAT_00bc9768 (*(undefined *)0x00bc9768u)
-#define DAT_00bca2d0 (*(undefined *)0x00bca2d0u)
-#define DAT_00bca2d4 (*(undefined *)0x00bca2d4u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
-#define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
-#define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
+#define DAT_00b67d1c (*(uint8_t *)0x00b67d1cu)
+#define DAT_00bc9768 (*(uint32_t *)0x00bc9768u)
+#define DAT_00bca2d0 (*(int32_t *)0x00bca2d0u)
+#define DAT_00bca2d4 (*(int32_t *)0x00bca2d4u)
+#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
+#define _DAT_00d3b4e0 (*(int32_t *)0x00d3b4e0u)
+#define _DAT_00d3b4e4 (*(int32_t *)0x00d3b4e4u)
 
 void FUN_00482a90(int param_1,int param_2,int param_3,int param_4)
 

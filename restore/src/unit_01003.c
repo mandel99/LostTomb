@@ -1,5 +1,5 @@
 #include "restore_types.h"
-#define DAT_0078d790 (*(undefined *)0x0078d790u)
+#define DAT_0078d790 (*(int32_t *)0x0078d790u)
 #define DAT_00799baa (*(undefined4 *)0x00799baau)
 #define DAT_00eaaf68 (*(undefined4 *)0x00eaaf68u)
 #define DAT_00eab044 (*(undefined4 *)0x00eab044u)

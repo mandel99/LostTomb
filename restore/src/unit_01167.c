@@ -3,9 +3,9 @@
 #define DAT_007999e0 (*(undefined4 *)0x007999e0u)
 #define DAT_00799a17 (*(undefined4 *)0x00799a17u)
 #define DAT_00b4e6fc (*(undefined4 *)0x00b4e6fcu)
-#define DAT_00bca2d0 (*(undefined *)0x00bca2d0u)
-#define DAT_00bca2d4 (*(undefined *)0x00bca2d4u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
+#define DAT_00bca2d0 (*(int32_t *)0x00bca2d0u)
+#define DAT_00bca2d4 (*(int32_t *)0x00bca2d4u)
+#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
 #define _DAT_00d3b4e0 (*(undefined4 *)0x00d3b4e0u)
 #define _DAT_00d3b4e4 (*(undefined4 *)0x00d3b4e4u)
 

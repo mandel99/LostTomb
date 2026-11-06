@@ -2,9 +2,9 @@
 #define DAT_00af598c (*(undefined4 *)0x00af598cu)
 #define DAT_00b350dc (*(undefined4 *)0x00b350dcu)
 #define DAT_00bc9768 (*(undefined *)0x00bc9768u)
-#define DAT_00bca2d0 (*(undefined *)0x00bca2d0u)
-#define DAT_00bca2d4 (*(undefined *)0x00bca2d4u)
-#define DAT_00bca2d8 (*(undefined *)0x00bca2d8u)
+#define DAT_00bca2d0 (*(int32_t *)0x00bca2d0u)
+#define DAT_00bca2d4 (*(int32_t *)0x00bca2d4u)
+#define DAT_00bca2d8 (*(uint32_t *)0x00bca2d8u)
 #define DAT_00bcd600 (*(undefined4 *)0x00bcd600u)
 #define DAT_00bcd602 (*(undefined4 *)0x00bcd602u)
 

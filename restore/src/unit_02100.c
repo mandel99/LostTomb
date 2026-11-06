@@ -11,7 +11,7 @@
 #define DAT_00bcd620 (*(undefined4 *)0x00bcd620u)
 #define DAT_00bcd62e (*(undefined4 *)0x00bcd62eu)
 #define DAT_00bcd630 (*(undefined4 *)0x00bcd630u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
+#define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 #define DAT_00eaae8c (*(undefined *)0x00eaae8cu)
 #define DAT_00eaae90 (*(undefined *)0x00eaae90u)
 extern int FUN_0046a400();

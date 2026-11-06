@@ -11,7 +11,7 @@
 #define DAT_00799a58 (*(undefined4 *)0x00799a58u)
 #define DAT_00799a75 (*(undefined4 *)0x00799a75u)
 #define DAT_00ea41f8 (*(undefined4 *)0x00ea41f8u)
-#define DAT_00eaac28 (*(undefined1 *)0x00eaac28u)
+#define DAT_00eaac28 (*(uint32_t *)0x00eaac28u)
 
 void FUN_004d3da0(void)
 
