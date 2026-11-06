@@ -24,6 +24,8 @@ from cohort7_translation_cases import definitions as cohort7_translation_definit
 from cohort7_eh3_cases import definitions as cohort7_eh3_definitions
 SCRATCH=0x32000000
 
+from cohort7_startup_cases import definitions as cohort7_startup_definitions
+
 def definitions(registry):
  out=[]
  for m in registry['members']:
@@ -70,6 +72,7 @@ def definitions(registry):
  out.extend(cohort6_laborer_definitions(registry))
  out.extend(cohort7_translation_definitions(registry))
  out.extend(cohort7_eh3_definitions(registry))
+ out.extend(cohort7_startup_definitions(registry))
  constructors={0x5605fa,0x560648,0x560671,0x5606a0,0x560f02,0x5609da,0x560d22,0x5611c8,0x56123e,0x561278}
  for c in out:
   if c['id'].startswith('formatter/'):

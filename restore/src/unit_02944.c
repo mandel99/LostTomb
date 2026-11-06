@@ -1,12 +1,15 @@
 #include "restore_types.h"
-#define DAT_0126669c (*(undefined *)0x0126669cu)
-extern void * FUN_00561b68();
-extern void FUN_00561bdc();
-extern undefined4 * FUN_00563400();
+#define CRT_ENVIRONMENT_MODE (*(volatile uint32_t *)0x0126669cu)
+extern void * __cdecl FUN_00561b68(size_t bytes);
+extern void FUN_00561bdc(void *allocation);
+extern undefined4 * FUN_00563400(undefined4 *destination,undefined4 *source,uint32_t bytes);
 
-LPSTR FUN_00567c9a(void)
+/* Preserve the recovered acquisition, conversion and release branches. Native
+   mode selection is a DWORD; both successful paths return an owned byte block. */
+LPSTR restore_crt_acquire_environment_block(void)
 
 {
+  uint32_t mode = CRT_ENVIRONMENT_MODE;
   char cVar1;
   WCHAR WVar2;
   WCHAR *pWVar3;
@@ -22,10 +25,10 @@ LPSTR FUN_00567c9a(void)
   
   lpWideCharStr = (LPWCH)0x0;
   pCVar9 = (LPCH)0x0;
-  if (DAT_0126669c == 0) {
+  if (mode == 0) {
     lpWideCharStr = GetEnvironmentStringsW();
     if (lpWideCharStr != (LPWCH)0x0) {
-      DAT_0126669c = 1;
+      CRT_ENVIRONMENT_MODE = 1;
 LAB_00567cf1: ;
       if ((lpWideCharStr == (LPWCH)0x0) &&
          (lpWideCharStr = GetEnvironmentStringsW(), lpWideCharStr == (LPWCH)0x0)) {
@@ -41,7 +44,8 @@ LAB_00567cf1: ;
         pWVar4 = pWVar3 + 2;
         WVar2 = *pWVar4;
       }
-      iVar5 = ((int)pWVar4 - (int)lpWideCharStr >> 1) + 1;
+      iVar5 = ((int32_t)((uint32_t)(uintptr_t)pWVar4 -
+                        (uint32_t)(uintptr_t)lpWideCharStr) >> 1) + 1;
       _Size = WideCharToMultiByte(0,0,lpWideCharStr,iVar5,(LPSTR)0x0,0,(LPCSTR)0x0,(LPBOOL)0x0);
       local_8 = (LPSTR)0x0;
       if (((_Size != 0) && (pCVar6 = FUN_00561b68(_Size), pCVar6 != (LPSTR)0x0)) &&
@@ -57,11 +61,11 @@ LAB_00567cf1: ;
     if (pCVar9 == (LPCH)0x0) {
       return (LPSTR)0x0;
     }
-    DAT_0126669c = 2;
+    CRT_ENVIRONMENT_MODE = 2;
   }
   else {
-    if (DAT_0126669c == 1) goto LAB_00567cf1;
-    if (DAT_0126669c != 2) {
+    if (mode == 1) goto LAB_00567cf1;
+    if (mode != 2) {
       return (LPSTR)0x0;
     }
   }
@@ -78,13 +82,19 @@ LAB_00567cf1: ;
     pcVar7 = pcVar8 + 2;
     cVar1 = *pcVar7;
   }
-  pCVar6 = FUN_00561b68((size_t)(pcVar7 + (1 - (int)pCVar9)));
+  _Size = (uint32_t)(uintptr_t)pcVar7 - (uint32_t)(uintptr_t)pCVar9 + 1u;
+  pCVar6 = FUN_00561b68(_Size);
   if (pCVar6 == (LPSTR)0x0) {
     pCVar6 = (LPSTR)0x0;
   }
   else {
-    FUN_00563400(pCVar6,pCVar9,pcVar7 + (1 - (int)pCVar9));
+    (void)FUN_00563400((undefined4 *)pCVar6,(undefined4 *)pCVar9,(uint32_t)_Size);
   }
   FreeEnvironmentStringsA(pCVar9);
   return pCVar6;
+}
+
+LPSTR FUN_00567c9a(void)
+{
+  return restore_crt_acquire_environment_block();
 }

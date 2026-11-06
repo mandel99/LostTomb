@@ -1,39 +1,24 @@
-#include "restore_types.h"
-#define DAT_01266598 (*(undefined4 *)0x01266598u)
-#define DAT_01266a84 (*(undefined *)0x01266a84u)
-#define DAT_01267aa4 (*(undefined *)0x01267aa4u)
-#define _DAT_0126644c (*(undefined4 *)0x0126644cu)
-#define _DAT_01266450 (*(undefined4 *)0x01266450u)
-#define _DAT_01266468 (*(undefined4 *)0x01266468u)
-extern void * FUN_00561b68();
-extern void FUN_005630e0();
-extern void FUN_00567ae6();
-extern void FUN_00569bf5();
+#include "crt_startup_arguments.h"
+#include "crt_runtime_tail.h"
+void *FUN_00561b68(size_t bytes);
 
-void FUN_00567a4d(void)
-
+void restore_crt_initialize_arguments(void)
 {
-  void *pvVar1;
-  char *pcVar2;
-  int local_c;
-  int local_8;
-  
-  if (DAT_01266a84 == 0) {
-    FUN_00569bf5();
-  }
-  GetModuleFileNameA((HMODULE)0x0,&DAT_01266598,0x104);
-  _DAT_01266468 = &DAT_01266598;
-  pcVar2 = &DAT_01266598;
-  if (*(undefined4 *)(DAT_01267aa4) != '\0') {
-    pcVar2 = DAT_01267aa4;
-  }
-  FUN_00567ae6(pcVar2,0,0,&local_8,&local_c);
-  pvVar1 = FUN_00561b68(local_c + local_8 * 4);
-  if (pvVar1 == (void *)0x0) {
-    FUN_005630e0(8);
-  }
-  FUN_00567ae6(pcVar2,pvVar1,(void *)((int)pvVar1 + local_8 * 4),&local_8,&local_c);
-  _DAT_01266450 = pvVar1;
-  _DAT_0126644c = local_8 + -1;
-  return;
+ uint8_t *source,*command_line;
+ uint8_t **arguments;
+ uint32_t pointer_count,character_count;
+ if(RESTORE_CRT_MB_INITIALIZED==0)FUN_00569bf5();
+ (void)GetModuleFileNameA(0,(LPSTR)RESTORE_CRT_MODULE_NAME,0x104u);
+ command_line=RESTORE_CRT_COMMAND_LINE;
+ RESTORE_CRT_PROGRAM_NAME=RESTORE_CRT_MODULE_NAME;
+ source=RESTORE_CRT_MODULE_NAME;
+ if(*command_line!=0)source=command_line;
+ FUN_00567ae6(source,0,0,&pointer_count,&character_count);
+ arguments=(uint8_t **)FUN_00561b68(character_count+pointer_count*4u);
+ if(arguments==0)(void)FUN_005630e0(8);
+ FUN_00567ae6(source,arguments,(uint8_t *)arguments+pointer_count*4u,
+  &pointer_count,&character_count);
+ RESTORE_CRT_ARGUMENT_VECTOR=arguments;
+ RESTORE_CRT_ARGUMENT_COUNT=pointer_count-1u;
 }
+void FUN_00567a4d(void){restore_crt_initialize_arguments();}

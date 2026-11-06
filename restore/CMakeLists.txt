@@ -2596,3 +2596,13 @@ foreach(_eh3_target IN ITEMS restore_link_check restore_game restore_cohort3_ret
 endforeach()
 unset(_eh3_target)
 unset(_eh3_symbol)
+
+# Native DWORD/pointer units in the connected CRT startup children.
+set_source_files_properties(src/unit_02940.c src/unit_02941.c src/unit_02942.c src/unit_02944.c src/unit_03000.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_crt_startup_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_crt_startup_symbol IN ITEMS FUN_0056793c FUN_00567994 FUN_00567a4d FUN_00567c9a FUN_00569bf5 restore_crt_command_line_tail restore_crt_initialize_environment restore_crt_initialize_arguments restore_crt_acquire_environment_block restore_crt_initialize_multibyte)
+  target_link_options(${_crt_startup_target} PRIVATE "/INCLUDE:_${_crt_startup_symbol}")
+ endforeach()
+endforeach()
+unset(_crt_startup_target)
+unset(_crt_startup_symbol)

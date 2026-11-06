@@ -1,13 +1,11 @@
-#include "restore_types.h"
-#define DAT_01266a84 (*(undefined *)0x01266a84u)
-extern undefined4 FUN_00569831();
+#include "crt_startup_arguments.h"
+uint32_t FUN_00569831(int32_t codepage);
 
-void FUN_00569bf5(void)
-
+void restore_crt_initialize_multibyte(void)
 {
-  if (DAT_01266a84 == 0) {
-    FUN_00569831(0xfffffffd);
-    DAT_01266a84 = 1;
-  }
-  return;
+ if(RESTORE_CRT_MB_INITIALIZED==0){
+  (void)FUN_00569831(-3);
+  RESTORE_CRT_MB_INITIALIZED=1;
+ }
 }
+void FUN_00569bf5(void){restore_crt_initialize_multibyte();}

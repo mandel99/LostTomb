@@ -1,0 +1,88 @@
+{
+  "schema": "cohort7-necessary-startup-arguments-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 363,
+  "current_cohort_source_entries": 22,
+  "entries_compared": 5,
+  "cases": 10,
+  "invocations": 70,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-startup-arguments-ABI-runs/20261106-033511-814238/result.json",
+    "sha256": "d87d2dbe6660865d497541942ba624ed5c3ff04a4fa0fb4ab553dc053b9d9dfe"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-startup-arguments-ABI-runs/20261106-033511-814238/binding.json",
+    "sha256": "1e6a7196b30748d3b8fbbc260e43fc69d5a4c9d91d992129d0a291605506a1dd"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-startup-arguments-ABI-runs/20261106-033511-814238/case-inputs.json",
+    "sha256": "2231d0286fc8125717b8ce77ea4bb27bc54f9d2de7ea777c7a4b27f5165d8df2"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "5703569d75e868ec9d91c5acae4dc7182db4592eba123859a2491e7ef185cc15",
+      "map_sha256": "267ff3d3cf657521072fa3ba0f19a5020d9bd175074e4631865a310f23639d58"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "c7c87b295e34ff46033d9bb4aaa9881acf8fcaceb01364de8f29d8f7b1cea462",
+      "map_sha256": "561eda681b2c219eb1c1521bab9a18cdc64eace10755860bd4fa4f4ebd126382"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "d5414e01b028521e94b615d021137c0f7d97d2505330e801b62fa8cf6f4101ba",
+      "map_sha256": "7ea4ee3969579556f8809109cc9bcda5cc8e8dc8c39d1942721a77ebe5f3daf0"
+    }
+  },
+  "source_hashes": {
+    "include/crt_startup_arguments.h": "f2429ecba40a7bbaf634b0dc61347b53aa65f9ac54e06e69e0e34a967b864696",
+    "src/unit_02940.c": "e6c625e347b9d7447efd18e75cceb9c2ba08880904e6c37c5695ba8519edcc64",
+    "src/unit_02941.c": "e03105196ce90507f0b16b2ee1fd44fbdef42bd31908e0406a71163dc36d56c7",
+    "src/unit_02942.c": "ae7141d19ad8078613c7b85d294f9917860ce60186a8c93c235bd01eebadb6fb",
+    "src/unit_02944.c": "0ad390586ff391f2e3954368d822edd06b8f8f0d5d9e6ebf3de7bab351304b8c",
+    "src/unit_03000.c": "c8d88f5db77a76fa7b83ffc8b4859535793ca92c4dd5a576570907c538c4adee",
+    "src/unit_02943.c": "05222b628fee0bd361f5001241a740567ac5ce27f1db5c6c53e3e5c1a1989003",
+    "direct_c/cohort3_replay/cohort7_startup_cases.py": "d738b5cdc58efadec6bf57ef539630f83edf5f8fdecb7670a6fc3a58f92210d4",
+    "direct_c/cohort3_replay/cases.py": "4bb220c18affa3aff11f805184531ff46e94672128d150e39cb83539dc92cd47",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-startup-arguments-publication/executed-master.json",
+    "sha256": "cc14755a46a71c59a2390abe80106aebfa3f21eb2fcf996b07a016950d17b79c"
+  },
+  "coverage": [
+    "Full DWORD multibyte flag read:0x100 does not reinitialize; full DWORD store clears higher bytes changed by controlled codepage setter",
+    "Command-line global is a full pointer; quoted lead-byte stepping and unquoted whitespace scan preserve full pointer result",
+    "Arguments use real existing native/C parser count/fill bodies, including multibyte argument and quoted text; BYTE emptiness test handles NUL followed by nonzero bytes",
+    "Environment char** vector retains complete allocated pointers; hidden drive entry is skipped; ready flag is a full DWORD store",
+    "Wide environment mode0 query/conversion and release, full DWORD selector overwrite after callback mutates high bytes",
+    "ANSI mode2 byte count/copy/free and invalid mode0x101 immediateNULL with no API call"
+  ],
+  "controlled_boundaries": [
+    "CRT allocator/free/string-length/string-copy and codepage setter use declared logical endpoint contracts",
+    "Wide/ANSI Windows acquisition/conversion/free imports are controlled; no host API execution",
+    "The existing567AE6 parser is actual native and actual compiled C through the two-pass caller; no parser endpoint or replacement",
+    "Returned heap payload contents are outside controlled string-copy/conversion endpoints; caller arguments, pointer stores, resource order and result widths are compared"
+  ],
+  "retained_parser": {
+    "address": "0x00567ae6",
+    "source": "src/unit_02943.c",
+    "source_sha256": "05222b628fee0bd361f5001241a740567ac5ce27f1db5c6c53e3e5c1a1989003",
+    "source_unchanged": true,
+    "independent_entry_credit": 0
+  },
+  "limitations": [
+    "Necessary ABI and scalar-unit checks only; full parser edge matrix and acquisition failure matrix remain at the joint cohort gate",
+    "No whole-game execution or complete game equivalence",
+    "No foreign callback/register/flags or arbitrary overlapping pointer contract is inferred"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

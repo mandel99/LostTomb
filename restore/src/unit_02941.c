@@ -1,59 +1,39 @@
-#include "restore_types.h"
-#define DAT_01266400 (*(undefined *)0x01266400u)
-#define DAT_01266458 (*(undefined *)0x01266458u)
-#define DAT_01266a80 (*(undefined *)0x01266a80u)
-#define DAT_01266a84 (*(undefined *)0x01266a84u)
-extern void * FUN_00561b68();
-extern void FUN_00561bdc();
-extern void FUN_005630e0();
-extern size_t FUN_00563380();
-extern uint * FUN_00566750();
-extern void FUN_00569bf5();
+#include "crt_startup_arguments.h"
+#include "crt_runtime_tail.h"
+void *FUN_00561b68(size_t bytes);
+void FUN_00561bdc(void *allocation);
+size_t FUN_00563380(const char *text);
+uint32_t *FUN_00566750(void *destination,const void *source);
 
-void FUN_00567994(void)
-
+void restore_crt_initialize_environment(void)
 {
-  char cVar1;
-  size_t sVar2;
-  undefined4 *puVar3;
-  void *pvVar4;
-  int iVar5;
-  char *pcVar6;
-  
-  if (DAT_01266a84 == 0) {
-    FUN_00569bf5();
+ uint32_t count=0;
+ char *entry;
+ char **slot;
+ if(RESTORE_CRT_MB_INITIALIZED==0)FUN_00569bf5();
+ entry=RESTORE_CRT_ENVIRONMENT_BLOCK;
+ while(*entry!=0){
+  if(*entry!='=')++count;
+  entry+=(uint32_t)FUN_00563380(entry)+1u;
+ }
+ slot=(char **)FUN_00561b68(count*4u+4u);
+ RESTORE_CRT_ENVIRONMENT_VECTOR=slot;
+ if(slot==0)(void)FUN_005630e0(9);
+ /* Allocation can change the global; the native second pass reloads it. */
+ entry=RESTORE_CRT_ENVIRONMENT_BLOCK;
+ while(*entry!=0){
+  uint32_t bytes=(uint32_t)FUN_00563380(entry)+1u;
+  if(*entry!='='){
+   *slot=(char *)FUN_00561b68(bytes);
+   if(*slot==0)(void)FUN_005630e0(9);
+   (void)FUN_00566750(*slot,entry);
+   ++slot;
   }
-  iVar5 = 0;
-  for (pcVar6 = DAT_01266400; *pcVar6 != '\0'; pcVar6 = pcVar6 + sVar2 + 1) {
-    if (*pcVar6 != '=') {
-      iVar5 = iVar5 + 1;
-    }
-    sVar2 = FUN_00563380(pcVar6);
-  }
-  puVar3 = FUN_00561b68(iVar5 * 4 + 4);
-  DAT_01266458 = puVar3;
-  if (puVar3 == (undefined4 *)0x0) {
-    FUN_005630e0(9);
-  }
-  cVar1 = *(undefined4 *)(DAT_01266400);
-  pcVar6 = DAT_01266400;
-  while (cVar1 != '\0') {
-    sVar2 = FUN_00563380(pcVar6);
-    if (*pcVar6 != '=') {
-      pvVar4 = FUN_00561b68(sVar2 + 1);
-      *puVar3 = pvVar4;
-      if (pvVar4 == (void *)0x0) {
-        FUN_005630e0(9);
-      }
-      FUN_00566750(*puVar3,pcVar6);
-      puVar3 = puVar3 + 1;
-    }
-    pcVar6 = pcVar6 + sVar2 + 1;
-    cVar1 = *pcVar6;
-  }
-  FUN_00561bdc(DAT_01266400);
-  DAT_01266400 = (char *)0x0;
-  *puVar3 = 0;
-  DAT_01266a80 = 1;
-  return;
+  entry+=bytes;
+ }
+ FUN_00561bdc(RESTORE_CRT_ENVIRONMENT_BLOCK);
+ RESTORE_CRT_ENVIRONMENT_BLOCK=0;
+ *slot=0;
+ RESTORE_CRT_ENVIRONMENT_READY=1;
 }
+void FUN_00567994(void){restore_crt_initialize_environment();}
