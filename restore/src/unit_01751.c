@@ -1,34 +1,15 @@
-#include "restore_types.h"
-#define DAT_00e36c90 (*(undefined *)0x00e36c90u)
-#define DAT_00e92e48 (*(undefined *)0x00e92e48u)
-#define s_status_txt_005e0714 (*(char (*)[11])0x005e0714u)
-extern undefined4 FUN_00562517();
-extern undefined4 FUN_005647eb();
-extern DWORD FUN_005662e3();
-extern int FUN_005664d5();
-extern uint FUN_00568eab();
-
-void FUN_004ce860(undefined4 param_1)
-
+#include "final_state_actions.h"
+#include "crt_lowio.h"
+extern int32_t FUN_00568eab(const char *path,uint32_t flags,...);
+extern uint32_t FUN_00562517(uint32_t descriptor);
+void restore_status_append_log(uint32_t count)
 {
-  int iVar1;
-  
-  if (DAT_00e92e48 == 0) {
-    iVar1 = FUN_00568eab(s_status_txt_005e0714,0x8301,0x180);
-    if (iVar1 == -1) {
-      return;
-    }
-  }
-  else {
-    iVar1 = FUN_00568eab(s_status_txt_005e0714,0x8101,0x180);
-    if (iVar1 == -1) {
-      return;
-    }
-    FUN_005662e3(iVar1,0,2);
-  }
-  FUN_005664d5(iVar1,&DAT_00e36c90,param_1);
-  FUN_00562517(iVar1);
-  FUN_005647eb(iVar1);
-  DAT_00e92e48 = 1;
-  return;
+ uint32_t append=VIEW_U(0xe92e48u);int32_t descriptor;
+ descriptor=FUN_00568eab((const char *)0x5e0714u,append ? 0x8101u : 0x8301u,0x180);
+ if (descriptor==-1) return;
+ if (append) (void)FUN_005662e3((uint32_t)descriptor,0,2);
+ (void)FUN_005664d5((uint32_t)descriptor,(const uint8_t *)0xe36c90u,count);
+ (void)FUN_00562517((uint32_t)descriptor);(void)FUN_005647eb((uint32_t)descriptor);
+ VIEW_U(0xe92e48u)=1;
 }
+void FUN_004ce860(uint32_t count){restore_status_append_log(count);}

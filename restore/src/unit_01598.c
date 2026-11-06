@@ -1,62 +1,32 @@
-#include "restore_types.h"
-#define DAT_007999db (*(undefined4 *)0x007999dbu)
-#define DAT_007999dc (*(undefined4 *)0x007999dcu)
-#define DAT_007999e0 (*(undefined4 *)0x007999e0u)
-#define DAT_00bcb9d0 (*(undefined4 *)0x00bcb9d0u)
-#define DAT_00bcbad2 (*(undefined4 *)0x00bcbad2u)
-#define DAT_00bcd606 (*(undefined4 *)0x00bcd606u)
-#define DAT_00e950e0 (*(undefined *)0x00e950e0u)
-extern void FUN_004695d0();
-extern void FUN_0046d100();
-extern void FUN_00516f90();
-extern void FUN_005173a0();
-extern void FUN_0053b090();
-
-undefined4 FUN_004c41b0(void)
-
+#include "final_state_actions.h"
+#define FINAL_H(a) ((int32_t)(int16_t)(*(volatile uint16_t *)(uintptr_t)(uint32_t)(a)))
+extern void FUN_0046d100(int32_t group,uint32_t mode);
+extern void FUN_004695d0(int32_t group,uint32_t mode);
+extern void FUN_0053b090(uint32_t action);
+extern void FUN_00516f90(int32_t,int32_t,int32_t,int32_t,uint32_t);
+extern void FUN_005173a0(int32_t,int32_t,int32_t,int32_t);
+uint32_t restore_select_highest_priority_group(void)
 {
-  short *psVar1;
-  uint uVar2;
-  short sVar3;
-  int iVar4;
-  int iVar5;
-  
-  sVar3 = 0;
-  iVar5 = 0;
-  psVar1 = &DAT_00bcbad2;
-  do {
-    if (((char)psVar1[-0x3d] == '\x01') && ((char)psVar1[-0x1c] != '\0')) {
-      if (sVar3 <= *psVar1) {
-        iVar5 = (int)psVar1[-0x3a];
-        sVar3 = *psVar1;
-      }
-    }
-    psVar1 = psVar1 + 0x48;
-  } while ((int)psVar1 < 0xbcd662);
-  if (iVar5 == 0) {
-    return 0;
+ uint32_t cursor=0xbcbad2u,list,i,record;int32_t highest=0,selected=0,score,id,x,y,radius;
+ do {
+  if (VIEW_B(cursor-122u)==1 && VIEW_B(cursor-56u)!=0) {
+   score=FINAL_H(cursor);
+   if (score>=highest) {selected=FINAL_H(cursor-116u);highest=score;}
   }
-  iVar4 = 0;
-  DAT_00e950e0 = 0;
-  psVar1 = (short *)(&DAT_00bcb9d0 + iVar5 * 0x90);
-  do {
-    sVar3 = *psVar1;
-    if (sVar3 == 0) break;
-    psVar1 = psVar1 + 1;
-    iVar4 = iVar4 + 1;
-    (&DAT_00bcd606)[sVar3 * 0x184] = 2;
-  } while (iVar4 < 0x10);
-  FUN_0046d100(iVar5,0);
-  FUN_004695d0(iVar5,1);
-  FUN_0053b090(0x11);
-  iVar5 = iVar5 * 0x108;
-  uVar2 = (uint)(byte)(&DAT_007999db)[iVar5];
-  iVar4 = (int)*(short *)((int)&DAT_007999dc + iVar5 + 2);
-  FUN_00516f90(iVar4 - uVar2,(int)*(short *)(&DAT_007999e0 + iVar5) - uVar2,iVar4 + uVar2,
-               uVar2 + (int)*(short *)(&DAT_007999e0 + iVar5),1);
-  iVar4 = (int)*(short *)((int)&DAT_007999dc + iVar5 + 2);
-  uVar2 = (uint)(byte)(&DAT_007999db)[iVar5];
-  FUN_005173a0(iVar4 - uVar2,(int)*(short *)(&DAT_007999e0 + iVar5) - uVar2,iVar4 + uVar2,
-               uVar2 + (int)*(short *)(&DAT_007999e0 + iVar5));
-  return 1;
+  cursor+=144u;
+ } while (cursor<0xbcd662u);
+ if (selected==0) return 0;
+ VIEW_U(0xe950e0u)=0;list=0xbcb9d0u+(uint32_t)selected*144u;
+ for (i=0;i<16;++i) {
+  id=FINAL_H(list+i*2u);if (id==0) break;
+  VIEW_B(0xbcd606u+(uint32_t)id*388u)=2;
+ }
+ FUN_0046d100(selected,0);FUN_004695d0(selected,1);FUN_0053b090(17);
+ record=(uint32_t)selected*264u;
+ y=FINAL_H(0x7999e0u+record);radius=VIEW_B(0x7999dbu+record);x=FINAL_H(0x7999deu+record);
+ FUN_00516f90(x-radius,y-radius,x+radius,y+radius,1);
+ y=FINAL_H(0x7999e0u+record);x=FINAL_H(0x7999deu+record);radius=VIEW_B(0x7999dbu+record);
+ FUN_005173a0(x-radius,y-radius,x+radius,y+radius);
+ return 1;
 }
+uint32_t FUN_004c41b0(void){return restore_select_highest_priority_group();}

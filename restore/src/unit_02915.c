@@ -1,103 +1,113 @@
-#include "restore_types.h"
-#define DAT_01266434 (*(undefined *)0x01266434u)
-#define DAT_01266960 (*(uint32_t *)0x01266960u)
-#define DAT_01266a60 (*(uint32_t *)0x01266a60u)
-#define _DAT_01266430 (*(undefined4 *)0x01266430u)
-extern DWORD FUN_005662e3();
-extern void FUN_005672c8();
+#include "crt_lowio.h"
+#include "crt_eh3_frames.h"
+#include <windows.h>
 
-int FUN_005664d5(DWORD param_1,char *param_2,uint param_3)
+/* Native EBP-414h..EBP-1. Buffer padding, written count and binary-mode
+   source cursor remain actual stack bytes until the native path writes them. */
+typedef struct RestoreCrtWriteFrame {
+ uint8_t buffer[1028];
+ uint32_t inserted_cr,written,total,cursor;
+} RestoreCrtWriteFrame;
+typedef char RestoreCrtWriteFrameLayout[(sizeof(RestoreCrtWriteFrame)==1044 &&
+ offsetof(RestoreCrtWriteFrame,inserted_cr)==1028 &&
+ offsetof(RestoreCrtWriteFrame,written)==1032 &&
+ offsetof(RestoreCrtWriteFrame,total)==1036 &&
+ offsetof(RestoreCrtWriteFrame,cursor)==1040)?1:-1];
+#define WRITE_RECORD(slot,offset) ((volatile RestoreCrtLowioRecord *)(uintptr_t) \
+ ((uint32_t)(uintptr_t)*(slot)+(offset)))
+#define WRITE_BYTE(address) (*(volatile uint8_t *)(uintptr_t)(address))
+static void prepare_write(volatile RestoreCrtWriteFrame *frame,
+ const volatile uint32_t *arguments,uint32_t saved_sp)
+{(void)frame;(void)arguments;(void)saved_sp;}
 
+static int32_t run_write(volatile RestoreCrtWriteFrame *frame,
+ const volatile uint32_t *arguments,uint32_t parent_frame,uint32_t recovered)
 {
-  int *piVar1;
-  char *pcVar2;
-  byte bVar3;
-  char cVar4;
-  char *pcVar5;
-  BOOL BVar6;
-  int iVar7;
-  char local_418 [1028];
-  int local_14;
-  DWORD local_10;
-  DWORD local_c;
-  char *local_8;
-  
-  if (param_1 < DAT_01266a60) {
-    piVar1 = &DAT_01266960 + ((int)param_1 >> 5);
-    iVar7 = (param_1 & 0x1f) * 8;
-    bVar3 = *(byte *)(*piVar1 + 4 + iVar7);
-    if ((bVar3 & 1) != 0) {
-      local_c = 0;
-      local_14 = 0;
-      if (param_3 == 0) {
-        return 0;
-      }
-      if ((bVar3 & 0x20) != 0) {
-        FUN_005662e3(param_1,0,2);
-      }
-      if ((*(byte *)((undefined4 *)(*piVar1 + iVar7) + 1) & 0x80) == 0) {
-        BVar6 = WriteFile(*(HANDLE *)(*piVar1 + iVar7),param_2,param_3,&local_10,(LPOVERLAPPED)0x0);
-        if (BVar6 == 0) {
-          param_1 = GetLastError();
-        }
-        else {
-          local_c = local_10;
-          param_1 = 0;
-        }
-LAB_005665ce: ;
-        if (local_c != 0) {
-          return local_c - local_14;
-        }
-        if (param_1 != 0) {
-          if (param_1 == 5) {
-            _DAT_01266430 = 9;
-            DAT_01266434 = 5;
-            return -1;
-          }
-          FUN_005672c8(param_1);
-          return -1;
-        }
-      }
-      else {
-        local_8 = param_2;
-        param_1 = 0;
-        if (param_3 != 0) {
-          do {
-            pcVar5 = local_418;
-            do {
-              if (param_3 <= (uint)((int)local_8 - (int)param_2)) break;
-              pcVar2 = local_8 + 1;
-              cVar4 = *local_8;
-              local_8 = pcVar2;
-              if (cVar4 == '\n') {
-                local_14 = local_14 + 1;
-                *pcVar5 = '\r';
-                pcVar5 = pcVar5 + 1;
-              }
-              *pcVar5 = cVar4;
-              pcVar5 = pcVar5 + 1;
-            } while ((int)pcVar5 - (int)local_418 < 0x400);
-            BVar6 = WriteFile(*(HANDLE *)(*piVar1 + iVar7),local_418,(int)pcVar5 - (int)local_418,
-                              &local_10,(LPOVERLAPPED)0x0);
-            if (BVar6 == 0) {
-              param_1 = GetLastError();
-              goto LAB_005665ce;
-            }
-            local_c = local_c + local_10;
-            if (((int)local_10 < (int)pcVar5 - (int)local_418) ||
-               (param_3 <= (uint)((int)local_8 - (int)param_2))) goto LAB_005665ce;
-          } while( true );
-        }
-      }
-      if (((*(byte *)(*piVar1 + 4 + iVar7) & 0x40) != 0) && (*param_2 == '\x1a')) {
-        return 0;
-      }
-      _DAT_01266430 = 0x1c;
-      DAT_01266434 = 0;
-      return -1;
-    }
+ volatile uint32_t *a=(volatile uint32_t *)(uintptr_t)arguments;
+ uint32_t descriptor=a[0],offset,zero_request;
+ RestoreCrtLowioRecord *volatile *slot;
+ volatile RestoreCrtLowioRecord *record;
+ uint8_t flags;
+ (void)parent_frame;(void)recovered;
+ if(descriptor>=RESTORE_CRT_LOWIO_CAPACITY)goto invalid;
+ offset=(descriptor&31u)*8u;
+ slot=(RestoreCrtLowioRecord *volatile *)(uintptr_t)
+  ((uint32_t)(uintptr_t)RESTORE_CRT_LOWIO_BLOCKS+
+   (uint32_t)((int32_t)descriptor>>5)*4u);
+ flags=WRITE_RECORD(slot,offset)->flags;
+ if((flags&1u)==0)goto invalid;
+ zero_request=a[2]==0;
+ frame->total=0;
+ frame->inserted_cr=0;
+ if(zero_request)return 0;
+ if((flags&0x20u)!=0)(void)FUN_005662e3(descriptor,0,2);
+ record=WRITE_RECORD(slot,offset);
+ if((record->flags&0x80u)==0){
+  if(!WriteFile((HANDLE)(uintptr_t)record->handle,(const void *)(uintptr_t)a[1],
+      a[2],(LPDWORD)&frame->written,0))a[0]=GetLastError();
+  else{
+   uint32_t written=frame->written;
+   a[0]=0;
+   frame->total=written;
   }
-  DAT_01266434 = 0;
-  _DAT_01266430 = 9;
+ }else{
+  uint32_t buffer=(uint32_t)(uintptr_t)frame->buffer;
+  frame->cursor=a[1];
+  a[0]=0;
+  if(a[2]!=0){
+   for(;;){
+    uint32_t output=buffer,length,written;
+    do{
+     uint32_t source;
+     uint8_t character;
+     if(a[2]<=frame->cursor-a[1])break;
+     source=frame->cursor;
+     ++frame->cursor; /* Native advances the cell before fetching its BYTE. */
+     character=WRITE_BYTE(source);
+     if(character==10){
+      ++frame->inserted_cr;
+      WRITE_BYTE(output)=13;
+      ++output;
+     }
+     WRITE_BYTE(output)=character;
+     ++output;
+     /* Check AFTER the complete character/CRLF pair: length may be1025. */
+    }while((int32_t)(output-buffer)<1024);
+    length=output-buffer;
+    if(!WriteFile((HANDLE)(uintptr_t)WRITE_RECORD(slot,offset)->handle,
+        (const void *)(uintptr_t)buffer,length,(LPDWORD)&frame->written,0)){
+     a[0]=GetLastError();
+     break;
+    }
+    written=frame->written;
+    frame->total+=written;
+    if((int32_t)written<(int32_t)length || a[2]<=frame->cursor-a[1])break;
+   }
+  }
+ }
+ {
+  uint32_t total=frame->total;
+  /* All packed LF insertions participate, including a failed/partial batch. */
+  if(total!=0)return (int32_t)(total-frame->inserted_cr);
+ }
+ if(a[0]!=0){
+  if(a[0]==5){RESTORE_CRT_ERRNO=9;RESTORE_CRT_DOSERRNO=5;return -1;}
+  FUN_005672c8(a[0]);
   return -1;
+ }
+ if((WRITE_RECORD(slot,offset)->flags&0x40u)!=0 && WRITE_BYTE(a[1])==0x1a)return 0;
+ RESTORE_CRT_ERRNO=28;
+ RESTORE_CRT_DOSERRNO=0;
+ return -1;
+invalid:
+ RESTORE_CRT_DOSERRNO=0;
+ RESTORE_CRT_ERRNO=9;
+ return -1;
 }
+RESTORE_EH3_PARENT(restore_crt_write,int32_t,
+ (uint32_t descriptor,const uint8_t *buffer,uint32_t count),1044,prepare_write,run_write)
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) int32_t FUN_005664d5(uint32_t descriptor,const uint8_t *buffer,uint32_t count)
+{__asm jmp restore_crt_write}
+#pragma warning(pop)

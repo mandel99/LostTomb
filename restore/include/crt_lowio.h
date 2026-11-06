@@ -35,4 +35,6 @@ int32_t restore_crt_close(uint32_t descriptor);
 int32_t FUN_005647eb(uint32_t descriptor);
 int32_t restore_crt_read(uint32_t descriptor,uint8_t *buffer,uint32_t count);
 int32_t FUN_005660ed(uint32_t descriptor,uint8_t *buffer,uint32_t count);
+int32_t restore_crt_write(uint32_t descriptor,const uint8_t *buffer,uint32_t count);
+int32_t FUN_005664d5(uint32_t descriptor,const uint8_t *buffer,uint32_t count);
 #endif

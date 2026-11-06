@@ -8,7 +8,7 @@
 #include "remaining_selection_actions.h"
 #include <stdio.h>
 #include <stdlib.h>
-extern uint32_t FUN_0041d110(int,int);
+#include "final_state_actions.h"
 extern uint32_t FUN_004cffe0(void);
 extern uint32_t FUN_00502780(void);
 extern int FUN_00538cd0(uint32_t,uint32_t,uint32_t);
@@ -63,7 +63,7 @@ static uintptr_t game_call(uint32_t entry,uintptr_t a,uintptr_t b,uintptr_t c)
 {
 #define VOID0(address,name) case address: name(); return 0
     switch(entry) {
-    case 0x41d110: return FUN_0041d110((int)a,(int)b);
+    case 0x41d110: return FUN_0041d110((uint32_t)a,(uint32_t)b);
     case 0x4cffe0: return FUN_004cffe0();
     case 0x4d0220: return FUN_004d0220();
     case 0x502780: return FUN_00502780();
@@ -132,11 +132,15 @@ static uintptr_t game_call(uint32_t entry,uintptr_t a,uintptr_t b,uintptr_t c)
     }
 #undef VOID0
 }
+/* Win32 import thunks are callable here; this table never compares their identity. */
+#pragma warning(push)
+#pragma warning(disable:4232)
 static const RestoreWindowApi api={
     DefWindowProcA,IsIconic,GetForegroundWindow,SetActiveWindow,SetForegroundWindow,ShowWindow,
     GetSystemMetrics,GetClientRect,ClientToScreen,GetWindowLongA,GetMenu,AdjustWindowRectEx,SetWindowPos,
     BeginPaint,EndPaint,PostQuitMessage,PostMessageA,GetMessageTime,GetMessagePos,game_call,InvalidateRect
 };
+#pragma warning(pop)
 const RestoreWindowApi *restore_window_platform(void)
 {
     return &api;

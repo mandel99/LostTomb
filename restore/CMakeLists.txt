@@ -2686,3 +2686,13 @@ foreach(_view_read_target IN ITEMS restore_link_check restore_game restore_cohor
 endforeach()
 unset(_view_read_target)
 unset(_view_read_symbol)
+
+# Cohort7 source milestone: final state paths and native text-write frame.
+set_source_files_properties(src/unit_00091.c src/unit_00192.c src/unit_00274.c src/unit_00275.c src/unit_00989.c src/unit_01134.c src/unit_01598.c src/unit_01751.c src/unit_01827.c src/unit_02008.c src/unit_02915.c runtime/window_platform_win32.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_final_state_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_final_state_symbol IN ITEMS FUN_0040c6b0 FUN_00416bc0 FUN_0041d110 FUN_0041d210 FUN_0046e180 FUN_0047d6e0 FUN_004c41b0 FUN_004ce860 FUN_004d51b0 FUN_004e6eb0 FUN_005664d5 restore_building_list_adjust_offset restore_input_capture_close restore_window_handle_debug_key restore_view_draw_text_entry restore_map_run_refresh restore_world_initialize_subsystems restore_select_highest_priority_group restore_status_append_log restore_mission_load_file restore_map_dispatch_reset restore_crt_write)
+  target_link_options(${_final_state_target} PRIVATE "/INCLUDE:_${_final_state_symbol}")
+ endforeach()
+endforeach()
+unset(_final_state_target)
+unset(_final_state_symbol)
