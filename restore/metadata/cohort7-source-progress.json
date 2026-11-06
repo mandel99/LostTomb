@@ -2,13 +2,13 @@
   "schema": "cohort7-source-progress-v1",
   "source_base_checkpoint": "1c55dbab",
   "prior_selected_entries": 341,
-  "cumulative_selected_entries": 355,
-  "new_source_entries": 14,
+  "cumulative_selected_entries": 358,
+  "new_source_entries": 17,
   "nominal_target_entries": 100,
-  "nominal_target_remaining": 86,
+  "nominal_target_remaining": 83,
   "new_algorithm_creations": 5,
-  "new_input_binding_repairs": 8,
-  "source_stage": "cohort7_open14_shared_strict_build_and_necessary_EH3_ABI_passed_joint_gate_pending",
+  "new_input_binding_repairs": 11,
+  "source_stage": "cohort7_open17_shared_strict_build_and_necessary_lifetime_ABI_passed_joint_gate_pending",
   "members": [
     {
       "address": "0x406460",
@@ -331,6 +331,75 @@
       "canonical_symbol": "FUN_00563e1c",
       "stage": "strict_build_and_necessary_EH3_ABI_passed_detailed_joint_gate_pending",
       "native_scope_provenance": "Exact pinned CFG including embedded filters/recovery entries; shared563DD6 tail remains a separately selected dependency"
+    },
+    {
+      "address": "0x562fea",
+      "name": "restore_crt_startup",
+      "source": "src/unit_02844.c",
+      "source_sha256": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+      "body_sha256": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 78,
+      "native_bytes": 246,
+      "native_byte_sha256": "365f8cbfb9fba537e80c0db3e195642078dfab925a96dd4b7e9e965e230e2b08",
+      "native_evidence_id": "ev_9598889dc58d757402adc613147e896a4795d601480d4098314b95e9fff23192",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl0; nonreturn CRT entry",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00562fea",
+      "stage": "strict_build_and_necessary_lifetime_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "exact_startup_frame_pointer_stores_and_hidden_filter_recovery",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
+    },
+    {
+      "address": "0x563e46",
+      "name": "restore_crt_copy_exception",
+      "source": "src/unit_02866.c",
+      "source_sha256": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+      "body_sha256": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 169,
+      "native_bytes": 452,
+      "native_byte_sha256": "5412c58171cf0152669b983086e6a18a058158dd3147828233a41801fa3492ff",
+      "native_evidence_id": "ev_c5bb2d0a42e6c1fc0c460b3584a6791c445d2bcc0d9149a45616be44f15d37e2",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl4",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563e46",
+      "stage": "strict_build_and_necessary_lifetime_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "EH3_catch_conversion_size_and_virtual_base_copy_constructor_arity",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
+    },
+    {
+      "address": "0x56400a",
+      "name": "restore_crt_destroy_exception",
+      "source": "src/unit_02867.c",
+      "source_sha256": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674",
+      "body_sha256": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 39,
+      "native_bytes": 103,
+      "native_byte_sha256": "7291d992a0feb8f0d8fe384f3212bd932b22906b17747f98b173bb0faa41b856",
+      "native_evidence_id": "ev_29a9324b323cb486383630e4f01a21e7f5de2d69b281e03cb10382e595356703",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl2; low BYTE of second word consumed by hidden filter",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_0056400a",
+      "stage": "strict_build_and_necessary_lifetime_ABI_passed_detailed_joint_gate_pending",
+      "repair_role": "EH3_destructor_frame_and_abnormal_filter_mode",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
     }
   ],
   "strict_build_complete": true,
@@ -364,19 +433,32 @@
     "focused_cases": 261,
     "focused_invocations": 2250
   },
-  "necessary_ABI": {
-    "path": "metadata/cohort7-necessary-ABI-comparison.json",
-    "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
-  },
-  "current_image_necessary_ABI_entries": 8,
-  "current_image_necessary_ABI_cases": 35,
-  "current_image_necessary_ABI_invocations": 245,
+  "current_image_necessary_ABI_entries": 3,
+  "current_image_necessary_ABI_cases": 10,
+  "current_image_necessary_ABI_invocations": 70,
   "detailed_joint_comparison_pending": true,
-  "necessary_EH3_ABI": {
+  "historical_source14_necessary_EH3_ABI": {
     "path": "metadata/cohort7-eh3-ABI-comparison.json",
     "sha256": "57814be08b7d9a35134cf9d0efe147207accf3502fae54c5d4b30f6f31e7d0d4"
   },
-  "supporting_funclets": {
+  "necessary_EH3_ABI_current_image": false,
+  "necessary_lifetime_ABI": {
+    "path": "metadata/cohort7-exception-lifetime-ABI-comparison.json",
+    "sha256": "5654b442d68d3d9441299b3f77f4f7d65e95ae35862d48a3e1a8b12defd8a6ac"
+  },
+  "lifetime_contracts": {
+    "path": "metadata/cohort7-exception-lifetime-source-contracts.json",
+    "sha256": "a24c896bb6d5c73974c17bd819177f2f4094bdce768b6acf8f4ad23f8d84c78a"
+  },
+  "lifetime_supporting_funclets": {
+    "path": "metadata/cohort7-exception-lifetime-supporting-funclets.json",
+    "sha256": "a18dd7d4a43fcc6ec3c0abe0431643e864ad3476dd87d9826fc429fe16ed3a26"
+  },
+  "historical_source7_necessary_ABI": {
+    "path": "metadata/cohort7-necessary-ABI-comparison.json",
+    "sha256": "511b44e73ff90ea099b8ed64c7aad0ad64bcf7ac4373af84b08a57bd2b85693e"
+  },
+  "historical_supporting_funclets": {
     "path": "metadata/cohort7-eh3-supporting-funclets.json",
     "sha256": "ca3d7f2b65fd2e589fb1f6842c38ee00effd0da9312898f7b0aebf2364533717"
   }

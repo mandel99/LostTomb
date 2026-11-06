@@ -3,7 +3,6 @@
 #include "crt_eh3_frames.h"
 extern void FUN_00563be1();
 extern undefined4 FUN_00563d10();
-extern void FUN_00563e46();
 
 void FUN_00563c95(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,
                  undefined4 param_5,int param_6,int param_7,undefined4 *param_8,undefined4 param_9,

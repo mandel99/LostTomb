@@ -180,6 +180,8 @@ def execute(registry,cases,directory):
       record=get(record)
      else:raise AssertionError(('missing dispatch target',spec['token']))
      sentinel=STOP+0xff0
+     # End the synthetic return block before Unicorn decodes past its page.
+     uc.mem_write(sentinel,b'\xc3')
      state['endpoints'][sentinel]=dict(token='dispatch-return',arity=0,native_cleanup=0,compiled_cleanup=0,result_kind='void',noreturn=True)
      call_sp=sp-20
      uc.mem_write(call_sp,struct.pack('<5I',sentinel,dispatch['exception'],record,dispatch['context'],0))

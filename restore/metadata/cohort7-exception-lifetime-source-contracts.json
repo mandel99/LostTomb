@@ -1,0 +1,187 @@
+{
+  "schema": "cohort7-exception-lifetime-source-contracts-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "entries": [
+    {
+      "address": "0x562fea",
+      "name": "restore_crt_startup",
+      "source": "src/unit_02844.c",
+      "source_sha256": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+      "body_sha256": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 78,
+      "native_bytes": 246,
+      "native_byte_sha256": "365f8cbfb9fba537e80c0db3e195642078dfab925a96dd4b7e9e965e230e2b08",
+      "native_evidence_id": "ev_9598889dc58d757402adc613147e896a4795d601480d4098314b95e9fff23192",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl0; nonreturn CRT entry",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00562fea",
+      "stage": "shared_strict_build_passed_necessary_ABI_pending_joint_gate_pending",
+      "repair_role": "exact_startup_frame_pointer_stores_and_hidden_filter_recovery",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
+    },
+    {
+      "address": "0x563e46",
+      "name": "restore_crt_copy_exception",
+      "source": "src/unit_02866.c",
+      "source_sha256": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+      "body_sha256": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 169,
+      "native_bytes": 452,
+      "native_byte_sha256": "5412c58171cf0152669b983086e6a18a058158dd3147828233a41801fa3492ff",
+      "native_evidence_id": "ev_c5bb2d0a42e6c1fc0c460b3584a6791c445d2bcc0d9149a45616be44f15d37e2",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl4",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_00563e46",
+      "stage": "shared_strict_build_passed_necessary_ABI_pending_joint_gate_pending",
+      "repair_role": "EH3_catch_conversion_size_and_virtual_base_copy_constructor_arity",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
+    },
+    {
+      "address": "0x56400a",
+      "name": "restore_crt_destroy_exception",
+      "source": "src/unit_02867.c",
+      "source_sha256": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674",
+      "body_sha256": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674",
+      "body_hash_scope": "Full C source with typed frame, shared physical entry macros bound separately",
+      "native_instructions": 39,
+      "native_bytes": 103,
+      "native_byte_sha256": "7291d992a0feb8f0d8fe384f3212bd932b22906b17747f98b173bb0faa41b856",
+      "native_evidence_id": "ev_29a9324b323cb486383630e4f01a21e7f5de2d69b281e03cb10382e595356703",
+      "native_evidence_file": {
+        "path": "metadata/cohort7-exception-lifetime-rea-records.json",
+        "sha256": "22e6b43428b9ea4d0ccb105dd76c1f32ffb05ace5000a0761dde7bec9bf93efe"
+      },
+      "logical_signature": "void cdecl2; low BYTE of second word consumed by hidden filter",
+      "creation_credit": 0,
+      "prior_C_algorithm_reuse": true,
+      "canonical_symbol": "FUN_0056400a",
+      "stage": "shared_strict_build_passed_necessary_ABI_pending_joint_gate_pending",
+      "repair_role": "EH3_destructor_frame_and_abnormal_filter_mode",
+      "native_scope_provenance": "Complete pinned parent and embedded filter/recovery bytes, without independent support-entry credit"
+    }
+  ],
+  "new_primary_entries": 3,
+  "creation_credit": 0,
+  "prior_algorithms_reused": 3,
+  "resolved": [
+    "563E46 missing third memmove byte count restored from conversion+20 before adjustment",
+    "563E46 virtual-base copy constructor receives adjusted source and integer1; ordinary copy constructor receives one source",
+    "56400A hidden filter reads low byte of second argument: nonzero terminates on destructor exception",
+    "562FEA native104-byte parent replaces synthetic65KB stack; commandline/environment stores are pointer-width",
+    "Scope/handler/filter addresses are relocated C-owned definitions; exception-pointer cells remain dispatch-owned"
+  ],
+  "physical_glue": "MSVC i386 naked boundaries only capture parent EBP/ESP and transfer control; decisions and data conversion remain C",
+  "startup_child_contract": {
+    "native_entry": "0x00413ed0",
+    "native_convention": "stdcall4 / RET16",
+    "logical_existing_C_signature": "uint32_t __cdecl FUN_00413ed0(uint32_t instance)",
+    "full_span_sha256": "0c34e9dd87316a40f1caf044b28abb966a2a64bac034405eb0c3e2586fbbc656",
+    "positive_ebp_references": [
+      {
+        "address": "0x41401a",
+        "bytes": "8b4508",
+        "instruction": "mov eax, dword ptr [ebp + 8]"
+      }
+    ],
+    "all_returns": [
+      {
+        "address": "0x413f4f",
+        "bytes": "c21000",
+        "instruction": "ret 0x10"
+      },
+      {
+        "address": "0x413f89",
+        "bytes": "c21000",
+        "instruction": "ret 0x10"
+      },
+      {
+        "address": "0x413ffd",
+        "bytes": "c21000",
+        "instruction": "ret 0x10"
+      },
+      {
+        "address": "0x414051",
+        "bytes": "c21000",
+        "instruction": "ret 0x10"
+      },
+      {
+        "address": "0x41439a",
+        "bytes": "c3",
+        "instruction": "ret "
+      },
+      {
+        "address": "0x4143bb",
+        "bytes": "c21000",
+        "instruction": "ret 0x10"
+      }
+    ],
+    "entry_jumps_over_cd_fallback": "0x413f9c ->0x414000",
+    "only_consumed_positive_argument": "EBP+8",
+    "ignored_native_arguments": [
+      "previous_instance=0",
+      "command_line_tail",
+      "show_window"
+    ],
+    "inactive_cd_fallback_policy": "Preserve existing commented source; no startup CD requirement introduced."
+  },
+  "source_hashes": {
+    "CMakeLists.txt": "f8f8fe1efa70dc4e06f614004eaef3941887f2002078b6c12cfd6eff5bea1a85",
+    "include/crt_eh3_frames.h": "262d6c34e5762f59351afcd0553ebd5119c8dc6adafede7964fb8762739510a4",
+    "include/crt_exception_dispatch.h": "647b79115f4dd3a2e0f3ac3bb3123c13550d434f978cdd55e5b09c6312ed41a8",
+    "include/legacy_member_calls.h": "0c3360efb9c42f8457a9a35f5a5144d5513a38d1f1171b9989fcef21b74cd06a",
+    "runtime/legacy_member_calls.c": "75e0eaae3648cc8e02ca5485fce55b626290af0877658ac566116f88b81c75a1",
+    "src/unit_02863.c": "d14d05b1b027c8e67daf8d2cafdc6a9eb574dcabbf2e33c6d6ac9d4cc186c6a2",
+    "src/unit_02844.c": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+    "src/unit_02866.c": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+    "src/unit_02867.c": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674"
+  },
+  "strict_build": {
+    "exit_code": 0,
+    "log_sha256": "168be035883a603f4d0cf2b197ce85359a1f15ed8c3f0ca8d9ce116c8d91617b",
+    "per_source_options": "/W4 /WX /O2 /GS- /Ob0; no PCH",
+    "compiled_artifacts": {
+      "game": {
+        "path": "build/c-only/Release/PharaohRestoreC.exe",
+        "map_path": "build/c-only/Release/PharaohRestoreC.map",
+        "sha256": "d6cd7d6dc2c844929b8f7f4189e25e787aa782cdcb4408aabf2f9e940e207902",
+        "map_sha256": "2e83dc3573d0e0657f0c38e7f054f00aa6996149b9b8a89bcc83bcf6ede0232b"
+      },
+      "diagnostic": {
+        "path": "build/c-only/Release/restore_link_check.exe",
+        "map_path": "build/c-only/Release/restore_link_check.map",
+        "sha256": "6f9f3a4b2f8ad354525619f1160db27aa134b0283347c3bfe4c15bcda6a9fe7e",
+        "map_sha256": "8fd02575a81bebb3641d9a7ccfe0774b6cc4c0626e3a103cfa3eee5c8341bd73"
+      }
+    },
+    "status": "shared_strict_build_passed_cohort7_source17",
+    "log_path": "build/actor-animal-following/cohort7-lifetime-shared-build.log"
+  },
+  "necessary_ABI_pending": false,
+  "detailed_joint_gate_complete": false,
+  "host_execution": false,
+  "limitations": [
+    "Controlled callbacks do not prove arbitrary foreign callback register/flags behavior",
+    "Startup nonreturn exit wrappers rely on real ExitProcess contract; returning exit mocks are excluded",
+    "Existing child algorithms and their independent global typing remain outside this three-entry repair"
+  ],
+  "necessary_ABI": {
+    "path": "metadata/cohort7-exception-lifetime-ABI-comparison.json",
+    "sha256": "5654b442d68d3d9441299b3f77f4f7d65e95ae35862d48a3e1a8b12defd8a6ac"
+  },
+  "supporting_funclets": {
+    "path": "metadata/cohort7-exception-lifetime-supporting-funclets.json",
+    "sha256": "a18dd7d4a43fcc6ec3c0abe0431643e864ad3476dd87d9826fc429fe16ed3a26"
+  }
+}

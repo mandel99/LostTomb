@@ -11,3 +11,9 @@ void restore_call_member1(void *object, uintptr_t target, uintptr_t value)
     typedef void (__fastcall *Member)(void *, void *, uintptr_t);
     ((Member)target)(object, 0, value);
 }
+
+void restore_call_member2(void *object, uintptr_t target, uintptr_t value, uintptr_t virtual_bases)
+{
+    typedef void (__fastcall *Member)(void *, void *, uintptr_t, uintptr_t);
+    ((Member)target)(object, 0, value, virtual_bases);
+}

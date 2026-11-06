@@ -5,4 +5,5 @@
    Make the arity explicit instead of guessing it in a variadic trampoline. */
 void restore_call_member0(void *object, uintptr_t target);
 void restore_call_member1(void *object, uintptr_t target, uintptr_t value);
+void restore_call_member2(void *object, uintptr_t target, uintptr_t value, uintptr_t virtual_bases);
 #endif

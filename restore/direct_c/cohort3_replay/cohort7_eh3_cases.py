@@ -243,6 +243,95 @@ def caller_cases():
  return [c]
 
 
+
+def lifetime_cases():
+ SCOPES['copy']=[row(-1,0x563ffe,'restore_crt_copy_exception_filter',0x564002,'restore_crt_copy_exception_recover')]
+ SCOPES['destroy']=[row(-1,0x564060,'restore_crt_destroy_exception_filter',0x564069,'restore_crt_destroy_exception_recover')]
+ out=[]
+ for mode in ['adjusted-copy-size','virtual-constructor','constructor-dispatch']:
+  c=base(0x563e46,mode,[EXC,FRAME,DESC,TABLE])
+  for at,value in [(DESC,0),(DESC+4,TABLE2+64),(DESC+8,20),(TABLE2+72,1),
+   (EXC+24,EXC2+64),(TABLE,4 if mode=='virtual-constructor'else 0),
+   (TABLE+20,12),(TABLE+24,0 if mode=='adjusted-copy-size'else CB0)]:put(c,at,value)
+  eps=[];counts={}
+  for token,addr,arity in [('readable',0x56876f,2),('writable',0x56878b,2)]+([]if mode=='adjusted-copy-size'else[('code',0x5687a7,1)]):
+   e=dict(token=token,native=addr,compiled_symbols=[f'FUN_{addr:08x}'],arity=arity,
+    native_cleanup=0,compiled_cleanup=0,result_kind='full32',value=1,
+    fs0_registration=registration('copy'))
+   eps.append(e);counts[token]=1
+  adjust=dict(token='adjust',native=0x564071,compiled_symbols=['FUN_00564071'],arity=2,
+   native_cleanup=0,compiled_cleanup=0,result_kind='full32',value=EXC2+72)
+  eps.append(adjust);counts['adjust']=1
+  if mode=='adjusted-copy-size':
+   e=dict(token='copy',native=0x562880,compiled_symbols=['FUN_00562880'],arity=3,
+    native_cleanup=0,compiled_cleanup=0,result_kind='void')
+   counts['copy']=1
+  else:
+   e=endpoint('constructor',CB0);e.update(arity=2 if mode=='virtual-constructor'else 1,
+    native_cleanup=8 if mode=='virtual-constructor'else 4,
+    compiled_cleanup=8 if mode=='virtual-constructor'else 4,result_kind='void',registers=['ecx'],
+    fs0_registration=registration('copy'))
+   counts['constructor']=1
+   if mode=='constructor-dispatch':
+    e['dispatch_fs0']=dispatch();eps += [rtl(),terminate('copy')]
+    counts.update(RtlUnwind=1,terminate=1);c['noreturn_endpoint']='terminate'
+    c['expected_function_pointers']=[dict(address=NLG,native=0x564002,compiled_symbol='restore_crt_copy_exception_recover')]
+  eps.append(e);c.update(endpoints=eps,expected_endpoint_counts=counts);out.append(c)
+ for mode in ['return','dispatch-1','dispatch-0','dispatch-100']:
+  flag=1 if mode in ['return','dispatch-1']else 0x100 if mode=='dispatch-100'else 0
+  c=base(0x56400a,mode,[EXC,flag]);put(c,EXC+24,EXC2+64);put(c,TABLE2+4,CB0)
+  e=endpoint('destructor',CB0);e.update(result_kind='void',registers=['ecx'],fs0_registration=registration('destroy'))
+  eps=[e];counts={'destructor':1}
+  if mode.startswith('dispatch'):
+   e['dispatch_fs0']=dispatch()
+   if flag&255:
+    eps += [rtl(),terminate('destroy')];counts.update(RtlUnwind=1,terminate=1);c['noreturn_endpoint']='terminate'
+    c['expected_function_pointers']=[dict(address=NLG,native=0x564069,compiled_symbol='restore_crt_destroy_exception_recover')]
+   else:
+    counts['dispatch-return']=1;c['noreturn_endpoint']='dispatch-return'
+  c.update(endpoints=eps,expected_endpoint_counts=counts);out.append(c)
+ return out
+
+
+def startup_cases():
+ SCOPES['startup']=[row(-1,0x5630c1,'restore_crt_startup_filter',0x5630d5,'restore_crt_startup_recover')]
+ out=[]
+ for mode in ['normal','fatal-heap','dispatch']:
+  c=base(0x562fea,mode,[])
+  c['watched'] += [(0x126643c,16),(0x1266400,4),(0x1267aa4,4)]
+  c['write_ranges'] += [(0x126643c,16),(0x1266400,4),(0x1267aa4,4)]
+  eps=[];counts={}
+  def child(token,addr,arity=0,value=0):
+   e=dict(token=token,native=addr,compiled_symbols=[f'FUN_{addr:08x}'],arity=arity,
+    native_cleanup=0,compiled_cleanup=0,result_kind='full32',value=value,
+    fs0_registration=registration('startup'));eps.append(e);counts[token]=1;return e
+  def imp(token,arity,value,cleanup):
+   e=dict(token=token,import_name=token,arity=arity,native_cleanup=cleanup,compiled_cleanup=cleanup,
+    result_kind='full32',value=value,fs0_registration=registration('startup'));eps.append(e);counts[token]=1;return e
+  imp('GetVersion',0,0x98760605,0)
+  child('heap',0x5653eb,1,0 if mode=='fatal-heap'else 1)
+  if mode=='fatal-heap':
+   e=child('fatal',0x563105,1);e.update(result_kind='void',noreturn=True);c['noreturn_endpoint']='fatal'
+  else:
+   e=child('crt-tls',0x566a03)
+   if mode=='dispatch':
+    e['dispatch_fs0']=dispatch();eps.append(rtl());counts['RtlUnwind']=1
+    e=child('seh-filter',0x5677b8,2,1);e['private_input_args']={1:dict(role='EXCEPTION_POINTERS',width=8)}
+    e=child('exit-recovery',0x5646fe,1);e.update(result_kind='void',noreturn=True);c['noreturn_endpoint']='exit-recovery'
+    c['expected_function_pointers']=[dict(address=NLG,native=0x5630d5,compiled_symbol='restore_crt_startup_recover')]
+   else:
+    imp('GetCommandLineA',0,EXC2,0);child('environment',0x567c9a,0,EXC2+64)
+    for token,addr in [('parse-argv',0x567a4d),('parse-env',0x567994),('initializers',0x5646c0)]:child(token,addr)
+    e=imp('GetStartupInfoA',1,0,4);e['result_kind']='void';e['pointer_args']={0:'STARTUPINFOA'}
+    e['writes_arg_bytes']=[(0,44,struct.pack('<I',1).hex()),(0,48,struct.pack('<H',0x89ab).hex())]
+    child('command-tail',0x56793c,0,EXC2+8);imp('GetModuleHandleA',1,0x12340000,4)
+    # Only HINSTANCE is consumed by the existing C WinMain algorithm.
+    e=child('WinMain',0x413ed0,1,0x76543210);e['native_cleanup']=16
+    e=child('exit-normal',0x5646ed,1);e.update(result_kind='void',noreturn=True);c['noreturn_endpoint']='exit-normal'
+  c.update(endpoints=eps,expected_endpoint_counts=counts);out.append(c)
+ return out
+
+
 def definitions(registry):
  present={int(m['address'],16)for m in registry['members']}
- return [c for c in jump_cases()+handler_cases()+filter_cases()+terminate_cases()+terminate_unwind_case()+cleanup_cases()+catch_cases()+caller_cases() if c['entry']in present]
+ return [c for c in jump_cases()+handler_cases()+filter_cases()+terminate_cases()+terminate_unwind_case()+cleanup_cases()+catch_cases()+caller_cases()+lifetime_cases()+startup_cases() if c['entry']in present]

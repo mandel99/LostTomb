@@ -65,8 +65,8 @@ void FUN_00563c95(uint32_t exception, int32_t frame, uint32_t context,
 void FUN_00563adc(uint32_t exception, uint32_t frame, uint32_t context,
     uint32_t reserved, uint32_t descriptor, int32_t state,
     uint32_t depth, uint32_t registration);
-/* Native 563935 pushes both arguments. The primary 56400A body reads
-   only the first; retain the initialized second word across that edge. */
+/* The 56400A body reads the exception. Its embedded EH3 filter reads
+   the low byte of mode: nonzero terminates if the destructor throws. */
 void FUN_0056400a(int32_t exception, uint32_t mode);
 
 #endif

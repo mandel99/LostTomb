@@ -2588,9 +2588,9 @@ unset(_translation_symbol)
 
 # Recovered EH3 handler and native parent-frame/continuation C owners.
 target_sources(pharaoh_restored PRIVATE runtime/crt_eh3_handler.c runtime/crt_eh3_frames.c)
-set_source_files_properties(src/unit_02781.c src/unit_02857.c src/unit_02862.c src/unit_02864.c runtime/crt_eh3_handler.c runtime/crt_eh3_frames.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+set_source_files_properties(src/unit_02781.c src/unit_02857.c src/unit_02862.c src/unit_02864.c src/unit_02866.c src/unit_02867.c src/unit_02844.c runtime/crt_eh3_handler.c runtime/crt_eh3_frames.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
 foreach(_eh3_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
- foreach(_eh3_symbol IN ITEMS FUN_005614c3 FUN_00561a90 FUN_00563844 FUN_00563be1 FUN_00563d10 FUN_00563c7f FUN_00563e1c restore_crt_jump_to_catch restore_crt_eh3_handler restore_crt_invoke_terminate_handler restore_crt_cleanup_to_state restore_crt_invoke_catch restore_crt_cleanup_exception_filter restore_crt_rethrow_filter)
+ foreach(_eh3_symbol IN ITEMS FUN_005614c3 FUN_00561a90 FUN_00563844 FUN_00563be1 FUN_00563d10 FUN_00563c7f FUN_00563e1c restore_crt_jump_to_catch restore_crt_eh3_handler restore_crt_invoke_terminate_handler restore_crt_cleanup_to_state restore_crt_invoke_catch restore_crt_cleanup_exception_filter restore_crt_rethrow_filter FUN_00563e46 FUN_0056400a restore_crt_copy_exception restore_crt_destroy_exception FUN_00562fea restore_crt_startup)
   target_link_options(${_eh3_target} PRIVATE "/INCLUDE:_${_eh3_symbol}")
  endforeach()
 endforeach()

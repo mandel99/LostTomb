@@ -43,6 +43,10 @@ int32_t FUN_00563c7f(EXCEPTION_POINTERS *);
 int32_t restore_crt_rethrow_filter(EXCEPTION_POINTERS *);
 int32_t FUN_00563e1c(EXCEPTION_POINTERS *);
 
+void restore_crt_copy_exception(uint32_t exception,uint32_t frame,uint32_t handler,uint32_t conversion);
+void FUN_00563e46(uint32_t exception,uint32_t frame,uint32_t handler,uint32_t conversion);
+void restore_crt_destroy_exception(int32_t exception,uint32_t mode);
+
 /* Physical parent-frame boundaries shared by all three C-owned bodies.
    Prepare receives the real saved SP; body receives parent EBP and mode0.
    A recovery funclet uses that saved SP and completes the original parent. */

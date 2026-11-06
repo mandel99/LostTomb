@@ -1,0 +1,93 @@
+{
+  "schema": "cohort7-necessary-exception-lifetime-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 358,
+  "current_cohort_source_entries": 17,
+  "entries_compared": 3,
+  "cases": 10,
+  "invocations": 70,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-lifetime-ABI-runs/20261106-032001-965388/result.json",
+    "sha256": "4c6fcdfa6c564ff6fb7aafed89e5d1d89849ed19b427a6bb58086eb295cd4468"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-lifetime-ABI-runs/20261106-032001-965388/binding.json",
+    "sha256": "4c60f9659938543c9ef68275a7fd426d7a95ef610b41d3c4ddfb3ab6f4cfdbbb"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-lifetime-ABI-runs/20261106-032001-965388/case-inputs.json",
+    "sha256": "8a40892ad59bb745541e6af932b92ad12571f902f207ad73c1ce75a5ac5bad0d"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "d6cd7d6dc2c844929b8f7f4189e25e787aa782cdcb4408aabf2f9e940e207902",
+      "map_sha256": "2e83dc3573d0e0657f0c38e7f054f00aa6996149b9b8a89bcc83bcf6ede0232b"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "6f9f3a4b2f8ad354525619f1160db27aa134b0283347c3bfe4c15bcda6a9fe7e",
+      "map_sha256": "8fd02575a81bebb3641d9a7ccfe0774b6cc4c0626e3a103cfa3eee5c8341bd73"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "62569e59b8c13bb1ed17602d80e120e2568e96419d22d6952e3bba9907c14e58",
+      "map_sha256": "a76f4a491a7915e2ad01dc5e027ff2d6674b6d8d6220339a3e8ee8c1c4be0f31"
+    }
+  },
+  "source_hashes": {
+    "src/unit_02844.c": "afde2cedc3abc72b45a6279023019811e0af8a018def5ede6c27e1806a5af21e",
+    "src/unit_02866.c": "f35ab6e296408a13bbd09136f171a6243c0a8bfbfca0500884a84f4f76865a56",
+    "src/unit_02867.c": "3004c67104e5895fe8278449e5e74adf5b44faa04ae3e9e5209f061d73d7c674",
+    "runtime/legacy_member_calls.c": "75e0eaae3648cc8e02ca5485fce55b626290af0877658ac566116f88b81c75a1",
+    "include/legacy_member_calls.h": "0c3360efb9c42f8457a9a35f5a5144d5513a38d1f1171b9989fcef21b74cd06a",
+    "include/crt_eh3_frames.h": "262d6c34e5762f59351afcd0553ebd5119c8dc6adafede7964fb8762739510a4",
+    "include/crt_exception_dispatch.h": "647b79115f4dd3a2e0f3ac3bb3123c13550d434f978cdd55e5b09c6312ed41a8",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5",
+    "direct_c/cohort3_replay/cohort7_eh3_cases.py": "ea92e95f38e173cd25b4aee868d2e0146a54cd06093af23ce0c6008145ef6f7e"
+  },
+  "supporting_funclets": {
+    "path": "metadata/cohort7-exception-lifetime-supporting-funclets.json",
+    "sha256": "a18dd7d4a43fcc6ec3c0abe0431643e864ad3476dd87d9826fc429fe16ed3a26"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-lifetime-publication/executed-master.json",
+    "sha256": "7f7522b343c19542acef5f92309e82e88342110b114485d193fef49c11828020"
+  },
+  "actual_guest_EH3_handler_executed": true,
+  "controlled_boundaries": [
+    "Pointer validation predicates and PMD adjustment are declared endpoints",
+    "Copy constructor/destructor callbacks and WinMain are controlled; native WinMain RET16 is normalized to its sole consumed HINSTANCE",
+    "RtlUnwind is controlled; actual guest EH3 search/filter/recovery executes",
+    "Nonreturn CRT fatal/exit/terminate wrappers are final boundaries, host ExitProcess is never called",
+    "Synthetic dispatch-return sentinel contains RET to avoid decoding beyond its mapped page"
+  ],
+  "initial_fixture_failure": {
+    "result": {
+      "path": "build/actor-animal-following/cohort7-lifetime-ABI-runs/20261106-031853-539912/result.json",
+      "sha256": "a35a6a5fc1609002ad505f821e162a3835b1401fe290726ad01eecc70e9b96b1"
+    },
+    "failed_cases": 2,
+    "reason": "Native and all C routes both failed when Unicorn decoded an all-zero synthetic return block across its page. One-byte RET stub fixes the shared controlled endpoint; all10 cases then reran on unchanged product images."
+  },
+  "coverage": [
+    "Adjusted object copy keeps original byte count through PMD call",
+    "Virtual-base constructor receives two stack arguments and correct destination ECX",
+    "Ordinary constructor throw dispatches constant1 filter and nonreturn recovery",
+    "Destructor return, mode1 throw, mode0 and mode0x100 continued search (low-byte contract)",
+    "Startup normal/fatal heap/positive-filter recovery, all four version DWORDs and command/environment pointer stores"
+  ],
+  "limitations": [
+    "Necessary finite ABI checks only; detailed whole-cohort comparison remains pending",
+    "No real OS unwinder, arbitrary asynchronous fault or game execution",
+    "Native/C callbacks are compared only at their declared logical interfaces; foreign EDX/flags consumers are not qualified"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

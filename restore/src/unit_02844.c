@@ -1,78 +1,105 @@
-#include "restore_types.h"
-#define LAB_00561a90 (*(undefined1 *)0x00561a90u)
-#define DAT_00570620 (*(undefined4 *)0x00570620u)
-#define DAT_01266400 (*(undefined *)0x01266400u)
-#define DAT_01267aa4 (*(undefined *)0x01267aa4u)
-#define _DAT_0126643c (*(undefined4 *)0x0126643cu)
-#define _DAT_01266440 (*(undefined4 *)0x01266440u)
-#define _DAT_01266444 (*(undefined4 *)0x01266444u)
-#define _DAT_01266448 (*(undefined4 *)0x01266448u)
-extern undefined4 FUN_00413ed0();
-extern void FUN_00563105();
-extern void FUN_005646c0();
-extern void FUN_005646ed();
-extern undefined4 FUN_005653eb();
-extern void FUN_00566a03();
-extern LONG FUN_005677b8();
-extern byte * FUN_0056793c();
-extern void FUN_00567994();
-extern void FUN_00567a4d();
-extern LPSTR FUN_00567c9a();
-#define stack0xffffff88 (restore_stack[32648])
+#include "crt_eh3_frames.h"
 
-void FUN_00562fea(void)
+/* 562FEA uses EBP-68h..EBP-1. The dispatch-owned exception cell at EBP-14h
+   is deliberately unwritten until the EH3 handler supplies it. */
+typedef struct RestoreCrtEh3StartupFrame {
+ uint32_t exception_code,command_line_tail,exit_code;
+ STARTUPINFOA startup_info;
+ uint32_t saved_sp,exception_pointers;
+ RestoreCrtEh3Registration registration;
+} RestoreCrtEh3StartupFrame;
+typedef char RestoreCrtEh3StartupFrameLayout[(sizeof(RestoreCrtEh3StartupFrame)==104 &&
+ offsetof(RestoreCrtEh3StartupFrame,startup_info)==12 &&
+ offsetof(RestoreCrtEh3StartupFrame,saved_sp)==80 &&
+ offsetof(RestoreCrtEh3StartupFrame,exception_pointers)==84 &&
+ offsetof(RestoreCrtEh3StartupFrame,registration)==88)?1:-1];
 
+#define CRT_VERSION_BUILD (*(volatile uint32_t *)0x0126643cu)
+#define CRT_VERSION_PACKED (*(volatile uint32_t *)0x01266440u)
+#define CRT_VERSION_MAJOR (*(volatile uint32_t *)0x01266444u)
+#define CRT_VERSION_MINOR (*(volatile uint32_t *)0x01266448u)
+#define CRT_COMMAND_LINE (*(LPSTR volatile *)0x01267aa4u)
+#define CRT_ENVIRONMENT (*(LPSTR volatile *)0x01266400u)
+
+/* Native 413ED0 is stdcall with RET16, but only [EBP+8] is read. Its
+   existing C owner exposes that one consumed instance word as cdecl. */
+uint32_t __cdecl FUN_00413ed0(uint32_t instance);
+uint32_t FUN_005653eb(int32_t multithreaded);
+__declspec(noreturn) void FUN_00563105(uint32_t error);
+void FUN_00566a03(void);
+LPSTR FUN_00567c9a(void);
+void FUN_00567a4d(void);
+void FUN_00567994(void);
+void FUN_005646c0(void);
+uint8_t *FUN_0056793c(void);
+/* Both wrappers pass return_to_caller=0 to 56470F, ending in ExitProcess. */
+__declspec(noreturn) void FUN_005646ed(uint32_t code);
+__declspec(noreturn) void __cdecl FUN_005646fe(int32_t code);
+LONG FUN_005677b8(uint32_t code,EXCEPTION_POINTERS *pointers);
+
+int32_t restore_crt_startup_filter(void);
+uint32_t restore_crt_startup_recover(void);
+const RestoreCrtEh3Scope restore_crt_startup_scopes[1]={
+ {-1,restore_crt_startup_filter,restore_crt_startup_recover}
+};
+
+static void prepare_eh3_startup(volatile RestoreCrtEh3StartupFrame *f,
+ const volatile uint32_t *arguments,uint32_t saved_sp)
 {
-  unsigned char restore_stack[65536];
-  DWORD DVar1;
-  int iVar2;
-  undefined4 uVar3;
-  uint uVar4;
-  HMODULE pHVar5;
-  undefined4 uVar6;
-  _STARTUPINFOA local_60;
-  undefined1 *local_1c;
-  undefined4 *local_18;
-  void *pvStack_14;
-  undefined1 *puStack_10;
-  undefined *puStack_c;
-  undefined4 local_8;
-  
-  local_8 = 0xffffffff;
-  puStack_c = &DAT_00570620;
-  puStack_10 = &LAB_00561a90;
-  pvStack_14 = ExceptionList;
-  local_1c = &stack0xffffff88;
-  ExceptionList = &pvStack_14;
-  DVar1 = GetVersion();
-  _DAT_01266448 = DVar1 >> 8 & 0xff;
-  _DAT_01266444 = DVar1 & 0xff;
-  _DAT_01266440 = _DAT_01266444 * 0x100 + _DAT_01266448;
-  _DAT_0126643c = DVar1 >> 0x10;
-  iVar2 = FUN_005653eb(0);
-  if (iVar2 == 0) {
-    FUN_00563105(0x1c);
-  }
-  local_8 = 0;
-  FUN_00566a03();
-  DAT_01267aa4 = GetCommandLineA();
-  DAT_01266400 = FUN_00567c9a();
-  FUN_00567a4d();
-  FUN_00567994();
-  FUN_005646c0();
-  local_60.dwFlags = 0;
-  GetStartupInfoA(&local_60);
-  uVar3 = FUN_0056793c();
-  if ((local_60.dwFlags & 1) == 0) {
-    uVar4 = 10;
-  }
-  else {
-    uVar4 = (uint)local_60.wShowWindow;
-  }
-  uVar6 = 0;
-  pHVar5 = GetModuleHandleA((LPCSTR)0x0);
-  uVar3 = FUN_00413ed0(pHVar5,uVar6,uVar3,uVar4);
-  FUN_005646ed(uVar3);
-  FUN_005677b8(*(undefined4 *)*local_18,local_18);
-  return;
+ (void)arguments;
+ restore_crt_eh3_install(&f->registration,restore_crt_startup_scopes);
+ f->saved_sp=saved_sp;
 }
+static __declspec(noreturn) void run_eh3_startup(volatile RestoreCrtEh3StartupFrame *f,
+ const volatile uint32_t *arguments,uint32_t parent_frame,uint32_t recovered)
+{
+ uint32_t version,show_window;
+ (void)arguments;(void)parent_frame;
+ if(recovered)FUN_005646fe((int32_t)f->exception_code);
+ #pragma warning(suppress:4996) /* Exact original GetVersion import. */
+ version=GetVersion();
+ CRT_VERSION_MINOR=(version>>8)&0xffu;
+ CRT_VERSION_MAJOR=version&0xffu;
+ CRT_VERSION_PACKED=(version&0xffu)*0x100u+((version>>8)&0xffu);
+ CRT_VERSION_BUILD=version>>16;
+ if(FUN_005653eb(0)==0)FUN_00563105(0x1cu);
+ f->registration.state=0;
+ FUN_00566a03();
+ CRT_COMMAND_LINE=GetCommandLineA();
+ CRT_ENVIRONMENT=FUN_00567c9a();
+ FUN_00567a4d();
+ FUN_00567994();
+ FUN_005646c0();
+ f->startup_info.dwFlags=0;
+ GetStartupInfoA((LPSTARTUPINFOA)&f->startup_info);
+ f->command_line_tail=(uint32_t)(uintptr_t)FUN_0056793c();
+ if((f->startup_info.dwFlags&1u)==0)show_window=10;
+ else show_window=(uint32_t)f->startup_info.wShowWindow;
+ /* The parsed command line, previous-instance zero and show state were the
+    other three native arguments. 413ED0 never consumes those stack words. */
+ (void)show_window;
+ f->exit_code=FUN_00413ed0((uint32_t)(uintptr_t)GetModuleHandleA(0));
+ FUN_005646ed(f->exit_code);
+}
+RESTORE_EH3_PARENT(restore_crt_startup,void,(void),104,prepare_eh3_startup,run_eh3_startup)
+RESTORE_EH3_RECOVERY(restore_crt_startup_recover,104,run_eh3_startup)
+
+/* 5630C1: called with the actual parent's EBP by the EH3 invocation bridge.
+   The full DWORD exception code is saved before the signal/unhandled filter. */
+static int32_t run_startup_filter(uint32_t parent_frame)
+{
+ volatile RestoreCrtEh3StartupFrame *f=(volatile RestoreCrtEh3StartupFrame *)(uintptr_t)(parent_frame-104);
+ EXCEPTION_POINTERS *pointers=(EXCEPTION_POINTERS *)(uintptr_t)f->exception_pointers;
+ uint32_t code=pointers->ExceptionRecord->ExceptionCode;
+ f->exception_code=code;
+ return (int32_t)FUN_005677b8(code,pointers);
+}
+__declspec(naked) int32_t restore_crt_startup_filter(void)
+{
+ __asm push ebp
+ __asm call run_startup_filter
+ __asm add esp,4
+ __asm ret
+}
+__declspec(naked) void FUN_00562fea(void)
+{__asm jmp restore_crt_startup}
