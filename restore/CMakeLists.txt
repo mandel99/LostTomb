@@ -2616,3 +2616,13 @@ foreach(_crt_mb_target IN ITEMS restore_link_check restore_game restore_cohort3_
 endforeach()
 unset(_crt_mb_target)
 unset(_crt_mb_symbol)
+
+# Multibyte consumers retain native argument aliases and live scratch slots.
+set_source_files_properties(src/unit_02925.c src/unit_02986.c src/unit_03012.c src/unit_03022.c src/unit_03029.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON COMPILE_OPTIONS "/W4;/WX;/O2;/GS-;/Ob0")
+foreach(_crt_consumer_target IN ITEMS restore_link_check restore_game restore_cohort3_retained)
+ foreach(_crt_consumer_symbol IN ITEMS FUN_00566bc3 FUN_005691e5 FUN_0056a857 FUN_0056b104 FUN_0056b363 restore_crt_initialize_timezone restore_crt_wide_character_to_multibyte restore_crt_collate_multibyte_case_insensitive restore_crt_find_multibyte_character restore_crt_uppercase_multibyte)
+  target_link_options(${_crt_consumer_target} PRIVATE "/INCLUDE:_${_crt_consumer_symbol}")
+ endforeach()
+endforeach()
+unset(_crt_consumer_target)
+unset(_crt_consumer_symbol)

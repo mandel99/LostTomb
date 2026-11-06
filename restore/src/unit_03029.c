@@ -1,36 +1,42 @@
-#include "restore_types.h"
-#define DAT_01266710 (*(undefined *)0x01266710u)
-#define DAT_01266740 (*(undefined4 *)0x01266740u)
-#define DAT_01266840 (*(undefined4 *)0x01266840u)
-#define DAT_01266944 (*(undefined *)0x01266944u)
-extern int FUN_0056947e();
+#include "crt_multibyte.h"
+#include "crt_nls_mapping.h"
+#include "crt_eh3_frames.h"
 
-uint FUN_0056b363(uint param_1)
-
+static uint32_t run_multibyte_uppercase(volatile uint8_t *output,
+ const volatile uint32_t *arguments,uint32_t parent_frame,uint32_t recovered)
 {
-  uint uVar1;
-  uint uVar2;
-  int iVar3;
-  uint uVar4;
-  undefined1 uVar5;
-  undefined2 local_8;
-  
-  uVar4 = param_1;
-  if (param_1 < 0x100) {
-    if ((*(byte *)((int)&DAT_01266840 + param_1 + 1) & 0x20) == 0x20) {
-      uVar4 = (uint)(byte)(&DAT_01266740)[param_1];
-    }
-  }
-  else {
-    uVar5 = (undefined1)param_1;
-    uVar2 = param_1 >> 8;
-    uVar1 = param_1 >> 8;
-    param_1 = CONCAT13(uVar5,CONCAT12((char)uVar1,(undefined2)param_1));
-    if (((*(byte *)((int)&DAT_01266840 + (uVar2 & 0xff) + 1) & 4) != 0) &&
-       (iVar3 = FUN_0056947e(DAT_01266944,0x200,(int)&param_1 + 2,2,&local_8,2,DAT_01266710,1),
-       iVar3 != 0)) {
-      uVar4 = (uint)CONCAT11((undefined1)local_8,RESTORE_SLICE1(local_8,1));
-    }
-  }
-  return uVar4;
+ uint32_t character=arguments[0];
+ volatile uint8_t *argument_bytes=(volatile uint8_t *)arguments;
+ (void)parent_frame;(void)recovered;
+ if(character<=0xffu){
+  if((RESTORE_CRT_MB_FLAGS[character+1]&0x20u)==0x20u)
+   return RESTORE_CRT_MB_CASE_MAP[character];
+ }else{
+  /* Native mutates the high two bytes of its incoming stack argument. */
+  argument_bytes[3]=(uint8_t)character;
+  argument_bytes[2]=(uint8_t)(character>>8);
+  if((RESTORE_CRT_MB_FLAGS[((character>>8)&0xffu)+1]&4u)!=0 &&
+     FUN_0056947e(RESTORE_CRT_MB_LOCALE,0x200,(LPCSTR)(argument_bytes+2),2,
+      (void *)output,2,RESTORE_CRT_CODEPAGE,1)!=0)
+   return (uint32_t)output[0]*256u+output[1];
+ }
+ return character;
 }
+/* Native PUSH ECX seeds the two output bytes. A one-byte mapping leaves
+   the second byte live; capture the real incoming register before C calls. */
+#pragma warning(push)
+#pragma warning(disable:4100)
+__declspec(naked) uint32_t restore_crt_uppercase_multibyte(uint32_t character)
+{
+ __asm push ebp
+ __asm mov ebp,esp
+ __asm push ecx
+ __asm push ebx
+ __asm push esi
+ __asm push edi
+ RESTORE_EH3_BODY_CALL(4,run_multibyte_uppercase,0)
+ RESTORE_EH3_PARENT_RETURN
+}
+__declspec(naked) uint32_t FUN_0056b363(uint32_t character)
+{__asm jmp restore_crt_uppercase_multibyte}
+#pragma warning(pop)

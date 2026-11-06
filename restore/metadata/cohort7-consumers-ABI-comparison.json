@@ -1,0 +1,92 @@
+{
+  "schema": "cohort7-necessary-consumers-ABI-comparison-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "selected_source_entries": 373,
+  "current_cohort_source_entries": 32,
+  "entries_compared": 5,
+  "cases": 18,
+  "invocations": 126,
+  "failed_cases": 0,
+  "inputs_stable": true,
+  "result": {
+    "path": "build/actor-animal-following/cohort7-consumers-ABI-runs/20261106-041642-791479/result.json",
+    "sha256": "c94fcc31dcb013bf4ba3241bac041d3814dd34e09254eb6ea136154e3e31722e"
+  },
+  "binding": {
+    "path": "build/actor-animal-following/cohort7-consumers-ABI-runs/20261106-041642-791479/binding.json",
+    "sha256": "262d946b3eb15aefdd532d1a6a7ed4922613fa1cbbff185fe29c8be7509bc091"
+  },
+  "case_inputs": {
+    "path": "build/actor-animal-following/cohort7-consumers-ABI-runs/20261106-041642-791479/case-inputs.json",
+    "sha256": "23272c36212ce3f5b7b07c13c706fafbef34c0d1af6cdabe2d48cc633168a4d0"
+  },
+  "compiled_images": {
+    "game": {
+      "path": "build/c-only/Release/PharaohRestoreC.exe",
+      "map_path": "build/c-only/Release/PharaohRestoreC.map",
+      "sha256": "fb1d00edd1e9de5e5c4108148d0589a67aa11af5b812b78810db6a24ee86728b",
+      "map_sha256": "c2c1faf4901ff2b30768356e654b7b44ee4653ee94f4a246f69fec58dcab5bfa"
+    },
+    "diagnostic": {
+      "path": "build/c-only/Release/restore_link_check.exe",
+      "map_path": "build/c-only/Release/restore_link_check.map",
+      "sha256": "306050eb6098343e121ca0d2faa9c910f38f7e00cad6666ec4ffeaff661a7c49",
+      "map_sha256": "f31df8a2b0902fe6ad649a5071392761e99533759d23683aa8118d10357d7837"
+    },
+    "retained": {
+      "path": "build/c-only/Release/restore_cohort3_retained.exe",
+      "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+      "sha256": "9f92aaf8a01470af699357ef3b913e0347942d59dff485efeaf9126880b220f7",
+      "map_sha256": "ebc08148e83d21ba8d4da015909c7bfde3036e69d212d4e402d4994cff51738f"
+    }
+  },
+  "source_hashes": {
+    "include/crt_multibyte.h": "39deab1947931b30b21b65d31489b86003b5f2cd518121471e38779f46ffba02",
+    "include/crt_eh3_frames.h": "262d6c34e5762f59351afcd0553ebd5119c8dc6adafede7964fb8762739510a4",
+    "src/unit_02925.c": "9f0b55ff9fcb71452c0b93e644ceeb01937e12f64a9ff06f837629e9ecd4793b",
+    "src/unit_02986.c": "f3d3fcf9733ace23c4398aa5d5b5df9e8be2f3f5f8cd9125feb066510448d38d",
+    "src/unit_03012.c": "6649499fe9b2839226c8b36f4b55e77a41b5b15d54ddc3f5192e8455c4f6a71c",
+    "src/unit_03022.c": "fbfe152d122dfa0ccfb0bc65152cb49b4bd4e3d1ace2322a21bc1cfba23e0b23",
+    "src/unit_03029.c": "9ac9198d75129a4d0d142355a9f82a4e84f522cb9d67768029e794bf8f7fc3bb",
+    "direct_c/cohort3_replay/cohort7_consumer_cases.py": "8f0b89c79b4eb0edfe3c0e832c10cdad66ead8a1848c06a3840d0dc67ee12087",
+    "direct_c/cohort3_replay/cases.py": "4b7010894c26e7bd8d813e829c823797555676f4b7164eeb143f0fb50d3d0c30",
+    "direct_c/cohort3_replay/replay.py": "46335e671f6a5edc5ac618b148d6d73f582416ea30d437eb231ee5ea689cc8b5"
+  },
+  "source_input_ledger": {
+    "path": "build/actor-animal-following/cohort7-consumers-publication/executed-master.json",
+    "sha256": "86d04d80622aa6cac8a886ea90e5bcea8ff205c92dc5dfb5c94d760076013d30"
+  },
+  "physical_address_checks": {
+    "path": "build/actor-animal-following/cohort7-consumers-ABI-runs/20261106-041642-791479/physical-address-checks.json",
+    "sha256": "b2f734b1eaa2ae184e4d65711156c46880f3a9d325ad05a0e96e8dc6cb78e57e"
+  },
+  "physical_callback_invocations_checked": 56,
+  "physical_address_assertions": 84,
+  "coverage": [
+    "Single-byte uppercase uses BYTE map; paired paths mutate original argument high bytes and retain full original result on no lead",
+    "One-byte NLS mapping retains second output byte from actual entryECX, not zero; two-byte result consumes both written bytes",
+    "Search preserves original caller arguments, tests fullDWORD multibyte flag, compares full requestedDWORD in enabled mode; existing real strchr consumes lowBYTE on disabled path",
+    "Collation forwards full locale/codepage/count to existing logical helper, count0 skips it and API0 mapsINT_MAX",
+    "Wide conversion consumes lowWORD and aliases first incoming argument DWORD as BOOL; C-locale/null/error and locale default-character paths retain errno and output effects",
+    "Timezone uses WORD month0x100 and DWORD bias, reloaded full name pointers for BYTE[63], exact entryECX BOOL cell and negative TZ H:M:S prefix stores atBYTE[3]"
+  ],
+  "controlled_boundaries": [
+    "NLS comparison/mapping and wide-conversion APIs use declared output/return endpoints",
+    "Timezone getenv, allocator, string-copy, length and integer-parser children are controlled; actual getters still have separate known width defects",
+    "Real native/C strchr executes in disabled search path; only its lowBYTE character is consumed",
+    "All five entries run native and named/canonical in three compiled images; no host game/API is launched"
+  ],
+  "pre_fix_partial_evidence": {
+    "path": "metadata/cohort7-consumers-pre-find-fix-image-archive.json",
+    "sha256": "340392462ec9d007ef45db7eef3ac552db66e7214884c79f442cd929072d83d5"
+  },
+  "case_inputs_unchanged_after_source_fix": true,
+  "limitations": [
+    "Necessary finite ABI checks; complete NLS/TZ/error matrices remain for joint cohort gate",
+    "Actual entryECX is preserved at the reconstructed entry, while transport from all separately reconstructed native callers remains unqualified",
+    "Physical addresses apply to declared fixture entrySP; arbitrary malformed callback writes, async interleavings and whole-game equivalence are not established"
+  ],
+  "cohort_validation_complete": false,
+  "whole_game_equivalence": false,
+  "host_execution": false
+}

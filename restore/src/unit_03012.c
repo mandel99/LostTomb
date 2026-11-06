@@ -1,19 +1,15 @@
-#include "restore_types.h"
-#define DAT_01266710 (*(undefined *)0x01266710u)
-#define DAT_01266944 (*(undefined *)0x01266944u)
-extern int FUN_0056ac16();
+#include "crt_multibyte.h"
+#include "crt_nls_mapping.h"
 
-int __cdecl FUN_0056a857(uchar *_Str1,uchar *_Str2,size_t _MaxCount)
-
+int32_t restore_crt_collate_multibyte_case_insensitive(const uint8_t *first,
+ const uint8_t *second,uint32_t bytes)
 {
-  int iVar1;
-  
-  if (_MaxCount == 0) {
-    return 0;
-  }
-  iVar1 = FUN_0056ac16(DAT_01266944,1,_Str1,_MaxCount,_Str2,_MaxCount,DAT_01266710);
-  if (iVar1 == 0) {
-    return 0x7fffffff;
-  }
-  return iVar1 + -2;
+ int32_t comparison;
+ if(bytes==0)return 0;
+ comparison=FUN_0056ac16(RESTORE_CRT_MB_LOCALE,1,(LPCSTR)first,(int32_t)bytes,
+  (LPCSTR)second,(int32_t)bytes,RESTORE_CRT_CODEPAGE);
+ if(comparison==0)return INT32_MAX;
+ return (int32_t)((uint32_t)comparison-2u);
 }
+int32_t FUN_0056a857(const uint8_t *first,const uint8_t *second,uint32_t bytes)
+{return restore_crt_collate_multibyte_case_insensitive(first,second,bytes);}

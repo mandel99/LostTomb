@@ -3,8 +3,8 @@
   "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
   "catalogue_entries": 4530,
   "category_counts": {
-    "existing_selected": 491,
-    "existing_C_preserved": 4011,
+    "existing_selected": 496,
+    "existing_C_preserved": 4006,
     "existing_C_reuse_review": 0,
     "review_needed": 28,
     "safe_rule_candidate": 0,
@@ -23,8 +23,8 @@
     28
   ],
   "active_source_cohort": 7,
-  "active_cohort_entries": 27,
-  "cumulative_selected_entries": 368,
+  "active_cohort_entries": 32,
+  "cumulative_selected_entries": 373,
   "source_expansion_suspended": false,
   "script": {
     "path": "tools/bulk_remaining.py",
@@ -32,15 +32,15 @@
   },
   "documentation": {
     "path": "BULK_REMAINING.md",
-    "sha256": "20ff1dbc5684bb7c8cc3590cf002d1373b5e6290b9b12b774c2f18fab2fe9d4a"
+    "sha256": "15a00cf5591a277621fa1bb260145cadce7d88914fd74c76cfc42aa92e0a63c1"
   },
   "private_plan": {
-    "path": "build/bulk-reconstruction/cohort7-source27-preserved-inventory.json",
-    "sha256": "4b74312ef11b248e8ead2ffc9f620fc0695eeefb7102bd48c0ed7b9ea534b10e"
+    "path": "build/bulk-reconstruction/cohort7-source32-preserved-inventory.json",
+    "sha256": "8da8eb2278d3cfb3a7a6423dbba780122b086e820785ae063013269aa147262a"
   },
-  "snapshot_scope": "Source27 after strict build and13 necessary ABI cases. Exact pre-inventory master retained; source ownership/categories do not establish behavior.",
+  "snapshot_scope": "Source32 after strict build and18 necessary ABI cases plus84 physical-address assertions. Exact pre-inventory master retained; source ownership/categories do not establish behavior.",
   "reuse_policy": "Any separate canonical, macro, frame or model definition is reserved for review regardless of variable names. Marker absence or a trial artifact does not prove correctness.",
-  "next_stage": "Continue multibyte table consumers and locale conversion routines; fix concrete table index/scalar unit mismatches after checking native consumers, preserving correct C.",
+  "next_stage": "Continue the environment get/set/convert/name-lookup cluster and timezone lazy guard; repair verified full pointer/scalar units while preserving correct existing C.",
   "catalogue_closed": false,
   "complete_game_reconstruction": false,
   "behavior_comparison_complete": false,
@@ -60,7 +60,7 @@
     "existing_C_preserved": 101,
     "correctness_proved": false
   },
-  "snapshot_source_checkpoint": "40532d4e8ce4fe5a797f251643241dcef84364aa",
+  "snapshot_source_checkpoint": "022e63f651e445964fc5563f988d75a73339406c",
   "historical_work_packets_require_refresh": true,
   "source_reuse_dispositions": {
     "matched_entries": 160,
@@ -99,11 +99,11 @@
   },
   "current_source_progress": {
     "path": "metadata/cohort7-source-progress.json",
-    "sha256": "4bc93792cd803e315f99b8312276271b43511c930765aed61097dab8c99b68e7"
+    "sha256": "89f700be92af21e1e8426a1e2277f55d9a905cdb8e0c7007dd64f70f0adcfd8e"
   },
   "current_focused_comparison": {
-    "path": "metadata/cohort7-multibyte-ABI-comparison.json",
-    "sha256": "5a726e11bfbb8502ea875bd738a18245e0a685205f7a60914bd1677a0d21720f"
+    "path": "metadata/cohort7-consumers-ABI-comparison.json",
+    "sha256": "40fbca727fa66ae91e18da79bee5de5d72a0778e85191a92de36b3be08d4944a"
   },
   "known_history_source_dispositions": {
     "path": "metadata/cohort7-history-input-dispositions.json",
@@ -114,8 +114,8 @@
     "sha256": "aa8f177c3f1b21d3b9184a0e4d71403e112785ce8c258583c14ecc848f8cf8d2"
   },
   "mutable_inventory_input_snapshot": {
-    "path": "build/actor-animal-following/cohort7-multibyte-publication/pre-inventory-master.json",
-    "sha256": "53bbaee68237fedfeb557fc24b5d8ce8244a9030187774d954af1f67cc0e43a9"
+    "path": "build/actor-animal-following/cohort7-consumers-publication/pre-inventory-master.json",
+    "sha256": "662f8f58624cfaf49766d9681975d684fee04ef1f0256300104074cb918e1516"
   },
   "known_remaining_source_dispositions": {
     "path": "metadata/cohort7-remaining-input-dispositions.json",
@@ -127,32 +127,32 @@
   },
   "next_concrete_semantic_work": [
     {
-      "address": "0x0056b363",
-      "source": "src/unit_03029.c",
-      "gap": "Inspect BYTE case-map lookup and two-byte mapping inputs; current DWORD DAT expression scales the index."
+      "address": "0x005696a2",
+      "source": "src/unit_02991.c",
+      "gap": "getenv still reads environment vector/wide vector/ready through BYTE DAT declarations; preserve real collation helper."
     },
     {
-      "address": "0x0056b104",
-      "source": "src/unit_03022.c",
-      "gap": "Inspect native multibyte-enabled flag width before multibyte-string search."
+      "address": "0x0056a896",
+      "source": "src/unit_03013.c",
+      "gap": "Wide-to-narrow environment conversion still truncates the wide-vector global to BYTE; inspect ownership/failure paths."
     },
     {
-      "address": "0x0056a857",
-      "source": "src/unit_03012.c",
-      "gap": "Inspect native codepage/locale DWORD forwarding before existing comparison helper."
+      "address": "0x0056aebe",
+      "source": "src/unit_03019.c",
+      "gap": "Environment setter uses BYTE views of full vector/initial-vector/wide-vector pointers; inspect allocation/update ownership."
     },
     {
-      "address": "0x005691e5",
-      "source": "src/unit_02986.c",
-      "gap": "Inspect locale/codepage and maximum-output-size units, BOOL output and error assignment around wide-character conversion."
+      "address": "0x0056b045",
+      "source": "src/unit_03020.c",
+      "gap": "Environment name lookup still uses BYTE vector global; inspect full base pointer and signed missing-index result."
     },
     {
-      "address": "0x00566bc3",
-      "source": "src/unit_02925.c",
-      "gap": "Inspect locale-string global units and pointer/count conversion lifecycle, preserving correct existing branches."
+      "address": "0x00566bae",
+      "source": "src/unit_02924.c",
+      "gap": "Timezone lazy-initialization guard currently BYTE; confirm native load/store width and retain callback reload order."
     }
   ],
-  "joint_gate_pending_entries": 27,
+  "joint_gate_pending_entries": 32,
   "current_necessary_ABI_entries": 5,
   "source_review_queue_is_full_semantic_gap_inventory": false,
   "native_function_discovery": {

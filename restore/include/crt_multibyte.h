@@ -31,4 +31,17 @@ void FUN_00569a47(void);
 void restore_crt_build_multibyte_case_tables(void);
 void FUN_00569a70(void);
 uint32_t FUN_00569a14(int32_t codepage);
+#define RESTORE_CRT_CTYPE_HANDLE (*(volatile uint32_t *)0x0126648cu)
+#define RESTORE_CRT_MAX_MULTIBYTE_BYTES (*(volatile uint32_t *)0x00604e64u)
+#define RESTORE_CRT_ERRNO (*(volatile uint32_t *)0x01266430u)
+uint32_t restore_crt_uppercase_multibyte(uint32_t character);
+uint32_t FUN_0056b363(uint32_t character);
+uint8_t *restore_crt_find_multibyte_character(uint8_t *text,uint32_t character);
+uint8_t *FUN_0056b104(uint8_t *text,uint32_t character);
+int32_t restore_crt_collate_multibyte_case_insensitive(const uint8_t *first,const uint8_t *second,uint32_t bytes);
+int32_t FUN_0056a857(const uint8_t *first,const uint8_t *second,uint32_t bytes);
+int32_t restore_crt_wide_character_to_multibyte(LPSTR destination,uint16_t character);
+int32_t FUN_005691e5(LPSTR destination,uint16_t character);
+void restore_crt_initialize_timezone(void);
+void FUN_00566bc3(void);
 #endif
