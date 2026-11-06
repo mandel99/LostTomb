@@ -1,0 +1,31 @@
+{
+  "schema": "cohort7-actual-parent-funclet-observation-v1",
+  "contracts": [
+    "metadata/cohort7-eh3-supporting-funclets.json",
+    "metadata/cohort7-exception-lifetime-supporting-funclets.json"
+  ],
+  "parent_cases": 9,
+  "invocations": 63,
+  "supporting_funclets": 14,
+  "observation_only": true,
+  "synthetic_funclet_frames": false,
+  "scope": "Actual original/compiled parent trajectories. Entry PC/SP/BP recorded; returning filters have actual full EAX return values. Missing returns require the declared actual parent nonreturn boundary.",
+  "terminal_edge_mapping": {
+    "case": "c7-eh3/00563844/dispatch",
+    "native_call": "563890 CALL563895",
+    "native_leaf": "563895 JMP5637EE",
+    "native_bytes": "e800000000e954ffffff",
+    "compiled": "Preserved run_eh3_terminate directly invokes same nullary/noreturn FUN_005637ee; unit_02857.c",
+    "raw_event_order_equal": false,
+    "justification": "Both parent trajectories reach the same declared terminal boundary with matching parent outputs. Native terminal trampoline code is pinned; C semantic edge is explicit. Traces preserve the physical difference."
+  },
+  "new_source_credit": 0,
+  "new_entry_credit": 0,
+  "coverage_limits": [
+    "These are controlled exception deliveries through real parent-created frames, not a live Windows run",
+    "Deeper terminal helper bodies and arbitrary exception descriptors remain separate obligations",
+    "Observation does not establish all-domain or whole-game equivalence"
+  ],
+  "host_execution": false,
+  "whole_game_equivalence": false
+}

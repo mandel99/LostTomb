@@ -1,0 +1,29 @@
+{
+  "schema": "tooltip-line-boundary-correction-v1",
+  "original_failed_report": {
+    "path": "build/actor-animal-following/cohort7-joint-compiled-final6/runs/20261106-130202-433752/result.json",
+    "sha256": "af84705164c68bf471a0fba762e753655d9121316c3dc8c31ae9d296514a298c",
+    "cases": 36,
+    "failed_cases": 4
+  },
+  "production_C_repair": false,
+  "oracle_changes": false,
+  "original_binding_problem": "Native4CD510 was controlled; the C raw resource-model entry was not intercepted and reached legitimate D3B4DC store in4CD3E0.",
+  "actual_live_frame": {
+    "layout": "include/menu_resource_render.h;40 bytes",
+    "r0": 0,
+    "esp": 16,
+    "flags": 32,
+    "boundary": 36,
+    "dispatcher": "restore_resource_render_dispatch",
+    "return_sites": [
+      "0x4cda31"
+    ]
+  },
+  "root_hardening": [
+    "native_cleanup advances model ESP; physical Cdecl RET0 remains separate",
+    "Register-argument conversions rejected unless supported",
+    "Actual physical C argument and stack pointer recorded"
+  ],
+  "effective_replay_sha256": "910e34a50713b397f4e9a06b780a93d5e742517521eca959aad2256cc70dfbe2"
+}

@@ -91,8 +91,26 @@ def execute(registry,cases,directory):
     if 'responses'in spec:
      assert visit<len(spec['responses']),('unexpected extra endpoint call',spec['token'])
      spec={**spec,**spec['responses'][visit]}
-    sp=uc.reg_read(x.UC_X86_REG_ESP)
+    physical_sp=uc.reg_read(x.UC_X86_REG_ESP);sp=physical_sp;model_frame=None
     def get(at,width=4):return int.from_bytes(uc.mem_read(at,width),'little')
+    if spec.get('_compiled_frame_endpoint'):
+     assert state['label']!='native' and spec['result_kind']=='void',('frame endpoint requires logical void',spec['token'])
+     assert not any(spec.get(k)for k in ['native_register_args','compiled_register_args','compiled_receiver_arg']),('unsupported frame register-argument ABI',spec['token'])
+     assert spec.get('native_arity',spec['arity'])==spec.get('compiled_arity',spec['arity'])==spec['arity'],('unsupported frame arity conversion',spec['token'])
+     assert not any(spec.get(k)for k in ['fs0_registration','fs0_target_frame','dispatch_fs0','resume_fs_registration','noreturn']),('unsupported frame control endpoint',spec['token'])
+     # Actual MSVC x86 cdecl argument is the live struct pointer. Header layout:
+     # r[8] at0, flags at32, boundary at36, sizeof40; r[4] is native-model ESP.
+     model_frame=get(physical_sp+4)
+     assert model_frame%4==0 and STACK<=model_frame and model_frame+40<=STACK+STACK_SIZE,('live model frame',spec['token'])
+     dispatcher=symbol(state['map_text'],spec['compiled_frame_dispatcher'])
+     assert dispatcher and get(model_frame+36)==dispatcher['va'],('model dispatcher',spec['token'])
+     sp=get(model_frame+16)
+     assert sp%4==0 and STACK<=sp and sp+4+spec['arity']*4<=STACK+STACK_SIZE,('live model stack',spec['token'])
+     assert get(sp)in spec['compiled_frame_return_sites'],('model return site',spec['token'],hex(get(sp)))
+    def endpoint_register(name):
+     if model_frame is None:return uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))
+     assert name.upper()in ['EAX','ECX','EDX','EBX','ESP','EBP','ESI','EDI']
+     return get(model_frame+4*['EAX','ECX','EDX','EBX','ESP','EBP','ESI','EDI'].index(name.upper()))
     arity=spec.get('native_arity',spec['arity'])if state['label']=='native'else spec.get('compiled_arity',spec['arity'])
     raw=[get(sp+4+i*4)for i in range(arity)];logical=list(raw)
     roles={int(i):role for i,role in spec.get('pointer_args',{}).items()};private=[]
@@ -139,11 +157,11 @@ def execute(registry,cases,directory):
       logical.insert(i,uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper())))
     assert len(logical)==spec['arity'],('endpoint logical arity',spec['token'])
     event=dict(token=spec['token'],arguments=logical,observed=[[at,width,get(at,width)]for at,width in spec.get('observe',[])])
-    if spec.get('registers'):event['registers']={name:uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()))for name in spec['registers']}
+    if spec.get('registers'):event['registers']={name:endpoint_register(name)for name in spec['registers']}
     if spec.get('private_register_inputs'):
      event['private_register_inputs']={}
      for name,info in spec['private_register_inputs'].items():
-      at=uc.reg_read(getattr(x,'UC_X86_REG_'+name.upper()));width=info['width']
+      at=endpoint_register(name);width=info['width']
       assert 0<width<=256 and STACK<=at and at+width<=STACK+STACK_SIZE
       event['private_register_inputs'][name]=[info['role'],bytes(uc.mem_read(at,width)).hex()]
     if spec.get('fs0_registration'):
@@ -165,7 +183,13 @@ def execute(registry,cases,directory):
        scope_rows.append([row['enclosing'],hex(row['native_filter']),hex(row['native_handler'])])
       event['registration']['scopes']=scope_rows
     state['events'].append(event)
-    state['physical_endpoint_arguments'].append(dict(token=spec['token'],arguments=raw))
+    physical_event=dict(token=spec['token'],arguments=raw)
+    if model_frame is not None:
+     physical_event['live_model_frame']=dict(address=model_frame,stack_pointer=sp,return_site=get(sp),
+      registers=[get(model_frame+i*4)for i in range(8)],flags=get(model_frame+32),dispatcher=get(model_frame+36))
+     physical_event['physical_C_arguments']=[model_frame]
+     physical_event['physical_C_stack_pointer']=physical_sp
+    state['physical_endpoint_arguments'].append(physical_event)
     for i,width,value in spec.get('writes_args',[]):
      assert int(i)in roles and width in [1,2,4]
      uc.mem_write(raw[int(i)],(value&((1<<(8*width))-1)).to_bytes(width,'little'))
@@ -182,7 +206,11 @@ def execute(registry,cases,directory):
     elif kind=='x87_float32':push_float32(uc,x,spec['value'])
     else:assert kind=='void','Unknown endpoint result contract'
     for key,reg in [('clobber_ecx',x.UC_X86_REG_ECX),('clobber_edx',x.UC_X86_REG_EDX),('clobber_ebp',x.UC_X86_REG_EBP)]:
-     if key in spec:uc.reg_write(reg,spec[key]&0xffffffff)
+     if key in spec:
+      if model_frame is None:uc.reg_write(reg,spec[key]&0xffffffff)
+      else:
+       index={'clobber_ecx':1,'clobber_edx':2,'clobber_ebp':5}[key]
+       uc.mem_write(model_frame+index*4,struct.pack('<I',spec[key]&0xffffffff))
     if spec.get('fs0_target_frame'):
      assert spec.get('import_name')=='RtlUnwind' and raw[0]!=0
      uc.mem_write(0,struct.pack('<I',raw[0]))
@@ -217,6 +245,11 @@ def execute(registry,cases,directory):
      state['terminated']=spec['token'];uc.reg_write(x.UC_X86_REG_EIP,STOP);uc.emu_stop();return
     cleanup=spec['native_cleanup']if state['label']=='native'else spec['compiled_cleanup']
     assert cleanup>=0 and cleanup%4==0
+    if model_frame is not None:
+     # Model RET and physical cdecl RET are distinct. Preserve actual live r0.
+     model_cleanup=spec['native_cleanup'];assert model_cleanup>=0 and model_cleanup%4==0
+     uc.mem_write(model_frame+16,struct.pack('<I',sp+4+model_cleanup))
+     uc.reg_write(x.UC_X86_REG_ESP,physical_sp+4);uc.reg_write(x.UC_X86_REG_EIP,get(physical_sp));return
     uc.reg_write(x.UC_X86_REG_ESP,sp+4+cleanup);uc.reg_write(x.UC_X86_REG_EIP,get(sp));return
    if state['active']and address!=STOP and not any(lo<=address<hi for lo,hi in state['allowed']):
     state['faults'].append(dict(kind='non-executable-or-unknown-target',address=hex(address)));uc.emu_stop()
@@ -277,6 +310,13 @@ def execute(registry,cases,directory):
      for at in pcs:
       assert at not in state['endpoints']or state['endpoints'][at]['token']==spec['token']
       state['endpoints'][at]=spec
+     if label!='native':
+      for name in spec.get('compiled_frame_symbols',[]):
+       value=symbol(state['map_text'],name)
+       assert value and spec['result_kind']=='void',('missing/nonvoid compiled frame endpoint',label,spec['token'],name)
+       assert spec.get('compiled_frame_dispatcher')and spec.get('compiled_frame_return_sites'),('unbound frame layout/site',spec['token'])
+       at=value['va'];assert at not in state['endpoints'],('duplicate frame endpoint',name)
+       state['endpoints'][at]={**spec,'_compiled_frame_endpoint':True}
     u.mem_write(DATA_START,bytes(seed));u.mem_write(SCRATCH,b'\xa5'*0x50000);u.mem_write(SP-0x2000,b'\xcc'*0x4000);u.mem_write(0,b'\xcc'*4096)
     if 'initial_fs0'in case:
      assert (0,4)in case['write_ranges']or[0,4]in case['write_ranges']

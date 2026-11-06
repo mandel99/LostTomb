@@ -1,0 +1,15 @@
+# Remaining six focal definitions
+
+36 recipes /6 entries /177 expected invocations:4961409,48E9E02,4A24302,4884003,4CABD04,53F7D016. Together with the separate buyer/chain4 packet, all ten requested entry contracts have authoring (58 recipes /331 expected invocations). No image binding or replay has occurred here.
+
+Scope is deliberately qualified.48E9E0 covers its authenticated terrain-mask early teardown, using actual4BD250.4A2430 covers signed invalid-home returns and exact initial BYTE stores.488400 covers full-DWORD mode rejection, full EAX0 and native ECX/RET4 normalization. Their main state/production branches remain pending. Tooltip covers four default positioning branches, actual border/fill loops and controlled line/text leaves; mode1..4 and private BYTE-output query paths remain pending. These cases must not be described as all-domain equivalence.
+
+496140 covers return goals, timer101 AL predicate, outbound/return navigation, buyer forwarding, state6 and actual current-actor reload. Its existing typed algorithm stays intact. Complex children are declared endpoints with exact inputs and consumed widths.
+
+53F7D0 has a real standalone entry matrix: global/explicit receiver times eight paths (success, partial read, zero-then-success, zero-then-zero, failed seek/fallback, negative read totals, zero rows and terminated open-retry/fallback). Actual five native arguments/ECX and RET20 are supplied. Named C receives explicit self plus five args. Full32 total is checked. Destination and receiver scratch differ, so color-update receiver selection is independently checked. Actual path bytes, fallback global buffer, partial destination contents and exact endpoint order/snapshots are authored. The old c7-joint-sprite packet enters53E590 and supplies only child proof for53F7D0; it is not promoted to this entry matrix.
+
+No C/native contradiction or missing provider is confirmed; no replacement C is prepared. Owners are actor_callback_496140.obj, actor_civic.obj (two raw entries), city_updates.obj, tooltip_controller.obj and unit_02530.obj.496140 and sprite are named-only because their canonical FUN symbols are not retained. The other four have named/canonical providers. `owner-observations.json` records current owners without PE hash binding.
+
+`protocol.json` binds21 source/shared files and five evidence inputs. Saved native evidence contains3634 instructions across six entries and four relevant child/boundary scopes. Native consumers and explicit remaining domains are preserved. Existing raw C dispatcher/models own their real register/stack frames; no fixture creates a fake zero GPR frame. Public callback fixture setup is reused with an exact hash guard.
+
+Pure check: `python guard.py --output guard-result.json`. Root may later supply its final registry through `supplemental_registry.temporary_registry(replay)`. Post-run: `python guard.py --registry <bound-registry.json> --report <result.json>`. No source/entry credit is added. No host EXE, replay, build, Git or public write occurred during authoring.
