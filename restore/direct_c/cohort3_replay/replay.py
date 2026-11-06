@@ -279,6 +279,8 @@ def execute(registry,cases,directory):
  members={int(m['address'],16):m for m in registry['members']};rows=[];attempts=0
  for case in cases:
   m=members[case['entry']];reference=None;reference_regs=None;reference_context=None;reference_writes=None;reference_x87=None;reference_live_x87=None;reference_reads=None;routes=[];failures=[]
+  required_retained_route=case.get('required_retained_route','named')
+  assert required_retained_route in ['named','canonical'],required_retained_route
   preserved=[case.get('initial_'+name,value)for name,value in zip(['ebx','ebp','esi','edi'],saved)]
   for label,(u,state)in machines.items():
    if label=='native':selected=[('native',case['entry'],case['arguments'])]
@@ -290,7 +292,7 @@ def execute(registry,cases,directory):
      selected.append(('canonical',canonical['va'],case.get('canonical_arguments',case['arguments'])))
    if 'routes'in case:
     requested=set(case['routes'])
-    assert {'native','named'}<=requested<= {'native','named','canonical'},('invalid API route scope',case['id'])
+    assert {'native',required_retained_route}<=requested<= {'native','named','canonical'},('invalid API route scope',case['id'])
     assert case.get('routes_reason'),('missing API route scope reason',case['id'])
     selected=[item for item in selected if item[0]in requested]
    for route,pc,args in selected:
@@ -421,7 +423,7 @@ def execute(registry,cases,directory):
       errors.append(dict(kind='canonical-registers-or-flags'))
     row=dict(image=label,route=route,eax=hex(values[0]),logical_result=dict(register=result_register,memory=result_memory,value=hex(result)),context_outputs=context,eflags=hex(flags),x87=fp,x87_values=fp_live if case.get('compare_x87_values')else None,probe_reads=list(state['reads']),write_trace=list(state['write_trace']),control_return_reads=list(state['return_reads']),termination=state['terminated'],physical_argument_words=[int.from_bytes(u.mem_read(return_slot+4+i*4,4),'little')for i in range(len(args))],events=list(state['events']),physical_endpoint_arguments=list(state['physical_endpoint_arguments']),physical_function_pointers=fixed,errors=errors)
     routes.append(row);failures+=errors
-  assert any(r['image']=='retained'and r['route']=='named'for r in routes),m['name']
+  assert any(r['image']=='retained'and r['route']==required_retained_route for r in routes),m['name']
   rows.append(dict(id=case['id'],entry=hex(case['entry']),routes=routes,passed=not failures))
   if len(rows)%8==0:print('Fresh staged cases:',len(rows),'/',len(cases),flush=True)
  integrity=[]

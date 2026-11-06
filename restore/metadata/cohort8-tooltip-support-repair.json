@@ -1,0 +1,321 @@
+{
+  "schema": "cohort8-tooltip-support-repair-v1",
+  "address": "0x0052da40",
+  "source": "src/unit_02409.c",
+  "before_sha256": "03004543bcc9ef4e86ff8f6503f8945460ae7425993d477324020d475f0487c1",
+  "source_sha256": "3abb658ab3af7c232a75bc9c3d306f14c33768fd84c7c6faee31c572d60f76e9",
+  "changes": [
+    [
+      "(*(undefined *)0x005d2e88u)",
+      "(*(int32_t *)0x005d2e88u)"
+    ],
+    [
+      "(*(undefined4 *)0x0077f748u)",
+      "(*(uint8_t *)0x0077f748u)"
+    ],
+    [
+      "(*(undefined *)0x00784f14u)",
+      "(*(int32_t *)0x00784f14u)"
+    ],
+    [
+      "(*(undefined *)0x00e38dacu)",
+      "(*(int32_t *)0x00e38dacu)"
+    ],
+    [
+      "(*(undefined *)0x00f56f8cu)",
+      "(*(uint32_t *)0x00f56f8cu)"
+    ],
+    [
+      "iVar1 = DAT_00784f14 + -1;",
+      "iVar1 = (int32_t)((uint32_t)DAT_00784f14 - 1u);"
+    ],
+    [
+      "DAT_00e38dac + -0x4c",
+      "(int32_t)((uint32_t)DAT_00e38dac - 0x4cu)"
+    ],
+    [
+      "iVar1 * 0x62",
+      "(uint32_t)iVar1 * 0x62u"
+    ]
+  ],
+  "native_evidence": {
+    "path": "build/actor-animal-following/cohort8-tooltip-support/native-evidence.json",
+    "sha256": "2bf44cc05592aeb47fcf71870038e424d5b09f716469fe10abe128a4ed7672a7"
+  },
+  "contract": "Signed DWORD selected index and text selector; BYTE table entries with byte stride98 and callback reload; full DWORD geometry/font. Explicit uint32 arithmetic preserves native wrap before signed conversion. Void logical return. No artificial incoming EAX result.",
+  "complete_function_behavior_proved": false,
+  "host_execution": false,
+  "native_assembly": {
+    "items": [
+      {
+        "address": "0052da40",
+        "bytes": "8b0d144f7800",
+        "instruction": "MOV ECX,dword ptr [0x00784f14]"
+      },
+      {
+        "address": "0052da46",
+        "bytes": "85c9",
+        "instruction": "TEST ECX,ECX"
+      },
+      {
+        "address": "0052da48",
+        "bytes": "8d41ff",
+        "instruction": "LEA EAX,[ECX + -0x1]"
+      },
+      {
+        "address": "0052da4b",
+        "bytes": "7f40",
+        "instruction": "JG 0x0052da8d"
+      },
+      {
+        "address": "0052da4d",
+        "bytes": "a1882e5d00",
+        "instruction": "MOV EAX,[0x005d2e88]"
+      },
+      {
+        "address": "0052da52",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX"
+      },
+      {
+        "address": "0052da54",
+        "bytes": "7d32",
+        "instruction": "JGE 0x0052da88"
+      },
+      {
+        "address": "0052da56",
+        "bytes": "a1a48de300",
+        "instruction": "MOV EAX,[0x00e38da4]"
+      },
+      {
+        "address": "0052da5b",
+        "bytes": "8b0d8c6ff500",
+        "instruction": "MOV ECX,dword ptr [0x00f56f8c]"
+      },
+      {
+        "address": "0052da61",
+        "bytes": "8b15ac8de300",
+        "instruction": "MOV EDX,dword ptr [0x00e38dac]"
+      },
+      {
+        "address": "0052da67",
+        "bytes": "50",
+        "instruction": "PUSH EAX"
+      },
+      {
+        "address": "0052da68",
+        "bytes": "a1a88de300",
+        "instruction": "MOV EAX,[0x00e38da8]"
+      },
+      {
+        "address": "0052da6d",
+        "bytes": "83c2b4",
+        "instruction": "ADD EDX,-0x4c"
+      },
+      {
+        "address": "0052da70",
+        "bytes": "50",
+        "instruction": "PUSH EAX"
+      },
+      {
+        "address": "0052da71",
+        "bytes": "6a00",
+        "instruction": "PUSH 0x0"
+      },
+      {
+        "address": "0052da73",
+        "bytes": "51",
+        "instruction": "PUSH ECX"
+      },
+      {
+        "address": "0052da74",
+        "bytes": "6880020000",
+        "instruction": "PUSH 0x280"
+      },
+      {
+        "address": "0052da79",
+        "bytes": "52",
+        "instruction": "PUSH EDX"
+      },
+      {
+        "address": "0052da7a",
+        "bytes": "50",
+        "instruction": "PUSH EAX"
+      },
+      {
+        "address": "0052da7b",
+        "bytes": "6a09",
+        "instruction": "PUSH 0x9"
+      },
+      {
+        "address": "0052da7d",
+        "bytes": "6a2f",
+        "instruction": "PUSH 0x2f"
+      },
+      {
+        "address": "0052da7f",
+        "bytes": "e8cc87faff",
+        "instruction": "CALL 0x004d6250"
+      },
+      {
+        "address": "0052da84",
+        "bytes": "83c424",
+        "instruction": "ADD ESP,0x24"
+      },
+      {
+        "address": "0052da87",
+        "bytes": "c3",
+        "instruction": "RET"
+      },
+      {
+        "address": "0052da88",
+        "bytes": "e9830b0000",
+        "instruction": "JMP 0x0052e610"
+      },
+      {
+        "address": "0052da8d",
+        "bytes": "8d0c40",
+        "instruction": "LEA ECX,[EAX + EAX*0x2]"
+      },
+      {
+        "address": "0052da90",
+        "bytes": "56",
+        "instruction": "PUSH ESI"
+      },
+      {
+        "address": "0052da91",
+        "bytes": "c1e104",
+        "instruction": "SHL ECX,0x4"
+      },
+      {
+        "address": "0052da94",
+        "bytes": "03c8",
+        "instruction": "ADD ECX,EAX"
+      },
+      {
+        "address": "0052da96",
+        "bytes": "8a044d48f77700",
+        "instruction": "MOV AL,byte ptr [ECX*0x2 + 0x77f748]"
+      },
+      {
+        "address": "0052da9d",
+        "bytes": "3c01",
+        "instruction": "CMP AL,0x1"
+      },
+      {
+        "address": "0052da9f",
+        "bytes": "8d344d48f77700",
+        "instruction": "LEA ESI,[ECX*0x2 + 0x77f748]"
+      },
+      {
+        "address": "0052daa6",
+        "bytes": "7505",
+        "instruction": "JNZ 0x0052daad"
+      },
+      {
+        "address": "0052daa8",
+        "bytes": "e863000000",
+        "instruction": "CALL 0x0052db10"
+      },
+      {
+        "address": "0052daad",
+        "bytes": "8a06",
+        "instruction": "MOV AL,byte ptr [ESI]"
+      },
+      {
+        "address": "0052daaf",
+        "bytes": "5e",
+        "instruction": "POP ESI"
+      },
+      {
+        "address": "0052dab0",
+        "bytes": "3c03",
+        "instruction": "CMP AL,0x3"
+      },
+      {
+        "address": "0052dab2",
+        "bytes": "75d3",
+        "instruction": "JNZ 0x0052da87"
+      },
+      {
+        "address": "0052dab4",
+        "bytes": "e9c71cffff",
+        "instruction": "JMP 0x0051f780"
+      }
+    ],
+    "total": 39,
+    "has_more": false
+  },
+  "native_cache": {
+    "path": "metadata/native-function-audit-cache/batch-2496.json",
+    "sha256": "eba1bb302bbd5edc5aefad89784d7d021697845f64d93d86dfcecfc68b91817f"
+  },
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_base_checkpoint": "ef26725ec8d958bb51d027319152faabef2c01f2",
+  "strict_compile_flags": [
+    "/W4",
+    "/WX",
+    "/O2",
+    "/Ob0",
+    "/GS",
+    "/std:c11"
+  ],
+  "shared_build_exit": 0,
+  "shared_build_log": {
+    "path": "build/actor-animal-following/cohort8-tooltip-support/shared-build.log",
+    "sha256": "fc0bb4ec08097151518838f3f778a0dee58d32063786080693ca9252986f88ac"
+  },
+  "before_native_C_comparison": {
+    "cases": 12,
+    "invocations": 48,
+    "failed_cases": 9,
+    "all_native_oracles_pass": true
+  },
+  "current_native_C_comparison": {
+    "cases": 12,
+    "invocations": 48,
+    "failed_cases": 0,
+    "all_native_oracles_pass": true
+  },
+  "before_comparison_reports": {
+    "result.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/before-20261106-183700-904759/result.json",
+      "sha256": "79b21b3128558c9956fb16d5386a7077c68e49d9ad0d03943c2f96b15cc6edfb"
+    },
+    "registry.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/before-20261106-183700-904759/registry.json",
+      "sha256": "dcd1c3db55b56f0202205037296fb5859c0d2bb82faef546a443a5e273b68bc4"
+    },
+    "case-inputs.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/before-20261106-183700-904759/case-inputs.json",
+      "sha256": "de67f17b04db5cad0867f7af3263ab1b3d6582e95bfcb7b4519df07ae74f8c3f"
+    },
+    "binding.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/before-20261106-183700-904759/binding.json",
+      "sha256": "336f8fe9d925657a16c9a8b4c872523f1426a7e9176448c854d15881ca6dadd8"
+    }
+  },
+  "current_comparison_reports": {
+    "result.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/current-20261106-183845-576879/result.json",
+      "sha256": "96f4c5b344fc983dc01b5e0157608849352770becccca16e710bd4c67b5379a0"
+    },
+    "registry.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/current-20261106-183845-576879/registry.json",
+      "sha256": "4cf5b275ae88f73e0d454c2966353120d7a8b4abab15bfeb7408d17a2999e5f9"
+    },
+    "case-inputs.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/current-20261106-183845-576879/case-inputs.json",
+      "sha256": "de67f17b04db5cad0867f7af3263ab1b3d6582e95bfcb7b4519df07ae74f8c3f"
+    },
+    "binding.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/current-20261106-183845-576879/binding.json",
+      "sha256": "bd5af91355e4aade37f0e2d3739e172574ce57c6e8c5b8b466ea34d62cc5c673"
+    },
+    "authored-checks.json": {
+      "path": "build/actor-animal-following/cohort8-tooltip-support/runs/current-20261106-183845-576879/authored-checks.json",
+      "sha256": "ad1dc851e81cd07547ce66e586b5cdef8435d7ff876853c6f5d5fbe109d0d562"
+    }
+  },
+  "meaning": "A connected repair within the frozen100 entries, with finite branch/argument/table-byte/reload comparisons. No full-function or game-equivalence claim."
+}

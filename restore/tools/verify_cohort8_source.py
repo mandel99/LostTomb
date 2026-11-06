@@ -12,8 +12,8 @@ def main():
  source=read(ROOT/'metadata/cohort8-source100-local-value-repairs.json')
  facts=read(ROOT/'metadata/cohort8-native-local-view-facts.json')
  build=read(ROOT/'metadata/cohort8-source100-build-checkpoint.json')
- assert source['changed_existing_C_functions']==100 and source['explicit_local_view_repairs']==172
- assert len(source['members'])==100 and len(facts['facts'])==172
+ assert source['changed_existing_C_functions']==100 and source['explicit_local_view_repairs']==177
+ assert len(source['members'])==100 and len(facts['facts'])==177
  views={}
  for member in source['members']:
   path=ROOT/member['source'];assert sha(path)==member['source_sha256'],member['source']
@@ -36,7 +36,7 @@ def main():
    at=int(item['pc'],16)-native.base;raw=bytes.fromhex(item['bytes'])
    assert native.data[at:at+len(raw)]==raw,(fact['function'],item['pc']);instructions+=1
  assert not source['whole_game_equivalence'] and source['joint_behavior_comparison_pending']
- print(json.dumps(dict(changed_C_sources=100,local_view_facts=172,pinned_native_observations=instructions,
+ print(json.dumps(dict(changed_C_sources=100,local_view_facts=177,pinned_native_observations=instructions,
   source_and_image_hashes_valid=True,i386_images=3,emulation_performed=False,
   behavior_comparison_complete=False,host_execution=False)))
 
