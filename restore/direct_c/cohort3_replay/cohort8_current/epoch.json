@@ -46,7 +46,7 @@
     "metadata/cohort8-native-local-view-facts.json": "d2dbf32a3053a4a8222135e95fb45ead12c2181e0c59a69ee9a3bb987bd01502",
     "metadata/cohort8-source100-build-checkpoint.json": "5e35506d6338a92afe2b5fbfd1b0b69bec6aa2d7af2b3fe89e10bd08e4d4674c",
     "metadata/cohort8-canonical-retained-route-qualification.json": "fccaf67df103389aea0b9731c0c769c16abb26e9712f5e1a14e23a9fcccb08ac",
-    "metadata/city-active-buildings-reconstruction.json": "d0e03006afecf2fcbf4769c3d11817799bf2f8786f9091a88bebb1673907f79d"
+    "metadata/city-active-buildings-reconstruction.json": "3249f67a3f1d233ca4b9c9158ab9e838ab9555070d729e9040edc43aa147c8f5"
   },
   "packet_files": {
     "arithmetic_faults/image-profile.json": "2d4cad8cb2862bb67abbf5f670e04962529eee824ea4810d72ff078b47fcb108",
@@ -60,6 +60,26 @@
     "civic_main_expanded/protocol.json": "9f90ddf2ff615c4773be1eedc2b3b7e2563455f1618ca8677df77f2117c7b795",
     "civic_main_expanded/README.md": "63973f80022b1d391e41663a4837eec98fd6194b67d2c83821379ecdf24ba973",
     "civic_main_expanded/verify.py": "101008aa79cbf710858f55edf2dce1a73ff7e2ed5998d532bb369f9cc49caf1a",
+    "cohort8_functional4/authoritative-members.json": "35754d0c24afe1ba5d1efedf1cd595bcb62e6add8b4249c5c33698e24c4123a6",
+    "cohort8_functional4/case-commitments.json": "cf1f0524e5eb2cf38faf941dad29be8bfdc9338316e59429f440f52478829cea",
+    "cohort8_functional4/derivation.json": "aa9a85139b5bc63ad635f82ed053458786959e641fc6b6307fb9bbe00c7d7261",
+    "cohort8_functional4/functional_cases.py": "b8d383a9b2e3994654f999f048492067791b33d9a772ef5bd5e36be9a7c95398",
+    "cohort8_functional4/guard.py": "5972653f2c07333617b8515229b2bd82e0689a2ffd629c874107b24101e55b29",
+    "cohort8_functional4/HANDOFF.md": "6e21ffb21983b9e40dfd6bc038052b5a1551b4b4013effec37fc8f78bef62095",
+    "cohort8_functional4/image-profile.json": "ab49c504a3ec7c479428b048713150d3946509085b14c5561887ae9bbba5b1c5",
+    "cohort8_functional4/manifest.json": "0a1c0a0e047ba7fd7be81a1c763078d96cf1845d23a082549543075b7358945b",
+    "cohort8_functional4/native-derivation.json": "96eebd2aeb2ff3f7ec4b60eecbc5ed7be1cd0d0dcede01b2e6ac6cf62130c9b1",
+    "cohort8_functional4/native-evidence.json": "993131e8a29a813bdf3af5336b68d28633ffd66db0cabf5bcc5f611d6f89d4f4",
+    "cohort8_functional4/oracle-authoring-manifest.json": "a034445416409cc96664043344395e50e0e6de68efe99d2fa0f9c7bb67f35d63",
+    "cohort8_functional4/oracle-authoring-protocol.json": "a8750c8fee84b10bba993abc4b0e7f8b5f7421fad65fbcf4f271f3f914deb476",
+    "cohort8_functional4/oracle-delta.json": "8d7a3decbca9689b7d79ae36cf1f459dcda025daaa1516d44e5e1e0c4abbc316",
+    "cohort8_functional4/oracle-post-audit-receipt.json": "47ecccb889175b767ba6807535c06760c7b9f5cfa4309d54e729b9c425069e5b",
+    "cohort8_functional4/oracle_repair.py": "80aa61ad83b1fc78662dbd99c35613b97273dec81aa4452f145f3e46f024b730",
+    "cohort8_functional4/owner-observations.json": "b6a172b92adbdfa43101c0d032a0697b74edb67c6750d2ef9801fbccdc55c93e",
+    "cohort8_functional4/profile-rebind.json": "ec3b6bbdd92fc483f492744b1f0a601b1c7bb686e5d79562b9293c303503c66f",
+    "cohort8_functional4/protocol.json": "83d00abbcbbc3365b4454621c3f4939a21740b559c149beb513514241b2aa0d3",
+    "cohort8_functional4/README.md": "6a2acf1b0e669ae4c0ec11a200eddeb02ee2b70f520c5a7bd58e019b3636b234",
+    "cohort8_functional4/supplemental_registry.py": "54bb7c356715e7a25146eded5db2a98b9833e8787dc126e047a40b2259cb19db",
     "compiled_actor_query_repair/cohort7_actor_tail_query_repair_cases.py": "2347fd6a9252577cc0c6b65e425827250a7f9db87d383320db7ca4e0ddcdc4e0",
     "compiled_actor_query_repair/guard.py": "0b188ab6e38a4b78a5f4f2c7b67e09814b38ca588410aeb906f430c3c465c1fe",
     "compiled_actor_query_repair/HANDOFF.md": "90895fedafc263ce8669c67935ff5117196e100474357a9fd338beed68659e88",
@@ -262,6 +282,26 @@
         "map_path": "build/c-only/Release/restore_cohort3_retained.map",
         "sha256": "a3d875918cd0068ff5276f4135382ac35168b61b7558e01a8c30f758895d21fe",
         "map_sha256": "8da02ba9bee9ff318dfa0c9dd0ceba19d2e4a437ec26ddfee1a541b1ebaf616a"
+      }
+    },
+    "cohort8_functional4": {
+      "game": {
+        "path": "build/c-only/Release/PharaohRestoreC.exe",
+        "map_path": "build/c-only/Release/PharaohRestoreC.map",
+        "sha256": "8b5c06e20f290f607c5fd85084c2a7bcbbcadaf9e4e8b5138d37b667526be2d5",
+        "map_sha256": "ee9a36bd32a0c7fb8d6d5d772eb52efaf7204ddcbb78bd4fb1531ffaa3b384b3"
+      },
+      "diagnostic": {
+        "path": "build/c-only/Release/restore_link_check.exe",
+        "map_path": "build/c-only/Release/restore_link_check.map",
+        "sha256": "cf0aafc96f24ca2db658874157ed0e2bf56ac173971382fabc771c865d2a1d19",
+        "map_sha256": "41e9bceef99b98928aaa96b07f4d90ab9108ed2fafc887d13b52c5ad1a9d7527"
+      },
+      "retained": {
+        "path": "build/c-only/Release/restore_cohort3_retained.exe",
+        "map_path": "build/c-only/Release/restore_cohort3_retained.map",
+        "sha256": "87cfb5c66355ee0b8b228a7efa7439af5038444961bc52b3f298e85dff651568",
+        "map_sha256": "4f0284998e54d6e7f09b0e8e1bbbd71d380fce486b1bd900f2834099e930fec2"
       }
     },
     "compiled_actor_query_repair": {

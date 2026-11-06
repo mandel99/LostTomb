@@ -1,0 +1,15 @@
+33 authored cases /177 planned applicable invocations for409EB0,44C1A0,4C42B0,4E0F90. No replay, host, build, Git mutation, source change or new algorithm occurred in this verification authoring.
+
+`functional_cases.cases(registry)` uses the existing shared Case/replay format. `supplemental_registry.extend_registry(base)` adds four comparison-only members while retaining source441 and zero source/entry credit. The packet explicitly binds the final `cohort8-current-images.json` after the52DA40 supporting link. Source contracts are guarded against the authoritative100-repair metadata.
+
+Applicability is exact:409EB0 and4E0F90 have real typedCAPI named+canonical routes in all three images (7 invocations/case).44C1A0 uses actual canonical native-entry bridge only (4/case).4C42B0 uses native+retainedcanonical only (2/case); game/diagnostic absence is explicit. Named frame-pointer helpers are not exposed and no native/model frame is fabricated. Canonical-only recipes set `required_retained_route='canonical'`, requiring shared replaySHA75525b378a4c34292e45eb30dee9fcf52d06fee8ad94fa01783abbf27407dee1.
+
+Coverage:8 rotation cases check fullDWORD mode/camera/orientation and callback reload/order;8 council cases check row/count above255,124-byte stride, actual false member/recruitment children,31-round RNG/history, treasury wraps and declared delivery callbacks;6 inventory cases execute real switch/WORD paths, population/resource tables, floor/cap, zero predicate/stock and count/stock reload after callback;11 input-caller cases check full32row delivery through actual44C1A0 and modifier masks100/200/1000, wrong bits and callback-mutated selected row.
+
+4E0F90 verifies full EAX0/1, supported by its native producer/return paths and caller DWORDstore.409EB0/44C1A0/4C42B0 are logicalvoid and have no invented EAX oracle. The actual64KiB canonical bridge/input-stack contract and its existing deeper-frame/guard limitations remain qualified.
+
+All expected memory, arguments, order, counts and pre-call snapshots come from native instructions plus seeded RAM. `native-derivation.json` records these derivations; `native-evidence.json` includes the original switch data and actual helpers. Every watched byte has an authored final-memory oracle. Background building status bytes are explicit inputs and do not expand write permissions.
+
+Root execution uses the existing `replay.execute` inside `supplemental_registry.temporary_registry`; this packet supplies no new emulator. Run `guard.py --report <result.json>` afterward: it independently audits arguments and snapshots on every actual route in addition to shared replay's final-memory/result checks. `authoring-receipt.json` is pure authoring validation, not a behavioral PASS.
+
+External turn/refresh/message/delivery and eligibility boundaries are controlled and declared. Actual44C110 zero-result/negative4B84B0 paths execute. Success/recruitment alternatives, unlisted actions and unrestricted helper behavior remain outside these33 cases. Finite coverage is not whole-game equivalence.

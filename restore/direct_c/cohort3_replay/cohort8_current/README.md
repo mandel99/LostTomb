@@ -1,6 +1,6 @@
 Run `python restore/direct_c/cohort3_replay/cohort8_current/verify.py --scope source100 --run`
 (also `compiled47`, `quicktime`, `production`, `tooltip`, `civic`, `hunter`,
-`funclets`, `arithmetic`, `tooltip-support`). Without `--run`, the runner only
+`funclets`, `arithmetic`, `tooltip-support`, `functional4`). Without `--run`, the runner only
 checks inputs. `tooltip-support` compares the connected signed-selector and
 BYTE-stride repair at52DA40 in12 cases/48 native and canonical C routes.
 

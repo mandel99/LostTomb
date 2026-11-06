@@ -125,6 +125,29 @@ def canonical_registry(base,addresses):
 
 def recipes(scope,base):
     matrix=module('c8_authored_audit',PUBLIC/'current_matrix/verify.py')
+    if scope=='functional4':
+        folder=PUBLIC/'cohort8_functional4'
+        p=protocol('cohort8_functional4',base)
+        rebound=read(folder/'profile-rebind.json')
+        assert digest(folder/'protocol.json')==rebound['authoring_protocol_sha256']
+        assert p['image_profile_input']==rebound['authoring_profile_input']
+        public_profile=rebound['public_profile']
+        assert digest(R/public_profile['path'])==public_profile['sha256']
+        assert read(R/public_profile['path'])==base['compiled_images']
+        binding=module('c8_functional4_binding',folder/'supplemental_registry.py')
+        authored=module('c8_functional4_recipes',folder/'functional_cases.py')
+        guard=module('c8_functional4_guard',folder/'guard.py')
+        binding.checked_inputs=lambda:copy.deepcopy(p)
+        guard.binding=binding;guard.recipes=authored
+        guard.checked_cases()
+        registry=binding.extend_registry(base)
+        correction=module('c8_functional4_oracle_repair',folder/'oracle_repair.py')
+        cases=correction.correct_cases(authored.cases(registry))
+        def checker(cases,report):
+            result=matrix.audit(cases,report)
+            result['independent_checks']=guard.audit(cases,report)
+            return result
+        return registry,cases,checker,33,177
     if scope=='tooltip-support':
         authored=module('c8_tooltip_support_cases',OUT/'tooltip_support_cases.py')
         registry=canonical_registry(base,[0x52da40])
@@ -223,7 +246,7 @@ def run_script(scope,base):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support'])
+    ap.add_argument('--scope',required=True,choices=['source100','compiled47','quicktime','production','tooltip','civic','hunter','funclets','arithmetic','tooltip-support','functional4'])
     ap.add_argument('--run',action='store_true');args=ap.parse_args()
     base=checked_base()
     if args.scope in ['funclets','arithmetic']:

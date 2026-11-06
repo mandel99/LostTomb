@@ -1,0 +1,99 @@
+{
+  "schema": "cohort8-functional4-native-house-oracle-correction-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_tables": [
+    {
+      "address": "0x4c4500",
+      "bytes_hex": "6c434c006c434c006c434c006c434c006c434c006c434c006c434c006c434c0059434c0060434c001f434c0052434c00"
+    },
+    {
+      "address": "0x4c4530",
+      "bytes_hex": "76434c00d2434c0037434c00d2434c0091434c00d2434c00ac434c00"
+    }
+  ],
+  "native_goods_dispatch": [
+    {
+      "stock_index": 8,
+      "first_table_target": "0x4c4359",
+      "resource": 15,
+      "second_table_index": 2,
+      "second_table_target": "0x4c4337",
+      "table_load_pc": "0x4c4347",
+      "table_load_bytes": "8b04c504ce7000",
+      "table_base": 7392772
+    },
+    {
+      "stock_index": 9,
+      "first_table_target": "0x4c4360",
+      "resource": 13,
+      "second_table_index": 0,
+      "second_table_target": "0x4c4376",
+      "table_load_pc": "0x4c4386",
+      "table_load_bytes": "8b04c5f8cd7000",
+      "table_base": 7392760
+    },
+    {
+      "stock_index": 10,
+      "first_table_target": "0x4c431f",
+      "resource": 17,
+      "second_table_index": 4,
+      "second_table_target": "0x4c4391",
+      "table_load_pc": "0x4c43a1",
+      "table_load_bytes": "8b04c5fccd7000",
+      "table_base": 7392764
+    },
+    {
+      "stock_index": 11,
+      "first_table_target": "0x4c4352",
+      "resource": 19,
+      "second_table_index": 6,
+      "second_table_target": "0x4c43ac",
+      "table_load_pc": "0x4c43bc",
+      "table_load_bytes": "8b04c500ce7000",
+      "table_base": 7392768
+    }
+  ],
+  "native_code": {
+    "start": "0x4c431f",
+    "bytes_hex": "b81100000083c0f383f8060f87a2000000ff248530454c000fbf45028d1c808d04588a5df380fb018b04c504ce70007678eb73b813000000ebcbb80f000000ebc4b80d000000ebbd83c8ffebb8668b450c666bc006eb540fbf45028d1c808d04588a5df380fb018b04c5f8cd70007639eb340fbf45028d1c808d04588a5df380fb018b04c5fccd7000761eeb190fbf45028d1c808d04588a5df380fb018b04c500ce70007603c1e00203c06689044d2c9a7900"
+  },
+  "derivation": "First table maps stock8/9/10/11 to resource15/13/17/19. Second table maps resource15->4337/70CE04,13->4376/70CDF8,17->4391/70CDFC,19->43AC/70CE00. The previous author erroneously paired the last table bases with resource order. Native levelWORD uses11*level then*8=88stride; phaseBYTE<=1 reachesADD EAX,EAX (2x), >1 firstSHL2 thenADD (8x); output isWORD.",
+  "old_wrong_mapping": [
+    [
+      8,
+      400
+    ],
+    [
+      9,
+      300
+    ],
+    [
+      10,
+      500
+    ],
+    [
+      11,
+      600
+    ]
+  ],
+  "correct_seed_mapping": [
+    [
+      8,
+      600
+    ],
+    [
+      9,
+      300
+    ],
+    [
+      10,
+      400
+    ],
+    [
+      11,
+      500
+    ]
+  ],
+  "expected_from_original_seeds_only": true,
+  "observed_actual_used_for_derivation": false
+}
