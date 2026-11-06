@@ -1,0 +1,39 @@
+{
+  "confirmed_semantic_C_gaps": [],
+  "confirmed_provider_gap": {
+    "address": "00452160",
+    "symbol": "FUN_00452160",
+    "donor": "runtime/calendar_updates.c",
+    "owner": "calendar_updates.obj",
+    "finding": "Existing correct external C definition compiled but absent from all observed MAPs; retain it without wrapper."
+  },
+  "preserved_algorithms": [
+    {
+      "address": "0x0044ba90",
+      "source": "runtime/menu_event_model.c"
+    },
+    {
+      "address": "0x00452160",
+      "source": "runtime/calendar_updates.c"
+    },
+    {
+      "address": "0x0045d630",
+      "source": "runtime/city_supply.c"
+    },
+    {
+      "address": "0x0045de80",
+      "source": "runtime/granary.c"
+    },
+    {
+      "address": "0x0045e150",
+      "source": "runtime/granary.c"
+    }
+  ],
+  "qualified_inputs": [
+    "44BA90 is checked at the actual global-manager caller contract, not arbitrary ECX.",
+    "45D630 player argument is2 while selected player is3; both real4C5340 flag branches are explicitly zero.",
+    "45DE80 deliberately supplies destination X twice; signed source IDs and native distance scratch writes are verified.",
+    "45E150 uses low16 oracle and actual withdrawal; source=destination alias and negative capacities are explicit."
+  ],
+  "no_new_algorithm_credit": true
+}

@@ -64,3 +64,9 @@ foreach(_cohort7_abi_symbol IN ITEMS FUN_005602f0 FUN_00560330 FUN_00560360 FUN_
  target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort7_abi_symbol}")
 endforeach()
 unset(_cohort7_abi_symbol)
+
+# Existing calendar and message actions: independent offline comparison.
+foreach(_cohort7_pending_symbol IN ITEMS FUN_00452160 restore_small_button2_00511c50)
+ target_link_options(restore_cohort3_retained PRIVATE "/INCLUDE:_${_cohort7_pending_symbol}")
+endforeach()
+unset(_cohort7_pending_symbol)
