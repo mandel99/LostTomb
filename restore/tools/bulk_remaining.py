@@ -17,6 +17,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 import bulk_reconstruct as rules
+import native_scope_policy
 
 ROOT = rules.ROOT
 PIN = rules.PIN
@@ -109,7 +110,7 @@ def catalogue(inputs):
     return sorted(addresses), records, units
 
 
-def cached_scope(address, variants, pe):
+def cached_scope(address, variants, pe, reviewed_scopes=None):
     if not variants:
         return "uncached", "No saved native record for catalogue address", None, None
     signatures = set()
@@ -120,6 +121,8 @@ def cached_scope(address, variants, pe):
     entry = variants[0][1]
     info = entry.get("info", {})
     assembly = entry.get("assembly", {})
+    if reviewed_scopes and address in reviewed_scopes:
+        return native_scope_policy.check_cached(address, entry, pe, reviewed_scopes[address])
     if addr(info.get("address")) != address or addr(info.get("body_start")) != address:
         return "conflicting", "Requested address is not the declared native entry/body start", entry, None
     items = assembly.get("items")
@@ -393,6 +396,8 @@ def main():
     inputs = {"tools/bulk_remaining.py": rules.sha(Path(__file__)),
               "tools/bulk_reconstruct.py": rules.sha(ROOT / "tools/bulk_reconstruct.py"),
               "tools/bulk_compound_rules.py": rules.sha(ROOT / "tools/bulk_compound_rules.py")}
+    inputs["tools/native_scope_policy.py"] = rules.sha(ROOT / "tools/native_scope_policy.py")
+    reviewed_scopes = native_scope_policy.load_reviewed(ROOT, PIN, inputs)
     addresses, records, units = catalogue(inputs)
     active = active_sources(args.project, inputs)
     owners, source_info = scan_sources(active)
@@ -413,7 +418,7 @@ def main():
     candidates = {}
     calls = {}
     for address in addresses:
-        evidence_status, evidence_reason, entry, raw = cached_scope(address, records[address], pe)
+        evidence_status, evidence_reason, entry, raw = cached_scope(address, records[address], pe, reviewed_scopes)
         direct, indirect = call_edges(entry)
         calls[address] = direct
         row = dict(address=label(address), category="review_needed", reason="Source ownership requires review",
@@ -421,6 +426,8 @@ def main():
                                         cache_files=sorted({path for path, _ in records[address]})),
                    cached_direct_callees=[label(child) for child in direct], cached_indirect_calls=indirect,
                    existing_owners=owners[address], selected_by=selected[address])
+        if address in reviewed_scopes:
+            row["native_evidence"]["reviewed_scope"] = reviewed_scopes[address]
         if address in dispositions:
             row["existing_C_source_disposition"] = dispositions[address]
         primary = units[address]
@@ -457,6 +464,10 @@ def main():
                 row.update(category="existing_C_reuse_review", reason="Macro entrypoint shares an existing C algorithm; inspect the shared contract")
             else:
                 row["repair_markers"] = info["repair_markers"]
+                if raw is None:
+                    row.update(reason="Reviewed shared/pre-entry native ranges require semantic review; flat automatic templates are disabled")
+                    rows.append(row)
+                    continue
                 instructions = list(disassembler.disasm(raw, address))
                 recognized = rules.rule(instructions) if sum(item.size for item in instructions) == len(raw) else None
                 if recognized:

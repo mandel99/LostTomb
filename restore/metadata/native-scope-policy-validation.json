@@ -1,0 +1,51 @@
+{
+  "schema": "reviewed-native-scope-policy-validation-v1",
+  "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_base_checkpoint": "6dfe614b1876cb75b7ae9495594edad07fbed062",
+  "entries": [
+    "0x00516630",
+    "0x0056b670"
+  ],
+  "exact_cached_instructions": 104,
+  "exact_native_bytes": 363,
+  "tests": {
+    "both_reviewed_entries_match_PE": true,
+    "both_raw_templates_unavailable": true,
+    "both_previously_conflicting_without_policy": true,
+    "missing_instruction_rejected": 2,
+    "reordered_instructions_rejected": 2,
+    "changed_PE_bytes_rejected": 2,
+    "unpinned_REA_rejected_even_with_updated_file_hash": true,
+    "qualified_48A720_override_absent": true
+  },
+  "inventory": {
+    "path": "build/bulk-reconstruction/cohort7-reviewed-scopes-inventory.json",
+    "sha256": "6002bd7938c851164bf95b518de9e317780ef5ad4229efc08de533feef37e753",
+    "category_counts": {
+      "existing_selected": 464,
+      "existing_C_preserved": 3970,
+      "existing_C_reuse_review": 61,
+      "review_needed": 32,
+      "safe_rule_candidate": 0,
+      "unsupported_rule": 0,
+      "uncached": 0
+    },
+    "native_evidence_counts": {
+      "complete_pinned": 4492,
+      "conflicting": 1,
+      "incomplete": 34
+    },
+    "review_entries": 93
+  },
+  "inputs_sha256": {
+    "tools/bulk_remaining.py": "86d77376f2102012e53ea217f70dbb71f8b7ddbc96f0ba7c4f8c73215a2a7e8d",
+    "tools/native_scope_policy.py": "ae7f0e4a4d550e8bba2e0630a3160d210ac5438e3ac8ec55899e014cc53f785c",
+    "metadata/native-function-scope-findings.json": "14271afb10028884605fc2525c1df574a18683e9d767c02a99058bf93e3817dd",
+    "metadata/native-function-scope-rea-records.json": "cdf71867056226f366c77b625e4cd89f4057d03dc3400bac55eced7319981f11"
+  },
+  "C_source_changes": 0,
+  "new_entry_credit": 0,
+  "host_execution": false,
+  "behavior_equivalence_proved": false,
+  "scope": "Only explicitly reviewed native ranges; all remaining incomplete/conflicting boundaries retain ordinary review."
+}
