@@ -52,6 +52,7 @@ add_library(pharaoh_game STATIC
     game/runtime/settings_default_names.c
     game/scenario/campaign_start.c
     game/scenario/campaign_availability.c
+    game/scenario/campaign_file.c
     game/simulation/finance_calendar.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
@@ -73,6 +74,12 @@ add_executable(pharaoh_sprite_real_data_verify
 )
 target_link_libraries(pharaoh_sprite_real_data_verify PRIVATE pharaoh_game)
 target_link_options(pharaoh_sprite_real_data_verify PRIVATE /STACK:2097152)
+
+add_executable(pharaoh_campaign_file_emulation
+    tests/campaign_file_emulation.c
+)
+target_link_libraries(pharaoh_campaign_file_emulation PRIVATE pharaoh_game)
+target_link_options(pharaoh_campaign_file_emulation PRIVATE /STACK:2097152)
 
 target_include_directories(pharaoh_game
     PUBLIC

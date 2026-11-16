@@ -2229,6 +2229,62 @@
       "origin": "Typed reconstruction of the native trade_recommends.txt parser, including four rows of six signed values and the native count-mismatch decision.",
       "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
       "known_limitations": "File loading, scratch allocation, text helpers, and status/dialog presentation are typed runtime operations; no host startup wiring or native behavior replay is claimed."
+    },
+    {
+      "address": "0x0041AC00",
+      "name": "pharaoh_campaign_link_initialize",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Typed campaign-link initialization from the pinned executable pseudocode.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041AC50",
+      "name": "pharaoh_campaign_initialize",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Typed campaign-object initialization from the pinned executable pseudocode.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041AC90",
+      "name": "pharaoh_campaign_add_link",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Typed campaign-link insertion from the pinned executable pseudocode.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041AD20",
+      "name": "pharaoh_campaign_strip_control_bytes",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Removal of every input byte below 0x21, matching the native helper.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041AD50",
+      "name": "pharaoh_campaign_parse_integer",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Native strtok/atoi token validation used by campaign text fields.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041ADC0",
+      "name": "pharaoh_campaign_parse_short",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Native short-width campaign text token conversion.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041ADF0",
+      "name": "pharaoh_campaign_log_error",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Native campaign parser error formatting and reporting.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
+    },
+    {
+      "address": "0x0041AE40",
+      "name": "pharaoh_campaign_load",
+      "source": "game/scenario/campaign_file.c",
+      "origin": "Typed campaign text parser port from the pinned executable.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c"
     }
   ]
 }

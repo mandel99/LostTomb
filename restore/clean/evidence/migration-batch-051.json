@@ -1,0 +1,67 @@
+{
+  "batch": 51,
+  "function_count": 4,
+  "method": "Typed the campaign object/link layouts and implemented native initialization, validated link insertion, and in-place removal of bytes below 0x21 from cached Ghidra pseudocode. The port preserves native untouched fields.",
+  "groups": [
+    {
+      "addresses": [
+        "0x0041AC00"
+      ],
+      "new_source": "game/scenario/campaign_file.c",
+      "new_source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "new_header": "game/include/pharaoh/scenario/campaign_file.h",
+      "new_header_sha256": "17ff044914823911335fb8c3dac473214418652f12d25c040094e9a6f072daa2",
+      "shared_types_header": "game/include/pharaoh/scenario/campaign_start.h",
+      "shared_types_header_sha256": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": [
+        "0x0041AC50"
+      ],
+      "new_source": "game/scenario/campaign_file.c",
+      "new_source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "new_header": "game/include/pharaoh/scenario/campaign_file.h",
+      "new_header_sha256": "17ff044914823911335fb8c3dac473214418652f12d25c040094e9a6f072daa2",
+      "shared_types_header": "game/include/pharaoh/scenario/campaign_start.h",
+      "shared_types_header_sha256": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": [
+        "0x0041AC90"
+      ],
+      "new_source": "game/scenario/campaign_file.c",
+      "new_source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "new_header": "game/include/pharaoh/scenario/campaign_file.h",
+      "new_header_sha256": "17ff044914823911335fb8c3dac473214418652f12d25c040094e9a6f072daa2",
+      "shared_types_header": "game/include/pharaoh/scenario/campaign_start.h",
+      "shared_types_header_sha256": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": [
+        "0x0041AD20"
+      ],
+      "new_source": "game/scenario/campaign_file.c",
+      "new_source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "new_header": "game/include/pharaoh/scenario/campaign_file.h",
+      "new_header_sha256": "17ff044914823911335fb8c3dac473214418652f12d25c040094e9a6f072daa2",
+      "shared_types_header": "game/include/pharaoh/scenario/campaign_start.h",
+      "shared_types_header_sha256": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed MSVC /W4 /WX for pharaoh_game",
+    "behavioral_tests_run": false,
+    "reason": "The focused owners were compared field by field with cached native pseudocode and verified by layout static assertions plus strict compilation. No previously confirmed conversions were retested; neither host game was launched.",
+    "library_sha256": "210f4b853e54eae8b664db517bb09e810cfe5e1046d32041222c6c05411aec20",
+    "cmake_sha256": "a9b6c840b3b58ceecaac9734385951b34c9c5d16baacd5071b9b40c10907d975"
+  },
+  "known_limitations": "The main campaign text parser 0x0041AE40 and application startup caller 0x00413ED0 remain unimplemented and are not connected to the host."
+}

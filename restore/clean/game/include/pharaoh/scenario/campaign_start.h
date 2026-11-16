@@ -15,8 +15,34 @@ enum {
     PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS = 0x1276
 };
 
-typedef struct PharaohCampaignRecord {
+typedef struct PharaohCampaignChoice {
+    int32_t x;
+    int32_t y;
+    int16_t text_id;
+    uint8_t path_id;
+    uint8_t reserved;
+} PharaohCampaignChoice;
+
+typedef struct PharaohCampaignLink {
+    uint8_t period;
+    uint8_t path_id;
+    uint8_t merge_ids[5];
+    uint8_t merge_count;
+    int32_t intro_id;
+    int32_t mission_id;
+    int32_t transition_text_id;
+    int32_t reserved1;
+    int32_t text_id;
+    int32_t background_id;
+    PharaohCampaignChoice choices[2];
+    int32_t choice_count;
+    uint8_t played;
+    uint8_t reserved2[3];
+} PharaohCampaignLink;
+
+typedef union PharaohCampaignRecord {
     uint8_t bytes[PHARAOH_CAMPAIGN_RECORD_BYTES];
+    PharaohCampaignLink link;
 } PharaohCampaignRecord;
 
 typedef struct PharaohCampaignIndex {
@@ -26,6 +52,14 @@ typedef struct PharaohCampaignIndex {
 
 _Static_assert(offsetof(PharaohCampaignIndex, count) == 0x1900,
                "campaign index count offset");
+_Static_assert(sizeof(PharaohCampaignChoice) == 0x0c,
+               "campaign choice layout");
+_Static_assert(sizeof(PharaohCampaignLink) == PHARAOH_CAMPAIGN_RECORD_BYTES,
+               "campaign link layout");
+_Static_assert(offsetof(PharaohCampaignLink, choices) == 0x20 &&
+               offsetof(PharaohCampaignLink, choice_count) == 0x38 &&
+               offsetof(PharaohCampaignLink, played) == 0x3c,
+               "campaign link native field offsets");
 _Static_assert(PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS * sizeof(uint32_t) ==
                PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_BYTES,
                "campaign city-state byte and word stride");

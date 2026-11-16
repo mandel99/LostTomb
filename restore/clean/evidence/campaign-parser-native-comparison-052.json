@@ -1,0 +1,36 @@
+{
+  "format": 1,
+  "unicorn_version": "2.1.4",
+  "original_game_executed": false,
+  "native_entry": "0x0041ae40",
+  "method": "Original parser, prefix constructor, reset, append, whitespace removal, numeric readers, tokenizer and campaign lookup versus compiled C; file IO, digit/atoi, comparison, formatting and logging endpoints controlled",
+  "compared": [
+    "byte return",
+    "complete 0x4a84-byte object except link bytes left unspecified by native initialization",
+    "ordered error message hashes",
+    "file cursor/open/close lifecycle",
+    "thiscall cleanup and preserved registers"
+  ],
+  "limitations": [
+    "Merge ID bytes, choice reserved bytes and trailing link padding left unwritten by the native initializer are normalized; no byte-equivalence claim is made for them.",
+    "ASCII numeric and case-insensitive string endpoints are controlled; messages use a 300-byte native buffer. The clean campaign append path assumes a nonnegative object count as established by campaign initialization.",
+    "The enclosing save/load consumer still has separate unresolved receiver and argument contracts."
+  ],
+  "compiled_C_path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\build\\Release\\pharaoh_campaign_file_emulation.exe",
+  "compiled_C_sha256": "720a747eeef01183e38969e1d3a90e38eb13511ec567e44d4b8444d3c03df788",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "local_asset_included": false,
+  "local_asset_sha256": null,
+  "parser_cases": 329,
+  "constructor_cases": 3,
+  "passed": true,
+  "checked": 332,
+  "elapsed_seconds": 17.188,
+  "source_hashes": {
+    "game/scenario/campaign_file.c": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+    "game/include/pharaoh/scenario/campaign_file.h": "d6b9ac478cab291effcb570b43fe560e619ae90d2d2e3f1c5f2d3edffbd10b90",
+    "game/include/pharaoh/scenario/campaign_start.h": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+    "tests/campaign_file_emulation.c": "1d04c62f0f6390446c8daf010408e5791837e9beed1d24f3195a798a236b74bb",
+    "CMakeLists.txt": "7f0a8dadadfbfdab0b8c24857af93540d6772eb03b032d13b272a4a115a209ed"
+  }
+}

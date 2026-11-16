@@ -1,0 +1,42 @@
+{
+  "batch": 52,
+  "function_count": 4,
+  "method": "Typed campaign integer/short token conversion, error reporting and text parser ported from cached typed Ghidra pseudocode; parser merge-token skip preserved from native behavior. Existing native pointer and tokenizer endpoints remain explicit callback boundaries.",
+  "groups": [
+    {
+      "addresses": [
+        "0x0041AD50",
+        "0x0041ADC0",
+        "0x0041ADF0",
+        "0x0041AE40"
+      ],
+      "source": "game/scenario/campaign_file.c",
+      "source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "header": "game/include/pharaoh/scenario/campaign_file.h",
+      "header_sha256": "d6b9ac478cab291effcb570b43fe560e619ae90d2d2e3f1c5f2d3edffbd10b90",
+      "shared_types_header": "game/include/pharaoh/scenario/campaign_start.h",
+      "shared_types_header_sha256": "18cb00299ad98299e08aa940ac7da03dcb85c40f59776831de5e4a7cebe43238",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "new_source": "game/scenario/campaign_file.c",
+      "new_source_sha256": "3843aa163544f41082e310572560e125aa2e30e177abef61148d6915bb3d540e",
+      "new_header": "game/include/pharaoh/scenario/campaign_file.h",
+      "new_header_sha256": "d6b9ac478cab291effcb570b43fe560e619ae90d2d2e3f1c5f2d3edffbd10b90"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed MSVC Release pharaoh_game and pharaoh_campaign_file_emulation",
+    "behavioral_test": "passed",
+    "test_evidence": "campaign-parser-native-comparison-052.json",
+    "test_evidence_sha256": "7000ec66484c83e578aa3a3293dce0c5b43aad447063342ef64a49f7a9c12f47",
+    "unicorn_version": "2.1.4",
+    "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "parser_cases": 329,
+    "constructor_cases": 3,
+    "total_cases": 332,
+    "compiled_executable_sha256": "720a747eeef01183e38969e1d3a90e38eb13511ec567e44d4b8444d3c03df788",
+    "library_sha256": "5c35c8c433bf814dbfdc3ef9e0973fd208ff6cf06779086a4f5f39e3b348f592",
+    "cmake_sha256": "7f0a8dadadfbfdab0b8c24857af93540d6772eb03b032d13b272a4a115a209ed"
+  },
+  "known_limitations": "Native merge_ids, choice reserved fields and link tail padding left unwritten by initialization are masked in byte comparison; this is not an equivalence claim for those bytes. The full save/load consumer receiver contract remains separate."
+}
