@@ -1,0 +1,28 @@
+{
+  "schema": "pharaoh-window-layout-key-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x004D5D70",
+  "rea_complete_dossier_evidence_id": "ev_8e5848a9918f0aa6bc64630afcabe2598a4b4556f7a5bf7f9e164b4f47b48c2e",
+  "native_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "native_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "native_body_range": ["0x004D5D70", "0x004D5D81"],
+  "native_behavior": [
+    "Return the input signed 32-bit key unchanged unless it equals 7.",
+    "For key 7, return the signed 32-bit value at the layout base plus 100 using x86 32-bit addition."
+  ],
+  "project_search": {
+    "old_project_owner": "restore/src/Unit01836.c, Original004D5D70",
+    "old_project_body_uses_absolute_address": true,
+    "clean_project_owner_before_this_change": false,
+    "decision": "Reconstructed from REA; the old body reads Data00605A44 through an absolute address macro."
+  },
+  "implementation": {
+    "source": "game/ui/window_layout_key.c",
+    "header": "game/include/pharaoh/ui/window_layout_key.h",
+    "special_layout_base": "Explicit signed 32-bit caller input replaces the old absolute global read."
+  },
+  "limitations": [
+    "The caller and semantic owner of the special layout base remain unresolved.",
+    "No behavior test or game process was run."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "pharaoh-menu-button-layout-init-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x004D66F0",
+  "rea_complete_dossier_evidence_id": "ev_3d910bb8f920d093e5ebb0d6bc9c03e378626199d17c7cb9d4fdf2e68ff842b6",
+  "native_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "native_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "native_behavior": [
+    "Traverse a linked list of layout nodes.",
+    "Use each node's one-based button index to select a 28-byte native button record.",
+    "Write left/top/right/bottom as signed 16-bit values; right and bottom are 16-bit wrapped sums of origin plus width/height."
+  ],
+  "project_search": {
+    "old_project_owner": "restore/src/Unit01858.c, Original004D66F0",
+    "old_project_body_uses_absolute_address_macros": true,
+    "clean_project_owner_before_this_change": false,
+    "decision": "Translated from REA because the previous owner accessed native layout tables through absolute pointers."
+  },
+  "implementation": {
+    "source": "game/ui/menu_button_layout_init.c",
+    "header": "game/include/pharaoh/ui/menu_button_layout_init.h",
+    "typed_fields": ["button_index", "left", "top", "width", "height", "next"]
+  },
+  "limitations": [
+    "Layout nodes must reference valid one-based button indices, matching the native table contract.",
+    "No game process or behavioral test was run."
+  ]
+}

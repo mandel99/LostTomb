@@ -1,0 +1,30 @@
+{
+  "schema": "pharaoh-button-layout-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x004D6740",
+  "rea_complete_dossier_evidence_id": "ev_0996e01b623e63b11374ccc9a26e3f8ee6947b58ddb7cc96026ece266b304d9c",
+  "native_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "native_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "native_behavior": [
+    "Resolve the active layout slot through the native window-layout key routine.",
+    "On first use, initialize button rectangles from that slot's linked list, mark the slot initialized, and return zero.",
+    "Return zero when no button was hit.",
+    "When the native highlight mode is active, set the six-by-six clip, selected-button fields, actor-panel highlight, and rectangle highlight; return the one-based button index."
+  ],
+  "project_search": {
+    "old_project_owner": "restore/src/Unit01858.c, Original004D6740",
+    "old_project_body_uses_absolute_address_macros": true,
+    "clean_project_owner_before_this_change": false,
+    "decision": "Translated from REA and composed with the clean 0x004D5D70 window-key and 0x004D66F0 layout-node owners."
+  },
+  "implementation": {
+    "source": "game/ui/button_layout.c",
+    "header": "game/include/pharaoh/ui/button_layout.h",
+    "render_callbacks": "Typed operations receive clip, actor-panel highlight, and highlight rectangle requests."
+  },
+  "limitations": [
+    "button_count is unused by the native routine, and button_index must be a valid one-based result when nonzero.",
+    "Renderer operations are explicit typed endpoints; the native frame/menu dispatcher remains unmigrated.",
+    "No game process or behavioral test was run."
+  ]
+}

@@ -3,6 +3,51 @@
   "scope": "Clean logical C owners only; platform adapters and host executable are not part of this project.",
   "functions": [
     {
+      "address": "0x004261D0",
+      "name": "pharaoh_generic_buttons_handle_mouse",
+      "source": "game/ui/generic_button_input.c",
+      "origin": "typed button hit-testing and trigger-state machine with left/right callback dispatch and selected-parameter stores",
+      "mapping_evidence": "evidence/generic-button-input-evidence-073.json",
+      "rea_evidence": "ev_95948e9f7aecc6f16f7c9420960a4dbe130f6727b25e200248d21d4a9c5b37d9",
+      "known_limitations": "The clean menu input dispatcher that supplies button-state flags and actions remains unmigrated."
+    },
+    {
+      "address": "0x00426450",
+      "name": "pharaoh_generic_buttons_get_focus",
+      "source": "game/ui/generic_button_focus.c",
+      "origin": "typed first-hit rectangle scan with native signed 16-bit bounds, signed 32-bit coordinate wrapping, one-based index, and hit-coordinate stores",
+      "mapping_evidence": "evidence/generic-button-focus-evidence-072.json",
+      "rea_evidence": "ev_d4dacebaae3c819780260fad216cfaa57a20fdf23147fb3a490e22fc1e71e28c",
+      "known_limitations": "The native input dispatcher that calls this helper remains unmigrated."
+    },
+    {
+      "address": "0x004D66F0",
+      "name": "pharaoh_menu_buttons_initialize",
+      "source": "game/ui/menu_button_layout_init.c",
+      "origin": "typed linked-list traversal and signed 16-bit rectangle construction from native menu layout nodes",
+      "rea_evidence": "ev_3d910bb8f920d093e5ebb0d6bc9c03e378626199d17c7cb9d4fdf2e68ff842b6",
+      "mapping_evidence": "evidence/menu-button-layout-init-evidence-075.json",
+      "known_limitations": "Layout nodes must reference valid one-based button indices, matching the native table contract."
+    },
+    {
+      "address": "0x004D6740",
+      "name": "pharaoh_ui_layout_buttons",
+      "source": "game/ui/button_layout.c",
+      "origin": "typed window layout initialization and selected-button highlight state transition",
+      "rea_evidence": "ev_0996e01b623e63b11374ccc9a26e3f8ee6947b58ddb7cc96026ece266b304d9c",
+      "mapping_evidence": "evidence/button-layout-evidence-075.json",
+      "known_limitations": "Renderer actions remain typed endpoints; the native frame and menu dispatchers are not connected to the host bootstrap."
+    },
+    {
+      "address": "0x004D5D70",
+      "name": "pharaoh_ui_layout_window_key",
+      "source": "game/ui/window_layout_key.c",
+      "origin": "typed window layout key selection; key 7 adds the caller-provided special layout base to 100 with 32-bit wrap",
+      "mapping_evidence": "evidence/window-layout-key-evidence-074.json",
+      "rea_evidence": "ev_8e5848a9918f0aa6bc64630afcabe2598a4b4556f7a5bf7f9e164b4f47b48c2e",
+      "known_limitations": "The caller that supplies the special layout base remains unmigrated."
+    },
+    {
       "address": "0x004013F0",
       "name": "pharaoh_abu_simbel_part_geometry_initialize",
       "source": "game/monuments/startup_geometry.c",

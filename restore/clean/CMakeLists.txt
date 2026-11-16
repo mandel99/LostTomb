@@ -60,6 +60,11 @@ add_library(pharaoh_game STATIC
     game/ui/industry_panels.c
     game/ui/label_text.c
     game/ui/main_menu.c
+    game/ui/generic_button_focus.c
+    game/ui/generic_button_input.c
+    game/ui/button_layout.c
+    game/ui/menu_button_layout_init.c
+    game/ui/window_layout_key.c
     game/ui/menu_screens.c
     game/ui/monument_tokens.c
     game/ui/political_actions.c

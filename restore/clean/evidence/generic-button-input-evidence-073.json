@@ -1,0 +1,55 @@
+{
+  "schema": "pharaoh-generic-button-input-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x004261D0",
+  "rea_complete_dossier_evidence_id": "ev_95948e9f7aecc6f16f7c9420960a4dbe130f6727b25e200248d21d4a9c5b37d9",
+  "native_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "native_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "native_body_range": ["0x004261D0", "0x0042644F"],
+  "native_button_record_fields": {
+    "bounds": "signed 16-bit left/top/right/bottom at offsets 0, 2, 4, 6",
+    "left_action": "indirect no-argument call at offset 8",
+    "right_action": "indirect no-argument call at offset 12",
+    "activated": "byte at offset 0x11, set to one on activation",
+    "trigger": "byte at offset 0x13; values 1 press, 2 hold, 3 release, 4 left press",
+    "primary_parameter": "32-bit value at offset 0x14",
+    "secondary_parameter": "32-bit value at offset 0x18"
+  },
+  "native_input_fields": {
+    "left_down": "0x00E38E00",
+    "left_pressed": "0x00E38E03",
+    "left_double_click": "0x00E38E02",
+    "left_released": "0x00E38E04",
+    "right_down": "0x00E38DF4",
+    "right_pressed": "0x00E38DF7",
+    "right_double_click": "0x00E38DF6",
+    "right_released": "0x00E38DF8",
+    "hold_action_enabled": "0x00D3B3AC",
+    "clear_drag_action": "0x00D3B3C8",
+    "selected_primary_parameter": "0x00D3B198",
+    "selected_secondary_parameter": "0x00D3B194"
+  },
+  "native_behavior": [
+    "Scan buttons in array order and ignore non-hit rectangles using left/top-inclusive and right/bottom-exclusive bounds with 32-bit wrapped origin addition.",
+    "Trigger 1 accepts left press, left double-click, or right press; left action wins when both sides qualify.",
+    "Trigger 3 accepts left release before right release; trigger 4 accepts left press or left double-click only.",
+    "Trigger 2 follows the native held-button and edge-flag branches; selected parameters and activation state are stored before any callback.",
+    "Return the activated button index plus one; return zero if no button activates."
+  ],
+  "project_search": {
+    "old_project_owner": "restore/src/Unit00416.c, Original004261D0",
+    "old_project_body_uses_absolute_address_macros": true,
+    "clean_project_owner_before_this_change": false,
+    "decision": "Reconstructed from REA; the old body reads/writes absolute globals through B(address) and I(address)."
+  },
+  "implementation": {
+    "source": "game/ui/generic_button_input.c",
+    "header": "game/include/pharaoh/ui/generic_button_input.h",
+    "callback_model": "Typed C function pointers receive an explicit action context; no absolute callback pointer or legacy binding is used."
+  },
+  "limitations": [
+    "Callback pointers must be valid for any trigger that can select them, matching the native table precondition.",
+    "No behavior test or game process was run.",
+    "The host menu dispatcher does not yet call this owner."
+  ]
+}

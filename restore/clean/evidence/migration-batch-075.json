@@ -1,0 +1,45 @@
+{
+  "batch": 75,
+  "function_count": 2,
+  "groups": [
+    {
+      "addresses": ["0x004D66F0"],
+      "new_source": "game/ui/menu_button_layout_init.c",
+      "new_source_sha256": "b729cee7f14a2aa073453f9d8d12778b72709de6af2864a85e6ed4f5edcd2147",
+      "new_header": "game/include/pharaoh/ui/menu_button_layout_init.h",
+      "new_header_sha256": "6b52be5f2409784cff71a986ee297e2afaa749d9ec1b7e408f431733d1dd90d8",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "mapping_evidence_file": "menu-button-layout-init-evidence-075.json",
+      "mapping_evidence_sha256": "dbb9b62d703022c0bbbcd5bd6f551f2d1d0fa74580fc69524c026da7c11a847d",
+      "direct_procedure_inventory": true
+    },
+    {
+      "addresses": ["0x004D6740"],
+      "new_source": "game/ui/button_layout.c",
+      "new_source_sha256": "9ab3372f00d01f9ee91a1efba6703f0ef624cfa8fabfb616c82b0d8e32230e72",
+      "new_header": "game/include/pharaoh/ui/button_layout.h",
+      "new_header_sha256": "d98bb1d7fc52c0f88fe402f6e1ac12c93b8446e5c662ac04296508ff5a94e447",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "mapping_evidence_file": "button-layout-evidence-075.json",
+      "mapping_evidence_sha256": "bf3157ebe82474205d64ebff3f0425b1bac12c436da17640d427338539b6d843",
+      "direct_procedure_inventory": true
+    }
+  ],
+  "verification": {
+    "release_compile": "passed MSVC Release pharaoh_game and pharaoh_clean_bootstrap",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "library_sha256": "0bfa031318750a9b7c220bde1c2c7a9852ab3b5b0a533eee685f352b60082fa4",
+    "bootstrap_sha256": "e22809139d9b7f8119e2d08b35f572f8e6d56151a509efe1dd0d6aa0ef4ed0f9",
+    "cmake_sha256": "4a0b488b7133a61bdbfd97d420eb012b530e72f1846a3f9a8ace4ab417f21b49",
+    "function_map_sha256": "c1ee3c045589ac564c79ef1d1977073ba83991c250a4df72b0602caece031575",
+    "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "known_limitations": [
+    "The clean Windows bootstrap still does not call the native startup preparation owner.",
+    "Frame dispatcher 0x004D6B60 and menu/input dispatcher 0x004D8310 remain missing from the clean runtime path.",
+    "No behavior test or game process was run."
+  ]
+}

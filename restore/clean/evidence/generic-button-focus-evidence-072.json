@@ -1,0 +1,39 @@
+{
+  "schema": "pharaoh-generic-button-focus-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x00426450",
+  "rea_complete_dossier_evidence_id": "ev_d4dacebaae3c819780260fad216cfaa57a20fdf23147fb3a490e22fc1e71e28c",
+  "native_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "native_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "native_body_range": ["0x00426450", "0x004264C3"],
+  "native_parameter_contract": {
+    "origin_x": "signed 32-bit",
+    "origin_y": "signed 32-bit",
+    "button_array": "records have signed 16-bit left/top/right/bottom at offsets 0/2/4/6 and 28-byte native stride",
+    "button_count": "signed 32-bit; nonpositive count returns zero",
+    "cursor_x": "signed 32-bit native logical cursor coordinate",
+    "cursor_y": "signed 32-bit native logical cursor coordinate"
+  },
+  "native_behavior": [
+    "Scan from index zero and stop at the first matching button.",
+    "Bounds are left/top inclusive and right/bottom exclusive.",
+    "Each signed 16-bit bound is sign-extended and added to its signed 32-bit origin with x86 32-bit wrap before signed comparison.",
+    "On a hit, write cursor Y then cursor X into the two hit-coordinate globals and return index plus one.",
+    "On no hit, return zero and leave the hit-coordinate globals unchanged."
+  ],
+  "project_search": {
+    "old_project_owner": "restore/src/Unit00417.c, Original00426450",
+    "old_project_body_uses_absolute_address_macros": true,
+    "clean_project_owner_before_this_change": false,
+    "decision": "Reconstructed from REA rather than reusing the legacy body because it reads/writes absolute globals through I(address)."
+  },
+  "implementation": {
+    "source": "game/ui/generic_button_focus.c",
+    "header": "game/include/pharaoh/ui/generic_button_focus.h",
+    "logical_rectangles": "Uses PharaohMenuRect records; the C representation does not retain the native 28-byte record stride because only the four named geometry fields are consumed."
+  },
+  "limitations": [
+    "No behavior test or game process was run.",
+    "The helper is not yet called by a clean menu input dispatcher."
+  ]
+}
