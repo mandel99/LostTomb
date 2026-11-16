@@ -1,0 +1,50 @@
+{
+  "batch": 5,
+  "function_count": 28,
+  "method": "Address-only lookup in the previous project followed by typed migration of existing C into explicit contexts, callbacks and caller-owned buffers; no decompilation and no duplicate behavioral tests.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source": "Source/Level/EventManager/RequestText.c",
+      "previous_source_sha256": "0a324b52e8b459cd129a6b2b40dc70b981bf0b9c2146e503b2b03551ac66eced",
+      "new_source": "game/ui/message_tokens.c",
+      "addresses": ["0x00446610", "0x004479B0"]
+    },
+    {
+      "previous_source": "Source/UI/NotificationContext/EmpireTokens.c",
+      "previous_source_sha256": "58f1518e4bdee59b5d37729940ed06abf5e6d4b66922a51abeebbb248c814a6a",
+      "new_source": "game/ui/message_tokens.c",
+      "addresses": [
+        "0x00447800", "0x00447840", "0x00447890", "0x00447910",
+        "0x00447A30"
+      ]
+    },
+    {
+      "previous_source": "Source/UI/NotificationContext/EventTokens.c",
+      "previous_source_sha256": "e26e30bdae645bbdbb2b59aa58e92eea927865d6692f5f5019fdc83f3acefd5c",
+      "new_source": "game/ui/message_tokens.c",
+      "addresses": [
+        "0x00447A80", "0x00447AB0", "0x00447AE0", "0x00447B10",
+        "0x00447B50", "0x00447B80", "0x00447BB0"
+      ]
+    },
+    {
+      "previous_source": "Source/UI/MonumentInfos/MonumentTokens.c",
+      "previous_source_sha256": "5120d8ec94a063e14a5d7c35fe0a05472ce2035a61c0cedfcd4b651d89c4756c",
+      "new_source": "game/ui/monument_tokens.c",
+      "addresses": [
+        "0x00447C20", "0x00447C30", "0x00447D60", "0x00447D80",
+        "0x00447DE0", "0x00447E30", "0x00447F70", "0x00447FD0",
+        "0x00448000", "0x00448040", "0x00448070", "0x00448180",
+        "0x004481B0", "0x00448270"
+      ]
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The migrated functions were already translated and mapped in the previous project; this batch verifies clean integration only.",
+    "library_sha256": "3a16f3ff42a3073a094e501b4ed2c193fb97ded6cba25d04606f1fe8adbb5367"
+  }
+}

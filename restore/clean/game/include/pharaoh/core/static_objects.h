@@ -1,0 +1,48 @@
+#ifndef PHARAOH_CORE_STATIC_OBJECTS_H
+#define PHARAOH_CORE_STATIC_OBJECTS_H
+
+#include <stdint.h>
+
+enum { PHARAOH_EMPIRE_ROUTE_POINTS = 50 };
+
+typedef struct PharaohEmpireRoutePoint {
+    int16_t x;
+    int16_t y;
+    uint8_t segment;
+    uint8_t pad;
+} PharaohEmpireRoutePoint;
+
+typedef struct PharaohEmpireRoute {
+    uint8_t step;
+    uint8_t reserved_1[3];
+    PharaohEmpireRoutePoint *path;
+    PharaohEmpireRoutePoint points[PHARAOH_EMPIRE_ROUTE_POINTS];
+    int32_t path_length;
+    int32_t path_capacity;
+    int16_t first_object;
+    int16_t last_object;
+    uint8_t kind;
+    uint8_t point_count;
+    uint8_t in_use;
+    uint8_t reserved_2;
+} PharaohEmpireRoute;
+
+typedef struct PharaohScreenFade {
+    int32_t steps;
+    int32_t level;
+    int32_t width;
+    int32_t height;
+    int32_t format;
+    int32_t mode;
+    uint8_t jitter;
+    uint8_t pad[3];
+    uint8_t reserved_1[8];
+    uint16_t *pixels[2];
+    uint8_t reserved_2[4];
+} PharaohScreenFade;
+
+/* Original addresses 0x00445460 and 0x00413E80. */
+void pharaoh_empire_route_construct(PharaohEmpireRoute *route);
+void pharaoh_screen_fade_initialize(PharaohScreenFade *fade);
+
+#endif

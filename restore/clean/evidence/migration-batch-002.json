@@ -1,0 +1,62 @@
+{
+  "batch": 2,
+  "function_count": 20,
+  "method": "Address-only lookup in the previous project followed by typed migration of existing C; no decompilation and no duplicate behavioral tests.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source": "Source/Core/Extensions/RingQueueMethods.c",
+      "previous_source_sha256": "2d1828a0627462e7d6cd6745e0301db3be3e6874758947d8ff056f690584f00c",
+      "new_source": "game/core/ring_queue.c",
+      "addresses": [
+        "0x004F6520",
+        "0x004F6560",
+        "0x004F6570",
+        "0x004F65B0",
+        "0x004F65F0",
+        "0x004F6650"
+      ]
+    },
+    {
+      "previous_source": "Source/Core/TimeManager/Calendar.c",
+      "previous_source_sha256": "76d152c1c0670b911793d6c26cc28dddf58fc54a81f05ee93ee16910b7d1a3f3",
+      "new_source": "game/simulation/finance_calendar.c",
+      "addresses": [
+        "0x0045A2E0",
+        "0x0045A3F0",
+        "0x0045A450",
+        "0x0045A490",
+        "0x0045A4D0",
+        "0x0045A500",
+        "0x0045A530",
+        "0x0045A560",
+        "0x0045A5A0"
+      ]
+    },
+    {
+      "previous_source": "Source/Population/PopulationManager/AgeCounts.c",
+      "previous_source_sha256": "3a0752a2e90fb0bd9373aefeb5f9a61dfeb20c9f4ba4434d25afc35de7f114b4",
+      "new_source": "game/population/age_counts.c",
+      "addresses": ["0x004E94A0", "0x004E94D0"]
+    },
+    {
+      "previous_source": "Source/Religion/ReligionManager/BuildingTypes.c",
+      "previous_source_sha256": "38afff265b7f08fce71d5bf422d77acf0f77e46d370860984ca66b23829b6acb",
+      "new_source": "game/religion/building_types.c",
+      "addresses": ["0x004C06E0"]
+    },
+    {
+      "previous_source": "Source/Core/Extensions/StaticObjects.c",
+      "previous_source_sha256": "47fd6c3352e8640572fa70bf6c13e7fd9f14449632cee8a02ca01c74c822b42c",
+      "new_source": "game/core/static_objects.c",
+      "addresses": ["0x00445460", "0x00413E80"]
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The migrated functions were already translated and mapped in the previous project; this batch verifies clean integration only.",
+    "library_sha256": "87283af99d333d88082583f22262f78f7086fbeada25289ea41749f58a4259dc"
+  }
+}

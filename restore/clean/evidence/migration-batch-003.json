@@ -1,0 +1,34 @@
+{
+  "batch": 3,
+  "function_count": 20,
+  "method": "Address-only lookup in the previous project followed by typed migration of existing C; no decompilation and no duplicate behavioral tests.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source": "Source/Level/EventManager/ReasonMethods.c",
+      "previous_source_sha256": "79d8df6ebf9c7ae05f668f2d1a6bf18dd6fbb4e17efb28d2834cd81c9f2ba41b",
+      "new_source": "game/events/event_queries.c",
+      "addresses": [
+        "0x0044EF60", "0x0044F120", "0x0044F170", "0x0044F360",
+        "0x0044F3D0", "0x0044F440", "0x0044F470", "0x0044F8C0",
+        "0x0044FB20", "0x0044FC00", "0x0044FCE0", "0x0044FD30"
+      ]
+    },
+    {
+      "previous_source": "Source/Level/EventManager/ResourceMethods.c",
+      "previous_source_sha256": "eddfac6749f83f76f9b88c95635e0464006e1466e3526393b703c943d2f831d8",
+      "new_source": "game/events/event_queries.c",
+      "addresses": [
+        "0x00449440", "0x00449550", "0x004495C0", "0x004495D0",
+        "0x00449600", "0x00449630", "0x004496B0", "0x00449B30"
+      ]
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The migrated functions were already translated and mapped in the previous project; this batch verifies clean integration only.",
+    "library_sha256": "656f3b2150b8fe8025243c727011675e3ecfe001ce811595cbcfb5d7412bf107"
+  }
+}

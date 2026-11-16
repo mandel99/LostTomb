@@ -1,0 +1,28 @@
+{
+  "batch": 17,
+  "function_count": 3,
+  "method": "Typed migration of industry production threshold, input consumption and floodplain-farm predicate from existing native C.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source_sha256": "c6048a03be0a33dc6900c77c90a298071580196a811b18e63b0b3c5fb2ced7cb",
+      "addresses": [
+        "0x00455BF0",
+        "0x00455C30",
+        "0x00488050"
+      ],
+      "previous_source": "Source/Buildings/ProductionBuilding/ProductionMethods.c",
+      "new_sources": [
+        "game/simulation/industry_production.c",
+        "game/simulation/industry_queries.c"
+      ]
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "Exact typed translation of previously confirmed native C; no repeated behavioral tests.",
+    "library_sha256": "b69c354ceffaeb4a2c05ce780a6ac33122382fa05914c7152533c8bcbe4e5fad"
+  }
+}

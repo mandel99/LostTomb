@@ -1,0 +1,1889 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Clean logical C owners only; platform adapters and host executable are not part of this project.",
+  "functions": [
+    {
+      "address": "0x004147F0",
+      "name": "pharaoh_settings_load",
+      "source": "game/runtime/settings_load.c",
+      "origin": "typed reconstruction of settings defaults, INI reads, display-mode selection, settings load and menu-state updates",
+      "rea_evidence": "ev_f64c796866e88a458449df5ad35d35fc2e2aa721e00c1492967b618d92c16e7d"
+    },
+    {
+      "address": "0x00414A90",
+      "name": "pharaoh_settings_read_ini",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed C reconstruction of the original Pharaoh.ini load and RAM/CheckCD/CPU parsing sequence",
+      "rea_evidence": "ev_c19cab0e355c271ff72a9624c5ee7e2aca8f191576f04a379dbe6d669bdaef77"
+    },
+    {
+      "address": "0x004CBDD0",
+      "name": "pharaoh_ini_find_key",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed bytewise key search reconstructed from REA",
+      "rea_evidence": "ev_1946e774921f689978fcfaf4a7e360a71efdabdb333b5c6838b0b0aa76c5f482"
+    },
+    {
+      "address": "0x004CBE30",
+      "name": "pharaoh_ini_find_byte",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed bounded byte search reconstructed from REA",
+      "rea_evidence": "ev_ce6de48b506049fdecb1db9a384eb05d837fa17f8a91e3848103bf2b9cce9931"
+    },
+    {
+      "address": "0x004CBE60",
+      "name": "pharaoh_ini_compare_bytes",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed byte comparison reconstructed from REA",
+      "rea_evidence": "ev_0b4ea8778a6998ed9b212c77ad386ce876b8fc5e70107eb29663b00fc86d54e3"
+    },
+    {
+      "address": "0x00561C0B",
+      "name": "pharaoh_ini_parse_integer",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed signed decimal parser reconstructed from REA",
+      "rea_evidence": "ev_405da0392d3522e74ffeb51b09f17c6dec3a7b0d39e09773e0ba68822dbfcf71"
+    },
+    {
+      "address": "0x00561C96",
+      "name": "pharaoh_ini_to_integer",
+      "source": "game/runtime/settings_ini.c",
+      "origin": "typed wrapper for the native INI integer conversion routine",
+      "rea_evidence": "ev_8e238e28fd7842d2032a6945ea60c3620350ea44902734e0c93896e898046621"
+    },
+    {
+      "address": "0x004CEC40",
+      "name": "pharaoh_load_text_catalogs",
+      "source": "game/runtime/text_loading.c",
+      "origin": "typed C reconstruction of the original two-file text catalog load sequence",
+      "rea_evidence": "ev_e56cf5f68a80c7d056742a779b29dd168bd6a872c7659bca051fba000846f7fc"
+    },
+    {
+      "address": "0x004CEB10",
+      "name": "pharaoh_load_raw_file",
+      "source": "game/runtime/file_loading.c",
+      "origin": "typed C reconstruction of the original read-only file open, size, byte-wise read and close sequence",
+      "rea_evidence": "ev_bc258a7bdc84e87fe65be05f12788c2279ad103a8341dfc95a2af50d9cabb13a"
+    },
+    {
+      "address": "0x004143C0",
+      "name": "pharaoh_frame_gate_run",
+      "source": "game/runtime/frame_gate.c",
+      "origin": "rewritten from REA because the only prior owner used absolute DirectDraw/global addresses",
+      "rea_evidence": "ev_57773d609c56379b347af95252de24c42ce061f2e11e1baaee93d2dbd2dffcce"
+    },
+    {
+      "address": "0x004D6070",
+      "name": "pharaoh_view_invalidate_if_editing",
+      "source": "game/ui/view_invalidation.c",
+      "origin": "typed extraction of the existing address-macro implementation, checked against REA",
+      "rea_evidence": "ev_83a5d21d67a0e3fe938b176467c0daaba9e1e745c4666d71ae9cf8a705bc0910"
+    },
+    {
+      "address": "0x004E5140",
+      "name": "pharaoh_projection_record_copy",
+      "source": "game/core/record_geometry.c",
+      "origin": "reused and typed from restore/runtime/RecordGeometry.c, checked against REA",
+      "rea_evidence": "ev_83a5d21d67a0e3fe938b176467c0daaba9e1e745c4666d71ae9cf8a705bc0910"
+    },
+    {
+      "address": "0x004E5190",
+      "name": "pharaoh_projection_record_update",
+      "source": "game/core/record_geometry.c",
+      "origin": "reused and typed from restore/runtime/RecordGeometry.c, checked against REA",
+      "rea_evidence": "ev_83a5d21d67a0e3fe938b176467c0daaba9e1e745c4666d71ae9cf8a705bc0910"
+    },
+    {
+      "address": "0x004E52B0",
+      "name": "pharaoh_projection_records_update",
+      "source": "game/core/record_geometry.c",
+      "origin": "reused and typed from restore/runtime/RecordGeometry.c, checked against REA",
+      "rea_evidence": "ev_83a5d21d67a0e3fe938b176467c0daaba9e1e745c4666d71ae9cf8a705bc0910"
+    },
+    {
+      "address": "0x004F6520",
+      "name": "pharaoh_ring_queue_initialize",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004F6560",
+      "name": "pharaoh_ring_queue_clear",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004F6570",
+      "name": "pharaoh_ring_queue_contains",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004F65B0",
+      "name": "pharaoh_ring_queue_push",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004F65F0",
+      "name": "pharaoh_ring_queue_next",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004F6650",
+      "name": "pharaoh_ring_queue_is_full",
+      "source": "game/core/ring_queue.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/RingQueueMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A2E0",
+      "name": "pharaoh_finance_pay_monthly_wages",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A3F0",
+      "name": "pharaoh_finance_pay_monthly_salary",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A450",
+      "name": "pharaoh_finance_rollover_wages",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A490",
+      "name": "pharaoh_finance_rollover_trade",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A4D0",
+      "name": "pharaoh_finance_rollover_construction",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A500",
+      "name": "pharaoh_finance_rollover_interest",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A530",
+      "name": "pharaoh_finance_rollover_salary",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A560",
+      "name": "pharaoh_finance_rollover_sundries",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0045A5A0",
+      "name": "pharaoh_finance_rollover_requests_festivals",
+      "source": "game/simulation/finance_calendar.c",
+      "origin": "typed migration of confirmed Source/Core/TimeManager/Calendar.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E94A0",
+      "name": "pharaoh_population_count_school_age",
+      "source": "game/population/age_counts.c",
+      "origin": "typed migration of confirmed Source/Population/PopulationManager/AgeCounts.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E94D0",
+      "name": "pharaoh_population_count_academy_age",
+      "source": "game/population/age_counts.c",
+      "origin": "typed migration of confirmed Source/Population/PopulationManager/AgeCounts.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004C06E0",
+      "name": "pharaoh_religion_building_type_for_god",
+      "source": "game/religion/building_types.c",
+      "origin": "typed migration of confirmed Source/Religion/ReligionManager/BuildingTypes.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00445460",
+      "name": "pharaoh_empire_route_construct",
+      "source": "game/core/static_objects.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/StaticObjects.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00413E80",
+      "name": "pharaoh_screen_fade_initialize",
+      "source": "game/core/static_objects.c",
+      "origin": "typed migration of confirmed Source/Core/Extensions/StaticObjects.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EF60",
+      "name": "pharaoh_event_parent_by_favour",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F120",
+      "name": "pharaoh_event_reason_group",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F170",
+      "name": "pharaoh_event_reason_group_completed",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F360",
+      "name": "pharaoh_event_reason_group_refused",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F3D0",
+      "name": "pharaoh_event_reason_group_too_late",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F440",
+      "name": "pharaoh_event_reason_group_defeat",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F470",
+      "name": "pharaoh_event_reason_column",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044F8C0",
+      "name": "pharaoh_event_message_text_completed",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044FB20",
+      "name": "pharaoh_event_message_text_refused",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044FC00",
+      "name": "pharaoh_event_message_text_too_late",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044FCE0",
+      "name": "pharaoh_event_message_text_defeat",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044FD30",
+      "name": "pharaoh_event_reason_phrase",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ReasonMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449440",
+      "name": "pharaoh_event_request_resource_allowed",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449550",
+      "name": "pharaoh_event_resource_in_range",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004495C0",
+      "name": "pharaoh_event_resource_group",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004495D0",
+      "name": "pharaoh_event_has_months",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449600",
+      "name": "pharaoh_event_has_followup",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449630",
+      "name": "pharaoh_event_is_invasion_kind",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004496B0",
+      "name": "pharaoh_event_type_chains",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449B30",
+      "name": "pharaoh_event_subtype_group",
+      "source": "game/events/event_queries.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/ResourceMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435290",
+      "name": "pharaoh_overlay_draw_fire_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004353A0",
+      "name": "pharaoh_overlay_draw_damage_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004354B0",
+      "name": "pharaoh_overlay_draw_malaria_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435510",
+      "name": "pharaoh_overlay_draw_disease_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435570",
+      "name": "pharaoh_overlay_draw_crime_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004355D0",
+      "name": "pharaoh_overlay_draw_entertainment_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435630",
+      "name": "pharaoh_overlay_draw_education_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004356A0",
+      "name": "pharaoh_overlay_draw_booth_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435700",
+      "name": "pharaoh_overlay_draw_bandstand_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435760",
+      "name": "pharaoh_overlay_draw_pavilion_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004357C0",
+      "name": "pharaoh_overlay_draw_senet_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435820",
+      "name": "pharaoh_overlay_draw_zoo_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435A10",
+      "name": "pharaoh_overlay_draw_water_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435AC0",
+      "name": "pharaoh_overlay_draw_school_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435B20",
+      "name": "pharaoh_overlay_draw_library_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435B80",
+      "name": "pharaoh_overlay_draw_physician_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435BE0",
+      "name": "pharaoh_overlay_draw_dentist_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435C40",
+      "name": "pharaoh_overlay_draw_apothecary_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435CA0",
+      "name": "pharaoh_overlay_draw_mortuary_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435D00",
+      "name": "pharaoh_overlay_draw_courthouse_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00446610",
+      "name": "pharaoh_message_invasion_running",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/RequestText.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004479B0",
+      "name": "pharaoh_message_token_request_amount",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/RequestText.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447800",
+      "name": "pharaoh_message_token_player_rank",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EmpireTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447840",
+      "name": "pharaoh_message_token_player_name",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EmpireTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447890",
+      "name": "pharaoh_message_token_city_name",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EmpireTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447910",
+      "name": "pharaoh_message_token_amount",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EmpireTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447A30",
+      "name": "pharaoh_message_token_resource_name",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EmpireTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447A80",
+      "name": "pharaoh_message_token_time_allotted",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447AB0",
+      "name": "pharaoh_message_token_travel_time",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447AE0",
+      "name": "pharaoh_message_token_time_until_attack",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447B10",
+      "name": "pharaoh_message_token_reason_phrase",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447B50",
+      "name": "pharaoh_message_token_pharaoh_name",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447B80",
+      "name": "pharaoh_message_token_foreign_army",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447BB0",
+      "name": "pharaoh_message_token_god",
+      "source": "game/ui/message_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/NotificationContext/EventTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447C20",
+      "name": "pharaoh_monument_token_name",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447C30",
+      "name": "pharaoh_monument_token_percent_complete",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447D60",
+      "name": "pharaoh_monument_token_courses_complete",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447D80",
+      "name": "pharaoh_monument_token_needed_current_main",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447DE0",
+      "name": "pharaoh_monument_token_needed_current_secondary",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447E30",
+      "name": "pharaoh_monument_token_needed_remainder_main",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447F70",
+      "name": "pharaoh_monument_token_needed_remainder_secondary",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00447FD0",
+      "name": "pharaoh_monument_token_loads_word",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00448000",
+      "name": "pharaoh_monument_token_loads_current_main",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00448040",
+      "name": "pharaoh_monument_token_loads_current_secondary",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00448070",
+      "name": "pharaoh_monument_token_loads_remainder_main",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00448180",
+      "name": "pharaoh_monument_token_loads_remainder_secondary",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004481B0",
+      "name": "pharaoh_monument_token_total_main",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00448270",
+      "name": "pharaoh_monument_token_total_secondary",
+      "source": "game/ui/monument_tokens.c",
+      "origin": "typed migration of confirmed Source/UI/MonumentInfos/MonumentTokens.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044C660",
+      "name": "pharaoh_event_process",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044C7E0",
+      "name": "pharaoh_event_process_reputation_increase",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044C8A0",
+      "name": "pharaoh_event_process_reputation_decrease",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044C9E0",
+      "name": "pharaoh_event_process_troops_request",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044CDC0",
+      "name": "pharaoh_event_process_request",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044D780",
+      "name": "pharaoh_event_process_demand_increase",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044D870",
+      "name": "pharaoh_event_process_demand_decrease",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044D970",
+      "name": "pharaoh_event_process_price_increase",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DA30",
+      "name": "pharaoh_event_process_price_decrease",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DB20",
+      "name": "pharaoh_event_process_sea_trade_problem",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DBD0",
+      "name": "pharaoh_event_process_land_trade_problem",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DCA0",
+      "name": "pharaoh_event_process_wage_increase",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DD60",
+      "name": "pharaoh_event_process_wage_decrease",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DE20",
+      "name": "pharaoh_event_process_contaminated_water",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DEE0",
+      "name": "pharaoh_event_process_gold_mine_collapse",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044DF90",
+      "name": "pharaoh_event_process_clay_pit_flood",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E000",
+      "name": "pharaoh_event_process_locusts",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E070",
+      "name": "pharaoh_event_process_frogs",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E0E0",
+      "name": "pharaoh_event_process_hailstorm",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E150",
+      "name": "pharaoh_event_process_blood_river",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E1C0",
+      "name": "pharaoh_event_process_crime_wave",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E2A0",
+      "name": "pharaoh_event_process_city_status_change",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044E5D0",
+      "name": "pharaoh_event_process_message",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EF90",
+      "name": "pharaoh_event_invasion_called_off",
+      "source": "game/events/event_actions.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00401BE0",
+      "name": "pharaoh_abu_simbel_advance_stage",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040D7F0",
+      "name": "pharaoh_library_set_completed",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040ECF0",
+      "name": "pharaoh_library_advance_stage",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040F0D0",
+      "name": "pharaoh_library_walker_work_tick",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00417640",
+      "name": "pharaoh_caesareum_advance_stage",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00417940",
+      "name": "pharaoh_caesareum_walker_work_tick",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004223F0",
+      "name": "pharaoh_royal_tomb_part_check_stage_done",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E65A0",
+      "name": "pharaoh_lighthouse_complete_instant",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E6BD0",
+      "name": "pharaoh_lighthouse_advance_stage",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E6E70",
+      "name": "pharaoh_lighthouse_walker_work_tick",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00545BC0",
+      "name": "pharaoh_small_royal_tomb_part_advance",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00547870",
+      "name": "pharaoh_royal_tomb_part_advance_stage",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00547AD0",
+      "name": "pharaoh_royal_tomb_set_completed",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00547B60",
+      "name": "pharaoh_royal_tomb_update_part_images",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00547E20",
+      "name": "pharaoh_royal_tomb_walker_work_tick",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0054FB20",
+      "name": "pharaoh_grand_royal_tomb_part_advance",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00556410",
+      "name": "pharaoh_large_royal_tomb_part_advance",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005590A0",
+      "name": "pharaoh_medium_royal_tomb_part_advance",
+      "source": "game/monuments/stages.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/StageMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00489240",
+      "name": "pharaoh_farm_next_harvest_month",
+      "source": "game/simulation/industry_queries.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00508E00",
+      "name": "pharaoh_draw_quarry",
+      "source": "game/simulation/industry_queries.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449870",
+      "name": "pharaoh_editor_event_type_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004498B0",
+      "name": "pharaoh_editor_event_phrase_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004498F0",
+      "name": "pharaoh_editor_event_type_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004499C0",
+      "name": "pharaoh_editor_event_subtype_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449B60",
+      "name": "pharaoh_editor_event_subtype_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449BF0",
+      "name": "pharaoh_editor_event_month_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00449C20",
+      "name": "pharaoh_editor_event_month_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A470",
+      "name": "pharaoh_editor_event_trigger_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A4F0",
+      "name": "pharaoh_editor_event_sender_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A670",
+      "name": "pharaoh_editor_event_attack_target_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A6C0",
+      "name": "pharaoh_editor_event_reason_completed_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A6F0",
+      "name": "pharaoh_editor_event_reason_completed_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A760",
+      "name": "pharaoh_editor_event_reason_refused_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A790",
+      "name": "pharaoh_editor_event_reason_refused_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A800",
+      "name": "pharaoh_editor_event_reason_too_late_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A830",
+      "name": "pharaoh_editor_event_reason_too_late_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A8A0",
+      "name": "pharaoh_editor_event_reason_defeat_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A8D0",
+      "name": "pharaoh_editor_event_reason_defeat_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044A940",
+      "name": "pharaoh_editor_event_item_chosen",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044AA30",
+      "name": "pharaoh_editor_event_item_button",
+      "source": "game/editor/event_buttons.c",
+      "origin": "typed migration of confirmed Source/UI/MenuLevelEditorPanel/EventButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00401480",
+      "name": "pharaoh_abu_simbel_remove_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040D890",
+      "name": "pharaoh_library_remove_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00416FB0",
+      "name": "pharaoh_caesareum_remove_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004E6660",
+      "name": "pharaoh_lighthouse_remove_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00545720",
+      "name": "pharaoh_small_royal_tomb_clear_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00546660",
+      "name": "pharaoh_royal_tomb_clear_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0054F450",
+      "name": "pharaoh_grand_royal_tomb_clear_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00555E60",
+      "name": "pharaoh_large_royal_tomb_clear_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00558BC0",
+      "name": "pharaoh_medium_royal_tomb_clear_tiles",
+      "source": "game/monuments/tile_removal.c",
+      "origin": "typed migration of confirmed Source/Monuments/Monument/TileRemoval.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004339E0",
+      "name": "pharaoh_overlay_fertility_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00433A60",
+      "name": "pharaoh_overlay_desirability_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00433E00",
+      "name": "pharaoh_overlay_malaria_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00433E40",
+      "name": "pharaoh_overlay_disease_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00433E80",
+      "name": "pharaoh_overlay_crime_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004342C0",
+      "name": "pharaoh_overlay_labor_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00434400",
+      "name": "pharaoh_overlay_religion_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayHeights.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435880",
+      "name": "pharaoh_overlay_draw_labor_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435A70",
+      "name": "pharaoh_overlay_draw_religion_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435D60",
+      "name": "pharaoh_overlay_draw_tax_income_column",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00435DE0",
+      "name": "pharaoh_overlay_draw_tax_coins",
+      "source": "game/rendering/overlay_columns.c",
+      "origin": "typed migration of confirmed Source/Rendering/MapRenderer/OverlayColumns.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004B9F90",
+      "name": "pharaoh_set_enemies_fleeing",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004BA040",
+      "name": "pharaoh_reset_enemy_walkers",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004BA090",
+      "name": "pharaoh_update_soldier_strength",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004BA180",
+      "name": "pharaoh_add_soldier_strength",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004BA290",
+      "name": "pharaoh_get_maximum_soldier_strength",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004BA3B0",
+      "name": "pharaoh_set_enemy_target_building",
+      "source": "game/military/enemy_queries.c",
+      "origin": "typed migration of confirmed Source/Military/ArmyHelper/EnemyQueries.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004FE300",
+      "name": "pharaoh_draw_gardens_panel",
+      "source": "game/ui/terrain_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/TerrainDetails.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004FE630",
+      "name": "pharaoh_draw_canal_panel",
+      "source": "game/ui/terrain_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/TerrainDetails.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004FE730",
+      "name": "pharaoh_draw_plaza_panel",
+      "source": "game/ui/terrain_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/TerrainDetails.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005058F0",
+      "name": "pharaoh_draw_ruins_panel",
+      "source": "game/ui/terrain_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/TerrainDetails.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00505A00",
+      "name": "pharaoh_industry_draw_work_camp",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00505C40",
+      "name": "pharaoh_industry_draw_farm_crop",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00505DC0",
+      "name": "pharaoh_industry_draw_barley_farm",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00506250",
+      "name": "pharaoh_industry_draw_grain_farm",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005066C0",
+      "name": "pharaoh_industry_draw_lettuce_farm",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00507430",
+      "name": "pharaoh_industry_draw_flax_farm",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005078A0",
+      "name": "pharaoh_industry_draw_henna_farm",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00507D30",
+      "name": "pharaoh_industry_draw_reed_gatherer",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005085B0",
+      "name": "pharaoh_industry_draw_cattle_ranch",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00508A60",
+      "name": "pharaoh_industry_draw_stone_quarry",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x005091C0",
+      "name": "pharaoh_industry_draw_gold_mine",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00509570",
+      "name": "pharaoh_industry_draw_copper_mine",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00509920",
+      "name": "pharaoh_industry_draw_gemstone_mine",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050A060",
+      "name": "pharaoh_industry_draw_clay_pit",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050A400",
+      "name": "pharaoh_industry_draw_brewery",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050A870",
+      "name": "pharaoh_industry_draw_weaver",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050C540",
+      "name": "pharaoh_industry_draw_weaponsmith",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050D290",
+      "name": "pharaoh_industry_draw_carpenters_guild",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050D6C0",
+      "name": "pharaoh_industry_draw_bricklayers_guild",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050D930",
+      "name": "pharaoh_industry_draw_stonemasons_guild",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050DBE0",
+      "name": "pharaoh_industry_draw_artisans_guild",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050E030",
+      "name": "pharaoh_industry_draw_hunting_lodge",
+      "source": "game/ui/industry_panels.c",
+      "origin": "typed migration of confirmed Source/UI/BuildingInfos/IndustryPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00455CA0",
+      "name": "pharaoh_market_list_contains",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00455E00",
+      "name": "pharaoh_market_food_items",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00456070",
+      "name": "pharaoh_market_goods_items",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004561E0",
+      "name": "pharaoh_market_food_destination",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004565F0",
+      "name": "pharaoh_market_goods_destination",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004673C0",
+      "name": "pharaoh_market_update_image",
+      "source": "game/commerce/market_selection.c",
+      "origin": "typed migration of confirmed Source/Buildings/BazaarBuilding/MarketSelection.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004539E0",
+      "name": "pharaoh_buildings_update_desirability",
+      "source": "game/population/house_services.c",
+      "origin": "typed migration of confirmed Source/Population/House/Services.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00454E20",
+      "name": "pharaoh_house_decay_culture",
+      "source": "game/population/house_services.c",
+      "origin": "typed migration of confirmed Source/Population/House/Services.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00454FA0",
+      "name": "pharaoh_house_calculate_culture",
+      "source": "game/population/house_services.c",
+      "origin": "typed migration of confirmed Source/Population/House/Services.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD290",
+      "name": "pharaoh_text_draw_number_rect",
+      "source": "game/ui/label_text.c",
+      "origin": "typed migration of confirmed Source/UI/TextInfosHelper/LabelText.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004D6200",
+      "name": "pharaoh_text_draw_language_rect",
+      "source": "game/ui/label_text.c",
+      "origin": "typed migration of confirmed Source/UI/TextInfosHelper/LabelText.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00536710",
+      "name": "pharaoh_large_label_draw_animated",
+      "source": "game/ui/label_text.c",
+      "origin": "typed migration of confirmed Source/UI/TextInfosHelper/LabelText.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A43F0",
+      "name": "pharaoh_transport_legion_ready",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4470",
+      "name": "pharaoh_transport_legion_board",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A44F0",
+      "name": "pharaoh_transport_legion_land",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A46F0",
+      "name": "pharaoh_transport_sink",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4C40",
+      "name": "pharaoh_transport_sail_to_dock",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4D00",
+      "name": "pharaoh_transport_sail_to_legion",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4E10",
+      "name": "pharaoh_transport_sail_to_landing",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4F60",
+      "name": "pharaoh_transport_docked",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/Transport.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EDD0",
+      "name": "pharaoh_gift_for_message",
+      "source": "game/events/gift_buttons.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/GiftButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EE30",
+      "name": "pharaoh_gift_accept",
+      "source": "game/events/gift_buttons.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/GiftButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EEA0",
+      "name": "pharaoh_gift_refuse",
+      "source": "game/events/gift_buttons.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/GiftButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0044EEF0",
+      "name": "pharaoh_gift_later",
+      "source": "game/events/gift_buttons.c",
+      "origin": "typed migration of confirmed Source/Level/EventManager/GiftButtons.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00402340",
+      "name": "pharaoh_political_answer_request",
+      "source": "game/ui/political_actions.c",
+      "origin": "typed migration of confirmed Source/UI/PoliticalOverseer/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040AE10",
+      "name": "pharaoh_political_request_button",
+      "source": "game/ui/political_actions.c",
+      "origin": "typed migration of confirmed Source/UI/PoliticalOverseer/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040AF30",
+      "name": "pharaoh_political_set_salary_rank",
+      "source": "game/ui/political_actions.c",
+      "origin": "typed migration of confirmed Source/UI/PoliticalOverseer/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040B140",
+      "name": "pharaoh_political_select_gift",
+      "source": "game/ui/political_actions.c",
+      "origin": "typed migration of confirmed Source/UI/PoliticalOverseer/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0040B1C0",
+      "name": "pharaoh_political_send_gift",
+      "source": "game/ui/political_actions.c",
+      "origin": "typed migration of confirmed Source/UI/PoliticalOverseer/Actions.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050FC10",
+      "name": "pharaoh_ship_damage_text",
+      "source": "game/military/ship_status.c",
+      "origin": "typed migration of confirmed Source/UI/ArmyUIManager/ShipPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x0050FC70",
+      "name": "pharaoh_ship_crew_text",
+      "source": "game/military/ship_status.c",
+      "origin": "typed migration of confirmed Source/UI/ArmyUIManager/ShipPanels.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A4850",
+      "name": "pharaoh_enemy_ship_pick_escape_point",
+      "source": "game/military/enemy_ship_queries.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A5880",
+      "name": "pharaoh_enemy_ship_play_ram_sound",
+      "source": "game/military/enemy_ship_queries.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A59C0",
+      "name": "pharaoh_enemy_ship_find_ship_at",
+      "source": "game/military/enemy_ship_queries.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004A5C10",
+      "name": "pharaoh_enemy_ship_find_ram_target",
+      "source": "game/military/enemy_ship_queries.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004AECE0",
+      "name": "pharaoh_enemy_ship_reroute_tick",
+      "source": "game/military/enemy_ship_queries.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004AD450",
+      "name": "pharaoh_transport_enemy_move",
+      "source": "game/military/transport_boats.c",
+      "origin": "typed migration of confirmed Source/Walkers/BoatBehavior/EnemyShips.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00455BF0",
+      "name": "pharaoh_industry_has_produced_resource",
+      "source": "game/simulation/industry_production.c",
+      "origin": "typed migration of confirmed Source/Buildings/ProductionBuilding/ProductionMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00455C30",
+      "name": "pharaoh_industry_start_new_production",
+      "source": "game/simulation/industry_production.c",
+      "origin": "typed migration of confirmed Source/Buildings/ProductionBuilding/ProductionMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x00488050",
+      "name": "pharaoh_building_is_floodplain_farm",
+      "source": "game/simulation/industry_queries.c",
+      "origin": "typed migration of confirmed Source/Buildings/ProductionBuilding/ProductionMethods.c",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD3E0",
+      "name": "pharaoh_graphics_draw_line_setup",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD490",
+      "name": "pharaoh_graphics_draw_line_step",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD510",
+      "name": "pharaoh_graphics_draw_line",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD680",
+      "name": "pharaoh_graphics_draw_rect",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD710",
+      "name": "pharaoh_graphics_draw_dashed_rect",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD810",
+      "name": "pharaoh_graphics_dash_blink",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD850",
+      "name": "pharaoh_graphics_dash_step",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD890",
+      "name": "pharaoh_graphics_draw_inset_rect",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD930",
+      "name": "pharaoh_graphics_draw_raised_rect",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CD9D0",
+      "name": "pharaoh_graphics_fill_rect",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004CDC30",
+      "name": "pharaoh_graphics_point_in_clip",
+      "source": "game/rendering/primitives.c",
+      "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
+      "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    }
+  ]
+}

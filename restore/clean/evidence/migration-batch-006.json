@@ -1,0 +1,27 @@
+{
+  "batch": 6,
+  "function_count": 24,
+  "method": "Address-only lookup and function-body bridge filtering followed by typed migration of existing C; no decompilation and no duplicate behavioral tests.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [{
+    "previous_source": "Source/Level/EventManager/Actions.c",
+    "previous_source_sha256": "b16a5c09c2f19945d59b9847978a344c9940a048d6d1a7f2c53138869e120758",
+    "new_source": "game/events/event_actions.c",
+    "addresses": [
+      "0x0044C660","0x0044C7E0","0x0044C8A0","0x0044C9E0",
+      "0x0044CDC0","0x0044D780","0x0044D870","0x0044D970",
+      "0x0044DA30","0x0044DB20","0x0044DBD0","0x0044DCA0",
+      "0x0044DD60","0x0044DE20","0x0044DEE0","0x0044DF90",
+      "0x0044E000","0x0044E070","0x0044E0E0","0x0044E150",
+      "0x0044E1C0","0x0044E2A0","0x0044E5D0","0x0044EF90"
+    ]
+  }],
+  "excluded": [{"address":"0x00451540","reason":"Previous owner is a RestoreEventUpdate00451540 bridge, not native C."}],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The 24 migrated functions were already translated and mapped; the sole Restore wrapper was excluded.",
+    "library_sha256": "8a6f18f3e84115b9b50832017ed0340ee2bbd834f20082b64683379c329a722d"
+  }
+}

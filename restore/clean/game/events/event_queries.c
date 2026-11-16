@@ -1,0 +1,397 @@
+#include "pharaoh/events/event_queries.h"
+
+enum {
+    EVENT_FLAG_BY_FAVOUR = 0x10,
+    EVENT_INVADER_ENEMY = 1,
+    EVENT_INVADER_EGYPT = 2,
+    EVENT_INVADER_PHARAOH = 3,
+    EVENT_INVADER_BEDOUINS = 4,
+    EVENT_CITY_STATUS_SUBTYPE_COUNT = 5,
+    EVENT_MESSAGE_SUBTYPE_COUNT = 4,
+    LANG_GROUP_CITY_STATUS_EVENTS = 35,
+    LANG_GROUP_REQUEST_KINDS = 149,
+    LANG_GROUP_MESSAGE_EVENTS = 150
+};
+
+static int32_t subtype_text(const PharaohScenarioEvent *event,
+    uint8_t subtype_count, int32_t first, int32_t step)
+{
+    if (event->subtype >= subtype_count) {
+        return -1;
+    }
+    return first + step * event->subtype;
+}
+
+static size_t sender_index(const PharaohScenarioEvent *event)
+{
+    return event->sender_faction != 0u ? 1u : 0u;
+}
+
+static const PharaohRequestMessageRule *request_rule(
+    const PharaohEventQueryContext *context, const PharaohScenarioEvent *event)
+{
+    if (context->request_rules == NULL ||
+        event->subtype >= PHARAOH_REQUEST_SUBTYPE_COUNT) {
+        return NULL;
+    }
+    return &context->request_rules[event->subtype];
+}
+
+static const PharaohRequestMessageRule *followup_request_rule(
+    const PharaohEventQueryContext *context, const PharaohScenarioEvent *event)
+{
+    if (event->type != PHARAOH_EVENT_REQUEST) {
+        return NULL;
+    }
+    return request_rule(context, event);
+}
+
+static const PharaohEventTypeText *type_text(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    if (context->type_texts == NULL || event->type >= PHARAOH_EVENT_TYPE_COUNT) {
+        return NULL;
+    }
+    return &context->type_texts[event->type];
+}
+
+static int32_t invader_text(const PharaohScenarioEvent *event, int32_t enemy,
+    int32_t egypt, int32_t pharaoh, int32_t bedouins)
+{
+    switch ((uint16_t)event->item_value) {
+        case EVENT_INVADER_ENEMY:
+            return enemy;
+        case EVENT_INVADER_EGYPT:
+            return egypt;
+        case EVENT_INVADER_PHARAOH:
+            return pharaoh;
+        case EVENT_INVADER_BEDOUINS:
+            return bedouins;
+        default:
+            return -1;
+    }
+}
+
+static const PharaohScenarioEvent *event_by_id(
+    const PharaohEventQueryContext *context, int32_t id)
+{
+    if (id < 0 || (size_t)id >= context->event_count || context->events == NULL) {
+        return NULL;
+    }
+    return &context->events[id];
+}
+
+bool pharaoh_event_parent_by_favour(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohScenarioEvent *parent = event_by_id(context, event->parent_id);
+    return parent != NULL && (parent->flags & EVENT_FLAG_BY_FAVOUR) != 0u;
+}
+
+int32_t pharaoh_event_reason_group(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event, int32_t action)
+{
+    switch (action) {
+        case 0:
+            return pharaoh_event_reason_group_completed(context, event);
+        case 1:
+            return pharaoh_event_reason_group_refused(context, event);
+        case 2:
+            return pharaoh_event_reason_group_too_late(context, event);
+        case 3:
+            return pharaoh_event_reason_group_defeat(context, event);
+        default:
+            return -1;
+    }
+}
+
+int32_t pharaoh_event_reason_group_completed(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = request_rule(context, event);
+    const PharaohEventTypeText *text = type_text(context, event);
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return rule != NULL ? rule->completed_group : -1;
+        case PHARAOH_EVENT_INVASION:
+            return invader_text(event, 32, 33, 34, 50);
+        case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+            return subtype_text(event, EVENT_CITY_STATUS_SUBTYPE_COUNT, 23, 1);
+        case PHARAOH_EVENT_MESSAGE:
+            return subtype_text(event, EVENT_MESSAGE_SUBTYPE_COUNT, 28, 1);
+        default:
+            return text != NULL ? text->reason_group : -1;
+    }
+}
+
+int32_t pharaoh_event_reason_group_refused(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    if (rule != NULL) {
+        return rule->refused_group;
+    }
+    return event->type == PHARAOH_EVENT_GIFT_FROM_PHARAOH ? 51 : -1;
+}
+
+int32_t pharaoh_event_reason_group_too_late(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    if (rule != NULL) {
+        return rule->too_late_group;
+    }
+    return event->type == PHARAOH_EVENT_GIFT_FROM_PHARAOH ? 52 : -1;
+}
+
+int32_t pharaoh_event_reason_group_defeat(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    return rule != NULL ? rule->defeat_group : -1;
+}
+
+int32_t pharaoh_event_reason_column(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = request_rule(context, event);
+    const PharaohEventTypeText *text = type_text(context, event);
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return rule != NULL ? rule->reason_column : -1;
+        case PHARAOH_EVENT_INVASION:
+            return invader_text(event, 16, 17, 18, 34);
+        case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+            return subtype_text(event, EVENT_CITY_STATUS_SUBTYPE_COUNT, 7, 1);
+        case PHARAOH_EVENT_MESSAGE:
+            return subtype_text(event, EVENT_MESSAGE_SUBTYPE_COUNT, 12, 1);
+        default:
+            return text != NULL ? text->reason_column : -1;
+    }
+}
+
+int32_t pharaoh_event_message_text_completed(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = request_rule(context, event);
+    const PharaohEventTypeText *text = type_text(context, event);
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return rule != NULL ? rule->completed[sender_index(event)] : -1;
+        case PHARAOH_EVENT_INVASION:
+            return invader_text(event, 189, 179, 169, 262);
+        case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+            return subtype_text(event, EVENT_CITY_STATUS_SUBTYPE_COUNT, 128, 4);
+        case PHARAOH_EVENT_MESSAGE:
+            return subtype_text(event, EVENT_MESSAGE_SUBTYPE_COUNT, 148, 4);
+        case PHARAOH_EVENT_GIFT_FROM_PHARAOH:
+            return 287 - (int32_t)sender_index(event);
+        default:
+            return text != NULL ? text->completed : -1;
+    }
+}
+
+int32_t pharaoh_event_message_text_refused(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    if (rule != NULL) {
+        return rule->refused[sender_index(event)];
+    }
+    return event->type == PHARAOH_EVENT_GIFT_FROM_PHARAOH
+        ? 291 - (int32_t)sender_index(event) : -1;
+}
+
+int32_t pharaoh_event_message_text_too_late(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    if (rule != NULL) {
+        return rule->too_late[sender_index(event)];
+    }
+    return event->type == PHARAOH_EVENT_GIFT_FROM_PHARAOH
+        ? 289 - (int32_t)sender_index(event) : -1;
+}
+
+int32_t pharaoh_event_message_text_defeat(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    const PharaohRequestMessageRule *rule = followup_request_rule(context, event);
+    return rule != NULL ? rule->defeat[sender_index(event)] : -1;
+}
+
+int32_t pharaoh_event_reason_phrase(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event, int32_t action)
+{
+    int32_t id;
+    int32_t variant;
+    bool use_action_text = false;
+    const PharaohScenarioEvent *next;
+
+    switch (action) {
+        case 0: id = event->on_completed; variant = event->reason[0]; break;
+        case 1: id = event->on_refusal; variant = event->reason[1]; break;
+        case 2: id = event->on_too_late; variant = event->reason[2]; break;
+        case 3: id = event->on_defeat; variant = event->reason[3]; break;
+        default: return -1;
+    }
+    next = event_by_id(context, id);
+    if (variant >= 6) {
+        int32_t group;
+        int32_t column;
+        if (next == NULL) {
+            return -1;
+        }
+        group = pharaoh_event_reason_group(context, event, action);
+        column = pharaoh_event_reason_column(context, next);
+        if (group < 0 || group >= PHARAOH_EVENT_REASON_GROUP_COUNT ||
+            column < 0 || column >= PHARAOH_EVENT_REASON_COLUMN_COUNT ||
+            context->reason_phrases == NULL) {
+            variant = 0;
+            use_action_text = true;
+        } else {
+            variant = context->reason_phrases[
+                group * PHARAOH_EVENT_REASON_COLUMN_COUNT + column];
+        }
+    }
+    if (!use_action_text) {
+        if (variant >= 3 && variant <= 5 && next != NULL &&
+            context->event_message_text != NULL && context->phrase_variant != NULL) {
+            return context->phrase_variant(context->user_data,
+                context->event_message_text(context->user_data, next), variant);
+        }
+        if (variant >= 6) {
+            return -1;
+        }
+    }
+    if (context->phrase_variant == NULL) {
+        return -1;
+    }
+    switch (action) {
+        case 0:
+            return context->phrase_variant(context->user_data,
+                pharaoh_event_message_text_completed(context, event), variant);
+        case 1:
+            return context->phrase_variant(context->user_data,
+                pharaoh_event_message_text_refused(context, event), variant);
+        case 2:
+            return context->phrase_variant(context->user_data,
+                pharaoh_event_message_text_too_late(context, event), variant);
+        default:
+            return context->phrase_variant(context->user_data,
+                pharaoh_event_message_text_defeat(context, event), variant);
+    }
+}
+
+static bool is_festival_supply(int32_t resource)
+{
+    if (resource >= PHARAOH_RESOURCE_MIN_FOOD &&
+        resource < PHARAOH_RESOURCE_MAX_FOOD) {
+        return true;
+    }
+    return resource == PHARAOH_RESOURCE_BEER || resource == PHARAOH_RESOURCE_LINEN ||
+        resource == PHARAOH_RESOURCE_LUXURY_GOODS ||
+        resource == PHARAOH_RESOURCE_DEBEN;
+}
+
+static bool is_building_material(int32_t resource)
+{
+    return resource == PHARAOH_RESOURCE_BRICKS ||
+        resource == PHARAOH_RESOURCE_TIMBER || resource == PHARAOH_RESOURCE_STONE ||
+        resource == PHARAOH_RESOURCE_LIMESTONE ||
+        resource == PHARAOH_RESOURCE_GRANITE ||
+        resource == PHARAOH_RESOURCE_SANDSTONE || resource == PHARAOH_RESOURCE_DEBEN;
+}
+
+bool pharaoh_event_request_resource_allowed(
+    const PharaohScenarioEvent *event, int32_t resource)
+{
+    switch (event->subtype) {
+        case 0:
+        case 6:
+            return resource != PHARAOH_RESOURCE_TROOPS &&
+                resource != PHARAOH_RESOURCE_GOLD && resource != PHARAOH_RESOURCE_UNUSED;
+        case 1:
+        case 2:
+            return resource == PHARAOH_RESOURCE_TROOPS;
+        case 3:
+            return is_festival_supply(resource);
+        case 4:
+            return is_building_material(resource);
+        case 5:
+            return resource >= PHARAOH_RESOURCE_MIN_FOOD &&
+                resource < PHARAOH_RESOURCE_MAX_FOOD;
+        default:
+            return false;
+    }
+}
+
+bool pharaoh_event_resource_in_range(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event, int32_t resource)
+{
+    if (context->resource_min == NULL || context->resource_max == NULL ||
+        resource < context->resource_min(context->user_data, event) ||
+        resource >= context->resource_max(context->user_data, event)) {
+        return false;
+    }
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return pharaoh_event_request_resource_allowed(event, resource);
+        case PHARAOH_EVENT_GIFT_FROM_PHARAOH:
+            return context->gift_resource_allowed != NULL &&
+                context->gift_resource_allowed(context->user_data, resource);
+        case PHARAOH_EVENT_DEMAND_INCREASE:
+        case PHARAOH_EVENT_DEMAND_DECREASE:
+        case PHARAOH_EVENT_PRICE_INCREASE:
+        case PHARAOH_EVENT_PRICE_DECREASE:
+            return resource != PHARAOH_RESOURCE_UNUSED &&
+                resource != PHARAOH_RESOURCE_GOLD;
+        default:
+            return true;
+    }
+}
+
+int32_t pharaoh_event_resource_group(const PharaohEventQueryContext *context,
+    const PharaohScenarioEvent *event)
+{
+    if (context->type_properties == NULL || event->type >= PHARAOH_EVENT_TYPE_COUNT) {
+        return -1;
+    }
+    return context->type_properties[event->type].resource_text_group;
+}
+
+bool pharaoh_event_has_months(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_REQUEST || event->type == PHARAOH_EVENT_INVASION;
+}
+
+bool pharaoh_event_has_followup(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_REQUEST && event->subtype != 0u &&
+        event->subtype <= 2u;
+}
+
+bool pharaoh_event_is_invasion_kind(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_INVASION;
+}
+
+bool pharaoh_event_type_chains(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_REQUEST ||
+        event->type == PHARAOH_EVENT_GIFT_FROM_PHARAOH;
+}
+
+int32_t pharaoh_event_subtype_group(const PharaohScenarioEvent *event)
+{
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return LANG_GROUP_REQUEST_KINDS;
+        case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+            return LANG_GROUP_CITY_STATUS_EVENTS;
+        case PHARAOH_EVENT_MESSAGE:
+            return LANG_GROUP_MESSAGE_EVENTS;
+        default:
+            return -1;
+    }
+}
