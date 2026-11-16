@@ -4,24 +4,15 @@ enum {
     PHARAOH_DISPLAY_MODE_FIRST = 1,
     PHARAOH_DISPLAY_MODE_SECOND = 2,
     PHARAOH_DISPLAY_MODE_THIRD = 3,
-    PHARAOH_ACTION_PARAMETER_FIRST_MODE = 0x14,
-    PHARAOH_ACTION_PARAMETER_SECOND_MODE = 0x1e,
-    PHARAOH_ACTION_PARAMETER_THIRD_MODE = 0x28,
     PHARAOH_PLATFORM_MEASUREMENT_ITERATIONS = 3
 };
 
-static int32_t get_action_parameter(int32_t display_mode,
-    uint32_t *action_parameter)
+static int32_t has_native_idle_action_mode(int32_t display_mode)
 {
     switch (display_mode) {
     case PHARAOH_DISPLAY_MODE_FIRST:
-        *action_parameter = PHARAOH_ACTION_PARAMETER_FIRST_MODE;
-        return 1;
     case PHARAOH_DISPLAY_MODE_SECOND:
-        *action_parameter = PHARAOH_ACTION_PARAMETER_SECOND_MODE;
-        return 1;
     case PHARAOH_DISPLAY_MODE_THIRD:
-        *action_parameter = PHARAOH_ACTION_PARAMETER_THIRD_MODE;
         return 1;
     default:
         return 0;
@@ -34,16 +25,15 @@ void pharaoh_platform_measure_speed(
 {
     const uint32_t first_start = operations->time_get_time(
         operations->user_data);
-    uint32_t action_parameter = 0;
     uint32_t first_end;
     uint32_t refresh_start;
     uint32_t refresh_end;
 
-    if (get_action_parameter(state->display_mode, &action_parameter) != 0) {
+    if (has_native_idle_action_mode(state->display_mode) != 0) {
         for (uint32_t iteration = 0;
             iteration < PHARAOH_PLATFORM_MEASUREMENT_ITERATIONS;
             ++iteration) {
-            pharaoh_figure_action_none(action_parameter);
+            pharaoh_actor_walking_no_operation();
         }
     }
 

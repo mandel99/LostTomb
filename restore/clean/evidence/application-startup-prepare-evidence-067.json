@@ -1,0 +1,70 @@
+{
+  "schema": "pharaoh-native-startup-sequence-evidence-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entry_address": "0x00413ED0",
+  "native_entry_complete": false,
+  "coverage": "settings/text/media/default-name configuration through window, assets, models/campaign data, event phrases, sound, state reset, game-state setup, monument geometry, sidebar, and startup speed measurement; stops before intro video and the native message/frame loop",
+  "ghidra_pseudocode_file": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "ghidra_pseudocode_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "ghidra_body_sha256": "b27f18628bdebb7b824699c22809e14579e25d2be7c796489fcd06530159043e",
+  "rea_evidence_id": "ev_4aedb530b12effb098ea3e668d41a2f955dede1e5314d1a0b25fe8693151ccae",
+  "rea_evidence_file": "evidence/rea-startup-batch-023.json",
+  "native_call_order": [
+    "0x004147F0 settings load",
+    "0x004CEC40 primary and media text catalogs",
+    "0x004268C0 optional media drive probe; its result does not gate startup",
+    "0x004149D0 default names",
+    "0x004CF960 window and graphics-session initialization",
+    "0x00414420 startup asset setup",
+    "0x00540C90 building models",
+    "0x00540ED0 figure models",
+    "0x00541160 tax/sentiment model",
+    "0x0041AE40 campaign.txt",
+    "0x00541310 trade recommendations",
+    "0x0044EFA0 event reason phrases",
+    "0x005394F0 sound initialization",
+    "ActorWalkingNoOperation()",
+    "native post-sound state reset block (typed caller operation; individual fields remain unresolved)",
+    "0x00540B50 game state initialization",
+    "0x004013F0 Abu Simbel geometry (16 records)",
+    "0x0040D7E0 library geometry (25 records)",
+    "0x00416F60 Caesareum geometry (9 records)",
+    "0x004E6590 lighthouse geometry (2 records)",
+    "0x005456A0 small tomb geometry (167 records)",
+    "0x00558B40 medium tomb geometry (158 records)",
+    "0x00555DE0 large tomb geometry (437 records)",
+    "0x0054F3D0 grand tomb geometry (513 records)",
+    "0x00541D50 sun temple geometry (100 records)",
+    "0x004DEE10 mausoleum projection (116 records)",
+    "0x0051E930 sidebar positions",
+    "current window id = 0x44; redraw requested = 1",
+    "0x004CF8E0 startup speed measurement"
+  ],
+  "implementation": {
+    "source": "game/runtime/application_startup_prepare.c",
+    "source_sha256": "94e4fc94b96fdd44823ca26b6dcaa042f83cf282cf96de1496c7f12298930292",
+    "header": "game/include/pharaoh/runtime/application_startup_prepare.h",
+    "header_sha256": "0965dd3778179a74aa4b8e60f42fdd45356a56aa20ebe260922ce900e04a573e",
+    "cmake_owner": "pharaoh_game"
+  },
+  "remaining_native_work": [
+    "resolve the individual post-sound state fields and remove the typed reset operation endpoint",
+    "intro-video selection and playback",
+    "native message/frame loop and teardown",
+    "construct caller-owned startup contexts and connect the sequence from wWinMain"
+  ],
+  "limitations": [
+    "This helper composes observed 0x00413ED0 owners but is not a complete owner for that native entry.",
+    "The post-sound reset block is still supplied as an explicit typed operation because not every global field has a proven clean C type.",
+    "The host bootstrap still does not call this helper.",
+    "No game process or behavioral tests were run; a successful build is structural compilation evidence only."
+  ],
+  "rea_noop_evidence_id": "ev_9626735b94b4a29f8644e3eceaab043f434749a82d9926c2223d77e06beee078",
+  "verification": {
+    "release_compile": "passed MSVC Release pharaoh_game and pharaoh_clean_bootstrap",
+    "library_sha256": "e2c53f1a358f185c96d466b8e4621589f45ecfb3402444b76004703d50e2d971",
+    "bootstrap_sha256": "ce7001a61e5da34268719027dd9d1d8faef857a0270e042992217bcdbab69720",
+    "game_launched": false,
+    "behavioral_tests_run": false
+  }
+}

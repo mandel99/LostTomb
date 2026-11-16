@@ -25,8 +25,7 @@ void pharaoh_platform_measure_speed(
     PharaohPlatformMeasurementState *state,
     const PharaohPlatformMeasurementOperations *operations);
 
-/* Original entry 0x0051F780. Native body is an empty return; the argument is
-   retained because 0x004CF8E0 pushes a mode-specific value at each callsite. */
-void pharaoh_figure_action_none(uint32_t action_parameter);
+/* Original entry 0x0051F780 ActorWalkingNoOperation. */
+void pharaoh_actor_walking_no_operation(void);
 
 #endif
