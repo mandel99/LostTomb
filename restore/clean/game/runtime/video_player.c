@@ -20,3 +20,39 @@ void pharaoh_video_player_initialize(PharaohVideoPlayer *player,
     player->movie = NULL;
     player->buffer = NULL;
 }
+
+void pharaoh_video_player_close(PharaohVideoPlayer *player,
+                                const PharaohVideoPlayerBackend *backend)
+{
+    if (player->movie != NULL) {
+        backend->close_movie(backend->user_data, player->movie);
+        player->movie = NULL;
+    }
+
+    if (player->buffer != NULL) {
+        backend->close_buffer(backend->user_data, player->buffer);
+        player->buffer = NULL;
+    }
+}
+
+uint8_t pharaoh_video_player_end(PharaohVideoPlayer *player,
+                                 PharaohVideoRuntimeState *state,
+                                 const PharaohVideoPlayerBackend *backend)
+{
+    *state->display_mode = (uint8_t)player->saved_mode;
+    player->stopped = UINT8_C(1);
+    *state->redraw_requested = UINT8_C(1);
+
+    if (player->movie != NULL) {
+        backend->close_movie(backend->user_data, player->movie);
+        player->movie = NULL;
+    }
+
+    if (player->buffer != NULL) {
+        backend->close_buffer(backend->user_data, player->buffer);
+        player->buffer = NULL;
+    }
+
+    return UINT8_C(1);
+}
+
