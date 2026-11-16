@@ -34,6 +34,7 @@ add_library(pharaoh_game STATIC
     game/runtime/game_data_loading.c
     game/runtime/text_catalog.c
     game/runtime/text_loading.c
+    game/runtime/video_player.c
     game/runtime/settings_ini.c
     game/runtime/settings_load.c
     game/scenario/campaign_start.c
