@@ -48,6 +48,7 @@ typedef struct PharaohVideoRuntimeState {
     uint32_t previous_display_mode;
     uint32_t screen_width;
     uint32_t screen_height;
+    uint8_t movie_drive_letter;
 } PharaohVideoRuntimeState;
 
 typedef struct PharaohVideoLoopOperations {
@@ -78,6 +79,26 @@ typedef struct PharaohVideoLoopOperations {
     void (*show_cursor)(void *user_data, int32_t visible);
 } PharaohVideoLoopOperations;
 
+typedef struct PharaohMovieProbeFile PharaohMovieProbeFile;
+
+typedef struct PharaohVideoOpenOperations {
+    void *user_data;
+    const PharaohVideoLoopOperations *loop_operations;
+    int32_t sound_manager_active;
+    void *sound_manager;
+    void *movie_sound_device;
+    void (*close_sound_stream)(void *user_data, void *sound_manager,
+                               uint32_t stream_id);
+    void (*set_movie_sound_device)(void *user_data, void *sound_device);
+    PharaohMovieProbeFile *(*open_probe_file)(void *user_data,
+                                               const char *filename,
+                                               const char *mode);
+    void (*close_probe_file)(void *user_data, PharaohMovieProbeFile *file);
+    void *(*bink_open)(void *user_data, const char *filename,
+                       uint32_t flags);
+    void (*output_debug_string)(void *user_data, const char *message);
+} PharaohVideoOpenOperations;
+
 enum PharaohVideoMessageId {
     PHARAOH_VIDEO_MESSAGE_KEY_DOWN = 0x0100,
     PHARAOH_VIDEO_MESSAGE_SYSTEM_KEY_DOWN = 0x0104,
@@ -102,5 +123,11 @@ uint8_t pharaoh_video_player_end(PharaohVideoPlayer *player,
 void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
                                     PharaohVideoRuntimeState *state,
                                     const PharaohVideoLoopOperations *operations);
+
+/* Original entry 0x00413580. Returns the native low-byte open result. */
+uint8_t pharaoh_video_player_play(PharaohVideoPlayer *player,
+                                  PharaohVideoRuntimeState *state,
+                                  const char *filename, int32_t x, int32_t y,
+                                  const PharaohVideoOpenOperations *operations);
 
 #endif

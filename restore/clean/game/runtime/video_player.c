@@ -1,6 +1,7 @@
 #include "pharaoh/runtime/video_player.h"
 
 #include <stddef.h>
+#include <stdio.h>
 
 _Static_assert(offsetof(PharaohVideoPlayer, stopped) == 4,
     "native video player stopped flag offset");
@@ -18,6 +19,16 @@ _Static_assert(sizeof(void *) != 4 || sizeof(PharaohVideoMessage) == 28,
     "video message retains the 32-bit Win32 MSG field layout");
 
 static const char video_bink_error_prefix[] = "ERR: Bink error: ";
+static const char video_bink_open_error[] = "Unable to load BINK!\n";
+static const char video_movie_probe_mode[] = "rb";
+static const char video_movie_filename_format[] = "%s";
+static const char video_movie_drive_path_format[] = "%c:\\%s";
+
+enum PharaohVideoSoundStreamId {
+    PHARAOH_VIDEO_STREAM_MUSIC = 0,
+    PHARAOH_VIDEO_STREAM_CITY = 2,
+    PHARAOH_VIDEO_STREAM_SPEECH = 1
+};
 
 static void change_video_display_mode(
     PharaohVideoRuntimeState *state,
@@ -160,5 +171,58 @@ void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
     }
 
     operations->show_cursor(operations->user_data, 1);
+}
+
+uint8_t pharaoh_video_player_play(PharaohVideoPlayer *player,
+                                 PharaohVideoRuntimeState *state,
+                                 const char *filename, int32_t x, int32_t y,
+                                 const PharaohVideoOpenOperations *operations)
+{
+    char movie_path[100];
+
+    if (player->movie != NULL) {
+        operations->loop_operations->player_backend->close_movie(
+            operations->loop_operations->player_backend->user_data,
+            player->movie);
+    }
+
+    if (operations->sound_manager_active != 0) {
+        operations->close_sound_stream(operations->user_data,
+            operations->sound_manager, PHARAOH_VIDEO_STREAM_MUSIC);
+        operations->close_sound_stream(operations->user_data,
+            operations->sound_manager, PHARAOH_VIDEO_STREAM_CITY);
+        operations->close_sound_stream(operations->user_data,
+            operations->sound_manager, PHARAOH_VIDEO_STREAM_SPEECH);
+        operations->set_movie_sound_device(operations->user_data,
+            operations->movie_sound_device);
+    }
+
+    (void)snprintf(movie_path, sizeof(movie_path),
+        video_movie_filename_format, filename);
+    PharaohMovieProbeFile *probe = operations->open_probe_file(
+        operations->user_data, movie_path, video_movie_probe_mode);
+    if (probe == NULL) {
+        (void)snprintf(movie_path, sizeof(movie_path),
+            video_movie_drive_path_format, (int)state->movie_drive_letter,
+            filename);
+    } else {
+        operations->close_probe_file(operations->user_data, probe);
+    }
+
+    player->movie = operations->bink_open(operations->user_data, movie_path, 0);
+    if (player->movie == NULL) {
+        operations->output_debug_string(operations->user_data,
+            video_bink_open_error);
+        return UINT8_C(0);
+    }
+
+    player->saved_mode = *state->display_mode;
+    *state->display_mode = UINT8_C(0x4a);
+    player->stopped = UINT8_C(0);
+    *state->redraw_requested = UINT8_C(0);
+    player->x = x;
+    player->y = y;
+    pharaoh_video_player_play_loop(player, state, operations->loop_operations);
+    return UINT8_C(1);
 }
 
