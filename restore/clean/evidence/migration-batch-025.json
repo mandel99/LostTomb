@@ -1,0 +1,54 @@
+{
+  "batch": 25,
+  "function_count": 2,
+  "method": "Typed startup sprite-pixel conversion and file-load routines reconstructed from REA; hidden color and allocator globals are explicit context fields or typed memory operations.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source_sha256": "e5392e07310e8cda28f25b52dbb5df7c82bb1023c5bb3acfc27ae63dad71032f",
+      "addresses": ["0x004CDEB0"],
+      "previous_source": "src/Unit01733.c",
+      "new_source": "game/assets/sprite_pixel_conversion.c"
+    },
+    {
+      "previous_source_sha256": "099945c391c001b298547024b6248be4c62fa815bc4ccb040901fb43988f52d5",
+      "addresses": ["0x004CDF20"],
+      "previous_source": "src/Unit01734.c",
+      "new_source": "game/assets/sprite_pixel_conversion.c"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "New sprite-pixel conversion and loading routines compiled; no behavioral tests were run.",
+    "library_sha256": "67024a43ce67dccc0367f8ce7bab951939de04a956a131e9910840e12cc61c03"
+  },
+  "rea_evidence": [
+    "ev_2fecea4522ca9bbeb4f4f93e264c8f6e03d09eec6e8ccf7a2734231b9b5bb2f9",
+    "ev_0c7ddcefd3ce513ea4cb5437a33800417a98e50c4d16f2ffe3f68c91ae2434f2",
+    "ev_7fe9771b1fec570f3d308672533e78dac9acd4cc785b4efb437577ca00a400a8",
+    "ev_e07ba496e2d9482af5ec25025dfb81abb81a2f223360492cac7bce84f1c3a4d0",
+    "ev_bf00f544aeae639f43d39507688b4a5900d9b99dec94a8f25c7479702fb8df43",
+    "ev_d379425a1c9d7541584642943ab732201bf87a53c2572086a4fb0e3b5af287b4",
+    "ev_d5d276f9d9576b5a54f91d60684ab2651e4a3a2c8eea8060d8531e0ff1b98916",
+    "ev_6baaf112c2843b93796b1eb88ce90e31d33c6254acd3e3bc2cd77f716b873606",
+    "ev_eb8b6605a3c161b54a3c928ee7b16847e9ff2b34b6572c05f24273cb7919b2c6"
+  ],
+  "unbound_rea_functions": [
+    {
+      "address": "0x0053F660",
+      "name": "pharaoh_sprite_load_pixels",
+      "previous_c_candidate_source": "src/Unit02528.c",
+      "previous_c_candidate_sha256": "73068a3e219a470796d240d21738e04dfe74a176ff482ea918882b0b71ba6a5e",
+      "evidence": "ev_7fe9771b1fec570f3d308672533e78dac9acd4cc785b4efb437577ca00a400a8"
+    },
+    {
+      "address": "0x0053F790",
+      "name": "pharaoh_sprite_release_pixels",
+      "previous_c_candidate_source": "src/Unit02529.c",
+      "previous_c_candidate_sha256": "a728885d472481f9412d6ee5ba5f99f0cf8a6c5a7cce991a8def08605615c7ff",
+      "evidence": "ev_e07ba496e2d9482af5ec25025dfb81abb81a2f223360492cac7bce84f1c3a4d0"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "batch": 24,
+  "function_count": 1,
+  "method": "Typed file-size query migration sharing the exact open, drive-path fallback and retry flow with the migrated data-file reader.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source_sha256": "0ea4578be210a2377d9121da94a9cdb8b296057b53930436f1d88ba23fe7583e",
+      "addresses": ["0x004CEA30"],
+      "previous_source": "runtime/FileManagerAdapters.c",
+      "new_source": "game/runtime/game_data_loading.c"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "New file-size logic compiled; tests for previously confirmed conversions were not repeated.",
+    "library_sha256": "ba2af860bbe4a95631e988b0f57ac1c91de53677c53f70df260618b4dbb8622b"
+  },
+  "rea_evidence": [
+    "ev_4f58fab4ae9fe94566d278bbc249d6dcc80aa9f939afd9ec0fe4b5929d1d4ced",
+    "ev_7eb88c2afad2eab81d0c2603679140050795b1539ae824ea11f5651fbc0ac75c"
+  ],
+  "supporting_functions": [
+    {
+      "address": "0x004CE9E0",
+      "name": "pharaoh_file_load_retry_prompt",
+      "evidence": "ev_8bb593d2c4b19887e7a2dd52924eec9bfb7641ecc37590168aea7fdff31543d7"
+    }
+  ]
+}

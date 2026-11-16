@@ -10,6 +10,20 @@
       "rea_evidence": "ev_f8a1c7039e335de2bc5a51432859519c73258c93114747644be2ac20c666b03e"
     },
     {
+      "address": "0x004CDEB0",
+      "name": "pharaoh_sprite_convert_compressed_555_to_565",
+      "source": "game/assets/sprite_pixel_conversion.c",
+      "origin": "typed exact translation of the signed-byte run decoder and RGB555-to-RGB565 pixel conversion",
+      "rea_evidence": "ev_0c7ddcefd3ce513ea4cb5437a33800417a98e50c4d16f2ffe3f68c91ae2434f2"
+    },
+    {
+      "address": "0x004CDF20",
+      "name": "pharaoh_sprite_convert_raw_555_to_565",
+      "source": "game/assets/sprite_pixel_conversion.c",
+      "origin": "typed exact translation of the transparency-preserving RGB555-to-RGB565 pixel loop",
+      "rea_evidence": "ev_2fecea4522ca9bbeb4f4f93e264c8f6e03d09eec6e8ccf7a2734231b9b5bb2f9"
+    },
+    {
       "address": "0x004CE9E0",
       "name": "pharaoh_file_load_retry_prompt",
       "source": "game/runtime/text_catalog.c",
@@ -17,11 +31,32 @@
       "rea_evidence": "ev_8bb593d2c4b19887e7a2dd52924eec9bfb7641ecc37590168aea7fdff31543d7"
     },
     {
+      "address": "0x004CEA30",
+      "name": "pharaoh_game_data_file_size_from_offset",
+      "source": "game/runtime/game_data_loading.c",
+      "origin": "typed reconstruction of data-file open, shared CD-drive fallback, retry prompt, file-size query and offset subtraction",
+      "rea_evidence": "ev_4f58fab4ae9fe94566d278bbc249d6dcc80aa9f939afd9ec0fe4b5929d1d4ced"
+    },
+    {
       "address": "0x004CEB60",
       "name": "pharaoh_load_game_data",
       "source": "game/runtime/game_data_loading.c",
       "origin": "typed reconstruction of direct file open, CD-drive fallback path, retry prompt, seek and remainder read",
       "rea_evidence": "ev_af363b207bc2be328a2be58f9f64e2182b78c6fb303fa43b1de00c1b519a9b35"
+    },
+    {
+      "address": "0x0053F660",
+      "name": "pharaoh_sprite_load_pixels",
+      "source": "game/assets/sprite_pixel_loading.c",
+      "origin": "typed sprite pixel-file path construction, allocation, game-data load and conditional pixel conversion",
+      "rea_evidence": "ev_7fe9771b1fec570f3d308672533e78dac9acd4cc785b4efb437577ca00a400a8"
+    },
+    {
+      "address": "0x0053F790",
+      "name": "pharaoh_sprite_release_pixels",
+      "source": "game/assets/sprite_pixel_loading.c",
+      "origin": "typed pixel-buffer release and shared-buffer preservation using explicit manager state",
+      "rea_evidence": "ev_e07ba496e2d9482af5ec25025dfb81abb81a2f223360492cac7bce84f1c3a4d0"
     },
     {
       "address": "0x00417DD0",

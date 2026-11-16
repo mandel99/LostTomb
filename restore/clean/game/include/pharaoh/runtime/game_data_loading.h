@@ -22,6 +22,9 @@ typedef struct PharaohGameDataLoadState {
 
 #define PHARAOH_GAME_DATA_LOAD_STATE_INITIALIZER { "C:\\" }
 
+int32_t pharaoh_game_data_file_size_from_offset(
+    const PharaohGameDataLoadContext *context, const char *filename,
+    int32_t offset);
 int32_t pharaoh_load_game_data(const PharaohGameDataLoadContext *context,
                                const char *filename, void *destination,
                                int32_t skip_bytes);

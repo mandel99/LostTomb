@@ -7,6 +7,8 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/assets/sprite_pixel_conversion.c
+    game/assets/sprite_pixel_loading.c
     game/commerce/market_selection.c
     game/core/record_geometry.c
     game/core/ring_queue.c
