@@ -1,0 +1,31 @@
+{
+  "batch": 22,
+  "function_count": 2,
+  "method": "Typed migration of campaign mission lookup and campaign-state initialization; the prior project contained the lookup algorithm in typed C and the startup body as an address-based bridge.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source_sha256": "e223f0fac04c373ce792af31315083eaa1ac722536b2054d52e769190a769ed8",
+      "addresses": ["0x00417DD0"],
+      "previous_source": "src/Unit00213.c",
+      "new_source": "game/scenario/campaign_start.c"
+    },
+    {
+      "previous_source_sha256": "70d1bafe9af071f8448cd050eddfb10659778fb6227ece5d6f032485f0194d15",
+      "addresses": ["0x0041B920"],
+      "previous_source": "src/Unit00253.c",
+      "new_source": "game/scenario/campaign_start.c"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The previous typed mission-search owner was checked against REA, and the campaign setup was reconstructed from the native instructions. Existing confirmed conversions were not retested.",
+    "library_sha256": "6944a76a1b8dc7fde91bd700f59347da2859aa697e7692182cc0b638c21f1497"
+  },
+  "rea_evidence": [
+    "ev_ecd64c64d2ed11988ba9df6771ab7a113f1bcbd010d68e4f772f3f3cc5b3baf1",
+    "ev_7e106e5c4309611530d7f74e0d04bf75f1b5ac5490a2288b6c975ff5d5bc739c"
+  ]
+}

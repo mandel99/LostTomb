@@ -2,10 +2,11 @@
 
 #include "pharaoh/runtime/file_loading.h"
 
+#include <windows.h>
+
 int32_t pharaoh_settings_load(const PharaohSettingsLoadContext *context)
 {
     PharaohSettingsFile *settings = context->settings;
-    const PharaohSettingsLoadOperations *operations = context->operations;
     const PharaohSettingsIniContext ini_context = {
         context->files,
         context->ini_operations,
@@ -46,7 +47,7 @@ int32_t pharaoh_settings_load(const PharaohSettingsLoadContext *context)
         settings->display_mode = 1;
     }
 
-    const int32_t screen_width = operations->get_system_metric(context->user_data,
+    const int32_t screen_width = GetSystemMetrics(
         PHARAOH_SCREEN_METRIC_PRIMARY_WIDTH);
     if (screen_width < PHARAOH_SETTINGS_SCREEN_WIDTH_LOW) {
         settings->display_mode = 1;
@@ -55,12 +56,14 @@ int32_t pharaoh_settings_load(const PharaohSettingsLoadContext *context)
     }
     settings->display_mode_start = settings->display_mode;
 
-    operations->start_campaign(context->user_data, settings, 0);
+    PharaohCampaignStartContext campaign = context->campaign;
+    campaign.settings = settings;
+    pharaoh_settings_start_campaign(&campaign, 0);
     settings->last_advisor = 1;
     (void)pharaoh_load_raw_file(context->files, "Pharaoh.inf", settings);
     settings->check_cd = 1;
     (void)pharaoh_settings_read_ini(&ini_context);
-    operations->set_startup_finalization_flag(context->user_data, 1);
+    *context->startup_finalization_flag = 1;
     settings->paused = 0;
 
     if (settings->tooltips == 2) {

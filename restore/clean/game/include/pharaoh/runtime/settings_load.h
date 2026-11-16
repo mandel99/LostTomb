@@ -2,6 +2,7 @@
 #define PHARAOH_RUNTIME_SETTINGS_LOAD_H
 
 #include "pharaoh/runtime/settings_ini.h"
+#include "pharaoh/scenario/campaign_start.h"
 
 enum {
     PHARAOH_SCREEN_METRIC_PRIMARY_WIDTH = 0,
@@ -19,21 +20,14 @@ typedef struct PharaohSettingsMenuIndexes {
     int32_t classical_names;
 } PharaohSettingsMenuIndexes;
 
-typedef struct PharaohSettingsLoadOperations {
-    int32_t (*get_system_metric)(void *user_data, int32_t metric);
-    void (*start_campaign)(void *user_data, PharaohSettingsFile *settings,
-                           int32_t campaign_id);
-    void (*set_startup_finalization_flag)(void *user_data, uint8_t value);
-} PharaohSettingsLoadOperations;
-
 typedef struct PharaohSettingsLoadContext {
     const PharaohSettingsIniOperations *ini_operations;
     const PharaohFileReadContext *files;
-    const PharaohSettingsLoadOperations *operations;
-    void *user_data;
     void *ini_user_data;
     PharaohSettingsFile *settings;
     PharaohSettingsMenuIndexes *menu_indexes;
+    PharaohCampaignStartContext campaign;
+    uint8_t *startup_finalization_flag;
 } PharaohSettingsLoadContext;
 
 int32_t pharaoh_settings_load(const PharaohSettingsLoadContext *context);

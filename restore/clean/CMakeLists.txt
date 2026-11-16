@@ -32,6 +32,7 @@ add_library(pharaoh_game STATIC
     game/runtime/text_loading.c
     game/runtime/settings_ini.c
     game/runtime/settings_load.c
+    game/scenario/campaign_start.c
     game/simulation/finance_calendar.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
