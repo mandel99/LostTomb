@@ -29,6 +29,8 @@ add_library(pharaoh_game STATIC
     game/rendering/primitives.c
     game/runtime/frame_gate.c
     game/runtime/file_loading.c
+    game/runtime/game_data_loading.c
+    game/runtime/text_catalog.c
     game/runtime/text_loading.c
     game/runtime/settings_ini.c
     game/runtime/settings_load.c

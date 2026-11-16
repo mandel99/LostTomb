@@ -7,9 +7,26 @@ enum {
     PHARAOH_TEXT_FILE_OPEN_FLAGS = 0x8000,
     PHARAOH_TEXT_PRIMARY_HEADER_BYTES = 0x1c,
     PHARAOH_TEXT_PRIMARY_INDEX_BYTES = 8000,
+    PHARAOH_TEXT_PRIMARY_GROUP_COUNT = 1000,
     PHARAOH_TEXT_PRIMARY_FIXED_BYTES = 0x1f5c,
-    PHARAOH_TEXT_MEDIA_INDEX_BYTES = 0x13898
+    PHARAOH_TEXT_MEDIA_INDEX_BYTES = 0x13898,
+    PHARAOH_TEXT_ERROR_GROUP = 5,
+    PHARAOH_TEXT_ERROR_CAPTION_ENTRY = 0x89,
+    PHARAOH_TEXT_ERROR_BODY_ENTRY = 0x8a,
+    PHARAOH_TEXT_ERROR_MESSAGE_BOX_FLAGS = 0x40001
 };
+
+typedef struct PharaohTextGroupIndex {
+    int32_t text_offset;
+    uint32_t unobserved_word;
+} PharaohTextGroupIndex;
+
+_Static_assert(sizeof(PharaohTextGroupIndex) == 8,
+               "language text group index record size");
+_Static_assert(sizeof(PharaohTextGroupIndex) *
+               PHARAOH_TEXT_PRIMARY_GROUP_COUNT ==
+               PHARAOH_TEXT_PRIMARY_INDEX_BYTES,
+               "language text group index region size");
 
 typedef struct PharaohTextFile PharaohTextFile;
 
@@ -26,7 +43,7 @@ typedef struct PharaohTextFileOperations {
 
 typedef struct PharaohTextCatalog {
     uint8_t primary_header[PHARAOH_TEXT_PRIMARY_HEADER_BYTES];
-    uint8_t primary_index[PHARAOH_TEXT_PRIMARY_INDEX_BYTES];
+    PharaohTextGroupIndex primary_index[PHARAOH_TEXT_PRIMARY_GROUP_COUNT];
     void *primary_text;
     uint8_t media_index[PHARAOH_TEXT_MEDIA_INDEX_BYTES];
     void *media_text;
@@ -38,8 +55,16 @@ typedef struct PharaohTextLoadContext {
     PharaohTextCatalog *catalog;
 } PharaohTextLoadContext;
 
+typedef struct PharaohTextSelection {
+    const PharaohTextCatalog *catalog;
+    const char *current;
+} PharaohTextSelection;
+
 int pharaoh_load_text_catalogs(const PharaohTextLoadContext *context,
                                const char *primary_filename,
                                const char *media_filename);
+void pharaoh_text_select(PharaohTextSelection *selection, int32_t group,
+                         int32_t entry);
+int32_t pharaoh_file_load_retry_prompt(PharaohTextSelection *selection);
 
 #endif

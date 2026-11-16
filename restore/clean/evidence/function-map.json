@@ -3,6 +3,27 @@
   "scope": "Clean logical C owners only; platform adapters and host executable are not part of this project.",
   "functions": [
     {
+      "address": "0x004CC110",
+      "name": "pharaoh_text_select",
+      "source": "game/runtime/text_catalog.c",
+      "origin": "typed extraction of text-group offset lookup and entry traversal from the prior address-based text selection owner",
+      "rea_evidence": "ev_f8a1c7039e335de2bc5a51432859519c73258c93114747644be2ac20c666b03e"
+    },
+    {
+      "address": "0x004CE9E0",
+      "name": "pharaoh_file_load_retry_prompt",
+      "source": "game/runtime/text_catalog.c",
+      "origin": "typed text selection and direct MessageBoxA call; retains MessageBox result for the retry loop",
+      "rea_evidence": "ev_8bb593d2c4b19887e7a2dd52924eec9bfb7641ecc37590168aea7fdff31543d7"
+    },
+    {
+      "address": "0x004CEB60",
+      "name": "pharaoh_load_game_data",
+      "source": "game/runtime/game_data_loading.c",
+      "origin": "typed reconstruction of direct file open, CD-drive fallback path, retry prompt, seek and remainder read",
+      "rea_evidence": "ev_af363b207bc2be328a2be58f9f64e2182b78c6fb303fa43b1de00c1b519a9b35"
+    },
+    {
       "address": "0x00417DD0",
       "name": "pharaoh_settings_start_campaign",
       "source": "game/scenario/campaign_start.c",

@@ -1,0 +1,38 @@
+{
+  "batch": 23,
+  "function_count": 2,
+  "method": "Typed text selection and game-data file loading reconstructed from REA; an additional unbound retry-dialog helper is recorded in the function map.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "previous_source_sha256": "47c235c5cab248ea9aceaacbbfbee49bfdb077e027df7e917ba3abbe0a047b55",
+      "addresses": ["0x004CC110"],
+      "previous_source": "runtime/UIManagerSpriteTextApi.c",
+      "new_source": "game/runtime/text_catalog.c"
+    },
+    {
+      "previous_source_sha256": "0ea4578be210a2377d9121da94a9cdb8b296057b53930436f1d88ba23fe7583e",
+      "addresses": ["0x004CEB60"],
+      "previous_source": "runtime/FileManagerAdapters.c",
+      "new_source": "game/runtime/game_data_loading.c"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "New text and game-data loading owners were compiled; previously confirmed conversions were not retested.",
+    "library_sha256": "1b0cbd013c62fadec7d20ad042fe4e18965bd1742a95189c5d3fffbc437a5b32"
+  },
+  "rea_evidence": [
+    "ev_f8a1c7039e335de2bc5a51432859519c73258c93114747644be2ac20c666b03e",
+    "ev_af363b207bc2be328a2be58f9f64e2182b78c6fb303fa43b1de00c1b519a9b35"
+  ],
+  "unbound_rea_functions": [
+    {
+      "address": "0x004CE9E0",
+      "name": "pharaoh_file_load_retry_prompt",
+      "evidence": "ev_8bb593d2c4b19887e7a2dd52924eec9bfb7641ecc37590168aea7fdff31543d7"
+    }
+  ]
+}
