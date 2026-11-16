@@ -1,0 +1,38 @@
+{
+  "batch": 32,
+  "function_count": 2,
+  "method": "Typed C migration of the two native sprite-library iteration functions, checked against the pinned executable in Ghidra and existing typed logic in the previous project. The previous bodies depend on LegacyBindings and are not used as production code.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-sprite-library-load-20261116.json",
+  "rea_evidence_sha256": "efba1c7b26e79da5e9007589dfa9caf706bd2a3030b6671ac937001881b33ac9",
+  "groups": [
+    {
+      "addresses": ["0x0053DD10"],
+      "new_source": "game/assets/sprite_libraries.c",
+      "new_source_sha256": "f58c292992ba44e780595a0340aabfce5ac6273a2b28d3ce5fdce3bc06633938",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source": "src/Unit02517.c",
+      "previous_source_sha256": "f2df216c86a899c27bb8ba53cbe4da8ccd995fdefd802f853b6dde9081bd8240",
+      "previous_source_notes": "The prior body mirrors the native loop but uses RestoreSpriteLibraries and Original0053DD80 through LegacyBindings; it was a cross-check only."
+    },
+    {
+      "addresses": ["0x0053DD40"],
+      "new_source": "game/assets/sprite_libraries.c",
+      "new_source_sha256": "f58c292992ba44e780595a0340aabfce5ac6273a2b28d3ce5fdce3bc06633938",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source": "src/Unit02518.c",
+      "previous_source_sha256": "b49e701b7f3cbf9afc6fc952a63780d40bd6abbf94ce64c2699b8419724c98f2",
+      "previous_source_notes": "The prior body mirrors the native loop but uses RestoreSpriteLibraries and Original0053DD80 through LegacyBindings; it was a cross-check only."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The 8-bit result, slot bound, empty-name behavior and loop continuation are directly visible in the Ghidra pseudocode; no repeat replay was added for these small direct translations.",
+    "library_sha256": "ce474596118d35d3da466743e43dc95457b1ce079215c9651f6fe50451ebae8d"
+  },
+  "evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c"
+}

@@ -1,0 +1,65 @@
+{
+  "batch": 37,
+  "function_count": 1,
+  "method": "Typed C reconstruction of the DirectDraw session-begin entry from the pinned EXE. Its source now directly calls the separate Ghidra-backed 0x004D0060 startup state machine; that address and the lower release helpers are recorded as supplemental because they have no compiled-reference binding rows.",
+  "rea_evidence_bundle": "rea-graphics-startup-037.json",
+  "rea_evidence_sha256": "88e66313a456c689936bda6b753127825769103d811382ef5eec0de327b55178",
+  "groups": [
+    {
+      "addresses": [
+        "0x004D0220"
+      ],
+      "new_source": "game/runtime/graphics_startup.c",
+      "new_source_sha256": "ec272aaab2697ef43343f4b2b9a51c9b652850495ef536f0b5c6be49af2ebe00",
+      "new_header": "game/include/pharaoh/runtime/graphics_startup.h",
+      "new_header_sha256": "dc4cad31e110bf3db882b96f8ddde744a3a630b779b7d5e4c062da9c3957b331",
+      "native_evidence_ids": [
+        "ev_9c8cfd0fbe36ac979828e9c7ee1a2173e7eee24e1f74895f1f25db882bf44298",
+        "ev_a36f3bb4faf7e17420dda550213aa46e8d5ced616417234b0d7da96d81c8055e",
+        "ev_3cbd96066175cff29ce3127cb0d7ba8906bc3ef50c0a42e4a41114712827a015",
+        "ev_0087d55ac076e20659dedd12c017a4c5d73c8261ea7ea72b882697aa9045dd5f",
+        "ev_a96863da91bbdf625e661a777e631129f0cfb79cb28a9ab4e5612438e0dbdc06",
+        "ev_49274eecb60ce0654b06b7d9ae15b7278bf5f443a2437c911d06e5ad3d103412"
+      ],
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX; pharaoh_game and pharaoh_clean_bootstrap compiled",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The counted 0x004D0220 source now calls the clean 0x004D0060 fallback state machine. The verified compiler build covers both; behavior tests were not repeated and no host game was run.",
+    "library_sha256": "4746a6f117fdd4e917a4debe009fbb0dd7b05e06693002cc0b6f6e2c4d3f1b53",
+    "bootstrap_sha256": "f259b91cc1acd9628443022b63a6b614140220de0aec0d0e88c371f9c372cb88"
+  },
+  "known_limitations": "The lower DirectDraw enable/surface creation, mode-change, surface-context and debug/status endpoints remain typed runtime operations. 0x004D0060, 0x004D01E0, and 0x00426EE0 have no binding-inventory rows, so their implementations are supplemental and excluded from the counted migration batch.",
+  "supplemental_unbound_functions": [
+    {
+      "address": "0x004D0060",
+      "name": "pharaoh_graphics_device_initialize",
+      "source": "game/runtime/graphics_device_startup.c",
+      "rea_evidence_id": "ev_3cbd96066175cff29ce3127cb0d7ba8906bc3ef50c0a42e4a41114712827a015",
+      "source_sha256": "5e91c37b50890b0e79a263e6ac85d50c4e7655af51e19e139a3d848588c126b8",
+      "counted_as_migration": false,
+      "reason": "The native Ghidra body and previous address-based C owner exist, but GameCurrentReferenceBindings.json has no compiled-reference owner row for this address."
+    },
+    {
+      "address": "0x004D01E0",
+      "name": "pharaoh_graphics_session_release",
+      "source": "game/runtime/graphics_startup.c",
+      "rea_evidence_id": "ev_a36f3bb4faf7e17420dda550213aa46e8d5ced616417234b0d7da96d81c8055e",
+      "counted_as_migration": false,
+      "reason": "Ghidra identifies the entry and the previous address-based C source exists, but GameCurrentReferenceBindings.json has no compiled-reference owner row for this address."
+    },
+    {
+      "address": "0x00426EE0",
+      "name": "pharaoh_graphics_resources_release",
+      "source": "game/runtime/graphics_startup.c",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_line": 24090,
+      "counted_as_migration": false,
+      "reason": "The native Ghidra body and previous address-based C implementation exist, but GameCurrentReferenceBindings.json has no compiled-reference owner row for this address."
+    }
+  ]
+}

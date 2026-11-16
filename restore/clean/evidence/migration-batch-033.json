@@ -1,0 +1,26 @@
+{
+  "batch": 33,
+  "function_count": 1,
+  "method": "Typed C migration of the native default-slot wrapper, with its byte result established by the caller's use of AL and the prior project's matching typed body.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "addresses": ["0x0053DD80"],
+      "new_source": "game/assets/sprite_libraries.c",
+      "new_source_sha256": "f58c292992ba44e780595a0340aabfce5ac6273a2b28d3ce5fdce3bc06633938",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source": "src/Unit02519.c",
+      "previous_source_sha256": "5c48de8285f98de0e3bc72f56ddc56beca9c79114dee41903ddf45d25ba1fc95",
+      "previous_source_notes": "The prior typed body returns the default-slot load result but uses LegacyBindings; it was only a cross-check."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The native body forwards the name and -1 slot index; the byte result is live in AL in callers at 0x0053DD10 and 0x0053DD40.",
+    "library_sha256": "ce474596118d35d3da466743e43dc95457b1ce079215c9651f6fe50451ebae8d"
+  },
+  "evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c"
+}

@@ -1,0 +1,25 @@
+{
+  "native_address": "0x004CF960",
+  "native_function_complete": false,
+  "description": "Only the initialized geometry block at the beginning of the native procedure has a clean helper; window registration/creation, singleton handling, cursor loads, video allocation, COM and graphics session are still not migrated.",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "ghidra_export": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "ghidra_export_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "sources": {
+    "game/runtime/window_geometry.c": "4dd629e79ad948beaafc55e5543b38ec15e273f1ebc73b2795882f69ace11d28",
+    "game/include/pharaoh/runtime/window_geometry.h": "c5ee69fa51bcfb73496867a2b284bf9dc035c9007679de49cf2ab3253c79af98",
+    "tests/window_geometry_test.c": "f4ebff46ca2a4d62847c1bf7151acff1767b6dd07f34c63527f00768c979840c",
+    "CMakeLists.txt": "7231680fb7d69368f4013f9fa15622383078080ec747c2d14bf26981f0425b19"
+  },
+  "verification": {
+    "release_build": "passed MSVC /W4 /WX",
+    "focused_test": "4 display mode values: 640x480 fallback, 800x600, 1024x768, and unknown mode fallback",
+    "game_launched": false,
+    "library_sha256": "03e7b462e6702d102f2ad580f63526011f87e9b18326fbcb01b0011d1659d16b",
+    "bootstrap_sha256": "c35151d4a0b5d6cdf33ba82eeb1e5b02ca6b81483583b6c0ad6451509cc11a68"
+  },
+  "known_limitations": [
+    "The helper is not a complete owner for 0x004CF960 and does not yet feed the Windows host bootstrap.",
+    "Geometry test checks the translated sub-block only; it does not establish the complete application startup path."
+  ]
+}

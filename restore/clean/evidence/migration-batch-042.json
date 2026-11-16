@@ -1,0 +1,52 @@
+{
+  "batch": 42,
+  "function_count": 2,
+  "method": "Main menu background and logo screen owners, connected to clean text selection and foreground. Reused saved pinned native pseudocode; old sources still contain absolute address macros.",
+  "groups": [
+    {
+      "addresses": [
+        "0x004CB4D0"
+      ],
+      "new_source": "game/ui/menu_screens.c",
+      "new_source_sha256": "8bc84dd79fcdcb513f8e6bf890e7dd5774318d8b86ab03c884c40434a1ea07df",
+      "new_header": "game/include/pharaoh/ui/menu_screens.h",
+      "new_header_sha256": "c26ee659a83d964611f8820bb69992b8d5053d602b85fefe6b13d54937f61b64",
+      "previous_source": "src/Unit01652.c",
+      "previous_source_sha256": "4909c85b3268b104b4a6b7c6f51f5db76492a979e9002212f02e228daae04a93",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": [
+        "0x00520E00"
+      ],
+      "new_source": "game/ui/menu_screens.c",
+      "new_source_sha256": "8bc84dd79fcdcb513f8e6bf890e7dd5774318d8b86ab03c884c40434a1ea07df",
+      "new_header": "game/include/pharaoh/ui/menu_screens.h",
+      "new_header_sha256": "c26ee659a83d964611f8820bb69992b8d5053d602b85fefe6b13d54937f61b64",
+      "previous_source": "src/Unit02364.c",
+      "previous_source_sha256": "b7aa9a23726b7d4f5f810ec8b67f1f3b56c047d118c148c4d25527511cf2f75c",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "contracts": [
+    "Background clears and draws the image only when redraw_request equals 1; panel/title/foreground always run.",
+    "Text selection precedes saving and zeroing the shared expansion control; restore happens before title draw.",
+    "Logo queries sound only if digital sound is available, before reading music enable; no sound update call occurs.",
+    "Clear helper 0x004CF1C0 and fill 0x0040F8F0 are inlined, not counted as additional migrated entries.",
+    "Logo prompt retains the explicit origin arguments required by layout-aware 0x004D6250."
+  ],
+  "verification": {
+    "release_compile": "passed /W4 /WX",
+    "behavioral_tests_run": true,
+    "test_scope": "Controlled C endpoints: 3 redraw cases, 8 sound cases; exact call ordering, geometry, title control restoration, pixel clear extent and guard pixels. No native differential replay.",
+    "test_source": "tests/menu_screens_test.c",
+    "test_source_sha256": "b1e4564bd1a233db4d641ae699448a2466fb69145781bed1db050bb7b5a7f47c",
+    "game_launched": false,
+    "library_sha256": "285d6e674ced33b6df4030062e4032968d4957bf5674f60e572662bff11f9ab2",
+    "bootstrap_sha256": "eca8f4d4e96501e4f9ec9bd53d91ba0ca701a8133d379f4dc626e625365e08b3",
+    "cmake_sha256": "155b6644931b270782a9ecbed74fb9507b8fec9fd0b9c07fccfeb010c84f8360"
+  },
+  "known_limitations": "Menu opening/input/host dispatch and raster/sound endpoint integration remain incomplete. Source-only tests do not prove native equivalence."
+}

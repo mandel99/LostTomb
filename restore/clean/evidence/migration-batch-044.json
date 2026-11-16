@@ -1,0 +1,29 @@
+{
+  "batch": 44,
+  "function_count": 1,
+  "method": "Typed port of the trade recommendations startup loader. The native parser's 4x6 signed data shape and mismatch prompt count are explicit; filesystem and UI effects remain typed operations.",
+  "groups": [
+    {
+      "addresses": [
+        "0x00541310"
+      ],
+      "new_source": "game/runtime/trade_recommendations.c",
+      "new_source_sha256": "5210888a431e537c28d0da40ea10db4edbfb7ee1a58340944f1c5c1cfe5dd2ca",
+      "new_header": "game/include/pharaoh/runtime/trade_recommendations.h",
+      "new_header_sha256": "39398cb6fadb3d20277e37dd72157c51a8522f675988fdb9530537f4812a4df6",
+      "previous_source": "runtime/ModelLoading.c",
+      "previous_source_sha256": "06eaf2a2910653f8ce498c045daec82d3962f089d96cd6920591932000babb64",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed MSVC /W4 /WX for pharaoh_game",
+    "behavioral_tests_run": false,
+    "reason": "New parser owner was compile-checked; no host adapter exists yet for focused replay, and no game process was launched.",
+    "library_sha256": "5ac5ca219cb94e6c41c160c5d1358d4bedf078fc9a4d8e68099a0b1de1960129",
+    "bootstrap_sha256": "c2a70705a4d011cee06c0d629c39bca5d045a14d915ec8bb36f89d2455fbf389",
+    "cmake_sha256": "372143082a81692b658f2523f5a9e41694b8a481c55b51234ce95e5778d89672"
+  },
+  "known_limitations": "Not wired into application startup or the host executable. File loading, length/search/number helpers, status logging, and the Windows mismatch dialog remain external typed operations."
+}

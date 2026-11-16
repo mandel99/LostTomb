@@ -1,0 +1,32 @@
+{
+  "batch": 34,
+  "function_count": 1,
+  "method": "Direct typed C reconstruction of the SG3 reader from the pinned executable's Ghidra pseudocode, using the previous project's translation as a cross-check. Absolute pixel-cursor state is represented as a per-call offset. Validation covers all installed SG3 files and their paired 555 data through the new reader.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-sprite-reader-20261116.json",
+  "rea_evidence_sha256": "95cce54055a3f04673d7aa01f62549c1474b5dd8bbc51c8205dc3cd68b29805e",
+  "groups": [
+    {
+      "addresses": ["0x0053DFF0"],
+      "new_source": "game/assets/sprite_libraries.c",
+      "new_source_sha256": "f58c292992ba44e780595a0340aabfce5ac6273a2b28d3ce5fdce3bc06633938",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source": "src/Unit02522.c",
+      "previous_source_sha256": "c2c1d92c9080074a177436e164af3d2702e831af6528fccfba031c3959322614",
+      "previous_source_notes": "The prior body supplied the SG3 field behavior, but depends on LegacyBindings and writes the pixel cursor through absolute address 0x00D3B5F4; production code does neither."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 1,
+    "behavioral_tests_run": true,
+    "real_data_test_file": "evidence/real-sg3-results-20261116.txt",
+    "real_data_test_sha256": "7b0ce8e73e993616835f52d9452f726f282f1a7d8a42b7a211cf6aafcbb20c05",
+    "real_data_cases": 176,
+    "real_data_failures": 0,
+    "reason": "The source-only harness loaded every installed .sg3 file with its paired .555 data; slot indices cycle through 0 to 29, exercising both system-image inclusion and exclusion.",
+    "library_sha256": "ce474596118d35d3da466743e43dc95457b1ce079215c9651f6fe50451ebae8d"
+  },
+  "evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c"
+}

@@ -1,0 +1,71 @@
+{
+  "batch": 41,
+  "function_count": 4,
+  "method": "Front and main menu rendering plus directly connected centered text and border geometry helpers; no IL or address-macro dispatch. Existing clean animated label owner is called directly.",
+  "groups": [
+    {
+      "addresses": [
+        "0x004180C0"
+      ],
+      "new_source": "game/ui/main_menu.c",
+      "new_source_sha256": "df62f72fa9974fbba24ba4241705de65fe0c50894a17f7aadb32c8123d3e923b",
+      "new_header": "game/include/pharaoh/ui/main_menu.h",
+      "new_header_sha256": "a01e135f8a19c5d6d39214ea17094cc93e343464548502e5f93bf32ee664f7a0",
+      "previous_source": "src/Unit00219.c",
+      "previous_source_sha256": "db67e98c093c697c63cd6aaecf3742b653bbe7bc4173719e79aa94929b332f84"
+    },
+    {
+      "addresses": [
+        "0x004CB5A0"
+      ],
+      "new_source": "game/ui/main_menu.c",
+      "new_source_sha256": "df62f72fa9974fbba24ba4241705de65fe0c50894a17f7aadb32c8123d3e923b",
+      "new_header": "game/include/pharaoh/ui/main_menu.h",
+      "new_header_sha256": "a01e135f8a19c5d6d39214ea17094cc93e343464548502e5f93bf32ee664f7a0",
+      "previous_source": "src/Unit01653.c",
+      "previous_source_sha256": "4efb1a631257e0d778d93d7aaf417a2ac5f5b0bf031869d8194929aa636e465e"
+    },
+    {
+      "addresses": [
+        "0x004CD1A0"
+      ],
+      "new_source": "game/ui/main_menu.c",
+      "new_source_sha256": "df62f72fa9974fbba24ba4241705de65fe0c50894a17f7aadb32c8123d3e923b",
+      "new_header": "game/include/pharaoh/ui/main_menu.h",
+      "new_header_sha256": "a01e135f8a19c5d6d39214ea17094cc93e343464548502e5f93bf32ee664f7a0",
+      "previous_source": "src/Unit01706.c",
+      "previous_source_sha256": "6250d4e85b804f644d88e70cbac4e75b58e4bcfe38dd489c9018929c2401ba77"
+    },
+    {
+      "addresses": [
+        "0x004CD240"
+      ],
+      "new_source": "game/ui/main_menu.c",
+      "new_source_sha256": "df62f72fa9974fbba24ba4241705de65fe0c50894a17f7aadb32c8123d3e923b",
+      "new_header": "game/include/pharaoh/ui/main_menu.h",
+      "new_header_sha256": "a01e135f8a19c5d6d39214ea17094cc93e343464548502e5f93bf32ee664f7a0",
+      "previous_source": "src/Unit01708.c",
+      "previous_source_sha256": "cd230add4ce6e50726c0d610af56fd0b8ca676bcd474f83af51188e542008545"
+    }
+  ],
+  "rea_evidence_bundle": "rea-main-menu-audit-041.json",
+  "rea_evidence_sha256": "a1c37d65a52bd3629121ca52954db28775c5cbfe9c465e538315cec9ef26b027",
+  "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+  "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "initialized_data_evidence": {
+    "executable_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "front_rectangles": "0x0057BD88: five GenericButton records, 28-byte native stride; first four signed 16-bit coordinates only",
+    "front_labels": "0x0057BE14: five 32-bit label IDs 0,2,3,5,4",
+    "game_rectangles": "0x005E0408: five GenericButton records, 28-byte native stride; first four signed 16-bit coordinates only",
+    "music_path": "0x005761AC: audio\\music\\setup.mp3, including NUL"
+  },
+  "verification": {
+    "release_compile": "passed MSVC /W4 /WX; library and bootstrap",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "library_sha256": "70b8f4dbd0c40d101d3fb8845759d1ce78010a5d037a4b2b4c44143b7eabd43f",
+    "bootstrap_sha256": "21a3e36fb37208d60dcaf390dbdfd96c28602adc2c67096617fb6d20ec09cde6",
+    "cmake_sha256": "8f1b009d7548ef81a6db8352d658dde3aece9f0de34733596c9fd24f7b3f3300"
+  },
+  "known_limitations": "No claim of native behavioral equivalence. This adds clean logic owners, not a working host menu. Native data callback fields are not projected into render-only rectangles. Menu opening 0x004CB6A0, host dispatch, input, raster and sound endpoint integration remain unfinished."
+}

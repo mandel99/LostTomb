@@ -207,25 +207,54 @@ foreach ($batchFile in $batchFiles) {
     $latestBatch = $batch
     $count = 0
     foreach ($group in $batch.groups) {
-        $oldSource = Join-Path $restoreRoot $group.previous_source
         $newSource = Join-Path $cleanRoot $group.new_source
-        if (-not (Test-Path -LiteralPath $oldSource)) {
-            $errors.Add("Missing previous source in $($batchFile.Name): $($group.previous_source)")
-        } else {
-            $actualHash = (Get-FileHash -Algorithm SHA256 $oldSource).Hash.ToLowerInvariant()
-            if ($actualHash -ne ([string] $group.previous_source_sha256).ToLowerInvariant()) {
-                $errors.Add("Previous source hash mismatch in $($batchFile.Name): $($group.previous_source)")
+        $hasPreviousSource = -not [string]::IsNullOrWhiteSpace([string] $group.previous_source)
+        $hasNativeEvidence = -not [string]::IsNullOrWhiteSpace([string] $group.native_evidence_file)
+        if ($hasPreviousSource) {
+            $oldSource = Join-Path $restoreRoot $group.previous_source
+            if (-not (Test-Path -LiteralPath $oldSource)) {
+                $errors.Add("Missing previous source in $($batchFile.Name): $($group.previous_source)")
+            } else {
+                $actualHash = (Get-FileHash -Algorithm SHA256 $oldSource).Hash.ToLowerInvariant()
+                if ($actualHash -ne ([string] $group.previous_source_sha256).ToLowerInvariant()) {
+                    $errors.Add("Previous source hash mismatch in $($batchFile.Name): $($group.previous_source)")
+                }
             }
+        } elseif ($hasNativeEvidence) {
+            $nativeEvidence = Join-Path (Join-Path $cleanRoot 'evidence') $group.native_evidence_file
+            if (-not (Test-Path -LiteralPath $nativeEvidence)) {
+                $errors.Add("Missing native evidence in $($batchFile.Name): $($group.native_evidence_file)")
+            } else {
+                $actualEvidenceHash = (Get-FileHash -Algorithm SHA256 $nativeEvidence).Hash.ToLowerInvariant()
+                if ($actualEvidenceHash -ne ([string] $group.native_evidence_sha256).ToLowerInvariant()) {
+                    $errors.Add("Native evidence hash mismatch in $($batchFile.Name): $($group.native_evidence_file)")
+                }
+                $evidenceText = Get-Content -LiteralPath $nativeEvidence -Raw
+                foreach ($addressValue in $group.addresses) {
+                    $entry = ([string] $addressValue -replace '^0[xX]', '').ToLowerInvariant()
+                    if ($evidenceText -notmatch [regex]::Escape("/* $entry ")) {
+                        $errors.Add("Native evidence lacks mapped entry $addressValue in $($batchFile.Name)")
+                    }
+                }
+            }
+        } else {
+            $errors.Add("Batch group lacks previous source or native evidence in $($batchFile.Name)")
         }
         if (-not (Test-Path -LiteralPath $newSource)) {
             $errors.Add("Missing new source in $($batchFile.Name): $($group.new_source)")
+        } elseif (-not [string]::IsNullOrWhiteSpace([string] $group.new_source_sha256)) {
+            $actualNewSourceHash = (Get-FileHash -Algorithm SHA256 $newSource).Hash.ToLowerInvariant()
+            if ($actualNewSourceHash -ne ([string] $group.new_source_sha256).ToLowerInvariant()) {
+                $errors.Add("New source hash mismatch in $($batchFile.Name): $($group.new_source)")
+            }
         }
         foreach ($addressValue in $group.addresses) {
             $address = Normalize-Address $addressValue
             $count++
             if (-not $bindingByAddress.ContainsKey($address)) {
                 $errors.Add("Address absent from binding inventory: $address")
-            } elseif ($bindingByAddress[$address].Providers[0].Source -ne $group.previous_source) {
+            } elseif ($hasPreviousSource -and
+                $bindingByAddress[$address].Providers[0].Source -ne $group.previous_source) {
                 $errors.Add("Owner mismatch for $address in $($batchFile.Name)")
             }
             if (-not $mappedAddresses.ContainsKey($address)) {

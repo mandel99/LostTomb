@@ -3,6 +3,62 @@
   "scope": "Clean logical C owners only; platform adapters and host executable are not part of this project.",
   "functions": [
     {
+      "address": "0x00426B40",
+      "name": "pharaoh_graphics_enable_direct_draw",
+      "source": "game/runtime/graphics_directdraw_enable.c",
+      "origin": "Typed reconstruction of desktop depth and resolution selection, DirectDraw creation and cooperative level, window style/placement, palette capture, fullscreen mode, and native retry order",
+      "rea_evidence": "ev_7877cf3e2470ed986047aa4f4be96ae792f383c3f05c876e340736cc526d4348",
+      "known_limitations": "Win32, DirectDraw, message dispatch, and three native retry helpers remain explicit typed platform operations; GameCurrentReferenceBindings.json has no compiled-reference owner row for this address."
+    },
+    {
+      "address": "0x00426EE0",
+      "name": "pharaoh_graphics_resources_release",
+      "source": "game/runtime/graphics_startup.c",
+      "origin": "typed reconstruction of DirectDraw clipper, surface, pixel-pointer, and optional device teardown",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L24090",
+      "known_limitations": "DirectDraw interface Release calls and status logging are typed runtime operations; resource pointers are represented as opaque handles in the platform-independent state."
+    },
+    {
+      "address": "0x004CF8E0",
+      "name": "pharaoh_platform_measure_speed",
+      "source": "game/runtime/platform_measure_speed.c",
+      "origin": "Typed timing loops using native display-mode-specific action parameters and three forced graphics refresh calls",
+      "rea_evidence": "ev_ad9f5549296eacc246298cd77c94eecd544ab0d28a4a1303b190f26da9816a8c",
+      "known_limitations": "WinMM timeGetTime is a typed operation; all three graphics refresh calls now enter the clean 0x004D0280 C owner."
+    },
+    {
+      "address": "0x004D0060",
+      "name": "pharaoh_graphics_device_initialize",
+      "source": "game/runtime/graphics_device_startup.c",
+      "origin": "Ghidra-backed reconstruction of flipping-surface fallback, display-mode restoration, status output, and surface-context setup; DirectDraw enable now calls the typed 0x00426B40 C owner",
+      "rea_evidence": "ev_3cbd96066175cff29ce3127cb0d7ba8906bc3ef50c0a42e4a41114712827a015",
+      "known_limitations": "Flipping-surface creation, display-mode change, surface-context attachment, debug output, and status logging are explicit typed runtime operations; DirectDraw device selection and fallback control flow are native C."
+    },
+    {
+      "address": "0x004D0040",
+      "name": "pharaoh_graphics_millis_since_last",
+      "source": "game/runtime/graphics_refresh.c",
+      "origin": "Wrapping DWORD tick delta from timeGetTime and the previously stored graphics tick",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L125536",
+      "known_limitations": "timeGetTime is a typed platform operation; prior tick state is passed in a named C state field."
+    },
+    {
+      "address": "0x004D01E0",
+      "name": "pharaoh_graphics_session_release",
+      "source": "game/runtime/graphics_startup.c",
+      "origin": "typed reconstruction of conditional DirectDraw resource release and optional device release",
+      "rea_evidence": "ev_a36f3bb4faf7e17420dda550213aa46e8d5ced616417234b0d7da96d81c8055e",
+      "known_limitations": "The native resource release calls use typed runtime operations; the auxiliary COM interface's concrete interface type is unresolved, so its Release ABI is represented as an opaque interface handle."
+    },
+    {
+      "address": "0x0051F780",
+      "name": "pharaoh_figure_action_none",
+      "source": "game/runtime/figure_action_none.c",
+      "origin": "The native callee returns without state changes; the typed C entry retains the value pushed by the timing caller",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L173332",
+      "known_limitations": "The reference inventory also names this same native no-op as button_none in a second source unit."
+    },
+    {
       "address": "0x004133D0",
       "name": "pharaoh_video_player_initialize",
       "source": "game/runtime/video_player.c",
@@ -113,6 +169,66 @@
       "source": "game/runtime/settings_load.c",
       "origin": "typed reconstruction of settings defaults, INI reads, display-mode selection, settings load and menu-state updates",
       "rea_evidence": "ev_f64c796866e88a458449df5ad35d35fc2e2aa721e00c1492967b618d92c16e7d"
+    },
+    {
+      "address": "0x004149D0",
+      "name": "pharaoh_settings_load_default_names",
+      "source": "game/runtime/settings_default_names.c",
+      "origin": "typed C migration of the original group-9 text selections and four NUL-terminated destination copies",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L11632"
+    },
+    {
+      "address": "0x0051E930",
+      "name": "pharaoh_sidebar_init_positions",
+      "source": "game/ui/sidebar_layout.c",
+      "origin": "typed migration of the three native logical-width cases and their two sidebar clipping positions",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L172892"
+    },
+    {
+      "address": "0x0053DB60",
+      "name": "pharaoh_sprite_libraries_reset",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed migration of the native 30-library pixel release, field reset and tag-limit initialization order",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186239"
+    },
+    {
+      "address": "0x0053DD10",
+      "name": "pharaoh_sprite_libraries_load_one",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed C translation of the native loaded-slot bounds check, null-or-empty name skip, and per-library load result",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186312"
+    },
+    {
+      "address": "0x0053DD80",
+      "name": "pharaoh_sprite_library_load_named",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed C wrapper for the default slot index passed to the native per-library loader",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186355"
+    },
+    {
+      "address": "0x0053DD90",
+      "name": "pharaoh_sprite_library_load_file",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed C reconstruction of slot selection, case-insensitive duplicate detection, reload bookkeeping, loaded counters and expected tag-count check",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186368",
+      "rea_evidence": "evidence/rea-sprite-reader-20261116.json",
+      "known_limitations": "Tag mismatch UI text assembly is represented by a typed warning operation; failed SG3 input remains outside defined native behavior."
+    },
+    {
+      "address": "0x0053DFF0",
+      "name": "pharaoh_sprite_library_read",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed SG3 metadata, tag mapping, bitmap-name copy, pixel load, image cursor layout and 555-to-565 conversion; native absolute pixel cursor represented as a per-call offset state",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186475",
+      "rea_evidence": "evidence/rea-sprite-reader-20261116.json",
+      "known_limitations": "The original failed-SG3 path reads uninitialized stack bytes. The C reader processes metadata only after a successful SG3 read; all 176 installed SG3 files passed the real-data verifier."
+    },
+    {
+      "address": "0x0053DD40",
+      "name": "pharaoh_sprite_libraries_load_all",
+      "source": "game/assets/sprite_libraries.c",
+      "origin": "typed C translation of the native 30-slot loop, preserving success across null-or-empty names and stopping on loader failure",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L186332"
     },
     {
       "address": "0x00414A90",
@@ -1989,6 +2105,130 @@
       "source": "game/rendering/primitives.c",
       "origin": "typed reconstruction of confirmed Source/UI/CoreUIManager/Primitives.c; state moved into PharaohGraphicsPrimitives",
       "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
+    },
+    {
+      "address": "0x004D0220",
+      "name": "pharaoh_graphics_session_begin",
+      "source": "game/runtime/graphics_startup.c",
+      "origin": "typed reconstruction of DirectDraw session startup state, release/init/clear call order, native failure logging, and redraw state",
+      "ghidra_evidence": "evidence/rea-graphics-startup-037.json",
+      "known_limitations": "DirectDraw release, initialization, surface clearing, and status logging are explicit typed runtime operations; the native routine ignores the clear result and leaves initialization-in-progress set on failure."
+    },
+    {
+      "address": "0x004D0280",
+      "name": "pharaoh_graphics_refresh_screen",
+      "source": "game/runtime/graphics_refresh.c",
+      "origin": "Typed C refresh gates, hailstorm transition loop, forced-refresh timing accumulator, window-ID dispatch, and native operation order",
+      "rea_evidence": "ev_a96863da91bbdf625e661a777e631129f0cfb79cb28a9ab4e5612438e0dbdc06",
+      "known_limitations": "Screen-fade pixel stepping, sidebar background drawing, and low-level presentation remain typed operation endpoints. REA reports the final presentation call as a terminal flow; the native pseudocode's explicit return is retained."
+    },
+    {
+      "address": "0x004D05F0",
+      "name": "pharaoh_screen_fade_start",
+      "source": "game/runtime/graphics_refresh.c",
+      "origin": "Native fade-step clamp and PharaohScreenFade field writes followed by the initial indexed step",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c#L125799",
+      "known_limitations": "The subsequent 0x004D0650 pixel/fade step is a typed operation endpoint."
+    },
+    {
+      "address": "0x00414420",
+      "name": "pharaoh_startup_asset_setup",
+      "source": "game/runtime/startup_asset_loading.c",
+      "origin": "typed reconstruction of startup data-file read, Maps/Save directory calls, pixel-buffer allocation, sprite-library load sequence, loading labels, and completion status",
+      "ghidra_evidence": "evidence/rea-startup-batch-023.json",
+      "known_limitations": "Campaign-selection naming is inferred from consumers of the field set to 16. Allocation, filesystem, sprite drawing, loading text, update-pump, and status output are explicit typed operation endpoints."
+    },
+    {
+      "address": "0x00520AF0",
+      "name": "pharaoh_loading_screen_draw_background",
+      "source": "game/runtime/startup_asset_loading.c",
+      "origin": "typed loading-background image draw and 100-percent progress-state update",
+      "ghidra_evidence": "evidence/rea-startup-batch-023.json",
+      "known_limitations": "Sprite drawing is an explicit typed operation endpoint."
+    },
+    {
+      "address": "0x00520B20",
+      "name": "pharaoh_loading_screen_draw_stage",
+      "source": "game/runtime/startup_asset_loading.c",
+      "origin": "typed stage image selection, stage-zero surface reset, image draw, and 100-percent progress-state update",
+      "ghidra_evidence": "evidence/rea-startup-batch-023.json",
+      "known_limitations": "Sprite drawing and stage-zero surface reset are explicit typed operation endpoints; native startup callers use stage indices 0 through 3."
+    },
+    {
+      "address": "0x004180C0",
+      "name": "pharaoh_front_menu_draw",
+      "source": "game/ui/main_menu.c",
+      "origin": "Typed reconstruction from pinned executable and cached REA/Ghidra evidence; native initialized rectangle and label values retained.",
+      "known_limitations": "Compiled source owner only. Centered text raster, border raster and sound operations remain typed endpoints; host menu dispatch/input is not yet wired. Native replay remains pending."
+    },
+    {
+      "address": "0x004CB5A0",
+      "name": "pharaoh_main_menu_draw_foreground",
+      "source": "game/ui/main_menu.c",
+      "origin": "Typed reconstruction from pinned executable and cached REA/Ghidra evidence; native initialized rectangle and label values retained.",
+      "known_limitations": "Compiled source owner only. Centered text raster, border raster and sound operations remain typed endpoints; host menu dispatch/input is not yet wired. Native replay remains pending."
+    },
+    {
+      "address": "0x004CD1A0",
+      "name": "pharaoh_menu_draw_border_rect",
+      "source": "game/ui/main_menu.c",
+      "origin": "Typed reconstruction from pinned executable and cached REA/Ghidra evidence; native initialized rectangle and label values retained.",
+      "known_limitations": "Compiled source owner only. Centered text raster, border raster and sound operations remain typed endpoints; host menu dispatch/input is not yet wired. Native replay remains pending."
+    },
+    {
+      "address": "0x004CD240",
+      "name": "pharaoh_menu_draw_centered_rect",
+      "source": "game/ui/main_menu.c",
+      "origin": "Typed reconstruction from pinned executable and cached REA/Ghidra evidence; native initialized rectangle and label values retained.",
+      "known_limitations": "Compiled source owner only. Centered text raster, border raster and sound operations remain typed endpoints; host menu dispatch/input is not yet wired. Native replay remains pending."
+    },
+    {
+      "address": "0x004CB4D0",
+      "name": "pharaoh_main_menu_draw_background",
+      "source": "game/ui/menu_screens.c",
+      "origin": "Native menu screen orchestration reconstructed from cached typed Ghidra export; directly calls clean text selection and main menu foreground owners. Surface clear and byte-fill child are inlined as a null-guarded memset with DWORD byte-count arithmetic.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "Event text expansion, raster drawing, sound and layout-aware prompt draw remain explicit typed endpoints. Host menu dispatch remains unconnected. Controlled C endpoint tests passed; native differential replay pending."
+    },
+    {
+      "address": "0x00520E00",
+      "name": "pharaoh_logo_window_draw",
+      "source": "game/ui/menu_screens.c",
+      "origin": "Native menu screen orchestration reconstructed from cached typed Ghidra export; directly calls clean text selection and main menu foreground owners. Surface clear and byte-fill child are inlined as a null-guarded memset with DWORD byte-count arithmetic.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "Event text expansion, raster drawing, sound and layout-aware prompt draw remain explicit typed endpoints. Host menu dispatch remains unconnected. Controlled C endpoint tests passed; native differential replay pending."
+    },
+    {
+      "address": "0x0041BA20",
+      "name": "pharaoh_campaign_period_open",
+      "source": "game/scenario/campaign_availability.c",
+      "origin": "Typed C campaign availability queries compared with saved Ghidra pseudocode; period lookup directly uses the clean mission-link search.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "Menu controller and original file-enumeration/backend paths are not wired into the host."
+    },
+    {
+      "address": "0x0041BA80",
+      "name": "pharaoh_campaign_any_mission_played",
+      "source": "game/scenario/campaign_availability.c",
+      "origin": "Typed C campaign availability queries compared with saved Ghidra pseudocode; period lookup directly uses the clean mission-link search.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "Menu controller and original file-enumeration/backend paths are not wired into the host."
+    },
+    {
+      "address": "0x0041BAB0",
+      "name": "pharaoh_campaign_any_period_open",
+      "source": "game/scenario/campaign_availability.c",
+      "origin": "Typed C campaign availability queries compared with saved Ghidra pseudocode; period lookup directly uses the clean mission-link search.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "Menu controller and original file-enumeration/backend paths are not wired into the host."
+    },
+    {
+      "address": "0x00541310",
+      "name": "pharaoh_trade_recommendations_load",
+      "source": "game/runtime/trade_recommendations.c",
+      "origin": "Typed reconstruction of the native trade_recommends.txt parser, including four rows of six signed values and the native count-mismatch decision.",
+      "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "known_limitations": "File loading, scratch allocation, text helpers, and status/dialog presentation are typed runtime operations; no host startup wiring or native behavior replay is claimed."
     }
   ]
 }

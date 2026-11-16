@@ -1,0 +1,26 @@
+{
+  "batch": 31,
+  "function_count": 1,
+  "method": "Typed C migration of the original sidebar clipping position initialization from the pinned executable; the prior project's translated body was used as a cross-check, not as production source.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "groups": [
+    {
+      "addresses": [
+        "0x0051E930"
+      ],
+      "new_source": "game/ui/sidebar_layout.c",
+      "new_source_sha256": "5519ec227edebad09807cc1fc2b3ea2349f4df8577ce3f7d791877ea1d99e736",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source_notes": "The previous project contains an absolute-address translation in generated/mixed/src/Unit02343.c; it was checked against the saved Ghidra body and was not copied into production."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": false,
+    "reason": "The three exact logical-width branches and both output values match the pinned executable's saved Ghidra pseudocode; unsupported widths preserve the prior values.",
+    "library_sha256": "fcf161d297794846b6d2bf29d43b416e22a163e589d642eab23627a607f6830a"
+  },
+  "evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c"
+}

@@ -1,0 +1,26 @@
+{
+  "phase": "display startup handoff",
+  "native_source_blocks": [
+    "0x004CF960 initial geometry",
+    "0x004D0220 graphics session"
+  ],
+  "source": "game/runtime/application_display_startup.c",
+  "header": "game/include/pharaoh/runtime/application_display_startup.h",
+  "source_sha256": "9d272c25acd1ee3c944b84e3165df5f2b7288ab9dd0813df160730b3f8847ee7",
+  "header_sha256": "a1395f7f9ccb117ce8b60235392d1a1ba3183ffd96b5b354f95efa6e6f1cf5e9",
+  "evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+  "verification": {
+    "release_build": "passed MSVC /W4 /WX",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "host_invokes_phase": false,
+    "library_sha256": "4c973e07e7223b051490662f098327fbefdbff0bb4b8d53de95498f956f529a1",
+    "bootstrap_sha256": "ea5d47591203c9e6a9b410fc622ec8072f2be91efdb0693400985101bf61f033",
+    "cmake_sha256": "3064d310a47f9013f26a6b184cf36a1ecf8ef7f4ce41b7b6bb18a1252c718952"
+  },
+  "limitations": [
+    "No complete owner is claimed for 0x004CF960.",
+    "COM initialization, singleton detection, native class/cursor loading, window creation and Bink player allocation remain outside this phase.",
+    "The caller must create the native window before the graphics operation is valid."
+  ]
+}

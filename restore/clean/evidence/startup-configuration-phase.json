@@ -1,0 +1,29 @@
+{
+  "source": "game/runtime/application_startup.c",
+  "header": "game/include/pharaoh/runtime/application_startup.h",
+  "source_sha256": "59150d137225c03004225bde1b34e01195cefa3cf863bfd63a81b166c76985c0",
+  "header_sha256": "25dd924adff86f8398aed0addf60b4d3e7494658d1f3e619fb5a4a972e88de4d",
+  "cmake_sha256": "5b9a0c09c5b58435236b829b8c3081cb9f5204f29422a52371297736e156419a",
+  "native_order": [
+    "0x004147F0 settings load",
+    "0x004CEC40 primary and media text catalogs",
+    "0x004149D0 localized default names"
+  ],
+  "native_entry_complete": false,
+  "native_entry_address": "0x00413ED0",
+  "rea_evidence": "rea-app-startup-044.json",
+  "rea_evidence_sha256": "646349e9cacca925c882c84006d189ee5916a9b5902d6e185cf12111a3248716",
+  "omissions": [
+    "Optional optical media drive probe 0x004268C0; no CD dependency.",
+    "Platform/window creation and graphics session 0x004CF960.",
+    "game_setup 0x00414420 and later model/audio/state initialization."
+  ],
+  "verification": {
+    "release_build": "passed /W4 /WX",
+    "behavioral_tests_run": false,
+    "host_invokes_phase": false,
+    "game_launched": false,
+    "library_sha256": "af6b349568fbfd3290ae59b08692fdec0938ad14908c57c3bc74dcee88ebccb0",
+    "bootstrap_sha256": "4867f442d2df54d08c7cc01b72c8e23342f74385dbfba05a387a939d559ee5ea"
+  }
+}

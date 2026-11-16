@@ -1,0 +1,56 @@
+{
+  "batch": 36,
+  "function_count": 3,
+  "method": "Typed C reconstruction of the startup asset setup and its two loading-screen image operations. Preserves map-data read, directory creation order, pixel-buffer size clamp and failure point, campaign selection value, sprite-library sequence, loading text entries, update-pump calls, and final status message.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-startup-batch-023.json",
+  "rea_evidence_sha256": "2d11cf1437a0dbfa640e0c879d8596ff26d1c2a76fc2ba66879a128cf6fd65ac",
+  "groups": [
+    {
+      "addresses": ["0x00414420"],
+      "new_source": "game/runtime/startup_asset_loading.c",
+      "new_source_sha256": "5d9d74d558a5dba4f61babafc7209176b52006ed84062759895a6d2af505c3c2",
+      "new_header": "game/include/pharaoh/runtime/startup_asset_loading.h",
+      "new_header_sha256": "38296bbda90842063beab304f174a8fe7a3068c8d81d33669977fafdca87af02",
+      "previous_source": "src/Unit00179.c",
+      "previous_source_sha256": "11e00bbf4b9a39a96d12711b552ff4531f53c0293e664d9f93e614a47a10cf7f",
+      "previous_source_notes": "Previous owner was a generated address bridge with absolute globals; used only as a call-contract cross-check.",
+      "native_evidence_file": "rea-startup-batch-023.json",
+      "native_evidence_sha256": "2d11cf1437a0dbfa640e0c879d8596ff26d1c2a76fc2ba66879a128cf6fd65ac"
+    },
+    {
+      "addresses": ["0x00520AF0"],
+      "new_source": "game/runtime/startup_asset_loading.c",
+      "new_source_sha256": "5d9d74d558a5dba4f61babafc7209176b52006ed84062759895a6d2af505c3c2",
+      "previous_source": "src/Unit02359.c",
+      "previous_source_sha256": "74809d3300405e8432d6f7527c5d49e77a4df129093accc188fd719fe4ac6dd0",
+      "previous_source_notes": "Previous owner was a generated address bridge; used only as a call-contract cross-check.",
+      "native_evidence_file": "rea-startup-batch-023.json",
+      "native_evidence_sha256": "2d11cf1437a0dbfa640e0c879d8596ff26d1c2a76fc2ba66879a128cf6fd65ac"
+    },
+    {
+      "addresses": ["0x00520B20"],
+      "new_source": "game/runtime/startup_asset_loading.c",
+      "new_source_sha256": "5d9d74d558a5dba4f61babafc7209176b52006ed84062759895a6d2af505c3c2",
+      "previous_source": "src/Unit02360.c",
+      "previous_source_sha256": "5a290f37b11f818c142299df405cb293c0ce9181374afb8635fbf0772b326898",
+      "previous_source_notes": "Previous owner was a generated address bridge; used only as a call-contract cross-check.",
+      "native_evidence_file": "rea-startup-batch-023.json",
+      "native_evidence_sha256": "2d11cf1437a0dbfa640e0c879d8596ff26d1c2a76fc2ba66879a128cf6fd65ac"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX; pharaoh_game, pharaoh_clean_bootstrap, and both test targets compiled",
+    "behavioral_tests_added": 1,
+    "behavioral_tests_run": true,
+    "behavioral_test_file": "tests/startup_asset_loading_test.c",
+    "behavioral_test_sha256": "ee0dfdc297bce0d131873d5ec73d0903cad126d4e4e5c343c3d8e19c58033b30",
+    "behavioral_test_cases": 2,
+    "behavioral_test_failures": 0,
+    "reason": "Source-only operation probes cover successful allocation and the native allocation-failure return, including directory order, minimum/large buffer sizing, stage images, text entries, update-pump count, and final status. Sprite-library reader behavior remains covered by the separate 176-file SG3 verifier; this orchestration test starts with its manager already full to isolate setup ordering.",
+    "library_sha256": "136735ac315f047ca6dcc5079bf0e69af17a88a523ca33d2012a8f9d1b91d774",
+    "bootstrap_sha256": "1acbe84cec3f392cfac44980db5a5edfc2ffc788503b94c04fa162e66b3dc148"
+  },
+  "known_limitations": "Rendering, filesystem, allocation and progress-pump effects are required typed operations supplied by the eventual runtime composition. The campaign-selection field name is inferred from native consumers; the original function body observes only return values 0 and 1 even though its caller checks additional legacy values.",
+  "evidence_file": "rea-startup-batch-023.json"
+}

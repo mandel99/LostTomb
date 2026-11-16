@@ -1,0 +1,40 @@
+{
+  "batch": 38,
+  "function_count": 0,
+  "method": "Typed C reconstruction of the original DirectDraw enable and desktop/window mode selector. Reused the older address owner only to locate the behavior; its absolute-address state macros and platform adapter were not copied. Ghidra/REA evidence is tied to the pinned executable.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-graphics-directdraw-038.json",
+  "rea_evidence_sha256": "8ab5aeb0d3ec3daeedc27cd728038b16714f77d0c133b675f2c2ee7b0c45ce9d",
+  "groups": [],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX; pharaoh_game and pharaoh_clean_bootstrap compiled",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "library_sha256": "f151067651b235d25a228c1b4dc0d28154b45afad095e2c0bf42076f0851c79f",
+    "bootstrap_sha256": "3dbd3f31f3845056a629bd9c3c0766ebfe16e788400ec8d5d22748f20abe773b"
+  },
+  "supplemental_unbound_functions": [
+    {
+      "address": "0x00426B40",
+      "name": "pharaoh_graphics_enable_direct_draw",
+      "source": "game/runtime/graphics_directdraw_enable.c",
+      "source_sha256": "84a432a2b15cfaf0399b62822fb7bc29e010ffeb38f1870cd7e1862a5fdf73d4",
+      "header": "game/include/pharaoh/runtime/graphics_startup.h",
+      "header_sha256": "df4075a35baae4dbe4f8c1e534784f4c80c4c70a5761d18b589fb911acf59ed4",
+      "cmake_sha256": "e0e4e09ccd2d88620d02aa9c24e85ace9df1a2b3acf42fc4615bece3e4ed08f6",
+      "rea_evidence_id": "ev_7877cf3e2470ed986047aa4f4be96ae792f383c3f05c876e340736cc526d4348",
+      "counted_as_migration": false,
+      "reason": "A complete typed C owner is present in the clean runtime, but GameCurrentReferenceBindings.json has no compiled-reference owner row for this entry."
+    },
+    {
+      "address": "0x004D0060",
+      "name": "pharaoh_graphics_device_initialize",
+      "source": "game/runtime/graphics_device_startup.c",
+      "source_sha256": "bc4f64373a2d5b98c14858fe3dfb33c2cf8ecb2c7f3fb80421ddddadd9d4f65a",
+      "header": "game/include/pharaoh/runtime/graphics_startup.h",
+      "header_sha256": "df4075a35baae4dbe4f8c1e534784f4c80c4c70a5761d18b589fb911acf59ed4",
+      "counted_as_migration": false,
+      "reason": "The native owner now calls the typed 0x00426B40 C function directly; this address still has no compiled-reference row in GameCurrentReferenceBindings.json."
+    }
+  ]
+}

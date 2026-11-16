@@ -1,0 +1,65 @@
+{
+  "batch": 40,
+  "function_count": 3,
+  "method": "Typed C conversion of the graphics refresh path and two directly connected helpers. The clean timing caller now invokes this refresh owner directly. REA analysis and Ghidra pseudocode are tied to the pinned original executable; old address-macro sources were used only as cross-checks.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-graphics-refresh-040.json",
+  "rea_evidence_sha256": "e1be66342f1a6587ea85f6df0bdfdb3a8e27ab83416ba26c9c6d041c157baf58",
+  "groups": [
+    {
+      "addresses": ["0x004D0040"],
+      "new_source": "game/runtime/graphics_refresh.c",
+      "new_source_sha256": "c3b0ca2cd2f3804084ea49822cae95783bb0f3e4ffc3b735fff7f1341c3d9ef8",
+      "new_header": "game/include/pharaoh/runtime/graphics_refresh.h",
+      "new_header_sha256": "c326934d3c795ebffa93c33bc389ee4cf57cea206d69ce301084510650724c40",
+      "previous_source": "src/Unit01782.c",
+      "previous_source_sha256": "6e39dbbe16792e11dc50fe5a6cf3c36339b66269244df917991d20c9a5a9e3d3",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": ["0x004D0280"],
+      "new_source": "game/runtime/graphics_refresh.c",
+      "new_source_sha256": "c3b0ca2cd2f3804084ea49822cae95783bb0f3e4ffc3b735fff7f1341c3d9ef8",
+      "new_header": "game/include/pharaoh/runtime/graphics_refresh.h",
+      "new_header_sha256": "c326934d3c795ebffa93c33bc389ee4cf57cea206d69ce301084510650724c40",
+      "previous_source": "src/Unit01786.c",
+      "previous_source_sha256": "c2a020d0bef302c1fdc667e8137cdbd023a2397117ce218e7a83cd3cf2e134df",
+      "rea_evidence_id": "ev_a96863da91bbdf625e661a777e631129f0cfb79cb28a9ab4e5612438e0dbdc06",
+      "native_evidence_file": "rea-graphics-refresh-040.json",
+      "native_evidence_sha256": "e1be66342f1a6587ea85f6df0bdfdb3a8e27ab83416ba26c9c6d041c157baf58",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": ["0x004D05F0"],
+      "new_source": "game/runtime/graphics_refresh.c",
+      "new_source_sha256": "c3b0ca2cd2f3804084ea49822cae95783bb0f3e4ffc3b735fff7f1341c3d9ef8",
+      "new_header": "game/include/pharaoh/runtime/graphics_refresh.h",
+      "new_header_sha256": "c326934d3c795ebffa93c33bc389ee4cf57cea206d69ce301084510650724c40",
+      "previous_source": "src/Unit01789.c",
+      "previous_source_sha256": "6982875171814770fccc03c2d7120248a0db0b918155505cae228caf8dc58f3c",
+      "ghidra_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "amended_existing_owners": [
+    {
+      "address": "0x004CF8E0",
+      "source": "game/runtime/platform_measure_speed.c",
+      "source_sha256": "a2dd55a1983ea609664e4b551b79461886f70e3edb88b85f3654a00e6be910db",
+      "header": "game/include/pharaoh/runtime/platform_measure_speed.h",
+      "header_sha256": "373aad4eab9e12fd21fa4c394df323f1bcdc4265313f679ee184c708d25816a8",
+      "change": "The three measured graphics calls now invoke pharaoh_graphics_refresh_screen directly."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX; pharaoh_game and pharaoh_clean_bootstrap compiled",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "library_sha256": "551e92a3645dbc8ac9d636e31b1fb1e4bd4f3ea0e3eab5e897ba4b33943f35af",
+    "bootstrap_sha256": "e90799202bbbc7623b6c8adabe16bfbc72342b71c3f5ebe04e539a01161de5ea",
+    "cmake_sha256": "c911c21e7894fd2e0836796c743c995532bfb1f8ad7cc26b9f047cfa1287db27"
+  },
+  "known_limitations": "The 0x004D0650 fade raster step, 0x004D03F0 low-level presentation, and 0x0051E990 sidebar background draw remain explicit typed operations. Ghidra reports a terminal presentation call in 0x004D0280; the decompiled explicit return is retained. timeGetTime remains a typed platform operation."
+}

@@ -56,8 +56,13 @@ contracts, not complete gameplay equivalence.
 
 ## Migration status
 
-The clean library currently owns 260 original-address functions. The second
-batch added 20 functions covering ring queues, finance, population, religion
+The clean library currently owns 287 original-address functions. Recent direct
+Ghidra reconstructions add `0x004149D0`, which selects startup text entries 5,
+6 and 7 from group 9 and copies entry 6 to two destinations; `0x0051E930`,
+which initializes sidebar clipping positions at supported logical widths; and
+`0x0053DB60`, which resets sprite-library buffers, counters and tag limits. The
+earlier migration notes begin with the second batch, which added 20 functions
+covering ring queues, finance, population, religion
 and small static objects. The third batch added 20 event reason, message,
 resource and classification queries. Both batches reused translated and mapped
 C from the old project. The fourth batch added 20 risk and house-service

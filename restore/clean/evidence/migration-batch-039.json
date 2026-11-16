@@ -1,0 +1,42 @@
+{
+  "batch": 39,
+  "function_count": 2,
+  "method": "Connected startup timing conversion. The pre-existing address-based sources were searched and used only to confirm the call sequence; the new owners use named state fields and typed operations. Caller-observed mode arguments are retained for the native no-op call. Batch 40 replaces the graphics-refresh callback with the clean 0x004D0280 owner.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-platform-measure-039.json",
+  "rea_evidence_sha256": "744ce4f830c3d516798b0eeaa5597fcb2d99da863b97bbd9c1d6edd93ac03b65",
+  "groups": [
+    {
+      "addresses": ["0x004CF8E0"],
+      "new_source": "game/runtime/platform_measure_speed.c",
+      "new_source_sha256": "a2dd55a1983ea609664e4b551b79461886f70e3edb88b85f3654a00e6be910db",
+      "new_header": "game/include/pharaoh/runtime/platform_measure_speed.h",
+      "new_header_sha256": "373aad4eab9e12fd21fa4c394df323f1bcdc4265313f679ee184c708d25816a8",
+      "previous_source": "src/Unit01773.c",
+      "previous_source_sha256": "29adeef514cbea774d7ba13eecbf3a0843a043a625ed009fdeb400903f80553a",
+      "native_evidence_file": "rea-platform-measure-039.json",
+      "native_evidence_sha256": "744ce4f830c3d516798b0eeaa5597fcb2d99da863b97bbd9c1d6edd93ac03b65",
+      "ghidra_reference_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "ghidra_reference_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    },
+    {
+      "addresses": ["0x0051F780"],
+      "new_source": "game/runtime/figure_action_none.c",
+      "new_source_sha256": "8d798370a4fb95f218b6b0eff674a5d5de12d2f1dd645c7d0dec317a4a21b6e3",
+      "new_header": "game/include/pharaoh/runtime/platform_measure_speed.h",
+      "new_header_sha256": "373aad4eab9e12fd21fa4c394df323f1bcdc4265313f679ee184c708d25816a8",
+      "previous_source": "src/Unit02351.c",
+      "previous_source_sha256": "d12fc50460209617b224ace4cedaafe0600a5dd17820a4dc6820c7a32308f20a",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71"
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX; pharaoh_game and pharaoh_clean_bootstrap compiled",
+    "behavioral_tests_run": false,
+    "game_launched": false,
+    "library_sha256": "434438929204539c7b4507c16be57cc6e009ed0090afd2485184fc087a52be1d",
+    "bootstrap_sha256": "477494b2d142a8ae4e65d2466487c313f18e9f9581f3e8171430d55b3eec463d"
+  },
+  "known_limitations": "The graphics refresh called three times is now the clean typed C owner; low-level present, sidebar drawing, and screen-fade raster operations remain typed endpoints. timeGetTime remains a typed platform operation."
+}

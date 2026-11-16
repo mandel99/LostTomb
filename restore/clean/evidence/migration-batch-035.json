@@ -1,0 +1,32 @@
+{
+  "batch": 35,
+  "function_count": 1,
+  "method": "Typed C reconstruction of the SG-library file-slot operation, checked against the pinned executable's pseudocode and callers. Connects the SG3 reader to the native reload, aggregate counters, case-insensitive duplicate and tag-sync-warning behavior.",
+  "address_mapping": "../../metadata/GameCurrentReferenceBindings.json",
+  "rea_evidence_bundle": "rea-sprite-reader-20261116.json",
+  "rea_evidence_sha256": "95cce54055a3f04673d7aa01f62549c1474b5dd8bbc51c8205dc3cd68b29805e",
+  "groups": [
+    {
+      "addresses": ["0x0053DD90"],
+      "new_source": "game/assets/sprite_libraries.c",
+      "new_source_sha256": "f58c292992ba44e780595a0340aabfce5ac6273a2b28d3ce5fdce3bc06633938",
+      "native_evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c",
+      "native_evidence_sha256": "ca8b260dba1d787e3d7c0919cecd44379a448a9959f25022d02029f6388e4a71",
+      "previous_source": "src/Unit02520.c",
+      "previous_source_sha256": "c1ecdb69ca79bfcac219305af906e73394dd7fcb48230c0c974f13d259b31f68",
+      "previous_source_notes": "The previous body is a Legacy bridge calling the generated image collection loader and is used only to cross-check call and result contracts."
+    }
+  ],
+  "verification": {
+    "release_compile": "passed with MSVC /W4 /WX",
+    "behavioral_tests_added": 0,
+    "behavioral_tests_run": true,
+    "real_data_test_file": "evidence/real-sg3-results-20261116.txt",
+    "real_data_test_sha256": "7b0ce8e73e993616835f52d9452f726f282f1a7d8a42b7a211cf6aafcbb20c05",
+    "real_data_cases": 176,
+    "real_data_failures": 0,
+    "reason": "The new slot manager path was exercised together with the reader for every installed SG3/555 pair; each case cycles a real slot index across 0 through 29.",
+    "library_sha256": "ce474596118d35d3da466743e43dc95457b1ce079215c9651f6fe50451ebae8d"
+  },
+  "evidence_file": "ghidra-typed-pseudocode-20261116-after-java-types.c"
+}
