@@ -56,10 +56,8 @@ int32_t pharaoh_application_window_initialize(
         operations->graphics_operations->user_data, startup_debug_status,
         0, 0);
     (void)operations->co_initialize(operations->user_data, NULL);
-    pharaoh_text_select(request->window_title_selection, 9, 0);
-
     window_request.instance = request->instance;
-    window_request.window_title = request->window_title_selection->current;
+    window_request.window_title = PHARAOH_CLEAN_WINDOW_TITLE_ANSI;
     window_request.window_procedure = request->window_procedure;
     if (pharaoh_application_window_create(&state->window, &window_request,
             operations->window_operations) == 0) {
