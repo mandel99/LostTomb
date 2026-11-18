@@ -162,7 +162,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->left_press_window == 0) {
             (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
                 WM_KEYDOWN, VK_ESCAPE, 0);
-        } else if (focused == 2 && dispatch->left_pressed_this_frame != 0 &&
+        } else if (focused == 1 && dispatch->left_pressed_this_frame != 0 &&
                 dispatch->left_press_window == 0) {
             HWND window = (HWND)dispatch->host->window_startup.window.window;
             (void)ShowWindow(window, SW_MINIMIZE);
