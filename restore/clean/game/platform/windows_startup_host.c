@@ -26,6 +26,9 @@ enum {
     PHARAOH_IMAGE_GROUP_INNER_PANEL = 402,
     PHARAOH_GENERAL_LIBRARY_INDEX = 3,
     PHARAOH_GENERAL_SYSTEM_IMAGE_COUNT = 200,
+    /* Pharaoh_General.sg3 group 401 / 402 after its 200 system images. */
+    PHARAOH_GENERAL_OUTER_PANEL_LOCAL_IMAGE = 302,
+    PHARAOH_GENERAL_INNER_PANEL_LOCAL_IMAGE = 446,
     PHARAOH_GENERAL_MAIN_MENU_BUTTON_FIRST_IMAGE = 222,
     PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE = 715,
     PHARAOH_STARTUP_LOADING_FIRST_RUNTIME_IMAGE = 509,
@@ -604,6 +607,13 @@ static int32_t general_image(const PharaohWindowsStartupHost *host,
         image - PHARAOH_GENERAL_SYSTEM_IMAGE_COUNT;
 }
 
+static int32_t general_local_image(const PharaohWindowsStartupHost *host,
+    int32_t image)
+{
+    return (int32_t)host->loaded_libraries->items[
+        PHARAOH_GENERAL_LIBRARY_INDEX].first_image + image - 1;
+}
+
 /* FUN_00536710: three horizontal 16px tiles, normal then selected. */
 static void draw_main_menu_button(void *data, int32_t x, int32_t y,
     int32_t width, int32_t selected)
@@ -933,8 +943,8 @@ static void message_box_draw_panel(void *user_data, int32_t x, int32_t y,
 {
     const PharaohPanelFrameOperations frame = {
         user_data, draw_menu_image,
-        (int32_t)menu_group_image(user_data,
-            PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+        general_local_image(user_data,
+            PHARAOH_GENERAL_OUTER_PANEL_LOCAL_IMAGE), 0
     };
     pharaoh_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
 }
@@ -944,8 +954,8 @@ static void message_box_draw_inner_panel(void *user_data, int32_t x,
 {
     const PharaohPanelFrameOperations frame = {
         user_data, draw_menu_image, 0,
-        (int32_t)menu_group_image(user_data,
-            PHARAOH_IMAGE_GROUP_INNER_PANEL)
+        general_local_image(user_data,
+            PHARAOH_GENERAL_INNER_PANEL_LOCAL_IMAGE)
     };
     pharaoh_inner_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
 }
