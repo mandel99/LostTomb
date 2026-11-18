@@ -77,6 +77,60 @@ static void front_menu_request_exit(void *user_data)
         WM_KEYDOWN, VK_ESCAPE, 0);
 }
 
+static PharaohReadOnlyFile *main_menu_open_file(void *user_data,
+    const char *filename, const char *mode)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    (void)mode;
+    return dispatch->host->files.operations->open(
+        dispatch->host->files.user_data, filename);
+}
+
+static int32_t main_menu_close_file(void *user_data,
+    PharaohReadOnlyFile *file)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    dispatch->host->files.operations->close(
+        dispatch->host->files.user_data, file);
+    return 1;
+}
+
+static int32_t main_menu_count_matching_files(void *user_data,
+    const char *pattern, int32_t search_mode)
+{
+    PharaohFileList files;
+    int32_t count;
+    (void)user_data;
+    pharaoh_file_list_initialize(&files);
+    count = pharaoh_file_list_load(&files, pattern, search_mode);
+    pharaoh_file_list_destroy(&files);
+    return count;
+}
+
+static void open_selected_player_menu(
+    PharaohWindowsStartupDispatch *dispatch)
+{
+    const PharaohMainMenuOpenOperations operations = {
+        dispatch,
+        main_menu_open_file,
+        main_menu_close_file,
+        main_menu_count_matching_files
+    };
+    const PharaohMainMenuOpenContext context = {
+        &dispatch->host->campaign.index,
+        &dispatch->main_menu_window,
+        dispatch->host->campaign.saved_game_path,
+        dispatch->player_selection.player_name,
+        &operations
+    };
+
+    pharaoh_main_menu_window_show(&context);
+    dispatch->refresh.current_window_id =
+        dispatch->main_menu_window.active_window;
+    dispatch->host->current_window_id =
+        dispatch->main_menu_window.active_window;
+}
+
 static void dispatch_front_menu_action(
     PharaohWindowsStartupDispatch *dispatch, int32_t action)
 {
@@ -322,12 +376,19 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                     (void)pharaoh_campaign_profile_load(
                         &dispatch->host->files, &dispatch->host->campaign,
                         dispatch->host->campaign_profile_suffix, profile_path);
-                    dispatch->refresh.current_window_id = 0;
-                    dispatch->host->current_window_id = 0;
-                    dispatch->menu_focused_button = 0;
+                    /* Native 0x00516AB0 selects and loads this profile but
+                       leaves the player-selection window active. */
                     dispatch->host->graphics.redraw_requested = 1;
                 }
-            } else if (focused >= 13 && focused <= 16) {
+            } else if (focused == 15 &&
+                dispatch->player_selection.player_name[0] != '\0') {
+                /* Native 0x00516990 opens the main menu for the selected
+                   player; its empty-name dialog is still unbound. */
+                open_selected_player_menu(dispatch);
+                dispatch->host->graphics.redraw_requested = 1;
+                dispatch->player_selection_focused_button = 0;
+            } else if (focused == 16) {
+                /* Native 0x00402BB0 returns to window zero. */
                 dispatch->refresh.current_window_id = 0;
                 dispatch->host->current_window_id = 0;
                 dispatch->host->graphics.redraw_requested = 1;

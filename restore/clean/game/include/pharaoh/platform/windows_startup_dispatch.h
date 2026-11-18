@@ -5,6 +5,7 @@
 #include "pharaoh/platform/windows_smacker.h"
 #include "pharaoh/runtime/startup_window_transition.h"
 #include "pharaoh/ui/high_scores.h"
+#include "pharaoh/ui/main_menu_open.h"
 
 typedef struct PharaohWindowsStartupDispatch {
     PharaohWindowsStartupHost *host;
@@ -20,6 +21,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohStartupWindowTransitionContext transition;
     PharaohHighScoresState high_scores;
     PharaohHighScoresOperations high_scores_operations;
+    PharaohMainMenuWindowState main_menu_window;
     PharaohFileList player_profile_files;
     PharaohPlayerSelectionState player_selection;
     PharaohFileList custom_map_files;
