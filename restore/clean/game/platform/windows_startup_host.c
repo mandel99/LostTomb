@@ -879,6 +879,15 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 origin_y + 220 + row * 16, 635, 0xffff);
         }
     }
+    if (selection->files->count > PHARAOH_CUSTOM_MAP_VISIBLE_ROWS) {
+        const int32_t last = selection->files->count -
+            PHARAOH_CUSTOM_MAP_VISIBLE_ROWS;
+        const int32_t position = (0xf * 16 - 0x4c) *
+            selection->first_visible_file / last;
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 0x27,
+            origin_x + 0x121, origin_y + 0xf5 + position);
+    }
     host->graphics.redraw_requested = 0;
 }
 
