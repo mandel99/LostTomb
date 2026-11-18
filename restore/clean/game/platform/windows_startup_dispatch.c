@@ -28,6 +28,8 @@ int32_t pharaoh_windows_startup_dispatch_bind(
 {
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
+    pharaoh_high_scores_bind_campaign(&dispatch->high_scores,
+        &host->campaign);
     if (pharaoh_windows_smacker_open_library(&dispatch->smacker) == 0) {
         return 0;
     }

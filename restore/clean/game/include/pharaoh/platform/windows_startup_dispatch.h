@@ -4,6 +4,7 @@
 #include "pharaoh/platform/windows_startup_host.h"
 #include "pharaoh/platform/windows_smacker.h"
 #include "pharaoh/runtime/startup_window_transition.h"
+#include "pharaoh/ui/high_scores.h"
 
 typedef struct PharaohWindowsStartupDispatch {
     PharaohWindowsStartupHost *host;
@@ -17,6 +18,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohStartupWindowInputState input;
     PharaohStartupWindowDispatcherEntryState entry;
     PharaohStartupWindowTransitionContext transition;
+    PharaohHighScoresState high_scores;
     int32_t entry_results[4];
     int32_t mouse_x_ui, mouse_y_ui, input_mode, dialog_active;
     uint8_t left_press_active, right_press_active;
