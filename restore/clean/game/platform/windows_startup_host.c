@@ -9,7 +9,6 @@
 #include "pharaoh/ui/bitmap_font.h"
 #include "pharaoh/ui/panel_frame.h"
 #include "pharaoh/ui/menu_button_frame.h"
-#include "pharaoh/rendering/primitives.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -883,32 +882,6 @@ void pharaoh_windows_startup_host_draw_saved_game_list(
     host->graphics.redraw_requested = 0;
 }
 
-typedef struct PharaohMessageBoxSurfaceWriter {
-    uint8_t *pixels;
-    int32_t pitch;
-    int32_t pixel_bytes;
-} PharaohMessageBoxSurfaceWriter;
-
-static void message_box_write_pixel(void *user_data, int32_t x, int32_t y,
-    uint16_t color)
-{
-    const PharaohMessageBoxSurfaceWriter *const writer = user_data;
-    uint8_t *const pixel = writer->pixels + (size_t)y * writer->pitch +
-        (size_t)x * (size_t)writer->pixel_bytes;
-    if (writer->pixel_bytes == 2) {
-        memcpy(pixel, &color, sizeof(color));
-    } else {
-        const uint32_t red5 = ((uint32_t)color >> 11) & 31u;
-        const uint32_t green6 = ((uint32_t)color >> 5) & 63u;
-        const uint32_t blue5 = (uint32_t)color & 31u;
-        const uint32_t red8 = (red5 << 3) | (red5 >> 2);
-        const uint32_t green8 = (green6 << 2) | (green6 >> 4);
-        const uint32_t blue8 = (blue5 << 3) | (blue5 >> 2);
-        const uint32_t xrgb = (red8 << 16) | (green8 << 8) | blue8;
-        memcpy(pixel, &xrgb, sizeof(xrgb));
-    }
-}
-
 static int32_t message_box_measure_text(void *user_data, const char *text,
     int32_t font)
 {
@@ -986,36 +959,11 @@ static void message_box_draw_button_label(void *user_data, int32_t group,
 static void message_box_draw_button(void *user_data, int32_t x, int32_t y,
     int32_t width, int32_t height, uint32_t color)
 {
-    PharaohWindowsStartupHost *const host = user_data;
-    PharaohGraphicsPrimitives primitives = { 0 };
-    PharaohMessageBoxSurfaceWriter writer;
-    DDSURFACEDESC description;
-    const LPDIRECTDRAWSURFACE surface =
-        (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
-    if (surface == NULL) return;
-    memset(&description, 0, sizeof(description));
-    description.dwSize = sizeof(description);
-    if (surface->lpVtbl->Lock(surface, NULL, &description, DDLOCK_WAIT,
-            NULL) != DD_OK) return;
-    if ((description.ddpfPixelFormat.dwRGBBitCount != 16 &&
-            description.ddpfPixelFormat.dwRGBBitCount != 32) ||
-        (description.ddpfPixelFormat.dwRGBBitCount == 32 &&
-            (description.ddpfPixelFormat.dwRBitMask != 0x00ff0000u ||
-             description.ddpfPixelFormat.dwGBitMask != 0x0000ff00u ||
-             description.ddpfPixelFormat.dwBBitMask != 0x000000ffu))) {
-        (void)surface->lpVtbl->Unlock(surface, description.lpSurface);
-        return;
-    }
-    writer.pixels = description.lpSurface;
-    writer.pitch = description.lPitch;
-    writer.pixel_bytes = (int32_t)(description.ddpfPixelFormat.dwRGBBitCount / 8);
-    primitives.display_width = host->graphics.render_width;
-    primitives.screen_height = host->graphics.render_height;
-    primitives.write_pixel = message_box_write_pixel;
-    primitives.user_data = &writer;
-    pharaoh_graphics_draw_rect(&primitives, x, y, width, height,
-        (int32_t)color);
-    (void)surface->lpVtbl->Unlock(surface, description.lpSurface);
+    PharaohMenuButtonFrameOperations frame = { user_data, draw_menu_image };
+    pharaoh_menu_button_frame_draw(&frame,
+        (int32_t)menu_group_image(user_data,
+            PHARAOH_IMAGE_GROUP_BORDERED_BUTTON),
+        x, y, width, height, color != 0);
 }
 
 int32_t pharaoh_windows_startup_host_draw_message_box(
