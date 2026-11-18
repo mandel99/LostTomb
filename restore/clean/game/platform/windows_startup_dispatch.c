@@ -434,7 +434,18 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 dispatch->input.mouse_y, origin_x, origin_y) != 0) {
             dispatch->host->graphics.redraw_requested = 1;
         }
-        if (dispatch->host->graphics.redraw_requested != 0) {
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            dispatch->input.mouse_x >= origin_x + 335 &&
+            dispatch->input.mouse_x < origin_x + 362 &&
+            dispatch->input.mouse_y >= origin_y + 440 &&
+            dispatch->input.mouse_y < origin_y + 467) {
+            /* State 0x3D's native back callback calls 0x004CB6A0. */
+            open_selected_player_menu(dispatch);
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->refresh.current_window_id == 0x3d &&
+            dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_custom_map_list(dispatch->host,
                 &dispatch->custom_map_selection);
         }
@@ -444,9 +455,11 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         dispatch->input.mouse_right_went_up = 0;
         dispatch->input.video_input_flag_a = 0;
         dispatch->input.video_input_flag_b = 0;
-        pharaoh_graphics_refresh_screen(&dispatch->refresh,
-            &dispatch->refresh_operations, 0);
-        return;
+        if (dispatch->refresh.current_window_id == 0x3d) {
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations, 0);
+            return;
+        }
     }
     if (dispatch->refresh.current_window_id == 0x53) {
         const PharaohHighScoresInput input = {
