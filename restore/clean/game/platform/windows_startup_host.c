@@ -856,11 +856,20 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
     const uint32_t background = menu_group_image(host, 32);
+    const PharaohPanelFrameOperations inner = {
+        host, draw_menu_image, 0,
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_INNER_PANEL)
+    };
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
     draw_menu_image(host, (int32_t)background, origin_x - 192,
         origin_y - 144);
+    /* 0041F220 / 0041E1B0: list well and scrollbar well precede text. */
+    pharaoh_inner_panel_frame_draw(&inner, origin_x + 15,
+        origin_y + 0xcd, 16, 16);
+    pharaoh_inner_panel_frame_draw(&inner, origin_x + 0x11e,
+        origin_y + 0xf2, 2, 12);
     for (int32_t row = 0; row < PHARAOH_CUSTOM_MAP_VISIBLE_ROWS; ++row) {
         const int32_t index = selection->first_visible_file + row;
         const char *const name = pharaoh_file_list_name(selection->files,
