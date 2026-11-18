@@ -22,9 +22,11 @@
 enum {
     PHARAOH_IMAGE_GROUP_PANEL_BUTTON = 284,
     PHARAOH_IMAGE_GROUP_PLAYER_BACKGROUND = 29,
-    PHARAOH_IMAGE_GROUP_BORDERED_BUTTON = 443,
     PHARAOH_IMAGE_GROUP_OUTER_PANEL = 401,
     PHARAOH_IMAGE_GROUP_INNER_PANEL = 402,
+    PHARAOH_GENERAL_LIBRARY_INDEX = 3,
+    PHARAOH_GENERAL_SYSTEM_IMAGE_COUNT = 200,
+    PHARAOH_GENERAL_MENU_BLOCKS_FIRST_IMAGE = 202,
     PHARAOH_STARTUP_LOADING_FIRST_RUNTIME_IMAGE = 509,
     PHARAOH_STARTUP_EXPANSION_LOGO_RUNTIME_IMAGE = 900,
     PHARAOH_STARTUP_SYSTEM_IMAGE_COUNT = 200,
@@ -593,6 +595,15 @@ static uint32_t menu_group_image(const PharaohWindowsStartupHost *host,
     return host->sprite_tags[native_group].image_index;
 }
 
+/* DAT_00f5698c is Pharaoh_General's SPR_MENU_BLOCKS image 202. */
+static int32_t menu_block_image_base(const PharaohWindowsStartupHost *host)
+{
+    return (int32_t)host->loaded_libraries->items[
+        PHARAOH_GENERAL_LIBRARY_INDEX].first_image +
+        PHARAOH_GENERAL_MENU_BLOCKS_FIRST_IMAGE -
+        PHARAOH_GENERAL_SYSTEM_IMAGE_COUNT - 1;
+}
+
 static void draw_menu_language(void *data, int32_t group, int32_t entry,
     int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
 {
@@ -626,7 +637,7 @@ static void main_menu_draw_border(void *data, int32_t style, int32_t x,
     PharaohMenuButtonFrameOperations operations = { data, draw_menu_image };
     (void)style;
     pharaoh_menu_button_frame_draw(&operations,
-        (int32_t)menu_group_image(data, PHARAOH_IMAGE_GROUP_BORDERED_BUTTON),
+        menu_block_image_base(data),
         x, y, width, height, selected);
 }
 
@@ -804,7 +815,7 @@ void pharaoh_windows_startup_host_draw_player_selection(
         PHARAOH_IMAGE_GROUP_OUTER_PANEL);
     operations.inner_panel_image_base = (int32_t)menu_group_image(host,
         PHARAOH_IMAGE_GROUP_INNER_PANEL);
-    operations.button_image_base = (int32_t)menu_group_image(host, 443);
+    operations.button_image_base = menu_block_image_base(host);
     operations.arrow_image_base = (int32_t)menu_group_image(host, 365);
     operations.scrollbar_thumb_image =
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) +
@@ -961,8 +972,7 @@ static void message_box_draw_button(void *user_data, int32_t x, int32_t y,
 {
     PharaohMenuButtonFrameOperations frame = { user_data, draw_menu_image };
     pharaoh_menu_button_frame_draw(&frame,
-        (int32_t)menu_group_image(user_data,
-            PHARAOH_IMAGE_GROUP_BORDERED_BUTTON),
+        menu_block_image_base(user_data),
         x, y, width, height, color != 0);
 }
 
