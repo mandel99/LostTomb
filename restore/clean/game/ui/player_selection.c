@@ -148,8 +148,8 @@ void pharaoh_player_selection_draw(
         operations->panel_image_base, 0
     };
     const PharaohPanelFrameOperations inner_frame = {
-        operations->user_data, operations->draw_sprite,
-        operations->inner_panel_image_base, 0
+        operations->user_data, operations->draw_sprite, 0,
+        operations->inner_panel_image_base
     };
 
     pharaoh_panel_frame_draw(&outer_frame,

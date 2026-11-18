@@ -703,9 +703,9 @@ static void high_score_draw_inner_panel(void *user_data, int32_t x, int32_t y,
     int32_t width_blocks, int32_t height_blocks)
 {
     const PharaohPanelFrameOperations frame = {
-        user_data, draw_menu_image,
+        user_data, draw_menu_image, 0,
         (int32_t)menu_group_image(user_data,
-            PHARAOH_IMAGE_GROUP_INNER_PANEL), 0
+            PHARAOH_IMAGE_GROUP_INNER_PANEL)
     };
     pharaoh_inner_panel_frame_draw(&frame, x, y,
         width_blocks, height_blocks);
@@ -943,9 +943,9 @@ static void message_box_draw_inner_panel(void *user_data, int32_t x,
     int32_t y, int32_t width_blocks, int32_t height_blocks)
 {
     const PharaohPanelFrameOperations frame = {
-        user_data, draw_menu_image,
+        user_data, draw_menu_image, 0,
         (int32_t)menu_group_image(user_data,
-            PHARAOH_IMAGE_GROUP_INNER_PANEL), 0
+            PHARAOH_IMAGE_GROUP_INNER_PANEL)
     };
     pharaoh_inner_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
 }
