@@ -110,9 +110,18 @@ static int32_t exit_box_has_message(void *user_data)
 
 static int32_t exit_box_get_dispatch_message(void *user_data)
 {
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
     MSG message;
-    (void)user_data;
-    if (GetMessageA(&message, NULL, 0, 0) <= 0) return 0;
+    const int message_result = GetMessageA(&message, NULL, 0, 0);
+    if (message_result <= 0) {
+        /* The nested confirmation loop consumed WM_QUIT.  Hand it back to
+           WinMain's loop; otherwise the destroyed window leaves audio alive. */
+        if (message_result == 0) {
+            PostQuitMessage((int)message.wParam);
+        }
+        dispatch->host->shutdown_requested = 1;
+        return 0;
+    }
     (void)TranslateMessage(&message);
     (void)DispatchMessageA(&message);
     return 1;
