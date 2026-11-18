@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "pharaoh/runtime/model_text.h"
+
 enum {
     PHARAOH_TRADE_RECOMMENDATION_ROWS = 4,
     PHARAOH_TRADE_RECOMMENDATION_COLUMNS = 6,
@@ -21,11 +23,6 @@ typedef struct PharaohTradeModelOperations {
     void (*clear_bytes)(void *, void *, uint32_t, uint8_t);
     int32_t (*load_text)(void *, const char *, void *, uint32_t, int32_t);
     uint32_t (*text_length)(void *, const char *);
-    /* Returns bytes through the match, or zero when it is not found. */
-    int32_t (*find_byte)(void *, const char *, uint8_t, uint32_t);
-    /* Native helpers scan at most 999 bytes and parse signed decimal digits. */
-    uint32_t (*skip_to_number)(void *, const char *);
-    int32_t (*parse_number)(void *, const char *);
     int32_t (*continue_after_count_mismatch)(void *, uint32_t actual_plus_one,
                                               uint32_t expected);
     void (*report_status)(void *, PharaohTradeModelStatus);

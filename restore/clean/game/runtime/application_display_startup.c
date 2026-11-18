@@ -5,7 +5,7 @@ enum {
     DESKTOP_METRIC_HEIGHT = 1
 };
 
-int32_t pharaoh_application_display_startup(
+void pharaoh_application_display_prepare(
     PharaohApplicationDisplayStartup *startup, int32_t settings_display_mode)
 {
     PharaohGraphicsStartupState *state = startup->graphics;
@@ -19,10 +19,34 @@ int32_t pharaoh_application_display_startup(
     state->screen_height = startup->geometry.viewport_height;
     state->render_width = startup->geometry.viewport_width;
     state->render_height = startup->geometry.viewport_height;
+    state->ui_origin_x = startup->geometry.ui_origin_x;
+    state->ui_origin_y = startup->geometry.ui_origin_y;
+    state->rgb565_pitch_bytes = startup->geometry.rgb565_pitch_bytes;
+    state->framebuffer_bytes = startup->geometry.framebuffer_bytes;
+    state->viewport_height = startup->geometry.viewport_height;
+    state->hit_width = startup->geometry.hit_width;
+    state->hit_height = startup->geometry.hit_height;
+    state->display_rectangle.left = 0;
+    state->display_rectangle.top = 0;
+    state->display_rectangle.right = startup->geometry.viewport_width;
+    state->display_rectangle.bottom = startup->geometry.viewport_height;
     state->mode_status_byte = startup->geometry.display_mode_status;
     state->desktop_width = operations->get_system_metric(
         operations->user_data, DESKTOP_METRIC_WIDTH);
     state->desktop_height = operations->get_system_metric(
         operations->user_data, DESKTOP_METRIC_HEIGHT);
-    return pharaoh_graphics_session_begin(state, operations);
+}
+
+int32_t pharaoh_application_display_begin_session(
+    PharaohApplicationDisplayStartup *startup)
+{
+    return pharaoh_graphics_session_begin(startup->graphics,
+        startup->graphics_operations);
+}
+
+int32_t pharaoh_application_display_startup(
+    PharaohApplicationDisplayStartup *startup, int32_t settings_display_mode)
+{
+    pharaoh_application_display_prepare(startup, settings_display_mode);
+    return pharaoh_application_display_begin_session(startup);
 }

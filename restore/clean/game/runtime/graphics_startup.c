@@ -68,7 +68,7 @@ int32_t pharaoh_graphics_session_begin(
         return 0;
     }
 
-    (void)operations->clear_display_surfaces(operations->user_data);
+    (void)pharaoh_graphics_surfaces_clear(state, operations);
     state->display_initialization_in_progress = 0;
     state->frame_rendering_enabled = UINT32_C(1);
     state->redraw_requested = UINT8_C(1);

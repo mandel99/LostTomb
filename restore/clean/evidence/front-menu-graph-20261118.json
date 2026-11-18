@@ -23,14 +23,14 @@
       "native_target": "0x00516BB0",
       "observed_effect": "Clears the 32-byte player-name buffer, loads Save\\*.dat, selects state 0x2F, clears two selection fields, forwards the selected index through buttonParameter, initializes the list and requests redraw 1. If no entries exist, it clears the name again and switches to state 0x36 with return state 0x2F.",
       "reachable_states": ["0x2F", "0x36"],
-      "clean_status": "No complete typed screen owner is wired."
+      "clean_status": "Root action ID 0 now calls the typed player-profile loader and selects 0x2F or 0x36. Empty-profile screen and profile-management controls remain incomplete."
     },
     {
       "action": 1,
       "native_target": "Win32 minimize plus ShellExecuteA",
       "observed_effect": "Minimizes the game window and invokes ShellExecuteA with verb open and target www.gog.com.",
       "reachable_states": [],
-      "clean_status": "Typed callback contract exists; production operation remains unwired."
+      "clean_status": "Root action ID 1 now invokes the observed minimize and www.gog.com operation."
     },
     {
       "action": 2,
@@ -44,14 +44,14 @@
       "native_target": "0x004C5920 then state 0x53",
       "observed_effect": "Reads exactly 0x1DB0 bytes from save\\highscore.jas, counts valid 0x4C-byte records, then selects the high-score window state 0x53.",
       "reachable_states": ["0x53", "0x00 via right-button release"],
-      "clean_status": "Typed load, drawing contract, scrolling and complete state-0x53 input branch are implemented in game/ui/high_scores.c; production rendering/input binding remains pending."
+      "clean_status": "Root action ID 3 loads high scores and enters the wired 0x53 render/input path; right-button release returns to 0x00."
     },
     {
       "action": 4,
       "native_target": "PostMessageA(WM_KEYDOWN, VK_ESCAPE)",
       "observed_effect": "The normal Escape handler stops video, obtains language group 5 entries 0 and 1, and opens modal style 4 in state 0x54. Result 6 sets the close-state byte and result 7 cancels. This is not a direct WM_CLOSE path.",
       "reachable_states": ["0x54", "0x00 on cancel", "host close state on confirmation"],
-      "clean_status": "Typed Escape decision, message-box draw/selection and modal loop owners are implemented; production rendering/input binding remains pending and the current host direct-close shortcut is still not used as evidence."
+      "clean_status": "Root action ID 4 posts the native WM_KEYDOWN/VK_ESCAPE; bootstrap_window_proc still does not handle WM_KEYDOWN, so the typed confirmation and state-0x54 modal owners are not yet reached."
     }
   ],
   "state_3d": {

@@ -19,12 +19,22 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohStartupWindowDispatcherEntryState entry;
     PharaohStartupWindowTransitionContext transition;
     PharaohHighScoresState high_scores;
+    PharaohHighScoresOperations high_scores_operations;
+    PharaohFileList player_profile_files;
+    PharaohPlayerSelectionState player_selection;
+    PharaohFileList custom_map_files;
+    PharaohCustomMapSelectionState custom_map_selection;
     int32_t entry_results[4];
     int32_t mouse_x_ui, mouse_y_ui, input_mode, dialog_active;
     uint8_t left_press_active, right_press_active;
     uint8_t left_press_window, right_press_window;
     uint8_t left_pressed_this_frame;
+    uint8_t front_menu_action_active, save_selection_mode;
+    uint32_t front_menu_action_reset, continue_campaign_pending;
+    uint32_t campaign_flow_mode, scenario_menu_changed;
+    uint32_t new_campaign_field_a, new_campaign_field_b;
     int32_t menu_focused_button;
+    int32_t player_selection_focused_button;
 } PharaohWindowsStartupDispatch;
 
 /* Binds the boot/video subset. The caller owns the menu contexts used after

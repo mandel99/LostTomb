@@ -1,22 +1,20 @@
 #include "pharaoh/runtime/trade_recommendations.h"
+#include "pharaoh/runtime/settings_ini.h"
 
-enum { NATIVE_SEARCH_LIMIT = 299, NATIVE_NUMBER_SKIP_LIMIT = 999 };
+enum { NATIVE_SEARCH_LIMIT = 299 };
 
-static uint32_t find_section(const PharaohTradeModelOperations *ops,
-    const char *text, uint32_t length)
+static int32_t find_section(const char *text, uint32_t length)
 {
-    const int32_t offset = ops->find_byte(ops->user_data, text, (uint8_t)'{', length);
-    return (uint32_t)offset;
+    return pharaoh_ini_find_byte(text, '{', (int32_t)length);
 }
 
-static uint32_t count_sections(const PharaohTradeModelOperations *ops,
-    const char *text, uint32_t length)
+static uint32_t count_sections(const char *text, uint32_t length)
 {
     const char *cursor = text;
     uint32_t count = 0;
     int32_t remaining = NATIVE_SEARCH_LIMIT;
     do {
-        const uint32_t advance = find_section(ops, cursor, length);
+        const int32_t advance = find_section(cursor, length);
         if (advance == 0) break;
         ++count;
         cursor += advance;
@@ -41,8 +39,9 @@ int32_t pharaoh_trade_recommendations_load(PharaohTradeModelLoadContext *c)
     }
 
     const char *text = (const char *)c->spare_screen;
-    const uint32_t length = ops->text_length(ops->user_data, text);
-    uint32_t actual = count_sections(ops, text, length);
+    const uint32_t length = ops->text_length(ops->user_data,
+        "trade_recommends.txt");
+    const uint32_t actual = count_sections(text, length);
     if (actual != PHARAOH_TRADE_RECOMMENDATION_ROWS &&
         ops->continue_after_count_mismatch(ops->user_data, actual + 1,
             PHARAOH_TRADE_RECOMMENDATION_ROWS) == 0) {
@@ -56,14 +55,13 @@ int32_t pharaoh_trade_recommendations_load(PharaohTradeModelLoadContext *c)
     int32_t row = 0;
     do {
         if (row >= PHARAOH_TRADE_RECOMMENDATION_ROWS) break;
-        cursor += find_section(ops, cursor, length);
+        cursor += find_section(cursor, length);
         for (int32_t column = 0; column < PHARAOH_TRADE_RECOMMENDATION_COLUMNS;
              ++column) {
-            cursor += ops->skip_to_number(ops->user_data, cursor);
+            cursor += pharaoh_model_text_skip_to_number(cursor);
             c->recommendations[row][column] =
-                ops->parse_number(ops->user_data, cursor);
-            cursor += (uint32_t)ops->find_byte(ops->user_data, cursor,
-                (uint8_t)',', length);
+                pharaoh_ini_parse_integer(cursor);
+            cursor += pharaoh_ini_find_byte(cursor, ',', (int32_t)length);
         }
         ++row;
     } while (--remaining > 0);

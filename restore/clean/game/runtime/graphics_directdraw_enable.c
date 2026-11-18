@@ -1,4 +1,6 @@
 #include "pharaoh/runtime/graphics_startup.h"
+#include "pharaoh/runtime/city_warning_clear.h"
+#include "pharaoh/runtime/graphics_screen_resize.h"
 
 enum {
     PHARAOH_GRAPHICS_CAPABILITY_NUM_COLORS = 0x18,
@@ -16,6 +18,8 @@ enum {
     PHARAOH_GRAPHICS_FULLSCREEN_STYLE_KEEP_MASK = 0xff3bffff,
     PHARAOH_GRAPHICS_FULLSCREEN_STYLE_BITS = 0x90000000,
     PHARAOH_GRAPHICS_FULLSCREEN_BITS_PER_PIXEL = 16,
+    PHARAOH_GRAPHICS_DISPLAY_MODE_640X480 = 1,
+    PHARAOH_GRAPHICS_DISPLAY_MODE_800X600 = 2,
     PHARAOH_GRAPHICS_256_COLOR_MESSAGE_ID = 0x39,
     PHARAOH_WINDOW_Z_ORDER_TOP = 0,
     PHARAOH_WINDOW_Z_ORDER_NOT_TOPMOST = -2,
@@ -69,16 +73,18 @@ static int32_t set_fullscreen_display_mode(
         PHARAOH_GRAPHICS_FULLSCREEN_BITS_PER_PIXEL);
 
     if (result != 0) {
-        operations->prepare_display_mode_retry(operations->user_data, 2);
-        operations->resize_graphics_screen(operations->user_data);
-        operations->clear_city_warnings(operations->user_data);
+        pharaoh_graphics_display_configure(state, operations,
+            PHARAOH_GRAPHICS_DISPLAY_MODE_800X600);
+        pharaoh_graphics_screen_resize(operations->screen_resize);
+        pharaoh_city_warning_clear_all(operations->city_warning_clear);
         result = operations->set_display_mode(operations->user_data,
             direct_draw_device, state->render_width, state->render_height,
             PHARAOH_GRAPHICS_FULLSCREEN_BITS_PER_PIXEL);
         if (result != 0) {
-            operations->prepare_display_mode_retry(operations->user_data, 1);
-            operations->resize_graphics_screen(operations->user_data);
-            operations->clear_city_warnings(operations->user_data);
+            pharaoh_graphics_display_configure(state, operations,
+                PHARAOH_GRAPHICS_DISPLAY_MODE_640X480);
+            pharaoh_graphics_screen_resize(operations->screen_resize);
+            pharaoh_city_warning_clear_all(operations->city_warning_clear);
             result = operations->set_display_mode(operations->user_data,
                 direct_draw_device, state->render_width, state->render_height,
                 PHARAOH_GRAPHICS_FULLSCREEN_BITS_PER_PIXEL);
@@ -178,13 +184,15 @@ int32_t pharaoh_graphics_enable_direct_draw(
     state->desktop_height = operations->get_system_metric(
         operations->user_data, PHARAOH_GRAPHICS_METRIC_SCREEN_HEIGHT);
 
-    if (state->desktop_width < state->render_width) {
+    if (state->desktop_width < state->render_width &&
+        state->keep_windowed_mode == 0) {
         if (state->color_mode_selection == 0) {
             operations->dispatch_message(operations->user_data,
                 PHARAOH_GRAPHICS_256_COLOR_MESSAGE_ID, 0, 0);
         }
         state->color_mode_selection = 1;
     } else if (state->color_mode_selection == 0 &&
+        state->keep_windowed_mode == 0 &&
         state->desktop_color_depth != 16) {
         operations->dispatch_message(operations->user_data,
             PHARAOH_GRAPHICS_256_COLOR_MESSAGE_ID, 0, 0);

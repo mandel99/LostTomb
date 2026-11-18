@@ -10,8 +10,16 @@ typedef struct PharaohApplicationDisplayStartup {
     PharaohInitialWindowGeometry geometry;
 } PharaohApplicationDisplayStartup;
 
-/* Prepare native screen dimensions and enter the existing 0x004D0220
- * graphics-session owner. Window creation and COM are still caller phases. */
+/* Prepares native screen dimensions and desktop metrics before the window is
+ * created, matching the order inside 0x004CF960. */
+void pharaoh_application_display_prepare(
+    PharaohApplicationDisplayStartup *startup, int32_t settings_display_mode);
+
+/* Enters the existing 0x004D0220 graphics-session owner after window creation. */
+int32_t pharaoh_application_display_begin_session(
+    PharaohApplicationDisplayStartup *startup);
+
+/* Convenience composition for callers whose window already exists. */
 int32_t pharaoh_application_display_startup(
     PharaohApplicationDisplayStartup *startup, int32_t settings_display_mode);
 

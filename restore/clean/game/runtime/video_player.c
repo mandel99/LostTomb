@@ -24,12 +24,6 @@ static const char video_movie_probe_mode[] = "rb";
 static const char video_movie_filename_format[] = "%s";
 static const char video_movie_drive_path_format[] = "%c:\\%s";
 
-enum PharaohVideoSoundStreamId {
-    PHARAOH_VIDEO_STREAM_MUSIC = 0,
-    PHARAOH_VIDEO_STREAM_CITY = 2,
-    PHARAOH_VIDEO_STREAM_SPEECH = 1
-};
-
 static void change_video_display_mode(
     PharaohVideoRuntimeState *state,
     const PharaohVideoLoopOperations *operations,
@@ -112,17 +106,17 @@ void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
     operations->show_cursor(operations->user_data, 0);
 
     int32_t stopped_by_input = 0;
-    while (movie->frame_number < movie->frame_count &&
-           stopped_by_input == 0) {
+    while (stopped_by_input == 0 &&
+           movie->frame_number < movie->frame_count) {
         (void)operations->tick(operations->user_data);
-        operations->bink_do_frame(operations->user_data, player->movie);
-        operations->bink_next_frame(operations->user_data, player->movie);
-        operations->blit_movie(operations->user_data, player);
+        operations->bink_do_frame(operations->bink_user_data, player->movie);
+        operations->bink_next_frame(operations->bink_user_data, player->movie);
+        operations->blit_movie(operations->blit_user_data, player);
 
         int32_t wait_for_frame;
         do {
             const char *error =
-                operations->bink_last_error(operations->user_data);
+                operations->bink_last_error(operations->bink_user_data);
             if (error[0] != '\0') {
                 operations->report_bink_error(operations->user_data,
                     video_bink_error_prefix, error, 0);
@@ -131,6 +125,19 @@ void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
             PharaohVideoMessage message;
             while (operations->peek_remove_message(operations->user_data,
                        &message) != 0) {
+                if (message.message_id == PHARAOH_VIDEO_MESSAGE_CLOSE) {
+                    (void)pharaoh_video_player_end(player, state,
+                        operations->player_backend);
+                    operations->dispatch_message(operations->user_data,
+                        &message);
+                    if (switch_mode != 0) {
+                        change_video_display_mode(state, operations,
+                            previous_mode);
+                    }
+                    stopped_by_input = 1;
+                    break;
+                }
+
                 if (message.message_id == PHARAOH_VIDEO_MESSAGE_KEY_DOWN ||
                     message.message_id == PHARAOH_VIDEO_MESSAGE_SYSTEM_KEY_DOWN ||
                     message.message_id == PHARAOH_VIDEO_MESSAGE_LEFT_BUTTON_DOWN) {
@@ -148,7 +155,7 @@ void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
                     &message);
                 operations->dispatch_message(operations->user_data,
                     &message);
-                operations->bink_service(operations->user_data,
+                operations->bink_service(operations->bink_user_data,
                     player->movie);
             }
 
@@ -156,8 +163,8 @@ void pharaoh_video_player_play_loop(PharaohVideoPlayer *player,
                 break;
             }
 
-            operations->bink_service(operations->user_data, player->movie);
-            wait_for_frame = operations->bink_wait(operations->user_data,
+            operations->bink_service(operations->bink_user_data, player->movie);
+            wait_for_frame = operations->bink_wait(operations->bink_user_data,
                 player->movie);
         } while (wait_for_frame != 0);
     }
@@ -187,14 +194,14 @@ uint8_t pharaoh_video_player_play(PharaohVideoPlayer *player,
     }
 
     if (operations->sound_manager_active != 0) {
-        operations->close_sound_stream(operations->user_data,
-            operations->sound_manager, PHARAOH_VIDEO_STREAM_MUSIC);
-        operations->close_sound_stream(operations->user_data,
-            operations->sound_manager, PHARAOH_VIDEO_STREAM_CITY);
-        operations->close_sound_stream(operations->user_data,
-            operations->sound_manager, PHARAOH_VIDEO_STREAM_SPEECH);
-        operations->set_movie_sound_device(operations->user_data,
-            operations->movie_sound_device);
+        pharaoh_digital_sound_stream_close(operations->sound_manager,
+            PHARAOH_VIDEO_STREAM_MUSIC, operations->sound_operations);
+        pharaoh_digital_sound_stream_close(operations->sound_manager,
+            PHARAOH_VIDEO_STREAM_CITY, operations->sound_operations);
+        pharaoh_digital_sound_stream_close(operations->sound_manager,
+            PHARAOH_VIDEO_STREAM_SPEECH, operations->sound_operations);
+        operations->set_movie_sound_device(operations->bink_user_data,
+            operations->sound_manager->wave_device);
     }
 
     (void)snprintf(movie_path, sizeof(movie_path),
@@ -209,7 +216,7 @@ uint8_t pharaoh_video_player_play(PharaohVideoPlayer *player,
         operations->close_probe_file(operations->user_data, probe);
     }
 
-    player->movie = operations->bink_open(operations->user_data, movie_path, 0);
+    player->movie = operations->bink_open(operations->bink_user_data, movie_path, 0);
     if (player->movie == NULL) {
         operations->output_debug_string(operations->user_data,
             video_bink_open_error);

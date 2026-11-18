@@ -30,14 +30,19 @@ typedef struct PharaohSpriteImageRecord {
     uint32_t pixel_bytes;
     uint32_t isometric_top_bytes;
     uint32_t library_index;
-    uint8_t reserved_10[12];
+    uint32_t reserved_10;
+    int16_t width;
+    int16_t height;
+    uint32_t reserved_18;
     uint16_t tag_id;
     uint8_t reserved_1e[20];
     uint8_t draw_type;
     uint8_t is_compressed;
     uint8_t is_external;
     uint8_t has_isometric_top;
-    uint8_t reserved_36[10];
+    uint8_t reserved_36[2];
+    uint8_t bitmap_id;
+    uint8_t reserved_39[7];
 } PharaohSpriteImageRecord;
 
 typedef struct PharaohSpriteTagRecord {
@@ -54,6 +59,8 @@ typedef struct PharaohSpriteLibraryReadContext {
 _Static_assert(sizeof(PharaohSpriteImageRecord) ==
                PHARAOH_SPRITE_IMAGE_RECORD_BYTES,
                "sprite image records retain the native 64-byte format");
+_Static_assert(offsetof(PharaohSpriteImageRecord, bitmap_id) == 0x38,
+               "external SG3 bitmap index retains its native record offset");
 
 /* Typed state used by the reset routine; it is not the packed native manager. */
 typedef struct PharaohSpriteLibraryResetState {

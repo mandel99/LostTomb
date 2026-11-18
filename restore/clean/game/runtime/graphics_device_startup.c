@@ -29,8 +29,7 @@ int32_t pharaoh_graphics_device_initialize(
     operations->report_status(operations->user_data,
         direct_draw_enabled, 0, 0);
 
-    result = operations->create_flipping_surfaces(operations->user_data,
-        state);
+    result = pharaoh_graphics_surfaces_create(state, operations);
     if (result != 1) {
         operations->report_status(operations->user_data,
             flipping_surfaces_failed, 0, 0);
@@ -39,7 +38,7 @@ int32_t pharaoh_graphics_device_initialize(
         (void)pharaoh_graphics_resources_release(state, operations, 1);
         state->display_mode_selection = state->previous_display_mode;
         state->color_mode_selection = state->previous_color_mode;
-        operations->change_display_mode(operations->user_data,
+        pharaoh_graphics_display_configure(state, operations,
             state->previous_display_mode);
         (void)snprintf(old_display_message, sizeof(old_display_message),
             old_display_format, state->screen_width, state->screen_height,
@@ -49,8 +48,7 @@ int32_t pharaoh_graphics_device_initialize(
 
         result = pharaoh_graphics_enable_direct_draw(state, operations);
         if (result == 1) {
-            result = operations->create_flipping_surfaces(
-                operations->user_data, state);
+            result = pharaoh_graphics_surfaces_create(state, operations);
         }
         if (result != 1) {
             (void)pharaoh_graphics_resources_release(state, operations, 1);
@@ -58,8 +56,8 @@ int32_t pharaoh_graphics_device_initialize(
         }
     }
 
-    operations->attach_surface_context(operations->user_data,
-        state->primary_surface, state->back_buffer_surface);
+    (void)pharaoh_graphics_surface_context_initialize(&state->surface_context,
+        state->primary_surface, state->back_buffer_surface, operations);
     operations->output_surface_debug(operations->user_data,
         front_buffer_format, state->primary_surface);
     operations->output_surface_debug(operations->user_data,

@@ -54,7 +54,7 @@ typedef struct PharaohHighScoresOperations {
         int32_t x, int32_t y, int32_t font, int32_t color);
     void (*draw_text)(void *user_data, const char *text, int32_t x,
         int32_t y, int32_t font, int32_t color);
-    void (*draw_number)(void *user_data, int32_t value, int32_t width,
+    void (*draw_number)(void *user_data, int32_t value, int32_t prefix,
         int32_t x, int32_t y, int32_t font, int32_t color);
     void (*draw_sprite)(void *user_data, int32_t image, int32_t x, int32_t y);
 } PharaohHighScoresOperations;

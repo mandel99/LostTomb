@@ -157,7 +157,7 @@ void pharaoh_high_scores_draw_rows(const PharaohHighScoresState *state,
                 state->origin_x + 368, state->origin_y + 104 + pixels,
                 state->small_font, COLOR_DEFAULT);
             operations->draw_number(operations->user_data,
-                state->records[index].score, 64, state->origin_x + 512,
+                state->records[index].score, 0x40, state->origin_x + 512,
                 state->origin_y + 104 + pixels, state->small_font,
                 COLOR_DEFAULT);
             pixels += 16;

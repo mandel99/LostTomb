@@ -12,6 +12,7 @@
 #include "pharaoh/runtime/startup_asset_loading.h"
 #include "pharaoh/runtime/tax_sentiment_model.h"
 #include "pharaoh/runtime/trade_recommendations.h"
+#include "pharaoh/runtime/video_player.h"
 #include "pharaoh/scenario/campaign_file.h"
 #include "pharaoh/monuments/mausoleum_projection.h"
 #include "pharaoh/monuments/startup_geometry.h"
@@ -36,6 +37,7 @@ typedef enum PharaohApplicationStartupReport {
     PHARAOH_APPLICATION_STARTUP_REPORT_WINDOW_READY,
     PHARAOH_APPLICATION_STARTUP_REPORT_ASSETS_READY,
     PHARAOH_APPLICATION_STARTUP_REPORT_SOUND_READY,
+    PHARAOH_APPLICATION_STARTUP_REPORT_MESSAGE_LOOP_READY,
     PHARAOH_APPLICATION_STARTUP_REPORT_SETTINGS_FAILED,
     PHARAOH_APPLICATION_STARTUP_REPORT_TEXT_FAILED,
     PHARAOH_APPLICATION_STARTUP_REPORT_WINDOW_FAILED,
@@ -76,22 +78,41 @@ typedef struct PharaohApplicationStartupGeometry {
     PharaohSidebarClipPositions *sidebar_positions;
 } PharaohApplicationStartupGeometry;
 
-typedef struct PharaohApplicationStartupRuntimeOperations {
-    void *user_data;
-    /* Applies the native post-sound state resets between the idle walker call
-       and 0x00540B50. Fields not yet typed remain owned by this operation. */
-    void (*reset_post_sound_state)(void *user_data);
-} PharaohApplicationStartupRuntimeOperations;
+typedef struct PharaohApplicationStartupPostSoundResetFields {
+    int32_t *event_54_suppress_flood;
+    int32_t *editor_map_preview;
+    /* The following slots preserve native store order and width. Their
+       semantic names/overlays remain unresolved. */
+    int32_t *unresolved_dword_1;
+    int32_t *unresolved_dword_2;
+    uint8_t *unresolved_byte_1;
+    uint8_t *construction_placing_royal_tomb;
+    int32_t *cheat_allow_all;
+    int32_t *unresolved_dword_3;
+    int32_t *unresolved_dword_4;
+    int32_t *unresolved_dword_5;
+    int32_t *unresolved_dword_6;
+} PharaohApplicationStartupPostSoundResetFields;
 
 typedef struct PharaohApplicationStartupRuntimeContext {
-    const PharaohApplicationStartupRuntimeOperations *operations;
+    const PharaohApplicationStartupPostSoundResetFields *post_sound_reset;
     const PharaohGameStateInitContext *game_state;
     const PharaohApplicationStartupGeometry *geometry;
     int32_t *current_window_id;
     uint8_t *redraw_requested;
+    /* Native byte state is set to 1 after speed measurement and before the
+       "launching game loop" status. Its initial 0 store belongs to WinMain. */
+    uint8_t *native_message_loop_state;
+    const PharaohGraphicsWindowRect *startup_status_rectangle;
     PharaohPlatformMeasurementState *platform_measurement;
     const PharaohPlatformMeasurementOperations *platform_measurement_operations;
 } PharaohApplicationStartupRuntimeContext;
+
+typedef struct PharaohApplicationStartupIntroContext {
+    int32_t enabled;
+    PharaohVideoRuntimeState *video_state;
+    const PharaohVideoOpenOperations *video_operations;
+} PharaohApplicationStartupIntroContext;
 
 typedef struct PharaohApplicationStartupPreparationContext {
     void *instance;
@@ -110,12 +131,14 @@ typedef struct PharaohApplicationStartupPreparationContext {
     const PharaohEventReasonPhraseContext *event_phrases;
     const PharaohSoundInitializationContext *sound;
     const PharaohApplicationStartupRuntimeContext *runtime;
+    const PharaohApplicationStartupIntroContext *intro;
     const PharaohApplicationStartupPreparationOperations *operations;
+    /* WinMain's EH3 filter is disabled until window initialization succeeds. */
+    volatile int32_t *native_exception_filter_active;
 } PharaohApplicationStartupPreparationContext;
 
-/* Composes the observed 0x00413ED0 startup through the pre-loop speed
-   measurement. The original intro/video, message loop, teardown, and host
-   wiring remain outside this preparation phase. */
+/* Composes the observed 0x00413ED0 startup through optional intro playback.
+   The outer message/frame loop, teardown, and host wiring remain outside. */
 PharaohApplicationStartupPreparationResult
 pharaoh_application_startup_prepare_load(
     const PharaohApplicationStartupPreparationContext *context);

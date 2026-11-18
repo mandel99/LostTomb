@@ -1,0 +1,34 @@
+#include "pharaoh/runtime/simulation_tick.h"
+
+enum {
+    SIMULATION_FLOOD_PEAK_STATE = 3,
+    SIMULATION_OSIRIS_FARM_DESTRUCTION_PENDING = 2
+};
+
+void pharaoh_simulation_tick_run(const PharaohSimulationTickContext *context)
+{
+    const PharaohSimulationTickOperations *const operations =
+        context->operations;
+    void *const user_data = operations->user_data;
+
+    pharaoh_random_generator_advance(context->random_generator);
+    pharaoh_animation_tick_counters_advance(context->animation_counters);
+    operations->reduce_undo_time(user_data);
+
+    if (*context->suppress_flood_event == 0) {
+        operations->dispatch_city_simulation(user_data);
+        pharaoh_city_player_one_countdown_advance(
+            context->city_player_one_countdown);
+        operations->update_floods(user_data);
+        if (*context->flood_state == SIMULATION_FLOOD_PEAK_STATE &&
+            *context->osiris_flood_destroys_farms ==
+                SIMULATION_OSIRIS_FARM_DESTRUCTION_PENDING) {
+            *context->osiris_flood_destroys_farms = 0;
+        }
+    }
+
+    operations->update_walkers(user_data);
+    operations->animate_monuments(user_data);
+    operations->process_earthquakes(user_data);
+    operations->check_city_victory(user_data);
+}

@@ -2,6 +2,13 @@
 #define PHARAOH_RUNTIME_VIDEO_PLAYER_H
 
 #include <stdint.h>
+#include "pharaoh/runtime/digital_sound_stream.h"
+
+enum PharaohVideoSoundStreamId {
+    PHARAOH_VIDEO_STREAM_MUSIC = 0,
+    PHARAOH_VIDEO_STREAM_SPEECH = 1,
+    PHARAOH_VIDEO_STREAM_CITY = 2
+};
 
 typedef struct PharaohVideoPlayer {
     uint32_t saved_mode;
@@ -53,6 +60,8 @@ typedef struct PharaohVideoRuntimeState {
 
 typedef struct PharaohVideoLoopOperations {
     void *user_data;
+    void *bink_user_data;
+    void *blit_user_data;
     const PharaohVideoPlayerBackend *player_backend;
     void (*clear_surfaces)(void *user_data);
     void (*release_display_device)(void *user_data, uint32_t release_device);
@@ -83,13 +92,12 @@ typedef struct PharaohMovieProbeFile PharaohMovieProbeFile;
 
 typedef struct PharaohVideoOpenOperations {
     void *user_data;
+    void *bink_user_data;
     const PharaohVideoLoopOperations *loop_operations;
     int32_t sound_manager_active;
-    void *sound_manager;
-    void *movie_sound_device;
-    void (*close_sound_stream)(void *user_data, void *sound_manager,
-                               uint32_t stream_id);
-    void (*set_movie_sound_device)(void *user_data, void *sound_device);
+    PharaohDigitalSoundDeviceState *sound_manager;
+    const PharaohDigitalSoundStreamCloseOperations *sound_operations;
+    void (*set_movie_sound_device)(void *user_data, uint32_t sound_device);
     PharaohMovieProbeFile *(*open_probe_file)(void *user_data,
                                                const char *filename,
                                                const char *mode);
@@ -100,6 +108,7 @@ typedef struct PharaohVideoOpenOperations {
 } PharaohVideoOpenOperations;
 
 enum PharaohVideoMessageId {
+    PHARAOH_VIDEO_MESSAGE_CLOSE = 0x0010,
     PHARAOH_VIDEO_MESSAGE_KEY_DOWN = 0x0100,
     PHARAOH_VIDEO_MESSAGE_SYSTEM_KEY_DOWN = 0x0104,
     PHARAOH_VIDEO_MESSAGE_LEFT_BUTTON_DOWN = 0x0201

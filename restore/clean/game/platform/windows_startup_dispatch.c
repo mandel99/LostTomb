@@ -1,8 +1,18 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
+#include "pharaoh/ui/front_menu_action.h"
 
 #include <windowsx.h>
 #include <shellapi.h>
 #include <string.h>
+
+static const PharaohMenuRect player_selection_rects[16] = {
+    {160,128,448,144}, {160,144,448,160}, {160,160,448,176},
+    {160,176,448,192}, {160,192,448,208}, {160,208,448,224},
+    {160,224,448,240}, {160,240,448,256}, {160,256,448,272},
+    {160,272,448,288}, {160,288,448,304}, {160,304,448,320},
+    {142,332,267,357}, {276,332,406,357}, {418,332,498,357},
+    {196,362,446,387}
+};
 
 static uint32_t frame_clock(void *user_data)
 {
@@ -23,13 +33,97 @@ static void clear_video_buffer(void *user_data)
         &host->graphics_operations);
 }
 
+static void front_menu_open_player_selection(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    const int32_t previous_profile =
+        dispatch->player_selection.selected_profile;
+    const int32_t profile_count = pharaoh_player_selection_load_profiles(
+        &dispatch->player_selection, previous_profile);
+    dispatch->refresh.current_window_id = profile_count == 0 ? 0x36 : 0x2f;
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void front_menu_show_support(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    HWND window = (HWND)dispatch->host->window_startup.window.window;
+    (void)ShowWindow(window, SW_MINIMIZE);
+    (void)ShellExecuteA(window, "open", "www.gog.com", NULL, NULL,
+        SW_SHOWNORMAL);
+}
+
+static void front_menu_open_custom_maps(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    (void)pharaoh_custom_map_selection_load(&dispatch->custom_map_selection);
+    dispatch->refresh.current_window_id = 0x3d;
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void front_menu_open_high_scores(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    (void)pharaoh_high_scores_load(&dispatch->high_scores,
+        &dispatch->high_scores_operations, "save\\highscore.jas");
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void front_menu_request_exit(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
+        WM_KEYDOWN, VK_ESCAPE, 0);
+}
+
+static void dispatch_front_menu_action(
+    PharaohWindowsStartupDispatch *dispatch, int32_t action)
+{
+    PharaohGenericButtonInputState input_state = { 0 };
+    PharaohFrontMenuActionState state = { 0 };
+    const PharaohFrontMenuActionOperations operations = {
+        dispatch,
+        front_menu_open_player_selection,
+        front_menu_show_support,
+        front_menu_open_custom_maps,
+        front_menu_open_high_scores,
+        front_menu_request_exit
+    };
+    PharaohFrontMenuActionContext context;
+
+    input_state.selected_primary_parameter = action;
+    state.input_state = &input_state;
+    state.action_active = &dispatch->front_menu_action_active;
+    state.menu_action_reset = &dispatch->front_menu_action_reset;
+    state.continue_campaign_pending = &dispatch->continue_campaign_pending;
+    state.campaign_flow_mode = &dispatch->campaign_flow_mode;
+    state.scenario_menu_changed = &dispatch->scenario_menu_changed;
+    state.save_selection_mode = &dispatch->save_selection_mode;
+    state.new_campaign_field_a = &dispatch->new_campaign_field_a;
+    state.new_campaign_field_b = &dispatch->new_campaign_field_b;
+    state.current_window_id = &dispatch->refresh.current_window_id;
+    context.state = &state;
+    context.operations = &operations;
+    dispatch->front_menu_action_active = 1;
+    pharaoh_front_menu_dispatch_action(&context);
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+}
+
 int32_t pharaoh_windows_startup_dispatch_bind(
     PharaohWindowsStartupDispatch *dispatch, PharaohWindowsStartupHost *host)
 {
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
+    pharaoh_file_list_initialize(&dispatch->player_profile_files);
+    dispatch->player_selection.profiles = &dispatch->player_profile_files;
+    dispatch->player_selection.selected_profile = 0;
+    pharaoh_file_list_initialize(&dispatch->custom_map_files);
+    dispatch->custom_map_selection.files = &dispatch->custom_map_files;
+    dispatch->custom_map_selection.selected_file = 0;
     pharaoh_high_scores_bind_campaign(&dispatch->high_scores,
         &host->campaign);
+    pharaoh_windows_startup_host_bind_high_scores(host,
+        &dispatch->high_scores_operations);
     if (pharaoh_windows_smacker_open_library(&dispatch->smacker) == 0) {
         return 0;
     }
@@ -60,6 +154,7 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->high_scores.normal_font = 635;
     dispatch->high_scores.small_font = 634;
     dispatch->high_scores.empty_font = 636;
+    dispatch->high_scores.panel_image_base = 0;
     dispatch->high_scores.redraw_request = &host->graphics.redraw_requested;
     dispatch->high_scores.current_window_id =
         &dispatch->refresh.current_window_id;
@@ -90,6 +185,8 @@ void pharaoh_windows_startup_dispatch_close(
         pharaoh_smacker_window_video_stop(dispatch->transition.video,
             &dispatch->movie_stop);
     }
+    pharaoh_file_list_destroy(&dispatch->player_profile_files);
+    pharaoh_file_list_destroy(&dispatch->custom_map_files);
     pharaoh_windows_smacker_close_library(&dispatch->smacker);
 }
 
@@ -157,18 +254,142 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             pharaoh_windows_startup_host_draw_boot_foreground(dispatch->host, focused);
             dispatch->menu_focused_button = focused;
         }
-        if (focused == PHARAOH_MENU_BUTTON_COUNT &&
-            dispatch->left_pressed_this_frame != 0 &&
-            dispatch->left_press_window == 0) {
-            (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
-                WM_KEYDOWN, VK_ESCAPE, 0);
-        } else if (focused == 1 && dispatch->left_pressed_this_frame != 0 &&
+        if (focused > 0 && dispatch->left_pressed_this_frame != 0 &&
                 dispatch->left_press_window == 0) {
-            HWND window = (HWND)dispatch->host->window_startup.window.window;
-            (void)ShowWindow(window, SW_MINIMIZE);
-            (void)ShellExecuteA(window, "open", "www.gog.com", NULL, NULL,
-                SW_SHOWNORMAL);
+            dispatch_front_menu_action(dispatch, focused - 1);
         }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
+    }
+    if (dispatch->refresh.current_window_id == 0x2f) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        PharaohGenericButtonFocusState focus_state = { 0 };
+        const int32_t focused = pharaoh_generic_buttons_get_focus(
+            origin_x, origin_y, player_selection_rects, 16,
+            dispatch->input.mouse_x, dispatch->input.mouse_y, &focus_state);
+        if (focused != dispatch->player_selection_focused_button ||
+            dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_player_selection(
+                dispatch->host, &dispatch->player_selection, focused);
+            dispatch->player_selection_focused_button = focused;
+        }
+        if (dispatch->left_press_active != 0 &&
+            dispatch->left_press_window == 0x2f &&
+            dispatch->input.mouse_x >= origin_x + 0x1d0 &&
+            dispatch->input.mouse_x <= origin_x + 0x1f0 &&
+            dispatch->input.mouse_y >= origin_y + 0x91 &&
+            dispatch->input.mouse_y <= origin_y + 300 &&
+            pharaoh_player_selection_drag_scrollbar(
+                &dispatch->player_selection, dispatch->input.mouse_y,
+                origin_y) != 0) {
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x2f) {
+            if (dispatch->input.mouse_x >= origin_x + 464 &&
+                dispatch->input.mouse_x < origin_x + 498 &&
+                dispatch->input.mouse_y >= origin_y + 120 &&
+                dispatch->input.mouse_y < origin_y + 154) {
+                if (pharaoh_player_selection_scroll(
+                        &dispatch->player_selection, 0) != 0) {
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            } else if (dispatch->input.mouse_x >= origin_x + 464 &&
+                dispatch->input.mouse_x < origin_x + 498 &&
+                dispatch->input.mouse_y >= origin_y + 300 &&
+                dispatch->input.mouse_y < origin_y + 334) {
+                if (pharaoh_player_selection_scroll(
+                        &dispatch->player_selection, 1) != 0) {
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            } else if (focused >= 1 && focused <= 12) {
+                if (pharaoh_player_selection_select_visible(
+                        &dispatch->player_selection, focused - 1) != 0) {
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            } else if (focused == 16) {
+                dispatch->refresh.current_window_id = 0;
+                dispatch->host->current_window_id = 0;
+                dispatch->host->graphics.redraw_requested = 1;
+                dispatch->menu_focused_button = 0;
+            }
+        }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
+    }
+    if (dispatch->refresh.current_window_id == 0x3d) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            dispatch->input.mouse_x >= origin_x + 282 &&
+            dispatch->input.mouse_x < origin_x + 316) {
+            if (dispatch->input.mouse_y >= origin_y + 215 &&
+                dispatch->input.mouse_y < origin_y + 249) {
+                if (pharaoh_custom_map_selection_scroll(
+                        &dispatch->custom_map_selection, 0) != 0) {
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            } else if (dispatch->input.mouse_y >= origin_y + 435 &&
+                dispatch->input.mouse_y < origin_y + 469) {
+                if (pharaoh_custom_map_selection_scroll(
+                        &dispatch->custom_map_selection, 1) != 0) {
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            }
+        }
+        if (dispatch->left_press_active != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            pharaoh_custom_map_selection_drag_scrollbar(
+                &dispatch->custom_map_selection, dispatch->input.mouse_x,
+                dispatch->input.mouse_y, origin_x, origin_y) != 0) {
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_custom_map_list(dispatch->host,
+                &dispatch->custom_map_selection);
+        }
+        dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
+    }
+    if (dispatch->refresh.current_window_id == 0x53) {
+        const PharaohHighScoresInput input = {
+            dispatch->input.mouse_x,
+            dispatch->input.mouse_y,
+            dispatch->left_pressed_this_frame,
+            dispatch->left_press_active,
+            dispatch->input.mouse_right_went_up
+        };
+        if (dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_high_scores_draw_background(&dispatch->high_scores,
+                &dispatch->high_scores_operations);
+        }
+        (void)pharaoh_high_scores_handle_input(&dispatch->high_scores, &input);
+        dispatch->host->current_window_id = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
         dispatch->input.mouse_right_went_up = 0;
