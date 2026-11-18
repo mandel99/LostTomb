@@ -327,7 +327,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                     dispatch->menu_focused_button = 0;
                     dispatch->host->graphics.redraw_requested = 1;
                 }
-            } else if (focused == 16) {
+            } else if (focused >= 13 && focused <= 16) {
                 dispatch->refresh.current_window_id = 0;
                 dispatch->host->current_window_id = 0;
                 dispatch->host->graphics.redraw_requested = 1;
