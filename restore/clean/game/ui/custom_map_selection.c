@@ -1,21 +1,11 @@
 #include "pharaoh/ui/custom_map_selection.h"
 
-#include <string.h>
-
 static const char custom_map_pattern[] = "maps\\*.map";
 
 int32_t pharaoh_custom_map_selection_load(
     PharaohCustomMapSelectionState *state)
 {
     (void)pharaoh_file_list_load(state->files, custom_map_pattern, 0);
-    for (int32_t index = 0; index < state->files->count; ++index) {
-        char *const name = state->files->strings +
-            state->files->offsets[index];
-        char *const extension = strrchr(name, '.');
-        if (extension != NULL && _stricmp(extension, ".map") == 0) {
-            *extension = '\0';
-        }
-    }
     pharaoh_file_list_sort(state->files);
     state->first_visible_file = 0;
     return state->files->count;
