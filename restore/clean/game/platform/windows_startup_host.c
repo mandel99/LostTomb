@@ -985,7 +985,10 @@ static void message_box_draw_button(void *user_data, int32_t x, int32_t y,
 {
     PharaohMenuButtonFrameOperations frame = { user_data, draw_menu_image };
     pharaoh_menu_button_frame_draw(&frame,
-        general_image(user_data, PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE),
+        /* FUN_00536c30 reads DAT_00f5698c: the first image of native
+           image group 443.  The SG3 source number 715 is one-based before
+           the 200 system images are skipped, so it is not a runtime id. */
+        (int32_t)menu_group_image(user_data, 443),
         x, y, width, height, color != 0);
 }
 
