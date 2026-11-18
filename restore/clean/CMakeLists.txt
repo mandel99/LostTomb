@@ -348,6 +348,20 @@ if(BUILD_TESTING)
     add_test(NAME pharaoh_campaign_profile_load_test
         COMMAND pharaoh_campaign_profile_load_test)
 
+    add_executable(pharaoh_campaign_mission_selection_test
+        tests/campaign_mission_selection_test.c)
+    target_link_libraries(pharaoh_campaign_mission_selection_test
+        PRIVATE pharaoh_game)
+    if(MSVC)
+        target_compile_options(pharaoh_campaign_mission_selection_test
+            PRIVATE /W4 /WX)
+    else()
+        target_compile_options(pharaoh_campaign_mission_selection_test
+            PRIVATE -Wall -Wextra -Wpedantic -Werror)
+    endif()
+    add_test(NAME pharaoh_campaign_mission_selection_test
+        COMMAND pharaoh_campaign_mission_selection_test)
+
     add_executable(pharaoh_startup_geometry_test
         tests/startup_geometry_test.c)
     target_link_libraries(pharaoh_startup_geometry_test PRIVATE pharaoh_game)

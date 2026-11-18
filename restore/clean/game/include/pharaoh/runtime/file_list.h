@@ -32,4 +32,8 @@ void pharaoh_file_list_sort(PharaohFileList *list);
 const char *pharaoh_file_list_name(const PharaohFileList *list,
     int32_t index);
 
+/* Copies an ordered, fixed-width name table into the mission-list layout. */
+int32_t pharaoh_mission_file_list_copy_names(PharaohFileList *list,
+    const char *names, int32_t count, int32_t name_stride);
+
 #endif

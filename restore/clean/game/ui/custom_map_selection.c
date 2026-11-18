@@ -11,6 +11,21 @@ int32_t pharaoh_custom_map_selection_load(
     return state->files->count;
 }
 
+int32_t pharaoh_campaign_mission_selection_load(
+    PharaohCustomMapSelectionState *state, const PharaohCampaign *campaign)
+{
+    if (campaign->mission_name_count < 0 ||
+        campaign->mission_name_count > PHARAOH_CAMPAIGN_INDEX_CAPACITY ||
+        pharaoh_mission_file_list_copy_names(state->files,
+            &campaign->mission_names[0][0], campaign->mission_name_count,
+            sizeof(campaign->mission_names[0])) == 0) {
+        return 0;
+    }
+    state->selected_file = 0;
+    state->first_visible_file = 0;
+    return state->files->count;
+}
+
 int32_t pharaoh_custom_map_selection_select_visible(
     PharaohCustomMapSelectionState *state, int32_t visible_row)
 {

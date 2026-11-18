@@ -174,3 +174,55 @@ const char *pharaoh_file_list_name(const PharaohFileList *list, int32_t index)
     if (index < 0 || index >= list->count) return NULL;
     return list->strings + list->offsets[index];
 }
+
+int32_t pharaoh_mission_file_list_copy_names(PharaohFileList *list,
+    const char *names, int32_t count, int32_t name_stride)
+{
+    int32_t total_bytes = 0;
+    int32_t *offsets = NULL;
+    char *strings = NULL;
+
+    if (list == NULL || count < 0 || name_stride < 1 ||
+        (size_t)count > SIZE_MAX / (size_t)name_stride ||
+        (size_t)count > SIZE_MAX / sizeof(*offsets) ||
+        (count > 0 && names == NULL)) {
+        return 0;
+    }
+    for (int32_t index = 0; index < count; ++index) {
+        const char *const name = names + (size_t)index * (size_t)name_stride;
+        const char *const end = memchr(name, '\0', (size_t)name_stride);
+        const size_t length = end != NULL ? (size_t)(end - name) + 1u : 0u;
+        if (length == 0 || length > (size_t)(INT32_MAX - total_bytes)) {
+            return 0;
+        }
+        total_bytes += (int32_t)length;
+    }
+    if (count > 0) {
+        offsets = malloc((size_t)count * sizeof(*offsets));
+        strings = malloc((size_t)total_bytes);
+        if (offsets == NULL || strings == NULL) {
+            free(offsets);
+            free(strings);
+            return 0;
+        }
+        int32_t used = 0;
+        for (int32_t index = 0; index < count; ++index) {
+            const char *const name = names + (size_t)index * (size_t)name_stride;
+            const size_t length = strlen(name) + 1u;
+            offsets[index] = used;
+            memcpy(strings + used, name, length);
+            used += (int32_t)length;
+        }
+    }
+
+    free(list->offsets);
+    free(list->strings);
+    list->vtable = MISSION_FILE_LIST_VTABLE;
+    list->offsets = offsets;
+    list->count = count;
+    list->capacity = count;
+    list->strings = strings;
+    list->string_capacity = total_bytes;
+    list->used = total_bytes;
+    return 1;
+}
