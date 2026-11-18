@@ -15,6 +15,12 @@ static const PharaohMenuRect player_selection_rects[16] = {
     {142,332,267,357}, {276,332,406,357}, {418,332,498,357},
     {196,362,446,387}
 };
+static const PharaohMenuRect saved_game_row_rects[12] = {
+    {160,128,448,144}, {160,144,448,160}, {160,160,448,176},
+    {160,176,448,192}, {160,192,448,208}, {160,208,448,224},
+    {160,224,448,240}, {160,240,448,256}, {160,256,448,272},
+    {160,272,448,288}, {160,288,448,304}, {160,304,448,320}
+};
 
 static uint32_t frame_clock(void *user_data)
 {
@@ -312,6 +318,14 @@ static void main_menu_open_map_selection(void *user_data)
 static void main_menu_open_saved_game_dialog(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
+    char pattern[260];
+    (void)snprintf(pattern, sizeof(pattern), "save\\%s\\*.sav",
+        dispatch->player_selection.player_name);
+    (void)pharaoh_file_list_load(&dispatch->saved_game_files, pattern, 0);
+    pharaoh_file_list_sort(&dispatch->saved_game_files);
+    dispatch->saved_game_first_visible = 0;
+    dispatch->saved_game_selected_row = -1;
+    dispatch->menu_load_return_window = 0x30;
     dispatch->refresh.current_window_id = 0x0d;
     dispatch->host->current_window_id = 0x0d;
     dispatch->host->graphics.redraw_requested = 1;
@@ -394,6 +408,7 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
     pharaoh_file_list_initialize(&dispatch->player_profile_files);
+    pharaoh_file_list_initialize(&dispatch->saved_game_files);
     dispatch->player_selection.profiles = &dispatch->player_profile_files;
     dispatch->player_selection.selected_profile = 0;
     pharaoh_file_list_initialize(&dispatch->custom_map_files);
@@ -466,6 +481,7 @@ void pharaoh_windows_startup_dispatch_close(
             &dispatch->movie_stop);
     }
     pharaoh_file_list_destroy(&dispatch->player_profile_files);
+    pharaoh_file_list_destroy(&dispatch->saved_game_files);
     pharaoh_file_list_destroy(&dispatch->custom_map_files);
     pharaoh_windows_smacker_close_library(&dispatch->smacker);
 }
@@ -587,6 +603,78 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         dispatch->input.video_input_flag_a = 0;
         dispatch->input.video_input_flag_b = 0;
         if (dispatch->refresh.current_window_id == 0x30) {
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations, 0);
+            return;
+        }
+    }
+    if (dispatch->refresh.current_window_id == 0x0d) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        PharaohGenericButtonFocusState focus_state = { 0 };
+        const int32_t focused = pharaoh_generic_buttons_get_focus(
+            origin_x, origin_y, saved_game_row_rects, 12,
+            dispatch->input.mouse_x, dispatch->input.mouse_y, &focus_state);
+
+        if (dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_saved_game_list(dispatch->host,
+                &dispatch->saved_game_files,
+                dispatch->saved_game_first_visible,
+                dispatch->saved_game_selected_row);
+        }
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x0d) {
+            dispatch->refresh.current_window_id =
+                (uint8_t)dispatch->menu_load_return_window;
+            dispatch->host->current_window_id =
+                dispatch->refresh.current_window_id;
+            dispatch->host->graphics.redraw_requested = 1;
+        } else if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x0d) {
+            if (focused > 0) {
+                dispatch->saved_game_selected_row =
+                    dispatch->saved_game_first_visible + focused - 1;
+                dispatch->host->graphics.redraw_requested = 1;
+            } else if (dispatch->input.mouse_x >= origin_x + 208 &&
+                dispatch->input.mouse_x < origin_x + 242 &&
+                dispatch->saved_game_files.count > 12) {
+                if (dispatch->input.mouse_y >= origin_y + 120 &&
+                    dispatch->input.mouse_y < origin_y + 154 &&
+                    dispatch->saved_game_first_visible > 0) {
+                    --dispatch->saved_game_first_visible;
+                    dispatch->host->graphics.redraw_requested = 1;
+                } else if (dispatch->input.mouse_y >= origin_y + 300 &&
+                    dispatch->input.mouse_y < origin_y + 334 &&
+                    dispatch->saved_game_first_visible + 12 <
+                        dispatch->saved_game_files.count) {
+                    ++dispatch->saved_game_first_visible;
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            }
+        }
+        if (dispatch->left_press_active != 0 &&
+            dispatch->left_press_window == 0x0d &&
+            dispatch->saved_game_files.count > 12 &&
+            dispatch->input.mouse_x >= origin_x + 0x1d0 &&
+            dispatch->input.mouse_x <= origin_x + 0x1f0 &&
+            dispatch->input.mouse_y >= origin_y + 0x91 &&
+            dispatch->input.mouse_y <= origin_y + 300) {
+            int32_t track = dispatch->input.mouse_y - origin_y - 0x91 - 25;
+            const int32_t last = dispatch->saved_game_files.count - 12;
+            if (track < 0) track = 0;
+            if (track > 0x82) track = 0x82;
+            dispatch->saved_game_first_visible =
+                last * (track * 100 / 0x82) / 100;
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        if (dispatch->refresh.current_window_id == 0x0d) {
             pharaoh_graphics_refresh_screen(&dispatch->refresh,
                 &dispatch->refresh_operations, 0);
             return;

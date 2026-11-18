@@ -838,6 +838,51 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
     host->graphics.redraw_requested = 0;
 }
 
+void pharaoh_windows_startup_host_draw_saved_game_list(
+    PharaohWindowsStartupHost *host, const PharaohFileList *files,
+    int32_t first_visible, int32_t selected_row)
+{
+    enum { VISIBLE_ROWS = 12, SCROLL_RANGE = 0x82 };
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    const uint32_t background = menu_group_image(host, 31);
+    const PharaohPanelFrameOperations panel = {
+        host, draw_menu_image,
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+    };
+    (void)selected_row;
+
+    (void)host->graphics_operations.fill_surface(host,
+        host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
+    draw_menu_image(host, (int32_t)background, origin_x - 192,
+        origin_y - 144);
+    pharaoh_panel_frame_draw(&panel, origin_x + 128, origin_y + 40, 24, 21);
+    draw_menu_language(host, 43, 1, origin_x + 160, origin_y + 50,
+        304, 640, 0xffff);
+    for (int32_t row = 0; row < VISIBLE_ROWS; ++row) {
+        const int32_t index = first_visible + row;
+        const char *const name = pharaoh_file_list_name(files, index);
+        if (name != NULL) {
+            high_score_draw_text(host, name, origin_x + 160,
+                origin_y + 114 + row * 16, 635, 0xffff);
+        }
+    }
+    draw_menu_language(host, 43, 5, origin_x + 224, origin_y + 342,
+        192, 635, 0xf800);
+    if (files->count > VISIBLE_ROWS) {
+        int32_t percent = 0;
+        if (first_visible > 0) {
+            const int32_t last = files->count - VISIBLE_ROWS;
+            percent = first_visible >= last ? 100 :
+                first_visible * 100 / last;
+        }
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 39,
+            origin_x + 0x1d8, origin_y + 0x91 + SCROLL_RANGE * percent / 100);
+    }
+    host->graphics.redraw_requested = 0;
+}
+
 typedef struct PharaohMessageBoxSurfaceWriter {
     uint8_t *pixels;
     int32_t pitch;

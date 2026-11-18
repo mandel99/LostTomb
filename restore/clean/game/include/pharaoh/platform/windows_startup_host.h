@@ -172,6 +172,9 @@ void pharaoh_windows_startup_host_draw_main_menu(
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection);
+void pharaoh_windows_startup_host_draw_saved_game_list(
+    PharaohWindowsStartupHost *host, const PharaohFileList *files,
+    int32_t first_visible, int32_t selected_row);
 int32_t pharaoh_windows_startup_host_draw_message_box(
     PharaohWindowsStartupHost *host, PharaohMessageBoxState *state,
     const char *title, const char *body, uint32_t type);

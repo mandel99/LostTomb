@@ -7,6 +7,7 @@
 #include "pharaoh/ui/high_scores.h"
 #include "pharaoh/ui/main_menu_open.h"
 #include "pharaoh/ui/message_box.h"
+#include "pharaoh/runtime/file_list.h"
 
 typedef struct PharaohWindowsStartupDispatch {
     PharaohWindowsStartupHost *host;
@@ -26,6 +27,8 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohMessageBoxState exit_message_box;
     PharaohFileList player_profile_files;
     PharaohPlayerSelectionState player_selection;
+    PharaohFileList saved_game_files;
+    int32_t saved_game_first_visible, saved_game_selected_row;
     PharaohFileList custom_map_files;
     PharaohCustomMapSelectionState custom_map_selection;
     int32_t entry_results[4];
