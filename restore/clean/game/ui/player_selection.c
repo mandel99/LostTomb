@@ -184,8 +184,7 @@ void pharaoh_player_selection_draw(
 
     for (int32_t index = 0; index < PLAYER_SELECTION_BUTTON_COUNT; ++index) {
         const int32_t focus_index = 13 + index;
-        const int32_t image_base = operations->button_image_base +
-            (focused_button == focus_index ? 8 : 0);
+        const int32_t image_base = operations->button_image_base;
         const PharaohMenuButtonFrameOperations button_frame = {
             operations->user_data, operations->draw_sprite
         };
