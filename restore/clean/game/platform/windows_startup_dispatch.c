@@ -1,6 +1,7 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
 
 #include <windowsx.h>
+#include <shellapi.h>
 #include <string.h>
 
 static uint32_t frame_clock(void *user_data)
@@ -149,6 +150,11 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->left_pressed_this_frame != 0) {
             (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
                 WM_KEYDOWN, VK_ESCAPE, 0);
+        } else if (focused == 2 && dispatch->left_pressed_this_frame != 0) {
+            HWND window = (HWND)dispatch->host->window_startup.window.window;
+            (void)ShowWindow(window, SW_MINIMIZE);
+            (void)ShellExecuteA(window, "open", "www.gog.com", NULL, NULL,
+                SW_SHOWNORMAL);
         }
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
