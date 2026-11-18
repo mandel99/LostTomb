@@ -1,0 +1,89 @@
+{
+  "schema": "pharaoh-front-menu-graph-v1",
+  "original_exe": {
+    "path": "C:\\Program Files (x86)\\GOG.com\\Pharaoh\\Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "state_00_button_table": {
+    "address": "0x0057BD88",
+    "record_size": 28,
+    "records": [
+      {"rect": [192, 100, 448, 125], "primary": "0x00417FF0", "secondary": "0x0051F780", "event": 1, "action": 0, "argument": 0},
+      {"rect": [192, 140, 448, 165], "primary": "0x00417FF0", "secondary": "0x0051F780", "event": 1, "action": 1, "argument": 0},
+      {"rect": [192, 180, 448, 205], "primary": "0x00417FF0", "secondary": "0x0051F780", "event": 1, "action": 2, "argument": 0},
+      {"rect": [192, 220, 448, 245], "primary": "0x00417FF0", "secondary": "0x0051F780", "event": 1, "action": 3, "argument": 0},
+      {"rect": [192, 260, 448, 285], "primary": "0x00417FF0", "secondary": "0x0051F780", "event": 1, "action": 4, "argument": 0}
+    ],
+    "input_order": ["0x00426450 focus", "0x004D6740 layout", "0x004261D0 event"],
+    "secondary_contract": "0x0051F780 is an empty return."
+  },
+  "actions": [
+    {
+      "action": 0,
+      "native_target": "0x00516BB0",
+      "observed_effect": "Clears the 32-byte player-name buffer, loads Save\\*.dat, selects state 0x2F, clears two selection fields, forwards the selected index through buttonParameter, initializes the list and requests redraw 1. If no entries exist, it clears the name again and switches to state 0x36 with return state 0x2F.",
+      "reachable_states": ["0x2F", "0x36"],
+      "clean_status": "No complete typed screen owner is wired."
+    },
+    {
+      "action": 1,
+      "native_target": "Win32 minimize plus ShellExecuteA",
+      "observed_effect": "Minimizes the game window and invokes ShellExecuteA with verb open and target www.gog.com.",
+      "reachable_states": [],
+      "clean_status": "Typed callback contract exists; production operation remains unwired."
+    },
+    {
+      "action": 2,
+      "native_target": "0x0041F870",
+      "observed_effect": "Selects state 0x3D, loads maps\\*.map, resets the observed list fields, forwards the selected mission through buttonParameter, calls ActivateSelectedMission and requests redraw 1.",
+      "reachable_states": ["0x3D"],
+      "clean_status": "Partial typed list helpers exist; the complete screen is not wired."
+    },
+    {
+      "action": 3,
+      "native_target": "0x004C5920 then state 0x53",
+      "observed_effect": "Reads exactly 0x1DB0 bytes from save\\highscore.jas, counts valid 0x4C-byte records, then selects the high-score window state 0x53.",
+      "reachable_states": ["0x53", "0x00 via right-button release"],
+      "clean_status": "Typed load, drawing contract, scrolling and complete state-0x53 input branch are implemented in game/ui/high_scores.c; production rendering/input binding remains pending."
+    },
+    {
+      "action": 4,
+      "native_target": "PostMessageA(WM_KEYDOWN, VK_ESCAPE)",
+      "observed_effect": "The normal Escape handler stops video, obtains language group 5 entries 0 and 1, and opens modal style 4 in state 0x54. Result 6 sets the close-state byte and result 7 cancels. This is not a direct WM_CLOSE path.",
+      "reachable_states": ["0x54", "0x00 on cancel", "host close state on confirmation"],
+      "clean_status": "Current host direct-close shortcut is known incorrect; modal ownership and binding remain pending."
+    }
+  ],
+  "state_53": {
+    "button_table": "0x005E01D0",
+    "buttons": [
+      {"rect": [576, 96, 34, 34], "callback": "0x004C5400", "action": 0},
+      {"rect": [576, 424, 34, 34], "callback": "0x004C5400", "action": 1}
+    ],
+    "input_order": ["right release returns to state 0x00 and redraw 1", "0x004C57D0 scrollbar drag", "0x00425990 two-button dispatch"],
+    "native_functions": ["0x004C5400", "0x004C5450", "0x004C54C0", "0x004C5660", "0x004C57D0", "0x004C5880", "0x004C5920"]
+  },
+  "clean_checkpoint": {
+    "source": "game/ui/high_scores.c",
+    "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+    "header": "game/include/pharaoh/ui/high_scores.h",
+    "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+    "test": "tests/high_scores_test.c",
+    "test_sha256": "4aad71f187982b71da22475ccbc5d1486b817c8b837e404360aa28fccf5507f0",
+    "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3",
+    "library_sha256": "df3366608678f04b215756eeb3232226842521c866efc170c688e6b01afc2c29",
+    "bootstrap_sha256": "1fc37a9f99fa466deef993c9fa0aa8dff7db4e88e6c051c596e7ee0efe47c8d0",
+    "verification": "Release build and pharaoh_high_scores_test passed; no game process was launched."
+  },
+  "evidence": [
+    "evidence/front-menu-action-callback-20261118.json",
+    "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+    "REA ev_e724bc5a5aa5b941d6e4eb5f172445d78afc8b58d90cfeda1fa714402df533ee: complete 80-byte read at 0x004C5400",
+    "live pinned-EXE REA memory and decompilation session on 2026-11-18"
+  ],
+  "limits": [
+    "Names in existing menu helpers were not used as behavioral authority.",
+    "The immediate action graph is established; the complete nested graphs below states 0x2F, 0x36 and 0x3D still require focused native evidence.",
+    "No original or reconstructed game process was launched."
+  ]
+}

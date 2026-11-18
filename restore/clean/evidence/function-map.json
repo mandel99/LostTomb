@@ -2649,6 +2649,97 @@
       "origin": "Typed port of the startup GetCurrentDirectoryA capture and native 100-byte destination handling.",
       "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
       "known_limitations": "The GetCurrentDirectoryA endpoint and native errno storage are represented by typed caller-owned operations/state; no live host startup wiring is claimed."
+    },
+    {
+      "address": "0x004C5400",
+      "name": "pharaoh_high_scores_scroll_button",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the high-score up/down callback, including action filtering, 20-row bounds and redraw value 2.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_e724bc5a5aa5b941d6e4eb5f172445d78afc8b58d90cfeda1fa714402df533ee",
+      "known_limitations": "Production generic-button dispatch is not yet bound to this owner.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C5450",
+      "name": "pharaoh_high_scores_draw_scroll_thumb",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the 257-pixel high-score scrollbar thumb calculation and sprite placement.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "The sprite draw remains an explicit typed rendering operation awaiting the Windows host binding.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C54C0",
+      "name": "pharaoh_high_scores_draw_rows",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the empty-list message and at-most-20 valid high-score row traversal.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "Language and mission text drawing remain explicit typed operations; the caller must provide the native mission-name table.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C5660",
+      "name": "pharaoh_high_scores_draw_background",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the high-score panel, headers, rows, scrollbar and bottom prompt draw order.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "The typed renderer endpoints are controlled-test operations and are not yet connected to the startup host backbuffer.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C57D0",
+      "name": "pharaoh_high_scores_drag_scrollbar",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the inclusive scrollbar hit box, 257-pixel clamp and first-row percentage update.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "The complete state-0x53 branch is present, but host mouse-state binding is pending.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C5880",
+      "name": "pharaoh_high_scores_read",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of the native fixed-size 0x1DB0-byte high-score table read result.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "File open, binary read and close are represented by one required controlled endpoint; production filesystem binding is pending.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
+    },
+    {
+      "address": "0x004C5920",
+      "name": "pharaoh_high_scores_load",
+      "source": "game/ui/high_scores.c",
+      "origin": "Typed C translation of save\\highscore.jas loading and valid-record counting over the native record count.",
+      "mapping_evidence": "evidence/front-menu-graph-20261118.json",
+      "rea_evidence": "ev_a448a63d1211938392d94f5c50eb8a52663766743a66a1a4ffea6ef6602b944e",
+      "known_limitations": "The front-menu action still requires production binding to call this owner and select window state 0x53.",
+      "source_sha256": "f9642e0e0cf249c5d6be7ec062664403380101b086bbaa43c117263543296325",
+      "header": "game/include/pharaoh/ui/high_scores.h",
+      "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
+      "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
     }
   ]
 }

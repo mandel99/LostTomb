@@ -60,6 +60,7 @@ add_library(pharaoh_game STATIC
     game/ui/industry_panels.c
     game/ui/label_text.c
     game/ui/main_menu.c
+    game/ui/high_scores.c
     game/ui/generic_button_focus.c
     game/ui/generic_button_input.c
     game/ui/button_layout.c
@@ -150,4 +151,16 @@ if(BUILD_TESTING)
     endif()
     add_test(NAME pharaoh_startup_asset_loading_test
         COMMAND pharaoh_startup_asset_loading_test)
+
+    add_executable(pharaoh_high_scores_test
+        tests/high_scores_test.c)
+    target_link_libraries(pharaoh_high_scores_test PRIVATE pharaoh_game)
+    if(MSVC)
+        target_compile_options(pharaoh_high_scores_test PRIVATE /W4 /WX)
+    else()
+        target_compile_options(pharaoh_high_scores_test PRIVATE
+            -Wall -Wextra -Wpedantic -Werror)
+    endif()
+    add_test(NAME pharaoh_high_scores_test
+        COMMAND pharaoh_high_scores_test)
 endif()
