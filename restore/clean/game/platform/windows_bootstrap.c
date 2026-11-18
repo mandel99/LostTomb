@@ -48,6 +48,10 @@ static LRESULT CALLBACK bootstrap_window_proc(HWND window, UINT message,
     if (dispatcher_bound != 0) {
         pharaoh_windows_startup_dispatch_mouse(&startup_dispatch,
             message, lparam);
+        if (message == WM_KEYDOWN && wparam == VK_ESCAPE) {
+            pharaoh_windows_startup_dispatch_escape(&startup_dispatch);
+            return 0;
+        }
     }
     if (message == WM_SIZE) {
         idle_blocked = wparam == SIZE_MINIMIZED;
@@ -55,6 +59,9 @@ static LRESULT CALLBACK bootstrap_window_proc(HWND window, UINT message,
     if (message == WM_CLOSE) {
         startup_host.shutdown_requested = 1;
         (void)DestroyWindow(window);
+        /* A failed/delayed destruction must not leave the Miles stream and
+           frame loop alive without a visible top-level window. */
+        PostQuitMessage(0);
         return 0;
     }
     if (message == WM_WINDOWPOSCHANGED &&
