@@ -37,7 +37,7 @@
       "native_target": "0x0041F870",
       "observed_effect": "Selects state 0x3D, loads maps\\*.map, resets the observed list fields, forwards the selected mission through buttonParameter, calls ActivateSelectedMission and requests redraw 1.",
       "reachable_states": ["0x3D"],
-      "clean_status": "Partial typed list helpers exist; the complete screen is not wired."
+      "clean_status": "Root click loads and draws the sorted custom-map list with native arrow and scrollbar ranges; row activation, preview loading, and remaining state-0x3D return/action wiring are pending."
     },
     {
       "action": 3,
@@ -51,9 +51,33 @@
       "native_target": "PostMessageA(WM_KEYDOWN, VK_ESCAPE)",
       "observed_effect": "The normal Escape handler stops video, obtains language group 5 entries 0 and 1, and opens modal style 4 in state 0x54. Result 6 sets the close-state byte and result 7 cancels. This is not a direct WM_CLOSE path.",
       "reachable_states": ["0x54", "0x00 on cancel", "host close state on confirmation"],
-      "clean_status": "Current host direct-close shortcut is known incorrect; modal ownership and binding remain pending."
+      "clean_status": "Typed Escape decision, message-box draw/selection and modal loop owners are implemented; production rendering/input binding remains pending and the current host direct-close shortcut is still not used as evidence."
     }
   ],
+  "state_3d": {
+    "map_mode_zero": {
+      "row_callback": "0x0041F670; copies the selected maps\\*.map basename and calls 0x004D5820(name, 1) for preview",
+      "preview_loader": "Saved typed pseudocode at 0x004D5820 opens the supplied file with flags 0x8000, calls 0x004D4AE0 to parse it, closes the handle through 0x005647EB, and skips the param_2==0 initialization branch. No typed clean C owner for 0x004D4AE0 was found.",
+      "scroll_callback": "0x0041F460; parameter 0 decrements first-visible, parameter 1 increments it",
+      "scrollbar_callback": "0x0041F4D0; custom-map bounds and integer percentage are implemented in game/ui/custom_map_selection.c",
+      "back_callback": "0x0041F650 -> 0x004CB6A0 -> window 0x30",
+      "start_callback": "0x0041F5C0; pointer observed, body unavailable in current Ghidra analysis",
+      "prior_c_candidate": {
+        "source": "PH Local Decompile/reused/restore/artifacts/settings_callbacks_phase/runtime/mission_menu.c",
+        "function": "FUN_0041F5C0",
+        "candidate_flow": "stops sound, classifies selected mission, invokes FUN_005405B0, then branches through FUN_004181E0 or state 0x01",
+        "limitation": "raw global aliases and unresolved Original/FUN dependencies; not a complete typed C owner and not used as behavior authority"
+      }
+    },
+    "mode_zero_control_table": "0x0057CC30",
+    "buttons": [
+      {"rect": [282, 215, 34, 34], "callback": "0x0041F460", "parameter": 0},
+      {"rect": [282, 435, 34, 34], "callback": "0x0041F460", "parameter": 1},
+      {"rect": [335, 440, 27, 27], "callback": "0x0041F650", "parameter": 1},
+      {"rect": [600, 440, 27, 27], "callback": "0x0041F5C0", "parameter": 1}
+    ],
+    "clean_status": "List loading, drawing, arrow scrolling and drag scrolling are wired. Row preview, back-to-0x30 screen handling and start remain incomplete."
+  },
   "state_53": {
     "button_table": "0x005E01D0",
     "buttons": [
@@ -62,6 +86,11 @@
     ],
     "input_order": ["right release returns to state 0x00 and redraw 1", "0x004C57D0 scrollbar drag", "0x00425990 two-button dispatch"],
     "native_functions": ["0x004C5400", "0x004C5450", "0x004C54C0", "0x004C5660", "0x004C57D0", "0x004C5880", "0x004C5920"]
+  },
+  "state_54": {
+    "native_functions": ["0x00538920", "0x00538940", "0x00538CD0"],
+    "style_4_results": [6, 7],
+    "clean_owner": "game/ui/message_box.c"
   },
   "clean_checkpoint": {
     "source": "game/ui/high_scores.c",
@@ -79,11 +108,15 @@
     "evidence/front-menu-action-callback-20261118.json",
     "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
     "REA ev_e724bc5a5aa5b941d6e4eb5f172445d78afc8b58d90cfeda1fa714402df533ee: complete 80-byte read at 0x004C5400",
+    "REA ev_24cd74a32f87d75f7e21eef84216009177e3cdcd5fb2bda2fbfb6ecbde39bf9a: complete 144-byte control-table read at 0x0057CC30",
+    "REA ev_f266207eaf49c038064e3462e2846f6e7763ca9b85b79f6abf8e28ba17701702: complete custom-map row-table read at 0x0057CDB8",
+    "REA ev_6a2b0a6c4301582aa0daf0add84daae68fa079319a83f5330c2555781a388d30: complete code-byte read at 0x0041F5C0",
+    "REA ev_b830a34788f7f76530a4929d0e5f80d9bd74f3d72b5431a4882cd8755db3d3ce: Ghidra reports no procedure at 0x0041F5C0",
     "live pinned-EXE REA memory and decompilation session on 2026-11-18"
   ],
   "limits": [
     "Names in existing menu helpers were not used as behavioral authority.",
-    "The immediate action graph is established; the complete nested graphs below states 0x2F, 0x36 and 0x3D still require focused native evidence.",
+    "States 0x2F, 0x36 and 0x3D remain incomplete; 0x3D row activation still depends on the untranslated map-preview loader and unimplemented return/action controls.",
     "No original or reconstructed game process was launched."
   ]
 }
