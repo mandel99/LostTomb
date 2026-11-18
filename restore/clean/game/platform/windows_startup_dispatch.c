@@ -54,6 +54,15 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->transition.input = &dispatch->input;
     dispatch->transition.video = &dispatch->video;
     dispatch->video.redraw_requested = &host->graphics.redraw_requested;
+    dispatch->high_scores.origin_x = (host->graphics.render_width - 640) / 2;
+    dispatch->high_scores.origin_y = (host->graphics.render_height - 480) / 2;
+    dispatch->high_scores.title_font = 640;
+    dispatch->high_scores.normal_font = 635;
+    dispatch->high_scores.small_font = 634;
+    dispatch->high_scores.empty_font = 636;
+    dispatch->high_scores.redraw_request = &host->graphics.redraw_requested;
+    dispatch->high_scores.current_window_id =
+        &dispatch->refresh.current_window_id;
     dispatch->video.graphics_refresh_state = &dispatch->refresh;
     dispatch->video.graphics_refresh_operations = &dispatch->refresh_operations;
     dispatch->video.display_surface_format =
