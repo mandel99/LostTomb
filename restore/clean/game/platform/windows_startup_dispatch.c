@@ -3,6 +3,7 @@
 
 #include <windowsx.h>
 #include <shellapi.h>
+#include <stdio.h>
 #include <string.h>
 
 static const PharaohMenuRect player_selection_rects[16] = {
@@ -314,6 +315,16 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             } else if (focused >= 1 && focused <= 12) {
                 if (pharaoh_player_selection_select_visible(
                         &dispatch->player_selection, focused - 1) != 0) {
+                    char profile_path[64];
+                    (void)snprintf(profile_path, sizeof(profile_path),
+                        "save\\%s.dat",
+                        dispatch->player_selection.player_name);
+                    (void)pharaoh_campaign_profile_load(
+                        &dispatch->host->files, &dispatch->host->campaign,
+                        dispatch->host->campaign_profile_suffix, profile_path);
+                    dispatch->refresh.current_window_id = 0;
+                    dispatch->host->current_window_id = 0;
+                    dispatch->menu_focused_button = 0;
                     dispatch->host->graphics.redraw_requested = 1;
                 }
             } else if (focused == 16) {

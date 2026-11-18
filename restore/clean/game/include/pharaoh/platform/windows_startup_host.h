@@ -16,6 +16,7 @@
 #include "pharaoh/runtime/status_log_format.h"
 #include "pharaoh/scenario/campaign_start.h"
 #include "pharaoh/scenario/campaign_file.h"
+#include "pharaoh/scenario/campaign_profile_load.h"
 #include "pharaoh/ui/high_scores.h"
 #include "pharaoh/ui/player_selection.h"
 #include "pharaoh/ui/custom_map_selection.h"
@@ -77,6 +78,7 @@ typedef struct PharaohWindowsStartupHost {
     PharaohEnemyModelTable enemy_models;
     PharaohTaxSentimentModel tax_model;
     PharaohCampaign campaign;
+    uint16_t campaign_profile_suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS];
     char startup_model_mismatch_text[160];
     PharaohSpriteLibraryResetState *loaded_libraries;
     PharaohSpriteImageRecord *sprite_images;

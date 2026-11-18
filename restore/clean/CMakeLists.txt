@@ -137,6 +137,7 @@ add_library(pharaoh_game STATIC
     game/runtime/settings_default_names.c
     game/scenario/campaign_start.c
     game/scenario/campaign_mission_load.c
+    game/scenario/campaign_profile_load.c
     game/scenario/campaign_availability.c
     game/scenario/campaign_file.c
     game/simulation/finance_calendar.c
@@ -333,6 +334,19 @@ if(BUILD_TESTING)
     endif()
     add_test(NAME pharaoh_main_menu_open_test
         COMMAND pharaoh_main_menu_open_test)
+
+    add_executable(pharaoh_campaign_profile_load_test
+        tests/campaign_profile_load_test.c
+    )
+    target_link_libraries(pharaoh_campaign_profile_load_test PRIVATE pharaoh_game)
+    if(MSVC)
+        target_compile_options(pharaoh_campaign_profile_load_test PRIVATE /W4 /WX)
+    else()
+        target_compile_options(pharaoh_campaign_profile_load_test PRIVATE
+            -Wall -Wextra -Wpedantic -Werror)
+    endif()
+    add_test(NAME pharaoh_campaign_profile_load_test
+        COMMAND pharaoh_campaign_profile_load_test)
 
     add_executable(pharaoh_startup_geometry_test
         tests/startup_geometry_test.c)
