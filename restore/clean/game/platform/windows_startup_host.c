@@ -393,8 +393,10 @@ static void draw_sprite_pixels(void *user_data, uint32_t image_id,
         return;
     }
     image = &host->sprite_images[image_id];
+    /* Native type 10 (00410FB0) copies an opaque 16x16 tile. General.sg3
+       outer/inner panels use it; the normal raw path below is equivalent. */
     if (image->width <= 0 || image->height <= 0 ||
-        (image->draw_type != 0 && image->draw_type != 1 && image->draw_type != 20 &&
+        (image->draw_type != 0 && image->draw_type != 1 && image->draw_type != 10 && image->draw_type != 20 &&
          (image->draw_type != 30 || image->has_isometric_top != 0)) ||
         image->library_index >= PHARAOH_SPRITE_LIBRARY_COUNT) {
         return;
