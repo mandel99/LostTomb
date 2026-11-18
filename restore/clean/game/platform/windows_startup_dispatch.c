@@ -776,6 +776,20 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             (dispatch->host->graphics.render_width - 640) / 2;
         const int32_t origin_y =
             (dispatch->host->graphics.render_height - 480) / 2;
+        const int32_t list_top = origin_y +
+            (dispatch->custom_map_selection.visible_rows == 13 ? 252 : 220);
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            dispatch->input.mouse_x >= origin_x + 15 &&
+            dispatch->input.mouse_x < origin_x + 271 &&
+            dispatch->input.mouse_y >= list_top &&
+            dispatch->input.mouse_y < list_top +
+                dispatch->custom_map_selection.visible_rows * 16 &&
+            pharaoh_custom_map_selection_select_visible(
+                &dispatch->custom_map_selection,
+                (dispatch->input.mouse_y - list_top) / 16) != 0) {
+            dispatch->host->graphics.redraw_requested = 1;
+        }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
             dispatch->input.mouse_x >= origin_x + 282 &&
