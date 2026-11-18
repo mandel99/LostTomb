@@ -147,6 +147,7 @@ add_library(pharaoh_game STATIC
     game/ui/industry_panels.c
     game/ui/label_text.c
     game/ui/main_menu.c
+    game/ui/menu_button_frame.c
     game/ui/main_menu_action.c
     game/ui/custom_map_selection.c
     game/ui/player_selection.c
@@ -419,6 +420,18 @@ if(BUILD_TESTING)
             -Wall -Wextra -Wpedantic -Werror)
     endif()
     add_test(NAME pharaoh_message_box_test COMMAND pharaoh_message_box_test)
+
+    add_executable(pharaoh_menu_button_frame_test
+        tests/menu_button_frame_test.c)
+    target_link_libraries(pharaoh_menu_button_frame_test PRIVATE pharaoh_game)
+    if(MSVC)
+        target_compile_options(pharaoh_menu_button_frame_test PRIVATE /W4 /WX)
+    else()
+        target_compile_options(pharaoh_menu_button_frame_test PRIVATE
+            -Wall -Wextra -Wpedantic -Werror)
+    endif()
+    add_test(NAME pharaoh_menu_button_frame_test
+        COMMAND pharaoh_menu_button_frame_test)
 
     add_executable(pharaoh_front_menu_exit_test tests/front_menu_exit_test.c)
     target_link_libraries(pharaoh_front_menu_exit_test PRIVATE pharaoh_game)
