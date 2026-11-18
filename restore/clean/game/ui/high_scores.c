@@ -1,5 +1,7 @@
 #include "pharaoh/ui/high_scores.h"
 
+#include <stddef.h>
+
 enum {
     HIGH_SCORE_GROUP = 296,
     DIFFICULTY_GROUP = 153,
@@ -28,6 +30,19 @@ _Static_assert(sizeof(PharaohHighScoreRecord) == 0x4c,
     "native high-score record size");
 _Static_assert(sizeof(((PharaohHighScoresState *)0)->records) == 0x1db0,
     "native high-score table size");
+_Static_assert(offsetof(PharaohCampaign, mission_names) == 0x1904 &&
+    offsetof(PharaohCampaign, mission_name_count) == 0x2c8c,
+    "native high-score mission catalog offsets");
+_Static_assert(0x006ff60c + offsetof(PharaohCampaign, mission_name_count) -
+    offsetof(PharaohCampaign, mission_names) == 0x00700994,
+    "native high-score mission count address");
+
+void pharaoh_high_scores_bind_campaign(PharaohHighScoresState *state,
+    const PharaohCampaign *campaign)
+{
+    state->mission_names = campaign->mission_names;
+    state->record_count = campaign->mission_name_count;
+}
 
 static int32_t clamped_record_count(const PharaohHighScoresState *state)
 {

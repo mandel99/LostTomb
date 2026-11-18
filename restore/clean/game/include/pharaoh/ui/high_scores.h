@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "pharaoh/scenario/campaign_file.h"
 
 enum {
     PHARAOH_HIGH_SCORE_CAPACITY = 100,
@@ -71,6 +72,9 @@ int32_t pharaoh_high_scores_read(PharaohHighScoresState *state,
     const PharaohHighScoresOperations *operations, const char *path);
 int32_t pharaoh_high_scores_load(PharaohHighScoresState *state,
     const PharaohHighScoresOperations *operations, const char *path);
+/* Native high-score rows share the campaign mission-name table and count. */
+void pharaoh_high_scores_bind_campaign(PharaohHighScoresState *state,
+    const PharaohCampaign *campaign);
 
 /* Native 0x004C5400, 0x004C5450, 0x004C54C0 and 0x004C5660. */
 void pharaoh_high_scores_scroll_button(PharaohHighScoresState *state,
