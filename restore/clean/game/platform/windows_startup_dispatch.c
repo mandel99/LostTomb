@@ -147,10 +147,12 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->menu_focused_button = focused;
         }
         if (focused == PHARAOH_MENU_BUTTON_COUNT &&
-            dispatch->left_pressed_this_frame != 0) {
+            dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0) {
             (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
                 WM_KEYDOWN, VK_ESCAPE, 0);
-        } else if (focused == 2 && dispatch->left_pressed_this_frame != 0) {
+        } else if (focused == 2 && dispatch->left_pressed_this_frame != 0 &&
+                dispatch->left_press_window == 0) {
             HWND window = (HWND)dispatch->host->window_startup.window.window;
             (void)ShowWindow(window, SW_MINIMIZE);
             (void)ShellExecuteA(window, "open", "www.gog.com", NULL, NULL,
@@ -203,6 +205,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
     dispatch->input.mouse_right_went_up = 0;
     dispatch->input.video_input_flag_a = 0;
     dispatch->input.video_input_flag_b = 0;
+    dispatch->left_pressed_this_frame = 0;
     pharaoh_graphics_refresh_screen(&dispatch->refresh,
         &dispatch->refresh_operations, 0);
 }
