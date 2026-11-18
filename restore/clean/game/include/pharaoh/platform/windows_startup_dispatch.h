@@ -6,6 +6,7 @@
 #include "pharaoh/runtime/startup_window_transition.h"
 #include "pharaoh/ui/high_scores.h"
 #include "pharaoh/ui/main_menu_open.h"
+#include "pharaoh/ui/message_box.h"
 
 typedef struct PharaohWindowsStartupDispatch {
     PharaohWindowsStartupHost *host;
@@ -22,6 +23,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohHighScoresState high_scores;
     PharaohHighScoresOperations high_scores_operations;
     PharaohMainMenuWindowState main_menu_window;
+    PharaohMessageBoxState exit_message_box;
     PharaohFileList player_profile_files;
     PharaohPlayerSelectionState player_selection;
     PharaohFileList custom_map_files;
@@ -30,12 +32,21 @@ typedef struct PharaohWindowsStartupDispatch {
     int32_t mouse_x_ui, mouse_y_ui, input_mode, dialog_active;
     uint8_t left_press_active, right_press_active;
     uint8_t left_press_window, right_press_window;
-    uint8_t left_pressed_this_frame;
+    uint8_t left_pressed_this_frame, right_pressed_this_frame;
+    uint8_t mouse_button_state;
+    uint8_t exit_message_box_active, exit_post_close_requested;
     uint8_t front_menu_action_active, save_selection_mode;
     uint32_t front_menu_action_reset, continue_campaign_pending;
+    uint32_t menu_selection_flag_605a3c, menu_field_7027ac;
+    uint32_t menu_field_7027b0, menu_campaign_mode_6fdc98;
+    uint32_t menu_campaign_mode_e38ebc, menu_map_mode_704dac;
+    uint32_t menu_map_changed_704db0, menu_load_return_window;
+    uint8_t menu_selection_flag_6de515;
+    uint32_t message_box_display_unavailable, message_box_display_ready;
     uint32_t campaign_flow_mode, scenario_menu_changed;
     uint32_t new_campaign_field_a, new_campaign_field_b;
     int32_t menu_focused_button;
+    int32_t main_menu_focused_button;
     int32_t player_selection_focused_button;
 } PharaohWindowsStartupDispatch;
 
@@ -48,5 +59,7 @@ void pharaoh_windows_startup_dispatch_close(
 void pharaoh_windows_startup_dispatch_frame(void *user_data);
 void pharaoh_windows_startup_dispatch_mouse(
     PharaohWindowsStartupDispatch *dispatch, UINT message, LPARAM lparam);
+void pharaoh_windows_startup_dispatch_escape(
+    PharaohWindowsStartupDispatch *dispatch);
 
 #endif

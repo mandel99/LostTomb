@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "pharaoh/runtime/file_extension_operations.h"
+#include "pharaoh/ui/menu_button_frame.h"
 
 enum {
     PLAYER_SELECTION_TEXT_GROUP = 292,
@@ -33,9 +34,7 @@ enum {
     PLAYER_SELECTION_SCROLL_THUMB_Y = 145,
     PLAYER_SELECTION_SCROLL_RANGE = 0x82,
     PLAYER_SELECTION_SCROLLBAR_THUMB_OFFSET = 0x27,
-    PLAYER_SELECTION_BUTTON_COUNT = 4,
-    PLAYER_SELECTION_BUTTON_WIDTH_BLOCKS = 8,
-    PLAYER_SELECTION_BUTTON_HEIGHT_BLOCKS = 2
+    PLAYER_SELECTION_BUTTON_COUNT = 4
 };
 
 typedef struct PharaohPlayerSelectionButtonDraw {
@@ -187,16 +186,17 @@ void pharaoh_player_selection_draw(
         const int32_t focus_index = 13 + index;
         const int32_t image_base = operations->button_image_base +
             (focused_button == focus_index ? 8 : 0);
-        const PharaohPanelFrameOperations button_frame = {
-            operations->user_data, operations->draw_sprite, image_base, 0
+        const PharaohMenuButtonFrameOperations button_frame = {
+            operations->user_data, operations->draw_sprite
         };
         const PharaohPlayerSelectionButtonDraw *const button =
             &player_selection_buttons[index];
 
-        pharaoh_panel_frame_draw(&button_frame,
+        pharaoh_menu_button_frame_draw(&button_frame, image_base,
             origin_x + button->left, origin_y + button->top,
-            PLAYER_SELECTION_BUTTON_WIDTH_BLOCKS,
-            PLAYER_SELECTION_BUTTON_HEIGHT_BLOCKS);
+            button->right - button->left,
+            button->bottom - button->top,
+            focused_button == focus_index);
         operations->draw_language(operations->user_data,
             PLAYER_SELECTION_TEXT_GROUP, button->label,
             origin_x + button->left + 4, origin_y + button->top + 7,

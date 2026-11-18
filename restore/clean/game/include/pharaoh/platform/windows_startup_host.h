@@ -18,6 +18,8 @@
 #include "pharaoh/scenario/campaign_file.h"
 #include "pharaoh/scenario/campaign_profile_load.h"
 #include "pharaoh/ui/high_scores.h"
+#include "pharaoh/ui/main_menu_open.h"
+#include "pharaoh/ui/message_box.h"
 #include "pharaoh/ui/player_selection.h"
 #include "pharaoh/ui/custom_map_selection.h"
 #include "pharaoh/platform/windows_startup_files.h"
@@ -164,9 +166,15 @@ void pharaoh_windows_startup_host_draw_boot_foreground(
 void pharaoh_windows_startup_host_draw_player_selection(
     PharaohWindowsStartupHost *host,
     const PharaohPlayerSelectionState *selection, int32_t focused_button);
+void pharaoh_windows_startup_host_draw_main_menu(
+    PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
+    int32_t focused_button);
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection);
+int32_t pharaoh_windows_startup_host_draw_message_box(
+    PharaohWindowsStartupHost *host, PharaohMessageBoxState *state,
+    const char *title, const char *body, uint32_t type);
 void pharaoh_windows_startup_host_bind_high_scores(
     PharaohWindowsStartupHost *host, PharaohHighScoresOperations *operations);
 

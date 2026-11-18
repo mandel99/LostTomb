@@ -1,5 +1,6 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
 #include "pharaoh/ui/front_menu_action.h"
+#include "pharaoh/ui/main_menu.h"
 
 #include <windowsx.h>
 #include <shellapi.h>
@@ -77,6 +78,146 @@ static void front_menu_request_exit(void *user_data)
         WM_KEYDOWN, VK_ESCAPE, 0);
 }
 
+static void exit_box_stop_video(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    if (dispatch->transition.video->playback_active != 0) {
+        pharaoh_smacker_window_video_stop(dispatch->transition.video,
+            &dispatch->movie_stop);
+    }
+}
+
+static const char *exit_box_select_text(void *user_data, int32_t group,
+    int32_t entry)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    pharaoh_text_select(&dispatch->host->text_selection, group, entry);
+    return dispatch->host->text_selection.current;
+}
+
+static int32_t exit_box_has_message(void *user_data)
+{
+    MSG message;
+    (void)user_data;
+    return PeekMessageA(&message, NULL, 0, 0, PM_NOREMOVE) != 0;
+}
+
+static int32_t exit_box_get_dispatch_message(void *user_data)
+{
+    MSG message;
+    (void)user_data;
+    if (GetMessageA(&message, NULL, 0, 0) <= 0) return 0;
+    (void)TranslateMessage(&message);
+    (void)DispatchMessageA(&message);
+    return 1;
+}
+
+static void exit_box_wait_message(void *user_data)
+{
+    (void)user_data;
+    (void)WaitMessage();
+}
+
+static int32_t exit_box_run_frame(void *user_data, const char *title,
+    const char *body, uint32_t type)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    PharaohMessageBoxState *const box = &dispatch->exit_message_box;
+    PharaohMenuRect button_rects[PHARAOH_MESSAGE_BOX_MAX_BUTTONS];
+    PharaohGenericButtonFocusState focus_state = { 0 };
+    int32_t index;
+
+    box->focused_button = 0;
+    (void)pharaoh_windows_startup_host_draw_message_box(dispatch->host, box,
+        title, body, type);
+    for (index = 0; index < box->button_count; ++index) {
+        button_rects[index].left = box->buttons[index].left;
+        button_rects[index].top = box->buttons[index].top;
+        button_rects[index].right = box->buttons[index].right;
+        button_rects[index].bottom = box->buttons[index].bottom;
+    }
+    box->focused_button = pharaoh_generic_buttons_get_focus(
+        0, 0, button_rects, box->button_count, dispatch->input.mouse_x,
+        dispatch->input.mouse_y, &focus_state);
+    if (box->focused_button != 0 &&
+        dispatch->left_pressed_this_frame != 0 &&
+        dispatch->left_press_window == 0x54) {
+        pharaoh_message_box_select(box, box->focused_button - 1);
+    }
+    dispatch->left_pressed_this_frame = 0;
+    dispatch->input.mouse_left_went_up = 0;
+    dispatch->input.mouse_right_went_up = 0;
+    (void)pharaoh_windows_startup_host_draw_message_box(dispatch->host, box,
+        title, body, type);
+    pharaoh_windows_startup_host_present_frame(dispatch->host);
+    return box->activated != 0 ?
+        box->buttons[box->selected_index].result : -1;
+}
+
+static void exit_box_post_close(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
+        WM_CLOSE, 0, 0);
+}
+
+static int32_t front_menu_show_exit_box(void *user_data, const char *title,
+    const char *body, uint32_t type)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    PharaohMessageBoxState *const box = &dispatch->exit_message_box;
+    PharaohMessageBoxModalState state;
+    const PharaohMessageBoxModalOperations operations = {
+        dispatch, exit_box_has_message, exit_box_get_dispatch_message,
+        exit_box_wait_message, exit_box_run_frame, exit_box_post_close
+    };
+    int32_t result;
+
+    memset(box, 0, sizeof(*box));
+    box->screen_width = dispatch->host->graphics.render_width;
+    box->screen_height = dispatch->host->graphics.render_height;
+    /* These variants are also the menu's measured/normal/large draw fonts. */
+    box->title_font = 640;
+    box->body_font = 635;
+    box->title_draw_font = 641;
+    state.box = box;
+    state.current_window_id = &dispatch->refresh.current_window_id;
+    state.redraw_request = &dispatch->host->graphics.redraw_requested;
+    state.post_close_requested = &dispatch->exit_post_close_requested;
+    state.display_unavailable = &dispatch->message_box_display_unavailable;
+    state.display_ready = &dispatch->message_box_display_ready;
+    dispatch->exit_message_box_active = 1;
+    dispatch->message_box_display_unavailable = 0;
+    dispatch->message_box_display_ready = 1;
+    dispatch->host->current_window_id = 0x54;
+    result = pharaoh_message_box_show(&state, &operations, title, body, type);
+    dispatch->exit_message_box_active = 0;
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+    return result;
+}
+
+static void front_menu_confirm_exit(PharaohWindowsStartupDispatch *dispatch)
+{
+    PharaohFrontMenuExitState state = {
+        &dispatch->mouse_button_state,
+        &dispatch->exit_post_close_requested,
+        &dispatch->host->graphics.redraw_requested
+    };
+    const PharaohFrontMenuExitOperations operations = {
+        dispatch, exit_box_stop_video, exit_box_select_text,
+        exit_box_select_text, front_menu_show_exit_box
+    };
+    pharaoh_front_menu_confirm_exit(&state, &operations);
+    if (dispatch->exit_post_close_requested != 0) {
+        dispatch->exit_post_close_requested = 0;
+        (void)PostMessageA((HWND)dispatch->host->window_startup.window.window,
+            WM_CLOSE, 0, 0);
+    }
+    dispatch->left_press_active = 0;
+    dispatch->right_press_active = 0;
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+}
+
 static PharaohReadOnlyFile *main_menu_open_file(void *user_data,
     const char *filename, const char *mode)
 {
@@ -129,6 +270,89 @@ static void open_selected_player_menu(
         dispatch->main_menu_window.active_window;
     dispatch->host->current_window_id =
         dispatch->main_menu_window.active_window;
+}
+
+static void main_menu_stop_sound(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    pharaoh_digital_sound_stream_close(&dispatch->host->sound.state, 0,
+        &dispatch->host->sound.stream_operations);
+}
+
+static int32_t main_menu_has_campaign_history(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    return pharaoh_campaign_any_mission_played(
+        &dispatch->host->campaign.index);
+}
+
+static int32_t main_menu_confirm_campaign_restart(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    const char *const title = exit_box_select_text(dispatch, 5, 142);
+    const char *const body = exit_box_select_text(dispatch, 5, 141);
+    return front_menu_show_exit_box(dispatch, title, body, 4);
+}
+
+static void main_menu_open_map_selection(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    if (dispatch->menu_map_mode_704dac == 2) {
+        (void)pharaoh_campaign_mission_selection_load(
+            &dispatch->custom_map_selection, &dispatch->host->campaign);
+    } else if (dispatch->menu_map_mode_704dac == 3) {
+        (void)pharaoh_custom_map_selection_load(
+            &dispatch->custom_map_selection);
+    }
+    dispatch->refresh.current_window_id = 0x3d;
+    dispatch->host->current_window_id = 0x3d;
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void main_menu_open_saved_game_dialog(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    dispatch->refresh.current_window_id = 0x0d;
+    dispatch->host->current_window_id = 0x0d;
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void dispatch_main_menu_action(
+    PharaohWindowsStartupDispatch *dispatch, int32_t action)
+{
+    PharaohMainMenuActionState state = { 0 };
+    const PharaohMainMenuActionOperations operations = {
+        dispatch, main_menu_stop_sound, NULL,
+        main_menu_has_campaign_history, main_menu_confirm_campaign_restart,
+        main_menu_open_map_selection, main_menu_open_saved_game_dialog,
+        front_menu_open_player_selection
+    };
+    const PharaohMainMenuActionContext context = {
+        &state, &operations, dispatch->host->campaign.saved_game_path
+    };
+
+    /* Loading an existing selected save requires the native save-state reader,
+       which has no typed owner in restore/clean yet. */
+    if (action == 0 &&
+        dispatch->main_menu_window.selected_save_available != 0) return;
+
+    state.window_state = &dispatch->main_menu_window;
+    state.current_window_id = &dispatch->refresh.current_window_id;
+    state.redraw_requested = &dispatch->host->graphics.redraw_requested;
+    state.selection_flag_605a3c = &dispatch->menu_selection_flag_605a3c;
+    state.selection_flag_6de515 = &dispatch->menu_selection_flag_6de515;
+    state.main_menu_field_7027ac = &dispatch->menu_field_7027ac;
+    state.main_menu_field_7027b0 = &dispatch->menu_field_7027b0;
+    state.campaign_mode_6fdc98 = &dispatch->menu_campaign_mode_6fdc98;
+    state.campaign_mode_e38ebc = &dispatch->menu_campaign_mode_e38ebc;
+    state.map_mode_704dac = &dispatch->menu_map_mode_704dac;
+    state.map_changed_704db0 = &dispatch->menu_map_changed_704db0;
+    state.load_dialog_return_window = &dispatch->menu_load_return_window;
+    pharaoh_main_menu_dispatch_action(&context, action);
+    if (action == 4 && dispatch->player_profile_files.count == 0) {
+        dispatch->refresh.current_window_id = 0x36;
+    }
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
 }
 
 static void dispatch_front_menu_action(
@@ -209,7 +433,8 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->high_scores.normal_font = 635;
     dispatch->high_scores.small_font = 634;
     dispatch->high_scores.empty_font = 636;
-    dispatch->high_scores.panel_image_base = 0;
+    dispatch->high_scores.panel_image_base =
+        (int32_t)host->sprite_tags[284].image_index;
     dispatch->high_scores.redraw_request = &host->graphics.redraw_requested;
     dispatch->high_scores.current_window_id =
         &dispatch->refresh.current_window_id;
@@ -257,6 +482,7 @@ void pharaoh_windows_startup_dispatch_mouse(
         dispatch->left_press_active = 1;
         dispatch->left_press_window = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 1;
+        dispatch->mouse_button_state = 0xf1;
         if (dispatch->host != NULL &&
             dispatch->host->settings.sound_effects_enabled != 0) {
             pharaoh_windows_sound_button(&dispatch->host->sound,
@@ -266,6 +492,7 @@ void pharaoh_windows_startup_dispatch_mouse(
     if (message == WM_RBUTTONDOWN) {
         dispatch->right_press_active = 1;
         dispatch->right_press_window = dispatch->refresh.current_window_id;
+        dispatch->mouse_button_state = 0xf3;
     }
     if (message == WM_LBUTTONUP) {
         if (dispatch->left_press_active != 0 &&
@@ -274,6 +501,7 @@ void pharaoh_windows_startup_dispatch_mouse(
             dispatch->input.video_input_flag_a = 1;
         }
         dispatch->left_press_active = 0;
+        dispatch->mouse_button_state = 0xf2;
     }
     if (message == WM_RBUTTONUP) {
         if (dispatch->right_press_active != 0 &&
@@ -282,7 +510,18 @@ void pharaoh_windows_startup_dispatch_mouse(
             dispatch->input.video_input_flag_b = 1;
         }
         dispatch->right_press_active = 0;
+        dispatch->mouse_button_state = 0xf0;
     }
+}
+
+void pharaoh_windows_startup_dispatch_escape(
+    PharaohWindowsStartupDispatch *dispatch)
+{
+    if (dispatch == NULL || dispatch->refresh.current_window_id != 0 ||
+        dispatch->exit_message_box_active != 0) {
+        return;
+    }
+    front_menu_confirm_exit(dispatch);
 }
 
 void pharaoh_windows_startup_dispatch_frame(void *user_data)
@@ -321,6 +560,37 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         pharaoh_graphics_refresh_screen(&dispatch->refresh,
             &dispatch->refresh_operations, 0);
         return;
+    }
+    if (dispatch->refresh.current_window_id == 0x30) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        PharaohGenericButtonFocusState focus_state = { 0 };
+        const int32_t focused = pharaoh_generic_buttons_get_focus(
+            origin_x, origin_y, pharaoh_game_menu_rects,
+            PHARAOH_MENU_BUTTON_COUNT, dispatch->input.mouse_x,
+            dispatch->input.mouse_y, &focus_state);
+        if (focused != dispatch->main_menu_focused_button ||
+            dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_main_menu(dispatch->host,
+                &dispatch->main_menu_window, focused);
+            dispatch->main_menu_focused_button = focused;
+        }
+        if (focused > 0 && dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x30) {
+            dispatch_main_menu_action(dispatch, focused - 1);
+        }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        if (dispatch->refresh.current_window_id == 0x30) {
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations, 0);
+            return;
+        }
     }
     if (dispatch->refresh.current_window_id == 0x2f) {
         const int32_t origin_x =

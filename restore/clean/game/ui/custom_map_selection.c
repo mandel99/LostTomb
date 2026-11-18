@@ -7,6 +7,7 @@ int32_t pharaoh_custom_map_selection_load(
 {
     (void)pharaoh_file_list_load(state->files, custom_map_pattern, 0);
     pharaoh_file_list_sort(state->files);
+    state->selected_file = 0;
     state->first_visible_file = 0;
     return state->files->count;
 }

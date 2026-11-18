@@ -8,6 +8,8 @@
 #include "pharaoh/ui/main_menu.h"
 #include "pharaoh/ui/bitmap_font.h"
 #include "pharaoh/ui/panel_frame.h"
+#include "pharaoh/ui/menu_button_frame.h"
+#include "pharaoh/rendering/primitives.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -19,6 +21,11 @@
 #include <share.h>
 
 enum {
+    PHARAOH_IMAGE_GROUP_PANEL_BUTTON = 284,
+    PHARAOH_IMAGE_GROUP_PLAYER_BACKGROUND = 29,
+    PHARAOH_IMAGE_GROUP_BORDERED_BUTTON = 443,
+    PHARAOH_IMAGE_GROUP_OUTER_PANEL = 401,
+    PHARAOH_IMAGE_GROUP_INNER_PANEL = 402,
     PHARAOH_STARTUP_LOADING_FIRST_RUNTIME_IMAGE = 509,
     PHARAOH_STARTUP_EXPANSION_LOGO_RUNTIME_IMAGE = 900,
     PHARAOH_STARTUP_SYSTEM_IMAGE_COUNT = 200,
@@ -614,6 +621,37 @@ static void draw_menu_language(void *data, int32_t group, int32_t entry,
         (const uint8_t *)host->text_selection.current, x, y, width, (uint16_t)color);
 }
 
+static void main_menu_draw_border(void *data, int32_t style, int32_t x,
+    int32_t y, int32_t width, int32_t height, int32_t selected)
+{
+    PharaohMenuButtonFrameOperations operations = { data, draw_menu_image };
+    (void)style;
+    pharaoh_menu_button_frame_draw(&operations,
+        (int32_t)menu_group_image(data, PHARAOH_IMAGE_GROUP_BORDERED_BUTTON),
+        x, y, width, height, selected);
+}
+
+static void main_menu_sound_update(void *data, int32_t mode)
+{
+    (void)data;
+    (void)mode;
+}
+
+static int32_t main_menu_sound_is_playing(void *data, int32_t channel)
+{
+    PharaohWindowsStartupHost *const host = data;
+    return pharaoh_digital_sound_stream_is_playing(&host->sound.state,
+        (uint32_t)channel, &host->sound.stream_operations);
+}
+
+static void main_menu_sound_play(void *data, const char *path,
+    int32_t channel, int32_t loops)
+{
+    PharaohWindowsStartupHost *const host = data;
+    (void)pharaoh_digital_sound_stream_play(&host->sound.state, path,
+        (uint32_t)channel, (uint32_t)loops, &host->sound.stream_operations);
+}
+
 static int32_t high_score_read_records(void *user_data, const char *path,
     void *destination, size_t byte_count)
 {
@@ -631,14 +669,22 @@ static int32_t high_score_read_records(void *user_data, const char *path,
 static void high_score_draw_panel(void *user_data, int32_t x, int32_t y,
     int32_t width_blocks, int32_t height_blocks)
 {
-    const PharaohPanelFrameOperations frame = { user_data, draw_menu_image, 0, 0 };
+    const PharaohPanelFrameOperations frame = {
+        user_data, draw_menu_image,
+        (int32_t)menu_group_image(user_data,
+            PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+    };
     pharaoh_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
 }
 
 static void high_score_draw_inner_panel(void *user_data, int32_t x, int32_t y,
     int32_t width_blocks, int32_t height_blocks)
 {
-    const PharaohPanelFrameOperations frame = { user_data, draw_menu_image, 0, 0 };
+    const PharaohPanelFrameOperations frame = {
+        user_data, draw_menu_image,
+        (int32_t)menu_group_image(user_data,
+            PHARAOH_IMAGE_GROUP_INNER_PANEL), 0
+    };
     pharaoh_inner_panel_frame_draw(&frame, x, y,
         width_blocks, height_blocks);
 }
@@ -755,12 +801,15 @@ void pharaoh_windows_startup_host_draw_player_selection(
     operations.draw_language = draw_menu_language;
     operations.draw_text = high_score_draw_text;
     operations.draw_sprite = high_score_draw_sprite;
-    operations.panel_image_base = (int32_t)menu_group_image(host, 337);
-    operations.inner_panel_image_base = (int32_t)menu_group_image(host, 338);
+    operations.panel_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_OUTER_PANEL);
+    operations.inner_panel_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_INNER_PANEL);
     operations.button_image_base = (int32_t)menu_group_image(host, 443);
     operations.arrow_image_base = (int32_t)menu_group_image(host, 365);
     operations.scrollbar_thumb_image =
-        (int32_t)menu_group_image(host, 284) + 0x27;
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) +
+            0x27;
     pharaoh_player_selection_draw(selection, &operations,
         origin_x, origin_y, focused_button);
 }
@@ -787,6 +836,157 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         }
     }
     host->graphics.redraw_requested = 0;
+}
+
+typedef struct PharaohMessageBoxSurfaceWriter {
+    uint8_t *pixels;
+    int32_t pitch;
+    int32_t pixel_bytes;
+} PharaohMessageBoxSurfaceWriter;
+
+static void message_box_write_pixel(void *user_data, int32_t x, int32_t y,
+    uint16_t color)
+{
+    const PharaohMessageBoxSurfaceWriter *const writer = user_data;
+    uint8_t *const pixel = writer->pixels + (size_t)y * writer->pitch +
+        (size_t)x * (size_t)writer->pixel_bytes;
+    if (writer->pixel_bytes == 2) {
+        memcpy(pixel, &color, sizeof(color));
+    } else {
+        const uint32_t red5 = ((uint32_t)color >> 11) & 31u;
+        const uint32_t green6 = ((uint32_t)color >> 5) & 63u;
+        const uint32_t blue5 = (uint32_t)color & 31u;
+        const uint32_t red8 = (red5 << 3) | (red5 >> 2);
+        const uint32_t green8 = (green6 << 2) | (green6 >> 4);
+        const uint32_t blue8 = (blue5 << 3) | (blue5 >> 2);
+        const uint32_t xrgb = (red8 << 16) | (green8 << 8) | blue8;
+        memcpy(pixel, &xrgb, sizeof(xrgb));
+    }
+}
+
+static int32_t message_box_measure_text(void *user_data, const char *text,
+    int32_t font)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
+    const int32_t is_small_font = font == 634;
+    const int32_t is_large_font = font == 640 || font == 641;
+    if (font < 634 || font > 641 || text == NULL) return 0;
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = is_small_font ? 4 : is_large_font ? 10 : 6;
+    bitmap_font.draw_space = is_small_font ? 4 : is_large_font ? 8 : 6;
+    bitmap_font.measure_gap = is_small_font || is_large_font ? 1 : 0;
+    bitmap_font.draw_gap = is_small_font ? 1 : 0;
+    bitmap_font.baseline = is_small_font ? 9 : font == 640 ? 23 : font == 641 ? 24 : 11;
+    bitmap_font.user_data = host;
+    bitmap_font.draw_glyph = draw_font_glyph;
+    return bitmap_font.first_image == 0 ? 0 :
+        pharaoh_bitmap_text_width(&bitmap_font, (const uint8_t *)text);
+}
+
+static void message_box_draw_panel(void *user_data, int32_t x, int32_t y,
+    int32_t width_blocks, int32_t height_blocks)
+{
+    const PharaohPanelFrameOperations frame = {
+        user_data, draw_menu_image,
+        (int32_t)menu_group_image(user_data,
+            PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+    };
+    pharaoh_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
+}
+
+static void message_box_draw_inner_panel(void *user_data, int32_t x,
+    int32_t y, int32_t width_blocks, int32_t height_blocks)
+{
+    const PharaohPanelFrameOperations frame = {
+        user_data, draw_menu_image,
+        (int32_t)menu_group_image(user_data,
+            PHARAOH_IMAGE_GROUP_INNER_PANEL), 0
+    };
+    pharaoh_inner_panel_frame_draw(&frame, x, y, width_blocks, height_blocks);
+}
+
+static void message_box_draw_centered_text(void *user_data, const char *text,
+    int32_t x, int32_t y, int32_t width, int32_t font)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
+    const int32_t is_small_font = font == 634;
+    const int32_t is_large_font = font == 640 || font == 641;
+    if (font < 634 || font > 641 || text == NULL) return;
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = is_small_font ? 4 : is_large_font ? 10 : 6;
+    bitmap_font.draw_space = is_small_font ? 4 : is_large_font ? 8 : 6;
+    bitmap_font.measure_gap = is_small_font || is_large_font ? 1 : 0;
+    bitmap_font.draw_gap = is_small_font ? 1 : 0;
+    bitmap_font.baseline = is_small_font ? 9 : font == 640 ? 23 : font == 641 ? 24 : 11;
+    bitmap_font.user_data = host;
+    bitmap_font.draw_glyph = draw_font_glyph;
+    if (bitmap_font.first_image != 0) {
+        pharaoh_bitmap_text_draw_centered(&bitmap_font,
+            (const uint8_t *)text, x, y, width, 0);
+    }
+}
+
+static void message_box_draw_button_label(void *user_data, int32_t group,
+    int32_t entry, int32_t x, int32_t y, int32_t width, int32_t font)
+{
+    draw_menu_language(user_data, group, entry, x, y, width, font, 0);
+}
+
+static void message_box_draw_button(void *user_data, int32_t x, int32_t y,
+    int32_t width, int32_t height, uint32_t color)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohGraphicsPrimitives primitives = { 0 };
+    PharaohMessageBoxSurfaceWriter writer;
+    DDSURFACEDESC description;
+    const LPDIRECTDRAWSURFACE surface =
+        (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
+    if (surface == NULL) return;
+    memset(&description, 0, sizeof(description));
+    description.dwSize = sizeof(description);
+    if (surface->lpVtbl->Lock(surface, NULL, &description, DDLOCK_WAIT,
+            NULL) != DD_OK) return;
+    if ((description.ddpfPixelFormat.dwRGBBitCount != 16 &&
+            description.ddpfPixelFormat.dwRGBBitCount != 32) ||
+        (description.ddpfPixelFormat.dwRGBBitCount == 32 &&
+            (description.ddpfPixelFormat.dwRBitMask != 0x00ff0000u ||
+             description.ddpfPixelFormat.dwGBitMask != 0x0000ff00u ||
+             description.ddpfPixelFormat.dwBBitMask != 0x000000ffu))) {
+        (void)surface->lpVtbl->Unlock(surface, description.lpSurface);
+        return;
+    }
+    writer.pixels = description.lpSurface;
+    writer.pitch = description.lPitch;
+    writer.pixel_bytes = (int32_t)(description.ddpfPixelFormat.dwRGBBitCount / 8);
+    primitives.display_width = host->graphics.render_width;
+    primitives.screen_height = host->graphics.render_height;
+    primitives.write_pixel = message_box_write_pixel;
+    primitives.user_data = &writer;
+    pharaoh_graphics_draw_rect(&primitives, x, y, width, height,
+        (int32_t)color);
+    (void)surface->lpVtbl->Unlock(surface, description.lpSurface);
+}
+
+int32_t pharaoh_windows_startup_host_draw_message_box(
+    PharaohWindowsStartupHost *host, PharaohMessageBoxState *state,
+    const char *title, const char *body, uint32_t type)
+{
+    const PharaohMessageBoxOperations operations = {
+        host,
+        message_box_measure_text,
+        message_box_draw_panel,
+        message_box_draw_inner_panel,
+        message_box_draw_centered_text,
+        message_box_draw_button_label,
+        message_box_draw_button
+    };
+    return pharaoh_message_box_draw(state, &operations, title, body, type);
 }
 
 void pharaoh_windows_startup_host_draw_boot_foreground(
@@ -825,6 +1025,54 @@ void pharaoh_windows_startup_host_draw_boot_foreground(
         pharaoh_front_menu_draw(&renderer, &menu,
             pharaoh_front_menu_rects, pharaoh_front_menu_labels);
     }
+}
+
+void pharaoh_windows_startup_host_draw_main_menu(
+    PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
+    int32_t focused_button)
+{
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    const uint32_t background = menu_group_image(host, 31);
+    const PharaohPanelFrameOperations panel = {
+        host, draw_menu_image,
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+    };
+    PharaohLabelRenderer labels = { 0 };
+    PharaohMenuRenderer renderer = { 0 };
+    PharaohMainMenuState menu = { 0 };
+    const PharaohMainMenuSound sound = {
+        host, main_menu_sound_update, main_menu_sound_is_playing,
+        main_menu_sound_play
+    };
+
+    (void)host->graphics_operations.fill_surface(host,
+        host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
+    draw_menu_image(host, (int32_t)background, origin_x - 192,
+        origin_y - 144);
+    pharaoh_panel_frame_draw(&panel, origin_x + 128, origin_y + 40, 24, 21);
+    draw_menu_language(host, 293, 5, origin_x + 140, origin_y + 60,
+        368, 640, 0);
+
+    labels.origin_x = origin_x;
+    labels.origin_y = origin_y;
+    labels.panel_button_images = (int32_t)menu_group_image(host, 284);
+    labels.draw_image = draw_menu_image;
+    labels.user_data = host;
+    renderer.labels = &labels;
+    renderer.context = host;
+    renderer.draw_centered = draw_menu_language;
+    renderer.draw_border = main_menu_draw_border;
+    menu.focused_button = focused_button;
+    menu.font = 635;
+    menu.digital_sound_ok = host->sound.ready;
+    menu.music_enabled = host->settings.sound_music_enabled;
+    menu.can_start = state->campaign_period_open;
+    menu.has_saves = state->save_directory_has_files;
+    menu.can_continue = state->selected_save_available;
+    pharaoh_main_menu_draw_foreground(&renderer, &menu,
+        &sound, pharaoh_game_menu_rects);
+    host->graphics.redraw_requested = 0;
 }
 
 static void draw_loading_status_text(void *user_data, const char *text)
@@ -947,9 +1195,13 @@ void pharaoh_windows_startup_host_draw_boot_background(
 {
     /* Native group.firstImage base is 00F55BB4, stride 8. Window zero
        draws 00F55C24: group 14 (31 belongs to the in-game menu). */
-    enum { LOGO_IMAGE_GROUP = 7, FRONT_MENU_IMAGE_GROUP = 14 };
-    const uint32_t group = window_id == 0x3c ?
-        LOGO_IMAGE_GROUP : FRONT_MENU_IMAGE_GROUP;
+    enum {
+        LOGO_IMAGE_GROUP = 7,
+        FRONT_MENU_IMAGE_GROUP = 14
+    };
+    const uint32_t group = window_id == 0x3c ? LOGO_IMAGE_GROUP :
+        window_id == 0x2f ? PHARAOH_IMAGE_GROUP_PLAYER_BACKGROUND :
+        FRONT_MENU_IMAGE_GROUP;
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
     draw_loading_sprite(host, host->sprite_tags[group].image_index,
