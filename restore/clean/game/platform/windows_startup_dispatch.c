@@ -814,7 +814,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         if (dispatch->refresh.current_window_id == 0x3d &&
             dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_custom_map_list(dispatch->host,
-                &dispatch->custom_map_selection);
+                &dispatch->custom_map_selection,
+                dispatch->menu_map_changed_704db0 == 1);
         }
         dispatch->host->current_window_id = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 0;

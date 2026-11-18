@@ -851,11 +851,14 @@ void pharaoh_windows_startup_host_draw_player_selection(
 
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
-    const PharaohCustomMapSelectionState *selection)
+    const PharaohCustomMapSelectionState *selection, int32_t campaign_mode)
 {
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
-    const uint32_t background = menu_group_image(host, 32);
+    const uint32_t background = menu_group_image(host,
+        campaign_mode != 0 ? 33 : 32);
+    const int32_t rows = campaign_mode != 0 ? 13 : 15;
+    const int32_t vertical_shift = campaign_mode != 0 ? 32 : 0;
     const PharaohPanelFrameOperations inner = {
         host, draw_menu_image, 0,
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_INNER_PANEL)
@@ -867,26 +870,25 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         origin_y - 144);
     /* 0041F220 / 0041E1B0: list well and scrollbar well precede text. */
     pharaoh_inner_panel_frame_draw(&inner, origin_x + 15,
-        origin_y + 0xcd, 16, 16);
+        origin_y + 0xcd + vertical_shift, 16, rows + 1);
     pharaoh_inner_panel_frame_draw(&inner, origin_x + 0x11e,
-        origin_y + 0xf2, 2, 12);
-    for (int32_t row = 0; row < PHARAOH_CUSTOM_MAP_VISIBLE_ROWS; ++row) {
+        origin_y + 0xf2 + vertical_shift, 2, rows - 3);
+    for (int32_t row = 0; row < rows; ++row) {
         const int32_t index = selection->first_visible_file + row;
         const char *const name = pharaoh_file_list_name(selection->files,
             index);
         if (name != NULL) {
             high_score_draw_text(host, name, origin_x + 24,
-                origin_y + 220 + row * 16, 635, 0xffff);
+                origin_y + 220 + vertical_shift + row * 16, 635, 0xffff);
         }
     }
-    if (selection->files->count > PHARAOH_CUSTOM_MAP_VISIBLE_ROWS) {
-        const int32_t last = selection->files->count -
-            PHARAOH_CUSTOM_MAP_VISIBLE_ROWS;
-        const int32_t position = (0xf * 16 - 0x4c) *
+    if (selection->files->count > rows) {
+        const int32_t last = selection->files->count - rows;
+        const int32_t position = (rows * 16 - 0x4c) *
             selection->first_visible_file / last;
         draw_menu_image(host,
             (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 0x27,
-            origin_x + 0x121, origin_y + 0xf5 + position);
+            origin_x + 0x121, origin_y + 0xf5 + vertical_shift + position);
     }
     host->graphics.redraw_requested = 0;
 }

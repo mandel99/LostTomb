@@ -171,7 +171,7 @@ void pharaoh_windows_startup_host_draw_main_menu(
     int32_t focused_button);
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
-    const PharaohCustomMapSelectionState *selection);
+    const PharaohCustomMapSelectionState *selection, int32_t campaign_mode);
 void pharaoh_windows_startup_host_draw_saved_game_list(
     PharaohWindowsStartupHost *host, const PharaohFileList *files,
     int32_t first_visible, int32_t selected_row);

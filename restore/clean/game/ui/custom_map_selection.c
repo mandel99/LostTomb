@@ -17,6 +17,7 @@ int32_t pharaoh_custom_map_selection_load(
     pharaoh_file_list_sort(state->files);
     state->selected_file = 0;
     state->first_visible_file = 0;
+    state->visible_rows = 15;
     return state->files->count;
 }
 
@@ -32,6 +33,7 @@ int32_t pharaoh_campaign_mission_selection_load(
     }
     state->selected_file = 0;
     state->first_visible_file = 0;
+    state->visible_rows = 13;
     return state->files->count;
 }
 
@@ -40,7 +42,7 @@ int32_t pharaoh_custom_map_selection_select_visible(
 {
     const int32_t selected = state->first_visible_file + visible_row;
 
-    if (visible_row < 0 || visible_row >= PHARAOH_CUSTOM_MAP_VISIBLE_ROWS ||
+    if (visible_row < 0 || visible_row >= state->visible_rows ||
         selected < 0 || selected >= state->files->count) {
         return 0;
     }
@@ -54,11 +56,11 @@ int32_t pharaoh_custom_map_selection_scroll(
     const int32_t count = state->files->count;
     const int32_t previous = state->first_visible_file;
 
-    if (count > PHARAOH_CUSTOM_MAP_VISIBLE_ROWS) {
+    if (count > state->visible_rows) {
         if (direction == 0 && previous > 0) {
             state->first_visible_file = previous - 1;
         } else if (direction == 1 &&
-                previous + PHARAOH_CUSTOM_MAP_VISIBLE_ROWS < count) {
+                previous + state->visible_rows < count) {
             state->first_visible_file = previous + 1;
         }
     }
@@ -73,25 +75,27 @@ int32_t pharaoh_custom_map_selection_drag_scrollbar(
         TRACK_LEFT = 0x118,
         TRACK_RIGHT = 0x138,
         TRACK_TOP = 0xDC,
-        TRACK_INSET = 0x19,
-        TRACK_RANGE = 0xA4
+        TRACK_INSET = 0x19
     };
     const int32_t count = state->files->count;
     const int32_t previous = state->first_visible_file;
     int32_t track_position;
     int32_t percentage;
 
-    if (count <= PHARAOH_CUSTOM_MAP_VISIBLE_ROWS ||
+    if (count <= state->visible_rows ||
         mouse_x < origin_x + TRACK_LEFT ||
-        mouse_x > origin_x + TRACK_RIGHT ||
-        mouse_y < origin_y + TRACK_TOP + TRACK_INSET ||
-        mouse_y > origin_y + TRACK_TOP + 0x32 + TRACK_RANGE) {
+        mouse_x > origin_x + TRACK_RIGHT) {
         return 0;
     }
-    track_position = mouse_y - origin_y - TRACK_TOP - TRACK_INSET;
-    if (track_position > TRACK_RANGE) track_position = TRACK_RANGE;
-    percentage = track_position * 100 / TRACK_RANGE;
-    state->first_visible_file = (count - PHARAOH_CUSTOM_MAP_VISIBLE_ROWS) *
+    const int32_t vertical_shift = state->visible_rows == 13 ? 32 : 0;
+    const int32_t range = state->visible_rows * 16 - 0x4c;
+    if (mouse_y < origin_y + TRACK_TOP + vertical_shift + TRACK_INSET ||
+        mouse_y > origin_y + TRACK_TOP + vertical_shift + 0x32 + range)
+        return 0;
+    track_position = mouse_y - origin_y - TRACK_TOP - vertical_shift - TRACK_INSET;
+    if (track_position > range) track_position = range;
+    percentage = track_position * 100 / range;
+    state->first_visible_file = (count - state->visible_rows) *
         percentage / 100;
     return state->first_visible_file != previous;
 }

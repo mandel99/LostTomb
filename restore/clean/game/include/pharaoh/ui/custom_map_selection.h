@@ -10,6 +10,7 @@ typedef struct PharaohCustomMapSelectionState {
     PharaohFileList *files;
     int32_t selected_file;
     int32_t first_visible_file;
+    int32_t visible_rows;
 } PharaohCustomMapSelectionState;
 
 /* Native 0x0041F810 in custom-map mode: load maps\\*.map and sort names. */
