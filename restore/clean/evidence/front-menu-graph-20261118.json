@@ -70,13 +70,23 @@
       }
     },
     "mode_zero_control_table": "0x0057CC30",
+    "mode_one_control_table": "0x0057CCC0",
+    "mode_one_scroll_up_y": 247,
     "buttons": [
-      {"rect": [282, 215, 34, 34], "callback": "0x0041F460", "parameter": 0},
-      {"rect": [282, 435, 34, 34], "callback": "0x0041F460", "parameter": 1},
-      {"rect": [335, 440, 27, 27], "callback": "0x0041F650", "parameter": 1},
-      {"rect": [600, 440, 27, 27], "callback": "0x0041F5C0", "parameter": 1}
+      {"rect": [282, 215, 34, 34], "callback": "0x0041F460", "parameter": 0, "image_group": 365, "image_offset": 8},
+      {"rect": [282, 435, 34, 34], "callback": "0x0041F460", "parameter": 1, "image_group": 365, "image_offset": 12},
+      {"rect": [335, 440, 27, 27], "callback": "0x0041F650", "parameter": 1, "image_group": 365, "image_offset": 4},
+      {"rect": [600, 440, 27, 27], "callback": "0x0041F5C0", "parameter": 1, "image_group": 461, "image_offset": 0}
     ],
-    "clean_status": "List loading, drawing, arrow scrolling and drag scrolling are wired. Row preview, back-to-0x30 screen handling and start remain incomplete."
+    "extra_image_buttons": {
+      "table": "0x0057CD70",
+      "condition": "Shown when 0x0041E140 returns 1; returns 0 for campaign mode 1 with map mode 2, or when flood-suppression is active.",
+      "buttons": [
+        {"rect": [368, 392, 17, 17], "callback": "0x00402E50", "parameter": 0, "image_group": 481},
+        {"rect": [385, 392, 17, 17], "callback": "0x00402E50", "parameter": 1, "image_group": 285}
+      ]
+    },
+    "clean_status": "List, scrollbar, and six custom-mode image controls now render. Row preview, image-button input, back-to-0x30 transition fidelity, and start callback remain incomplete."
   },
   "state_53": {
     "button_table": "0x005E01D0",

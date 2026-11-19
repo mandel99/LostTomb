@@ -890,6 +890,31 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
             (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 0x27,
             origin_x + 0x121, origin_y + 0xf5 + vertical_shift + position);
     }
+    /* 0x57CC30/0x57CCC0 are the native four ImageButton records for
+       scroll-up, scroll-down, back and start. Their second table moves the
+       upper arrow down by 32 pixels in campaign mode. */
+    draw_menu_image(host,
+        (int32_t)menu_group_image(host, 365) + 8,
+        origin_x + 282, origin_y + (campaign_mode != 0 ? 247 : 215));
+    draw_menu_image(host,
+        (int32_t)menu_group_image(host, 365) + 12,
+        origin_x + 282, origin_y + 435);
+    draw_menu_image(host,
+        (int32_t)menu_group_image(host, 365) + 4,
+        origin_x + 335, origin_y + 440);
+    draw_menu_image(host,
+        (int32_t)menu_group_image(host, 461),
+        origin_x + 600, origin_y + 440);
+    /* The custom-map table also exposes the native difficulty decrement and
+       increment image buttons; campaign selection mode 2 suppresses them. */
+    if (campaign_mode == 0) {
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, 481), origin_x + 368,
+            origin_y + 392);
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, 285), origin_x + 385,
+            origin_y + 392);
+    }
     host->graphics.redraw_requested = 0;
 }
 
