@@ -1,0 +1,202 @@
+{
+  "schema": "pharaoh-front-menu-reachable-callgraph-v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Native frame path and every window reachable from front-menu state 0x00. This overlay adds callback-table and state-transition edges that cannot be recovered from direct CALL instructions alone.",
+  "address_model": {
+    "image_base": "0x00400000",
+    "rva_and_file_offset": "VA - 0x00400000"
+  },
+  "sources": [
+    "evidence/past-project-native-callgraph-20261119.json",
+    "evidence/front-menu-graph-20261118.json",
+    "evidence/front-menu-action-callback-20261118.json",
+    "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
+    "PH Local Decompile/reused/restore/game/include/Pharaoh/NativeNames.h",
+    "PH Local Decompile/reused/restore/game/include/Pharaoh/game/window/*.h",
+    "PH Local Decompile/reused/restore/game/UI/UIManager/WindowInputDispatch.c"
+  ],
+  "frame_order": [
+    {"order": 1, "va": "0x004D6B60", "fun": "FUN_004d6b60", "meaning": "frame dispatcher"},
+    {"order": 2, "va": "0x004CF210", "fun": "FUN_004cf210", "meaning": "pre-render/window preparation", "conditional": true},
+    {"order": 3, "va": "0x004D71C0", "fun": "FUN_004d71c0", "meaning": "background dispatcher", "condition": "redraw request includes background"},
+    {"order": 4, "va": "0x004D6070", "fun": "FUN_004d6070", "meaning": "between-background/foreground phase", "conditional": true},
+    {"order": 5, "va": "0x004D75D0", "fun": "FUN_004d75d0", "meaning": "foreground dispatcher"},
+    {"order": 6, "va": "0x004D8310", "fun": "WindowHandleInputDispatch", "meaning": "input dispatcher"},
+    {"order": 7, "va": "0x004CF1F0", "fun": "FUN_004cf1f0", "meaning": "post-dispatch/presentation bookkeeping", "conditional": true}
+  ],
+  "common_input_chain": [
+    {"order": 1, "va": "0x00426450", "fun": "FUN_00426450", "prior_name": "GenericButtonsGetFocus"},
+    {"order": 2, "va": "0x004D6740", "fun": "FUN_004d6740", "prior_name": "UiLayoutButtons"},
+    {"order": 3, "va": "0x004261D0", "fun": "FUN_004261d0", "prior_name": "GenericButtonsHandleMouse"},
+    {"order": 4, "effect": "The selected record invokes its callback with the record parameter; callback edges below are indirect/table-driven."}
+  ],
+  "states": [
+    {
+      "id": "0x00",
+      "prior_name": "WindowFrontMenu",
+      "render_order": [
+        {"order": 1, "va": "0x00520AB0", "fun": "FUN_00520ab0", "meaning": "background group 14"},
+        {"order": 2, "va": "0x004180C0", "fun": "FUN_004180c0", "prior_name": "FrontMenuDraw", "meaning": "five buttons and labels"}
+      ],
+      "input": {"dispatcher": "0x004D8310", "table": "0x0057BD88", "records": 5, "chain": ["0x00426450", "0x004D6740", "0x004261D0", "0x00417FF0"]},
+      "actions": [
+        {"parameter": 0, "callback": "0x00417FF0", "next": "0x00516BB0", "effect": "load Save\\*.dat and enter 0x2F, or 0x36 when empty"},
+        {"parameter": 1, "callback": "0x00417FF0", "next": "Win32 ShowWindow/ShellExecuteA", "effect": "minimize and open www.gog.com"},
+        {"parameter": 2, "callback": "0x00417FF0", "next": "0x0041F870", "effect": "load maps\\*.map and enter 0x3D custom mode"},
+        {"parameter": 3, "callback": "0x00417FF0", "next": "0x004C5920", "effect": "read save\\highscore.jas and enter 0x53"},
+        {"parameter": 4, "callback": "0x00417FF0", "next": "PostMessageA(WM_KEYDOWN,VK_ESCAPE)", "effect": "normal Escape route opens style-4 0x54 confirmation"}
+      ]
+    },
+    {
+      "id": "0x2F",
+      "prior_name": "WindowPlayerSelection",
+      "entry_order": [
+        {"order": 1, "va": "0x00516BB0", "fun": "FUN_00516bb0", "prior_name": "WindowPlayerSelectionShow"},
+        {"order": 2, "va": "0x00516B50", "fun": "FUN_00516b50", "effect": "load and sort Save\\*.dat"},
+        {"order": 3, "va": "0x00516AB0", "fun": "FUN_00516ab0", "prior_name": "PlayerSelectionButtonSelect", "effect": "select prior index and load campaign record"},
+        {"order": 4, "effect": "set state 0x2F and redraw; if count is zero initialize text input and switch to 0x36"}
+      ],
+      "render_order": [
+        {"order": 1, "va": "0x00516630", "fun": "FUN_00516630", "prior_name": "WindowPlayerSelectionDrawBackground"},
+        {"order": 2, "va": "0x00516720", "fun": "FUN_00516720", "prior_name": "WindowPlayerSelectionDrawForeground"}
+      ],
+      "input_order": [
+        {"order": 1, "va": "0x005168E0", "fun": "FUN_005168e0", "meaning": "scrollbar drag"},
+        {"order": 2, "va": "0x00425990", "fun": "FUN_00425990", "prior_name": "ImageButtonsHandleMouse", "meaning": "scroll arrows and footer image controls"},
+        {"order": 3, "chain": ["0x00426450", "0x004D6740", "0x004261D0"], "meaning": "12 visible profile rows"},
+        {"order": 4, "condition": "right-button release", "effect": "return to 0x00 and redraw"}
+      ],
+      "callbacks": [
+        {"va": "0x00516890", "fun": "FUN_00516890", "prior_name": "PlayerSelectionButtonScroll", "parameters": [0, 1]},
+        {"va": "0x00516990", "fun": "FUN_00516990", "prior_name": "PlayerSelectionButtonProceed", "next": "0x004CB6A0 -> 0x30"},
+        {"va": "0x00516AB0", "fun": "FUN_00516ab0", "prior_name": "PlayerSelectionButtonSelect"},
+        {"va": "0x00516C10", "fun": "Original00516C10", "prior_name": "PlayerSelectionButtonNewPlayer", "next": "0x36"},
+        {"va": "0x00516C60", "fun": "Original00516C60", "prior_name": "PlayerSelectionButtonDelete", "next": "0x00538CD0 when confirmation is required"},
+        {"va": "0x00516DD0", "fun": "Original00516DD0", "prior_name": "PlayerSelectionConfirmDelete", "next": "reload 0x2F"},
+        {"va": "0x00516C80", "fun": "FUN_00516c80", "prior_name": "PlayerSelectionCreatePlayer", "next": "0x00516BB0 -> 0x00516990"}
+      ],
+      "clean_owners": ["game/ui/player_selection.c", "game/platform/windows_startup_dispatch.c", "game/platform/windows_startup_host.c"]
+    },
+    {
+      "id": "0x36",
+      "prior_name": "WindowNameInput",
+      "entry_from": ["0x00516BB0 empty profile list", "0x00516C10 new family"],
+      "render_order": [
+        {"order": 1, "va": "0x00520B60", "fun": "FUN_00520b60", "prior_name": "PlayerSelectionDrawBackground"},
+        {"order": 2, "va": "0x00520B90", "fun": "FUN_00520b90", "prior_name": "WindowNameInputDrawForeground"}
+      ],
+      "input_order": [
+        {"order": 1, "effect": "capture keyboard field 1"},
+        {"order": 2, "va": "0x00425990", "fun": "FUN_00425990", "effect": "accept image button"},
+        {"order": 3, "condition": "keyboard accepted", "next": "0x00516C80"},
+        {"order": 4, "condition": "Escape/right return", "effect": "return state stored by the opener, normally 0x2F"}
+      ],
+      "clean_owners": ["game/ui/player_selection.c", "game/platform/windows_startup_dispatch.c", "game/platform/windows_startup_host.c"]
+    },
+    {
+      "id": "0x30",
+      "prior_name": "WindowMainMenu",
+      "entry_order": [
+        {"order": 1, "va": "0x004CB6A0", "fun": "FUN_004cb6a0", "prior_name": "WindowMainMenuShow"},
+        {"order": 2, "effect": "resolve campaign periods, save availability and selected save"},
+        {"order": 3, "effect": "set state 0x30 and request redraw"}
+      ],
+      "render_order": [
+        {"order": 1, "va": "0x004CB4D0", "fun": "FUN_004cb4d0", "prior_name": "WindowMainMenuDrawBackground", "calls": ["0x004CF1C0", "0x0053E590", "0x00536820", "0x004CC110", "0x00448370", "0x004CC720", "0x004CB5A0"]},
+        {"order": 2, "va": "0x004CB5A0", "fun": "FUN_004cb5a0", "prior_name": "WindowMainMenuDrawForeground", "meaning": "five controls from 0x005E0408"}
+      ],
+      "input": {"dispatcher": "0x004D8310", "table": "0x005E0408", "records": 5, "chain": ["0x00426450", "0x004D6740", "0x004261D0"]},
+      "actions": [
+        {"parameter": 0, "va": "0x004CB800", "fun": "Original004CB800", "prior_name": "MainMenuButtonContinue", "next": "selected save or 0x17"},
+        {"parameter": 1, "va": "0x004CB860", "fun": "Original004CB860", "prior_name": "MainMenuButtonCampaign", "next": "0x17 or 0x3D campaign mode"},
+        {"parameter": 2, "va": "0x004CB910", "fun": "Original004CB910", "prior_name": "MainMenuButtonLoad", "next": "0x0D file dialog"},
+        {"parameter": 3, "va": "0x004CB940", "fun": "Original004CB940", "prior_name": "MainMenuButtonCustom", "next": "0x3D custom mode"},
+        {"parameter": 4, "va": "0x004CB970", "fun": "FUN_004cb970", "prior_name": "MainMenuButtonBack", "next": "0x00516BB0 -> 0x2F"},
+        {"condition": "right-button release", "next": "0x004CB970"}
+      ],
+      "clean_owners": ["game/runtime/main_menu_open.c", "game/ui/main_menu.c", "game/ui/main_menu_action.c", "game/platform/windows_startup_dispatch.c", "game/platform/windows_startup_host.c"]
+    },
+    {
+      "id": "0x17",
+      "prior_name": "WindowMissionSelection",
+      "render": ["0x0041C2D0 WindowMissionSelectionDrawBackground", "0x0041BE10 WindowMissionSelectionDraw"],
+      "input": ["0x00425990 mission image buttons", "0x00426450 -> 0x004D6740 -> 0x004261D0 generic buttons"],
+      "callbacks": [
+        {"va": "0x0041BB10", "fun": "Original0041BB10", "prior_name": "MissionSelectionSelect"},
+        {"va": "0x0041BB70", "fun": "Original0041BB70", "prior_name": "MissionSelectionStart"},
+        {"va": "0x0041C310", "fun": "Original0041C310", "prior_name": "MissionSelectionProceed"},
+        {"condition": "right-button release and allowed by mode", "next": "0x004CB6A0 -> 0x30"}
+      ]
+    },
+    {
+      "id": "0x3D",
+      "prior_name": "WindowMapSelection",
+      "entry_order": [
+        {"order": 1, "va": "0x0041F870", "fun": "FUN_0041f870", "prior_name": "WindowMapSelectionShow"},
+        {"order": 2, "effect": "load campaign PAK list for mode 2 or maps\\*.map for mode 3"},
+        {"order": 3, "effect": "initialize selection/scroll fields, set 0x3D, request redraw"}
+      ],
+      "render_order": ["0x0041E5C0 WindowMapSelectionDraw", "0x0041F220 MapSelectionDrawList", "0x0041E1B0 MapSelectionDrawScrollThumb"],
+      "input_order": [
+        "scrollbar drag",
+        "row ImageButtonsHandleMouse",
+        "optional two image buttons",
+        "optional mode toggle GenericButtons chain",
+        "main GenericButtons chain",
+        "right-button release -> MapSelectionBack"
+      ],
+      "callbacks": [
+        {"va": "0x0041F460", "fun": "FUN_0041f460", "prior_name": "MapSelectionScroll", "parameters": [0, 1]},
+        {"va": "0x0041F670", "fun": "ActivateSelectedMission", "prior_name": "MapSelectionSelect", "next": "0x004D5820(name,1)"},
+        {"va": "0x004D5820", "fun": "FUN_004d5820", "effect": "open selected file -> 0x004D4AE0 parser -> close"},
+        {"va": "0x0041F5C0", "fun": "Original0041F5C0", "prior_name": "MapSelectionStart", "status": "body boundary unresolved in saved Ghidra; prior C is a candidate, not authority"},
+        {"va": "0x0041F650", "fun": "FUN_0041f650", "prior_name": "MapSelectionBack", "next": "0x004CB6A0 -> 0x30"}
+      ],
+      "clean_owners": ["game/ui/custom_map_selection.c", "game/scenario/campaign_file.c", "game/scenario/campaign_mission_load.c", "game/platform/windows_startup_dispatch.c"]
+    },
+    {
+      "id": "0x0D",
+      "prior_name": "WindowFileDialog",
+      "reachable_from": "0x004CB910",
+      "input_order": ["keyboard accept -> file callback", "right-button release -> stored return state 0x30", "row generic buttons", "image buttons", "scrollbar"],
+      "status": "reachable shell is wired in clean dispatcher; exact save-load completion remains a separate branch"
+    },
+    {
+      "id": "0x53",
+      "prior_name": "WindowHighScores",
+      "entry": {"va": "0x004C5920", "fun": "FUN_004c5920", "prior_name": "HighscoreLoad"},
+      "render_order": [
+        {"order": 1, "va": "0x004C5660", "fun": "FUN_004c5660", "prior_name": "WindowHighScoresDrawBackground"},
+        {"order": 2, "va": "0x004C54C0", "fun": "FUN_004c54c0", "prior_name": "HighScoresDrawList"},
+        {"order": 3, "va": "0x004C5450", "fun": "FUN_004c5450", "prior_name": "HighScoresDrawScrollbarDot"}
+      ],
+      "input_order": [
+        {"order": 1, "condition": "right-button release", "next": "0x00"},
+        {"order": 2, "va": "0x004C57D0", "fun": "FUN_004c57d0", "prior_name": "HighScoresHandleScrollbar"},
+        {"order": 3, "va": "0x00425990", "fun": "FUN_00425990", "meaning": "two arrow buttons -> 0x004C5400"}
+      ],
+      "clean_owner": "game/ui/high_scores.c"
+    },
+    {
+      "id": "0x54",
+      "prior_name": "WindowMessageBox",
+      "call_order": [
+        {"order": 1, "va": "0x00538CD0", "fun": "FUN_00538cd0", "prior_name": "WindowMessageBoxShow"},
+        {"order": 2, "va": "0x00538C80", "fun": "FUN_00538c80", "prior_name": "WindowMessageBoxRunFrame"},
+        {"order": 3, "va": "0x00538940", "fun": "FUN_00538940", "prior_name": "WindowMessageBoxDraw"},
+        {"order": 4, "va": "0x00538920", "fun": "Original00538920", "prior_name": "WindowMessageBoxButton", "effect": "style 4 returns 6=yes or 7=no"}
+      ],
+      "quit_results": [
+        {"result": 6, "effect": "set host/application close-state byte"},
+        {"result": 7, "effect": "cancel and restore previous state 0x00"}
+      ],
+      "clean_owner": "game/ui/message_box.c"
+    }
+  ],
+  "known_gaps": [
+    "0x0041F5C0 has no accepted saved Ghidra function boundary; its prior-project C body remains candidate evidence only.",
+    "0x004D4AE0 map parser and the final mission-start/load closures are not yet complete typed clean owners.",
+    "The complete static graph records only direct address-resolved calls; this overlay records the verified menu callback/table edges.",
+    "Friendly names from the prior project are navigation labels, not behavioral authority; each edge above is tied to saved EXE evidence or a native table."
+  ]
+}
