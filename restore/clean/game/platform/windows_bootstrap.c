@@ -181,11 +181,17 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
         if (window_length > 0 && window_length < sizeof(diagnostic_window)) {
             const unsigned long window_id = strtoul(diagnostic_window,
                 NULL, 0);
-            if (window_id == 0x2f || window_id == 0x36) {
+            if (window_id == 0x2f || window_id == 0x30 ||
+                window_id == 0x36) {
                 if (window_id == 0x2f) {
                     (void)pharaoh_player_selection_load_profiles(
                         &startup_dispatch.player_selection,
                         startup_dispatch.player_selection.selected_profile);
+                } else if (window_id == 0x30) {
+                    startup_dispatch.main_menu_window.menu_active = 1;
+                    startup_dispatch.main_menu_window.campaign_period_open = 1;
+                    startup_dispatch.main_menu_window.save_directory_has_files = 1;
+                    startup_dispatch.main_menu_window.selected_save_available = 1;
                 }
                 startup_dispatch.refresh.current_window_id =
                     (uint8_t)window_id;

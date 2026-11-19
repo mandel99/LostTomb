@@ -24,13 +24,12 @@ enum {
     PHARAOH_IMAGE_GROUP_PLAYER_BACKGROUND = 29,
     PHARAOH_IMAGE_GROUP_OUTER_PANEL = 401,
     PHARAOH_IMAGE_GROUP_INNER_PANEL = 402,
+    PHARAOH_IMAGE_GROUP_BUTTON_BORDER = 443,
     PHARAOH_GENERAL_LIBRARY_INDEX = 3,
     PHARAOH_GENERAL_SYSTEM_IMAGE_COUNT = 200,
     /* Pharaoh_General.sg3 group 401 / 402 after its 200 system images. */
     PHARAOH_GENERAL_OUTER_PANEL_LOCAL_IMAGE = 302,
     PHARAOH_GENERAL_INNER_PANEL_LOCAL_IMAGE = 446,
-    PHARAOH_GENERAL_MAIN_MENU_BUTTON_FIRST_IMAGE = 222,
-    PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE = 715,
     PHARAOH_STARTUP_LOADING_FIRST_RUNTIME_IMAGE = 509,
     PHARAOH_STARTUP_EXPANSION_LOGO_RUNTIME_IMAGE = 900,
     PHARAOH_STARTUP_SYSTEM_IMAGE_COUNT = 200,
@@ -616,20 +615,6 @@ static int32_t general_local_image(const PharaohWindowsStartupHost *host,
         PHARAOH_GENERAL_LIBRARY_INDEX].first_image + image - 1;
 }
 
-/* FUN_00536710: three horizontal 16px tiles, normal then selected. */
-static void draw_main_menu_button(void *data, int32_t x, int32_t y,
-    int32_t width, int32_t selected)
-{
-    const int32_t tiles = width / 16;
-    const int32_t base = general_image(data,
-        PHARAOH_GENERAL_MAIN_MENU_BUTTON_FIRST_IMAGE) + (selected != 0 ? 3 : 0);
-    x += (width - tiles * 16) / 2;
-    for (int32_t tile = 0; tile < tiles; ++tile) {
-        draw_menu_image(data, base + (tile == 0 ? 0 :
-            tile == tiles - 1 ? 2 : 1), x + tile * 16, y);
-    }
-}
-
 static void draw_menu_language(void *data, int32_t group, int32_t entry,
     int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
 {
@@ -660,9 +645,13 @@ static void draw_menu_language(void *data, int32_t group, int32_t entry,
 static void main_menu_draw_border(void *data, int32_t style, int32_t x,
     int32_t y, int32_t width, int32_t height, int32_t selected)
 {
+    const PharaohMenuButtonFrameOperations operations = {
+        data, draw_menu_image
+    };
     (void)style;
-    (void)height;
-    draw_main_menu_button(data, x, y, width, selected);
+    pharaoh_menu_button_frame_draw(&operations,
+        (int32_t)menu_group_image(data, PHARAOH_IMAGE_GROUP_BUTTON_BORDER),
+        x, y, width, height, selected);
 }
 
 static void main_menu_sound_update(void *data, int32_t mode)
@@ -872,8 +861,8 @@ void pharaoh_windows_startup_host_draw_player_selection(
         PHARAOH_IMAGE_GROUP_OUTER_PANEL);
     operations.inner_panel_image_base = (int32_t)menu_group_image(host,
         PHARAOH_IMAGE_GROUP_INNER_PANEL);
-    operations.button_image_base = general_image(host,
-        PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE);
+    operations.button_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_BUTTON_BORDER);
     operations.arrow_image_base = (int32_t)menu_group_image(host, 365);
     operations.scrollbar_thumb_image =
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) +
@@ -903,8 +892,8 @@ void pharaoh_windows_startup_host_draw_player_name_input(
         PHARAOH_IMAGE_GROUP_OUTER_PANEL);
     operations.inner_panel_image_base = (int32_t)menu_group_image(host,
         PHARAOH_IMAGE_GROUP_INNER_PANEL);
-    operations.button_image_base = general_image(host,
-        PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE);
+    operations.button_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_BUTTON_BORDER);
     operations.accept_image = (int32_t)menu_group_image(host, 461);
     pharaoh_player_name_input_draw(selection, &operations,
         origin_x, origin_y, list_button_focused);
@@ -1186,8 +1175,7 @@ void pharaoh_windows_startup_host_draw_main_menu(
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
-    draw_menu_image(host, (int32_t)background, origin_x - 192,
-        origin_y - 144);
+    draw_menu_image(host, (int32_t)background, origin_x, origin_y);
     pharaoh_panel_frame_draw(&panel, origin_x + 128, origin_y + 40, 24, 21);
     draw_menu_language(host, 293, 5, origin_x + 140, origin_y + 60,
         368, 640, 0);

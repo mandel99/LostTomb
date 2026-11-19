@@ -100,7 +100,7 @@
   "state_30": {
     "reachable_from": "State 0x3D back callback 0x0041F650 -> 0x004CB6A0",
     "open_native": "0x004CB6A0; resolves campaign/save availability and enters window 0x30",
-    "background_native": "0x004CB4D0; draws the runtime-selected background, panel at origin+(128,40) sized 24x21, title text group 293 entry 5, then foreground",
+    "background_native": "0x004CB4D0; draws group 31 at the UI origin, panel at origin+(128,40) sized 24x21, title text group 293 entry 5, then foreground",
     "foreground_input_native": "0x004CB5A0; five controls from 0x005E0408, action IDs 0..4",
     "actions": [
       "0: continue selected save, or open campaign selection window 0x17",
@@ -116,7 +116,7 @@
       "game/ui/main_menu_action.c",
       "game/scenario/campaign_mission_load.c"
     ],
-    "clean_status": "Typed C owners exist, including PAK mission loading, but the Windows dispatcher does not bind window 0x30 or its action operations. The runtime source of the background image and the map preview parser owner remain unresolved."
+    "clean_status": "Window 0x30 is bound. Group 31 is drawn at the native UI origin and its five button borders use native firstImage group 443. Mission start/load branches and the map preview parser remain incomplete."
   },
   "state_54": {
     "native_functions": ["0x00538920", "0x00538940", "0x00538CD0"],
