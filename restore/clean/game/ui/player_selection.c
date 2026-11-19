@@ -259,6 +259,10 @@ void pharaoh_player_name_input_draw(
         origin_x + 160, origin_y + 208, 20, 2);
     operations->draw_text(operations->user_data, state->player_name,
         origin_x + 176, origin_y + 216, 637, 0);
+    if (operations->draw_caret != NULL) {
+        operations->draw_caret(operations->user_data, state->player_name,
+            origin_x + 176, origin_y + 231, 637, 0xffff);
+    }
     operations->draw_sprite(operations->user_data, operations->accept_image,
         origin_x + 464, origin_y + 249);
 }

@@ -7,12 +7,17 @@
 #include "pharaoh/runtime/status_log_format.h"
 #include "pharaoh/runtime/cursor_selection.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 static PharaohWindowsStartupHost startup_host;
 static PharaohWindowsStartupDispatch startup_dispatch;
 static int32_t dispatcher_bound;
 static int32_t idle_blocked;
 static int32_t message_loop_active = 1;
 static int32_t paused;
+static int32_t diagnostic_capture_countdown;
+static char diagnostic_capture_path[MAX_PATH];
 
 static void *set_game_cursor(void *context, void *cursor)
 {
@@ -31,6 +36,13 @@ static void dispatch_boot_frame(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
     pharaoh_windows_startup_dispatch_frame(dispatch);
+    if (diagnostic_capture_countdown > 0 &&
+        --diagnostic_capture_countdown == 0) {
+        (void)pharaoh_windows_startup_host_capture_frame(&startup_host,
+            diagnostic_capture_path);
+        (void)PostMessageA((HWND)startup_host.window_startup.window.window,
+            WM_CLOSE, 0, 0);
+    }
 }
 
 /* Temporary host procedure until native 0x00414CD0 and the frame dispatcher
@@ -48,6 +60,11 @@ static LRESULT CALLBACK bootstrap_window_proc(HWND window, UINT message,
     if (dispatcher_bound != 0) {
         pharaoh_windows_startup_dispatch_mouse(&startup_dispatch,
             message, lparam);
+        if (message == WM_CHAR) {
+            pharaoh_windows_startup_dispatch_character(&startup_dispatch,
+                wparam);
+            return 0;
+        }
         if (message == WM_KEYDOWN && wparam == VK_F12) {
             char capture_path[MAX_PATH];
             DWORD length = GetTempPathA(MAX_PATH, capture_path);
@@ -134,8 +151,15 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
     startup_host.current_window_id = 0x44;
     (void)pharaoh_windows_sound_open(&startup_host.sound);
     pharaoh_windows_startup_host_finish_loading(&startup_host);
-    if (startup_host.shutdown_requested == 0) {
-        (void)pharaoh_windows_startup_host_play_intro(&startup_host);
+    {
+        char diagnostic_window[16];
+        const DWORD diagnostic_length = GetEnvironmentVariableA(
+            "LOSTTOMB_DIAGNOSTIC_WINDOW", diagnostic_window,
+            sizeof(diagnostic_window));
+        if (startup_host.shutdown_requested == 0 &&
+            diagnostic_length == 0) {
+            (void)pharaoh_windows_startup_host_play_intro(&startup_host);
+        }
     }
 
     if (startup_host.shutdown_requested != 0 ||
@@ -146,6 +170,39 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
     }
     startup_host.startup_video_started = 1;
     dispatcher_bound = 1;
+    {
+        char diagnostic_window[16];
+        const DWORD window_length = GetEnvironmentVariableA(
+            "LOSTTOMB_DIAGNOSTIC_WINDOW", diagnostic_window,
+            sizeof(diagnostic_window));
+        const DWORD capture_length = GetEnvironmentVariableA(
+            "LOSTTOMB_DIAGNOSTIC_CAPTURE", diagnostic_capture_path,
+            sizeof(diagnostic_capture_path));
+        if (window_length > 0 && window_length < sizeof(diagnostic_window)) {
+            const unsigned long window_id = strtoul(diagnostic_window,
+                NULL, 0);
+            if (window_id == 0x2f || window_id == 0x36) {
+                if (window_id == 0x2f) {
+                    (void)pharaoh_player_selection_load_profiles(
+                        &startup_dispatch.player_selection,
+                        startup_dispatch.player_selection.selected_profile);
+                }
+                startup_dispatch.refresh.current_window_id =
+                    (uint8_t)window_id;
+                startup_host.current_window_id = (uint8_t)window_id;
+                startup_host.graphics.redraw_requested = 1;
+                if (window_id == 0x36) {
+                    (void)GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_NAME",
+                        startup_dispatch.player_selection.player_name,
+                        sizeof(startup_dispatch.player_selection.player_name));
+                }
+                if (capture_length > 0 &&
+                    capture_length < sizeof(diagnostic_capture_path)) {
+                    diagnostic_capture_countdown = 3;
+                }
+            }
+        }
+    }
     window = (HWND)startup_host.window_startup.window.window;
     frame_gate.restore.front_surface = startup_host.graphics.primary_surface;
     frame_gate.restore.back_surface = startup_host.graphics.back_buffer_surface;

@@ -62,6 +62,8 @@ void pharaoh_windows_startup_dispatch_close(
 void pharaoh_windows_startup_dispatch_frame(void *user_data);
 void pharaoh_windows_startup_dispatch_mouse(
     PharaohWindowsStartupDispatch *dispatch, UINT message, LPARAM lparam);
+void pharaoh_windows_startup_dispatch_character(
+    PharaohWindowsStartupDispatch *dispatch, WPARAM character);
 void pharaoh_windows_startup_dispatch_escape(
     PharaohWindowsStartupDispatch *dispatch);
 

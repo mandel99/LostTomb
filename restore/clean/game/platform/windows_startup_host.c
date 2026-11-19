@@ -785,6 +785,39 @@ static void high_score_draw_text(void *user_data, const char *text,
     }
 }
 
+static void draw_name_input_caret(void *user_data, const char *text,
+    int32_t x, int32_t y, int32_t font, int32_t color)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
+    LPDIRECTDRAWSURFACE surface =
+        (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
+    DDBLTFX effects;
+    RECT rectangle;
+
+    /* 0x00537140 alternates 200 ms hidden and 400 ms visible. */
+    if (surface == NULL || GetTickCount() % 600u < 200u ||
+        font < 634 || font > 641) {
+        return;
+    }
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 10 : 6;
+    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
+    rectangle.left = x + pharaoh_bitmap_text_width(&bitmap_font,
+        (const uint8_t *)text);
+    rectangle.top = y;
+    rectangle.right = rectangle.left + 4;
+    rectangle.bottom = y + 2;
+    memset(&effects, 0, sizeof(effects));
+    effects.dwSize = sizeof(effects);
+    effects.dwFillColor = (DWORD)color;
+    (void)surface->lpVtbl->Blt(surface, &rectangle, NULL, NULL,
+        DDBLT_COLORFILL | DDBLT_WAIT, &effects);
+}
+
 static void high_score_draw_number(void *user_data, int32_t value,
     int32_t prefix, int32_t x, int32_t y, int32_t font, int32_t color)
 {
@@ -864,6 +897,7 @@ void pharaoh_windows_startup_host_draw_player_name_input(
     operations.user_data = host;
     operations.draw_language = draw_menu_language;
     operations.draw_text = high_score_draw_text;
+    operations.draw_caret = draw_name_input_caret;
     operations.draw_sprite = high_score_draw_sprite;
     operations.panel_image_base = (int32_t)menu_group_image(host,
         PHARAOH_IMAGE_GROUP_OUTER_PANEL);
@@ -1277,20 +1311,22 @@ int32_t pharaoh_windows_startup_host_capture_frame(
     FILE *file;
     uint8_t padding[3] = { 0, 0, 0 };
     uint32_t row_bytes, stored_row_bytes, image_bytes;
+    uint32_t bytes_per_pixel;
     HRESULT result;
 
     if (surface == NULL || path == NULL) return 0;
     memset(&description, 0, sizeof(description));
     description.dwSize = sizeof(description);
     result = surface->lpVtbl->Lock(surface, NULL, &description,
-        DDLOCK_WAIT | DDLOCK_READONLY, NULL);
+        DDLOCK_WAIT, NULL);
     if (result != DD_OK) return 0;
-    if (description.ddpfPixelFormat.dwRGBBitCount != 16) {
+
+    bytes_per_pixel = (uint32_t)description.lPitch / description.dwWidth;
+    if (bytes_per_pixel != 2u && bytes_per_pixel != 4u) {
         (void)surface->lpVtbl->Unlock(surface, NULL);
         return 0;
     }
-
-    row_bytes = description.dwWidth * 2u;
+    row_bytes = description.dwWidth * bytes_per_pixel;
     stored_row_bytes = (row_bytes + 3u) & ~3u;
     image_bytes = stored_row_bytes * description.dwHeight;
     memset(&file_header, 0, sizeof(file_header));
@@ -1303,12 +1339,20 @@ int32_t pharaoh_windows_startup_host_capture_frame(
     info_header.biWidth = (LONG)description.dwWidth;
     info_header.biHeight = (LONG)description.dwHeight;
     info_header.biPlanes = 1;
-    info_header.biBitCount = 16;
+    info_header.biBitCount = (WORD)(bytes_per_pixel * 8u);
     info_header.biCompression = BI_BITFIELDS;
     info_header.biSizeImage = image_bytes;
-    masks[0] = description.ddpfPixelFormat.dwRBitMask;
-    masks[1] = description.ddpfPixelFormat.dwGBitMask;
-    masks[2] = description.ddpfPixelFormat.dwBBitMask;
+    if (bytes_per_pixel == 4u) {
+        masks[0] = 0x00ff0000u;
+        masks[1] = 0x0000ff00u;
+        masks[2] = 0x000000ffu;
+    } else {
+        masks[0] = host->graphics.surface_context.pixel_format == 1 ?
+            0xf800u : 0x7c00u;
+        masks[1] = host->graphics.surface_context.pixel_format == 1 ?
+            0x07e0u : 0x03e0u;
+        masks[2] = 0x001fu;
+    }
 
     file = _fsopen(path, "wb", _SH_DENYNO);
     if (file == NULL) {

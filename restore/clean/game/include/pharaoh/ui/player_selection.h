@@ -22,6 +22,8 @@ typedef struct PharaohPlayerSelectionDrawOperations {
         int32_t x, int32_t y, int32_t width, int32_t font, int32_t color);
     void (*draw_text)(void *user_data, const char *text, int32_t x,
         int32_t y, int32_t font, int32_t color);
+    void (*draw_caret)(void *user_data, const char *text, int32_t x,
+        int32_t y, int32_t font, int32_t color);
     void (*draw_sprite)(void *user_data, int32_t image, int32_t x, int32_t y);
     int32_t panel_image_base;
     int32_t inner_panel_image_base;

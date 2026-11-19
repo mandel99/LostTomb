@@ -540,6 +540,26 @@ void pharaoh_windows_startup_dispatch_mouse(
     }
 }
 
+void pharaoh_windows_startup_dispatch_character(
+    PharaohWindowsStartupDispatch *dispatch, WPARAM character)
+{
+    char *const name = dispatch->player_selection.player_name;
+    size_t length;
+
+    if (dispatch->refresh.current_window_id != 0x36) return;
+    length = strlen(name);
+    if (character == '\b') {
+        if (length != 0) name[length - 1] = '\0';
+    } else if (character >= 0x20 && character <= 0x7e &&
+            length + 1 < sizeof(dispatch->player_selection.player_name)) {
+        name[length] = (char)character;
+        name[length + 1] = '\0';
+    } else {
+        return;
+    }
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
 void pharaoh_windows_startup_dispatch_escape(
     PharaohWindowsStartupDispatch *dispatch)
 {
@@ -701,15 +721,12 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_y >= origin_y + 246 &&
             dispatch->input.mouse_y < origin_y + 271;
 
-        if (list_button_focused !=
-                dispatch->player_selection_focused_button ||
-            dispatch->host->graphics.redraw_requested != 0) {
-            pharaoh_windows_startup_host_draw_player_name_input(
-                dispatch->host, &dispatch->player_selection,
-                list_button_focused);
-            dispatch->player_selection_focused_button =
-                list_button_focused;
-        }
+        /* Native foreground 0x00520B90 runs each frame so 0x00537140 can
+           animate the edit caret. */
+        pharaoh_windows_startup_host_draw_player_name_input(
+            dispatch->host, &dispatch->player_selection,
+            list_button_focused);
+        dispatch->player_selection_focused_button = list_button_focused;
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
         dispatch->input.mouse_right_went_up = 0;
