@@ -679,6 +679,10 @@ void pharaoh_windows_startup_dispatch_character(
     size_t length;
 
     if (dispatch->refresh.current_window_id != 0x36) return;
+    if (character == '\r') {
+        accept_new_family(dispatch);
+        return;
+    }
     length = strlen(name);
     if (character == '\b') {
         if (length != 0) name[length - 1] = '\0';
