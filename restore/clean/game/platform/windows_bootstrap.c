@@ -48,6 +48,16 @@ static LRESULT CALLBACK bootstrap_window_proc(HWND window, UINT message,
     if (dispatcher_bound != 0) {
         pharaoh_windows_startup_dispatch_mouse(&startup_dispatch,
             message, lparam);
+        if (message == WM_KEYDOWN && wparam == VK_F12) {
+            char capture_path[MAX_PATH];
+            DWORD length = GetTempPathA(MAX_PATH, capture_path);
+            if (length > 0 && length < MAX_PATH - 20) {
+                (void)lstrcatA(capture_path, "LostTomb-ui.bmp");
+                (void)pharaoh_windows_startup_host_capture_frame(
+                    &startup_host, capture_path);
+            }
+            return 0;
+        }
         if (message == WM_KEYDOWN && wparam == VK_ESCAPE) {
             pharaoh_windows_startup_dispatch_escape(&startup_dispatch);
             return 0;

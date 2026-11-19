@@ -23,7 +23,7 @@
       "native_target": "0x00516BB0",
       "observed_effect": "Clears the 32-byte player-name buffer, loads Save\\*.dat, selects state 0x2F, clears two selection fields, forwards the selected index through buttonParameter, initializes the list and requests redraw 1. If no entries exist, it clears the name again and switches to state 0x36 with return state 0x2F.",
       "reachable_states": ["0x2F", "0x36"],
-      "clean_status": "Root action ID 0 now calls the typed player-profile loader and selects 0x2F or 0x36. Empty-profile screen and profile-management controls remain incomplete."
+      "clean_status": "Root action ID 0 loads profiles and selects 0x2F or 0x36. Both native layouts now render; profile creation, the generated-name list and remaining management callbacks are incomplete."
     },
     {
       "action": 1,
@@ -122,6 +122,11 @@
     "native_functions": ["0x00538920", "0x00538940", "0x00538CD0"],
     "style_4_results": [6, 7],
     "clean_owner": "game/ui/message_box.c"
+  },
+  "state_36": {
+    "background": "0x00520B60 clears and draws group 14 at the UI origin.",
+    "foreground": "0x00520B90 draws the 24x8 outer panel, 20x2 edit well, groups 31/13 text, group 461 accept image and the current player name.",
+    "clean_status": "Native layout and hover redraw are wired. Name creation and generated-name-list callbacks remain incomplete."
   },
   "clean_checkpoint": {
     "source": "game/ui/high_scores.c",

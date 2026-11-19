@@ -152,6 +152,11 @@ void pharaoh_windows_startup_host_present_loading(
 void pharaoh_windows_startup_host_present_frame(
     PharaohWindowsStartupHost *host);
 
+/* Debug-only F12 capture target: writes the fully composed 16-bit backbuffer
+   as a BMP without changing the presentation path. */
+int32_t pharaoh_windows_startup_host_capture_frame(
+    PharaohWindowsStartupHost *host, const char *path);
+
 /* Ends loading before UpdateWindow or a video loop can process paint messages. */
 void pharaoh_windows_startup_host_finish_loading(
     PharaohWindowsStartupHost *host);
@@ -166,6 +171,10 @@ void pharaoh_windows_startup_host_draw_boot_foreground(
 void pharaoh_windows_startup_host_draw_player_selection(
     PharaohWindowsStartupHost *host,
     const PharaohPlayerSelectionState *selection, int32_t focused_button);
+void pharaoh_windows_startup_host_draw_player_name_input(
+    PharaohWindowsStartupHost *host,
+    const PharaohPlayerSelectionState *selection,
+    int32_t list_button_focused);
 void pharaoh_windows_startup_host_draw_main_menu(
     PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
     int32_t focused_button);

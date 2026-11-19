@@ -845,8 +845,36 @@ void pharaoh_windows_startup_host_draw_player_selection(
     operations.scrollbar_thumb_image =
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) +
             0x27;
+    operations.accept_image = (int32_t)menu_group_image(host, 461);
     pharaoh_player_selection_draw(selection, &operations,
         origin_x, origin_y, focused_button);
+}
+
+void pharaoh_windows_startup_host_draw_player_name_input(
+    PharaohWindowsStartupHost *host,
+    const PharaohPlayerSelectionState *selection,
+    int32_t list_button_focused)
+{
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    PharaohPlayerSelectionDrawOperations operations = { 0 };
+
+    /* 0x00520B60 uses the state-zero background image (group 14). */
+    pharaoh_windows_startup_host_draw_boot_background(host, 0);
+    operations.user_data = host;
+    operations.draw_language = draw_menu_language;
+    operations.draw_text = high_score_draw_text;
+    operations.draw_sprite = high_score_draw_sprite;
+    operations.panel_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_OUTER_PANEL);
+    operations.inner_panel_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_INNER_PANEL);
+    operations.button_image_base = general_image(host,
+        PHARAOH_GENERAL_DIALOG_BUTTON_FIRST_IMAGE);
+    operations.accept_image = (int32_t)menu_group_image(host, 461);
+    pharaoh_player_name_input_draw(selection, &operations,
+        origin_x, origin_y, list_button_focused);
+    host->graphics.redraw_requested = 0;
 }
 
 void pharaoh_windows_startup_host_draw_custom_map_list(
@@ -1235,6 +1263,70 @@ void pharaoh_windows_startup_host_present_frame(
         host->graphics.back_buffer_surface != NULL) {
         present_loading_surface(host);
     }
+}
+
+int32_t pharaoh_windows_startup_host_capture_frame(
+    PharaohWindowsStartupHost *host, const char *path)
+{
+    LPDIRECTDRAWSURFACE surface =
+        (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
+    DDSURFACEDESC description;
+    BITMAPFILEHEADER file_header;
+    BITMAPINFOHEADER info_header;
+    DWORD masks[3];
+    FILE *file;
+    uint8_t padding[3] = { 0, 0, 0 };
+    uint32_t row_bytes, stored_row_bytes, image_bytes;
+    HRESULT result;
+
+    if (surface == NULL || path == NULL) return 0;
+    memset(&description, 0, sizeof(description));
+    description.dwSize = sizeof(description);
+    result = surface->lpVtbl->Lock(surface, NULL, &description,
+        DDLOCK_WAIT | DDLOCK_READONLY, NULL);
+    if (result != DD_OK) return 0;
+    if (description.ddpfPixelFormat.dwRGBBitCount != 16) {
+        (void)surface->lpVtbl->Unlock(surface, NULL);
+        return 0;
+    }
+
+    row_bytes = description.dwWidth * 2u;
+    stored_row_bytes = (row_bytes + 3u) & ~3u;
+    image_bytes = stored_row_bytes * description.dwHeight;
+    memset(&file_header, 0, sizeof(file_header));
+    memset(&info_header, 0, sizeof(info_header));
+    file_header.bfType = 0x4d42;
+    file_header.bfOffBits = sizeof(file_header) + sizeof(info_header) +
+        sizeof(masks);
+    file_header.bfSize = file_header.bfOffBits + image_bytes;
+    info_header.biSize = sizeof(info_header);
+    info_header.biWidth = (LONG)description.dwWidth;
+    info_header.biHeight = (LONG)description.dwHeight;
+    info_header.biPlanes = 1;
+    info_header.biBitCount = 16;
+    info_header.biCompression = BI_BITFIELDS;
+    info_header.biSizeImage = image_bytes;
+    masks[0] = description.ddpfPixelFormat.dwRBitMask;
+    masks[1] = description.ddpfPixelFormat.dwGBitMask;
+    masks[2] = description.ddpfPixelFormat.dwBBitMask;
+
+    file = _fsopen(path, "wb", _SH_DENYNO);
+    if (file == NULL) {
+        (void)surface->lpVtbl->Unlock(surface, NULL);
+        return 0;
+    }
+    (void)fwrite(&file_header, sizeof(file_header), 1, file);
+    (void)fwrite(&info_header, sizeof(info_header), 1, file);
+    (void)fwrite(masks, sizeof(masks), 1, file);
+    for (uint32_t row = description.dwHeight; row > 0; --row) {
+        const uint8_t *source = (const uint8_t *)description.lpSurface +
+            (size_t)(row - 1) * (size_t)description.lPitch;
+        (void)fwrite(source, row_bytes, 1, file);
+        (void)fwrite(padding, stored_row_bytes - row_bytes, 1, file);
+    }
+    (void)fclose(file);
+    (void)surface->lpVtbl->Unlock(surface, NULL);
+    return 1;
 }
 
 void pharaoh_windows_startup_host_finish_loading(

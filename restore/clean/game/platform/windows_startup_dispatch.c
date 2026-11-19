@@ -49,6 +49,7 @@ static void front_menu_open_player_selection(void *user_data)
     const int32_t profile_count = pharaoh_player_selection_load_profiles(
         &dispatch->player_selection, previous_profile);
     dispatch->refresh.current_window_id = profile_count == 0 ? 0x36 : 0x2f;
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
     dispatch->host->graphics.redraw_requested = 1;
 }
 
@@ -688,6 +689,35 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 &dispatch->refresh_operations, 0);
             return;
         }
+    }
+    if (dispatch->refresh.current_window_id == 0x36) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        const int32_t list_button_focused =
+            dispatch->input.mouse_x >= origin_x + 352 &&
+            dispatch->input.mouse_x < origin_x + 377 &&
+            dispatch->input.mouse_y >= origin_y + 246 &&
+            dispatch->input.mouse_y < origin_y + 271;
+
+        if (list_button_focused !=
+                dispatch->player_selection_focused_button ||
+            dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_player_name_input(
+                dispatch->host, &dispatch->player_selection,
+                list_button_focused);
+            dispatch->player_selection_focused_button =
+                list_button_focused;
+        }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
     }
     if (dispatch->refresh.current_window_id == 0x2f) {
         const int32_t origin_x =

@@ -223,3 +223,42 @@ void pharaoh_player_selection_draw(
             origin_y + PLAYER_SELECTION_SCROLL_THUMB_Y + offset);
     }
 }
+
+void pharaoh_player_name_input_draw(
+    const PharaohPlayerSelectionState *state,
+    const PharaohPlayerSelectionDrawOperations *operations,
+    int32_t origin_x, int32_t origin_y, int32_t list_button_focused)
+{
+    const PharaohPanelFrameOperations outer_frame = {
+        operations->user_data, operations->draw_sprite,
+        operations->panel_image_base, 0
+    };
+    const PharaohPanelFrameOperations inner_frame = {
+        operations->user_data, operations->draw_sprite, 0,
+        operations->inner_panel_image_base
+    };
+    const PharaohMenuButtonFrameOperations button_frame = {
+        operations->user_data, operations->draw_sprite
+    };
+
+    /* 0x00520B90: panel (128,160), title, name-list control, accept image,
+       then the two-row recessed edit field and its current contents. */
+    pharaoh_panel_frame_draw(&outer_frame, origin_x + 128, origin_y + 160,
+        24, 8);
+    operations->draw_language(operations->user_data, 31, 0,
+        origin_x + 128, origin_y + 172, 384, 640, 0);
+    operations->draw_language(operations->user_data, 13, 5,
+        origin_x + 395, origin_y + 255, 0, 635, 0);
+    pharaoh_menu_button_frame_draw(&button_frame,
+        operations->button_image_base, origin_x + 352, origin_y + 246,
+        25, 25, list_button_focused);
+    operations->draw_language(operations->user_data, 13, 8,
+        origin_x + 145, origin_y + 256, 180, 635,
+        list_button_focused ? 0xf800 : 0);
+    pharaoh_inner_panel_frame_draw(&inner_frame,
+        origin_x + 160, origin_y + 208, 20, 2);
+    operations->draw_text(operations->user_data, state->player_name,
+        origin_x + 176, origin_y + 216, 637, 0);
+    operations->draw_sprite(operations->user_data, operations->accept_image,
+        origin_x + 464, origin_y + 249);
+}

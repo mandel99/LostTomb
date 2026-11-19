@@ -28,6 +28,7 @@ typedef struct PharaohPlayerSelectionDrawOperations {
     int32_t button_image_base;
     int32_t arrow_image_base;
     int32_t scrollbar_thumb_image;
+    int32_t accept_image;
 } PharaohPlayerSelectionDrawOperations;
 
 /* Native 0x00516B50/0x00516BB0: load Save\\*.dat, remove extensions,
@@ -48,5 +49,12 @@ void pharaoh_player_selection_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
     int32_t origin_x, int32_t origin_y, int32_t focused_button);
+
+/* Native 0x00520B90. The background is the state-zero menu image drawn by
+   0x00520B60; this function draws the centered name-entry panel above it. */
+void pharaoh_player_name_input_draw(
+    const PharaohPlayerSelectionState *state,
+    const PharaohPlayerSelectionDrawOperations *operations,
+    int32_t origin_x, int32_t origin_y, int32_t list_button_focused);
 
 #endif
