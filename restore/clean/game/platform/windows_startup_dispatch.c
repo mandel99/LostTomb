@@ -22,6 +22,8 @@ static const PharaohMenuRect saved_game_row_rects[12] = {
     {160,272,448,288}, {160,288,448,304}, {160,304,448,320}
 };
 
+static void load_selected_family(PharaohWindowsStartupDispatch *dispatch);
+
 static uint32_t frame_clock(void *user_data)
 {
     (void)user_data;
@@ -50,6 +52,10 @@ static void front_menu_open_player_selection(void *user_data)
         &dispatch->player_selection, previous_profile);
     dispatch->refresh.current_window_id = profile_count == 0 ? 0x36 : 0x2f;
     dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+    if (profile_count != 0 &&
+        dispatch->player_selection.selected_profile >= 0) {
+        load_selected_family(dispatch);
+    }
     dispatch->host->graphics.redraw_requested = 1;
 }
 
@@ -286,6 +292,132 @@ static void open_selected_player_menu(
         dispatch->main_menu_window.active_window;
     dispatch->host->current_window_id =
         dispatch->main_menu_window.active_window;
+}
+
+static int32_t show_family_message(PharaohWindowsStartupDispatch *dispatch,
+    int32_t first_text_entry, uint32_t native_button_count)
+{
+    const char *const title = exit_box_select_text(dispatch, 5,
+        first_text_entry);
+    const char *const body = exit_box_select_text(dispatch, 5,
+        first_text_entry + 1);
+    return front_menu_show_exit_box(dispatch, title, body,
+        native_button_count == 2 ? 4u : 0u);
+}
+
+static void load_selected_family(PharaohWindowsStartupDispatch *dispatch)
+{
+    char directory[MAX_PATH];
+    char profile[MAX_PATH];
+    if (pharaoh_player_profile_paths(
+            dispatch->player_selection.player_name,
+            directory, sizeof(directory), profile, sizeof(profile)) != 0) {
+        (void)pharaoh_campaign_profile_load(&dispatch->host->files,
+            &dispatch->host->campaign,
+            dispatch->host->campaign_profile_suffix, profile);
+    }
+}
+
+static void reload_family_registry(PharaohWindowsStartupDispatch *dispatch,
+    int32_t previous_profile)
+{
+    (void)pharaoh_player_selection_load_profiles(
+        &dispatch->player_selection, previous_profile);
+    if (dispatch->player_selection.selected_profile >= 0) {
+        load_selected_family(dispatch);
+    }
+    dispatch->refresh.current_window_id = 0x2f;
+    dispatch->host->current_window_id = 0x2f;
+    dispatch->host->graphics.redraw_requested = 1;
+    dispatch->player_selection_focused_button = 0;
+}
+
+static void begin_new_family(PharaohWindowsStartupDispatch *dispatch)
+{
+    memset(dispatch->player_selection.player_name, 0,
+        sizeof(dispatch->player_selection.player_name));
+    dispatch->refresh.current_window_id = 0x36;
+    dispatch->host->current_window_id = 0x36;
+    dispatch->host->graphics.redraw_requested = 1;
+    dispatch->player_selection_focused_button = 0;
+}
+
+static void accept_new_family(PharaohWindowsStartupDispatch *dispatch)
+{
+    PharaohPlayerSelectionState *const selection =
+        &dispatch->player_selection;
+    char saved_name[PHARAOH_PLAYER_NAME_CAPACITY];
+    char directory[MAX_PATH];
+    char profile[MAX_PATH];
+    DWORD attributes;
+    int32_t selected;
+
+    pharaoh_player_name_trim(selection->player_name);
+    if (selection->player_name[0] == '\0') {
+        reload_family_registry(dispatch, selection->selected_profile);
+        if (selection->profiles->count == 0) begin_new_family(dispatch);
+        return;
+    }
+    if (pharaoh_player_profile_paths(selection->player_name,
+            directory, sizeof(directory), profile, sizeof(profile)) == 0) {
+        return;
+    }
+    attributes = GetFileAttributesA(profile);
+    if (attributes != INVALID_FILE_ATTRIBUTES) {
+        (void)show_family_message(dispatch, 0x5c, 1);
+        begin_new_family(dispatch);
+        return;
+    }
+
+    (void)pharaoh_campaign_load(&dispatch->host->campaign, "campaign.txt",
+        &dispatch->host->campaign_file_operations);
+    (void)pharaoh_campaign_profile_save(&dispatch->host->campaign,
+        dispatch->host->campaign_profile_suffix, profile);
+    (void)CreateDirectoryA(directory, NULL);
+    memcpy(saved_name, selection->player_name, sizeof(saved_name));
+    (void)pharaoh_player_selection_load_profiles(selection,
+        selection->selected_profile);
+    selected = pharaoh_player_selection_find_profile(selection, saved_name);
+    memcpy(selection->player_name, saved_name, sizeof(saved_name));
+    (void)pharaoh_player_selection_load_profiles(selection, selected);
+    load_selected_family(dispatch);
+    open_selected_player_menu(dispatch);
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void delete_selected_family(PharaohWindowsStartupDispatch *dispatch)
+{
+    PharaohPlayerSelectionState *const selection =
+        &dispatch->player_selection;
+    PharaohFileList saves;
+    char directory[MAX_PATH];
+    char profile[MAX_PATH];
+    char pattern[MAX_PATH];
+    char path[MAX_PATH];
+    int32_t previous = selection->selected_profile;
+
+    if (selection->player_name[0] == '\0' ||
+        show_family_message(dispatch, 0x5a, 2) != 6 ||
+        pharaoh_player_profile_paths(selection->player_name,
+            directory, sizeof(directory), profile, sizeof(profile)) == 0) {
+        return;
+    }
+    (void)DeleteFileA(profile);
+    pharaoh_file_list_initialize(&saves);
+    if (snprintf(pattern, sizeof(pattern), "%s\\*.sav", directory) > 0) {
+        (void)pharaoh_file_list_load(&saves, pattern, 0);
+    }
+    for (int32_t index = 0; index < saves.count; ++index) {
+        const char *const name = pharaoh_file_list_name(&saves, index);
+        if (name != NULL && snprintf(path, sizeof(path), "%s\\%s",
+                directory, name) > 0) {
+            (void)DeleteFileA(path);
+        }
+    }
+    pharaoh_file_list_destroy(&saves);
+    (void)RemoveDirectoryA(directory);
+    reload_family_registry(dispatch, previous);
+    if (selection->profiles->count == 0) begin_new_family(dispatch);
 }
 
 static void main_menu_stop_sound(void *user_data)
@@ -563,11 +695,20 @@ void pharaoh_windows_startup_dispatch_character(
 void pharaoh_windows_startup_dispatch_escape(
     PharaohWindowsStartupDispatch *dispatch)
 {
-    if (dispatch == NULL || dispatch->refresh.current_window_id != 0 ||
-        dispatch->exit_message_box_active != 0) {
-        return;
+    if (dispatch == NULL || dispatch->exit_message_box_active != 0) return;
+    if (dispatch->refresh.current_window_id == 0) {
+        front_menu_confirm_exit(dispatch);
+    } else if (dispatch->refresh.current_window_id == 0x2f) {
+        dispatch->refresh.current_window_id = 0;
+        dispatch->host->current_window_id = 0;
+        dispatch->host->graphics.redraw_requested = 1;
+    } else if (dispatch->refresh.current_window_id == 0x36) {
+        front_menu_open_player_selection(dispatch);
+    } else if (dispatch->refresh.current_window_id == 0x51) {
+        dispatch->refresh.current_window_id = 0x36;
+        dispatch->host->current_window_id = 0x36;
+        dispatch->host->graphics.redraw_requested = 1;
     }
-    front_menu_confirm_exit(dispatch);
 }
 
 void pharaoh_windows_startup_dispatch_frame(void *user_data)
@@ -721,6 +862,30 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_y >= origin_y + 246 &&
             dispatch->input.mouse_y < origin_y + 271;
 
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x36) {
+            front_menu_open_player_selection(dispatch);
+        } else if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x36) {
+            if (list_button_focused != 0) {
+                dispatch->refresh.current_window_id = 0x51;
+                dispatch->host->current_window_id = 0x51;
+                dispatch->host->graphics.redraw_requested = 1;
+            } else if (dispatch->input.mouse_x >= origin_x + 464 &&
+                dispatch->input.mouse_x < origin_x + 498 &&
+                dispatch->input.mouse_y >= origin_y + 249 &&
+                dispatch->input.mouse_y < origin_y + 283) {
+                accept_new_family(dispatch);
+            }
+        }
+
+        if (dispatch->refresh.current_window_id != 0x36) {
+            dispatch->left_pressed_this_frame = 0;
+            dispatch->input.mouse_left_went_up = 0;
+            dispatch->input.mouse_right_went_up = 0;
+            return;
+        }
+
         /* Native foreground 0x00520B90 runs each frame so 0x00537140 can
            animate the edit caret. */
         pharaoh_windows_startup_host_draw_player_name_input(
@@ -736,6 +901,75 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             &dispatch->refresh_operations, 0);
         return;
     }
+    if (dispatch->refresh.current_window_id == 0x51) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        const int32_t panel_x = origin_x + 110;
+        const int32_t panel_y = origin_y + 30;
+        int32_t focused = 0;
+
+        for (int32_t index = 0; index < 42 && focused == 0; ++index) {
+            const int32_t column = index >= 21;
+            const int32_t row = index - column * 21;
+            const int32_t left = panel_x + (column != 0 ? 230 : 5);
+            const int32_t top = panel_y + 14 + row * 20;
+            if (dispatch->input.mouse_x >= left &&
+                dispatch->input.mouse_x < left + 96 &&
+                dispatch->input.mouse_y >= top &&
+                dispatch->input.mouse_y < top + 18) {
+                focused = index + 1;
+            }
+        }
+        if (focused == 0 && dispatch->input.mouse_x >= panel_x + 325 &&
+            dispatch->input.mouse_x < panel_x + 400 &&
+            dispatch->input.mouse_y >= panel_y + 414 &&
+            dispatch->input.mouse_y < panel_y + 432) {
+            focused = 43;
+        }
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x51) {
+            dispatch->refresh.current_window_id = 0x36;
+            dispatch->host->current_window_id = 0x36;
+            dispatch->host->graphics.redraw_requested = 1;
+        } else if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x51) {
+            if (focused == 43) {
+                dispatch->refresh.current_window_id = 0x36;
+                dispatch->host->current_window_id = 0x36;
+                dispatch->host->graphics.redraw_requested = 1;
+            } else if (focused >= 1 && focused <= 42 &&
+                focused != 1 && focused != 22) {
+                const int32_t choice = focused - 1;
+                const char *name;
+                pharaoh_text_select(&dispatch->host->text_selection,
+                    197, choice);
+                name = dispatch->host->text_selection.current;
+                if (name != NULL) {
+                    (void)strncpy_s(
+                        dispatch->player_selection.player_name,
+                        sizeof(dispatch->player_selection.player_name),
+                        name, _TRUNCATE);
+                    dispatch->player_selection.selected_name_choice = choice;
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
+            }
+        }
+        if (dispatch->refresh.current_window_id == 0x51) {
+            pharaoh_windows_startup_host_draw_player_name_choices(
+                dispatch->host, &dispatch->player_selection, focused);
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations, 0);
+        }
+        dispatch->player_selection_focused_button = focused;
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        return;
+    }
     if (dispatch->refresh.current_window_id == 0x2f) {
         const int32_t origin_x =
             (dispatch->host->graphics.render_width - 640) / 2;
@@ -745,6 +979,13 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         const int32_t focused = pharaoh_generic_buttons_get_focus(
             origin_x, origin_y, player_selection_rects, 16,
             dispatch->input.mouse_x, dispatch->input.mouse_y, &focus_state);
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x2f) {
+            dispatch->refresh.current_window_id = 0;
+            dispatch->host->current_window_id = 0;
+            dispatch->host->graphics.redraw_requested = 1;
+            dispatch->menu_focused_button = 0;
+        }
         if (focused != dispatch->player_selection_focused_button ||
             dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_player_selection(
@@ -794,13 +1035,18 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                        leaves the player-selection window active. */
                     dispatch->host->graphics.redraw_requested = 1;
                 }
-            } else if (focused == 15 &&
-                dispatch->player_selection.player_name[0] != '\0') {
-                /* Native 0x00516990 opens the main menu for the selected
-                   player; its empty-name dialog is still unbound. */
-                open_selected_player_menu(dispatch);
-                dispatch->host->graphics.redraw_requested = 1;
-                dispatch->player_selection_focused_button = 0;
+            } else if (focused == 13) {
+                begin_new_family(dispatch);
+            } else if (focused == 14) {
+                delete_selected_family(dispatch);
+            } else if (focused == 15) {
+                if (dispatch->player_selection.player_name[0] == '\0') {
+                    (void)show_family_message(dispatch, 0x5e, 1);
+                } else {
+                    open_selected_player_menu(dispatch);
+                    dispatch->host->graphics.redraw_requested = 1;
+                    dispatch->player_selection_focused_button = 0;
+                }
             } else if (focused == 16) {
                 /* Native 0x00402BB0 returns to window zero. */
                 dispatch->refresh.current_window_id = 0;

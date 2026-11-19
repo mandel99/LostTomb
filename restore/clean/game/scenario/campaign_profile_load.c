@@ -1,6 +1,7 @@
 #include "pharaoh/scenario/campaign_profile_load.h"
 
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
 enum {
@@ -77,4 +78,25 @@ int32_t pharaoh_campaign_profile_load(const PharaohFileReadContext *files,
             (uint8_t)(campaign->mission_records[index].used != 0);
     }
     return 1;
+}
+
+int32_t pharaoh_campaign_profile_save(const PharaohCampaign *campaign,
+    const uint16_t suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS],
+    const char *path)
+{
+    PharaohCampaignProfileFile profile;
+    FILE *file = NULL;
+    size_t written;
+
+    profile.campaign = *campaign;
+    memcpy(profile.suffix, suffix, sizeof(profile.suffix));
+#if defined(_MSC_VER)
+    if (fopen_s(&file, path, "wb") != 0 || file == NULL) return 0;
+#else
+    file = fopen(path, "wb");
+    if (file == NULL) return 0;
+#endif
+    written = fwrite(&profile, sizeof(profile), 1, file);
+    (void)fclose(file);
+    return written == 1;
 }

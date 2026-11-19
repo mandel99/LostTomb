@@ -5,6 +5,7 @@
 #endif
 #include <assert.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
 enum {
@@ -101,5 +102,26 @@ int main(void)
     assert(campaign.index.records[0].link.played == 1);
     assert(campaign.index.records[1].link.played == 1);
     assert(suffix[0] == 0);
+
+    {
+        static const char output_path[] = "campaign-profile-save-test.dat";
+        FILE *output = NULL;
+        uint8_t written[PROFILE_BYTES];
+        memset(suffix, 0x3c, sizeof(suffix));
+        memcpy(campaign.saved_game_path, "save\\Written", 13);
+        assert(pharaoh_campaign_profile_save(&campaign, suffix,
+            output_path) == 1);
+#if defined(_MSC_VER)
+        assert(fopen_s(&output, output_path, "rb") == 0 && output != NULL);
+#else
+        output = fopen(output_path, "rb");
+        assert(output != NULL);
+#endif
+        assert(fread(written, sizeof(written), 1, output) == 1);
+        assert(fclose(output) == 0);
+        assert(memcmp(written + PROFILE_PATH_OFFSET, "save\\Written", 13) == 0);
+        assert(written[PROFILE_SUFFIX_OFFSET] == 0x3c);
+        assert(remove(output_path) == 0);
+    }
     return 0;
 }

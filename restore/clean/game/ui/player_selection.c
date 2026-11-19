@@ -1,6 +1,7 @@
 #include "pharaoh/ui/player_selection.h"
 
 #include <string.h>
+#include <stdio.h>
 
 #include "pharaoh/runtime/file_extension_operations.h"
 #include "pharaoh/ui/menu_button_frame.h"
@@ -138,6 +139,48 @@ int32_t pharaoh_player_selection_drag_scrollbar(
     return state->first_visible_profile != previous;
 }
 
+void pharaoh_player_name_trim(char name[PHARAOH_PLAYER_NAME_CAPACITY])
+{
+    char *first = name;
+    char *last;
+    size_t bytes;
+
+    while (*first != '\0' && (unsigned char)*first < 0x21u) ++first;
+    if (first != name) {
+        bytes = strlen(first) + 1u;
+        memmove(name, first, bytes);
+    }
+    last = name;
+    for (char *cursor = name; *cursor != '\0'; ++cursor) {
+        if ((unsigned char)*cursor > 0x20u) last = cursor + 1;
+    }
+    *last = '\0';
+}
+
+int32_t pharaoh_player_selection_find_profile(
+    const PharaohPlayerSelectionState *state, const char *name)
+{
+    for (int32_t index = 0; index < state->profiles->count; ++index) {
+        const char *const candidate =
+            pharaoh_file_list_name(state->profiles, index);
+        if (candidate != NULL && strcmp(candidate, name) == 0) return index;
+    }
+    return -1;
+}
+
+int32_t pharaoh_player_profile_paths(const char *name,
+    char *directory, size_t directory_capacity,
+    char *profile, size_t profile_capacity)
+{
+    const int directory_bytes = snprintf(directory, directory_capacity,
+        "Save\\%s", name);
+    const int profile_bytes = snprintf(profile, profile_capacity,
+        "Save\\%s.dat", name);
+    return directory_bytes >= 0 && profile_bytes >= 0 &&
+        (size_t)directory_bytes < directory_capacity &&
+        (size_t)profile_bytes < profile_capacity;
+}
+
 void pharaoh_player_selection_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
@@ -265,4 +308,37 @@ void pharaoh_player_name_input_draw(
     }
     operations->draw_sprite(operations->user_data, operations->accept_image,
         origin_x + 464, origin_y + 249);
+}
+
+void pharaoh_player_name_choices_draw(
+    const PharaohPlayerSelectionState *state,
+    const PharaohPlayerSelectionDrawOperations *operations,
+    int32_t origin_x, int32_t origin_y, int32_t focused_button)
+{
+    const PharaohPanelFrameOperations outer_frame = {
+        operations->user_data, operations->draw_sprite,
+        operations->panel_image_base, 0
+    };
+    const PharaohMenuButtonFrameOperations button_frame = {
+        operations->user_data, operations->draw_sprite
+    };
+    const int32_t panel_x = origin_x + 110;
+    const int32_t panel_y = origin_y + 30;
+
+    pharaoh_panel_frame_draw(&outer_frame, panel_x, panel_y, 26, 28);
+    for (int32_t index = 0; index < 42; ++index) {
+        const int32_t column = index >= 21;
+        const int32_t row = index - column * 21;
+        int32_t font = 636;
+        if (focused_button == index + 1) font = 638;
+        else if (state->selected_name_choice == index) font = 637;
+        operations->draw_language(operations->user_data, 197, index,
+            panel_x + (column != 0 ? 230 : 5), panel_y + 14 + row * 20,
+            96, font, 0);
+    }
+    pharaoh_menu_button_frame_draw(&button_frame,
+        operations->button_image_base, panel_x + 325, panel_y + 414,
+        75, 18, focused_button == 43);
+    operations->draw_language(operations->user_data, 18, 3,
+        panel_x + 329, panel_y + 418, 71, 636, 0);
 }

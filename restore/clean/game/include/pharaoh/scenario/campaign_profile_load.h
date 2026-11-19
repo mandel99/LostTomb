@@ -14,4 +14,9 @@ int32_t pharaoh_campaign_profile_load(const PharaohFileReadContext *files,
     uint16_t suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS],
     const char *path);
 
+/* Native 0x0041B8A0: write the complete 0x4a9c-byte campaign profile. */
+int32_t pharaoh_campaign_profile_save(const PharaohCampaign *campaign,
+    const uint16_t suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS],
+    const char *path);
+
 #endif

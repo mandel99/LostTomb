@@ -4,6 +4,8 @@
 #include "pharaoh/runtime/file_list.h"
 #include "pharaoh/ui/panel_frame.h"
 
+#include <stddef.h>
+
 enum {
     PHARAOH_PLAYER_SELECTION_VISIBLE_ROWS = 12,
     PHARAOH_PLAYER_NAME_CAPACITY = 32
@@ -14,6 +16,7 @@ typedef struct PharaohPlayerSelectionState {
     char player_name[PHARAOH_PLAYER_NAME_CAPACITY];
     int32_t selected_profile;
     int32_t first_visible_profile;
+    int32_t selected_name_choice;
 } PharaohPlayerSelectionState;
 
 typedef struct PharaohPlayerSelectionDrawOperations {
@@ -46,6 +49,14 @@ int32_t pharaoh_player_selection_scroll(
 int32_t pharaoh_player_selection_drag_scrollbar(
     PharaohPlayerSelectionState *state, int32_t mouse_y, int32_t origin_y);
 
+/* Native 0x0041ACD0 and the path helpers 0x005169C0/0x00516A20. */
+void pharaoh_player_name_trim(char name[PHARAOH_PLAYER_NAME_CAPACITY]);
+int32_t pharaoh_player_selection_find_profile(
+    const PharaohPlayerSelectionState *state, const char *name);
+int32_t pharaoh_player_profile_paths(const char *name,
+    char *directory, size_t directory_capacity,
+    char *profile, size_t profile_capacity);
+
 /* Native 0x00516630/0x00516720, with host supplied bitmap-asset drawing. */
 void pharaoh_player_selection_draw(
     const PharaohPlayerSelectionState *state,
@@ -58,5 +69,11 @@ void pharaoh_player_name_input_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
     int32_t origin_x, int32_t origin_y, int32_t list_button_focused);
+
+/* Native 0x00520D00: 42 catalog entries and the close button. */
+void pharaoh_player_name_choices_draw(
+    const PharaohPlayerSelectionState *state,
+    const PharaohPlayerSelectionDrawOperations *operations,
+    int32_t origin_x, int32_t origin_y, int32_t focused_button);
 
 #endif

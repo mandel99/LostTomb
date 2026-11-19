@@ -900,6 +900,28 @@ void pharaoh_windows_startup_host_draw_player_name_input(
     host->graphics.redraw_requested = 0;
 }
 
+void pharaoh_windows_startup_host_draw_player_name_choices(
+    PharaohWindowsStartupHost *host,
+    const PharaohPlayerSelectionState *selection, int32_t focused_button)
+{
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    PharaohPlayerSelectionDrawOperations operations = { 0 };
+
+    pharaoh_windows_startup_host_draw_boot_background(host, 0);
+    operations.user_data = host;
+    operations.draw_language = draw_menu_language;
+    operations.draw_text = high_score_draw_text;
+    operations.draw_sprite = high_score_draw_sprite;
+    operations.panel_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_OUTER_PANEL);
+    operations.button_image_base = (int32_t)menu_group_image(host,
+        PHARAOH_IMAGE_GROUP_BUTTON_BORDER);
+    pharaoh_player_name_choices_draw(selection, &operations,
+        origin_x, origin_y, focused_button);
+    host->graphics.redraw_requested = 0;
+}
+
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection, int32_t campaign_mode)
