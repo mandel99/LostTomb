@@ -51,6 +51,9 @@ typedef struct PharaohWindowsStartupDispatch {
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;
     int32_t player_selection_focused_button;
+    int32_t family_message_text_entry, family_message_previous_profile;
+    uint8_t family_message_previous_window, family_message_button_count;
+    uint8_t family_message_action, family_message_focused_button;
 } PharaohWindowsStartupDispatch;
 
 /* Binds the boot/video subset. The caller owns the menu contexts used after

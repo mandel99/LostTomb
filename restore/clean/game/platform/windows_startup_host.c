@@ -922,6 +922,60 @@ void pharaoh_windows_startup_host_draw_player_name_choices(
     host->graphics.redraw_requested = 0;
 }
 
+void pharaoh_windows_startup_host_draw_family_message(
+    PharaohWindowsStartupHost *host, int32_t text_entry,
+    int32_t button_count, int32_t focused_button)
+{
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    const int32_t panel_x = origin_x + 80;
+    const int32_t panel_y = origin_y + 80;
+    const PharaohPanelFrameOperations frame = {
+        host, draw_menu_image,
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
+    };
+    char first_line[160];
+    char second_line[160];
+    const char *body;
+    size_t length;
+    size_t split;
+    const int32_t image_base = (int32_t)menu_group_image(host, 4);
+
+    pharaoh_panel_frame_draw(&frame, panel_x, panel_y, 30, 10);
+    draw_menu_language(host, 5, text_entry, panel_x, panel_y + 20,
+        480, 640, 0);
+    pharaoh_text_select(&host->text_selection, 5, text_entry + 1);
+    body = host->text_selection.current;
+    if (body != NULL) {
+        length = strlen(body);
+        split = length;
+        if (split > 58u) {
+            split = 58u;
+            while (split > 0u && body[split] != ' ') --split;
+            if (split == 0u) split = 58u;
+        }
+        if (split >= sizeof(first_line)) split = sizeof(first_line) - 1u;
+        memcpy(first_line, body, split);
+        first_line[split] = '\0';
+        while (split < length && body[split] == ' ') ++split;
+        (void)strncpy_s(second_line, sizeof(second_line), body + split,
+            _TRUNCATE);
+        high_score_draw_text(host, first_line, panel_x + 30,
+            panel_y + 60, 636, 0);
+        if (second_line[0] != '\0') {
+            high_score_draw_text(host, second_line, panel_x + 30,
+                panel_y + 76, 636, 0);
+        }
+    }
+    draw_menu_image(host, image_base + 365 + (focused_button == 1),
+        panel_x + 256, panel_y + 100);
+    if (button_count == 2) {
+        draw_menu_image(host, image_base + 369 + (focused_button == 2),
+            panel_x + 192, panel_y + 100);
+    }
+    host->graphics.redraw_requested = 0;
+}
+
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection, int32_t campaign_mode)

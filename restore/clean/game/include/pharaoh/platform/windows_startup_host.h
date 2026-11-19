@@ -178,6 +178,9 @@ void pharaoh_windows_startup_host_draw_player_name_input(
 void pharaoh_windows_startup_host_draw_player_name_choices(
     PharaohWindowsStartupHost *host,
     const PharaohPlayerSelectionState *selection, int32_t focused_button);
+void pharaoh_windows_startup_host_draw_family_message(
+    PharaohWindowsStartupHost *host, int32_t text_entry,
+    int32_t button_count, int32_t focused_button);
 void pharaoh_windows_startup_host_draw_main_menu(
     PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
     int32_t focused_button);

@@ -22,6 +22,12 @@ static const PharaohMenuRect saved_game_row_rects[12] = {
     {160,272,448,288}, {160,288,448,304}, {160,304,448,320}
 };
 
+enum {
+    FAMILY_MESSAGE_NONE = 0,
+    FAMILY_MESSAGE_DELETE = 1,
+    FAMILY_MESSAGE_DUPLICATE = 2
+};
+
 static void load_selected_family(PharaohWindowsStartupDispatch *dispatch);
 
 static uint32_t frame_clock(void *user_data)
@@ -294,15 +300,20 @@ static void open_selected_player_menu(
         dispatch->main_menu_window.active_window;
 }
 
-static int32_t show_family_message(PharaohWindowsStartupDispatch *dispatch,
-    int32_t first_text_entry, uint32_t native_button_count)
+static void show_family_message(PharaohWindowsStartupDispatch *dispatch,
+    int32_t first_text_entry, uint8_t native_button_count, uint8_t action)
 {
-    const char *const title = exit_box_select_text(dispatch, 5,
-        first_text_entry);
-    const char *const body = exit_box_select_text(dispatch, 5,
-        first_text_entry + 1);
-    return front_menu_show_exit_box(dispatch, title, body,
-        native_button_count == 2 ? 4u : 0u);
+    dispatch->family_message_previous_window =
+        dispatch->refresh.current_window_id;
+    dispatch->family_message_text_entry = first_text_entry;
+    dispatch->family_message_button_count = native_button_count;
+    dispatch->family_message_action = action;
+    dispatch->family_message_focused_button = 0;
+    dispatch->family_message_previous_profile =
+        dispatch->player_selection.selected_profile;
+    dispatch->refresh.current_window_id = 0x3f;
+    dispatch->host->current_window_id = 0x3f;
+    dispatch->host->graphics.redraw_requested = 1;
 }
 
 static void load_selected_family(PharaohWindowsStartupDispatch *dispatch)
@@ -364,8 +375,7 @@ static void accept_new_family(PharaohWindowsStartupDispatch *dispatch)
     }
     attributes = GetFileAttributesA(profile);
     if (attributes != INVALID_FILE_ATTRIBUTES) {
-        (void)show_family_message(dispatch, 0x5c, 1);
-        begin_new_family(dispatch);
+        show_family_message(dispatch, 0x5c, 1, FAMILY_MESSAGE_DUPLICATE);
         return;
     }
 
@@ -397,7 +407,6 @@ static void delete_selected_family(PharaohWindowsStartupDispatch *dispatch)
     int32_t previous = selection->selected_profile;
 
     if (selection->player_name[0] == '\0' ||
-        show_family_message(dispatch, 0x5a, 2) != 6 ||
         pharaoh_player_profile_paths(selection->player_name,
             directory, sizeof(directory), profile, sizeof(profile)) == 0) {
         return;
@@ -669,6 +678,15 @@ void pharaoh_windows_startup_dispatch_mouse(
         }
         dispatch->right_press_active = 0;
         dispatch->mouse_button_state = 0xf0;
+        if (dispatch->right_press_window == 0x2f &&
+            dispatch->refresh.current_window_id == 0x2f) {
+            dispatch->refresh.current_window_id = 0;
+            dispatch->host->current_window_id = 0;
+            dispatch->host->graphics.redraw_requested = 1;
+            dispatch->menu_focused_button = 0;
+            dispatch->input.mouse_right_went_up = 0;
+            dispatch->input.video_input_flag_b = 0;
+        }
     }
 }
 
@@ -743,6 +761,56 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 dispatch->left_press_window == 0) {
             dispatch_front_menu_action(dispatch, focused - 1);
         }
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
+    }
+    if (dispatch->refresh.current_window_id == 0x3f) {
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        int32_t focused = 0;
+        int32_t accepted = 0;
+
+        if (dispatch->input.mouse_x >= origin_x + 336 &&
+            dispatch->input.mouse_x < origin_x + 370 &&
+            dispatch->input.mouse_y >= origin_y + 180 &&
+            dispatch->input.mouse_y < origin_y + 214) {
+            focused = 1;
+        } else if (dispatch->family_message_button_count == 2 &&
+            dispatch->input.mouse_x >= origin_x + 272 &&
+            dispatch->input.mouse_x < origin_x + 306 &&
+            dispatch->input.mouse_y >= origin_y + 180 &&
+            dispatch->input.mouse_y < origin_y + 214) {
+            focused = 2;
+        }
+        pharaoh_windows_startup_host_draw_family_message(dispatch->host,
+            dispatch->family_message_text_entry,
+            dispatch->family_message_button_count, focused);
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3f && focused != 0) {
+            const uint8_t action = dispatch->family_message_action;
+            accepted = focused == 1;
+            dispatch->refresh.current_window_id =
+                dispatch->family_message_previous_window;
+            dispatch->host->current_window_id =
+                dispatch->family_message_previous_window;
+            if (action == FAMILY_MESSAGE_DELETE) {
+                if (accepted != 0) delete_selected_family(dispatch);
+                else reload_family_registry(dispatch,
+                    dispatch->family_message_previous_profile);
+            } else if (action == FAMILY_MESSAGE_DUPLICATE) {
+                begin_new_family(dispatch);
+            }
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        dispatch->family_message_focused_button = (uint8_t)focused;
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
         dispatch->input.mouse_right_went_up = 0;
@@ -1042,10 +1110,12 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             } else if (focused == 13) {
                 begin_new_family(dispatch);
             } else if (focused == 14) {
-                delete_selected_family(dispatch);
+                show_family_message(dispatch, 0x5a, 2,
+                    FAMILY_MESSAGE_DELETE);
             } else if (focused == 15) {
                 if (dispatch->player_selection.player_name[0] == '\0') {
-                    (void)show_family_message(dispatch, 0x5e, 1);
+                    show_family_message(dispatch, 0x5e, 1,
+                        FAMILY_MESSAGE_NONE);
                 } else {
                     open_selected_player_menu(dispatch);
                     dispatch->host->graphics.redraw_requested = 1;
