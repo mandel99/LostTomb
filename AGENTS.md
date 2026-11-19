@@ -4,8 +4,9 @@
   do not include them in reconstruction commits.
 - Reconstruct behavior from the pinned original executable and REA evidence.
   Compilation and finite tests do not establish complete gameplay equivalence.
-- Do not launch the original or restored host game. Use offline native emulation
-  and focused source-only verification with controlled external endpoints.
+- The original and restored host games may be launched for focused diagnostics,
+  screenshots and visual comparison. Do not use computer-control automation;
+  interact only through normal process launch and diagnostic hooks.
 - Keep the original CD-music fallback as commented source. Startup must not
   require a CD or external music from a CD.
 
