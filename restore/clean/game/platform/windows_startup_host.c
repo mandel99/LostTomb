@@ -1057,6 +1057,8 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         }
     }
     if (campaign_mode != 0) {
+        draw_menu_language(host, 293, 6, origin_x + 20, origin_y + 17,
+            600, 640, 0);
         main_menu_draw_border(host, 0, origin_x + 32, origin_y + 208,
             160, 25, focused_button == 7);
         draw_menu_language(host, 294, 38, origin_x + 36, origin_y + 215,
