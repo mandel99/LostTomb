@@ -1,4 +1,5 @@
 #include "pharaoh/platform/windows_startup_host.h"
+#include "pharaoh/ui/map_selection_rating.h"
 #include "pharaoh/platform/windows_application_window.h"
 #include "pharaoh/platform/windows_graphics.h"
 #include "pharaoh/platform/windows_startup.h"
@@ -824,20 +825,39 @@ static void draw_name_input_caret(void *user_data, const char *text,
         DDBLT_COLORFILL | DDBLT_WAIT, &effects);
 }
 
-static void high_score_draw_number(void *user_data, int32_t value,
+static int32_t high_score_draw_number_end(void *user_data, int32_t value,
     int32_t prefix, int32_t x, int32_t y, int32_t font, int32_t color)
 {
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
     char text[48];
     int32_t offset = 0;
     if (prefix != 0) text[offset++] = (char)prefix;
     const int32_t digits = snprintf(text + offset, sizeof(text) -
         (size_t)offset, "%d", value);
-    if (digits < 0 || (size_t)digits >= sizeof(text) - (size_t)offset) return;
+    if (digits < 0 || (size_t)digits >= sizeof(text) - (size_t)offset) return x;
     offset += digits;
-    if ((size_t)offset + 2u > sizeof(text)) return;
+    if ((size_t)offset + 2u > sizeof(text)) return x;
     text[offset++] = ' ';
     text[offset] = '\0';
     high_score_draw_text(user_data, text, x, y, font, color);
+    if (font < 634 || font > 641) return x;
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 10 : 6;
+    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
+    if (bitmap_font.first_image == 0) return x;
+    return x + pharaoh_bitmap_text_width(&bitmap_font,
+        (const uint8_t *)text);
+}
+
+static void high_score_draw_number(void *user_data, int32_t value,
+    int32_t prefix, int32_t x, int32_t y, int32_t font, int32_t color)
+{
+    (void)high_score_draw_number_end(user_data, value, prefix, x, y,
+        font, color);
 }
 
 static void high_score_draw_sprite(void *user_data, int32_t image,
@@ -1011,6 +1031,7 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         host, draw_menu_image, 0,
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_INNER_PANEL)
     };
+    const uint8_t *const metadata = selection->preview.metadata;
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
@@ -1043,6 +1064,136 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
             93, 25, focused_button == 8);
         draw_menu_language(host, 294, 39, origin_x + 199, origin_y + 215,
             85, 635, 0);
+    }
+    if (selection->preview.valid != 0) {
+        int16_t preview_image;
+        int32_t climate;
+        int32_t duration;
+        memcpy(&preview_image, metadata + 0x286, sizeof(preview_image));
+        if (preview_image >= 0) {
+            const uint32_t preview_group = preview_image < 19 ? 28u : 748u;
+            const int32_t image_offset = preview_image < 19 ?
+                preview_image : preview_image - 19;
+            draw_menu_image(host,
+                (int32_t)menu_group_image(host, preview_group) + image_offset,
+                origin_x + 78, origin_y + (campaign_mode != 0 ? 56 : 36));
+        }
+        high_score_draw_text(host, selection->selected_name,
+            origin_x + 335, origin_y + 65, 636, 0);
+        high_score_draw_text(host, (const char *)(metadata + 0x3c),
+            origin_x + 335, origin_y + 85, 637, 0);
+        if (map_mode == 3) {
+            PharaohMapSelectionRatingInput rating_input;
+            int32_t event_count;
+            int32_t rating;
+            int32_t rating_entry;
+            int32_t invasion_entry;
+            memcpy(&climate, metadata + 0x3d8, sizeof(climate));
+            memcpy(&duration, metadata + 0x2c, sizeof(duration));
+            draw_menu_language(host, 44, (climate & 0xff) + 0x4d,
+                origin_x + 335, origin_y + 125, 260, 636, 0);
+            switch (duration) {
+            case 0x38: duration = 0x79; break;
+            case 0x54: duration = 0x7a; break;
+            case 0x70: duration = 0x7b; break;
+            case 0x8c: duration = 0x7c; break;
+            case 0xaa: duration = 0x7d; break;
+            default: duration = 0x7e; break;
+            }
+            draw_menu_language(host, 44, duration, origin_x + 335,
+                origin_y + 145, 260, 636, 0);
+            invasion_entry = selection->preview_invasion_count < 1 ? 0x70 :
+                selection->preview_invasion_count < 3 ? 0x71 :
+                selection->preview_invasion_count < 5 ? 0x72 :
+                selection->preview_invasion_count < 11 ? 0x73 : 0x74;
+            draw_menu_language(host, 44, invasion_entry, origin_x + 335,
+                origin_y + 165, 260, 636, 0);
+
+            memset(&rating_input, 0, sizeof(rating_input));
+            memcpy(rating_input.rating_terms, metadata + 0x34c,
+                sizeof(rating_input.rating_terms));
+            memcpy(&rating_input.population_rating_enabled,
+                metadata + 0x380, sizeof(int32_t));
+            memcpy(&rating_input.population, metadata + 0x384,
+                sizeof(int32_t));
+            rating_input.invasion_count = selection->preview_invasion_count;
+            memcpy(&event_count, selection->preview.events,
+                sizeof(event_count));
+            if (event_count < 0) event_count = 0;
+            if (event_count > 150) event_count = 150;
+            rating_input.events =
+                (const PharaohMapSelectionRatingEvent *)(const void *)
+                    (selection->preview.events + sizeof(int32_t));
+            rating_input.event_count = event_count;
+            rating_input.god_settings =
+                (const int16_t *)(const void *)(metadata + 0x0a);
+            rating = pharaoh_map_selection_rating(&rating_input);
+            rating_entry = rating < 101 ? 0 : rating < 201 ? 1 :
+                rating < 401 ? 2 : rating < 601 ? 3 : rating < 901 ? 4 :
+                rating < 1301 ? 5 : rating < 1701 ? 6 :
+                rating < 2101 ? 7 : rating <= 2500 ? 8 : 9;
+            draw_menu_language(host, 32, rating_entry + 0x16,
+                origin_x + 335, origin_y + 185, 260, 636, 0);
+            {
+                static const size_t enabled_offsets[] = {
+                    0x364, 0x365, 0x367, 0x380, 0x35c, 0x378, 0x370
+                };
+                static const size_t value_offsets[] = {
+                    0x34c, 0x350, 0x358, 0x384, 0x35c, 0x37c, 0x374
+                };
+                static const int32_t label_entries[] = {
+                    0x81, 0x82, 0x84, 0x85, 0, 0x87, 0x86
+                };
+                static const int32_t row_offsets[] = {
+                    0xf5, 0x105, 0x115, 0x125, 0x135, 0x145, 0x145
+                };
+                uint16_t objective_mode;
+                memcpy(&objective_mode, metadata + 0x288,
+                    sizeof(objective_mode));
+                if (objective_mode == 0) {
+                    for (size_t index = 0;
+                         index < sizeof(enabled_offsets) /
+                            sizeof(enabled_offsets[0]); ++index) {
+                        int32_t enabled;
+                        int32_t value;
+                        int32_t end_x;
+                        memcpy(&enabled, metadata + enabled_offsets[index],
+                            sizeof(enabled));
+                        if ((enabled & 0xff) == 0) continue;
+                        memcpy(&value, metadata + value_offsets[index],
+                            sizeof(value));
+                        end_x = high_score_draw_number_end(host, value, 0,
+                            origin_x + 410, origin_y + row_offsets[index],
+                            636, 0);
+                        if (index == 4) {
+                            draw_menu_language(host, 29,
+                                (enabled < 2 ? 0 : 20) +
+                                    (metadata[0x360] & 0xff),
+                                end_x, origin_y + row_offsets[index],
+                                190, 636, 0);
+                        } else {
+                            draw_menu_language(host, 44,
+                                label_entries[index], end_x,
+                                origin_y + row_offsets[index], 190, 636, 0);
+                        }
+                    }
+                    for (size_t index = 0; index < 3; ++index) {
+                        int16_t text_entry;
+                        memcpy(&text_entry, metadata + 0x508 +
+                            index * sizeof(text_entry), sizeof(text_entry));
+                        if (text_entry != 0) {
+                            draw_menu_language(host, 198, text_entry,
+                                origin_x + 350,
+                                origin_y + 0x155 + (int32_t)index * 16,
+                                260, 636, 0);
+                        }
+                    }
+                } else {
+                    draw_menu_language(host, 145, 0, origin_x + 345,
+                        origin_y + 0xe1, 260, 636, 0);
+                }
+            }
+        }
     }
     {
         int32_t position;
@@ -1085,6 +1236,26 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
             (int32_t)menu_group_image(host, 285) + (focused_button == 6),
             origin_x + 385,
             origin_y + 392);
+    }
+    if (pharaoh_map_selection_entry_kind(selection,
+            selection->selected_file) == 2) {
+        draw_menu_language(host, 44, 0x15, origin_x + 352,
+            origin_y + 446, 260, 636, 0);
+    } else if (returns_to_front_menu == 0) {
+        if (campaign_mode != 0) {
+            draw_menu_language(host, 44, 0xd9, origin_x + 380,
+                origin_y + 446, 80, 635, 0);
+            draw_menu_language(host, 44, 0xd7, origin_x + 460,
+                origin_y + 446, 80, 635, 0);
+            draw_menu_language(host, 44, map_mode != 3 ? 0xdd : 0xdc,
+                origin_x + 354, origin_y + 414, 250, 636, 0);
+        } else {
+            draw_menu_language(host, 44, 0x88, origin_x + 505,
+                origin_y + 446, 120, 635, 0);
+        }
+    } else {
+        draw_menu_language(host, 44, 0xd6, origin_x + 490,
+            origin_y + 446, 135, 635, 0);
     }
     host->graphics.redraw_requested = 0;
 }
