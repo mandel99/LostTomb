@@ -68,7 +68,7 @@ void pharaoh_player_selection_draw(
 void pharaoh_player_name_input_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
-    int32_t origin_x, int32_t origin_y, int32_t list_button_focused);
+    int32_t origin_x, int32_t origin_y, int32_t focused_button);
 
 /* Native 0x00520D00: 42 catalog entries and the close button. */
 void pharaoh_player_name_choices_draw(

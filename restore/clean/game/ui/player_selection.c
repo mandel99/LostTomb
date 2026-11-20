@@ -270,7 +270,7 @@ void pharaoh_player_selection_draw(
 void pharaoh_player_name_input_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
-    int32_t origin_x, int32_t origin_y, int32_t list_button_focused)
+    int32_t origin_x, int32_t origin_y, int32_t focused_button)
 {
     const PharaohPanelFrameOperations outer_frame = {
         operations->user_data, operations->draw_sprite,
@@ -294,10 +294,10 @@ void pharaoh_player_name_input_draw(
         origin_x + 395, origin_y + 255, 0, 635, 0);
     pharaoh_menu_button_frame_draw(&button_frame,
         operations->button_image_base, origin_x + 352, origin_y + 246,
-        25, 25, list_button_focused);
+        25, 25, focused_button == 1);
     operations->draw_language(operations->user_data, 13, 8,
         origin_x + 145, origin_y + 256, 180, 635,
-        list_button_focused ? 0xf800 : 0);
+        focused_button == 1 ? 0xf800 : 0);
     pharaoh_inner_panel_frame_draw(&inner_frame,
         origin_x + 160, origin_y + 208, 20, 2);
     operations->draw_text(operations->user_data, state->player_name,
@@ -306,7 +306,8 @@ void pharaoh_player_name_input_draw(
         operations->draw_caret(operations->user_data, state->player_name,
             origin_x + 176, origin_y + 231, 637, 0xffff);
     }
-    operations->draw_sprite(operations->user_data, operations->accept_image,
+    operations->draw_sprite(operations->user_data,
+        operations->accept_image + (focused_button == 2),
         origin_x + 464, origin_y + 249);
 }
 

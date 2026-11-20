@@ -948,6 +948,13 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_x < origin_x + 377 &&
             dispatch->input.mouse_y >= origin_y + 246 &&
             dispatch->input.mouse_y < origin_y + 271;
+        const int32_t accept_button_focused =
+            dispatch->input.mouse_x >= origin_x + 464 &&
+            dispatch->input.mouse_x < origin_x + 498 &&
+            dispatch->input.mouse_y >= origin_y + 249 &&
+            dispatch->input.mouse_y < origin_y + 283;
+        const int32_t focused_button = list_button_focused != 0 ? 1 :
+            accept_button_focused != 0 ? 2 : 0;
 
         if (dispatch->input.mouse_right_went_up != 0 &&
             dispatch->right_press_window == 0x36) {
@@ -958,10 +965,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 dispatch->refresh.current_window_id = 0x51;
                 dispatch->host->current_window_id = 0x51;
                 dispatch->host->graphics.redraw_requested = 1;
-            } else if (dispatch->input.mouse_x >= origin_x + 464 &&
-                dispatch->input.mouse_x < origin_x + 498 &&
-                dispatch->input.mouse_y >= origin_y + 249 &&
-                dispatch->input.mouse_y < origin_y + 283) {
+            } else if (accept_button_focused != 0) {
                 accept_new_family(dispatch);
             }
         }
@@ -977,8 +981,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
            animate the edit caret. */
         pharaoh_windows_startup_host_draw_player_name_input(
             dispatch->host, &dispatch->player_selection,
-            list_button_focused);
-        dispatch->player_selection_focused_button = list_button_focused;
+            focused_button);
+        dispatch->player_selection_focused_button = focused_button;
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
         dispatch->input.mouse_right_went_up = 0;
