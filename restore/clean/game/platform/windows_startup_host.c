@@ -1024,7 +1024,7 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
     const uint32_t background = menu_group_image(host,
-        campaign_mode != 0 ? 33 : 32);
+        returns_to_front_menu != 0 ? 15u : campaign_mode != 0 ? 33u : 32u);
     const int32_t rows = campaign_mode != 0 ? 13 : 15;
     const int32_t vertical_shift = campaign_mode != 0 ? 32 : 0;
     const PharaohPanelFrameOperations inner = {
@@ -1035,8 +1035,9 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
-    draw_menu_image(host, (int32_t)background, origin_x - 192,
-        origin_y - 144);
+    draw_menu_image(host, (int32_t)background,
+        returns_to_front_menu != 0 ? 0 : origin_x - 192,
+        returns_to_front_menu != 0 ? 0 : origin_y - 144);
     /* 0041F220 / 0041E1B0: list well and scrollbar well precede text. */
     pharaoh_inner_panel_frame_draw(&inner, origin_x + 15,
         origin_y + 0xcd + vertical_shift, 16, rows + 1);
@@ -1082,6 +1083,22 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
             origin_x + 335, origin_y + 65, 636, 0);
         high_score_draw_text(host, (const char *)(metadata + 0x3c),
             origin_x + 335, origin_y + 85, 637, 0);
+        {
+            int16_t start_year;
+            memcpy(&start_year, metadata, sizeof(start_year));
+            if (start_year < 0) {
+                const int32_t end_x = high_score_draw_number_end(host,
+                    -(int32_t)start_year, 0, origin_x + 410,
+                    origin_y + 105, 636, 0);
+                (void)high_score_draw_language(host, 20, 0, end_x - 8,
+                    origin_y + 105, 636, 0);
+            } else {
+                const int32_t end_x = high_score_draw_language(host, 20, 1,
+                    origin_x + 410, origin_y + 105, 636, 0);
+                high_score_draw_number(host, start_year, 0, end_x,
+                    origin_y + 105, 636, 0);
+            }
+        }
         if (map_mode == 3) {
             PharaohMapSelectionRatingInput rating_input;
             int32_t event_count;
@@ -1151,6 +1168,8 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 memcpy(&objective_mode, metadata + 0x288,
                     sizeof(objective_mode));
                 if (objective_mode == 0) {
+                    draw_menu_language(host, 44, 0x7f, origin_x + 335,
+                        origin_y + 0xd9, 260, 637, 0);
                     for (size_t index = 0;
                          index < sizeof(enabled_offsets) /
                             sizeof(enabled_offsets[0]); ++index) {
@@ -1191,6 +1210,77 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 } else {
                     draw_menu_language(host, 145, 0, origin_x + 345,
                         origin_y + 0xe1, 260, 636, 0);
+                }
+            }
+            if (returns_to_front_menu == 0) {
+                const int32_t end_x = high_score_draw_language(host, 44,
+                    0xd8, origin_x + 410, origin_y + 392, 636, 0);
+                (void)high_score_draw_language(host, 153,
+                    host->settings.difficulty + 1, end_x,
+                    origin_y + 392, 636, 0);
+            }
+        } else if (campaign_mode != 0) {
+            const int32_t mission = selection->warning_text_id;
+            if (mission >= 0 && mission < PHARAOH_CAMPAIGN_INDEX_CAPACITY) {
+                const PharaohCampaignMissionRecord *const record =
+                    &host->campaign.mission_records[mission];
+                if (record->score == 0) {
+                    draw_menu_language(host, 305, 0, origin_x + 345,
+                        origin_y + 125, 260, 636, 0);
+                } else {
+                    int32_t end_x;
+                    draw_menu_language(host, 297, mission,
+                        origin_x + 345, origin_y + 125, 270, 636, 0);
+                    if (metadata[0x364] != 0) {
+                        end_x = high_score_draw_language(host, 298, 0,
+                            origin_x + 345, origin_y + 285, 636, 0);
+                        high_score_draw_number(host, record->rating_culture,
+                            0, end_x + 6, origin_y + 285, 636, 0);
+                    }
+                    if (metadata[0x365] != 0) {
+                        end_x = high_score_draw_language(host, 298, 1,
+                            origin_x + 345, origin_y + 301, 636, 0);
+                        high_score_draw_number(host,
+                            record->rating_prosperity, 0, end_x + 6,
+                            origin_y + 301, 636, 0);
+                    }
+                    if (metadata[0x367] != 0) {
+                        end_x = high_score_draw_language(host, 298, 3,
+                            origin_x + 345, origin_y + 317, 636, 0);
+                        high_score_draw_number(host, record->rating_kingdom,
+                            0, end_x + 6, origin_y + 317, 636, 0);
+                    }
+                    {
+                        int32_t population_enabled;
+                        memcpy(&population_enabled, metadata + 0x380,
+                            sizeof(population_enabled));
+                        if (population_enabled != 0) {
+                            end_x = high_score_draw_language(host, 298, 4,
+                                origin_x + 345, origin_y + 333, 636, 0);
+                            high_score_draw_number(host, record->population,
+                                0, end_x + 6, origin_y + 333, 636, 0);
+                        }
+                    }
+                    end_x = high_score_draw_language(host, 298, 5,
+                        origin_x + 345, origin_y + 349, 636, 0);
+                    high_score_draw_number(host, record->treasury, 0,
+                        end_x + 6, origin_y + 349, 636, 0);
+                    end_x = high_score_draw_language(host, 298, 7,
+                        origin_x + 345, origin_y + 365, 636, 0);
+                    (void)high_score_draw_language(host, 153,
+                        record->difficulty + 1, end_x + 6,
+                        origin_y + 365, 636, 0);
+                    end_x = high_score_draw_language(host, 298, 6,
+                        origin_x + 345, origin_y + 381, 636, 0);
+                    end_x = high_score_draw_number_end(host,
+                        record->months / 12, 0, end_x + 6,
+                        origin_y + 381, 636, 0);
+                    (void)high_score_draw_language(host, 298, 9, end_x,
+                        origin_y + 381, 636, 0);
+                    end_x = high_score_draw_language(host, 298, 8,
+                        origin_x + 345, origin_y + 397, 637, 0);
+                    high_score_draw_number(host, record->score, 0,
+                        end_x + 6, origin_y + 397, 637, 0);
                 }
             }
         }
