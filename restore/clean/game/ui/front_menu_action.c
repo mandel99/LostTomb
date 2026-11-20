@@ -32,11 +32,11 @@ void pharaoh_front_menu_dispatch_action(void *user_data)
 
     case FRONT_MENU_ACTION_CUSTOM_MAPS:
         *state->campaign_flow_mode = 2;
-        *state->scenario_menu_changed = 1;
+        *state->map_selection_returns_to_front_menu = 1;
         *state->save_selection_mode = 0;
         *state->continue_campaign_pending = 0;
-        *state->new_campaign_field_a = 0;
-        *state->new_campaign_field_b = 3;
+        *state->map_selection_campaign_mode = 0;
+        *state->map_selection_mode = 3;
         operations->open_custom_map_selection(operations->user_data);
         break;
 

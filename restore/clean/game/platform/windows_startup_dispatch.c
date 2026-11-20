@@ -556,10 +556,11 @@ static void dispatch_front_menu_action(
     state.menu_action_reset = &dispatch->front_menu_action_reset;
     state.continue_campaign_pending = &dispatch->continue_campaign_pending;
     state.campaign_flow_mode = &dispatch->campaign_flow_mode;
-    state.scenario_menu_changed = &dispatch->scenario_menu_changed;
+    state.map_selection_returns_to_front_menu =
+        &dispatch->menu_selection_flag_605a3c;
     state.save_selection_mode = &dispatch->save_selection_mode;
-    state.new_campaign_field_a = &dispatch->new_campaign_field_a;
-    state.new_campaign_field_b = &dispatch->new_campaign_field_b;
+    state.map_selection_campaign_mode = &dispatch->menu_map_changed_704db0;
+    state.map_selection_mode = &dispatch->menu_map_mode_704dac;
     state.current_window_id = &dispatch->refresh.current_window_id;
     context.state = &state;
     context.operations = &operations;

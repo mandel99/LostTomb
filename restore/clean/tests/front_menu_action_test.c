@@ -23,8 +23,8 @@ int main(void)
     PharaohGenericButtonInputState input = { 0 };
     uint8_t action_active = 1, save_selection_mode = 1, window = 0;
     uint32_t menu_action_reset = 0, continue_pending = 1;
-    uint32_t campaign_mode = 0, scenario_changed = 0;
-    uint32_t field_a = 7, field_b = 9;
+    uint32_t campaign_mode = 0, returns_to_front_menu = 0;
+    uint32_t map_campaign_mode = 7, map_mode = 9;
     PharaohFrontMenuActionState state = { 0 };
     TestOperations test_operations = { { 0 } };
     const PharaohFrontMenuActionOperations operations = {
@@ -38,10 +38,10 @@ int main(void)
     state.menu_action_reset = &menu_action_reset;
     state.continue_campaign_pending = &continue_pending;
     state.campaign_flow_mode = &campaign_mode;
-    state.scenario_menu_changed = &scenario_changed;
+    state.map_selection_returns_to_front_menu = &returns_to_front_menu;
     state.save_selection_mode = &save_selection_mode;
-    state.new_campaign_field_a = &field_a;
-    state.new_campaign_field_b = &field_b;
+    state.map_selection_campaign_mode = &map_campaign_mode;
+    state.map_selection_mode = &map_mode;
     state.current_window_id = &window;
 
     input.selected_primary_parameter = 0;
@@ -54,8 +54,8 @@ int main(void)
     input.selected_primary_parameter = 2;
     pharaoh_front_menu_dispatch_action(&context);
     CHECK(test_operations.calls[2] == 1 && campaign_mode == 2 &&
-        scenario_changed == 1 && save_selection_mode == 0 &&
-        continue_pending == 0 && field_a == 0 && field_b == 3);
+        returns_to_front_menu == 1 && save_selection_mode == 0 &&
+        continue_pending == 0 && map_campaign_mode == 0 && map_mode == 3);
     input.selected_primary_parameter = 3;
     pharaoh_front_menu_dispatch_action(&context);
     CHECK(test_operations.calls[3] == 1 && window == 0x53);

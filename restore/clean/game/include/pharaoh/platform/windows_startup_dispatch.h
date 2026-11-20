@@ -46,8 +46,7 @@ typedef struct PharaohWindowsStartupDispatch {
     uint32_t menu_map_changed_704db0, menu_load_return_window;
     uint8_t menu_selection_flag_6de515;
     uint32_t message_box_display_unavailable, message_box_display_ready;
-    uint32_t campaign_flow_mode, scenario_menu_changed;
-    uint32_t new_campaign_field_a, new_campaign_field_b;
+    uint32_t campaign_flow_mode;
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;
     int32_t map_selection_focused_button;

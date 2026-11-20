@@ -11,10 +11,10 @@ typedef struct PharaohFrontMenuActionState {
     uint32_t *menu_action_reset;
     uint32_t *continue_campaign_pending;
     uint32_t *campaign_flow_mode;
-    uint32_t *scenario_menu_changed;
+    uint32_t *map_selection_returns_to_front_menu;
     uint8_t *save_selection_mode;
-    uint32_t *new_campaign_field_a;
-    uint32_t *new_campaign_field_b;
+    uint32_t *map_selection_campaign_mode;
+    uint32_t *map_selection_mode;
     uint8_t *current_window_id;
 } PharaohFrontMenuActionState;
 
