@@ -939,7 +939,9 @@ void pharaoh_windows_startup_host_draw_family_message(
     const char *body;
     size_t length;
     size_t split;
-    const int32_t image_base = (int32_t)menu_group_image(host, 4);
+    /* Native table 0x005c8168 stores button style 4, image group 365,
+       then image offsets 0 and 4.  The group field is not SG3 group 4. */
+    const int32_t image_base = (int32_t)menu_group_image(host, 365);
 
     pharaoh_panel_frame_draw(&frame, panel_x, panel_y, 30, 10);
     draw_menu_language(host, 5, text_entry, panel_x, panel_y + 20,
@@ -961,16 +963,16 @@ void pharaoh_windows_startup_host_draw_family_message(
         (void)strncpy_s(second_line, sizeof(second_line), body + split,
             _TRUNCATE);
         high_score_draw_text(host, first_line, panel_x + 30,
-            panel_y + 60, 636, 0);
+            panel_y + 60, 635, 0);
         if (second_line[0] != '\0') {
             high_score_draw_text(host, second_line, panel_x + 30,
-                panel_y + 76, 636, 0);
+                panel_y + 76, 635, 0);
         }
     }
-    draw_menu_image(host, image_base + 365 + (focused_button == 1),
+    draw_menu_image(host, image_base + (focused_button == 1),
         panel_x + 256, panel_y + 100);
     if (button_count == 2) {
-        draw_menu_image(host, image_base + 369 + (focused_button == 2),
+        draw_menu_image(host, image_base + 4 + (focused_button == 2),
             panel_x + 192, panel_y + 100);
     }
     host->graphics.redraw_requested = 0;
