@@ -57,6 +57,12 @@ int32_t pharaoh_player_profile_paths(const char *name,
     char *directory, size_t directory_capacity,
     char *profile, size_t profile_capacity);
 
+/* Complete typed translations of native 0x0040C890 and 0x0040C810. */
+void pharaoh_player_name_choices_open(uint8_t *current_window_id,
+    uint8_t *redraw_requested);
+void pharaoh_player_name_choices_close(uint32_t *menu_action_reset,
+    uint8_t *current_window_id, uint8_t *redraw_requested);
+
 /* Native 0x00516630/0x00516720, with host supplied bitmap-asset drawing. */
 void pharaoh_player_selection_draw(
     const PharaohPlayerSelectionState *state,

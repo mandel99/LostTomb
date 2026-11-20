@@ -1023,9 +1023,11 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         } else if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x36) {
             if (list_button_focused != 0) {
-                dispatch->refresh.current_window_id = 0x51;
-                dispatch->host->current_window_id = 0x51;
-                dispatch->host->graphics.redraw_requested = 1;
+                pharaoh_player_name_choices_open(
+                    &dispatch->refresh.current_window_id,
+                    &dispatch->host->graphics.redraw_requested);
+                dispatch->host->current_window_id =
+                    dispatch->refresh.current_window_id;
             } else if (accept_button_focused != 0) {
                 accept_new_family(dispatch);
             }
@@ -1082,15 +1084,21 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         }
         if (dispatch->input.mouse_right_went_up != 0 &&
             dispatch->right_press_window == 0x51) {
-            dispatch->refresh.current_window_id = 0x36;
-            dispatch->host->current_window_id = 0x36;
-            dispatch->host->graphics.redraw_requested = 1;
+            pharaoh_player_name_choices_close(
+                &dispatch->front_menu_action_reset,
+                &dispatch->refresh.current_window_id,
+                &dispatch->host->graphics.redraw_requested);
+            dispatch->host->current_window_id =
+                dispatch->refresh.current_window_id;
         } else if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x51) {
             if (focused == 43) {
-                dispatch->refresh.current_window_id = 0x36;
-                dispatch->host->current_window_id = 0x36;
-                dispatch->host->graphics.redraw_requested = 1;
+                pharaoh_player_name_choices_close(
+                    &dispatch->front_menu_action_reset,
+                    &dispatch->refresh.current_window_id,
+                    &dispatch->host->graphics.redraw_requested);
+                dispatch->host->current_window_id =
+                    dispatch->refresh.current_window_id;
             } else if (focused >= 1 && focused <= 42 &&
                 focused != 1 && focused != 22) {
                 const int32_t choice = focused - 1;

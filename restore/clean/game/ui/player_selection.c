@@ -267,6 +267,21 @@ void pharaoh_player_selection_draw(
     }
 }
 
+void pharaoh_player_name_choices_open(uint8_t *current_window_id,
+    uint8_t *redraw_requested)
+{
+    *current_window_id = 0x51;
+    *redraw_requested = 1;
+}
+
+void pharaoh_player_name_choices_close(uint32_t *menu_action_reset,
+    uint8_t *current_window_id, uint8_t *redraw_requested)
+{
+    *menu_action_reset = 0;
+    *current_window_id = 0x36;
+    *redraw_requested = 1;
+}
+
 void pharaoh_player_name_input_draw(
     const PharaohPlayerSelectionState *state,
     const PharaohPlayerSelectionDrawOperations *operations,
