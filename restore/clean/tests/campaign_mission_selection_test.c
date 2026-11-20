@@ -25,7 +25,7 @@ int main(void)
     CHECK(strcmp(pharaoh_file_list_name(&files, 1), "Second mission") == 0);
     CHECK(strcmp(pharaoh_file_list_name(&files, 2), "Third mission") == 0);
     CHECK(selection.first_visible_file == 0);
-    CHECK(selection.selected_file == 0);
+    CHECK(selection.selected_file == 2);
     CHECK(pharaoh_custom_map_selection_select_visible(&selection, 2) != 0);
     CHECK(selection.selected_file == 2);
 

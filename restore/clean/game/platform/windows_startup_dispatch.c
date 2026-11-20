@@ -1250,6 +1250,17 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
+            dispatch->menu_map_changed_704db0 == 1 &&
+            dispatch->input.mouse_x >= origin_x + 350 &&
+            dispatch->input.mouse_x < origin_x + 600 &&
+            dispatch->input.mouse_y >= origin_y + 410 &&
+            dispatch->input.mouse_y < origin_y + 433) {
+            pharaoh_map_selection_toggle_mode(
+                &dispatch->menu_map_mode_704dac,
+                &dispatch->host->graphics.redraw_requested);
+        }
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
             dispatch->input.mouse_x >= origin_x + 335 &&
             dispatch->input.mouse_x < origin_x + 362 &&
             dispatch->input.mouse_y >= origin_y + 440 &&

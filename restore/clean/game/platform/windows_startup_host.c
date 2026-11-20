@@ -1008,19 +1008,22 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         const char *const name = pharaoh_file_list_name(selection->files,
             index);
         if (name != NULL) {
-            const int32_t font = index == selection->selected_file ? 637 :
+            /* 0x0041F220 uses the hover font for both the hovered row and the
+               retained selection when no other row is focused. */
+            const int32_t font = index == selection->selected_file ||
                 row == hovered_row ? 636 : 635;
             high_score_draw_text(host, name, origin_x + 24,
-                origin_y + 220 + vertical_shift + row * 16, font, 0xffff);
+                origin_y + 220 + vertical_shift + row * 16, font, 0);
         }
     }
-    if (selection->files->count > rows) {
-        const int32_t last = selection->files->count - rows;
-        const int32_t position = (rows * 16 - 0x4c) *
-            selection->first_visible_file / last;
+    {
+        int32_t position;
+        if (pharaoh_map_selection_scroll_thumb_offset(
+                selection, &position) != 0) {
         draw_menu_image(host,
             (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 0x27,
             origin_x + 0x121, origin_y + 0xf5 + vertical_shift + position);
+        }
     }
     /* 0x57CC30/0x57CCC0 are the native four ImageButton records for
        scroll-up, scroll-down, back and start. Their second table moves the

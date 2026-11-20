@@ -3,6 +3,36 @@
   "state": "0x3D",
   "verified": [
     {
+      "address": "0x0041F810/0x0041F870",
+      "clean_owner": "game/ui/custom_map_selection.c",
+      "status": "complete typed C",
+      "note": "List load preserves the prior selected index; show resets only first-visible and the two input flags, then invokes 0x41F670 with that retained selection."
+    },
+    {
+      "address": "0x00402E50/0x0041E0E0",
+      "clean_owner": "game/ui/custom_map_selection.c",
+      "status": "complete typed C",
+      "note": "Difficulty mutation preserves the four refresh calls and conditional state-0x35 value update; mode toggle writes redraw before selecting mode 2 or 3."
+    },
+    {
+      "address": "0x0041DFC0/0x0041DFE0/0x0041E010",
+      "clean_owner": "game/ui/custom_map_selection.c",
+      "status": "complete typed C",
+      "note": "Mission ID, boolean mode kind, and custom/campaign name lookup preserve native range results."
+    },
+    {
+      "address": "0x0041F670",
+      "clean_owner": "game/ui/custom_map_selection.c",
+      "status": "complete typed C",
+      "note": "Custom maps build maps\\<name>.map and call 0x4D5820 mode 1; campaign rows set the mission ID and call 0x4D58B0(0,1)."
+    },
+    {
+      "address": "0x0041F5C0",
+      "clean_owner": "game/ui/custom_map_selection.c",
+      "status": "complete typed C",
+      "note": "Instruction-level verification includes the otherwise omitted 0x51F780(1) call before 0x5405B0 and the kind-dependent final transition."
+    },
+    {
       "address": "0x0041E470",
       "clean_owner": "game/ui/map_selection_rating.c",
       "status": "complete typed C",
@@ -29,8 +59,8 @@
     "font_groups": "635 normal, 636 hover, 637 selected or disabled"
   },
   "remaining": [
-    "0x0041F670 selected-map metadata load is not yet bound to the host parser.",
-    "0x0041F5C0 start callback is instruction-verified but awaits the 0x005405B0 scenario-load endpoint.",
+    "0x0041F670 is translated but its map/campaign load operations are not yet bound to the Windows host.",
+    "0x0041F5C0 is translated but awaits the production 0x005405B0 scenario-load endpoint.",
     "0x0041E5C0 information-panel rendering still needs typed scenario metadata binding."
   ]
 }
