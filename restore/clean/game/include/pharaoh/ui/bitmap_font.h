@@ -18,4 +18,10 @@ void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color);
 void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, int32_t width, uint16_t color);
+/* Complete translations of native 0x004CD120 and 0x004CD010. */
+int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
+    const uint8_t *text, int32_t *byte_count);
+void pharaoh_bitmap_text_draw_wrapped(const PharaohBitmapFont *font,
+    const uint8_t *text, int32_t x, int32_t y, int32_t width,
+    uint16_t color);
 #endif

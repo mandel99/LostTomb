@@ -844,6 +844,31 @@ static void high_score_draw_centered_text(void *user_data, const char *text,
     }
 }
 
+static void high_score_draw_wrapped_text(void *user_data, const char *text,
+    int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
+    if (text == NULL || font < 634 || font > 641) return;
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 10 : 6;
+    bitmap_font.draw_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 8 : 6;
+    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
+    bitmap_font.draw_gap = font == 634 ? 1 : 0;
+    bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
+        font == 641 ? 24 : 11;
+    bitmap_font.user_data = host;
+    bitmap_font.draw_glyph = draw_font_glyph;
+    if (bitmap_font.first_image != 0) {
+        pharaoh_bitmap_text_draw_wrapped(&bitmap_font,
+            (const uint8_t *)text, x, y, width, (uint16_t)color);
+    }
+}
+
 static void draw_language_number_language(PharaohWindowsStartupHost *host,
     int32_t value, int32_t prefix_group, int32_t prefix_entry,
     int32_t suffix_group, int32_t suffix_entry, int32_t x, int32_t y,
@@ -962,7 +987,8 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
     bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
     if (bitmap_font.first_image == 0) return x;
     return x + pharaoh_bitmap_text_width(&bitmap_font,
-        (const uint8_t *)text);
+        (const uint8_t *)text) +
+        (prefix == 0x40 ? bitmap_font.draw_space : 0);
 }
 
 static void high_score_draw_number(void *user_data, int32_t value,
@@ -1332,7 +1358,9 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                         }
                     }
                 } else {
-                    draw_menu_language(host, 145, 0, origin_x + 345,
+                    pharaoh_text_select(&host->text_selection, 145, 0);
+                    high_score_draw_wrapped_text(host,
+                        host->text_selection.current, origin_x + 345,
                         origin_y + 0xe1, 260, 636, 0);
                 }
             }
@@ -1439,23 +1467,23 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
     }
     if (pharaoh_map_selection_entry_kind(selection,
             selection->selected_file) == 2) {
-        draw_menu_language(host, 44, 0x15, origin_x + 352,
-            origin_y + 446, 260, 636, 0);
+        (void)high_score_draw_language(host, 44, 0x15,
+            origin_x + 352, origin_y + 446, 636, 0);
     } else if (returns_to_front_menu == 0) {
         if (campaign_mode != 0) {
-            draw_menu_language(host, 44, 0xd9, origin_x + 380,
-                origin_y + 446, 80, 635, 0);
-            draw_menu_language(host, 44, 0xd7, origin_x + 460,
-                origin_y + 446, 80, 635, 0);
+            (void)high_score_draw_language(host, 44, 0xd9,
+                origin_x + 380, origin_y + 446, 635, 0);
+            (void)high_score_draw_language(host, 44, 0xd7,
+                origin_x + 460, origin_y + 446, 635, 0);
             draw_menu_language(host, 44, map_mode != 3 ? 0xdd : 0xdc,
                 origin_x + 354, origin_y + 414, 250, 636, 0);
         } else {
-            draw_menu_language(host, 44, 0x88, origin_x + 505,
-                origin_y + 446, 120, 635, 0);
+            (void)high_score_draw_language(host, 44, 0x88,
+                origin_x + 505, origin_y + 446, 635, 0);
         }
     } else {
-        draw_menu_language(host, 44, 0xd6, origin_x + 490,
-            origin_y + 446, 135, 635, 0);
+        (void)high_score_draw_language(host, 44, 0xd6,
+            origin_x + 490, origin_y + 446, 636, 0);
     }
     host->graphics.redraw_requested = 0;
 }

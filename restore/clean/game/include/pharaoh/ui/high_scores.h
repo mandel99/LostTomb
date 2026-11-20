@@ -31,6 +31,8 @@ typedef struct PharaohHighScoresState {
     int32_t origin_x;
     int32_t origin_y;
     int32_t panel_image_base;
+    int32_t scroll_button_image_base;
+    int32_t focused_button;
     int32_t title_font;
     int32_t normal_font;
     int32_t small_font;

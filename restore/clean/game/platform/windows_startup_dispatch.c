@@ -675,6 +675,8 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->high_scores.empty_font = 636;
     dispatch->high_scores.panel_image_base =
         (int32_t)host->sprite_tags[284].image_index;
+    dispatch->high_scores.scroll_button_image_base =
+        (int32_t)host->sprite_tags[365].image_index;
     dispatch->high_scores.redraw_request = &host->graphics.redraw_requested;
     dispatch->high_scores.current_window_id =
         &dispatch->refresh.current_window_id;

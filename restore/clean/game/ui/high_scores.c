@@ -191,6 +191,17 @@ void pharaoh_high_scores_draw_background(PharaohHighScoresState *state,
     operations->draw_centered_language(operations->user_data,
         BOTTOM_GROUP, 1, state->origin_x + 20, state->origin_y + 452,
         608, state->normal_font, COLOR_DEFAULT);
+    /* Native state-0x53 foreground table at 0x005E01D0. */
+    operations->draw_sprite(operations->user_data,
+        state->scroll_button_image_base + 8 +
+            (state->focused_button == 1),
+        state->origin_x + SCROLL_BUTTON_X,
+        state->origin_y + SCROLL_UP_Y);
+    operations->draw_sprite(operations->user_data,
+        state->scroll_button_image_base + 12 +
+            (state->focused_button == 2),
+        state->origin_x + SCROLL_BUTTON_X,
+        state->origin_y + SCROLL_DOWN_Y);
     *state->redraw_request = 1;
 }
 
@@ -223,6 +234,22 @@ int32_t pharaoh_high_scores_drag_scrollbar(PharaohHighScoresState *state,
 int32_t pharaoh_high_scores_handle_input(PharaohHighScoresState *state,
     const PharaohHighScoresInput *input)
 {
+    int32_t focused = 0;
+    if (contains(input->cursor_x, input->cursor_y,
+            state->origin_x + SCROLL_BUTTON_X,
+            state->origin_y + SCROLL_UP_Y,
+            SCROLL_BUTTON_SIZE, SCROLL_BUTTON_SIZE)) {
+        focused = 1;
+    } else if (contains(input->cursor_x, input->cursor_y,
+            state->origin_x + SCROLL_BUTTON_X,
+            state->origin_y + SCROLL_DOWN_Y,
+            SCROLL_BUTTON_SIZE, SCROLL_BUTTON_SIZE)) {
+        focused = 2;
+    }
+    if (focused != state->focused_button) {
+        state->focused_button = focused;
+        *state->redraw_request = 2;
+    }
     if (input->right_released != 0) {
         *state->current_window_id = 0;
         *state->redraw_request = 1;

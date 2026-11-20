@@ -1,5 +1,7 @@
 #include "pharaoh/ui/bitmap_font.h"
 
+#include <string.h>
+
 /* Pinned EXE character-to-glyph data at 005E049C, bytes for codes 32..255.
    This is copied data, not an address used by the restored process. */
 static const uint8_t glyph_ids[224] = {
@@ -61,4 +63,75 @@ void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,
     const int32_t measured = pharaoh_bitmap_text_width(font, text);
     if (width > measured) x += (width - measured) / 2;
     pharaoh_bitmap_text_draw_at(font, text, x, y, color);
+}
+
+int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
+    const uint8_t *text, int32_t *byte_count)
+{
+    int32_t width = 0;
+    int32_t count = 0;
+    int32_t has_glyph = 0;
+
+    while (count < 1999) {
+        const uint8_t c = text[count];
+        if (c == 0) break;
+        if (c == ' ') {
+            if (has_glyph != 0) break;
+            width += 4;
+        } else if (c != '$' && c >= 32) {
+            const uint8_t glyph = glyph_ids[c - 32];
+            if (glyph != 0) {
+                const uint32_t image = font->first_image + glyph - 1u;
+                if (image < font->image_count) {
+                    width += font->images[image].width + 1;
+                }
+            }
+            has_glyph = 1;
+        }
+        ++count;
+    }
+    *byte_count = count;
+    return width;
+}
+
+void pharaoh_bitmap_text_draw_wrapped(const PharaohBitmapFont *font,
+    const uint8_t *text, int32_t x, int32_t y, int32_t width,
+    uint16_t color)
+{
+    const uint8_t *cursor = text;
+    int32_t has_more = 1;
+
+    for (int32_t line_index = 0; line_index < 100; ++line_index) {
+        uint8_t line[200] = { 0 };
+        int32_t line_bytes = 0;
+        int32_t line_width = 0;
+
+        if (has_more != 0) {
+            do {
+                int32_t word_bytes;
+                int32_t word_width;
+                if (line_width >= width) break;
+                word_width = pharaoh_bitmap_wrapped_word_width(font,
+                    cursor, &word_bytes);
+                line_width += word_width;
+                if (line_width >= width) break;
+                if (word_bytes > 0) {
+                    int32_t copy_bytes = word_bytes;
+                    if (copy_bytes > (int32_t)sizeof(line) - 1 - line_bytes) {
+                        copy_bytes = (int32_t)sizeof(line) - 1 - line_bytes;
+                    }
+                    memcpy(line + line_bytes, cursor, (size_t)copy_bytes);
+                    line_bytes += copy_bytes;
+                    cursor += word_bytes;
+                }
+                if (*cursor == 0) {
+                    has_more = 0;
+                    break;
+                }
+            } while (line_width != 0);
+        }
+        pharaoh_bitmap_text_draw_at(font, line, x, y, color);
+        y += font->baseline + 5;
+        if (has_more == 0) return;
+    }
 }
