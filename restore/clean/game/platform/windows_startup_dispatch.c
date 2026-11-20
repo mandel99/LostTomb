@@ -463,6 +463,21 @@ static void main_menu_open_map_selection(void *user_data)
     }
     dispatch->refresh.current_window_id = 0x3d;
     dispatch->host->current_window_id = 0x3d;
+    dispatch->map_selection_focused_button = 0;
+    dispatch->map_selection_hovered_row = -1;
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
+static void map_selection_back(PharaohWindowsStartupDispatch *dispatch)
+{
+    /* Native 0x0041F650 returns directly to state zero only for the special
+       0x00605A3C context; the normal selector calls 0x004CB6A0. */
+    if (dispatch->menu_selection_flag_605a3c != 0) {
+        dispatch->refresh.current_window_id = 0;
+        dispatch->host->current_window_id = 0;
+    } else {
+        open_selected_player_menu(dispatch);
+    }
     dispatch->host->graphics.redraw_requested = 1;
 }
 
@@ -1145,6 +1160,57 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             (dispatch->host->graphics.render_height - 480) / 2;
         const int32_t list_top = origin_y +
             (dispatch->custom_map_selection.visible_rows == 13 ? 252 : 220);
+        int32_t focused_button = 0;
+        int32_t hovered_row = -1;
+        const int32_t up_y = origin_y +
+            (dispatch->custom_map_selection.visible_rows == 13 ? 247 : 215);
+        if (dispatch->input.mouse_x >= origin_x + 15 &&
+            dispatch->input.mouse_x < origin_x + 271 &&
+            dispatch->input.mouse_y >= list_top &&
+            dispatch->input.mouse_y < list_top +
+                dispatch->custom_map_selection.visible_rows * 16) {
+            hovered_row = (dispatch->input.mouse_y - list_top) / 16;
+            if (dispatch->custom_map_selection.first_visible_file +
+                    hovered_row >= dispatch->custom_map_files.count) {
+                hovered_row = -1;
+            }
+        }
+        if (dispatch->input.mouse_x >= origin_x + 282 &&
+            dispatch->input.mouse_x < origin_x + 316 &&
+            dispatch->input.mouse_y >= up_y &&
+            dispatch->input.mouse_y < up_y + 34) focused_button = 1;
+        else if (dispatch->input.mouse_x >= origin_x + 282 &&
+            dispatch->input.mouse_x < origin_x + 316 &&
+            dispatch->input.mouse_y >= origin_y + 435 &&
+            dispatch->input.mouse_y < origin_y + 469) focused_button = 2;
+        else if (dispatch->input.mouse_x >= origin_x + 335 &&
+            dispatch->input.mouse_x < origin_x + 362 &&
+            dispatch->input.mouse_y >= origin_y + 440 &&
+            dispatch->input.mouse_y < origin_y + 467) focused_button = 3;
+        else if (dispatch->input.mouse_x >= origin_x + 600 &&
+            dispatch->input.mouse_x < origin_x + 627 &&
+            dispatch->input.mouse_y >= origin_y + 440 &&
+            dispatch->input.mouse_y < origin_y + 467) focused_button = 4;
+        else if (dispatch->custom_map_selection.visible_rows == 15 &&
+            dispatch->input.mouse_y >= origin_y + 392 &&
+            dispatch->input.mouse_y < origin_y + 409 &&
+            dispatch->input.mouse_x >= origin_x + 368 &&
+            dispatch->input.mouse_x < origin_x + 385) focused_button = 5;
+        else if (dispatch->custom_map_selection.visible_rows == 15 &&
+            dispatch->input.mouse_y >= origin_y + 392 &&
+            dispatch->input.mouse_y < origin_y + 409 &&
+            dispatch->input.mouse_x >= origin_x + 385 &&
+            dispatch->input.mouse_x < origin_x + 402) focused_button = 6;
+        if (focused_button != dispatch->map_selection_focused_button ||
+            hovered_row != dispatch->map_selection_hovered_row) {
+            dispatch->map_selection_focused_button = focused_button;
+            dispatch->map_selection_hovered_row = hovered_row;
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x3d) {
+            map_selection_back(dispatch);
+        }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
             dispatch->input.mouse_x >= origin_x + 15 &&
@@ -1161,8 +1227,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->left_press_window == 0x3d &&
             dispatch->input.mouse_x >= origin_x + 282 &&
             dispatch->input.mouse_x < origin_x + 316) {
-            if (dispatch->input.mouse_y >= origin_y + 215 &&
-                dispatch->input.mouse_y < origin_y + 249) {
+            if (dispatch->input.mouse_y >= up_y &&
+                dispatch->input.mouse_y < up_y + 34) {
                 if (pharaoh_custom_map_selection_scroll(
                         &dispatch->custom_map_selection, 0) != 0) {
                     dispatch->host->graphics.redraw_requested = 1;
@@ -1188,15 +1254,15 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_x < origin_x + 362 &&
             dispatch->input.mouse_y >= origin_y + 440 &&
             dispatch->input.mouse_y < origin_y + 467) {
-            /* State 0x3D's native back callback calls 0x004CB6A0. */
-            open_selected_player_menu(dispatch);
-            dispatch->host->graphics.redraw_requested = 1;
+            map_selection_back(dispatch);
         }
         if (dispatch->refresh.current_window_id == 0x3d &&
             dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_custom_map_list(dispatch->host,
                 &dispatch->custom_map_selection,
-                dispatch->menu_map_changed_704db0 == 1);
+                dispatch->menu_map_changed_704db0 == 1,
+                dispatch->map_selection_focused_button,
+                dispatch->map_selection_hovered_row);
         }
         dispatch->host->current_window_id = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 0;

@@ -1,0 +1,36 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "state": "0x3D",
+  "verified": [
+    {
+      "address": "0x0041E470",
+      "clean_owner": "game/ui/map_selection_rating.c",
+      "status": "complete typed C",
+      "note": "32-bit wrapped rating terms, population, invasion, event records 1..count-1, and five god settings match the Ghidra decompilation."
+    },
+    {
+      "address": "0x004D5820",
+      "clean_owner": "game/scenario/map_file_load.c",
+      "status": "complete typed C",
+      "note": "Directory reset, settings load, open 0x8000, parse, close, environment copy, optional initialization, and gated monument rating preserve native order."
+    },
+    {
+      "address": "0x0041F650",
+      "clean_owner": "game/platform/windows_startup_dispatch.c",
+      "status": "complete callback behavior",
+      "note": "Nonzero 0x00605A3C returns to state 0; otherwise the normal player-menu return operation is used."
+    }
+  ],
+  "button_tables": {
+    "custom": "0x0057CC30",
+    "campaign": "0x0057CCC0",
+    "record_size": 40,
+    "records": "scroll up, scroll down, back, start; campaign changes the scroll-up y coordinate from 215 to 247",
+    "font_groups": "635 normal, 636 hover, 637 selected or disabled"
+  },
+  "remaining": [
+    "0x0041F670 selected-map metadata load is not yet bound to the host parser.",
+    "0x0041F5C0 start callback is instruction-verified but awaits the 0x005405B0 scenario-load endpoint.",
+    "0x0041E5C0 information-panel rendering still needs typed scenario metadata binding."
+  ]
+}

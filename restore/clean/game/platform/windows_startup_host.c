@@ -980,7 +980,8 @@ void pharaoh_windows_startup_host_draw_family_message(
 
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
-    const PharaohCustomMapSelectionState *selection, int32_t campaign_mode)
+    const PharaohCustomMapSelectionState *selection, int32_t campaign_mode,
+    int32_t focused_button, int32_t hovered_row)
 {
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
@@ -1007,8 +1008,10 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         const char *const name = pharaoh_file_list_name(selection->files,
             index);
         if (name != NULL) {
+            const int32_t font = index == selection->selected_file ? 637 :
+                row == hovered_row ? 636 : 635;
             high_score_draw_text(host, name, origin_x + 24,
-                origin_y + 220 + vertical_shift + row * 16, 635, 0xffff);
+                origin_y + 220 + vertical_shift + row * 16, font, 0xffff);
         }
     }
     if (selection->files->count > rows) {
@@ -1023,25 +1026,30 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
        scroll-up, scroll-down, back and start. Their second table moves the
        upper arrow down by 32 pixels in campaign mode. */
     draw_menu_image(host,
-        (int32_t)menu_group_image(host, 365) + 8,
+        (int32_t)menu_group_image(host, 365) + 8 +
+            (focused_button == 1),
         origin_x + 282, origin_y + (campaign_mode != 0 ? 247 : 215));
     draw_menu_image(host,
-        (int32_t)menu_group_image(host, 365) + 12,
+        (int32_t)menu_group_image(host, 365) + 12 +
+            (focused_button == 2),
         origin_x + 282, origin_y + 435);
     draw_menu_image(host,
-        (int32_t)menu_group_image(host, 365) + 4,
+        (int32_t)menu_group_image(host, 365) + 4 +
+            (focused_button == 3),
         origin_x + 335, origin_y + 440);
     draw_menu_image(host,
-        (int32_t)menu_group_image(host, 461),
+        (int32_t)menu_group_image(host, 461) + (focused_button == 4),
         origin_x + 600, origin_y + 440);
     /* The custom-map table also exposes the native difficulty decrement and
        increment image buttons; campaign selection mode 2 suppresses them. */
     if (campaign_mode == 0) {
         draw_menu_image(host,
-            (int32_t)menu_group_image(host, 481), origin_x + 368,
+            (int32_t)menu_group_image(host, 481) + (focused_button == 5),
+            origin_x + 368,
             origin_y + 392);
         draw_menu_image(host,
-            (int32_t)menu_group_image(host, 285), origin_x + 385,
+            (int32_t)menu_group_image(host, 285) + (focused_button == 6),
+            origin_x + 385,
             origin_y + 392);
     }
     host->graphics.redraw_requested = 0;

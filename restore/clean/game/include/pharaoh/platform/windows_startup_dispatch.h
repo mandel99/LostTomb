@@ -50,6 +50,8 @@ typedef struct PharaohWindowsStartupDispatch {
     uint32_t new_campaign_field_a, new_campaign_field_b;
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;
+    int32_t map_selection_focused_button;
+    int32_t map_selection_hovered_row;
     int32_t player_selection_focused_button;
     int32_t family_message_text_entry, family_message_previous_profile;
     uint8_t family_message_previous_window, family_message_button_count;
