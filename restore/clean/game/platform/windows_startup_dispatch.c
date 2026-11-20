@@ -1242,8 +1242,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 dispatch->menu_selection_flag_605a3c,
                 dispatch->menu_map_changed_704db0,
                 dispatch->menu_map_mode_704dac);
-        if (dispatch->input.mouse_x >= origin_x + 15 &&
-            dispatch->input.mouse_x < origin_x + 271 &&
+        if (dispatch->input.mouse_x >= origin_x + 24 &&
+            dispatch->input.mouse_x < origin_x + 280 &&
             dispatch->input.mouse_y >= list_top &&
             dispatch->input.mouse_y < list_top +
                 dispatch->custom_map_selection.visible_rows * 16) {
@@ -1303,8 +1303,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
-            dispatch->input.mouse_x >= origin_x + 15 &&
-            dispatch->input.mouse_x < origin_x + 271 &&
+            dispatch->input.mouse_x >= origin_x + 24 &&
+            dispatch->input.mouse_x < origin_x + 280 &&
             dispatch->input.mouse_y >= list_top &&
             dispatch->input.mouse_y < list_top +
                 dispatch->custom_map_selection.visible_rows * 16 &&
@@ -1372,11 +1372,13 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         dispatch->input.mouse_right_went_up = 0;
         dispatch->input.video_input_flag_a = 0;
         dispatch->input.video_input_flag_b = 0;
-        if (dispatch->refresh.current_window_id == 0x3d) {
-            pharaoh_graphics_refresh_screen(&dispatch->refresh,
-                &dispatch->refresh_operations, 0);
-            return;
-        }
+        /* This frame belongs to window 0x3d even when its callback changes
+           the active window.  Native input dispatch returns after that
+           callback; falling through would dispatch the new window a second
+           time with transition-owned input state that is not bound here. */
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
     }
     if (dispatch->refresh.current_window_id == 0x53) {
         const PharaohHighScoresInput input = {

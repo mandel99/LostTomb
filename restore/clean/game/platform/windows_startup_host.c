@@ -64,6 +64,35 @@ static void release_sprite_memory(void *user_data, void *allocation)
     free(allocation);
 }
 
+static int32_t read_external_sprite_pixels(PharaohWindowsStartupHost *host,
+    const char *path, uint32_t offset, uint8_t *destination,
+    uint32_t byte_count)
+{
+    const PharaohFileReadOperations *const files = &host->file_operations;
+    PharaohReadOnlyFile *file;
+    size_t file_size;
+    size_t read_count;
+
+    if (path == NULL || destination == NULL || byte_count == 0 ||
+        offset > INT32_MAX || files->open == NULL || files->size == NULL ||
+        files->read == NULL || files->seek == NULL || files->close == NULL) {
+        return 0;
+    }
+    file = files->open(host->files.user_data, path);
+    if (file == NULL) return 0;
+    file_size = files->size(host->files.user_data, file);
+    if ((size_t)offset > file_size ||
+        (size_t)byte_count > file_size - (size_t)offset ||
+        files->seek(host->files.user_data, file, (int32_t)offset, 0) != 0) {
+        files->close(host->files.user_data, file);
+        return 0;
+    }
+    read_count = files->read(host->files.user_data, destination, 1,
+        byte_count, file);
+    files->close(host->files.user_data, file);
+    return read_count == byte_count;
+}
+
 static void clear_startup_model_bytes(void *user_data, void *destination,
     uint32_t byte_count, uint8_t value)
 {
@@ -413,9 +442,13 @@ static void draw_sprite_pixels(void *user_data, uint32_t image_id,
         const char *bitmap_name;
         const char *extension;
         char pixel_path[PHARAOH_GAME_DATA_PATH_BYTES];
+        char library_pixel_path[PHARAOH_GAME_DATA_PATH_BYTES];
         int32_t pixel_path_length;
+        int32_t library_path_length;
+        uint32_t external_offset;
 
-        if (image->draw_type != 1 || image->is_compressed != 0 ||
+        if ((image->draw_type != 0 && image->draw_type != 1) ||
+            image->is_compressed != 0 || image->pixel_offset == 0 ||
             bitmap_index >= PHARAOH_SPRITE_LIBRARY_BITMAP_COUNT ||
             image->pixel_bytes > INT32_MAX) {
             return;
@@ -431,11 +464,22 @@ static void draw_sprite_pixels(void *user_data, uint32_t image_id,
             (size_t)pixel_path_length >= sizeof(pixel_path)) {
             return;
         }
+        library_path_length = snprintf(library_pixel_path,
+            sizeof(library_pixel_path), "data\\%s.555", library->name);
+        if (library_path_length <= 0 ||
+            (size_t)library_path_length >= sizeof(library_pixel_path)) {
+            return;
+        }
+        /* External SG3 offsets are one-based, matching native
+           ImageLoadExternalData(header->data - 1). */
+        external_offset = image->pixel_offset - 1u;
         external_pixels = host->sprite_memory_operations.allocate(host,
             image->pixel_bytes);
-        if (external_pixels == NULL ||
-            pharaoh_load_game_data(&host->game_data, pixel_path,
-                external_pixels, 0) != 1) {
+        if (external_pixels == NULL) return;
+        if (read_external_sprite_pixels(host, pixel_path, external_offset,
+                external_pixels, image->pixel_bytes) == 0 &&
+            read_external_sprite_pixels(host, library_pixel_path,
+                external_offset, external_pixels, image->pixel_bytes) == 0) {
             host->sprite_memory_operations.release(host, external_pixels);
             return;
         }
@@ -775,6 +819,76 @@ static void high_score_draw_text(void *user_data, const char *text,
     }
 }
 
+static void high_score_draw_centered_text(void *user_data, const char *text,
+    int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
+{
+    PharaohWindowsStartupHost *const host = user_data;
+    PharaohBitmapFont bitmap_font = { 0 };
+    if (text == NULL || font < 634 || font > 641) return;
+    bitmap_font.images = host->sprite_images;
+    bitmap_font.image_count = host->loaded_libraries->next_image;
+    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
+    bitmap_font.measure_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 10 : 6;
+    bitmap_font.draw_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 8 : 6;
+    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
+    bitmap_font.draw_gap = font == 634 ? 1 : 0;
+    bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
+        font == 641 ? 24 : 11;
+    bitmap_font.user_data = host;
+    bitmap_font.draw_glyph = draw_font_glyph;
+    if (bitmap_font.first_image != 0) {
+        pharaoh_bitmap_text_draw_centered(&bitmap_font,
+            (const uint8_t *)text, x, y, width, (uint16_t)color);
+    }
+}
+
+static void draw_language_number_language(PharaohWindowsStartupHost *host,
+    int32_t value, int32_t prefix_group, int32_t prefix_entry,
+    int32_t suffix_group, int32_t suffix_entry, int32_t x, int32_t y,
+    int32_t width, int32_t font, int32_t color)
+{
+    char prefix[256];
+    char suffix[256] = "";
+    char text[768];
+
+    pharaoh_text_select(&host->text_selection, prefix_group, prefix_entry);
+    if (host->text_selection.current == NULL) return;
+    (void)strncpy_s(prefix, sizeof(prefix), host->text_selection.current,
+        _TRUNCATE);
+    if (suffix_group >= 0) {
+        pharaoh_text_select(&host->text_selection, suffix_group, suffix_entry);
+        if (host->text_selection.current != NULL) {
+            (void)strncpy_s(suffix, sizeof(suffix),
+                host->text_selection.current, _TRUNCATE);
+        }
+    }
+    (void)snprintf(text, sizeof(text), "%s %d %s", prefix, value, suffix);
+    high_score_draw_centered_text(host, text, x, y, width, font, color);
+}
+
+static void draw_two_languages(PharaohWindowsStartupHost *host,
+    int32_t first_group, int32_t first_entry, int32_t second_group,
+    int32_t second_entry, int32_t x, int32_t y, int32_t width,
+    int32_t font, int32_t color)
+{
+    char first[256];
+    char second[256];
+    char text[768];
+
+    pharaoh_text_select(&host->text_selection, first_group, first_entry);
+    if (host->text_selection.current == NULL) return;
+    (void)strncpy_s(first, sizeof(first), host->text_selection.current,
+        _TRUNCATE);
+    pharaoh_text_select(&host->text_selection, second_group, second_entry);
+    if (host->text_selection.current == NULL) return;
+    (void)strncpy_s(second, sizeof(second), host->text_selection.current,
+        _TRUNCATE);
+    (void)snprintf(text, sizeof(text), "%s %s", first, second);
+    high_score_draw_centered_text(host, text, x, y, width, font, color);
+}
+
 static void draw_name_input_caret(void *user_data, const char *text,
     int32_t x, int32_t y, int32_t font, int32_t color)
 {
@@ -837,8 +951,6 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
         (size_t)offset, "%d", value);
     if (digits < 0 || (size_t)digits >= sizeof(text) - (size_t)offset) return x;
     offset += digits;
-    if ((size_t)offset + 2u > sizeof(text)) return x;
-    text[offset++] = ' ';
     text[offset] = '\0';
     high_score_draw_text(user_data, text, x, y, font, color);
     if (font < 634 || font > 641) return x;
@@ -1048,10 +1160,19 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         const char *const name = pharaoh_file_list_name(selection->files,
             index);
         if (name != NULL) {
-            /* 0x0041F220 uses the hover font for both the hovered row and the
-               retained selection when no other row is focused. */
-            const int32_t font = index == selection->selected_file ||
-                row == hovered_row ? 636 : 635;
+            int32_t font;
+            /* 0x0041F220: 637 marks the hovered row, or the retained
+               selection while no row is hovered.  Normal rows use 636 and
+               unavailable kind-2 entries use 638. */
+            if (row == hovered_row ||
+                (hovered_row < 0 && index == selection->selected_file)) {
+                font = 637;
+            } else if (pharaoh_map_selection_entry_kind(selection,
+                    index) == 2) {
+                font = 638;
+            } else {
+                font = 636;
+            }
             high_score_draw_text(host, name, origin_x + 24,
                 origin_y + 220 + vertical_shift + row * 16, font, 0);
         }
@@ -1081,23 +1202,24 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 (int32_t)menu_group_image(host, preview_group) + image_offset,
                 origin_x + 78, origin_y + (campaign_mode != 0 ? 56 : 36));
         }
-        high_score_draw_text(host, selection->selected_name,
-            origin_x + 335, origin_y + 65, 636, 0);
-        high_score_draw_text(host, (const char *)(metadata + 0x3c),
-            origin_x + 335, origin_y + 85, 637, 0);
+        high_score_draw_centered_text(host, selection->selected_name,
+            origin_x + 335, origin_y + 65, 260, 636, 0);
+        high_score_draw_centered_text(host,
+            (const char *)(metadata + 0x3c), origin_x + 335,
+            origin_y + 85, 260, 637, 0);
         {
             int16_t start_year;
             memcpy(&start_year, metadata, sizeof(start_year));
             if (start_year < 0) {
                 const int32_t end_x = high_score_draw_number_end(host,
-                    -(int32_t)start_year, 0, origin_x + 410,
+                    -(int32_t)start_year, 0x20, origin_x + 410,
                     origin_y + 105, 636, 0);
                 (void)high_score_draw_language(host, 20, 0, end_x - 8,
                     origin_y + 105, 636, 0);
             } else {
                 const int32_t end_x = high_score_draw_language(host, 20, 1,
                     origin_x + 410, origin_y + 105, 636, 0);
-                high_score_draw_number(host, start_year, 0, end_x,
+                high_score_draw_number(host, start_year, 0x20, end_x,
                     origin_y + 105, 636, 0);
             }
         }
@@ -1183,19 +1305,19 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                         if ((enabled & 0xff) == 0) continue;
                         memcpy(&value, metadata + value_offsets[index],
                             sizeof(value));
-                        end_x = high_score_draw_number_end(host, value, 0,
+                        end_x = high_score_draw_number_end(host, value, 0x40,
                             origin_x + 410, origin_y + row_offsets[index],
                             636, 0);
                         if (index == 4) {
-                            draw_menu_language(host, 29,
+                            (void)high_score_draw_language(host, 29,
                                 (enabled < 2 ? 0 : 20) +
                                     (metadata[0x360] & 0xff),
                                 end_x, origin_y + row_offsets[index],
-                                190, 636, 0);
+                                636, 0);
                         } else {
-                            draw_menu_language(host, 44,
+                            (void)high_score_draw_language(host, 44,
                                 label_entries[index], end_x,
-                                origin_y + row_offsets[index], 190, 636, 0);
+                                origin_y + row_offsets[index], 636, 0);
                         }
                     }
                     for (size_t index = 0; index < 3; ++index) {
@@ -1230,59 +1352,45 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                     draw_menu_language(host, 305, 0, origin_x + 345,
                         origin_y + 125, 260, 636, 0);
                 } else {
-                    int32_t end_x;
                     draw_menu_language(host, 297, mission,
                         origin_x + 345, origin_y + 125, 270, 636, 0);
                     if (metadata[0x364] != 0) {
-                        end_x = high_score_draw_language(host, 298, 0,
-                            origin_x + 345, origin_y + 285, 636, 0);
-                        high_score_draw_number(host, record->rating_culture,
-                            0, end_x + 6, origin_y + 285, 636, 0);
+                        draw_language_number_language(host,
+                            record->rating_culture, 298, 0, -1, 0,
+                            origin_x + 345, origin_y + 285, 270, 636, 0);
                     }
                     if (metadata[0x365] != 0) {
-                        end_x = high_score_draw_language(host, 298, 1,
-                            origin_x + 345, origin_y + 301, 636, 0);
-                        high_score_draw_number(host,
-                            record->rating_prosperity, 0, end_x + 6,
-                            origin_y + 301, 636, 0);
+                        draw_language_number_language(host,
+                            record->rating_prosperity, 298, 1, -1, 0,
+                            origin_x + 345, origin_y + 301, 270, 636, 0);
                     }
                     if (metadata[0x367] != 0) {
-                        end_x = high_score_draw_language(host, 298, 3,
-                            origin_x + 345, origin_y + 317, 636, 0);
-                        high_score_draw_number(host, record->rating_kingdom,
-                            0, end_x + 6, origin_y + 317, 636, 0);
+                        draw_language_number_language(host,
+                            record->rating_kingdom, 298, 3, -1, 0,
+                            origin_x + 345, origin_y + 317, 270, 636, 0);
                     }
                     {
                         int32_t population_enabled;
                         memcpy(&population_enabled, metadata + 0x380,
                             sizeof(population_enabled));
                         if (population_enabled != 0) {
-                            end_x = high_score_draw_language(host, 298, 4,
-                                origin_x + 345, origin_y + 333, 636, 0);
-                            high_score_draw_number(host, record->population,
-                                0, end_x + 6, origin_y + 333, 636, 0);
+                            draw_language_number_language(host,
+                                record->population, 298, 4, -1, 0,
+                                origin_x + 345, origin_y + 333, 270, 636, 0);
                         }
                     }
-                    end_x = high_score_draw_language(host, 298, 5,
-                        origin_x + 345, origin_y + 349, 636, 0);
-                    high_score_draw_number(host, record->treasury, 0,
-                        end_x + 6, origin_y + 349, 636, 0);
-                    end_x = high_score_draw_language(host, 298, 7,
-                        origin_x + 345, origin_y + 365, 636, 0);
-                    (void)high_score_draw_language(host, 153,
-                        record->difficulty + 1, end_x + 6,
-                        origin_y + 365, 636, 0);
-                    end_x = high_score_draw_language(host, 298, 6,
-                        origin_x + 345, origin_y + 381, 636, 0);
-                    end_x = high_score_draw_number_end(host,
-                        record->months / 12, 0, end_x + 6,
-                        origin_y + 381, 636, 0);
-                    (void)high_score_draw_language(host, 298, 9, end_x,
-                        origin_y + 381, 636, 0);
-                    end_x = high_score_draw_language(host, 298, 8,
-                        origin_x + 345, origin_y + 397, 637, 0);
-                    high_score_draw_number(host, record->score, 0,
-                        end_x + 6, origin_y + 397, 637, 0);
+                    draw_language_number_language(host, record->treasury,
+                        298, 5, -1, 0, origin_x + 345, origin_y + 349,
+                        270, 636, 0);
+                    draw_two_languages(host, 298, 7, 153,
+                        record->difficulty + 1, origin_x + 335,
+                        origin_y + 365, 270, 636, 0);
+                    draw_language_number_language(host,
+                        record->months / 12, 298, 6, 298, 9,
+                        origin_x + 345, origin_y + 381, 270, 636, 0);
+                    draw_language_number_language(host, record->score,
+                        298, 8, -1, 0, origin_x + 345, origin_y + 397,
+                        270, 637, 0);
                 }
             }
         }
