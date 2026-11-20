@@ -781,6 +781,7 @@ static void draw_name_input_caret(void *user_data, const char *text,
     PharaohBitmapFont bitmap_font = { 0 };
     LPDIRECTDRAWSURFACE surface =
         (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
+    DDSURFACEDESC description;
     DDBLTFX effects;
     RECT rectangle;
 
@@ -800,9 +801,25 @@ static void draw_name_input_caret(void *user_data, const char *text,
     rectangle.top = y;
     rectangle.right = rectangle.left + 4;
     rectangle.bottom = y + 2;
+    memset(&description, 0, sizeof(description));
+    description.dwSize = sizeof(description);
     memset(&effects, 0, sizeof(effects));
     effects.dwSize = sizeof(effects);
     effects.dwFillColor = (DWORD)color;
+    if (surface->lpVtbl->GetSurfaceDesc(surface, &description) == DD_OK &&
+        description.ddpfPixelFormat.dwRGBBitCount == 32) {
+        const uint32_t pixel = (uint16_t)color;
+        const int32_t source_is_565 = host->sprite_pixels.pixel_mode ==
+            PHARAOH_SPRITE_PIXEL_MODE_RGB565;
+        const uint32_t red = (pixel >> (source_is_565 ? 11 : 10)) & 31u;
+        const uint32_t green = (pixel >> 5) & (source_is_565 ? 63u : 31u);
+        const uint32_t blue = pixel & 31u;
+        const uint32_t red8 = (red << 3) | (red >> 2);
+        const uint32_t green8 = source_is_565 ?
+            (green << 2) | (green >> 4) : (green << 3) | (green >> 2);
+        const uint32_t blue8 = (blue << 3) | (blue >> 2);
+        effects.dwFillColor = (red8 << 16) | (green8 << 8) | blue8;
+    }
     (void)surface->lpVtbl->Blt(surface, &rectangle, NULL, NULL,
         DDBLT_COLORFILL | DDBLT_WAIT, &effects);
 }

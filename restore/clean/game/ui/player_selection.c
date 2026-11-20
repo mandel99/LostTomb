@@ -329,16 +329,19 @@ void pharaoh_player_name_choices_draw(
     for (int32_t index = 0; index < 42; ++index) {
         const int32_t column = index >= 21;
         const int32_t row = index - column * 21;
-        int32_t font = 636;
-        if (focused_button == index + 1) font = 638;
-        else if (state->selected_name_choice == index) font = 637;
+        int32_t font = 635;
+        /* 0x00520D00 keeps both column headings in the normal font. */
+        if (index != 0 && index != 21) {
+            if (focused_button == index + 1) font = 639;
+            else if (state->selected_name_choice == index) font = 638;
+        }
         operations->draw_language(operations->user_data, 197, index,
-            panel_x + (column != 0 ? 230 : 5), panel_y + 14 + row * 20,
+            panel_x + (column != 0 ? 235 : 10), panel_y + 14 + row * 20,
             96, font, 0);
     }
     pharaoh_menu_button_frame_draw(&button_frame,
         operations->button_image_base, panel_x + 325, panel_y + 414,
         75, 18, focused_button == 43);
     operations->draw_language(operations->user_data, 18, 3,
-        panel_x + 329, panel_y + 418, 71, 636, 0);
+        panel_x + 329, panel_y + 418, 71, 635, 0);
 }
