@@ -192,6 +192,19 @@ int32_t pharaoh_map_selection_start(
     return 1;
 }
 
+void pharaoh_map_selection_back(
+    int32_t returns_to_front_menu, uint8_t *current_window_id,
+    uint8_t *redraw_requested,
+    const PharaohMapSelectionBackOperations *operations)
+{
+    if (returns_to_front_menu != 0) {
+        *current_window_id = 0;
+        *redraw_requested = 1;
+        return;
+    }
+    operations->show_main_menu(operations->user_data);
+}
+
 void pharaoh_map_selection_toggle_mode(uint32_t *map_mode,
     uint8_t *redraw_requested)
 {

@@ -529,15 +529,14 @@ static void main_menu_open_map_selection(void *user_data)
 
 static void map_selection_back(PharaohWindowsStartupDispatch *dispatch)
 {
-    /* Native 0x0041F650 returns directly to state zero only for the special
-       0x00605A3C context; the normal selector calls 0x004CB6A0. */
-    if (dispatch->menu_selection_flag_605a3c != 0) {
-        dispatch->refresh.current_window_id = 0;
-        dispatch->host->current_window_id = 0;
-    } else {
-        open_selected_player_menu(dispatch);
-    }
-    dispatch->host->graphics.redraw_requested = 1;
+    const PharaohMapSelectionBackOperations operations = {
+        dispatch, open_selected_player_menu
+    };
+    pharaoh_map_selection_back(dispatch->menu_selection_flag_605a3c,
+        &dispatch->refresh.current_window_id,
+        &dispatch->host->graphics.redraw_requested, &operations);
+    dispatch->host->current_window_id =
+        dispatch->refresh.current_window_id;
 }
 
 static void main_menu_open_saved_game_dialog(void *user_data)

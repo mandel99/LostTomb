@@ -50,6 +50,11 @@ typedef struct PharaohMapSelectionStartState {
     uint8_t *redraw_requested;
 } PharaohMapSelectionStartState;
 
+typedef struct PharaohMapSelectionBackOperations {
+    void *user_data;
+    void (*show_main_menu)(void *user_data);
+} PharaohMapSelectionBackOperations;
+
 /* Native 0x0041F810 in custom-map mode: load maps\\*.map and sort names. */
 int32_t pharaoh_custom_map_selection_load(
     PharaohCustomMapSelectionState *state);
@@ -95,6 +100,12 @@ int32_t pharaoh_map_selection_start(
     const PharaohCustomMapSelectionState *selection,
     const PharaohMapSelectionOperations *operations,
     const PharaohMapSelectionStartState *state);
+
+/* Complete typed C translation of native 0x0041F650. */
+void pharaoh_map_selection_back(
+    int32_t returns_to_front_menu, uint8_t *current_window_id,
+    uint8_t *redraw_requested,
+    const PharaohMapSelectionBackOperations *operations);
 
 /* Complete typed C translation of native 0x0041E0E0. */
 void pharaoh_map_selection_toggle_mode(uint32_t *map_mode,
