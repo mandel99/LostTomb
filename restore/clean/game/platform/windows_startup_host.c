@@ -991,9 +991,10 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
         (font == 640 || font == 641) ? 8 : 6;
     bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
     if (bitmap_font.first_image == 0) return x;
-    return x + pharaoh_bitmap_text_width(&bitmap_font,
-        (const uint8_t *)text) +
-        (prefix == 0x40 ? bitmap_font.draw_space : 0);
+    /* 0x004CC770 advances unmapped '@' by the font space and adds one
+       further space at the terminator; DAT_00E20778 includes both. */
+    return x + pharaoh_bitmap_text_draw_advance(&bitmap_font,
+        (const uint8_t *)text) + bitmap_font.draw_space;
 }
 
 static void high_score_draw_number(void *user_data, int32_t value,

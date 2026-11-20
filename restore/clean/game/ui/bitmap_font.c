@@ -37,6 +37,27 @@ int32_t pharaoh_bitmap_text_width(const PharaohBitmapFont *font,
     return width;
 }
 
+int32_t pharaoh_bitmap_text_draw_advance(const PharaohBitmapFont *font,
+    const uint8_t *text)
+{
+    int32_t width = 0;
+    for (uint32_t i = 0; i < 10000 && text[i] != 0; ++i) {
+        uint8_t c = text[i];
+        if (c == '#' || c == '_') c = ' ';
+        if (c < 32) continue;
+        const uint8_t glyph = glyph_ids[c - 32];
+        if (glyph == 0) {
+            width += font->draw_space;
+        } else {
+            const uint32_t image = font->first_image + glyph - 1u;
+            if (image < font->image_count) {
+                width += font->images[image].width + font->draw_gap;
+            }
+        }
+    }
+    return width;
+}
+
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color)
 {

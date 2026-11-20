@@ -14,6 +14,8 @@ typedef struct PharaohBitmapFont {
    Includes native glyph IDs, spacing and accent positioning. Interactive
    text-input side effects, outlines and hash substitutions are separate owners. */
 int32_t pharaoh_bitmap_text_width(const PharaohBitmapFont *font, const uint8_t *text);
+int32_t pharaoh_bitmap_text_draw_advance(const PharaohBitmapFont *font,
+    const uint8_t *text);
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color);
 void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,
