@@ -138,6 +138,7 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_start.c
     game/scenario/campaign_mission_load.c
     game/scenario/map_file_load.c
+    game/scenario/scenario_preview.c
     game/scenario/campaign_profile_load.c
     game/scenario/campaign_availability.c
     game/scenario/campaign_file.c
@@ -152,6 +153,7 @@ add_library(pharaoh_game STATIC
     game/ui/main_menu_action.c
     game/ui/custom_map_selection.c
     game/ui/map_selection_rating.c
+    game/ui/map_selection_invasions.c
     game/ui/player_selection.c
     game/ui/panel_frame.c
     game/ui/front_menu_input.c

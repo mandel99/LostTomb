@@ -998,6 +998,7 @@ void pharaoh_windows_startup_host_draw_family_message(
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection, int32_t campaign_mode,
+    int32_t returns_to_front_menu, int32_t map_mode,
     int32_t focused_button, int32_t hovered_row)
 {
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
@@ -1033,6 +1034,16 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 origin_y + 220 + vertical_shift + row * 16, font, 0);
         }
     }
+    if (campaign_mode != 0) {
+        main_menu_draw_border(host, 0, origin_x + 32, origin_y + 208,
+            160, 25, focused_button == 7);
+        draw_menu_language(host, 294, 38, origin_x + 36, origin_y + 215,
+            152, 635, 0);
+        main_menu_draw_border(host, 0, origin_x + 195, origin_y + 208,
+            93, 25, focused_button == 8);
+        draw_menu_language(host, 294, 39, origin_x + 199, origin_y + 215,
+            85, 635, 0);
+    }
     {
         int32_t position;
         if (pharaoh_map_selection_scroll_thumb_offset(
@@ -1057,12 +1068,15 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         (int32_t)menu_group_image(host, 365) + 4 +
             (focused_button == 3),
         origin_x + 335, origin_y + 440);
-    draw_menu_image(host,
-        (int32_t)menu_group_image(host, 461) + (focused_button == 4),
-        origin_x + 600, origin_y + 440);
+    if (pharaoh_map_selection_image_button_count(selection) == 4) {
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, 461) + (focused_button == 4),
+            origin_x + 600, origin_y + 440);
+    }
     /* The custom-map table also exposes the native difficulty decrement and
        increment image buttons; campaign selection mode 2 suppresses them. */
-    if (campaign_mode == 0) {
+    if (pharaoh_map_selection_difficulty_buttons_visible(
+            returns_to_front_menu, campaign_mode, map_mode) != 0) {
         draw_menu_image(host,
             (int32_t)menu_group_image(host, 481) + (focused_button == 5),
             origin_x + 368,

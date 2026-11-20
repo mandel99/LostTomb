@@ -1,6 +1,7 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
 #include "pharaoh/ui/front_menu_action.h"
 #include "pharaoh/ui/main_menu.h"
+#include "pharaoh/ui/map_selection_invasions.h"
 
 #include <windowsx.h>
 #include <shellapi.h>
@@ -49,6 +50,60 @@ static void clear_video_buffer(void *user_data)
         &host->graphics_operations);
 }
 
+static int32_t map_selection_load_custom_preview(void *user_data,
+    const char *path, int32_t mode)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    int32_t result;
+    (void)mode;
+    result = pharaoh_scenario_preview_load_map(
+        &dispatch->custom_map_selection.preview, path);
+    if (result == 0) {
+        dispatch->custom_map_selection.preview_invasion_count =
+            pharaoh_map_selection_count_invasions(
+                (PharaohMapSelectionEventList *)(void *)
+                    dispatch->custom_map_selection.preview.events,
+                &dispatch->custom_map_selection.preview_current_event,
+                &dispatch->custom_map_selection.preview_invasion_search);
+    }
+    return result;
+}
+
+static int32_t map_selection_load_campaign_preview(void *user_data,
+    int32_t package_index, int32_t skip_initialize)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    int32_t result;
+    (void)skip_initialize;
+    if (package_index != 0) return 0;
+    result = pharaoh_scenario_preview_load_campaign_mission(
+        &dispatch->custom_map_selection.preview, "mission1.pak",
+        dispatch->custom_map_selection.warning_text_id);
+    if (result != 0) {
+        dispatch->custom_map_selection.preview_invasion_count =
+            pharaoh_map_selection_count_invasions(
+                (PharaohMapSelectionEventList *)(void *)
+                    dispatch->custom_map_selection.preview.events,
+                &dispatch->custom_map_selection.preview_current_event,
+                &dispatch->custom_map_selection.preview_invasion_search);
+    }
+    return result;
+}
+
+static int32_t map_selection_activate_row(
+    PharaohWindowsStartupDispatch *dispatch, int32_t visible_row)
+{
+    const PharaohMapSelectionOperations operations = {
+        dispatch,
+        map_selection_load_custom_preview,
+        map_selection_load_campaign_preview,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+    };
+    return pharaoh_map_selection_activate(&dispatch->custom_map_selection,
+        visible_row, &operations,
+        &dispatch->host->graphics.redraw_requested);
+}
+
 static void front_menu_open_player_selection(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
@@ -78,6 +133,8 @@ static void front_menu_open_custom_maps(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
     (void)pharaoh_custom_map_selection_load(&dispatch->custom_map_selection);
+    (void)map_selection_activate_row(dispatch,
+        dispatch->custom_map_selection.selected_file);
     dispatch->refresh.current_window_id = 0x3d;
     dispatch->host->graphics.redraw_requested = 1;
 }
@@ -461,6 +518,8 @@ static void main_menu_open_map_selection(void *user_data)
         (void)pharaoh_custom_map_selection_load(
             &dispatch->custom_map_selection);
     }
+    (void)map_selection_activate_row(dispatch,
+        dispatch->custom_map_selection.selected_file);
     dispatch->refresh.current_window_id = 0x3d;
     dispatch->host->current_window_id = 0x3d;
     dispatch->map_selection_focused_button = 0;
@@ -1169,6 +1228,11 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         int32_t hovered_row = -1;
         const int32_t up_y = origin_y +
             (dispatch->custom_map_selection.visible_rows == 13 ? 247 : 215);
+        const int32_t difficulty_visible =
+            pharaoh_map_selection_difficulty_buttons_visible(
+                dispatch->menu_selection_flag_605a3c,
+                dispatch->menu_map_changed_704db0,
+                dispatch->menu_map_mode_704dac);
         if (dispatch->input.mouse_x >= origin_x + 15 &&
             dispatch->input.mouse_x < origin_x + 271 &&
             dispatch->input.mouse_y >= list_top &&
@@ -1192,20 +1256,32 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_x < origin_x + 362 &&
             dispatch->input.mouse_y >= origin_y + 440 &&
             dispatch->input.mouse_y < origin_y + 467) focused_button = 3;
-        else if (dispatch->input.mouse_x >= origin_x + 600 &&
+        else if (pharaoh_map_selection_image_button_count(
+                &dispatch->custom_map_selection) == 4 &&
+            dispatch->input.mouse_x >= origin_x + 600 &&
             dispatch->input.mouse_x < origin_x + 627 &&
             dispatch->input.mouse_y >= origin_y + 440 &&
             dispatch->input.mouse_y < origin_y + 467) focused_button = 4;
-        else if (dispatch->custom_map_selection.visible_rows == 15 &&
+        else if (difficulty_visible != 0 &&
             dispatch->input.mouse_y >= origin_y + 392 &&
             dispatch->input.mouse_y < origin_y + 409 &&
             dispatch->input.mouse_x >= origin_x + 368 &&
             dispatch->input.mouse_x < origin_x + 385) focused_button = 5;
-        else if (dispatch->custom_map_selection.visible_rows == 15 &&
+        else if (difficulty_visible != 0 &&
             dispatch->input.mouse_y >= origin_y + 392 &&
             dispatch->input.mouse_y < origin_y + 409 &&
             dispatch->input.mouse_x >= origin_x + 385 &&
             dispatch->input.mouse_x < origin_x + 402) focused_button = 6;
+        else if (dispatch->menu_map_changed_704db0 == 1 &&
+            dispatch->input.mouse_x >= origin_x + 32 &&
+            dispatch->input.mouse_x < origin_x + 192 &&
+            dispatch->input.mouse_y >= origin_y + 208 &&
+            dispatch->input.mouse_y < origin_y + 233) focused_button = 7;
+        else if (dispatch->menu_map_changed_704db0 == 1 &&
+            dispatch->input.mouse_x >= origin_x + 195 &&
+            dispatch->input.mouse_x < origin_x + 288 &&
+            dispatch->input.mouse_y >= origin_y + 208 &&
+            dispatch->input.mouse_y < origin_y + 233) focused_button = 8;
         if (focused_button != dispatch->map_selection_focused_button ||
             hovered_row != dispatch->map_selection_hovered_row) {
             dispatch->map_selection_focused_button = focused_button;
@@ -1223,8 +1299,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_y >= list_top &&
             dispatch->input.mouse_y < list_top +
                 dispatch->custom_map_selection.visible_rows * 16 &&
-            pharaoh_custom_map_selection_select_visible(
-                &dispatch->custom_map_selection,
+            map_selection_activate_row(dispatch,
                 (dispatch->input.mouse_y - list_top) / 16) != 0) {
             dispatch->host->graphics.redraw_requested = 1;
         }
@@ -1277,6 +1352,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             pharaoh_windows_startup_host_draw_custom_map_list(dispatch->host,
                 &dispatch->custom_map_selection,
                 dispatch->menu_map_changed_704db0 == 1,
+                dispatch->menu_selection_flag_605a3c,
+                dispatch->menu_map_mode_704dac,
                 dispatch->map_selection_focused_button,
                 dispatch->map_selection_hovered_row);
         }

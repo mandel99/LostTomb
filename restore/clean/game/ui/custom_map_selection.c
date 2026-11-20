@@ -35,6 +35,10 @@ int32_t pharaoh_custom_map_selection_load(
     state->visible_rows = 15;
     state->campaign_mode = 0;
     state->selected_name[0] = '\0';
+    state->preview.valid = 0;
+    state->preview_invasion_count = 0;
+    state->preview_current_event = 0;
+    state->preview_invasion_search = 0;
     return state->files->count;
 }
 
@@ -52,6 +56,10 @@ int32_t pharaoh_campaign_mission_selection_load(
     state->visible_rows = 13;
     state->campaign_mode = 1;
     state->selected_name[0] = '\0';
+    state->preview.valid = 0;
+    state->preview_invasion_count = 0;
+    state->preview_current_event = 0;
+    state->preview_invasion_search = 0;
     for (int32_t index = 0; index < state->files->count; ++index) {
         state->mission_ids[index] = index;
     }
@@ -95,6 +103,26 @@ const char *pharaoh_map_selection_entry_name(
     const PharaohCustomMapSelectionState *state, int32_t index)
 {
     return pharaoh_file_list_name(state->files, index);
+}
+
+int32_t pharaoh_map_selection_difficulty_buttons_visible(
+    int32_t returns_to_front_menu, int32_t campaign_mode,
+    int32_t map_mode)
+{
+    return returns_to_front_menu != 1 &&
+        (campaign_mode != 1 || map_mode != 2);
+}
+
+int32_t pharaoh_map_selection_image_button_count(
+    const PharaohCustomMapSelectionState *state)
+{
+    return 3 + (pharaoh_map_selection_entry_kind(
+        state, state->selected_file) != 2);
+}
+
+int32_t pharaoh_map_selection_generic_button_count(int32_t campaign_mode)
+{
+    return campaign_mode == 1 ? 17 : 15;
 }
 
 int32_t pharaoh_map_selection_activate(

@@ -3,6 +3,7 @@
 
 #include "pharaoh/runtime/file_list.h"
 #include "pharaoh/scenario/campaign_file.h"
+#include "pharaoh/scenario/scenario_preview.h"
 
 enum { PHARAOH_CUSTOM_MAP_VISIBLE_ROWS = 15 };
 
@@ -15,6 +16,10 @@ typedef struct PharaohCustomMapSelectionState {
     int32_t warning_text_id;
     char selected_name[64];
     int32_t mission_ids[PHARAOH_CAMPAIGN_INDEX_CAPACITY];
+    PharaohScenarioPreview preview;
+    int32_t preview_invasion_count;
+    int32_t preview_current_event;
+    uint8_t preview_invasion_search;
     uint8_t show_flag_a;
     uint8_t show_flag_b;
 } PharaohCustomMapSelectionState;
@@ -69,6 +74,15 @@ int32_t pharaoh_map_selection_entry_kind(
     const PharaohCustomMapSelectionState *state, int32_t index);
 const char *pharaoh_map_selection_entry_name(
     const PharaohCustomMapSelectionState *state, int32_t index);
+
+/* Complete typed C translations of native 0x0041E140, 0x0041E170 and
+   0x0041F210. */
+int32_t pharaoh_map_selection_difficulty_buttons_visible(
+    int32_t returns_to_front_menu, int32_t campaign_mode,
+    int32_t map_mode);
+int32_t pharaoh_map_selection_image_button_count(
+    const PharaohCustomMapSelectionState *state);
+int32_t pharaoh_map_selection_generic_button_count(int32_t campaign_mode);
 
 /* Complete typed C translation of native 0x0041F670. */
 int32_t pharaoh_map_selection_activate(
