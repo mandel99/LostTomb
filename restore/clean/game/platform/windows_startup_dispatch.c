@@ -805,6 +805,8 @@ void pharaoh_windows_startup_dispatch_escape(
         dispatch->refresh.current_window_id = 0x36;
         dispatch->host->current_window_id = 0x36;
         dispatch->host->graphics.redraw_requested = 1;
+    } else if (dispatch->refresh.current_window_id == 0x3d) {
+        map_selection_back(dispatch);
     }
 }
 
