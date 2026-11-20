@@ -503,8 +503,8 @@ static int32_t main_menu_has_campaign_history(void *user_data)
 static int32_t main_menu_confirm_campaign_restart(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
-    const char *const title = exit_box_select_text(dispatch, 5, 142);
-    const char *const body = exit_box_select_text(dispatch, 5, 141);
+    const char *const title = exit_box_select_text(dispatch, 5, 141);
+    const char *const body = exit_box_select_text(dispatch, 5, 142);
     return front_menu_show_exit_box(dispatch, title, body, 4);
 }
 
@@ -794,21 +794,9 @@ void pharaoh_windows_startup_dispatch_escape(
     PharaohWindowsStartupDispatch *dispatch)
 {
     if (dispatch == NULL || dispatch->exit_message_box_active != 0) return;
-    if (dispatch->refresh.current_window_id == 0) {
-        front_menu_confirm_exit(dispatch);
-    } else if (dispatch->refresh.current_window_id == 0x2f) {
-        dispatch->refresh.current_window_id = 0;
-        dispatch->host->current_window_id = 0;
-        dispatch->host->graphics.redraw_requested = 1;
-    } else if (dispatch->refresh.current_window_id == 0x36) {
-        front_menu_open_player_selection(dispatch);
-    } else if (dispatch->refresh.current_window_id == 0x51) {
-        dispatch->refresh.current_window_id = 0x36;
-        dispatch->host->current_window_id = 0x36;
-        dispatch->host->graphics.redraw_requested = 1;
-    } else if (dispatch->refresh.current_window_id == 0x3d) {
-        map_selection_back(dispatch);
-    }
+    /* Native window procedure handles VK_ESCAPE before window dispatch and
+       always opens the group 5 entries 0/1 quit confirmation. */
+    front_menu_confirm_exit(dispatch);
 }
 
 void pharaoh_windows_startup_dispatch_frame(void *user_data)
@@ -904,6 +892,14 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         const int32_t origin_y =
             (dispatch->host->graphics.render_height - 480) / 2;
         PharaohGenericButtonFocusState focus_state = { 0 };
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x30) {
+            front_menu_open_player_selection(dispatch);
+            dispatch->input.mouse_right_went_up = 0;
+            dispatch->input.video_input_flag_b = 0;
+            dispatch->host->graphics.redraw_requested = 1;
+            return;
+        }
         const int32_t focused = pharaoh_generic_buttons_get_focus(
             origin_x, origin_y, pharaoh_game_menu_rects,
             PHARAOH_MENU_BUTTON_COUNT, dispatch->input.mouse_x,
@@ -911,7 +907,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         if (focused != dispatch->main_menu_focused_button ||
             dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_main_menu(dispatch->host,
-                &dispatch->main_menu_window, focused);
+                &dispatch->main_menu_window,
+                dispatch->player_selection.player_name, focused);
             dispatch->main_menu_focused_button = focused;
         }
         if (focused > 0 && dispatch->left_pressed_this_frame != 0 &&

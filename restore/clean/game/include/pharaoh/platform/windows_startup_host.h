@@ -183,7 +183,7 @@ void pharaoh_windows_startup_host_draw_family_message(
     int32_t button_count, int32_t focused_button);
 void pharaoh_windows_startup_host_draw_main_menu(
     PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
-    int32_t focused_button);
+    const char *player_name, int32_t focused_button);
 void pharaoh_windows_startup_host_draw_custom_map_list(
     PharaohWindowsStartupHost *host,
     const PharaohCustomMapSelectionState *selection, int32_t campaign_mode,

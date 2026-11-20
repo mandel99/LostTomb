@@ -52,6 +52,9 @@ static const char *const startup_sprite_libraries[
     "TombTutDummy", "TombSetiDummy", "TombRamDummy"
 };
 
+static int32_t message_box_measure_text(void *user_data, const char *text,
+    int32_t font);
+
 static void *allocate_sprite_memory(void *user_data, uint32_t byte_count)
 {
     (void)user_data;
@@ -984,6 +987,8 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
     bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
     bitmap_font.measure_space = font == 634 ? 4 :
         (font == 640 || font == 641) ? 10 : 6;
+    bitmap_font.draw_space = font == 634 ? 4 :
+        (font == 640 || font == 641) ? 8 : 6;
     bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
     if (bitmap_font.first_image == 0) return x;
     return x + pharaoh_bitmap_text_width(&bitmap_font,
@@ -1109,11 +1114,7 @@ void pharaoh_windows_startup_host_draw_family_message(
         host, draw_menu_image,
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
     };
-    char first_line[160];
-    char second_line[160];
     const char *body;
-    size_t length;
-    size_t split;
     /* Native table 0x005c8168 stores button style 4, image group 365,
        then image offsets 0 and 4.  The group field is not SG3 group 4. */
     const int32_t image_base = (int32_t)menu_group_image(host, 365);
@@ -1124,24 +1125,12 @@ void pharaoh_windows_startup_host_draw_family_message(
     pharaoh_text_select(&host->text_selection, 5, text_entry + 1);
     body = host->text_selection.current;
     if (body != NULL) {
-        length = strlen(body);
-        split = length;
-        if (split > 58u) {
-            split = 58u;
-            while (split > 0u && body[split] != ' ') --split;
-            if (split == 0u) split = 58u;
-        }
-        if (split >= sizeof(first_line)) split = sizeof(first_line) - 1u;
-        memcpy(first_line, body, split);
-        first_line[split] = '\0';
-        while (split < length && body[split] == ' ') ++split;
-        (void)strncpy_s(second_line, sizeof(second_line), body + split,
-            _TRUNCATE);
-        high_score_draw_text(host, first_line, panel_x + 30,
-            panel_y + 60, 635, 0);
-        if (second_line[0] != '\0') {
-            high_score_draw_text(host, second_line, panel_x + 30,
-                panel_y + 76, 635, 0);
+        if (message_box_measure_text(host, body, 635) < 420) {
+            high_score_draw_centered_text(host, body, panel_x,
+                panel_y + 60, 480, 635, 0);
+        } else {
+            high_score_draw_wrapped_text(host, body, panel_x + 30,
+                panel_y + 60, 420, 635, 0);
         }
     }
     draw_menu_image(host, image_base + (focused_button == 1),
@@ -1483,7 +1472,7 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         }
     } else {
         (void)high_score_draw_language(host, 44, 0xd6,
-            origin_x + 490, origin_y + 446, 636, 0);
+            origin_x + 490, origin_y + 446, 635, 0);
     }
     host->graphics.redraw_requested = 0;
 }
@@ -1675,7 +1664,7 @@ void pharaoh_windows_startup_host_draw_boot_foreground(
 
 void pharaoh_windows_startup_host_draw_main_menu(
     PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
-    int32_t focused_button)
+    const char *player_name, int32_t focused_button)
 {
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
@@ -1691,13 +1680,31 @@ void pharaoh_windows_startup_host_draw_main_menu(
         host, main_menu_sound_update, main_menu_sound_is_playing,
         main_menu_sound_play
     };
+    char title_template[200];
+    char title[200];
+    const char *token;
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
     draw_menu_image(host, (int32_t)background, origin_x, origin_y);
     pharaoh_panel_frame_draw(&panel, origin_x + 128, origin_y + 40, 24, 21);
-    draw_menu_language(host, 293, 5, origin_x + 140, origin_y + 60,
-        368, 640, 0);
+    pharaoh_text_select(&host->text_selection, 293, 5);
+    title[0] = '\0';
+    if (host->text_selection.current != NULL) {
+        (void)strncpy_s(title_template, sizeof(title_template),
+            host->text_selection.current, _TRUNCATE);
+        token = strstr(title_template, "[player_name]");
+        if (token != NULL) {
+            const int32_t prefix_length = (int32_t)(token - title_template);
+            (void)snprintf(title, sizeof(title), "%.*s%s%s", prefix_length,
+                title_template, player_name != NULL ? player_name : "",
+                token + 13);
+        } else {
+            (void)strncpy_s(title, sizeof(title), title_template, _TRUNCATE);
+        }
+    }
+    high_score_draw_centered_text(host, title, origin_x + 140,
+        origin_y + 60, 368, 640, 0);
 
     labels.origin_x = origin_x;
     labels.origin_y = origin_y;
