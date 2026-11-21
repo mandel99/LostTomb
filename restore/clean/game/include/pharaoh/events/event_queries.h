@@ -260,4 +260,7 @@ int32_t pharaoh_editor_event_subtype_count(const PharaohScenarioEvent *event);
 void pharaoh_editor_event_set_type(PharaohScenarioEvent *event, int32_t type);
 int32_t pharaoh_event_subtype_group(const PharaohScenarioEvent *event);
 
+/* Complete C translation of Pharaoh.exe 0x0044F660. */
+int32_t pharaoh_event_announcement_text(const PharaohScenarioEvent *event);
+
 #endif

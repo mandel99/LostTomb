@@ -29,6 +29,54 @@ static size_t sender_index(const PharaohScenarioEvent *event)
     return event->sender_faction != 0u ? 1u : 0u;
 }
 
+int32_t pharaoh_event_announcement_text(const PharaohScenarioEvent *event)
+{
+    static const int32_t request_text[PHARAOH_REQUEST_SUBTYPE_COUNT] = {
+        0x35, 0x11, 0x23, 0x47, 0x59, 0x6b, 0x7d
+    };
+    static const int32_t invasion_text[4] = { 0xbe, 0xb4, 0xaa, 0x107 };
+
+    switch (event->type) {
+    case PHARAOH_EVENT_REQUEST:
+        if (event->subtype < PHARAOH_REQUEST_SUBTYPE_COUNT)
+            return request_text[event->subtype] -
+                (event->sender_faction != 0u ? 1 : 0);
+        break;
+    case PHARAOH_EVENT_INVASION:
+        if (event->item.value >= 1 && event->item.value <= 4)
+            return invasion_text[event->item.value - 1];
+        break;
+    case PHARAOH_EVENT_EARTHQUAKE: return 0xda;
+    case PHARAOH_EVENT_SEA_TRADE_PROBLEM: return 0xde;
+    case PHARAOH_EVENT_LAND_TRADE_PROBLEM: return 0xe2;
+    case PHARAOH_EVENT_WAGE_INCREASE: return 0xe6;
+    case PHARAOH_EVENT_WAGE_DECREASE: return 0xea;
+    case PHARAOH_EVENT_CONTAMINATED_WATER: return 0xee;
+    case PHARAOH_EVENT_GOLD_MINE_COLLAPSE: return 0xf2;
+    case PHARAOH_EVENT_DEMAND_INCREASE: return 0xd2;
+    case PHARAOH_EVENT_DEMAND_DECREASE: return 0xd6;
+    case PHARAOH_EVENT_PRICE_INCREASE: return 0xca;
+    case PHARAOH_EVENT_PRICE_DECREASE: return 0xce;
+    case PHARAOH_EVENT_REPUTATION_INCREASE: return 0xc2;
+    case PHARAOH_EVENT_REPUTATION_DECREASE: return 0xc6;
+    case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+        if (event->subtype < EVENT_CITY_STATUS_SUBTYPE_COUNT)
+            return 0x81 + 4 * event->subtype;
+        break;
+    case PHARAOH_EVENT_MESSAGE:
+        if (event->subtype < EVENT_MESSAGE_SUBTYPE_COUNT)
+            return 0x95 + 4 * event->subtype;
+        break;
+    case PHARAOH_EVENT_FLOOD_WORSE: return 0xfa;
+    case PHARAOH_EVENT_FLOOD_BETTER: return 0xfe;
+    case PHARAOH_EVENT_GIFT_FROM_PHARAOH:
+        return 0x125 - (event->sender_faction != 0u ? 1 : 0);
+    default:
+        break;
+    }
+    return -1;
+}
+
 static const PharaohRequestMessageRule *request_rule(
     const PharaohEventQueryContext *context, const PharaohScenarioEvent *event)
 {

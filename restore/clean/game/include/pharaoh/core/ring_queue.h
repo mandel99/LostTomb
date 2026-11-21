@@ -15,6 +15,11 @@ typedef struct PharaohRingQueue {
     int32_t items[PHARAOH_RING_QUEUE_CAPACITY];
 } PharaohRingQueue;
 
+typedef struct PharaohDynamicQueueHeader {
+    int32_t reserved[4];
+    int32_t capacity;
+} PharaohDynamicQueueHeader;
+
 _Static_assert(sizeof(PharaohRingQueue) == 220,
     "The native ring queue prefix is 220 bytes");
 
@@ -26,5 +31,9 @@ bool pharaoh_ring_queue_contains(const PharaohRingQueue *queue, int32_t value);
 bool pharaoh_ring_queue_push(PharaohRingQueue *queue, const int32_t *value);
 int32_t pharaoh_ring_queue_next(const PharaohRingQueue *queue, int32_t *cursor);
 bool pharaoh_ring_queue_is_full(const PharaohRingQueue *queue);
+
+/* Complete C translation of Pharaoh.exe 0x004F6A10. */
+bool pharaoh_dynamic_queue_wrap_index(
+    volatile PharaohDynamicQueueHeader *queue, volatile int32_t *index);
 
 #endif

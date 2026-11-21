@@ -83,3 +83,29 @@ bool pharaoh_ring_queue_is_full(const PharaohRingQueue *queue)
 {
     return pharaoh_ring_queue_count(queue) == queue->capacity - 1;
 }
+
+bool pharaoh_dynamic_queue_wrap_index(
+    volatile PharaohDynamicQueueHeader *queue, volatile int32_t *index)
+{
+    int32_t capacity;
+    int32_t value;
+
+    if (queue->capacity == 0)
+        return false;
+
+    value = *index;
+    while (value < 0) {
+        value = (int32_t)((uint32_t)*index + (uint32_t)queue->capacity);
+        *index = value;
+    }
+
+    capacity = queue->capacity;
+    if (*index >= capacity) {
+        do {
+            value = (int32_t)((uint32_t)*index - (uint32_t)capacity);
+            *index = value;
+            capacity = queue->capacity;
+        } while (value >= capacity);
+    }
+    return true;
+}
