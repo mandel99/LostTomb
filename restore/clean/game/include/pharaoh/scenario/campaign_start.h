@@ -73,6 +73,7 @@ typedef struct PharaohCampaignStartContext {
     uint8_t *campaign_status;
 } PharaohCampaignStartContext;
 
+/* Complete typed translation of native 0x0041B920. */
 int32_t pharaoh_campaign_find_mission(const PharaohCampaignIndex *index,
                                       uint32_t campaign_category,
                                       int32_t previous_index,
@@ -80,6 +81,8 @@ int32_t pharaoh_campaign_find_mission(const PharaohCampaignIndex *index,
 /* Complete typed C translation of native 0x0041B9D0. */
 int32_t pharaoh_campaign_link_of_mission(const PharaohCampaignIndex *index,
                                          int32_t mission_id);
+/* Complete typed translations of native 0x0041BA20, 0x0041BA80 and
+   0x0041BAB0. */
 uint8_t pharaoh_campaign_period_open(const PharaohCampaignIndex *index,
                                      uint32_t campaign_category);
 uint8_t pharaoh_campaign_any_mission_played(const PharaohCampaignIndex *index);

@@ -66,6 +66,43 @@
       "verification": "Compared with persistent Ghidra decompile on 2026-11-21"
     },
     {
+      "address": "0x0041AC00-0x0041AE40",
+      "old_owner": "generated mixed campaign parser cohort (Unit00241-Unit00249; full loader in Unit00249.c)",
+      "clean_owner": "game/scenario/campaign_file.c",
+      "functions": [
+        "0x0041AC00 pharaoh_campaign_link_initialize",
+        "0x0041AC50 pharaoh_campaign_initialize",
+        "0x0041AC90 pharaoh_campaign_add_link",
+        "0x0041AD20 pharaoh_campaign_strip_control_bytes",
+        "0x0041AD50 pharaoh_campaign_parse_integer",
+        "0x0041ADC0 pharaoh_campaign_parse_short",
+        "0x0041ADF0 pharaoh_campaign_log_error",
+        "0x0041AE40 pharaoh_campaign_load"
+      ],
+      "status": "typed_c_present_mapped_from_old_project",
+      "verification": "All eight native entrypoints resolve in persistent Ghidra; old full C and clean typed owners compared on 2026-11-21"
+    },
+    {
+      "address": "0x0041B920-0x0041BB70",
+      "old_owner": "generated campaign index/menu cohort (Unit00253-Unit00261 and runtime/CampaignMenu.c)",
+      "clean_owner": "game/scenario/campaign_start.c; game/scenario/campaign_availability.c; game/ui/campaign_menu.c",
+      "functions": [
+        "0x0041B920 pharaoh_campaign_find_mission",
+        "0x0041B9D0 pharaoh_campaign_link_of_mission",
+        "0x0041BA00 pharaoh_campaign_menu_period_valid",
+        "0x0041BA20 pharaoh_campaign_period_open",
+        "0x0041BA80 pharaoh_campaign_any_mission_played",
+        "0x0041BAB0 pharaoh_campaign_any_period_open",
+        "0x0041BAD0 pharaoh_campaign_menu_period_lock_mask",
+        "0x0041BAE0 pharaoh_campaign_unlock_all",
+        "0x0041BB10 pharaoh_campaign_menu_select_period",
+        "0x0041BB30 pharaoh_campaign_menu_image_button_count",
+        "0x0041BB70 pharaoh_campaign_menu_start_selected"
+      ],
+      "status": "typed_c_present_mapped_from_old_project",
+      "verification": "Old compiled owners mapped to existing clean typed functions; deep start endpoints remain explicit operations"
+    },
+    {
       "address": "0x005405B0",
       "old_owner": "generated/mixed/src/Unit02537.c:Original005405B0",
       "clean_owner": null,

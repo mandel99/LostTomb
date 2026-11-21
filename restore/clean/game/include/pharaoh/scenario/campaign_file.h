@@ -51,18 +51,24 @@ _Static_assert(offsetof(PharaohCampaign, mission_name_count) == 0x2c8c &&
                sizeof(PharaohCampaign) == 0x4a84,
                "campaign object native offsets and size");
 
+/* Complete typed translations of native 0x0041AC00 and 0x0041AC50. */
 void pharaoh_campaign_link_initialize(PharaohCampaignLink *link);
 PharaohCampaign *pharaoh_campaign_initialize(PharaohCampaign *campaign);
+/* Complete typed translation of native 0x0041AC90. */
 uint8_t pharaoh_campaign_add_link(PharaohCampaignIndex *index,
                                   const PharaohCampaignLink *link);
+/* Complete typed translation of native 0x0041AD20. */
 void pharaoh_campaign_strip_control_bytes(char *text);
+/* Complete typed translations of native 0x0041AD50 and 0x0041ADC0. */
 int32_t pharaoh_campaign_parse_integer(PharaohCampaignTokenCursor *cursor,
                                        int32_t *value);
 int32_t pharaoh_campaign_parse_short(PharaohCampaignTokenCursor *cursor,
                                      int16_t *value);
+/* Complete typed translation of native 0x0041ADF0. */
 void pharaoh_campaign_log_error(const PharaohCampaignFileOperations *operations,
                                 const char *filename, int32_t line_number,
                                 const char *source_line, const char *error);
+/* Complete typed translation of native 0x0041AE40. */
 int32_t pharaoh_campaign_load(PharaohCampaign *campaign,
                               const char *filename,
                               const PharaohCampaignFileOperations *operations);
