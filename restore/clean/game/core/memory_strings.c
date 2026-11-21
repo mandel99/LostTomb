@@ -96,3 +96,43 @@ size_t pharaoh_string_length(const char *text)
     while (*end != 0u) ++end;
     return (size_t)(end - begin);
 }
+
+char *pharaoh_string_find(const char *text, const char *pattern)
+{
+    const unsigned char *start = (const unsigned char *)text;
+    const unsigned char *needle = (const unsigned char *)pattern;
+
+    if (*needle == 0u)
+        return (char *)text;
+    while (*start != 0u) {
+        const unsigned char *candidate = start;
+        const unsigned char *match = needle;
+        while (*match != 0u && *candidate == *match) {
+            ++candidate;
+            ++match;
+        }
+        if (*match == 0u)
+            return (char *)start;
+        ++start;
+    }
+    return NULL;
+}
+
+void *pharaoh_memory_move(void *destination, const void *source, size_t count)
+{
+    unsigned char *output = (unsigned char *)destination;
+    const unsigned char *input = (const unsigned char *)source;
+
+    if ((uintptr_t)output > (uintptr_t)input &&
+        (uintptr_t)output - (uintptr_t)input < count) {
+        while (count != 0u) {
+            --count;
+            output[count] = input[count];
+        }
+    } else {
+        size_t index;
+        for (index = 0; index < count; ++index)
+            output[index] = input[index];
+    }
+    return destination;
+}
