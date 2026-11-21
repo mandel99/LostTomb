@@ -157,6 +157,7 @@ add_library(pharaoh_game STATIC
     game/ui/main_menu_action.c
     game/ui/campaign_menu.c
     game/ui/briefing.c
+    game/ui/rich_text.c
     game/ui/custom_map_selection.c
     game/ui/load_save_dialog.c
     game/ui/map_selection_rating.c
