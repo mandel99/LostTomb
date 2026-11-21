@@ -22,6 +22,7 @@ add_library(pharaoh_game STATIC
     game/editor/event_buttons.c
     game/editor/god_buttons.c
     game/editor/monument_buttons.c
+    game/editor/numeric_dialog.c
     game/editor/navigation_buttons.c
     game/editor/permission_buttons.c
     game/editor/route_geometry.c
