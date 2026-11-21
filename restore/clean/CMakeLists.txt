@@ -184,6 +184,7 @@ add_library(pharaoh_game STATIC
     game/ui/front_menu_action.c
     game/ui/front_menu_render.c
     game/ui/high_scores.c
+    game/ui/small_button_callbacks.c
     game/ui/message_box.c
     game/ui/menu_dialog.c
     game/ui/bitmap_font.c
