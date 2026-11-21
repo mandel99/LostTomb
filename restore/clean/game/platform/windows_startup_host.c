@@ -979,6 +979,9 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
         (size_t)offset, "%d", value);
     if (digits < 0 || (size_t)digits >= sizeof(text) - (size_t)offset) return x;
     offset += digits;
+    /* 0x004CCE00 receives 0x0057C048, the native one-space suffix. */
+    if ((size_t)offset + 1u >= sizeof(text)) return x;
+    text[offset++] = ' ';
     text[offset] = '\0';
     high_score_draw_text(user_data, text, x, y, font, color);
     if (font < 634 || font > 641) return x;
@@ -991,8 +994,8 @@ static int32_t high_score_draw_number_end(void *user_data, int32_t value,
         (font == 640 || font == 641) ? 8 : 6;
     bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
     if (bitmap_font.first_image == 0) return x;
-    /* 0x004CC770 advances unmapped '@' by the font space and adds one
-       further space at the terminator; DAT_00E20778 includes both. */
+    /* 0x004CC770 advances unmapped '@', the explicit suffix space, and
+       one further space at the terminator; DAT_00E20778 includes all. */
     return x + pharaoh_bitmap_text_draw_advance(&bitmap_font,
         (const uint8_t *)text) + bitmap_font.draw_space;
 }
