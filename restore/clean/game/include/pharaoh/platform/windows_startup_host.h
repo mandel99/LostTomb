@@ -185,7 +185,8 @@ void pharaoh_windows_startup_host_draw_main_menu(
     PharaohWindowsStartupHost *host, const PharaohMainMenuWindowState *state,
     const char *player_name, int32_t focused_button);
 void pharaoh_windows_startup_host_draw_campaign_menu(
-    PharaohWindowsStartupHost *host, int32_t selected_period,
+    PharaohWindowsStartupHost *host, const char *player_name,
+    int32_t selected_period,
     int32_t latest_period, int32_t campaign_mode,
     int32_t focused_button);
 void pharaoh_windows_startup_host_draw_custom_map_list(

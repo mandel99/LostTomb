@@ -1,4 +1,5 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
+#include "pharaoh/ui/campaign_menu.h"
 #include "pharaoh/ui/front_menu_action.h"
 #include "pharaoh/ui/main_menu.h"
 #include "pharaoh/ui/map_selection_invasions.h"
@@ -539,6 +540,23 @@ static void map_selection_back(PharaohWindowsStartupDispatch *dispatch)
         dispatch->refresh.current_window_id;
 }
 
+static PharaohCampaignMenuState campaign_menu_state(
+    PharaohWindowsStartupDispatch *dispatch)
+{
+    PharaohCampaignMenuState state = {
+        &dispatch->refresh.current_window_id,
+        &dispatch->host->graphics.redraw_requested,
+        &dispatch->menu_field_7027ac,
+        &dispatch->menu_field_7027b0,
+        &dispatch->menu_campaign_mode_6fdc98,
+        &dispatch->menu_map_changed_704db0,
+        &dispatch->menu_selection_flag_605a3c,
+        &dispatch->menu_selection_flag_6de515,
+        &dispatch->menu_map_mode_704dac
+    };
+    return state;
+}
+
 static void main_menu_open_saved_game_dialog(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
@@ -1069,12 +1087,15 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         const int32_t selected = (int32_t)dispatch->menu_field_7027ac;
         const int32_t latest = (int32_t)dispatch->menu_field_7027b0;
         const int32_t mode = (int32_t)dispatch->menu_campaign_mode_6fdc98;
-        const int32_t selected_enabled = selected >= 0 && selected < 9 &&
-            (mode != 0 || selected == latest);
+        const int32_t image_button_count =
+            pharaoh_campaign_menu_image_button_count(
+                (uint32_t)mode, (uint32_t)selected, (uint32_t)latest);
+        const int32_t selected_enabled =
+            pharaoh_campaign_menu_period_valid(selected) &&
+            image_button_count != 0;
         int32_t focused = 0;
 
         for (int32_t index = 0; index < 9; ++index) {
-            if (mode == 0 && index != latest) continue;
             if (dispatch->input.mouse_x >= origin_x + period_buttons[index][0] &&
                 dispatch->input.mouse_x < origin_x + period_buttons[index][2] &&
                 dispatch->input.mouse_y >= origin_y + period_buttons[index][1] &&
@@ -1120,15 +1141,18 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         } else if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x17) {
             if (focused >= 1 && focused <= 9) {
-                /* Complete callback 0x0041BB10: button parameter -> 7027AC. */
-                dispatch->menu_field_7027ac = (uint32_t)(focused - 1);
-                dispatch->host->graphics.redraw_requested = 1;
+                PharaohCampaignMenuState state =
+                    campaign_menu_state(dispatch);
+                pharaoh_campaign_menu_select_period(&state,
+                    (uint32_t)(focused - 1));
             } else if (focused == 10 && mode == 1) {
-                dispatch->menu_selection_flag_605a3c = 0;
-                dispatch->menu_selection_flag_6de515 = 0;
-                dispatch->menu_map_mode_704dac = 2;
-                dispatch->menu_map_changed_704db0 = 1;
-                main_menu_open_map_selection(dispatch);
+                PharaohCampaignMenuState state =
+                    campaign_menu_state(dispatch);
+                const PharaohCampaignMenuOperations operations = {
+                    dispatch, main_menu_open_map_selection
+                };
+                (void)pharaoh_campaign_menu_open_individual_missions(
+                    &state, &operations);
             } else if (focused == 13 && mode == 1) {
                 map_selection_back(dispatch);
             }
@@ -1138,6 +1162,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         if (dispatch->refresh.current_window_id == 0x17 &&
             dispatch->host->graphics.redraw_requested != 0) {
             pharaoh_windows_startup_host_draw_campaign_menu(dispatch->host,
+                dispatch->player_selection.player_name,
                 (int32_t)dispatch->menu_field_7027ac,
                 (int32_t)dispatch->menu_field_7027b0,
                 (int32_t)dispatch->menu_campaign_mode_6fdc98,
@@ -1455,12 +1480,10 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
             focused_button == 8) {
-            /* Complete callback 0x0041C350: Campaigns tab -> state 0x17. */
-            dispatch->refresh.current_window_id = 0x17;
+            PharaohCampaignMenuState state = campaign_menu_state(dispatch);
+            (void)pharaoh_campaign_menu_open_campaigns(&state);
             dispatch->host->current_window_id = 0x17;
-            dispatch->menu_campaign_mode_6fdc98 = 1;
             dispatch->campaign_menu_focused_button = 0;
-            dispatch->host->graphics.redraw_requested = 1;
         }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&

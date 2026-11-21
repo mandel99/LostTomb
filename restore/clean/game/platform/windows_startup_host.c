@@ -1506,7 +1506,8 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
 }
 
 void pharaoh_windows_startup_host_draw_campaign_menu(
-    PharaohWindowsStartupHost *host, int32_t selected_period,
+    PharaohWindowsStartupHost *host, const char *player_name,
+    int32_t selected_period,
     int32_t latest_period, int32_t campaign_mode,
     int32_t focused_button)
 {
@@ -1519,6 +1520,8 @@ void pharaoh_windows_startup_host_draw_campaign_menu(
     };
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    char title_template[200];
+    char title[200] = "";
     int32_t selected_enabled = 0;
 
     /* Complete background behavior of native 0x0041C2D0. */
@@ -1544,9 +1547,25 @@ void pharaoh_windows_startup_host_draw_campaign_menu(
             origin_x + 78, origin_y + (campaign_mode == 0 ? 60 : 56));
     }
 
-    /* Native 0x0041BE10 uses text 293:5/6 for the window title. */
-    draw_menu_language(host, 293, campaign_mode == 0 ? 5 : 6,
-        origin_x + 20, origin_y + 17, 600, 640, 0);
+    /* 0x0041BE10 passes 293:5/6 through 0x00448370 before drawing. */
+    pharaoh_text_select(&host->text_selection, 293,
+        campaign_mode == 0 ? 5 : 6);
+    if (host->text_selection.current != NULL) {
+        const char *token;
+        (void)strncpy_s(title_template, sizeof(title_template),
+            host->text_selection.current, _TRUNCATE);
+        token = strstr(title_template, "[player_name]");
+        if (token != NULL) {
+            const int32_t prefix_length = (int32_t)(token - title_template);
+            (void)snprintf(title, sizeof(title), "%.*s%s%s", prefix_length,
+                title_template, player_name != NULL ? player_name : "",
+                token + 13);
+        } else {
+            (void)strncpy_s(title, sizeof(title), title_template, _TRUNCATE);
+        }
+    }
+    high_score_draw_centered_text(host, title, origin_x + 20,
+        origin_y + 17, 600, 640, 0);
     if (selected_period >= 0 && selected_period < 9) {
         const int32_t description_variant = campaign_mode != 0 ? 2 :
             selected_period < latest_period ? 1 :
@@ -1574,10 +1593,12 @@ void pharaoh_windows_startup_host_draw_campaign_menu(
         draw_menu_language(host, 27, index, x, y + 6, width,
             disabled ? 638 : 635, 0);
     }
-    draw_menu_language(host, 294, 0x29, origin_x + 30,
-        origin_y + 266, 144, 635, 0);
-    draw_menu_language(host, 294, 0x2a, origin_x + 30,
-        origin_y + 366, 144, 635, 0);
+    pharaoh_text_select(&host->text_selection, 294, 0x29);
+    high_score_draw_wrapped_text(host, host->text_selection.current,
+        origin_x + 30, origin_y + 266, 144, 635, 0);
+    pharaoh_text_select(&host->text_selection, 294, 0x2a);
+    high_score_draw_wrapped_text(host, host->text_selection.current,
+        origin_x + 30, origin_y + 366, 144, 635, 0);
 
     if (campaign_mode == 1) {
         main_menu_draw_border(host, 0, origin_x + 32, origin_y + 208,
