@@ -13,11 +13,17 @@ typedef struct PharaohCampaignMenuState {
     uint32_t *returns_to_front_menu;
     uint8_t *selection_flag;
     uint32_t *map_mode;
+    uint32_t *campaign_started;
+    uint8_t *mission_id;
+    uint32_t *selection_kind;
 } PharaohCampaignMenuState;
 
 typedef struct PharaohCampaignMenuOperations {
     void *user_data;
     void (*show_individual_missions)(void *user_data);
+    void (*play_period_intro)(void *user_data, uint32_t period);
+    void (*start_campaign)(void *user_data, int8_t period);
+    void (*begin_briefing)(void *user_data);
 } PharaohCampaignMenuOperations;
 
 /* Complete typed C translations of native 0x0041BA00, 0x0041BAD0,
@@ -37,5 +43,11 @@ int32_t pharaoh_campaign_menu_open_individual_missions(
     const PharaohCampaignMenuOperations *operations);
 int32_t pharaoh_campaign_menu_open_campaigns(
     PharaohCampaignMenuState *state);
+
+/* Complete typed C translation of native 0x0041BB70.  The three deep
+   endpoints retain their native call order through explicit operations. */
+int32_t pharaoh_campaign_menu_start_selected(
+    PharaohCampaignMenuState *state,
+    const PharaohCampaignMenuOperations *operations);
 
 #endif
