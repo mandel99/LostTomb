@@ -166,6 +166,7 @@ add_library(pharaoh_game STATIC
     game/ui/message_tokens.c
     game/ui/token_expansion.c
     game/ui/cheat_actions.c
+    game/ui/economy_actions.c
     game/ui/industry_panels.c
     game/ui/label_text.c
     game/ui/main_menu.c
