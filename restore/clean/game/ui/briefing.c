@@ -198,3 +198,16 @@ void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
         operations->handle_scrollbar(operations->user_data);
     }
 }
+
+void pharaoh_briefing_draw_scroll(
+    const PharaohBriefingScrollDrawState *state,
+    const PharaohBriefingScrollDrawOperations *operations)
+{
+    *state->ui_redraw_requested = 1;
+    if (state->scroll_maximum == 0) return;
+    operations->draw_arrow(operations->user_data, 0,
+        state->origin_x + 554, state->origin_y + 168);
+    operations->draw_arrow(operations->user_data, 1,
+        state->origin_x + 554, state->origin_y + 382);
+    operations->draw_scroll_thumb(operations->user_data);
+}

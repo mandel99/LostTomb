@@ -74,6 +74,20 @@ typedef struct PharaohBriefingInputOperations {
     void (*handle_scrollbar)(void *user_data);
 } PharaohBriefingInputOperations;
 
+typedef struct PharaohBriefingScrollDrawState {
+    int32_t origin_x;
+    int32_t origin_y;
+    int32_t scroll_maximum;
+    uint8_t *ui_redraw_requested;
+} PharaohBriefingScrollDrawState;
+
+typedef struct PharaohBriefingScrollDrawOperations {
+    void *user_data;
+    void (*draw_arrow)(void *user_data, int32_t direction,
+        int32_t x, int32_t y);
+    void (*draw_scroll_thumb)(void *user_data);
+} PharaohBriefingScrollDrawOperations;
+
 /* Complete typed rendering controller for native 0x0041A180. The operation
    boundary owns the already-separated native text, panel and mission loaders. */
 void pharaoh_briefing_draw(PharaohBriefingState *state,
@@ -84,5 +98,10 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
 /* Complete typed input controller for native 0x00418FE0. */
 void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
     const PharaohBriefingInputOperations *operations);
+
+/* Complete typed rendering helper for native 0x00418F70. */
+void pharaoh_briefing_draw_scroll(
+    const PharaohBriefingScrollDrawState *state,
+    const PharaohBriefingScrollDrawOperations *operations);
 
 #endif

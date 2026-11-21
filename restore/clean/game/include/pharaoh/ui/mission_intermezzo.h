@@ -65,4 +65,46 @@ int32_t pharaoh_mission_transition_text_id(
     const PharaohCampaignIndex *index, const PharaohSettingsFile *settings,
     int32_t scenario_mode);
 
+typedef struct PharaohMissionChoiceRenderState {
+    const PharaohCampaignIndex *index;
+    const PharaohSettingsFile *settings;
+    uint8_t selected_choice;
+    int32_t origin_x;
+    int32_t origin_y;
+    int32_t screen_width;
+    int32_t screen_height;
+    int32_t choice_background_image;
+    int32_t choice_link_image_base;
+    int32_t marker_image_base;
+    int32_t large_font;
+    int32_t black_font;
+    int32_t *panel_x;
+    int32_t *panel_y;
+    int32_t *view_x;
+    int32_t *view_y;
+    int32_t *view_width;
+    int32_t *view_height;
+} PharaohMissionChoiceRenderState;
+
+typedef struct PharaohMissionChoiceRenderOperations {
+    void *user_data;
+    int32_t (*mouse_inside)(void *user_data, int32_t x, int32_t y,
+        int32_t width, int32_t height);
+    void (*draw_sprite)(void *user_data, int32_t image,
+        int32_t x, int32_t y);
+    void (*draw_language)(void *user_data, int32_t group, int32_t entry,
+        int32_t x, int32_t y, int32_t font, int32_t color);
+    void (*draw_language_multiline)(void *user_data, int32_t group,
+        int32_t entry, int32_t x, int32_t y, int32_t width,
+        int32_t font, int32_t color);
+} PharaohMissionChoiceRenderOperations;
+
+/* Complete typed translations of native 0x00419140 and 0x0041AAA0. */
+void pharaoh_mission_choice_draw_markers(
+    const PharaohMissionChoiceRenderState *state,
+    const PharaohMissionChoiceRenderOperations *operations);
+void pharaoh_mission_choice_draw(
+    PharaohMissionChoiceRenderState *state,
+    const PharaohMissionChoiceRenderOperations *operations);
+
 #endif
