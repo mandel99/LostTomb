@@ -31,6 +31,7 @@ add_library(pharaoh_game STATIC
     game/editor/navigation_buttons.c
     game/editor/permission_buttons.c
     game/editor/route_geometry.c
+    game/editor/validation.c
     game/events/event_actions.c
     game/events/event_queries.c
     game/events/gift_buttons.c
