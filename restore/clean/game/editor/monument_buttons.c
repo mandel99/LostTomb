@@ -97,3 +97,25 @@ void pharaoh_editor_set_monument_era(PharaohEditorMonumentState *state,
         MONUMENT_ERA_COUNT, MONUMENT_ERAS_GROUP, &state->animation_set,
         PHARAOH_EDITOR_TARGET_INT8, 0, 0, 3);
 }
+
+void pharaoh_editor_edit_burial_provision(
+    PharaohEditorMonumentState *state,
+    const PharaohEditorMonumentOperations *operations)
+{
+    const int32_t monument = state->button_parameter;
+    if ((uint8_t)operations->resource_available(
+            operations->user_data, monument) == 0) {
+        operations->show_popup(operations->user_data, 28);
+        *state->redraw_requested = 1;
+        return;
+    }
+    if (operations->provision_kind_count(
+            operations->user_data, monument) >= 5) {
+        operations->show_popup(operations->user_data, 26);
+        *state->redraw_requested = 1;
+        return;
+    }
+    operations->open_numeric_input(operations->user_data, 300, 200, 4,
+        &state->provisions_needed[monument]);
+    *state->redraw_requested = 1;
+}
