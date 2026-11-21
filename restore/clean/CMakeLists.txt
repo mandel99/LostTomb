@@ -42,6 +42,7 @@ add_library(pharaoh_game STATIC
     game/events/gift_buttons.c
     game/military/enemy_queries.c
     game/military/enemy_ship_queries.c
+    game/military/legion_orders.c
     game/military/transport_boats.c
     game/military/ship_status.c
     game/monuments/stages.c
