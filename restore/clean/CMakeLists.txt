@@ -13,6 +13,7 @@ add_library(pharaoh_game STATIC
     game/assets/sprite_libraries.c
     game/commerce/market_selection.c
     game/building/construction_warnings.c
+    game/building/occupancy_query.c
     game/core/record_geometry.c
     game/core/ring_queue.c
     game/core/memory_fill.c
