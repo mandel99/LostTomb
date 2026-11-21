@@ -1390,7 +1390,9 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                 const PharaohCampaignMissionRecord *const record =
                     &host->campaign.mission_records[mission];
                 if (record->score == 0) {
-                    draw_menu_language(host, 305, 0, origin_x + 345,
+                    pharaoh_text_select(&host->text_selection, 305, 0);
+                    high_score_draw_wrapped_text(host,
+                        host->text_selection.current, origin_x + 345,
                         origin_y + 125, 260, 636, 0);
                 } else {
                     pharaoh_text_select(&host->text_selection, 297, mission);
@@ -1642,25 +1644,67 @@ void pharaoh_windows_startup_host_draw_saved_game_list(
         host, draw_menu_image,
         (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_OUTER_PANEL), 0
     };
-    (void)selected_row;
+    const PharaohPanelFrameOperations inner = {
+        host, draw_menu_image, 0,
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_INNER_PANEL)
+    };
 
     (void)host->graphics_operations.fill_surface(host,
         host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
-    draw_menu_image(host, (int32_t)background, origin_x - 192,
-        origin_y - 144);
+    draw_menu_image(host, (int32_t)background, origin_x, origin_y);
     pharaoh_panel_frame_draw(&panel, origin_x + 128, origin_y + 40, 24, 21);
+    pharaoh_inner_panel_frame_draw(&inner, origin_x + 144,
+        origin_y + 80, 20, 2);
+    pharaoh_inner_panel_frame_draw(&inner, origin_x + 144,
+        origin_y + 120, 20, 13);
+    pharaoh_inner_panel_frame_draw(&inner, origin_x + 467,
+        origin_y + 144, 2, 10);
     draw_menu_language(host, 43, 1, origin_x + 160, origin_y + 50,
         304, 640, 0xffff);
     for (int32_t row = 0; row < VISIBLE_ROWS; ++row) {
         const int32_t index = first_visible + row;
         const char *const name = pharaoh_file_list_name(files, index);
         if (name != NULL) {
-            high_score_draw_text(host, name, origin_x + 160,
-                origin_y + 114 + row * 16, 635, 0xffff);
+            char display_name[260];
+            char *extension;
+            (void)strncpy_s(display_name, sizeof(display_name), name,
+                _TRUNCATE);
+            extension = strrchr(display_name, '.');
+            if (extension != NULL && _stricmp(extension, ".sav") == 0) {
+                *extension = '\0';
+            }
+            high_score_draw_text(host, display_name, origin_x + 160,
+                origin_y + 130 + row * 16,
+                index == selected_row ? 637 : 635, 0);
         }
     }
-    draw_menu_language(host, 43, 5, origin_x + 224, origin_y + 342,
-        192, 635, 0xf800);
+    {
+        const char *selected = selected_row >= 0 ?
+            pharaoh_file_list_name(files, selected_row) :
+            host->default_name_2;
+        if (selected != NULL) {
+            char display_name[260];
+            char *extension;
+            (void)strncpy_s(display_name, sizeof(display_name), selected,
+                _TRUNCATE);
+            extension = strrchr(display_name, '.');
+            if (extension != NULL && _stricmp(extension, ".sav") == 0) {
+                *extension = '\0';
+            }
+            high_score_draw_text(host, display_name, origin_x + 160,
+                origin_y + 90, 637, 0);
+        }
+    }
+    (void)high_score_draw_language(host, 43, 5, origin_x + 224,
+        origin_y + 342, 635, 0xf800);
+    draw_menu_image(host, (int32_t)menu_group_image(host, 365) + 4,
+        origin_x + 344, origin_y + 335);
+    draw_menu_image(host, (int32_t)menu_group_image(host, 365),
+        origin_x + 392, origin_y + 335);
+    draw_menu_image(host, (int32_t)menu_group_image(host, 365) + 8,
+        origin_x + 464, origin_y + 120);
+    draw_menu_image(host, (int32_t)menu_group_image(host, 365) + 12,
+        origin_x + 464, origin_y + 300);
     if (files->count > VISIBLE_ROWS) {
         int32_t percent = 0;
         if (first_visible > 0) {

@@ -21,6 +21,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohStartupWindowInputState input;
     PharaohStartupWindowDispatcherEntryState entry;
     PharaohStartupWindowTransitionContext transition;
+    PharaohTimedWindowTransitionContext timed_transition;
     PharaohHighScoresState high_scores;
     PharaohHighScoresOperations high_scores_operations;
     PharaohMainMenuWindowState main_menu_window;
@@ -47,6 +48,8 @@ typedef struct PharaohWindowsStartupDispatch {
     uint8_t menu_selection_flag_6de515;
     uint32_t message_box_display_unavailable, message_box_display_ready;
     uint32_t campaign_flow_mode;
+    uint32_t timed_transition_value;
+    uint8_t timed_transition_next_window;
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;
     int32_t campaign_menu_focused_button;

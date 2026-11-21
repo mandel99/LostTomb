@@ -9,6 +9,22 @@ static int32_t signed_tick_from_native_bits(uint32_t tick_bits)
     return tick;
 }
 
+void pharaoh_timed_window_transition_start(
+    const PharaohTimedWindowTransitionStartContext *context,
+    uint32_t transition_value, uint8_t next_window_id,
+    int32_t duration_ms)
+{
+    PharaohTimedWindowTransitionContext *const transition =
+        context->transition;
+    const int32_t current_tick = signed_tick_from_native_bits(
+        transition->get_tick_count(transition->clock_user_data));
+    *context->transition_value = transition_value;
+    transition->deadline_tick = current_tick + duration_ms;
+    *context->next_window_storage = next_window_id;
+    *transition->current_window_id = 4;
+    *transition->redraw_requested = 1;
+}
+
 void pharaoh_timed_window_transition_dispatch(
     const PharaohTimedWindowTransitionContext *context)
 {

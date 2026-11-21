@@ -32,6 +32,26 @@ enum {
 
 static void load_selected_family(PharaohWindowsStartupDispatch *dispatch);
 
+static void map_selection_adjust_difficulty_ui(
+    PharaohWindowsStartupDispatch *dispatch, int32_t decrement)
+{
+    PharaohWindowsStartupHost *const host = dispatch->host;
+    int32_t difficulty = host->settings.difficulty + (decrement ? -1 : 1);
+    if (difficulty < 0) difficulty = 0;
+    else if (difficulty > 4) difficulty = 4;
+    host->settings.difficulty = difficulty;
+    host->building_model_context.difficulty =
+        (PharaohModelDifficulty)difficulty;
+    host->figure_model_context.difficulty =
+        (PharaohModelDifficulty)difficulty;
+    host->tax_model_context.difficulty =
+        (PharaohModelDifficulty)difficulty;
+    (void)pharaoh_building_model_load(&host->building_model_context);
+    (void)pharaoh_figure_model_load(&host->figure_model_context);
+    (void)pharaoh_tax_sentiment_model_load(&host->tax_model_context);
+    host->graphics.redraw_requested = 1;
+}
+
 static uint32_t frame_clock(void *user_data)
 {
     (void)user_data;
@@ -684,6 +704,17 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->input.mouse_y_ui = &dispatch->mouse_y_ui;
     dispatch->transition.input = &dispatch->input;
     dispatch->transition.video = &dispatch->video;
+    dispatch->timed_transition.advance_input =
+        &dispatch->input.mouse_right_went_up;
+    dispatch->timed_transition.current_window_id =
+        &dispatch->refresh.current_window_id;
+    dispatch->timed_transition.next_window_id =
+        &dispatch->timed_transition_next_window;
+    dispatch->timed_transition.redraw_requested =
+        &host->graphics.redraw_requested;
+    dispatch->timed_transition.clock_user_data = dispatch;
+    dispatch->timed_transition.get_tick_count = frame_clock;
+    dispatch->transition.timed_transition = &dispatch->timed_transition;
     dispatch->video.redraw_requested = &host->graphics.redraw_requested;
     dispatch->high_scores.origin_x = (host->graphics.render_width - 640) / 2;
     dispatch->high_scores.origin_y = (host->graphics.render_height - 480) / 2;
@@ -973,8 +1004,8 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 dispatch->saved_game_selected_row =
                     dispatch->saved_game_first_visible + focused - 1;
                 dispatch->host->graphics.redraw_requested = 1;
-            } else if (dispatch->input.mouse_x >= origin_x + 208 &&
-                dispatch->input.mouse_x < origin_x + 242 &&
+            } else if (dispatch->input.mouse_x >= origin_x + 464 &&
+                dispatch->input.mouse_x < origin_x + 498 &&
                 dispatch->saved_game_files.count > 12) {
                 if (dispatch->input.mouse_y >= origin_y + 120 &&
                     dispatch->input.mouse_y < origin_y + 154 &&
@@ -1465,6 +1496,12 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 &dispatch->custom_map_selection, dispatch->input.mouse_x,
                 dispatch->input.mouse_y, origin_x, origin_y) != 0) {
             dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            (focused_button == 5 || focused_button == 6)) {
+            map_selection_adjust_difficulty_ui(dispatch,
+                focused_button == 5);
         }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
