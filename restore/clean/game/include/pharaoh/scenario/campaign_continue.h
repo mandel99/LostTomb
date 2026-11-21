@@ -36,4 +36,25 @@ typedef struct PharaohCampaignContinueOperations {
 void pharaoh_campaign_continue(PharaohCampaignContinueState *state,
     const PharaohCampaignContinueOperations *operations);
 
+typedef struct PharaohMissionReplayAvailabilityState {
+    int32_t scenario_mode;
+    uint8_t game_is_replay;
+    const char *scenario_filename;
+    const char *player_save_path;
+} PharaohMissionReplayAvailabilityState;
+
+typedef struct PharaohMissionReplayAvailabilityOperations {
+    void *user_data;
+    int32_t (*custom_map_replay_available)(void *user_data,
+        const char *map_path);
+    void *(*open_file)(void *user_data, const char *path);
+    void (*close_file)(void *user_data, void *file);
+} PharaohMissionReplayAvailabilityOperations;
+
+/* Complete typed translation of native 0x004183D0. Native inputs guarantee
+   that the assembled path fits its 100-byte stack buffer. */
+uint8_t pharaoh_mission_replay_available(
+    const PharaohMissionReplayAvailabilityState *state,
+    const PharaohMissionReplayAvailabilityOperations *operations);
+
 #endif

@@ -61,3 +61,32 @@ void pharaoh_campaign_continue(PharaohCampaignContinueState *state,
     }
     request_redraw(state);
 }
+
+static char *append_string(char *destination, const char *source)
+{
+    while (*destination != '\0') ++destination;
+    while ((*destination++ = *source++) != '\0') { }
+    return destination - 1;
+}
+
+uint8_t pharaoh_mission_replay_available(
+    const PharaohMissionReplayAvailabilityState *state,
+    const PharaohMissionReplayAvailabilityOperations *operations)
+{
+    char path[100] = { 0 };
+    if (state->scenario_mode != 0) {
+        append_string(path, "maps\\");
+        append_string(path, state->scenario_filename);
+        return operations->custom_map_replay_available(
+            operations->user_data, path) != 0;
+    }
+    if (state->game_is_replay == 1) {
+        append_string(path, state->player_save_path);
+        append_string(path, "\\");
+        append_string(path, "autosave_replay.sav");
+        void *const file = operations->open_file(operations->user_data, path);
+        if (file == 0) return 0;
+        operations->close_file(operations->user_data, file);
+    }
+    return 1;
+}
