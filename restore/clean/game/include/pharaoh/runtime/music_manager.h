@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "pharaoh/core/crt_random.h"
+
 typedef struct PharaohMusicTrack {
     char path[100];
     int32_t delay;
@@ -52,5 +54,24 @@ PharaohMusicManager *pharaoh_music_manager_construct(
 int32_t pharaoh_music_manager_add_track(PharaohMusicManager *manager,
     const char *path, int32_t category, int32_t delay,
     int32_t minimum_population, int32_t maximum_population, int32_t ambient);
+
+typedef struct PharaohMusicUpdateState {
+    PharaohMusicManager *manager;
+    PharaohCrtRandom *random;
+    int32_t sound_ready;
+    uint8_t window_active;
+    int8_t category_index;
+    int32_t population;
+    int32_t volume;
+    uint32_t delay_ms;
+    void *user_data;
+    void (*set_volume)(void *user_data, int32_t volume);
+    void (*play_stream)(void *user_data, const char *path,
+        int32_t parameter1, int32_t parameter2);
+    uint32_t (*milliseconds)(void *user_data);
+} PharaohMusicUpdateState;
+
+/* Complete C translation of Pharaoh.exe 0x00539820. */
+void pharaoh_music_manager_update(PharaohMusicUpdateState *state);
 
 #endif
