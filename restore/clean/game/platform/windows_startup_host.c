@@ -1481,6 +1481,109 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
     host->graphics.redraw_requested = 0;
 }
 
+void pharaoh_windows_startup_host_draw_campaign_menu(
+    PharaohWindowsStartupHost *host, int32_t selected_period,
+    int32_t latest_period, int32_t campaign_mode,
+    int32_t focused_button)
+{
+    static const int16_t period_buttons[9][4] = {
+        { 20, 291, 164, 316 }, { 20, 321, 164, 346 },
+        { 172, 261, 316, 286 }, { 172, 291, 316, 316 },
+        { 172, 321, 316, 346 }, { 20, 391, 164, 416 },
+        { 20, 421, 164, 446 }, { 172, 391, 316, 416 },
+        { 172, 421, 316, 446 }
+    };
+    const int32_t origin_x = (host->graphics.render_width - 640) / 2;
+    const int32_t origin_y = (host->graphics.render_height - 480) / 2;
+    int32_t selected_enabled = 0;
+
+    /* Complete background behavior of native 0x0041C2D0. */
+    (void)host->graphics_operations.fill_surface(host,
+        host->graphics.back_buffer_surface, DDBLT_COLORFILL | DDBLT_WAIT, 0);
+    draw_menu_image(host, (int32_t)menu_group_image(host, 33),
+        origin_x - 192, origin_y - 144);
+
+    if (selected_period >= 0 && selected_period < 9) {
+        int32_t preview_group;
+        int32_t preview_offset;
+        if (selected_period < 5) {
+            preview_group = 28;
+            preview_offset = selected_period;
+        } else {
+            static const int8_t offsets[4] = { 4, 2, 5, 7 };
+            preview_group = 748;
+            preview_offset = offsets[selected_period - 5];
+        }
+        draw_menu_image(host,
+            (int32_t)menu_group_image(host, (uint32_t)preview_group) +
+                preview_offset,
+            origin_x + 78, origin_y + (campaign_mode == 0 ? 60 : 56));
+    }
+
+    /* Native 0x0041BE10 uses text 293:5/6 for the window title. */
+    draw_menu_language(host, 293, campaign_mode == 0 ? 5 : 6,
+        origin_x + 20, origin_y + 17, 600, 640, 0);
+    if (selected_period >= 0 && selected_period < 9) {
+        const int32_t description_variant = campaign_mode != 0 ? 2 :
+            selected_period < latest_period ? 1 :
+            selected_period == latest_period ? 2 : 3;
+        draw_menu_language(host, 294, selected_period * 4,
+            origin_x + 339, origin_y + 60, 283, 641, 0);
+        pharaoh_text_select(&host->text_selection, 294,
+            selected_period * 4 + description_variant);
+        high_score_draw_wrapped_text(host, host->text_selection.current,
+            origin_x + 347, origin_y + 116, 269, 636, 0);
+    }
+
+    for (int32_t index = 0; index < 9; ++index) {
+        const int32_t x = origin_x + period_buttons[index][0];
+        const int32_t y = origin_y + period_buttons[index][1];
+        const int32_t width = period_buttons[index][2] -
+            period_buttons[index][0];
+        const int32_t height = period_buttons[index][3] -
+            period_buttons[index][1];
+        const int32_t disabled = campaign_mode == 0 && index != latest_period;
+        const int32_t hovered = !disabled && focused_button == index + 1;
+        if (index == selected_period && !disabled) selected_enabled = 1;
+        main_menu_draw_border(host, 0, x, y, width, height, hovered);
+        draw_menu_language(host, 27, index, x, y + 6, width,
+            disabled ? 638 : 635, 0);
+    }
+    draw_menu_language(host, 294, 0x29, origin_x + 30,
+        origin_y + 266, 144, 635, 0);
+    draw_menu_language(host, 294, 0x2a, origin_x + 30,
+        origin_y + 366, 144, 635, 0);
+
+    if (campaign_mode == 1) {
+        main_menu_draw_border(host, 0, origin_x + 32, origin_y + 208,
+            160, 25, focused_button == 10);
+        draw_menu_language(host, 294, 0x26, origin_x + 36,
+            origin_y + 215, 152, 635, 0);
+        /* Campaigns is the selected native tab (0041BE10). */
+        main_menu_draw_border(host, 0, origin_x + 195, origin_y + 208,
+            93, 25, 1);
+        draw_menu_language(host, 294, 0x27, origin_x + 199,
+            origin_y + 215, 85, 635, 0);
+    }
+
+    if (selected_enabled) {
+        draw_menu_image(host, (int32_t)menu_group_image(host, 461) +
+            (focused_button == 12), origin_x + 600, origin_y + 440);
+        if (campaign_mode == 0) {
+            (void)high_score_draw_language(host, 294, 0x24,
+                origin_x + 420, origin_y + 445, 635, 0);
+        } else {
+            draw_menu_image(host, (int32_t)menu_group_image(host, 365) + 4 +
+                (focused_button == 13), origin_x + 335, origin_y + 440);
+            (void)high_score_draw_language(host, 294, 0x25,
+                origin_x + 550, origin_y + 445, 635, 0);
+            (void)high_score_draw_language(host, 44, 0xd9,
+                origin_x + 380, origin_y + 445, 635, 0);
+        }
+    }
+    host->graphics.redraw_requested = 0;
+}
+
 void pharaoh_windows_startup_host_draw_saved_game_list(
     PharaohWindowsStartupHost *host, const PharaohFileList *files,
     int32_t first_visible, int32_t selected_row)

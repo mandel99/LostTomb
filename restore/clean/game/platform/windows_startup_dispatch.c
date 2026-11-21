@@ -1054,6 +1054,106 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             &dispatch->refresh_operations, 0);
         return;
     }
+    if (dispatch->refresh.current_window_id == 0x17) {
+        static const int16_t period_buttons[9][4] = {
+            { 20, 291, 164, 316 }, { 20, 321, 164, 346 },
+            { 172, 261, 316, 286 }, { 172, 291, 316, 316 },
+            { 172, 321, 316, 346 }, { 20, 391, 164, 416 },
+            { 20, 421, 164, 446 }, { 172, 391, 316, 416 },
+            { 172, 421, 316, 446 }
+        };
+        const int32_t origin_x =
+            (dispatch->host->graphics.render_width - 640) / 2;
+        const int32_t origin_y =
+            (dispatch->host->graphics.render_height - 480) / 2;
+        const int32_t selected = (int32_t)dispatch->menu_field_7027ac;
+        const int32_t latest = (int32_t)dispatch->menu_field_7027b0;
+        const int32_t mode = (int32_t)dispatch->menu_campaign_mode_6fdc98;
+        const int32_t selected_enabled = selected >= 0 && selected < 9 &&
+            (mode != 0 || selected == latest);
+        int32_t focused = 0;
+
+        for (int32_t index = 0; index < 9; ++index) {
+            if (mode == 0 && index != latest) continue;
+            if (dispatch->input.mouse_x >= origin_x + period_buttons[index][0] &&
+                dispatch->input.mouse_x < origin_x + period_buttons[index][2] &&
+                dispatch->input.mouse_y >= origin_y + period_buttons[index][1] &&
+                dispatch->input.mouse_y < origin_y + period_buttons[index][3]) {
+                focused = index + 1;
+                break;
+            }
+        }
+        if (mode == 1 &&
+            dispatch->input.mouse_x >= origin_x + 32 &&
+            dispatch->input.mouse_x < origin_x + 192 &&
+            dispatch->input.mouse_y >= origin_y + 208 &&
+            dispatch->input.mouse_y < origin_y + 233) {
+            focused = 10;
+        } else if (mode == 1 &&
+            dispatch->input.mouse_x >= origin_x + 195 &&
+            dispatch->input.mouse_x < origin_x + 288 &&
+            dispatch->input.mouse_y >= origin_y + 208 &&
+            dispatch->input.mouse_y < origin_y + 233) {
+            focused = 11;
+        } else if (selected_enabled &&
+            dispatch->input.mouse_x >= origin_x + 600 &&
+            dispatch->input.mouse_x < origin_x + 627 &&
+            dispatch->input.mouse_y >= origin_y + 440 &&
+            dispatch->input.mouse_y < origin_y + 467) {
+            focused = 12;
+        } else if (selected_enabled && mode == 1 &&
+            dispatch->input.mouse_x >= origin_x + 335 &&
+            dispatch->input.mouse_x < origin_x + 362 &&
+            dispatch->input.mouse_y >= origin_y + 440 &&
+            dispatch->input.mouse_y < origin_y + 467) {
+            focused = 13;
+        }
+        if (focused != dispatch->campaign_menu_focused_button) {
+            dispatch->campaign_menu_focused_button = focused;
+            dispatch->host->graphics.redraw_requested = 1;
+        }
+        if (dispatch->input.mouse_right_went_up != 0 &&
+            dispatch->right_press_window == 0x17 &&
+            (mode == 1 || latest == 0)) {
+            open_selected_player_menu(dispatch);
+            dispatch->host->graphics.redraw_requested = 1;
+        } else if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x17) {
+            if (focused >= 1 && focused <= 9) {
+                /* Complete callback 0x0041BB10: button parameter -> 7027AC. */
+                dispatch->menu_field_7027ac = (uint32_t)(focused - 1);
+                dispatch->host->graphics.redraw_requested = 1;
+            } else if (focused == 10 && mode == 1) {
+                dispatch->menu_selection_flag_605a3c = 0;
+                dispatch->menu_selection_flag_6de515 = 0;
+                dispatch->menu_map_mode_704dac = 2;
+                dispatch->menu_map_changed_704db0 = 1;
+                main_menu_open_map_selection(dispatch);
+            } else if (focused == 13 && mode == 1) {
+                map_selection_back(dispatch);
+            }
+            /* Play (0x0041BB70) intentionally remains inactive until its
+               mission-start chain has a typed clean owner. */
+        }
+        if (dispatch->refresh.current_window_id == 0x17 &&
+            dispatch->host->graphics.redraw_requested != 0) {
+            pharaoh_windows_startup_host_draw_campaign_menu(dispatch->host,
+                (int32_t)dispatch->menu_field_7027ac,
+                (int32_t)dispatch->menu_field_7027b0,
+                (int32_t)dispatch->menu_campaign_mode_6fdc98,
+                dispatch->campaign_menu_focused_button);
+        }
+        dispatch->host->current_window_id =
+            dispatch->refresh.current_window_id;
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        pharaoh_graphics_refresh_screen(&dispatch->refresh,
+            &dispatch->refresh_operations, 0);
+        return;
+    }
     if (dispatch->refresh.current_window_id == 0x51) {
         const int32_t origin_x =
             (dispatch->host->graphics.render_width - 640) / 2;
