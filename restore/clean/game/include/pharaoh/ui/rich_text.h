@@ -45,6 +45,21 @@ typedef struct PharaohRichTextState {
     int32_t total_link_count;
 } PharaohRichTextState;
 
+typedef struct PharaohRichTextScrollbarState {
+    int32_t mouse_x;
+    int32_t mouse_y;
+    uint8_t mouse_left_down;
+    int32_t panel_x;
+    int32_t panel_y;
+    int32_t panel_width_blocks;
+    int32_t panel_height_blocks;
+    int32_t scroll_maximum;
+    int32_t scroll_position;
+    int32_t drag_position;
+    uint8_t dragging;
+    uint8_t redraw_requested;
+} PharaohRichTextScrollbarState;
+
 /* Complete typed translations of native 0x004CC070, 0x004C8040,
    0x004C7FD0, 0x004CC020, 0x004C8480, 0x004C8680, 0x004C8590 and
    0x004C8070. */
@@ -58,5 +73,10 @@ void pharaoh_rich_text_draw(PharaohRichTextState *state,
     const PharaohRichTextOperations *operations, const uint8_t *text,
     int32_t x, int32_t y, int32_t width, int32_t calculate,
     int32_t flags);
+
+/* Complete typed translation of native 0x004C7DB0. */
+int32_t pharaoh_rich_text_handle_scrollbar(
+    PharaohRichTextScrollbarState *scrollbar,
+    PharaohRichTextState *rich_text);
 
 #endif

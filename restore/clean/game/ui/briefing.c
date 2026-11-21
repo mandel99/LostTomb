@@ -179,3 +179,22 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
         BRIEFING_TEXT_WIDTH, 0, 0, state->scroll_position,
         state->viewport_lines);
 }
+
+void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
+    const PharaohBriefingInputOperations *operations)
+{
+    const int32_t x = origin_x + 560;
+    const int32_t up_y = origin_y + 168;
+    const int32_t down_y = origin_y + 382;
+
+    operations->set_scroll_button_tooltip(operations->user_data, 0,
+        x, up_y, 12);
+    if (operations->handle_scroll_button(operations->user_data, 0,
+            x, up_y) != 0) return;
+    operations->set_scroll_button_tooltip(operations->user_data, 1,
+        x, down_y, 13);
+    if (operations->handle_scroll_button(operations->user_data, 1,
+            x, down_y) == 0) {
+        operations->handle_scrollbar(operations->user_data);
+    }
+}

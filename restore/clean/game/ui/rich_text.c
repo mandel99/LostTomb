@@ -1,5 +1,8 @@
 #include "pharaoh/ui/rich_text.h"
 
+#include "pharaoh/core/percentage_adjust.h"
+#include "pharaoh/core/percentage_scale.h"
+
 #include <string.h>
 
 /* Pinned EXE table at 0x005E049C, indexed by character - 32. */
@@ -276,4 +279,33 @@ void pharaoh_rich_text_draw(PharaohRichTextState *state,
             state->current_y_advance += 16;
         }
     }
+}
+
+int32_t pharaoh_rich_text_handle_scrollbar(
+    PharaohRichTextScrollbarState *scrollbar,
+    PharaohRichTextState *rich_text)
+{
+    if (scrollbar->scroll_maximum < 1 ||
+        scrollbar->mouse_left_down == 0) return 0;
+
+    const int32_t right = scrollbar->panel_x +
+        scrollbar->panel_width_blocks * 16;
+    const int32_t range = scrollbar->panel_height_blocks * 16 - 52;
+    if (scrollbar->mouse_x < right + 1 ||
+        scrollbar->mouse_x > right + 41 ||
+        scrollbar->mouse_y < scrollbar->panel_y + 26 ||
+        scrollbar->mouse_y > scrollbar->panel_y + 26 + range) return 0;
+
+    int32_t position = scrollbar->mouse_y - scrollbar->panel_y - 11;
+    if (position > range) position = range;
+    const PharaohPercentageScaleResult percentage =
+        pharaoh_scale_value_to_percent(position, range);
+    scrollbar->scroll_position = pharaoh_adjust_by_percentage(
+        scrollbar->scroll_maximum, percentage.value);
+    scrollbar->dragging = 1;
+    scrollbar->drag_position = position - 25;
+    pharaoh_rich_text_reset_links(rich_text);
+    if (scrollbar->drag_position < 0) scrollbar->drag_position = 0;
+    scrollbar->redraw_requested = 2;
+    return 1;
 }

@@ -65,11 +65,24 @@ typedef struct PharaohBriefingOperations {
     const char *(*tutorial_hint)(void *user_data);
 } PharaohBriefingOperations;
 
+typedef struct PharaohBriefingInputOperations {
+    void *user_data;
+    void (*set_scroll_button_tooltip)(void *user_data, int32_t direction,
+        int32_t x, int32_t y, int32_t tooltip_id);
+    int32_t (*handle_scroll_button)(void *user_data, int32_t direction,
+        int32_t x, int32_t y);
+    void (*handle_scrollbar)(void *user_data);
+} PharaohBriefingInputOperations;
+
 /* Complete typed rendering controller for native 0x0041A180. The operation
    boundary owns the already-separated native text, panel and mission loaders. */
 void pharaoh_briefing_draw(PharaohBriefingState *state,
     const PharaohBriefingScenario *scenario,
     const PharaohBriefingMessage *message, int32_t campaign_has_choices,
     const PharaohBriefingOperations *operations);
+
+/* Complete typed input controller for native 0x00418FE0. */
+void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
+    const PharaohBriefingInputOperations *operations);
 
 #endif
