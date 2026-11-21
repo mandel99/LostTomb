@@ -702,6 +702,26 @@ static void main_menu_draw_border(void *data, int32_t style, int32_t x,
         x, y, width, height, selected);
 }
 
+static void draw_large_label_static(PharaohWindowsStartupHost *host,
+    int32_t x, int32_t y, int32_t width_blocks, int32_t style)
+{
+    int32_t animations[7] = { 0 };
+    PharaohLabelRenderer labels = { 0 };
+    animations[6] = 100;
+    labels.block_size = 16;
+    labels.opening_animation = 5;
+    labels.growing_animation = 15;
+    labels.blocks_offset = 13;
+    labels.pieces_per_style = 3;
+    labels.panel_button_images =
+        (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON);
+    labels.animations = animations;
+    labels.draw_image = draw_menu_image;
+    labels.user_data = host;
+    pharaoh_large_label_draw_animated(&labels, 6, x, y,
+        width_blocks, style);
+}
+
 static void main_menu_sound_update(void *data, int32_t mode)
 {
     (void)data;
@@ -1200,7 +1220,7 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
         draw_menu_language(host, 293, 6, origin_x + 20, origin_y + 17,
             600, 640, 0);
         main_menu_draw_border(host, 0, origin_x + 32, origin_y + 208,
-            160, 25, focused_button == 7);
+            160, 25, 1);
         draw_menu_language(host, 294, 38, origin_x + 36, origin_y + 215,
             152, 635, 0);
         main_menu_draw_border(host, 0, origin_x + 195, origin_y + 208,
@@ -1373,8 +1393,10 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
                     draw_menu_language(host, 305, 0, origin_x + 345,
                         origin_y + 125, 260, 636, 0);
                 } else {
-                    draw_menu_language(host, 297, mission,
-                        origin_x + 345, origin_y + 125, 270, 636, 0);
+                    pharaoh_text_select(&host->text_selection, 297, mission);
+                    high_score_draw_wrapped_text(host,
+                        host->text_selection.current, origin_x + 345,
+                        origin_y + 125, 270, 636, 0);
                     if (metadata[0x364] != 0) {
                         draw_language_number_language(host,
                             record->rating_culture, 298, 0, -1, 0,
@@ -1464,6 +1486,8 @@ void pharaoh_windows_startup_host_draw_custom_map_list(
             origin_x + 352, origin_y + 446, 636, 0);
     } else if (returns_to_front_menu == 0) {
         if (campaign_mode != 0) {
+            main_menu_draw_border(host, 0, origin_x + 350,
+                origin_y + 410, 250, 23, focused_button == 9);
             (void)high_score_draw_language(host, 44, 0xd9,
                 origin_x + 380, origin_y + 446, 635, 0);
             (void)high_score_draw_language(host, 44, 0xd7,
@@ -1545,7 +1569,8 @@ void pharaoh_windows_startup_host_draw_campaign_menu(
         const int32_t disabled = campaign_mode == 0 && index != latest_period;
         const int32_t hovered = !disabled && focused_button == index + 1;
         if (index == selected_period && !disabled) selected_enabled = 1;
-        main_menu_draw_border(host, 0, x, y, width, height, hovered);
+        (void)height;
+        draw_large_label_static(host, x, y, width / 16, hovered);
         draw_menu_language(host, 27, index, x, y + 6, width,
             disabled ? 638 : 635, 0);
     }

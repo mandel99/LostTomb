@@ -1381,6 +1381,11 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             dispatch->input.mouse_x >= origin_x + 385 &&
             dispatch->input.mouse_x < origin_x + 402) focused_button = 6;
         else if (dispatch->menu_map_changed_704db0 == 1 &&
+            dispatch->input.mouse_x >= origin_x + 350 &&
+            dispatch->input.mouse_x < origin_x + 600 &&
+            dispatch->input.mouse_y >= origin_y + 410 &&
+            dispatch->input.mouse_y < origin_y + 433) focused_button = 9;
+        else if (dispatch->menu_map_changed_704db0 == 1 &&
             dispatch->input.mouse_x >= origin_x + 32 &&
             dispatch->input.mouse_x < origin_x + 192 &&
             dispatch->input.mouse_y >= origin_y + 208 &&
@@ -1446,6 +1451,16 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
             pharaoh_map_selection_toggle_mode(
                 &dispatch->menu_map_mode_704dac,
                 &dispatch->host->graphics.redraw_requested);
+        }
+        if (dispatch->left_pressed_this_frame != 0 &&
+            dispatch->left_press_window == 0x3d &&
+            focused_button == 8) {
+            /* Complete callback 0x0041C350: Campaigns tab -> state 0x17. */
+            dispatch->refresh.current_window_id = 0x17;
+            dispatch->host->current_window_id = 0x17;
+            dispatch->menu_campaign_mode_6fdc98 = 1;
+            dispatch->campaign_menu_focused_button = 0;
+            dispatch->host->graphics.redraw_requested = 1;
         }
         if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x3d &&
