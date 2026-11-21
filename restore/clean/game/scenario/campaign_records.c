@@ -101,3 +101,79 @@ void pharaoh_mission_records_store(PharaohMissionRecordState *state,
     }
     operations->save_profile(operations->user_data);
 }
+
+static void recreate_monument(const PharaohMissionRecordApplyOperations *ops,
+    int32_t type, int32_t x, int32_t y)
+{
+    const int32_t building_id = ops->recreate_monument(
+        ops->user_data, type, x, y);
+    ops->complete_monument(ops->user_data, type, building_id);
+}
+
+void pharaoh_mission_records_apply(PharaohMissionRecordApplyState *state,
+    const PharaohMissionRecordApplyOperations *operations)
+{
+    enum {
+        BUILDING_MAUSOLEUM = 0xde,
+        BUILDING_LIBRARY = 0xe1,
+        BUILDING_LIGHTHOUSE = 0xe4,
+        BUILDING_SMALL_ROYAL_TOMB = 0xe5,
+        BUILDING_MEDIUM_ROYAL_TOMB = 0xea,
+        BUILDING_LARGE_ROYAL_TOMB = 0xeb
+    };
+
+    *state->started = *state->finished;
+    const char *const options = operations->select_text(
+        operations->user_data, 0x133, state->settings->mission_id);
+    state->settings->personal_savings_last_mission =
+        options[0] == '1' ? state->started->savings : 0;
+    state->started->savings = 0;
+
+    const PharaohMissionSpecialPositions *const positions =
+        state->special_positions;
+    if (options[4] == 'A') {
+        if ((int16_t)positions->type_de_packed != 0 &&
+            positions->type_de_first != 0) {
+            recreate_monument(operations, BUILDING_MAUSOLEUM,
+                positions->type_de_packed & 0x1fff,
+                positions->type_de_first);
+        }
+        if (positions->type_e1_x != 0 && positions->type_e1_y != 0 &&
+            state->settings->mission_id == 51) {
+            recreate_monument(operations, BUILDING_LIBRARY,
+                positions->type_e1_x, positions->type_e1_y);
+        }
+        if (positions->type_e4_x != 0 && positions->type_e4_y != 0 &&
+            state->settings->mission_id == 51) {
+            recreate_monument(operations, BUILDING_LIGHTHOUSE,
+                positions->type_e4_x, positions->type_e4_y);
+        }
+    } else if (options[4] == 'V') {
+        if (positions->type_e5_x != 0 && positions->type_e5_y != 0) {
+            recreate_monument(operations, BUILDING_SMALL_ROYAL_TOMB,
+                positions->type_e5_x, positions->type_e5_y);
+        }
+        if (positions->type_ea_x != 0 && positions->type_ea_y != 0 &&
+            state->settings->mission_id >= 40) {
+            recreate_monument(operations, BUILDING_MEDIUM_ROYAL_TOMB,
+                positions->type_ea_x, positions->type_ea_y);
+        }
+        if (positions->type_eb_x != 0 && positions->type_eb_y != 0 &&
+            state->settings->mission_id >= 41) {
+            recreate_monument(operations, BUILDING_LARGE_ROYAL_TOMB,
+                positions->type_eb_x, positions->type_eb_y);
+        }
+    }
+
+    if (options[2] != '1') {
+        for (int32_t kind = 0; kind < 3; ++kind) {
+            state->started->legions[kind].experience = -1;
+            state->started->legions[kind].soldiers = 0;
+            state->started->legions[kind].legion_id = UINT8_MAX;
+        }
+        *state->tutorial_legions_message_posted = 1;
+    } else {
+        *state->tutorial_legions_message_posted = 0;
+    }
+    operations->finalize_records(operations->user_data);
+}

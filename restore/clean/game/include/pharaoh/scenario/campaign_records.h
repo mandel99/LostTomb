@@ -61,6 +61,19 @@ typedef struct PharaohMissionSpecialPositions {
     uint16_t type_e4_y;
 } PharaohMissionSpecialPositions;
 
+typedef struct PharaohMissionLegionRecord {
+    uint8_t legion_id;
+    uint8_t reserved_01[3];
+    int32_t experience;
+    uint8_t soldiers;
+    uint8_t reserved_09[3];
+} PharaohMissionLegionRecord;
+
+typedef struct PharaohMissionCarryRecords {
+    int32_t savings;
+    PharaohMissionLegionRecord legions[3];
+} PharaohMissionCarryRecords;
+
 typedef struct PharaohMissionRecordState {
     const PharaohSettingsFile *settings;
     uint32_t current_personal_savings;
@@ -99,5 +112,32 @@ _Static_assert(sizeof(PharaohMissionWinner) == 12,
 /* Complete typed translation of native 0x004188F0. */
 void pharaoh_mission_records_store(PharaohMissionRecordState *state,
     const PharaohMissionRecordOperations *operations);
+
+typedef struct PharaohMissionRecordApplyState {
+    PharaohSettingsFile *settings;
+    const PharaohMissionCarryRecords *finished;
+    PharaohMissionCarryRecords *started;
+    const PharaohMissionSpecialPositions *special_positions;
+    uint8_t *tutorial_legions_message_posted;
+} PharaohMissionRecordApplyState;
+
+typedef struct PharaohMissionRecordApplyOperations {
+    void *user_data;
+    const char *(*select_text)(void *user_data, int32_t group,
+        int32_t entry);
+    int32_t (*recreate_monument)(void *user_data, int32_t type,
+        int32_t x, int32_t y);
+    void (*complete_monument)(void *user_data, int32_t type,
+        int32_t building_id);
+    void (*finalize_records)(void *user_data);
+} PharaohMissionRecordApplyOperations;
+
+_Static_assert(sizeof(PharaohMissionLegionRecord) == 12 &&
+    sizeof(PharaohMissionCarryRecords) == 40,
+    "native mission carry record layout");
+
+/* Complete typed translation of native 0x00418BF0. */
+void pharaoh_mission_records_apply(PharaohMissionRecordApplyState *state,
+    const PharaohMissionRecordApplyOperations *operations);
 
 #endif
