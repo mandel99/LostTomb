@@ -16,6 +16,7 @@ add_library(pharaoh_game STATIC
     game/building/occupancy_query.c
     game/core/record_geometry.c
     game/core/ring_queue.c
+    game/core/byte_tokenizer.c
     game/core/memory_fill.c
     game/core/memory_strings.c
     game/core/text_length.c
