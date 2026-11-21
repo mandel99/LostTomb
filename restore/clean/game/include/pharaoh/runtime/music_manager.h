@@ -46,4 +46,11 @@ _Static_assert(sizeof(PharaohMusicManager) == 0x59a74,
 void pharaoh_music_manager_set_enabled(PharaohMusicManager *manager,
                                       int32_t enabled);
 
+/* Complete C translations of Pharaoh.exe 0x00539550 and 0x005395E0. */
+PharaohMusicManager *pharaoh_music_manager_construct(
+    PharaohMusicManager *manager);
+int32_t pharaoh_music_manager_add_track(PharaohMusicManager *manager,
+    const char *path, int32_t category, int32_t delay,
+    int32_t minimum_population, int32_t maximum_population, int32_t ambient);
+
 #endif
