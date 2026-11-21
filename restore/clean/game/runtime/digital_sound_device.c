@@ -53,6 +53,12 @@ _Static_assert(offsetof(PharaohDigitalSoundDeviceState, sound_disabled) == 0x200
     "Native sound-disabled offset");
 _Static_assert(sizeof(PharaohDigitalSoundDeviceState) == 0x204,
     "Native sound object span used by these procedures");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState, sound_file_count) == 4 &&
+    offsetof(PharaohDigitalSoundDeviceState, sound_files) == 8,
+    "Native sound file table offsets");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState, reverb_enabled) == 0x168 &&
+    offsetof(PharaohDigitalSoundDeviceState, reverb_decay_time) == 0x174,
+    "Native sound reverb offsets");
 
 void pharaoh_digital_sound_sample_reset(
     PharaohDigitalSoundDeviceState *state, int32_t sample_index)
@@ -229,7 +235,165 @@ int32_t pharaoh_digital_sound_device_initialize(
     for (int32_t index = 0; index < state->sample_count; ++index) {
         state->cache_entries[index].file_id = -1;
         state->cache_entries[index].locked_data = 0;
-        state->cache_entries[index].state = 0;
+        state->cache_entries[index].active_references = 0;
     }
     return 1;
+}
+
+void pharaoh_digital_sound_refresh_cache_references(
+    PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations)
+{
+    int32_t index;
+    if (state->sound_disabled != 0)
+        return;
+    for (index = 0; index < state->sample_count; ++index)
+        state->cache_entries[index].active_references = 0;
+    for (index = 0; index < state->sample_count; ++index) {
+        if (operations->sample_status(operations->user_data,
+                state->sample_handles[index]) == 4) {
+            const int32_t cache_index =
+                (int32_t)state->samples[index].native_word_18;
+            ++state->cache_entries[cache_index].active_references;
+        }
+    }
+}
+
+int32_t pharaoh_digital_sound_find_available_channel(
+    const PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations)
+{
+    int32_t index;
+    for (index = 0; index < state->sample_count; ++index) {
+        if (operations->sample_status(operations->user_data,
+                state->sample_handles[index]) != 4)
+            return index;
+    }
+    return -1;
+}
+
+int32_t pharaoh_digital_sound_find_cached_sample(
+    const PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundRequest *request)
+{
+    int32_t index;
+    for (index = 0; index < state->sample_count; ++index) {
+        if (state->cache_entries[index].file_id == request->file_id &&
+            state->cache_entries[index].locked_data != 0)
+            return index;
+    }
+    return -1;
+}
+
+int32_t pharaoh_digital_sound_load_sample_cache(
+    PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations,
+    const PharaohDigitalSoundRequest *request, int32_t channel)
+{
+    int32_t slot = -1;
+    int32_t index;
+    PharaohDigitalSoundSample *sample;
+    uint32_t data;
+
+    if (state->sound_disabled != 0)
+        return 1;
+    if (state->sound_files[request->file_id].name == NULL ||
+        state->sound_files[request->file_id].name[0] == '\0')
+        return -1;
+
+    for (index = 0; index < state->sample_count; ++index) {
+        if (state->cache_entries[index].active_references == 0) {
+            slot = index;
+            break;
+        }
+    }
+    if (slot == -1)
+        return -1;
+
+    if (state->cache_entries[slot].locked_data != 0) {
+        operations->free_locked_memory(operations->user_data,
+            state->cache_entries[slot].locked_data);
+        pharaoh_digital_sound_sample_reset(state, channel);
+    }
+
+    sample = &state->samples[channel];
+    sample->native_word_00 = (uint32_t)request->owner;
+    sample->native_word_04 = (uint32_t)request->file_id;
+    sample->native_word_08 = (uint32_t)request->volume;
+    sample->native_word_0c = (uint32_t)request->pan;
+    sample->native_word_10 = (uint32_t)request->loop_count;
+
+    data = operations->file_read(operations->user_data,
+        state->sound_files[request->file_id].name, 0);
+    state->cache_entries[slot].locked_data = data;
+    if (data == 0)
+        return -1;
+
+    state->cache_entries[slot].file_id = request->file_id;
+    operations->initialize_sample(operations->user_data,
+        state->sample_handles[channel]);
+    operations->set_sample_file(operations->user_data,
+        state->sample_handles[channel], data, 0);
+    return slot;
+}
+
+int32_t pharaoh_digital_sound_play_sample(
+    PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations,
+    const PharaohDigitalSoundRequest *request)
+{
+    int32_t index;
+    int32_t channel;
+    int32_t cache_index;
+    uint32_t handle;
+
+    if (state->sound_disabled != 0 || request->file_id < 0 ||
+        request->file_id > state->sound_file_count - 1)
+        return -1;
+
+    for (index = 0; index < state->sample_count; ++index) {
+        if (operations->sample_status(operations->user_data,
+                state->sample_handles[index]) == 4 &&
+            state->samples[index].native_word_00 == (uint32_t)request->owner &&
+            state->samples[index].native_word_04 == (uint32_t)request->file_id)
+            return -1;
+    }
+
+    channel = (int32_t)(int8_t)(uint8_t)
+        pharaoh_digital_sound_find_available_channel(state, operations);
+    if (channel == -1)
+        return -1;
+
+    pharaoh_digital_sound_refresh_cache_references(state, operations);
+    cache_index = (int32_t)(int8_t)(uint8_t)
+        pharaoh_digital_sound_find_cached_sample(state, request);
+    if (cache_index == -1) {
+        const int32_t result = pharaoh_digital_sound_load_sample_cache(
+            state, operations, request, channel);
+        if (result == -1)
+            return -1;
+        cache_index = (int32_t)(int8_t)(uint8_t)result;
+    } else {
+        operations->set_sample_file(operations->user_data,
+            state->sample_handles[channel],
+            state->cache_entries[cache_index].locked_data, 0);
+    }
+
+    handle = state->sample_handles[channel];
+    operations->set_sample_loop_count(operations->user_data, handle,
+        (uint32_t)request->loop_count);
+    operations->set_sample_pan(operations->user_data, handle,
+        (uint32_t)request->pan);
+    operations->set_sample_volume(operations->user_data, handle,
+        (uint32_t)request->volume);
+    state->samples[channel].native_word_18 = (uint32_t)cache_index;
+    if (state->reverb_enabled != 0) {
+        operations->set_sample_reverb(operations->user_data, handle,
+            state->reverb_level, state->reverb_reflect_time,
+            state->reverb_decay_time);
+    } else {
+        operations->set_sample_reverb(operations->user_data, handle, 0, 0, 0);
+    }
+    operations->start_sample(operations->user_data, handle);
+    return channel;
 }
