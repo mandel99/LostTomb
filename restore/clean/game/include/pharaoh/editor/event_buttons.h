@@ -14,7 +14,18 @@ enum PharaohEditorChoiceHandler {
     PHARAOH_EDITOR_CHOOSE_REASON_REFUSED,
     PHARAOH_EDITOR_CHOOSE_REASON_TOO_LATE,
     PHARAOH_EDITOR_CHOOSE_REASON_DEFEAT,
-    PHARAOH_EDITOR_CHOOSE_ITEM
+    PHARAOH_EDITOR_CHOOSE_ITEM,
+    PHARAOH_EDITOR_CHOOSE_PHRASE
+};
+
+enum PharaohEditorNumericHandler {
+    PHARAOH_EDITOR_NUMBER_YEAR,
+    PHARAOH_EDITOR_NUMBER_AMOUNT,
+    PHARAOH_EDITOR_NUMBER_INVADER,
+    PHARAOH_EDITOR_NUMBER_ROUTE,
+    PHARAOH_EDITOR_NUMBER_LINK,
+    PHARAOH_EDITOR_NUMBER_MONTHS,
+    PHARAOH_EDITOR_NUMBER_PHRASE
 };
 
 typedef void (*PharaohEditorOpenListFunction)(void *user_data, int32_t x,
@@ -28,6 +39,11 @@ typedef bool (*PharaohEditorResourceQueryFunction)(void *user_data,
     const PharaohScenarioEvent *event, int32_t resource);
 typedef int32_t (*PharaohEditorResourceListFunction)(void *user_data,
     const PharaohScenarioEvent *event, int32_t *items);
+typedef void (*PharaohEditorOpenNumericFunction)(void *user_data, int32_t x,
+    int32_t y, int16_t *target, enum PharaohEditorNumericHandler handler);
+typedef void (*PharaohEditorOpenPhraseListFunction)(void *user_data,
+    int32_t x, int32_t y, int32_t count, int32_t language_group,
+    uint8_t *target, enum PharaohEditorChoiceHandler handler);
 
 typedef struct PharaohEventEditorContext {
     PharaohScenarioEvent *selected_event;
@@ -53,6 +69,8 @@ typedef struct PharaohEventEditorContext {
     PharaohEditorEventQueryFunction type_chains;
     PharaohEditorResourceQueryFunction resource_in_range;
     PharaohEditorResourceListFunction resource_list;
+    PharaohEditorOpenNumericFunction open_numeric_input;
+    PharaohEditorOpenPhraseListFunction open_phrase_list;
     void *user_data;
 } PharaohEventEditorContext;
 
@@ -63,8 +81,15 @@ void pharaoh_editor_event_subtype_chosen(PharaohEventEditorContext *context);
 void pharaoh_editor_event_subtype_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_month_chosen(PharaohEventEditorContext *context);
 void pharaoh_editor_event_month_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_year_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_amount_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_invader_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_route_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_link_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_trigger_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_sender_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_months_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_phrase_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_attack_target_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_reason_completed_chosen(PharaohEventEditorContext *context);
 void pharaoh_editor_event_reason_completed_button(PharaohEventEditorContext *context);
@@ -76,5 +101,12 @@ void pharaoh_editor_event_reason_defeat_chosen(PharaohEventEditorContext *contex
 void pharaoh_editor_event_reason_defeat_button(PharaohEventEditorContext *context);
 void pharaoh_editor_event_item_chosen(PharaohEventEditorContext *context);
 void pharaoh_editor_event_item_button(PharaohEventEditorContext *context);
+void pharaoh_editor_event_year_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_amount_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_invader_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_route_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_link_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_months_completed(PharaohEventEditorContext *context);
+void pharaoh_editor_event_phrase_completed(PharaohEventEditorContext *context);
 
 #endif

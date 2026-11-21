@@ -64,16 +64,73 @@ enum PharaohEventQueryLimits {
     PHARAOH_EVENT_REASON_COLUMN_COUNT = 36
 };
 
+typedef struct PharaohScenarioValue {
+    int16_t value;
+    int16_t fixed;
+    int16_t min;
+    int16_t max;
+} PharaohScenarioValue;
+
+typedef struct PharaohScenarioEarthquakeData {
+    int16_t duration;
+    int16_t delay;
+    int16_t ticks;
+    int16_t locations[8];
+} PharaohScenarioEarthquakeData;
+
+typedef struct PharaohScenarioInvasionData {
+    int16_t first_formation_id;
+    int16_t home_x;
+    int16_t home_y;
+    int16_t layout;
+    int16_t destination_x;
+    int16_t destination_y;
+    int16_t destination_building_id;
+    int16_t formation_count;
+    int16_t ignore_soldiers;
+    uint8_t reserved[4];
+} PharaohScenarioInvasionData;
+
 typedef struct PharaohScenarioEvent {
     int16_t id;
     uint8_t type;
     uint8_t month;
-    int16_t item_value;
-    int16_t item_min;
-    int16_t item_max;
-    int16_t amount_value;
-    int16_t year_value;
-    int16_t route_value;
+    union {
+        PharaohScenarioValue item;
+        struct {
+            int16_t item_runtime_value;
+            int16_t item_value;
+            int16_t item_min;
+            int16_t item_max;
+        };
+    };
+    union {
+        PharaohScenarioValue amount;
+        struct {
+            int16_t amount_runtime_value;
+            int16_t amount_value;
+            int16_t amount_min;
+            int16_t amount_max;
+        };
+    };
+    union {
+        PharaohScenarioValue year;
+        struct {
+            int16_t year_runtime_value;
+            int16_t year_value;
+            int16_t year_min;
+            int16_t year_max;
+        };
+    };
+    union {
+        PharaohScenarioValue route;
+        struct {
+            int16_t route_runtime_value;
+            int16_t route_value;
+            int16_t route_min;
+            int16_t route_max;
+        };
+    };
     int16_t on_completed;
     int16_t on_refusal;
     uint32_t flags;
@@ -83,16 +140,36 @@ typedef struct PharaohScenarioEvent {
     uint8_t is_active;
     uint8_t can_comply_shown;
     int16_t parent_id;
+    uint8_t phrase_variant;
+    uint8_t parent_phrase_variant;
+    int16_t attack_target;
+    union {
+        PharaohScenarioEarthquakeData earthquake;
+        PharaohScenarioInvasionData invasion_data;
+    } data;
+    int16_t earthquake_step;
     int16_t on_too_late;
     int16_t on_defeat;
     uint8_t sender_faction;
-    uint8_t phrase_variant;
-    int16_t attack_target;
+    uint8_t invasion_warnings_shown;
+    PharaohScenarioValue invasion;
     uint8_t subtype;
     uint8_t months_margin;
     uint8_t coin;
+    uint8_t parent_city;
+    int16_t parent_phrase;
+    int16_t parent_item;
+    int16_t parent_amount;
     uint8_t reason[4];
+    uint8_t chain_marked;
+    uint8_t reserved[13];
 } PharaohScenarioEvent;
+
+_Static_assert(sizeof(PharaohScenarioEvent) == 0x7c,
+    "scenario event must keep the native 124-byte record layout");
+_Static_assert(offsetof(PharaohScenarioEvent, flags) == 0x28 &&
+    offsetof(PharaohScenarioEvent, reason) == 0x6a,
+    "scenario event fields must keep their native offsets");
 
 typedef struct PharaohRequestMessageRule {
     int32_t completed[2];
@@ -176,6 +253,11 @@ bool pharaoh_event_has_months(const PharaohScenarioEvent *event);
 bool pharaoh_event_has_followup(const PharaohScenarioEvent *event);
 bool pharaoh_event_is_invasion_kind(const PharaohScenarioEvent *event);
 bool pharaoh_event_type_chains(const PharaohScenarioEvent *event);
+bool pharaoh_editor_event_has_subtype(const PharaohScenarioEvent *event);
+bool pharaoh_editor_event_has_phrase_number(const PharaohScenarioEvent *event);
+bool pharaoh_editor_event_has_phrase_list(const PharaohScenarioEvent *event);
+int32_t pharaoh_editor_event_subtype_count(const PharaohScenarioEvent *event);
+void pharaoh_editor_event_set_type(PharaohScenarioEvent *event, int32_t type);
 int32_t pharaoh_event_subtype_group(const PharaohScenarioEvent *event);
 
 #endif

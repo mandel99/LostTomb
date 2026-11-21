@@ -8,6 +8,8 @@ enum {
     EVENT_INVADER_BEDOUINS = 4,
     EVENT_CITY_STATUS_SUBTYPE_COUNT = 5,
     EVENT_MESSAGE_SUBTYPE_COUNT = 4,
+    EVENT_REQUEST_FESTIVAL_SUBTYPE = 3,
+    EVENT_INVASION_PHRASE_FIRST_ROUTE = 9,
     LANG_GROUP_CITY_STATUS_EVENTS = 35,
     LANG_GROUP_REQUEST_KINDS = 149,
     LANG_GROUP_MESSAGE_EVENTS = 150
@@ -374,6 +376,65 @@ bool pharaoh_event_has_followup(const PharaohScenarioEvent *event)
 bool pharaoh_event_is_invasion_kind(const PharaohScenarioEvent *event)
 {
     return event->type == PHARAOH_EVENT_INVASION;
+}
+
+bool pharaoh_editor_event_has_subtype(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_REQUEST ||
+        event->type == PHARAOH_EVENT_CITY_STATUS_CHANGE ||
+        event->type == PHARAOH_EVENT_MESSAGE;
+}
+
+bool pharaoh_editor_event_has_phrase_number(const PharaohScenarioEvent *event)
+{
+    int16_t route;
+    if (event->type != PHARAOH_EVENT_INVASION) {
+        return false;
+    }
+    if (event->route.fixed < 0) {
+        route = event->route.max;
+    } else if (event->route.min < 0) {
+        route = event->route.fixed;
+    } else {
+        return false;
+    }
+    return route >= EVENT_INVASION_PHRASE_FIRST_ROUTE;
+}
+
+bool pharaoh_editor_event_has_phrase_list(const PharaohScenarioEvent *event)
+{
+    return event->type == PHARAOH_EVENT_REQUEST &&
+        event->subtype == EVENT_REQUEST_FESTIVAL_SUBTYPE;
+}
+
+int32_t pharaoh_editor_event_subtype_count(const PharaohScenarioEvent *event)
+{
+    switch (event->type) {
+        case PHARAOH_EVENT_REQUEST:
+            return PHARAOH_REQUEST_SUBTYPE_COUNT;
+        case PHARAOH_EVENT_CITY_STATUS_CHANGE:
+            return EVENT_CITY_STATUS_SUBTYPE_COUNT;
+        case PHARAOH_EVENT_MESSAGE:
+            return EVENT_MESSAGE_SUBTYPE_COUNT;
+        default:
+            return 0;
+    }
+}
+
+void pharaoh_editor_event_set_type(PharaohScenarioEvent *event, int32_t type)
+{
+    const uint8_t next = (uint8_t)type;
+    if (event->type == next) {
+        return;
+    }
+    event->type = next;
+    event->item.fixed = 1;
+    event->item.min = -1;
+    event->item.max = -1;
+    if ((event->flags & EVENT_FLAG_BY_FAVOUR) != 0u &&
+        next != PHARAOH_EVENT_INVASION) {
+        event->flags = 0;
+    }
 }
 
 bool pharaoh_event_type_chains(const PharaohScenarioEvent *event)

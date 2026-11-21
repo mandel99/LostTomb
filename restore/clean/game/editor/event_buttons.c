@@ -23,12 +23,17 @@ enum {
     DIALOG_Y = 40,
     GROUP_MONTHS_SHORT = 25,
     GROUP_EVENT_TYPES = 156,
+    GROUP_GOD_NAMES = 157,
     GROUP_EVENT_REASONS = 299,
+    LINK_NONE_TYPED = 999,
     LINK_COMPLETED = 0,
     LINK_REFUSED = 1,
     LINK_TOO_LATE = 2,
     LINK_DEFEAT = 3
 };
+
+static bool has_link(const PharaohEventEditorContext *c,
+    const PharaohScenarioEvent *e, int32_t link);
 
 static bool selectable_type(int32_t type, uint8_t mummy_allowed)
 {
@@ -127,6 +132,59 @@ void pharaoh_editor_event_month_button(PharaohEventEditorContext *c)
     c->redraw_requested = true;
 }
 
+static void open_number(PharaohEventEditorContext *c,
+    enum PharaohEditorNumericHandler handler)
+{
+    c->open_numeric_input(c->user_data, DIALOG_X, DIALOG_Y,
+        &c->editor_value, handler);
+}
+
+static void range_button(PharaohEventEditorContext *c, bool is_year,
+    enum PharaohEditorNumericHandler handler)
+{
+    PharaohScenarioEvent *e = c->selected_event;
+    if (e == NULL || (is_year && (e->flags & FLAG_BY_FAVOUR) != 0u)) {
+        return;
+    }
+    c->editor_field = (int16_t)c->button_parameter;
+    open_number(c, handler);
+    c->redraw_requested = true;
+}
+
+void pharaoh_editor_event_year_button(PharaohEventEditorContext *c)
+{
+    range_button(c, true, PHARAOH_EDITOR_NUMBER_YEAR);
+}
+
+void pharaoh_editor_event_amount_button(PharaohEventEditorContext *c)
+{
+    range_button(c, false, PHARAOH_EDITOR_NUMBER_AMOUNT);
+}
+
+void pharaoh_editor_event_invader_button(PharaohEventEditorContext *c)
+{
+    range_button(c, false, PHARAOH_EDITOR_NUMBER_INVADER);
+}
+
+void pharaoh_editor_event_route_button(PharaohEventEditorContext *c)
+{
+    range_button(c, false, PHARAOH_EDITOR_NUMBER_ROUTE);
+}
+
+void pharaoh_editor_event_link_button(PharaohEventEditorContext *c)
+{
+    PharaohScenarioEvent *e = c->selected_event;
+    const int32_t link = c->button_parameter;
+    if (e == NULL || link < LINK_COMPLETED || link > LINK_DEFEAT ||
+        !has_link(c, e, link)) {
+        return;
+    }
+    c->editor_field = (int16_t)link;
+    c->editor_value = LINK_NONE_TYPED;
+    open_number(c, PHARAOH_EDITOR_NUMBER_LINK);
+    c->redraw_requested = true;
+}
+
 void pharaoh_editor_event_trigger_button(PharaohEventEditorContext *c)
 {
     PharaohScenarioEvent *e = c->selected_event;
@@ -144,6 +202,32 @@ void pharaoh_editor_event_sender_button(PharaohEventEditorContext *c)
     if (c->selected_event == NULL) return;
     c->selected_event->sender_faction = c->selected_event->sender_faction == 0u;
     c->redraw_requested = true;
+}
+
+void pharaoh_editor_event_months_button(PharaohEventEditorContext *c)
+{
+    if (c->selected_event == NULL ||
+        !pharaoh_event_has_months(c->selected_event)) {
+        return;
+    }
+    open_number(c, PHARAOH_EDITOR_NUMBER_MONTHS);
+}
+
+void pharaoh_editor_event_phrase_button(PharaohEventEditorContext *c)
+{
+    PharaohScenarioEvent *e = c->selected_event;
+    if (e == NULL) {
+        return;
+    }
+    if (pharaoh_editor_event_has_phrase_number(e)) {
+        open_number(c, PHARAOH_EDITOR_NUMBER_PHRASE);
+        return;
+    }
+    if (pharaoh_editor_event_has_phrase_list(e)) {
+        c->open_phrase_list(c->user_data, DIALOG_X, DIALOG_Y,
+            FESTIVAL_GODS, GROUP_GOD_NAMES, &c->editor_phrase,
+            PHARAOH_EDITOR_CHOOSE_PHRASE);
+    }
 }
 
 void pharaoh_editor_event_attack_target_button(PharaohEventEditorContext *c)
@@ -225,5 +309,124 @@ void pharaoh_editor_event_item_button(PharaohEventEditorContext *c)
     } else if (count == 1) {
         c->editor_value = (int16_t)(parameter == 0 ? c->select_items[0] : 0);
         pharaoh_editor_event_item_chosen(c);
+    }
+}
+
+static void range_pack(PharaohScenarioValue *range, int16_t first,
+    int16_t second, int16_t third)
+{
+    if (first < 0) {
+        if (second >= 0) {
+            first = second;
+            second = -1;
+        } else if (third >= 0) {
+            first = third;
+            third = -1;
+        }
+    }
+    if (second < 0 && third >= 0) {
+        second = third;
+        third = -1;
+    }
+    range->fixed = first;
+    range->min = second;
+    range->max = third;
+}
+
+static void range_store(PharaohScenarioValue *range, int16_t fixed,
+    int16_t minimum, int16_t maximum)
+{
+    range->fixed = fixed;
+    range->min = minimum;
+    range->max = maximum;
+}
+
+static void edit_range(PharaohEventEditorContext *c,
+    PharaohScenarioValue *range)
+{
+    int16_t low;
+    int16_t high;
+    const int16_t value = c->editor_value;
+    if (range->fixed < 0) {
+        low = range->min;
+        high = range->max;
+    } else if (range->min < 0) {
+        low = range->fixed;
+        high = range->fixed;
+    } else {
+        low = -1;
+        high = -1;
+    }
+    if (c->editor_field == 1) {
+        if (low > value) low = value;
+        if (low < 0 || low == value) {
+            range_store(range, value, -1, -1);
+        } else if (value < 0) {
+            range_pack(range, low, -1, -1);
+        } else if (low > value) {
+            range_store(range, -1, value, low);
+        } else {
+            range_store(range, -1, low, value);
+        }
+    } else if (c->editor_field == 0) {
+        if (high < value) high = value;
+        if (value < 0 || high == value) {
+            range_store(range, high, -1, -1);
+        } else if (high < 0) {
+            range_store(range, value, -1, -1);
+        } else if (value > high) {
+            range_store(range, -1, high, value);
+        } else {
+            range_store(range, -1, value, high);
+        }
+    }
+}
+
+void pharaoh_editor_event_year_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) edit_range(c, &c->selected_event->year);
+}
+
+void pharaoh_editor_event_amount_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) edit_range(c, &c->selected_event->amount);
+}
+
+void pharaoh_editor_event_invader_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) edit_range(c, &c->selected_event->invasion);
+}
+
+void pharaoh_editor_event_route_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) edit_range(c, &c->selected_event->route);
+}
+
+void pharaoh_editor_event_link_completed(PharaohEventEditorContext *c)
+{
+    PharaohScenarioEvent *e = c->selected_event;
+    if (e == NULL) return;
+    switch (c->editor_field) {
+        case LINK_COMPLETED: e->on_completed = c->editor_value; break;
+        case LINK_REFUSED: e->on_refusal = c->editor_value; break;
+        case LINK_TOO_LATE: e->on_too_late = c->editor_value; break;
+        case LINK_DEFEAT: e->on_defeat = c->editor_value; break;
+        default: break;
+    }
+}
+
+void pharaoh_editor_event_months_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) {
+        c->selected_event->months_initial = c->editor_value;
+    }
+}
+
+void pharaoh_editor_event_phrase_completed(PharaohEventEditorContext *c)
+{
+    if (c->selected_event != NULL) {
+        c->selected_event->attack_target =
+            (int16_t)((c->selected_event->attack_target & 0xff00) |
+                (uint16_t)(uint8_t)c->editor_value);
     }
 }
