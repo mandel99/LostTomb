@@ -137,6 +137,7 @@ add_library(pharaoh_game STATIC
     game/runtime/settings_default_names.c
     game/scenario/campaign_start.c
     game/scenario/campaign_continue.c
+    game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
     game/scenario/map_file_load.c
     game/scenario/scenario_preview.c
