@@ -140,6 +140,9 @@ int32_t pharaoh_windows_startup_host_load_pre_intro_data(
 /* Plays the native startup Bink after graphics and assets are initialized. */
 int32_t pharaoh_windows_startup_host_play_intro(
     PharaohWindowsStartupHost *host);
+int32_t pharaoh_windows_startup_host_play_movie(
+    PharaohWindowsStartupHost *host, const char *filename,
+    int32_t x, int32_t y);
 
 /* Refreshes the primary-surface origin after native window-position messages. */
 int32_t pharaoh_windows_startup_host_refresh_video_bounds(

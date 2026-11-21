@@ -561,6 +561,65 @@ static void map_selection_back(PharaohWindowsStartupDispatch *dispatch)
         dispatch->refresh.current_window_id;
 }
 
+static void campaign_menu_play_period_intro(void *user_data, uint32_t period)
+{
+    static const char *const movies[5][2] = {
+        {"Binks\\low\\pre_dynastic_small.bik",
+         "Binks\\high\\pre_dynastic_big.bik"},
+        {"Binks\\low\\archaic_small.bik",
+         "Binks\\high\\archaic_big.bik"},
+        {"Binks\\low\\old_kingdom_small.bik",
+         "Binks\\high\\old_kingdom_big.bik"},
+        {"Binks\\low\\middle_kingdom_small.bik",
+         "Binks\\high\\middle_kingdom_big.bik"},
+        {"Binks\\low\\new_king_small.bik",
+         "Binks\\high\\new_king_big.bik"}
+    };
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    PharaohWindowsStartupHost *const host = dispatch->host;
+    const int32_t large = host->settings.cpu >= 233;
+    const int32_t x = (host->graphics.screen_width - 480) / 2;
+    const int32_t y = (host->graphics.screen_height - 286) / 2;
+
+    if (period < 5) {
+        host->current_window_id = dispatch->refresh.current_window_id;
+        (void)pharaoh_windows_startup_host_play_movie(host,
+            movies[period][large != 0], x, y);
+        dispatch->refresh.current_window_id = host->current_window_id;
+    }
+}
+
+static void campaign_menu_start_campaign(void *user_data, int8_t period)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    PharaohCampaignStartContext context =
+        dispatch->host->settings_context.campaign;
+    context.settings = &dispatch->host->settings;
+    pharaoh_settings_start_campaign(&context, period);
+}
+
+static void campaign_menu_begin_briefing(void *user_data)
+{
+    PharaohWindowsStartupDispatch *const dispatch = user_data;
+    const PharaohTimedWindowTransitionStartContext transition = {
+        &dispatch->timed_transition,
+        &dispatch->timed_transition_value,
+        &dispatch->timed_transition_next_window
+    };
+    const PharaohCampaignBriefingContext context = {
+        &dispatch->host->campaign_index,
+        &dispatch->host->settings,
+        dispatch->menu_campaign_mode_e38ebc,
+        transition,
+        &dispatch->briefing_choice_index,
+        &dispatch->briefing_scroll_position,
+        &dispatch->briefing_scroll_drag,
+        &dispatch->briefing_message_id
+    };
+    pharaoh_campaign_begin_briefing(&context);
+    dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+}
+
 static PharaohCampaignMenuState campaign_menu_state(
     PharaohWindowsStartupDispatch *dispatch)
 {
@@ -573,7 +632,11 @@ static PharaohCampaignMenuState campaign_menu_state(
         &dispatch->menu_map_changed_704db0,
         &dispatch->menu_selection_flag_605a3c,
         &dispatch->menu_selection_flag_6de515,
-        &dispatch->menu_map_mode_704dac
+        &dispatch->menu_map_mode_704dac,
+        &dispatch->campaign_started,
+        &dispatch->host->settings.mission_id,
+        &dispatch->campaign_selection_kind,
+        &dispatch->menu_campaign_mode_e38ebc
     };
     return state;
 }
@@ -1192,15 +1255,27 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                 PharaohCampaignMenuState state =
                     campaign_menu_state(dispatch);
                 const PharaohCampaignMenuOperations operations = {
-                    dispatch, main_menu_open_map_selection
+                    dispatch, main_menu_open_map_selection,
+                    campaign_menu_play_period_intro,
+                    campaign_menu_start_campaign,
+                    campaign_menu_begin_briefing
                 };
                 (void)pharaoh_campaign_menu_open_individual_missions(
+                    &state, &operations);
+            } else if (focused == 12 && selected_enabled) {
+                PharaohCampaignMenuState state =
+                    campaign_menu_state(dispatch);
+                const PharaohCampaignMenuOperations operations = {
+                    dispatch, main_menu_open_map_selection,
+                    campaign_menu_play_period_intro,
+                    campaign_menu_start_campaign,
+                    campaign_menu_begin_briefing
+                };
+                (void)pharaoh_campaign_menu_start_selected(
                     &state, &operations);
             } else if (focused == 13 && mode == 1) {
                 map_selection_back(dispatch);
             }
-            /* Play (0x0041BB70) intentionally remains inactive until its
-               mission-start chain has a typed clean owner. */
         }
         if (dispatch->refresh.current_window_id == 0x17 &&
             dispatch->host->graphics.redraw_requested != 0) {

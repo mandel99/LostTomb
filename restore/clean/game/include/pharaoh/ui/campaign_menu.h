@@ -1,6 +1,9 @@
 #ifndef PHARAOH_UI_CAMPAIGN_MENU_H
 #define PHARAOH_UI_CAMPAIGN_MENU_H
 
+#include "pharaoh/runtime/timed_window_transition.h"
+#include "pharaoh/scenario/campaign_start.h"
+
 #include <stdint.h>
 
 typedef struct PharaohCampaignMenuState {
@@ -14,8 +17,9 @@ typedef struct PharaohCampaignMenuState {
     uint8_t *selection_flag;
     uint32_t *map_mode;
     uint32_t *campaign_started;
-    uint8_t *mission_id;
+    int8_t *mission_id;
     uint32_t *selection_kind;
+    uint32_t *scenario_mode;
 } PharaohCampaignMenuState;
 
 typedef struct PharaohCampaignMenuOperations {
@@ -25,6 +29,17 @@ typedef struct PharaohCampaignMenuOperations {
     void (*start_campaign)(void *user_data, int8_t period);
     void (*begin_briefing)(void *user_data);
 } PharaohCampaignMenuOperations;
+
+typedef struct PharaohCampaignBriefingContext {
+    const PharaohCampaignIndex *index;
+    const PharaohSettingsFile *settings;
+    uint32_t campaign_mode;
+    PharaohTimedWindowTransitionStartContext transition;
+    uint32_t *choice_index;
+    uint32_t *scroll_position;
+    uint32_t *scroll_drag;
+    uint32_t *message_id;
+} PharaohCampaignBriefingContext;
 
 /* Complete typed C translations of native 0x0041BA00, 0x0041BAD0,
    0x0041BB30 and 0x0041BB10. */
@@ -49,5 +64,12 @@ int32_t pharaoh_campaign_menu_open_campaigns(
 int32_t pharaoh_campaign_menu_start_selected(
     PharaohCampaignMenuState *state,
     const PharaohCampaignMenuOperations *operations);
+
+/* Complete typed C translations of native 0x00418140 and 0x004181E0. */
+int32_t pharaoh_campaign_briefing_message_id(
+    const PharaohCampaignIndex *index, const PharaohSettingsFile *settings,
+    uint32_t campaign_mode);
+void pharaoh_campaign_begin_briefing(
+    const PharaohCampaignBriefingContext *context);
 
 #endif

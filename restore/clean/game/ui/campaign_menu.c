@@ -65,6 +65,7 @@ int32_t pharaoh_campaign_menu_start_selected(
     *state->mission_id = 0;
     *state->returns_to_front_menu = 0;
     *state->selection_flag = 0;
+    *state->scenario_mode = 0;
     *state->campaign_started = 1;
     *state->redraw_requested = 1;
     *state->selection_kind = (mode != 0) + 1;
@@ -73,10 +74,40 @@ int32_t pharaoh_campaign_menu_start_selected(
         operations->play_period_intro(operations->user_data, period);
     }
     operations->start_campaign(operations->user_data, (int8_t)period);
-    if (*state->mission_id == UINT8_C(0x7f)) {
+    if ((uint8_t)*state->mission_id == UINT8_C(0x7f)) {
         *state->current_window_id = UINT8_C(0x34);
     } else {
         operations->begin_briefing(operations->user_data);
     }
     return 1;
+}
+
+int32_t pharaoh_campaign_briefing_message_id(
+    const PharaohCampaignIndex *index, const PharaohSettingsFile *settings,
+    uint32_t campaign_mode)
+{
+    const int32_t link = settings->campaign_link;
+    int32_t message;
+
+    if (campaign_mode == 0 && link >= 0 && link < index->count) {
+        message = index->records[link].link.intro_id;
+        if (settings->classical_names == 0) return message;
+        if (message > 438) return message + 15;
+    } else {
+        if (settings->mission_id == 0x7f) return 200;
+        message = settings->mission_id;
+    }
+    return message + 200;
+}
+
+void pharaoh_campaign_begin_briefing(
+    const PharaohCampaignBriefingContext *context)
+{
+    pharaoh_timed_window_transition_start(&context->transition,
+        0, UINT8_C(0x35), 1000);
+    *context->choice_index = 0;
+    *context->scroll_position = 0;
+    *context->scroll_drag = 0;
+    *context->message_id = (uint32_t)pharaoh_campaign_briefing_message_id(
+        context->index, context->settings, context->campaign_mode);
 }

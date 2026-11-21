@@ -2407,11 +2407,10 @@ int32_t pharaoh_windows_startup_host_load_pre_intro_data(
     return host->shutdown_requested == 0;
 }
 
-int32_t pharaoh_windows_startup_host_play_intro(
-    PharaohWindowsStartupHost *host)
+static int32_t play_movie(PharaohWindowsStartupHost *host,
+    const char *filename, int32_t x, int32_t y, int32_t startup_intro)
 {
     PharaohVideoPlayer *const player = host->window_startup.video_player;
-    const char *filename;
 
     if (host->shutdown_requested != 0 || player == NULL ||
         pharaoh_windows_startup_host_refresh_video_bounds(host) == 0 ||
@@ -2432,8 +2431,10 @@ int32_t pharaoh_windows_startup_host_play_intro(
     host->video_open.sound_manager = &host->sound.state;
     host->video_open.sound_operations = &host->sound.stream_operations;
 
-    host->current_window_id = 0x44;
-    host->startup_video_started = 1;
+    if (startup_intro != 0) {
+        host->current_window_id = 0x44;
+        host->startup_video_started = 1;
+    }
     host->video_runtime.display_mode = &host->current_window_id;
     host->video_runtime.redraw_requested = &host->graphics.redraw_requested;
     host->video_runtime.display_transition_active =
@@ -2461,12 +2462,25 @@ int32_t pharaoh_windows_startup_host_play_intro(
     host->video_blit.status_state = &host->log_format_state;
     host->video_blit.status_operations = &host->log_format_operations;
 
-    filename = host->graphics.screen_height < 0xe9 ?
-        "Binks\\low\\intro.bik" : "Binks\\high\\intro_big.bik";
-    const int32_t x = (host->graphics.screen_width - 0x1e0) / 2;
-    const int32_t y = (host->graphics.screen_height - 0x11e) / 2;
     const int32_t played = pharaoh_video_player_play(player,
         &host->video_runtime, filename, x, y, &host->video_open);
     pharaoh_windows_bink_close_library(&host->bink);
     return played;
+}
+
+int32_t pharaoh_windows_startup_host_play_movie(
+    PharaohWindowsStartupHost *host, const char *filename,
+    int32_t x, int32_t y)
+{
+    return play_movie(host, filename, x, y, 0);
+}
+
+int32_t pharaoh_windows_startup_host_play_intro(
+    PharaohWindowsStartupHost *host)
+{
+    const char *const filename = host->graphics.screen_height < 0xe9 ?
+        "Binks\\low\\intro.bik" : "Binks\\high\\intro_big.bik";
+    const int32_t x = (host->graphics.screen_width - 0x1e0) / 2;
+    const int32_t y = (host->graphics.screen_height - 0x11e) / 2;
+    return play_movie(host, filename, x, y, 1);
 }
