@@ -81,6 +81,10 @@ uint8_t pharaoh_campaign_period_open(const PharaohCampaignIndex *index,
                                      uint32_t campaign_category);
 uint8_t pharaoh_campaign_any_mission_played(const PharaohCampaignIndex *index);
 uint8_t pharaoh_campaign_any_period_open(const PharaohCampaignIndex *index);
+/* Complete typed C translation of native 0x0041B8F0. The native receiver is
+   the campaign index and the selected link is the signed settings byte. */
+uint8_t pharaoh_campaign_has_choices(const PharaohCampaignIndex *index,
+                                     int32_t selected_link);
 /* Complete typed C translation of native 0x0041BAE0. */
 void pharaoh_campaign_unlock_all(PharaohCampaignIndex *index);
 void pharaoh_settings_start_campaign(

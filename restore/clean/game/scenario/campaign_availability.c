@@ -37,6 +37,16 @@ uint8_t pharaoh_campaign_any_period_open(const PharaohCampaignIndex *index)
     return UINT8_C(0);
 }
 
+uint8_t pharaoh_campaign_has_choices(const PharaohCampaignIndex *index,
+                                     int32_t selected_link)
+{
+    if (selected_link < 0 || selected_link >= index->count) {
+        return UINT8_C(0);
+    }
+    return index->records[selected_link].link.choice_count > 1 ?
+        UINT8_C(1) : UINT8_C(0);
+}
+
 void pharaoh_campaign_unlock_all(PharaohCampaignIndex *index)
 {
     int32_t mission = 0;
