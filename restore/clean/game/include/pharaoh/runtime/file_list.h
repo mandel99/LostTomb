@@ -21,11 +21,13 @@ _Static_assert(offsetof(PharaohFileList, offsets) == 4 &&
     offsetof(PharaohFileList, used) == 24,
     "native file-list field offsets");
 
+/* Complete typed translations of native 0x0041C6D0 and 0x0041C710. */
 void pharaoh_file_list_initialize(PharaohFileList *list);
 void pharaoh_mission_file_list_initialize(PharaohFileList *list);
 void pharaoh_file_list_destroy(PharaohFileList *list);
 
-/* Native entries 0x0041C740/0x0041C8F0 and 0x0041CA10. */
+/* Complete typed cohort for native 0x0041C740/0x0041C8F0,
+   0x0041CA10 and comparator 0x0041CA50. */
 int32_t pharaoh_file_list_load(PharaohFileList *list, const char *pattern,
     int32_t append);
 void pharaoh_file_list_sort(PharaohFileList *list);
