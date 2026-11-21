@@ -19,6 +19,7 @@ add_library(pharaoh_game STATIC
     game/core/percentage_adjust.c
     game/core/percentage_scale.c
     game/core/static_objects.c
+    game/editor/city_detail_buttons.c
     game/editor/event_buttons.c
     game/editor/city_route_buttons.c
     game/editor/god_buttons.c
