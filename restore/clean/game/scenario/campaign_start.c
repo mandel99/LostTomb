@@ -48,6 +48,15 @@ int32_t pharaoh_campaign_find_mission(const PharaohCampaignIndex *index,
     return -1;
 }
 
+int32_t pharaoh_campaign_link_of_mission(const PharaohCampaignIndex *index,
+                                         int32_t mission_id)
+{
+    for (int32_t link = 0; link < index->count; ++link) {
+        if (index->records[link].link.mission_id == mission_id) return link;
+    }
+    return -1;
+}
+
 void pharaoh_settings_start_campaign(
     const PharaohCampaignStartContext *context, int8_t campaign_category)
 {

@@ -77,6 +77,9 @@ int32_t pharaoh_campaign_find_mission(const PharaohCampaignIndex *index,
                                       uint32_t campaign_category,
                                       int32_t previous_index,
                                       int32_t choice_index);
+/* Complete typed C translation of native 0x0041B9D0. */
+int32_t pharaoh_campaign_link_of_mission(const PharaohCampaignIndex *index,
+                                         int32_t mission_id);
 uint8_t pharaoh_campaign_period_open(const PharaohCampaignIndex *index,
                                      uint32_t campaign_category);
 uint8_t pharaoh_campaign_any_mission_played(const PharaohCampaignIndex *index);
