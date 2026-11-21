@@ -30,6 +30,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohPlayerSelectionState player_selection;
     PharaohFileList saved_game_files;
     int32_t saved_game_first_visible, saved_game_selected_row;
+    uint8_t saved_game_error_countdown;
     PharaohFileList custom_map_files;
     PharaohCustomMapSelectionState custom_map_selection;
     int32_t entry_results[4];

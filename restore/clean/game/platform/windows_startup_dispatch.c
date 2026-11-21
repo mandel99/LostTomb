@@ -3,6 +3,7 @@
 #include "pharaoh/ui/front_menu_action.h"
 #include "pharaoh/ui/main_menu.h"
 #include "pharaoh/ui/map_selection_invasions.h"
+#include "pharaoh/ui/load_save_dialog.h"
 
 #include <windowsx.h>
 #include <shellapi.h>
@@ -1001,39 +1002,50 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         } else if (dispatch->left_pressed_this_frame != 0 &&
             dispatch->left_press_window == 0x0d) {
             if (focused > 0) {
-                dispatch->saved_game_selected_row =
-                    dispatch->saved_game_first_visible + focused - 1;
-                dispatch->host->graphics.redraw_requested = 1;
+                const int32_t selected =
+                    pharaoh_load_dialog_select_visible(
+                        &dispatch->saved_game_files,
+                        dispatch->saved_game_first_visible, focused - 1);
+                if (selected >= 0) {
+                    dispatch->saved_game_selected_row = selected;
+                    dispatch->saved_game_error_countdown = 0;
+                    dispatch->host->graphics.redraw_requested = 1;
+                }
             } else if (dispatch->input.mouse_x >= origin_x + 464 &&
                 dispatch->input.mouse_x < origin_x + 498 &&
                 dispatch->saved_game_files.count > 12) {
                 if (dispatch->input.mouse_y >= origin_y + 120 &&
                     dispatch->input.mouse_y < origin_y + 154 &&
-                    dispatch->saved_game_first_visible > 0) {
-                    --dispatch->saved_game_first_visible;
+                    pharaoh_load_dialog_scroll(0,
+                        dispatch->saved_game_files.count,
+                        &dispatch->saved_game_first_visible,
+                        &dispatch->saved_game_error_countdown) != 0) {
                     dispatch->host->graphics.redraw_requested = 1;
                 } else if (dispatch->input.mouse_y >= origin_y + 300 &&
                     dispatch->input.mouse_y < origin_y + 334 &&
-                    dispatch->saved_game_first_visible + 12 <
-                        dispatch->saved_game_files.count) {
-                    ++dispatch->saved_game_first_visible;
+                    pharaoh_load_dialog_scroll(1,
+                        dispatch->saved_game_files.count,
+                        &dispatch->saved_game_first_visible,
+                        &dispatch->saved_game_error_countdown) != 0) {
                     dispatch->host->graphics.redraw_requested = 1;
                 }
+            } else if (dispatch->input.mouse_x >= origin_x + 344 &&
+                dispatch->input.mouse_x < origin_x + 378 &&
+                dispatch->input.mouse_y >= origin_y + 335 &&
+                dispatch->input.mouse_y < origin_y + 369) {
+                dispatch->refresh.current_window_id =
+                    (uint8_t)dispatch->menu_load_return_window;
+                dispatch->host->current_window_id =
+                    dispatch->refresh.current_window_id;
+                dispatch->host->graphics.redraw_requested = 1;
             }
         }
-        if (dispatch->left_press_active != 0 &&
-            dispatch->left_press_window == 0x0d &&
-            dispatch->saved_game_files.count > 12 &&
-            dispatch->input.mouse_x >= origin_x + 0x1d0 &&
-            dispatch->input.mouse_x <= origin_x + 0x1f0 &&
-            dispatch->input.mouse_y >= origin_y + 0x91 &&
-            dispatch->input.mouse_y <= origin_y + 300) {
-            int32_t track = dispatch->input.mouse_y - origin_y - 0x91 - 25;
-            const int32_t last = dispatch->saved_game_files.count - 12;
-            if (track < 0) track = 0;
-            if (track > 0x82) track = 0x82;
-            dispatch->saved_game_first_visible =
-                last * (track * 100 / 0x82) / 100;
+        if (dispatch->left_press_window == 0x0d &&
+            pharaoh_load_dialog_drag_scrollbar(
+                dispatch->left_press_active, dispatch->input.mouse_x,
+                dispatch->input.mouse_y, origin_x, origin_y,
+                dispatch->saved_game_files.count,
+                &dispatch->saved_game_first_visible) != 0) {
             dispatch->host->graphics.redraw_requested = 1;
         }
         dispatch->left_pressed_this_frame = 0;

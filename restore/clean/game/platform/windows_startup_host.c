@@ -10,6 +10,7 @@
 #include "pharaoh/ui/bitmap_font.h"
 #include "pharaoh/ui/panel_frame.h"
 #include "pharaoh/ui/menu_button_frame.h"
+#include "pharaoh/ui/load_save_dialog.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -1636,7 +1637,7 @@ void pharaoh_windows_startup_host_draw_saved_game_list(
     PharaohWindowsStartupHost *host, const PharaohFileList *files,
     int32_t first_visible, int32_t selected_row)
 {
-    enum { VISIBLE_ROWS = 12, SCROLL_RANGE = 0x82 };
+    enum { VISIBLE_ROWS = 12 };
     const int32_t origin_x = (host->graphics.render_width - 640) / 2;
     const int32_t origin_y = (host->graphics.render_height - 480) / 2;
     const uint32_t background = menu_group_image(host, 31);
@@ -1706,15 +1707,15 @@ void pharaoh_windows_startup_host_draw_saved_game_list(
     draw_menu_image(host, (int32_t)menu_group_image(host, 365) + 12,
         origin_x + 464, origin_y + 300);
     if (files->count > VISIBLE_ROWS) {
-        int32_t percent = 0;
-        if (first_visible > 0) {
-            const int32_t last = files->count - VISIBLE_ROWS;
-            percent = first_visible >= last ? 100 :
-                first_visible * 100 / last;
+        int32_t thumb_x;
+        int32_t thumb_y;
+        if (pharaoh_file_dialog_scroll_thumb(0, files->count,
+                first_visible, &thumb_x, &thumb_y) != 0) {
+            draw_menu_image(host,
+                (int32_t)menu_group_image(host,
+                    PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 39,
+                origin_x + thumb_x, origin_y + thumb_y);
         }
-        draw_menu_image(host,
-            (int32_t)menu_group_image(host, PHARAOH_IMAGE_GROUP_PANEL_BUTTON) + 39,
-            origin_x + 0x1d8, origin_y + 0x91 + SCROLL_RANGE * percent / 100);
     }
     host->graphics.redraw_requested = 0;
 }
