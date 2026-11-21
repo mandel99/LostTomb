@@ -1,5 +1,7 @@
 #include "pharaoh/ui/victory_dialog.h"
 
+#include <string.h>
+
 enum {
     VICTORY_TEXT_GROUP = 62,
     VICTORY_PANEL_X = 48,
@@ -17,6 +19,34 @@ enum {
     VICTORY_TEXT_REPLAY_MISSION = 37,
     VICTORY_TEXT_LOWER_DIFFICULTY = 40,
     MONUMENT_TEXT_GROUP = 198
+};
+
+enum {
+    VICTORY_RESULT_TEXT_GROUP = 148,
+    TRANSITION_TEXT_GROUP = 147,
+    DIFFICULTY_TEXT_GROUP = 153,
+    WINDOW_HINT_TEXT_GROUP = 13,
+    WINDOW_HINT_RIGHT_CLICK = 1,
+    RESULT_TEXT_CULTURE = 0,
+    RESULT_TEXT_PROSPERITY = 1,
+    RESULT_TEXT_KINGDOM = 3,
+    RESULT_TEXT_POPULATION = 4,
+    RESULT_TEXT_TREASURY = 5,
+    RESULT_TEXT_MONUMENTS = 6,
+    RESULT_TEXT_MONTHS = 7,
+    RESULT_TEXT_DIFFICULTY = 8,
+    RESULT_TEXT_SCORE = 9,
+    RESULT_TEXT_HIGH_SCORE_NEW = 10,
+    RESULT_TEXT_HIGH_SCORE_OWN_KEPT = 11,
+    RESULT_TEXT_HIGH_SCORE_OWN_BEATEN = 12,
+    RESULT_TEXT_HIGH_SCORE_OTHER_KEPT = 13,
+    RESULT_TEXT_HIGH_SCORE_OTHER_BEATEN = 14,
+    RESULT_TEXT_MONTHS_POSTFIX = 15,
+    RESULT_TEXT_CHEATED = 16,
+    DEFEAT_TEXT_TITLE = 1,
+    DEFEAT_TEXT_BODY = 16,
+    DEFEAT_TEXT_TITLE_LOWER_DIFFICULTY = 38,
+    DEFEAT_TEXT_BODY_LOWER_DIFFICULTY = 39
 };
 
 static void set_dialog_geometry(PharaohVictoryDialogState *state)
@@ -150,4 +180,179 @@ int32_t pharaoh_victory_count_finished_monuments(
             state->black_font, 0);
     }
     return count;
+}
+
+static void draw_rating(PharaohVictoryScreenState *state,
+    const PharaohVictoryScreenOperations *operations, int32_t text,
+    int32_t dx, int32_t dy)
+{
+    *state->text_width = 0;
+    operations->draw_language(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, text, *state->panel_x + dx,
+        *state->panel_y + dy, state->black_font, 0);
+    const int32_t value = operations->rating_value(
+        operations->user_data, text);
+    operations->draw_number(operations->user_data, value,
+        *state->panel_x + dx + *state->text_width,
+        *state->panel_y + dy, state->black_font, 0);
+}
+
+static void draw_expanded_high_score(PharaohVictoryScreenState *state,
+    const PharaohVictoryScreenOperations *operations, int32_t text,
+    const char *name)
+{
+    char saved_name[32];
+    char expanded[200];
+    const char *const message = operations->language_string(
+        operations->user_data, VICTORY_RESULT_TEXT_GROUP, text);
+    memcpy(saved_name, state->player_name, strlen(state->player_name) + 1);
+    memcpy(state->player_name, name, strlen(name) + 1);
+    operations->expand_event_text(operations->user_data, message,
+        expanded, 200);
+    memcpy(state->player_name, saved_name, strlen(saved_name) + 1);
+    operations->draw_text_multiline(operations->user_data, expanded,
+        *state->panel_x + 40, *state->panel_y + 340, 544,
+        state->black_font, 0);
+}
+
+static void draw_high_score_result(PharaohVictoryScreenState *state,
+    const PharaohVictoryScreenOperations *operations)
+{
+    int32_t text = -1;
+    switch (state->high_score_result) {
+    case PHARAOH_HIGH_SCORE_CHEATED:
+        text = RESULT_TEXT_CHEATED;
+        break;
+    case PHARAOH_HIGH_SCORE_NEW:
+        text = RESULT_TEXT_HIGH_SCORE_NEW;
+        break;
+    case PHARAOH_HIGH_SCORE_OWN_KEPT:
+        text = RESULT_TEXT_HIGH_SCORE_OWN_KEPT;
+        break;
+    case PHARAOH_HIGH_SCORE_OWN_BEATEN:
+        text = RESULT_TEXT_HIGH_SCORE_OWN_BEATEN;
+        break;
+    case PHARAOH_HIGH_SCORE_OTHER_BEATEN:
+        draw_expanded_high_score(state, operations,
+            RESULT_TEXT_HIGH_SCORE_OTHER_BEATEN,
+            state->previous_high_score_name);
+        return;
+    case PHARAOH_HIGH_SCORE_OTHER_KEPT:
+        draw_expanded_high_score(state, operations,
+            RESULT_TEXT_HIGH_SCORE_OTHER_KEPT,
+            state->mission_high_score_name);
+        return;
+    default:
+        return;
+    }
+    operations->draw_language_multiline(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, text, *state->panel_x + 40,
+        *state->panel_y + 340, 544, state->black_font, 0);
+}
+
+static void draw_defeat(PharaohVictoryScreenState *state,
+    const PharaohVictoryScreenOperations *operations)
+{
+    int32_t title = DEFEAT_TEXT_TITLE;
+    int32_t body = DEFEAT_TEXT_BODY;
+    if (operations->defeat_options(operations->user_data) >=
+        PHARAOH_DEFEAT_LOWER_DIFFICULTY) {
+        title = DEFEAT_TEXT_TITLE_LOWER_DIFFICULTY;
+        body = DEFEAT_TEXT_BODY_LOWER_DIFFICULTY;
+    }
+    operations->draw_panel(operations->user_data, *state->panel_x,
+        *state->panel_y - 7, 34, 16);
+    operations->draw_language_centered(operations->user_data,
+        VICTORY_TEXT_GROUP, title, *state->panel_x, *state->panel_y + 16,
+        544, state->large_font, 0);
+    *state->text_width = 0;
+    operations->draw_language_multiline(operations->user_data,
+        VICTORY_TEXT_GROUP, body, *state->panel_x + 25,
+        *state->panel_y + 48, 512, state->black_font, 0);
+}
+
+void pharaoh_victory_screen_draw(PharaohVictoryScreenState *state,
+    const PharaohVictoryScreenOperations *operations)
+{
+    *state->panel_x = state->origin_x + 48;
+    *state->panel_y = state->origin_y + 16;
+    *state->view_x = (1024 - state->screen_width) / 2;
+    *state->view_y = (768 - state->screen_height) / 2;
+    *state->view_width = state->screen_width;
+    *state->view_height = state->screen_height;
+    if (state->victory_state != PHARAOH_VICTORY_STATE_WON) {
+        draw_defeat(state, operations);
+        return;
+    }
+
+    const uint32_t delta = (uint32_t)state->scenario_start_year -
+        (uint32_t)state->current_year;
+    const uint32_t sign = (uint32_t)((int32_t)delta >> 31);
+    const uint32_t years = (delta ^ sign) - sign;
+    const int32_t months = (int32_t)((uint32_t)state->current_month +
+        years * 12u);
+    const int32_t score = operations->victory_score(
+        operations->user_data, months);
+    operations->draw_panel(operations->user_data, *state->panel_x,
+        *state->panel_y, 34, 27);
+    operations->draw_language_centered(operations->user_data,
+        VICTORY_TEXT_GROUP, VICTORY_TEXT_TITLE, *state->panel_x,
+        *state->panel_y + 16, 544, state->large_font, 0);
+    operations->draw_inner_panel(operations->user_data,
+        *state->panel_x + 16, *state->panel_y + 56, 32, 7);
+    operations->draw_language_multiline(operations->user_data,
+        TRANSITION_TEXT_GROUP,
+        operations->transition_text_id(operations->user_data),
+        *state->panel_x + 32, *state->panel_y + 64, 496,
+        state->white_font, 0);
+
+    draw_rating(state, operations, RESULT_TEXT_CULTURE, 40, 180);
+    draw_rating(state, operations, RESULT_TEXT_PROSPERITY, 40, 200);
+    draw_rating(state, operations, RESULT_TEXT_KINGDOM, 40, 220);
+    draw_rating(state, operations, RESULT_TEXT_TREASURY, 40, 240);
+    draw_rating(state, operations, RESULT_TEXT_POPULATION, 40, 260);
+    if (operations->count_finished_monuments(operations->user_data) != 0) {
+        operations->draw_language(operations->user_data,
+            VICTORY_RESULT_TEXT_GROUP, RESULT_TEXT_MONUMENTS,
+            *state->panel_x + 275, *state->panel_y + 180,
+            state->black_font, 0);
+    }
+
+    *state->text_width = 0;
+    operations->draw_language(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, RESULT_TEXT_MONTHS,
+        *state->panel_x + 120, *state->panel_y + 280,
+        state->black_font, 0);
+    operations->draw_number(operations->user_data, months,
+        *state->panel_x + 120 + *state->text_width,
+        *state->panel_y + 280, state->black_font, 0);
+    operations->draw_language(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, RESULT_TEXT_MONTHS_POSTFIX,
+        *state->panel_x + 120 + *state->text_width,
+        *state->panel_y + 280, state->black_font, 0);
+
+    *state->text_width = 0;
+    operations->draw_language(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, RESULT_TEXT_DIFFICULTY,
+        *state->panel_x + 160, *state->panel_y + 300,
+        state->black_font, 0);
+    operations->draw_language(operations->user_data,
+        DIFFICULTY_TEXT_GROUP,
+        operations->difficulty(operations->user_data) + 1,
+        *state->panel_x + 160 + *state->text_width,
+        *state->panel_y + 300, state->black_font, 0);
+
+    *state->text_width = 0;
+    operations->draw_language(operations->user_data,
+        VICTORY_RESULT_TEXT_GROUP, RESULT_TEXT_SCORE,
+        *state->panel_x + 200, *state->panel_y + 320,
+        state->black_font, 0);
+    operations->draw_number(operations->user_data, score,
+        *state->panel_x + 200 + *state->text_width,
+        *state->panel_y + 320, state->black_font, 0);
+    draw_high_score_result(state, operations);
+    operations->draw_language_centered(operations->user_data,
+        WINDOW_HINT_TEXT_GROUP, WINDOW_HINT_RIGHT_CLICK,
+        *state->panel_x + 16, *state->panel_y + 396, 512,
+        state->black_font, 0);
 }
