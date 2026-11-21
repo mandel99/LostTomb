@@ -17,6 +17,7 @@ add_library(pharaoh_game STATIC
     game/core/record_geometry.c
     game/core/ring_queue.c
     game/core/memory_fill.c
+    game/core/memory_strings.c
     game/core/text_length.c
     game/core/percentage_adjust.c
     game/core/percentage_scale.c
