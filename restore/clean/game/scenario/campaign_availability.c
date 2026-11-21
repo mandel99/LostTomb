@@ -36,3 +36,13 @@ uint8_t pharaoh_campaign_any_period_open(const PharaohCampaignIndex *index)
     }
     return UINT8_C(0);
 }
+
+void pharaoh_campaign_unlock_all(PharaohCampaignIndex *index)
+{
+    int32_t mission = 0;
+    if (index->count <= 0) return;
+    do {
+        index->records[mission].link.played = 1;
+        ++mission;
+    } while (mission < index->count);
+}
