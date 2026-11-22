@@ -159,6 +159,12 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_continue.c
     game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
+    game/scenario/saved_game_state_read.c
+    game/scenario/saved_game_initialize.c
+    game/scenario/mission_schema.c
+    game/scenario/scenario_state_read.c
+    game/simulation/flood_settings.c
+    game/runtime/chunk_io.c
     game/scenario/map_file_load.c
     game/scenario/scenario_preview.c
     game/scenario/campaign_profile_load.c

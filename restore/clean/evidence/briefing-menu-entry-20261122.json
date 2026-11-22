@@ -44,7 +44,7 @@
     "0041BB70 period start ->00417DD0 campaign settings ->004181E0 briefing transition",
     "004181E0 ->0041AA20(value=0,next=0x35,delay=1000);0041AA60 eventually selects window0x35",
     "0041A180 first draw: started=1 ->005405B0 selected mission; if city0x01 selected, return; otherwise select message and draw briefing",
-    "005405B0 campaign path ->004D58B0 mission1.pak ->004D4AE0 saved-state chunks; custom path uses existing custom scenario setup",
+    "005405B0 campaign path ->004D58B0 mission1.pak ->004D41E0 full saved-state chunks ->004BD360 flood settings ->004D52A0 scene initialization;004D4AE0 is a distinct map-only reader. Corrected by live Ghidra on20261122.",
     "004DCE80 window0x35 input:579788 N1 accept ->5C81B0 N2 difficulty ->conditional5797B0 N1 back ->00418FE0 scroll; stop after handled button",
     "004DCF73 window0x3B input: accept ->difficulty ->scroll; no campaign back",
     "579788 callback00418220: clear focus/overlay; window0x35 clears city word; set window0x01, transition byte2;0053B690(channel1=speech);clear special music; clamp player difficulty downward;redraw1",

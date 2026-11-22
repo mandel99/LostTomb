@@ -47,9 +47,12 @@ typedef struct PharaohEditorRouteImage {
 _Static_assert(sizeof(PharaohEditorRoutePoint) == 6,
     "route points use the native six-byte stride");
 _Static_assert(sizeof(PharaohEditorRoute) == 0x144 &&
+    offsetof(PharaohEditorRoute, sample_count) == 0x134 &&
+    offsetof(PharaohEditorRoute, capacity) == 0x138 &&
     offsetof(PharaohEditorRoute, point_count) == 0x141,
     "editor route must keep the native 324-byte layout");
 
+/* Complete C translations of Pharaoh.exe 0x004DD8D0 through 0x004DD920. */
 int32_t pharaoh_editor_route_last_point(const PharaohEditorRoute *route);
 bool pharaoh_editor_route_clear(PharaohEditorRoute *route);
 void pharaoh_editor_route_set_in_use(PharaohEditorRoute *route, uint8_t value);

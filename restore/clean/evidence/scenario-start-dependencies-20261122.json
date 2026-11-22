@@ -1,0 +1,16 @@
+{
+  "functions": [
+    {
+      "address": "0x005409D0",
+      "name": "pharaoh_scenario_map_exists",
+      "source": "game/scenario/map_file_exists.c",
+      "verification": "Live Ghidra confirms normalize, three-byte extension preparation, finalize, existence check, normalize and boolean return."
+    },
+    {
+      "address": "0x004D58B0",
+      "name": "pharaoh_campaign_mission_load",
+      "source": "game/scenario/campaign_mission_load.c",
+      "verification": "Existing clean owner matches live Ghidra; removed a non-native package-index bounds check. Mission sentinel, PAK offset lookup, seek/load/close, difficulty restore, cheat reset and optional initialization are preserved."
+    }
+  ]
+}

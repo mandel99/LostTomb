@@ -2,6 +2,41 @@
 
 #include "pharaoh/runtime/file_directory_reset.h"
 
+static void read_saved_state(void *user_data, int32_t file)
+{
+    PharaohCampaignMissionStateContext *const state = user_data;
+    pharaoh_saved_game_state_read(state->read, file);
+}
+
+static void reset_floodplain(void *user_data)
+{
+    PharaohCampaignMissionStateContext *const state = user_data;
+    pharaoh_floodplain_settings_initialize(state->floodplain_settings);
+}
+
+static void initialize_saved_state(void *user_data)
+{
+    PharaohCampaignMissionStateContext *const state = user_data;
+    pharaoh_saved_game_initialize(state->initialize);
+}
+
+void pharaoh_campaign_mission_bind_state(
+    PharaohCampaignMissionLoadContext *load,
+    PharaohCampaignMissionLoadOperations *operations,
+    PharaohCampaignMissionStateContext *state)
+{
+    load->operations = operations;
+    state->read->settings = load->settings;
+    state->read->floodplain_settings = state->floodplain_settings;
+    state->initialize->file_version = &state->read->chunk_io->file_version;
+    state->initialize->players = state->read->players;
+    state->initialize->current_player = state->read->current_player;
+    operations->user_data = state;
+    operations->read_saved_game_state = read_saved_state;
+    operations->reset_floodplain_settings = reset_floodplain;
+    operations->initialize_saved_game = initialize_saved_state;
+}
+
 enum {
     CAMPAIGN_PACKAGE_COUNT = 5,
     CAMPAIGN_PACKAGE_PATH_BYTES = 20,
@@ -30,9 +65,6 @@ int32_t pharaoh_campaign_mission_load(
     const char *package_path;
     const PharaohFileReadPartContext *const reader = context->file_read_part;
 
-    if (package_index < 0 || package_index >= CAMPAIGN_PACKAGE_COUNT) {
-        return 0;
-    }
     difficulty = context->settings->difficulty;
     if (context->settings->mission_id == CAMPAIGN_MISSION_NONE) {
         return 0;

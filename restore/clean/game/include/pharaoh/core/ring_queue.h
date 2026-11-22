@@ -36,4 +36,10 @@ bool pharaoh_ring_queue_is_full(const PharaohRingQueue *queue);
 bool pharaoh_dynamic_queue_wrap_index(
     volatile PharaohDynamicQueueHeader *queue, volatile int32_t *index);
 
+enum { PHARAOH_FERRY_QUEUE_COUNT = 50 };
+typedef struct PharaohFerryQueueRecord {
+    PharaohRingQueue queue;
+    int32_t building_id;
+} PharaohFerryQueueRecord;
+
 #endif

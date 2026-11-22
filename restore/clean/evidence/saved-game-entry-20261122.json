@@ -1,0 +1,118 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_native_mappings": [
+    {
+      "address": "0x004D1340",
+      "name": "pharaoh_saved_game_schema_start",
+      "source": "game/scenario/mission_schema.c"
+    },
+    {
+      "address": "0x004D1350",
+      "name": "pharaoh_saved_game_schema_finish",
+      "source": "game/scenario/mission_schema.c"
+    },
+    {
+      "address": "0x004D4A50",
+      "name": "pharaoh_map_schema_start",
+      "source": "game/scenario/mission_schema.c"
+    },
+    {
+      "address": "0x004D4A60",
+      "name": "pharaoh_map_schema_finish",
+      "source": "game/scenario/mission_schema.c"
+    },
+    {
+      "address": "0x004D41E0",
+      "name": "pharaoh_saved_game_state_read",
+      "source": "game/scenario/saved_game_state_read.c"
+    },
+    {
+      "address": "0x004D52A0",
+      "name": "pharaoh_saved_game_initialize",
+      "source": "game/scenario/saved_game_initialize.c"
+    }
+  ],
+  "moved_existing_owners": [
+    [
+      "004BD330",
+      "pharaoh_floodplain_settings_set_defaults"
+    ],
+    [
+      "004BD360",
+      "pharaoh_floodplain_settings_initialize"
+    ],
+    [
+      "004BD580",
+      "pharaoh_floodplain_settings_reset_season"
+    ],
+    [
+      "004BD5D0",
+      "pharaoh_floodplain_settings_reset_next_quality"
+    ]
+  ],
+  "reuse": [
+    "reused/restore/generated/decompiled/src/Unit01821.c full C reader",
+    "reused/restore/generated/decompiled/src/Unit01828.c full C initializer",
+    "reused/restore/generated/mixed/runtime/MissionSchema.c native constructors only",
+    "existing clean chunk_io.c,scenario_state_read.c and completed flood leaves"
+  ],
+  "verified_contracts": [
+    "Ghidra confirms004D58B0 calls004D41E0,004BD360,004D52A0. The previous004D4AE0 graph edge was incorrect; it is a map-only reader.",
+    "Full reader:181 descriptors; stop/reset mission records before175 for versions<9A;50 routes; preserve every migration gate and native version reload; restore only first DWORD of63 work-spot records at stride24; scan building1..3999 at stride264.",
+    "Both readers rebuild only when samples==NULL,capacity(+138)==0,point_count<51,kind<3,spacing1..50. Previous sample_count(+134) condition was wrong.",
+    "Initializer preserves52 native callsites;32 map-inside queries(two per point);orientation clamp0..6;legacy gates8D/8E;briefing started flag;player flags;versionA0;ordered final calls.",
+    "Saved/map CRT slots576068/57606C point to004D1340/004D4A50; native constructors fill save147..180 and map21..23 while preserving both codec fields=1.",
+    "004BD330 is flood defaults on the same D38360 object as004BD360/schema147, not map bounds: first8 DWORDs reset; ninth last_quality untouched. Reused eight stores with corrected canonical type/name.",
+    "Native saved-reader upgrade7D calls004BD330;upgrade84 calls004BD5D0. Both now bind directly to their real C flood-settings functions.",
+    "Campaign loader binder shares settings, flood object, file_version and player storage between its actual C children."
+  ],
+  "native_schema_evidence": "saved-game-schema-20261122.json",
+  "native_schema_check": "Pinned Ghidra bytes of both CRT entries executed offline. All181 save/24 map descriptors and C shape constants/destination contracts checked. Compiled C was not replayed.",
+  "retained_dependency_evidence": [
+    "chunk-migration-read-branch-20261122.json",
+    "scenario-state-read-branch-20261122.json"
+  ],
+  "excluded": "RestoreMissionSchemaRecoverLoaded/RecoverTerrain are old-port compatibility behavior with no EXE counterpart; excluded.",
+  "types": {
+    "chunk_descriptor": 20,
+    "migration_record": 16,
+    "route": 324,
+    "route_sample_count_offset": 308,
+    "route_capacity_offset": 312,
+    "building": 264,
+    "building_type_offset": 16,
+    "work_spot": 24,
+    "player": 18904,
+    "flood_settings": 36
+  },
+  "ghidra": "Same pinned session retained. Reader/initializer signatures and known ECX pointee updated; constructors and descriptor layouts annotated. Prototype tool cannot express ECX calling convention at004BD330, so its displayed stack/unaff_EBP artifact is not a clean-C input.",
+  "verification": {
+    "release_build": true,
+    "checkpoint_source_compile": "Passed staged7 C sources with Win32 MSVC /std:c11 /W4 /WX /Zs; no executable produced. Required ferry queue record included without staging unrelated pending queue-layout changes.",
+    "native_source_comparison": true,
+    "new_test_scripts": 0,
+    "host_launched": false,
+    "migration_workflow": {"mapped":1812,"unique_addresses":1812,"unique_names":1812,"errors":142,"packet_errors":0,"historical_hashes_rewritten":false},
+    "limits": "Source/controller and constructor-table verification only, not full reader/initializer native-C replay or gameplay equivalence. Replay these compiled definitions at the next100-entry cohort."
+  },
+  "hashes": {
+    "game/scenario/saved_game_state_read.c": "e55d41a99b24012b9d10b08de13e17c3a1fcadeb4dc64adb54f698024db30735",
+    "game/include/pharaoh/scenario/saved_game_state_read.h": "235d228af508f1c58385ecaa218aa0d63b5e16d25df306e4d78b1c48bb1c14ea",
+    "game/scenario/saved_game_initialize.c": "da22336d33784c67257c3122485e04c204fa0489c57683a11dbf91d71e6c6b60",
+    "game/include/pharaoh/scenario/saved_game_initialize.h": "bf4dd1a3b717b8fd20c52f62e840cac4a549b013e4a103963213e7361d365869",
+    "game/scenario/mission_schema.c": "49013c0e7a37d5a4d9f37c642ccc9597960cc25a1a106a9732a325e36a379257",
+    "game/include/pharaoh/scenario/mission_schema.h": "27496db2533c18035d38b0ae28797f469b08d9ee732fcbb2166ab3fc5bde449d",
+    "game/scenario/scenario_state_read.c": "183970289dbd66f8242697a49e18174eb1d01df478b7fa558cc8c932a8873271",
+    "game/include/pharaoh/scenario/scenario_state_read.h": "b37f5b7cc80824306a52ac1b8b17ab70974aca77b43080cd7b77f78ea62a9a34",
+    "game/scenario/campaign_mission_load.c": "0be4a6944e0d8000af1f782c57947310b796b5ae8ea7ee50cd30d0634f246bdc",
+    "game/include/pharaoh/scenario/campaign_mission_load.h": "6f92c304d7eeb0faadab2afe173b981875ded5cb9206eb736f67470c8cdf4b48",
+    "game/simulation/flood_settings.c": "a70172a0643c32db9f99644fcf3d375ca79bcc22d360c082a4d1b6702bf254ec",
+    "game/include/pharaoh/simulation/flood_settings.h": "e306cb1fa5dd319a4e9f540deed51f285b51f2c282c5797eea709bdf80977da8",
+    "game/runtime/chunk_io.c": "3539c23beff00456ec33ff4dbd609dc02f2de3d0c781b827f72fc2a854a2d303",
+    "game/include/pharaoh/runtime/chunk_io.h": "c11ef6ae091bf001a7275b508e550064c8ce5c5d9e1a1cf803d25b4ad5ecf3c8",
+    "game/include/pharaoh/editor/route_geometry.h": "8fb345c2f63ef8a429bb98637f956fefd2480256ed8a0fb86def6e9057d64d34",
+    "library": "e17266564ae11713f99954633edb4745425019ae37bc2f1c948f89b855027e7a",
+    "exe": "014abc18974a51f2692c7e479b4ec936596c3fdd99f2d77e51b9a949f9cc4617"
+  },
+  "remaining": "Host scene storage, full descriptor destination/migration bindings and remaining initialization C contexts are not yet attached to windows_startup_dispatch_frame. This packet does not yet make the menu-to-city path playable."
+}
