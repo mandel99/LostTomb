@@ -1,0 +1,69 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00430D30",
+      "name": "pharaoh_city_render",
+      "source": "game/rendering/city_render.c",
+      "origin": "Complete typed C controller reused from verified viewport-controller C. Seven deeper drawing endpoints remain required; this does not claim a complete city renderer.",
+      "mapping_evidence": "evidence/campaign-city-render-20261122.json"
+    },
+    {
+      "address": "0x004DDDC0",
+      "name": "pharaoh_city_render_current_view",
+      "source": "game/rendering/city_render.c",
+      "origin": "Complete typed C controller reused from verified viewport-controller C. Seven deeper drawing endpoints remain required; this does not claim a complete city renderer.",
+      "mapping_evidence": "evidence/campaign-city-render-20261122.json"
+    }
+  ],
+  "reused_C": [
+    "restore/artifacts/viewport-controller-unit_00468.staged.c",
+    "restore/artifacts/viewport-controller-unit_01878.staged.c"
+  ],
+  "prior_proof": {
+    "path": "PH Local Decompile/reused/restore/metadata/viewport-controller-emulation.json",
+    "cases": 18272,
+    "scope": "Address-based controller and facade with controlled drawing endpoints; not pixel equivalence."
+  },
+  "verification": {
+    "passed": true,
+    "cases": 2048,
+    "native_owners": [
+      "00430D30",
+      "004DDDC0"
+    ],
+    "scope": "Original67-instruction controller and9-instruction facade versus typed compiled C. Seven controlled drawing endpoints: order, arguments,22 state fields at every endpoint and final state, callback mutations, wrapped tick boundaries, callee-saved registers and x87 status. Actual native51F780 RET and actual clean empty C child. No pixels, full gameplay or host scene binding claimed."
+  },
+  "flow": [
+    "0041BB70: selected campaign period -> optional synchronous Bink00413580 ->00417DD0 settings ->004181E0",
+    "004181E0: timed window04->35; shared started flag reset before first briefing draw.",
+    "0041A180 first draw: started=1 ->005405B0 ->004D58B0 -> full004D41E0 state read ->004D52A0 initialization. Campaign packages mission1.pak..mission5.pak live in game root.",
+    "00418220 accept35: clear player+471C, window01,mode2,fade_music(1),special_music=0,difficulty clamp.",
+    "Foreground01 calls004DDDC0 ->00430D30. Normal:430EF0,436B60(0),empty51F780,43B630,439740(0),43E300. Overlay:4316F0,empty51F780,439F10,43B630,439740(9999),43E300. Mode51 or006DE515!=0 selects4316F0 with normal top pass."
+  ],
+  "contracts": [
+    "Animation tick subtraction wraps DWORD, negative signed delta or >60 advances. Branch selection precedes drawing callbacks; later callback changes do not switch the selected top pass.",
+    "Clip is viewport rectangle on entry; resets to current full screen dimensions after drawing. Highlight countdown is reloaded after callbacks. Current-view facade snapshots three arguments before drawing.",
+    "Void controllers expose side effects; incidental EAX not part of API. Native006DE515 meaning intentionally not broadened."
+  ],
+  "remaining": [
+    "Windows host has campaign video/settings/timer only;35 briefing and01 city dispatch/storage binding still absent.",
+    "Seven drawing passes are explicit required endpoints, no fake substitute implementations.",
+    "Saved-game init real providers43/45;457AF0 kingdom access and46D840 rotated building images still missing. Full scene storage and static base schema destinations must be connected before host mission load."
+  ],
+  "source_sha256": {
+    "game/rendering/city_render.c": "a8a42a8f858984f83cdd3ac739efd6f707fdde69eaf427692fde40bed1737628",
+    "game/include/pharaoh/rendering/city_render.h": "22a7f1dc0fc4e9ab19363f3651e92807f8d4298d92be901ad6e229874ee1de78"
+  },
+  "strict_index": {
+    "passed": true,
+    "C_units": 2,
+    "indexed_files": 8
+  },
+  "release_build": "passed; Win32 Release pharaoh_clean_bootstrap",
+  "migration_verify": {
+    "errors": 123,
+    "historical_evidence_unchanged": true
+  },
+  "release_sha256": "5dea4b6a7387141e23e37c5905c1b981ba9f44a353ff5150821bb5a196234959"
+}

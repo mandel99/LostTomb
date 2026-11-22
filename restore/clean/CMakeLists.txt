@@ -91,6 +91,7 @@ add_library(pharaoh_game STATIC
     game/rendering/overlay_columns.c
     game/rendering/overlay_metrics.c
     game/rendering/primitives.c
+    game/rendering/city_render.c
     game/rendering/sprite_raw_blit.c
     game/runtime/frame_gate.c
     game/runtime/graphics_frame_restore.c
