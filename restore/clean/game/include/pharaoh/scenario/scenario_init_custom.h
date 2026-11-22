@@ -14,7 +14,10 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint16_t quake_x;
     uint16_t quake_y;
     int32_t quake_grid_offset;
-    uint8_t reserved_2788[0x0510];
+    uint8_t reserved_2788[0x298c - 0x2788];
+    uint8_t food_known[9];
+    uint8_t resource_known[36];
+    uint8_t reserved_29b9[0x2c98 - 0x29b9];
     int32_t salary;
     int32_t rank_clamped;
     uint8_t reserved_2ca0[0x001c];
@@ -29,8 +32,19 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint32_t tutorial_active_b;
     uint8_t reserved_4728[0x0080];
     int32_t difficulty;
-    uint8_t reserved_47ac[0x022c];
+    uint8_t reserved_47ac[0x4984 - 0x47ac];
+    int16_t ra_trade_bonus_months;
+    int16_t ra_trade_penalty_months;
+    int16_t ra_trade_minor_penalty_months;
+    uint8_t reserved_498a[0x49d8 - 0x498a];
 } PharaohScenarioPlayerRuntime;
+
+_Static_assert(offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&
+    offsetof(PharaohScenarioPlayerRuntime, resource_known) == 0x2995 &&
+    offsetof(PharaohScenarioPlayerRuntime, ra_trade_bonus_months) == 0x4984 &&
+    offsetof(PharaohScenarioPlayerRuntime, ra_trade_penalty_months) == 0x4986 &&
+    offsetof(PharaohScenarioPlayerRuntime, ra_trade_minor_penalty_months) == 0x4988 &&
+    sizeof(PharaohScenarioPlayerRuntime) == 0x49d8, "native player resource fields");
 
 typedef void (*PharaohScenarioInitStep)(void *user_data);
 

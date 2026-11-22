@@ -1,0 +1,173 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_entries": 8,
+  "functions": [
+    {
+      "address": "0x00443B90",
+      "name": "pharaoh_empire_can_produce_resource",
+      "source": "game/commerce/resource_supply.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x00443D90",
+      "name": "pharaoh_empire_can_produce_resource_potentially",
+      "source": "game/commerce/resource_supply.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x00559480",
+      "name": "pharaoh_city_resource_available_from_events",
+      "source": "game/commerce/resource_supply.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x005596D0",
+      "name": "pharaoh_city_resource_determine_available",
+      "source": "game/commerce/resource_supply.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x00442660",
+      "name": "pharaoh_empire_refresh_object_images",
+      "source": "game/commerce/empire_images.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x004426C0",
+      "name": "pharaoh_empire_refresh_city_image_dimensions",
+      "source": "game/commerce/empire_images.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x004E5950",
+      "name": "pharaoh_scene_load_obelisk_library",
+      "source": "game/scenario/scene_assets.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    },
+    {
+      "address": "0x004E59A0",
+      "name": "pharaoh_scene_load_obelisk_libraries",
+      "source": "game/scenario/scene_assets.c",
+      "origin": "Reused completed prior LostTomb C algorithm with explicit typed shared state; verified against pinned live Ghidra code/instructions/data.",
+      "mapping_evidence": "evidence/scene-economy-entry-20261122.json",
+      "known_limitations": "Valid native record/resource ranges. Static native/C comparison and strict integration; no new replay in this packet. Host scene storage/render binding remains incomplete."
+    }
+  ],
+  "reuse": [
+    "reused/restore/game/functions/EconomySupply53.c",
+    "reused/restore/generated/il/runtime/ResourceAvailability.c (completed algorithms only; frame adapters excluded)",
+    "reused/restore/generated/mixed/runtime/MissionLoadClosure.c",
+    "reused/restore/generated/mixed/src/Unit00608.c",
+    "reused/restore/generated/mixed/runtime/MenuDragMonumentUnlink.c",
+    "reused/restore/generated/decompiled/src/Unit01976.c"
+  ],
+  "contracts": [
+    "Production/potential recipe recursion and short-circuit order,61-city scans and weapons/chariot allowed-building gates retained. Lamps production uses open oil import; potential/events use potential oil import.",
+    "Event availability scans type23 records backward and compares signed item WORDs+6/+8/+A. All10 observed xrefs consume TEST AL,AL; clean result is uint8_t. No data xrefs observed.",
+    "Resource list rebuild clears two36-DWORD lists/counts, scans1..35 resources then1..8 foods and updates persistent known flags only afterward.",
+    "Player native baseEA1870, stride49D8; food_known+298C,resource_known+2995. RA quota signed WORDs+4984/+4986/+4988 verified in004C5190, forwarded through existing real import predicates.",
+    "Exactly200x98-byte empire objects;00442660 retains WORD arithmetic and full signed DWORD limit reload after city query;004426C0 uses low AX before SG3 header lookup and falls back to image0 at signed count limit.",
+    "Empire object fields+8/+A/+C/+E are width,height,image and relative image words; existing remaining byte offsets retained.",
+    "Obelisk pointers5E4588->5E48BC Obelisk3x3a;5E4598->5E488C Obelisk5x5a. Definition types207/208 only; slots5..7 loaded in goal order0..2."
+  ],
+  "al_consumers": [
+    {
+      "call": "005595a4",
+      "consume": "005595ac"
+    },
+    {
+      "call": "005595b7",
+      "consume": "005595bf"
+    },
+    {
+      "call": "005595e6",
+      "consume": "005595ee"
+    },
+    {
+      "call": "005595f9",
+      "consume": "00559601"
+    },
+    {
+      "call": "0055961a",
+      "consume": "00559622"
+    },
+    {
+      "call": "00559628",
+      "consume": "00559630"
+    },
+    {
+      "call": "00559657",
+      "consume": "0055965f"
+    },
+    {
+      "call": "00559665",
+      "consume": "0055966d"
+    },
+    {
+      "call": "00559716",
+      "consume": "0055971e"
+    },
+    {
+      "call": "0055977f",
+      "consume": "00559787"
+    }
+  ],
+  "verification": {
+    "authority": "Pinned live Ghidra decompilation, disassembly, xrefs and read_memory; saved prior typed owner evidence reused.",
+    "release_build": true,
+    "new_test_scripts": 0,
+    "host_launched": false,
+    "native_C_replay": "Deferred until approximately100-entry cohort; this packet is not a gameplay-equivalence claim.",
+    "staged_strict_compilation": {
+      "passed": true,
+      "C_units": 7,
+      "indexed_files": 42,
+      "flags": "Win32 MSVC C11 /W4 /WX /Zs /DNDEBUG"
+    }
+  },
+  "bindings": "Added concrete clean C for OBELISK_SCRIPTS,EMPIRE_IMAGES,EMPIRE_CITY_IMAGES,RESOURCES. Total15/45 initialization slots have supplied asset/routing/economy context binders; all other slots remain required.",
+  "remaining": "Host0x35/0x3B scene binding, serialized destination/migration buffers,30 other initialization slots and actual city runtime/render remain. No placeholder/no-op path supplied.",
+  "source_sha256": {
+    "game/commerce/resource_supply.c": "47815275982927b4f659dc5b7bb32ee499a506c854b647a8ca90b4115dd0066f",
+    "game/commerce/empire_images.c": "873fd9958a122c117600c1551889192a2e78b2e960de0a2e70f2eb1da39ec440",
+    "game/scenario/scene_economy.c": "1e99bb1e995813b7a513936919631d5e8ee6bb7dd3b47a867fcfbd16e6857f47",
+    "game/scenario/scene_assets.c": "2522afb81df1ce520b996425c2f4b54fef7aeaa7aa5d78b955919ec2a923ee35",
+    "game/scenario/scene_asset_bindings.c": "8e2b88591274fa4f93b9062c8908bb924d28a4f363af6eec14b8a6114614ba05",
+    "game/include/pharaoh/commerce/resource_supply.h": "35628366a4f474da1a6dc0e2ba5e57f72c040b6d10ff1809d1b4b542a549c7ce",
+    "game/include/pharaoh/commerce/empire_images.h": "f61e800311fc1b47519ad3be00f8ec07730a16e2598dd6329a38fefe87edfa2d",
+    "game/include/pharaoh/scenario/scene_economy.h": "9804b8a78223eef9eebf7029b0a744fa2b84ba603d218432b5c20db0846bedb0",
+    "game/include/pharaoh/scenario/scene_assets.h": "1945b724cf1b04f33fca58c3430250a6888203a5f4eb2de3055b2687c2128f85",
+    "game/include/pharaoh/scenario/scenario_init_custom.h": "809f5110684ee2888e5bdc12b18d106114035392ccc04a639541e755514bfcd4"
+  },
+  "integration_build": {
+    "scope": "Current worktree, including earlier uncommitted units.",
+    "sha256": {
+      "pharaoh_game.lib": "f07abaab4bb0940cb319e9d58f47efa8eb3f13ef7875998a288bf96b7ab1e018",
+      "LostTomb.exe": "782e967f7e681b5b584b2286386e3df4d1cd82b8b939f4a486e4f4eb75862f56"
+    }
+  },
+  "migration_verify": {
+    "errors": 142,
+    "historic_records_unchanged": true
+  },
+  "indexed_dependency_sha256": {
+    "game/commerce/empire_queries.c": "26c467e3891cab23ed25271e5e4066071e0e0379a62a69c4a363329127982972",
+    "game/core/static_objects.c": "17d6334356e5a3304387e9ac03c3b2a038a4dc81b0b0f6980a03e8036c85c8e8",
+    "game/include/pharaoh/commerce/empire_queries.h": "1685cf581140b37d839ecc80508fb4b86d6a7a708cf1f9b828e8fb1c2cc88556",
+    "game/include/pharaoh/core/static_objects.h": "05606f66b03924006d0e73aacb60b5f5e2d2308646364b550ae15c38f5184df6"
+  }
+}

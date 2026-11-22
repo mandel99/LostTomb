@@ -1,11 +1,12 @@
 #include "pharaoh/commerce/empire_queries.h"
 
 #include <stddef.h>
+#include "pharaoh/core/static_objects.h"
 
 _Static_assert(sizeof(PharaohEmpireObjectRecord) ==
     PHARAOH_EMPIRE_OBJECT_SIZE, "empire object record size");
-_Static_assert(offsetof(PharaohEmpireObjectRecord, trade_enabled) == 24,
-    "empire object trade flag offset");
+_Static_assert(offsetof(PharaohEmpireObjectRecord, city_type) == 24,
+    "empire object city type offset");
 _Static_assert(offsetof(PharaohEmpireObjectRecord, bought_resources) == 52,
     "empire object resource list offset");
 _Static_assert(offsetof(PharaohEmpireObjectRecord, trade_amounts) == 62,
@@ -38,7 +39,87 @@ uint8_t pharaoh_empire_object_trade_amount(
 {
     const PharaohEmpireObjectRecord *const object = &objects[object_index];
     const uint8_t amount = object->trade_amounts[resource_kind];
-    if (object->kind == 1 && object->trade_enabled != 0 && amount < 41)
+    if (object->kind == 1 && object->city_type != 0 && amount < 41)
         return amount;
     return 0;
+}
+
+bool pharaoh_empire_city_has_trade_limit(
+    const PharaohEmpireCityRecord *cities,
+    const PharaohEmpireTradeAmounts *route_limits,
+    int32_t city_id, int32_t resource_kind,
+    int16_t ra_bonus, int16_t ra_penalty, int16_t ra_minor_penalty)
+{
+    const uint8_t route_id = cities[city_id].route_id;
+    const int32_t quota = route_limits[route_id].resource[resource_kind];
+    return pharaoh_gods_ra_adjust_value(quota,
+        ra_bonus, ra_penalty, ra_minor_penalty) > 0;
+}
+
+static uint32_t empire_can_trade_resource(
+    const PharaohEmpireCityRecord cities[PHARAOH_EMPIRE_CITY_COUNT],
+    const PharaohEmpireTradeAmounts *route_limits, int32_t resource_kind,
+    int16_t ra_bonus, int16_t ra_penalty, int16_t ra_minor_penalty,
+    bool importing, bool require_open)
+{
+    int32_t city_id;
+    for (city_id = 0; city_id < PHARAOH_EMPIRE_CITY_COUNT; ++city_id) {
+        const PharaohEmpireCityRecord *city = &cities[city_id];
+        if (city->in_use != 0u &&
+            (city->kind == 1u || city->kind == 3u || city->kind == 5u) &&
+            (!require_open || city->is_open != 0u) &&
+            (importing ? city->sells[resource_kind] :
+                city->buys[resource_kind]) == 1u &&
+            pharaoh_empire_city_has_trade_limit(cities, route_limits,
+                city_id, resource_kind, ra_bonus, ra_penalty,
+                ra_minor_penalty)) return 1;
+    }
+    return 0;
+}
+
+uint32_t pharaoh_empire_can_import_resource(
+    const PharaohEmpireCityRecord cities[PHARAOH_EMPIRE_CITY_COUNT],
+    const PharaohEmpireTradeAmounts *route_limits, int32_t resource_kind,
+    int16_t ra_bonus, int16_t ra_penalty, int16_t ra_minor_penalty)
+{
+    return empire_can_trade_resource(cities, route_limits, resource_kind,
+        ra_bonus, ra_penalty, ra_minor_penalty, true, true);
+}
+
+uint32_t pharaoh_empire_can_import_resource_potentially(
+    const PharaohEmpireCityRecord cities[PHARAOH_EMPIRE_CITY_COUNT],
+    const PharaohEmpireTradeAmounts *route_limits, int32_t resource_kind,
+    int16_t ra_bonus, int16_t ra_penalty, int16_t ra_minor_penalty)
+{
+    return empire_can_trade_resource(cities, route_limits, resource_kind,
+        ra_bonus, ra_penalty, ra_minor_penalty, true, false);
+}
+
+int32_t pharaoh_empire_object_city_image(
+    const PharaohEmpireObjectRecord *objects, int32_t object_index,
+    int32_t scenario_rank,
+    const PharaohEmpireCityImageCatalog *catalog)
+{
+    const PharaohEmpireObjectRecord *const object = &objects[object_index];
+    switch (object->city_type) {
+    case 0:
+        return scenario_rank == 10 ? catalog->rank_ten_city_group :
+            catalog->default_city_group;
+    case 1:
+        return catalog->rank_ten_city_group;
+    case 2:
+        return catalog->type_two_city_group;
+    case 3:
+        return catalog->default_city_group + 6;
+    case 4:
+        return catalog->type_four_city_group + 7;
+    case 5:
+        return catalog->default_city_group +
+            catalog->name_offsets[object->name_id][0];
+    case 6:
+        return catalog->type_four_city_group +
+            catalog->name_offsets[object->name_id][0];
+    default:
+        return 0;
+    }
 }

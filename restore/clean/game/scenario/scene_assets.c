@@ -19,6 +19,22 @@ static void shared_libraries(const PharaohSceneMonumentAssets *c)
     load(c, "MausCarryoverDummy", 0x18);
 }
 
+/* Reused MenuDragMonumentUnlink/Unit01976 C; native004E5950/004E59A0. */
+void pharaoh_scene_load_obelisk_library(const PharaohSceneMonumentAssets *c,
+    int32_t slot)
+{
+    const int32_t kind = pharaoh_scenario_monument_slot_obelisk_type(
+        pharaoh_monument_definitions, c->goal_definition_ids, slot);
+    if (kind == 207) load(c, "Obelisk3x3a", slot + 5);
+    else if (kind == 208) load(c, "Obelisk5x5a", slot + 5);
+}
+
+void pharaoh_scene_load_obelisk_libraries(const PharaohSceneMonumentAssets *c)
+{
+    for (int32_t slot = 0; slot < 3; ++slot)
+        pharaoh_scene_load_obelisk_library(c, slot);
+}
+
 void pharaoh_scene_load_monument_libraries(const PharaohSceneMonumentAssets *c)
 {
     const uint8_t phase = *c->animation_set;

@@ -45,4 +45,10 @@ typedef struct PharaohScreenFade {
 void pharaoh_empire_route_construct(PharaohEmpireRoute *route);
 void pharaoh_screen_fade_initialize(PharaohScreenFade *fade);
 
+uint32_t pharaoh_native_player_milestone_code_004c5190(
+    int16_t first, int16_t second, int16_t third);
+
+int32_t pharaoh_gods_ra_adjust_value(int32_t value,
+    int16_t first, int16_t second, int16_t third);
+
 #endif

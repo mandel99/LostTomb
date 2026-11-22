@@ -27,6 +27,9 @@ typedef struct PharaohSceneEnemyAssets {
  * prior MissionMapLoader. These call the actual C sprite-library loader. */
 void pharaoh_scene_load_monument_libraries(const PharaohSceneMonumentAssets *c);
 void pharaoh_scene_load_extra_library(const PharaohSceneMonumentAssets *c);
+void pharaoh_scene_load_obelisk_library(const PharaohSceneMonumentAssets *c,
+    int32_t slot);
+void pharaoh_scene_load_obelisk_libraries(const PharaohSceneMonumentAssets *c);
 void pharaoh_scene_initialize_enemy_properties(const PharaohSceneEnemyAssets *c);
 
 #endif

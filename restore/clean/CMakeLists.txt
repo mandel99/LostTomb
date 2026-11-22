@@ -7,6 +7,9 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/commerce/empire_images.c
+    game/commerce/resource_supply.c
+    game/scenario/scene_economy.c
     game/scenario/scene_routing.c
     game/scenario/scene_assets.c
     game/scenario/scene_asset_bindings.c
