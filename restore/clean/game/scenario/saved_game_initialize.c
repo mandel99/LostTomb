@@ -5,7 +5,9 @@
 static void run_step(PharaohSavedGameInitializeContext *c,
     enum PharaohSavedGameInitializeStep step)
 {
-    c->operations->step[step](c->operations->user_data);
+    const PharaohSavedGameStepBinding *const binding =
+        &c->operations->step[step];
+    binding->apply(binding->user_data);
 }
 
 static void run_range(PharaohSavedGameInitializeContext *c,

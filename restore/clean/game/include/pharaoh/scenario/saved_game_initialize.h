@@ -57,9 +57,14 @@ typedef struct PharaohSavedGameGeometry {
     int32_t width, height, grid_start, grid_border;
 } PharaohSavedGameGeometry;
 
+typedef struct PharaohSavedGameStepBinding {
+    void *user_data;
+    PharaohSavedGameStep apply;
+} PharaohSavedGameStepBinding;
+
 typedef struct PharaohSavedGameInitializeOperations {
     void *user_data;
-    PharaohSavedGameStep step[PHARAOH_INIT_STEP_COUNT];
+    PharaohSavedGameStepBinding step[PHARAOH_INIT_STEP_COUNT];
     uint8_t (*map_inside)(void *user_data, int32_t x, int32_t y);
     void (*build_floods)(void *user_data, int32_t x0, int32_t y0,
         int32_t x1, int32_t y1);

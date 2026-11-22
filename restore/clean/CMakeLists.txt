@@ -7,6 +7,10 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/scenario/scene_assets.c
+    game/scenario/scene_asset_bindings.c
+    game/runtime/city_sound.c
+    game/monuments/definitions.c
     game/assets/sprite_pixel_conversion.c
     game/assets/sprite_pixel_loading.c
     game/assets/sprite_auxiliary.c

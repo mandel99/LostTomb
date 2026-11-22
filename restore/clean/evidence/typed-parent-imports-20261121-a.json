@@ -1,0 +1,117 @@
+{
+  "schema": "losttomb.typed-parent-imports.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "verification": "Live Ghidra decompilation and call graphs; prior project contains only declarations or IL facades.",
+  "functions": [
+    {
+      "address": "0x004035A0",
+      "name": "pharaoh_editor_numeric_digit",
+      "source": "game/editor/numeric_dialog.c",
+      "callee": "0x0047D350"
+    },
+    {
+      "address": "0x00409820",
+      "name": "pharaoh_empire_editor_food_kinds_valid",
+      "source": "game/commerce/empire_queries.c",
+      "callee": "0x00443710"
+    },
+    {
+      "address": "0x00405BA0",
+      "name": "pharaoh_construction_cancel",
+      "source": "game/building/type_queries.c",
+      "callee": "0x00486060"
+    },
+    {
+      "address": "0x00406460",
+      "name": "pharaoh_storage_orders_adjust_limit",
+      "source": "game/commerce/storage_queries.c",
+      "callee": "0x00502780"
+    },
+    {
+      "address": "0x0040C6B0",
+      "name": "pharaoh_storage_orders_scroll",
+      "source": "game/commerce/storage_queries.c",
+      "callee": "0x00502780"
+    },
+    {
+      "address": "0x0040B6D0",
+      "name": "pharaoh_city_select_warship",
+      "source": "game/ui/window_state_actions.c",
+      "callee": "0x004B55B0"
+    },
+    {
+      "address": "0x0040B790",
+      "name": "pharaoh_city_select_transport",
+      "source": "game/ui/window_state_actions.c",
+      "callee": "0x004B5570"
+    },
+    {
+      "address": "0x00416BA0",
+      "name": "pharaoh_hotkey_change_game_speed",
+      "source": "game/ui/window_state_actions.c",
+      "callee": "0x00403320"
+    },
+    {
+      "address": "0x00406A30",
+      "name": "pharaoh_ship_find_best_dock",
+      "source": "game/building/type_queries.c",
+      "callee": "0x004069E0"
+    },
+    {
+      "address": "0x00409E40",
+      "name": "pharaoh_overlay_menu_handle_submenu",
+      "source": "game/ui/window_state_actions.c",
+      "callee": "0x00405170"
+    },
+    {
+      "address": "0x0041D560",
+      "name": "pharaoh_sound_city_play",
+      "source": "game/runtime/city_sound.c",
+      "callee": "0x0047D350",
+      "note": "The native callee is a proven no-op returning zero; its unused arguments do not become C API inputs."
+    },
+    {
+      "address": "0x00406B40",
+      "name": "pharaoh_transport_ship_button",
+      "source": "game/ui/window_state_actions.c",
+      "callees": ["0x004CDE60", "0x004A45D0"],
+      "note": "Recovered from the prior complete 77-instruction implementation, including the four jump-table targets omitted by the short decompiler body."
+    },
+    {
+      "address": "0x004A45D0",
+      "name": "pharaoh_transport_assign_dock",
+      "source": "game/building/type_queries.c",
+      "callees": ["0x00406A30", "0x004806C0", "0x004B3250"],
+      "note": "Tile resolution is an explicit controlled endpoint; the transient native map-result globals are restored before return and therefore are not exposed as persistent state."
+    },
+    {
+      "address": "0x00406E80",
+      "name": "pharaoh_transport_ship_return_button",
+      "source": "game/ui/window_state_actions.c",
+      "callees": ["0x004CDE60", "0x004A4300", "0x004806C0", "0x004B3250"],
+      "note": "Preserves the native absence of the input-lock guard, the mode reload, and detachment of walkerCurrentId rather than the displayed transport id."
+    },
+    {
+      "address": "0x00406720",
+      "name": "pharaoh_legion_order_button",
+      "source": "game/military/legion_orders.c",
+      "callees": ["0x004B7B50", "0x0047D350"],
+      "note": "Previously existing complete typed C owner; the no-op sound leaf is safely omitted."
+    },
+    {
+      "address": "0x00407110",
+      "name": "pharaoh_legion_order_toggle",
+      "source": "game/military/legion_orders.c",
+      "callee": "0x00406720",
+      "note": "Preserves the exact byte toggle, order-to-button remap and conditional tail call."
+    }
+  ],
+  "corrected": [
+    {
+      "address": "0x00403320",
+      "old_name": "pharaoh_editor_flood_percentage_button",
+      "name": "pharaoh_settings_change_game_speed",
+      "basis": "Native 10..100 speed clamp, prior native name and sole hotkey caller."
+    }
+  ]
+}

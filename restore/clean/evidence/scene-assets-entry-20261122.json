@@ -1,0 +1,146 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x004F4520",
+      "name": "pharaoh_scene_load_monument_libraries",
+      "source": "game/scenario/scene_assets.c",
+      "origin": "Completed typed prior LostTomb C, rebound to explicit state and checked against pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-assets-entry-20261122.json",
+      "known_limitations": "Valid native scene/table indices; concrete host storage and remaining scene initialization bindings pending. Native output/constants checked; compiled C replay deferred to cohort."
+    },
+    {
+      "address": "0x0053D970",
+      "name": "pharaoh_scene_load_extra_library",
+      "source": "game/scenario/scene_assets.c",
+      "origin": "Completed typed prior LostTomb C, rebound to explicit state and checked against pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-assets-entry-20261122.json",
+      "known_limitations": "Valid native scene/table indices; concrete host storage and remaining scene initialization bindings pending. Native output/constants checked; compiled C replay deferred to cohort."
+    },
+    {
+      "address": "0x004BC720",
+      "name": "pharaoh_scene_initialize_enemy_properties",
+      "source": "game/scenario/scene_assets.c",
+      "origin": "Completed typed prior LostTomb C, rebound to explicit state and checked against pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-assets-entry-20261122.json",
+      "known_limitations": "Valid native scene/table indices; concrete host storage and remaining scene initialization bindings pending. Native output/constants checked; compiled C replay deferred to cohort."
+    },
+    {
+      "address": "0x0041D730",
+      "name": "pharaoh_sound_city_initialize",
+      "source": "game/runtime/city_sound.c",
+      "origin": "Completed typed prior LostTomb C, rebound to explicit state and checked against pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-assets-entry-20261122.json",
+      "known_limitations": "Valid native scene/table indices; concrete host storage and remaining scene initialization bindings pending. Native output/constants checked; compiled C replay deferred to cohort."
+    }
+  ],
+  "reuse": [
+    "reused/restore/runtime/MissionMapLoader.c",
+    "reused/restore/runtime/MissionSetup.c"
+  ],
+  "contracts": [
+    "004F4520 exact phase-dependent SG3 names, order and slots17..29; phase2 rereads signed mission id across loads.",
+    "0053D970 exact strcmp exception, first two goal queries and cache timing.",
+    "004BC720 signed enemy WORD upper-clamp only, index retained across slot2 load; fourteen DWORD copies interleaved into model rows44,43,45,93,92.",
+    "0041D730 store timeGetTime, zero70x128 bytes, reload tick into records1..69 word20,63 ordered sparse presets.",
+    "005D19C8 initial38x16 monument definitions copied byte-for-byte; mutable, opaque four-byte tail preserved.",
+    "Scene initialization now assigns a context per step; seven steps bind real clean C (three model loaders, monument/extra libraries,enemy models,city sound). Remaining steps keep separate required bindings."
+  ],
+  "verification": {
+    "release_build": true,
+    "host_launched": false,
+    "native_sound_output": {
+      "passed": true,
+      "words": 2240,
+      "presets": 63,
+      "endpoints": [
+        "timeGetTime",
+        "0040F8F0"
+      ],
+      "compiled_C_replayed": false
+    },
+    "scope": "Live pinned Ghidra instruction/data comparison and native sound execution against C constants/layout. No whole-game equivalence assertion; compiled-C joint replay deferred to cohort milestone.",
+    "staged_strict_compilation": {
+      "passed": true,
+      "units": 5,
+      "files": 34,
+      "flags": "Win32 MSVC C11 /W4 /WX /Zs /DNDEBUG"
+    }
+  },
+  "remaining": "Host briefing0x35/0x3B binding, full scene destinations/migrations and remaining38 initialization step contexts; actual city runtime/render remains unattached.",
+  "native_strings": {
+    "576284": "LibExtra",
+    "576338": "LibMainb1",
+    "579100": "TombThutDummy",
+    "579110": "MausCarryoverDummy",
+    "579124": "LtHouseDummy",
+    "579134": "CaesareumDummy",
+    "579144": "PyramidDummy",
+    "601804": "MAUSOLEUM1_EXTRA",
+    "601818": "MAUSOLEUM2_EXTRA",
+    "601840": "The Glory of Ptolemy",
+    "5f763c": "BENT_PYRAMID",
+    "5f7628": "MUDBRICK_PYRAMID",
+    "5f7618": "STEPPED_PYRAMID",
+    "5f7610": "MASTABA",
+    "5f7608": "PYRAMID",
+    "57922c": "LibMainDummy",
+    "5f75f8": "LibExtraDummy",
+    "5790e0": "TombTutDummy",
+    "5790d0": "TombSetiDummy",
+    "5790c0": "TombRamDummy",
+    "5790f0": "AbuSimbelDummy",
+    "5f75ec": "TombThutFin",
+    "5f75e0": "TombThut",
+    "5f75cc": "TombTutFin",
+    "5f75d8": "TombTut",
+    "5f75c0": "TombSetiFin",
+    "5f75b4": "TombSeti",
+    "5f75ac": "TombRam",
+    "5760b0": "AbuSimbel",
+    "5f75a0": "Caesareum1",
+    "5e4934": "LtHouse1",
+    "5762fc": "LibMaina1",
+    "5762b4": "LibMainc1",
+    "5f7590": "MausCarryover",
+    "6017e0": "OBELISK_EXTRA",
+    "6017f0": "SUN_TEMPLE_EXTRA",
+    "5791a8": "SPHINX_EXTRA",
+    "60182c": "MAUSOLEUM0_EXTRA"
+  },
+  "enemy_libraries": [
+    "HYKSOS",
+    "SEAPEOPLE",
+    "HITTITE",
+    "MITANI",
+    "KUSHITE",
+    "LIBIAN",
+    "NUBIAN",
+    "CANAANITE",
+    "ASSYRIAN",
+    "ROMAN",
+    "PHOENICIAN",
+    "PERSIAN"
+  ],
+  "source_sha256": {
+    "game/scenario/scene_assets.c": "2b3e7b602c5e764db98c77f44e837b4f976e2864be86e33d51ca324258057479",
+    "game/scenario/scene_asset_bindings.c": "90f3ac23cbfb1228bc4e3ac5411366f525e947280b2aa4139b139f090752f63c",
+    "game/runtime/city_sound.c": "78176de8fac063d083c52a8f9f55378137cfaeccf5eb149318215824e59f3fa4",
+    "game/monuments/definitions.c": "1b8106d4b1747256f8e4b171817d1981de48e313fd3529ac9fba8b03a3a862e4",
+    "game/scenario/saved_game_initialize.c": "496c0e21a8434edb88dbac856a1b1ae01f524c7fb8ee6467c59ee9b27c7816d7",
+    "game/include/pharaoh/scenario/saved_game_initialize.h": "51e295d833c22c6edba072a151a1dd2d92d5e55fbaa3059388d2ac05104997a7",
+    "game/include/pharaoh/scenario/scene_assets.h": "12a7f08235fea25a97c093a0d0da429dfac5221c615205f61257b0150353097a",
+    "game/include/pharaoh/scenario/scene_asset_bindings.h": "fdb4e6f783890dafe3689ba261d0f74216a749977dac12703c1776726461724e",
+    "game/include/pharaoh/runtime/city_sound.h": "b4c44d66892b7074cac9129dd93ca8ef75bd85fbd223ac4610c14ef0d79624fc",
+    "game/include/pharaoh/monuments/definitions.h": "3b5e013c64900d5464dcf795ebf8d97c0cad154a4f81aecdac79bea13af0bb9b"
+  },
+  "integration_build": {
+    "pharaoh_game.lib": "a5e9627c4533157632a1103c251cc2cd4856a2682bb502ad9a000be64f167269",
+    "LostTomb.exe": "df5448cd5e69a2a9d270693f70582051f4e5c5e84453101ee5faafcc6094e7f8"
+  },
+  "migration_verify": {
+    "errors": 142,
+    "unchanged": true,
+    "historical_evidence_preserved": true
+  }
+}
