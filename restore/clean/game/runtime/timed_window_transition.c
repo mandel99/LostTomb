@@ -19,7 +19,9 @@ void pharaoh_timed_window_transition_start(
     const int32_t current_tick = signed_tick_from_native_bits(
         transition->get_tick_count(transition->clock_user_data));
     *context->transition_value = transition_value;
-    transition->deadline_tick = current_tick + duration_ms;
+    transition->started_tick = current_tick;
+    transition->deadline_tick = signed_tick_from_native_bits(
+        (uint32_t)current_tick + (uint32_t)duration_ms);
     *context->next_window_storage = next_window_id;
     *transition->current_window_id = 4;
     *transition->redraw_requested = 1;

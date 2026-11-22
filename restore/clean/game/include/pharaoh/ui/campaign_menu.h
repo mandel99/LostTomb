@@ -2,6 +2,7 @@
 #define PHARAOH_UI_CAMPAIGN_MENU_H
 
 #include "pharaoh/runtime/timed_window_transition.h"
+#include "pharaoh/ui/briefing.h"
 #include "pharaoh/scenario/campaign_start.h"
 
 #include <stdint.h>
@@ -22,6 +23,15 @@ typedef struct PharaohCampaignMenuState {
     uint32_t *scenario_mode;
 } PharaohCampaignMenuState;
 
+typedef struct PharaohCampaignPeriodVideo {
+    const char *path;
+    int32_t x, y;
+} PharaohCampaignPeriodVideo;
+
+/* Exact inlined period-video slice of0041BB70; no native entry is invented. */
+int32_t pharaoh_campaign_menu_period_video(uint32_t period, int32_t cpu,
+    int32_t screen_width, int32_t screen_height, PharaohCampaignPeriodVideo *video);
+
 typedef struct PharaohCampaignMenuOperations {
     void *user_data;
     void (*show_individual_missions)(void *user_data);
@@ -35,10 +45,7 @@ typedef struct PharaohCampaignBriefingContext {
     const PharaohSettingsFile *settings;
     uint32_t campaign_mode;
     PharaohTimedWindowTransitionStartContext transition;
-    uint32_t *choice_index;
-    uint32_t *scroll_position;
-    uint32_t *scroll_drag;
-    uint32_t *message_id;
+    PharaohBriefingState *briefing;
 } PharaohCampaignBriefingContext;
 
 /* Complete typed C translations of native 0x0041BA00, 0x0041BAD0,

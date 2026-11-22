@@ -64,4 +64,7 @@ int32_t pharaoh_native_reference_count_004204a0(
     int32_t id, const int32_t record_ids[13],
     const int16_t *const targets[13]);
 
+int32_t pharaoh_native_three_nonzero_count_004f5020(
+    const int32_t values[3]);
+
 #endif

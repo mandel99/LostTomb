@@ -16,8 +16,8 @@ typedef struct PharaohCampaignContinueState {
     int32_t *focus_ids[4];
     int32_t *previous_city_overlay;
     uint32_t *city_state_word;
-    int32_t *mission_record_count;
-    int32_t mission_record_limit;
+    int32_t *difficulty;
+    int32_t maximum_difficulty;
     int32_t *special_music_playing;
 } PharaohCampaignContinueState;
 
@@ -26,7 +26,7 @@ typedef struct PharaohCampaignContinueOperations {
     void (*create_player)(void *user_data);
     void (*store_mission_records)(void *user_data);
     void (*begin_briefing)(void *user_data);
-    void (*prepare_start)(void *user_data, int32_t value);
+    void (*fade_music)(void *user_data, int32_t value);
     void (*selection_failure)(void *user_data, uint32_t origin);
 } PharaohCampaignContinueOperations;
 

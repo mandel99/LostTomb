@@ -15,7 +15,10 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint32_t native_value_001c;
     uint8_t reserved_0020[4];
     int32_t population;
-    uint8_t reserved_0028[0x2778 - 0x28];
+    uint8_t reserved_0028[4];
+    int32_t school_age_population;
+    int32_t academy_age_population;
+    uint8_t reserved_0034[0x2778 - 0x34];
     uint16_t exit_x;
     uint16_t exit_y;
     int32_t exit_grid_offset;
@@ -39,7 +42,9 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t personal_savings;
     uint8_t reserved_4454[0x4460 - 0x4454];
     int16_t dock_building_ids[10];
-    uint8_t reserved_4474[0x4488 - 0x4474];
+    uint8_t reserved_4474[4];
+    int16_t temple_complex_enabled;
+    uint8_t reserved_447a[0x4488 - 0x447a];
     uint16_t native_value_4488;
     uint8_t reserved_448a[0x44ac - 0x448a];
     uint32_t native_value_44ac;
@@ -50,7 +55,8 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_46fc[0x4720 - 0x46fc];
     uint32_t tutorial_active_a;
     uint32_t tutorial_active_b;
-    uint8_t reserved_4728[8];
+    uint8_t reserved_4728[4];
+    int32_t temple_complex_building_id;
     int32_t monument_definition_ids[3];
     int32_t monument_building_ids[3];
     uint8_t reserved_4748[0x47a8 - 0x4748];

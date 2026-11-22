@@ -16,6 +16,7 @@ _Static_assert(sizeof(PharaohFloat80)==10,"native TBYTE");
 int64_t pharaoh_x87_truncate80(const PharaohFloat80 *value);
 int32_t pharaoh_x87_scaled_progress(int32_t stage, const double *step);
 int32_t pharaoh_x87_tomb_percent(int32_t sum, int32_t count);
+int32_t pharaoh_x87_integer_ratio(int32_t numerator, int32_t denominator);
 
 extern const double pharaoh_library_progress_step;
 extern const double pharaoh_abu_simbel_progress_step;

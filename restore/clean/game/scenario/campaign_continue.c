@@ -68,10 +68,10 @@ void pharaoh_campaign_continue(PharaohCampaignContinueState *state,
         }
         *state->current_window_id = CAMPAIGN_CONTINUE_CITY_WINDOW;
         *state->transition_mode = 2;
-        operations->prepare_start(operations->user_data, 1);
+        operations->fade_music(operations->user_data, 1);
         *state->special_music_playing = 0;
-        if (*state->mission_record_count > state->mission_record_limit) {
-            *state->mission_record_count = state->mission_record_limit;
+        if (*state->difficulty > state->maximum_difficulty) {
+            *state->difficulty = state->maximum_difficulty;
         }
     }
     request_redraw(state);

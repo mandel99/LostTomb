@@ -56,3 +56,10 @@ void pharaoh_campaign_unlock_all(PharaohCampaignIndex *index)
         ++mission;
     } while (mission < index->count);
 }
+
+/* Unchanged typed C dependency, native0x00403EF0. */
+uint8_t pharaoh_mission_is_unlocked(int8_t mission_id,
+    int32_t final_mission_id, uint8_t final_mission_unlocked)
+{
+    return mission_id != final_mission_id || final_mission_unlocked != 0u;
+}

@@ -1,0 +1,214 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00404350",
+      "name": "pharaoh_build_menu_update",
+      "source": "game/ui/build_menu.c",
+      "origin": "Typed reuse of old BuildingMenu/Availability.c; complete native availability/tutoral branches and1140 output slots.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json",
+      "known_limitations": "Valid native record/index ranges; finite native/C replay with controlled empire/guild queries. Host full-scene binding remains incomplete."
+    },
+    {
+      "address": "0x00404120",
+      "name": "pharaoh_build_menu_count_items",
+      "source": "game/ui/build_menu.c",
+      "origin": "Typed reuse of Unit00037 C; native category special cases, sentinel and row30 bound.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json",
+      "known_limitations": "Valid native record/index ranges; finite native/C replay with controlled empire/guild queries. Host full-scene binding remains incomplete."
+    },
+    {
+      "address": "0x004051A0",
+      "name": "pharaoh_sidebar_update_build_buttons",
+      "source": "game/ui/build_menu.c",
+      "origin": "Complete native two-table12-row update, byte flags and last selected category.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json",
+      "known_limitations": "Valid native record/index ranges; finite native/C replay with controlled empire/guild queries. Host full-scene binding remains incomplete."
+    },
+    {
+      "address": "0x00468170",
+      "name": "pharaoh_city_update_service_coverage",
+      "source": "game/scenario/scene_ui.c",
+      "origin": "Complete native coverage controller, actual C children and inherited x87 average.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json",
+      "known_limitations": "Valid native record/index ranges; finite native/C replay with controlled empire/guild queries. Host full-scene binding remains incomplete."
+    },
+    {
+      "address": "0x004181E0",
+      "name": "pharaoh_campaign_begin_briefing",
+      "source": "game/ui/campaign_menu.c",
+      "origin": "Complete typed C translation of native briefing transition setup.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x0041AA20",
+      "name": "pharaoh_timed_window_transition_start",
+      "source": "game/runtime/timed_window_transition.c",
+      "origin": "Existing complete typed imported-clock wrapper reverified against the pinned executable.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x0041BB70",
+      "name": "pharaoh_campaign_menu_start_selected",
+      "source": "game/ui/campaign_menu.c",
+      "origin": "Complete typed campaign start callback imported from old LostTomb C and reverified against live Ghidra bytes.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x00418220",
+      "name": "pharaoh_campaign_continue",
+      "source": "game/scenario/campaign_continue.c",
+      "origin": "Reused typed LostTomb mission accept controller; live Ghidra confirms clearing focus, mission choice/start branches, city transition, stream fade and difficulty clamp.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json",
+      "known_limitations": "Campaign-choice branch requires valid campaign links; old C terminal invariant guard retained. Host scene binding pending."
+    },
+    {
+      "address": "0x004E7E60",
+      "name": "pharaoh_city_culture_update_health_coverage",
+      "source": "game/population/health_coverage.c",
+      "origin": "Unchanged complete C moved from pending culture_metrics.c; source body SHA matched compiled-C native replay.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x00403EF0",
+      "name": "pharaoh_mission_is_unlocked",
+      "source": "game/scenario/campaign_availability.c",
+      "origin": "Complete logical-byte translation of native mission availability.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x004F5020",
+      "name": "pharaoh_native_three_nonzero_count_004f5020",
+      "source": "game/core/static_objects.c",
+      "origin": "Complete typed leaf translation.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    },
+    {
+      "address": "0x004CF620",
+      "name": "pharaoh_mouse_inside_rect",
+      "source": "game/runtime/mouse_update.c",
+      "origin": "Complete typed C translation of the native mouse rectangle predicate.",
+      "mapping_evidence": "evidence/campaign-scene-entry-20261122.json"
+    }
+  ],
+  "flow": [
+    "0041BB70: selected period -> optional Bink00413580 -> campaign00417DD0",
+    "004181E0: timed state04 ->35; shared DWORD007027A8 reset",
+    "0041A180: load005405B0 once before briefing draw;004D52A0 prepares scene",
+    "00418220: accept35 -> city01, music fade1 and loaded-player difficulty clamp"
+  ],
+  "corrections": [
+    "Shared entry/draw/initialize briefing.started owner; removed four disconnected host fields.",
+    "Retained native transition start tick and wrapped32-bit deadline addition.",
+    "Period video path/coordinates use the same tested selector in the Windows host.",
+    "Tutorial entry fields+04/+08 and player+2C/+30/+4478/+472C exposed with ABI checks."
+  ],
+  "possible_original_bug": {
+    "address": "0x004683FF",
+    "behavior": "No active gods produces x87 0/0. Preserved masked result and FPU status."
+  },
+  "native_comparison": {
+    "passed": true,
+    "cases": 644,
+    "groups": {
+      "building-menu": 180,
+      "menu-count": 240,
+      "sidebar-byte-flags": 80,
+      "service-coverage-x87": 144
+    },
+    "controlled_endpoints": [
+      "00443B90",
+      "00443D90",
+      "004439C0",
+      "004F5470"
+    ],
+    "host_launched": false,
+    "compiled_C_replayed": true
+  },
+  "flow_comparison": {
+    "passed": true,
+    "cases": 486,
+    "groups": {
+      "period-video-to-briefing": 192,
+      "briefing-shared-reset-clock-wrap": 144,
+      "briefing-accept-city-or-choice": 150
+    },
+    "host_launched": false,
+    "compiled_C_replayed": true,
+    "endpoints": [
+      "period Bink playback00413580",
+      "campaign setup00417DD0",
+      "timeGetTime",
+      "create player00516C80",
+      "mission records004188F0",
+      "music fade0053B690"
+    ],
+    "actual_C": [
+      "campaign menu/video selector",
+      "briefing entry/message ID",
+      "timed transition start",
+      "accept/choice continuation",
+      "campaign link lookup"
+    ]
+  },
+  "scope": "1274 finite original/compiled-C scenarios; RAM, callback order, logical returns and x87 CW/SW. Not instruction identity or whole-game equivalence.",
+  "remaining": [
+    "Host states35/3B and city01 need full scene/storage/render bindings.",
+    "Four45-step initializer providers missing:00486E70,004DEA50,00457AF0,0046D840.",
+    "Do not replace those calls with no-ops, preview state or a forced city transition."
+  ],
+  "ghidra": "Pinned session kept open; four function names and shared flag/x87 comments updated.",
+  "verification": {
+    "host_launched": false,
+    "release_build": true,
+    "new_committed_test_scripts": 0,
+    "library_sha256": "8415d8923c6e89f3acfe27ef784ed4655ea0e7f6eba2a78ba3625eefc5a502ba",
+    "migration_workflow": {
+      "mapped_functions": 1858,
+      "errors": 138,
+      "new_packet_errors": 0,
+      "historical_hashes_rewritten": false
+    },
+    "staged_strict_compilation": {
+      "passed": true,
+      "C_units": 13,
+      "indexed_files": 128,
+      "flags": "Win32 MSVC C11 /W4 /WX /Zs"
+    },
+    "executable_sha256": "de6707f15d7809f380e9ca4b6c6e3fafb93bf7e7cc7253cd82998d4f6a8240c7"
+  },
+  "source_sha256": {
+    "game/ui/build_menu.c": "afdd9f6f79b8c70b023258090d5b1dc30e3d44733ddff096aeb3a35629e2e118",
+    "game/include/pharaoh/ui/build_menu.h": "37b26138c324f9b0925205cac12e53c8fe72c9524c32db17dab2f42c48f4cc5f",
+    "game/scenario/scene_ui.c": "cbfdd7e8702499888c2273002222b305f726c85e1a79afd02cbf7b8ac1fd837d",
+    "game/include/pharaoh/scenario/scene_ui.h": "c8083dbb0fb159f3d9d76bf76df10674e346a16b542b5d7faf646c53738f8184",
+    "game/include/pharaoh/scenario/tutorial_rules.h": "150a192a0034fa0c1ce687f50553ed5369e7cf09e8967b806fccfb136cc2ffe4",
+    "game/core/x87_numeric.c": "04db0c7791874734603dad160dc591f8d8ae41236b895aa9dbaabc539d9ebdc9",
+    "game/include/pharaoh/core/x87_numeric.h": "f5a4ce8eb50fbb285c4bb059bf340eda585cf2f067fd6fe002a7a5b9fac4d5de",
+    "game/include/pharaoh/ui/briefing.h": "ec3dc6aa548a325718c05616f092cc8a1f95a9bb70a1e9ad41b21d44eefae7e2",
+    "game/include/pharaoh/platform/windows_startup_dispatch.h": "ac4898c07016715339d91b130a9ad45d0e4edd134955b8f820b099e8fbacd431",
+    "game/include/pharaoh/scenario/scenario_init_custom.h": "cb2f558a4412999e5720a66a2e10abd985e3cb4d733238f54ccc521b54c3978f",
+    "game/scenario/campaign_continue.c": "8ba0c00101700d495f82db0496627037085171e0418a7408f35176bcb897ce9c",
+    "game/include/pharaoh/scenario/campaign_continue.h": "72b084016f2d6e81f078e3f0df91a2d2719f7272f6f9d91c528ff213d924aee2",
+    "game/runtime/timed_window_transition.c": "d6a478479fc18dbd15a39cfbc2bd2c6334bbf8cfe09fa1edde81b94ae1e17360",
+    "game/include/pharaoh/runtime/timed_window_transition.h": "0f3b31c321897ddfb71e772742236166f81ee718b4408d600be2711d8d9e1ee8",
+    "game/platform/windows_startup_dispatch.c": "201baded9b86d8bd65861d3b27853bb96f6b9b72da490af0f2b03dfc20c8317c",
+    "game/ui/campaign_menu.c": "7161ff8d5bc053bf539d1547f3c80da5e51ea3377f307e2c9978909553629737",
+    "game/include/pharaoh/ui/campaign_menu.h": "1a0936e617685f0bb056f3f054bcac7b706117f927188497c03f0e250a53db0b",
+    "game/population/health_coverage.c": "e1b17b7f53d38044c218a1bef01a5011778867ae528be7241dfcf1762370b174",
+    "game/include/pharaoh/population/health_coverage.h": "09d415a91ece13ffee8041b2977309e984eb9f6132d66ed357a5d117fca98f88",
+    "game/scenario/campaign_availability.c": "2218e3642769ceb2d75256e542cec82edf532a09c6460a25d27feda03bc887b7",
+    "game/include/pharaoh/scenario/campaign_start.h": "d5daf03af734f0eb291db3d71b5018504020d1b44648506b8ecfaa290ab12747",
+    "game/core/static_objects.c": "5013b2f0f435c93a2ba0a2aa04cce8cb5215a6578a0797ae9c40718b93482bc1",
+    "game/include/pharaoh/core/static_objects.h": "6fb44e29416678ddfc473ffdb4ad7e4bd2fdb435d5ba5002d17d1bc936845216",
+    "game/runtime/mouse_update.c": "dc55ec363dd1063ad43b0271cbb37d2240c909a013b7b4cc807c946ed5363424",
+    "game/include/pharaoh/runtime/mouse_update.h": "658c4dffe7c652214b495c0e73285e3a90f47a48e96e7b7c5d251d6f5abbc775"
+  },
+  "rectangle_comparison": {
+    "passed": true,
+    "cases": 144,
+    "function": "004CF620",
+    "compiled_C_replayed": true,
+    "scope": "Full EAX, wrapped rectangle edges and no non-stack writes."
+  }
+}

@@ -156,3 +156,13 @@ PharaohMouseUpdateStatus pharaoh_mouse_update(
     state->right_button_auxiliary = 0;
     return PHARAOH_MOUSE_UPDATE_COMPLETE;
 }
+
+/* Unchanged typed C dependency, native0x004CF620. */
+int32_t pharaoh_mouse_inside_rect(int32_t mouse_x, int32_t mouse_y,
+    int32_t x, int32_t y, int32_t width, int32_t height)
+{
+    const int32_t right = (int32_t)((uint32_t)x + (uint32_t)width);
+    const int32_t bottom = (int32_t)((uint32_t)y + (uint32_t)height);
+    return x <= mouse_x && mouse_x < right &&
+        y <= mouse_y && mouse_y < bottom;
+}

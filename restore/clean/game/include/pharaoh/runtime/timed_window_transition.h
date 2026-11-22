@@ -5,6 +5,7 @@
 
 typedef struct PharaohTimedWindowTransitionContext {
     int32_t deadline_tick;
+    int32_t started_tick;
     const uint8_t *advance_input;
     uint8_t *current_window_id;
     const uint8_t *next_window_id;

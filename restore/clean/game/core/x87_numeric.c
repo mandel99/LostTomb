@@ -69,3 +69,17 @@ __declspec(noinline) int32_t pharaoh_x87_tomb_percent(int32_t sum,int32_t count)
     __asm {fstp tbyte ptr value}
     return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
 }
+
+/* Native004683FF..00468410: integer inputs remain extended until __ftol.
+ * A zero divisor keeps the original masked x87 invalid/divide behavior. */
+__declspec(noinline) int32_t pharaoh_x87_integer_ratio(
+    int32_t numerator, int32_t denominator)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild numerator
+        fidiv denominator
+        fstp tbyte ptr value
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}

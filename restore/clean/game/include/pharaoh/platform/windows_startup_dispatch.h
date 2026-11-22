@@ -7,6 +7,7 @@
 #include "pharaoh/ui/high_scores.h"
 #include "pharaoh/ui/main_menu_open.h"
 #include "pharaoh/ui/message_box.h"
+#include "pharaoh/ui/briefing.h"
 #include "pharaoh/runtime/file_list.h"
 
 typedef struct PharaohWindowsStartupDispatch {
@@ -51,8 +52,7 @@ typedef struct PharaohWindowsStartupDispatch {
     uint32_t campaign_flow_mode;
     uint32_t timed_transition_value;
     uint32_t campaign_started, campaign_selection_kind;
-    uint32_t briefing_choice_index, briefing_scroll_position;
-    uint32_t briefing_scroll_drag, briefing_message_id;
+    PharaohBriefingState briefing;
     uint8_t timed_transition_next_window;
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;

@@ -96,4 +96,7 @@ void pharaoh_campaign_unlock_all(PharaohCampaignIndex *index);
 void pharaoh_settings_start_campaign(
     const PharaohCampaignStartContext *context, int8_t campaign_category);
 
+uint8_t pharaoh_mission_is_unlocked(int8_t mission_id,
+    int32_t final_mission_id, uint8_t final_mission_unlocked);
+
 #endif

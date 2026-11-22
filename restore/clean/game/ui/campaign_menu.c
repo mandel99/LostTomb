@@ -53,6 +53,28 @@ int32_t pharaoh_campaign_menu_open_campaigns(
     return 1;
 }
 
+int32_t pharaoh_campaign_menu_period_video(uint32_t period, int32_t cpu,
+    int32_t screen_width, int32_t screen_height, PharaohCampaignPeriodVideo *video)
+{
+    static const char *const movies[5][2] = {
+        {"Binks\\low\\pre_dynastic_small.bik",
+         "Binks\\high\\pre_dynastic_big.bik"},
+        {"Binks\\low\\archaic_small.bik",
+         "Binks\\high\\archaic_big.bik"},
+        {"Binks\\low\\old_kingdom_small.bik",
+         "Binks\\high\\old_kingdom_big.bik"},
+        {"Binks\\low\\middle_kingdom_small.bik",
+         "Binks\\high\\middle_kingdom_big.bik"},
+        {"Binks\\low\\new_king_small.bik",
+         "Binks\\high\\new_king_big.bik"}
+    };
+    if (period >= 5) return 0;
+    video->path = movies[period][cpu >= 233];
+    video->x = (screen_width - 480) / 2;
+    video->y = (screen_height - 286) / 2;
+    return 1;
+}
+
 int32_t pharaoh_campaign_menu_start_selected(
     PharaohCampaignMenuState *state,
     const PharaohCampaignMenuOperations *operations)
@@ -105,9 +127,9 @@ void pharaoh_campaign_begin_briefing(
 {
     pharaoh_timed_window_transition_start(&context->transition,
         0, UINT8_C(0x35), 1000);
-    *context->choice_index = 0;
-    *context->scroll_position = 0;
-    *context->scroll_drag = 0;
-    *context->message_id = (uint32_t)pharaoh_campaign_briefing_message_id(
+    context->briefing->started = 0;
+    context->briefing->scroll_position = 0;
+    context->briefing->scroll_drag = 0;
+    context->briefing->message_id = pharaoh_campaign_briefing_message_id(
         context->index, context->settings, context->campaign_mode);
 }

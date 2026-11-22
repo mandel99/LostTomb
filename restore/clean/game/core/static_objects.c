@@ -78,3 +78,12 @@ void pharaoh_native_state_pair_reset_0041df60(
     *first = 0;
     *second = 0;
 }
+
+/* Unchanged typed C dependency, native0x004F5020. */
+int32_t pharaoh_native_three_nonzero_count_004f5020(
+    const int32_t values[3])
+{
+    int32_t index, count = 0;
+    for (index = 0; index < 3; ++index) if (values[index] != 0) ++count;
+    return count;
+}

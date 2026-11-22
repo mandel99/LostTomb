@@ -563,28 +563,15 @@ static void map_selection_back(PharaohWindowsStartupDispatch *dispatch)
 
 static void campaign_menu_play_period_intro(void *user_data, uint32_t period)
 {
-    static const char *const movies[5][2] = {
-        {"Binks\\low\\pre_dynastic_small.bik",
-         "Binks\\high\\pre_dynastic_big.bik"},
-        {"Binks\\low\\archaic_small.bik",
-         "Binks\\high\\archaic_big.bik"},
-        {"Binks\\low\\old_kingdom_small.bik",
-         "Binks\\high\\old_kingdom_big.bik"},
-        {"Binks\\low\\middle_kingdom_small.bik",
-         "Binks\\high\\middle_kingdom_big.bik"},
-        {"Binks\\low\\new_king_small.bik",
-         "Binks\\high\\new_king_big.bik"}
-    };
     PharaohWindowsStartupDispatch *const dispatch = user_data;
     PharaohWindowsStartupHost *const host = dispatch->host;
-    const int32_t large = host->settings.cpu >= 233;
-    const int32_t x = (host->graphics.screen_width - 480) / 2;
-    const int32_t y = (host->graphics.screen_height - 286) / 2;
+    PharaohCampaignPeriodVideo video;
 
-    if (period < 5) {
+    if (pharaoh_campaign_menu_period_video(period, host->settings.cpu,
+            host->graphics.screen_width, host->graphics.screen_height, &video)) {
         host->current_window_id = dispatch->refresh.current_window_id;
         (void)pharaoh_windows_startup_host_play_movie(host,
-            movies[period][large != 0], x, y);
+            video.path, video.x, video.y);
         dispatch->refresh.current_window_id = host->current_window_id;
     }
 }
@@ -611,10 +598,7 @@ static void campaign_menu_begin_briefing(void *user_data)
         &dispatch->host->settings,
         dispatch->menu_campaign_mode_e38ebc,
         transition,
-        &dispatch->briefing_choice_index,
-        &dispatch->briefing_scroll_position,
-        &dispatch->briefing_scroll_drag,
-        &dispatch->briefing_message_id
+        &dispatch->briefing
     };
     pharaoh_campaign_begin_briefing(&context);
     dispatch->host->current_window_id = dispatch->refresh.current_window_id;

@@ -69,4 +69,7 @@ PharaohMouseUpdateStatus pharaoh_mouse_update(
     PharaohSoundEffectRequestState *sound_state,
     const PharaohSoundEffectRequestOperations *sound_operations);
 
+int32_t pharaoh_mouse_inside_rect(int32_t mouse_x, int32_t mouse_y,
+    int32_t x, int32_t y, int32_t width, int32_t height);
+
 #endif

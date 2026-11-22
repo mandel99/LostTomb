@@ -23,7 +23,7 @@ typedef struct PharaohBriefingScenario {
 } PharaohBriefingScenario;
 
 typedef struct PharaohBriefingState {
-    uint8_t started;
+    uint32_t started; /* native007027A8, shared by entry/draw/scene init */
     uint8_t current_window_id;
     uint8_t redraw_requested;
     uint8_t scroll_up_enabled;
@@ -36,6 +36,7 @@ typedef struct PharaohBriefingState {
     int32_t line_count;
     int32_t viewport_lines;
     int32_t scroll_position;
+    int32_t scroll_drag;
     int32_t scroll_maximum;
     int32_t message_id;
     int32_t panel_x, panel_y;
