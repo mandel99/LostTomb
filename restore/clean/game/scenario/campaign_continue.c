@@ -1,4 +1,5 @@
 #include "pharaoh/scenario/campaign_continue.h"
+#include "pharaoh/runtime/platform_measure_speed.h"
 
 enum {
     CAMPAIGN_CONTINUE_CITY_WINDOW = 0x01,
@@ -10,6 +11,20 @@ enum {
 static void request_redraw(PharaohCampaignContinueState *state)
 {
     *state->redraw_requested = 1;
+}
+
+/* Native 0x00418350; reused from MenuCallbacks.c BackToMission. */
+void pharaoh_campaign_briefing_back(PharaohCampaignContinueState *state)
+{
+    if (*state->current_window_id == CAMPAIGN_CONTINUE_BRIEFING_WINDOW &&
+        (int8_t)state->settings->previous_campaign_link >= 0) {
+        *state->current_window_id = CAMPAIGN_CONTINUE_CHOICE_WINDOW;
+        state->settings->campaign_link =
+            (int8_t)state->settings->previous_campaign_link;
+        state->settings->previous_campaign_link = UINT8_C(0xff);
+        pharaoh_actor_walking_no_operation();
+    }
+    request_redraw(state);
 }
 
 void pharaoh_campaign_continue(PharaohCampaignContinueState *state,

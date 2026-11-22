@@ -11,6 +11,10 @@ typedef struct PharaohSoundStreamFadeContext {
     int32_t *speech_fade_active;
 } PharaohSoundStreamFadeContext;
 
+/* Native entry 0x0053B690. Complete fade and close, without frame stepping. */
+void pharaoh_sound_stream_fade_to_stop(
+    const PharaohSoundStreamFadeContext *context, uint32_t channel);
+
 /* Native entry 0x0053B6F0. Channel 0 is music, channel 1 is speech. */
 void pharaoh_sound_stream_fade_down(
     const PharaohSoundStreamFadeContext *context, uint32_t channel);

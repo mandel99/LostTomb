@@ -2740,6 +2740,11 @@
       "header": "game/include/pharaoh/ui/high_scores.h",
       "header_sha256": "0284a30e4240a158653d1abcedacdcdb254a66f778ed78485e29d6bc09125763",
       "cmake_sha256": "2a9060e823c85e9566ea5c6d83dfe68abfdff55c29ecb2aed45f5cea1982d7d3"
-    }
+    },
+    {"address":"0x00418220","name":"pharaoh_campaign_continue","source":"game/scenario/campaign_continue.c","origin":"Reused typed LostTomb mission accept controller; live Ghidra confirms clearing focus, mission choice/start branches, city transition, stream fade and difficulty clamp.","mapping_evidence":"evidence/briefing-menu-entry-20261122.json","known_limitations":"Campaign-choice branch requires valid campaign links; old C terminal invariant guard retained. Host scene binding pending."},
+    {"address":"0x00418350","name":"pharaoh_campaign_briefing_back","source":"game/scenario/campaign_continue.c","origin":"Reused BackToMission algorithm from old MenuCallbacks C; all native instructions confirm signed previous-link guard, link restoration and redraw.","mapping_evidence":"evidence/briefing-menu-entry-20261122.json","known_limitations":"Native dependencies remain typed C contexts; end-to-end host binding pending."},
+    {"address":"0x00418FE0","name":"pharaoh_briefing_handle_input","source":"game/ui/briefing.c","origin":"Existing typed briefing scroll input verified against live Ghidra; preserve tooltip/handler order and early returns.","mapping_evidence":"evidence/briefing-menu-entry-20261122.json","known_limitations":"Native dependencies remain typed C contexts; end-to-end host binding pending."},
+    {"address":"0x0041A180","name":"pharaoh_briefing_draw","source":"game/ui/briefing.c","origin":"Reused typed Briefing55 controller and restored post-load message resolution, viewport state, label progress, rich-text fonts and clipping from live Ghidra.","mapping_evidence":"evidence/briefing-menu-entry-20261122.json","known_limitations":"Rendering/load/text operations consume explicit state and require real host bindings; not a playable host transition by itself."},
+    {"address":"0x0053B690","name":"pharaoh_sound_stream_fade_to_stop","source":"game/runtime/sound_stream_fade.c","origin":"Reused completed synchronous SoundFades C algorithm; verified live Ghidra decrement-by-five loop and conditional stream close.","mapping_evidence":"evidence/briefing-menu-entry-20261122.json","known_limitations":"Native dependencies remain typed C contexts; end-to-end host binding pending."}
   ]
 }

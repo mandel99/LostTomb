@@ -1,0 +1,86 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "verification": "Live Ghidra decompilation and instruction reads; shared strict Win32 Release integration build. No new test scripts and no host launch. This packet has not undergone native/C replay; defer joint replay to cohort milestone.",
+  "functions": [
+    {
+      "address": "0x00418220",
+      "name": "pharaoh_campaign_continue",
+      "source": "game/scenario/campaign_continue.c",
+      "comparison": "Reused typed LostTomb mission accept controller; live Ghidra confirms clearing focus, mission choice/start branches, city transition, stream fade and difficulty clamp."
+    },
+    {
+      "address": "0x00418350",
+      "name": "pharaoh_campaign_briefing_back",
+      "source": "game/scenario/campaign_continue.c",
+      "comparison": "Reused BackToMission algorithm from old MenuCallbacks C; all native instructions confirm signed previous-link guard, link restoration and redraw."
+    },
+    {
+      "address": "0x00418FE0",
+      "name": "pharaoh_briefing_handle_input",
+      "source": "game/ui/briefing.c",
+      "comparison": "Existing typed briefing scroll input verified against live Ghidra; preserve tooltip/handler order and early returns."
+    },
+    {
+      "address": "0x0041A180",
+      "name": "pharaoh_briefing_draw",
+      "source": "game/ui/briefing.c",
+      "comparison": "Reused typed Briefing55 controller and restored post-load message resolution, viewport state, label progress, rich-text fonts and clipping from live Ghidra."
+    },
+    {
+      "address": "0x0053B690",
+      "name": "pharaoh_sound_stream_fade_to_stop",
+      "source": "game/runtime/sound_stream_fade.c",
+      "comparison": "Reused completed synchronous SoundFades C algorithm; verified live Ghidra decrement-by-five loop and conditional stream close."
+    }
+  ],
+  "reuse": [
+    "reused/restore/game/UI/Briefing55.c (typed algorithm; native child boundaries rebound as operations)",
+    "reused/restore/generated/mixed/src/Unit00223.c (mission accept algorithm)",
+    "reused/restore/generated/mixed/runtime/MenuCallbacks.c BackToMission",
+    "reused/restore/generated/mixed/runtime/SoundFades.c RestoreSoundFadeToStop",
+    "reused/restore/game/UI/UIManager/WindowInputDispatch.c (briefing branches only)"
+  ],
+  "graph": [
+    "0041BB70 period start ->00417DD0 campaign settings ->004181E0 briefing transition",
+    "004181E0 ->0041AA20(value=0,next=0x35,delay=1000);0041AA60 eventually selects window0x35",
+    "0041A180 first draw: started=1 ->005405B0 selected mission; if city0x01 selected, return; otherwise select message and draw briefing",
+    "005405B0 campaign path ->004D58B0 mission1.pak ->004D4AE0 saved-state chunks; custom path uses existing custom scenario setup",
+    "004DCE80 window0x35 input:579788 N1 accept ->5C81B0 N2 difficulty ->conditional5797B0 N1 back ->00418FE0 scroll; stop after handled button",
+    "004DCF73 window0x3B input: accept ->difficulty ->scroll; no campaign back",
+    "579788 callback00418220: clear focus/overlay; window0x35 clears city word; set window0x01, transition byte2;0053B690(channel1=speech);clear special music; clamp player difficulty downward;redraw1",
+    "00418350 back: only window0x35 and signed previous link>=0 restores choice0x34/link;consume previous link0xff;0051F780 no-op;always redraw1"
+  ],
+  "corrections": [
+    "Message selection and panel/view geometry follow mission loading.",
+    "Retain label progress100, rich-text fonts637/638, layout and exact clip box/restoration.",
+    "Non-null empty tutorial hint still draws its frame and text.",
+    "Removed duplicate unowned scroll renderer; canonical00418F70 remains mission_views.c.",
+    "0x3B is the second briefing window; Briefing55 names use decimal53 and do not imply window0x55."
+  ],
+  "source_sha256": {
+    "game/ui/briefing.c": "f82d20cccd0789b76041ec3249a4e105e64305c0bdbebc68e4b1b4bfe1c49be7",
+    "game/include/pharaoh/ui/briefing.h": "e3e49c1b6705170c45c4787a4798045cb8319ff0f5f9d3ec5c64800d8e1d91ef",
+    "game/scenario/campaign_continue.c": "9d8442f5885931ef3f4e51cb266d7f6109d256bd9cb347c5db37d01fc41d8a86",
+    "game/include/pharaoh/scenario/campaign_continue.h": "1a002e3d89c57fdfab9a7ae3a2a6fdbc213f6e5a8fe81c08810faccb8add333c",
+    "game/runtime/sound_stream_fade.c": "5b638db530df6bc6f48309de16458e8d37f4666ab3772bcfbc06fe97c7905a0e",
+    "game/include/pharaoh/runtime/sound_stream_fade.h": "e25596e2fe1cf077120e082a708c3472fdd06f4456ed70f560d0d20f1af55d76"
+  },
+  "integration_build": {
+    "target": "pharaoh_clean_bootstrap",
+    "configuration": "Win32 Release",
+    "passed": true,
+    "library_sha256": "0b3a71cab5f3a79b4a6d7c2c182db3cac051656cca7ebe6d181dfa9a4eb567c0",
+    "exe_sha256": "df5c7dab0fb8b967a47fe08a5be911c03a4fa157a4f75bd3d8d6a924c7517d3d",
+    "scope": "Current worktree integration library, including earlier uncommitted packets; not an assertion that all library owners were replayed."
+  },
+  "migration_verify": {
+    "errors": 142,
+    "note": "Previous141 issues plus historical sound_stream_fade source hash in migration-batch-137 after legitimate extension. Historical records left unchanged."
+  },
+  "remaining": [
+    "windows_startup_dispatch_frame has no0x35/0x3B host scene binding.",
+    "load_selected_mission must bind the actual ScenarioStartMission context, PAK state buffers and initialization children, not the preview-only loader.",
+    "Native city runtime/render binding remains required; this packet alone does not enable a playable menu-to-city transition.",
+    "Mission accept retains old C terminal guard for invalid campaign links; complete equivalence outside valid campaign state is not asserted."
+  ]
+}

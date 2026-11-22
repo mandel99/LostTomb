@@ -36,6 +36,9 @@ typedef struct PharaohCampaignContinueOperations {
 void pharaoh_campaign_continue(PharaohCampaignContinueState *state,
     const PharaohCampaignContinueOperations *operations);
 
+/* Native 0x00418350: restore the preceding campaign choice, when present. */
+void pharaoh_campaign_briefing_back(PharaohCampaignContinueState *state);
+
 typedef struct PharaohMissionReplayAvailabilityState {
     int32_t scenario_mode;
     uint8_t game_is_replay;

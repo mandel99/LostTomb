@@ -1,4 +1,28 @@
 #include "pharaoh/ui/briefing.h"
+#include "pharaoh/runtime/mouse_update.h"
+
+/* Complete one-callee C translation of Pharaoh.exe 0x004C92A0. */
+int32_t pharaoh_briefing_trade_tooltip_resource(
+    const PharaohBriefingTradeGoods *goods, int32_t origin_x,
+    int32_t origin_y, int32_t mouse_x, int32_t mouse_y)
+{
+    int32_t column;
+    for (column = 0; column < 17; ++column) {
+        const int32_t first = goods->first_row[column];
+        const int32_t second = goods->second_row[column];
+        const int32_t x = first * 35 + 21 + origin_x;
+        if (pharaoh_mouse_inside_rect(mouse_x, mouse_y,
+            x, origin_y + 50, 24, 24)) {
+            return first;
+        }
+        if (second != 27 && second >= 0 && second < 36 &&
+            pharaoh_mouse_inside_rect(mouse_x, mouse_y,
+                x, origin_y + 134, 24, 24)) {
+            return second;
+        }
+    }
+    return 0;
+}
 
 enum {
     BRIEFING_WINDOW_CITY = 0x01,
@@ -36,6 +60,12 @@ static const PharaohBriefingPoint goal_positions[6] = {
     {288, 112}, {32, 134}, {288, 134}
 };
 
+/* Complete C translation of Pharaoh.exe 0x00417E70. */
+void pharaoh_mission_briefing_set_started(PharaohBriefingState *state)
+{
+    state->started = 1;
+}
+
 static void draw_goal_frame(const PharaohBriefingOperations *operations,
     int32_t panel_x, int32_t panel_y, PharaohBriefingPoint point,
     int32_t width_blocks)
@@ -54,11 +84,8 @@ static int32_t draw_goal_number(const PharaohBriefingOperations *operations,
 
 void pharaoh_briefing_draw(PharaohBriefingState *state,
     const PharaohBriefingScenario *scenario,
-    const PharaohBriefingMessage *message, int32_t campaign_has_choices,
     const PharaohBriefingOperations *operations)
 {
-    const int32_t panel_x = state->origin_x + BRIEFING_PANEL_INSET;
-    const int32_t panel_y = state->origin_y + BRIEFING_PANEL_INSET;
     int32_t position;
 
     if (state->started == 0) {
@@ -66,6 +93,18 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
         operations->load_selected_mission(operations->user_data);
         if (state->current_window_id == BRIEFING_WINDOW_CITY) return;
     }
+    state->message_id = operations->get_message_id(operations->user_data);
+    const PharaohBriefingMessage *const message = operations->message_at(
+        operations->user_data, state->message_id);
+    const int32_t panel_x = state->origin_x + BRIEFING_PANEL_INSET;
+    const int32_t panel_y = state->origin_y + BRIEFING_PANEL_INSET;
+    state->panel_x = panel_x;
+    state->panel_y = panel_y;
+    state->view_width = state->window_width;
+    state->view_height = state->window_height;
+    state->view_x = (1024 - state->window_width) / 2;
+    state->view_y = (768 - state->window_height) / 2;
+    state->text_width_blocks = BRIEFING_TEXT_COLUMNS;
     if (state->redraw_requested == 1) {
         operations->draw_background(operations->user_data,
             BRIEFING_BACKGROUND_GROUP, 1, 0, 0);
@@ -81,7 +120,7 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
         BRIEFING_TEXT_GROUP, BRIEFING_EXIT_TEXT,
         panel_x + 476, panel_y + 417, BRIEFING_BODY_FONT, 0);
     if (state->current_window_id == BRIEFING_WINDOW_MAIN &&
-        campaign_has_choices != 0) {
+        operations->campaign_has_choices(operations->user_data) != 0) {
         (void)operations->draw_language(operations->user_data,
             BRIEFING_BACK_GROUP, BRIEFING_BACK_TEXT,
             panel_x + 50, panel_y + 419, BRIEFING_BODY_FONT, 0);
@@ -101,6 +140,7 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
         BRIEFING_TEXT_GROUP, BRIEFING_GOAL_TITLE_TEXT,
         panel_x + 32, panel_y + 72, BRIEFING_HEADING_FONT, 0);
 
+    state->label_progress = 100;
     position = scenario->population_enabled != 0;
     if (scenario->population_enabled != 0) {
         const PharaohBriefingPoint point = goal_positions[0];
@@ -142,7 +182,7 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
 
     const char *const hint = operations->tutorial_hint != 0 ?
         operations->tutorial_hint(operations->user_data) : 0;
-    if (hint != 0 && *hint != 0) {
+    if (hint != 0) {
         const PharaohBriefingPoint point = goal_positions[4];
         draw_goal_frame(operations, panel_x, panel_y, point,
             BRIEFING_TEXT_COLUMNS - 1);
@@ -153,14 +193,19 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
 
     operations->draw_inner_panel(operations->user_data,
         panel_x + 16, panel_y + 168, BRIEFING_TEXT_COLUMNS - 2, 15);
+    state->normal_font = BRIEFING_HEADING_FONT;
+    state->link_font = BRIEFING_GOAL_FONT;
+    state->text_x = panel_x - 6;
+    state->text_y = panel_y + 170;
     if (state->line_count == 0) {
+        state->text_height_blocks = 15;
         state->viewport_lines = BRIEFING_VIEWPORT_LINES;
         state->scroll_up_enabled = 1;
         state->scroll_down_enabled = 1;
         state->line_count = operations->draw_rich_text(
             operations->user_data, message->body, panel_x + 32,
             panel_y + 184, BRIEFING_TEXT_WIDTH, 1, 0,
-            state->scroll_position, state->viewport_lines);
+            state->scroll_position, state->viewport_lines, state);
         if (state->line_count > state->viewport_lines) {
             state->scroll_maximum =
                 state->line_count - state->viewport_lines;
@@ -174,10 +219,35 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
         operations->draw_inner_panel(operations->user_data,
             panel_x + 557, panel_y + 192, 2, 12);
     }
+    state->clip_x_min = panel_x + 19;
+    state->clip_x_max = panel_x + BRIEFING_TEXT_COLUMNS * 16 + 19;
+    state->clip_y_min = panel_y + 171;
+    state->clip_y_max = panel_y + 405;
     (void)operations->draw_rich_text(operations->user_data,
         message->body, panel_x + 32, panel_y + 180,
         BRIEFING_TEXT_WIDTH, 0, 0, state->scroll_position,
-        state->viewport_lines);
+        state->viewport_lines, state);
+    state->clip_x_min = 0;
+    state->clip_x_max = state->window_width;
+    state->clip_y_min = 0;
+    state->clip_y_max = state->window_height;
+}
+
+void pharaoh_briefing_window_input(uint8_t window_id, int32_t panel_x,
+    int32_t panel_y, const PharaohBriefingWindowInputOperations *operations)
+{
+    if (operations->handle_image_buttons(operations->user_data,
+            panel_x + 564, panel_y + 410,
+            PHARAOH_BRIEFING_ACCEPT_BUTTON, 1) != 0) return;
+    if (operations->handle_image_buttons(operations->user_data,
+            panel_x + 110, panel_y + 416,
+            PHARAOH_BRIEFING_DIFFICULTY_BUTTONS, 2) != 0) return;
+    if (window_id == BRIEFING_WINDOW_MAIN &&
+        operations->campaign_has_choices(operations->user_data) != 0 &&
+        operations->handle_image_buttons(operations->user_data,
+            panel_x + 10, panel_y + 412,
+            PHARAOH_BRIEFING_BACK_BUTTON, 1) != 0) return;
+    operations->handle_scroll(operations->user_data);
 }
 
 void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
@@ -197,17 +267,4 @@ void pharaoh_briefing_handle_input(int32_t origin_x, int32_t origin_y,
             x, down_y) == 0) {
         operations->handle_scrollbar(operations->user_data);
     }
-}
-
-void pharaoh_briefing_draw_scroll(
-    const PharaohBriefingScrollDrawState *state,
-    const PharaohBriefingScrollDrawOperations *operations)
-{
-    *state->ui_redraw_requested = 1;
-    if (state->scroll_maximum == 0) return;
-    operations->draw_arrow(operations->user_data, 0,
-        state->origin_x + 554, state->origin_y + 168);
-    operations->draw_arrow(operations->user_data, 1,
-        state->origin_x + 554, state->origin_y + 382);
-    operations->draw_scroll_thumb(operations->user_data);
 }
