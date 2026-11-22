@@ -103,6 +103,8 @@ void pharaoh_building_destination_counters_rebuild(
         destination = &buildings[walker->entertainment_building_id];
         kind = destination->building_type;
         if (building_destination_kind_counted(kind)) {
+            /* Possible native bug/dead branch: the outer native whitelist
+             * excludes0x5F, although the reset pass includes it. Retained. */
             if (kind == 0x5f) {
                 if (walker->counting_action_00b == 0x1c)
                     ++destination->destination_payload_total;

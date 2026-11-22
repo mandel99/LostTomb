@@ -7,6 +7,12 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/commerce/granary_supply.c
+    game/commerce/granary_repair.c
+    game/monuments/scenario_slots.c
+    game/scenario/scene_industry.c
+    game/scenario/scene_storage.c
+    game/scenario/definition_counts.c
     game/map/scene_grid.c
     game/scenario/scene_record_rebuild.c
     game/scenario/scene_records.c

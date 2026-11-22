@@ -32,7 +32,10 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_4454[0x02cc];
     uint32_t tutorial_active_a;
     uint32_t tutorial_active_b;
-    uint8_t reserved_4728[0x0080];
+    uint8_t reserved_4728[8];
+    int32_t monument_definition_ids[3];
+    int32_t monument_building_ids[3];
+    uint8_t reserved_4748[0x47a8 - 0x4748];
     int32_t difficulty;
     uint8_t reserved_47ac[0x4984 - 0x47ac];
     int16_t ra_trade_bonus_months;
@@ -42,6 +45,8 @@ typedef struct PharaohScenarioPlayerRuntime {
 } PharaohScenarioPlayerRuntime;
 
 _Static_assert(offsetof(PharaohScenarioPlayerRuntime, native_value_0003) == 3 &&
+    offsetof(PharaohScenarioPlayerRuntime, monument_definition_ids) == 0x4730 &&
+    offsetof(PharaohScenarioPlayerRuntime, monument_building_ids) == 0x473c &&
     offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&
     offsetof(PharaohScenarioPlayerRuntime, resource_known) == 0x2995 &&
     offsetof(PharaohScenarioPlayerRuntime, ra_trade_bonus_months) == 0x4984 &&

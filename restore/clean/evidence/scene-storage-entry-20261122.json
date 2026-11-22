@@ -1,0 +1,147 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_native_entries": 3,
+  "replaced_or_moved_native_owners": 4,
+  "functions": [
+    {
+      "address": "0x004D5AD0",
+      "name": "pharaoh_repair_granary_records",
+      "source": "game/commerce/granary_repair.c",
+      "origin": "Completed prior C rebound to actual typed scene records and checked against pinned live Ghidra code/instructions. No VM/frame wrapper.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-u.json",
+      "known_limitations": "Valid native record/storage ranges; static native/C comparison, no new replay. Host scene remains unbound."
+    },
+    {
+      "address": "0x00487F80",
+      "name": "pharaoh_building_type_is_00487f80_group",
+      "source": "game/scenario/scene_industry.c",
+      "origin": "Completed prior C rebound to actual typed scene records and checked against pinned live Ghidra code/instructions. No VM/frame wrapper.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-z.json",
+      "known_limitations": "Valid native record/storage ranges; static native/C comparison, no new replay. Host scene remains unbound."
+    },
+    {
+      "address": "0x0045E040",
+      "name": "pharaoh_granary_supply_calculate",
+      "source": "game/commerce/granary_supply.c",
+      "origin": "Completed prior C rebound to actual typed scene records and checked against pinned live Ghidra code/instructions. No VM/frame wrapper.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "prior_mapping_evidence": "evidence/existing-leaf-owners-20261121-ac.json",
+      "known_limitations": "Valid native record/storage ranges; static native/C comparison, no new replay. Host scene remains unbound."
+    },
+    {
+      "address": "0x00488030",
+      "name": "pharaoh_building_is_farm",
+      "source": "game/scenario/scene_industry.c",
+      "origin": "Completed prior C rebound to actual typed scene records and checked against pinned live Ghidra code/instructions. No VM/frame wrapper.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "prior_mapping_evidence": "evidence/building-farm-parent-20261121.json",
+      "known_limitations": "Valid native record/storage ranges; static native/C comparison, no new replay. Host scene remains unbound."
+    },
+    {
+      "address": "0x00489840",
+      "name": "pharaoh_game_file_upgrade_farm_progress",
+      "source": "game/scenario/scene_industry.c",
+      "origin": "Reused completed SaveMethods/MapCommitSelection C with typed scene state; verified from pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "known_limitations": "Valid native building/goal/variant ranges. Static comparison and strict integration; no host gameplay-equivalence claim."
+    },
+    {
+      "address": "0x004F4B70",
+      "name": "pharaoh_monument_definition_for_building",
+      "source": "game/monuments/scenario_slots.c",
+      "origin": "Reused completed SaveMethods/MapCommitSelection C with typed scene state; verified from pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "known_limitations": "Valid native building/goal/variant ranges. Static comparison and strict integration; no host gameplay-equivalence claim."
+    },
+    {
+      "address": "0x004F61E0",
+      "name": "pharaoh_monument_rebuild_player_slots",
+      "source": "game/monuments/scenario_slots.c",
+      "origin": "Reused completed SaveMethods/MapCommitSelection C with typed scene state; verified from pinned Ghidra code/data.",
+      "mapping_evidence": "evidence/scene-storage-entry-20261122.json",
+      "known_limitations": "Valid native building/goal/variant ranges. Static comparison and strict integration; no host gameplay-equivalence claim."
+    }
+  ],
+  "prior_evidence": {
+    "0x004D5AD0": "evidence/typed-leaf-imports-20261121-u.json",
+    "0x00487F80": "evidence/typed-leaf-imports-20261121-z.json",
+    "0x0045E040": "evidence/existing-leaf-owners-20261121-ac.json",
+    "0x00488030": "evidence/building-farm-parent-20261121.json"
+  },
+  "reuse": [
+    "reused/restore/generated/mixed/runtime/Granary.c RestoreGranaryRebuildSupply",
+    "reused/restore/generated/mixed/runtime/MapCommitSelection.c complete query and slot algorithms",
+    "reused/restore/game/Level/LevelManager/SaveMethods.c farm upgrade",
+    "Existing clean granary repair algorithm; canonical native owner now uses actual records rather than normalized helper views.",
+    "Existing complete TYPE_IN_CASES algorithm and farm specialization retained."
+  ],
+  "contracts": [
+    "0045E040 clear50 DWORD candidate storage, but write WORD ids: union200 bytes. Scan live highest id, types47/BF,state1,road byte44,distance WORD20>0; foods1..8 except storage mode2. Signed WORD amounts added with native32-bit totals.",
+    "004D5AD0 actual264-byte buildings/196-byte storages; repair records0..3999,type47/state1,stockWORDs56..9D,storage idBYTE C1; sum1..35,unused capacity3200 clamp<0,interleaved signed accept/get rounding800/1600/2400/3200.",
+    "Port correction: PharaohGranaryDispatchBuilding type offset0E was wrong; now10 with original stride preserved. This is a port correction, not a claimed original-game bug.",
+    "00489840 asm: FLD double0056F5A8 exact10.0;__ftol yields10,IMUL AX,WORD at54,store lowAX. C integer multiply retains same low16 bits; no fabricated x87 input/control parameter.",
+    "004F4B70 complete native kind/subkind/size dispatch, including DE fallthrough to E5 family. Existing count/style/mausoleum C children retained.",
+    "004F61E0 active states1/3 and WORD16!=-1; three-player slots+4730/+473C; native component skip lengths and first unused matching goal. Goal/style inputs share existing actual asset context; no recomputation substituted for cached pyramid style.",
+    "Native initialized part-count tables0056F7D8/0056F7EC:16,36,64,100,144 and10,21,36. Player/building/storage strides49D8/108/C4 preserved."
+  ],
+  "possible_native_bugs": [
+    {
+      "address": "0x0045E040",
+      "finding": "After98 counted candidates, slot98 keeps being overwritten without increasing count.",
+      "certainty": "Suspicious native limit/sentinel behavior; intention unproven.",
+      "original_retained": true
+    },
+    {
+      "address": "0x004BC7A0",
+      "finding": "Reset includes kind5F, but walker dispatch excludes5F before its action-specific branch.",
+      "certainty": "Possible native dead branch from live Ghidra dispatch; intention unproven.",
+      "original_retained": true
+    }
+  ],
+  "verification": {
+    "authority": "Live pinned Ghidra decompilation of five native roots; farm assembly, constant/table memory reads and saved unchanged clean-child proofs.",
+    "new_test_scripts": 0,
+    "host_launched": false,
+    "new_native_replay": false,
+    "scope": "Source/ABI integration; joint replay deferred to cohort milestone. Not gameplay equivalence.",
+    "ghidra_prototypes_updated": 5,
+    "ghidra_annotations_updated": 7,
+    "staged_strict_compilation": {
+      "passed": true,
+      "C_units": 7,
+      "indexed_files": 37,
+      "flags": "Win32 MSVC C11 /W4 /WX /Zs /DNDEBUG"
+    }
+  },
+  "source_sha256": {
+    "game/commerce/granary_supply.c": "59445dee9fbcde3725de017946bf38afa504e0c0d311c28ebc0285a0530157d4",
+    "game/commerce/granary_repair.c": "8bb37b5f430ae9ef8e153d1f0e9dd4efd7861f36221dcd0f0a1f1adf9ac51007",
+    "game/monuments/scenario_slots.c": "947ef8075e5b25ed9a2fd1c0daedd0148b555ae413c083d9a3847bb2e7eff100",
+    "game/scenario/scene_industry.c": "c501af283d0fb98a7560835c9807f4d52d9b5f871833a9f120494e522dd55c2a",
+    "game/scenario/scene_storage.c": "85d41f4a2f947b51c7be1154abae25e3df25cf77218fa72fef6aa589c5e219fc",
+    "game/scenario/scene_record_rebuild.c": "d4218d942f1b5e0c6ca8e3d569c2417eaef17789a30cdc57791fe2cb2506da91",
+    "game/include/pharaoh/building/type_queries.h": "ee6d41963014ec1263036b68552bef3814331d68df4d7fe651d4839751928571",
+    "game/include/pharaoh/commerce/storage_queries.h": "59d580b34985a35ed9022d90d21863f7282b04d369b41e8f36250eab6e12f026",
+    "game/include/pharaoh/commerce/granary_supply.h": "5c91d0ae551b13766eda5b2441acaf42059036d5da1c291ec7704d8ebe87ea0f",
+    "game/include/pharaoh/commerce/granary_repair.h": "2f2b24bad6ccf52056d24b812ec1efe420a3bea11bbe918a4bc515bba55501ac",
+    "game/include/pharaoh/monuments/scenario_slots.h": "62e58881493fb115de30a51412959a7619e69900bea8aa832b6a03adaf4a27e1",
+    "game/include/pharaoh/scenario/scene_industry.h": "589af4a554f408fc23290b0c84ff65a2c85a9867665b310f735987f32a2d2f5c",
+    "game/include/pharaoh/scenario/scene_storage.h": "cbc320e18f3f5851b4763a2c45dbd5906ac57f04981f7205434538916542e1b6",
+    "game/include/pharaoh/scenario/scenario_init_custom.h": "34ec08ffac60de1d71c667dc076fcc4367ecf6b7fe39b6b7cb40d2d8158c40b3"
+  },
+  "bindings": "Four concrete further initialization providers;35/45 slots now have binders. Actual host scene/storage/construction/ferry bindings and10 remaining initializer slots still required.",
+  "migration_verify": {
+    "errors": 141,
+    "note": "One outside-game Original owner replaced with canonical clean supply C; historical records unchanged."
+  },
+  "integration_build": {
+    "passed": true,
+    "scope": "Current worktree including earlier uncommitted units.",
+    "sha256": {
+      "pharaoh_game.lib": "26e29895d0b060981fdec5a1d25e68282e17a32fce38658f8db4026a02d4cc11",
+      "LostTomb.exe": "e50c46a509c53f3270e56b73e3bc31f554557353e42fa7be1198df648928add5"
+    }
+  }
+}
