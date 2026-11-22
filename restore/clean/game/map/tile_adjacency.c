@@ -219,3 +219,22 @@ uint8_t pharaoh_map_terrain_mask_has_open_corner(
     if ((mask & (southwest | south | west)) == 0) return 1;
     return (mask & (southeast | south | east)) == 0;
 }
+
+void pharaoh_map_adjacent_flags_invert(uint32_t flags[8])
+{
+    int32_t index;
+    for (index = 0; index < 8; ++index) flags[index] = flags[index] == 0;
+}
+
+void pharaoh_map_adjacent_flags_normalize(uint32_t flags[8])
+{
+    int32_t index;
+    for (index = 0; index < 8; ++index) flags[index] = flags[index] != 0;
+}
+
+int32_t pharaoh_map_adjacent_flags_count(const uint32_t flags[8])
+{
+    int32_t index, count = 0;
+    for (index = 0; index < 8; ++index) if (flags[index] != 0) ++count;
+    return count;
+}

@@ -93,3 +93,30 @@ void pharaoh_map_ring_initialize(const PharaohMapRingInitContext *context)
         }
     }
 }
+
+
+/* Native00481AA0: the fallback family uses ring rather than ring-1. */
+uint8_t pharaoh_map_ring_point_is_outside(const PharaohRingOffsetTables *tables,
+    int32_t width,int32_t height,int32_t x,int32_t y,
+    int32_t family,int32_t ring,int32_t point)
+{
+    uint32_t row=(uint32_t)family-1u,column;
+    const int8_t *bytes;
+    if(row<5u){column=(uint32_t)ring-1u;if(column>=5u)column=5u;}
+    else{row=5u;column=(uint32_t)ring;if(column>=5u)column=5u;}
+    if(!row){
+        static const size_t offsets[6]={
+            offsetof(PharaohRingOffsetTables,distance_1_tiles),
+            offsetof(PharaohRingOffsetTables,distance_2_tiles),
+            offsetof(PharaohRingOffsetTables,distance_3_tiles),
+            offsetof(PharaohRingOffsetTables,distance_4_tiles),
+            offsetof(PharaohRingOffsetTables,distance_5_tiles),
+            offsetof(PharaohRingOffsetTables,distance_6_tiles)};
+        /* Native distance>6 walks subsequent coordinate storage. */
+        bytes=(const int8_t *)tables+offsets[column]+(uint32_t)point*2u;
+    }else bytes=(const int8_t *)pharaoh_building_ring_coordinates[row-1u][column].tiles+(uint32_t)point*2u;
+    const int32_t px=(int32_t)((uint32_t)x+(uint32_t)bytes[0]);
+    if(px<-1)return 1;
+    const int32_t py=(int32_t)((uint32_t)y+(uint32_t)bytes[1]);
+    return py<-1 || px>width || py>height;
+}

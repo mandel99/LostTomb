@@ -83,3 +83,59 @@ __declspec(noinline) int32_t pharaoh_x87_integer_ratio(
     }
     return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
 }
+
+static const double fertility_scale=12.0,fertility_divisor=96.0;
+
+/* Native00476B0B..00476B38: retain FCOM's condition codes as well as __ftol. */
+__declspec(noinline) int32_t pharaoh_x87_floodplain_fertility(uint32_t fertility)
+{
+    PharaohFloat80 value;
+    uint16_t status;
+    __asm {
+        fild fertility
+        fcom qword ptr percent_scale
+        fnstsw status
+    }
+    if (!(status&0x4100u)) {
+        __asm {fstp tbyte ptr value}
+    } else {
+        __asm {
+            fld qword ptr fertility_scale
+            fdiv qword ptr fertility_divisor
+            fmul st(0),st(1)
+            fstp tbyte ptr value
+            fstp st(0)
+        }
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}
+
+__declspec(noinline) int32_t pharaoh_x87_i32_multiply_pair(
+    int32_t input,const double *first,const double *second)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild input
+        mov eax,first
+        fmul qword ptr[eax]
+        mov eax,second
+        fmul qword ptr[eax]
+        fstp tbyte ptr value
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}
+
+__declspec(noinline) int32_t pharaoh_x87_i32_divide_multiply(
+    int32_t input,const double *divisor,const double *scale)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild input
+        mov eax,divisor
+        fdiv qword ptr[eax]
+        mov eax,scale
+        fmul qword ptr[eax]
+        fstp tbyte ptr value
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}

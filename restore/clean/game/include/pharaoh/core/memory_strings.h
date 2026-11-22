@@ -13,4 +13,6 @@ size_t pharaoh_string_length(const char *text);
 char *pharaoh_string_find(const char *text, const char *pattern);
 void *pharaoh_memory_move(void *destination, const void *source, size_t count);
 
+void pharaoh_memory_copy_forward_words64(const void *source,void *destination,int count);
+
 #endif

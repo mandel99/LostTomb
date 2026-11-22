@@ -63,4 +63,8 @@ extern const int32_t pharaoh_royal_tomb_rock_offsets[14][4];
 int32_t pharaoh_map_royal_tomb_rock_variant(PharaohMapRockVariantContext *c,
     uint32_t tile);
 
+void pharaoh_map_adjacent_flags_invert(uint32_t flags[8]);
+void pharaoh_map_adjacent_flags_normalize(uint32_t flags[8]);
+int32_t pharaoh_map_adjacent_flags_count(const uint32_t flags[8]);
+
 #endif

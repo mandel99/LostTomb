@@ -50,6 +50,11 @@ typedef struct PharaohSpriteTagRecord {
     uint32_t image_index;
 } PharaohSpriteTagRecord;
 
+typedef struct PharaohSpriteGroupRecord {
+    uint32_t image_count;
+    uint32_t first_image;
+} PharaohSpriteGroupRecord;
+
 typedef struct PharaohSpriteLibraryReadContext {
     const PharaohGameDataLoadContext *game_data;
     const PharaohSpritePixelLoadContext *pixels;

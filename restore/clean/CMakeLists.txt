@@ -184,6 +184,12 @@ add_library(pharaoh_game STATIC
     game/runtime/city_view.c
     game/runtime/city_warning_clear.c
     game/map/map_ring.c
+    game/map/surface_tiles.c
+    game/map/vegetation_tiles.c
+    game/map/pyramid_surface.c
+    game/map/grid_geometry.c
+    game/map/surface_queries.c
+    game/monuments/pyramid_tile_query.c
     game/map/image_context.c
     game/map/tile_adjacency.c
     game/runtime/text_input_state.c

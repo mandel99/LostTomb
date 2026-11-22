@@ -136,3 +136,25 @@ void *pharaoh_memory_move(void *destination, const void *source, size_t count)
     }
     return destination;
 }
+
+void pharaoh_memory_copy_forward_words64(
+    const void *source, void *destination, int count)
+{
+    const unsigned char *input = (const unsigned char *)source;
+    unsigned char *output = (unsigned char *)destination;
+    while (count > 63) {
+        int index;
+        for (index = 0; index < 16; ++index) {
+            uint32_t word;
+            memcpy(&word, input + index * 4, 4);
+            memcpy(output + index * 4, &word, 4);
+        }
+        input += 64;
+        output += 64;
+        count -= 64;
+    }
+    while (count > 0) {
+        *output++ = *input++;
+        --count;
+    }
+}
