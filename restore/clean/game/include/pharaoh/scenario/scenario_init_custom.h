@@ -5,7 +5,9 @@
 #include <stdint.h>
 
 typedef struct PharaohScenarioPlayerRuntime {
-    uint8_t reserved_0000[0x000c];
+    uint8_t reserved_0000[3];
+    uint8_t native_value_0003;
+    uint8_t reserved_0004[8];
     int32_t treasury;
     uint8_t reserved_0010[0x2768];
     uint16_t exit_x;
@@ -39,7 +41,8 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_498a[0x49d8 - 0x498a];
 } PharaohScenarioPlayerRuntime;
 
-_Static_assert(offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&
+_Static_assert(offsetof(PharaohScenarioPlayerRuntime, native_value_0003) == 3 &&
+    offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&
     offsetof(PharaohScenarioPlayerRuntime, resource_known) == 0x2995 &&
     offsetof(PharaohScenarioPlayerRuntime, ra_trade_bonus_months) == 0x4984 &&
     offsetof(PharaohScenarioPlayerRuntime, ra_trade_penalty_months) == 0x4986 &&

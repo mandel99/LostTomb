@@ -2,6 +2,7 @@
 #define PHARAOH_RUNTIME_CITY_VIEW_H
 
 #include <stdint.h>
+#include "pharaoh/map/grid_geometry.h"
 
 enum {
     PHARAOH_CITY_MAP_WIDTH = 228,
@@ -16,15 +17,6 @@ enum {
     PHARAOH_CITY_TILE_HEIGHT = 30,
     PHARAOH_CITY_VIEW_TOP = 30
 };
-
-typedef struct PharaohCityMapBounds {
-    int32_t minimum_x;
-    int32_t minimum_y;
-    int32_t maximum_x;
-    int32_t maximum_y;
-    int32_t center_x;
-    int32_t center_y;
-} PharaohCityMapBounds;
 
 typedef struct PharaohCityViewportGeometry {
     int32_t map_width;

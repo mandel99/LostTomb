@@ -175,7 +175,7 @@ typedef void (*PharaohBuildingConstructionAddToMap)(void *user_data,
 void pharaoh_city_rebuild_building_tiles_and_walker_chains(
     const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
     PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
-    const int32_t *building_properties, int32_t current_player,
+    const int32_t *building_properties, const int32_t *current_player,
     int32_t *construction_size,
     PharaohBuildingConstructionAddToMap add_to_map, void *user_data);
 

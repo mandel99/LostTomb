@@ -59,3 +59,22 @@ int32_t pharaoh_gods_ra_adjust_value(int32_t value,
     if (value == 25 || value == 15) return 0;
     return value;
 }
+
+void pharaoh_native_flag_from_byte_004e7e20(
+    uint32_t *flag, uint8_t enabled)
+{
+    *flag = enabled != 0;
+}
+
+void pharaoh_native_dwords_set_minus_one_00517a20(int32_t values[12996])
+{
+    int32_t index;
+    for (index = 0; index < 12996; ++index) values[index] = -1;
+}
+
+void pharaoh_native_state_pair_reset_0041df60(
+    uint32_t *first, uint32_t *second)
+{
+    *first = 0;
+    *second = 0;
+}

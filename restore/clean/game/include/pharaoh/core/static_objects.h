@@ -51,4 +51,13 @@ uint32_t pharaoh_native_player_milestone_code_004c5190(
 int32_t pharaoh_gods_ra_adjust_value(int32_t value,
     int16_t first, int16_t second, int16_t third);
 
+void pharaoh_native_flag_from_byte_004e7e20(
+    uint32_t *flag, uint8_t enabled);
+
+void pharaoh_native_dwords_set_minus_one_00517a20(
+    int32_t values[12996]);
+
+void pharaoh_native_state_pair_reset_0041df60(
+    uint32_t *first, uint32_t *second);
+
 #endif

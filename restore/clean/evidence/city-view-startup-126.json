@@ -1,0 +1,35 @@
+{
+  "schema": "pharaoh-city-view-startup-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "addresses": [
+    "0x004303A0",
+    "0x00430480",
+    "0x00430530",
+    "0x00430CA0",
+    "0x00430CB0",
+    "0x0047E830",
+    "0x004DDEA0",
+    "0x004DDEB0",
+    "0x004DDEC0",
+    "0x004DDF20",
+    "0x004DDF70",
+    "0x004DDF90",
+    "0x004DE080"
+  ],
+  "translation": {
+    "source": "game/runtime/city_view.c",
+    "header": "game/include/pharaoh/runtime/city_view.h",
+    "map_dimensions": [228, 228],
+    "projection_dimensions": [457, 231],
+    "startup_integration": "pharaoh_game_state_initialize now invokes the clean projection, viewport, visible-bound and camera-clamp owners directly."
+  },
+  "verification": {
+    "release_compile": "passed MSVC Win32 Release /W4 /WX",
+    "behavioral_tests_run": false,
+    "game_launched": false
+  },
+  "limitations": [
+    "The application bootstrap still does not compose the complete startup context or call the WinMain reconstruction.",
+    "Compilation and structural verification do not establish complete gameplay equivalence."
+  ]
+}
