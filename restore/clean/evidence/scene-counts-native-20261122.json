@@ -1,0 +1,914 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": {
+    "004677C0": {
+      "function": {
+        "name": "FUN_004677c0",
+        "address": "004677c0"
+      },
+      "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_004677c0(void)\r\n\r\n{\r\n  short sVar1;\r\n  short sVar2;\r\n  bool bVar3;\r\n  char cVar4;\r\n  uint uVar5;\r\n  int iVar6;\r\n  int iVar7;\r\n  int building_id;\r\n  undefined4 *puVar8;\r\n  \r\n  iVar7 = cityCurrentPlayer;\r\n  puVar8 = &buildingCountIndustryActive;\r\n  for (iVar6 = 0x24; iVar6 != 0; iVar6 = iVar6 + -1) {\r\n    *puVar8 = 0;\r\n    puVar8 = puVar8 + 1;\r\n  }\r\n  puVar8 = &Overlay55_buildingCountIndustryTotal;\r\n  for (iVar6 = 0x24; iVar6 != 0; iVar6 = iVar6 + -1) {\r\n    *puVar8 = 0;\r\n    puVar8 = puVar8 + 1;\r\n  }\r\n  building_id = 1;\r\n  *(undefined2 *)&cityPlayers[iVar7].field_0x4488 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x4630 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x4460 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x4464 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x4468 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x446c = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x4470 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar7].field_0x1c = 0;\r\n  puVar8 = &buildingCountTotal;\r\n  for (iVar6 = 0xed; iVar6 != 0; iVar6 = iVar6 + -1) {\r\n    *puVar8 = 0;\r\n    puVar8 = puVar8 + 1;\r\n  }\r\n  puVar8 = &DAT_0070573c;\r\n  for (iVar6 = 0xed; iVar6 != 0; iVar6 = iVar6 + -1) {\r\n    *puVar8 = 0;\r\n    puVar8 = puVar8 + 1;\r\n  }\r\n  if (0 < buildingHighestId) {\r\n    do {\r\n      if ((cityBuildings[building_id].state == '\\x01') ||\r\n         (cityBuildings[building_id].state == '\\x03')) {\r\n        if (cityBuildings[building_id].field_0x5 == '\\0') {\r\n          sVar1 = cityBuildings[building_id].type;\r\n          bVar3 = false;\r\n          if (((sVar1 == 0x5a) || (sVar1 == 0x5c)) || (sVar1 == 0xb4)) {\r\n            (&buildingCountTotal)[sVar1] = (&buildingCountTotal)[sVar1] + 1;\r\n            if ((cityBuildings[building_id].field_0x35 != '\\0') &&\r\n               ((sVar1 == 0x5c || (0 < cityBuildings[building_id].numWorkers)))) {\r\n              (&DAT_0070573c)[sVar1] = (&DAT_0070573c)[sVar1] + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x66) {\r\n            DAT_0078d6e0 = DAT_0078d6e0 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d650 = DAT_0078d650 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xc2) {\r\n            DAT_0078d6e4 = DAT_0078d6e4 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d654 = _DAT_0078d654 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x67) {\r\n            DAT_0078d6e8 = DAT_0078d6e8 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d658 = _DAT_0078d658 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x69) {\r\n            DAT_0078d6ec = DAT_0078d6ec + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d65c = _DAT_0078d65c + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x68) {\r\n            DAT_0078d6f0 = DAT_0078d6f0 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d660 = _DAT_0078d660 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xc4) {\r\n            DAT_0078d6f4 = DAT_0078d6f4 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d664 = _DAT_0078d664 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x73) {\r\n            DAT_0078d6fc = DAT_0078d6fc + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d66c = DAT_0078d66c + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x70) {\r\n            DAT_0078d704 = DAT_0078d704 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d674 = _DAT_0078d674 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6d) {\r\n            DAT_0078d708 = DAT_0078d708 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d678 = DAT_0078d678 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xcc) {\r\n            DAT_0078d70c = DAT_0078d70c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d67c = DAT_0078d67c + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x72) {\r\n            DAT_0078d710 = DAT_0078d710 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d680 = DAT_0078d680 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 100) {\r\n            DAT_0078d714 = DAT_0078d714 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d684 = DAT_0078d684 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6e) {\r\n            DAT_0078d718 = DAT_0078d718 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d688 = _DAT_0078d688 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x65) {\r\n            DAT_0078d71c = DAT_0078d71c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d68c = DAT_0078d68c + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xe0) {\r\n            DAT_0078d75c = DAT_0078d75c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6cc = DAT_0078d6cc + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6f) {\r\n            DAT_0078d720 = DAT_0078d720 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d690 = DAT_0078d690 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xa2) {\r\n            DAT_0078d724 = DAT_0078d724 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d694 = DAT_0078d694 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x71) {\r\n            DAT_0078d728 = DAT_0078d728 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d698 = _DAT_0078d698 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6c) {\r\n            DAT_0078d72c = DAT_0078d72c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d69c = DAT_0078d69c + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xa1) {\r\n            DAT_0078d730 = DAT_0078d730 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d6a0 = _DAT_0078d6a0 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xc3) {\r\n            DAT_0078d734 = DAT_0078d734 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6a4 = DAT_0078d6a4 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xcb) {\r\n            DAT_0078d738 = DAT_0078d738 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d6a8 = _DAT_0078d6a8 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6a) {\r\n            DAT_0078d73c = DAT_0078d73c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6ac = DAT_0078d6ac + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x6b) {\r\n            DAT_0078d740 = DAT_0078d740 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6b0 = DAT_0078d6b0 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xd8) {\r\n            DAT_0078d744 = DAT_0078d744 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6b4 = DAT_0078d6b4 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xcd) {\r\n            DAT_0078d74c = DAT_0078d74c + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d6bc = _DAT_0078d6bc + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xd9) {\r\n            DAT_0078d750 = DAT_0078d750 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6c0 = DAT_0078d6c0 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xdd) {\r\n            DAT_0078d754 = DAT_0078d754 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6c4 = DAT_0078d6c4 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xe8) {\r\n            DAT_0078d764 = DAT_0078d764 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              _DAT_0078d6d4 = _DAT_0078d6d4 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0xe9) {\r\n            DAT_0078d760 = DAT_0078d760 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              DAT_0078d6d0 = DAT_0078d6d0 + 1;\r\n            }\r\n          }\r\n          else if (sVar1 == 0x4c) {\r\n            DAT_0078d6f8 = DAT_0078d6f8 + 1;\r\n            if (0 < cityBuildings[building_id].numWorkers) {\r\n              *(short *)&cityPlayers[iVar7].field_0x4488 =\r\n                   *(short *)&cityPlayers[iVar7].field_0x4488 + 1;\r\n              if (cityBuildings[building_id].fishingBoatId == 0) {\r\n                *(int *)&cityPlayers[iVar7].field_0x4630 =\r\n                     *(int *)&cityPlayers[iVar7].field_0x4630 + 1;\r\n              }\r\n              DAT_0078d668 = DAT_0078d668 + 1;\r\n            }\r\n          }\r\n          else if ((sVar1 == 0x4b) || (sVar1 == 0xc0)) {\r\n            if (Construction56DockCount < 10) {\r\n              if ((0 < cityBuildings[building_id].numWorkers) &&\r\n                 (cityBuildings[building_id].field_0x35 != '\\0')) {\r\n                *(short *)(&cityPlayers[iVar7].field_0x4460 + Construction56DockCount * 2) =\r\n                     (short)building_id;\r\n              }\r\n              Construction56DockCount = Construction56DockCount + 1;\r\n            }\r\n          }\r\n          else if (((((((sVar1 == 0x41) || (sVar1 == 0x42)) || (sVar1 == 0x43)) ||\r\n                     ((sVar1 == 0x44 || (sVar1 == 0x45)))) ||\r\n                    ((sVar1 == 0x9c || ((sVar1 == 0x9d || (sVar1 == 0x9e)))))) || (sVar1 == 0x9f))\r\n                  || (sVar1 == 0xa0)) {\r\n            iVar7 = pharaoh_building_follow_link(building_id);\r\n            if (iVar7 == building_id) {\r\n              sVar1 = cityBuildings[building_id].type;\r\n              sVar2 = cityBuildings[building_id].numWorkers;\r\n              (&buildingCountTotal)[sVar1] = (&buildingCountTotal)[sVar1] + 1;\r\n              if (0 < sVar2) {\r\n                (&DAT_0070573c)[sVar1] = (&DAT_0070573c)[sVar1] + 1;\r\n              }\r\n            }\r\n          }\r\n          else {\r\n            iVar6 = (int)sVar1;\r\n            if ((iVar6 < 0x8c) || (0x95 < iVar6)) {\r\n              (&buildingCountTotal)[iVar6] = (&buildingCountTotal)[iVar6] + 1;\r\n              if (sVar1 == 0x1f) {\r\n                iVar7 = pharaoh_building_follow_link(building_id);\r\n                if (iVar7 != building_id) goto LAB_00468156;\r\n                if (0 < cityBuildings[iVar7].numWorkers) {\r\n                  DAT_007057b8 = DAT_007057b8 + 1;\r\n                }\r\n                bVar3 = true;\r\n              }\r\n              else if (sVar1 == 0x1e) {\r\n                iVar7 = pharaoh_building_follow_link(building_id);\r\n                if (iVar7 != building_id) goto LAB_00468156;\r\n                iVar7 = pharaoh_building_follow_link(building_id);\r\n                if (0 < cityBuildings[iVar7].numWorkers) {\r\n                  DAT_007057b8 = DAT_007057b8 + 1;\r\n                  DAT_007057b4 = DAT_007057b4 + 1;\r\n                }\r\n                bVar3 = true;\r\n              }\r\n              else if (sVar1 == 0x21) {\r\n                if (0 < cityBuildings[building_id].numWorkers) {\r\n                  DAT_007057b8 = DAT_007057b8 + 1;\r\n                  DAT_007057b4 = DAT_007057b4 + 1;\r\n                  DAT_007057c0 = DAT_007057c0 + 1;\r\n                }\r\n                bVar3 = true;\r\n              }\r\n              else if (sVar1 == 0x20) {\r\n                if (0 < cityBuildings[building_id].numWorkers) {\r\n                  DAT_007057bc = DAT_007057bc + 1;\r\n                }\r\n              }\r\n              else if (sVar1 == 0xe2) {\r\n                if (0 < cityBuildings[building_id].numWorkers) {\r\n                  DAT_00705ac4 = DAT_00705ac4 + 1;\r\n                }\r\n              }\r\n              else {\r\n                if (sVar1 == 0x5f) {\r\n                  *(int *)&cityPlayers[iVar7].field_0x44ac = building_id;\r\n                }\r\n                if (0 < cityBuildings[building_id].numWorkers) {\r\n                  (&DAT_0070573c)[iVar6] = (&DAT_0070573c)[iVar6] + 1;\r\n                }\r\n              }\r\n            }\r\n            else {\r\n              sVar1 = cityBuildings[building_id].x;\r\n              (&buildingCountTotal)[iVar6] = (&buildingCountTotal)[iVar6] + 1;\r\n              uVar5 = MapHasRoadAccessNearby((int)sVar1,(int)cityBuildings[building_id].y);\r\n              if (uVar5 != 0) {\r\n                (&DAT_0070573c)[cityBuildings[building_id].type] =\r\n                     (&DAT_0070573c)[cityBuildings[building_id].type] + 1;\r\n              }\r\n            }\r\n          }\r\n          iVar7 = (int)*(short *)&cityBuildings[building_id].field_0x2e;\r\n          if ((iVar7 != 0) &&\r\n             ((cityWalkers[iVar7].state != '\\x01' ||\r\n              (*(short *)&cityWalkers[iVar7].field_0x5e != building_id)))) {\r\n            *(undefined2 *)&cityBuildings[building_id].field_0x2e = 0;\r\n          }\r\n          if ((bVar3) || (cVar4 = FUN_00488050(building_id), cVar4 != '\\0')) {\r\n            cVar4 = cityBuildings[building_id].field_0xa7;\r\n            if (cVar4 != '\\0') {\r\n              cityBuildings[building_id].field_0xa7 = cVar4 + -1;\r\n            }\r\n            cVar4 = cVar4 != '\\0';\r\n            if (cityBuildings[building_id].field_0xa8 != '\\0') {\r\n              cVar4 = cVar4 + '\\x01';\r\n              cityBuildings[building_id].field_0xa8 = cityBuildings[building_id].field_0xa8 + -1;\r\n            }\r\n            if (cityBuildings[building_id].field_0xa9 != '\\0') {\r\n              cVar4 = cVar4 + '\\x01';\r\n              cityBuildings[building_id].field_0xa9 = cityBuildings[building_id].field_0xa9 + -1;\r\n            }\r\n            cityBuildings[building_id].field_0xa6 = cVar4;\r\n          }\r\n        }\r\n        else {\r\n          sVar1 = cityBuildings[building_id].type;\r\n          sVar2 = cityBuildings[building_id].housePopulation;\r\n          (&buildingCountTotal)[sVar1] = (&buildingCountTotal)[sVar1] + 1;\r\n          if (sVar2 != 0) {\r\n            (&DAT_0070573c)[sVar1] = (&DAT_0070573c)[sVar1] + 1;\r\n          }\r\n        }\r\n      }\r\nLAB_00468156:\r\n      building_id = building_id + 1;\r\n      iVar7 = cityCurrentPlayer;\r\n    } while (building_id <= buildingHighestId);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "00468860": {
+      "function": {
+        "name": "FUN_00468860",
+        "address": "00468860"
+      },
+      "code": "\r\nvoid FUN_00468860(void)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 *puVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int *piVar6;\r\n  int iVar7;\r\n  int local_8;\r\n  int local_4;\r\n  \r\n  puVar2 = (undefined4 *)&cityPlayers[cityCurrentPlayer].field_0x46b0;\r\n  iVar5 = 1;\r\n  iVar4 = 10;\r\n  do {\r\n    puVar2[-1] = 0;\r\n    *puVar2 = 0;\r\n    puVar2 = puVar2 + 2;\r\n    iVar4 = iVar4 + -1;\r\n  } while (iVar4 != 0);\r\n  MemoryFillBytes((uint *)&DAT_00a76aec,0xcb10,'\\0');\r\n  MemoryFillBytes((uint *)&DAT_00a69fdc,0xcb10,'\\0');\r\n  DAT_0078c408 = 1;\r\n  DAT_0078c404 = 0;\r\n  mapRingSearchTile = Actor55GridStart;\r\n  local_4 = 0;\r\n  iVar4 = NativeMapWidth;\r\n  if (0 < NativeMapHeight) {\r\n    do {\r\n      local_8 = 0;\r\n      if (0 < iVar4) {\r\n        do {\r\n          if ((((byte)mapTerrainGrid[mapRingSearchTile] & 0x44) == 0x40) &&\r\n             ((&DAT_00a76aec)[mapRingSearchTile] == '\\0')) {\r\n            DAT_0078c400 = 1;\r\n            FUN_004689e0(mapRingSearchTile,iVar5);\r\n            iVar1 = cityCurrentPlayer;\r\n            iVar4 = DAT_0078c400;\r\n            iVar3 = 0;\r\n            piVar6 = (int *)&cityPlayers[cityCurrentPlayer].field_0x46b0;\r\nLAB_0046893a:\r\n            if (DAT_0078c400 <= *piVar6) goto code_r0x0046893e;\r\n            if (iVar3 < 9) {\r\n              puVar2 = (undefined4 *)&cityPlayers[cityCurrentPlayer].field_0x46f4;\r\n              iVar7 = 9 - iVar3;\r\n              do {\r\n                *puVar2 = puVar2[-2];\r\n                puVar2[1] = puVar2[-1];\r\n                puVar2 = puVar2 + -2;\r\n                iVar7 = iVar7 + -1;\r\n              } while (iVar7 != 0);\r\n            }\r\n            *(int *)(&cityPlayers[iVar1].field_0x46ac + iVar3 * 8) = iVar5;\r\n            *(int *)(&cityPlayers[iVar1].field_0x46b0 + iVar3 * 8) = iVar4;\r\nLAB_00468985:\r\n            iVar5 = iVar5 + 1;\r\n            iVar4 = NativeMapWidth;\r\n          }\r\n          local_8 = local_8 + 1;\r\n          mapRingSearchTile = mapRingSearchTile + 1;\r\n        } while (local_8 < iVar4);\r\n      }\r\n      local_4 = local_4 + 1;\r\n      mapRingSearchTile = mapRingSearchTile + mapInfo_gridBorderSize;\r\n    } while (local_4 < NativeMapHeight);\r\n  }\r\n  return;\r\ncode_r0x0046893e:\r\n  iVar3 = iVar3 + 1;\r\n  piVar6 = piVar6 + 2;\r\n  if (9 < iVar3) goto LAB_00468985;\r\n  goto LAB_0046893a;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "004689E0": {
+      "function": {
+        "name": "FUN_004689e0",
+        "address": "004689e0"
+      },
+      "code": "\r\nvoid FUN_004689e0(int param_1,undefined1 param_2)\r\n\r\n{\r\n  char cVar1;\r\n  bool bVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int *piVar6;\r\n  int local_4;\r\n  \r\n  iVar5 = 0;\r\n  MemoryFillBytes(&roadNetworkQueue,4000,'\\0');\r\n  roadNetworkQueueHead = 0;\r\n  local_4 = 1;\r\n  while( true ) {\r\n    (&DAT_00a69fdc)[param_1] = (char)DAT_0078c408;\r\n    (&DAT_00a76aec)[param_1] = param_2;\r\n    iVar4 = -1;\r\n    piVar6 = &roadNetworkCardinalDelta;\r\n    do {\r\n      iVar3 = *piVar6 + param_1;\r\n      cVar1 = *(char *)((int)&routingGrids_landCitizen + iVar3);\r\n      if ((((-1 < cVar1) && (cVar1 < '\\x03')) &&\r\n          ((cVar1 != '\\x02' || ((mapTerrainGrid[iVar3] & 0x400) != 0)))) &&\r\n         ((&DAT_00a76aec)[iVar3] == '\\0')) {\r\n        (&DAT_00a69fdc)[iVar3] = (char)DAT_0078c408;\r\n        (&DAT_00a76aec)[iVar3] = param_2;\r\n        DAT_0078c400 = DAT_0078c400 + 1;\r\n        if (iVar4 == -1) {\r\n          DAT_0078c404 = DAT_0078c404 + 1;\r\n          iVar4 = iVar3;\r\n        }\r\n        else {\r\n          (&roadNetworkQueue)[iVar5] = iVar3;\r\n          iVar5 = iVar5 + 1;\r\n          if (999 < iVar5) {\r\n            iVar5 = 0;\r\n          }\r\n        }\r\n      }\r\n      piVar6 = piVar6 + 1;\r\n    } while ((int)piVar6 < 0x5cd688);\r\n    if (iVar4 == -1) {\r\n      if (roadNetworkQueueHead == iVar5) {\r\n        roadNetworkQueueTail = iVar5;\r\n        return;\r\n      }\r\n      iVar4 = (&roadNetworkQueue)[roadNetworkQueueHead];\r\n      roadNetworkQueueHead = roadNetworkQueueHead + 1;\r\n      if (999 < roadNetworkQueueHead) {\r\n        roadNetworkQueueHead = 0;\r\n      }\r\n    }\r\n    if (0x1e < DAT_0078c404) {\r\n      DAT_0078c408 = DAT_0078c408 + 1;\r\n      DAT_0078c404 = 0;\r\n    }\r\n    if (iVar4 < 0) break;\r\n    bVar2 = 0xcb0f < local_4;\r\n    param_1 = iVar4;\r\n    local_4 = local_4 + 1;\r\n    if (bVar2) {\r\n      roadNetworkQueueTail = iVar5;\r\n      return;\r\n    }\r\n  }\r\n  roadNetworkQueueTail = iVar5;\r\n  return;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "004802C0": {
+      "function": {
+        "name": "MapHasRoadAccessNearby",
+        "address": "004802c0"
+      },
+      "code": "\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nuint MapHasRoadAccessNearby(int x,int y)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  uint *puVar3;\r\n  int iVar4;\r\n  int iVar5;\r\n  int iVar6;\r\n  int *local_6c;\r\n  int local_68;\r\n  int local_64;\r\n  int local_60 [8];\r\n  int local_40 [16];\r\n  \r\n                    /* Complete active LostTomb C owner verified against pinned Pharaoh.exe\r\n                       (2026-11-21); evidence:\r\n                       restore/clean/evidence/existing-leaf-owners-20261121-ai.json. */\r\n  local_40[9] = 0xfffffffe;\r\n  local_40[0xc] = 0xfffffffe;\r\n  local_6c = local_60;\r\n  iVar5 = Actor55GridStart + y * 0xe4 + x;\r\n  local_40[2] = 1;\r\n  local_40[7] = 1;\r\n  local_40[0] = 0;\r\n  local_40[1] = 0xffffffff;\r\n  local_40[3] = 0;\r\n  local_40[4] = 0xffffffff;\r\n  local_40[5] = 0;\r\n  local_40[6] = 0;\r\n  local_40[8] = 0;\r\n  local_40[10] = 2;\r\n  local_40[0xb] = 0;\r\n  local_40[0xd] = 0;\r\n  local_40[0xe] = 0;\r\n  local_40[0xf] = 2;\r\n  local_68 = 0xc;\r\n  iVar2 = 0;\r\n  local_64 = iVar5;\r\n  do {\r\n    iVar1 = *local_6c;\r\n    if (iVar1 == 0) break;\r\n    if ((((mapTerrainGrid[iVar1 + iVar5] & 8) == 0) ||\r\n        ((cityBuildings[mapBuildingIdGrid[iVar1 + iVar5]].type != 0x8a &&\r\n         (cityBuildings[mapBuildingIdGrid[iVar1 + iVar5]].type != 0x88)))) &&\r\n       ((mapTerrainGrid[iVar1 + iVar5] & 0x40) != 0)) {\r\n      iVar4 = 0;\r\n      puVar3 = (uint *)&cityPlayers[cityCurrentPlayer].field_0x46ac;\r\n      do {\r\n        iVar6 = iVar4;\r\n        if (*puVar3 == (uint)(byte)(&DAT_00a76aec)[iVar5 + iVar1]) break;\r\n        iVar4 = iVar4 + 1;\r\n        puVar3 = puVar3 + 2;\r\n        iVar6 = 0xb;\r\n      } while (iVar4 < 10);\r\n      if (iVar6 < local_68) {\r\n        local_68 = iVar6;\r\n        local_64 = iVar2;\r\n      }\r\n    }\r\n    iVar2 = iVar2 + 1;\r\n    local_6c = local_6c + 1;\r\n  } while (iVar2 < 8);\r\n  if (0xb < local_68) {\r\n    return 0;\r\n  }\r\n  mapResultX = local_40[local_64 * 2] + x;\r\n  mapRingGlobalResultY = local_40[local_64 * 2 + 1] + y;\r\n  return 1;\r\n}\r\n\r\n",
+      "truncated": false
+    }
+  },
+  "farm_gate": {
+    "function": {
+      "name": "FUN_00488050",
+      "address": "00488050"
+    },
+    "code": "\r\nundefined4 FUN_00488050(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  uint uVar2;\r\n  \r\n  iVar1 = BuildingIsFarmNative(param_1);\r\n  if ((char)iVar1 != '\\0') {\r\n    uVar2 = pharaoh_building_has_active_occupant(param_1);\r\n    if ((char)uVar2 != '\\0') {\r\n      return 1;\r\n    }\r\n  }\r\n  return 0;\r\n}\r\n\r\n",
+    "truncated": false
+  },
+  "cardinal_table": {
+    "address": "005cd678",
+    "length": 16,
+    "hex": "1c ff ff ff 01 00 00 00 e4 00 00 00 ff ff ff ff",
+    "ascii": "................",
+    "gaps": []
+  },
+  "nearby_literal_tables": {
+    "items": [
+      {
+        "address": "004802f6",
+        "bytes": "8b842480000000",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x80]",
+        "comment": null
+      },
+      {
+        "address": "004802fd",
+        "bytes": "03f0",
+        "instruction": "ADD ESI,EAX",
+        "comment": null
+      },
+      {
+        "address": "004802ff",
+        "bytes": "b801000000",
+        "instruction": "MOV EAX,0x1",
+        "comment": null
+      },
+      {
+        "address": "00480304",
+        "bytes": "ba02000000",
+        "instruction": "MOV EDX,0x2",
+        "comment": null
+      },
+      {
+        "address": "00480309",
+        "bytes": "89442420",
+        "instruction": "MOV dword ptr [ESP + 0x20],EAX",
+        "comment": null
+      },
+      {
+        "address": "0048030d",
+        "bytes": "89442444",
+        "instruction": "MOV dword ptr [ESP + 0x44],EAX",
+        "comment": null
+      },
+      {
+        "address": "00480311",
+        "bytes": "89442458",
+        "instruction": "MOV dword ptr [ESP + 0x58],EAX",
+        "comment": null
+      },
+      {
+        "address": "00480315",
+        "bytes": "c744241c1cffffff",
+        "instruction": "MOV dword ptr [ESP + 0x1c],0xffffff1c",
+        "comment": null
+      },
+      {
+        "address": "0048031d",
+        "bytes": "c7442424e4000000",
+        "instruction": "MOV dword ptr [ESP + 0x24],0xe4",
+        "comment": null
+      },
+      {
+        "address": "00480325",
+        "bytes": "897c2428",
+        "instruction": "MOV dword ptr [ESP + 0x28],EDI",
+        "comment": null
+      },
+      {
+        "address": "00480329",
+        "bytes": "c744242c38feffff",
+        "instruction": "MOV dword ptr [ESP + 0x2c],0xfffffe38",
+        "comment": null
+      },
+      {
+        "address": "00480331",
+        "bytes": "89542430",
+        "instruction": "MOV dword ptr [ESP + 0x30],EDX",
+        "comment": null
+      },
+      {
+        "address": "00480335",
+        "bytes": "c7442434c8010000",
+        "instruction": "MOV dword ptr [ESP + 0x34],0x1c8",
+        "comment": null
+      },
+      {
+        "address": "0048033d",
+        "bytes": "896c243c",
+        "instruction": "MOV dword ptr [ESP + 0x3c],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480341",
+        "bytes": "897c2440",
+        "instruction": "MOV dword ptr [ESP + 0x40],EDI",
+        "comment": null
+      },
+      {
+        "address": "00480345",
+        "bytes": "896c2448",
+        "instruction": "MOV dword ptr [ESP + 0x48],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480349",
+        "bytes": "897c244c",
+        "instruction": "MOV dword ptr [ESP + 0x4c],EDI",
+        "comment": null
+      },
+      {
+        "address": "0048034d",
+        "bytes": "896c2450",
+        "instruction": "MOV dword ptr [ESP + 0x50],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480351",
+        "bytes": "896c2454",
+        "instruction": "MOV dword ptr [ESP + 0x54],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480355",
+        "bytes": "896c245c",
+        "instruction": "MOV dword ptr [ESP + 0x5c],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480359",
+        "bytes": "89542464",
+        "instruction": "MOV dword ptr [ESP + 0x64],EDX",
+        "comment": null
+      },
+      {
+        "address": "0048035d",
+        "bytes": "896c2468",
+        "instruction": "MOV dword ptr [ESP + 0x68],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480361",
+        "bytes": "896c2470",
+        "instruction": "MOV dword ptr [ESP + 0x70],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480365",
+        "bytes": "896c2474",
+        "instruction": "MOV dword ptr [ESP + 0x74],EBP",
+        "comment": null
+      },
+      {
+        "address": "00480369",
+        "bytes": "89542478",
+        "instruction": "MOV dword ptr [ESP + 0x78],EDX",
+        "comment": null
+      },
+      {
+        "address": "0048036d",
+        "bytes": "c74424140c000000",
+        "instruction": "MOV dword ptr [ESP + 0x14],0xc",
+        "comment": null
+      },
+      {
+        "address": "00480375",
+        "bytes": "89742418",
+        "instruction": "MOV dword ptr [ESP + 0x18],ESI",
+        "comment": null
+      },
+      {
+        "address": "00480379",
+        "bytes": "33c0",
+        "instruction": "XOR EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "0048037b",
+        "bytes": "894c2410",
+        "instruction": "MOV dword ptr [ESP + 0x10],ECX",
+        "comment": null
+      },
+      {
+        "address": "0048037f",
+        "bytes": "8b542410",
+        "instruction": "MOV EDX,dword ptr [ESP + 0x10]",
+        "comment": null
+      },
+      {
+        "address": "00480383",
+        "bytes": "8b0a",
+        "instruction": "MOV ECX,dword ptr [EDX]",
+        "comment": null
+      },
+      {
+        "address": "00480385",
+        "bytes": "3bcd",
+        "instruction": "CMP ECX,EBP",
+        "comment": null
+      },
+      {
+        "address": "00480387",
+        "bytes": "0f848f000000",
+        "instruction": "JZ 0x0048041c",
+        "comment": null
+      },
+      {
+        "address": "0048038d",
+        "bytes": "8d1431",
+        "instruction": "LEA EDX,[ECX + ESI*0x1]",
+        "comment": null
+      },
+      {
+        "address": "00480390",
+        "bytes": "8b1c958c59af00",
+        "instruction": "MOV EBX,dword ptr [EDX*0x4 + 0xaf598c]",
+        "comment": null
+      }
+    ],
+    "offset": 18,
+    "limit": 35,
+    "total": 113,
+    "has_more": true
+  },
+  "nearby_return_width": {
+    "items": [
+      {
+        "address": "00480431",
+        "bytes": "8b4cc42c",
+        "instruction": "MOV ECX,dword ptr [ESP + EAX*0x8 + 0x2c]",
+        "comment": null
+      },
+      {
+        "address": "00480435",
+        "bytes": "03ca",
+        "instruction": "ADD ECX,EDX",
+        "comment": null
+      },
+      {
+        "address": "00480437",
+        "bytes": "8b54c430",
+        "instruction": "MOV EDX,dword ptr [ESP + EAX*0x8 + 0x30]",
+        "comment": null
+      },
+      {
+        "address": "0048043b",
+        "bytes": "8b442474",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x74]",
+        "comment": null
+      },
+      {
+        "address": "0048043f",
+        "bytes": "890de4b4d300",
+        "instruction": "MOV dword ptr [0x00d3b4e4],ECX",
+        "comment": null
+      },
+      {
+        "address": "00480445",
+        "bytes": "03d0",
+        "instruction": "ADD EDX,EAX",
+        "comment": null
+      },
+      {
+        "address": "00480447",
+        "bytes": "b801000000",
+        "instruction": "MOV EAX,0x1",
+        "comment": null
+      },
+      {
+        "address": "0048044c",
+        "bytes": "8915e0b4d300",
+        "instruction": "MOV dword ptr [0x00d3b4e0],EDX",
+        "comment": null
+      },
+      {
+        "address": "00480452",
+        "bytes": "83c46c",
+        "instruction": "ADD ESP,0x6c",
+        "comment": null
+      },
+      {
+        "address": "00480455",
+        "bytes": "c3",
+        "instruction": "RET",
+        "comment": null
+      },
+      {
+        "address": "00480456",
+        "bytes": "33c0",
+        "instruction": "XOR EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "00480458",
+        "bytes": "83c46c",
+        "instruction": "ADD ESP,0x6c",
+        "comment": null
+      },
+      {
+        "address": "0048045b",
+        "bytes": "c3",
+        "instruction": "RET",
+        "comment": null
+      }
+    ],
+    "offset": 100,
+    "limit": 13,
+    "total": 113,
+    "has_more": false
+  },
+  "footprint_table": {
+    "items": [
+      {
+        "address": "00480180",
+        "bytes": "83ec0c",
+        "instruction": "SUB ESP,0xc",
+        "comment": null
+      },
+      {
+        "address": "00480183",
+        "bytes": "8b442414",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x14]",
+        "comment": null
+      },
+      {
+        "address": "00480187",
+        "bytes": "53",
+        "instruction": "PUSH EBX",
+        "comment": null
+      },
+      {
+        "address": "00480188",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "00480189",
+        "bytes": "8b6c2420",
+        "instruction": "MOV EBP,dword ptr [ESP + 0x20]",
+        "comment": null
+      },
+      {
+        "address": "0048018d",
+        "bytes": "8d0cc0",
+        "instruction": "LEA ECX,[EAX + EAX*0x8]",
+        "comment": null
+      },
+      {
+        "address": "00480190",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "00480191",
+        "bytes": "8b74241c",
+        "instruction": "MOV ESI,dword ptr [ESP + 0x1c]",
+        "comment": null
+      },
+      {
+        "address": "00480195",
+        "bytes": "8d6c6d00",
+        "instruction": "LEA EBP,[EBP + EBP*0x2]",
+        "comment": null
+      },
+      {
+        "address": "00480199",
+        "bytes": "8d0448",
+        "instruction": "LEA EAX,[EAX + ECX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "0048019c",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "0048019d",
+        "bytes": "c1e505",
+        "instruction": "SHL EBP,0x5",
+        "comment": null
+      },
+      {
+        "address": "004801a0",
+        "bytes": "8d1440",
+        "instruction": "LEA EDX,[EAX + EAX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "004801a3",
+        "bytes": "a1d8a2bc00",
+        "instruction": "MOV EAX,[0x00bca2d8]",
+        "comment": null
+      },
+      {
+        "address": "004801a8",
+        "bytes": "c74424140c000000",
+        "instruction": "MOV dword ptr [ESP + 0x14],0xc",
+        "comment": null
+      },
+      {
+        "address": "004801b0",
+        "bytes": "c744241000000000",
+        "instruction": "MOV dword ptr [ESP + 0x10],0x0",
+        "comment": null
+      },
+      {
+        "address": "004801b8",
+        "bytes": "8d1490",
+        "instruction": "LEA EDX,[EAX + EDX*0x4]",
+        "comment": null
+      },
+      {
+        "address": "004801bb",
+        "bytes": "03d6",
+        "instruction": "ADD EDX,ESI",
+        "comment": null
+      },
+      {
+        "address": "004801bd",
+        "bytes": "81c5e0c95c00",
+        "instruction": "ADD EBP,0x5cc9e0",
+        "comment": null
+      },
+      {
+        "address": "004801c3",
+        "bytes": "89542418",
+        "instruction": "MOV dword ptr [ESP + 0x18],EDX",
+        "comment": null
+      },
+      {
+        "address": "004801c7",
+        "bytes": "8b4500",
+        "instruction": "MOV EAX,dword ptr [EBP]",
+        "comment": null
+      },
+      {
+        "address": "004801ca",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004801cc",
+        "bytes": "0f8498000000",
+        "instruction": "JZ 0x0048026a",
+        "comment": null
+      },
+      {
+        "address": "004801d2",
+        "bytes": "8d3410",
+        "instruction": "LEA ESI,[EAX + EDX*0x1]",
+        "comment": null
+      },
+      {
+        "address": "004801d5",
+        "bytes": "8b1cb58c59af00",
+        "instruction": "MOV EBX,dword ptr [ESI*0x4 + 0xaf598c]",
+        "comment": null
+      },
+      {
+        "address": "004801dc",
+        "bytes": "f6c308",
+        "instruction": "TEST BL,0x8",
+        "comment": null
+      },
+      {
+        "address": "004801df",
+        "bytes": "7425",
+        "instruction": "JZ 0x00480206",
+        "comment": null
+      },
+      {
+        "address": "004801e1",
+        "bytes": "0fbf0c75fce6b400",
+        "instruction": "MOVSX ECX,word ptr [ESI*0x2 + 0xb4e6fc]",
+        "comment": null
+      },
+      {
+        "address": "004801e9",
+        "bytes": "8bf1",
+        "instruction": "MOV ESI,ECX",
+        "comment": null
+      },
+      {
+        "address": "004801eb",
+        "bytes": "c1e605",
+        "instruction": "SHL ESI,0x5",
+        "comment": null
+      },
+      {
+        "address": "004801ee",
+        "bytes": "03f1",
+        "instruction": "ADD ESI,ECX",
+        "comment": null
+      },
+      {
+        "address": "004801f0",
+        "bytes": "668b0cf5e8997900",
+        "instruction": "MOV CX,word ptr [ESI*0x8 + 0x7999e8]",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 32,
+    "total": 93,
+    "has_more": true
+  },
+  "footprint_xy": {
+    "items": [
+      {
+        "address": "00480260",
+        "bytes": "89442410",
+        "instruction": "MOV dword ptr [ESP + 0x10],EAX",
+        "comment": null
+      },
+      {
+        "address": "00480264",
+        "bytes": "0f8c5dffffff",
+        "instruction": "JL 0x004801c7",
+        "comment": null
+      },
+      {
+        "address": "0048026a",
+        "bytes": "8b442414",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x14]",
+        "comment": null
+      },
+      {
+        "address": "0048026e",
+        "bytes": "5f",
+        "instruction": "POP EDI",
+        "comment": null
+      },
+      {
+        "address": "0048026f",
+        "bytes": "5e",
+        "instruction": "POP ESI",
+        "comment": null
+      },
+      {
+        "address": "00480270",
+        "bytes": "5d",
+        "instruction": "POP EBP",
+        "comment": null
+      },
+      {
+        "address": "00480271",
+        "bytes": "83f80c",
+        "instruction": "CMP EAX,0xc",
+        "comment": null
+      },
+      {
+        "address": "00480274",
+        "bytes": "5b",
+        "instruction": "POP EBX",
+        "comment": null
+      },
+      {
+        "address": "00480275",
+        "bytes": "7d3e",
+        "instruction": "JGE 0x004802b5",
+        "comment": null
+      },
+      {
+        "address": "00480277",
+        "bytes": "8b442418",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x18]",
+        "comment": null
+      },
+      {
+        "address": "0048027b",
+        "bytes": "8b542408",
+        "instruction": "MOV EDX,dword ptr [ESP + 0x8]",
+        "comment": null
+      },
+      {
+        "address": "0048027f",
+        "bytes": "8d0c40",
+        "instruction": "LEA ECX,[EAX + EAX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "00480282",
+        "bytes": "8d04ca",
+        "instruction": "LEA EAX,[EDX + ECX*0x8]",
+        "comment": null
+      },
+      {
+        "address": "00480285",
+        "bytes": "8b542410",
+        "instruction": "MOV EDX,dword ptr [ESP + 0x10]",
+        "comment": null
+      },
+      {
+        "address": "00480289",
+        "bytes": "c1e003",
+        "instruction": "SHL EAX,0x3",
+        "comment": null
+      },
+      {
+        "address": "0048028c",
+        "bytes": "8b8898ce5c00",
+        "instruction": "MOV ECX,dword ptr [EAX + 0x5cce98]",
+        "comment": null
+      },
+      {
+        "address": "00480292",
+        "bytes": "03ca",
+        "instruction": "ADD ECX,EDX",
+        "comment": null
+      },
+      {
+        "address": "00480294",
+        "bytes": "8b909cce5c00",
+        "instruction": "MOV EDX,dword ptr [EAX + 0x5cce9c]",
+        "comment": null
+      },
+      {
+        "address": "0048029a",
+        "bytes": "8b442414",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x14]",
+        "comment": null
+      },
+      {
+        "address": "0048029e",
+        "bytes": "890de4b4d300",
+        "instruction": "MOV dword ptr [0x00d3b4e4],ECX",
+        "comment": null
+      },
+      {
+        "address": "004802a4",
+        "bytes": "03d0",
+        "instruction": "ADD EDX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004802a6",
+        "bytes": "b801000000",
+        "instruction": "MOV EAX,0x1",
+        "comment": null
+      }
+    ],
+    "offset": 65,
+    "limit": 22,
+    "total": 93,
+    "has_more": true
+  },
+  "occupancy_bindings": {
+    "items": [
+      {
+        "address": "004893c0",
+        "bytes": "8b442408",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x8]",
+        "comment": null
+      },
+      {
+        "address": "004893c4",
+        "bytes": "53",
+        "instruction": "PUSH EBX",
+        "comment": null
+      },
+      {
+        "address": "004893c5",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "004893c6",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "004893c7",
+        "bytes": "8d0cc0",
+        "instruction": "LEA ECX,[EAX + EAX*0x8]",
+        "comment": null
+      },
+      {
+        "address": "004893ca",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "004893cb",
+        "bytes": "c744241800000000",
+        "instruction": "MOV dword ptr [ESP + 0x18],0x0",
+        "comment": null
+      },
+      {
+        "address": "004893d3",
+        "bytes": "8d0448",
+        "instruction": "LEA EAX,[EAX + ECX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "004893d6",
+        "bytes": "8b4c2414",
+        "instruction": "MOV ECX,dword ptr [ESP + 0x14]",
+        "comment": null
+      },
+      {
+        "address": "004893da",
+        "bytes": "8d1440",
+        "instruction": "LEA EDX,[EAX + EAX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "004893dd",
+        "bytes": "a1d8a2bc00",
+        "instruction": "MOV EAX,[0x00bca2d8]",
+        "comment": null
+      },
+      {
+        "address": "004893e2",
+        "bytes": "8d1c90",
+        "instruction": "LEA EBX,[EAX + EDX*0x4]",
+        "comment": null
+      },
+      {
+        "address": "004893e5",
+        "bytes": "8b442420",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x20]",
+        "comment": null
+      },
+      {
+        "address": "004893e9",
+        "bytes": "03d9",
+        "instruction": "ADD EBX,ECX",
+        "comment": null
+      },
+      {
+        "address": "004893eb",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004893ed",
+        "bytes": "891d6897bc00",
+        "instruction": "MOV dword ptr [0x00bc9768],EBX",
+        "comment": null
+      },
+      {
+        "address": "004893f3",
+        "bytes": "7e72",
+        "instruction": "JLE 0x00489467",
+        "comment": null
+      },
+      {
+        "address": "004893f5",
+        "bytes": "8b6c241c",
+        "instruction": "MOV EBP,dword ptr [ESP + 0x1c]",
+        "comment": null
+      },
+      {
+        "address": "004893f9",
+        "bytes": "b9c0c85c00",
+        "instruction": "MOV ECX,0x5cc8c0",
+        "comment": null
+      },
+      {
+        "address": "004893fe",
+        "bytes": "894c2414",
+        "instruction": "MOV dword ptr [ESP + 0x14],ECX",
+        "comment": null
+      },
+      {
+        "address": "00489402",
+        "bytes": "33ff",
+        "instruction": "XOR EDI,EDI",
+        "comment": null
+      },
+      {
+        "address": "00489404",
+        "bytes": "85ed",
+        "instruction": "TEST EBP,EBP",
+        "comment": null
+      },
+      {
+        "address": "00489406",
+        "bytes": "7e3a",
+        "instruction": "JLE 0x00489442",
+        "comment": null
+      },
+      {
+        "address": "00489408",
+        "bytes": "8b742424",
+        "instruction": "MOV ESI,dword ptr [ESP + 0x24]",
+        "comment": null
+      },
+      {
+        "address": "0048940c",
+        "bytes": "81e600000100",
+        "instruction": "AND ESI,0x10000",
+        "comment": null
+      },
+      {
+        "address": "00489412",
+        "bytes": "8b11",
+        "instruction": "MOV EDX,dword ptr [ECX]",
+        "comment": null
+      },
+      {
+        "address": "00489414",
+        "bytes": "8bc3",
+        "instruction": "MOV EAX,EBX",
+        "comment": null
+      },
+      {
+        "address": "00489416",
+        "bytes": "03c2",
+        "instruction": "ADD EAX,EDX",
+        "comment": null
+      },
+      {
+        "address": "00489418",
+        "bytes": "85f6",
+        "instruction": "TEST ESI,ESI",
+        "comment": null
+      },
+      {
+        "address": "0048941a",
+        "bytes": "7411",
+        "instruction": "JZ 0x0048942d",
+        "comment": null
+      },
+      {
+        "address": "0048941c",
+        "bytes": "8b14852057d000",
+        "instruction": "MOV EDX,dword ptr [EAX*0x4 + 0xd05720]",
+        "comment": null
+      },
+      {
+        "address": "00489423",
+        "bytes": "85d2",
+        "instruction": "TEST EDX,EDX",
+        "comment": null
+      },
+      {
+        "address": "00489425",
+        "bytes": "7406",
+        "instruction": "JZ 0x0048942d",
+        "comment": null
+      },
+      {
+        "address": "00489427",
+        "bytes": "807a1800",
+        "instruction": "CMP byte ptr [EDX + 0x18],0x0",
+        "comment": null
+      },
+      {
+        "address": "0048942b",
+        "bytes": "7433",
+        "instruction": "JZ 0x00489460",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 35,
+    "total": 64,
+    "has_more": true
+  }
+}

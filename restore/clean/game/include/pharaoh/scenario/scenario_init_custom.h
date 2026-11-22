@@ -4,12 +4,16 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "pharaoh/map/road_network_types.h"
+
 typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_0000[3];
     uint8_t native_value_0003;
     uint8_t reserved_0004[8];
     int32_t treasury;
-    uint8_t reserved_0010[0x2768];
+    uint8_t reserved_0010[0x0c];
+    uint32_t native_value_001c;
+    uint8_t reserved_0020[0x2778 - 0x20];
     uint16_t exit_x;
     uint16_t exit_y;
     int32_t exit_grid_offset;
@@ -29,7 +33,17 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_42dc[0x0170];
     int32_t initial_rank;
     int32_t personal_savings;
-    uint8_t reserved_4454[0x02cc];
+    uint8_t reserved_4454[0x4460 - 0x4454];
+    int16_t dock_building_ids[10];
+    uint8_t reserved_4474[0x4488 - 0x4474];
+    uint16_t native_value_4488;
+    uint8_t reserved_448a[0x44ac - 0x448a];
+    uint32_t native_value_44ac;
+    uint8_t reserved_44b0[0x4630 - 0x44b0];
+    uint32_t native_value_4630;
+    uint8_t reserved_4634[0x46ac - 0x4634];
+    PharaohRoadNetworkRank largest_road_networks[PHARAOH_ROAD_NETWORK_RANKS];
+    uint8_t reserved_46fc[0x4720 - 0x46fc];
     uint32_t tutorial_active_a;
     uint32_t tutorial_active_b;
     uint8_t reserved_4728[8];
@@ -45,6 +59,12 @@ typedef struct PharaohScenarioPlayerRuntime {
 } PharaohScenarioPlayerRuntime;
 
 _Static_assert(offsetof(PharaohScenarioPlayerRuntime, native_value_0003) == 3 &&
+    offsetof(PharaohScenarioPlayerRuntime, native_value_001c) == 0x1c &&
+    offsetof(PharaohScenarioPlayerRuntime, dock_building_ids) == 0x4460 &&
+    offsetof(PharaohScenarioPlayerRuntime, native_value_4488) == 0x4488 &&
+    offsetof(PharaohScenarioPlayerRuntime, native_value_44ac) == 0x44ac &&
+    offsetof(PharaohScenarioPlayerRuntime, native_value_4630) == 0x4630 &&
+    offsetof(PharaohScenarioPlayerRuntime, largest_road_networks) == 0x46ac &&
     offsetof(PharaohScenarioPlayerRuntime, monument_definition_ids) == 0x4730 &&
     offsetof(PharaohScenarioPlayerRuntime, monument_building_ids) == 0x473c &&
     offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&

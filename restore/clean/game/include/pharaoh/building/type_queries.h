@@ -107,7 +107,7 @@ typedef struct PharaohBuildingTypeRecord {
         uint8_t temple_upgrade;
         uint8_t reserved_aa[0xae - 0xaa];
         int16_t dock_walker_ids[3];
-        uint8_t reserved_b4[0xb6 - 0xb4];
+        int16_t runtime_value_b4;
         int16_t shipwright_boat_id;
         };
         struct {

@@ -1,0 +1,273 @@
+{
+  "schema": "losttomb.scene-counts-entry.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x004677C0",
+      "name": "pharaoh_city_rebuild_building_counts",
+      "source": "game/scenario/scene_counts.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x00468860",
+      "name": "pharaoh_city_rebuild_road_networks",
+      "source": "game/map/road_network.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x004689E0",
+      "name": "pharaoh_map_color_road_region",
+      "source": "game/map/road_network.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x00480180",
+      "name": "pharaoh_map_has_road_access",
+      "source": "game/map/road_access.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x004802C0",
+      "name": "pharaoh_map_has_road_access_nearby",
+      "source": "game/map/road_access.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x00480460",
+      "name": "pharaoh_map_has_road_access_temple_complex",
+      "source": "game/map/road_access.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    },
+    {
+      "address": "0x00475B50",
+      "name": "pharaoh_building_follow_link",
+      "source": "game/building/linked_parts.c",
+      "origin": "Typed reuse of existing complete C, qualified against pinned native instructions and focused offline replay; no IL or original fallback.",
+      "mapping_evidence": "evidence/scene-counts-entry-20261122.json",
+      "known_limitations": "Valid native grid/record ranges; finite fixtures do not prove complete game equivalence."
+    }
+  ],
+  "native_evidence": "evidence/scene-counts-native-20261122.json",
+  "reuse": {
+    "game\\Map\\RoadAccess.c": "cb7a5b35169e369374f1ff5be3f03477590884e98336ed9547fccad405dc3751",
+    "generated\\mixed\\src\\Unit00933.c": "978a9a128ab384463f62688b84ea237304d8fd4ff4aca668c8d37290069e01d8",
+    "generated\\mixed\\src\\Unit00939.c": "d00380aca61d20e4a2a46e0438f14a520d7f35939dbd4cd5ca5e154af794010f",
+    "generated\\mixed\\src\\Unit00940.c": "dd14a46fd1bbbf2a4f4c8d11bbbb25da661580db0b244b436855bb4b9dec16af"
+  },
+  "contracts": [
+    "004677C0: state1/3, house and linked-part branches, literal36-service slots/237 kind counters, native conditional cleanup, signed WORD workers, BYTE timer decay; actual264/388/49D8 strides.",
+    "00468860/4689E0: signed strict-greater ranking retains ties, ten DWORD id/size pairs at player+46AC; BYTE labels/shades; signed routing classes0..2 with class2 terrain400 gate; cardinal {-228,1,228,-1}; iterative1000-DWORD ring, shade after>30, native51984-step bound.",
+    "00480180/4802C0/480460: full EAX0/1; failed query preserves XY, first best ranked road wins. Nearby allows road+water; footprint/temple reject water. Literal nearby delta/XY disagreement retained. Temple columns first, only both end rows in interior columns.",
+    "Count binder uses actual farm type group and native3x3 terrain/object occupancy; shares scan cursor publication. Initializer order remains004D52A0, including counts before road-network rebuild."
+  ],
+  "possible_native_bugs": [
+    {
+      "address": "0x00468860",
+      "finding": "DWORD region256 truncates to BYTE0, the unvisited sentinel. Intent unproven.",
+      "original_retained": true
+    },
+    {
+      "address": "0x004802C0",
+      "finding": "Literal delta/XY table disagreement at indices2/3,6/7. Origin+228 selects returned XY(-1,0). Possibly intentional; native behavior retained.",
+      "original_retained": true
+    }
+  ],
+  "prior_verification_audit": {
+    "target": "Original004802C0",
+    "compiled_provider": "runtime/MenuResourceNeighbors.c",
+    "provider_hash_matches": true,
+    "typed_alternative": "game/Map/RoadAccess.c",
+    "finding": "UniqueCompiledOwner refers to MenuResourceNeighbors.c. It does not certify the different typed RoadAccess.c. Typed nearby deltas differed from native; corrected in clean.",
+    "negative_control": {
+      "passed": true,
+      "negative_control_detected": true,
+      "entry": "0x004802C0",
+      "fixture": "Only road is at input(x20,y20)+(0,+1).",
+      "native_result_xy": [
+        19,
+        20
+      ],
+      "prior_table_result_xy": [
+        20,
+        21
+      ],
+      "method": "In emulator only, replace the compiled constant table by the exact earlier RoadAccess.c table; production file unchanged."
+    },
+    "rea_inspection": "Single inspect_native_instruction(0048031D) produced no response after approximately3 minutes; pending request cancelled, Ghidra session not closed/restarted. Pinned live Ghidra instruction listing and byte-level offline execution supplied the observed native facts."
+  },
+  "verification": {
+    "native_replay": {
+      "passed": true,
+      "cases": [
+        {
+          "case": "roads_empty",
+          "entry": "0x468860",
+          "bytes_compared": 108072
+        },
+        {
+          "case": "roads_connected_ties_classification_shades",
+          "entry": "0x468860",
+          "bytes_compared": 108072
+        },
+        {
+          "case": "roads_byte_label_wrap",
+          "entry": "0x468860",
+          "bytes_compared": 108072
+        },
+        {
+          "case": "color_queue_and_shade",
+          "entry": "0x4689e0",
+          "bytes_compared": 108072
+        },
+        {
+          "case": "nearby_literal_0",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_1",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_2",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_3",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_4",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_5",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_6",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_literal_7",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_empty_keeps_outputs",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_rank",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "nearby_roadblock",
+          "entry": "0x4802c0",
+          "bytes_compared": 8
+        },
+        {
+          "case": "footprint_1",
+          "entry": "0x480180",
+          "bytes_compared": 8
+        },
+        {
+          "case": "footprint_4",
+          "entry": "0x480180",
+          "bytes_compared": 8
+        },
+        {
+          "case": "temple_0",
+          "entry": "0x480460",
+          "bytes_compared": 8
+        },
+        {
+          "case": "temple_1",
+          "entry": "0x480460",
+          "bytes_compared": 8
+        },
+        {
+          "case": "temple_2",
+          "entry": "0x480460",
+          "bytes_compared": 8
+        },
+        {
+          "case": "temple_4",
+          "entry": "0x480460",
+          "bytes_compared": 8
+        },
+        {
+          "case": "temple_6",
+          "entry": "0x480460",
+          "bytes_compared": 8
+        },
+        {
+          "case": "building_count_all_kinds_and_cleanup",
+          "entry": "0x4677c0",
+          "bytes_compared": 83932
+        },
+        {
+          "case": "building_count_empty",
+          "entry": "0x4677c0",
+          "bytes_compared": 83932
+        }
+      ],
+      "note": "Offline Unicorn x86 execution of original and compiled typed C; no host process launched. Finite fixtures only."
+    },
+    "new_committed_test_scripts": 0,
+    "host_launched": false,
+    "ghidra_prototypes_updated": 6,
+    "scope": "Native/C output memory, logical EAX and preserved callee registers for listed fixtures; not instruction-for-instruction binary identity or exhaustive equivalence.",
+    "staged_strict_compilation": {
+      "passed": true,
+      "C_units": 7,
+      "indexed_files": 30,
+      "flags": "Win32 MSVC C11 /W4 /WX /Zs /DNDEBUG"
+    }
+  },
+  "source_sha256": {
+    "game/map/road_network.c": "659a1f01077c972157feda2c80d8043f6062de9f1b90c304ddd242c7b9d76a3e",
+    "game/map/road_access.c": "0e9e3de878e63bf52b2a4d9adb5ea83b681f657d1e85acc4d13dbceaf40105d2",
+    "game/building/linked_parts.c": "21b74bf0c99301b350b66948fea85d8ecb4cf346d9e8ec1681d6f6f5523d8017",
+    "game/scenario/scene_counts.c": "8d89242bb7586020d7d1c3a99aa5c10efdd673cb6f65e3fa18e582e36117986e",
+    "game/include/pharaoh/map/road_network.h": "953dd4d8a0b220e979b4f1a6a4c93def9bf2b6aaca01093bc2751fc074f6beb4",
+    "game/include/pharaoh/map/road_network_types.h": "2f1a22a69e2cc8fed36b807ca8751e2ab85d8709dbb6f3d8a4c0781a98f32ad4",
+    "game/include/pharaoh/map/road_access.h": "834343bf1bb40cfc6786030ee4242997b6c5d49daf55ac4cef0571d98dfd3a06",
+    "game/include/pharaoh/scenario/scene_counts.h": "b0c5221047144507664c7ec7bde6e982b79614d18e8f01a5cd10fb46fd47926f",
+    "game/include/pharaoh/scenario/scenario_init_custom.h": "f5a55b0de5269ea3e9b0b83a3efaee06d1b9fd1a10e7278c012116484d824feb",
+    "game/include/pharaoh/building/type_queries.h": "ac532413c4373d4e4f2c12176cfdf7e44097b2682c5d9a20cd6c798f0ec645a9"
+  },
+  "bindings": "Two real further initializer bindings;37/45 providers prepared. Host scene/storage/construction/ferry bindings and8 initializer slots still missing.",
+  "integration_build": {
+    "passed": true,
+    "scope": "Current worktree including earlier uncommitted units.",
+    "sha256": {
+      "pharaoh_game.lib": "1d82fbc8dff2b143b48824f7b1629526ede2a03be225d6098b9b0e9757ab4861",
+      "LostTomb.exe": "b6e9ea2c19bc433b1c1e766c28620769ba1f490020d7a2598bd12e83f875c9df"
+    }
+  },
+  "migration_verify": {
+    "errors": 138,
+    "note": "Three outside-game Original owners replaced. Historical migration-hash records unchanged; remaining138 findings pre-existed this checkpoint."
+  }
+}
