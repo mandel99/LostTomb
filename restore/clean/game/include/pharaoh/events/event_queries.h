@@ -263,4 +263,10 @@ int32_t pharaoh_event_subtype_group(const PharaohScenarioEvent *event);
 /* Complete C translation of Pharaoh.exe 0x0044F660. */
 int32_t pharaoh_event_announcement_text(const PharaohScenarioEvent *event);
 
+PharaohScenarioEvent *pharaoh_scenario_request_next_active(
+    PharaohScenarioEvent *events, int32_t count,
+    const PharaohScenarioEvent *previous);
+uint8_t pharaoh_event_record_is_enabled_0044d4c0(
+    const uint8_t *record);
+
 #endif

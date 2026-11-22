@@ -13,7 +13,9 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t treasury;
     uint8_t reserved_0010[0x0c];
     uint32_t native_value_001c;
-    uint8_t reserved_0020[0x2778 - 0x20];
+    uint8_t reserved_0020[4];
+    int32_t population;
+    uint8_t reserved_0028[0x2778 - 0x28];
     uint16_t exit_x;
     uint16_t exit_y;
     int32_t exit_grid_offset;
@@ -59,6 +61,7 @@ typedef struct PharaohScenarioPlayerRuntime {
 } PharaohScenarioPlayerRuntime;
 
 _Static_assert(offsetof(PharaohScenarioPlayerRuntime, native_value_0003) == 3 &&
+    offsetof(PharaohScenarioPlayerRuntime, population) == 0x24 &&
     offsetof(PharaohScenarioPlayerRuntime, native_value_001c) == 0x1c &&
     offsetof(PharaohScenarioPlayerRuntime, dock_building_ids) == 0x4460 &&
     offsetof(PharaohScenarioPlayerRuntime, native_value_4488) == 0x4488 &&

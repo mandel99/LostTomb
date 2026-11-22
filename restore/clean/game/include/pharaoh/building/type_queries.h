@@ -83,11 +83,20 @@ typedef struct PharaohBuildingTypeRecord {
         uint8_t pyramid_work_phase;
         uint8_t pyramid_work_column;
         uint8_t pyramid_work_row;
-        int32_t monument_stage;
+        union {
+            int32_t monument_stage;
+            struct {
+                uint8_t pyramid_target_layers;
+                uint8_t pyramid_ramp1_height, pyramid_ramp2_height;
+                uint8_t pyramid_prep_mask;
+            };
+        };
         int32_t monument_worker_id;
         uint8_t reserved_60[4];
-        int16_t pyramid_worker_id_64;
-        uint8_t reserved_66[2];
+        union {
+            struct { int16_t pyramid_worker_id_64; uint8_t reserved_66[2]; };
+            uint32_t complex_progress_flags;
+        };
         int32_t origin_x;
         int32_t origin_y;
         uint8_t reserved_70[0x84 - 0x70];

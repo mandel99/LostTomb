@@ -60,4 +60,6 @@ void pharaoh_economy_donation_amount(PharaohEconomyState *state);
 void pharaoh_economy_resource_amount_up(PharaohEconomyState *state);
 void pharaoh_economy_resource_amount_down(PharaohEconomyState *state);
 
+int32_t pharaoh_city_resource_cap_amount(uint32_t resource, int32_t value);
+
 #endif
