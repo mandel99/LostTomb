@@ -184,6 +184,8 @@ add_library(pharaoh_game STATIC
     game/runtime/city_view.c
     game/runtime/city_warning_clear.c
     game/map/map_ring.c
+    game/map/image_context.c
+    game/map/tile_adjacency.c
     game/runtime/text_input_state.c
     game/runtime/startup_asset_loading.c
     game/runtime/window_geometry.c
