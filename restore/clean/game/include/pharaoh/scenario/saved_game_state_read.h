@@ -52,6 +52,9 @@ typedef struct PharaohSavedGameReadOperations {
     PharaohSavedGameStep upgrade[PHARAOH_SAVE_UPGRADE_COUNT];
     /* Caesareum, lighthouse, library, Abu Simbel, royal tombs. */
     PharaohSavedGameStep reset_work_spots[5];
+    /* C integration contexts; a null override retains the shared user_data. */
+    void *upgrade_user_data[PHARAOH_SAVE_UPGRADE_COUNT];
+    void *settings_user_data;
 } PharaohSavedGameReadOperations;
 
 typedef struct PharaohSavedGameReadContext {

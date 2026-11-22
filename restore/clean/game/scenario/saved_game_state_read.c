@@ -12,7 +12,9 @@ _Static_assert(sizeof(PharaohBuildingTypeRecord) == 0x108 &&
 static void upgrade(PharaohSavedGameReadContext *context,
     enum PharaohSavedGameUpgrade step)
 {
-    context->operations->upgrade[step](context->operations->user_data);
+    const PharaohSavedGameReadOperations *const ops = context->operations;
+    ops->upgrade[step](ops->upgrade_user_data[step] != NULL ?
+        ops->upgrade_user_data[step] : ops->user_data);
 }
 
 void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
@@ -76,7 +78,8 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
     }
     if (version < 0x84)
         pharaoh_floodplain_settings_reset_next_quality(c->floodplain_settings);
-    ops->apply_loaded_settings(ops->user_data, 1);
+    ops->apply_loaded_settings(ops->settings_user_data != NULL ?
+        ops->settings_user_data : ops->user_data, 1);
     if (c->chunk_io->file_version < 0x7f) upgrade(c, PHARAOH_SAVE_V7F);
     version = c->chunk_io->file_version;
     if (c->chunk_io->file_version < 0x80)

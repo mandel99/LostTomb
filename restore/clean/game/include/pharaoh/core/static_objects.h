@@ -69,4 +69,25 @@ int32_t pharaoh_native_three_nonzero_count_004f5020(
 
 uint8_t pharaoh_native_return_zero_byte_00477f60(void);
 
+typedef struct PharaohNativeRecord90 {
+    uint8_t bytes[0x90];
+} PharaohNativeRecord90;
+typedef struct PharaohNativeRecord30 {
+    uint8_t bytes[0x30];
+} PharaohNativeRecord30;
+void pharaoh_native_record90_set_word_minus_one_004d1840(
+    PharaohNativeRecord90 records[49], int32_t word_offset);
+void pharaoh_native_record30_set_three_words_minus_one_004d1860(
+    PharaohNativeRecord30 records[1000], int32_t word_offset);
+void pharaoh_native_player_copy_seven_dwords_004d1880(
+    uint8_t *players, int32_t count);
+void pharaoh_native_player_expand_word_tables_004d1a70(uint8_t *players);
+void pharaoh_native_record90_clear_byte_004d3f40(
+    PharaohNativeRecord90 records[49], int32_t byte_offset);
+void pharaoh_native_current_player_block_clear_004d4040(uint8_t *player);
+void pharaoh_native_building_field_clear_004d4080(
+    uint8_t *records, int32_t count, int32_t stride, int32_t byte_offset);
+void pharaoh_native_two_words_clear_004d40a0(uint8_t *players);
+void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2]);
+
 #endif

@@ -7,6 +7,11 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/runtime/game_file_upgrade.c
+    game/scenario/mission_records.c
+    game/monuments/obelisk_queries.c
+    game/scenario/saved_game_upgrades.c
+    game/walker/record_queries.c
     game/building/type_queries.c
     game/core/pk_explode.c
     game/core/compression_io.c

@@ -93,3 +93,97 @@ uint8_t pharaoh_native_return_zero_byte_00477f60(void)
 {
     return 0;
 }
+
+void pharaoh_native_record90_set_word_minus_one_004d1840(
+    PharaohNativeRecord90 records[49], int32_t word_offset)
+{
+    int32_t index;
+    for (index = 0; index < 49; ++index)
+        *(int16_t *)(records[index].bytes + word_offset) = -1;
+}
+
+void pharaoh_native_record30_set_three_words_minus_one_004d1860(
+    PharaohNativeRecord30 records[1000], int32_t word_offset)
+{
+    int32_t index;
+    for (index = 0; index < 1000; ++index) {
+        int16_t *words = (int16_t *)(records[index].bytes + word_offset);
+        words[-1] = -1;
+        words[0] = -1;
+        words[1] = -1;
+    }
+}
+
+void pharaoh_native_player_copy_seven_dwords_004d1880(
+    uint8_t *players, int32_t count)
+{
+    int32_t player, index;
+    for (player = 0; player < count; ++player) {
+        uint8_t *p = players + player * 0x49d8;
+        for (index = 0; index < 7; ++index)
+            *(uint32_t *)(p + 0x483c + index * 4) =
+                *(const uint32_t *)(p + 0x2900 + index * 4);
+    }
+}
+
+void pharaoh_native_player_expand_word_tables_004d1a70(uint8_t *players)
+{
+    int32_t player, index;
+    for (player = 0; player < 2; ++player) {
+        uint8_t *p = players + player * 0x49d8;
+        for (index = 0; index < 20; ++index) {
+            *(int32_t *)(p + 0x3c64 + index * 4) =
+                (int32_t)*(const int16_t *)(p + 0x291c + index * 2);
+            *(int32_t *)(p + 0x3d04 + index * 4) =
+                (int32_t)*(const int16_t *)(p + 0x2944 + index * 2);
+        }
+        for (index = 0; index < 20; ++index) {
+            *(uint32_t *)(p + 0x3cb4 + index * 4) = 0;
+            *(uint32_t *)(p + 0x3d54 + index * 4) = 0;
+        }
+    }
+}
+
+void pharaoh_native_record90_clear_byte_004d3f40(
+    PharaohNativeRecord90 records[49], int32_t byte_offset)
+{
+    int32_t index;
+    for (index = 0; index < 49; ++index)
+        records[index].bytes[byte_offset] = 0;
+}
+
+void pharaoh_native_current_player_block_clear_004d4040(uint8_t *player)
+{
+    int32_t index;
+    *(uint32_t *)(player + 0x298c) = 0;
+    *(uint32_t *)(player + 0x2990) = 0;
+    player[0x2994] = 0;
+    for (index = 0; index < 9; ++index)
+        *(uint32_t *)(player + 0x2995 + index * 4) = 0;
+}
+
+void pharaoh_native_building_field_clear_004d4080(
+    uint8_t *records, int32_t count, int32_t stride, int32_t byte_offset)
+{
+    int32_t index;
+    for (index = 0; index < count; ++index)
+        records[index * stride + byte_offset] = 0;
+}
+
+void pharaoh_native_two_words_clear_004d40a0(uint8_t *players)
+{
+    for (int32_t player = 0; player < 2; ++player) {
+        uint8_t *const record = players + player * 0x49d8;
+        *(uint32_t *)(record + 0x44c8) = 0;
+        *(uint32_t *)(record + 0x44cc) = 0;
+    }
+}
+
+void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2])
+{
+    int32_t index;
+    for (index = 0; index < 4; ++index) {
+        pairs[index][0] = -1;
+        pairs[index][1] = -1;
+    }
+}
