@@ -504,3 +504,12 @@ int32_t pharaoh_event_subtype_group(const PharaohScenarioEvent *event)
             return -1;
     }
 }
+
+static const uint8_t event_type_uses_resource[PHARAOH_EVENT_TYPE_COUNT] = {
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+    1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0
+};
+bool pharaoh_event_type_uses_resource(const PharaohScenarioEvent *event)
+{
+    return event_type_uses_resource[event->type] != 0u;
+}

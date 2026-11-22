@@ -7,6 +7,14 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/building/type_queries.c
+    game/core/pk_explode.c
+    game/core/compression_io.c
+    game/core/compression_tables.c
+    game/scenario/saved_history.c
+    game/scenario/saved_walker_names.c
+    game/scenario/saved_event_upgrade.c
+    game/scenario/saved_game_schema.c
     game/core/x87_numeric.c
     game/monuments/base_progress.c
     game/monuments/build_requirements.c

@@ -269,4 +269,6 @@ PharaohScenarioEvent *pharaoh_scenario_request_next_active(
 uint8_t pharaoh_event_record_is_enabled_0044d4c0(
     const uint8_t *record);
 
+bool pharaoh_event_type_uses_resource(const PharaohScenarioEvent *event);
+
 #endif

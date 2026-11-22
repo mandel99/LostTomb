@@ -16,9 +16,18 @@ typedef struct PharaohRingQueue {
 } PharaohRingQueue;
 
 typedef struct PharaohDynamicQueueHeader {
-    int32_t reserved[4];
+    int32_t reserved_00;
+    int32_t head;
+    int32_t tail;
+    int32_t count;
     int32_t capacity;
+    int32_t *items;
 } PharaohDynamicQueueHeader;
+
+typedef struct PharaohDynamicQueueSlot {
+    PharaohDynamicQueueHeader queue;
+    uint32_t reserved_18;
+} PharaohDynamicQueueSlot;
 
 _Static_assert(sizeof(PharaohRingQueue) == 220,
     "The native ring queue prefix is 220 bytes");

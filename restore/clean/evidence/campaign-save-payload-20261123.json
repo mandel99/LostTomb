@@ -1,0 +1,247 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_owners": [
+    {
+      "address": "0x004D32F0",
+      "name": "pharaoh_saved_walker_names_repair",
+      "source": "game/scenario/saved_walker_names.c"
+    },
+    {
+      "address": "0x004D40C0",
+      "name": "pharaoh_saved_events_upgrade_resources",
+      "source": "game/scenario/saved_event_upgrade.c"
+    },
+    {
+      "address": "0x004D0A40",
+      "name": "pharaoh_saved_histories_transfer",
+      "source": "game/scenario/saved_history.c"
+    },
+    {
+      "address": "0x004F6700",
+      "name": "pharaoh_history_reserve",
+      "source": "game/scenario/saved_history.c"
+    },
+    {
+      "address": "0x004F6760",
+      "name": "pharaoh_history_release",
+      "source": "game/scenario/saved_history.c"
+    },
+    {
+      "address": "0x004F67E0",
+      "name": "pharaoh_history_import",
+      "source": "game/scenario/saved_history.c"
+    },
+    {
+      "address": "0x004F6810",
+      "name": "pharaoh_history_export",
+      "source": "game/scenario/saved_history.c"
+    },
+    {
+      "address": "0x004493C0",
+      "name": "pharaoh_event_type_uses_resource",
+      "source": "game/events/event_queries.c"
+    },
+    {
+      "address": "0x004C5120",
+      "name": "pharaoh_building_group_index",
+      "source": "game/building/type_queries.c"
+    },
+    {
+      "address": "0x0055C000",
+      "name": "pharaoh_pk_decompress",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055CBD0",
+      "name": "pharaoh_pk_explode",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055CD50",
+      "name": "pharaoh_pk_explode_data",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055CE50",
+      "name": "pharaoh_pk_explode_decode_next_token",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055D000",
+      "name": "pharaoh_pk_explode_get_copy_offset",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055D080",
+      "name": "pharaoh_pk_explode_consume_bits",
+      "source": "game/core/pk_explode.c"
+    },
+    {
+      "address": "0x0055BDB0",
+      "name": "pharaoh_codec_read",
+      "source": "game/core/compression_io.c"
+    },
+    {
+      "address": "0x0055BE50",
+      "name": "pharaoh_codec_write",
+      "source": "game/core/compression_io.c"
+    },
+    {
+      "address": "0x0055C0F0",
+      "name": "pharaoh_compression_crc_update",
+      "source": "game/core/compression_tables.c"
+    },
+    {
+      "address": "0x0055D110",
+      "name": "pharaoh_decompression_build_decode_table",
+      "source": "game/core/compression_tables.c"
+    }
+  ],
+  "flow": [
+    "0041BB70 -> optional00413580 Bink ->00417DD0 campaign settings ->004181E0 timed04->35",
+    "0041A180 first draw ->005405B0 ->004D58B0 mission*.pak ->004D41E0 ->004D0E10 ->0055BCF0/0055C000",
+    "004D41E0 ->004D0A40 history metadata,004D32F0 walker name groups,version<98:004D40C0 resources",
+    "004D52A0 initializes scene;00418220 accepts35->01;004DDDC0->00430D30 dispatches city rendering"
+  ],
+  "reuse": [
+    "Old DynamicHistory.c, DynQueueLoad.c, Unit01792.c and Unit02200.c real C algorithms, with typed contexts replacing native globals.",
+    "Existing LostTomb pk_explode/compression_io/compression_tables C; only decoder branch owners integrated.",
+    "004D32F0 and004D40C0 recovered from saved typed export and REA instruction reads; reused existing name-query patterns and actual god/resource leaves."
+  ],
+  "verification": {
+    "indexed_source_snapshot": true,
+    "strict_win32_units": 10,
+    "strict_passed": true,
+    "controller_cases": 130,
+    "controller_comparison": "Full original-image RAM, output/heap memory, low-AL reserve result, callee-saved registers, ESP and x87 control/status. Only allocation/free endpoints controlled. Actual building god, resource predicate and ring wrap C children execute. No host launched.",
+    "schema_records_checked": 181,
+    "real_pak": {
+      "comparison": "Decoded bytes and CRC, return/ABI/FPU; internal workspace layouts differ. Fixture uses native chunk indices and zero extension for two historical shapes; the entire historical loader/initializer is not replayed.",
+      "path": "mission1.pak",
+      "sha256": "12753b3330c5df49c1b5072324814f879a769e6793562150fafe5b9d34b91ab2",
+      "missions": [
+        {
+          "mission_id": 0,
+          "offset": 240,
+          "version": 147,
+          "chunks": 175,
+          "terrain_sha256": "59c8f75e43c4088da3c42e7530464c91eefb0bc482bc7a3ecb125b858a2c4a9e",
+          "buildings_sha256": "75855919076ba96440de78fc73f23378edaddb409dbef7dc865f43d5d60b2948",
+          "players_sha256": "cd8059cb51df87ddd985d0f9de834fb8d2ac71fe42c378d1637c249f0c07e7bb"
+        },
+        {
+          "mission_id": 1,
+          "offset": 302941,
+          "version": 147,
+          "chunks": 175,
+          "terrain_sha256": "7e521aaba60670c896337e97d5752e942c88d9896dd9b4f40e1ba10d8c812bb2",
+          "buildings_sha256": "75855919076ba96440de78fc73f23378edaddb409dbef7dc865f43d5d60b2948",
+          "players_sha256": "46e698c006a15ea7e2fd8bab4fea367c37b698a98f0f429b7f5872db6fb89be1"
+        },
+        {
+          "mission_id": 2,
+          "offset": 611779,
+          "version": 147,
+          "chunks": 175,
+          "terrain_sha256": "2e04d33fc7eef9e521e1cb9d6bde9d380dd0689bb25a39a272562ce48b226c23",
+          "buildings_sha256": "75855919076ba96440de78fc73f23378edaddb409dbef7dc865f43d5d60b2948",
+          "players_sha256": "673c3ebd7befc3531b06bcbba03afe61912b3d66c4a1e755c4ba12544397d486"
+        }
+      ],
+      "compressed_chunks_compared": 102
+    },
+    "oracle_dll_sha256": "da9a229b938df83b177171f14e1d63a7a402e4b809427c758a0b7b69bd4b8296",
+    "game_launched": false,
+    "computer_control_used": false
+  },
+  "excluded_old_translations": {
+    "reason": "Native replay disagrees with deterministic zero-filled old C candidates. No candidate migrated or counted.",
+    "possible_native_bug": "With identical API inputs, changing initial stack pattern changes output bytes. Could include reserved/padding bytes; consumers remain to be qualified. No full equivalence claim or synthetic C stack input introduced.",
+    "observations": [
+      {
+        "native_entry": "0x4d0d40",
+        "output_size": 48,
+        "bytes_depending_on_stack_pattern": 2,
+        "first_offsets": [
+          46,
+          47
+        ]
+      },
+      {
+        "native_entry": "0x4d0c60",
+        "output_size": 18628,
+        "bytes_depending_on_stack_pattern": 438,
+        "first_offsets": [
+          15734,
+          15735,
+          15736,
+          15737,
+          15738,
+          15739,
+          15740,
+          15741,
+          15742,
+          15743,
+          15744,
+          15745,
+          15746,
+          15747,
+          15748,
+          15749,
+          15750,
+          15751,
+          15858,
+          15859,
+          15860,
+          15861,
+          15862,
+          15863
+        ]
+      }
+    ]
+  },
+  "integration": {
+    "release_build_passed": true,
+    "scope": "Current worktree Release also includes earlier uncommitted units. Exact staged source subset verified separately above.",
+    "library_sha256": "bcae1b3874631984a6eb25a182b7bc6d84efbf3ec7a38a769434403e13604b5e",
+    "exe_sha256": "d1de8d38bfdd850e530be801af558377ec68d3ed0369ca17042f8eb50a37992e"
+  },
+  "remaining": [
+    "Host dispatcher has no0x35/0x01 scene binding; this checkpoint does not fix the frozen post-video screen.",
+    "Full typed owned scene buffers and read/initialize operation bindings are still required; schema binder supplies shapes, not a fabricated scene.",
+    "PAK fixture compares decompression, then prepares two historical record sizes by zero extension. Full historical read/upgrades/initializer and all image/render passes are not replayed.",
+    "Decoder replay covers the102 actual binary streams in missions0..2, not every literal-mode/error/alias case.",
+    "Old event/message migrations004D0C60/004D0D40 remain outside the production integration pending field/consumer qualification."
+  ],
+  "source_sha256": {
+    "game/building/type_queries.c": "dccfd87ccf4d58224bc370312ef3f652861f0da8578e6355349ff9da82ddf367",
+    "game/core/compression_io.c": "e88d8c41cabf07a3a5dc47bc8724000ad53c9a663677f90f7a80affd0ea56c80",
+    "game/core/compression_tables.c": "a5288b9589be471fd26fa7d617471be96741067f24f42bef3a90154a76f28638",
+    "game/core/pk_explode.c": "54dcb405def2107d7e37ddf8861122f3dd7e4600aae88c5b1b1564660838600a",
+    "game/events/event_queries.c": "3468cb346e1e1e86f9da1e13ddac3b6db69343bdebc7a0dc2ea3c7cd81e70d92",
+    "game/include/pharaoh/core/compression_io.h": "21c56ef6a16c124104cb5fc8313efc04a63d0a4b5623b1f8762b9160a45f55b3",
+    "game/include/pharaoh/core/compression_tables.h": "5a2de6f5b6c2e333a9bc6b9f3e1a84dca6f568765abe02d84e1eba9c0dcff216",
+    "game/include/pharaoh/core/pk_explode.h": "4c029dd868eed0ef9ef5913cca2f1bd84df747477a43b73241f5aaebbd7d46ed",
+    "game/include/pharaoh/core/ring_queue.h": "b2601d70a9d03cc9e5bb6d3d9911c5b49f59f9ebf21f32509bf57370e1458663",
+    "game/include/pharaoh/events/event_queries.h": "eab7d1959632bedc6e1d9824f18048c4f4439b69c99b6d127848c2c2fc55a1e7",
+    "game/include/pharaoh/scenario/saved_event_upgrade.h": "aaa124a72e14cb6c3bb51ac705035bd8eb60e9f42831a06520c044c0f700a3da",
+    "game/include/pharaoh/scenario/saved_game_schema.h": "29bd7979be2bb2f3a5504ada65f2e250f1e834b29b2cb1e7c296bf53cacd230d",
+    "game/include/pharaoh/scenario/saved_history.h": "e89c0d9c354f99b4ff7bbb7f7a84c0b8768cecd4d92c5b92fa567b30303e7de9",
+    "game/include/pharaoh/scenario/saved_walker_names.h": "d1a8d04f38f8c56bf5e5c75851c03f39a26b91721567ce24ddb1afb11618e18d",
+    "game/scenario/saved_event_upgrade.c": "d4b4139fc8249dde7c01909931a458c28fc3d31213445cce2c598e2d89db5ef7",
+    "game/scenario/saved_game_schema.c": "4c67e7ca4e72e2f7f18c3f07344f489946c058cb02ed412b2003678f5b8c8f90",
+    "game/scenario/saved_history.c": "2c0b3c914b55a8a887784e0ae827a5171b142d787482f80ff22417d5abc13946",
+    "game/scenario/saved_walker_names.c": "970cab424512f8c7de992efefbe2ad0b3793f081720195d8be449ed37db07348"
+  },
+  "migration_verify": {
+    "errors": 123,
+    "historical_records_preserved": true,
+    "baseline_errors": 119,
+    "additional_pending_unstaged_units": [
+      "game/building/venue_images.c",
+      "game/map/rotated_buildings.c",
+      "game/map/water_building_images.c",
+      "game/monuments/image_updates.c"
+    ]
+  }
+}
