@@ -39,6 +39,15 @@ typedef struct PharaohMapSurfaceContext {
     PharaohMapTerrainView *map;
     const PharaohMapGridGeometry *geometry;
     const int32_t *border_size, *orientation;
+    const uint32_t *building_orientation;
+    const int32_t *row_x_start, *row_x_end, *row_start_offset;
+    const int8_t *height_values;
+    int32_t *area_x, *area_y;
+    uint32_t *channels_refresh_pending;
+    PharaohMapImageContextRecord *fault_context; /*17 rows */
+    PharaohMapImageContextRecord *canal_context; /*48 rows */
+    PharaohMapImageContextRecord *flood_canal_context; /*15 rows */
+    PharaohMapImageContextRecord *channel_context; /*16 rows */
     uint32_t *current_tile, *adjacent;
     int32_t *scan_x, *scan_y;
     uint32_t *image_ids;
@@ -96,5 +105,27 @@ uint8_t pharaoh_pyramid_set_construction_tile_image(PharaohMapSurfaceContext *c,
 void pharaoh_pyramid_map_segment_update(PharaohMapSurfaceContext *c,
     int32_t x,int32_t y,int32_t mode,uint32_t mask);
 uint32_t pharaoh_map_building_undo_capture(PharaohMapBuildingUndo *c,int32_t building);
+
+
+void pharaoh_map_refresh_surrounding_empty(PharaohMapSurfaceContext *c,int32_t x,int32_t y,int32_t size);
+void pharaoh_map_place_surface_square(PharaohMapSurfaceContext *c,uint16_t building,
+    int32_t x,int32_t y,int32_t width,int32_t height,uint32_t image,uint32_t flags);
+void pharaoh_map_refresh_gardens(PharaohMapSurfaceContext *c);
+void pharaoh_map_refresh_rocks(PharaohMapSurfaceContext *c);
+void pharaoh_map_refresh_dunes(PharaohMapSurfaceContext *c);
+void pharaoh_map_refresh_canals(PharaohMapSurfaceContext *c);
+void pharaoh_map_refresh_paved_region(PharaohMapSurfaceContext *c,
+    int32_t x0,int32_t y0,int32_t x1,int32_t y1,uint32_t clear);
+void pharaoh_map_refresh_channel_region(PharaohMapSurfaceContext *c,
+    int32_t x0,int32_t y0,int32_t x1,int32_t y1,uint32_t refresh);
+void pharaoh_map_adjacent_channel_flags(PharaohMapSurfaceContext *c);
+void pharaoh_map_adjacent_add_channel_side(PharaohMapSurfaceContext *c,
+    int32_t direction,uint32_t *count);
+void pharaoh_map_set_fault_image(PharaohMapSurfaceContext *c,int32_t x,int32_t y,int32_t set);
+void pharaoh_map_refresh_faults(PharaohMapSurfaceContext *c,int32_t x0,int32_t y0,int32_t x1,int32_t y1);
+void pharaoh_map_set_rubble_image(PharaohMapSurfaceContext *c,int32_t x,int32_t y);
+void pharaoh_map_refresh_rubble(PharaohMapSurfaceContext *c,int32_t x0,int32_t y0,int32_t x1,int32_t y1);
+void pharaoh_map_set_channel_image(PharaohMapSurfaceContext *c,int32_t full);
+void pharaoh_map_update_channel_images(PharaohMapSurfaceContext *c,int32_t x0,int32_t y0,int32_t x1,int32_t y1);
 
 #endif

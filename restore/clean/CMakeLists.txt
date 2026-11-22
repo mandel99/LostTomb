@@ -185,6 +185,11 @@ add_library(pharaoh_game STATIC
     game/runtime/city_warning_clear.c
     game/map/map_ring.c
     game/map/surface_tiles.c
+    game/map/surface_placement.c
+    game/map/surface_packing.c
+    game/map/surface_regions.c
+    game/map/channel_images.c
+    game/map/surface_image_tables.c
     game/map/vegetation_tiles.c
     game/map/pyramid_surface.c
     game/map/grid_geometry.c
