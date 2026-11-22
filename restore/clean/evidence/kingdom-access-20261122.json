@@ -1,0 +1,263 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00481060",
+      "name": "pharaoh_building_find_access",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00481210",
+      "name": "pharaoh_building_find_wide_access",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00481420",
+      "name": "pharaoh_building_has_access_neighbor",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00487D00",
+      "name": "pharaoh_map_sphinx_access_tile",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x004F30B0",
+      "name": "pharaoh_building_special_entry",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x0047FEB0",
+      "name": "pharaoh_map_closest_road_within_radius",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x0047FE60",
+      "name": "pharaoh_map_road_exists_within_distance",
+      "source": "game/map/building_access_queries.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00517A40",
+      "name": "pharaoh_map_routing_citizen_access",
+      "source": "game/map/access_routing.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00517C20",
+      "name": "pharaoh_map_routing_clear_first_blocker",
+      "source": "game/map/access_routing.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x00458270",
+      "name": "pharaoh_building_remove_highest_serial",
+      "source": "game/building/kingdom_access.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json",
+      "known_limitations": "Mandatory typed monument/message/displacement/removal child boundaries remain; controlled in finite replay. Host scene binding and full child graph are not claimed."
+    },
+    {
+      "address": "0x00457AF0",
+      "name": "pharaoh_building_update_kingdom_access",
+      "source": "game/building/kingdom_access.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json",
+      "known_limitations": "Mandatory typed monument/message/displacement/removal child boundaries remain; controlled in finite replay. Host scene binding and full child graph are not claimed."
+    },
+    {
+      "address": "0x00430CD0",
+      "name": "pharaoh_city_view_focus_tile",
+      "source": "game/building/kingdom_access.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    },
+    {
+      "address": "0x004304C0",
+      "name": "pharaoh_city_view_grid_offset_to_xy_view",
+      "source": "game/runtime/city_view.c",
+      "origin": "Complete typed C body reused from prior real C, qualified against pinned REA/Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/kingdom-access-20261122.json"
+    }
+  ],
+  "reuse": [
+    "reused/restore/generated/mixed/runtime/BuildingAccess.c,BuildingAccessSearch.c,CommandMigration.c",
+    "reused/restore/game/runtime/AccessRepairFlood.c; game/functions/CleanGeneratedLeaves65.c",
+    "Existing pending clean terrain queries and city-view child, moved or indexed only for selected entries."
+  ],
+  "contracts": [
+    "Native8-byte road network ranks replace the prior pending dense DWORD view.481060 tests first10 ranks,47FEB0 first5. Unlisted rank11 remains eligible; fallback requires signed0<distance<100000 and has no terrain test.",
+    "481210 accepts water+road in ranked mode; fallback doubles the winning horizontal shift. Possible original bug, preserved.",
+    "487D00 publishes Y then X and returns zero-based tile.457AF0 still publishes result-1 for sphinx, a possible original off-by-one preserved.",
+    "4F30B0 consumes physical128/960/8-byte table records. Sole direct caller458034 TEST AL at45803C. Expose byte1, not incidental pointer/base upper EAX. Output/record/origin aliases replayed. Indirect entry coverage unresolved.",
+    "Building BYTE14 road-network alias, WORD24 failure timer; player source signedWORD2778/277A, destination2780/2782/tile2784, anchor DWORD4674. Prior exit/quake field names retained as overlay aliases. Native32-bit record strides264/49D8 unchanged.",
+    "517A40 and517C20 preserve N/E/S/W order, signed BYTE citizen cost, complete0x32C40 distance clear, queue wrapCB10, route counter wrap and early first-blocker return. Clear terrain mask03052E80, edgeOR40, footprintAND_F0.",
+    "457AF0 retains all15 ordered repair attempts and the final458270 removal.458270 caches high-water count, picks first strict signedWORD serial maximum among states1/3, and reloads mutable building fields after children.",
+    "430CD0 uses real4304C0 projection search and4DE080 camera clamp; Y mask0000FFFE retained."
+  ],
+  "controlled_endpoints": [
+    "542F40",
+    "40EB90",
+    "401AF0",
+    "417490",
+    "4E6AE0",
+    "4E0C50",
+    "545A30",
+    "558F00",
+    "556230",
+    "54F8A0",
+    "459020",
+    "4E2970",
+    "4E0CF0",
+    "4C03D0",
+    "47C2B0",
+    "43FD00",
+    "48C0E0",
+    "4695D0",
+    "516F90 and5173A0 only inside removal controller; actual C/native routing runs in map repair"
+  ],
+  "verification": {
+    "passed": true,
+    "cases": 501,
+    "groups": {
+      "queries": 300,
+      "sphinx-zero-based": 30,
+      "pyramid-logical-AL-and-aliases": 60,
+      "BFS-and-first-blocker": 48,
+      "focus-full-child-graph": 12,
+      "remove-highest-serial": 24,
+      "kingdom-real-map-and-routing-graph": 24,
+      "fifteen-repairs-then-remove": 3
+    },
+    "scope": "13 native owners including the existing4304C0 dependency. Original executable code and compiled typed C: complete original image RAM and output memory, logical result widths, callee-saved registers/stack and x87 control/status. Full new routing, existing surface and camera child graphs execute. Monument position, displacement, message and removal-effect endpoints controlled and listed; no host launched. Finite inputs only."
+  },
+  "integration": "Real typed adapter for init slotKINGDOM_ACCESS.44/45 init entry bodies now have typed C, with child boundaries explicitly qualified; not44 complete bound graphs.",
+  "remaining": "Init46D840 rotated images; full host scene storage/base schema, briefing35 and city01 passes/binding. No menu-to-game completion claim.",
+  "source_sha256": {
+    "game/map/building_access_queries.c": "06039cfebef196a7f4d4242edf1db0ff560be70b3f6f97019f4a389ef8769afe",
+    "game/map/access_routing.c": "4fe0d5708041a135e51f04346ea1d9c4086efe409c8cf24601536f3a687b3049",
+    "game/building/kingdom_access.c": "37fee1b9a04bdcf57daf22aa72ba3efa56b6eda26a9650e73e63d89bafa6a2af",
+    "game/include/pharaoh/map/building_access_queries.h": "2dc54bc54aad20f70b75aa65ce672d730fcee9e3bfed53e97a5949ac0665ece3",
+    "game/include/pharaoh/map/access_routing.h": "b82f4f41193185abc9f9b75f05028bf41e8a58c63ee40b8bb17b7dd8b4b4b1a8",
+    "game/include/pharaoh/building/kingdom_access.h": "ea4259f4c7802776ab24e6cb72e90fa59f4ba7c0f172bb20ea393a5bcc22f212",
+    "game/include/pharaoh/map/routing_search.h": "d52a22d0f322db7583ea58b88a15ea52dd69cd3309e87d70d4b35dfd1f93a942",
+    "game/include/pharaoh/building/type_queries.h": "a33534618168ff6ef84ecf431bfabd9d4f0cb3697cb79b7b2b3b1e9ad1f269aa",
+    "game/include/pharaoh/scenario/scenario_init_custom.h": "442dd1ef8263caeb1bdec603dfe0ce97969737874bd0515ba885bf142caa972d",
+    "game/runtime/city_view.c": "2fd0f1cc4bd9d9e76392fb56cfbc1cfca114c01eb1e416b0971e90d839230ea9",
+    "game/include/pharaoh/runtime/city_view.h": "1848faa7dd91300909801e63cf096e887839154229423d7571f2ad7133788b55"
+  },
+  "compiled_indexed_C_sha256": "f5db5e8ee434bfbc793b06ad58d37f4297761b7cb35b3ba146470a5c54335887",
+  "strict_index": {
+    "passed": true,
+    "C_units": 4,
+    "indexed_files": 40
+  },
+  "release_build": "passed; Win32 Release pharaoh_clean_bootstrap",
+  "release_sha256": "1ff973dba000a8cd8024ffafff0fc7f165a2fe18502fd6a47bb00287b01fbb01",
+  "migration_verify": {
+    "errors": 119,
+    "prior_errors": 123,
+    "historical_hash_records_preserved": true
+  },
+  "return_width_audit": {
+    "517A40": "Six direct calls: two parent calls discard result; four legion callers overwrite EAX without reading it. C exposes only its logical byte Boolean. Indirect-entry coverage remains unresolved.",
+    "legion_EAX_overwrites": [
+      "4B643C MOV EAX,[EDI+BCBA4C]",
+      "4B6790 MOV EAX,[ESP+5C]",
+      "4B6A7E LEA EAX,[ESI+ESI*2]",
+      "4B6CFF LEA EAX,[ECX+ECX*8]"
+    ],
+    "rea_instruction_windows": [
+      {
+        "address": "0x4b643c",
+        "instruction": "MOV EAX,dword ptr [EDI + 0xbcba4c]",
+        "evidence": "ev_b12f8cc0618848bbc5385cbc97b821b0588228ff16139bfba14bd26b06fe45a5"
+      },
+      {
+        "address": "0x4b6777",
+        "instruction": "LEA ESI,[EDI + EDI*0x2]",
+        "evidence": "ev_8b6ea4436cce3d57ca89bc83cfcd04b0a148fb8dea830d0c7be62606220299fd"
+      },
+      {
+        "address": "0x4b6a7e",
+        "instruction": "LEA EAX,[ESI + ESI*0x2]",
+        "evidence": "ev_875fec5f0a8d756e4b874cbd87c51d4fa0f17bdf95de2f28c06e1cee45a644b8"
+      },
+      {
+        "address": "0x4b6cf1",
+        "instruction": "MOVSX ECX,word ptr [ESI + 0xbcba00]",
+        "evidence": "ev_ab93db726f44c666650fe21a3cfc6c64d5738a8e1b6288514942ffae80d52cfa"
+      },
+      {
+        "address": "0x4b677a",
+        "instruction": "ADD ESP,0x10",
+        "evidence": "ev_14d92984d18f4ded65bcfc3fb67125d21570f961dd60973de346266c02602e33"
+      },
+      {
+        "address": "0x4b6cf8",
+        "instruction": "MOV EBX,dword ptr [0x00bca2d8]",
+        "evidence": "ev_c8948638e30a3cba9e026ade2fcfea2a2a14382840ada150a373845a195f03af"
+      },
+      {
+        "address": "0x4b677d",
+        "instruction": "SHL ESI,0x5",
+        "evidence": "ev_d63d4933b21d1bda07091b94ed0a6c3c57e0cfefb738dbbe3dbf1c32ef6df3a4"
+      },
+      {
+        "address": "0x4b6780",
+        "instruction": "ADD ESI,EDI",
+        "evidence": "ev_c748b291f6ef371dbe7fa912433db0f3be64b102c529c107ce9309a15c3cc3af"
+      },
+      {
+        "address": "0x4b6782",
+        "instruction": "LEA EDI,[ESP + 0x10]",
+        "evidence": "ev_7252a2c0f201cd2553366e950c1100a00bcda171a5ab60154e0a8a0d506d9b94"
+      },
+      {
+        "address": "0x4b6786",
+        "instruction": "SHL ESI,0x2",
+        "evidence": "ev_a3b7a4f6abc0281f4c78728d84ad36a72f1f5840a79ca223acb5f70d2900a291"
+      },
+      {
+        "address": "0x4b6789",
+        "instruction": "MOV EDX,dword ptr [EDI + 0x4]",
+        "evidence": "ev_9c2ce6657e703e3599bd9f4d2a8db3c37d1a4a9745584e8e0616528a8a3ccee7"
+      },
+      {
+        "address": "0x4b678c",
+        "instruction": "MOV ECX,dword ptr [ESP + 0x60]",
+        "evidence": "ev_54fc707dc401ef998eab5c21b72775a3cff83b3055049f03dfad07756055089b"
+      },
+      {
+        "address": "0x4b6cfe",
+        "instruction": "PUSH ECX",
+        "evidence": "ev_bdfbd9a1c60123d88076649ea0369d6e6e47b6dedcdc664ded44b9ea698a35f8"
+      },
+      {
+        "address": "0x4b6cff",
+        "instruction": "LEA EAX,[ECX + ECX*0x8]",
+        "evidence": "ev_9faeb724091a7312b92c5532775d609c0c085e3f59d864398c15b3523b0eb09e"
+      },
+      {
+        "address": "0x4b6790",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x5c]",
+        "evidence": "ev_5cf42fd3c8b37d5018726fa0e33c24f3810d79363970b86709fe8c100de9bea9"
+      }
+    ]
+  }
+}

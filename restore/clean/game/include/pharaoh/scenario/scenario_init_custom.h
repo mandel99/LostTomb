@@ -19,12 +19,21 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t school_age_population;
     int32_t academy_age_population;
     uint8_t reserved_0034[0x2778 - 0x34];
-    uint16_t exit_x;
-    uint16_t exit_y;
-    int32_t exit_grid_offset;
-    uint16_t quake_x;
-    uint16_t quake_y;
-    int32_t quake_grid_offset;
+    union {
+        struct {
+            uint16_t exit_x, exit_y;
+            int32_t exit_grid_offset;
+            uint16_t quake_x, quake_y;
+            int32_t quake_grid_offset;
+        };
+        /* Kingdom access consumes these signed WORD pairs as source/exit. */
+        struct {
+            int16_t kingdom_entry_x, kingdom_entry_y;
+            int32_t kingdom_entry_tile;
+            int16_t kingdom_exit_x, kingdom_exit_y;
+            int32_t kingdom_exit_tile;
+        };
+    };
     uint8_t reserved_2788[0x298c - 0x2788];
     uint8_t food_known[9];
     uint8_t resource_known[36];
@@ -50,7 +59,14 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint32_t native_value_44ac;
     uint8_t reserved_44b0[0x4630 - 0x44b0];
     uint32_t native_value_4630;
-    uint8_t reserved_4634[0x46ac - 0x4634];
+    union {
+        uint8_t reserved_4634[0x46ac - 0x4634];
+        struct {
+            uint8_t access_native_4634[0x4674 - 0x4634];
+            int32_t access_anchor_building_id;
+            uint8_t access_native_4678[0x46ac - 0x4678];
+        };
+    };
     PharaohRoadNetworkRank largest_road_networks[PHARAOH_ROAD_NETWORK_RANKS];
     uint8_t reserved_46fc[0x4720 - 0x46fc];
     uint32_t tutorial_active_a;

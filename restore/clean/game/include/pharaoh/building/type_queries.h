@@ -42,14 +42,20 @@ typedef struct PharaohBuildingTypeRecord {
     int32_t grid_offset;
     int16_t building_type;
     int16_t subtype;
-    int16_t loads_stored;
+    union {
+        int16_t loads_stored;
+        struct { uint8_t road_network_id, native_15; };
+    };
     int16_t runtime_value_016;
     int16_t houses_covered;
     uint8_t reserved_1a[2];
     int16_t house_population;
     int16_t house_population_room;
     int16_t distance_from_entry;
-    uint8_t reserved_22[0x26 - 0x22];
+    union {
+        uint8_t reserved_22[0x26 - 0x22];
+        struct { uint8_t access_native_22[2]; uint16_t access_failure_ticks; };
+    };
     int16_t road_access_x;
     int16_t road_access_y;
     int16_t walker_id;

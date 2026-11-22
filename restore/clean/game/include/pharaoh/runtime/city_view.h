@@ -99,4 +99,8 @@ void pharaoh_city_view_set_editor_viewport(PharaohCityViewContext *context);
 void pharaoh_city_view_calculate_map_bounds(PharaohCityViewContext *context);
 void pharaoh_city_view_check_camera_boundaries(PharaohCityViewContext *context);
 
+void pharaoh_city_view_grid_offset_to_xy_view(
+    const PharaohCityProjectionLookup *projection, int32_t grid_offset,
+    int32_t *view_x, int32_t *view_y);
+
 #endif

@@ -332,3 +332,26 @@ void pharaoh_city_view_check_camera_boundaries(PharaohCityViewContext *context)
     }
     state->camera_y &= ~1;
 }
+
+void pharaoh_city_view_grid_offset_to_xy_view(
+    const PharaohCityProjectionLookup *projection, int32_t grid_offset,
+    int32_t *view_x, int32_t *view_y)
+{
+    int32_t projected_x, projected_y;
+    *view_x = 0;
+    *view_y = 0;
+    for (projected_x = 0;
+         projected_x < PHARAOH_CITY_PROJECTION_WIDTH; ++projected_x) {
+        for (projected_y = 0;
+             projected_y < PHARAOH_CITY_PROJECTION_HEIGHT; ++projected_y) {
+            const int32_t value = projection->cells[
+                projection_index(projected_x, projected_y)];
+            if ((uint32_t)value < UINT32_C(0x0fff0000) &&
+                value == grid_offset) {
+                *view_x = projected_y;
+                *view_y = projected_x;
+                return;
+            }
+        }
+    }
+}
