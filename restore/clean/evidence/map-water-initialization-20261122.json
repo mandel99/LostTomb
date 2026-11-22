@@ -1,0 +1,320 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00482810",
+      "name": "pharaoh_map_find_free_terrain",
+      "source": "game/map/surface_queries.c",
+      "origin": "Typed translation of pinned saved pseudocode for the free-terrain leaf; the old Ttk-only candidate was excluded. Native scan-coordinate side effects verified by joint replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047D870",
+      "name": "pharaoh_map_update_entry_exit_flags",
+      "source": "game/map/entry_exit_flags.c",
+      "origin": "Prior marker algorithm corrected to exact native removal mask DFCFFFFD; no invented search-failure fallback.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x004777C0",
+      "name": "pharaoh_map_refresh_floodplain",
+      "source": "game/map/floodplain_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00479E70",
+      "name": "pharaoh_map_set_floodplain_image",
+      "source": "game/map/floodplain_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x004776F0",
+      "name": "pharaoh_map_refresh_marshland",
+      "source": "game/map/floodplain_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047AB10",
+      "name": "pharaoh_map_set_marshland_image",
+      "source": "game/map/floodplain_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00475CC0",
+      "name": "pharaoh_map_refresh_water",
+      "source": "game/map/water_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047A220",
+      "name": "pharaoh_map_set_water_image",
+      "source": "game/map/water_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x004877F0",
+      "name": "pharaoh_map_update_deepwater",
+      "source": "game/map/deepwater.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00487B70",
+      "name": "pharaoh_map_shrink_deepwater_around",
+      "source": "game/map/deepwater.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x004816B0",
+      "name": "pharaoh_map_terrain_any_tile_in_square_with",
+      "source": "game/map/surface_queries.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00481770",
+      "name": "pharaoh_map_terrain_any_tile_in_square_without",
+      "source": "game/map/surface_queries.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00487730",
+      "name": "pharaoh_map_terrain_row_has_two",
+      "source": "game/map/surface_queries.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x00487790",
+      "name": "pharaoh_map_terrain_column_has_two",
+      "source": "game/map/surface_queries.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047A1F0",
+      "name": "pharaoh_map_sweep_matches_tile",
+      "source": "game/map/surface_queries.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047B570",
+      "name": "pharaoh_map_refresh_roads",
+      "source": "game/map/road_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047B590",
+      "name": "pharaoh_map_refresh_road_region",
+      "source": "game/map/road_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047B670",
+      "name": "pharaoh_map_set_road_image",
+      "source": "game/map/road_images.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x0047E5C0",
+      "name": "pharaoh_map_adjacent_add_gatehouse_flags",
+      "source": "game/map/entry_exit_flags.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    },
+    {
+      "address": "0x004DEA50",
+      "name": "pharaoh_map_refresh_all_tiles",
+      "source": "game/map/surface_refresh_all.c",
+      "origin": "Complete typed C with actual child graph; reuse of prior algorithms qualified by pinned Ghidra and joint original/compiled-C replay.",
+      "mapping_evidence": "evidence/map-water-initialization-20261122.json"
+    }
+  ],
+  "reuse": [
+    "generated/mixed/src/Unit01095.c,Unit01052.c,Unit01099.c,Unit01038.c",
+    "generated/mixed/runtime/MenuDragWaterRefresh.c",
+    "artifacts/map_refresh_postpass5_phase/unit_01107.c,unit_01108.c; postpass6_phase/unit_01268.c; postpass7_phase/unit_01267.c",
+    "game/functions/MapImageContextAddGatehouseTiles.c; five existing typed terrain queries moved unchanged."
+  ],
+  "corrected_prior_source": "Old semantic marker removal used only ~2. EXE clears DFCFFFFD; the exact wider mask is retained.",
+  "calls": {
+    "004DEA50": [
+      "0051F780(no-op),004770F0,00475DC0",
+      "0051F780(no-op),00475BF0,00476530",
+      "0047D870 when605A3C==0",
+      "004767D0,004777C0,00477500,004776F0,00477210",
+      "004777C0 again,00475CC0(expand0),00477890,0047B570",
+      "00475720(clear1),0047B1A0,0047BAE0(refresh0)"
+    ],
+    "00475CC0": [
+      "optional004877F0 expanded by5 when incoming lowBYTE!=0",
+      "each eligible cell0047A220; restores its saved BC9768"
+    ],
+    "00479E70": [
+      "0046F930,0047A1C0,0047DB00,00484F00",
+      "dry bank:00484BE0(reverse,animation0); other:0047DDD0 then00484D70",
+      "real x87 FILD BYTEheight *0.01 *8.0 ->__ftol; original parity/offset arithmetic"
+    ],
+    "0047B590": [
+      "0047DB00(8000040),0047E5C0,0047B670"
+    ]
+  },
+  "contracts": [
+    "Signed WORD scenario entry coordinates784C64..6A; marker direction E94E04, output WORD-independent DWORD coordinates BCA318..324 and tile offsets BC96C4/BC96C0.",
+    "Free terrain query482810 is a five-argument scan, not an edge-facing helper. It publishes D3B4E4 X/D3B4E0 Y on success and failure.",
+    "Deepwater bit04000000 removal recurses only after clearing the bit; row/column clamping includes the native logical-width/height edge.",
+    "Flood node+00 pointer,+08 anchor DWORD,+18 BYTE. Pointed record+04 retains an unresolved DWORD overlay native_04; no broader type/meaning inferred.",
+    "Water setter preserves/restores BC9768; other setters publish their own native scan state.26-row reverse deepwater context reset affects BYTE0E only.",
+    "Grouped bank table is8*24 rows. Process-lifetime mutable frame fields are preserved across mission loads."
+  ],
+  "possible_original_bug": "Marker search still uses final scan coordinates after all radii1..9 fail. Observed with all-blocked terrain; preserve rather than invent fallback.",
+  "initial_tables": [
+    {
+      "field": "fault",
+      "address": "0x5cbea8",
+      "bytes": 272,
+      "sha256": "5752e37380075b045094583b7fd07cab1185db659da29981a932741cca99f56d",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "terrain_4000",
+      "address": "0x5cb9d8",
+      "bytes": 768,
+      "sha256": "4d4cd2285e180375f134140eab276c160cf4ea87a85a9f2dfaa200436ab6eeb2",
+      "zero_frame_rows": 1
+    },
+    {
+      "field": "terrain_4000_flood",
+      "address": "0x5cbcd8",
+      "bytes": 240,
+      "sha256": "5f30a7389efc31ea9be9bf1c88f2f4c4e0abcce3e6649441358a4c7b815563ec",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "floodplain",
+      "address": "0x5cbfb8",
+      "bytes": 416,
+      "sha256": "7f1abb1a744477040b44394f8f73865280329537899c79091efa05190cabe8f0",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "channel",
+      "address": "0x5cc678",
+      "bytes": 256,
+      "sha256": "629e92a6d3a03b6d1d2693efe6397d2611ae81cea6cbc2c3b9cc21c7e153a562",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "water",
+      "address": "0x5ca658",
+      "bytes": 768,
+      "sha256": "e6e752c6872c15656d553e54cd708ae403feac7e3627f61bebb93f79c028e2d7",
+      "zero_frame_rows": 1
+    },
+    {
+      "field": "bank",
+      "address": "0x5cac58",
+      "bytes": 3072,
+      "sha256": "086cdc8116006bca653e4fc0b9abe42681dd78ac8556b829257723526d23111f",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "paved_road",
+      "address": "0x5cc378",
+      "bytes": 768,
+      "sha256": "0028d84a58a14810693d0c763ef9e667d8d7665f45b3a8db9f9c3b029c8429e7",
+      "zero_frame_rows": 0
+    },
+    {
+      "field": "dirt_road",
+      "address": "0x5cc268",
+      "bytes": 272,
+      "sha256": "b90f196849ef4dff05b2e51b6baad0501ba88ae6a5fd1e346f61dbe7113c50c7",
+      "zero_frame_rows": 0
+    }
+  ],
+  "table_verification": "All6832 compiled C bytes equal pinned PE and live Ghidra data. New doubles56F590/598 are8.0/0.01 in original multiply order.",
+  "verification": {
+    "passed": true,
+    "cases": 2976,
+    "groups": {
+      "square-any": 128,
+      "square-missing": 128,
+      "deepwater-row": 128,
+      "deepwater-column": 128,
+      "sweep-at-byte": 512,
+      "free-terrain-coordinates": 128,
+      "entry-exit-marker-place": 100,
+      "entry-exit-marker-remove-mask": 100,
+      "gatehouse-direction-add": 256,
+      "floodplain-cell-x87-bank": 160,
+      "marsh-cell": 160,
+      "floodplain-region": 64,
+      "marsh-region": 64,
+      "water-cell-state-restore": 160,
+      "water-region-and-optional-prepass": 80,
+      "deepwater-shrink-recursive": 128,
+      "deepwater-two-phase": 128,
+      "road-image-branch-matrix": 192,
+      "roads-region": 80,
+      "roads-all": 80,
+      "full-map-initializer": 36,
+      "bound-scene-map-step": 36
+    },
+    "scope": "20 native owners and actual saved-scene map-step binding, complete real compiled child graph, no controlled external endpoints. Logical result widths, every non-stack byte written, preserved registers and x87 CW/SW. Finite valid map/flood/record states; no host launched."
+  },
+  "fixture": "Geometry and diamond row arrays initialized by original0046F7B0. Individual cases plus36 full-root and36 bound-MAP_TILES cases; no external emulation endpoints.",
+  "integration_helpers": [
+    {
+      "name": "pharaoh_saved_game_bind_surface_step",
+      "source": "game/scenario/scene_surface.c",
+      "kind": "Real typed MAP_TILES adapter; no additional native entry/count."
+    }
+  ],
+  "ghidra": "Session retained;20 native names/prototypes and three contract comments updated.",
+  "remaining": "Actual C providers available for42/45 initialization steps. Remaining00486E70,00457AF0,0046D840. Full host scene storage binding, briefing35 and city01 renderer/UI are still pending.",
+  "source_sha256": {
+    "game/map/entry_exit_flags.c": "b98a9f0411eeda7a3e698e6501141ddc6f140423359bf91053e2b926addff1e7",
+    "game/map/surface_refresh_all.c": "40f8dbd6b28f3003300084c65b1da621da39acb350a24e1678019c22f88f7bf5",
+    "game/map/water_images.c": "ec0771eab53bdbaba3974f603656ce5d1e0c5afdaa33933ba531ebb493896aa6",
+    "game/map/floodplain_images.c": "2fdaad8d184a0270dd75627e02d69b127bea0f4aa268836337b49e806dcfbe4e",
+    "game/map/deepwater.c": "c402fe20747db31369dd7db6f119381c4ef044fc517f7ffac51de1be7cc42979",
+    "game/map/road_images.c": "117d12f48a8f55b67b0f2af823e0dfabdd86b7a21acc1b5b0b4ba62a64d2ece0",
+    "game/scenario/scene_surface.c": "b08d7cac1cb8ccb17261b2d329f1576558bfed027106a8a11da3a359fc898496",
+    "game/include/pharaoh/scenario/scene_surface.h": "377b1f35ea455b96cd7fc74754775f1454bc1aa5616e1ebcb4ae31e3df6b15b8",
+    "game/map/surface_queries.c": "b3ee9b11765baa6e573ee046c641d468ab0febacee5db59f00583c057cbb4712",
+    "game/include/pharaoh/map/surface_queries.h": "f8539cbd962917cc0a17d78633194b781d2afe5e83cae2698df91ef8803756eb",
+    "game/map/surface_refresh_internal.h": "eb14999b0737154691b6c926e8f6745ab1ef21894ad4a1360ae2f78dc02c307c",
+    "game/include/pharaoh/map/surface_tiles.h": "af70eb0d420376533bd713c6c18518d122d3b0c86fb86464354a2586aa3e1429",
+    "game/include/pharaoh/simulation/flood_simulation.h": "ccf855904163cb86c2cc489064d593c22b19ff51fec0c27aebd9f2e57b30f3f8",
+    "game/map/surface_image_tables.c": "81921ebcefbe35ad14a851f9785cb1b11139fa162cd26e4ba4a2a71c92af9348",
+    "game/include/pharaoh/map/surface_image_tables.h": "7e5b62b854635c26f8a762f38d6cdd5d4b978a6551348d2425ba35b646311ca9"
+  },
+  "strict_compilation": {
+    "passed": true,
+    "C_units": 9,
+    "indexed_files": 46
+  },
+  "migration_workflow": {
+    "ok": false,
+    "errors": 124,
+    "historical_hash_records_preserved": true
+  },
+  "release": {
+    "passed": true,
+    "exe_sha256": "382d514a8a9561e3d8c04853e68e18612b9d778f14d95c6a12a8ea36e223f3e4",
+    "library_sha256": "39cf2e4538c19bec34e68a1fce78c6d7f2beaa469aa55423a24aedd9d22a2c4a"
+  }
+}

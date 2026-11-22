@@ -10,7 +10,10 @@ typedef struct PharaohBuildingTypeRecord PharaohBuildingTypeRecord;
 
 typedef struct PharaohFloodList {
     int32_t count;
-    uint8_t reserved_04[0x0c];
+    union {
+        uint8_t reserved_04[0x0c];
+        struct { uint32_t native_04; uint8_t reserved_08[8]; };
+    };
     int32_t head;
     int32_t tail;
     int32_t cursor;

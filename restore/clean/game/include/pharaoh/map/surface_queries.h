@@ -26,4 +26,19 @@ int32_t pharaoh_map_terrain_all_in_area_are(
     int32_t size, int32_t radius, uint32_t mask,
     PharaohMapAreaCursor *cursor);
 
+int32_t pharaoh_map_terrain_any_tile_in_square_with(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, uint32_t mask);
+int32_t pharaoh_map_terrain_any_tile_in_square_without(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, uint32_t mask);
+int32_t pharaoh_map_terrain_row_has_two(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y, uint32_t mask);
+int32_t pharaoh_map_terrain_column_has_two(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y, uint32_t mask);
+uint8_t pharaoh_map_sweep_matches_tile(
+    int32_t countdown, int32_t sweep_start, int32_t tile);
+int32_t pharaoh_map_find_free_terrain(const PharaohMapTerrainView *map,int32_t x,int32_t y,
+    int32_t size,int32_t radius,int32_t excluded,PharaohMapAreaCursor *cursor);
+
 #endif

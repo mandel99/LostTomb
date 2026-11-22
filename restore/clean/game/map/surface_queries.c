@@ -104,3 +104,116 @@ int32_t pharaoh_map_terrain_all_in_area_are(
 {
     return map_area_test(map, x, y, size, radius, mask, 1, cursor);
 }
+
+
+static int32_t square_matches(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, uint32_t mask, int32_t require_missing)
+{
+    const int32_t min_x = (int32_t)((uint32_t)x + 1u - (uint32_t)size);
+    const int32_t max_x = (int32_t)((uint32_t)x + (uint32_t)size - 1u);
+    const int32_t min_y = (int32_t)((uint32_t)y + 1u - (uint32_t)size);
+    const int32_t max_y = (int32_t)((uint32_t)y + (uint32_t)size - 1u);
+    uint32_t tile = (uint32_t)map->origin +
+        (uint32_t)min_y * PHARAOH_MAP_GRID_WIDTH + (uint32_t)min_x;
+    const uint32_t row_step = (uint32_t)min_x - (uint32_t)max_x +
+        PHARAOH_MAP_GRID_WIDTH - 1u;
+    uint32_t row = (uint32_t)min_y;
+
+    if (min_y > max_y) return 0;
+    do {
+        uint32_t column = (uint32_t)min_x;
+        if (min_x <= max_x) {
+            do {
+                if ((int32_t)column >= 0 && (int32_t)row >= 0 &&
+                    (int32_t)column < map->width &&
+                    (int32_t)row < map->height) {
+                    const int32_t missing =
+                        (map->terrain[tile] & mask) == 0u;
+                    if (missing == require_missing) return 1;
+                }
+                ++column;
+                ++tile;
+            } while ((int32_t)column <= max_x);
+        }
+        tile += row_step;
+        ++row;
+    } while ((int32_t)row <= max_y);
+    return 0;
+}
+
+int32_t pharaoh_map_terrain_any_tile_in_square_with(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, uint32_t mask)
+{
+    return square_matches(map, x, y, size, mask, 0);
+}
+
+int32_t pharaoh_map_terrain_any_tile_in_square_without(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, uint32_t mask)
+{
+    return square_matches(map, x, y, size, mask, 1);
+}
+
+int32_t pharaoh_map_terrain_row_has_two(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y, uint32_t mask)
+{
+    uint32_t count = 0;
+    uint32_t column = (uint32_t)x - 1u;
+    const uint32_t end = (uint32_t)x + 2u;
+    if ((int32_t)column >= (int32_t)end) return 0;
+    do {
+        if ((int32_t)column >= 0 && (int32_t)column < map->width) {
+            const uint32_t tile = (uint32_t)map->origin +
+                (uint32_t)y * PHARAOH_MAP_GRID_WIDTH + column;
+            if ((map->terrain[tile] & mask) != 0u) ++count;
+        }
+        ++column;
+    } while ((int32_t)column < (int32_t)end);
+    return count > 1u;
+}
+
+int32_t pharaoh_map_terrain_column_has_two(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y, uint32_t mask)
+{
+    uint32_t count = 0;
+    uint32_t row = (uint32_t)y - 1u;
+    const uint32_t end = (uint32_t)y + 2u;
+    uint32_t tile = (uint32_t)map->origin +
+        row * PHARAOH_MAP_GRID_WIDTH + (uint32_t)x;
+    if ((int32_t)row >= (int32_t)end) return 0;
+    do {
+        if ((int32_t)row >= 0 && (int32_t)row < map->height &&
+            (map->terrain[tile] & mask) != 0u) {
+            ++count;
+        }
+        ++row;
+        tile += PHARAOH_MAP_GRID_WIDTH;
+    } while ((int32_t)row < (int32_t)end);
+    return count > 1u;
+}
+
+uint8_t pharaoh_map_sweep_matches_tile(
+    int32_t countdown, int32_t sweep_start, int32_t tile)
+{
+    return countdown > 0 && (sweep_start - countdown) / 2 == 228 - tile;
+}
+
+/* Native00482810. Failure retains the last scan coordinates; no invented
+ * failure fallback is added to its native entry/exit-marker caller. */
+int32_t pharaoh_map_find_free_terrain(const PharaohMapTerrainView *map,int32_t x,int32_t y,
+    int32_t size,int32_t radius,int32_t excluded,PharaohMapAreaCursor *cursor)
+{
+    int32_t left,top,right,bottom;
+    area_bounds(map,x,y,size,radius,&left,&top,&right,&bottom);
+    cursor->offset=map->origin+top*228+left;
+    for(cursor->y=top;cursor->y<=bottom;++cursor->y){
+        for(cursor->x=left;cursor->x<=right;++cursor->x){
+            if(cursor->offset!=excluded && !map->terrain[cursor->offset])return 1;
+            ++cursor->offset;
+        }
+        cursor->offset+=228-(right-left+1);
+    }
+    return 0;
+}

@@ -29,4 +29,27 @@ static inline int32_t surface_match(PharaohMapSurfaceContext *c,PharaohMapImageC
     const PharaohMapImageContext image={c->adjacent,*c->orientation,c->selection};
     return pharaoh_map_image_context_match(&image,records,count,animation,reverse);
 }
+
+static inline int32_t surface_grouped_match(PharaohMapSurfaceContext *c,
+    PharaohMapImageContextRecord *records,int32_t count)
+{
+    const PharaohMapImageContext image={c->adjacent,*c->orientation,c->selection};
+    return pharaoh_map_image_context_match_grouped(&image,records,count);
+}
+static inline int32_t surface_deepwater_has_two_run(const uint32_t adjacent[8])
+{
+    uint32_t index=0,limit=16;int32_t run=-1;
+    do{
+        if(run>=8)break;
+        if(adjacent[index&7u]){if(run>=0)++run;}
+        else{
+            if(run<0)limit=index+10u;
+            else if(run==2)return 1;
+            run=0;
+        }
+        ++index;
+    }while(index<limit);
+    return 0;
+}
+
 #endif
