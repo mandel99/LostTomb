@@ -1,0 +1,59 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x005405B0",
+      "name": "pharaoh_scenario_start_mission",
+      "source": "game/scenario/scenario_start_mission.c",
+      "origin": "Complete prior C reused; resolved custom-map path preserved, pinned Ghidra call-site and480-scenario native/C controller replay. Actual scene loading/UI endpoints still require host binding.",
+      "mapping_evidence": "evidence/mission-entry-controller-20261122.json"
+    }
+  ],
+  "reuse": "reused/restore/generated/mixed/src/Unit02537.c; no absolute-address accesses or legacy calls retained.",
+  "fixed_port_bug": {
+    "callsite": "0x00540699 PUSH EAX ->0x0054069A CALL00540A10",
+    "before": "Typed setup_new_game callback dropped the resolved map path.",
+    "after": "Forward path_prefix+name to setup_new_game(user_data,path), matching the native custom-map branch."
+  },
+  "order": [
+    "build path; set legion-message flag;004DE140",
+    "custom path:005409D0 ->00540A10(path), or missing map switches to city01/redraw1 and returns",
+    "campaign:copy player name ->004D58B0(0,0); failure returns immediately; clear custom mode ->004CDE40 treasury adjustment ->copy name",
+    "restore settings/replay identity; replay3 resolves link0041B9D0; initialize favor, savings, rank/salary, tutorial flags",
+    "00404350 ->004051A0 ->004E1770 ->00418BF0",
+    "reload current player; apply favor/savings/difficulty; normalize animation BYTE ->00489B40"
+  ],
+  "verification": {
+    "passed": true,
+    "cases": 480,
+    "groups": {
+      "campaign/custom/failure/replay/player-switch": 480
+    },
+    "scope": "Native005405B0 versus complete typed C; actual percentage and campaign-link leaf C. Nine explicitly controlled load/UI endpoints, with path bytes, call order and state mutations compared. No complete scene equivalence claim."
+  },
+  "contracts": [
+    "Settings current_mission_id restores a saved BYTE into a DWORD, zeroing high bytes as native. Signed mission/link bytes retained.",
+    "Players stride0x49D8, treasury+0x0C; final player selector reloaded after mission-carry callback.",
+    "Tutorial rows26*28 bytes; flags A26 bytes, B15 bytes. Negative mission still follows native signed comparisons."
+  ],
+  "host_gap": "Campaign Bink callback is present. Host states35/3B/01, full scene storage/initializer binding and city map/UI rendering remain unconnected. Standard campaign native route goes through briefing35; no forced video-to-city shortcut.",
+  "source_sha256": {
+    "game/scenario/scenario_start_mission.c": "f1adca35fb19fda16442c353c4f8c01dc42c5a2bc6a20f8f07874499dfee94f8",
+    "game/include/pharaoh/scenario/scenario_start_mission.h": "0e0afc19a405555db1f4ab4b2869e2555c6a5a2a3bf6b6d0dbbaab8b2b6aae5c"
+  },
+  "strict_compilation": {
+    "passed": true,
+    "C_units": 3,
+    "indexed_files": 11
+  },
+  "migration_workflow": {
+    "ok": false,
+    "errors": 127,
+    "historical_hash_records_preserved": true
+  },
+  "release": {
+    "passed": true,
+    "exe_sha256": "1351cb285d0f954e3821b3d389fdc3bb51fc7d122daf87ad6725f9b79d9dcb0c",
+    "library_sha256": "ec0418bb4f7a730dd457bda21bb593d5ae4502d5f0cc6bb5d22d3443540b2783"
+  }
+}
