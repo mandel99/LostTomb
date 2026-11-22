@@ -78,6 +78,7 @@ typedef struct PharaohBuildingTypeRecord {
     int16_t formation_id;
     uint8_t reserved_52[2];
     union {
+        int32_t abu_simbel_stage;
         struct {
         uint8_t pyramid_size_variant;
         uint8_t pyramid_work_phase;
@@ -92,7 +93,7 @@ typedef struct PharaohBuildingTypeRecord {
             };
         };
         int32_t monument_worker_id;
-        uint8_t reserved_60[4];
+        union { uint8_t reserved_60[4]; int32_t royal_tomb_progress; };
         union {
             struct { int16_t pyramid_worker_id_64; uint8_t reserved_66[2]; };
             uint32_t complex_progress_flags;

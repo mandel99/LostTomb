@@ -1,0 +1,1125 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": {
+    "0x0040D940": {
+      "function": {
+        "name": "FUN_0040d940",
+        "address": "0040d940"
+      },
+      "code": "\r\nint __thiscall FUN_0040d940(int *param_1,int *param_2)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  char cVar3;\r\n  int iVar4;\r\n  int unaff_EBX;\r\n  int iVar5;\r\n  int unaff_retaddr;\r\n  int *local_10;\r\n  int local_c;\r\n  int local_8;\r\n  \r\n  iVar5 = 0;\r\n  iVar4 = (int)param_2 - (int)*(short *)&cityBuildings[(int)param_2].field_0x12;\r\n  local_c = 0;\r\n  local_8 = 0;\r\n  iVar2 = *(int *)&cityBuildings[iVar4].field_0x58;\r\n  if (iVar2 == 0x15) {\r\n    param_2 = (int *)0x64;\r\n  }\r\n  else {\r\n    param_2 = (int *)__ftol();\r\n  }\r\n  cVar3 = (**(code **)(*param_1 + 0x24))(iVar4);\r\n  local_10 = param_1;\r\n  if (cVar3 != '\\0') {\r\n    iVar4 = *(int *)&cityBuildings[iVar4].field_0x5c;\r\n    if (iVar4 == 0) {\r\n      return 0;\r\n    }\r\n    uVar1 = cityWalkers[iVar4].type;\r\n    if (uVar1 == 'O') {\r\n      local_8 = 1;\r\n    }\r\n    else if (uVar1 == 'Q') {\r\n      iVar5 = 1;\r\n      if (cityWalkers[iVar4].actionState == '\\n') {\r\n        local_10 = (int *)0x1;\r\n      }\r\n    }\r\n    else if (uVar1 == 'U') {\r\n      local_c = 1;\r\n    }\r\n  }\r\n  iVar4 = 0x3840;\r\n  if ((3 < iVar2) && (iVar4 = (0x24 - (iVar2 + -3) * *(int *)(unaff_EBX + 4)) * 400, iVar4 < 0)) {\r\n    iVar4 = 0;\r\n  }\r\n  if (param_2 != (int *)0x0) {\r\n    param_2[0xb] = iVar4;\r\n    param_2[8] = (int)local_10;\r\n    param_2[9] = local_c;\r\n    param_2[7] = iVar5;\r\n    *param_2 = iVar2;\r\n    param_2[10] = local_8;\r\n    param_2[0xc] = unaff_retaddr;\r\n    param_2[0xd] = 0x3840;\r\n    return unaff_retaddr;\r\n  }\r\n  return unaff_retaddr;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x00401540": {
+      "function": {
+        "name": "FUN_00401540",
+        "address": "00401540"
+      },
+      "code": "\r\nvoid FUN_00401540(int param_1,int *param_2)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  \r\n  iVar1 = *(int *)&cityBuildings[param_1 - *(short *)&cityBuildings[param_1].field_0x12].field_0x54;\r\n  if (iVar1 == 0x38) {\r\n    iVar2 = 100;\r\n  }\r\n  else {\r\n    iVar2 = __ftol();\r\n  }\r\n  if (param_2 != (int *)0x0) {\r\n    *param_2 = iVar1;\r\n    param_2[3] = iVar2;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x00417050": {
+      "function": {
+        "name": "FUN_00417050",
+        "address": "00417050"
+      },
+      "code": "\r\nint __thiscall FUN_00417050(int *param_1,int *param_2)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  char cVar3;\r\n  int iVar4;\r\n  int unaff_EBX;\r\n  int iVar5;\r\n  int unaff_retaddr;\r\n  int local_c;\r\n  int local_8;\r\n  \r\n  iVar5 = 0;\r\n  iVar4 = (int)param_2 - (int)*(short *)&cityBuildings[(int)param_2].field_0x12;\r\n  local_c = 0;\r\n  local_8 = 0;\r\n  iVar2 = *(int *)&cityBuildings[iVar4].field_0x58;\r\n  if (iVar2 == 0x13) {\r\n    param_2 = (int *)0x64;\r\n  }\r\n  else {\r\n    param_2 = (int *)(iVar2 * 5 + 5);\r\n  }\r\n  cVar3 = (**(code **)(*param_1 + 0x24))(iVar4);\r\n  if (cVar3 != '\\0') {\r\n    iVar4 = *(int *)&cityBuildings[iVar4].field_0x5c;\r\n    if (iVar4 == 0) {\r\n      return 0;\r\n    }\r\n    uVar1 = cityWalkers[iVar4].type;\r\n    if (uVar1 == 'O') {\r\n      local_8 = 1;\r\n    }\r\n    else if (uVar1 == 'Q') {\r\n      iVar5 = 1;\r\n      if (cityWalkers[iVar4].actionState == '\\n') {\r\n        unaff_EBX = 1;\r\n      }\r\n    }\r\n    else if (uVar1 == 'U') {\r\n      local_c = 1;\r\n    }\r\n  }\r\n  iVar4 = (0x26 - param_1[1] * iVar2) * 400;\r\n  if (iVar4 < 0) {\r\n    iVar4 = 0;\r\n  }\r\n  if (param_2 != (int *)0x0) {\r\n    *param_2 = iVar2;\r\n    param_2[2] = unaff_EBX;\r\n    param_2[3] = local_c;\r\n    param_2[5] = iVar4;\r\n    param_2[1] = iVar5;\r\n    param_2[4] = local_8;\r\n    param_2[6] = unaff_retaddr;\r\n    param_2[7] = 0x3b60;\r\n    return unaff_retaddr;\r\n  }\r\n  return unaff_retaddr;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x004E6710": {
+      "function": {
+        "name": "FUN_004e6710",
+        "address": "004e6710"
+      },
+      "code": "\r\nint __thiscall FUN_004e6710(int *param_1,int *param_2)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  char cVar3;\r\n  int iVar4;\r\n  int unaff_EBX;\r\n  int iVar5;\r\n  uint local_10;\r\n  int local_c;\r\n  int local_8;\r\n  \r\n  local_10 = 0;\r\n  local_c = 0;\r\n  local_8 = 0;\r\n  iVar4 = (int)param_2 - (int)*(short *)&cityBuildings[(int)param_2].field_0x12;\r\n  iVar2 = *(int *)&cityBuildings[iVar4].field_0x58;\r\n  if (iVar2 == 9) {\r\n    iVar5 = 100;\r\n  }\r\n  else {\r\n    iVar5 = (iVar2 * 5 + 5) * 2;\r\n  }\r\n  cVar3 = (**(code **)(*param_1 + 0x24))(iVar4);\r\n  if (cVar3 != '\\0') {\r\n    iVar4 = *(int *)&cityBuildings[iVar4].field_0x5c;\r\n    if (iVar4 == 0) {\r\n      return 0;\r\n    }\r\n    uVar1 = cityWalkers[iVar4].type;\r\n    if (uVar1 == 'O') {\r\n      local_8 = 1;\r\n    }\r\n    else if (uVar1 == 'Q') {\r\n      local_10 = (uint)(cityWalkers[iVar4].actionState == '\\n');\r\n      unaff_EBX = 1;\r\n    }\r\n    else if (uVar1 == 'U') {\r\n      local_c = 1;\r\n    }\r\n  }\r\n  iVar4 = (9 - iVar2) * param_1[1] * 400;\r\n  if (iVar4 < 0) {\r\n    iVar4 = 0;\r\n  }\r\n  if (param_2 != (int *)0x0) {\r\n    *param_2 = iVar2;\r\n    param_2[1] = unaff_EBX;\r\n    param_2[2] = local_10;\r\n    param_2[3] = local_c;\r\n    param_2[4] = local_8;\r\n    param_2[5] = iVar4;\r\n    param_2[6] = iVar5;\r\n    param_2[7] = param_1[1] * 0xe10;\r\n  }\r\n  return iVar5;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x0040EC20": {
+      "function": {
+        "name": "pharaoh_library_monument_worker_active",
+        "address": "0040ec20"
+      },
+      "code": "\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nuchar pharaoh_library_monument_worker_active(int building_id)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  uchar uVar3;\r\n  uchar uVar4;\r\n  bool bVar5;\r\n  \r\n                    /* Complete logical-byte C leaf translation in game/building/type_queries.c.\r\n                       Uses building stage 0x58, worker id 0x5c and saved walker action 0x10;\r\n                       adjusts library parts to their main record. */\r\n  uVar3 = '\\0';\r\n  if (2 < *(int *)&cityBuildings[building_id].field_0x58) {\r\n    building_id = building_id - *(short *)&cityBuildings[building_id].field_0x12;\r\n  }\r\n  iVar2 = *(int *)&cityBuildings[building_id].field_0x5c;\r\n  if (iVar2 == 0) {\r\n    return uVar3;\r\n  }\r\n  if (cityWalkers[iVar2].state == '\\0') {\r\nLAB_0040ece3:\r\n    *(undefined4 *)&cityBuildings[building_id].field_0x5c = 0;\r\n  }\r\n  else {\r\n    uVar4 = cityWalkers[iVar2].actionState;\r\n    if ((uVar4 == '\\x06') || (uVar4 == '\\a')) {\r\n      uVar4 = cityWalkers[iVar2].field_0x10;\r\n    }\r\n    uVar1 = cityWalkers[iVar2].type;\r\n    if (uVar1 == 'O') {\r\n      bVar5 = uVar4 == '\\t';\r\n    }\r\n    else {\r\n      if (uVar1 != 'Q') {\r\n        if (uVar1 == 'U') {\r\n          if ((((uVar4 != '\\x0f') && (uVar4 != '\\x10')) && (uVar4 != '\\x1f')) &&\r\n             ((uVar4 != ' ' && (uVar4 != '!')))) {\r\n            return uVar3;\r\n          }\r\n          return '\\x01';\r\n        }\r\n        goto LAB_0040ece3;\r\n      }\r\n      if (uVar4 == '\\t') {\r\n        return '\\x01';\r\n      }\r\n      bVar5 = uVar4 == '\\v';\r\n    }\r\n    if ((bVar5) || (uVar4 == '\\n')) {\r\n      return '\\x01';\r\n    }\r\n  }\r\n  return uVar3;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x00417590": {
+      "function": {
+        "name": "pharaoh_caesareum_monument_worker_active",
+        "address": "00417590"
+      },
+      "code": "\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nuchar pharaoh_caesareum_monument_worker_active(int building_id)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  uchar uVar3;\r\n  uchar uVar4;\r\n  bool bVar5;\r\n  \r\n                    /* Complete logical-byte C leaf translation in game/building/type_queries.c.\r\n                       Uses building worker id 0x5c and saved walker action 0x10 with Caesareum\r\n                       action set. */\r\n  uVar3 = '\\0';\r\n  iVar2 = *(int *)&cityBuildings[building_id].field_0x5c;\r\n  if (iVar2 == 0) {\r\n    return uVar3;\r\n  }\r\n  if (cityWalkers[iVar2].state == '\\0') {\r\nLAB_00417629:\r\n    *(undefined4 *)&cityBuildings[building_id].field_0x5c = 0;\r\n  }\r\n  else {\r\n    uVar4 = cityWalkers[iVar2].actionState;\r\n    if ((uVar4 == '\\x06') || (uVar4 == '\\a')) {\r\n      uVar4 = cityWalkers[iVar2].field_0x10;\r\n    }\r\n    uVar1 = cityWalkers[iVar2].type;\r\n    if (uVar1 == 'O') {\r\n      bVar5 = uVar4 == '\\t';\r\n    }\r\n    else {\r\n      if (uVar1 != 'Q') {\r\n        if (uVar1 == 'U') {\r\n          if (((uVar4 != '\\x0f') && (uVar4 != '\\x10')) && (uVar4 != '\\\"')) {\r\n            return uVar3;\r\n          }\r\n          return '\\x01';\r\n        }\r\n        goto LAB_00417629;\r\n      }\r\n      if (uVar4 == '\\t') {\r\n        return '\\x01';\r\n      }\r\n      bVar5 = uVar4 == '\\v';\r\n    }\r\n    if ((bVar5) || (uVar4 == '\\n')) {\r\n      return '\\x01';\r\n    }\r\n  }\r\n  return uVar3;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x004E6B20": {
+      "function": {
+        "name": "LighthouseMonumentWorkerActive",
+        "address": "004e6b20"
+      },
+      "code": "\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nuchar LighthouseMonumentWorkerActive(int building_id)\r\n\r\n{\r\n  uchar uVar1;\r\n  int iVar2;\r\n  uchar uVar3;\r\n  uchar uVar4;\r\n  bool bVar5;\r\n  \r\n                    /* Complete logical-byte C owner: pharaoh_lighthouse_monument_worker_active.\r\n                       Native entry returns AL and uses RET 4; action 35 is the lighthouse mason\r\n                       state. */\r\n  uVar3 = '\\0';\r\n  iVar2 = *(int *)&cityBuildings[building_id].field_0x5c;\r\n  if (iVar2 == 0) {\r\n    return uVar3;\r\n  }\r\n  if (cityWalkers[iVar2].state == '\\0') {\r\nLAB_004e6bb9:\r\n    *(undefined4 *)&cityBuildings[building_id].field_0x5c = 0;\r\n  }\r\n  else {\r\n    uVar4 = cityWalkers[iVar2].actionState;\r\n    if ((uVar4 == '\\x06') || (uVar4 == '\\a')) {\r\n      uVar4 = cityWalkers[iVar2].field_0x10;\r\n    }\r\n    uVar1 = cityWalkers[iVar2].type;\r\n    if (uVar1 == 'O') {\r\n      bVar5 = uVar4 == '\\t';\r\n    }\r\n    else {\r\n      if (uVar1 != 'Q') {\r\n        if (uVar1 == 'U') {\r\n          if (((uVar4 != '\\x0f') && (uVar4 != '\\x10')) && (uVar4 != '#')) {\r\n            return uVar3;\r\n          }\r\n          return '\\x01';\r\n        }\r\n        goto LAB_004e6bb9;\r\n      }\r\n      if (uVar4 == '\\t') {\r\n        return '\\x01';\r\n      }\r\n      bVar5 = uVar4 == '\\v';\r\n    }\r\n    if ((bVar5) || (uVar4 == '\\n')) {\r\n      return '\\x01';\r\n    }\r\n  }\r\n  return uVar3;\r\n}\r\n\r\n",
+      "truncated": false
+    },
+    "0x004F5050": {
+      "function": {
+        "name": "FUN_004f5050",
+        "address": "004f5050"
+      },
+      "code": "\r\nuint FUN_004f5050(undefined2 *param_1,char param_2)\r\n\r\n{\r\n  undefined2 *puVar1;\r\n  int iVar2;\r\n  undefined2 *puVar3;\r\n  undefined3 uVar4;\r\n  int iVar5;\r\n  bool bVar6;\r\n  bool bVar7;\r\n  int local_78;\r\n  short *local_74;\r\n  PyramidProgress local_70;\r\n  \r\n  local_78 = 0;\r\n  local_74 = &scenarioGoalTextIds;\r\n  do {\r\n    if (*(int *)(&cityPlayers[cityCurrentPlayer].field_0x4730 + local_78 * 4) == 0) {\r\n      iVar2 = *local_74 * 0x10;\r\n      puVar3 = &monumentDefs + *local_74 * 8;\r\n      if (((undefined2 *)(int)*(short *)(&DAT_005d19ce + iVar2) == param_1) ||\r\n         ((undefined2 *)(int)*(short *)(&DAT_005d19d0 + iVar2) == param_1)) goto LAB_004f5232;\r\n      puVar3 = (undefined2 *)(int)*(short *)(&DAT_005d19d2 + iVar2);\r\n      puVar1 = puVar3;\r\njoined_r0x004f5206:\r\n      if (puVar1 == param_1) {\r\nLAB_004f5232:\r\n        return CONCAT31((int3)((uint)puVar3 >> 8),1);\r\n      }\r\n    }\r\n    else {\r\n      iVar2 = *(int *)(&cityPlayers[cityCurrentPlayer].field_0x473c + local_78 * 4);\r\n      puVar3 = (undefined2 *)0x0;\r\n      if (iVar2 != 0) {\r\n        iVar5 = *(int *)(&cityPlayers[cityCurrentPlayer].field_0x4730 + local_78 * 4) * 0x10;\r\n        switch(cityBuildings[iVar2].type) {\r\n        case 0xb7:\r\n          PyramidGetProgressInfo(iVar2,&local_70);\r\n          iVar2 = local_70.percent;\r\n          break;\r\n        default:\r\n          iVar2 = MausoleumGetProgressInfo(iVar2,(int *)0x0);\r\n          break;\r\n        case 0xcf:\r\n        case 0xd0:\r\n          bVar6 = cityBuildings[iVar2].field_0x55 != 'd';\r\n          uVar4 = (undefined3)((uint)iVar2 >> 8);\r\n          goto LAB_004f51e1;\r\n        case 0xd2:\r\n          bVar7 = SBORROW2(*(short *)&cityPlayers[cityCurrentPlayer].field_0x433a,0x10);\r\n          bVar6 = (short)(*(short *)&cityPlayers[cityCurrentPlayer].field_0x433a + -0x10) < 0;\r\n          goto LAB_004f51de;\r\n        case 0xd5:\r\n          iVar2 = SunTempleGetProgressInfo(iVar2,(int *)0x0);\r\n          break;\r\n        case 0xe1:\r\n          iVar2 = FUN_0040d940(iVar2,0);\r\n          break;\r\n        case 0xe3:\r\n          iVar2 = FUN_00417050(iVar2,0);\r\n          break;\r\n        case 0xe4:\r\n          iVar2 = FUN_004e6710(iVar2,0);\r\n          break;\r\n        case 0xe5:\r\n          iVar2 = FUN_00545740(iVar2,0);\r\n          break;\r\n        case 0xe6:\r\n          iVar2 = FUN_00401540(iVar2,0);\r\n          break;\r\n        case 0xea:\r\n          iVar2 = FUN_00558be0(iVar2,0);\r\n          break;\r\n        case 0xeb:\r\n          iVar2 = FUN_00555e80(iVar2,0);\r\n          break;\r\n        case 0xec:\r\n          iVar2 = FUN_0054f470(iVar2,0);\r\n        }\r\n        bVar7 = SBORROW4(iVar2,100);\r\n        bVar6 = iVar2 + -100 < 0;\r\nLAB_004f51de:\r\n        bVar6 = bVar7 != bVar6;\r\n        uVar4 = (undefined3)((uint)iVar2 >> 8);\r\nLAB_004f51e1:\r\n        if ((bVar6) || (puVar3 = (undefined2 *)CONCAT31(uVar4,param_2), param_2 != '\\0')) {\r\n          puVar3 = (undefined2 *)(int)*(short *)(&DAT_005d19ce + iVar5);\r\n          if ((puVar3 == param_1) ||\r\n             ((undefined2 *)(int)*(short *)(&DAT_005d19d0 + iVar5) == param_1)) goto LAB_004f5232;\r\n          puVar1 = (undefined2 *)(int)*(short *)(&DAT_005d19d2 + iVar5);\r\n          goto joined_r0x004f5206;\r\n        }\r\n      }\r\n    }\r\n    local_74 = local_74 + 1;\r\n    local_78 = local_78 + 1;\r\n    if (0x784de5 < (int)local_74) {\r\n      return (uint)puVar3 & 0xffffff00;\r\n    }\r\n  } while( true );\r\n}\r\n\r\n",
+      "truncated": false
+    }
+  },
+  "memory": {
+    "0x0056F470": {
+      "address": "0056f470",
+      "length": 16,
+      "hex": "00 00 00 00 00 00 59 40 92 24 49 92 24 49 92 3f",
+      "ascii": "......Y@.$I.$I.?",
+      "gaps": []
+    },
+    "0x0056F4C8": {
+      "address": "0056f4c8",
+      "length": 8,
+      "hex": "18 86 61 18 86 61 a8 3f",
+      "ascii": "..a..a.?",
+      "gaps": []
+    },
+    "0x0056F550": {
+      "address": "0056f550",
+      "length": 4,
+      "hex": "00 00 80 40",
+      "ascii": "...@",
+      "gaps": []
+    },
+    "0x0056F6DC": {
+      "address": "0056f6dc",
+      "length": 4,
+      "hex": "00 00 c8 42",
+      "ascii": "...B",
+      "gaps": []
+    },
+    "0x005701E0": {
+      "address": "005701e0",
+      "length": 8,
+      "hex": "9a 99 99 99 99 f9 58 40",
+      "ascii": "......X@",
+      "gaps": []
+    },
+    "0x0056F4B0": {
+      "address": "0056f4b0",
+      "length": 4,
+      "hex": "20 ec 40 00",
+      "ascii": " .@.",
+      "gaps": []
+    },
+    "0x0056F500": {
+      "address": "0056f500",
+      "length": 4,
+      "hex": "90 75 41 00",
+      "ascii": ".uA.",
+      "gaps": []
+    },
+    "0x0056F70C": {
+      "address": "0056f70c",
+      "length": 4,
+      "hex": "20 6b 4e 00",
+      "ascii": " kN.",
+      "gaps": []
+    },
+    "0x00570184": {
+      "address": "00570184",
+      "length": 4,
+      "hex": "e0 77 54 00",
+      "ascii": ".wT.",
+      "gaps": []
+    },
+    "0x0057028C": {
+      "address": "0057028c",
+      "length": 4,
+      "hex": "e0 77 54 00",
+      "ascii": ".wT.",
+      "gaps": []
+    },
+    "0x0057024C": {
+      "address": "0057024c",
+      "length": 4,
+      "hex": "e0 77 54 00",
+      "ascii": ".wT.",
+      "gaps": []
+    },
+    "0x0057020C": {
+      "address": "0057020c",
+      "length": 4,
+      "hex": "e0 77 54 00",
+      "ascii": ".wT.",
+      "gaps": []
+    }
+  },
+  "call_graph": {
+    "royal_callers": {
+      "function": {
+        "name": "FUN_00546790",
+        "address": "00546790"
+      },
+      "callers": {
+        "items": [
+          {
+            "call_site": "0054574c",
+            "caller": {
+              "name": "FUN_00545740",
+              "address": "00545740"
+            },
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true
+          },
+          {
+            "call_site": "0054f47c",
+            "caller": {
+              "name": "FUN_0054f470",
+              "address": "0054f470"
+            },
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true
+          },
+          {
+            "call_site": "00555e8c",
+            "caller": {
+              "name": "FUN_00555e80",
+              "address": "00555e80"
+            },
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true
+          },
+          {
+            "call_site": "00558bec",
+            "caller": {
+              "name": "FUN_00558be0",
+              "address": "00558be0"
+            },
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true
+          }
+        ],
+        "offset": 0,
+        "limit": 20,
+        "total": 4,
+        "has_more": false
+      },
+      "callees": null
+    },
+    "requirements": {
+      "function": {
+        "name": "FUN_004f5050",
+        "address": "004f5050"
+      },
+      "callers": null,
+      "callees": {
+        "items": [
+          {
+            "call_site": "004f5114",
+            "target": "004f1310",
+            "name": "PyramidGetProgressInfo",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f514f",
+            "target": "00542ad0",
+            "name": "SunTempleGetProgressInfo",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f5161",
+            "target": "0040d940",
+            "name": "FUN_0040d940",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f5170",
+            "target": "00401540",
+            "name": "FUN_00401540",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f517f",
+            "target": "00417050",
+            "name": "FUN_00417050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f518e",
+            "target": "00545740",
+            "name": "FUN_00545740",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f519d",
+            "target": "00558be0",
+            "name": "FUN_00558be0",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f51ac",
+            "target": "00555e80",
+            "name": "FUN_00555e80",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f51bb",
+            "target": "0054f470",
+            "name": "FUN_0054f470",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f51ca",
+            "target": "004e6710",
+            "name": "FUN_004e6710",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f51d4",
+            "target": "004df040",
+            "name": "MausoleumGetProgressInfo",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          }
+        ],
+        "offset": 0,
+        "limit": 30,
+        "total": 11,
+        "has_more": false
+      }
+    },
+    "guild": {
+      "function": {
+        "name": "FUN_004f5470",
+        "address": "004f5470"
+      },
+      "callers": null,
+      "callees": {
+        "items": [
+          {
+            "call_site": "004f5495",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54a2",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54b2",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54c2",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54d2",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54e2",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f54f8",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f5505",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          },
+          {
+            "call_site": "004f5515",
+            "target": "004f5050",
+            "name": "FUN_004f5050",
+            "ref_type": "UNCONDITIONAL_CALL",
+            "direct": true,
+            "external": false
+          }
+        ],
+        "offset": 0,
+        "limit": 40,
+        "total": 9,
+        "has_more": false
+      }
+    }
+  },
+  "ftol_instructions": {
+    "items": [
+      {
+        "address": "0056133c",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "0056133d",
+        "bytes": "8bec",
+        "instruction": "MOV EBP,ESP",
+        "comment": null
+      },
+      {
+        "address": "0056133f",
+        "bytes": "83c4f4",
+        "instruction": "ADD ESP,-0xc",
+        "comment": null
+      },
+      {
+        "address": "00561342",
+        "bytes": "9bd97dfe",
+        "instruction": "FSTCW word ptr [EBP + -0x2]",
+        "comment": null
+      },
+      {
+        "address": "00561346",
+        "bytes": "9b",
+        "instruction": "WAIT",
+        "comment": null
+      },
+      {
+        "address": "00561347",
+        "bytes": "668b45fe",
+        "instruction": "MOV AX,word ptr [EBP + -0x2]",
+        "comment": null
+      },
+      {
+        "address": "0056134b",
+        "bytes": "80cc0c",
+        "instruction": "OR AH,0xc",
+        "comment": null
+      },
+      {
+        "address": "0056134e",
+        "bytes": "668945fc",
+        "instruction": "MOV word ptr [EBP + -0x4],AX",
+        "comment": null
+      },
+      {
+        "address": "00561352",
+        "bytes": "d96dfc",
+        "instruction": "FLDCW word ptr [EBP + -0x4]",
+        "comment": null
+      },
+      {
+        "address": "00561355",
+        "bytes": "df7df4",
+        "instruction": "FISTP qword ptr [EBP + -0xc]",
+        "comment": null
+      },
+      {
+        "address": "00561358",
+        "bytes": "d96dfe",
+        "instruction": "FLDCW word ptr [EBP + -0x2]",
+        "comment": null
+      },
+      {
+        "address": "0056135b",
+        "bytes": "8b45f4",
+        "instruction": "MOV EAX,dword ptr [EBP + -0xc]",
+        "comment": null
+      },
+      {
+        "address": "0056135e",
+        "bytes": "8b55f8",
+        "instruction": "MOV EDX,dword ptr [EBP + -0x8]",
+        "comment": null
+      },
+      {
+        "address": "00561361",
+        "bytes": "c9",
+        "instruction": "LEAVE",
+        "comment": null
+      },
+      {
+        "address": "00561362",
+        "bytes": "c3",
+        "instruction": "RET",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 35,
+    "total": 15,
+    "has_more": false
+  },
+  "generic_numeric_instructions": {
+    "items": [
+      {
+        "address": "00546790",
+        "bytes": "83ec10",
+        "instruction": "SUB ESP,0x10",
+        "comment": null
+      },
+      {
+        "address": "00546793",
+        "bytes": "53",
+        "instruction": "PUSH EBX",
+        "comment": null
+      },
+      {
+        "address": "00546794",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "00546795",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "00546796",
+        "bytes": "8b742420",
+        "instruction": "MOV ESI,dword ptr [ESP + 0x20]",
+        "comment": null
+      },
+      {
+        "address": "0054679a",
+        "bytes": "8bc6",
+        "instruction": "MOV EAX,ESI",
+        "comment": null
+      },
+      {
+        "address": "0054679c",
+        "bytes": "8b6c2424",
+        "instruction": "MOV EBP,dword ptr [ESP + 0x24]",
+        "comment": null
+      },
+      {
+        "address": "005467a0",
+        "bytes": "c1e005",
+        "instruction": "SHL EAX,0x5",
+        "comment": null
+      },
+      {
+        "address": "005467a3",
+        "bytes": "03c6",
+        "instruction": "ADD EAX,ESI",
+        "comment": null
+      },
+      {
+        "address": "005467a5",
+        "bytes": "894c2418",
+        "instruction": "MOV dword ptr [ESP + 0x18],ECX",
+        "comment": null
+      },
+      {
+        "address": "005467a9",
+        "bytes": "33db",
+        "instruction": "XOR EBX,EBX",
+        "comment": null
+      },
+      {
+        "address": "005467ab",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "005467ac",
+        "bytes": "0fbf0cc5ea997900",
+        "instruction": "MOVSX ECX,word ptr [EAX*0x8 + 0x7999ea]",
+        "comment": null
+      },
+      {
+        "address": "005467b4",
+        "bytes": "2bf1",
+        "instruction": "SUB ESI,ECX",
+        "comment": null
+      },
+      {
+        "address": "005467b6",
+        "bytes": "33c9",
+        "instruction": "XOR ECX,ECX",
+        "comment": null
+      },
+      {
+        "address": "005467b8",
+        "bytes": "895c2410",
+        "instruction": "MOV dword ptr [ESP + 0x10],EBX",
+        "comment": null
+      },
+      {
+        "address": "005467bc",
+        "bytes": "895c2414",
+        "instruction": "MOV dword ptr [ESP + 0x14],EBX",
+        "comment": null
+      },
+      {
+        "address": "005467c0",
+        "bytes": "8d042e",
+        "instruction": "LEA EAX,[ESI + EBP*0x1]",
+        "comment": null
+      },
+      {
+        "address": "005467c3",
+        "bytes": "895c2418",
+        "instruction": "MOV dword ptr [ESP + 0x18],EBX",
+        "comment": null
+      },
+      {
+        "address": "005467c7",
+        "bytes": "3bf0",
+        "instruction": "CMP ESI,EAX",
+        "comment": null
+      },
+      {
+        "address": "005467c9",
+        "bytes": "894c2424",
+        "instruction": "MOV dword ptr [ESP + 0x24],ECX",
+        "comment": null
+      },
+      {
+        "address": "005467cd",
+        "bytes": "7d21",
+        "instruction": "JGE 0x005467f0",
+        "comment": null
+      },
+      {
+        "address": "005467cf",
+        "bytes": "8bd6",
+        "instruction": "MOV EDX,ESI",
+        "comment": null
+      },
+      {
+        "address": "005467d1",
+        "bytes": "c1e205",
+        "instruction": "SHL EDX,0x5",
+        "comment": null
+      },
+      {
+        "address": "005467d4",
+        "bytes": "03d6",
+        "instruction": "ADD EDX,ESI",
+        "comment": null
+      },
+      {
+        "address": "005467d6",
+        "bytes": "2bc6",
+        "instruction": "SUB EAX,ESI",
+        "comment": null
+      },
+      {
+        "address": "005467d8",
+        "bytes": "8d14d5389a7900",
+        "instruction": "LEA EDX,[EDX*0x8 + 0x799a38]",
+        "comment": null
+      },
+      {
+        "address": "005467df",
+        "bytes": "8b3a",
+        "instruction": "MOV EDI,dword ptr [EDX]",
+        "comment": null
+      },
+      {
+        "address": "005467e1",
+        "bytes": "81c208010000",
+        "instruction": "ADD EDX,0x108",
+        "comment": null
+      },
+      {
+        "address": "005467e7",
+        "bytes": "03cf",
+        "instruction": "ADD ECX,EDI",
+        "comment": null
+      },
+      {
+        "address": "005467e9",
+        "bytes": "48",
+        "instruction": "DEC EAX",
+        "comment": null
+      },
+      {
+        "address": "005467ea",
+        "bytes": "75f3",
+        "instruction": "JNZ 0x005467df",
+        "comment": null
+      },
+      {
+        "address": "005467ec",
+        "bytes": "894c2424",
+        "instruction": "MOV dword ptr [ESP + 0x24],ECX",
+        "comment": null
+      },
+      {
+        "address": "005467f0",
+        "bytes": "db442428",
+        "instruction": "FILD dword ptr [ESP + 0x28]",
+        "comment": null
+      },
+      {
+        "address": "005467f4",
+        "bytes": "d80d50f55600",
+        "instruction": "FMUL float ptr [0x0056f550]",
+        "comment": null
+      },
+      {
+        "address": "005467fa",
+        "bytes": "d83ddcf65600",
+        "instruction": "FDIVR float ptr [0x0056f6dc]",
+        "comment": null
+      },
+      {
+        "address": "00546800",
+        "bytes": "da4c2424",
+        "instruction": "FIMUL dword ptr [ESP + 0x24]",
+        "comment": null
+      },
+      {
+        "address": "00546804",
+        "bytes": "dc15e0015700",
+        "instruction": "FCOM double ptr [0x005701e0]",
+        "comment": null
+      },
+      {
+        "address": "0054680a",
+        "bytes": "dfe0",
+        "instruction": "FNSTSW AX",
+        "comment": null
+      },
+      {
+        "address": "0054680c",
+        "bytes": "f6c441",
+        "instruction": "TEST AH,0x41",
+        "comment": null
+      },
+      {
+        "address": "0054680f",
+        "bytes": "750d",
+        "instruction": "JNZ 0x0054681e",
+        "comment": null
+      },
+      {
+        "address": "00546811",
+        "bytes": "b964000000",
+        "instruction": "MOV ECX,0x64",
+        "comment": null
+      },
+      {
+        "address": "00546816",
+        "bytes": "ddd8",
+        "instruction": "FSTP ST0",
+        "comment": null
+      },
+      {
+        "address": "00546818",
+        "bytes": "894c2428",
+        "instruction": "MOV dword ptr [ESP + 0x28],ECX",
+        "comment": null
+      },
+      {
+        "address": "0054681c",
+        "bytes": "eb0b",
+        "instruction": "JMP 0x00546829",
+        "comment": null
+      },
+      {
+        "address": "0054681e",
+        "bytes": "e819ab0100",
+        "instruction": "CALL 0x0056133c",
+        "comment": null
+      },
+      {
+        "address": "00546823",
+        "bytes": "89442428",
+        "instruction": "MOV dword ptr [ESP + 0x28],EAX",
+        "comment": null
+      },
+      {
+        "address": "00546827",
+        "bytes": "8bc8",
+        "instruction": "MOV ECX,EAX",
+        "comment": null
+      },
+      {
+        "address": "00546829",
+        "bytes": "3beb",
+        "instruction": "CMP EBP,EBX",
+        "comment": null
+      },
+      {
+        "address": "0054682b",
+        "bytes": "7e5e",
+        "instruction": "JLE 0x0054688b",
+        "comment": null
+      },
+      {
+        "address": "0054682d",
+        "bytes": "8bc6",
+        "instruction": "MOV EAX,ESI",
+        "comment": null
+      },
+      {
+        "address": "0054682f",
+        "bytes": "c1e005",
+        "instruction": "SHL EAX,0x5",
+        "comment": null
+      },
+      {
+        "address": "00546832",
+        "bytes": "03c6",
+        "instruction": "ADD EAX,ESI",
+        "comment": null
+      },
+      {
+        "address": "00546834",
+        "bytes": "8d3cc5349a7900",
+        "instruction": "LEA EDI,[EAX*0x8 + 0x799a34]",
+        "comment": null
+      },
+      {
+        "address": "0054683b",
+        "bytes": "8b4c241c",
+        "instruction": "MOV ECX,dword ptr [ESP + 0x1c]",
+        "comment": null
+      },
+      {
+        "address": "0054683f",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "00546840",
+        "bytes": "8b11",
+        "instruction": "MOV EDX,dword ptr [ECX]",
+        "comment": null
+      },
+      {
+        "address": "00546842",
+        "bytes": "ff5224",
+        "instruction": "CALL dword ptr [EDX + 0x24]",
+        "comment": null
+      },
+      {
+        "address": "00546845",
+        "bytes": "84c0",
+        "instruction": "TEST AL,AL",
+        "comment": null
+      },
+      {
+        "address": "00546847",
+        "bytes": "7431",
+        "instruction": "JZ 0x0054687a",
+        "comment": null
+      },
+      {
+        "address": "00546849",
+        "bytes": "8b07",
+        "instruction": "MOV EAX,dword ptr [EDI]",
+        "comment": null
+      },
+      {
+        "address": "0054684b",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "0054684d",
+        "bytes": "7436",
+        "instruction": "JZ 0x00546885",
+        "comment": null
+      },
+      {
+        "address": "0054684f",
+        "bytes": "8d0c40",
+        "instruction": "LEA ECX,[EAX + EAX*0x2]",
+        "comment": null
+      },
+      {
+        "address": "00546852",
+        "bytes": "c1e105",
+        "instruction": "SHL ECX,0x5",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 65,
+    "total": 106,
+    "has_more": true
+  },
+  "library_numeric_instructions": {
+    "items": [
+      {
+        "address": "0040d940",
+        "bytes": "83ec10",
+        "instruction": "SUB ESP,0x10",
+        "comment": null
+      },
+      {
+        "address": "0040d943",
+        "bytes": "8b442414",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x14]",
+        "comment": null
+      },
+      {
+        "address": "0040d947",
+        "bytes": "53",
+        "instruction": "PUSH EBX",
+        "comment": null
+      },
+      {
+        "address": "0040d948",
+        "bytes": "8bd0",
+        "instruction": "MOV EDX,EAX",
+        "comment": null
+      },
+      {
+        "address": "0040d94a",
+        "bytes": "55",
+        "instruction": "PUSH EBP",
+        "comment": null
+      },
+      {
+        "address": "0040d94b",
+        "bytes": "c1e205",
+        "instruction": "SHL EDX,0x5",
+        "comment": null
+      },
+      {
+        "address": "0040d94e",
+        "bytes": "03d0",
+        "instruction": "ADD EDX,EAX",
+        "comment": null
+      },
+      {
+        "address": "0040d950",
+        "bytes": "56",
+        "instruction": "PUSH ESI",
+        "comment": null
+      },
+      {
+        "address": "0040d951",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "0040d952",
+        "bytes": "33ed",
+        "instruction": "XOR EBP,EBP",
+        "comment": null
+      },
+      {
+        "address": "0040d954",
+        "bytes": "0fbf14d5ea997900",
+        "instruction": "MOVSX EDX,word ptr [EDX*0x8 + 0x7999ea]",
+        "comment": null
+      },
+      {
+        "address": "0040d95c",
+        "bytes": "2bc2",
+        "instruction": "SUB EAX,EDX",
+        "comment": null
+      },
+      {
+        "address": "0040d95e",
+        "bytes": "894c2410",
+        "instruction": "MOV dword ptr [ESP + 0x10],ECX",
+        "comment": null
+      },
+      {
+        "address": "0040d962",
+        "bytes": "8bf8",
+        "instruction": "MOV EDI,EAX",
+        "comment": null
+      },
+      {
+        "address": "0040d964",
+        "bytes": "896c2414",
+        "instruction": "MOV dword ptr [ESP + 0x14],EBP",
+        "comment": null
+      },
+      {
+        "address": "0040d968",
+        "bytes": "8bf7",
+        "instruction": "MOV ESI,EDI",
+        "comment": null
+      },
+      {
+        "address": "0040d96a",
+        "bytes": "896c2418",
+        "instruction": "MOV dword ptr [ESP + 0x18],EBP",
+        "comment": null
+      },
+      {
+        "address": "0040d96e",
+        "bytes": "c1e605",
+        "instruction": "SHL ESI,0x5",
+        "comment": null
+      },
+      {
+        "address": "0040d971",
+        "bytes": "03f7",
+        "instruction": "ADD ESI,EDI",
+        "comment": null
+      },
+      {
+        "address": "0040d973",
+        "bytes": "896c241c",
+        "instruction": "MOV dword ptr [ESP + 0x1c],EBP",
+        "comment": null
+      },
+      {
+        "address": "0040d977",
+        "bytes": "c1e603",
+        "instruction": "SHL ESI,0x3",
+        "comment": null
+      },
+      {
+        "address": "0040d97a",
+        "bytes": "8b9e309a7900",
+        "instruction": "MOV EBX,dword ptr [ESI + 0x799a30]",
+        "comment": null
+      },
+      {
+        "address": "0040d980",
+        "bytes": "83fb15",
+        "instruction": "CMP EBX,0x15",
+        "comment": null
+      },
+      {
+        "address": "0040d983",
+        "bytes": "895c2424",
+        "instruction": "MOV dword ptr [ESP + 0x24],EBX",
+        "comment": null
+      },
+      {
+        "address": "0040d987",
+        "bytes": "750a",
+        "instruction": "JNZ 0x0040d993",
+        "comment": null
+      },
+      {
+        "address": "0040d989",
+        "bytes": "c744242464000000",
+        "instruction": "MOV dword ptr [ESP + 0x24],0x64",
+        "comment": null
+      },
+      {
+        "address": "0040d991",
+        "bytes": "eb1d",
+        "instruction": "JMP 0x0040d9b0",
+        "comment": null
+      },
+      {
+        "address": "0040d993",
+        "bytes": "db442424",
+        "instruction": "FILD dword ptr [ESP + 0x24]",
+        "comment": null
+      },
+      {
+        "address": "0040d997",
+        "bytes": "dc0dc8f45600",
+        "instruction": "FMUL double ptr [0x0056f4c8]",
+        "comment": null
+      },
+      {
+        "address": "0040d99d",
+        "bytes": "dc0d70f45600",
+        "instruction": "FMUL double ptr [0x0056f470]",
+        "comment": null
+      },
+      {
+        "address": "0040d9a3",
+        "bytes": "e894391500",
+        "instruction": "CALL 0x0056133c",
+        "comment": null
+      },
+      {
+        "address": "0040d9a8",
+        "bytes": "8b4c2410",
+        "instruction": "MOV ECX,dword ptr [ESP + 0x10]",
+        "comment": null
+      },
+      {
+        "address": "0040d9ac",
+        "bytes": "89442424",
+        "instruction": "MOV dword ptr [ESP + 0x24],EAX",
+        "comment": null
+      },
+      {
+        "address": "0040d9b0",
+        "bytes": "8b01",
+        "instruction": "MOV EAX,dword ptr [ECX]",
+        "comment": null
+      },
+      {
+        "address": "0040d9b2",
+        "bytes": "57",
+        "instruction": "PUSH EDI",
+        "comment": null
+      },
+      {
+        "address": "0040d9b3",
+        "bytes": "ff5024",
+        "instruction": "CALL dword ptr [EAX + 0x24]",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 36,
+    "total": 111,
+    "has_more": true
+  },
+  "royal_worker_window": {
+    "address": "005477e0",
+    "length": 140,
+    "hex": "8b 4c 24 04 56 8b d1 32 c0 c1 e2 05 03 d1 8d 34 d5 34 9a 79 00 8b 14 d5 34 9a 79 00 85 d2 74 65 8d 0c 52 c1 e1 05 03 ca c1 e1 02 8a 91 06 d6 bc 00 84 d2 74 4a 33 d2 8a 91 30 d6 bc 00 83 fa 06 74 05 83 fa 07 75 08 33 d2 8a 91 08 d6 bc 00 8a 89 02 d6 bc 00 80 f9 51 74 15 80 f9 6c 75 20 83 fa 09 74 05 83 fa 0c 75 1c b0 01 5e c2 04 00 83 fa 09 74 05 83 fa 0b 75 0c b0 01 5e c2 04 00 c7 06 00 00 00 00 5e c2 04 00 90 90 90",
+    "ascii": ".L$.V..2.......4.4.y....4.y...te..R................tJ3...0......t....u.3...............Qt...lu ...t....u...^......t....u...^.........^......",
+    "gaps": []
+  }
+}

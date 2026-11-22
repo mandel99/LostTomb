@@ -32,7 +32,9 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t treasury_copy;
     uint8_t reserved_2cc0[0x1618];
     int32_t starting_favor;
-    uint8_t reserved_42dc[0x0170];
+    uint8_t reserved_42dc[0x433a - 0x42dc];
+    int16_t native_value_433a;
+    uint8_t reserved_433c[0x444c - 0x433c];
     int32_t initial_rank;
     int32_t personal_savings;
     uint8_t reserved_4454[0x4460 - 0x4454];

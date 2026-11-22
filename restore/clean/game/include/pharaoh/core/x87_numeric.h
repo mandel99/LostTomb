@@ -1,0 +1,23 @@
+#ifndef PHARAOH_CORE_X87_NUMERIC_H
+#define PHARAOH_CORE_X87_NUMERIC_H
+
+#include <stdint.h>
+
+#pragma pack(push,1)
+typedef struct PharaohFloat80 {
+    uint64_t mantissa;
+    uint16_t exponent_sign;
+} PharaohFloat80;
+#pragma pack(pop)
+_Static_assert(sizeof(PharaohFloat80)==10,"native TBYTE");
+
+/* Typed memory input replaces the native live ST(0) argument. The current
+ * thread's real x87 control word remains an inherited machine input. */
+int64_t pharaoh_x87_truncate80(const PharaohFloat80 *value);
+int32_t pharaoh_x87_scaled_progress(int32_t stage, const double *step);
+int32_t pharaoh_x87_tomb_percent(int32_t sum, int32_t count);
+
+extern const double pharaoh_library_progress_step;
+extern const double pharaoh_abu_simbel_progress_step;
+
+#endif

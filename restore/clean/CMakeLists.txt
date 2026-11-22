@@ -7,6 +7,9 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(pharaoh_game STATIC
+    game/core/x87_numeric.c
+    game/monuments/base_progress.c
+    game/monuments/build_requirements.c
     game/monuments/pyramid_work_queries.c
     game/monuments/pyramid_claim.c
     game/monuments/pyramid_progress.c
