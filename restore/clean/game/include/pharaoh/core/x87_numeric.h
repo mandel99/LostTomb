@@ -24,4 +24,6 @@ int32_t pharaoh_x87_i32_divide_multiply(int32_t value,const double *divisor,cons
 extern const double pharaoh_library_progress_step;
 extern const double pharaoh_abu_simbel_progress_step;
 
+int32_t pharaoh_x87_scaled_integer_ratio(int32_t numerator,int32_t denominator,const double *scale);
+
 #endif

@@ -4,4 +4,6 @@
 #include "pharaoh/map/surface_tiles.h"
 void pharaoh_saved_game_bind_surface_step(PharaohSavedGameInitializeOperations *operations,
     PharaohMapSurfaceContext *surface);
+void pharaoh_saved_game_bind_moisture_step(PharaohSavedGameInitializeOperations *operations,
+    PharaohMapSurfaceContext *surface);
 #endif

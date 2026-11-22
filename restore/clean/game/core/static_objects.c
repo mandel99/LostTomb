@@ -87,3 +87,9 @@ int32_t pharaoh_native_three_nonzero_count_004f5020(
     for (index = 0; index < 3; ++index) if (values[index] != 0) ++count;
     return count;
 }
+
+/* Complete C translation of Pharaoh.exe 0x00477F60. */
+uint8_t pharaoh_native_return_zero_byte_00477f60(void)
+{
+    return 0;
+}

@@ -38,7 +38,8 @@ typedef struct PharaohMapSurfaceRenderOperations {
 typedef struct PharaohMapSurfaceContext {
     PharaohMapTerrainView *map;
     const PharaohMapGridGeometry *geometry;
-    const int32_t *border_size, *orientation;
+    const int32_t *border_size;
+    int32_t *orientation;
     const uint32_t *building_orientation;
     const uint32_t *editor_active, *force_paved_roads;
     const int16_t *scenario_entry_x, *scenario_entry_y, *scenario_exit_x, *scenario_exit_y;
@@ -59,7 +60,10 @@ typedef struct PharaohMapSurfaceContext {
     int32_t *scan_x, *scan_y;
     uint32_t *image_ids;
     uint8_t *property_flags, *edge_flags, *canal_water;
-    const uint8_t *fertility, *variation_tag, *meadow_value, *random;
+    uint8_t *fertility;
+    const uint8_t *variation_tag, *meadow_value, *random;
+    const int16_t *climate;
+    uint8_t *water_revalidation_pending;
     int16_t *building_ids;
     const int16_t *blocked_grid; /*native WORD grid B350DC, zero test only */
     PharaohBuildingTypeRecord *buildings;

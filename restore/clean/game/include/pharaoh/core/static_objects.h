@@ -67,4 +67,6 @@ int32_t pharaoh_native_reference_count_004204a0(
 int32_t pharaoh_native_three_nonzero_count_004f5020(
     const int32_t values[3]);
 
+uint8_t pharaoh_native_return_zero_byte_00477f60(void);
+
 #endif

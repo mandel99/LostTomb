@@ -49,7 +49,7 @@ void pharaoh_saved_game_initialize(PharaohSavedGameInitializeContext *c)
     run_range(c, PHARAOH_INIT_OBELISK_SCRIPTS, PHARAOH_INIT_BUILDING_TILES);
     if (*c->file_version < 0x8d) {
         *c->flood_revalidation_pending = 1;
-        run_step(c, PHARAOH_INIT_PYRAMID_IMAGES);
+        run_step(c, PHARAOH_INIT_FLOOD_REVALIDATION);
     }
     if (*c->file_version < 0x8e) run_step(c, PHARAOH_INIT_LEGACY_FARMS);
     run_step(c, PHARAOH_INIT_MAP_TILES);

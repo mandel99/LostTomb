@@ -139,3 +139,18 @@ __declspec(noinline) int32_t pharaoh_x87_i32_divide_multiply(
     }
     return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
 }
+
+/* Native486EFC..486F0A: FIDIV keeps the integer denominator's exact width. */
+__declspec(noinline) int32_t pharaoh_x87_scaled_integer_ratio(
+    int32_t numerator,int32_t denominator,const double *scale)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild numerator
+        fidiv denominator
+        mov eax,scale
+        fmul qword ptr[eax]
+        fstp tbyte ptr value
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}
