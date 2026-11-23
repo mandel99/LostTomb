@@ -41,5 +41,6 @@ void pharaoh_temple_complex_update_map(PharaohTempleImageContext *context,
     int32_t building, uint32_t image_offset); /* 004C0D50 */
 void pharaoh_rotated_bind_temple_images(PharaohRotatedBuildingOperations *operations,
     PharaohTempleImageContext *context);
+void pharaoh_temple_bind_wall_images(PharaohTempleImageContext *context);
 
 #endif

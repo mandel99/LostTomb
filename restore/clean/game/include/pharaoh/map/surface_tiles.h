@@ -53,8 +53,9 @@ typedef struct PharaohMapSurfaceContext {
     int32_t *area_x, *area_y;
     uint32_t *channels_refresh_pending;
     PharaohMapImageContextRecord *fault_context; /*17 rows */
-    PharaohMapImageContextRecord *canal_context; /*48 rows */
-    PharaohMapImageContextRecord *flood_canal_context; /*15 rows */
+    /* Native terrain0x4000 wall tables; retain the earlier field aliases. */
+    union { PharaohMapImageContextRecord *canal_context, *wall_context; }; /*48 rows */
+    union { PharaohMapImageContextRecord *flood_canal_context, *wall_gatehouse_context; }; /*15 rows */
     PharaohMapImageContextRecord *channel_context; /*16 rows */
     uint32_t *current_tile, *adjacent;
     int32_t *scan_x, *scan_y;

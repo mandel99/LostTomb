@@ -1,4 +1,5 @@
 #include "pharaoh/building/temple_images.h"
+#include "pharaoh/map/construction_region_images.h"
 #include "pharaoh/religion/building_types.h"
 #include <stddef.h>
 
@@ -118,4 +119,12 @@ void pharaoh_rotated_bind_temple_images(PharaohRotatedBuildingOperations *ops,
 {
     ops->gatehouse=gatehouse;ops->gatehouse_user_data=c;
     ops->temple_complex=temple;ops->temple_complex_user_data=c;
+}
+
+static void walls(void *data,int32_t x,int32_t y,int32_t size)
+{pharaoh_map_refresh_wall_region(data,x,y,size);}
+void pharaoh_temple_bind_wall_images(PharaohTempleImageContext *c)
+{
+    c->wall_user_data=c->surface;
+    c->refresh_walls=walls;
 }

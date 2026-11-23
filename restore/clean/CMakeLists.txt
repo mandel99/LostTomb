@@ -231,6 +231,7 @@ add_library(pharaoh_game STATIC
     game/map/water_images.c
     game/map/floodplain_images.c
     game/map/deepwater.c
+    game/map/construction_region_images.c
     game/map/road_images.c
     game/scenario/scene_surface.c
     game/monuments/image_updates.c
