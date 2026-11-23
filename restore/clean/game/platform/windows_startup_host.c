@@ -2417,6 +2417,22 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
         pharaoh_windows_bink_open_library(&host->bink) == 0) {
         return 0;
     }
+    LPDIRECTDRAWSURFACE const movie_surface =
+        pharaoh_graphics_offscreen_surface_create(&host->graphics,
+            &host->graphics_operations,
+            (uint32_t)host->graphics.render_width,
+            (uint32_t)host->graphics.render_height, 1);
+    if (movie_surface == NULL) {
+        pharaoh_windows_bink_close_library(&host->bink);
+        return 0;
+    }
+    if (host->graphics_operations.fill_surface(
+            host->graphics_operations.user_data, movie_surface,
+            DDBLT_COLORFILL | DDBLT_WAIT, 0) != DD_OK) {
+        (void)movie_surface->lpVtbl->Release(movie_surface);
+        pharaoh_windows_bink_close_library(&host->bink);
+        return 0;
+    }
     memset(&host->video_loop, 0, sizeof(host->video_loop));
     memset(&host->video_open, 0, sizeof(host->video_open));
     pharaoh_windows_bink_bind_video_operations(&host->bink,
@@ -2447,10 +2463,10 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
     host->video_runtime.screen_height = (uint32_t)host->graphics.screen_height;
     host->video_runtime.movie_drive_letter = host->detected_drive_letter;
     host->video_blit.primary_surface = host->graphics.primary_surface;
-    /* Decode at (0,0) into the client-sized offscreen surface. The existing
-       present adapter centers using the movie's actual dimensions and the
-       refreshed client rectangle, including after a window move. */
-    host->video_blit.video_surface = host->graphics.back_buffer_surface;
+    /* Native 00413470 decodes into primary, leaving the cleared scene back
+       buffer untouched. Use a private decode surface for the windowed blit:
+       a shared scene surface would replay the last frame after Bink returns. */
+    host->video_blit.video_surface = movie_surface;
     host->video_blit.video_surface_width =
         (uint32_t)host->graphics.render_width;
     host->video_blit.video_surface_height =
@@ -2464,6 +2480,8 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
 
     const int32_t played = pharaoh_video_player_play(player,
         &host->video_runtime, filename, x, y, &host->video_open);
+    (void)movie_surface->lpVtbl->Release(movie_surface);
+    host->video_blit.video_surface = NULL;
     pharaoh_windows_bink_close_library(&host->bink);
     return played;
 }

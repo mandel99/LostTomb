@@ -211,3 +211,19 @@ int32_t pharaoh_native_undo_contains_004851b0(
         if (values[index] == id) return 1;
     return 0;
 }
+
+uint32_t pharaoh_native_return_zero_0047d350(void)
+{
+    return 0;
+}
+
+uint32_t pharaoh_native_type_is_supported_005013a0(uint32_t type)
+{
+    switch (type) {
+    case 1: case 2: case 3: case 4: case 5: case 6:
+    case 7: case 8: case 13: case 15: case 17: case 19:
+        return 1;
+    default:
+        return 0;
+    }
+}

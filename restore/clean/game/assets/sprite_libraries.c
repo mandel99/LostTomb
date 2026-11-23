@@ -351,3 +351,13 @@ const PharaohSpriteImageRecord *pharaoh_sprite_image_record(
     if (image >= image_count) image = 0;
     return &images[image];
 }
+
+void pharaoh_sphinx_load_stage_libraries(
+    const PharaohSpriteLibraryLoadContext *context, int16_t stage,
+    const char *const stage_names[][3], const char *fixed_name)
+{
+    pharaoh_sprite_library_load_file(context, stage_names[stage][0], 5);
+    pharaoh_sprite_library_load_file(context, stage_names[stage][1], 6);
+    pharaoh_sprite_library_load_file(context, stage_names[stage][2], 7);
+    pharaoh_sprite_library_load_file(context, fixed_name, 8);
+}

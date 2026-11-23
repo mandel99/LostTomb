@@ -1,5 +1,7 @@
 #include "pharaoh/runtime/text_loading.h"
 
+#include <string.h>
+
 static void replace_allocation(const PharaohTextFileOperations *operations,
                                void *user_data, void **allocation,
                                uint32_t byte_count)
@@ -53,4 +55,16 @@ int pharaoh_load_text_catalogs(const PharaohTextLoadContext *context,
         catalog->media_text, media_payload_size);
     operations->close(context->user_data, file);
     return 1;
+}
+
+/* Native MM index startsE209A0; title/subtitle/body areE209FC/E20A00/E20A04.
+ * The index stores relative file offsets, never serialized process pointers. */
+PharaohTextMediaMessage pharaoh_text_media_message(
+    const PharaohTextCatalog *catalog,int32_t message_id)
+{
+    int32_t offsets[3];
+    memcpy(offsets,catalog->media_index+0x5c+(uint32_t)message_id*80,
+        sizeof(offsets));
+    const char *const text=catalog->media_text;
+    return (PharaohTextMediaMessage){text+offsets[0],text+offsets[1],text+offsets[2]};
 }

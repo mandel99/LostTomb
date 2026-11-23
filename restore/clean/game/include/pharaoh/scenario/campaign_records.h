@@ -2,6 +2,7 @@
 #define PHARAOH_SCENARIO_CAMPAIGN_RECORDS_H
 
 #include "pharaoh/runtime/settings_ini.h"
+#include "pharaoh/scenario/mission_records.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -60,19 +61,6 @@ typedef struct PharaohMissionSpecialPositions {
     uint16_t type_e4_x;
     uint16_t type_e4_y;
 } PharaohMissionSpecialPositions;
-
-typedef struct PharaohMissionLegionRecord {
-    uint8_t legion_id;
-    uint8_t reserved_01[3];
-    int32_t experience;
-    uint8_t soldiers;
-    uint8_t reserved_09[3];
-} PharaohMissionLegionRecord;
-
-typedef struct PharaohMissionCarryRecords {
-    int32_t savings;
-    PharaohMissionLegionRecord legions[3];
-} PharaohMissionCarryRecords;
 
 typedef struct PharaohMissionRecordState {
     const PharaohSettingsFile *settings;

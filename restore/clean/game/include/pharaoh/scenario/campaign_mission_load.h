@@ -24,10 +24,20 @@ typedef struct PharaohCampaignMissionLoadContext {
     const PharaohCampaignMissionLoadOperations *operations;
 } PharaohCampaignMissionLoadContext;
 
+struct PharaohSceneInitializeBindings;
+struct PharaohSavedSceneStorage;
+typedef struct PharaohCampaignSceneAttachment {
+    struct PharaohSavedSceneStorage *scene;
+    struct PharaohSceneInitializeBindings *bindings;
+    PharaohSavedGameInitializeOperations *operations;
+} PharaohCampaignSceneAttachment;
+
 typedef struct PharaohCampaignMissionStateContext {
     PharaohSavedGameReadContext *read;
     PharaohSavedGameInitializeContext *initialize;
     PharaohFloodplainSettings *floodplain_settings;
+    /* NULL when the caller has already bound its own live storage. */
+    const PharaohCampaignSceneAttachment *attachment;
 } PharaohCampaignMissionStateContext;
 
 typedef struct PharaohCampaignMissionEntry {

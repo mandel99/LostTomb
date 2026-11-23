@@ -55,6 +55,15 @@ typedef struct PharaohTextLoadContext {
     PharaohTextCatalog *catalog;
 } PharaohTextLoadContext;
 
+typedef struct PharaohTextMediaMessage {
+    const char *title, *subtitle, *body;
+} PharaohTextMediaMessage;
+
+/* Briefing0041A180 reads the final three DWORDs of the selected80-byte
+ * media record, after its24-byte header. Native-valid message IDs are0..999. */
+PharaohTextMediaMessage pharaoh_text_media_message(
+    const PharaohTextCatalog *catalog,int32_t message_id);
+
 typedef struct PharaohTextSelection {
     const PharaohTextCatalog *catalog;
     const char *current;

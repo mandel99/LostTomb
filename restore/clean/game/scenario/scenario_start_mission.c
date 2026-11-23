@@ -49,6 +49,8 @@ void pharaoh_scenario_start_mission(
     char force_campaign)
 {
     PharaohSettingsFile *settings = context->settings;
+    void *const steps = context->steps_user_data != NULL ?
+        context->steps_user_data : context->user_data;
     char path[100];
     int32_t saved_personal_savings = settings->personal_savings_last_mission;
     uint8_t saved_current_mission = (uint8_t)settings->current_mission_id;
@@ -66,7 +68,7 @@ void pharaoh_scenario_start_mission(
     copy_terminated(path, context->path_prefix);
     copy_terminated(path + strlen(path), name);
     *context->tutorial_legions_message_posted = 1;
-    context->reset_native_pairs(context->user_data);
+    context->reset_native_pairs(steps);
 
     if (settings->is_custom_scenario != 0 && force_campaign == 0) {
         if (!context->map_exists(context->user_data, path)) {
@@ -139,7 +141,7 @@ void pharaoh_scenario_start_mission(
     }
 
     for (index = 0; index < 4; ++index)
-        context->final_steps[index](context->user_data);
+        context->final_steps[index](steps);
 
     player = &context->players[*context->current_player];
     if (settings->is_custom_scenario == 0) {
@@ -149,5 +151,5 @@ void pharaoh_scenario_start_mission(
     player->difficulty = settings->difficulty;
     *context->scenario_animation_flag =
         (uint8_t)(*context->scenario_animation_flag == 1);
-    context->initialize_walker_actions(context->user_data);
+    context->initialize_walker_actions(steps);
 }

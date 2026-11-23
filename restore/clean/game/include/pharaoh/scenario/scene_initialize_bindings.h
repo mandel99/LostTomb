@@ -41,6 +41,14 @@ typedef struct PharaohSceneInitializeBindings {
     PharaohPyramidImageContext pyramid_images;
 } PharaohSceneInitializeBindings;
 
+struct PharaohSavedSceneStorage;
+/* Rebind serialized scene aliases after each full read, before initialize.
+ * All contexts, transient buffers and real child providers must already be
+ * supplied. This does not initialize or replace any child operation. */
+void pharaoh_saved_game_bind_scene_storage(PharaohSceneInitializeBindings *bindings,
+    struct PharaohSavedSceneStorage *scene,
+    const PharaohSavedGameReadContext *reader);
+
 void pharaoh_saved_game_bind_scene(
     PharaohSavedGameInitializeOperations *operations,
     PharaohSceneInitializeBindings *bindings);

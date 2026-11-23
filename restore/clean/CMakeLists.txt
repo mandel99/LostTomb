@@ -253,6 +253,10 @@ add_library(pharaoh_game STATIC
     game/rendering/water_lift_image.c
     game/map/surface_placement.c
     game/building/allocation.c
+    game/building/construction_load.c
+    game/building/construction_support.c
+    game/commerce/storage_queries.c
+    game/runtime/walker_action_profile.c
     game/building/allocation_definitions.c
     game/building/house_health.c
     game/building/vacant_lots.c
@@ -280,6 +284,7 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
     game/scenario/scenario_start_mission.c
+    game/scenario/scenario_start_bindings.c
     game/scenario/saved_game_state_read.c
     game/scenario/saved_game_initialize.c
     game/scenario/mission_schema.c
@@ -309,6 +314,7 @@ add_library(pharaoh_game STATIC
     game/ui/mission_intermezzo.c
     game/ui/victory_dialog.c
     game/ui/briefing.c
+    game/ui/briefing_hint.c
     game/ui/rich_text.c
     game/ui/custom_map_selection.c
     game/ui/family_menu_actions.c

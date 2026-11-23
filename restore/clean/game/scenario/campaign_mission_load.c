@@ -1,6 +1,7 @@
 #include "pharaoh/scenario/campaign_mission_load.h"
 
 #include "pharaoh/runtime/file_directory_reset.h"
+#include "pharaoh/scenario/scene_initialize_bindings.h"
 
 static int32_t load_package(void *user_data, int32_t package, int32_t skip)
 {
@@ -43,6 +44,11 @@ static void reset_floodplain(void *user_data)
 static void initialize_saved_state(void *user_data)
 {
     PharaohCampaignMissionStateContext *const state = user_data;
+    if (state->attachment != NULL) {
+        const PharaohCampaignSceneAttachment *const a = state->attachment;
+        pharaoh_saved_game_bind_scene_storage(a->bindings, a->scene, state->read);
+        pharaoh_saved_game_bind_scene(a->operations, a->bindings);
+    }
     pharaoh_saved_game_initialize(state->initialize);
 }
 

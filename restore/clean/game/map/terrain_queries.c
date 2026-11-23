@@ -101,3 +101,99 @@ int32_t pharaoh_map_pattern_has_water(
 }
 
 _Static_assert(sizeof(PharaohWalkerQueryRecord)==388 && offsetof(PharaohWalkerQueryRecord,next_walker_id_on_same_tile)==8 && offsetof(PharaohWalkerQueryRecord,type)==10,"native ring-search walker view");
+
+static void area_bounds(const PharaohMapTerrainView *map,
+    int32_t x, int32_t y, int32_t size, int32_t radius,
+    int32_t *left, int32_t *top, int32_t *right, int32_t *bottom)
+{
+    *left = x - radius;
+    *top = y - radius;
+    *right = x + size - 1 + radius;
+    *bottom = y + size - 1 + radius;
+    if (*left < 0) *left = 0;
+    if (*top < 0) *top = 0;
+    if (*right >= map->width) *right = map->width - 1;
+    if (*bottom >= map->height) *bottom = map->height - 1;
+}
+
+static void map_area_apply(PharaohMapTerrainView *map,
+    int32_t x, int32_t y, int32_t size, int32_t radius, uint32_t mask,
+    int32_t use_and, PharaohMapAreaCursor *cursor)
+{
+    int32_t left, top, right, bottom, row, column;
+    area_bounds(map, x, y, size, radius, &left, &top, &right, &bottom);
+    cursor->offset = map->origin + top * PHARAOH_MAP_GRID_WIDTH + left;
+    cursor->y = top;
+    if (top > bottom) return;
+    cursor->y = bottom + 1;
+    for (row = top; row <= bottom; ++row) {
+        cursor->x = left;
+        for (column = left; column <= right; ++column) {
+            if (use_and) map->terrain[cursor->offset] &= mask;
+            else map->terrain[cursor->offset] |= mask;
+            ++cursor->offset;
+            ++cursor->x;
+        }
+        cursor->offset += PHARAOH_MAP_GRID_WIDTH - (right - left + 1);
+    }
+}
+
+void pharaoh_map_terrain_and_area(PharaohMapTerrainView *map,
+    int32_t x, int32_t y, int32_t size, int32_t radius, uint32_t mask,
+    PharaohMapAreaCursor *cursor)
+{
+    map_area_apply(map, x, y, size, radius, mask, 1, cursor);
+}
+
+int32_t pharaoh_map_water_determine_orientation_size3(
+    PharaohWaterOrientationMap *map, int32_t x, int32_t y,
+    uint8_t rotate_with_view)
+{
+    int32_t candidate;
+    if (rotate_with_view == 1 && map->view_orientation != 0) {
+        if (map->view_orientation == 6) y -= 2;
+        else if (map->view_orientation == 4) {
+            x -= 2;
+            y -= 2;
+        } else if (map->view_orientation == 2) x -= 2;
+    }
+    if (x < 0 || y < 0 || x + 2 >= map->width || y + 2 >= map->height)
+        return 999;
+    const int32_t base = map->origin + y * PHARAOH_MAP_GRID_WIDTH + x;
+    *map->adjusted_orientation = 0;
+    for (candidate = 0; candidate < 4; ++candidate) {
+        int32_t valid_cells = 0;
+        int32_t marked_cells = 0;
+        int32_t index;
+        for (index = 0; index < 9; ++index) {
+            const int32_t tile = base + map->footprint_offsets[index];
+            const uint32_t flags = map->terrain[tile];
+            if (map->orientation_masks[candidate][index] == 0) {
+                if ((flags & 0x10004u) != 0 || map->blocking_objects[tile] != 0)
+                    break;
+                if ((flags & 0x40u) == 0 && (flags & 0x26341237u) == 0) {
+                    if ((flags & 8u) != 0) ++marked_cells;
+                } else {
+                    ++marked_cells;
+                }
+            } else {
+                if ((flags & 4u) == 0) break;
+                if ((flags & 0x40u) != 0) ++marked_cells;
+                if ((flags & 1u) != 0) ++marked_cells;
+            }
+            ++valid_cells;
+        }
+        if ((map->terrain[base + map->access_offsets[candidate][0]] & 4u) == 0 ||
+            (map->terrain[base + map->access_offsets[candidate][1]] & 4u) == 0)
+            valid_cells = 0;
+        if (valid_cells == 9) {
+            int32_t adjusted = candidate - map->view_orientation / 2;
+            if (adjusted < 0) adjusted += 4;
+            *map->raw_orientation = candidate;
+            *map->adjusted_orientation = adjusted;
+            return marked_cells;
+        }
+        *map->adjusted_orientation = candidate + 1;
+    }
+    return 999;
+}

@@ -46,7 +46,11 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t rank_clamped;
     uint8_t reserved_2ca0[0x001c];
     int32_t treasury_copy;
-    uint8_t reserved_2cc0[0x1618];
+    union {
+        uint8_t reserved_2cc0[0x1618];
+        struct { uint8_t monument_native_2cc0[0x42d4-0x2cc0];
+            int32_t monument_rating; };
+    };
     int32_t starting_favor;
     uint8_t reserved_42dc[0x433a - 0x42dc];
     int16_t native_value_433a;

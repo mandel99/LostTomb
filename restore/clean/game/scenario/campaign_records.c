@@ -129,6 +129,8 @@ void pharaoh_mission_records_apply(PharaohMissionRecordApplyState *state,
         options[0] == '1' ? state->started->savings : 0;
     state->started->savings = 0;
 
+    /* Serialized coordinates keep raw WORD bits; native call arguments
+       sign-extend those WORDs (the packed DE x coordinate is masked). */
     const PharaohMissionSpecialPositions *const positions =
         state->special_positions;
     if (options[4] == 'A') {
@@ -136,32 +138,32 @@ void pharaoh_mission_records_apply(PharaohMissionRecordApplyState *state,
             positions->type_de_first != 0) {
             recreate_monument(operations, BUILDING_MAUSOLEUM,
                 positions->type_de_packed & 0x1fff,
-                positions->type_de_first);
+                (int16_t)positions->type_de_first);
         }
         if (positions->type_e1_x != 0 && positions->type_e1_y != 0 &&
             state->settings->mission_id == 51) {
             recreate_monument(operations, BUILDING_LIBRARY,
-                positions->type_e1_x, positions->type_e1_y);
+                (int16_t)positions->type_e1_x, (int16_t)positions->type_e1_y);
         }
         if (positions->type_e4_x != 0 && positions->type_e4_y != 0 &&
             state->settings->mission_id == 51) {
             recreate_monument(operations, BUILDING_LIGHTHOUSE,
-                positions->type_e4_x, positions->type_e4_y);
+                (int16_t)positions->type_e4_x, (int16_t)positions->type_e4_y);
         }
     } else if (options[4] == 'V') {
         if (positions->type_e5_x != 0 && positions->type_e5_y != 0) {
             recreate_monument(operations, BUILDING_SMALL_ROYAL_TOMB,
-                positions->type_e5_x, positions->type_e5_y);
+                (int16_t)positions->type_e5_x, (int16_t)positions->type_e5_y);
         }
         if (positions->type_ea_x != 0 && positions->type_ea_y != 0 &&
             state->settings->mission_id >= 40) {
             recreate_monument(operations, BUILDING_MEDIUM_ROYAL_TOMB,
-                positions->type_ea_x, positions->type_ea_y);
+                (int16_t)positions->type_ea_x, (int16_t)positions->type_ea_y);
         }
         if (positions->type_eb_x != 0 && positions->type_eb_y != 0 &&
             state->settings->mission_id >= 41) {
             recreate_monument(operations, BUILDING_LARGE_ROYAL_TOMB,
-                positions->type_eb_x, positions->type_eb_y);
+                (int16_t)positions->type_eb_x, (int16_t)positions->type_eb_y);
         }
     }
 

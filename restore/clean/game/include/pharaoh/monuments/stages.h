@@ -138,4 +138,8 @@ uint8_t pharaoh_monument_resources_complete(
 uint8_t pharaoh_monument_resources_complete_thunk(
     const int32_t *stored_amounts,const int32_t *required_amounts);
 
+void pharaoh_city_set_monument_building_id(
+    int32_t *monument_building_ids, int32_t building_id, int32_t slot);
+int32_t pharaoh_city_find_monument_slot(
+    const int32_t monument_building_ids[3], int32_t building_id);
 #endif

@@ -315,3 +315,18 @@ uint8_t pharaoh_monument_resources_complete_thunk(
     return pharaoh_monument_resources_complete(
         stored_amounts, required_amounts);
 }
+
+void pharaoh_city_set_monument_building_id(
+    int32_t *monument_building_ids, int32_t building_id, int32_t slot)
+{
+    monument_building_ids[slot] = building_id;
+}
+
+int32_t pharaoh_city_find_monument_slot(
+    const int32_t monument_building_ids[3], int32_t building_id)
+{
+    for (int32_t slot = 0; slot < 3; ++slot) {
+        if (monument_building_ids[slot] == building_id) return slot;
+    }
+    return -1;
+}

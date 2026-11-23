@@ -1,5 +1,8 @@
 #include "pharaoh/ui/city_message_text.h"
 
+#include <stddef.h>
+#include <string.h>
+
 /* Complete C translation of Pharaoh.exe 0x004E1600. */
 int32_t pharaoh_city_message_text_id(int32_t message_id)
 {
@@ -65,4 +68,43 @@ void pharaoh_city_message_initialize_problem_areas(
     state->problem_area_b = 0;
     state->problem_count = 0;
     state->last_update_time = get_time(user_data) - 10000u;
+}
+
+_Static_assert(sizeof(PharaohMenuMessageRecord) == 48 &&
+    offsetof(PharaohMenuMessageRecord, message) == 0x0a &&
+    offsetof(PharaohMenuMessageRecord, template_id) == 0x10,
+    "native city-message reset fields");
+
+/* Complete typed reuse of MissionRecordActions.c, qualified against the
+ * native stores at004E1770. The child clock call occurs before the final
+ * two transient counters are cleared. Other message bytes remain intact. */
+void pharaoh_city_message_initialize_scenario(
+    const PharaohCityMessageScenarioReset *s)
+{
+    for (int32_t i = 0; i < PHARAOH_CITY_MESSAGE_RECORD_CAPACITY; ++i) {
+        s->messages[i].message = 0;
+        s->messages[i].template_id = -1;
+    }
+    memset(s->population_shown, 0, 8);
+    *s->messages_used = 0;
+    memset(s->counts, 0, 20 * sizeof(*s->counts));
+    memset(s->delays, 0, 20 * sizeof(*s->delays));
+    memset(s->queue, 0, 20 * sizeof(*s->queue));
+    s->population_shown[8] = 0;
+    s->population_shown[9] = 0;
+    *s->queue_delay = 0;
+    *s->next_sequence = 0;
+    *s->current_id = -1;
+    *s->shown_index = 0;
+    *s->scroll_position = 0;
+    *s->list_scroll = 0;
+    *s->posted_once = 1;
+    *s->fire_last_time = 0;
+    *s->collapse_last_time = 0;
+    *s->reserved2 = 0;
+    *s->reserved1 = 0;
+    pharaoh_city_message_initialize_problem_areas(s->problem,
+        s->get_time, s->clock_user_data);
+    *s->count_problem = 0;
+    *s->queue_reserved = 0;
 }

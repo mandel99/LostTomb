@@ -207,3 +207,39 @@ void pharaoh_building_repair_queue_remove(
         repair_queue[index].building_id = 0;
     }
 }
+
+int32_t pharaoh_quarry_image_group(int32_t resource)
+{
+    return resource == 25 ? 0x1b7 : 0x133;
+}
+
+void pharaoh_construction_ferry_cancel(int32_t *construction_state,
+    PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    *construction_state = 0;
+    buildings[building_id].state = 6;
+}
+
+bool pharaoh_construction_cancel(PharaohConstructionCancelState *state,
+    PharaohBuildingTypeRecord *buildings)
+{
+    const bool changed = state->current_window != 1u ||
+        state->editor_construction_tool != 0;
+
+    state->current_window = 1;
+    state->editor_construction_tool = 0;
+    state->canal_connector_drag_started = 0;
+    state->field_6059dc = 0;
+    state->field_6059e0 = 0;
+    state->monument_selections = 0;
+    state->field_6059d8 = 0;
+    if (state->ferry_state == 1) {
+        pharaoh_construction_ferry_cancel(&state->ferry_state, buildings,
+            state->ferry_first_building);
+    }
+    if (state->ferry_state == 2) {
+        state->ferry_state = 0;
+    }
+    state->redraw_requested = 1;
+    return changed;
+}

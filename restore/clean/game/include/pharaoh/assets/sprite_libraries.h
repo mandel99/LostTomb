@@ -120,4 +120,5 @@ uint8_t pharaoh_sprite_library_read(
 uint32_t pharaoh_sprite_group_first_image(const PharaohSpriteGroupRecord *groups,int32_t group);
 const PharaohSpriteImageRecord *pharaoh_sprite_image_record(const PharaohSpriteImageRecord *images,int32_t image_count,int32_t image);
 
+void pharaoh_sphinx_load_stage_libraries(const PharaohSpriteLibraryLoadContext *context,int16_t stage,const char *const stage_names[][3],const char *fixed_name);
 #endif

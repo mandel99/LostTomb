@@ -527,4 +527,7 @@ int32_t pharaoh_house_population_calculate_types(
     const PharaohBuildingTypeRecord *buildings, int32_t highest_id,
     PharaohHousePopulationPlayerMetrics *player);
 
+int32_t pharaoh_quarry_image_group(int32_t resource);
+void pharaoh_construction_ferry_cancel(int32_t *state,PharaohBuildingTypeRecord *buildings,int32_t id);
+bool pharaoh_construction_cancel(PharaohConstructionCancelState *state,PharaohBuildingTypeRecord *buildings);
 #endif
