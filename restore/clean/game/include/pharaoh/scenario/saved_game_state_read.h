@@ -55,6 +55,8 @@ typedef struct PharaohSavedGameReadOperations {
     /* C integration contexts; a null override retains the shared user_data. */
     void *upgrade_user_data[PHARAOH_SAVE_UPGRADE_COUNT];
     void *settings_user_data;
+    void *reset_records_user_data;
+    void *reset_spots_user_data[5];
 } PharaohSavedGameReadOperations;
 
 typedef struct PharaohSavedGameReadContext {

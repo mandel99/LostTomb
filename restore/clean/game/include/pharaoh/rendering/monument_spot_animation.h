@@ -6,7 +6,8 @@
 #include "pharaoh/core/crt_random.h"
 #include "pharaoh/walker/record_queries.h"
 
-enum { PHARAOH_MONUMENT_ANIMATION_VIEWS = 4 };
+enum { PHARAOH_MONUMENT_ANIMATION_VIEWS = 4,
+    PHARAOH_MONUMENT_ANIMATION_SCRIPT_COUNT = 253 };
 
 typedef struct PharaohMonumentAnimPosition {
     int32_t x;
@@ -61,14 +62,14 @@ typedef struct PharaohMonumentSpotAnimation {
 } PharaohMonumentSpotAnimation;
 
 typedef struct PharaohMonumentWorkSpotBinding {
+    uint8_t reserved_00[8];
     PharaohMonumentSpotAnimation *spot;
     int32_t initial_work_remaining;
-    uint32_t reserved[2];
 } PharaohMonumentWorkSpotBinding;
 
 typedef struct PharaohMonumentWorkSpotGroup {
-    PharaohMonumentWorkSpotBinding *bindings;
-    const int32_t *initial_work_override;
+    const PharaohMonumentWorkSpotBinding *bindings;
+    const PharaohMonumentWorkSpotBinding *initial_work_override;
 } PharaohMonumentWorkSpotGroup;
 
 typedef struct PharaohMonumentSpotDrawContext {
@@ -82,15 +83,15 @@ typedef struct PharaohMonumentSpotDrawContext {
 } PharaohMonumentSpotDrawContext;
 
 typedef struct PharaohMonumentAnimationRegistry {
-    PharaohMonumentWorkSpotBinding *sphinx;
-    PharaohMonumentWorkSpotBinding *sun_temple;
-    PharaohMonumentWorkSpotBinding *library;
-    PharaohMonumentWorkSpotBinding *abu_simbel;
-    PharaohMonumentWorkSpotBinding *caesareum;
-    PharaohMonumentWorkSpotBinding *lighthouse;
+    const PharaohMonumentWorkSpotBinding *sphinx;
+    const PharaohMonumentWorkSpotBinding *sun_temple;
+    const PharaohMonumentWorkSpotBinding *library;
+    const PharaohMonumentWorkSpotBinding *abu_simbel;
+    const PharaohMonumentWorkSpotBinding *caesareum;
+    const PharaohMonumentWorkSpotBinding *lighthouse;
     PharaohMonumentWorkSpotGroup *royal_tomb;
-    PharaohMonumentWorkSpotBinding *small_obelisk;
-    PharaohMonumentWorkSpotBinding *large_obelisk;
+    const PharaohMonumentWorkSpotBinding *small_obelisk;
+    const PharaohMonumentWorkSpotBinding *large_obelisk;
     void *user_data;
     int32_t (*find_incomplete_obelisk)(void *user_data);
     int16_t (*building_type)(void *user_data, int32_t building_id);
@@ -108,57 +109,57 @@ void pharaoh_monument_spot_start(
     PharaohMonumentSpotAnimation *spot, int16_t mode,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_sphinx_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_sphinx_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_sun_temple_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_sun_temple_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_library_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_library_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_abu_simbel_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_abu_simbel_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_caesareum_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_caesareum_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
-void pharaoh_lighthouse_reset_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_lighthouse_reset_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
 void pharaoh_royal_tomb_reset_work_spots(
-    const PharaohMonumentWorkSpotGroup groups[26],
+    const PharaohMonumentWorkSpotGroup groups[25],
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
 void pharaoh_obelisk_reset_work_spots(int16_t building_type,
-    PharaohMonumentWorkSpotBinding small_bindings[10],
-    PharaohMonumentWorkSpotBinding large_bindings[18],
+    const PharaohMonumentWorkSpotBinding small_bindings[10],
+    const PharaohMonumentWorkSpotBinding large_bindings[18],
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     PharaohCrtRandom *random);
 
 void pharaoh_monument_spot_animate(PharaohMonumentSpotAnimation *spot,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_sphinx_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_sphinx_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_sun_temple_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_sun_temple_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_library_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_library_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_abu_simbel_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_abu_simbel_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_caesareum_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_caesareum_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
-void pharaoh_lighthouse_animate_work_spots(PharaohMonumentWorkSpotBinding *bindings,
+void pharaoh_lighthouse_animate_work_spots(const PharaohMonumentWorkSpotBinding *bindings,
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
 void pharaoh_royal_tomb_animate_work_spots(
-    PharaohMonumentWorkSpotGroup groups[26],
+    PharaohMonumentWorkSpotGroup groups[25],
     const PharaohMonumentAnimScript *scripts, int32_t script_count,
     const PharaohWalkerQueryRecord *walkers, PharaohCrtRandom *random);
 void pharaoh_obelisk_animate_work_spots(

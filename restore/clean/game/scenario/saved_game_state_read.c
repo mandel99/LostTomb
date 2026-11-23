@@ -40,7 +40,8 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
         ops->free_route_samples);
     for (int32_t i = 0; i < 0xb5; ++i) {
         if (c->chunk_io->file_version < 0x9a && i == 0xaf) {
-            ops->reset_mission_records(ops->user_data);
+            ops->reset_mission_records(ops->reset_records_user_data != NULL ?
+                ops->reset_records_user_data : ops->user_data);
             break;
         }
         if (pharaoh_chunk_read_migrate(c->chunk_io, i,
@@ -143,7 +144,9 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
         }
     }
     for (uint32_t i = 0; i < 5; ++i)
-        if (present[i] == 0) ops->reset_work_spots[i](ops->user_data);
+        if (present[i] == 0)
+            ops->reset_work_spots[i](ops->reset_spots_user_data[i] != NULL ?
+                ops->reset_spots_user_data[i] : ops->user_data);
     saved = 0;
     for (uint32_t group = 0; group < 4; ++group)
         for (uint32_t i = 0; i < spot_counts[group]; ++i)

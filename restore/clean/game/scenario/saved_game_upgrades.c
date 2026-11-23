@@ -11,6 +11,7 @@ STEP(v79, pharaoh_native_record30_set_three_words_minus_one_004d1860(c->messages
 STEP(v7a, pharaoh_native_player_copy_seven_dwords_004d1880((uint8_t *)c->read->players, 2))
 STEP(v7b, pharaoh_game_file_upgrade_widen_player_counts((PharaohUpgradePlayerRecord *)(void *)c->read->players))
 STEP(v7c_cities, pharaoh_game_file_relayout_empire_cities(c->empire_cities))
+STEP(v7c_players, pharaoh_game_file_relayout_players((PharaohUpgradePlayerRecord *)(void *)c->read->players))
 STEP(v7c_buildings, pharaoh_buildings_migrate_record_layout(c->read->buildings))
 STEP(v7c_storages, pharaoh_game_file_relayout_storages(c->storages))
 STEP(v7f, pharaoh_game_file_upgrade_clear_walker_fields((PharaohUpgradeWalkerRecord *)(void *)((uint8_t *)(c->walkers + 1) + 2)))
@@ -36,11 +37,34 @@ STEP(v9c, pharaoh_native_player_expand_word_tables_004d1a70((uint8_t *)c->read->
 STEP(va0, pharaoh_game_file_upgrade_building_orientation((PharaohUpgradeBuildingRecord *)(void *)c->read->buildings))
 #undef STEP
 
+/* Native004D3C20; complete children004E59C0 and004E5B90 execute here. */
+void pharaoh_game_file_upgrade_obelisk_work_spots(PharaohSavedGameUpgradeBindings *c)
+{
+    const int32_t id = pharaoh_obelisk_first_unfinished(c->read->buildings,
+        c->read->players, c->read->current_player);
+    if (id != 0)
+        pharaoh_obelisk_reset_work_spots(c->read->buildings[id].building_type,
+            c->small_obelisk_spots, c->large_obelisk_spots,
+            c->monument_scripts, PHARAOH_MONUMENT_ANIMATION_SCRIPT_COUNT,
+            c->crt_random);
+}
+
+static void v88(void *data)
+{
+    pharaoh_game_file_upgrade_obelisk_work_spots(data);
+}
+
 static void histories(void *data, int32_t mode)
 {
     PharaohSavedGameUpgradeBindings *const c = data;
     pharaoh_saved_histories_transfer(c->histories, c->history_snapshots,
         (uint8_t)mode, c->history_memory);
+}
+
+static void records(void *data)
+{
+    PharaohSavedGameUpgradeBindings *const c = data;
+    pharaoh_mission_records_reset(c->mission_records);
 }
 
 void pharaoh_saved_game_bind_upgrade_steps(PharaohSavedGameReadOperations *ops,
@@ -51,6 +75,7 @@ void pharaoh_saved_game_bind_upgrade_steps(PharaohSavedGameReadOperations *ops,
         {PHARAOH_SAVE_V76,v76},{PHARAOH_SAVE_V78,v78},{PHARAOH_SAVE_V79,v79},
         {PHARAOH_SAVE_V7A,v7a},{PHARAOH_SAVE_V7B,v7b},
         {PHARAOH_SAVE_V7C_CITIES,v7c_cities},{PHARAOH_SAVE_V7C_BUILDINGS,v7c_buildings},
+        {PHARAOH_SAVE_V7C_1AD0,v7c_players},{PHARAOH_SAVE_V88,v88},
         {PHARAOH_SAVE_V7C_STORAGES,v7c_storages},{PHARAOH_SAVE_V7F,v7f},
         {PHARAOH_SAVE_V81,v81},{PHARAOH_SAVE_ALWAYS_32F0,names},
         {PHARAOH_SAVE_V8B,v8b},{PHARAOH_SAVE_V8F,v8f},{PHARAOH_SAVE_V90,v90},
@@ -66,4 +91,28 @@ void pharaoh_saved_game_bind_upgrade_steps(PharaohSavedGameReadOperations *ops,
     }
     ops->apply_loaded_settings = histories;
     ops->settings_user_data = bindings;
+    ops->reset_mission_records = records;
+    ops->reset_records_user_data = bindings;
+}
+
+#define SPOT_STEP(name, function, member) static void name(void *data) { \
+    PharaohSavedGameSpotBindings *c = data; \
+    function(c->member, c->scripts, PHARAOH_MONUMENT_ANIMATION_SCRIPT_COUNT, c->random); }
+SPOT_STEP(caesareum, pharaoh_caesareum_reset_work_spots, caesareum)
+SPOT_STEP(lighthouse, pharaoh_lighthouse_reset_work_spots, lighthouse)
+SPOT_STEP(library, pharaoh_library_reset_work_spots, library)
+SPOT_STEP(abu_simbel, pharaoh_abu_simbel_reset_work_spots, abu_simbel)
+SPOT_STEP(royal_tombs, pharaoh_royal_tomb_reset_work_spots, royal_tombs)
+#undef SPOT_STEP
+
+void pharaoh_saved_game_bind_work_spot_steps(PharaohSavedGameReadOperations *ops,
+    PharaohSavedGameSpotBindings *bindings)
+{
+    static const PharaohSavedGameStep methods[5] = {
+        caesareum, lighthouse, library, abu_simbel, royal_tombs
+    };
+    for (uint32_t i = 0; i < 5; ++i) {
+        ops->reset_work_spots[i] = methods[i];
+        ops->reset_spots_user_data[i] = bindings;
+    }
 }

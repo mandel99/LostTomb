@@ -7,6 +7,9 @@
 #include "pharaoh/scenario/saved_event_upgrade.h"
 #include "pharaoh/runtime/game_file_upgrade.h"
 #include "pharaoh/core/static_objects.h"
+#include "pharaoh/scenario/player_relayout.h"
+#include "pharaoh/monuments/obelisk_queries.h"
+#include "pharaoh/scenario/mission_records.h"
 
 typedef struct PharaohSavedGameUpgradeBindings {
     PharaohSavedGameReadContext *read;
@@ -27,11 +30,27 @@ typedef struct PharaohSavedGameUpgradeBindings {
     PharaohDynamicQueueSlot *histories;
     PharaohSavedHistory *history_snapshots;
     const PharaohHistoryMemory *history_memory;
+    const PharaohMonumentWorkSpotBinding *small_obelisk_spots, *large_obelisk_spots;
+    const PharaohMonumentAnimScript *monument_scripts; /*253 native records */
+    PharaohCrtRandom *crt_random;
+    PharaohMissionRecordsState *mission_records;
 } PharaohSavedGameUpgradeBindings;
 
-/* Binds real C children of004D41E0 without replacing the route/work-spot
- * contexts. V7C_1AD0 and V88 retain their separately required bindings. */
+/* Binds all27 upgrade children of004D41E0 without replacing the route/work-spot
+ * contexts. The caller owns the buffers, scripts, spot bindings and CRT seed. */
 void pharaoh_saved_game_bind_upgrade_steps(PharaohSavedGameReadOperations *ops,
     PharaohSavedGameUpgradeBindings *bindings);
+void pharaoh_game_file_upgrade_obelisk_work_spots(PharaohSavedGameUpgradeBindings *bindings);
+
+typedef struct PharaohSavedGameSpotBindings {
+    const PharaohMonumentWorkSpotBinding *caesareum, *lighthouse, *library, *abu_simbel;
+    const PharaohMonumentWorkSpotGroup *royal_tombs; /*25 groups of3 */
+    const PharaohMonumentAnimScript *scripts; /*253 records */
+    PharaohCrtRandom *random;
+} PharaohSavedGameSpotBindings;
+
+/* The five absence repairs at the end of004D41E0. */
+void pharaoh_saved_game_bind_work_spot_steps(PharaohSavedGameReadOperations *ops,
+    PharaohSavedGameSpotBindings *bindings);
 
 #endif
