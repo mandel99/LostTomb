@@ -4,6 +4,8 @@
 _Static_assert(offsetof(PharaohBuildingTypeRecord,origin_x)==0x68 &&
     offsetof(PharaohBuildingTypeRecord,mausoleum_orientation)==0x70 &&
     offsetof(PharaohBuildingTypeRecord,monument_worker_id)==0x5c &&
+    offsetof(PharaohBuildingTypeRecord,runtime_value_016)==0x16 &&
+    offsetof(PharaohBuildingTypeRecord,complex_progress_flags)==0x64 &&
     offsetof(PharaohWalkerQueryRecord,action_state)==0x38 &&
     offsetof(PharaohWalkerQueryRecord,leading_walker_id)==0x68 &&
     offsetof(PharaohWalkerQueryRecord,roam_length)==0x44,
@@ -18,12 +20,85 @@ static PharaohMausoleumPartDescriptor describe(PharaohMausoleumImageContext *c,
     return part;
 }
 
+/* Reused MausoleumImages49.c, native004DF360. */
+uint32_t pharaoh_mausoleum_query_image(PharaohMausoleumImageContext *c,
+    int32_t id,uint32_t *flags)
+{
+    static const int32_t direction_image[4][4] = {
+        {0,1,0,1},{3,2,3,2},{0,1,0,1},{3,2,3,2}
+    };
+    static const char *const scripts[3][3][4] = {
+        {{"maus0_1a","maus0_1b","maus0_1c","maus0_1d"},
+         {"maus0_2a","maus0_2b","maus0_2c","maus0_2d"},
+         {"maus0_3a","maus0_3b","maus0_3c","maus0_3d"}},
+        {{"maus1_1a","maus1_1b","maus1_1c","maus1_1d"},
+         {"maus1_2a","maus1_2b","maus1_2c","maus1_2d"},
+         {"maus1_3a","maus1_3b","maus1_3c","maus1_3d"}},
+        {{"maus2_1a","maus2_1b","maus2_1c","maus2_1d"},
+         {"maus2_2a","maus2_2b","maus2_2c","maus2_2d"},
+         {"maus2_3a","maus2_3b","maus2_3c","maus2_3d"}}
+    };
+    *flags=0;
+    const PharaohBuildingTypeRecord *const b=&c->surface->buildings[id];
+    const int32_t orientation=(int32_t)b->mausoleum_orientation;
+    const PharaohMausoleumPartDescriptor part=describe(c,b);
+    const int32_t kind=part.kind&0xff;
+    if(kind<4){
+        int32_t group;
+        if((uint16_t)b->runtime_value_016==UINT16_MAX)group=786+kind;
+        else{
+            int32_t stage=0;
+            if(b->monument_stage>=0xff &&
+                (c->surface->buildings[id-b->subtype].complex_progress_flags&
+                    (UINT32_C(0x10)<<kind))!=0)
+                stage=b->monument_stage>=0xffff?2:1;
+            (void)pharaoh_sprite_library_load_file(c->libraries,
+                scripts[*c->mausoleum_size][stage][kind],5+kind);
+            group=564+kind;
+        }
+        /* Loading can change the live group indices and map orientation. */
+        return c->surface->groups[group].first_image-
+            (uint32_t)(((orientation+*c->surface->orientation)/2)&1)+1u;
+    }
+    if(kind>=4 && kind<8){
+        if((uint16_t)b->runtime_value_016!=UINT16_MAX)*flags=5;
+        if(b->monument_stage==2)
+            return c->surface->groups[568].first_image+(uint32_t)(kind-4);
+        if(b->monument_stage==1)return c->surface->groups[500].first_image;
+    }else if(kind>=8 && kind<14){
+        if((uint16_t)b->runtime_value_016!=UINT16_MAX)*flags=1;
+        if(b->monument_stage==2){
+            const int32_t direction=direction_image[orientation/2]
+                [*c->surface->orientation/2];
+            const uint32_t image=c->surface->groups[568].first_image;
+            switch(kind){
+            case 8:return image+4u+(uint32_t)direction;
+            case 9:return image+4u+(uint32_t)((direction-2)&3);
+            case 10:return image+9u+(uint32_t)(((direction-2)&3)*2);
+            case 11:return image+8u+(uint32_t)(((direction-2)&3)*2);
+            case 12:return image+8u+(uint32_t)(direction*2);
+            default:return image+9u+(uint32_t)(direction*2);
+            }
+        }
+        *flags|=4;
+        if(b->monument_stage==1)return c->surface->groups[500].first_image;
+    }else return 0;
+    if((part.kind&0x10000)==0)return 0;
+    return c->surface->groups[*c->animation_set==3?790:759].first_image;
+}
+
+static uint32_t query(void *data,int32_t id,uint32_t *flags)
+{return pharaoh_mausoleum_query_image(data,id,flags);}
+void pharaoh_mausoleum_bind_image_query(PharaohMausoleumImageContext *c)
+{c->query_image=query;c->query_user_data=c;}
+
 void pharaoh_mausoleum_update_map(PharaohMausoleumImageContext *c,int32_t id)
 {
     PharaohMapSurfaceContext *const s=c->surface;
     const PharaohMausoleumPartDescriptor part=describe(c,&s->buildings[id]);
     uint32_t mode=0;
-    const uint32_t image=c->query_image(c->user_data,id,&mode);
+    const uint32_t image=c->query_image(c->query_user_data!=NULL?
+        c->query_user_data:c->user_data,id,&mode);
     const int32_t size=part.size;
     const int32_t x=s->buildings[id].x,y=s->buildings[id].y;
     if((mode&1u)==0){
@@ -79,10 +154,12 @@ void pharaoh_mausoleum_reposition_part(PharaohMausoleumImageContext *c,int32_t i
         }
         if((type==79 && state==10) || (type==85 && state==28) ||
                 (type==81 && (state==10 || state==11))){
-            c->reset_route(c->user_data,worker);
+            c->unlink_tile(c->movement_user_data!=NULL?
+                c->movement_user_data:c->user_data,worker);
             w->x=b->x;w->y=b->y;const int32_t tile=b->grid_offset;
             w->grid_offset=tile;if(type==81)w->destination_grid_offset=tile;
-            c->restart_movement(c->user_data,worker);
+            c->link_tile(c->movement_user_data!=NULL?
+                c->movement_user_data:c->user_data,worker);
             if(type==81 && w->action_state==10){
                 const int32_t related=c->walkers[*c->current_walker_id].leading_walker_id;
                 if(related!=0){
@@ -108,4 +185,16 @@ void pharaoh_rotated_bind_mausoleum_image(PharaohRotatedBuildingOperations *ops,
     PharaohMausoleumImageContext *c)
 {
     ops->mausoleum=reposition;ops->mausoleum_user_data=c;
+}
+
+static void unlink_tile(void *data,int32_t id)
+{pharaoh_walker_detach_from_tile(data,id);}
+static void link_tile(void *data,int32_t id)
+{pharaoh_walker_attach_to_tile(data,id);}
+void pharaoh_mausoleum_bind_tile_chains(PharaohMausoleumImageContext *c,
+    PharaohWalkerTileChainContext *chains)
+{
+    c->unlink_tile=unlink_tile;c->link_tile=link_tile;
+    c->walkers=chains->walkers;
+    c->movement_user_data=chains;
 }

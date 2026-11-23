@@ -86,7 +86,7 @@ typedef struct PharaohWalkerQueryRecord {
     int16_t target_id_084;
     int16_t created_sequence;
     int16_t target_walker_created_sequence;
-    uint8_t reserved_08a;
+    union { uint8_t reserved_08a, tile_chain_ordinal; };
     uint8_t combat_flag_08b;
     int16_t combat_value_08c;
     int16_t combat_value_08e;

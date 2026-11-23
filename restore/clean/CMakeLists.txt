@@ -12,6 +12,7 @@ add_library(pharaoh_game STATIC
     game/monuments/obelisk_queries.c
     game/scenario/saved_game_upgrades.c
     game/walker/record_queries.c
+    game/walker/tile_chain.c
     game/building/type_queries.c
     game/core/pk_explode.c
     game/core/pk_explode_data.c
