@@ -69,6 +69,7 @@ add_library(pharaoh_game STATIC
     game/core/byte_tokenizer.c
     game/rendering/monument_spot_animation.c
     game/scenario/saved_routes.c
+    game/scenario/saved_scene_storage.c
     game/scenario/saved_game_io.c
     game/scenario/player_relayout.c
     game/core/crt_random.c
