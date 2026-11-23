@@ -99,3 +99,5 @@ int32_t pharaoh_map_pattern_has_water(
 {
     return pattern_has_mask(terrain, map_origin, x, y, pattern_offsets, pattern, 4u);
 }
+
+_Static_assert(sizeof(PharaohWalkerQueryRecord)==388 && offsetof(PharaohWalkerQueryRecord,next_walker_id_on_same_tile)==8 && offsetof(PharaohWalkerQueryRecord,type)==10,"native ring-search walker view");

@@ -9,15 +9,17 @@
 typedef struct PharaohScenarioPlayerRuntime {
     uint8_t reserved_0000[3];
     uint8_t native_value_0003;
-    uint8_t reserved_0004[8];
+    union { uint8_t reserved_0004[8];
+        struct { uint8_t allocation_native_04,allocation_reserved_id,allocation_native_06[6]; };
+    };
     int32_t treasury;
     union { uint8_t reserved_0010[0x0c];
-        struct { uint8_t allocation_native_10[5],allocation_reserved_id,allocation_native_16[6]; };
+        struct { uint8_t health_native_10[8]; int32_t health_rating; };
     };
     uint32_t native_value_001c;
     uint8_t reserved_0020[4];
     int32_t population;
-    union { uint8_t reserved_0028[4]; int32_t health_rating; };
+    uint8_t reserved_0028[4];
     int32_t school_age_population;
     int32_t academy_age_population;
     uint8_t reserved_0034[0x2778 - 0x34];

@@ -5,7 +5,7 @@
 typedef struct PharaohMapRingActorSearch {
     const uint32_t *tile_flags;
     const int16_t *tile_actor_ids;
-    const PharaohWalkerQueryRecord *walkers;
+    const PharaohWalkerQueryRecord *walkers; /* Full388-byte records: next WORD+8, type BYTE+0xA. */
     uint32_t *search_tile;
     int32_t grid_start;
     int32_t width;

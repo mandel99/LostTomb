@@ -4,7 +4,7 @@
 #include "pharaoh/simulation/industry_queries.h"
 #include <stddef.h>
 _Static_assert(sizeof(PharaohBuildingTypeRecord)==264 && offsetof(PharaohBuildingTypeRecord,allocation_native_56)==0x56 && offsetof(PharaohBuildingTypeRecord,native_c2)==0xc2 && offsetof(PharaohBuildingTypeRecord,native_e4)==0xe4 && offsetof(PharaohBuildingTypeRecord,house_malaria_risk)==0xe8 && offsetof(PharaohBuildingTypeRecord,health_distance_4)==0xf4 && offsetof(PharaohBuildingTypeRecord,health_distance_40000)==0xf8,"native allocation/health fields");
-_Static_assert(offsetof(PharaohScenarioPlayerRuntime,allocation_reserved_id)==0x15 && offsetof(PharaohScenarioPlayerRuntime,health_rating)==0x28,"native player fields");
+_Static_assert(offsetof(PharaohScenarioPlayerRuntime,allocation_reserved_id)==0x5 && offsetof(PharaohScenarioPlayerRuntime,health_rating)==0x18,"native player fields");
 static int32_t undo_contains(PharaohBuildingAllocationContext *c,int32_t id)
 {return pharaoh_native_undo_contains_004851b0(id,*c->undo.ready,*c->undo.mode,*c->undo.count,c->undo.ids);}
 static bool farm(void *data,int32_t id)
