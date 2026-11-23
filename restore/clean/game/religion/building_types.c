@@ -29,3 +29,13 @@ int32_t pharaoh_religion_building_type_for_god(
             return -1;
     }
 }
+
+int32_t pharaoh_city_god_with_status(
+    const int16_t statuses[5], int32_t status)
+{
+    int32_t god;
+    for (god = 0; god < 5; ++god) {
+        if (statuses[god] == status) return god;
+    }
+    return -1;
+}

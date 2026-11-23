@@ -214,3 +214,10 @@ void pharaoh_rotated_bind_monument_images(PharaohRotatedBuildingOperations *ops,
     for (uint32_t i=0;i<PHARAOH_ROTATED_MONUMENT_COUNT;++i)
         ops->monument[i]=pharaoh_monument_image_binding(methods[i],contexts[i]);
 }
+
+void pharaoh_rotated_bind_sun_temple_image(PharaohRotatedBuildingOperations *ops,
+    PharaohMonumentImageContext *context)
+{
+    ops->sun_temple=draw_sun;
+    ops->sun_temple_user_data=context;
+}

@@ -234,6 +234,8 @@ add_library(pharaoh_game STATIC
     game/map/road_images.c
     game/scenario/scene_surface.c
     game/monuments/image_updates.c
+    game/building/temple_images.c
+    game/building/temple_image_tables.c
     game/map/rotated_buildings.c
     game/map/water_building_images.c
     game/map/venue_tiles.c

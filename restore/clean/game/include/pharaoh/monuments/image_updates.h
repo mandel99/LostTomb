@@ -38,5 +38,7 @@ PharaohBuildingImageBinding pharaoh_monument_image_binding(
  * rotation operations and each context's image query remain caller-owned. */
 void pharaoh_rotated_bind_monument_images(PharaohRotatedBuildingOperations *ops,
     PharaohMonumentImageContext *const contexts[PHARAOH_ROTATED_MONUMENT_COUNT]);
+void pharaoh_rotated_bind_sun_temple_image(PharaohRotatedBuildingOperations *ops,
+    PharaohMonumentImageContext *context);
 
 #endif

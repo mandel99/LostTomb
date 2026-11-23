@@ -36,6 +36,8 @@ typedef struct PharaohRotatedBuildingOperations {
     void (*mausoleum)(void *,int32_t building); /* 004DFD90 */
     void (*bandstand_adjacent)(void *,int32_t building,int32_t x,int32_t y); /* 00440540 */
     void (*pyramid)(void *,int32_t building); /* 004EE4A0 */
+    /* NULL retains the common user_data for existing operation providers. */
+    void *gatehouse_user_data, *temple_complex_user_data, *sun_temple_user_data;
 } PharaohRotatedBuildingOperations;
 
 typedef struct PharaohRotatedBuildingContext {

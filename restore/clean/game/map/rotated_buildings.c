@@ -129,15 +129,19 @@ void pharaoh_map_refresh_rotated_building_images(PharaohRotatedBuildingContext *
         int32_t result,index=-1;
         switch (kind) {
         case 58:case 200:case 170:case 201:case 56:break;
-        case 171:case 202:ops->gatehouse(ops->user_data,id);break;
+        case 171:case 202:ops->gatehouse(ops->gatehouse_user_data!=NULL?
+            ops->gatehouse_user_data:ops->user_data,id);break;
         case 210:square(c,id,b,sphinx_image(c,b->subtype),8);break;
         case 74:case 76:case 181:case 182:case 75:case 192:case 136:
             water_building(c,id,b,kind);break;
         case 90:
             pharaoh_map_update_water_lift_image(c->surface,c->water_footprint,c->water_lift,id);break;
         case 30:case 31:case 33:case 209:venue(c,id,b,kind);break;
-        case 65:case 66:case 67:case 68:case 69:ops->temple_complex(ops->user_data,id,0);break;
-        case 213:ops->sun_temple(ops->user_data,id);break;
+        case 65:case 66:case 67:case 68:case 69:
+            ops->temple_complex(ops->temple_complex_user_data!=NULL?
+                ops->temple_complex_user_data:ops->user_data,id,0);break;
+        case 213:ops->sun_temple(ops->sun_temple_user_data!=NULL?
+            ops->sun_temple_user_data:ops->user_data,id);break;
         case 215:square(c,id,b,image(c,497),0x48);break;
         case 218:case 219:case 220:
             result=add(image(c,kind==218?760:kind==219?761:762),

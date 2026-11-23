@@ -13,4 +13,7 @@ typedef enum PharaohGodBuildingKind {
 int32_t pharaoh_religion_building_type_for_god(
     int32_t god, PharaohGodBuildingKind kind);
 
+int32_t pharaoh_city_god_with_status(
+    const int16_t statuses[5], int32_t status);
+
 #endif
