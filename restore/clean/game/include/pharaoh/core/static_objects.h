@@ -93,4 +93,7 @@ void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2]);
 void pharaoh_native_ambient_scores_clear_0053b670(
     uint32_t scores[12], uint32_t *active);
 
+/* Native empty RET16; its caller discards EAX. No logical inputs. */
+void pharaoh_native_noop_00489500(void);
+
 #endif

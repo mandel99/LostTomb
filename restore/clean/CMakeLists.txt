@@ -114,6 +114,7 @@ add_library(pharaoh_game STATIC
     game/rendering/terrain_diamond.c
     game/rendering/city_object_layers.c
     game/rendering/city_ground.c
+    game/rendering/city_top.c
     game/rendering/city_render.c
     game/rendering/sprite_rle_blit.c
     game/rendering/upper_sprite_draw.c

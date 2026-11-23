@@ -108,7 +108,7 @@ typedef struct PharaohBuildingTypeRecord {
         int32_t origin_y;
         uint8_t reserved_70[0x84 - 0x70];
         int16_t fishing_boat_id;
-        uint8_t reserved_86[0x8c - 0x86];
+        union { uint8_t reserved_86[0x8c - 0x86]; struct { uint8_t render_native_086,render_warning_087,render_native_088[4]; }; };
         int32_t house_tax_income;
         uint8_t reserved_90[8];
         int32_t royal_tomb_stock;

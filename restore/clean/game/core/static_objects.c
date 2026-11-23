@@ -196,3 +196,7 @@ void pharaoh_native_ambient_scores_clear_0053b670(
     for (index = 0; index < 12; ++index) scores[index] = 0;
     *active = 0;
 }
+
+void pharaoh_native_noop_00489500(void)
+{
+}
