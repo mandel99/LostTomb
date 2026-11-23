@@ -168,3 +168,11 @@ bool pharaoh_temple_upgrade_present(
     const uint8_t current = buildings[building_id].temple_upgrade;
     return current == 3u || current == upgrade;
 }
+
+/* Completed prior native00541AB0 leaf. */
+int32_t pharaoh_sun_temple_part_size(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    const PharaohSunTemplePartDefinition *part_definitions)
+{
+    return part_definitions[buildings[building_id].subtype].size;
+}
