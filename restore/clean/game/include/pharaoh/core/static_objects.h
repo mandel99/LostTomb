@@ -90,4 +90,7 @@ void pharaoh_native_building_field_clear_004d4080(
 void pharaoh_native_two_words_clear_004d40a0(uint8_t *players);
 void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2]);
 
+void pharaoh_native_ambient_scores_clear_0053b670(
+    uint32_t scores[12], uint32_t *active);
+
 #endif

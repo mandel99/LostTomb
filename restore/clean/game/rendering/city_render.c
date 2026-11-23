@@ -2,6 +2,12 @@
 #include "pharaoh/runtime/platform_measure_speed.h"
 
 /* Reused viewport-controller C, qualified against native00430D30. */
+static void *pass_data(const PharaohCityRenderOperations *ops,
+    enum PharaohCityRenderPass pass)
+{
+    return ops->pass_user_data[pass]!=0?ops->pass_user_data[pass]:ops->user_data;
+}
+
 void pharaoh_city_render(PharaohCityRenderContext *c,
     int32_t camera_x, int32_t camera_y, int32_t grid_origin)
 {
@@ -24,24 +30,24 @@ void pharaoh_city_render(PharaohCityRenderContext *c,
 
     int32_t overlay_pass = 0;
     if (*c->overlay == 0) {
-        if (*c->alternate_base == 0) ops->draw_base(ops->user_data);
-        else ops->draw_overlay_base(ops->user_data);
+        if (*c->alternate_base == 0) ops->draw_base(pass_data(ops, PHARAOH_CITY_PASS_BASE));
+        else ops->draw_overlay_base(pass_data(ops, PHARAOH_CITY_PASS_OVERLAY_BASE));
     } else {
         overlay_pass = *c->overlay != 51 && *c->alternate_base == 0;
-        ops->draw_overlay_base(ops->user_data);
+        ops->draw_overlay_base(pass_data(ops, PHARAOH_CITY_PASS_OVERLAY_BASE));
     }
     if (overlay_pass) {
         pharaoh_actor_walking_no_operation();
-        ops->draw_overlay_top(ops->user_data);
-        ops->draw_footprint(ops->user_data);
-        ops->draw_high_walkers(ops->user_data, 9999);
+        ops->draw_overlay_top(pass_data(ops, PHARAOH_CITY_PASS_OVERLAY_TOP));
+        ops->draw_footprint(pass_data(ops, PHARAOH_CITY_PASS_FOOTPRINT));
+        ops->draw_high_walkers(pass_data(ops, PHARAOH_CITY_PASS_HIGH_WALKERS), 9999);
     } else {
-        ops->draw_top(ops->user_data, 0);
+        ops->draw_top(pass_data(ops, PHARAOH_CITY_PASS_TOP), 0);
         pharaoh_actor_walking_no_operation();
-        ops->draw_footprint(ops->user_data);
-        ops->draw_high_walkers(ops->user_data, 0);
+        ops->draw_footprint(pass_data(ops, PHARAOH_CITY_PASS_FOOTPRINT));
+        ops->draw_high_walkers(pass_data(ops, PHARAOH_CITY_PASS_HIGH_WALKERS), 0);
     }
-    ops->draw_grid_values(ops->user_data);
+    ops->draw_grid_values(pass_data(ops, PHARAOH_CITY_PASS_GRID_VALUES));
     if (s->highlight_countdown != 0) --s->highlight_countdown;
     c->clip->left = 0;
     c->clip->right = *c->screen_width;

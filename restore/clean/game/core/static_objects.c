@@ -187,3 +187,12 @@ void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2])
         pairs[index][1] = -1;
     }
 }
+
+/* Native0053B670, actual child of the city ground pass. */
+void pharaoh_native_ambient_scores_clear_0053b670(
+    uint32_t scores[12], uint32_t *active)
+{
+    int32_t index;
+    for (index = 0; index < 12; ++index) scores[index] = 0;
+    *active = 0;
+}

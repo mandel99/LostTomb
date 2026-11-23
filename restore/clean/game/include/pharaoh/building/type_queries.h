@@ -139,7 +139,9 @@ typedef struct PharaohBuildingTypeRecord {
     uint32_t money_value;
     uint8_t reserved_bc;
     uint8_t ruin_has_plague;
-    uint8_t reserved_be[0xc1 - 0xbe];
+    union { uint8_t reserved_be[0xc1 - 0xbe];
+        struct { uint8_t render_native_be, render_tint_bf, render_native_c0; };
+    };
     union { uint8_t runtime_value_c1; uint8_t storage_id; };
     uint8_t reserved_c2[2];
     int32_t linked_ferry_building_id;

@@ -14,6 +14,13 @@ typedef struct PharaohCityRenderState {
     uint32_t highlight_countdown;
 } PharaohCityRenderState;
 
+enum PharaohCityRenderPass {
+    PHARAOH_CITY_PASS_BASE, PHARAOH_CITY_PASS_OVERLAY_BASE,
+    PHARAOH_CITY_PASS_TOP, PHARAOH_CITY_PASS_OVERLAY_TOP,
+    PHARAOH_CITY_PASS_FOOTPRINT, PHARAOH_CITY_PASS_HIGH_WALKERS,
+    PHARAOH_CITY_PASS_GRID_VALUES, PHARAOH_CITY_PASS_COUNT
+};
+
 typedef struct PharaohCityRenderOperations {
     void *user_data;
     void (*draw_base)(void *user_data);             /* 00430EF0 */
@@ -23,6 +30,8 @@ typedef struct PharaohCityRenderOperations {
     void (*draw_footprint)(void *user_data);        /* 0043B630 */
     void (*draw_high_walkers)(void *user_data, int32_t mode); /* 00439740 */
     void (*draw_grid_values)(void *user_data);      /* 0043E300 */
+    /* Null entries retain the shared context. */
+    void *pass_user_data[PHARAOH_CITY_PASS_COUNT];
 } PharaohCityRenderOperations;
 
 typedef struct PharaohCityRenderContext {
