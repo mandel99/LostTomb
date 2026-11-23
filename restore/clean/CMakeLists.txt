@@ -233,6 +233,7 @@ add_library(pharaoh_game STATIC
     game/map/deepwater.c
     game/map/road_images.c
     game/scenario/scene_surface.c
+    game/monuments/image_updates.c
     game/map/rotated_buildings.c
     game/map/water_building_images.c
     game/map/venue_tiles.c
