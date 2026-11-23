@@ -42,4 +42,6 @@ int32_t pharaoh_image_draw(PharaohImageDrawContext *context,
 struct PharaohCityGroundOperations;
 void pharaoh_city_ground_bind_image_draw(struct PharaohCityGroundOperations *operations,
     PharaohImageDrawContext *context);
+void pharaoh_city_ground_bind_sprite_draw(struct PharaohCityGroundOperations *operations,
+    PharaohImageDrawContext *context);
 #endif

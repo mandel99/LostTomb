@@ -74,7 +74,9 @@ typedef struct PharaohWalkerQueryRecord {
     uint8_t terrain_usage;
     uint8_t reserved_073;
     uint16_t destination_payload_074;
-    uint8_t reserved_076[0x7b - 0x76];
+    union { uint8_t reserved_076[0x7b - 0x76];
+        struct { uint8_t reserved_076_byte, high_layer_077, reserved_078[3]; };
+    };
     uint8_t dock_wait_ticks;
     uint8_t reserved_07c[0x7f - 0x7c];
     uint8_t trader_record_id;

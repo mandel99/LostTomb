@@ -109,7 +109,7 @@ static void draw_normal_tile(PharaohCityGroundContext *c,uint32_t tile,uint32_t 
             index=c->scan->row*231u+c->scan->column;
             if(alternate){first=c->neighbor_cells[index];second=c->neighbor_cells[index+1];}
             else{first=c->neighbor_cells[index+1];second=c->neighbor_cells[index+2];}
-            if(neighbor_occludes(c,first)||neighbor_occludes(c,second))c->operations->draw_top(c->operations->user_data,image,x,y);
+            if(neighbor_occludes(c,first)||neighbor_occludes(c,second))c->operations->draw_top(c->operations->top_user_data!=NULL?c->operations->top_user_data:c->operations->user_data,image,x,y);
         }
     }else if(footprint_position(c,foot,x,y,&px,&py))draw_image(c,image,px,py);
     *c->tint=0;

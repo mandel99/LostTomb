@@ -337,3 +337,17 @@ void pharaoh_sprite_libraries_load_all(
         }
     } while (result != 0);
 }
+
+uint32_t pharaoh_sprite_group_first_image(
+    const PharaohSpriteGroupRecord *groups, int32_t group)
+{
+    return groups[group].first_image;
+}
+
+const PharaohSpriteImageRecord *pharaoh_sprite_image_record(
+    const PharaohSpriteImageRecord *images, int32_t image_count,
+    int32_t image)
+{
+    if (image >= image_count) image = 0;
+    return &images[image];
+}

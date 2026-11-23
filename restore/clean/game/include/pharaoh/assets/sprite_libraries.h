@@ -35,7 +35,10 @@ typedef struct PharaohSpriteImageRecord {
     int16_t height;
     uint32_t reserved_18;
     uint16_t tag_id;
-    uint8_t reserved_1e[20];
+    union { uint8_t reserved_1e[20];
+        struct { int16_t animation_frames; uint16_t reserved_20;
+            int16_t sprite_offset_x, sprite_offset_y; uint8_t reserved_26[12]; };
+    };
     uint8_t draw_type;
     uint8_t is_compressed;
     uint8_t is_external;
@@ -113,5 +116,8 @@ uint8_t pharaoh_sprite_library_read(
     PharaohSpriteLibrary *library, const char *name, int32_t library_index,
     PharaohSpriteImageRecord *images, uint32_t first_image,
     PharaohSpriteTagRecord *tags, uint32_t first_tag);
+
+uint32_t pharaoh_sprite_group_first_image(const PharaohSpriteGroupRecord *groups,int32_t group);
+const PharaohSpriteImageRecord *pharaoh_sprite_image_record(const PharaohSpriteImageRecord *images,int32_t image_count,int32_t image);
 
 #endif

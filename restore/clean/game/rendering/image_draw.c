@@ -4,6 +4,7 @@
 #include "pharaoh/rendering/sprite_rle_blit.h"
 #include "pharaoh/rendering/terrain_diamond.h"
 #include "pharaoh/rendering/city_ground.h"
+#include "pharaoh/rendering/upper_sprite_draw.h"
 #include "pharaoh/runtime/file_extension_operations.h"
 #include "pharaoh/runtime/platform_measure_speed.h"
 #include <string.h>
@@ -91,6 +92,20 @@ void pharaoh_city_ground_bind_image_draw(PharaohCityGroundOperations *ops,
 {
     ops->draw_image=ground_image;
     ops->image_user_data=context;
+}
+static void ground_top(void *data,int32_t image,int32_t x,int32_t y)
+{
+    PharaohImageDrawContext *c=data;
+    const PharaohUpperSpriteDrawContext top={c->images,c->image_pixels,
+        *c->image_count,c->clip,c->surface_pixels,c->pitch_bytes,*c->tint,
+        &c->state->source.pixels};
+    (void)pharaoh_image_draw_isometric_top(&top,image,x,y);
+}
+void pharaoh_city_ground_bind_sprite_draw(PharaohCityGroundOperations *ops,
+    PharaohImageDrawContext *context)
+{
+    pharaoh_city_ground_bind_image_draw(ops,context);
+    ops->draw_top=ground_top;ops->top_user_data=context;
 }
 
 /* Reused Unit02524 algorithm. Native source pointer/temporary offset overlay
