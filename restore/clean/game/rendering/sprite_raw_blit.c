@@ -21,6 +21,19 @@ static void copy_keyed_pixel(uint8_t *destination, const uint8_t *source)
     }
 }
 
+static void mask_keyed_pixel(
+    uint8_t *destination, const uint8_t *source, uint16_t mask)
+{
+    uint16_t source_pixel;
+    uint16_t destination_pixel;
+    memcpy(&source_pixel, source, sizeof(source_pixel));
+    if (source_pixel != SPRITE_RAW_TRANSPARENT_COLOR) {
+        memcpy(&destination_pixel, destination, sizeof(destination_pixel));
+        destination_pixel &= mask;
+        memcpy(destination, &destination_pixel, sizeof(destination_pixel));
+    }
+}
+
 void pharaoh_sprite_raw_blit_keyed(
     const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
 {
@@ -92,4 +105,167 @@ void pharaoh_sprite_raw_blit_clipped(
         }
         --rows;
     } while (rows > 0);
+}
+
+/* Complete C translation of Pharaoh.exe 0x0040FED0. */
+void pharaoh_sprite_raw_blit_mirrored(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
+{
+    uint8_t *destination = destination_start(target);
+    const uint8_t *source = source_pixels;
+    const int32_t width_bytes = target->width * (int32_t)sizeof(uint16_t);
+    int32_t row;
+    if (target->height <= 0) return;
+    for (row = 0; row < target->height; ++row) {
+        int32_t column = 0;
+        destination += width_bytes;
+        while (column < target->width) {
+            copy_keyed_pixel(destination, source);
+            destination -= sizeof(uint16_t);
+            source += sizeof(uint16_t);
+            ++column;
+        }
+        destination += target->destination_row_skip_bytes + width_bytes;
+    }
+}
+
+/* Complete C translation of Pharaoh.exe 0x0040FF50. */
+void pharaoh_sprite_raw_blit_mirrored_clipped(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
+{
+    uint8_t *destination = destination_start(target);
+    const uint8_t *source = source_pixels;
+    const uint32_t width_bytes = (uint32_t)target->width * sizeof(uint16_t);
+    uint32_t rows = (uint32_t)target->height;
+    if (rows == 0) return;
+    do {
+        uint32_t columns = (uint32_t)target->width;
+        destination += width_bytes;
+        while (columns != 0) {
+            copy_keyed_pixel(destination, source);
+            destination -= sizeof(uint16_t);
+            source += sizeof(uint16_t);
+            --columns;
+        }
+        source += target->source_row_skip_bytes;
+        destination += target->destination_row_skip_bytes + width_bytes;
+        --rows;
+    } while (rows != 0);
+}
+
+/* Complete C translation of Pharaoh.exe 0x004100F0. */
+void pharaoh_sprite_raw_mask(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels,
+    uint16_t mask)
+{
+    uint8_t *destination = destination_start(target);
+    const uint8_t *source = source_pixels;
+    int32_t rows = target->height;
+    do {
+        uint32_t remaining = (uint32_t)target->width;
+        int32_t index;
+        if ((remaining & 3u) == 0u) {
+            for (index = 0; index < 4; ++index) {
+                mask_keyed_pixel(destination, source, mask);
+                source += sizeof(uint16_t);
+                destination += sizeof(uint16_t);
+            }
+            remaining -= 4u;
+        } else {
+            mask_keyed_pixel(destination, source, mask);
+            source += sizeof(uint16_t);
+            destination += sizeof(uint16_t);
+            --remaining;
+        }
+        while ((int32_t)remaining > 0) {
+            mask_keyed_pixel(destination, source, mask);
+            source += sizeof(uint16_t);
+            destination += sizeof(uint16_t);
+            --remaining;
+        }
+        destination += target->destination_row_skip_bytes;
+        --rows;
+    } while (rows > 0);
+}
+
+/* Complete C translation of Pharaoh.exe 0x004101C0. */
+void pharaoh_sprite_raw_mask_clipped(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels,
+    uint16_t mask)
+{
+    uint8_t *destination = destination_start(target);
+    const uint8_t *source = source_pixels;
+    int32_t rows = target->height;
+    do {
+        int32_t remaining = target->width;
+        do {
+            mask_keyed_pixel(destination, source, mask);
+            source += sizeof(uint16_t);
+            destination += sizeof(uint16_t);
+            --remaining;
+        } while (remaining > 0);
+        source += target->source_row_skip_bytes;
+        destination += target->destination_row_skip_bytes;
+        --rows;
+    } while (rows > 0);
+}
+
+static void blit_opaque_square(const PharaohSpriteRawBlitTarget *target,
+    const uint8_t *source_pixels, int32_t size)
+{
+    uint8_t *destination = destination_start(target);
+    const uint8_t *source = source_pixels;
+    int32_t row;
+    for (row = 0; row < size; ++row) {
+        int32_t column;
+        for (column = 0; column < size / 2; ++column) {
+            uint32_t pixels;
+            memcpy(&pixels, source, sizeof(pixels));
+            memcpy(destination + column * sizeof(pixels),
+                &pixels, sizeof(pixels));
+            source += sizeof(pixels);
+        }
+        destination += target->surface_pitch_bytes;
+    }
+}
+
+/* Complete C translations of Pharaoh.exe 0x00410FB0, 0x004114A0 and
+ * 0x00411FD0. */
+void pharaoh_sprite_raw_blit_square16(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
+{
+    blit_opaque_square(target, source_pixels, 16);
+}
+
+void pharaoh_sprite_raw_blit_square24(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
+{
+    blit_opaque_square(target, source_pixels, 24);
+}
+
+void pharaoh_sprite_raw_blit_square32(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels)
+{
+    blit_opaque_square(target, source_pixels, 32);
+}
+
+/* Complete C translation of Pharaoh.exe 0x00410F20. */
+const uint8_t *pharaoh_graphics_rle_skip_rows(
+    const uint8_t *source, int32_t row_count, int32_t row_width)
+{
+    while (row_count > 0) {
+        int32_t remaining = row_width;
+        --row_count;
+        while (remaining > 0) {
+            const uint32_t count = source[0];
+            if (count == 0xffu) {
+                remaining -= source[1];
+                source += 2;
+            } else {
+                remaining -= (int32_t)count;
+                source += count * 2u + 1u;
+            }
+        }
+    }
+    return source;
 }

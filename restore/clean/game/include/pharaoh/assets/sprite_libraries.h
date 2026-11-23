@@ -30,7 +30,7 @@ typedef struct PharaohSpriteImageRecord {
     uint32_t pixel_bytes;
     uint32_t isometric_top_bytes;
     uint32_t library_index;
-    uint32_t reserved_10;
+    union { uint32_t reserved_10; int32_t linked_image_offset; };
     int16_t width;
     int16_t height;
     uint32_t reserved_18;
@@ -42,7 +42,9 @@ typedef struct PharaohSpriteImageRecord {
     uint8_t has_isometric_top;
     uint8_t reserved_36[2];
     uint8_t bitmap_id;
-    uint8_t reserved_39[7];
+    union { uint8_t reserved_39[7];
+        struct { uint8_t linked_native_39[5], has_linked_variant, linked_native_3f; };
+    };
 } PharaohSpriteImageRecord;
 
 typedef struct PharaohSpriteTagRecord {

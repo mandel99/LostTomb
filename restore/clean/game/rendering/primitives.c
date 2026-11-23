@@ -1,6 +1,7 @@
 #include "pharaoh/rendering/primitives.h"
 
 #include <stddef.h>
+#include <string.h>
 
 static int32_t add_coordinate(int32_t left, int32_t right)
 {
@@ -299,4 +300,20 @@ invisible:
     state->vertical_clip = 5;
     state->visible_height = 0;
     if (state->horizontal_clip == 5) state->vertical_clip = 5;
+}
+
+static uint16_t *raw_pixel(PharaohGraphicsPrimitives *c, int32_t x, int32_t y)
+{
+    const uintptr_t address = (uintptr_t)c->rgb565_pixels +
+        (uintptr_t)((uint32_t)x * 2u +
+        (uint32_t)y * (uint32_t)c->rgb565_pitch_bytes);
+    return (uint16_t *)(void *)address;
+}
+void pharaoh_graphics_blit_l_pixel_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, const uint16_t colors[2])
+{
+    uint16_t *destination = raw_pixel(c, x, y);
+    memcpy(destination, colors, sizeof(uint32_t));
+    memcpy((uint8_t *)(void *)destination + c->rgb565_pitch_bytes,
+        &colors[1], sizeof(uint16_t));
 }

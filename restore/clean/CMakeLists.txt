@@ -54,6 +54,7 @@ add_library(pharaoh_game STATIC
     game/runtime/city_sound.c
     game/monuments/definitions.c
     game/assets/sprite_pixel_conversion.c
+    game/assets/sprite_fetch_rows.c
     game/assets/sprite_pixel_loading.c
     game/assets/sprite_auxiliary.c
     game/assets/sprite_libraries.c
@@ -108,9 +109,11 @@ add_library(pharaoh_game STATIC
     game/rendering/overlay_columns.c
     game/rendering/overlay_metrics.c
     game/rendering/primitives.c
+    game/rendering/image_draw.c
     game/rendering/terrain_diamond.c
     game/rendering/city_ground.c
     game/rendering/city_render.c
+    game/rendering/sprite_rle_blit.c
     game/rendering/sprite_raw_blit.c
     game/runtime/frame_gate.c
     game/runtime/graphics_frame_restore.c

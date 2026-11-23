@@ -25,5 +25,24 @@ void pharaoh_sprite_raw_blit_keyed_clipped(
 /* Native 0x0040FB60: clipped raw copy without a transparency key. */
 void pharaoh_sprite_raw_blit_clipped(
     const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+void pharaoh_sprite_raw_blit_mirrored(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+void pharaoh_sprite_raw_blit_mirrored_clipped(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+void pharaoh_sprite_raw_mask(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels,
+    uint16_t mask);
+void pharaoh_sprite_raw_mask_clipped(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels,
+    uint16_t mask);
+void pharaoh_sprite_raw_blit_square16(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+void pharaoh_sprite_raw_blit_square24(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+void pharaoh_sprite_raw_blit_square32(
+    const PharaohSpriteRawBlitTarget *target, const uint8_t *source_pixels);
+
+const uint8_t *pharaoh_graphics_rle_skip_rows(
+    const uint8_t *source, int32_t row_count, int32_t row_width);
 
 #endif

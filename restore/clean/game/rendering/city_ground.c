@@ -24,6 +24,11 @@ static void profile_terrain(PharaohCityGroundContext *c,uint32_t flags)
  else i=6;
  ++c->ambient_scores[i];
 }
+static void draw_image(PharaohCityGroundContext *c,int32_t image,int32_t x,int32_t y)
+{
+ const PharaohCityGroundOperations *ops=c->operations;
+ ops->draw_image(ops->image_user_data!=NULL?ops->image_user_data:ops->user_data,image,x,y);
+}
 static int neighbor_occludes(PharaohCityGroundContext *c,uint32_t tile)
 {
  if((int32_t)tile>=0x0fff0000)return 0;
@@ -98,7 +103,7 @@ static void draw_normal_tile(PharaohCityGroundContext *c,uint32_t tile,uint32_t 
         }
         base=*c->royal_tomb_image;
         if(((int32_t)(image))<((int32_t)(base+48u))||((int32_t)(image))>=((int32_t)(base+72u))){
-            c->operations->draw_image(c->operations->user_data,image,x,y);tile=c->scan->tile;image=*c->current_image;
+            draw_image(c,image,x,y);tile=c->scan->tile;image=*c->current_image;
         }
         if((c->terrain[tile]&0xeefed77fu)==0){
             index=c->scan->row*231u+c->scan->column;
@@ -106,7 +111,7 @@ static void draw_normal_tile(PharaohCityGroundContext *c,uint32_t tile,uint32_t 
             else{first=c->neighbor_cells[index+1];second=c->neighbor_cells[index+2];}
             if(neighbor_occludes(c,first)||neighbor_occludes(c,second))c->operations->draw_top(c->operations->user_data,image,x,y);
         }
-    }else if(footprint_position(c,foot,x,y,&px,&py))c->operations->draw_image(c->operations->user_data,image,px,py);
+    }else if(footprint_position(c,foot,x,y,&px,&py))draw_image(c,image,px,py);
     *c->tint=0;
 }
 
@@ -132,7 +137,7 @@ void pharaoh_city_draw_ground(PharaohCityGroundContext *c)
                     if(tile==*c->marked_tile){*c->marked_x=x;*c->marked_y=y;}
                     if(((int32_t)(tile))>=0x0fff0000){
                         *c->current_image=*c->debug_invalid==1?0:tile-0x0fff0000u;
-                        c->operations->draw_image(c->operations->user_data,*c->current_image,x,y);
+                        draw_image(c,*c->current_image,x,y);
                     }else if(c->property_flags[tile]&0x40u){
                         draw_normal_tile(c,tile,x,y,alternate,columns,rows,middleColumn,middleRow,boundary);
                     }
@@ -175,7 +180,7 @@ static void draw_overlay_tile(PharaohCityGroundContext *c,uint32_t tile,uint32_t
     if((c->property_flags[tile]&0x40u)==0)return;
     if(SpecialBuilding(c->buildings[Building].building_type)){
         *c->current_image=c->images[tile];foot=c->footprints[tile]&15u;
-        if(footprint_position(c,foot,x,y,&px,&py))c->operations->draw_image(c->operations->user_data,*c->current_image,px,py);
+        if(footprint_position(c,foot,x,y,&px,&py))draw_image(c,*c->current_image,px,py);
         return;
     }
     mode=*c->overlay;
@@ -197,7 +202,7 @@ static void draw_overlay_tile(PharaohCityGroundContext *c,uint32_t tile,uint32_t
             *c->current_image=c->images[tile];
         }
     }
-    if(footprint_position(c,foot,x,y,&px,&py))c->operations->draw_image(c->operations->user_data,*c->current_image,px,py);
+    if(footprint_position(c,foot,x,y,&px,&py))draw_image(c,*c->current_image,px,py);
 }
 
 void pharaoh_city_draw_overlay_ground(PharaohCityGroundContext *c)
@@ -216,7 +221,7 @@ void pharaoh_city_draw_overlay_ground(PharaohCityGroundContext *c)
                 if(((int32_t)(column))>=0&&((int32_t)(column))<231&&((int32_t)(c->scan->row))>=0&&((int32_t)(c->scan->row))<457){
                     tile=c->cells[c->scan->row*231u+column];c->scan->tile=tile;
                     if(tile==*c->marked_tile){*c->marked_x=x;*c->marked_y=y;}
-                    if(((int32_t)(tile))>=0x0fff0000){*c->current_image=tile-0x0fff0000u;c->operations->draw_image(c->operations->user_data,*c->current_image,x,y);}
+                    if(((int32_t)(tile))>=0x0fff0000){*c->current_image=tile-0x0fff0000u;draw_image(c,*c->current_image,x,y);}
                     else draw_overlay_tile(c,tile,x,y);
                 }
                 ++columns;x+=c->scan->tile_x[2]+2u;c->scan->column=c->scan->column+1u;

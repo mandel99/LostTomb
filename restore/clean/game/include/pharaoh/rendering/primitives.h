@@ -75,4 +75,7 @@ int32_t pharaoh_graphics_point_in_clip(const PharaohGraphicsPrimitives *,
 void pharaoh_graphics_clip_sprite_horizontal(PharaohSpriteClipState *state);
 void pharaoh_graphics_clip_sprite_vertical(PharaohSpriteClipState *state);
 
+void pharaoh_graphics_blit_l_pixel_raw(PharaohGraphicsPrimitives *c,
+    int32_t x,int32_t y,const uint16_t colors[2]);
+
 #endif

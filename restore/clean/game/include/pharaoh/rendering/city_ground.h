@@ -21,6 +21,7 @@ typedef struct PharaohCityGroundOperations {
     void (*draw_overlay_45)(void *,int32_t x,int32_t y); /*00431CE0 */
     void (*draw_overlay_51)(void *,int32_t x,int32_t y); /*00432620 */
     void (*draw_building_overlay)(void *,int32_t building,int32_t x,int32_t y,uint32_t mode); /*00432D30 */
+    void *image_user_data; /* NULL uses user_data for the image callback. */
 } PharaohCityGroundOperations;
 
 typedef struct PharaohCityGroundContext {
