@@ -148,7 +148,8 @@ void pharaoh_map_refresh_rotated_building_images(PharaohRotatedBuildingContext *
                 kind==220?*c->surface->orientation/2:(*c->surface->orientation/2)&1);
             if (result!=0) square(c,id,b,result,8);
             break;
-        case 222:ops->mausoleum(ops->user_data,id);break;
+        case 222:ops->mausoleum(ops->mausoleum_user_data!=NULL?
+            ops->mausoleum_user_data:ops->user_data,id);break;
         case 225:index=PHARAOH_ROTATED_LIBRARY;break;
         case 227:index=PHARAOH_ROTATED_CAESAREUM;break;
         case 228:index=PHARAOH_ROTATED_LIGHTHOUSE;break;

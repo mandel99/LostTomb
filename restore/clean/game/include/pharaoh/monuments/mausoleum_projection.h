@@ -31,6 +31,21 @@ typedef struct PharaohMausoleumProjectionContext {
     uint32_t projection_scale_y;
 } PharaohMausoleumProjectionContext;
 
+typedef struct PharaohMausoleumWorkTileRecord {
+    uint8_t unknown_00[2];
+    int16_t x;
+    int16_t y;
+    uint8_t unknown_06[0x102];
+} PharaohMausoleumWorkTileRecord;
+
+_Static_assert(sizeof(PharaohMausoleumWorkTileRecord) == 0x108,
+    "native mausoleum work-tile record size changed");
+
+/* Native direct consumers either test AL or discard the result. */
+uint8_t pharaoh_mausoleum_get_work_tile(
+    const PharaohMausoleumWorkTileRecord *records, int32_t index,
+    int32_t *x, int32_t *y);
+
 /* Original address 0x004DED50. */
 void pharaoh_mausoleum_part_describe(
     const PharaohMausoleumProjectionContext *context,

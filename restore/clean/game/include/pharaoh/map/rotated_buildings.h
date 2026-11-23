@@ -38,6 +38,7 @@ typedef struct PharaohRotatedBuildingOperations {
     void (*pyramid)(void *,int32_t building); /* 004EE4A0 */
     /* NULL retains the common user_data for existing operation providers. */
     void *gatehouse_user_data, *temple_complex_user_data, *sun_temple_user_data;
+    void *mausoleum_user_data;
 } PharaohRotatedBuildingOperations;
 
 typedef struct PharaohRotatedBuildingContext {

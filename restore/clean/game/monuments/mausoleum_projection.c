@@ -28,6 +28,16 @@ static void reflect_part_in_box(PharaohMausoleumPartDescriptor *part)
         (uint32_t)part->dy - (uint32_t)part->size);
 }
 
+/* Complete C translation of Pharaoh.exe 0x004E0C50. */
+uint8_t pharaoh_mausoleum_get_work_tile(
+    const PharaohMausoleumWorkTileRecord *records, int32_t index,
+    int32_t *x, int32_t *y)
+{
+    *x = records[index].x;
+    *y = records[index].y;
+    return 1;
+}
+
 void pharaoh_mausoleum_part_describe(
     const PharaohMausoleumProjectionContext *context,
     PharaohMausoleumPartDescriptor *destination, int32_t part,

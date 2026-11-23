@@ -106,7 +106,10 @@ typedef struct PharaohBuildingTypeRecord {
         };
         union { int32_t origin_x, royal_tomb_chamber_kind; };
         int32_t origin_y;
-        uint8_t reserved_70[0x84 - 0x70];
+        union {
+            uint8_t reserved_70[0x84 - 0x70];
+            struct { uint32_t mausoleum_orientation; uint8_t mausoleum_native_74[0x10]; };
+        };
         int16_t fishing_boat_id;
         union { uint8_t reserved_86[0x8c - 0x86]; struct { uint8_t render_native_086,render_warning_087,render_native_088[4]; }; };
         int32_t house_tax_income;

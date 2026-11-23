@@ -12,3 +12,14 @@ void pharaoh_walker_save_type_78_sources(PharaohWalkerQueryRecord *walkers)
         }
     }
 }
+
+void pharaoh_walker_detach_slot_link(
+    PharaohWalkerQueryRecord *walkers, int16_t *slot_walkers,
+    int32_t walker_id)
+{
+    const int16_t slot = walkers[walker_id].slot_link_id;
+    if (slot > 0) {
+        if (slot_walkers[slot] == walker_id) slot_walkers[slot] = 0;
+        walkers[walker_id].slot_link_id = 0;
+    }
+}
