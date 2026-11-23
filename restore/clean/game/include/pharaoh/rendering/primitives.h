@@ -20,6 +20,28 @@ typedef struct PharaohGraphicsPrimitives {
     void *user_data;
 } PharaohGraphicsPrimitives;
 
+typedef struct PharaohSpriteClipState {
+    int32_t image_width;
+    int32_t image_height;
+    int32_t draw_x;
+    int32_t draw_y;
+    int32_t clip_x_min;
+    int32_t clip_x_max;
+    int32_t clip_y_min;
+    int32_t clip_y_max;
+    int32_t window_width;
+    int32_t horizontal_clip;
+    int32_t vertical_clip;
+    int32_t clipped_left;
+    int32_t clipped_top;
+    int32_t clipped_right;
+    int32_t clipped_bottom;
+    int32_t visible_width;
+    int32_t visible_height;
+    int32_t source_row_skip;
+    int32_t destination_row_skip;
+} PharaohSpriteClipState;
+
 enum {
     PHARAOH_PRIMITIVE_DASH_LENGTH = 4,
     PHARAOH_PRIMITIVE_DASH_BLINK_FRAMES = 20,
@@ -49,5 +71,8 @@ void pharaoh_graphics_fill_rect(PharaohGraphicsPrimitives *, int32_t x,
     int32_t y, int32_t width, int32_t height, int32_t color);
 int32_t pharaoh_graphics_point_in_clip(const PharaohGraphicsPrimitives *,
     int32_t x, int32_t y);
+
+void pharaoh_graphics_clip_sprite_horizontal(PharaohSpriteClipState *state);
+void pharaoh_graphics_clip_sprite_vertical(PharaohSpriteClipState *state);
 
 #endif

@@ -232,3 +232,71 @@ void pharaoh_graphics_draw_raised_rect(PharaohGraphicsPrimitives *c,
     draw_frame(c, x, y, width, height,
         PHARAOH_PRIMITIVE_COLOR_WHITE, PHARAOH_PRIMITIVE_COLOR_GREY);
 }
+
+void pharaoh_graphics_clip_sprite_horizontal(PharaohSpriteClipState *state)
+{
+    const int32_t width = state->image_width;
+    state->horizontal_clip = 0;
+    state->clipped_left = 0;
+    state->clipped_right = width;
+    if (width < 1) {
+        state->horizontal_clip = 5;
+        state->visible_width = 0;
+    } else {
+        if (state->draw_x < state->clip_x_min) {
+            if (width + state->draw_x <= state->clip_x_min) {
+                state->horizontal_clip = 5;
+                state->visible_width = 0;
+                goto skips;
+            }
+            state->horizontal_clip = 1;
+            state->clipped_left = state->clip_x_min - state->draw_x;
+            state->draw_x = state->clip_x_min;
+        } else if (state->clip_x_max - width < state->draw_x) {
+            if (state->clip_x_max <= state->draw_x) {
+                state->horizontal_clip = 5;
+                state->visible_width = 0;
+                goto skips;
+            }
+            state->clipped_right = state->clip_x_max - state->draw_x;
+            state->horizontal_clip = 2;
+        }
+        state->visible_width = state->clipped_right - state->clipped_left;
+    }
+skips:
+    state->source_row_skip = (width - state->visible_width) * 2;
+    state->destination_row_skip =
+        (state->window_width - state->visible_width) * 2;
+}
+
+void pharaoh_graphics_clip_sprite_vertical(PharaohSpriteClipState *state)
+{
+    const int32_t original_y = state->draw_y;
+    int32_t clipped_bottom = state->image_height;
+    state->clipped_bottom = clipped_bottom;
+    state->vertical_clip = 0;
+    state->clipped_top = 0;
+    if (state->image_height < 1) goto invisible;
+    if (state->draw_y < state->clip_y_min) {
+        if (clipped_bottom + state->draw_y <= state->clip_y_min)
+            goto invisible;
+        state->draw_y = state->clip_y_min;
+        state->clipped_top = state->clip_y_min - original_y;
+        state->vertical_clip = 3;
+        clipped_bottom = state->clip_y_max - state->clip_y_min +
+            state->clipped_top;
+        if (clipped_bottom < state->clipped_bottom)
+            state->clipped_bottom = clipped_bottom;
+    } else if (state->clip_y_max - state->clipped_bottom < state->draw_y) {
+        if (state->draw_y >= state->clip_y_max) goto invisible;
+        state->vertical_clip = 4;
+        state->clipped_bottom = state->clip_y_max - state->draw_y;
+    }
+    state->visible_height = state->clipped_bottom - state->clipped_top;
+    if (state->horizontal_clip == 5) state->vertical_clip = 5;
+    return;
+invisible:
+    state->vertical_clip = 5;
+    state->visible_height = 0;
+    if (state->horizontal_clip == 5) state->vertical_clip = 5;
+}
