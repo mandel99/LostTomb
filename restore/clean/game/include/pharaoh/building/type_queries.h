@@ -66,7 +66,7 @@ typedef struct PharaohBuildingTypeRecord {
     uint8_t farm_water_access;
     uint8_t reserved_36[2];
     int16_t runtime_value_038;
-    int16_t next_storage_building_id;
+    union { int16_t next_storage_building_id, next_part_building_id; };
     int16_t storage_link_amount;
     uint8_t reserved_3e[2];
     int16_t num_workers;
@@ -150,7 +150,10 @@ typedef struct PharaohBuildingTypeRecord {
     uint8_t repair_queue_id;
     int16_t secondary_input_stock;
     int16_t secondary_resource_model;
-    uint8_t reserved_d0[0x0c];
+    union {
+        uint8_t reserved_d0[0x0c];
+        struct { uint32_t venue_grid_offset; int32_t venue_orientation, venue_has_plaza; };
+    };
     int32_t orders_view;
     uint8_t reserved_e0[0xfc - 0xe0];
     int32_t house_plague_risk;

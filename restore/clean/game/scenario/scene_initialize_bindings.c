@@ -35,6 +35,12 @@ void pharaoh_saved_game_bind_scene(PharaohSavedGameInitializeOperations *ops,
     c->counts->initialize = c->initialize;
     c->storage->initialize = c->initialize;
     c->export_keep->initialize = c->initialize;
+    c->rotated->surface = c->surface;
+    c->rotated->venue->cleared = c->routing->citizen;
+    c->rotated->highest_id = c->records->highest_building;
+    c->rotated->pyramid_style = c->storage->asset_monuments->pyramid_style;
+    c->rotated->pyramid_part_counts = (const int32_t *)pharaoh_pyramid_part_counts;
+    c->rotated->mastaba_part_counts = (const int32_t *)pharaoh_mastaba_part_counts;
     c->floods->surface = c->surface;
     c->flood_lists->random = c->surface->random;
     pharaoh_flood_build_bind_lists(c->floods, c->flood_operations, c->flood_lists);
@@ -48,7 +54,7 @@ void pharaoh_saved_game_bind_scene(PharaohSavedGameInitializeOperations *ops,
     pharaoh_saved_game_bind_surface_step(ops, c->surface);
     pharaoh_saved_game_bind_moisture_step(ops, c->surface);
     pharaoh_saved_game_bind_kingdom_access_step(ops, c->kingdom);
-    ops->step[PHARAOH_INIT_ROTATED_BUILDINGS] = c->rotated;
+    pharaoh_saved_game_bind_rotated_buildings_step(ops, c->rotated);
     pharaoh_saved_game_bind_export_keep(ops, c->export_keep);
     ops->user_data = c;
     ops->map_inside = inside;

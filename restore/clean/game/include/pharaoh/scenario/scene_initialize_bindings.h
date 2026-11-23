@@ -10,13 +10,13 @@
 #include "pharaoh/scenario/scene_surface.h"
 #include "pharaoh/scenario/scene_economy.h"
 #include "pharaoh/building/kingdom_access.h"
+#include "pharaoh/map/rotated_buildings.h"
 #include "pharaoh/commerce/export_keep.h"
 #include "pharaoh/simulation/flood_build.h"
 
-/* All contexts and live scene buffers remain caller-owned. The rotated-image
- * slot still requires a verified C binding from the caller; the pending
- * rotated_buildings unit and its image dependencies are not canonical yet.
- * Every deeper operation must have a real provider before host attachment. */
+/* All contexts and live scene buffers remain caller-owned. All45 direct
+ * initialization slots have C owners. Every deeper operation must also have
+ * a real provider before host attachment. */
 typedef struct PharaohSceneInitializeBindings {
     PharaohSavedGameInitializeContext *initialize;
     PharaohSceneAssetBindings *assets;
@@ -28,7 +28,7 @@ typedef struct PharaohSceneInitializeBindings {
     PharaohSceneEconomy *economy;
     PharaohMapSurfaceContext *surface;
     PharaohBuildingAccessContext *kingdom;
-    PharaohSavedGameStepBinding rotated;
+    PharaohRotatedBuildingContext *rotated;
     PharaohExportKeepContext *export_keep;
     PharaohFloodBuildContext *floods;
     PharaohFloodListsContext *flood_lists;
