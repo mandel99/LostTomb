@@ -89,7 +89,8 @@ static void venue(PharaohRotatedBuildingContext *c,int32_t id,
     if (kind==30) {
         const int32_t next=b->next_part_building_id;
         if (building(c,next)->building_type==30)
-            c->operations->bandstand_adjacent(c->operations->user_data,id,b->x,b->y);
+            c->operations->bandstand_adjacent(c->operations->bandstand_user_data!=NULL?
+                c->operations->bandstand_user_data:c->operations->user_data,id,b->x,b->y);
     }
     if (pharaoh_building_follow_link(c->surface->buildings,id)==id && b->venue_has_plaza!=0) {
         pharaoh_map_bind_venue_tiles(c->venue,c->surface);
@@ -104,7 +105,8 @@ void pharaoh_pyramids_update_all_images(PharaohRotatedBuildingContext *c)
     uint32_t id=1;
     do {
         if (building(c,(int32_t)id)->state!=0 && building(c,(int32_t)id)->building_type==183) {
-            c->operations->pyramid(c->operations->user_data,(int32_t)id);
+            c->operations->pyramid(c->operations->pyramid_user_data!=NULL?
+                c->operations->pyramid_user_data:c->operations->user_data,(int32_t)id);
             const uint8_t variant=building(c,(int32_t)id)->pyramid_size_variant;
             const int32_t count=*c->pyramid_style==5?
                 c->mastaba_part_counts[variant]:c->pyramid_part_counts[variant];

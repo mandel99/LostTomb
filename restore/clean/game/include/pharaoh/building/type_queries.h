@@ -98,14 +98,17 @@ typedef struct PharaohBuildingTypeRecord {
                 uint8_t pyramid_prep_mask;
             };
         };
-        int32_t monument_worker_id;
-        union { uint8_t reserved_60[4]; int32_t royal_tomb_progress; };
+        union { int32_t monument_worker_id;
+            struct { int16_t pyramid_worker_x_a, pyramid_worker_y_a; }; };
+        union { uint8_t reserved_60[4]; int32_t royal_tomb_progress;
+            struct { int16_t pyramid_worker_x_b, pyramid_worker_y_b; }; };
         union {
             struct { int16_t pyramid_worker_id_64; uint8_t reserved_66[2]; };
             uint32_t complex_progress_flags;
         };
-        union { int32_t origin_x, royal_tomb_chamber_kind; };
-        int32_t origin_y;
+        union { int32_t origin_x, royal_tomb_chamber_kind;
+            uint32_t pyramid_worker_image; };
+        union { int32_t origin_y; uint32_t pyramid_transient_image; };
         union {
             uint8_t reserved_70[0x84 - 0x70];
             struct { uint32_t mausoleum_orientation; uint8_t mausoleum_native_74[0x10]; };

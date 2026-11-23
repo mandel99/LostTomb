@@ -1,4 +1,5 @@
 #include "pharaoh/scenario/scene_initialize_bindings.h"
+#include "pharaoh/building/venue_images.h"
 
 static uint8_t inside(void *user_data, int32_t x, int32_t y)
 {
@@ -41,6 +42,19 @@ void pharaoh_saved_game_bind_scene(PharaohSavedGameInitializeOperations *ops,
     c->rotated->pyramid_style = c->storage->asset_monuments->pyramid_style;
     c->rotated->pyramid_part_counts = (const int32_t *)pharaoh_pyramid_part_counts;
     c->rotated->mastaba_part_counts = (const int32_t *)pharaoh_mastaba_part_counts;
+    c->rotated_operations = c->rotated->operations != NULL ?
+        *c->rotated->operations : (PharaohRotatedBuildingOperations){0};
+    c->surface->pyramid_style =
+        (const uint32_t *)c->storage->asset_monuments->pyramid_style;
+    c->surface->pyramid_regular = pharaoh_pyramid_regular_special;
+    c->surface->pyramid_style_five = pharaoh_pyramid_mastaba_special;
+    c->surface->pyramid_complex_offsets = pharaoh_pyramid_complex_temple_offsets;
+    c->pyramid_images = (PharaohPyramidImageContext){c->surface,
+        &pharaoh_pyramid_image_initial_data,
+        pharaoh_pyramid_part_counts, pharaoh_mastaba_part_counts};
+    pharaoh_rotated_bind_venue_adjacent_images(&c->rotated_operations,c->surface);
+    pharaoh_rotated_bind_pyramid_image(&c->rotated_operations,&c->pyramid_images);
+    c->rotated->operations = &c->rotated_operations;
     c->floods->surface = c->surface;
     c->flood_lists->random = c->surface->random;
     pharaoh_flood_build_bind_lists(c->floods, c->flood_operations, c->flood_lists);

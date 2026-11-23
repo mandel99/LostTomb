@@ -13,6 +13,7 @@
 #include "pharaoh/map/rotated_buildings.h"
 #include "pharaoh/commerce/export_keep.h"
 #include "pharaoh/simulation/flood_build.h"
+#include "pharaoh/monuments/pyramid_images.h"
 
 /* All contexts and live scene buffers remain caller-owned. All45 direct
  * initialization slots have C owners. Every deeper operation must also have
@@ -33,6 +34,11 @@ typedef struct PharaohSceneInitializeBindings {
     PharaohFloodBuildContext *floods;
     PharaohFloodListsContext *flood_lists;
     PharaohFloodBuildOperations *flood_operations;
+    /* Configure remaining rotated providers before bind_scene. Their bindings
+     * are snapshotted here; venue/pyramid services and their live contexts are
+     * owned by this record, which must outlive the initialized scene. */
+    PharaohRotatedBuildingOperations rotated_operations;
+    PharaohPyramidImageContext pyramid_images;
 } PharaohSceneInitializeBindings;
 
 void pharaoh_saved_game_bind_scene(
