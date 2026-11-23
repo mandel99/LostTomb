@@ -2,6 +2,32 @@
 
 #include "pharaoh/runtime/file_directory_reset.h"
 
+static int32_t load_package(void *user_data, int32_t package, int32_t skip)
+{
+    return pharaoh_campaign_mission_load(user_data, package, skip);
+}
+
+static void load_selected(void *user_data)
+{
+    PharaohCampaignMissionEntry *const entry = user_data;
+    pharaoh_scenario_start_mission(entry->start, entry->scenario_name, 0);
+    /* These fields are snapshots of the native shared window state. Reload
+     * after the child, before briefing tests its early return to city0x01. */
+    entry->briefing->current_window_id = *entry->start->current_window_id;
+    entry->briefing->redraw_requested = *entry->start->window_redraw_requested;
+    entry->briefing->difficulty = entry->start->settings->difficulty;
+}
+
+void pharaoh_campaign_mission_bind_entry(PharaohCampaignMissionEntry *entry,
+    PharaohBriefingOperations *operations)
+{
+    entry->start->settings = entry->load->settings;
+    entry->start->load_campaign_mission = load_package;
+    entry->start->campaign_load_user_data = entry->load;
+    operations->load_selected_mission = load_selected;
+    operations->load_user_data = entry;
+}
+
 static void read_saved_state(void *user_data, int32_t file)
 {
     PharaohCampaignMissionStateContext *const state = user_data;

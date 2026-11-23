@@ -80,6 +80,7 @@ typedef struct PharaohBriefingOperations {
         int32_t large_line, int32_t scroll_position,
         int32_t viewport_lines, const PharaohBriefingState *layout);
     const char *(*tutorial_hint)(void *user_data);
+    void *load_user_data; /* NULL retains user_data for the load callback. */
 } PharaohBriefingOperations;
 
 typedef struct PharaohBriefingInputOperations {

@@ -50,6 +50,9 @@ add_library(pharaoh_game STATIC
     game/scenario/scene_economy.c
     game/scenario/scene_routing.c
     game/scenario/scene_assets.c
+    game/simulation/flood_lists.c
+    game/simulation/flood_build.c
+    game/scenario/scene_initialize_bindings.c
     game/scenario/scene_asset_bindings.c
     game/runtime/city_sound.c
     game/monuments/definitions.c

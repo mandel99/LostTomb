@@ -46,6 +46,7 @@ typedef struct PharaohScenarioStartMissionContext {
     PharaohScenarioStartStep final_steps[4];
     uint8_t *scenario_animation_flag;
     PharaohScenarioStartStep initialize_walker_actions;
+    void *campaign_load_user_data; /* NULL retains user_data. */
 } PharaohScenarioStartMissionContext;
 
 void pharaoh_scenario_start_mission(

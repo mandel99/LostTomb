@@ -6,6 +6,7 @@
 #include "pharaoh/scenario/saved_game_state_read.h"
 #include "pharaoh/scenario/saved_game_initialize.h"
 #include "pharaoh/simulation/flood_settings.h"
+#include "pharaoh/scenario/scenario_start_mission.h"
 
 #include <stdint.h>
 
@@ -28,6 +29,19 @@ typedef struct PharaohCampaignMissionStateContext {
     PharaohSavedGameInitializeContext *initialize;
     PharaohFloodplainSettings *floodplain_settings;
 } PharaohCampaignMissionStateContext;
+
+typedef struct PharaohCampaignMissionEntry {
+    PharaohCampaignMissionLoadContext *load;
+    PharaohScenarioStartMissionContext *start;
+    PharaohBriefingState *briefing;
+    const char *scenario_name;
+} PharaohCampaignMissionEntry;
+
+/* Connect briefing0041A180 -> start005405B0 -> package004D58B0. Scene
+ * storage, initialization and all other start/draw operations must be bound
+ * before use. The entry and contexts must outlive the briefing window. */
+void pharaoh_campaign_mission_bind_entry(PharaohCampaignMissionEntry *entry,
+    PharaohBriefingOperations *briefing_operations);
 
 /* Connect 004D58B0 to its actual C children004D41E0,004BD360,004D52A0.
  * The caller supplies full scene storage and typed initialization operations. */

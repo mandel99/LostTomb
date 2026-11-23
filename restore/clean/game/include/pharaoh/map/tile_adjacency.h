@@ -13,6 +13,9 @@ typedef struct PharaohMapTerrainView {
 
 uint8_t pharaoh_map_terrain_count_neighbours_with(
     const uint32_t *terrain, int32_t offset, uint32_t mask);
+int32_t pharaoh_map_terrain_count_neighbours_matching(
+    const uint32_t *terrain, int32_t offset,
+    uint32_t required_mask, uint32_t forbidden_mask);
 uint8_t pharaoh_map_terrain_mask_has_open_corner(
     const uint32_t *terrain, int32_t tile, uint32_t mask,
     uint8_t check_opposite_diagonals);

@@ -13,10 +13,14 @@ typedef struct PharaohFloodList {
     union {
         uint8_t reserved_04[0x0c];
         struct { uint32_t native_04; uint8_t reserved_08[8]; };
+        struct {
+            int32_t recede_passes, depth;
+            struct PharaohFloodWorld *owner;
+        };
     };
-    int32_t head;
-    int32_t tail;
-    int32_t cursor;
+    union { int32_t head; struct PharaohFloodSortedLink *head_link; };
+    union { int32_t tail; struct PharaohFloodSortedLink *tail_link; };
+    union { int32_t cursor; struct PharaohFloodTile *cursor_tile; };
 } PharaohFloodList;
 
 typedef struct PharaohFloodTile {

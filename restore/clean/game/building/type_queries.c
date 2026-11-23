@@ -149,3 +149,22 @@ void pharaoh_monuments_reset_runtime_fields(
         ++id;
     } while (id < PHARAOH_BUILDING_RECORD_COUNT);
 }
+
+/* Native0x0046F190; complete C required by scene initialization. */
+int32_t pharaoh_building_count_active_type_b6(
+    const PharaohBuildingTypeRecord *buildings, int32_t highest_id)
+{
+    int32_t id, count = 0;
+    for (id = 1; id <= highest_id; ++id)
+        if (buildings[id].state == 1 && buildings[id].building_type == 0xb6) ++count;
+    return count;
+}
+
+/* Native0x004C52D0; complete C required by scene initialization. */
+bool pharaoh_temple_upgrade_present(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    uint32_t upgrade)
+{
+    const uint8_t current = buildings[building_id].temple_upgrade;
+    return current == 3u || current == upgrade;
+}

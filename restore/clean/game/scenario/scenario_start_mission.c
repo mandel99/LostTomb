@@ -78,7 +78,8 @@ void pharaoh_scenario_start_mission(
     } else {
         copy_terminated(context->player_name_destination,
             settings->player_name);
-        if (!context->load_campaign_mission(context->user_data, 0, 0))
+        if (!context->load_campaign_mission(context->campaign_load_user_data != NULL ?
+                context->campaign_load_user_data : context->user_data, 0, 0))
             return;
         settings->is_custom_scenario = 0;
         player = &context->players[*context->current_player];

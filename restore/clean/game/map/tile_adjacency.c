@@ -238,3 +238,23 @@ int32_t pharaoh_map_adjacent_flags_count(const uint32_t flags[8])
     for (index = 0; index < 8; ++index) if (flags[index] != 0) ++count;
     return count;
 }
+
+/* Native004775F0; all eight neighbors, include any and exclude all. */
+int32_t pharaoh_map_terrain_count_neighbours_matching(
+    const uint32_t *terrain, int32_t offset,
+    uint32_t required_mask, uint32_t forbidden_mask)
+{
+    static const int32_t delta[8] = {
+        -228, -227, 1, 229, 228, 227, -1, -229
+    };
+    int32_t direction;
+    int32_t count = 0;
+    for (direction = 0; direction < 8; ++direction) {
+        const uint32_t value = terrain[offset + delta[direction]];
+        if ((value & required_mask) != 0 &&
+            (value & forbidden_mask) == 0) {
+            ++count;
+        }
+    }
+    return count;
+}

@@ -90,7 +90,8 @@ void pharaoh_briefing_draw(PharaohBriefingState *state,
 
     if (state->started == 0) {
         state->started = 1;
-        operations->load_selected_mission(operations->user_data);
+        operations->load_selected_mission(operations->load_user_data != 0 ?
+            operations->load_user_data : operations->user_data);
         if (state->current_window_id == BRIEFING_WINDOW_CITY) return;
     }
     state->message_id = operations->get_message_id(operations->user_data);
