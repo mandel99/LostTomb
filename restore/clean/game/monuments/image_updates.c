@@ -29,7 +29,7 @@ static void square(PharaohMonumentImageContext *c,int32_t id,
 void pharaoh_monument_update_image_parts(PharaohMonumentImageContext *c,int32_t id)
 {
     uint32_t flags;
-    const uint32_t image=c->query_image(c->user_data,id,&flags);
+    const uint32_t image=c->query_image(c->query_user_data?c->query_user_data:c->user_data,id,&flags);
     const PharaohBuildingTypeRecord *const b=&c->surface->buildings[id];
     square(c,id,b,c->parts[b->subtype].size,image,8);
 }
@@ -38,7 +38,7 @@ void pharaoh_monument_update_image_parts(PharaohMonumentImageContext *c,int32_t 
 void pharaoh_lighthouse_update_map(PharaohMonumentImageContext *c,int32_t id)
 {
     uint32_t flags;
-    const uint32_t image=c->query_image(c->user_data,id,&flags);
+    const uint32_t image=c->query_image(c->query_user_data?c->query_user_data:c->user_data,id,&flags);
     PharaohMapSurfaceContext *const s=c->surface;
     const PharaohBuildingTypeRecord *const b=&s->buildings[id];
     const PharaohMonumentImagePart *const part=&c->parts[b->subtype];
@@ -63,7 +63,7 @@ static int32_t library_corner(int32_t part,uint32_t row,uint32_t column)
 void pharaoh_library_update_map(PharaohMonumentImageContext *c,int32_t id)
 {
     uint32_t flags;
-    const uint32_t image=c->query_image(c->user_data,id,&flags);
+    const uint32_t image=c->query_image(c->query_user_data?c->query_user_data:c->user_data,id,&flags);
     PharaohMapSurfaceContext *const s=c->surface;
     const PharaohBuildingTypeRecord *const b=&s->buildings[id];
     const int32_t index=b->subtype,root=(int32_t)((uint32_t)id-(uint32_t)index);
@@ -91,7 +91,7 @@ void pharaoh_library_update_map(PharaohMonumentImageContext *c,int32_t id)
 void pharaoh_sun_temple_update_map(PharaohMonumentImageContext *c,int32_t id)
 {
     uint32_t flags;
-    const uint32_t image=c->query_image(c->user_data,id,&flags);
+    const uint32_t image=c->query_image(c->query_user_data?c->query_user_data:c->user_data,id,&flags);
     PharaohMapSurfaceContext *const s=c->surface;
     const PharaohBuildingTypeRecord *const b=&s->buildings[id];
     const int32_t size=c->sun_parts[b->subtype].size;
@@ -155,7 +155,7 @@ void pharaoh_royal_tomb_update_map(PharaohMonumentImageContext *c,int32_t id)
         return;
     }
     uint32_t flags;
-    const uint32_t image=c->query_image(c->user_data,id,&flags);
+    const uint32_t image=c->query_image(c->query_user_data?c->query_user_data:c->user_data,id,&flags);
     if ((flags&1u)!=0) {
         const uint32_t base=tile_origin(c,b);
         for (uint32_t row=0;row<size;++row) for (uint32_t column=0;column<size;++column) {

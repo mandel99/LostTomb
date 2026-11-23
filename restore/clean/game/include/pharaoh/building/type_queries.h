@@ -85,6 +85,7 @@ typedef struct PharaohBuildingTypeRecord {
     uint8_t reserved_52[2];
     union {
         int32_t abu_simbel_stage;
+        int32_t sun_temple_variant; /* native DWORD54 */
         struct {
         uint8_t pyramid_size_variant;
         uint8_t pyramid_work_phase;
