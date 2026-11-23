@@ -26,4 +26,10 @@ extern const double pharaoh_abu_simbel_progress_step;
 
 int32_t pharaoh_x87_scaled_integer_ratio(int32_t numerator,int32_t denominator,const double *scale);
 
+uint32_t pharaoh_x87_route_length(int32_t delta_x,int32_t delta_y);
+uint32_t pharaoh_x87_route_ratio(int32_t delta,uint32_t length_bits);
+void pharaoh_x87_route_coordinate(int32_t origin,uint32_t ratio_bits,
+    int32_t distance,PharaohFloat80 *value);
+uint32_t pharaoh_x87_route_compare(int32_t integer,uint32_t float_bits);
+
 #endif

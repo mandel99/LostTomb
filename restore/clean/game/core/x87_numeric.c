@@ -154,3 +154,65 @@ __declspec(noinline) int32_t pharaoh_x87_scaled_integer_ratio(
     }
     return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
 }
+
+/* Reused route numeric primitives; inherited native x87 precision/rounding. */
+uint32_t pharaoh_x87_route_length(int32_t deltaX,int32_t deltaY)
+{
+    uint32_t result;
+    /* Preserve the original extended multiply/add/sqrt sequence and its one
+       binary32 spill. Native PC/RC are taken from the current hardware CW. */
+    __asm {
+        fild deltaY
+        fild deltaX
+        fld st(0)
+        fmul st(0),st(1)
+        fld st(2)
+        fmul st(0),st(3)
+        faddp st(1),st(0)
+        fsqrt
+        fstp Dword ptr result
+        fstp st(0)
+        fstp st(0)
+    }
+    return result;
+}
+
+uint32_t pharaoh_x87_route_ratio(int32_t delta,uint32_t lengthBits)
+{
+    uint32_t result;
+    __asm {
+        fild delta
+        fdiv Dword ptr lengthBits
+        fstp Dword ptr result
+    }
+    return result;
+}
+
+void pharaoh_x87_route_coordinate(int32_t origin,uint32_t ratioBits,int32_t distance,PharaohFloat80 *raw80)
+{
+    /* Actual route origins are signed WORD coordinates. FILD(origin) is exact,
+       as is the native Y-origin FILD then FSTP32/FLD32 for that domain. */
+    __asm {
+        fild origin
+        fild distance
+        fld Dword ptr ratioBits
+        fmul st(0),st(1)
+        fadd st(0),st(2)
+        mov eax,raw80
+        fstp tbyte ptr[eax]
+        fstp st(0)
+        fstp st(0)
+    }
+}
+
+uint32_t pharaoh_x87_route_compare(int32_t integer,uint32_t floatBits)
+{
+    uint16_t status;
+    __asm {
+        fild integer
+        fcom Dword ptr floatBits
+        fnstsw status
+        fstp st(0)
+    }
+    return status&0x4500u;
+}

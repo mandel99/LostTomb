@@ -27,6 +27,8 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
         c->work_spots[2], c->work_spots[3]
     };
     const PharaohSavedGameReadOperations *const ops = c->operations;
+    void *const route_data=c->operations->route_user_data!=NULL ?
+        c->operations->route_user_data:c->operations->user_data;
     uint32_t saved = 0;
     c->chunk_io->file_version = 0xa0;
     /* Native copies complete records to the stack, then restores only their
@@ -36,7 +38,7 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
         for (uint32_t i = 0; i < spot_counts[group]; ++i)
             saved_scripts[saved++] = spots[group][i].script;
     }
-    pharaoh_scenario_route_samples_free(c->routes, 50, ops->user_data,
+    pharaoh_scenario_route_samples_free(c->routes, 50, route_data,
         ops->free_route_samples);
     for (int32_t i = 0; i < 0xb5; ++i) {
         if (c->chunk_io->file_version < 0x9a && i == 0xaf) {
@@ -49,7 +51,7 @@ void pharaoh_saved_game_state_read(PharaohSavedGameReadContext *c,
     }
     c->routes[0].point_count = 0;
     c->routes[0].sample_count = 0;
-    pharaoh_scenario_routes_rebuild(c->routes, 50, ops->user_data,
+    pharaoh_scenario_routes_rebuild(c->routes, 50, route_data,
         ops->rebuild_route);
     int32_t version = c->chunk_io->file_version;
     if (c->chunk_io->file_version < 0x75)

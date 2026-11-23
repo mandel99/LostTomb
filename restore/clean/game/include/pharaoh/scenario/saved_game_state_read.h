@@ -57,6 +57,7 @@ typedef struct PharaohSavedGameReadOperations {
     void *settings_user_data;
     void *reset_records_user_data;
     void *reset_spots_user_data[5];
+    void *route_user_data;
 } PharaohSavedGameReadOperations;
 
 typedef struct PharaohSavedGameReadContext {
