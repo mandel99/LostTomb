@@ -20,6 +20,7 @@ typedef struct PharaohMonumentImageContext {
     uint32_t (*query_image)(void *user_data,int32_t building,uint32_t *flags);
     uint8_t (*workers_idle)(void *user_data,int32_t building);
     void *query_user_data; /* NULL retains user_data. */
+    void *idle_user_data; /* NULL retains user_data. */
 } PharaohMonumentImageContext;
 
 void pharaoh_monument_update_image_parts(PharaohMonumentImageContext *c,int32_t building); /* 004017A0 */

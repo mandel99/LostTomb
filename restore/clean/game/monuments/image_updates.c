@@ -134,7 +134,7 @@ void pharaoh_royal_tomb_update_map(PharaohMonumentImageContext *c,int32_t id)
     PharaohMapSurfaceContext *const s=c->surface;
     const PharaohBuildingTypeRecord *const b=&s->buildings[id];
     const int32_t root=(int32_t)((uint32_t)id-(uint32_t)(int32_t)b->subtype);
-    if (b->subtype==0) *c->idle=c->workers_idle(c->user_data,id);
+    if (b->subtype==0) *c->idle=c->workers_idle(c->idle_user_data?c->idle_user_data:c->user_data,id);
     const uint32_t size=b->size;
     if (s->buildings[root].monument_stage==1 && *c->city_overlay!=51) {
         const uint32_t base=tile_origin(c,b);

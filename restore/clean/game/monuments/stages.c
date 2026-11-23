@@ -274,3 +274,44 @@ void pharaoh_large_royal_tomb_part_advance(PharaohMonumentStageContext *c,
 void pharaoh_grand_royal_tomb_part_advance(PharaohMonumentStageContext *c,
     void *object, int32_t building)
 { pharaoh_royal_tomb_part_advance_stage(c, object, building, GRAND_TOMB_PARTS); }
+
+/* Completed prior C, native 00547BA0. */
+int32_t pharaoh_royal_tomb_is_idle(
+    void *object,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, PharaohRoyalTombChamberCount chamber_count,
+    PharaohRoyalTombHasWorker has_worker)
+{
+    const int32_t main_id = building_id - buildings[building_id].subtype;
+    int32_t count;
+    int32_t index;
+    if (buildings[main_id].royal_tomb_stock > 0) return 0;
+    count = chamber_count(object);
+    for (index = 0; index < count; ++index) {
+        if (has_worker(object, building_id + index) != 0) return 0;
+    }
+    return 1;
+}
+
+/* Completed prior C, native 004EA930. */
+uint8_t pharaoh_monument_resources_complete(
+    const int32_t *stored_amounts, const int32_t *required_amounts)
+{
+    static const uint8_t resources[15] = {
+        1, 8, 10, 13, 15, 17, 18, 19, 20, 23, 24, 25, 26, 28, 30
+    };
+    uint32_t index;
+    for (index = 0; index < 15u; ++index) {
+        const uint32_t resource = resources[index];
+        if (stored_amounts[resource] < required_amounts[resource]) return 0;
+    }
+    return 1;
+}
+
+/* Completed prior C, native 00545FB0. */
+uint8_t pharaoh_monument_resources_complete_thunk(
+    const int32_t *stored_amounts, const int32_t *required_amounts)
+{
+    return pharaoh_monument_resources_complete(
+        stored_amounts, required_amounts);
+}

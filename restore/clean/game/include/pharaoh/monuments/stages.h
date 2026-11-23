@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include "pharaoh/building/type_queries.h"
 
 typedef struct PharaohMonumentBuilding {
     int32_t x;
@@ -126,5 +127,15 @@ void pharaoh_large_royal_tomb_part_advance(PharaohMonumentStageContext *context,
     void *object, int32_t building_id);
 void pharaoh_grand_royal_tomb_part_advance(PharaohMonumentStageContext *context,
     void *object, int32_t building_id);
+
+typedef int32_t (*PharaohRoyalTombChamberCount)(void *object);
+typedef uint8_t (*PharaohRoyalTombHasWorker)(void *object,int32_t building);
+int32_t pharaoh_royal_tomb_is_idle(void *object,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building,PharaohRoyalTombChamberCount chambers,PharaohRoyalTombHasWorker has_worker);
+uint8_t pharaoh_monument_resources_complete(
+    const int32_t *stored_amounts,const int32_t *required_amounts);
+uint8_t pharaoh_monument_resources_complete_thunk(
+    const int32_t *stored_amounts,const int32_t *required_amounts);
 
 #endif

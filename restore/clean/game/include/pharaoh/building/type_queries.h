@@ -119,10 +119,10 @@ typedef struct PharaohBuildingTypeRecord {
         int32_t house_tax_income;
         union {
             uint8_t reserved_90[8];
-            struct { uint32_t royal_tomb_view; uint8_t royal_native_94[4]; };
+            struct { uint32_t royal_tomb_view; union { uint8_t royal_native_94[4]; struct { uint8_t royal_tomb_completed_image,royal_native_95[3]; }; }; };
         };
         int32_t royal_tomb_stock;
-        uint8_t reserved_9c[2];
+        union { uint8_t reserved_9c[2]; struct { uint8_t royal_tomb_closed_image,royal_native_9d; }; };
         int16_t bazaar_pottery_supply;
         int16_t bazaar_jewelry_supply;
         int16_t bazaar_linen_supply;
