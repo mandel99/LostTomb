@@ -115,7 +115,7 @@ static void draw_base(PharaohCityTopContext *c,uint32_t tile,uint32_t index,uint
     (*c->ground->tint)=0;
 }
 
-static void detail_animation(PharaohCityTopContext *c,uint32_t image,uint32_t frames,int32_t building,uint32_t footprint,uint32_t x,uint32_t y)
+static void detail_animation(PharaohCityTopContext *c,uint32_t image,uint32_t frames,int32_t building,uint32_t footprint,uint32_t x,uint32_t y,int reset_tint)
 {
     uint32_t base,variant,group,px,py,top,height,left,chosen;
     const PharaohSpriteImageRecord *record;
@@ -167,7 +167,7 @@ static void detail_animation(PharaohCityTopContext *c,uint32_t image,uint32_t fr
         record=pharaoh_sprite_image_record(c->draw->images,*c->draw->image_count,(int32_t)image);left=(uint32_t)(int32_t)(int16_t)(uint16_t)record->sprite_offset_x;
         pharaoh_image_draw(c->draw,image+frames,x+left,py);break;
     }
-    (*c->ground->tint)=0;
+    if(reset_tint)(*c->ground->tint)=0;
     (void)building;
 }
 static void draw_detail(PharaohCityTopContext *c,uint32_t tile,uint32_t x,uint32_t y)
@@ -208,7 +208,7 @@ static void draw_detail(PharaohCityTopContext *c,uint32_t tile,uint32_t x,uint32
             }
             tile=(c->ground->scan->tile);footprint=(c->ground->footprints[tile])&15u;
             if((uint8_t)c->operations->is_floodplain_farm(c->operations->user_data,building)!=0){pharaoh_native_noop_00489500();(*c->ground->tint)=0;}
-            else detail_animation(c,image,frames,building,footprint,x,y);
+            else detail_animation(c,image,frames,building,footprint,x,y,1);
         }else (*c->ground->tint)=0;
         tile=(c->ground->scan->tile);
     }
@@ -305,4 +305,9 @@ void pharaoh_city_render_bind_top(PharaohCityRenderOperations *ops,
 {
     ops->draw_top=top_step;
     ops->pass_user_data[PHARAOH_CITY_PASS_TOP]=context;
+}
+
+void pharaoh_city_top_draw_type_animation(PharaohCityTopContext *c,int32_t image,uint32_t frame,int32_t building,uint32_t footprint,int32_t x,int32_t y)
+{
+ detail_animation(c,(uint32_t)image,frame,building,footprint,(uint32_t)x,(uint32_t)y,0);
 }

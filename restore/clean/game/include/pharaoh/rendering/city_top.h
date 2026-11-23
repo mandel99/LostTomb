@@ -36,4 +36,5 @@ typedef struct PharaohCityTopContext {
 } PharaohCityTopContext;
 void pharaoh_city_draw_top(PharaohCityTopContext *,uint32_t actor_parameter);
 void pharaoh_city_render_bind_top(PharaohCityRenderOperations *,PharaohCityTopContext *);
+void pharaoh_city_top_draw_type_animation(PharaohCityTopContext *,int32_t image,uint32_t frame,int32_t building,uint32_t footprint,int32_t x,int32_t y);
 #endif
