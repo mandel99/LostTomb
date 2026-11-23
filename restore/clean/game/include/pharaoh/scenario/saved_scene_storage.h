@@ -6,6 +6,7 @@
 #include "pharaoh/scenario/mission_records.h"
 #include "pharaoh/scenario/saved_game_upgrades.h"
 #include "pharaoh/runtime/game_file_upgrade.h"
+#include "pharaoh/rendering/monument_scene_data.h"
 
 enum { PHARAOH_SAVED_SCENE_CHUNKS = 181 };
 
@@ -48,9 +49,11 @@ typedef struct PharaohSavedSceneStorage {
     PharaohMissionRecordsState mission_records;
     /* Derived native global not serialized in the 181 payload slots. */
     uint8_t pyramid_speedup_active;
+    PharaohMonumentSceneData monument_data;
 } PharaohSavedSceneStorage;
 
-/* Open an empty owner once; close it before reuse. NULL memory selects the
+/* Open a fresh owner once, with native initial work-spot scripts; close it
+ * before reuse. NULL memory selects the
  * CRT heap. The allocator must provide normal C allocation alignment.
  * Chunks 0..3 and 174 alias live settings. Headers 4..6 belong to the IO context
  * and are NULL until bind_reader. No serialized process pointer is followed. */
@@ -76,5 +79,10 @@ void pharaoh_saved_scene_bind_reader(PharaohSavedSceneStorage *storage,
  * dependent state) remain caller-owned. The read context must be bound too. */
 void pharaoh_saved_scene_bind_upgrades(PharaohSavedSceneStorage *storage,
     PharaohSavedGameUpgradeBindings *bindings);
+
+/* Bind the five work-spot absence repairs to this scene and C program data.
+ * The caller retains ownership of the random generator. */
+void pharaoh_saved_scene_bind_work_spots(PharaohSavedSceneStorage *storage,
+    PharaohSavedGameSpotBindings *bindings);
 
 #endif

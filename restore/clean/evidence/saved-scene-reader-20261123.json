@@ -1,0 +1,102 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_entries": [
+    "0x004D41E0",
+    "0x0041FCA0",
+    "0x004D3DA0"
+  ],
+  "supporting_owners": [
+    "game/scenario/saved_scene_reader.c",
+    "game/scenario/saved_scene_storage.c",
+    "game/rendering/monument_scene_data.c",
+    "game/core/pk_explode_data.c"
+  ],
+  "contract": [
+    "Compose existing C read/upgrade/route/history/spot owners; no interpreter or executable-memory resolver.",
+    "One fresh scene initializes 263 original spot defaults and 263 bindings into its own payloads. Loaded state is not reinitialized.",
+    "253 programs contain 510 shared C arrays. Transition counts are rows of five 8-byte records, proved by native 0041FCA0/0041FDB0 and saved typed pseudocode.",
+    "Resolve v92 sphinx completion field from the player index at upgrade execution, after the file has loaded it.",
+    "Close child route/history allocations before releasing scene payloads; external IO, images, style, random state and codec scratch stay borrowed."
+  ],
+  "data_validation": {
+    "programs": 253,
+    "ghidra_program_header_bytes_matched": 10120,
+    "unique_program_arrays": 510,
+    "initial_spots": 263,
+    "work_bindings": 263,
+    "codec_arrays": 9,
+    "codec_bytes": 2000,
+    "native_monument_payload_sha256": "cc439e2e49eed31a0fb09a2cdc13a56e51a40615ae5c6e153acaf3183e90e99a",
+    "program_payload_bytes_compared_including_aliases": 501984,
+    "royal_tomb_groups": 25,
+    "royal_tomb_group4_override_pool_index": 6
+  },
+  "verification": {
+    "unique_native_start_cases": 3036,
+    "live_player_upgrade_native_cases": 2,
+    "missions": [
+      {
+        "mission": 0,
+        "reads": 209,
+        "bytes_consumed": 302701,
+        "allocation_count": 40,
+        "seconds": 10.131,
+        "arena_bytes": 4208432,
+        "freed_allocations": 40
+      },
+      {
+        "mission": 1,
+        "reads": 209,
+        "bytes_consumed": 308838,
+        "allocation_count": 40,
+        "seconds": 10.034,
+        "arena_bytes": 4208432,
+        "freed_allocations": 40
+      },
+      {
+        "mission": 2,
+        "reads": 209,
+        "bytes_consumed": 309619,
+        "allocation_count": 40,
+        "seconds": 10.153,
+        "arena_bytes": 4208432,
+        "freed_allocations": 40
+      }
+    ],
+    "payload_blocks_compared_per_mission": 181,
+    "oracle": "Actual instruction replay for start and current-player upgrades. Full scene bytes compared against unchanged C reader previously replayed against pinned EXE.",
+    "prior_full_reader_native_evidence": "evidence/campaign-full-state-20261123.json",
+    "controlled_endpoints": [
+      "file reads",
+      "heap allocation/release"
+    ],
+    "native_work_binding_pointer_relocation_required": false,
+    "dll_sha256": "b8d4b85a880d5bd154201aa0c772f96e46e0b6b04669dba12dee1b76e9f1e15e",
+    "release_library_sha256": "bda893f23b0d3331563dc737284f48bbf8ca9984256f9e33eb346fd38c15cccb",
+    "canonical_library_sha256": "7adf58e581d2280b1a81dce8a180b14f31de96778950258973c42fb7843610bc",
+    "release_exe_sha256": "cd4f0e6859168239c1176b27c944928f3cc6f8427a4d438c46b803695d4a435d",
+    "canonical_and_working_release_builds": "passed",
+    "migration_workflow_verify": {
+      "ok": false,
+      "errors": 116,
+      "historical_records_preserved": true
+    }
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "176f0dffe4ee9277db610d80e6271975630ac52ffef480b32fdf579d0586c766",
+    "game/core/pk_explode_data.c": "769e3e71cd838c62d1b854c0eb0dbb75f129866caaa8b8b3a9f1d2c7581b7e5d",
+    "game/include/pharaoh/core/pk_explode_data.h": "e85e82ae2d8136cca077a7f4256c77c871c4086659dd1644cd5bd764f94203b4",
+    "game/include/pharaoh/rendering/monument_scene_data.h": "027b0a79bd9a84f38f455c8019690e969822bae14fe266c922a7a5661a725dd2",
+    "game/include/pharaoh/scenario/saved_scene_reader.h": "5d9cd8bd0e3440212b6044cb44bbf5c8fa5628067c0ea64cc88d6df5672f3e57",
+    "game/include/pharaoh/scenario/saved_scene_storage.h": "4b5f1f61e2dcef78c2ebb9c40bca2d1ac9cea1dd18a55d8eca80af5ac439062b",
+    "game/rendering/monument_scene_data.c": "37a77438a5abd48ae66f931dbb054fe074d06a2bb0ca22cba35317adb95ebe9f",
+    "game/scenario/saved_scene_reader.c": "8786c20e82053d5d2e4d07503d49d7732495ea10bd602bb8f5f82bcbc37f7546",
+    "game/scenario/saved_scene_storage.c": "fc92f1e2448e52ccbca107e74b1a4d5e6c860c176641eedbaaca5453ebb65bb4"
+  },
+  "limits": [
+    "Integration/data checkpoint, not 253 newly translated functions and not complete gameplay equivalence.",
+    "Host dispatch still lacks briefing35 and city01 attachment. Full scene initialization, deeper graphics/movement providers and city rendering/input remain required before declaring the menu/video/game path complete.",
+    "Scenario output comparison covers package missions0,1,2 and established native fixture inputs, not every mission or host graphics state.",
+    "No original or restored host game was launched; no computer-control automation."
+  ]
+}

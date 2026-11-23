@@ -82,6 +82,12 @@ int32_t pharaoh_saved_scene_storage_open(PharaohSavedSceneStorage *s,
     s->destinations[174] = &settings->difficulty;
     s->destinations[175] = &s->mission_records.started;
     bind_views(s);
+    PharaohMonumentSpotAnimation *const spots[9] = {
+        s->destinations[171], s->destinations[172], s->destinations[146],
+        s->destinations[149], s->destinations[176], s->destinations[179],
+        s->destinations[177], s->destinations[178], s->destinations[180]
+    };
+    pharaoh_monument_scene_data_initialize(&s->monument_data, spots);
     return 1;
 }
 
@@ -143,4 +149,18 @@ void pharaoh_saved_scene_bind_upgrades(PharaohSavedSceneStorage *s,
     b->saved_pairs = s->destinations[130];
     b->history_snapshots = s->view.history_snapshots;
     b->mission_records = &s->mission_records;
+    b->small_obelisk_spots = s->monument_data.small_obelisk;
+    b->large_obelisk_spots = s->monument_data.large_obelisk;
+    b->monument_scripts = pharaoh_monument_animation_scripts;
+}
+
+void pharaoh_saved_scene_bind_work_spots(PharaohSavedSceneStorage *s,
+    PharaohSavedGameSpotBindings *b)
+{
+    b->caesareum = s->monument_data.caesareum;
+    b->lighthouse = s->monument_data.lighthouse;
+    b->library = s->monument_data.library;
+    b->abu_simbel = s->monument_data.abu_simbel;
+    b->royal_tombs = s->monument_data.royal_groups;
+    b->scripts = pharaoh_monument_animation_scripts;
 }
