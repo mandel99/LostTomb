@@ -11,11 +11,13 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint8_t native_value_0003;
     uint8_t reserved_0004[8];
     int32_t treasury;
-    uint8_t reserved_0010[0x0c];
+    union { uint8_t reserved_0010[0x0c];
+        struct { uint8_t allocation_native_10[5],allocation_reserved_id,allocation_native_16[6]; };
+    };
     uint32_t native_value_001c;
     uint8_t reserved_0020[4];
     int32_t population;
-    uint8_t reserved_0028[4];
+    union { uint8_t reserved_0028[4]; int32_t health_rating; };
     int32_t school_age_population;
     int32_t academy_age_population;
     uint8_t reserved_0034[0x2778 - 0x34];

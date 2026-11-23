@@ -156,3 +156,32 @@ void pharaoh_bitmap_text_draw_wrapped(const PharaohBitmapFont *font,
         if (has_more == 0) return;
     }
 }
+
+int32_t pharaoh_bitmap_text_width_native(const PharaohBitmapFont *font,
+    const uint8_t *text,const uint8_t glyph_map[256],uint32_t *current_glyph)
+{
+    uint32_t width=0;
+    for (uint32_t i=0;i<10000 && text[i];++i) {
+        const uint8_t c=text[i];
+        if (c==' ') width+=(uint32_t)font->measure_space;
+        else {
+            const uint32_t glyph=glyph_map[c];*current_glyph=glyph;
+            if (glyph) {
+                int32_t image=(int32_t)(font->first_image+glyph-1u);
+                if (image>=(int32_t)font->image_count) image=0;
+                width+=(uint32_t)(int32_t)font->images[image].width+
+                    (uint32_t)font->measure_gap;
+            }
+        }
+    }
+    return (int32_t)width;
+}
+
+int32_t pharaoh_bitmap_text_entry_width_native(const PharaohBitmapFont *font,
+    PharaohTextSelection *selection,int32_t group,int32_t entry,
+    const uint8_t glyph_map[256],uint32_t *current_glyph)
+{
+    pharaoh_text_select(selection,group,entry);
+    return pharaoh_bitmap_text_width_native(font,
+        (const uint8_t *)selection->current,glyph_map,current_glyph);
+}

@@ -252,6 +252,12 @@ add_library(pharaoh_game STATIC
     game/map/venue_tiles.c
     game/rendering/water_lift_image.c
     game/map/surface_placement.c
+    game/building/allocation.c
+    game/building/allocation_definitions.c
+    game/building/house_health.c
+    game/building/vacant_lots.c
+    game/runtime/city_warning.c
+    game/map/terrain_queries.c
     game/map/building_tiles.c
     game/map/house_image_data.c
     game/map/surface_packing.c

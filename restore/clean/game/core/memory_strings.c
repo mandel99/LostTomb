@@ -158,3 +158,12 @@ void pharaoh_memory_copy_forward_words64(
         --count;
     }
 }
+
+void pharaoh_memory_copy_forward(
+    const unsigned char *source, unsigned char *destination, int count)
+{
+    while (count > 0) {
+        *destination++ = *source++;
+        --count;
+    }
+}

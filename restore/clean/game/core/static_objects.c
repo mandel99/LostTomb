@@ -200,3 +200,14 @@ void pharaoh_native_ambient_scores_clear_0053b670(
 void pharaoh_native_noop_00489500(void)
 {
 }
+
+int32_t pharaoh_native_undo_contains_004851b0(
+    int32_t id, int32_t undo_ready, int32_t mode,
+    int32_t count, const int16_t values[525])
+{
+    int32_t index;
+    if (id <= 0 || undo_ready != 1 || mode != 1 || count <= 0) return 0;
+    for (index = 0; index < 525; ++index)
+        if (values[index] == id) return 1;
+    return 0;
+}

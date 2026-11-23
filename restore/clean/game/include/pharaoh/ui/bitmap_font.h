@@ -26,4 +26,6 @@ int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
 void pharaoh_bitmap_text_draw_wrapped(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, int32_t width,
     uint16_t color);
+int32_t pharaoh_bitmap_text_width_native(const PharaohBitmapFont *font,const uint8_t *text,const uint8_t glyph_map[256],uint32_t *current_glyph);
+int32_t pharaoh_bitmap_text_entry_width_native(const PharaohBitmapFont *font,PharaohTextSelection *selection,int32_t group,int32_t entry,const uint8_t glyph_map[256],uint32_t *current_glyph);
 #endif

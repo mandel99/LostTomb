@@ -32,4 +32,5 @@ void pharaoh_x87_route_coordinate(int32_t origin,uint32_t ratio_bits,
     int32_t distance,PharaohFloat80 *value);
 uint32_t pharaoh_x87_route_compare(int32_t integer,uint32_t float_bits);
 
+int64_t pharaoh_x87_sqrt_truncate_i32(int32_t squared);
 #endif

@@ -176,3 +176,34 @@ int32_t pharaoh_sun_temple_part_size(
 {
     return part_definitions[buildings[building_id].subtype].size;
 }
+
+void pharaoh_building_repair_queue_add(
+    PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    PharaohBuildingRepairQueueEntry repair_queue[10],
+    PharaohBuildingRepairDebugOutput output_debug, void *user_data)
+{
+    int32_t index;
+    for (index = 0; index < 10; ++index) {
+        if (repair_queue[index].active == 0u) {
+            buildings[building_id].repair_queue_id = (uint8_t)(index + 1);
+            repair_queue[index].active = 1;
+            repair_queue[index].building_id = building_id;
+            return;
+        }
+    }
+    if (output_debug != 0) {
+        output_debug(user_data,
+            "unable to find a repair queue for this shipyard!\n");
+    }
+}
+
+void pharaoh_building_repair_queue_remove(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    PharaohBuildingRepairQueueEntry repair_queue[10])
+{
+    const int32_t index = (int32_t)buildings[building_id].repair_queue_id - 1;
+    if (index >= 0 && index < 10) {
+        repair_queue[index].active = 0;
+        repair_queue[index].building_id = 0;
+    }
+}

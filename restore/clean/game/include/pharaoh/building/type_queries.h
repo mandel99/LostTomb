@@ -89,8 +89,7 @@ typedef struct PharaohBuildingTypeRecord {
         struct {
         uint8_t pyramid_size_variant;
         uint8_t pyramid_work_phase;
-        uint8_t pyramid_work_column;
-        uint8_t pyramid_work_row;
+        union { struct { uint8_t pyramid_work_column,pyramid_work_row; }; uint16_t allocation_native_56; };
         union {
             int32_t monument_stage;
             struct {
@@ -153,7 +152,7 @@ typedef struct PharaohBuildingTypeRecord {
         struct { uint8_t render_native_be, render_tint_bf, render_native_c0; };
     };
     union { uint8_t runtime_value_c1; uint8_t storage_id; };
-    uint8_t reserved_c2[2];
+    union { uint8_t reserved_c2[2]; struct { uint8_t native_c2,native_c3; }; };
     int32_t linked_ferry_building_id;
     int16_t monument_remaining_blocks;
     uint8_t runtime_value_ca;
@@ -165,7 +164,9 @@ typedef struct PharaohBuildingTypeRecord {
         struct { uint32_t venue_grid_offset; int32_t venue_orientation, venue_has_plaza; };
     };
     int32_t orders_view;
-    uint8_t reserved_e0[0xfc - 0xe0];
+    union { uint8_t reserved_e0[0xfc - 0xe0];
+        struct { int32_t native_e0,native_e4,house_malaria_risk,native_ec,native_f0,health_distance_4,health_distance_40000; };
+    };
     int32_t house_plague_risk;
     uint8_t reserved_100[4];
     int16_t destination_walker_count;

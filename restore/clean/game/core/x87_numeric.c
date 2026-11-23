@@ -216,3 +216,14 @@ uint32_t pharaoh_x87_route_compare(int32_t integer,uint32_t floatBits)
     }
     return status&0x4500u;
 }
+
+int64_t pharaoh_x87_sqrt_truncate_i32(int32_t squared)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild squared
+        fsqrt
+        fstp tbyte ptr value
+    }
+    return pharaoh_x87_truncate80(&value);
+}
