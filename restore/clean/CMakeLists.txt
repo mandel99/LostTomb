@@ -356,6 +356,7 @@ add_library(pharaoh_game STATIC
     game/rendering/minimap.c
     game/rendering/minimap_walkers.c
     game/rendering/minimap_image.c
+    game/rendering/walker_overlay.c
     game/ui/transport_cursor.c
     game/ui/terrain_panels.c
     game/ui/view_invalidation.c
