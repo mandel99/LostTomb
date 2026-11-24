@@ -353,6 +353,7 @@ add_library(pharaoh_game STATIC
     game/ui/sidebar_background.c
     game/ui/sidebar_content.c
     game/ui/city_topbar.c
+    game/rendering/minimap.c
     game/ui/transport_cursor.c
     game/ui/terrain_panels.c
     game/ui/view_invalidation.c

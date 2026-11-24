@@ -1,0 +1,11 @@
+{
+  "original_sha256":"fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "address":"0x0043E810",
+  "name":"pharaoh_minimap_draw",
+  "source":"game/rendering/minimap.c",
+  "reuse":"prior generated/mixed/src/Unit00579.c; explicit typed scene/projection/clip state replaces absolute globals",
+  "verification":"Live pinned Ghidra decompilation and disassembly consulted; strict Win32 Release passed; Ghidra name/comment updated.",
+  "correction":"Prior C sent highlight WORD instead of repeated pixel pair. Native multiplies highlight by0x10001; corrected. Terrain02000000 uses distinct first-image F56AB4, not roadF568AC.",
+  "contract":"Actual C0043E670 projection origin, alternating row x, signed tile sentinel, hidden bounds, ordered actor classification, building/outside tests, exact terrain priority, camera rectangle and clip restoration.",
+  "limits":"Walker classifiers, building drawing and pixel/sprite/rectangle providers remain required. Source controller reconstruction only; joint native/C replay, rendered pixels and complete host01 attachment remain unproven."
+}
