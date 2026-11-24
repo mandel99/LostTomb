@@ -1,4 +1,5 @@
 #include "pharaoh/rendering/minimap_native_metrics.h"
+#include "pharaoh/commerce/storage_queries.h"
 
 #include <string.h>
 
@@ -100,4 +101,47 @@ bool pharaoh_minimap_storage_delivery_missing(
     }
     if (set_missing) building->native_c3 = 1;
     return building->native_c3 != 0;
+}
+
+static int32_t resource_height_from_amount(int32_t amount)
+{
+    /* The EXE loads the 0x39A3D70A single, then multiplies in x87 extended
+     * precision by -9. Both products fit exactly in binary64 for int16 input. */
+    const double scaled = (double)amount * (double)0.0003125f * -9.0;
+    const int32_t level = 4 - (int32_t)scaled;
+    return level < 10 ? level : 9;
+}
+
+/* Complete C translation of Pharaoh.exe 0x00433AE0. The two raw stock views
+ * retain the native index expression (building*0x420 + selector). */
+int32_t pharaoh_minimap_resource_height(
+    const PharaohMinimapNativeMetrics *context, int32_t building_id,
+    int32_t resource, int32_t slot)
+{
+    const PharaohBuildingTypeRecord *building = &context->buildings[building_id];
+    const uint32_t base = (uint32_t)building_id * 0x420u;
+    int32_t amount;
+
+    switch (building->building_type) {
+    case 0x46: case 0xbe:
+        amount = context->stock_values_799a2e[base + (uint32_t)slot];
+        break;
+    case 0x47: case 0xbf:
+        amount = context->stock_values_799a2e[base + (uint32_t)resource];
+        break;
+    case 0x48: case 0xc1:
+        amount = pharaoh_storageyard_resource_amount(
+            context->buildings, building_id, resource);
+        break;
+    case 0x49:
+        amount = pharaoh_storageyard_resource_amount(context->buildings,
+            pharaoh_building_follow_link(context->buildings, building_id), resource);
+        break;
+    default:
+        if (building->house_size == 0) return 0;
+        amount = context->house_stock_values_799a2c[
+            base + (uint32_t)slot] * 4;
+        break;
+    }
+    return resource_height_from_amount(amount);
 }

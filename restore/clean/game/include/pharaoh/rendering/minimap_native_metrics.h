@@ -16,6 +16,8 @@ typedef struct PharaohMinimapNativeMetrics {
     const int32_t *current_map_cell;
     const int32_t *view_orientation;
     const int32_t *active_tax_building_counts; /* five native counters */
+    const int16_t *stock_values_799a2e;
+    const int16_t *house_stock_values_799a2c;
 } PharaohMinimapNativeMetrics;
 
 int32_t pharaoh_minimap_fire_risk_height(
@@ -26,5 +28,8 @@ int32_t pharaoh_minimap_tax_income_height(
     const PharaohMinimapNativeMetrics *context, int32_t building_id);
 bool pharaoh_minimap_storage_delivery_missing(
     PharaohMinimapNativeMetrics *context, int32_t building_id);
+int32_t pharaoh_minimap_resource_height(
+    const PharaohMinimapNativeMetrics *context, int32_t building_id,
+    int32_t resource, int32_t slot);
 
 #endif
