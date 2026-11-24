@@ -60,3 +60,33 @@ void pharaoh_sidebar_draw_minimap(PharaohSidebarContent *c,int32_t force)
     c->draw_line(c->user_data,add(*c->sidebar_x,7),36,add(*c->sidebar_x,7),147,0x4208);
     c->draw_line(c->user_data,add(*c->sidebar_x,153),36,add(*c->sidebar_x,153),147,0xc618);
 }
+
+/* Complete Unit02350 controller0051F680. Count cache invalidation is exact:
+ * changes to problem_count alone do not cause this function to redraw. */
+void pharaoh_sidebar_draw_message_count(PharaohSidebarContent *c,int32_t force)
+{
+    if(*c->editor_active==1 || *c->window_id!=1 || *c->collapsed!=0 ||
+       (*c->message_count==*c->previous_message_count && force==0)) return;
+    *c->previous_message_count=*c->message_count;
+    c->command_button->enabled=(uint8_t)(*c->command_a!=0 && *c->command_b!=0);
+    c->message_button->enabled=(uint8_t)(*c->message_count>0);
+    c->problem_button->enabled=(uint8_t)(*c->problem_count>0);
+    c->scenario_button->enabled=(uint8_t)(*c->scenario_mode==0);
+    if(*c->message_count!=0) {
+        c->draw_number_centered(c->user_data,*c->message_count,'@',
+            add(*c->sidebar_x,48),452,32,*c->small_font,0);
+        c->draw_number_centered(c->user_data,*c->message_count,'@',
+            add(*c->sidebar_x,47),453,32,*c->small_font,65535);
+    }
+}
+
+static void buttons(void *p) {pharaoh_sidebar_draw_buttons(p);}
+static void caption(void *p,int32_t force,int32_t x) {pharaoh_sidebar_draw_caption(p,force,x);}
+static void category(void *p,int32_t force,int32_t x) {pharaoh_sidebar_draw_category(p,force,x);}
+static void minimap(void *p,int32_t force) {pharaoh_sidebar_draw_minimap(p,force);}
+static void messages(void *p,int32_t force) {pharaoh_sidebar_draw_message_count(p,force);}
+void pharaoh_sidebar_bind_content(PharaohSidebarBackgroundOperations *o,PharaohSidebarContent *c)
+{
+    o->draw_buttons=buttons;o->draw_0051ed30=caption;o->draw_0051edd0=category;
+    o->draw_0051efb0=minimap;o->draw_0051f680=messages;o->content_user_data=c;
+}

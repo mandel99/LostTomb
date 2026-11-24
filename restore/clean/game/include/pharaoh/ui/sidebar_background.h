@@ -26,6 +26,7 @@ typedef struct PharaohSidebarBackgroundOperations {
     void (*draw_editor_buttons)(void *,int32_t x,int32_t y,int32_t count); /*5C7760*/
     void (*draw_language)(void *,int32_t group,int32_t entry,int32_t x,int32_t y,
         int32_t font,int32_t color,int32_t origin_x,int32_t origin_y);
+    void *content_user_data; /* NULL retains user_data for the five bound content children. */
 } PharaohSidebarBackgroundOperations;
 
 /* Complete controllers00537100/00537120/0051E990. All drawing endpoints
