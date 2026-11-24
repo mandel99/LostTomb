@@ -99,6 +99,9 @@ typedef struct PharaohWindowsStartupHost {
     uint8_t startup_video_started;
     uint8_t current_window_id;
     uint8_t video_write_to_primary;
+    uint8_t game_frame_locked;
+    uint8_t *game_frame_pixels;
+    int32_t game_frame_pitch_bytes;
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];
     PharaohSettingsFile settings;
@@ -153,6 +156,13 @@ void pharaoh_windows_startup_host_present_loading(
     PharaohWindowsStartupHost *host);
 
 void pharaoh_windows_startup_host_present_frame(
+    PharaohWindowsStartupHost *host);
+
+/* Locks the existing native-format 16-bit offscreen surface once for a full
+ * city frame. No menu sprite helper may run until end_game_frame. */
+int32_t pharaoh_windows_startup_host_begin_game_frame(
+    PharaohWindowsStartupHost *host, uint8_t **pixels, int32_t *pitch_bytes);
+void pharaoh_windows_startup_host_end_game_frame(
     PharaohWindowsStartupHost *host);
 
 /* Debug-only F12 capture target: writes the fully composed 16-bit backbuffer

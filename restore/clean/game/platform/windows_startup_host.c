@@ -2011,6 +2011,43 @@ void pharaoh_windows_startup_host_present_frame(
     }
 }
 
+int32_t pharaoh_windows_startup_host_begin_game_frame(
+    PharaohWindowsStartupHost *host, uint8_t **pixels, int32_t *pitch_bytes)
+{
+    DDSURFACEDESC description;
+    LPDIRECTDRAWSURFACE surface;
+
+    if (host == NULL || pixels == NULL || pitch_bytes == NULL ||
+        host->game_frame_locked != 0 || host->graphics.back_buffer_surface == NULL)
+        return 0;
+    surface = (LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface;
+    memset(&description, 0, sizeof(description));
+    description.dwSize = sizeof(description);
+    if (surface->lpVtbl->Lock(surface, NULL, &description,
+            DDLOCK_WAIT, NULL) != DD_OK) return 0;
+    if (description.ddpfPixelFormat.dwRGBBitCount != 16) {
+        (void)surface->lpVtbl->Unlock(surface, NULL);
+        return 0;
+    }
+    host->game_frame_pixels = description.lpSurface;
+    host->game_frame_pitch_bytes = description.lPitch;
+    host->game_frame_locked = 1;
+    *pixels = host->game_frame_pixels;
+    *pitch_bytes = host->game_frame_pitch_bytes;
+    return 1;
+}
+
+void pharaoh_windows_startup_host_end_game_frame(
+    PharaohWindowsStartupHost *host)
+{
+    if (host == NULL || host->game_frame_locked == 0) return;
+    (void)((LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface)->lpVtbl->Unlock(
+        host->graphics.back_buffer_surface, NULL);
+    host->game_frame_locked = 0;
+    host->game_frame_pixels = NULL;
+    host->game_frame_pitch_bytes = 0;
+}
+
 int32_t pharaoh_windows_startup_host_capture_frame(
     PharaohWindowsStartupHost *host, const char *path)
 {
