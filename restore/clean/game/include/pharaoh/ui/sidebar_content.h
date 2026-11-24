@@ -28,6 +28,7 @@ typedef struct PharaohSidebarContent {
     PharaohImageButtonRecord *message_button,*problem_button,*scenario_button;
     void (*draw_number_centered)(void *,int32_t value,int32_t prefix,int32_t x,
         int32_t y,int32_t width,int32_t font,int32_t color); /*004CCE90; native empty prefix*/
+    void *minimap_user_data; /*NULL retains user_data*/
 } PharaohSidebarContent;
 
 void pharaoh_sidebar_draw_buttons(PharaohSidebarContent *);

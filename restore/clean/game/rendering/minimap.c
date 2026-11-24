@@ -1,4 +1,5 @@
 #include "pharaoh/rendering/minimap.h"
+#include "pharaoh/ui/sidebar_content.h"
 
 static int32_t add(int32_t a,int32_t b) {return (int32_t)((uint32_t)a+(uint32_t)b);}
 static int32_t sub(int32_t a,int32_t b) {return (int32_t)((uint32_t)a-(uint32_t)b);}
@@ -19,6 +20,11 @@ static int32_t terrain_image(const PharaohMinimap *c,uint32_t f,uint8_t r,uint8_
     if(f&0x40000u) return add(*c->trees,r&4);
     return add(*c->land,r&7);
 }
+
+static void sidebar_minimap(void *data,int32_t x,int32_t y,int32_t width,int32_t height)
+{pharaoh_minimap_draw(data,x,y,width,height);}
+void pharaoh_sidebar_bind_minimap(PharaohSidebarContent *c,PharaohMinimap *m)
+{c->draw_minimap=sidebar_minimap;c->minimap_user_data=m;}
 
 /* Native0043E810; prior mixed Unit00579 reused with native correction:
  * highlighted walkers use the color in BOTH WORD halves (color*10001h).
@@ -73,10 +79,10 @@ void pharaoh_minimap_draw(PharaohMinimap *c,int32_t x,int32_t y,int32_t width,in
                 if(outside) continue;
                 image=terrain_image(c,flags,c->random[c->tile],c->extra[c->tile]);
             }
-            c->draw_image(c->user_data,image,sx,sy);
+            c->draw_image(c->image_user_data!=0?c->image_user_data:c->user_data,image,sx,sy);
             continue;
 black:
-            if(!outside) c->draw_image(c->user_data,*c->black,sx,sy);
+            if(!outside) c->draw_image(c->image_user_data!=0?c->image_user_data:c->user_data,*c->black,sx,sy);
         }
     }
     int32_t rx=add(x,(int32_t)((uint32_t)sub(c->view->camera_x,c->origin_x)*2u));

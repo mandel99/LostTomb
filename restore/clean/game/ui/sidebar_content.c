@@ -52,10 +52,10 @@ void pharaoh_sidebar_draw_minimap(PharaohSidebarContent *c,int32_t force)
     if(*c->map_dirty!=0) redraw=1;
     if(force==0 && redraw==0) return;
     if(*c->editor_active==0) {
-        c->draw_minimap(c->user_data,add(*c->sidebar_x,13),59,73,111);
+        c->draw_minimap(c->minimap_user_data!=0?c->minimap_user_data:c->user_data,add(*c->sidebar_x,13),59,73,111);
         return;
     }
-    c->draw_minimap(c->user_data,add(*c->sidebar_x,8),36,73,111);
+    c->draw_minimap(c->minimap_user_data!=0?c->minimap_user_data:c->user_data,add(*c->sidebar_x,8),36,73,111);
     c->draw_line(c->user_data,add(*c->sidebar_x,7),35,add(*c->sidebar_x,153),35,0x4208);
     c->draw_line(c->user_data,add(*c->sidebar_x,7),36,add(*c->sidebar_x,7),147,0x4208);
     c->draw_line(c->user_data,add(*c->sidebar_x,153),36,add(*c->sidebar_x,153),147,0xc618);
