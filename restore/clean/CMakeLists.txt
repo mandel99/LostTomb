@@ -117,6 +117,7 @@ add_library(pharaoh_game STATIC
     game/rendering/overlay_columns.c
     game/rendering/overlay_metrics.c
     game/rendering/minimap_native_metrics.c
+    game/rendering/minimap_metric_bindings.c
     game/rendering/primitives.c
     game/rendering/building_animations.c
     game/rendering/image_draw.c

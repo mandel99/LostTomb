@@ -12,6 +12,7 @@ static void cell(PharaohMinimap *m,int32_t image,int32_t x,int32_t y)
 int32_t pharaoh_minimap_draw_building(PharaohMinimapBuilding *c,int32_t id,int32_t x,int32_t y)
 {
     PharaohMinimap *m=c->map;
+    void *const metric_data=c->metric_user_data!=0?c->metric_user_data:c->user_data;
     if((m->edges[m->tile]&0x40u)==0 || (m->terrain[m->tile]&8u)==0) return 0;
     const int32_t mode=*m->overlay;
     int32_t image;
@@ -19,16 +20,16 @@ int32_t pharaoh_minimap_draw_building(PharaohMinimapBuilding *c,int32_t id,int32
     case 4:case 8:case 10:case 11:case 12:case 13:case 14:case 15:case 16:
     case 17:case 18:case 19:case 21:case 22:case 23:case 24:case 25:case 26:
     case 29:case 30:case 31:case 43:case 45:case 48:case 49:case 50:
-        image=c->height[mode](c->user_data,id);break;
+        image=c->height[mode](metric_data,id);break;
     case 9:
         image=(m->terrain[m->tile]&0x4140u)!=0?
-            c->terrain_damage(c->user_data,(int32_t)m->tile):c->height[9](c->user_data,id);break;
+            c->terrain_damage(metric_data,(int32_t)m->tile):c->height[9](metric_data,id);break;
     case 20:image=0;break; /*0047D350 is native XOR EAX,EAX; RET*/
-    case 27:case 28:image=c->height[mode](c->user_data,(int32_t)m->tile);break;
+    case 27:case 28:image=c->height[mode](metric_data,(int32_t)m->tile);break;
     case 33:case 34:case 35:case 36:case 37:case 38:case 39:case 40:case 41:case 42: {
         static const int32_t resource[10]={1,3,6,2,4,5,13,19,17,15};
         static const int32_t slot[10]={0,2,5,1,3,4,9,11,10,8};
-        image=c->resource_height(c->user_data,id,resource[mode-33],slot[mode-33]);break;
+        image=c->resource_height(metric_data,id,resource[mode-33],slot[mode-33]);break;
     }
     default:
         image=*c->house_image;

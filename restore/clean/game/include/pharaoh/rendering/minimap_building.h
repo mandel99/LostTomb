@@ -11,6 +11,7 @@ typedef struct PharaohMinimapBuilding {
     const int32_t *house_image,*overlay_image,*garden_image,*special_image,*building_image;
     uint16_t *tint;
     void *user_data;
+    void *metric_user_data; /* NULL retains user_data */
     /* Actual overlay metric owners indexed by overlay. Required for the
      * recognized non-resource modes; modes27/28 and9-terrain receive tile. */
     int32_t (*height[51])(void *,int32_t building_or_tile);
