@@ -72,7 +72,7 @@ void pharaoh_minimap_draw(PharaohMinimap *c,int32_t x,int32_t y,int32_t width,in
             int32_t image;
             if((flags&8u)!=0 && building!=0) {
                 if((c->edges[c->tile]&0x40u)==0 || outside) continue;
-                if(c->draw_building(c->user_data,building,sx,sy)) continue;
+                if(c->draw_building(c->building_user_data!=0?c->building_user_data:c->user_data,building,sx,sy)) continue;
                 image=add(*c->special,(flags&0x10000000u)?55:60);
             } else if((flags&0xc04000u)!=0 && *c->overlay==49) image=add(*c->overlay_image,5);
             else {

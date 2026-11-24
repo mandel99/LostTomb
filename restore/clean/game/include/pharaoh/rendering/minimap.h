@@ -29,6 +29,7 @@ typedef struct PharaohMinimap {
     void (*draw_view_rect)(void *,int32_t x,int32_t y,int32_t width,int32_t height,uint32_t color);
     void *walker_user_data,*pair_user_data; /*NULL retains user_data*/
     void *image_user_data; /*NULL retains user_data*/
+    void *building_user_data; /*NULL retains user_data*/
 } PharaohMinimap;
 void pharaoh_minimap_draw(PharaohMinimap *,int32_t x,int32_t y,int32_t width,int32_t height);
 struct PharaohSidebarContent;
