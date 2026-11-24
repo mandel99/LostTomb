@@ -52,6 +52,6 @@ void pharaoh_sidebar_draw_background(const PharaohSidebarBackgroundState *s,
         o->draw_language(u,44,132,add(*s->sidebar_x,11),152,*s->body_font,0,*s->origin_x,*s->origin_y);
         o->draw_language(u,2,0,add(*s->sidebar_x,94),152,*s->body_font,0,*s->origin_x,*s->origin_y);
     }
-    o->draw_0051f0a0(u,1);
+    o->draw_0051f0a0(o->topbar_user_data!=0?o->topbar_user_data:u,1);
     o->draw_0051f680(content,1);
 }
