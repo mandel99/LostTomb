@@ -351,6 +351,7 @@ add_library(pharaoh_game STATIC
     game/ui/ship_panels.c
     game/ui/sidebar_layout.c
     game/ui/sidebar_background.c
+    game/ui/sidebar_content.c
     game/ui/transport_cursor.c
     game/ui/terrain_panels.c
     game/ui/view_invalidation.c

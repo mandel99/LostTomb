@@ -15,7 +15,7 @@ typedef struct PharaohSidebarBackgroundOperations {
     void (*draw_sprite)(void *,int32_t image,int32_t x,int32_t y);
     void (*fill_bottom)(void *,int32_t x,int32_t y,int32_t width,int32_t height,int32_t color);
     void (*fill_editor)(void *,int32_t x,int32_t y,int32_t width,int32_t height,int32_t color);
-    void (*draw_minimap)(void *); /*0051EC90*/
+    void (*draw_buttons)(void *); /*0051EC90*/
     void (*draw_0051ed30)(void *,int32_t force,int32_t x);
     void (*draw_0051edd0)(void *,int32_t force,int32_t x);
     void (*draw_0051efb0)(void *,int32_t force);

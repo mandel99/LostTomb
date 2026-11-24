@@ -27,7 +27,7 @@ void pharaoh_sidebar_draw_background(const PharaohSidebarBackgroundState *s,
         int32_t image=*s->game_image_base,x=*s->sidebar_x;
         if(*s->collapsed!=0) {image=add(image,1);x=*s->collapsed_x;}
         o->draw_sprite(u,image,x,30);
-        o->draw_minimap(u);
+        o->draw_buttons(u);
         o->draw_0051ed30(u,1,add(*s->sidebar_x,11));
         o->draw_0051edd0(u,0,add(*s->sidebar_x,11));
         o->draw_0051efb0(u,1);

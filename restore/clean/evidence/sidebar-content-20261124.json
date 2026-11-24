@@ -1,0 +1,10 @@
+{
+  "original_sha256":"fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source":"game/ui/sidebar_content.c",
+  "reuse":"prior generated/decompiled/src/Unit02345.c..Unit02348.c; explicit typed state and drawing operations",
+  "functions":{"0x0051EC90":"pharaoh_sidebar_draw_buttons","0x0051ED30":"pharaoh_sidebar_draw_caption","0x0051EDD0":"pharaoh_sidebar_draw_category","0x0051EFB0":"pharaoh_sidebar_draw_minimap"},
+  "verification":"All four compared with live pinned Ghidra pseudocode; Ghidra names/comments updated. Win32 Release strict build passed.",
+  "contracts":"Button table order/counts2,16,2 versus1,12; command enabled byte; caption cache updates only on expanded draw; exact category permutation; minimap dirty consumed only while expanded; editor==1 invalidation versus editor==0 placement retained.",
+  "correction":"Sidebar background operation0051EC90 renamed draw_buttons from mistaken draw_minimap; actual minimap child0051EFB0.",
+  "limits":"Required drawing endpoints remain explicit. Host state01 integration, native/C replay and rendered pixels are not established. Existing migration administration errors remain."
+}
