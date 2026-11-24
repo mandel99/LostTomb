@@ -51,15 +51,16 @@ void pharaoh_minimap_draw(PharaohMinimap *c,int32_t x,int32_t y,int32_t width,in
             if(!*c->show_all && (c->scan_x<c->view->visible_minimum_x || c->scan_y<c->view->visible_minimum_y ||
                 c->scan_x>c->view->visible_maximum_x || c->scan_y>(int32_t)(((uint32_t)c->view->visible_maximum_y-1u)&0xfffeu))) goto black;
             const int32_t building=c->buildings[c->tile],walker=c->walkers[c->tile];
-            const int32_t first=c->walker_land_kind(c->user_data,walker);
-            const int32_t second=c->walker_ship_kind(c->user_data,walker);
+            void *walker_data=c->walker_user_data!=0?c->walker_user_data:c->user_data;
+            const int32_t first=c->walker_land_kind(walker_data,walker);
+            const int32_t second=c->walker_ship_kind(walker_data,walker);
             uint32_t pair=background;
             if(first==2 || (first==0 && second==2)) pair=highlight*0x10001u;
             else if(first==3) pair=0;
-            const int32_t third=c->walker_other_kind(c->user_data,walker);
+            const int32_t third=c->walker_other_kind(walker_data,walker);
             if(first || second || third) {
                 c->pixel_x=sx;c->pixel_y=sy;
-                if(!outside) c->draw_pair(c->user_data,pair,sx,sy);
+                if(!outside) c->draw_pair(c->pair_user_data!=0?c->pair_user_data:c->user_data,pair,sx,sy);
                 continue;
             }
             int32_t image;
