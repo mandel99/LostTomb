@@ -3,6 +3,7 @@
 
 #include "pharaoh/simulation/flood_simulation.h"
 #include "pharaoh/map/surface_tiles.h"
+#include <stddef.h>
 
 typedef struct PharaohFloodSortedLink {
     struct PharaohFloodSortedLink *next, *previous;
@@ -15,10 +16,14 @@ typedef struct PharaohFloodWorld {
     uint8_t reserved_32c40[36];
     PharaohFloodList lists[30];
     int32_t current_list, season_month;
-    uint32_t reserved_32fb4;
+    int32_t state;
     int32_t progress;
     uint8_t has_floodplain;
 } PharaohFloodWorld;
+
+_Static_assert(offsetof(PharaohFloodWorld,state)==0x32fb4 &&
+    sizeof(PharaohFloodWorld)==0x32fc0,
+    "native Floods.state offset and Floods record size");
 
 typedef struct PharaohFloodMemory {
     void *user_data;
