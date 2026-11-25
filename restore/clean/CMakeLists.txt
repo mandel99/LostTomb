@@ -72,6 +72,7 @@ add_library(pharaoh_game STATIC
     game/rendering/monument_spot_animation.c
     game/rendering/monument_spot_draw.c
     game/rendering/monument_scene_data.c
+    game/rendering/sun_temple_draw.c
     game/scenario/saved_routes.c
     game/scenario/saved_scene_storage.c
     game/scenario/saved_scene_reader.c
