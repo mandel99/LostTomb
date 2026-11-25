@@ -168,12 +168,12 @@ void pharaoh_map_draw_farm(const PharaohFarmTileDrawContext *c,
 
     if (type == 195) {
         pharaoh_map_place_surface_square(c->surface, (uint16_t)building_id,
-            x, y, 2, 2, (uint32_t)c->cattle_ranch_image_first, 8);
+            x, y, 2, 2, (uint32_t)c->reed_gatherer_image_first, 8);
         return;
     }
     if (type == 194) {
         pharaoh_map_place_surface_square(c->surface, (uint16_t)building_id,
-            x, y, 3, 3, (uint32_t)c->reed_gatherer_image_first, 8);
+            x, y, 3, 3, (uint32_t)c->cattle_ranch_image_first, 8);
         return;
     }
     crop = farm_crop_index(type);
