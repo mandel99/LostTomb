@@ -259,6 +259,7 @@ add_library(pharaoh_game STATIC
     game/map/venue_tiles.c
     game/rendering/water_lift_image.c
     game/map/surface_placement.c
+    game/map/farm_tiles.c
     game/building/allocation.c
     game/building/construction_load.c
     game/building/construction_support.c
