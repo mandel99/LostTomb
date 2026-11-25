@@ -1,5 +1,6 @@
 #include "pharaoh/monuments/pyramid_images.h"
 #include <stddef.h>
+#include <string.h>
 
 _Static_assert(sizeof(PharaohPyramidImageShape)==8 &&
     offsetof(PharaohPyramidImageShape,native_04)==4 &&
@@ -11,6 +12,56 @@ _Static_assert(offsetof(PharaohBuildingTypeRecord,pyramid_worker_x_a)==0x5c &&
     offsetof(PharaohBuildingTypeRecord,pyramid_worker_image)==0x68 &&
     offsetof(PharaohBuildingTypeRecord,pyramid_transient_image)==0x6c,
     "native pyramid rendering fields");
+
+typedef struct PharaohStyleThreeOverride {
+    uint8_t slot;
+    int16_t x,y;
+} PharaohStyleThreeOverride;
+
+/* Native 005F57C8 has a second coordinate pair for main pyramid parts.
+ * Most pairs equal the first; these are its fourteen differing records. */
+static const PharaohStyleThreeOverride style_three_main_overrides[]={
+    {6,-69,-23},{7,-49,-37},{8,-29,-52},{9,-7,-68},
+    {10,13,-82},{11,32,-97},{31,-20,-22},{32,-14,-37},
+    {34,12,-83},{35,18,-98},{37,23,-26},{38,21,-42},
+    {40,-9,-86},{41,-11,-102}
+};
+
+void pharaoh_pyramid_coordinate_tables_init(
+    PharaohPyramidCoordinateTableStorage *s,
+    const PharaohPyramidImageData *d)
+{
+    static const int32_t heights[30]={
+        0,90,0,0,0,0,0,90,135,180,0,0,0,90,180,225
+    };
+    memcpy(s->style_one_heights,heights,sizeof(heights));
+    for(int32_t shape=0;shape<9;++shape) {
+        for(int32_t step=0;step<6;++step) {
+            const int32_t slot=shape*6+step;
+            const PharaohPyramidWorkerOffset *const regular=&d->worker[shape][step];
+            const PharaohPyramidWorkerPoint *const style3=&d->worker_style3[shape][step];
+            s->regular_offsets[slot*2]=(int16_t)regular->x;
+            s->regular_offsets[slot*2+1]=regular->y;
+            s->style_three_offsets[slot*4]=(int16_t)style3->x;
+            s->style_three_offsets[slot*4+1]=(int16_t)style3->y;
+            s->style_three_offsets[slot*4+2]=(int16_t)style3->x;
+            s->style_three_offsets[slot*4+3]=(int16_t)style3->y;
+        }
+        s->main_part_offsets[shape*2]=(int16_t)d->worker_base[shape].x;
+        s->main_part_offsets[shape*2+1]=(int16_t)d->worker_base[shape].y;
+    }
+    for(size_t i=0;i<sizeof(style_three_main_overrides)/
+            sizeof(style_three_main_overrides[0]);++i) {
+        const PharaohStyleThreeOverride *const value=&style_three_main_overrides[i];
+        s->style_three_offsets[value->slot*4+2]=value->x;
+        s->style_three_offsets[value->slot*4+3]=value->y;
+    }
+    s->tables=(PharaohMonumentCoordinateTables){
+        s->style_one_heights,
+        (const int32_t *)(const void *)&d->regular[0][0].native_04,
+        (const int32_t *)(const void *)&d->mastaba[0][0].native_04,
+        s->regular_offsets,s->style_three_offsets,s->main_part_offsets};
+}
 
 static void worker_offset(const PharaohPyramidImageData *d,
     int16_t *x,int16_t *y,uint32_t position,uint32_t shape,uint32_t style)

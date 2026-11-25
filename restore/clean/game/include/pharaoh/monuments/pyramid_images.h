@@ -2,6 +2,7 @@
 #define PHARAOH_MONUMENTS_PYRAMID_IMAGES_H
 
 #include "pharaoh/map/rotated_buildings.h"
+#include "pharaoh/monuments/stages.h"
 
 typedef struct PharaohPyramidImageShape { int32_t shape; uint32_t native_04; }
     PharaohPyramidImageShape;
@@ -17,10 +18,21 @@ typedef struct PharaohPyramidImageData {
     uint32_t corners[4][4], quad[4];
 } PharaohPyramidImageData;
 
+typedef struct PharaohPyramidCoordinateTableStorage {
+    PharaohMonumentCoordinateTables tables;
+    int32_t style_one_heights[30];
+    int32_t regular_offsets[9*6*2];
+    int32_t style_three_offsets[9*6*4];
+    int32_t main_part_offsets[9*2];
+} PharaohPyramidCoordinateTableStorage;
+
 extern const PharaohPyramidImageData pharaoh_pyramid_image_initial_data;
 extern const PharaohPyramidSpecialStageTable pharaoh_pyramid_regular_special[5];
 extern const PharaohPyramidSpecialStageTable pharaoh_pyramid_mastaba_special[3];
 extern const int32_t pharaoh_pyramid_complex_temple_offsets[5];
+void pharaoh_pyramid_coordinate_tables_init(
+    PharaohPyramidCoordinateTableStorage *storage,
+    const PharaohPyramidImageData *data);
 
 typedef struct PharaohPyramidImageContext {
     PharaohMapSurfaceContext *surface;
