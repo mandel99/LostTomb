@@ -70,6 +70,7 @@ add_library(pharaoh_game STATIC
     game/core/ring_queue.c
     game/core/byte_tokenizer.c
     game/rendering/monument_spot_animation.c
+    game/rendering/monument_spot_draw.c
     game/rendering/monument_scene_data.c
     game/scenario/saved_routes.c
     game/scenario/saved_scene_storage.c
