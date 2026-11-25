@@ -1,0 +1,19 @@
+{
+  "binary": "Pharaoh.exe",
+  "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "address": "0x00488840",
+  "name": "pharaoh_map_farm_tiles_floodplain",
+  "source": "game/map/farm_tiles.c",
+  "reuse": "restore/build/reference/OriginalSource/src/game/map/farm.c",
+  "qualification": [
+    "cached Ghidra body 0x00488840 verifies both placement and detail branches",
+    "detail traversal uses the native nine coordinate pairs and crop decrement-by-two progression",
+    "worker selection preserves grown/sowing/harvest branches, locust suppression, seven-frame selection and sprite offsets"
+  ],
+  "dependencies": [
+    "0x0047BF50 pharaoh_map_place_surface_square",
+    "0x0053E590 pharaoh_image_draw"
+  ],
+  "parent": "0x00488C20",
+  "remaining": "Parent farm dispatcher and its runtime bindings are not yet connected."
+}
