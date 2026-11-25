@@ -5,8 +5,8 @@
 #include "pharaoh/rendering/image_draw.h"
 
 typedef struct PharaohTempleAnnexPart {
-    int32_t size;
     int32_t on_road;
+    int32_t size;
     int32_t dy;
     int32_t dx;
 } PharaohTempleAnnexPart;

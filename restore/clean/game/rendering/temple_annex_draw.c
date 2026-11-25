@@ -1,5 +1,13 @@
 #include "pharaoh/rendering/temple_annex_draw.h"
 #include "pharaoh/rendering/upper_sprite_draw.h"
+#include <stddef.h>
+
+_Static_assert(sizeof(PharaohTempleAnnexPart)==16 &&
+    offsetof(PharaohTempleAnnexPart,on_road)==0 &&
+    offsetof(PharaohTempleAnnexPart,size)==4 &&
+    offsetof(PharaohTempleAnnexPart,dy)==8 &&
+    offsetof(PharaohTempleAnnexPart,dx)==12,
+    "native gatehouse part layout");
 
 static int32_t add_i32(int32_t a,int32_t b)
 {return (int32_t)((uint32_t)a+(uint32_t)b);}
