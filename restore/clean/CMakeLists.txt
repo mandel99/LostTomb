@@ -75,9 +75,12 @@ add_library(pharaoh_game STATIC
     game/rendering/sun_temple_draw.c
     game/rendering/abu_simbel_draw.c
     game/rendering/obelisk_draw.c
+    game/rendering/pyramid_draw.c
+    game/rendering/pyramid_walker_draw.c
     game/rendering/granary_draw.c
     game/rendering/temple_annex_draw.c
     game/rendering/building_animation_offset.c
+    game/rendering/building_stock_draw.c
     game/scenario/saved_routes.c
     game/scenario/saved_scene_storage.c
     game/scenario/saved_scene_reader.c
@@ -367,6 +370,7 @@ add_library(pharaoh_game STATIC
     game/rendering/minimap_walkers.c
     game/rendering/minimap_image.c
     game/rendering/walker_overlay.c
+    game/rendering/walker_draw.c
     game/rendering/minimap_building.c
     game/ui/transport_cursor.c
     game/ui/terrain_panels.c

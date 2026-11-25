@@ -103,4 +103,13 @@ void pharaoh_city_view_grid_offset_to_xy_view(
     const PharaohCityProjectionLookup *projection, int32_t grid_offset,
     int32_t *view_x, int32_t *view_y);
 
+void pharaoh_city_view_tile_from_screen(
+    const PharaohCityProjectionLookup *projection,int32_t x,int32_t y,
+    int32_t *row,int32_t *column); /* 004F0AB0 */
+void pharaoh_city_view_tile_to_pixel(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    const PharaohCityMapBounds *bounds,int32_t x,int32_t y,
+    int32_t *pixel_x,int32_t *pixel_y); /* 004F0BA0 */
+
 #endif

@@ -182,6 +182,43 @@ void pharaoh_city_view_calculate_lookup(PharaohCityViewContext *context,
     }
 }
 
+/* Complete native 004F0AB0 view-grid inverse. The original map starts are
+ * reset to zero by 004F0400 before this helper can be used. */
+void pharaoh_city_view_tile_from_screen(
+    const PharaohCityProjectionLookup *p,int32_t x,int32_t y,
+    int32_t *row,int32_t *column)
+{
+    int32_t cx,cy,a,b,d,e;
+    switch(p->orientation){
+    case 0:cy=230;cx=p->map_origin_y*2+1;a=-1;b=1;d=1;e=1;break;
+    case 2:cx=230;cy=p->map_origin_x*2+1;a=1;b=-1;d=1;e=1;break;
+    case 4:cy=230;cx=455-p->map_origin_y*2;a=1;b=-1;d=-1;e=-1;break;
+    default:cx=230;cy=455-p->map_origin_y*2;a=-1;b=1;d=-1;e=-1;break;
+    }
+    const int32_t c=((y-cy)*d-(x-cx)*a)/(e*d-a*b);
+    *column=c;*row=(x-c*b-cx)/d;
+}
+
+/* Complete native 004F0BA0 tile projection over the live viewport lookup. */
+void pharaoh_city_view_tile_to_pixel(const PharaohCityViewState *s,
+    const PharaohCityProjectionLookup *p,const PharaohCityMapBounds *bounds,
+    int32_t x,int32_t y,int32_t *px,int32_t *py)
+{
+    int32_t value=p->cells[(size_t)s->camera_y*PHARAOH_CITY_PROJECTION_HEIGHT+
+        (size_t)s->camera_x],row,column;
+    if((uint32_t)value<UINT32_C(0x0fff0000)){column=value%PHARAOH_CITY_MAP_WIDTH;row=value/PHARAOH_CITY_MAP_WIDTH;}
+    else pharaoh_city_view_tile_from_screen(p,s->camera_y,s->camera_x*2+1,&row,&column);
+    y=bounds->minimum_y-row+y;x=bounds->minimum_x-column+x;
+    const int32_t half_width=s->viewport.tile_half_width+1;
+    switch(p->orientation){
+    case 0:*px=(x-y)*half_width+s->viewport.screen_x;*py=(x+y-1)*s->viewport.tile_half_height+s->viewport.screen_y;break;
+    case 2:*px=(x+y)*half_width+s->viewport.screen_x;*py=(y-x-1)*s->viewport.tile_half_height+s->viewport.screen_y;break;
+    case 4:*px=(y-x)*half_width+s->viewport.screen_x;*py=s->viewport.screen_y-(x+y+1)*s->viewport.tile_half_height;break;
+    case 6:*px=s->viewport.screen_x-(x+y)*half_width;*py=(x-y-1)*s->viewport.tile_half_height+s->viewport.screen_y;break;
+    default:return;
+    }
+}
+
 int32_t pharaoh_city_view_get_viewport_width_tiles(
     const PharaohCityViewState *state)
 {
