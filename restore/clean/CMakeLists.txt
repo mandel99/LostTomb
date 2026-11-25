@@ -75,6 +75,7 @@ add_library(pharaoh_game STATIC
     game/rendering/sun_temple_draw.c
     game/rendering/abu_simbel_draw.c
     game/rendering/obelisk_draw.c
+    game/rendering/granary_draw.c
     game/scenario/saved_routes.c
     game/scenario/saved_scene_storage.c
     game/scenario/saved_scene_reader.c
