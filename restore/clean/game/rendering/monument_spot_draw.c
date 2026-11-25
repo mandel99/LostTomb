@@ -1,6 +1,7 @@
 #include "pharaoh/rendering/monument_spot_draw.h"
 #include "pharaoh/rendering/monument_scene_data.h"
 #include "pharaoh/monuments/stages.h"
+#include <string.h>
 
 static int32_t add_i32(int32_t a,int32_t b)
 {return (int32_t)((uint32_t)a+(uint32_t)b);}
@@ -50,3 +51,24 @@ void pharaoh_caesareum_draw_work_spots(PharaohMonumentSpotGroupDrawContext *c,
 void pharaoh_lighthouse_draw_work_spots(PharaohMonumentSpotGroupDrawContext *c,
     int32_t x,int32_t y)
 {draw_group(c,c->lighthouse,15,x,y);}
+
+/* Complete three-entry typed C translation of Pharaoh.exe 0x00421920. */
+void pharaoh_royal_tomb_draw_work_spots(PharaohMonumentSpotGroupDrawContext *c,
+    int32_t x,int32_t y,int32_t building_id)
+{
+    const PharaohBuildingTypeRecord *const b=&c->buildings[building_id];
+    const int32_t table=c->royal_tomb_spot_table(c->operations->user_data,
+        b->royal_tomb_chamber_kind);
+    if(table<0)return;
+    const PharaohMonumentWorkSpotBinding *const bindings=
+        c->royal_tomb[table].bindings;
+    for(int32_t i=0;i<3;++i) {
+        int32_t stage,dx,dy,image;
+        memcpy(&stage,bindings[i].reserved_00,sizeof(stage));
+        if(b->royal_tomb_progress!=stage)continue;
+        pharaoh_monument_spot_get_draw_info_for_direction(c->draw,
+            bindings[i].spot,&dx,&dy,&image,(int32_t)b->royal_tomb_view);
+        if(image!=0)c->operations->draw_image(c->operations->user_data,image,
+            add_i32(x,dx),add_i32(y,dy));
+    }
+}
