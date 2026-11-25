@@ -13,6 +13,7 @@ typedef struct PharaohMonumentSceneData {
     PharaohMonumentWorkSpotBinding caesareum[27], lighthouse[15];
     PharaohMonumentWorkSpotBinding royal_tomb[75];
     PharaohMonumentWorkSpotGroup royal_groups[25];
+    int32_t library_position_variant;
 } PharaohMonumentSceneData;
 
 /* Once per fresh scene, before reading saved state. Pointers must name arrays
@@ -20,5 +21,7 @@ typedef struct PharaohMonumentSceneData {
  * The bindings borrow these arrays; loaded spot state is never reset here. */
 void pharaoh_monument_scene_data_initialize(PharaohMonumentSceneData *data,
     PharaohMonumentSpotAnimation *const spots[9]);
+void pharaoh_monument_scene_library_positions_set_variant(
+    int32_t variant, int32_t *active_variant);
 
 #endif

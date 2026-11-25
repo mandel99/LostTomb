@@ -12,16 +12,20 @@ typedef struct PharaohMonumentSpotGroupDrawContext {
     const PharaohMonumentSpotDrawContext *draw;
     const PharaohMonumentWorkSpotBinding *sphinx;
     const PharaohMonumentWorkSpotBinding *sun_temple;
+    const PharaohMonumentWorkSpotBinding *library;
     const PharaohMonumentWorkSpotBinding *abu_simbel;
     const PharaohMonumentWorkSpotBinding *caesareum;
     const PharaohMonumentWorkSpotBinding *lighthouse;
     const PharaohMonumentSpotDrawOperations *operations;
+    int32_t *library_position_variant;
 } PharaohMonumentSpotGroupDrawContext;
 
 void pharaoh_sphinx_draw_work_spots(
     PharaohMonumentSpotGroupDrawContext *,int32_t x,int32_t y); /*0041FFF0*/
 void pharaoh_sun_temple_draw_work_spots(
     PharaohMonumentSpotGroupDrawContext *,int32_t x,int32_t y); /*00420050*/
+void pharaoh_library_draw_work_spots(
+    PharaohMonumentSpotGroupDrawContext *,int32_t x,int32_t y); /*004206F0*/
 void pharaoh_abu_simbel_draw_work_spots(
     PharaohMonumentSpotGroupDrawContext *,int32_t x,int32_t y); /*00420A30*/
 void pharaoh_caesareum_draw_work_spots(
