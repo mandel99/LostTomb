@@ -21535,3 +21535,12 @@ void pharaoh_monument_scene_data_initialize(PharaohMonumentSceneData *data,
             i == 4 ? &data->royal_tomb[6] : NULL;
     }
 }
+
+int32_t pharaoh_royal_tomb_spot_table(int32_t chamber_kind)
+{
+    static const int8_t tables[30] = {
+        5,0,1,2,12,13,6,14,15,7,8,19,16,20,21,3,4,-1,-1,9,
+        10,11,17,18,22,23,24,-1,-1,0
+    };
+    return (uint32_t)chamber_kind<30u?tables[chamber_kind]:-1;
+}

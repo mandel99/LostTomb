@@ -23,5 +23,6 @@ void pharaoh_monument_scene_data_initialize(PharaohMonumentSceneData *data,
     PharaohMonumentSpotAnimation *const spots[9]);
 void pharaoh_monument_scene_library_positions_set_variant(
     int32_t variant, int32_t *active_variant);
+int32_t pharaoh_royal_tomb_spot_table(int32_t chamber_kind);
 
 #endif
