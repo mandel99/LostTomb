@@ -140,3 +140,51 @@ void pharaoh_map_farm_tiles_floodplain(const PharaohFarmTileDrawContext *c,
         }
     }
 }
+
+static int32_t farm_crop_index(int32_t type)
+{
+    switch (type) {
+    case 100: return 0;
+    case 101: return 1;
+    case 102: return 2;
+    case 103: return 3;
+    case 104: return 4;
+    case 105: return 5;
+    case 195: return 8;
+    case 196: return 7;
+    case 224: return 9;
+    default: return -1;
+    }
+}
+
+/* Complete typed C translation of Pharaoh.exe 0x00488C20. */
+void pharaoh_map_draw_farm(const PharaohFarmTileDrawContext *c,
+    int32_t building_id, int32_t x, int32_t y, uint8_t extra)
+{
+    const PharaohBuildingTypeRecord *building =
+        &c->surface->buildings[building_id];
+    const int32_t type = building->building_type;
+    int32_t crop;
+
+    if (type == 195) {
+        pharaoh_map_place_surface_square(c->surface, (uint16_t)building_id,
+            x, y, 2, 2, (uint32_t)c->cattle_ranch_image_first, 8);
+        return;
+    }
+    if (type == 194) {
+        pharaoh_map_place_surface_square(c->surface, (uint16_t)building_id,
+            x, y, 3, 3, (uint32_t)c->reed_gatherer_image_first, 8);
+        return;
+    }
+    crop = farm_crop_index(type);
+    if (crop < 0) return;
+    const int32_t image = c->crop_image_first[crop];
+    const int32_t parts = building->farm_progress / 10;
+    if (c->is_on_floodplain(c->user_data, building_id) == 0) {
+        pharaoh_map_farm_tiles_meadow(c, building_id, x, y,
+            image, parts, extra);
+    } else if (c->is_near_water(c->user_data, building_id) == 0) {
+        pharaoh_map_farm_tiles_floodplain(c, building_id, x, y,
+            image, parts, extra);
+    }
+}

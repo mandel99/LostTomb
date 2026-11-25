@@ -18,6 +18,10 @@ typedef struct PharaohFarmTileDrawContext {
     int32_t laborer_harvest_image_first;
     int32_t farm_max_progress;
     int32_t flood_state, game_day, game_tick, locusts_countdown;
+    int32_t reed_gatherer_image_first, cattle_ranch_image_first;
+    int32_t crop_image_first[10];
+    int32_t (*is_on_floodplain)(void *user_data, int32_t building_id);
+    int32_t (*is_near_water)(void *user_data, int32_t building_id);
 } PharaohFarmTileDrawContext;
 
 void pharaoh_map_farm_tiles_meadow(const PharaohFarmTileDrawContext *context,
@@ -27,5 +31,8 @@ void pharaoh_map_farm_tiles_floodplain(
     const PharaohFarmTileDrawContext *context, int32_t building_id,
     int32_t x, int32_t y, int32_t image, int32_t parts,
     uint8_t extra); /* 0x00488840 */
+void pharaoh_map_draw_farm(const PharaohFarmTileDrawContext *context,
+    int32_t building_id, int32_t x, int32_t y,
+    uint8_t extra); /* 0x00488C20 */
 
 #endif

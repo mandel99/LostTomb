@@ -1,0 +1,16 @@
+{
+  "binary": "Pharaoh.exe",
+  "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "address": "0x00488C20",
+  "name": "pharaoh_map_draw_farm",
+  "source": "game/map/farm_tiles.c",
+  "reuse": "restore/build/reference/OriginalSource/src/game/map/farm.c",
+  "qualification": [
+    "cached Ghidra body verifies special types 0xC2 and 0xC3, crop-type image table selection and farm-progress division by ten",
+    "native 0x004894A0/0x004894D0 branches correspond to floodplain occupancy and near-water suppression",
+    "meadow child 0x00488690 and floodplain child 0x00488840 are complete typed owners"
+  ],
+  "children": ["0x0047BF50", "0x00488030", "0x00488690", "0x00488840", "0x004894A0", "0x004894D0"],
+  "parent": "0x00436B60 city-top",
+  "remaining": "Runtime city-top context binding remains open."
+}
