@@ -1,0 +1,64 @@
+{
+  "evidence_id": "crt-new-handler-dispatch-20261126",
+  "authority": {
+    "binary": "C:/Program Files (x86)/GOG.com/Pharaoh/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "provider": "live Ghidra headless project PharaohRewrite",
+  "native_function": {
+    "address": "0x005653D0",
+    "name": "FUN_005653d0",
+    "decompiler_prototype": "undefined4 FUN_005653d0(undefined4 param_1)",
+    "direct_callers": [
+      {
+        "address": "0x00561B7A",
+        "call_site": "0x00561B99"
+      },
+      {
+        "address": "0x005645A0",
+        "call_site": "0x005646A6"
+      },
+      {
+        "address": "0x00563129",
+        "call_site": "0x00563184"
+      }
+    ],
+    "direct_callees": [],
+    "computed_call": {
+      "call_site": "0x005653DD",
+      "target_global": "0x01266480",
+      "result_use": "caller tests nonzero and retries allocation"
+    }
+  },
+  "native_behavior": [
+    "If the registered pointer is null, return 0.",
+    "Otherwise call it with the live 32-bit allocation size; return 1 for any nonzero callback result, else 0."
+  ],
+  "reuse_search": {
+    "old_project": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore",
+    "matches": [
+      "generated/decompiled/src/Unit02901.c contains raw pseudocode with Undefined4 and Code types.",
+      "No separate complete typed C owner for 0x005653D0 was found; mixed/numeric matches are compatibility wrappers."
+    ]
+  },
+  "clean_owner": {
+    "function": "pharaoh_crt_invoke_new_handler",
+    "source": "game/runtime/crt_new_handler_dispatch.c",
+    "source_sha256": "f63ea0fabf7bbef3b904ab3a415261a705ab550275c6f83516366230b68ac0df",
+    "header": "game/include/pharaoh/runtime/crt_new_handler_dispatch.h",
+    "header_sha256": "910912675ad741a50ffc5ebbecaa0fbf9d5be1923c8bc3e83dc3c344773069ca",
+    "cmake_sha256_after_registration": "d26b8e1cebb8b7767e77c0cafdd8d0b5cc053a8e3e202fbb94ec6b6aa8466381",
+    "callback_type": "int32_t(uint32_t requested_bytes)"
+  },
+  "verification": {
+    "ghidra_binary_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "release_build": "passed; Release pharaoh_game.lib and LostTomb.exe linked",
+    "tests": "not run",
+    "native_c_replay": "not performed",
+    "library_sha256": "a51bc992e56cba67b392a07d25c71305ba646a85c5fa9d59da43fb2e2b130b37"
+  },
+  "remaining_gaps": [
+    "The handler itself is an unresolved indirect target at 0x01266480.",
+    "The allocation parent 0x00561B7A and CRT open parent 0x00568EC2 remain untranslated."
+  ]
+}
