@@ -1,0 +1,154 @@
+{
+  "evidence_id": "player-selection-open-20261126",
+  "authority": "pinned Pharaoh.exe observed in live Ghidra",
+  "executable_sha256": "FDE7CD6542AB00E3952D0366C0C5C52DDE59A70160280F172E24D41406D33C8D",
+  "function": {
+    "name": "PlayerSelectionOpen",
+    "address": "00516bb0",
+    "signature": "void PlayerSelectionOpen(void)",
+    "namespace": "Global",
+    "body_start": "00516bb0",
+    "body_end": "00516c51",
+    "body_size": 156,
+    "calling_convention": "unknown",
+    "is_thunk": false,
+    "is_external": false
+  },
+  "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nvoid PlayerSelectionOpen(void)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 *puVar2;\r\n  \r\n  puVar2 = (undefined4 *)&playerNameBuffer;\r\n  for (iVar1 = 8; iVar1 != 0; iVar1 = iVar1 + -1) {\r\n    *puVar2 = 0;\r\n    puVar2 = puVar2 + 1;\r\n  }\r\n  PlayerProfileListLoad(s_Save___dat_005f80f0);\r\n  currentWindowId = 0x2f;\r\n  DAT_00d3b1b3 = 0;\r\n  playerSelectionFirstVisible = 0;\r\n  buttonParameter = playerSelectionSelectedProfile;\r\n  PlayerProfileSelectLoad();\r\n  windowRedrawRequest = 1;\r\n  if (playerSelectionFileCount == 0) {\r\n    puVar2 = (undefined4 *)&playerNameBuffer;\r\n    for (iVar1 = 8; iVar1 != 0; iVar1 = iVar1 + -1) {\r\n      *puVar2 = 0;\r\n      puVar2 = puVar2 + 1;\r\n    }\r\n    currentWindowId = 0x36;\r\n    textInputReturnPressed = 0;\r\n    TextInputActivate(1);\r\n    KeyboardHome();\r\n    KeyboardEnd();\r\n    _DAT_00e94dc0 = 0x2f;\r\n    windowRedrawRequest = 1;\r\n    return;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+  "call_graph": {
+    "function": {
+      "name": "PlayerSelectionOpen",
+      "address": "00516bb0"
+    },
+    "callers": {
+      "items": [
+        {
+          "call_site": "004d8192",
+          "caller": {
+            "name": "FUN_004d75d0",
+            "address": "004d75d0"
+          },
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        },
+        {
+          "call_site": "00516c99",
+          "caller": {
+            "name": "PlayerProfileAcceptNewFamily",
+            "address": "00516c80"
+          },
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        },
+        {
+          "call_site": "00516d2a",
+          "caller": {
+            "name": "PlayerProfileAcceptNewFamily",
+            "address": "00516c80"
+          },
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        },
+        {
+          "call_site": "00516dbc",
+          "caller": {
+            "name": "PlayerProfileAcceptNewFamily",
+            "address": "00516c80"
+          },
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        },
+        {
+          "call_site": "00418019",
+          "caller": null,
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        },
+        {
+          "call_site": "00402407",
+          "caller": null,
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true
+        }
+      ],
+      "offset": 0,
+      "limit": 60,
+      "total": 6,
+      "has_more": false
+    },
+    "callees": {
+      "items": [
+        {
+          "call_site": "00516bc4",
+          "target": "00516b50",
+          "name": "PlayerProfileListLoad",
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true,
+          "external": false
+        },
+        {
+          "call_site": "00516bee",
+          "target": "00516ab0",
+          "name": "PlayerProfileSelectLoad",
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true,
+          "external": false
+        },
+        {
+          "call_site": "00516c2d",
+          "target": "004cc500",
+          "name": "TextInputActivate",
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true,
+          "external": false
+        },
+        {
+          "call_site": "00516c35",
+          "target": "004cc3c0",
+          "name": "KeyboardHome",
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true,
+          "external": false
+        },
+        {
+          "call_site": "00516c3a",
+          "target": "004cc3e0",
+          "name": "KeyboardEnd",
+          "ref_type": "UNCONDITIONAL_CALL",
+          "direct": true,
+          "external": false
+        }
+      ],
+      "offset": 0,
+      "limit": 60,
+      "total": 5,
+      "has_more": false
+    }
+  },
+  "clean_candidates": [
+    {
+      "source": "game/platform/windows_startup_dispatch.c",
+      "sha256": "8c5d8f541e2071b2f5db29683302f5ab1e21129353aded9a08643cbf6f1fc8cc",
+      "owners": [
+        "front_menu_open_player_selection",
+        "load_clicked_player_profile",
+        "pharaoh_windows_startup_dispatch_character"
+      ]
+    },
+    {
+      "source": "game/ui/player_selection.c",
+      "sha256": "5268f65423885281455030dd4d2c34a9b74bedb5a537c5dcd7e3bd674a6505be",
+      "owners": [
+        "pharaoh_player_selection_load_profiles",
+        "pharaoh_player_selection_load_profile_list"
+      ]
+    }
+  ],
+  "old_mixed_candidate": {
+    "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\src\\Unit02287.c",
+    "sha256": "526d4db7c0a9181f513401691aabfdabe9d3e1a5d8a6d817da8797d89ac64e5b",
+    "finding": "Original00516C80 calls Original00516BB0; this is not a typed implementation."
+  },
+  "result": "not mapped as complete C",
+  "gap": "Native empty-profile path activates text field 1 and calls KeyboardHome/KeyboardEnd. Clean dispatcher edits player_name directly and has no PharaohTextInputState binding in the startup dispatch path; retain unresolved until that state and exact host initialization are connected."
+}
