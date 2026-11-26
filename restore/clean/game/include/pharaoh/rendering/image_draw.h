@@ -39,6 +39,9 @@ typedef struct PharaohImageDrawContext {
  * Metadata links, image buffers and bitmap indices must be valid native data. */
 int32_t pharaoh_image_draw(PharaohImageDrawContext *context,
     int32_t image,int32_t x,int32_t y);
+/* Native0053F4F0; image_pixels must contain the actual resident pointers. */
+int32_t pharaoh_image_draw_masked(PharaohImageDrawContext *context,
+    int32_t image, int32_t x, int32_t y, uint32_t mask);
 struct PharaohCityGroundOperations;
 void pharaoh_city_ground_bind_image_draw(struct PharaohCityGroundOperations *operations,
     PharaohImageDrawContext *context);

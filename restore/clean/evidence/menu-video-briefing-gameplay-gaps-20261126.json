@@ -28,13 +28,11 @@
     }
   ],
   "native_UI_entries_still_unmapped": [
-    "0x0043E1A0",
     "0x00534610",
     "0x00534DF0",
     "0x00535080",
     "0x00536120",
-    "0x004E1320",
-    "0x004E61F0"
+    "0x004E1320"
   ],
   "text_adapter_dependencies": {
     "adapters": [
@@ -93,5 +91,16 @@
     "change": "Full private black-frame composition and one complete client blit, followed by actual private-surface release.",
     "visual_confirmation": "pending",
     "evidence": "evidence/shared-text-input-native-20261126.json"
+  },
+  "complete_C_pending_host_binding_20261126": {
+    "entries": [
+      "0x0043E1A0",
+      "0x004E61F0",
+      "0x00536DC0",
+      "0x0053F4F0"
+    ],
+    "sprite_controllers": 10,
+    "evidence": "evidence/city-ui-controller-native-20261126.json",
+    "reason": "Actual state and C virtual draw/orientation providers must be bound before complete native window-one dispatch; no no-op providers."
   }
 }

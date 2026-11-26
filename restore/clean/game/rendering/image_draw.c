@@ -237,3 +237,41 @@ int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image_id,int32_t x
     } else raw(c,d->source.pixels,1);
     return s->visible_width;
 }
+
+/* Complete native0053F4F0 over resident image pointers and existing mask kernels.
+   The raw source remains unadjusted after clipping, exactly as native. */
+int32_t pharaoh_image_draw_masked(PharaohImageDrawContext *c,
+    int32_t image_id, int32_t x, int32_t y, uint32_t mask_value)
+{
+    if (image_id < 1 || image_id > 0x639b) return 0;
+    const int32_t index = lookup(c, image_id);
+    const PharaohSpriteImageRecord *const image = &c->images[index];
+    PharaohSpriteClipState *const clip = c->clip;
+    c->state->source.pixels = c->image_pixels[index];
+    if ((int32_t)(uint32_t)(uintptr_t)c->state->source.pixels < 1) return 0;
+    clip->image_width = image->width;
+    clip->image_height = image->height;
+    c->state->draw_type = image->draw_type;
+    clip->draw_x = x;
+    clip->visible_width = clip->image_width;
+    clip->draw_y = y;
+    pharaoh_graphics_clip_sprite_horizontal(clip);
+    pharaoh_graphics_clip_sprite_vertical(clip);
+    if (clip->vertical_clip == 5) return 0;
+    const uint16_t value = (uint16_t)mask_value;
+    const uint8_t *const pixels = c->state->source.pixels;
+    if (image->is_compressed == 0) {
+        const int clipped = clip->horizontal_clip == 1 || clip->horizontal_clip == 2;
+        const PharaohSpriteRawBlitTarget target = raw_target(c, clipped);
+        if (clipped) pharaoh_sprite_raw_mask_clipped(&target, pixels, value);
+        else pharaoh_sprite_raw_mask(&target, pixels, value);
+    } else {
+        const PharaohSpriteRleBlitTarget target = rle_target(c);
+        if (clip->horizontal_clip == 1)
+            pharaoh_image_blit_compressed_mask_left(&target, pixels, value);
+        else if (clip->horizontal_clip == 2)
+            pharaoh_image_blit_compressed_mask_right(&target, pixels, value);
+        else pharaoh_image_blit_compressed_mask(&target, pixels, value);
+    }
+    return clip->visible_width;
+}

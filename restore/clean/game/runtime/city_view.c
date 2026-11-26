@@ -206,7 +206,7 @@ void pharaoh_city_view_tile_to_pixel(const PharaohCityViewState *s,
 {
     int32_t value=p->cells[(size_t)s->camera_y*PHARAOH_CITY_PROJECTION_HEIGHT+
         (size_t)s->camera_x],row,column;
-    if((uint32_t)value<UINT32_C(0x0fff0000)){column=value%PHARAOH_CITY_MAP_WIDTH;row=value/PHARAOH_CITY_MAP_WIDTH;}
+    if(value<INT32_C(0x0fff0000)){column=value%PHARAOH_CITY_MAP_WIDTH;row=value/PHARAOH_CITY_MAP_WIDTH;}
     else pharaoh_city_view_tile_from_screen(p,s->camera_y,s->camera_x*2+1,&row,&column);
     y=bounds->minimum_y-row+y;x=bounds->minimum_x-column+x;
     const int32_t half_width=s->viewport.tile_half_width+1;

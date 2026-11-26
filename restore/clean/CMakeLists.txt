@@ -130,6 +130,10 @@ add_library(pharaoh_game STATIC
     game/rendering/minimap_metric_bindings.c
     game/rendering/primitives.c
     game/rendering/building_animations.c
+    game/ui/placement_cost.c
+    game/ui/panel_blocks.c
+    game/rendering/sprite_cycle.c
+    game/rendering/debug_sprite.c
     game/rendering/image_draw.c
     game/rendering/terrain_diamond.c
     game/rendering/city_object_layers.c
@@ -425,6 +429,7 @@ if(WIN32)
         game/platform/windows_startup_dispatch.c
         game/platform/windows_sound.c
         game/platform/windows_bink.c
+        game/platform/windows_debug_frame.c
         game/platform/windows_smacker.c
         game/platform/windows_video_io.c
         game/platform/windows_frame_gate.c
