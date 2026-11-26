@@ -1,5 +1,7 @@
 #include "pharaoh/rendering/overlay_metrics.h"
 
+#include "pharaoh/core/percentage_scale.h"
+
 int32_t pharaoh_overlay_fertility_height(
     const PharaohOverlayMetricContext *c, int32_t offset)
 {
@@ -48,7 +50,10 @@ int32_t pharaoh_overlay_crime_height(const PharaohOverlayMetricContext *c,
 
 int32_t pharaoh_overlay_labor_height(const PharaohOverlayBuilding *b)
 {
-    return b->house_size != 0u ? 0 : ((b->houses_covered * 100) / 300) / 10;
+    if (b->house_size != 0u) return 0;
+    /* Native 0x00434A2B sign-extends the 16-bit building field at +0x18. */
+    return pharaoh_scale_value_to_percent((int16_t)b->houses_covered,
+        300).value / 10;
 }
 
 int32_t pharaoh_overlay_religion_height(const PharaohOverlayMetricContext *c,

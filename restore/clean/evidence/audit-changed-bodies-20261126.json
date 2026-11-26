@@ -1,0 +1,630 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "provider": "Live Ghidra",
+  "review": "14 changed bodies from the 48-hour audit; no tests/replay run.",
+  "functions": [
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_004cc560(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,\r\n                 undefined1 param_5,undefined4 param_6)\r\n\r\n{\r\n  *(undefined4 *)(&DAT_00e208f0 + param_1 * 4) = param_3;\r\n  *(undefined4 *)(&DAT_00e20850 + param_1 * 4) = param_4;\r\n  *(undefined4 *)(&DAT_00e20940 + param_1 * 4) = param_6;\r\n  (&DAT_00e2083c)[param_1] = param_5;\r\n  *(undefined4 *)(&DAT_00e208a0 + param_1 * 4) = 0;\r\n  *(undefined4 *)(&DAT_00e207ec + param_1 * 4) = 0;\r\n  *(undefined4 *)(&DAT_00e2079c + param_1 * 4) = param_2;\r\n  DAT_00e20994 = 0;\r\n  DAT_00e20794 = 0;\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_text_input_field_initialize",
+      "source": "game/runtime/text_input_state.c",
+      "address": "0x004CC560",
+      "current_source_sha256": "0d4d4b2bbd53e541c57b28973e18f18db597b614b4d54a5d7795e1a6f196fac1",
+      "current_body_sha256": "6589b51326c92c8d4aa986a43470b9f2ee4f35d73ea1e9d4bb6863ae2e4806ba",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "void pharaoh_text_input_field_initialize(PharaohTextInputState *state,\n    int32_t field_id, char *text_buffer, int32_t max_length, int32_t width,\n    uint8_t restrict_punctuation, uint32_t font_id)\n{\n    PharaohTextInputField *const field = &state->fields[field_id];\n    field->text_buffer = text_buffer;\n    field->max_length = max_length;\n    field->width = width;\n    field->restrict_punctuation = restrict_punctuation;\n    field->font_id = font_id;\n    field->state_a = 0;\n    field->state_b = 0;\n    state->shared_state_a = 0;\n    state->shared_state_b = 0;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_004cd510(int param_1,int param_2,int param_3,int param_4,undefined4 param_5)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  \r\n  FUN_004cd3e0(param_1,param_2,param_3,param_4);\r\n  if (param_1 == param_3) {\r\n    iVar1 = DAT_00d3b4cc;\r\n    if (DAT_00d3b4cc <= DAT_00d3b4c4) {\r\n      do {\r\n        FUN_004cd4e0(param_1,iVar1,param_5);\r\n        iVar1 = iVar1 + 1;\r\n      } while (iVar1 <= DAT_00d3b4c4);\r\n      return;\r\n    }\r\n  }\r\n  else if (param_2 == param_4) {\r\n    iVar1 = DAT_00d3b4c8;\r\n    if (DAT_00d3b4c8 <= DAT_00d3b4c0) {\r\n      do {\r\n        FUN_004cd4e0(iVar1,param_2,param_5);\r\n        iVar1 = iVar1 + 1;\r\n      } while (iVar1 <= DAT_00d3b4c0);\r\n      return;\r\n    }\r\n  }\r\n  else if (DAT_00d3b4d0 < DAT_00d3b4d4) {\r\n    DAT_00d3b4bc = DAT_00d3b4d0 * 2 - DAT_00d3b4d4;\r\n    iVar1 = DAT_00d3b4cc;\r\n    iVar2 = DAT_00d3b4c8;\r\n    if (DAT_00d3b4cc <= DAT_00d3b4c4) {\r\n      do {\r\n        FUN_004cd4e0(iVar2,iVar1,param_5);\r\n        FUN_004cd490(1);\r\n        DAT_00d3b4d4 = DAT_00d3b4d4 + -1;\r\n        if (0 < DAT_00d3b4bc) {\r\n          DAT_00d3b4d0 = DAT_00d3b4d0 + -1;\r\n          iVar2 = iVar2 + DAT_00d3b4d8;\r\n        }\r\n        iVar1 = iVar1 + 1;\r\n      } while (iVar1 <= DAT_00d3b4c4);\r\n      return;\r\n    }\r\n  }\r\n  else {\r\n    DAT_00d3b4bc = DAT_00d3b4d4 * 2 - DAT_00d3b4d0;\r\n    iVar1 = DAT_00d3b4cc;\r\n    iVar2 = DAT_00d3b4c8;\r\n    if (DAT_00d3b4c8 <= DAT_00d3b4c0) {\r\n      do {\r\n        FUN_004cd4e0(iVar2,iVar1,param_5);\r\n        FUN_004cd490(0);\r\n        DAT_00d3b4d0 = DAT_00d3b4d0 + -1;\r\n        if (0 < DAT_00d3b4bc) {\r\n          DAT_00d3b4d4 = DAT_00d3b4d4 + -1;\r\n          iVar1 = iVar1 + DAT_00d3b4dc;\r\n        }\r\n        iVar2 = iVar2 + 1;\r\n      } while (iVar2 <= DAT_00d3b4c0);\r\n    }\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_graphics_draw_line",
+      "source": "game/rendering/primitives.c",
+      "address": "0x004CD510",
+      "current_source_sha256": "0145decacf3723893fe3fab226fd1cf38856ae8368b538cf64520d5c43159240",
+      "current_body_sha256": "a8a343ae7b755fecb0b68bc106a1b15e318a3e81ff28a222bdedc409deeb3db8",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "void pharaoh_graphics_draw_line(PharaohGraphicsPrimitives *c,\n    int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t color)\n{\n    int32_t x, y;\n    pharaoh_graphics_draw_line_setup(c, x1, y1, x2, y2);\n    if (x1 == x2) {\n        for (y = c->line_start_y; y <= c->line_end_y; y = add_coordinate(y, 1))\n            pharaoh_graphics_draw_pixel_clipped(c, x1, y, color);\n        return;\n    }\n    if (y1 == y2) {\n        for (x = c->line_start_x; x <= c->line_end_x; x = add_coordinate(x, 1))\n            pharaoh_graphics_draw_pixel_clipped(c, x, y1, color);\n        return;\n    }\n    if (c->line_dx < c->line_dy) {\n        c->line_error = subtract_coordinate(add_coordinate(c->line_dx, c->line_dx), c->line_dy);\n        x = c->line_start_x;\n        for (y = c->line_start_y; y <= c->line_end_y; y = add_coordinate(y, 1)) {\n            pharaoh_graphics_draw_pixel_clipped(c, x, y, color);\n            pharaoh_graphics_draw_line_step(c, 1);\n            c->line_dy = add_coordinate(c->line_dy, -1);\n            if (c->line_error >= 1) {\n                c->line_dx = add_coordinate(c->line_dx, -1);\n                x = add_coordinate(x, c->line_x_direction);\n            }\n        }\n        return;\n    }\n    c->line_error = subtract_coordinate(add_coordinate(c->line_dy, c->line_dy), c->line_dx);\n    y = c->line_start_y;\n    for (x = c->line_start_x; x <= c->line_end_x; x = add_coordinate(x, 1)) {\n        pharaoh_graphics_draw_pixel_clipped(c, x, y, color);\n        pharaoh_graphics_draw_line_step(c, 0);\n        c->line_dx = add_coordinate(c->line_dx, -1);\n        if (c->line_error >= 1) {\n            c->line_dy = add_coordinate(c->line_dy, -1);\n            y = add_coordinate(y, c->line_y_direction);\n        }\n    }\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nbool __fastcall FUN_004f6650(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  \r\n  iVar1 = FUN_004f6630();\r\n  return iVar1 == *(int *)(param_1 + 0xc) + -1;\r\n}\r\n\r\n",
+      "name": "pharaoh_ring_queue_is_full",
+      "source": "game/core/ring_queue.c",
+      "address": "0x004F6650",
+      "current_source_sha256": "7f9ba4334a7ed898d5fd5cc7febed99b3f47035de8fd865b5aebd1e833e8ee20",
+      "current_body_sha256": "2c33f3e97102f1267d0d3bf52272b653ad07836dd0e5a983d8bc7a9473280d4a",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "bool pharaoh_ring_queue_is_full(const PharaohRingQueue *queue)\n{\n    return pharaoh_ring_queue_size(queue) == queue->capacity - 1;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_00547e20(int param_1,int param_2,uchar param_3)\r\n\r\n{\r\n  switch(*(undefined4 *)&cityBuildings[param_1].field_0x68) {\r\n  case 0:\r\n    RoyalTombWorkTable05Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 1:\r\n  case 0x1d:\r\n    RoyalTombWorkTable00Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 2:\r\n    RoyalTombWorkTable01Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 3:\r\n    RoyalTombWorkTable02Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 4:\r\n    RoyalTombWorkTable12Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 5:\r\n    RoyalTombWorkTable13Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 6:\r\n    RoyalTombWorkTable06Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 7:\r\n    RoyalTombWorkTable14Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 8:\r\n    RoyalTombWorkTable15Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 9:\r\n    RoyalTombWorkTable07Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 10:\r\n    RoyalTombWorkTable08Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0xb:\r\n    RoyalTombWorkTable19Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0xc:\r\n    RoyalTombWorkTable16Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0xd:\r\n    RoyalTombWorkTable20Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0xe:\r\n    RoyalTombWorkTable21Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0xf:\r\n    RoyalTombWorkTable03Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x10:\r\n    RoyalTombWorkTable04Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x13:\r\n    RoyalTombWorkTable09Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x14:\r\n    RoyalTombWorkTable10Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x15:\r\n    RoyalTombWorkTable11Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x16:\r\n    RoyalTombWorkTable17Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x17:\r\n    RoyalTombWorkTable18Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x18:\r\n    RoyalTombWorkTable22Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x19:\r\n    RoyalTombWorkTable23Tick(param_1,param_2,param_3);\r\n    return;\r\n  case 0x1a:\r\n    RoyalTombWorkTable24Tick(param_1,param_2,param_3);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_royal_tomb_walker_work_tick",
+      "source": "game/monuments/stages.c",
+      "address": "0x00547E20",
+      "current_source_sha256": "4e809721962e4d4d69f673ae0934eefb31bc0d8d6d2b86c88c7beb91c8cf78c0",
+      "current_body_sha256": "f96bf9df432c543df28f42c7a298c59d44ad71633fd02b6321600e902f6c85ca",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "delegation_contract": "Compared all native cases to monument_scene_data.c 30-entry chamber table: 0..16,19..26,29 match the 25 real table owners; 17,18,27,28 and out-of-range values dispatch none.",
+      "c_body": "void pharaoh_royal_tomb_walker_work_tick(PharaohMonumentStageContext *c,\n    void *object, int32_t building, int32_t walker, uint8_t next)\n{\n    int32_t table;\n    (void)object;\n    table = c->tomb_spot_table(c->user_data, c->buildings[building].tomb_chamber_kind);\n    if (table >= 0)\n        pharaoh_royal_tomb_work_table_tick(c, table, building, walker, next);\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\n/* Verified readable-C logistics boundary. Parameter ID was not run. */\r\n\r\nint __cdecl StoragePileFrameNative(int amount)\r\n\r\n{\r\n  if (amount == 400) {\r\n    return 3;\r\n  }\r\n  if (amount < 400) {\r\n    if (299 < amount) {\r\n      return 2;\r\n    }\r\n  }\r\n  else if (299 < amount) {\r\n    return 0;\r\n  }\r\n  if (amount < 200) {\r\n    return 0;\r\n  }\r\n  return 1;\r\n}\r\n\r\n",
+      "name": "pharaoh_storage_image_level",
+      "source": "game/commerce/storage_queries.c",
+      "address": "0x0045B490",
+      "current_source_sha256": "1b4b0f1bb07ae6a0b208c6be066a464e61de626acdf99c92365659c548b256ae",
+      "current_body_sha256": "cf88099525fb3a6539b447c86b78661dd2ceca4282cebe92e8537c434dc0d17e",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "int32_t pharaoh_storage_image_level(int32_t amount)\n{\n    if (amount == 400) return 3;\n    if (amount >= 300 && amount < 400) return 2;\n    if (amount >= 200 && amount < 300) return 1;\n    return 0;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nundefined4 FUN_00451bc0(int param_1)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  \r\n  uVar1 = 0x1b7;\r\n  if (param_1 != 0x19) {\r\n    uVar1 = 0x133;\r\n  }\r\n  return uVar1;\r\n}\r\n\r\n",
+      "name": "pharaoh_quarry_image_group",
+      "source": "game/building/type_queries.c",
+      "address": "0x00451BC0",
+      "current_source_sha256": "3cdf90ae3309d06d5597078deaf7e61107dd333c93b45e47f374c49247df84d7",
+      "current_body_sha256": "116388ef7061a2740599519d35f83eb7cca5a5b75649e71316922954e98838b9",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "int32_t pharaoh_quarry_image_group(int32_t resource)\n{\n    return resource == 25 ? 0x1b7 : 0x133;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_004f4a60(undefined4 param_1,int param_2)\r\n\r\n{\r\n  *(undefined4 *)(&cityPlayers[cityCurrentPlayer].field_0x473c + param_2 * 4) = param_1;\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_city_set_monument_building_id",
+      "source": "game/monuments/stages.c",
+      "address": "0x004F4A60",
+      "current_source_sha256": "4e809721962e4d4d69f673ae0934eefb31bc0d8d6d2b86c88c7beb91c8cf78c0",
+      "current_body_sha256": "4c53e8c772c4a67a2d1481747e92ca054c3078a859a5036b673d5683b7cfe65b",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "void pharaoh_city_set_monument_building_id(\n    int32_t *monument_building_ids, int32_t building_id, int32_t slot)\n{\n    monument_building_ids[slot] = building_id;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_00486060(int param_1)\r\n\r\n{\r\n  DAT_00bca310 = 0;\r\n  cityBuildings[param_1].state = '\\x06';\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_construction_ferry_cancel",
+      "source": "game/building/type_queries.c",
+      "address": "0x00486060",
+      "current_source_sha256": "3cdf90ae3309d06d5597078deaf7e61107dd333c93b45e47f374c49247df84d7",
+      "current_body_sha256": "12af2898e100ac23afd7e928173d2ad8efc489554cc25156bad4e055c5b766f6",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "void pharaoh_construction_ferry_cancel(int32_t *construction_state,\n    PharaohBuildingTypeRecord *buildings, int32_t building_id)\n{\n    *construction_state = 0;\n    buildings[building_id].state = 6;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nbool FUN_00405ba0(void)\r\n\r\n{\r\n  bool bVar1;\r\n  bool bVar2;\r\n  \r\n  bVar1 = DAT_00e38dda != '\\x01';\r\n  bVar2 = editorConstructionTool != 0;\r\n  DAT_00e38dda = 1;\r\n  editorConstructionTool = 0;\r\n  DAT_006059e4 = 0;\r\n  DAT_006059dc = 0;\r\n  DAT_006059e0 = 0;\r\n  DAT_006059d4 = 0;\r\n  DAT_006059d8 = 0;\r\n  if (DAT_00bca310 == 1) {\r\n    FUN_00486060(DAT_00bc9800);\r\n  }\r\n  if (DAT_00bca310 == 2) {\r\n    DAT_00bca310 = 0;\r\n  }\r\n  windowRedrawRequest = 1;\r\n  return bVar2 || bVar1;\r\n}\r\n\r\n",
+      "name": "pharaoh_construction_cancel",
+      "source": "game/building/type_queries.c",
+      "address": "0x00405BA0",
+      "current_source_sha256": "3cdf90ae3309d06d5597078deaf7e61107dd333c93b45e47f374c49247df84d7",
+      "current_body_sha256": "f277c7873d8019af4f60bf130a742e136dce66d09147cbd04f2b4f727dac78a4",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "bool pharaoh_construction_cancel(PharaohConstructionCancelState *state,\n    PharaohBuildingTypeRecord *buildings)\n{\n    const bool changed = state->current_window != 1u ||\n        state->editor_construction_tool != 0;\n\n    state->current_window = 1;\n    state->editor_construction_tool = 0;\n    state->canal_connector_drag_started = 0;\n    state->field_6059dc = 0;\n    state->field_6059e0 = 0;\n    state->monument_selections = 0;\n    state->field_6059d8 = 0;\n    if (state->ferry_state == 1) {\n        pharaoh_construction_ferry_cancel(&state->ferry_state, buildings,\n            state->ferry_first_building);\n    }\n    if (state->ferry_state == 2) {\n        state->ferry_state = 0;\n    }\n    state->redraw_requested = 1;\n    return changed;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nundefined4 FUN_0047d350(void)\r\n\r\n{\r\n  return 0;\r\n}\r\n\r\n",
+      "name": "pharaoh_native_return_zero_0047d350",
+      "source": "game/core/static_objects.c",
+      "address": "0x0047D350",
+      "current_source_sha256": "9cc7381d66ca40007e0b0e53694a4ae9605b09c2cfb4e8cb136b936a624e76a5",
+      "current_body_sha256": "51034fa869d31bed8b40fd2f5dbf5259a3bd4a46078b35b55f9fa62d8d8c84a0",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "uint32_t pharaoh_native_return_zero_0047d350(void)\n{\n    return 0;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nundefined4 FUN_005013a0(undefined4 param_1)\r\n\r\n{\r\n  switch(param_1) {\r\n  case 1:\r\n  case 2:\r\n  case 3:\r\n  case 4:\r\n  case 5:\r\n  case 6:\r\n  case 7:\r\n  case 8:\r\n  case 0xd:\r\n  case 0xf:\r\n  case 0x11:\r\n  case 0x13:\r\n    return 1;\r\n  default:\r\n    return 0;\r\n  }\r\n}\r\n\r\n",
+      "name": "pharaoh_native_type_is_supported_005013a0",
+      "source": "game/core/static_objects.c",
+      "address": "0x005013A0",
+      "current_source_sha256": "9cc7381d66ca40007e0b0e53694a4ae9605b09c2cfb4e8cb136b936a624e76a5",
+      "current_body_sha256": "7db986617b48c413ece55d267834fe7b75703ea18627b0dfd04f6a94a979beaa",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "c_body": "uint32_t pharaoh_native_type_is_supported_005013a0(uint32_t type)\n{\n    switch (type) {\n    case 1: case 2: case 3: case 4: case 5: case 6:\n    case 7: case 8: case 13: case 15: case 17: case 19:\n        return 1;\n    default:\n        return 0;\n    }\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_004f4aa0(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  \r\n  iVar1 = -1;\r\n  iVar3 = -1;\r\n  do {\r\n    iVar2 = iVar3 + 1;\r\n    if (2 < iVar2) {\r\n      return;\r\n    }\r\n    if (*(int *)(&cityPlayers[cityCurrentPlayer].field_0x4740 + iVar3 * 4) == param_1) {\r\n      iVar1 = iVar2;\r\n    }\r\n    iVar3 = iVar2;\r\n  } while (iVar1 < 0);\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_city_find_monument_slot",
+      "source": "game/monuments/stages.c",
+      "address": "0x004F4AA0",
+      "current_source_sha256": "4e809721962e4d4d69f673ae0934eefb31bc0d8d6d2b86c88c7beb91c8cf78c0",
+      "current_body_sha256": "27c97bd81aba44c15f82537c551cc55fcf65eb2a42d2b5a19cf0c34f4e62e0d8",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "return_contract": "EAX starts at -1, receives ECX on match and is returned at 0x004F4AD3. Corrected Ghidra void prototype to int.",
+      "c_body": "int32_t pharaoh_city_find_monument_slot(\n    const int32_t monument_building_ids[3], int32_t building_id)\n{\n    for (int32_t slot = 0; slot < 3; ++slot) {\n        if (monument_building_ids[slot] == building_id) return slot;\n    }\n    return -1;\n}"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nint FUN_00434a10(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  \r\n  if (cityBuildings[param_1].field_0x5 != '\\0') {\r\n    return 0;\r\n  }\r\n  iVar1 = CalculatePercentageNative((int)*(short *)&cityBuildings[param_1].field_0x18,300);\r\n  return iVar1 / 10;\r\n}\r\n\r\n",
+      "name": "pharaoh_overlay_labor_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "address": "0x00434A10",
+      "current_source_sha256": "4ee0b222f14096cffb7b19750a4031af16fa0f53ec6a28d61cc964b88d61fa1e",
+      "current_body_sha256": "7bdfec788a8cf187397c5087c39810e4ebe80dd656dbb9f8f0b6a3acc6f3621f",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "repair": "Project int32_t snapshot to native signed 16-bit field before percentage calculation; MOVSX at 0x00434A2B.",
+      "c_body": "int32_t pharaoh_overlay_labor_height(const PharaohOverlayBuilding *b)\n{\n    if (b->house_size != 0u) return 0;\n    /* Native 0x00434A2B sign-extends the 16-bit building field at +0x18. */\n    return pharaoh_scale_value_to_percent((int16_t)b->houses_covered,\n        300).value / 10;\n}",
+      "checkpoint_source_sha256": "51C133AE6A7A9FF5A1FC4070352614FC6D88041087877DDB4ACA6856AAA7F763"
+    },
+    {
+      "error": false,
+      "native_code": "\r\nvoid FUN_00489b40(void)\r\n\r\n{\r\n  BOOL BVar1;\r\n  int iVar2;\r\n  undefined4 *puVar3;\r\n  \r\n  BVar1 = QueryPerformanceFrequency((LARGE_INTEGER *)&DAT_00bca848);\r\n  DAT_00d05710 = BVar1 != 0;\r\n  puVar3 = &DAT_00bca850;\r\n  for (iVar2 = 0x370; iVar2 != 0; iVar2 = iVar2 + -1) {\r\n    *puVar3 = 0;\r\n    puVar3 = puVar3 + 1;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "name": "pharaoh_walker_action_profile_initialize",
+      "source": "game/runtime/walker_action_profile.c",
+      "address": "0x00489B40",
+      "current_source_sha256": "5400541c86189d46a9d0b89b71a6e2e52d0564262e9524baee7aeef99de0099b",
+      "current_body_sha256": "2e0b95344c9ff946ce16a4e9b45066c589b3a02879aaf7f32d79d3110a2fc1ff",
+      "conclusion": "Static native/C body comparison; native context bindings and recursive child equivalence are separate obligations.",
+      "frequency_contract": "Native QPF writes 8 bytes, availability is MOV AL, and 0x00489AF4 reads only the low frequency DWORD; no high-DWORD xrefs. Portable state preserves the consumed low DWORD, not an entire native-memory snapshot.",
+      "c_body": "void pharaoh_walker_action_profile_initialize(\n    PharaohWalkerActionProfileState *state,\n    PharaohProfileQueryCounter query_frequency)\n{\n    /* Native QPF writes persistent storage; a failing endpoint may leave\n       it untouched. Only the low DWORD is consumed by the timer code. */\n    int64_t frequency = state->high_resolution_frequency;\n    state->high_resolution_available =\n        query_frequency(state->clock_user_data, &frequency) != 0;\n    state->high_resolution_frequency = (uint32_t)frequency;\n    memset(state->entries, 0, PHARAOH_WALKER_ACTION_PROFILE_COUNT *\n        sizeof(*state->entries));\n}"
+    }
+  ],
+  "instruction_observations": [
+    {
+      "instructions": {
+        "items": [
+          {
+            "address": "004f4aa0",
+            "bytes": "8b542404",
+            "instruction": "MOV EDX,dword ptr [ESP + 0x4]",
+            "comment": null
+          },
+          {
+            "address": "004f4aa4",
+            "bytes": "56",
+            "instruction": "PUSH ESI",
+            "comment": null
+          },
+          {
+            "address": "004f4aa5",
+            "bytes": "8b3528acea00",
+            "instruction": "MOV ESI,dword ptr [0x00eaac28]",
+            "comment": null
+          },
+          {
+            "address": "004f4aab",
+            "bytes": "83c8ff",
+            "instruction": "OR EAX,0xffffffff",
+            "comment": null
+          },
+          {
+            "address": "004f4aae",
+            "bytes": "57",
+            "instruction": "PUSH EDI",
+            "comment": null
+          },
+          {
+            "address": "004f4aaf",
+            "bytes": "83c9ff",
+            "instruction": "OR ECX,0xffffffff",
+            "comment": null
+          },
+          {
+            "address": "004f4ab2",
+            "bytes": "41",
+            "instruction": "INC ECX",
+            "comment": null
+          },
+          {
+            "address": "004f4ab3",
+            "bytes": "83f903",
+            "instruction": "CMP ECX,0x3",
+            "comment": null
+          },
+          {
+            "address": "004f4ab6",
+            "bytes": "7d19",
+            "instruction": "JGE 0x004f4ad1",
+            "comment": null
+          },
+          {
+            "address": "004f4ab8",
+            "bytes": "8bfe",
+            "instruction": "MOV EDI,ESI",
+            "comment": null
+          },
+          {
+            "address": "004f4aba",
+            "bytes": "69ff76120000",
+            "instruction": "IMUL EDI,EDI,0x1276",
+            "comment": null
+          },
+          {
+            "address": "004f4ac0",
+            "bytes": "03f9",
+            "instruction": "ADD EDI,ECX",
+            "comment": null
+          },
+          {
+            "address": "004f4ac2",
+            "bytes": "3914bdac5fea00",
+            "instruction": "CMP dword ptr [EDI*0x4 + 0xea5fac],EDX",
+            "comment": null
+          },
+          {
+            "address": "004f4ac9",
+            "bytes": "7502",
+            "instruction": "JNZ 0x004f4acd",
+            "comment": null
+          },
+          {
+            "address": "004f4acb",
+            "bytes": "8bc1",
+            "instruction": "MOV EAX,ECX",
+            "comment": null
+          },
+          {
+            "address": "004f4acd",
+            "bytes": "85c0",
+            "instruction": "TEST EAX,EAX",
+            "comment": null
+          },
+          {
+            "address": "004f4acf",
+            "bytes": "7ce1",
+            "instruction": "JL 0x004f4ab2",
+            "comment": null
+          },
+          {
+            "address": "004f4ad1",
+            "bytes": "5f",
+            "instruction": "POP EDI",
+            "comment": null
+          },
+          {
+            "address": "004f4ad2",
+            "bytes": "5e",
+            "instruction": "POP ESI",
+            "comment": null
+          },
+          {
+            "address": "004f4ad3",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 45,
+        "total": 20,
+        "has_more": false
+      },
+      "address": "0x004F4AA0"
+    },
+    {
+      "instructions": {
+        "items": [
+          {
+            "address": "00434a10",
+            "bytes": "8b4c2404",
+            "instruction": "MOV ECX,dword ptr [ESP + 0x4]",
+            "comment": null
+          },
+          {
+            "address": "00434a14",
+            "bytes": "8bc1",
+            "instruction": "MOV EAX,ECX",
+            "comment": null
+          },
+          {
+            "address": "00434a16",
+            "bytes": "c1e005",
+            "instruction": "SHL EAX,0x5",
+            "comment": null
+          },
+          {
+            "address": "00434a19",
+            "bytes": "03c1",
+            "instruction": "ADD EAX,ECX",
+            "comment": null
+          },
+          {
+            "address": "00434a1b",
+            "bytes": "c1e003",
+            "instruction": "SHL EAX,0x3",
+            "comment": null
+          },
+          {
+            "address": "00434a1e",
+            "bytes": "8a88dd997900",
+            "instruction": "MOV CL,byte ptr [EAX + 0x7999dd]",
+            "comment": null
+          },
+          {
+            "address": "00434a24",
+            "bytes": "84c9",
+            "instruction": "TEST CL,CL",
+            "comment": null
+          },
+          {
+            "address": "00434a26",
+            "bytes": "7403",
+            "instruction": "JZ 0x00434a2b",
+            "comment": null
+          },
+          {
+            "address": "00434a28",
+            "bytes": "33c0",
+            "instruction": "XOR EAX,EAX",
+            "comment": null
+          },
+          {
+            "address": "00434a2a",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          },
+          {
+            "address": "00434a2b",
+            "bytes": "0fbf80f0997900",
+            "instruction": "MOVSX EAX,word ptr [EAX + 0x7999f0]",
+            "comment": null
+          },
+          {
+            "address": "00434a32",
+            "bytes": "682c010000",
+            "instruction": "PUSH 0x12c",
+            "comment": null
+          },
+          {
+            "address": "00434a37",
+            "bytes": "50",
+            "instruction": "PUSH EAX",
+            "comment": null
+          },
+          {
+            "address": "00434a38",
+            "bytes": "e823940900",
+            "instruction": "CALL 0x004cde60",
+            "comment": null
+          },
+          {
+            "address": "00434a3d",
+            "bytes": "8bc8",
+            "instruction": "MOV ECX,EAX",
+            "comment": null
+          },
+          {
+            "address": "00434a3f",
+            "bytes": "b867666666",
+            "instruction": "MOV EAX,0x66666667",
+            "comment": null
+          },
+          {
+            "address": "00434a44",
+            "bytes": "f7e9",
+            "instruction": "IMUL ECX",
+            "comment": null
+          },
+          {
+            "address": "00434a46",
+            "bytes": "8bc2",
+            "instruction": "MOV EAX,EDX",
+            "comment": null
+          },
+          {
+            "address": "00434a48",
+            "bytes": "83c408",
+            "instruction": "ADD ESP,0x8",
+            "comment": null
+          },
+          {
+            "address": "00434a4b",
+            "bytes": "c1f802",
+            "instruction": "SAR EAX,0x2",
+            "comment": null
+          },
+          {
+            "address": "00434a4e",
+            "bytes": "8bc8",
+            "instruction": "MOV ECX,EAX",
+            "comment": null
+          },
+          {
+            "address": "00434a50",
+            "bytes": "c1e91f",
+            "instruction": "SHR ECX,0x1f",
+            "comment": null
+          },
+          {
+            "address": "00434a53",
+            "bytes": "03c1",
+            "instruction": "ADD EAX,ECX",
+            "comment": null
+          },
+          {
+            "address": "00434a55",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 45,
+        "total": 24,
+        "has_more": false
+      },
+      "address": "0x00434A10"
+    },
+    {
+      "instructions": {
+        "items": [
+          {
+            "address": "00489b40",
+            "bytes": "57",
+            "instruction": "PUSH EDI",
+            "comment": null
+          },
+          {
+            "address": "00489b41",
+            "bytes": "6848a8bc00",
+            "instruction": "PUSH 0xbca848",
+            "comment": null
+          },
+          {
+            "address": "00489b46",
+            "bytes": "ff1528f05600",
+            "instruction": "CALL dword ptr [0x0056f028]",
+            "comment": null
+          },
+          {
+            "address": "00489b4c",
+            "bytes": "85c0",
+            "instruction": "TEST EAX,EAX",
+            "comment": null
+          },
+          {
+            "address": "00489b4e",
+            "bytes": "0f95c0",
+            "instruction": "SETNZ AL",
+            "comment": null
+          },
+          {
+            "address": "00489b51",
+            "bytes": "a21057d000",
+            "instruction": "MOV [0x00d05710],AL",
+            "comment": null
+          },
+          {
+            "address": "00489b56",
+            "bytes": "b970030000",
+            "instruction": "MOV ECX,0x370",
+            "comment": null
+          },
+          {
+            "address": "00489b5b",
+            "bytes": "33c0",
+            "instruction": "XOR EAX,EAX",
+            "comment": null
+          },
+          {
+            "address": "00489b5d",
+            "bytes": "bf50a8bc00",
+            "instruction": "MOV EDI,0xbca850",
+            "comment": null
+          },
+          {
+            "address": "00489b62",
+            "bytes": "f3ab",
+            "instruction": "STOSD.REP ES:EDI",
+            "comment": null
+          },
+          {
+            "address": "00489b64",
+            "bytes": "5f",
+            "instruction": "POP EDI",
+            "comment": null
+          },
+          {
+            "address": "00489b65",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 45,
+        "total": 12,
+        "has_more": false
+      },
+      "address": "0x00489B40"
+    },
+    {
+      "instructions": {
+        "items": [
+          {
+            "address": "00489af4",
+            "bytes": "8b1548a8bc00",
+            "instruction": "MOV EDX,dword ptr [0x00bca848]",
+            "comment": null
+          },
+          {
+            "address": "00489afa",
+            "bytes": "89442400",
+            "instruction": "MOV dword ptr [ESP],EAX",
+            "comment": null
+          },
+          {
+            "address": "00489afe",
+            "bytes": "c744240400000000",
+            "instruction": "MOV dword ptr [ESP + 0x4],0x0",
+            "comment": null
+          },
+          {
+            "address": "00489b06",
+            "bytes": "db442400",
+            "instruction": "FILD dword ptr [ESP]",
+            "comment": null
+          },
+          {
+            "address": "00489b0a",
+            "bytes": "89542400",
+            "instruction": "MOV dword ptr [ESP],EDX",
+            "comment": null
+          },
+          {
+            "address": "00489b0e",
+            "bytes": "df6c2400",
+            "instruction": "FILD qword ptr [ESP]",
+            "comment": null
+          },
+          {
+            "address": "00489b12",
+            "bytes": "def9",
+            "instruction": "FDIVP",
+            "comment": null
+          },
+          {
+            "address": "00489b14",
+            "bytes": "d9c0",
+            "instruction": "FLD ST0",
+            "comment": null
+          },
+          {
+            "address": "00489b16",
+            "bytes": "dc8160a8bc00",
+            "instruction": "FADD double ptr [ECX + 0xbca860]",
+            "comment": null
+          },
+          {
+            "address": "00489b1c",
+            "bytes": "dd9960a8bc00",
+            "instruction": "FSTP double ptr [ECX + 0xbca860]",
+            "comment": null
+          },
+          {
+            "address": "00489b22",
+            "bytes": "dc9168a8bc00",
+            "instruction": "FCOM double ptr [ECX + 0xbca868]",
+            "comment": null
+          },
+          {
+            "address": "00489b28",
+            "bytes": "dfe0",
+            "instruction": "FNSTSW AX",
+            "comment": null
+          }
+        ],
+        "offset": 28,
+        "limit": 12,
+        "total": 48,
+        "has_more": true
+      },
+      "address": "0x00489A80"
+    }
+  ],
+  "integration": {
+    "release_build": "pharaoh_clean_bootstrap success",
+    "library_sha256": "71e2b6fe569a91397186435b4e8748be3de2ac9852cf838f95cbe1f7e61b09f9",
+    "migration_verify": {
+      "ok": false,
+      "errors": 113,
+      "relevant_errors": []
+    },
+    "scope": "Current worktree includes other uncommitted changes; exact reviewed C bodies retained above. No tests or runtime equivalence claimed."
+  }
+}
