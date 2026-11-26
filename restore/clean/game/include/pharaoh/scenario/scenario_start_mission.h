@@ -5,6 +5,7 @@
 #include "pharaoh/scenario/campaign_start.h"
 #include "pharaoh/scenario/tutorial_rules.h"
 #include "pharaoh/scenario/scenario_init_custom.h"
+#include "pharaoh/ui/build_menu.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -12,6 +13,20 @@
 
 
 typedef void (*PharaohScenarioStartStep)(void *user_data);
+
+enum { PHARAOH_TUTORIAL_MENU_BUTTON_COUNT = 12 };
+typedef struct PharaohTutorialMenuCountsContext {
+    PharaohBuildMenuContext *build_menu;
+    const PharaohSidebarBuildButton *const *buttons;
+    int32_t *stored_item_counts;
+    uint8_t *const *animation_flags;
+} PharaohTutorialMenuCountsContext;
+
+/* Native entries 0x00417A70 and 0x00417AA0. */
+void pharaoh_tutorial_menu_counts_store(
+    const PharaohTutorialMenuCountsContext *context);
+void pharaoh_tutorial_menu_counts_compare(
+    const PharaohTutorialMenuCountsContext *context);
 
 typedef struct PharaohScenarioStartMissionContext {
     void *user_data;

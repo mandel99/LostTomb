@@ -40,6 +40,32 @@ void pharaoh_tutorial_mission_menu_flags(int32_t mission_id,
     }
 }
 
+void pharaoh_tutorial_menu_counts_store(
+    const PharaohTutorialMenuCountsContext *context)
+{
+    for (int32_t index = 0; index < PHARAOH_TUTORIAL_MENU_BUTTON_COUNT;
+         ++index) {
+        *context->build_menu->selected_category =
+            context->buttons[index]->category;
+        context->stored_item_counts[index] =
+            pharaoh_build_menu_count_items(context->build_menu);
+    }
+}
+
+void pharaoh_tutorial_menu_counts_compare(
+    const PharaohTutorialMenuCountsContext *context)
+{
+    for (int32_t index = 0; index < PHARAOH_TUTORIAL_MENU_BUTTON_COUNT;
+         ++index) {
+        *context->build_menu->selected_category =
+            context->buttons[index]->category;
+        const int32_t current_count =
+            pharaoh_build_menu_count_items(context->build_menu);
+        if (context->stored_item_counts[index] < current_count)
+            *context->animation_flags[index] = 1;
+    }
+}
+
 static uint32_t copy_terminated(char *destination, const char *source)
 {
     uint32_t size = 0;

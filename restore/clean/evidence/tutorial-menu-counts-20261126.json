@@ -1,0 +1,42 @@
+{
+  "schema": "pharaoh-tutorial-menu-counts-live-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00417A70",
+      "native_name": "TutorialMenuCountsStore",
+      "caller": "0x00417AE0",
+      "caller_site": "0x00417AEC",
+      "callee": "0x00404120",
+      "callee_site": "0x00417A83",
+      "behavior": "For each of 12 sidebar build buttons, set BuildMenuGroup from parameter1, count available items, and store the count at the matching index."
+    },
+    {
+      "address": "0x00417AA0",
+      "native_name": "TutorialMenuCountsCompare",
+      "caller": "0x00417AE0",
+      "caller_site": "0x00417AFB",
+      "callee": "0x00404120",
+      "callee_site": "0x00417AB4",
+      "behavior": "For each of 12 sidebar build buttons, set BuildMenuGroup from parameter1, count available items, and set its animation byte to 1 only when the current count exceeds the stored count."
+    }
+  ],
+  "record_evidence": {
+    "sidebar_count": 12,
+    "native_button_stride_bytes": 36,
+    "old_typed_source": "reused/restore/game/Tutorials/TutorialManager/MissionProgress.c",
+    "old_typed_source_sha256": "F466C432B9507143658711540BAAA6FA2EBDF41714BEEDD526FF047035332347",
+    "typed_callee": "0x00404120 pharaoh_build_menu_count_items in game/ui/build_menu.c"
+  },
+  "clean_owner": {
+    "source": "game/scenario/scenario_start_mission.c",
+    "header": "game/include/pharaoh/scenario/scenario_start_mission.h",
+    "state_contract": "Explicit build-menu context, 12 typed button references, stored item-count array, and per-button animation-byte pointers."
+  },
+  "verification": {
+    "release_build": "passed: cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m"
+  },
+  "limitations": [
+    "The still-unmapped TutorialSetFlag parent must bind the native button records, stored counts, and animation bytes to this state contract."
+  ]
+}
