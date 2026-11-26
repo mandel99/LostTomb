@@ -1,0 +1,30 @@
+{
+  "schema": "losttomb.function-evidence.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": {
+    "address": "0x0056694C",
+    "name": "pharaoh_crt_free_os_handle",
+    "owner": "game/runtime/crt_lowio.c",
+    "prototype": "uint32_t(PharaohCrtLowioState *, uint32_t descriptor)",
+    "native_callers": [{"address":"0x005647EB","call_site":"0x00564867"}],
+    "native_callees": [],
+    "native_external_callees": ["KERNEL32.SetStdHandle"]
+  },
+  "verification": {
+    "live_ghidra_program_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "live_ghidra_signature_after_typing": "uint pharaoh_crt_free_os_handle(uint descriptor)",
+    "live_ghidra": "After setting the prototype, the body still checks capacity, descriptor block/slot, flags bit 0 and handle != -1; for standard descriptors with mode 1 it calls SetStdHandle(0xfffffff6-descriptor, NULL) at 0x0056699F, reloads the slot, clears only handle, and returns 0; failure sets doserrno=0 and errno=9, returns 0xffffffff.",
+    "caller_result": "The only native caller 0x005647EB discards this function's EAX result.",
+    "saved_rea_evidence": "ev_bbaf42e2ba1ca5acbb41e21c3c04c979c7acc4a0cfbcd606005f0ebd041aec2d",
+    "saved_rea_item": "Batch decompile contains address 0x56694c and resolved pseudocode; artifact SHA-256 matches the pinned executable.",
+    "prior_typed_c": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\game\\functions\\CrtFreeOsHandle.c:RestoreCrtFreeOsHandle",
+    "prior_typed_c_sha256": "D26EBC870C767CBBC99E1B9E6A5B25049B08165E059A508F19F64D1D789322C2",
+    "reuse_contract": "Prior function reads the 8-byte lowio record, preserves flags/reserved bytes, reloads the block slot after SetStdHandle, and returns the native 0/-1 result. Clean port binds these fields through the existing PharaohCrtLowioState."
+  },
+  "release_build": {"target":"pharaoh_clean_bootstrap","configuration":"Release","result":"passed"},
+  "migration_verify": {"result":"candidate has no reported errors","whole_project_ok":false,"whole_project_mapped_functions":2061,"whole_project_errors":111},
+  "limitations": [
+    "The direct caller 0x005647EB is not yet mapped to a clean owner.",
+    "No native-versus-C replay was run."
+  ]
+}

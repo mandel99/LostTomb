@@ -30,6 +30,8 @@ uint32_t pharaoh_crt_get_os_handle(
     PharaohCrtLowioState *state, uint32_t descriptor);
 uint32_t pharaoh_crt_set_os_handle(PharaohCrtLowioState *state,
     uint32_t descriptor, uint32_t handle_bits);
+uint32_t pharaoh_crt_free_os_handle(PharaohCrtLowioState *state,
+    uint32_t descriptor);
 uint32_t pharaoh_crt_stream_descriptor(const PharaohCrtFileStream *stream);
 
 #endif
