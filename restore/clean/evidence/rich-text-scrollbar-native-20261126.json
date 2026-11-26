@@ -1,0 +1,41 @@
+{
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_function": {
+    "address": "0x004C7DB0",
+    "ghidra_name": "MessageDialogHandleScrollbar",
+    "prototype": "int MessageDialogHandleScrollbar(void)",
+    "c_owner": "pharaoh_rich_text_handle_scrollbar"
+  },
+  "native_callers": [
+    "0x00418FE0",
+    "0x004C7770"
+  ],
+  "native_callees": [
+    "0x004C8040",
+    "0x004CDE40",
+    "0x004CDE60"
+  ],
+  "state_crosswalk": {
+    "DAT_00D3B134": "scroll_maximum",
+    "DAT_00E38E00": "mouse_left_down",
+    "DAT_00D3B14C": "panel_width_blocks",
+    "DAT_00D3B154": "panel_x",
+    "DAT_00D3B148": "panel_height_blocks",
+    "DAT_00D3B150": "panel_y",
+    "hitMouseX": "mouse_x",
+    "hitMouseY": "mouse_y",
+    "DAT_00D3B130": "scroll_position",
+    "DAT_00D3B128": "drag_position",
+    "DAT_00D3B12C": "dragging",
+    "windowRedrawRequest": "redraw_requested"
+  },
+  "native_contract": "Inclusive scrollbar hit rectangle and range arithmetic match the typed body; the body uses mapped percentage/adjustment helpers and resets rich-text links at 0x004C8040.",
+  "reuse_review": "Old Unit01627.c is a raw-memory compatibility body that calls legacy Original004CDE60/004CDE40/004C8040. The existing clean rich_text.c implementation was compared directly; no rewrite was needed.",
+  "source_sha256": "d128a3bc2f93b81274d7bbd238bbc1cb64d588f7d5529e1443f5fd6462608d04",
+  "header_sha256": "5e5f6082fa23c1bf32a164f5abb6562858af35c0daf35685d2ff7e4209e3af6c",
+  "verification": {
+    "release_build": "existing Release binary, unchanged source",
+    "release_library_sha256": "5f4640f6caba7bd44e2563c508c3785f6f324ff9145d0316d6be5f536c158a45",
+    "migration_workflow": "pending"
+  }
+}
