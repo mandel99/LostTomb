@@ -168,5 +168,17 @@
     "restore/clean/game/runtime/crt_lowio.c": "9ae352b272ab5dc07d55763fe3559ce661d73551ba0a796f234f13b5819da243",
     "restore/clean/game/include/pharaoh/runtime/crt_lowio.h": "2fa33859bd1248d3d7fc5ecd308456a046668478d0d9c4ae3755e17dd9eac77a",
     "restore/clean/build/bootstrap-vs2022-win32/Release/pharaoh_game.lib": "1e22397564b1bf910a903013ba7c698b703dfde51e954c76ba7b8fca4af23e7a"
+  },
+  "verification": {
+    "release_command": "cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m",
+    "release_result": "passed",
+    "build_scope": "Active worktree contained unrelated dirty and untracked user changes; recorded pharaoh_game.lib SHA-256 describes that full worktree, not an isolated checkout of this commit.",
+    "workflow_verify": {
+      "result": "failed",
+      "reported_errors": 113,
+      "crt_lowio_source_hash_error": false,
+      "note": "Existing map source-path/source-hash errors and current-library-versus-latest-migration-record mismatch remain."
+    },
+    "rea_live": "unavailable: transport closed; native evidence this turn is from the open Ghidra session."
   }
 }
