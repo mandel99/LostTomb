@@ -15,6 +15,31 @@ _Static_assert(offsetof(PharaohScenarioPlayerRuntime, salary) == 0x2c98 &&
     offsetof(PharaohScenarioPlayerRuntime, difficulty) == 0x47a8,
     "native scenario-start player offsets changed");
 
+void pharaoh_tutorial_mission_menu_flags(int32_t mission_id,
+    int32_t advisor_access_override, const PharaohTutorialRule *rules,
+    const uint8_t *tutorial_flags_a, uint8_t *tutorial_flags_b)
+{
+    if (mission_id > PHARAOH_TUTORIAL_LAST_MISSION ||
+        advisor_access_override != 0) {
+        for (int32_t flag = 0; flag < PHARAOH_TUTORIAL_MENU_FLAG_COUNT;
+             ++flag) {
+            tutorial_flags_b[flag] = 1;
+        }
+        return;
+    }
+
+    for (int32_t tutorial = 0; tutorial < PHARAOH_TUTORIAL_RULE_COUNT;
+         ++tutorial) {
+        const PharaohTutorialRule *const rule = &rules[tutorial];
+        if (rule->mission_threshold != mission_id) continue;
+
+        for (int32_t index = 0; index < rule->item_count; ++index) {
+            tutorial_flags_b[rule->items[index]] =
+                tutorial_flags_a[tutorial] != 0;
+        }
+    }
+}
+
 static uint32_t copy_terminated(char *destination, const char *source)
 {
     uint32_t size = 0;

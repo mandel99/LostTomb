@@ -1,0 +1,43 @@
+{
+  "schema": "pharaoh-tutorial-mission-menu-flags-live-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": {
+    "address": "0x004179F0",
+    "native_name": "TutorialMissionMenuFlags",
+    "calling_convention": "cdecl",
+    "parameters": [],
+    "return_type": "void",
+    "caller": "0x00417AE0",
+    "caller_site": "0x00417B00",
+    "direct_callees": []
+  },
+  "observed_behavior": {
+    "mission_branch": "When mission_id <= 10 and advisor_access_override == 0, scan 26 records with 28-byte stride; for matching mission records, copy tutorial_flags_a[record_index] != 0 to each menu flag index listed by the record.",
+    "otherwise": "Set all 15 tutorial_flags_b bytes to 1.",
+    "record_fields": {
+      "mission_id_offset": "0x00",
+      "menu_flag_count_offset": "0x0C",
+      "menu_flag_indices_offset": "0x10",
+      "stride_bytes": 28
+    }
+  },
+  "reuse": {
+    "old_source": "reused/restore/game/Tutorials/TutorialManager/MissionProgress.c",
+    "old_source_sha256": "F466C432B9507143658711540BAAA6FA2EBDF41714BEEDD526FF047035332347",
+    "finding": "Complete typed TutorialMissionMenuFlags implementation found and reused against the existing PharaohTutorialRule layout."
+  },
+  "clean_owner": {
+    "source": "game/scenario/scenario_start_mission.c",
+    "source_sha256": "972F2F021D4F480680FAB73E7EECD703F36E3654B471EFCAC7EB825D713C3163",
+    "header": "game/include/pharaoh/scenario/tutorial_rules.h",
+    "header_sha256": "07F379A0B6F44D599E9361983E05E7CEF55E34306AB0CF9BAD822D11C0ED6B24",
+    "cmake_sha256": "F6178D654623CAE4F7ED620DFC594778AD75936A4E7066E78E4039A24184398E",
+    "native_address_wrapper": false
+  },
+  "verification": {
+    "release_build": "passed: cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m"
+  },
+  "limitations": [
+    "Mission ID, advisor override, tutorial table, and both flag arrays are explicit inputs; production callers must bind the native globals to these inputs."
+  ]
+}
