@@ -101,4 +101,8 @@ uint32_t pharaoh_native_return_zero_0047d350(void);
 uint32_t pharaoh_native_type_is_supported_005013a0(uint32_t type);
 void pharaoh_native_ten_dwords_clear_0046a080(uint32_t values[10]);
 
+/* Native 0x004EA740; counter subtraction wraps as a DWORD. */
+void pharaoh_native_active_counter_decrement_004ea740(
+    int32_t active, int32_t *counter);
+
 #endif

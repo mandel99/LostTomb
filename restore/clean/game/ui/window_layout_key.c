@@ -1,4 +1,5 @@
 #include "pharaoh/ui/window_layout_key.h"
+#include "pharaoh/runtime/text_loading.h"
 
 #include <stdint.h>
 
@@ -24,4 +25,50 @@ int32_t pharaoh_ui_layout_window_key(int32_t window_key,
             PHARAOH_WINDOW_LAYOUT_KEY_OFFSET);
     }
     return window_key;
+}
+
+int32_t pharaoh_ui_layout_group_max_width(
+    const PharaohUiLayoutTextContext *context, int32_t group)
+{
+    int32_t maximum = 1;
+    int32_t entry = 1;
+    pharaoh_text_select(context->selection, wrap_add(group, 1), 0);
+    *context->current_text_00e20768 = context->selection->current;
+    const char *const end = *context->current_text_00e20768;
+    pharaoh_text_select(context->selection, group, entry);
+    *context->current_text_00e20768 = context->selection->current;
+    do {
+        const int32_t width = pharaoh_bitmap_text_width_native(context->font,
+            (const uint8_t *)*context->current_text_00e20768,
+            context->glyph_map, context->current_glyph);
+        if (maximum < width) maximum = width;
+        entry = wrap_add(entry, 1);
+        pharaoh_text_select(context->selection, group, entry);
+        *context->current_text_00e20768 = context->selection->current;
+    } while (*context->current_text_00e20768 != end);
+    return maximum;
+}
+
+void pharaoh_ui_layout_init_column_widths(
+    const PharaohUiLayoutTextContext *context, int32_t columns[6])
+{
+    static const int32_t groups[6] = {1, 2, 3, 4, 7, 10};
+    for (int32_t column = 0; column < 6; ++column) {
+        columns[column] = pharaoh_ui_layout_group_max_width(context,
+            groups[column]) / 16 + 2;
+    }
+}
+
+void pharaoh_ui_layout_init_label_width(
+    const PharaohUiLayoutTextContext *context, PharaohGenericButton buttons[30],
+    int32_t *label_columns, int32_t *label_width)
+{
+    const int32_t width = pharaoh_ui_layout_group_max_width(context, 0x1c);
+    const int32_t columns = width / 16 + (width % 16 != 0);
+    const uint16_t right = (uint16_t)(((uint32_t)columns + 7u) * 16u);
+    *label_columns = columns;
+    for (int32_t button = 0; button < 30; ++button) {
+        buttons[button].bounds.right = (int16_t)right;
+    }
+    *label_width = (int32_t)((uint32_t)columns * 16u);
 }

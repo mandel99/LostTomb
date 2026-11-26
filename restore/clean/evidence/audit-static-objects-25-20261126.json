@@ -1,0 +1,410 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "provider": "Live Ghidra",
+  "count": 25,
+  "functions": [
+    {
+      "address": "0x00413E80",
+      "error": true,
+      "name": "pharaoh_screen_fade_initialize",
+      "source": "game/core/static_objects.c",
+      "code": null,
+      "c_body": "void pharaoh_screen_fade_initialize(PharaohScreenFade *fade)\n{\n    fade->format = -1;\n    fade->steps = 0;\n    /* Native 00413E91/00413E96 also clear offsets 0x20 and 0x1c.\n       Their data types remain unknown; retain the byte storage. */\n    memset(fade->reserved_1, 0, sizeof(fade->reserved_1));\n    fade->pixels[1] = NULL;\n    fade->pixels[0] = NULL;\n}",
+      "body_sha256": "3d4cb250970e7cb6463241263e659c2410d0cb8fc14ed8be650d2af91d23947d",
+      "analysis_gap": "Ghidra function object absent; entry bytes and native write offsets compared directly instead."
+    },
+    {
+      "address": "0x00445460",
+      "error": true,
+      "name": "pharaoh_empire_route_construct",
+      "source": "game/core/static_objects.c",
+      "code": null,
+      "c_body": "void pharaoh_empire_route_construct(PharaohEmpireRoute *route)\n{\n    route->path_length = 0;\n    route->path = NULL;\n    route->point_count = 0;\n    route->path_capacity = 0;\n    route->in_use = 0;\n    route->step = 5;\n    route->first_object = -1;\n    route->last_object = -1;\n    route->kind = 1;\n}",
+      "body_sha256": "8111897a7d3fd9f525302bbaa5abeb950c58790e72b1b1d031bf2cf3563d21c9",
+      "analysis_gap": "Ghidra function object absent; entry bytes and native write offsets compared directly instead."
+    },
+    {
+      "address": "0x00401D30",
+      "error": false,
+      "name": "pharaoh_native_noop_00401d30",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_00401d30(void)\r\n\r\n{\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_noop_00401d30(void *unused_first, void *unused_second)\n{\n    (void)unused_first;\n    (void)unused_second;\n}",
+      "body_sha256": "7bc6290451b7abfeedd8dc5ef1c7fe7e25f7af6cc34ef699dee38c179ad9cb90"
+    },
+    {
+      "address": "0x0041DF60",
+      "error": false,
+      "name": "pharaoh_native_state_pair_reset_0041df60",
+      "source": "game/core/static_objects.c",
+      "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_0041df60(void)\r\n\r\n{\r\n  _DAT_007028f4 = 0;\r\n  _DAT_007028f0 = 0;\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_state_pair_reset_0041df60(\n    uint32_t *first, uint32_t *second)\n{\n    *first = 0;\n    *second = 0;\n}",
+      "body_sha256": "a251064442413d1fb1bb37c9e8a6f3960202326e9729a00de8a8b3d92706dee9"
+    },
+    {
+      "address": "0x00433C80",
+      "error": false,
+      "name": "pharaoh_native_return_one_00433c80",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nundefined4 FUN_00433c80(void)\r\n\r\n{\r\n  return 1;\r\n}\r\n\r\n",
+      "c_body": "uint32_t pharaoh_native_return_one_00433c80(void)\n{\n    return 1;\n}",
+      "body_sha256": "83eb152ae7be5d815ed0fe4b09adee335e5508eeeeaa6fe178a2349cc8ef5266"
+    },
+    {
+      "address": "0x00452150",
+      "error": false,
+      "name": "pharaoh_native_flag_reset_00452150",
+      "source": "game/core/static_objects.c",
+      "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_00452150(void)\r\n\r\n{\r\n  _DAT_0078d784 = 0;\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_flag_reset_00452150(uint32_t *flag)\n{\n    *flag = 0;\n}",
+      "body_sha256": "1c8759d366ee99cb2372d6c9f81a913905a86159689f1a0ff7a4c2f6aaacd9b7"
+    },
+    {
+      "address": "0x00477F60",
+      "error": false,
+      "name": "pharaoh_native_return_zero_byte_00477f60",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nundefined1 FUN_00477f60(void)\r\n\r\n{\r\n  return 0;\r\n}\r\n\r\n",
+      "c_body": "uint8_t pharaoh_native_return_zero_byte_00477f60(void)\n{\n    return 0;\n}",
+      "body_sha256": "0ccbc9040737c0eb53e62d3ded2b8068c62042f47b73de933ae52a26b0648f64"
+    },
+    {
+      "address": "0x00489500",
+      "error": false,
+      "name": "pharaoh_native_noop_00489500",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_00489500(void)\r\n\r\n{\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_noop_00489500(void)\n{\n}",
+      "body_sha256": "64eda065a4a4a3d04becef05550aa39f8b3e8dd0cbb373d4de34519704ee5a6a"
+    },
+    {
+      "address": "0x004E7E10",
+      "error": false,
+      "name": "pharaoh_native_flag_zero_004e7e10",
+      "source": "game/core/static_objects.c",
+      "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_004e7e10(void)\r\n\r\n{\r\n  _DAT_00ea1820 = 0;\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_flag_zero_004e7e10(uint32_t *flag)\n{\n    *flag = 0;\n}",
+      "body_sha256": "d3b5699ed3a82a4b7adc67a1efe72d083d94095f6619f9f04ac006fbfac5c3dd"
+    },
+    {
+      "address": "0x004E7E20",
+      "error": false,
+      "name": "pharaoh_native_flag_from_byte_004e7e20",
+      "source": "game/core/static_objects.c",
+      "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_004e7e20(void)\r\n\r\n{\r\n  _DAT_00ea1820 = (uint)(cityPlayers[1]._3_1_ != '\\0');\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_flag_from_byte_004e7e20(\n    uint32_t *flag, uint8_t enabled)\n{\n    *flag = enabled != 0;\n}",
+      "body_sha256": "03d54c82204fa4566aeb85d8108381307c1792a315e571dbfce1d78315e9143c"
+    },
+    {
+      "address": "0x00404330",
+      "error": false,
+      "name": "pharaoh_native_fill_ones_00404330",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_00404330(void)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 *puVar2;\r\n  \r\n  puVar2 = &DAT_0070a8dc;\r\n  for (iVar1 = 0x474; iVar1 != 0; iVar1 = iVar1 + -1) {\r\n    *puVar2 = 1;\r\n    puVar2 = puVar2 + 1;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_fill_ones_00404330(uint32_t values[1140])\n{\n    int32_t index;\n    for (index = 0; index < 1140; ++index) values[index] = 1;\n}",
+      "body_sha256": "cb38046ef86c9872aacceab398ce4d850ac6cd04947c998e2a9d03a7d2d516c0"
+    },
+    {
+      "address": "0x0046A260",
+      "error": false,
+      "name": "pharaoh_native_ship_records_reset_0046a260",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_0046a260(void)\r\n\r\n{\r\n  undefined4 *puVar1;\r\n  \r\n  puVar1 = &DAT_009783d8;\r\n  do {\r\n    *(undefined1 *)(puVar1 + -6) = 0;\r\n    *puVar1 = 0;\r\n    puVar1 = puVar1 + 7;\r\n  } while ((int)puVar1 < 0x9784f0);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_ship_records_reset_0046a260(\n    PharaohShipPlayerResetRecord records[10])\n{\n    int32_t index;\n    for (index = 0; index < 10; ++index) {\n        records[index].enabled = 0;\n        records[index].value = 0;\n    }\n}",
+      "body_sha256": "1208620cc6657fd86ee0be9c81b849537812c9f1658525e80870661047eafed9"
+    },
+    {
+      "address": "0x004D1840",
+      "error": false,
+      "name": "pharaoh_native_record90_set_word_minus_one_004d1840",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004d1840(void)\r\n\r\n{\r\n  undefined2 *puVar1;\r\n  \r\n  puVar1 = &DAT_00bcbada;\r\n  do {\r\n    *puVar1 = 0xffff;\r\n    puVar1 = puVar1 + 0x48;\r\n  } while ((int)puVar1 < 0xbcd66a);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_record90_set_word_minus_one_004d1840(\n    PharaohNativeRecord90 records[49], int32_t word_offset)\n{\n    int32_t index;\n    for (index = 0; index < 49; ++index)\n        *(int16_t *)(records[index].bytes + word_offset) = -1;\n}",
+      "body_sha256": "8963b2a1f7895f10dbdea5c97ec358e43863837b8ddbce7ff0df705b6518d47b"
+    },
+    {
+      "address": "0x004D1860",
+      "error": false,
+      "name": "pharaoh_native_record30_set_three_words_minus_one_004d1860",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004d1860(void)\r\n\r\n{\r\n  undefined2 *puVar1;\r\n  \r\n  puVar1 = &DAT_00e9523a;\r\n  do {\r\n    puVar1[-1] = 0xffff;\r\n    *puVar1 = 0xffff;\r\n    puVar1[1] = 0xffff;\r\n    puVar1 = puVar1 + 0x18;\r\n  } while ((int)puVar1 < 0xea0dba);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_record30_set_three_words_minus_one_004d1860(\n    PharaohNativeRecord30 records[1000], int32_t word_offset)\n{\n    int32_t index;\n    for (index = 0; index < 1000; ++index) {\n        int16_t *words = (int16_t *)(records[index].bytes + word_offset);\n        words[-1] = -1;\n        words[0] = -1;\n        words[1] = -1;\n    }\n}",
+      "body_sha256": "9677aa0c2d3da2a4bfc34dbf03e167ee9a007e336439e483691674f881f7496a"
+    },
+    {
+      "address": "0x004D3F40",
+      "error": false,
+      "name": "pharaoh_native_record90_clear_byte_004d3f40",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004d3f40(void)\r\n\r\n{\r\n  undefined1 *puVar1;\r\n  \r\n  puVar1 = &DAT_00bcbac0;\r\n  do {\r\n    *puVar1 = 0;\r\n    puVar1 = puVar1 + 0x90;\r\n  } while ((int)puVar1 < 0xbcd650);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_record90_clear_byte_004d3f40(\n    PharaohNativeRecord90 records[49], int32_t byte_offset)\n{\n    int32_t index;\n    for (index = 0; index < 49; ++index)\n        records[index].bytes[byte_offset] = 0;\n}",
+      "body_sha256": "0e4f15e7f9e956747fd93c9b640c667634ab54d49a17dfa4a6962c8f9316e867"
+    },
+    {
+      "address": "0x004D4080",
+      "error": false,
+      "name": "pharaoh_native_building_field_clear_004d4080",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004d4080(void)\r\n\r\n{\r\n  undefined1 *puVar1;\r\n  \r\n  puVar1 = &cityBuildings[0].field_0x86;\r\n  do {\r\n    *puVar1 = 0;\r\n    puVar1 = puVar1 + 0x108;\r\n  } while ((int)puVar1 < 0x89b75e);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_building_field_clear_004d4080(\n    uint8_t *records, int32_t count, int32_t stride, int32_t byte_offset)\n{\n    int32_t index;\n    for (index = 0; index < count; ++index)\n        records[index * stride + byte_offset] = 0;\n}",
+      "body_sha256": "7f7d3823afdfd2acb01cd89f1b9229fb721d53275186afdc9913313755c0fd40"
+    },
+    {
+      "address": "0x004D40A0",
+      "error": false,
+      "name": "pharaoh_native_two_words_clear_004d40a0",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004d40a0(void)\r\n\r\n{\r\n  undefined4 *puVar1;\r\n  \r\n  puVar1 = (undefined4 *)&cityPlayers[0].field_0x44cc;\r\n  do {\r\n    puVar1[-1] = 0;\r\n    *puVar1 = 0;\r\n    puVar1 = puVar1 + 0x1276;\r\n  } while ((int)puVar1 < 0xeaa715);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_two_words_clear_004d40a0(uint8_t *players)\n{\n    for (int32_t player = 0; player < 2; ++player) {\n        uint8_t *const record = players + player * 0x49d8;\n        *(uint32_t *)(record + 0x44c8) = 0;\n        *(uint32_t *)(record + 0x44cc) = 0;\n    }\n}",
+      "body_sha256": "5b61eec6c59ab38a64a9e169f92079205bcea470c1184835f723d63ddd1c80f3"
+    },
+    {
+      "address": "0x004DE140",
+      "error": false,
+      "name": "pharaoh_native_pairs_set_minus_one_004de140",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004de140(void)\r\n\r\n{\r\n  undefined4 *puVar1;\r\n  \r\n  puVar1 = &DAT_00e94de0;\r\n  do {\r\n    puVar1[-1] = 0xffffffff;\r\n    *puVar1 = 0xffffffff;\r\n    puVar1 = puVar1 + 2;\r\n  } while ((int)puVar1 < 0xe94e00);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_pairs_set_minus_one_004de140(int32_t pairs[4][2])\n{\n    int32_t index;\n    for (index = 0; index < 4; ++index) {\n        pairs[index][0] = -1;\n        pairs[index][1] = -1;\n    }\n}",
+      "body_sha256": "52c41638cb1f4e175b71ba3daf24d60a9c6be5e1ccd9b6217f11478f04c7960f"
+    },
+    {
+      "address": "0x004E1850",
+      "error": false,
+      "name": "pharaoh_native_positive_counters_decrement_004e1850",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004e1850(void)\r\n\r\n{\r\n  int *piVar1;\r\n  \r\n  piVar1 = &DAT_00e95124;\r\n  do {\r\n    if (0 < *piVar1) {\r\n      *piVar1 = *piVar1 + -1;\r\n    }\r\n    piVar1 = piVar1 + 1;\r\n  } while ((int)piVar1 < 0xe95174);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_positive_counters_decrement_004e1850(\n    int32_t counters[20])\n{\n    int32_t index;\n    for (index = 0; index < 20; ++index)\n        if (counters[index] > 0) --counters[index];\n}",
+      "body_sha256": "6ebc19ff68cfc42de68e2c08aa30e4f12f9e8837ccdecb1b9fd595c92e7edf2b"
+    },
+    {
+      "address": "0x004EA740",
+      "error": false,
+      "name": "pharaoh_native_active_counter_decrement_004ea740",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_004ea740(void)\r\n\r\n{\r\n  if (*(int *)&cityPlayers[cityCurrentPlayer].field_0x44d0 != 0) {\r\n    *(int *)&cityPlayers[cityCurrentPlayer].field_0x44d4 =\r\n         *(int *)&cityPlayers[cityCurrentPlayer].field_0x44d4 + -1;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_active_counter_decrement_004ea740(\n    int32_t active, int32_t *counter)\n{\n    if (active != 0) *counter = (int32_t)((uint32_t)*counter - UINT32_C(1));\n}",
+      "body_sha256": "2535d8135f3a9a1dfc0795f7a785fc7c4785f0b2fcb4a0db2611143dbf06e0ea"
+    },
+    {
+      "address": "0x00517A20",
+      "error": false,
+      "name": "pharaoh_native_dwords_set_minus_one_00517a20",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_00517a20(void)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 *puVar2;\r\n  \r\n  puVar2 = &DAT_00ee0c50;\r\n  for (iVar1 = 0x32c4; iVar1 != 0; iVar1 = iVar1 + -1) {\r\n    *puVar2 = 0xffffffff;\r\n    puVar2 = puVar2 + 1;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_dwords_set_minus_one_00517a20(int32_t values[12996])\n{\n    int32_t index;\n    for (index = 0; index < 12996; ++index) values[index] = -1;\n}",
+      "body_sha256": "8dc5d30d2d26dfc79b4cdf5507195883d14962c3aa82fb10a2cde77c4bad8c3f"
+    },
+    {
+      "address": "0x0053B670",
+      "error": false,
+      "name": "pharaoh_native_ambient_scores_clear_0053b670",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_0053b670(void)\r\n\r\n{\r\n  int iVar1;\r\n  undefined4 *puVar2;\r\n  \r\n  puVar2 = &DAT_00f55b50;\r\n  for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {\r\n    *puVar2 = 0;\r\n    puVar2 = puVar2 + 1;\r\n  }\r\n  DAT_00f55b84 = 0;\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_ambient_scores_clear_0053b670(\n    uint32_t scores[12], uint32_t *active)\n{\n    int32_t index;\n    for (index = 0; index < 12; ++index) scores[index] = 0;\n    *active = 0;\n}",
+      "body_sha256": "885c97d8111fb303204a5065b3a4aaee48652adf8e422a2121d73e49e8acde39"
+    },
+    {
+      "address": "0x00405170",
+      "error": false,
+      "name": "pharaoh_native_positive_prefix_count_00405170",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nint FUN_00405170(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  int *piVar3;\r\n  \r\n  iVar1 = 0;\r\n  iVar2 = 0;\r\n  piVar3 = (int *)(&DAT_005cf75c + param_1 * 0x78);\r\n  do {\r\n    if (*piVar3 < 1) {\r\n      return iVar1;\r\n    }\r\n    iVar1 = iVar1 + 1;\r\n    iVar2 = iVar2 + 1;\r\n    piVar3 = piVar3 + 1;\r\n  } while (iVar2 < 0x1e);\r\n  return iVar1;\r\n}\r\n\r\n",
+      "c_body": "int32_t pharaoh_native_positive_prefix_count_00405170(\n    const int32_t values[30])\n{\n    int32_t index;\n    for (index = 0; index < 30; ++index)\n        if (values[index] < 1) return index;\n    return 30;\n}",
+      "body_sha256": "244251a1828da19c0b958df4bdd8fbad086d1c7a0c928dc5786d0f3179370186"
+    },
+    {
+      "address": "0x00407340",
+      "error": false,
+      "name": "pharaoh_native_empire_free_slot_00407340",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nint FUN_00407340(void)\r\n\r\n{\r\n  int iVar1;\r\n  char *pcVar2;\r\n  \r\n  iVar1 = 1;\r\n  pcVar2 = &DAT_00777236;\r\n  while( true ) {\r\n    if ((byte)pcVar2[-1] < 2) {\r\n      *pcVar2 = '\\0';\r\n    }\r\n    if (*pcVar2 == '\\0') break;\r\n    pcVar2 = pcVar2 + 0x144;\r\n    iVar1 = iVar1 + 1;\r\n    if (0x778a41 < (int)pcVar2) {\r\n      return -1;\r\n    }\r\n  }\r\n  return iVar1;\r\n}\r\n\r\n",
+      "c_body": "int32_t pharaoh_native_empire_free_slot_00407340(uint8_t *records)\n{\n    int32_t index;\n    for (index = 1; index <= 19; ++index, records += 0x144) {\n        if (records[0] < 2) records[1] = 0;\n        if (records[1] == 0) return index;\n    }\n    return -1;\n}",
+      "body_sha256": "6ecfbb42e12c61b863e39deb6f6ac7b631eeaaf4442a969d77845786c5049d68"
+    },
+    {
+      "address": "0x0041D6F0",
+      "error": false,
+      "name": "pharaoh_native_service_records_decay_0041d6f0",
+      "source": "game/core/static_objects.c",
+      "code": "\r\nvoid FUN_0041d6f0(void)\r\n\r\n{\r\n  int *piVar1;\r\n  int *piVar2;\r\n  \r\n  piVar1 = &DAT_00702984;\r\n  do {\r\n    piVar2 = piVar1 + 0x20;\r\n    piVar1[2] = 0;\r\n    piVar1[3] = 0;\r\n    piVar1[4] = 0;\r\n    piVar1[5] = 0;\r\n    piVar1[6] = 0;\r\n    *piVar1 = *piVar1 / 2;\r\n    piVar1 = piVar2;\r\n  } while ((int)piVar2 < 0x704c04);\r\n  return;\r\n}\r\n\r\n",
+      "c_body": "void pharaoh_native_service_records_decay_0041d6f0(int32_t records[69][32])\n{\n    int32_t record, field;\n    for (record = 0; record < 69; ++record) {\n        for (field = 2; field <= 6; ++field) records[record][field] = 0;\n        records[record][0] /= 2;\n    }\n}",
+      "body_sha256": "6c40a339fb9058b1c3dcba6e7b105f282b92304a17f4339339d2c1862af74563"
+    }
+  ],
+  "source": "game/core/static_objects.c",
+  "source_sha256": "3e6bc574b3582edf352941dc2786e89e730a033bfbc56d1cb7dac7fcab71a7f6",
+  "byte_observations": [
+    {
+      "address": "00413e80",
+      "length": 112,
+      "hex": "33 c0 c7 05 28 e5 6d 00 ff ff ff ff a3 18 e5 6d 00 a3 38 e5 6d 00 a3 34 e5 6d 00 a3 40 e5 6d 00 a3 3c e5 6d 00 c3 90 90 90 90 90 90 90 90 90 90 a1 40 91 e3 00 85 c0 74 09 6a 06 50 ff 15 78 f1 56 00 33 c0 c3 90 90 90 90 90 90 90 90 90 90 90 55 8b ec 6a ff 68 d0 f4 56 00 68 90 1a 56 00 64 a1 00 00 00 00 50 64 89 25 00 00 00 00 81 ec 08",
+      "ascii": "3...(.m........m..8.m..4.m..@.m..<.m.............@.....t.j.P..x.V.3.............U..j.h..V.h..V.d.....Pd.%.......",
+      "gaps": []
+    },
+    {
+      "address": "004783be",
+      "length": 16,
+      "hex": "e8 9d fb ff ff 83 c4 0c eb 28 a9 00 00 01 00 74",
+      "ascii": ".........(.....t",
+      "gaps": []
+    },
+    {
+      "address": "004789b6",
+      "length": 16,
+      "hex": "e8 a5 f5 ff ff 83 c4 0c eb 0a 56 57 e8 a9 f8 ff",
+      "ascii": "..........VW....",
+      "gaps": []
+    },
+    {
+      "address": "00445460",
+      "length": 64,
+      "hex": "8b c1 33 c9 89 88 34 01 00 00 89 48 04 88 88 41 01 00 00 89 88 38 01 00 00 88 88 42 01 00 00 83 c9 ff c6 00 05 66 89 88 3c 01 00 00 66 89 88 3e 01 00 00 c6 80 40 01 00 00 01 c3 90 90 90 90 90",
+      "ascii": "..3...4....H...A.....8.....B.........f..<...f..>.....@..........",
+      "gaps": []
+    }
+  ],
+  "instruction_observations": [
+    {
+      "address": "0x00401D30",
+      "instructions": {
+        "items": [
+          {
+            "address": "00401d30",
+            "bytes": "c20800",
+            "instruction": "RET 0x8",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "has_more": false
+      }
+    },
+    {
+      "address": "0x00477F60",
+      "instructions": {
+        "items": [
+          {
+            "address": "00477f60",
+            "bytes": "32c0",
+            "instruction": "XOR AL,AL",
+            "comment": null
+          },
+          {
+            "address": "00477f62",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 2,
+        "has_more": false
+      }
+    },
+    {
+      "address": "0x004EA740",
+      "instructions": {
+        "items": [
+          {
+            "address": "004ea740",
+            "bytes": "a128acea00",
+            "instruction": "MOV EAX,[0x00eaac28]",
+            "comment": null
+          },
+          {
+            "address": "004ea745",
+            "bytes": "69c0d8490000",
+            "instruction": "IMUL EAX,EAX,0x49d8",
+            "comment": null
+          },
+          {
+            "address": "004ea74b",
+            "bytes": "8b88405dea00",
+            "instruction": "MOV ECX,dword ptr [EAX + 0xea5d40]",
+            "comment": null
+          },
+          {
+            "address": "004ea751",
+            "bytes": "85c9",
+            "instruction": "TEST ECX,ECX",
+            "comment": null
+          },
+          {
+            "address": "004ea753",
+            "bytes": "7406",
+            "instruction": "JZ 0x004ea75b",
+            "comment": null
+          },
+          {
+            "address": "004ea755",
+            "bytes": "ff88445dea00",
+            "instruction": "DEC dword ptr [EAX + 0xea5d44]",
+            "comment": null
+          },
+          {
+            "address": "004ea75b",
+            "bytes": "c3",
+            "instruction": "RET",
+            "comment": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 7,
+        "has_more": false
+      }
+    }
+  ],
+  "return_contracts": [
+    {
+      "address": "0x00478330",
+      "excerpt": "          }\r\r\n          else {\r\r\n>           FUN_00477f60(iVar5,param_2,1);\r\r\n          }\r\r\n          iVar5 = iVar5 + 1;\r"
+    },
+    {
+      "address": "0x00478440",
+      "excerpt": "                  }\r\r\n                  else {\r\r\n>                   bVar3 = FUN_00477f60(iVar12,iVar11,1);\r\r\n                  }\r\r\n                }\r"
+    },
+    {
+      "address": "0x00561441",
+      "excerpt": "\r\nvoid FUN_00561441(undefined4 param_1,undefined4 param_2,int param_3,code *param_4)\r\n\r\n{\r\n  int local_20;\r\n  void *local_14;\r\n  undefined1 *puStack_10;\r\n  undefined *puStack_c;\r\n  undefined4 local_8;\r\n  \r\n  puStack_c = &DAT_00570610;\r\n  puStack_10 = &LAB_00561a90;\r\n  local_14 = ExceptionList;\r\n  local_8 = 0;\r\n  ExceptionList = &local_14;\r\n  for (local_20 = 0; local_20 < param_3; local_20 = local_20 + 1) {\r\n    (*param_4)();\r\n  }\r\n  local_8 = 0xffffffff;\r\n  FUN_005614ab();\r\n  ExceptionList = local_14;\r\n  return;\r\n}\r\n\r\n"
+    }
+  ],
+  "repairs": {
+    "0x00413E80": "Native initializer clears six DWORD locations. Added the missing eight reserved bytes at fade+0x1C/+0x20; their data type remains unknown. Win32 member offsets asserted. Old mixed StaticObjects.c also omitted these writes.",
+    "0x004EA740": "Native DEC DWORD wraps, including INT_MIN. Replaced signed decrement with explicit uint32_t subtraction."
+  },
+  "loop_contracts": {
+    "00404330": "1140 DWORDs",
+    "0046A260": "10 records, 28-byte stride, BYTE at +0 and DWORD at +24",
+    "004D1840": "49 records, 144-byte stride, WORD at native record offset26",
+    "004D1860": "1000 records, 48-byte stride, WORDs at -2/0/+2 from given field",
+    "004D3F40": "49 records, 144-byte stride",
+    "004D4080": "4000 buildings, 264-byte stride, BYTE at +134; portable inputs must provide these native values",
+    "004D40A0": "two 0x49D8-byte player records, DWORDs at +0x44C8/+0x44CC",
+    "0041D6F0": "69 records, 128-byte stride; clear fields2..6 then signed divide field0 by2"
+  },
+  "limits": [
+    "Static native/C body, loop-bound, width and state-layout review, no native/C replay or whole-game claim.",
+    "00477F60 writes AL only; one native caller ignores the result and the other consumes a byte. No full EAX value is exposed.",
+    "00445460 leaves EAX=this, but its known vector-constructor consumer 00561441 ignores callback results. Portable API exposes mutation only. Unresolved indirect callers are not claimed.",
+    "Native memory widths do not establish types of the unknown reserved fade fields."
+  ],
+  "integration": {
+    "release_target": "pharaoh_clean_bootstrap",
+    "result": "success",
+    "library_sha256": "f0967f67911608899082e5fe13b877e7471cb444a4e80062457eab1432739826",
+    "migration_verify": {
+      "ok": false,
+      "errors": 113,
+      "relevant_errors": [
+        "New source hash mismatch in migration-batch-074.json: game/ui/window_layout_key.c"
+      ]
+    },
+    "limits": "Current worktree build includes other uncommitted changes. Historical migration-batch-074 full-file binding is stale after extensions to window_layout_key.c; it is preserved, not relabelled as a new proof. No tests or gameplay equivalence claim."
+  },
+  "checkpoint_source_sha256": "c454e0b4980bbb8f1d56f2884e57f5a171401b635316167e6c6ec4d53f3d567b",
+  "checkpoint_header_sha256": "f412fe361dbff17cb9e8835dddc6c429ff5b5472652f8c9cb10077bec120f4ad"
+}

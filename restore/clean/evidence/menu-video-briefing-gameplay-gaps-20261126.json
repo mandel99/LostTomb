@@ -1,0 +1,73 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "priority": "menu -> period video -> briefing -> gameplay",
+  "native_foreground": {
+    "address": "0x004D75D0",
+    "window_one_branch": "if (DAT_00e38dda == '\\x01') {\n      if (Event54SuppressFlood == 0) {\n        FUN_004dddc0();\n        FUN_0051ec90();\n        FUN_0051ed30(0,DAT_00f53f64 + 0xb);\n        FUN_0051efb0(0);\n        FUN_0051f790();\n        FUN_0043e1a0();\n        FUN_00534610();\n        FUN_00534df0();\n        FUN_00535080();\n        FUN_00536120();\n        FUN_004e1320();\n        FUN_004e61f0();\n      }\n      else {\n        if (DAT_00605a38 == 0) {\n          FUN_004dddc0();\n        }\n        else {\n          FUN_004138d0();\n          FUN_004256a0(DAT_00e38da8 + 0xc,DAT_00e38da4 + 0x28,&DAT_005c8eb8,2);\n        }\n        FUN_0051efb0(0);\n        FUN_00533e70();\n        FUN_00535080();\n      }\n      goto LAB_004d82ef;\n    }"
+  },
+  "observed_host_gaps": [
+    {
+      "owner": "game/platform/windows_startup_host.c:pharaoh_windows_startup_host_draw_campaign_menu",
+      "gap": "Still uses handwritten menu drawing; native 0x0041BE10 owner exists but its full font/layout context is not bound.",
+      "source_sha256": "adfe338e290b7cb6210d657137bc3203d62412a450a9b45e0e9bd4ec8a669177"
+    },
+    {
+      "owner": "game/platform/windows_startup_dispatch.c:campaign_menu_play_period_intro",
+      "state": "Bound to the real Bink host and existing period-path selector.",
+      "source_sha256": "d9e04d577da37cebb18eb0288caeae45d717d78aee34b9773708d149630af9e9"
+    },
+    {
+      "owner": "game/scenario/mission_scene.c:read_state",
+      "gap": "Factory accepts mission_id0, normal scenario mode, no active buildings and no planned/current monument IDs. Other scenes remain explicitly unsupported until deeper children are bound.",
+      "source_sha256": "685bbd33e8c9e6f76b7b7ee718d1b878d6593db9140733f037a383f92c73ed37"
+    },
+    {
+      "owner": "game/platform/windows_mission_runtime.c:pharaoh_windows_mission_runtime_game_frame",
+      "gap": "Draws actual terrain/city-top and presents, but does not dispatch the complete native window-one foreground/UI branch. Native mission start resets gameTimeDay/gameTimeTick to zero; their simulation-tick owner is not connected in this runtime.",
+      "source_sha256": "92c3f891b097192c17b347278ac36c03277f8456b7f4aba2fc961f00e5c1a903"
+    }
+  ],
+  "native_UI_entries_still_unmapped": [
+    "0x0051F790",
+    "0x0043E1A0",
+    "0x00534610",
+    "0x00534DF0",
+    "0x00535080",
+    "0x00536120",
+    "0x004E1320",
+    "0x004E61F0"
+  ],
+  "text_adapter_dependencies": {
+    "adapters": [
+      "0x004D62F0",
+      "0x004D6250",
+      "0x004D6860"
+    ],
+    "already_mapped": [
+      "0x004D5D70",
+      "0x004D5FE0",
+      "0x004D6090",
+      "0x004CCBB0",
+      "0x004CCB30",
+      "0x004CCE00"
+    ],
+    "completed_this_checkpoint": [
+      "0x004D5F80",
+      "0x004D5DD0",
+      "0x004D5E70"
+    ],
+    "pending": [
+      "0x004D5D90",
+      "0x004D6900",
+      "0x004D69B0"
+    ],
+    "pending_stdio_native_entries": [
+      "0x00561A0A",
+      "0x00561CA1",
+      "0x00561994",
+      "0x00561A2B"
+    ],
+    "next": "Close real dialog.loc initialization/list loading before migrating the three text adapters and their 0x0051F790 parent; bind actual UI providers, then the simulation owner."
+  },
+  "limits": "Unmapped is an ownership-map fact, not proof that no reusable old C exists. Search current/old/mixed/generated owners again before each new rewrite. These are static observations, not runtime replay or whole-game equivalence."
+}

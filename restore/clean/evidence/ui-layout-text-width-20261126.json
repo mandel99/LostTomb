@@ -1,0 +1,288 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "provider": "Live Ghidra",
+  "functions": [
+    {
+      "graph": {
+        "function": {
+          "name": "FUN_004d5f80",
+          "address": "004d5f80"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "004d5dd2",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5dea",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5e02",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5e1a",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5e32",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5e4a",
+              "caller": {
+                "name": "FUN_004d5dd0",
+                "address": "004d5dd0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "004d5e72",
+              "caller": {
+                "name": "FUN_004d5e70",
+                "address": "004d5e70"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 7,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "004d5f95",
+              "target": "004cc110",
+              "name": "pharaoh_text_select",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5fa2",
+              "target": "004cc110",
+              "name": "pharaoh_text_select",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5fb7",
+              "target": "004cbf30",
+              "name": "FUN_004cbf30",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5fc8",
+              "target": "004cc110",
+              "name": "pharaoh_text_select",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 4,
+          "has_more": false
+        }
+      },
+      "code": "\r\nint FUN_004d5f80(int param_1)\r\n\r\n{\r\n  int iVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  int iVar4;\r\n  \r\n  iVar4 = 1;\r\n  iVar3 = 1;\r\n  pharaoh_text_select(param_1 + 1,0);\r\n  iVar1 = DAT_00e20768;\r\n  pharaoh_text_select(param_1,1);\r\n  do {\r\n    iVar2 = FUN_004cbf30(DAT_00e20768,DAT_00f56f8c);\r\n    if (iVar4 < iVar2) {\r\n      iVar4 = iVar2;\r\n    }\r\n    iVar3 = iVar3 + 1;\r\n    pharaoh_text_select(param_1,iVar3);\r\n  } while (iVar1 != DAT_00e20768);\r\n  return iVar4;\r\n}\r\n\r\n",
+      "address": "0x004D5F80",
+      "c_body": "int32_t pharaoh_ui_layout_group_max_width(\n    const PharaohUiLayoutTextContext *context, int32_t group)\n{\n    int32_t maximum = 1;\n    int32_t entry = 1;\n    pharaoh_text_select(context->selection, wrap_add(group, 1), 0);\n    *context->current_text_00e20768 = context->selection->current;\n    const char *const end = *context->current_text_00e20768;\n    pharaoh_text_select(context->selection, group, entry);\n    *context->current_text_00e20768 = context->selection->current;\n    do {\n        const int32_t width = pharaoh_bitmap_text_width_native(context->font,\n            (const uint8_t *)*context->current_text_00e20768,\n            context->glyph_map, context->current_glyph);\n        if (maximum < width) maximum = width;\n        entry = wrap_add(entry, 1);\n        pharaoh_text_select(context->selection, group, entry);\n        *context->current_text_00e20768 = context->selection->current;\n    } while (*context->current_text_00e20768 != end);\n    return maximum;\n}",
+      "body_sha256": "a960b0c9ecb878c5b0ec9fb4aac7faefc7fc17288b29274a13c2111d5e112b2b"
+    },
+    {
+      "graph": {
+        "function": {
+          "name": "FUN_004d5dd0",
+          "address": "004d5dd0"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "004d5db7",
+              "caller": {
+                "name": "FUN_004d5d90",
+                "address": "004d5d90"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 1,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "004d5dd2",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5dea",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5e02",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5e1a",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5e32",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "004d5e4a",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 6,
+          "has_more": false
+        }
+      },
+      "code": "\r\nvoid FUN_004d5dd0(void)\r\n\r\n{\r\n  int iVar1;\r\n  \r\n  iVar1 = FUN_004d5f80(1);\r\n  DAT_00e945d0 = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  iVar1 = FUN_004d5f80(2);\r\n  DAT_00e945d4 = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  iVar1 = FUN_004d5f80(3);\r\n  DAT_00e945d8 = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  iVar1 = FUN_004d5f80(4);\r\n  DAT_00e945dc = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  iVar1 = FUN_004d5f80(7);\r\n  DAT_00e945e0 = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  iVar1 = FUN_004d5f80(10);\r\n  DAT_00e945e4 = ((int)(iVar1 + (iVar1 >> 0x1f & 0xfU)) >> 4) + 2;\r\n  return;\r\n}\r\n\r\n",
+      "address": "0x004D5DD0",
+      "c_body": "void pharaoh_ui_layout_init_column_widths(\n    const PharaohUiLayoutTextContext *context, int32_t columns[6])\n{\n    static const int32_t groups[6] = {1, 2, 3, 4, 7, 10};\n    for (int32_t column = 0; column < 6; ++column) {\n        columns[column] = pharaoh_ui_layout_group_max_width(context,\n            groups[column]) / 16 + 2;\n    }\n}",
+      "body_sha256": "2294045d5056d2caf02aae08765b9cbd794f2975040e335edaf25de49551b5e5"
+    },
+    {
+      "graph": {
+        "function": {
+          "name": "FUN_004d5e70",
+          "address": "004d5e70"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "004d5dbc",
+              "caller": {
+                "name": "FUN_004d5d90",
+                "address": "004d5d90"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 1,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "004d5e72",
+              "target": "004d5f80",
+              "name": "FUN_004d5f80",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 100,
+          "total": 1,
+          "has_more": false
+        }
+      },
+      "code": "\r\nvoid FUN_004d5e70(void)\r\n\r\n{\r\n  uint uVar1;\r\n  int iVar2;\r\n  short *psVar3;\r\n  bool bVar4;\r\n  \r\n  uVar1 = FUN_004d5f80(0x1c);\r\n  iVar2 = (int)(uVar1 + ((int)uVar1 >> 0x1f & 0xfU)) >> 4;\r\n  uVar1 = uVar1 & 0x8000000f;\r\n  bVar4 = uVar1 == 0;\r\n  if ((int)uVar1 < 0) {\r\n    bVar4 = (uVar1 - 1 | 0xfffffff0) == 0xffffffff;\r\n  }\r\n  if (!bVar4) {\r\n    iVar2 = iVar2 + 1;\r\n  }\r\n  psVar3 = &DAT_005c28ac;\r\n  DAT_00e94db0 = iVar2;\r\n  do {\r\n    *psVar3 = ((short)iVar2 + 7) * 0x10;\r\n    psVar3 = psVar3 + 0xe;\r\n  } while ((int)psVar3 < 0x5c2bf4);\r\n  DAT_00e94dac = iVar2 << 4;\r\n  return;\r\n}\r\n\r\n",
+      "address": "0x004D5E70",
+      "c_body": "void pharaoh_ui_layout_init_label_width(\n    const PharaohUiLayoutTextContext *context, PharaohGenericButton buttons[30],\n    int32_t *label_columns, int32_t *label_width)\n{\n    const int32_t width = pharaoh_ui_layout_group_max_width(context, 0x1c);\n    const int32_t columns = width / 16 + (width % 16 != 0);\n    const uint16_t right = (uint16_t)(((uint32_t)columns + 7u) * 16u);\n    *label_columns = columns;\n    for (int32_t button = 0; button < 30; ++button) {\n        buttons[button].bounds.right = (int16_t)right;\n    }\n    *label_width = (int32_t)((uint32_t)columns * 16u);\n}",
+      "body_sha256": "82c1c5c97cecca01cc752e9bc240803e5cb5af49864895c786505d1b7dc28088"
+    }
+  ],
+  "source": "game/ui/window_layout_key.c",
+  "source_sha256": "fb4d8460ceb72f9054a6fbbdb151cb29e104eb6805bbafeb83bf9f75d282cd3f",
+  "header": "game/include/pharaoh/ui/window_layout_key.h",
+  "header_sha256": "696a014039fa57f12fd6b0540a40a5f6271fe3d940c2a61b73c34d2fc09e7347",
+  "reuse": "Existing text selector 0x004CC110 and width renderer 0x004CBF30. Old src/Unit01838.c, Unit01839.c and Unit01844.c retain Original calls; no complete mixed typed owner found.",
+  "contracts": [
+    "0x004D5F80: maximum starts at 1; select next-group entry 0 as end pointer, measure entries starting at 1, stop on exact pointer equality. Preserve catalog/current-glyph writes.",
+    "0x004D5DD0: six groups 1,2,3,4,7,10; truncate width/16 and add 2; native output E945D0..E945E4.",
+    "0x004D5E70: group 28, round positive maximum upward to 16-pixel columns; write columns E94DB0, pixel width E94DAC and the 30 signed-WORD right edges at 5C28AC+28*i. Logical C button records need not share the native physical stride."
+  ],
+  "limits": [
+    "Requires the real adjacent-group catalog sentinel, native font/glyph data and live selected-text/current-glyph storage.",
+    "Complete static native/C comparison only. UI layout initialization, dialog.loc loading and three UI text adapters remain to be connected; no host/gameplay equivalence claimed."
+  ],
+  "integration": {
+    "release_target": "pharaoh_clean_bootstrap",
+    "result": "success",
+    "library_sha256": "f0967f67911608899082e5fe13b877e7471cb444a4e80062457eab1432739826",
+    "migration_verify": {
+      "ok": false,
+      "errors": 113,
+      "relevant_errors": [
+        "New source hash mismatch in migration-batch-074.json: game/ui/window_layout_key.c"
+      ]
+    },
+    "limits": "Current worktree build includes other uncommitted changes. Historical migration-batch-074 full-file binding is stale after extensions to window_layout_key.c; it is preserved, not relabelled as a new proof. No tests or gameplay equivalence claim."
+  },
+  "checkpoint_source_sha256": "9af8f226fb4c72a31bb7519cf8cd4cfdaa43d5e25afb0ef1e5a6b467c9a76666",
+  "checkpoint_header_sha256": "75fc92d336aecc43383ecda5c81ec75a98380fdbffffa8f56874beeba39cb6de"
+}

@@ -1,6 +1,19 @@
 #include "pharaoh/core/static_objects.h"
 
 #include <stddef.h>
+#include <string.h>
+
+#if UINTPTR_MAX == UINT32_MAX
+_Static_assert(offsetof(PharaohScreenFade, reserved_1) == 0x1c &&
+    offsetof(PharaohScreenFade, pixels) == 0x24,
+    "native fade initialization offsets");
+_Static_assert(offsetof(PharaohEmpireRoute, path_length) == 0x134 &&
+    offsetof(PharaohEmpireRoute, path_capacity) == 0x138 &&
+    offsetof(PharaohEmpireRoute, first_object) == 0x13c &&
+    offsetof(PharaohEmpireRoute, point_count) == 0x141 &&
+    offsetof(PharaohEmpireRoute, in_use) == 0x142,
+    "native route constructor offsets");
+#endif
 
 void pharaoh_empire_route_construct(PharaohEmpireRoute *route)
 {
@@ -19,6 +32,9 @@ void pharaoh_screen_fade_initialize(PharaohScreenFade *fade)
 {
     fade->format = -1;
     fade->steps = 0;
+    /* Native 00413E91/00413E96 also clear offsets 0x20 and 0x1c.
+       Their data types remain unknown; retain the byte storage. */
+    memset(fade->reserved_1, 0, sizeof(fade->reserved_1));
     fade->pixels[1] = NULL;
     fade->pixels[0] = NULL;
 }
@@ -233,4 +249,10 @@ void pharaoh_native_ten_dwords_clear_0046a080(uint32_t values[10])
 {
     int32_t index;
     for (index = 0; index < 10; ++index) values[index] = 0;
+}
+
+void pharaoh_native_active_counter_decrement_004ea740(
+    int32_t active, int32_t *counter)
+{
+    if (active != 0) *counter = (int32_t)((uint32_t)*counter - UINT32_C(1));
 }
