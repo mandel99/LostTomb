@@ -1,0 +1,46 @@
+{
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_function": {
+    "address": "0x00425990",
+    "ghidra_name": "FUN_00425990",
+    "prototype": "int FUN_00425990(int x,int y,short *buttons,int count)",
+    "c_owner": "pharaoh_image_buttons_handle_mouse"
+  },
+  "native_callers": [
+    "0x00418FE0",
+    "0x00425840",
+    "0x00426530",
+    "0x004C7770",
+    "0x004D8310",
+    "0x004E1E10",
+    "0x004F96E0",
+    "0x00501B60",
+    "0x00502990",
+    "0x00515C60"
+  ],
+  "native_callees": [
+    "0x00425B80",
+    "0x00425B50",
+    "0x0047D350"
+  ],
+  "unresolved_indirect_call_sites": [
+    "0x00425B01",
+    "0x00425B16",
+    "0x00425B36"
+  ],
+  "native_contract": "159-instruction input path: first decays kind 4/6 activation timers, updates hover/countdown and hit coordinates, gates on the word at buttons+count*0x24+8 and current mouse flags, selects first enabled/pressed record, clears radio peers for kind 2, stores parameters, dispatches the correct left/right token, and returns change or one-based selection. The zero-return callee 0x0047D350 has no side effects and its result is discarded.",
+  "reuse_review": "Reuses generated/mixed/runtime/SmallButtonInput.c algorithm after replacing absolute addresses with typed record/state fields; its 0x00425B50/0x00425B80 leaf owners are included and mapped. direct_c/MenuInputTestBoundaries.c contains traps only.",
+  "limitations": "The three indirect action calls remain the caller-owned token dispatcher. trailing_trigger must be the actual adjacent native record word; no default is synthesized.",
+  "source_hashes": {
+    "game/ui/generic_button_focus.c": "e094a2ab6e1415c1f252dec0c9d23a9325164e1c08e29bd1d30eadcc4fc91349",
+    "game/include/pharaoh/ui/generic_button_focus.h": "78e284cf4802b99e73785853e55b97e4575829a1bb835f9f51a38c4ef9dbaf3f",
+    "game/ui/image_button_input.c": "ec602dace3c3c29f16c5ff96176297c6f42c9e787f5d810fa0d82a1108a37d5b",
+    "game/include/pharaoh/ui/image_button_input.h": "a3611155da45ce0a65e2ff279b5709103e940c56d7d2724219a88e51951ec246"
+  },
+  "cmake_sha256": "5047b72301dc8b34fa4ebe29286fd4d93e5a85b23fcaa00d0d7e8cd90c172ec2",
+  "verification": {
+    "release_build": "passed",
+    "release_library_sha256": "5f4640f6caba7bd44e2563c508c3785f6f324ff9145d0316d6be5f536c158a45",
+    "migration_workflow": "pending"
+  }
+}
