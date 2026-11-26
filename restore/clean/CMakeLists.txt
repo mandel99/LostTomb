@@ -361,6 +361,10 @@ add_library(pharaoh_game STATIC
     game/ui/button_layout.c
     game/ui/menu_button_layout_init.c
     game/ui/window_layout_key.c
+    game/ui/window_layout.c
+    game/ui/ui_text_layout.c
+    game/ui/city_mission_status.c
+    game/ui/button_border.c
     game/runtime/main_menu_open.c
     game/ui/menu_screens.c
     game/ui/title_menu_background.c

@@ -11,6 +11,22 @@ typedef struct PharaohMenuLayoutSlot {
     int32_t initialized;
 } PharaohMenuLayoutSlot;
 
+typedef struct PharaohLayoutHighlightState {
+    int32_t edit_mode;
+    int32_t mouse_x, mouse_y;
+    int32_t marked_x, marked_y;
+    int32_t marked_key_x, marked_key_y;
+    int32_t marked_width, marked_height;
+    void *user_data;
+    void (*clear_highlight)(void *user_data);
+    void (*draw_border)(void *user_data, int32_t style, int32_t x,
+        int32_t y, int32_t width, int32_t height, uint32_t color);
+} PharaohLayoutHighlightState;
+
+void pharaoh_ui_layout_highlight(PharaohLayoutHighlightState *state,
+    int32_t kind, int32_t x, int32_t y, int32_t width, int32_t height,
+    int32_t base_x, int32_t base_y, int32_t offset_x, int32_t offset_y);
+
 typedef struct PharaohButtonLayoutState {
     int32_t window_key;
     int32_t window_seven_layout_base;

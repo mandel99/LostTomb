@@ -46,7 +46,8 @@ void pharaoh_panel_frame_draw(const PharaohPanelFrameOperations *operations,
             }
 
             operations->draw_sprite(operations->user_data, image,
-                x + column * 16, y + row * 16);
+                (int32_t)((uint32_t)x + (uint32_t)column * 16u),
+                (int32_t)((uint32_t)y + (uint32_t)row * 16u));
             if (column_offset > 9) column_offset = 0;
         }
         vertical_offset += vertical_step;
@@ -103,10 +104,42 @@ void pharaoh_inner_panel_frame_draw(
             }
 
             operations->draw_sprite(operations->user_data, image,
-                x + column * 16, y + row * 16);
+                (int32_t)((uint32_t)x + (uint32_t)column * 16u),
+                (int32_t)((uint32_t)y + (uint32_t)row * 16u));
             if (column_offset > 4) column_offset = 0;
         }
         vertical_offset += vertical_step;
         if (vertical_offset > 0x22) vertical_offset = 0;
     }
+}
+
+static void native_frame_image(void *data, int32_t offset, int32_t x, int32_t y)
+{
+    const PharaohPanelFrameNativeContext *const context = data;
+    *context->tile_x_00d3b5e0 = x;
+    *context->tile_y_00d3b5dc = y;
+    const int32_t image = (int32_t)((uint32_t)*context->image_base +
+        (uint32_t)offset);
+    *context->current_image_00d3b5c0 = (uint32_t)image;
+    (void)pharaoh_image_draw(context->drawing, image, x, y);
+}
+
+void pharaoh_panel_frame_draw_native(const PharaohPanelFrameNativeContext *context,
+    int32_t x, int32_t y, int32_t width_blocks, int32_t height_blocks)
+{
+    /* Zero selects relative sprite offsets in the shared pattern core.
+       The provider reads the actual live native image base on every tile. */
+    const PharaohPanelFrameOperations offsets = {
+        (void *)context, native_frame_image, 0, 0
+    };
+    pharaoh_panel_frame_draw(&offsets, x, y, width_blocks, height_blocks);
+}
+
+void pharaoh_inner_panel_frame_draw_native(const PharaohPanelFrameNativeContext *context,
+    int32_t x, int32_t y, int32_t width_blocks, int32_t height_blocks)
+{
+    const PharaohPanelFrameOperations offsets = {
+        (void *)context, native_frame_image, 0, 0
+    };
+    pharaoh_inner_panel_frame_draw(&offsets, x, y, width_blocks, height_blocks);
 }

@@ -28,7 +28,6 @@
     }
   ],
   "native_UI_entries_still_unmapped": [
-    "0x0051F790",
     "0x0043E1A0",
     "0x00534610",
     "0x00534DF0",
@@ -54,20 +53,31 @@
     "completed_this_checkpoint": [
       "0x004D5F80",
       "0x004D5DD0",
-      "0x004D5E70"
-    ],
-    "pending": [
-      "0x004D5D90",
+      "0x004D5E70",
       "0x004D6900",
-      "0x004D69B0"
+      "0x004D69B0",
+      "0x004D5D90",
+      "0x004D62F0",
+      "0x004D6250",
+      "0x004D6860",
+      "0x0051F790",
+      "0x004D6050",
+      "0x00536C30"
     ],
+    "pending": [],
     "pending_stdio_native_entries": [
       "0x00561A0A",
       "0x00561CA1",
       "0x00561994",
       "0x00561A2B"
     ],
-    "next": "Close real dialog.loc initialization/list loading before migrating the three text adapters and their 0x0051F790 parent; bind actual UI providers, then the simulation owner."
+    "next": "Attach the actual shared text/input state, fonts, button records, graphics and mission fields to the complete UI providers. Then close remaining foreground controllers and bind native simulation; do not initialize guessed ABI frames.",
+    "native_panel_state_completed": [
+      "0x00536820",
+      "0x00536A30"
+    ]
   },
-  "limits": "Unmapped is an ownership-map fact, not proof that no reusable old C exists. Search current/old/mixed/generated owners again before each new rewrite. These are static observations, not runtime replay or whole-game equivalence."
+  "limits": "Unmapped is an ownership-map fact, not proof that no reusable old C exists. Search current/old/mixed/generated owners again before each new rewrite. These are static observations, not runtime replay or whole-game equivalence.",
+  "dialog_loc": "Optional native layout overrides. Missing file returns immediately and retains built-in geometry; it is not a gameplay prerequisite.",
+  "scope_note": "C owners are now available for layout/status; host adapters and gameplay remain incomplete. Native CRT ABI remains an explicit external-provider boundary."
 }

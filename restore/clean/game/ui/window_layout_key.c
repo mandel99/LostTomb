@@ -1,6 +1,7 @@
 #include "pharaoh/ui/window_layout_key.h"
 #include "pharaoh/runtime/text_loading.h"
 
+#include <stddef.h>
 #include <stdint.h>
 
 enum {
@@ -71,4 +72,24 @@ void pharaoh_ui_layout_init_label_width(
         buttons[button].bounds.right = (int16_t)right;
     }
     *label_width = (int32_t)((uint32_t)columns * 16u);
+}
+
+/* Complete zero-callee C translation of Pharaoh.exe 0x004D5FE0. */
+PharaohUiLayoutNode *pharaoh_ui_layout_find(
+    const PharaohUiLayoutEntry *entries, int32_t kind, int32_t mode,
+    int32_t relative_x, int32_t relative_y)
+{
+    int32_t list;
+    PharaohUiLayoutNode *node;
+    if (kind == 1) list = 0;
+    else if (kind == 2) list = 1;
+    else if (kind == 3 || kind == 4) list = 2;
+    else return NULL;
+    node = entries[mode].lists[list];
+    while (node != NULL) {
+        if (node->relative_x == relative_x && node->relative_y == relative_y)
+            return node;
+        node = node->next;
+    }
+    return NULL;
 }

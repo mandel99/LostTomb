@@ -20,6 +20,30 @@ static int32_t wrap_add(int32_t left, int32_t right)
     return (int32_t)result_bits;
 }
 
+/* Complete hot-C translation of native 0x004D6090. */
+void pharaoh_ui_layout_highlight(PharaohLayoutHighlightState *state,
+    int32_t kind, int32_t x, int32_t y, int32_t width, int32_t height,
+    int32_t base_x, int32_t base_y, int32_t offset_x, int32_t offset_y)
+{
+    const int32_t screen_x = wrap_add(base_x, offset_x);
+    const int32_t screen_y = wrap_add(base_y, offset_y);
+    if (kind != state->edit_mode || screen_x >= state->mouse_x ||
+        state->mouse_x >= wrap_add(screen_x, width) ||
+        screen_y >= state->mouse_y ||
+        state->mouse_y >= wrap_add(screen_y, height)) return;
+    state->clear_highlight(state->user_data);
+    state->marked_x = base_x;
+    state->marked_key_x = (int32_t)((uint32_t)x - (uint32_t)offset_x);
+    state->marked_key_y = (int32_t)((uint32_t)y - (uint32_t)offset_y);
+    state->marked_y = base_y;
+    state->marked_width = width;
+    state->marked_height = height;
+    state->draw_border(state->user_data, 1, screen_x, screen_y,
+        width, height, 0xffff);
+    state->draw_border(state->user_data, 0, screen_x, screen_y,
+        width, height, 0xffff);
+}
+
 int32_t pharaoh_ui_layout_buttons(PharaohButtonLayoutState *state,
     const PharaohButtonLayoutOperations *operations,
     int32_t origin_x, int32_t origin_y,

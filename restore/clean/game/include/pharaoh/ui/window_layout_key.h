@@ -5,6 +5,24 @@
 #include "pharaoh/ui/bitmap_font.h"
 #include "pharaoh/ui/generic_button_input.h"
 
+typedef struct PharaohUiLayoutNode {
+    int32_t relative_x;
+    int32_t relative_y;
+    int32_t values_08[4];
+    struct PharaohUiLayoutNode *next;
+} PharaohUiLayoutNode;
+
+_Static_assert(sizeof(PharaohUiLayoutNode) == 0x1c,
+    "native UI layout node size changed");
+
+typedef struct PharaohUiLayoutEntry {
+    PharaohUiLayoutNode *lists[3];
+    int32_t buttons_initialized;
+} PharaohUiLayoutEntry;
+
+_Static_assert(sizeof(PharaohUiLayoutEntry) == 0x10,
+    "three native layout lists and one DWORD flag");
+
 typedef struct PharaohUiLayoutTextContext {
     PharaohTextSelection *selection;
     const PharaohBitmapFont *font; /* native font 0x00F56F8C */
@@ -28,5 +46,9 @@ void pharaoh_ui_layout_init_label_width(
    state only for window key 7. */
 int32_t pharaoh_ui_layout_window_key(int32_t window_key,
     int32_t window_seven_layout_base);
+
+PharaohUiLayoutNode *pharaoh_ui_layout_find(
+    const PharaohUiLayoutEntry *entries, int32_t kind, int32_t mode,
+    int32_t relative_x, int32_t relative_y);
 
 #endif
