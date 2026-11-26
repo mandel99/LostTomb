@@ -1,0 +1,54 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "address": "0x00418640",
+  "native": {
+    "name": "MissionEndAdvance",
+    "prototype": "void MissionEndAdvance(void)",
+    "range": [
+      "0x00418640",
+      "0x004188EF"
+    ],
+    "body_size": 688,
+    "decompiler_sha256": "00585843db48dc7d0cf3bc1d006885746a53eaf6edbc77f7391efc6e56fe490f"
+  },
+  "native_callers": [
+    {
+      "address": "0x004D8310",
+      "name": "WindowHandleInputDispatch",
+      "call_site": "0x004DCDE3"
+    }
+  ],
+  "native_callees": [
+    "0x00516A20",
+    "0x0041B8A0",
+    "0x0041B920",
+    "0x004188F0",
+    "0x004181E0",
+    "0x0041F870",
+    "0x00413580",
+    "0x004CB6A0"
+  ],
+  "typed_owner": {
+    "name": "pharaoh_mission_advance",
+    "source": "game/scenario/campaign_continue.c",
+    "sha256": "847cfc004bf28a30f21d819db5a5aa95affe7a6e80be70564b5c295ce27d2482",
+    "header": "game/include/pharaoh/scenario/campaign_continue.h",
+    "header_sha256": "33dce89296a5dcd792215a7434e73921fd0e75aa6b8b8212e7bbc1ca068e442d"
+  },
+  "successor_invariant": {
+    "source": "game/scenario/campaign_start.c",
+    "sha256": "1ba6c1bf1b71bee963b5bdacf22f3b926b2efb1ad325c06862a699777c47e77f",
+    "contract": "pharaoh_campaign_find_mission returns -1 or a candidate in [0,index->count); on the native next>=0 branch the record index is therefore valid."
+  },
+  "comparison": "Compared state updates, mission-record/profile branches, scenario-mode transition, choice/briefing routing, period video selection, main-menu return, and final flags against live Ghidra pseudocode/disassembly. Removed the non-native selection_failure callback for the proven in-range successor branch.",
+  "unresolved_native_edges": [
+    "0x0041B8A0",
+    "0x004188F0"
+  ],
+  "verification": {
+    "provider": "live Ghidra headless session",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "function_renamed": "MissionEndAdvance",
+    "prototype_set": "void MissionEndAdvance(void)"
+  }
+}

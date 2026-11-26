@@ -171,11 +171,6 @@ void pharaoh_mission_advance(PharaohMissionAdvanceState *state,
                     state->settings->previous_campaign_link =
                         (uint8_t)state->settings->campaign_link;
                     state->settings->campaign_link = (int8_t)next;
-                    if (next < 0 || next >= state->index->count) {
-                        operations->selection_failure(operations->user_data,
-                            UINT32_C(0x00418640));
-                        return;
-                    }
                     state->settings->mission_id = (int8_t)
                         state->index->records[next].link.mission_id;
                 } else {

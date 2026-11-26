@@ -3012,6 +3012,30 @@
 {"address":"0x00425E80","name":"pharaoh_square_buttons_get_focus","source":"game/ui/generic_button_focus.c","origin":"Complete typed leaf translation.","mapping_evidence":"evidence/typed-leaf-imports-20261121-ae.json"},
 {"address":"0x00426100","name":"pharaoh_menu_bar_focus","source":"game/ui/generic_button_focus.c","origin":"Complete typed leaf translation.","mapping_evidence":"evidence/typed-leaf-imports-20261121-ae.json"},
 {"address":"0x00504630","name":"pharaoh_building_info_draw_palace_foreground","source":"game/ui/generic_button_focus.c","origin":"Complete typed two-callee palace tax-arrow foreground imported from old LostTomb C and reverified against live Ghidra decompilation.","mapping_evidence":"evidence/palace-foreground-parent-20261122.json"},
-{"address":"0x00515BF0","name":"pharaoh_building_info_draw_advisor_buttons","source":"game/ui/generic_button_focus.c","origin":"Complete typed one-callee building advisor-button renderer imported from old LostTomb C and reverified against live Ghidra decompilation.","mapping_evidence":"evidence/image-advisor-buttons-parent-20261122.json"}
+{"address":"0x00515BF0","name":"pharaoh_building_info_draw_advisor_buttons","source":"game/ui/generic_button_focus.c","origin":"Complete typed one-callee building advisor-button renderer imported from old LostTomb C and reverified against live Ghidra decompilation.","mapping_evidence":"evidence/image-advisor-buttons-parent-20261122.json"},
+{
+      "address": "0x00418640",
+      "name": "pharaoh_mission_advance",
+      "source": "game/scenario/campaign_continue.c",
+      "origin": "Complete typed C translation compared with pinned live Ghidra pseudocode; synthetic failure callback removed because the native successor query returns only -1 or an in-range index.",
+      "mapping_evidence": "evidence/mission-advance-branch-20261126.json",
+      "native_callers": [
+            "0x004D8310"
+      ],
+      "native_callees": [
+            "0x00516A20",
+            "0x0041B8A0",
+            "0x0041B920",
+            "0x004188F0",
+            "0x004181E0",
+            "0x0041F870",
+            "0x00413580",
+            "0x004CB6A0"
+      ],
+      "reachable_from": [
+            "0x004D8310"
+      ],
+      "known_limitations": "Native profile-save and mission-record helpers at 0x0041B8A0 and 0x004188F0 remain operation boundaries; end-to-end gameplay host binding is incomplete."
+}
 ]
 }

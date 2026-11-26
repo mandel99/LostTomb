@@ -128,11 +128,10 @@ typedef struct PharaohMissionAdvanceOperations {
     void (*play_video)(void *user_data, const char *path,
         int32_t x, int32_t y);
     void (*show_main_menu)(void *user_data);
-    void (*selection_failure)(void *user_data, uint32_t origin);
 } PharaohMissionAdvanceOperations;
 
-/* Complete typed translation of native 0x00418640. selection_failure must not
-   return when the native campaign-index invariant is violated. */
+/* Complete typed translation of native 0x00418640. A nonnegative result from
+   pharaoh_campaign_find_mission is an index within the campaign record count. */
 void pharaoh_mission_advance(PharaohMissionAdvanceState *state,
     const PharaohMissionAdvanceOperations *operations);
 
