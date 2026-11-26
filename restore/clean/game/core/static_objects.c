@@ -256,3 +256,12 @@ void pharaoh_native_active_counter_decrement_004ea740(
 {
     if (active != 0) *counter = (int32_t)((uint32_t)*counter - UINT32_C(1));
 }
+
+void pharaoh_native_service_records_decay_0041d6f0(int32_t records[69][32])
+{
+    int32_t record, field;
+    for (record = 0; record < 69; ++record) {
+        for (field = 2; field <= 6; ++field) records[record][field] = 0;
+        records[record][0] /= 2;
+    }
+}

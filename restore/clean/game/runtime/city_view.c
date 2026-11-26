@@ -334,6 +334,16 @@ void pharaoh_city_view_calculate_map_bounds(PharaohCityViewContext *context)
     state->visible_maximum_y = (scan * 2 - 1) & ~1;
 }
 
+static int32_t wrapped_add_i32(int32_t left, int32_t right)
+{
+    return (int32_t)((uint32_t)left + (uint32_t)right);
+}
+
+static int32_t wrapped_sub_i32(int32_t left, int32_t right)
+{
+    return (int32_t)((uint32_t)left - (uint32_t)right);
+}
+
 void pharaoh_city_view_check_camera_boundaries(PharaohCityViewContext *context)
 {
     PharaohCityViewState *const state = context->state;
@@ -343,12 +353,13 @@ void pharaoh_city_view_check_camera_boundaries(PharaohCityViewContext *context)
     int32_t maximum_y = state->visible_maximum_y;
     int changed = 0;
 
+    /* Historic member name; native reads the editor flag605A3C. */
     if (context->debug_extra_camera_bounds_enabled != 0 &&
         context->event_54_suppress_flood == 1) {
-        minimum_x -= 2;
-        minimum_y -= 5;
-        maximum_x += 3;
-        maximum_y += 5;
+        minimum_x = wrapped_add_i32(minimum_x, -2);
+        minimum_y = wrapped_add_i32(minimum_y, -5);
+        maximum_x = wrapped_add_i32(maximum_x, 3);
+        maximum_y = wrapped_add_i32(maximum_y, 5);
     }
     if (state->camera_x < minimum_x) {
         state->camera_x = minimum_x;
@@ -358,18 +369,23 @@ void pharaoh_city_view_check_camera_boundaries(PharaohCityViewContext *context)
         state->camera_y = minimum_y;
         changed = 1;
     }
-    if (state->camera_x + state->viewport.width_tiles > maximum_x) {
-        state->camera_x = maximum_x - state->viewport.width_tiles;
+    if (wrapped_add_i32(pharaoh_city_view_get_viewport_width_tiles(state),
+        state->camera_x) > maximum_x) {
+        state->camera_x = wrapped_sub_i32(maximum_x,
+            pharaoh_city_view_get_viewport_width_tiles(state));
         changed = 1;
     }
-    if (state->camera_y + state->viewport.height_tiles > maximum_y) {
-        state->camera_y = maximum_y - state->viewport.height_tiles;
+    const int32_t height = pharaoh_city_view_get_viewport_height_tiles(state);
+    int32_t camera_y = state->camera_y; /* native reload follows the getter */
+    if (wrapped_add_i32(height, camera_y) > maximum_y) {
+        camera_y = wrapped_sub_i32(maximum_y,
+            pharaoh_city_view_get_viewport_height_tiles(state));
         changed = 1;
     }
     if (changed && context->event_54_suppress_flood == 1) {
-        state->redraw_requested = 1;
+        state->redraw_requested = 1; /* native BYTE E38DCA */
     }
-    state->camera_y &= ~1;
+    state->camera_y = (int32_t)((uint32_t)camera_y & UINT32_C(0xFFFE));
 }
 
 void pharaoh_city_view_grid_offset_to_xy_view(

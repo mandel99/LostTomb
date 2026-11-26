@@ -64,3 +64,22 @@ int32_t pharaoh_game_tick_gate_poll(
     state->last_ready_tick = current_tick;
     return PHARAOH_GAME_TICK_READY_INTERVAL;
 }
+
+int32_t pharaoh_city_scroll_tick_gate_poll(uint32_t *last_ready_tick,
+    int32_t scroll_speed, const PharaohGameTickGateOperations *operations)
+{
+    const uint32_t current_tick = operations->time_get_time(
+        operations->user_data);
+    const uint32_t elapsed_bits = current_tick - *last_ready_tick;
+    int64_t elapsed = signed_dword_value(elapsed_bits);
+    const int32_t speed_index = (int32_t)(signed_dword_value(
+        UINT32_C(100) - (uint32_t)scroll_speed) / 10);
+    const uint32_t threshold = (uint32_t)speed_index * UINT32_C(12) + 2u;
+
+    if (elapsed < 0) elapsed = 10000;
+    if (speed_index < 10 && elapsed >= signed_dword_value(threshold)) {
+        *last_ready_tick = current_tick;
+        return 1;
+    }
+    return 0;
+}

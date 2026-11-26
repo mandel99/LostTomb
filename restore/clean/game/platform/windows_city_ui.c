@@ -76,8 +76,8 @@ static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
     const uint8_t *window,const int32_t *groups)
 {
     const PharaohSavedSceneStorage *const saved=scene->saved;
-    const int32_t *const suppress_flood=&scene->view->event_54_suppress_flood;
-    if(h->game_frame_locked==0 || h->native_force_refresh==NULL || *scene->overlay!=0 || *suppress_flood!=0) return NULL;
+    const int32_t *const editor_active=&scene->view->event_54_suppress_flood;
+    if(h->game_frame_locked==0 || h->native_force_refresh==NULL || *scene->overlay!=0 || *editor_active!=0) return NULL;
     struct PharaohWindowsCityUi *const u=open_ui(h);
     if(u==NULL) return NULL;
     for(int32_t i=0;i<8;++i) {
@@ -107,7 +107,7 @@ static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
         .menu_button=&u->menu_button,.draw_x=&images->clip->draw_x,
         .draw_y=&images->clip->draw_y,.active_image=&h->bitmap_current_glyph};
     u->topbar=(PharaohCityTopbar){
-        .window_id=window,.editor_active=suppress_flood,.screen_width=&h->graphics.render_width,
+        .window_id=window,.editor_active=editor_active,.screen_width=&h->graphics.render_width,
         .current_player=saved->view.current_player,.players=saved->view.players,
         .month=saved->destinations[36],.year=saved->destinations[37],
         .body_font=(const int32_t *)(const void *)&h->sprite_tags[635].image_index,
@@ -194,7 +194,6 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
         .active_sprite_image=(int32_t *)(void *)&h->bitmap_current_glyph,
         .ui_redraw=&u->ui_redraw,.window_redraw_requested=&h->graphics.redraw_requested,
         .force_refresh=h->native_force_refresh,.draw_sprite=sprite,.user_data=u};
-    u->editor_dirty=scene->view->state->redraw_requested;
     u->content=(PharaohSidebarContent){
         .collapsed=&u->collapsed,.sidebar_x=(const int32_t *)(const void *)&u->sidebar_positions.selector_other_right_edge,
         .collapsed_x=(const int32_t *)(const void *)&u->sidebar_positions.selector_one_right_edge,

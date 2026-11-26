@@ -105,4 +105,5 @@ void pharaoh_native_ten_dwords_clear_0046a080(uint32_t values[10]);
 void pharaoh_native_active_counter_decrement_004ea740(
     int32_t active, int32_t *counter);
 
+void pharaoh_native_service_records_decay_0041d6f0(int32_t records[69][32]);
 #endif

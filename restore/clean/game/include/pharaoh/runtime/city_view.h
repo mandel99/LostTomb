@@ -59,7 +59,7 @@ typedef struct PharaohCityViewState {
     int32_t visible_maximum_y;
     int32_t camera_x;
     int32_t camera_y;
-    uint8_t redraw_requested;
+    uint8_t redraw_requested; /* logical native BYTE E38DCA */
 } PharaohCityViewState;
 
 typedef struct PharaohCityViewContext {
@@ -70,7 +70,7 @@ typedef struct PharaohCityViewContext {
     int32_t invalid_tile_offset_seed;
     int32_t screen_width;
     int32_t debug_extra_camera_bounds_enabled;
-    int32_t event_54_suppress_flood;
+    int32_t event_54_suppress_flood; /* historic name: native editor DWORD605A3C */
 } PharaohCityViewContext;
 
 void pharaoh_city_view_set_viewport(PharaohCityViewState *state,

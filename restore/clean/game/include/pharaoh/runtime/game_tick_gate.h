@@ -35,4 +35,6 @@ int32_t pharaoh_game_tick_gate_poll(
     PharaohGameTickGateState *state,
     const PharaohGameTickGateOperations *operations);
 
+int32_t pharaoh_city_scroll_tick_gate_poll(uint32_t *last_ready_tick,
+    int32_t scroll_speed, const PharaohGameTickGateOperations *operations);
 #endif

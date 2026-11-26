@@ -186,6 +186,7 @@ add_library(pharaoh_game STATIC
     game/runtime/city_player_countdown.c
     game/runtime/mouse_update.c
     game/runtime/game_tick_gate.c
+    game/runtime/camera_scroll.c
     game/runtime/application_startup.c
     game/runtime/application_settings_shutdown.c
     game/runtime/application_game_shutdown.c
