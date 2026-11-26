@@ -3146,6 +3146,8 @@
         "0x00418220"
       ],
       "known_limitations": "Global menu state is bound through the clean focused row and profile-list context; name copies over 31 bytes are truncated rather than overflowing."
-    }
+    },
+    {"address":"0x00516C80","name":"accept_new_family","source":"game/platform/windows_startup_dispatch.c","origin":"Complete typed C implementation already present at HEAD; compared with live pinned-Ghidra PlayerSelectionCreatePlayer and its caller.","mapping_evidence":"evidence/player-create-menu-entry-20261126.json","native_callers":["0x00418220"],"native_callees":["0x0041ACD0","0x00516BB0","0x00516A20","0x00561A0A","0x00561994","0x004264D0","0x0041AE40","0x0041B8A0","0x005169C0","KERNEL32.CreateDirectoryA","0x00516990"],"reachable_from":["0x00417FF0","0x00418220"],"known_limitations":"Duplicate detection uses GetFileAttributesA rather than native fopen(\"rb\"); file-access failure behavior is not replayed."},
+    {"address":"0x00516990","name":"open_selected_player_menu","source":"game/platform/windows_startup_dispatch.c","origin":"Nonempty-name branch maps to the complete typed main-menu open adapter; live Ghidra confirms its native call into 0x004CB6A0.","mapping_evidence":"evidence/player-create-menu-entry-20261126.json","native_callers":["0x00516C80"],"native_call_sites_without_function":["0x0040240C"],"native_callees":["0x004264D0","0x0051F780","0x004CB6A0"],"reachable_from":["0x00417FF0","0x00418220"],"known_limitations":"Empty-name popup branch and ownerless caller at 0x0040240C are not covered by this adapter mapping."}
 ]
 }

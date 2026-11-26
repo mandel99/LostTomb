@@ -1,0 +1,82 @@
+{
+  "evidence_id": "player-create-menu-entry-20261126",
+  "authority": {
+    "binary": "C:/Program Files (x86)/GOG.com/Pharaoh/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "provider": "restarted live Ghidra headless session; existing PharaohRewrite project",
+  "native_functions": [
+    {
+      "address": "0x00516C80",
+      "name": "PlayerSelectionCreatePlayer",
+      "caller": "0x00418220",
+      "call_site": "0x0041824A",
+      "callees": [
+        "0x0041ACD0",
+        "0x00516BB0",
+        "0x00516A20",
+        "0x00561A0A",
+        "0x00561994",
+        "0x004264D0",
+        "0x0041AE40",
+        "0x0041B8A0",
+        "0x005169C0",
+        "KERNEL32.CreateDirectoryA",
+        "0x00516990"
+      ]
+    },
+    {
+      "address": "0x00516990",
+      "caller": "0x00516C80",
+      "call_site": "0x00516DC1",
+      "additional_unowned_call_site": "0x0040240C",
+      "callees": [
+        "0x004264D0",
+        "0x0051F780",
+        "0x004CB6A0"
+      ]
+    }
+  ],
+  "native_behavior": [
+    "Trims the entered name; empty input returns to PlayerSelectionOpen. Existing Save\\<name>.dat opens a duplicate-name popup. Otherwise loads campaign.txt, saves the campaign profile, creates Save\\<name>, reloads the profile list, restores the new selection, then opens the main menu.",
+    "Native 0x00516990 shows a missing-name popup for an empty name; otherwise calls ActorWalkingNoOperation and MainMenuWindowShow (0x004CB6A0), then requests redraw."
+  ],
+  "clean_owners": [
+    {
+      "function": "accept_new_family",
+      "source": "game/platform/windows_startup_dispatch.c",
+      "source_sha256_at_head": "48abaabb846696847ad8eb025cc28639c9a30c96f99b76ab38a4e140c846e3b8",
+      "function_body_sha256_at_head": "12009c3f1c068fcd6f981d2cb26ead67d7c2591e1eeec3d6baafdb16ca859406",
+      "uses": [
+        "pharaoh_player_name_trim",
+        "pharaoh_player_profile_paths",
+        "pharaoh_campaign_load",
+        "pharaoh_campaign_profile_save",
+        "pharaoh_player_selection_load_profiles",
+        "pharaoh_player_selection_find_profile",
+        "load_selected_family",
+        "open_selected_player_menu"
+      ]
+    },
+    {
+      "function": "open_selected_player_menu",
+      "source": "game/platform/windows_startup_dispatch.c",
+      "uses": [
+        "pharaoh_main_menu_window_show"
+      ]
+    }
+  ],
+  "reuse_search": {
+    "old_project": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore",
+    "result": "No complete typed C found for 0x00516C80; generated/mixed Unit02287.c calls Original0041ACD0, Original00516BB0, Original00516A20 and other Original functions."
+  },
+  "verification": {
+    "release_build": "Previously passed for this source tree with the required Release command.",
+    "tests": "not run",
+    "native_replay": "not performed for this branch"
+  },
+  "known_gaps": [
+    "Clean duplicate detection uses GetFileAttributesA instead of native fopen(\"rb\"); file-open failure paths need replay.",
+    "Native 0x00516990 has an unowned caller at 0x0040240C and an empty-name popup branch not covered by the clean mapping."
+  ]
+}
