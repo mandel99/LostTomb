@@ -1,0 +1,86 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "verified_with": [
+    "Live Ghidra program info and direct call graph at 127.0.0.1:54885",
+    "Saved REA call graph evidence: scenario-entry-native-links-20261126.json",
+    "Current clean C host bindings"
+  ],
+  "native_edges": [
+    {
+      "address": "0x0041BB10",
+      "owner": "game/ui/campaign_menu.c:pharaoh_campaign_menu_select_period",
+      "direct_callers": [],
+      "direct_callees": [],
+      "clean_callback_site": "game/platform/windows_startup_dispatch.c:1315"
+    },
+    {
+      "address": "0x00418140",
+      "owner": "game/ui/campaign_menu.c:pharaoh_campaign_briefing_message_id",
+      "callers": ["0x004181E0", "0x0041A180"],
+      "caller_sites": ["0x0041820F", "0x0041A1B3"],
+      "callees": []
+    },
+    {
+      "address": "0x004181E0",
+      "owner": "game/ui/campaign_menu.c:pharaoh_campaign_begin_briefing",
+      "callers": ["0x00418220", "0x00418640"],
+      "caller_sites": ["0x004182C4", "0x004182DD", "0x00418800"],
+      "unresolved_caller_sites": ["0x00418602", "0x0041BDEB"],
+      "callees": ["0x0041AA20", "0x00418140"]
+    },
+    {
+      "address": "0x0041A180",
+      "owner": "game/ui/briefing.c:pharaoh_briefing_draw",
+      "callers": ["0x004D71C0"],
+      "callees": ["0x00418140", "0x0041B8F0", "0x004C8070", "0x004CC770", "0x004CCBB0", "0x004CCE00", "0x004E2530", "0x00536820", "0x00536A30", "0x00537000", "0x0053E590", "0x005405B0"]
+    },
+    {
+      "address": "0x00418220",
+      "owner": "game/scenario/campaign_continue.c:pharaoh_campaign_continue",
+      "callers": ["0x004D8310"],
+      "callees": ["0x00516C80", "0x004188F0", "0x0041B920", "0x004181E0", "0x0053B690"]
+    },
+    {
+      "address": "0x00418640",
+      "owner": "game/scenario/campaign_continue.c:pharaoh_mission_advance",
+      "callers": ["0x004D8310"],
+      "callees": ["0x00516A20", "0x0041B8A0", "0x0041B920", "0x004188F0", "0x004181E0", "0x0041F870", "0x00413580", "0x004CB6A0"]
+    },
+    {
+      "address": "0x005405B0",
+      "owner": "game/scenario/scenario_start_mission.c:pharaoh_scenario_start_mission",
+      "callers": ["0x0041A180"],
+      "callees_evidence": "scenario-entry-native-links-20261126.json"
+    }
+  ],
+  "clean_host_path": [
+    {
+      "owner": "game/platform/windows_startup_dispatch.c",
+      "effect": "The period click calls pharaoh_campaign_menu_select_period; the start-selected operation table then supplies campaign_menu_begin_briefing."
+    },
+    {
+      "owner": "game/platform/windows_startup_dispatch.c:campaign_menu_begin_briefing",
+      "effect": "Destroys any prior mission runtime and calls pharaoh_campaign_begin_briefing; the start-selected menu operation table supplies this callback."
+    },
+    {
+      "owner": "game/platform/windows_startup_dispatch.c:pharaoh_windows_startup_dispatch_frame",
+      "effect": "For window 0x35, creates the mission runtime, dispatches briefing input and drawing, and refreshes the host window state."
+    },
+    {
+      "owner": "game/platform/windows_mission_runtime.c:pharaoh_windows_mission_runtime_create",
+      "effect": "Creates the mission scene and binds campaign mission loading to the briefing renderer."
+    },
+    {
+      "owner": "game/platform/windows_mission_runtime.c:dispatch_button",
+      "effect": "Maps the accept action 0x00418220 to pharaoh_campaign_continue."
+    },
+    {
+      "owner": "game/platform/windows_startup_dispatch.c:pharaoh_windows_startup_dispatch_frame",
+      "effect": "Routes window 0x01 to pharaoh_windows_mission_runtime_game_frame."
+    }
+  ],
+  "limitations": [
+    "Native caller sites 0x00418602 and 0x0041BDEB for 0x004181E0 have no resolved function owner in the live Ghidra call graph.",
+    "This verifies the typed C host wiring and static native call edges; full original-versus-restored gameplay replay and visual equivalence are not established."
+  ]
+}
