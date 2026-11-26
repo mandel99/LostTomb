@@ -1,0 +1,29 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": "0x004CC720",
+  "native_callers": {
+    "0x004138D0": ["0x00413921"],
+    "0x0041BE10": ["0x0041BF50"],
+    "0x004CCB30": ["0x004CCB96"],
+    "0x004CCE90": ["0x004CCF02"],
+    "0x004E2720": ["0x004E280B", "0x004E2905"],
+    "0x005309B0": ["0x00530A4B", "0x00530A92", "0x00530ADE", "0x00530B21", "0x00530B62", "0x00530BA8", "0x00530BEC", "0x00530C2D", "0x00530C73", "0x00530CB7"],
+    "0x00534DF0": ["0x00534E37"],
+    "0x00535080": ["0x005350E9", "0x00535113"],
+    "0x00536120": ["0x00536199", "0x005361C9"],
+    "0x00536620": ["0x00536662"],
+    "0x00538940": ["0x00538B2A", "0x00538B49"],
+    "0x004C5E60": ["0x004C606C"],
+    "0x004C6C70": ["0x004C6EEA"],
+    "0x0041E5C0": ["0x0041E7BF", "0x0041E7E1", "0x0041E7FE"],
+    "0x004CCD60": ["0x004CCDE2"],
+    "0x004CCF20": ["0x004CCFB5"],
+    "0x004CB4D0": ["0x004CB581"]
+  },
+  "native_callees": {
+    "0x004CBF30": ["0x004CC72C"],
+    "0x004CC770": ["0x004CC762"]
+  },
+  "behavior": "Measure the string using the selected native font, store the nonnegative half-width offset in 0x00E20770, then draw through 0x004CC770 at x plus that offset.",
+  "verification": "Live Ghidra decompilation and 32-site caller graph were checked against the pinned executable. The implementation reuses the mapped typed 0x004CBF30 and 0x004CC770 C owners and the old project's centered-text algorithm; it preserves the native offset-global write."
+}

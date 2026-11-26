@@ -1,6 +1,7 @@
 #ifndef PHARAOH_UI_BITMAP_FONT_H
 #define PHARAOH_UI_BITMAP_FONT_H
 #include "pharaoh/assets/sprite_libraries.h"
+#include "pharaoh/ui/rich_text.h"
 
 typedef struct PharaohTextSelection PharaohTextSelection;
 
@@ -29,6 +30,35 @@ typedef struct PharaohBitmapTextDrawState {
     uint32_t font_id, font_id_large_a, font_id_large_b, font_id_small;
     int32_t baseline;
 } PharaohBitmapTextDrawState;
+
+typedef struct PharaohBitmapTextCenteredNativeContext {
+    const PharaohBitmapFont *font;
+    PharaohBitmapTextDrawState *draw_state;
+    const uint8_t *glyph_map;
+    int32_t *center_offset_00e20770;
+} PharaohBitmapTextCenteredNativeContext;
+
+typedef struct PharaohBitmapTextCatalogCenteredNativeContext {
+    PharaohTextSelection *selection;
+    const PharaohBitmapTextCenteredNativeContext *drawing;
+    const char **current_text_00e20768;
+    uint32_t *reset_flag_00d3b504;
+} PharaohBitmapTextCatalogCenteredNativeContext;
+
+typedef struct PharaohBitmapWrappedNativeContext {
+    const PharaohBitmapFont *font;
+    PharaohBitmapTextDrawState *draw_state;
+    PharaohRichTextState *word_metrics;
+    uint8_t *line_buffer_00e3439c; /* 200 bytes; native valid lines must fit. */
+    int32_t *maximum_width_00e2076c;
+    uint32_t font_id;
+} PharaohBitmapWrappedNativeContext;
+
+typedef struct PharaohBitmapTextCatalogWrappedNativeContext {
+    PharaohTextSelection *selection;
+    const PharaohBitmapWrappedNativeContext *drawing;
+    const char **current_text_00e20768;
+} PharaohBitmapTextCatalogWrappedNativeContext;
 
 /* Complete width owner 0x004CBF30 and glyph renderer 0x004CCA60. */
 int32_t pharaoh_bitmap_text_width(const PharaohBitmapFont *font, const uint8_t *text);
@@ -66,7 +96,30 @@ void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color);
 void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, int32_t width, uint16_t color);
-/* Complete translations of native 0x004CD120 and 0x004CD010. */
+/* Complete typed translation of Pharaoh.exe 0x004CC720. The original font
+   table, glyph map and offset global are explicit context inputs. */
+void pharaoh_bitmap_text_draw_centered_native(
+    const PharaohBitmapTextCenteredNativeContext *context,
+    const uint8_t *text, int32_t x, int32_t y, int32_t width,
+    int32_t font_id, uint16_t color);
+/* Complete typed translation of Pharaoh.exe 0x004CCB30. */
+void pharaoh_bitmap_text_draw_catalog_centered_native(
+    const PharaohBitmapTextCatalogCenteredNativeContext *context,
+    int32_t group, int32_t entry, int32_t x, int32_t y, int32_t width,
+    int32_t font_id, uint16_t color);
+/* Complete typed translation of Pharaoh.exe 0x004CCFD0. */
+void pharaoh_bitmap_text_draw_catalog_wrapped_native(
+    const PharaohBitmapTextCatalogWrappedNativeContext *context,
+    int32_t group, int32_t entry, int32_t x, int32_t y, int32_t width,
+    uint16_t color);
+/* Complete native 0x004CD120 and 0x004CD010. The shared glyph pointer in
+   draw_state must point to word_metrics->current_glyph. */
+int32_t pharaoh_bitmap_wrapped_word_width_native(PharaohRichTextState *metrics,
+    const uint8_t *text, uint32_t font_id);
+void pharaoh_bitmap_text_draw_wrapped_native(
+    const PharaohBitmapWrappedNativeContext *context, const uint8_t *text,
+    int32_t x, int32_t y, int32_t width, uint16_t color);
+/* Startup convenience routines; these are not full native entrypoints. */
 int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t *byte_count);
 void pharaoh_bitmap_text_draw_wrapped(const PharaohBitmapFont *font,

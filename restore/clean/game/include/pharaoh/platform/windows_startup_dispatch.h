@@ -51,7 +51,8 @@ typedef struct PharaohWindowsStartupDispatch {
     uint32_t message_box_display_unavailable, message_box_display_ready;
     uint32_t campaign_flow_mode;
     uint32_t timed_transition_value;
-    uint32_t campaign_started, campaign_selection_kind;
+    uint32_t campaign_started;
+    uint8_t campaign_selection_kind;
     PharaohBriefingState briefing;
     uint8_t timed_transition_next_window;
     int32_t menu_focused_button;

@@ -317,6 +317,114 @@ void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,
     pharaoh_bitmap_text_draw_at(font, text, x, y, color);
 }
 
+void pharaoh_bitmap_text_draw_centered_native(
+    const PharaohBitmapTextCenteredNativeContext *context,
+    const uint8_t *text, int32_t x, int32_t y, int32_t width,
+    int32_t font_id, uint16_t color)
+{
+    int32_t offset = (width - pharaoh_bitmap_text_width_native(
+        context->font, text, context->glyph_map,
+        context->draw_state->current_glyph)) / 2;
+    if (offset < 0) offset = 0;
+    *context->center_offset_00e20770 = offset;
+    context->draw_state->font_id = (uint32_t)font_id;
+    pharaoh_bitmap_text_draw_native(context->font, context->draw_state,
+        text, x + offset, y, color);
+}
+
+void pharaoh_bitmap_text_draw_catalog_centered_native(
+    const PharaohBitmapTextCatalogCenteredNativeContext *context,
+    int32_t group, int32_t entry, int32_t x, int32_t y, int32_t width,
+    int32_t font_id, uint16_t color)
+{
+    pharaoh_text_select(context->selection, group, entry);
+    *context->current_text_00e20768 = context->selection->current;
+    pharaoh_bitmap_text_draw_centered_native(context->drawing,
+        (const uint8_t *)*context->current_text_00e20768, x, y, width,
+        font_id, color);
+    *context->reset_flag_00d3b504 = 0;
+}
+
+void pharaoh_bitmap_text_draw_catalog_wrapped_native(
+    const PharaohBitmapTextCatalogWrappedNativeContext *context,
+    int32_t group, int32_t entry, int32_t x, int32_t y, int32_t width,
+    uint16_t color)
+{
+    pharaoh_text_select(context->selection, group, entry);
+    *context->current_text_00e20768 = context->selection->current;
+    pharaoh_bitmap_text_draw_wrapped_native(context->drawing,
+        (const uint8_t *)*context->current_text_00e20768,
+        x, y, width, color);
+}
+
+int32_t pharaoh_bitmap_wrapped_word_width_native(PharaohRichTextState *metrics,
+    const uint8_t *text, uint32_t font_id)
+{
+    int32_t width = 0;
+    int32_t has_glyph = 0;
+    metrics->consumed_bytes = 0;
+    for (int32_t count = 0; count < 1999; ++count) {
+        const uint8_t character = *text++;
+        if (character == 0) return width;
+        if (character == ' ') {
+            if (has_glyph) return width;
+            width += 4;
+        } else if (character == '$') {
+            if (has_glyph) return width;
+        } else if (character > 31) {
+            width += pharaoh_rich_text_character_width(metrics,
+                character, font_id);
+            has_glyph = 1;
+        }
+        ++metrics->consumed_bytes;
+    }
+    return width;
+}
+
+void pharaoh_bitmap_text_draw_wrapped_native(
+    const PharaohBitmapWrappedNativeContext *context, const uint8_t *text,
+    int32_t x, int32_t y, int32_t width, uint16_t color)
+{
+    PharaohBitmapTextDrawState *const state = context->draw_state;
+    int32_t has_more = 1;
+    for (int32_t line = 1; line < 100; ++line) {
+        int32_t line_width = 0;
+        int32_t line_bytes = 0;
+        memset(context->line_buffer_00e3439c, 0, 200);
+        if (has_more) {
+            for (;;) {
+                if (line_width >= width) break;
+                line_width += pharaoh_bitmap_wrapped_word_width_native(
+                    context->word_metrics, text, context->font_id);
+                if (line_width >= width) {
+                    if (line_width == 0) has_more = 0;
+                    break;
+                }
+                for (int32_t byte = context->word_metrics->consumed_bytes;
+                        byte > 0; --byte) {
+                    context->line_buffer_00e3439c[line_bytes++] = *text++;
+                }
+                if (*text == 0) {
+                    has_more = 0;
+                    break;
+                }
+            }
+        }
+        state->hash_mode = 1;
+        state->cursor_x = 0;
+        state->duplicate_space = 1;
+        state->font_id = context->font_id;
+        pharaoh_bitmap_text_draw_native(context->font, state,
+            context->line_buffer_00e3439c, x, y, color);
+        if (*context->maximum_width_00e2076c < state->cursor_x) {
+            *context->maximum_width_00e2076c = state->cursor_x;
+        }
+        y += 5 + state->baseline;
+        state->cursor_y += 5 + state->baseline;
+        if (!has_more) return;
+    }
+}
+
 int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t *byte_count)
 {

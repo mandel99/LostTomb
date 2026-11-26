@@ -1,0 +1,134 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": "0x0041BE10",
+  "owner": "game/ui/campaign_menu.c:pharaoh_campaign_menu_draw",
+  "native_callers": {
+    "0x004D75D0": [
+      "0x004D7624"
+    ]
+  },
+  "native_callees": {
+    "0x0053E590": [
+      "0x0041BEE4"
+    ],
+    "0x004CC110": [
+      "0x0041BEFC"
+    ],
+    "0x00448370": [
+      "0x0041BF20"
+    ],
+    "0x004CC720": [
+      "0x0041BF50"
+    ],
+    "0x0041BA00": [
+      "0x0041BF64",
+      "0x0041C095"
+    ],
+    "0x004CCB30": [
+      "0x0041BFA6"
+    ],
+    "0x0041BAD0": [
+      "0x0041BFE6",
+      "0x0041C0A8"
+    ],
+    "0x004CCFD0": [
+      "0x0041C027",
+      "0x0041C167",
+      "0x0041C197"
+    ],
+    "0x00536710": [
+      "0x0041C0FF"
+    ],
+    "0x004CD240": [
+      "0x0041C113",
+      "0x0041C20B"
+    ],
+    "0x004CD1A0": [
+      "0x0041C1EF"
+    ],
+    "0x004CCBB0": [
+      "0x0041C25A",
+      "0x0041C28A",
+      "0x0041C2B7"
+    ]
+  },
+  "verification": "Live Ghidra on the pinned executable: complete body 0x0041BE10-0x0041C2CC compared with typed C, all 19 direct call sites have existing mapped C owners. Old generated Unit00262.c was inspected before translation; Original child wrappers prevent its direct migration. Ghidra names and native prototypes updated for 0x0041BE10, 0x0041BA00 and 0x0041BAD0.",
+  "contracts": "Preserves layout/redraw writes, selected-period sprite, title expansion with temporary 0x00784F0C reset, catalog titles/descriptions, nine 28-byte geometry rows, footer/tab rendering and unavailable-period labels. Lock-mask consumers test only AL at 0x0041BFE6 and 0x0041C0A8; C truncates to uint8_t.",
+  "limitations": "Explicit contexts still require host binding to native-equivalent menu globals, fonts/glyphs, catalogs and rendering state. Native event dispatch and whole menu-to-gameplay behavior remain incomplete; no native/C replay or end-to-end equivalence claimed.",
+  "background": {
+    "address": "0x0041C2D0",
+    "owner": "pharaoh_campaign_menu_draw_background",
+    "native_callers": {
+      "0x004D71C0": [
+        "0x004D721F"
+      ]
+    },
+    "native_callees": {
+      "0x0053E590": [
+        "0x0041C2F4"
+      ]
+    },
+    "contract": "Draw background image at origin minus (192,144), write 100 to 0x00F53F28 and byte 1 to 0x00E38DC9. Matched live Ghidra pseudocode; old Unit00263 C still uses Original0053E590."
+  },
+  "callback_revalidation": {
+    "reason": "Absent Ghidra function objects do not disprove native entries. The original button table stores these callback addresses, and live Ghidra memory bytes agree with existing mixed/runtime/CampaignMenu.c and clean logical callback bodies. No new translation credit for these four callbacks.",
+    "selection_kind_width": "0x0041BB70 writes AL to 0x007027B4 (A2 B4 27 70 00); corrected C state and host storage from uint32_t to uint8_t.",
+    "ghidra_function_objects": "Missing for all four callbacks; native prototype application remains pending.",
+    "observations": [
+      {
+        "address": "0x0041BB10",
+        "length": 18,
+        "sha256": "3409406bd631af1534d6b75cd9fc208fe507dc12398c37a1d00128e5d27949d1",
+        "hex": "a198b1d300c605ca8de30001a3ac277000c3"
+      },
+      {
+        "address": "0x0041BB70",
+        "length": 672,
+        "sha256": "61514cf4462dc11a4660f90e6d45c695624cdaa08e13055bada75ceba94e0ec2",
+        "hex": "8b0d98dc6f0033c0568b35ac2770003bc8750c3b35b02770000f85610200003bc8a2a88ee300a33c5a6000a215e56d00a3bc8ee300ba010000000f95c04083fe0489152c2a5d008815ca8de300a2b42770000f8703020000ff24b5f4bd4100813ddc8ee300e90000007d2e8b0dac8de3008d81e2feffff992bc28b15b08de300d1f8508d8220feffff992bc2d1f85068a0c35700e9b7010000a1ac8de3008b0db08de30005e2feffff992bc2d1f8508d8120feffff992bc2d1f8506880c35700e98b010000813ddc8ee300e90000007d2c8b15ac8de3008d82e2feffff992bc2d1f850a1b08de3000520feffff992bc2d1f8506864c35700e9530100008b0dac8de3008d81e2feffff992bc28b15b08de300d1f8508d8220feffff992bc2d1f8506848c35700e925010000813ddc8ee300e90000007d2ca1ac8de3008b0db08de30005e2feffff992bc2d1f8508d8120feffff992bc2d1f8506828c35700e9ed0000008b15ac8de3008d82e2feffff992bc2d1f850a1b08de3000520feffff992bc2d1f8506808c35700e9c1000000813ddc8ee300e90000007d2e8b0dac8de3008d81e2feffff992bc28b15b08de300d1f8508d8220feffff992bc2d1f85068e4c25700e987000000a1ac8de3008b0db08de30005e2feffff992bc2d1f8508d8120feffff992bc2d1f85068c0c25700eb5e813ddc8ee300e90000007d298b15ac8de3008d82e2feffff992bc2d1f850a1b08de3000520feffff992bc2d1f85068a0c25700eb298b0dac8de3008d81e2feffff992bc28b15b08de300d1f8508d8220feffff992bc2d1f8506884c257008b0d54dc6f00e8b577ffffa1ac27700050e8fabfffffa0a88ee30083c4043c7f7509c605da8de300345ec3e8f0c3ffff5ec38bffcfbb410035bc41009bbc4100ffbc410062bd41009090909090909090"
+      },
+      {
+        "address": "0x0041C310",
+        "length": 63,
+        "sha256": "c5d0a6fef228e34e488a694000bba1d3638414495689c3cb5f3dccded5694d5b",
+        "hex": "803dda8de300177535833d98dc6f0001752c33c0c705b04d700001000000a33c5a6000a215e56d00c705ac4d700002000000e829350000c605ca8de30001c3"
+      },
+      {
+        "address": "0x0041C350",
+        "length": 34,
+        "sha256": "9bb0be3bdc28358142383002a3d48b046443eb7a8de9bc9c4568ff94cfc29608",
+        "hex": "8a0dda8de300b0173ac87414a2da8de300b801000000a398dc6f00a2ca8de300c390"
+      },
+      {
+        "address": "0x0057BE78",
+        "length": 308,
+        "sha256": "71ddcddb3976690a9038490a0803d85cf6cfa471c02e211dd019eed312ae6ab0",
+        "hex": "14002301a4003c0110bb410080f7510000000001000000000000000014004101a4005a0110bb410080f75100000000010100000000000000ac0005013c011e0110bb410080f75100000000010200000000000000ac0023013c013c0110bb410080f75100000000010300000000000000ac0041013c015a0110bb410080f7510000000001040000000000000014008701a400a00110bb410080f751000000000105000000000000001400a501a400be0110bb410080f75100000000010600000000000000ac0087013c01a00110bb410080f75100000000010700000000000000ac00a5013c01be0110bb410080f751000000000108000000000000002000d000c000e90010c3410080f75100000000010000000000000000c300d0002001e90050c3410080f75100000000010000000000000000"
+      }
+    ],
+    "start_button_pointer": {
+      "address": "0x0057BE40",
+      "target": "0x0041BB70",
+      "provider": "Ghidra read_memory",
+      "hex": "70bb4100"
+    }
+  },
+  "leaf_recheck": {
+    "0x0041BA00": "Signed period range 0..8; native byte boolean.",
+    "0x0041BAD0": "period & 0xffffff00; native consumers use AL.",
+    "0x0041BB30": "Mode 0: selected == latest; otherwise AL(lock_mask) != 0 ? 0 : 2.",
+    "verification": "Live pinned Ghidra pseudocode rechecked."
+  },
+  "text_dependency_repair": "evidence/bitmap-wrapped-native-repair-20261126.json",
+  "integration": {
+    "release_target": "pharaoh_clean_bootstrap",
+    "build_result": "success",
+    "library_sha256": "296fba62f0b6f80148e9195db499e1687b4957f14b2208516020cb8f9756868b",
+    "migration_workflow_verify": {
+      "ok": false,
+      "error_count": 113,
+      "relevant_source_errors": []
+    },
+    "scope": "Current worktree Release build includes other uncommitted changes. Global verifier has pre-existing legacy mappings, duplicates and stale migration hashes; no full-game equivalence claim."
+  }
+}
