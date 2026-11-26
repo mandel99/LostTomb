@@ -4,6 +4,49 @@
 #include <stdint.h>
 #include <windows.h>
 
+/* Complete typed C translation of Pharaoh.exe 0x005662E3. */
+uint32_t pharaoh_crt_seek_descriptor(PharaohCrtLowioState *state,
+    uint32_t descriptor, int32_t offset, uint32_t origin)
+{
+    if (descriptor < state->capacity) {
+        PharaohCrtLowioRecord *volatile *const block =
+            state->blocks + (descriptor >> 5);
+        volatile PharaohCrtLowioRecord *record =
+            *block + (descriptor & 31u);
+
+        if ((record->flags & 1u) != 0u) {
+            const uint32_t handle = pharaoh_crt_get_os_handle(state,
+                descriptor);
+            if (handle == UINT32_MAX) {
+                *state->error_number = 9;
+                return UINT32_MAX;
+            }
+
+            const DWORD position = SetFilePointer(
+                (HANDLE)(uintptr_t)handle, (LONG)offset, NULL, origin);
+            const DWORD win32_error = position == INVALID_SET_FILE_POINTER
+                ? GetLastError() : 0u;
+            if (win32_error != 0u) {
+                PharaohCrtErrorState error_state = {
+                    *state->dos_error, *state->error_number
+                };
+                pharaoh_crt_error_from_win32(&error_state, win32_error);
+                *state->dos_error = error_state.dos_error;
+                *state->error_number = error_state.errno_value;
+                return UINT32_MAX;
+            }
+
+            record = *block + (descriptor & 31u);
+            record->flags &= 0xfdu;
+            return position;
+        }
+    }
+
+    *state->dos_error = 0;
+    *state->error_number = 9;
+    return UINT32_MAX;
+}
+
 int32_t pharaoh_crt_close_descriptor(PharaohCrtLowioState *state,
     uint32_t descriptor)
 {

@@ -1,0 +1,167 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "Live Ghidra decompilation and call graph for Pharaoh.exe",
+  "function": {
+    "address": "0x005662E3",
+    "name": "pharaoh_crt_seek_descriptor",
+    "native_signature": "DWORD pharaoh_crt_seek_descriptor(DWORD descriptor, long offset, DWORD origin)",
+    "ghidra_body_size_bytes": 154,
+    "ghidra_calling_convention": "unknown",
+    "return_consumers": "DWORD is compared with 0xffffffff by native callers and otherwise treated as the resulting file position."
+  },
+  "native_behavior": [
+    "Reject descriptor >= lowio capacity or a record without open bit 0: set DOS error to 0, errno to 9, return 0xffffffff.",
+    "Resolve OS handle; on failure set errno to 9 while preserving DOS error, then return 0xffffffff.",
+    "Call SetFilePointer(handle, offset, NULL, origin). A 0xffffffff result is an error only when GetLastError is nonzero.",
+    "For nonzero Win32 error, map/store DOS error and errno, then return 0xffffffff.",
+    "On success clear record flag bit 1 (mask 0xfd) after re-reading the record pointer, then return the DWORD position."
+  ],
+  "typed_state_view": {
+    "blocks": "PharaohCrtLowioRecord **",
+    "capacity": "uint32_t",
+    "record_size": 8,
+    "record_flags_offset": 4,
+    "open_flag_mask": "0x01",
+    "clear_after_seek_mask": "0x02",
+    "dos_error": "uint32_t *",
+    "errno": "int32_t *"
+  },
+  "callers": [
+    {
+      "address": "0x004CE860",
+      "site": "0x004CE8A8"
+    },
+    {
+      "address": "0x004D58B0",
+      "site": "0x004D592F"
+    },
+    {
+      "address": "0x004CE480",
+      "site": "0x004CE534"
+    },
+    {
+      "address": "0x004CE480",
+      "site": "0x004CE631"
+    },
+    {
+      "address": "0x004CE480",
+      "site": "0x004CE69C"
+    },
+    {
+      "address": "0x0053F7D0",
+      "site": "0x0053F912"
+    },
+    {
+      "address": "0x0053F7D0",
+      "site": "0x0053F94B"
+    },
+    {
+      "address": "0x0053F7D0",
+      "site": "0x0053F9B5"
+    },
+    {
+      "address": "0x0053F7D0",
+      "site": "0x0053F9E7"
+    },
+    {
+      "address": "0x00561EA4",
+      "site": "0x00561F0B"
+    },
+    {
+      "address": "0x00564AB1",
+      "site": "0x00564B7E"
+    },
+    {
+      "address": "0x005660ED",
+      "site": "0x0056628F"
+    },
+    {
+      "address": "0x0056637D",
+      "site": "0x0056639D"
+    },
+    {
+      "address": "0x0056637D",
+      "site": "0x0056645F"
+    },
+    {
+      "address": "0x0056637D",
+      "site": "0x00566491"
+    },
+    {
+      "address": "0x005664D5",
+      "site": "0x0056652E"
+    },
+    {
+      "address": "0x00568EC2",
+      "site": "0x005690F4"
+    },
+    {
+      "address": "0x00568EC2",
+      "site": "0x00569144"
+    },
+    {
+      "address": "0x0056A711",
+      "site": "0x0056A751"
+    },
+    {
+      "address": "0x0056A711",
+      "site": "0x0056A769"
+    },
+    {
+      "address": "0x0056A711",
+      "site": "0x0056A7FB"
+    },
+    {
+      "address": "0x0056A711",
+      "site": "0x0056A839"
+    },
+    {
+      "address": "0x0056B1B6",
+      "site": "0x0056B1E2"
+    },
+    {
+      "address": "0x0056B1B6",
+      "site": "0x0056B1F8"
+    },
+    {
+      "address": "0x0056B1B6",
+      "site": "0x0056B20A"
+    },
+    {
+      "address": "0x004CE980",
+      "site": "0x004CE9A8"
+    },
+    {
+      "address": "0x004CE920",
+      "site": "0x004CE94B"
+    }
+  ],
+  "callees": [
+    {
+      "address": "0x005669C6",
+      "site": "0x00566310"
+    },
+    {
+      "address": "KERNEL32.DLL::SetFilePointer",
+      "site": "0x00566332"
+    },
+    {
+      "address": "KERNEL32.DLL::GetLastError",
+      "site": "0x0056633F"
+    },
+    {
+      "address": "0x005672C8",
+      "site": "0x0056634E"
+    }
+  ],
+  "typed_source_reuse": {
+    "path": "PH Local Decompile/reused/restore/game/functions/CrtSeek.c",
+    "function": "RestoreCrtSeek",
+    "status": "Complete typed control-flow body reused; the Original005669C6 and Original005672C8 calls were replaced with their existing clean typed owners."
+  },
+  "clean_owner": "game/runtime/crt_lowio.c:pharaoh_crt_seek_descriptor",
+  "limitations": [
+    "Native calling convention remains unknown in Ghidra; the clean owner is a typed C API with an explicit state view, not a native ABI thunk.",
+    "The parent CRT-open body at 0x00568EC2 remains unmapped; this translation does not complete the campaign file-open path."
+  ]
+}

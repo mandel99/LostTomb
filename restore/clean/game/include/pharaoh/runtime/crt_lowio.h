@@ -34,6 +34,9 @@ uint32_t pharaoh_crt_free_os_handle(PharaohCrtLowioState *state,
     uint32_t descriptor);
 int32_t pharaoh_crt_close_descriptor(PharaohCrtLowioState *state,
     uint32_t descriptor);
+/* Native entry 0x005662E3 returns the SetFilePointer DWORD or -1. */
+uint32_t pharaoh_crt_seek_descriptor(PharaohCrtLowioState *state,
+    uint32_t descriptor, int32_t offset, uint32_t origin);
 uint32_t pharaoh_crt_stream_descriptor(const PharaohCrtFileStream *stream);
 
 #endif
