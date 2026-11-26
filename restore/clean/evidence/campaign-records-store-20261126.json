@@ -1,0 +1,51 @@
+{
+  "executable_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native": {
+    "address": "0x004188F0",
+    "name": "MissionRecordsStore",
+    "signature": "void MissionRecordsStore(void)",
+    "range": ["0x004188F0", "0x00418BEA"],
+    "body_size": 763,
+    "decompiler_sha256": "607450d09cbf35705fae3601bbaa75e56247247867f656f6f09f9d9433f44b67"
+  },
+  "native_callers": [
+    {"address": "0x00418220", "call_site": "0x0041826C"},
+    {"address": "0x00418640", "call_site": "0x004186EB"}
+  ],
+  "native_callees": [
+    {"address": "0x004CC110", "name": "pharaoh_text_select", "call_site": "0x00418AA5"},
+    {"address": "0x00516A20", "name": "FUN_00516a20", "call_site": "0x00418BD3"},
+    {"address": "0x0041B8A0", "name": "CampaignProfileSave", "call_site": "0x00418BDE"}
+  ],
+  "typed_owner": {
+    "name": "pharaoh_mission_records_store",
+    "source": "game/scenario/campaign_records.c",
+    "sha256": "73876a25597576591072130e576b75431a7d4d3508da2f97359114eb61c0a40c",
+    "header": "game/include/pharaoh/scenario/campaign_records.h",
+    "header_sha256": "3786871b80d6b9b24326f27d458fd16112a158fe7abe1c9b8135305a9c4e4211",
+    "already_in_clean_cmake": true
+  },
+  "reused_existing_c": {
+    "path": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore/generated/mixed/src/Unit00226.c",
+    "function": "Original004188F0",
+    "sha256": "8f3e429bfff18424e20745f7ff3c2c72287f0005db5b90f5fe29b01163ba9c17"
+  },
+  "comparison": [
+    "Native monument loop processes indices 1 through 49 at stride 0x90. It selects type 12, type 11, and all-other winners by signed 16-bit value, then higher tie byte; the typed C loop and output IDs match for monument_count=50.",
+    "Native copies current-player personal savings, writes each winner value/tie/result ID, selects text group 0x133, and checks byte 6 for '1'. Typed C performs the same updates through explicit state and text-selection operation inputs.",
+    "On the text flag, native scans active building indices 1 through 3999 at stride 0x108 and writes the same type 0xde, 0xe1, 0xe4, 0xe5, 0xea, and 0xeb fields. Typed C matches for building_count=4000, including parent-relative type 0xe4 coordinates.",
+    "Native obtains the profile path at 0x00516A20 and saves through 0x0041B8A0; typed C represents these as the save_profile operation."
+  ],
+  "known_limitations": [
+    "The native entrypoint uses globals and has no arguments; the C owner is a typed helper and no clean C call site currently binds it to this native entrypoint.",
+    "Native text selection reads tombRobberWarningTextId at 0x00E38EA8; equivalence to the C settings->mission_id field and its host binding remain unverified.",
+    "The host must bind the native arrays and exact 50/4000 loop bounds, text-select operation, and profile-save operation."
+  ],
+  "verification": {
+    "provider": "live Ghidra headless session",
+    "program_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "function_renamed": "MissionRecordsStore",
+    "prototype_set": "void MissionRecordsStore(void)",
+    "call_graph_coverage": "2 direct callers and 3 direct callees; no indirect calls reported"
+  }
+}

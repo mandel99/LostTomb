@@ -3084,6 +3084,27 @@
             "0x004188F0"
       ],
       "known_limitations": "One additional direct call site at 0x00415FCE has no containing function in the current Ghidra database."
-}
+},
+    {
+      "address": "0x004188F0",
+      "name": "pharaoh_mission_records_store",
+      "source": "game/scenario/campaign_records.c",
+      "origin": "Complete typed C algorithm compared against the pinned live Ghidra function; reuses the existing mixed C translation.",
+      "mapping_evidence": "evidence/campaign-records-store-20261126.json",
+      "native_callers": [
+        "0x00418220",
+        "0x00418640"
+      ],
+      "native_callees": [
+        "0x004CC110",
+        "0x00516A20",
+        "0x0041B8A0"
+      ],
+      "reachable_from": [
+        "0x00418220",
+        "0x00418640"
+      ],
+      "known_limitations": "Native global-state host binding, mission-id storage equivalence, fixed loop bounds, text selection, and profile-save operations remain unconnected to a clean C entrypoint."
+    }
 ]
 }
