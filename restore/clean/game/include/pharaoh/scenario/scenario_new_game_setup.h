@@ -5,6 +5,15 @@
 
 typedef void (*PharaohScenarioSetupStep)(void *user_data);
 
+typedef struct PharaohScenarioPlayerInitContext {
+    uint8_t *player_records;
+    uint32_t *word_00ea186c;
+    uint32_t *flag_00ea1820;
+} PharaohScenarioPlayerInitContext;
+
+void pharaoh_scenario_player_custom_init(
+    PharaohScenarioPlayerInitContext *context);
+
 typedef struct PharaohScenarioRuntimeStateResetContext {
     uint32_t (*words_78d7a0)[17];
     uint32_t (*words_78d5c0)[12];
@@ -22,7 +31,7 @@ typedef struct PharaohScenarioNewGameSetupContext {
     uint8_t *victory_forced;
     uint8_t *victory_cheated;
     uint32_t *editor_construction_tool;
-    PharaohScenarioSetupStep prefix_steps[2];
+    PharaohScenarioPlayerInitContext *player_init;
     int32_t *current_player;
     uint8_t *player_flag_2;
     uint8_t *player_flag_3;

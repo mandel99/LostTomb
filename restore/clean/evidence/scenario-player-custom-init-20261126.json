@@ -1,0 +1,52 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "live Ghidra analysis of Pharaoh.exe",
+  "functions": {
+    "0x00540A10": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_new_game_setup",
+      "caller": {"address": "0x005405B0", "site": "0x0054069A"},
+      "calls": [
+        {"address": "0x004E7D10", "site": "0x00540A30"},
+        {"address": "0x004E7E10", "site": "0x00540A35"}
+      ]
+    },
+    "0x004E7D10": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_player_custom_init",
+      "caller": {"address": "0x00540A10", "site": "0x00540A30"},
+      "callees": [
+        {"address": "0x0040F8F0", "site": "0x004E7D1E", "operation": "fill 0x93B0 bytes with zero"},
+        {"address": "0x004E7E20", "site": "0x004E7D26", "operation": "copy player[1].byte_0003 to 0x00EA1820"},
+        {"address": "0x004E9EE0", "site": "0x004E7DA5"}
+      ],
+      "stores_player1_dwords": {
+        "0x0008": 9, "0x0010": 60, "0x0014": 50, "0x0018": 50,
+        "0x0020": 3, "0x25BC": 0, "0x25C0": 0, "0x2C08": 30,
+        "0x2C0C": 30, "0x42C4": 1, "0x42C8": 1, "0x438C": 1,
+        "0x44F4": 1, "0x4574": 0, "0x4578": 0, "0x457C": 0
+      },
+      "stores_global": {"0x00EA186C": 0}
+    },
+    "0x004E7E10": {
+      "owner": "game/core/static_objects.c:pharaoh_native_flag_zero_004e7e10",
+      "caller": {"address": "0x00540A10", "site": "0x00540A35"},
+      "stores_global": {"0x00EA1820": 0}
+    },
+    "0x004E9EE0": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_player_gods_init",
+      "caller": {"address": "0x004E7D10", "site": "0x004E7DA5"},
+      "stores_player1": {
+        "byte_4390[5]": 50, "byte_439A[5]": 50, "byte_43A4[5]": 0,
+        "byte_4816[5]": 0, "byte_43C2[5]": 0, "byte_43CC[5]": 0,
+        "byte_43D6[5]": 0, "dword_43E0[5]": 0,
+        "word_4984": 65535, "word_4986": 65535, "word_4988": 65535,
+        "dword_45CC": 4294967295, "dword_47B4": 4294967295,
+        "dword_45D8": 0
+      },
+      "callees": []
+    }
+  },
+  "limitations": [
+    "This binds the first two 0x00540A10 steps in its typed C context; the clean Windows host still lacks the custom-scenario setup context constructor.",
+    "No native-versus-restored gameplay replay was performed in this checkpoint."
+  ]
+}

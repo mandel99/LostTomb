@@ -1,9 +1,76 @@
 #include "pharaoh/scenario/scenario_new_game_setup.h"
 #include "pharaoh/core/percentage_adjust.h"
 #include "pharaoh/core/static_objects.h"
+#include "pharaoh/core/memory_fill.h"
 
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
+
+static void store_u16(uint8_t *destination, uint32_t offset, uint16_t value)
+{
+    memcpy(destination + offset, &value, sizeof(value));
+}
+
+static void store_u32(uint8_t *destination, uint32_t offset, uint32_t value)
+{
+    memcpy(destination + offset, &value, sizeof(value));
+}
+
+/* Complete typed translation of Pharaoh.exe 0x004E9EE0. */
+static void pharaoh_scenario_player_gods_init(uint8_t *player)
+{
+    uint32_t god;
+
+    for (god = 0; god < 5; ++god) {
+        player[0x4390 + god] = 50;
+        player[0x439a + god] = 50;
+        player[0x43a4 + god] = 0;
+        player[0x4816 + god] = 0;
+        player[0x43c2 + god] = 0;
+        player[0x43cc + god] = 0;
+        player[0x43d6 + god] = 0;
+        store_u32(player, 0x43e0 + god * 4, 0);
+    }
+
+    store_u16(player, 0x4984, UINT16_MAX);
+    store_u16(player, 0x4986, UINT16_MAX);
+    store_u16(player, 0x4988, UINT16_MAX);
+    store_u32(player, 0x45cc, UINT32_MAX);
+    store_u32(player, 0x47b4, UINT32_MAX);
+    store_u32(player, 0x45d8, 0);
+}
+
+/* Complete typed translation of Pharaoh.exe 0x004E7D10. */
+void pharaoh_scenario_player_custom_init(
+    PharaohScenarioPlayerInitContext *context)
+{
+    uint8_t *const player = context->player_records + 0x49d8;
+
+    pharaoh_memory_fill_bytes((uint32_t *)(void *)context->player_records,
+        0x93b0, 0);
+    pharaoh_native_flag_from_byte_004e7e20(context->flag_00ea1820,
+        player[3]);
+    *context->word_00ea186c = 0;
+
+    store_u32(player, 0x14, 50);
+    store_u32(player, 0x18, 50);
+    store_u32(player, 0x10, 60);
+    store_u32(player, 0x2c0c, 30);
+    store_u32(player, 0x2c08, 30);
+    store_u32(player, 0x20, 3);
+    store_u32(player, 0x08, 9);
+    store_u32(player, 0x42c4, 1);
+    store_u32(player, 0x42c8, 1);
+    store_u32(player, 0x25bc, 0);
+    store_u32(player, 0x25c0, 0);
+    store_u32(player, 0x438c, 1);
+    store_u32(player, 0x44f4, 1);
+    store_u32(player, 0x4574, 0);
+    store_u32(player, 0x4578, 0);
+    store_u32(player, 0x457c, 0);
+    pharaoh_scenario_player_gods_init(player);
+}
 
 static uint32_t terminated_size(const char *text)
 {
@@ -56,8 +123,8 @@ void pharaoh_scenario_new_game_setup(
     *context->victory_forced = 0;
     *context->victory_cheated = 0;
     *context->editor_construction_tool = 0;
-    context->prefix_steps[0](context->user_data);
-    context->prefix_steps[1](context->user_data);
+    pharaoh_scenario_player_custom_init(context->player_init);
+    pharaoh_native_flag_zero_004e7e10(context->player_init->flag_00ea1820);
 
     *context->current_player = 1;
     *context->player_flag_3 = 1;
