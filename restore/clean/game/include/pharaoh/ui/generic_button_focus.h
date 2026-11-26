@@ -85,6 +85,21 @@ typedef struct PharaohMenuBarFocusRecord {
     uint8_t reserved_08[8];
 } PharaohMenuBarFocusRecord;
 
+/* Native16-byte menu-item view. Focus/draw observe these two signed WORDs;
+ * callback/parameter bytes stay opaque until their own consumers are bound. */
+typedef struct PharaohMenuDropdownRow {
+    int16_t relative_y,text_entry;
+    uint8_t reserved_04[12];
+} PharaohMenuDropdownRow;
+typedef struct PharaohMenuDropdownFocusContext {
+    const int32_t *cursor_x,*cursor_y; /* logical E38E34/E38E30, not screen DC4/DC0 */
+    const uint32_t *selected_header; /* 705730 */
+    const int32_t *column_widths; /* actual five native4D5F60 selector cells */
+} PharaohMenuDropdownFocusContext;
+/* Complete00426150; source index, width multiply and coordinates wrap32. */
+int32_t pharaoh_menu_dropdown_focus(const PharaohMenuDropdownFocusContext *,
+    const PharaohMenuDropdownRow *,int32_t count,int32_t x,int32_t y);
+
 typedef struct PharaohButtonHitState {
     int32_t hit_mouse_x;
     int32_t hit_mouse_y;

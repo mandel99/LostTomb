@@ -265,3 +265,14 @@ void pharaoh_native_service_records_decay_0041d6f0(int32_t records[69][32])
         records[record][0] /= 2;
     }
 }
+
+int32_t pharaoh_native_metric_select_004d5ef0(
+    int32_t key, const int32_t values[6])
+{
+    switch (key) {
+    case 1: return values[0]; case 2: return values[1];
+    case 3: return values[2]; case 4: return values[3];
+    case 7: return values[4]; case 10: return values[5];
+    default: return 10;
+    }
+}

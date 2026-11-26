@@ -93,3 +93,9 @@ PharaohUiLayoutNode *pharaoh_ui_layout_find(
     }
     return NULL;
 }
+
+int32_t pharaoh_ui_layout_column_width(
+    const int32_t column_widths[5], int32_t column)
+{
+    return column >= 0 && column < 5 ? column_widths[column] : 10;
+}

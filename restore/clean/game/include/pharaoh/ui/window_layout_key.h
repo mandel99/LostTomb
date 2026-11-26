@@ -51,4 +51,6 @@ PharaohUiLayoutNode *pharaoh_ui_layout_find(
     const PharaohUiLayoutEntry *entries, int32_t kind, int32_t mode,
     int32_t relative_x, int32_t relative_y);
 
+int32_t pharaoh_ui_layout_column_width(
+    const int32_t column_widths[5], int32_t column);
 #endif

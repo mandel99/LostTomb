@@ -32,4 +32,6 @@ void pharaoh_panel_frame_draw_native(const PharaohPanelFrameNativeContext *,
 void pharaoh_inner_panel_frame_draw_native(const PharaohPanelFrameNativeContext *,
     int32_t x, int32_t y, int32_t width_blocks, int32_t height_blocks);
 
+void pharaoh_panel_pattern_fill_native(const PharaohPanelFrameNativeContext *,
+    int32_t x,int32_t y,int32_t width,int32_t height);
 #endif

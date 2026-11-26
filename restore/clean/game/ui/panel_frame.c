@@ -143,3 +143,28 @@ void pharaoh_inner_panel_frame_draw_native(const PharaohPanelFrameNativeContext 
     };
     pharaoh_inner_panel_frame_draw(&offsets, x, y, width_blocks, height_blocks);
 }
+
+void pharaoh_panel_pattern_fill_native(const PharaohPanelFrameNativeContext *c,
+    int32_t x,int32_t y,int32_t width,int32_t height)
+{
+    uint32_t row_phase=0,row_step=0,py=(uint32_t)y;
+    int32_t rows=height;
+    if(rows<=0) return;
+    do {
+        uint32_t column_phase=0,px=(uint32_t)x;
+        int32_t columns=width;
+        if(columns>0) {
+            row_step=12;
+            do {
+                native_frame_image((void *)c,(int32_t)(column_phase+row_phase+13u),
+                    (int32_t)px,(int32_t)py);
+                ++column_phase;
+                if(column_phase>=10) column_phase=0;
+                px+=16u;
+            } while(--columns!=0);
+        }
+        row_phase+=row_step;
+        if(row_phase>=120) row_phase=0;
+        py+=16u;
+    } while(--rows!=0);
+}

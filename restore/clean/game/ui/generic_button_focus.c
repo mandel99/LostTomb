@@ -1,4 +1,5 @@
 #include "pharaoh/ui/generic_button_focus.h"
+#include "pharaoh/ui/window_layout_key.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -313,4 +314,23 @@ void pharaoh_building_info_draw_advisor_buttons(
         }
     }
     *draw_state->force_refresh = 0;
+}
+
+int32_t pharaoh_menu_dropdown_focus(const PharaohMenuDropdownFocusContext *c,
+    const PharaohMenuDropdownRow *items,int32_t count,int32_t x,int32_t y)
+{
+    _Static_assert(sizeof(PharaohMenuDropdownRow)==16,"native menu-item stride");
+    int32_t cursor_x=*c->cursor_x;
+    for(int32_t index=0;index<count;++index) {
+        const int32_t top=wrap_add(wrap_add(items[index].relative_y,30),y);
+        if(x<=cursor_x) {
+            const int32_t column=signed_dword_from_bits(*c->selected_header-1u);
+            const int32_t width=pharaoh_ui_layout_column_width(c->column_widths,column);
+            cursor_x=*c->cursor_x; /* native reload after the actual getter */
+            const int32_t right=wrap_add(x,signed_dword_from_bits((uint32_t)width*16u));
+            if(cursor_x<right && top<=*c->cursor_y && *c->cursor_y<wrap_add(top,15))
+                return index+1;
+        }
+    }
+    return 0;
 }
