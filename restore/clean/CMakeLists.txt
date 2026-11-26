@@ -299,6 +299,7 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
     game/scenario/scenario_start_mission.c
+    game/scenario/map_file_exists.c
     game/scenario/scenario_start_bindings.c
     game/scenario/saved_game_state_read.c
     game/scenario/saved_game_initialize.c
