@@ -1,4 +1,6 @@
 #include "pharaoh/ui/message_actions.h"
+#include "pharaoh/core/memory_fill.h"
+#include "pharaoh/ui/rich_text.h"
 
 #include <stddef.h>
 
@@ -8,6 +10,69 @@ _Static_assert(offsetof(PharaohMenuMessageRecord, message) == 10 &&
     offsetof(PharaohMenuMessageRecord, read) == 14 &&
     offsetof(PharaohMenuMessageRecord, template_id) == 16,
     "native menu message record fields");
+_Static_assert(sizeof(PharaohMessageInputRow) == 20,
+    "native message input row size");
+
+void pharaoh_message_dialog_show(PharaohMessageDialogOpenState *state,
+    int32_t message_id, uint32_t parameter, uint8_t has_phrases)
+{
+    *state->has_phrases = has_phrases;
+    if (has_phrases == 0) {
+        *state->phrase_count = 0;
+    } else {
+        *state->phrase_count = *state->current_message_phrase_count;
+    }
+
+    pharaoh_memory_fill_bytes(state->dialog_words_a, 200u * 4u, 0);
+    pharaoh_memory_fill_bytes(state->dialog_words_b, 200u * 4u, 0);
+    *state->message_id = message_id;
+    *state->message_parameter = parameter;
+    *state->dialog_state_aae0 = 0;
+    *state->dialog_state_b130 = 0;
+    *state->dialog_state_b138 = 0;
+    *state->dialog_visible = *state->message_record_value != 0u;
+    if (*state->event54_popup != 1u) *state->dialog_visible = 0;
+    *state->dialog_state_b12c = 0;
+
+    pharaoh_rich_text_reset_links(state->rich_text);
+    *state->redraw_requested = 1;
+    *state->previous_window_id = *state->current_window_id;
+    *state->current_window_id = 5;
+}
+
+/* Complete zero-callee C translation of Pharaoh.exe 0x004B3320. */
+int32_t pharaoh_message_count_empty_slots(const int16_t slots[1000])
+{
+    int32_t count = 0;
+    for (int32_t index = 1; index < 1000; ++index)
+        if (slots[index] == 0) ++count;
+    return count;
+}
+
+/* Complete zero-callee C translation of Pharaoh.exe 0x004C7F70. */
+int32_t pharaoh_message_input_hit_test(uint8_t active,
+    const PharaohMessageInputRow *rows, int32_t count,
+    int32_t mouse_x, int32_t mouse_y)
+{
+    if (active != 0) {
+        for (int32_t index = 0; index < count; ++index) {
+            const PharaohMessageInputRow *row = &rows[index];
+            if (row->top <= mouse_y && mouse_y <= row->bottom &&
+                row->left <= mouse_x && mouse_x <= row->right)
+                return row->value;
+        }
+    }
+    return -1;
+}
+
+void pharaoh_message_dialog_close(PharaohMessageDialogCloseState *state)
+{
+    if (state->show_video != 0) state->stop_video(state->user_data);
+    state->show_video = 0;
+    state->current_window = state->previous_window;
+    state->message_category = 0;
+    state->redraw_requested = 1;
+}
 
 void pharaoh_menu_message_ten(PharaohMenuMessageState *state)
 {

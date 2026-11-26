@@ -1,6 +1,7 @@
 #ifndef PHARAOH_UI_MESSAGE_ACTIONS_H
 #define PHARAOH_UI_MESSAGE_ACTIONS_H
 
+#include "pharaoh/ui/rich_text.h"
 #include <stdint.h>
 
 typedef struct PharaohMenuMessageRecord {
@@ -48,6 +49,45 @@ typedef struct PharaohMenuMessageState {
     void *user_data;
 } PharaohMenuMessageState;
 
+typedef struct PharaohMessageDialogCloseState {
+    int32_t show_video;
+    uint8_t previous_window;
+    uint8_t current_window;
+    int32_t message_category;
+    uint8_t redraw_requested;
+    void (*stop_video)(void *user_data);
+    void *user_data;
+} PharaohMessageDialogCloseState;
+
+typedef struct PharaohMessageDialogOpenState {
+    uint8_t *has_phrases;
+    uint16_t *phrase_count;
+    uint32_t *dialog_words_a; /* 200 dwords */
+    uint32_t *dialog_words_b; /* 200 dwords */
+    int32_t *message_id;
+    uint32_t *message_parameter;
+    uint32_t *dialog_state_aae0;
+    uint32_t *dialog_state_b130;
+    uint32_t *dialog_state_b138;
+    uint32_t *dialog_state_b12c;
+    uint32_t *dialog_visible;
+    uint32_t *previous_window_id;
+    const uint32_t *message_record_value;
+    const uint32_t *event54_popup;
+    const uint16_t *current_message_phrase_count;
+    uint8_t *redraw_requested;
+    uint8_t *current_window_id;
+    PharaohRichTextState *rich_text;
+} PharaohMessageDialogOpenState;
+
+typedef struct PharaohMessageInputRow {
+    int32_t top;
+    int32_t bottom;
+    int32_t left;
+    int32_t right;
+    int32_t value;
+} PharaohMessageInputRow;
+
 void pharaoh_menu_message_ten(PharaohMenuMessageState *state);
 void pharaoh_menu_message_go_to(PharaohMenuMessageState *state);
 void pharaoh_menu_message_help(PharaohMenuMessageState *state);
@@ -56,5 +96,13 @@ void pharaoh_menu_message_open(PharaohMenuMessageState *state);
 void pharaoh_menu_message_delete(PharaohMenuMessageState *state);
 void pharaoh_menu_message_delete_read(PharaohMenuMessageState *state);
 void pharaoh_menu_overlay_select(PharaohMenuMessageState *state);
+void pharaoh_message_dialog_close(PharaohMessageDialogCloseState *state);
+/* Native entry 0x004C5BF0. */
+void pharaoh_message_dialog_show(PharaohMessageDialogOpenState *state,
+    int32_t message_id, uint32_t parameter, uint8_t has_phrases);
+int32_t pharaoh_message_count_empty_slots(const int16_t slots[1000]);
+int32_t pharaoh_message_input_hit_test(uint8_t active,
+    const PharaohMessageInputRow *rows, int32_t count,
+    int32_t mouse_x, int32_t mouse_y);
 
 #endif

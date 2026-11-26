@@ -1,0 +1,56 @@
+{
+  "schema": "pharaoh-window-message-dialog-show-live-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": {
+    "address": "0x004C5BF0",
+    "native_name": "WindowMessageDialogShow",
+    "prototype": "void WindowMessageDialogShow(int32_t type, uint32_t arg, uint8_t has_phrases)",
+    "caller_count": 8,
+    "caller_sites": [
+      "0x004072D5 <- 0x004072C0",
+      "0x004072F0 <- 0x004072C0",
+      "0x0040730B <- 0x004072C0",
+      "0x004E0F1B <- 0x004E0CF0",
+      "0x004E148C <- 0x004E1320",
+      "0x004E2278 <- caller function not identified",
+      "0x00511C5F <- 0x00511C50",
+      "0x00511C70 <- 0x00511C50"
+    ],
+    "direct_callees": [
+      { "address": "0x004C8040", "call_site": "0x004C5C91", "owner": "pharaoh_rich_text_reset_links" }
+    ]
+  },
+  "observed_effects": [
+    { "address": "0x00D3B184", "width_bytes": 1, "effect": "store has_phrases argument" },
+    { "address": "0x00D3B186", "width_bytes": 2, "effect": "zero if has_phrases is zero; otherwise copy current message phrase count" },
+    { "address": "0x00D3AE04", "width_bytes": 800, "effect": "clear 200 dwords" },
+    { "address": "0x00D3AAE4", "width_bytes": 800, "effect": "clear 200 dwords" },
+    { "address": "0x00D3B124", "width_bytes": 4, "effect": "store message type" },
+    { "address": "0x00D3B140", "width_bytes": 4, "effect": "store second argument" },
+    { "address": "0x00D3AAE0", "width_bytes": 4, "effect": "zero" },
+    { "address": "0x00D3B130", "width_bytes": 4, "effect": "zero" },
+    { "address": "0x00D3B138", "width_bytes": 4, "effect": "zero" },
+    { "address": "0x00D3B12C", "width_bytes": 4, "effect": "zero" },
+    { "address": "0x00D3B180", "width_bytes": 4, "effect": "set when the selected message record is nonzero and Event54Popup equals 1" },
+    { "address": "0x00E38DCA", "width_bytes": 1, "effect": "set redraw request to 1" },
+    { "address": "0x00D3B17C", "width_bytes": 4, "effect": "store zero-extended previous window byte" },
+    { "address": "0x00E38DDA", "width_bytes": 1, "effect": "set current window id to 5" }
+  ],
+  "reuse_search": {
+    "old_project": "PH Local Decompile/reused/restore",
+    "finding": "The old project provides the typed function declaration in game/include/Pharaoh/game/window/MessageDialog.h but no complete typed C implementation; source searches found only callers and compatibility wrappers."
+  },
+  "clean_owner": {
+    "source": "game/ui/message_actions.c",
+    "header": "game/include/pharaoh/ui/message_actions.h",
+    "source_sha256": "94C249F82271B586B6AD66FDADF963CBCF9A261718670A5CD5244BCEBC64D368",
+    "header_sha256": "35A9DACFAC9FDA690D01A4313F6472FA4BC21FCAA6C8EC9681AE1E0AFB77F2D0",
+    "native_address_wrapper": false
+  },
+  "verification": {
+    "release_build": "passed: cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m"
+  },
+  "limitations": [
+    "The unresolved CityMessagePost parent must bind the explicit message record value, phrase count, dialog arrays, window state, and rich-text state to these inputs."
+  ]
+}
