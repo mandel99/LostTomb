@@ -9,8 +9,16 @@ int32_t pharaoh_crt_close_descriptor(PharaohCrtLowioState *state,
 {
     uint32_t win32_error = 0;
 
-    if (descriptor >= state->capacity ||
-        (state->blocks[descriptor >> 5][descriptor & 31u].flags & 1u) == 0u) {
+    if (descriptor >= state->capacity) {
+        *state->dos_error = 0;
+        *state->error_number = 9;
+        return -1;
+    }
+
+    PharaohCrtLowioRecord *volatile *const block =
+        state->blocks + (descriptor >> 5);
+    volatile PharaohCrtLowioRecord *record = *block + (descriptor & 31u);
+    if ((record->flags & 1u) == 0u) {
         *state->dos_error = 0;
         *state->error_number = 9;
         return -1;
@@ -31,7 +39,8 @@ int32_t pharaoh_crt_close_descriptor(PharaohCrtLowioState *state,
     }
 
     (void)pharaoh_crt_free_os_handle(state, descriptor);
-    state->blocks[descriptor >> 5][descriptor & 31u].flags = 0;
+    record = *block + (descriptor & 31u);
+    record->flags = 0;
     if (win32_error != 0u) {
         PharaohCrtErrorState error_state = {
             *state->dos_error, *state->error_number
