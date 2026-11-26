@@ -1,0 +1,46 @@
+{
+  "original_exe_sha256": "fde7cd6542ab00e3952d036c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_function": {
+    "address": "0x004CCA60",
+    "analyzed_name": "FUN_004cca60",
+    "body": "0x004CCA60-0x004CCAFD",
+    "rea_evidence_id": "ev_9db23059a3b96ad042602c0e61d3386da446797b1cee682a08a3285c5dea2910",
+    "provider": "Ghidra via REA",
+    "native_callees": [
+      "0x0053E590"
+    ],
+    "native_path": [
+      "0x0041A180",
+      "0x004CCE00",
+      "0x004CC770",
+      "0x004CCA60",
+      "0x0053E590"
+    ],
+    "pseudocode": "glyph = glyph_ids[character_index]; DAT_00D3B5C0 = glyph; if glyph == 0 return 0; image = font_first + glyph - 1; metric_image = image; if image_count <= image metric_image = 0; accent = height(metric_image) - DAT_00D3B500; clamp accent to 0 when negative, character_index < 0x60, or index is 199/231; draw image at (x, y - 3 - accent); return width(metric_image).",
+    "known_boundary": "The computed image ID is still sent to 0x0053E590 when outside the metric count; only height and width metric lookup falls back to image 0."
+  },
+  "implementation": {
+    "owner": "game/ui/bitmap_font.c:pharaoh_bitmap_font_draw_glyph",
+    "header": "game/include/pharaoh/ui/bitmap_font.h",
+    "host_state": "game/include/pharaoh/platform/windows_startup_host.h:bitmap_current_glyph",
+    "host_binding": "game/platform/windows_startup_host.c",
+    "source_sha256": "3A979570A9488699CA8C282C06057B1C3AC831A6D5938C10334FA0CD361A9284",
+    "header_sha256": "4C7F8AFADDCDAE37D8B00B183CB6F91DD8BD8C29E1F28589DA507AE400479D2B",
+    "host_header_sha256": "CB8F1C22DAC85FCF3547F519B05CA9842303FAEA71ECEECA464C3B4FD055D23C",
+    "host_source_sha256": "7140CB27734F38477205A7EE7B69AD97117C349A228BECF8716B4D4DDB27F335"
+  },
+  "reuse_review": {
+    "clean_existing": "bitmap_font.c already held the glyph table and a startup-label subset; this implementation factors the native leaf through that code.",
+    "prior_project": "generated/mixed/src/Unit01693.c contains the same algorithm but retains TgMetric and Original0053E590 bridges; it was used as comparison only.",
+    "child_owner": "0x0053E590 is already mapped to pharaoh_image_draw."
+  },
+  "verification": {
+    "source_contract": "Compared against the retained REA/Ghidra pseudocode and the direct call from 0x004CC770.",
+    "release_build": "passed",
+    "release_library_sha256": "1CE9EB925AD4CF4CBAFF27162923F33BBA20DDDDA3324558265D7ED49E428AB8",
+    "migration_workflow": "currently reports pre-existing map paths outside game/; see tools/migration_workflow.ps1 verify."
+  },
+  "source_sha256": "9e6a6739f810b2daffe7b7de84966b6076a47ec883975fff93f57cea4e094214",
+  "header_sha256": "f62e80d9a0e348fd8f28d43f665b0d9c032647f46eb1862d8fec453f8adccfd5",
+  "known_limitations": "The complete 0x004CC770 parent is mapped and calls this native glyph renderer."
+}

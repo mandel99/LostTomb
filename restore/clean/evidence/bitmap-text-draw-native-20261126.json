@@ -1,0 +1,36 @@
+{
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_function": {
+    "address": "0x004CC770",
+    "name": "FUN_004cc770",
+    "analysis": "Ghidra pseudocode on the pinned executable"
+  },
+  "owners": {
+    "0x004CC770": "pharaoh_bitmap_text_draw_native",
+    "0x004CCA60": "pharaoh_bitmap_font_draw_glyph",
+    "0x004CCB00": "pharaoh_text_next_character"
+  },
+  "native_callers": [
+    "0x0041A180",
+    "0x004CCBB0",
+    "0x004CCE00"
+  ],
+  "native_callees": [
+    "0x004CCA60",
+    "0x004CCB00"
+  ],
+  "native_contract": "Font IDs select spaces/baselines; hash and underscore substitutions, glyph lookup, outline/shadows, cursor-limit capture, encoded-character advancement, duplicate-space correction and terminator resets are carried by explicit PharaohBitmapTextDrawState.",
+  "reuse_review": {
+    "old_project": "artifacts/menu_text_glyph_phase/src/unit_01692.c contains the complete typed function; its TG_* address macros were replaced by explicit typed state fields.",
+    "wrapper_check": "This is the full native body; it does not call back into the original IL."
+  },
+  "source_sha256": "9e6a6739f810b2daffe7b7de84966b6076a47ec883975fff93f57cea4e094214",
+  "header_sha256": "f62e80d9a0e348fd8f28d43f665b0d9c032647f46eb1862d8fec453f8adccfd5",
+  "verification": {
+    "native_source": "Pinned Ghidra pseudocode; call graph links the briefing parent 0x0041A180 through this renderer to 0x004CCA60 and 0x004CCB00.",
+    "host_binding": "The briefing host still lacks the native cursor-limit and text-input state provider; no placeholder callback was added.",
+    "release_build": "passed",
+    "release_library_sha256": "f2b7b659e7ec226d3b89b912605fd3abe73fb829d6563ec26109cd2e52f90b7c",
+    "migration_workflow": "passed with 111 existing errors; mapped=2046; no new entry errors"
+  }
+}
