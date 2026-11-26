@@ -2418,7 +2418,27 @@
       "ghidra_evidence": "evidence/ghidra-typed-pseudocode-20261116-after-java-types.c",
       "rea_evidence": "ev_dc61dfa206d66c0c261dbd040842198269682e33e6f062274d10c42a9f08e1d1",
       "rea_evidence_bundle": "evidence/rea-game-state-048.json",
-      "known_limitations": "Typed operations are required for scenario-state and map-view helpers whose clean owners are not yet present; the initializer is not yet wired into the host application."
+      "known_limitations": "Typed operations are required for scenario-state and map-view helpers whose clean owners are not yet present; the initializer is not yet wired into the host application.",
+      "native_callers": [
+        "0x00413ED0",
+        "0x00540A10"
+      ],
+      "native_callees": [
+        "0x00481F20",
+        "0x00430530",
+        "0x004DDEC0",
+        "0x004DDF20",
+        "0x004DDF90",
+        "0x004DE080",
+        "0x004CDD60",
+        "0x004CC560",
+        "0x004E2AB0"
+      ],
+      "reachable_from": [
+        "0x00413ED0",
+        "0x005405B0"
+      ],
+      "call_graph_evidence": "evidence/scenario-entry-native-links-20261126.json"
     },
     {
       "address": "0x00540C90",
@@ -2922,7 +2942,7 @@
     {"address":"0x00484F20","name":"pharaoh_map_adjacent_flags_normalize","source":"game/map/tile_adjacency.c","origin":"Complete typed reuse of prior C; native widths, shared scan state and x87 behavior qualified by pinned Ghidra and joint original/compiled-C replay.","mapping_evidence":"evidence/map-surface-entry-20261122.json"},
     {"address":"0x00484F40","name":"pharaoh_map_adjacent_flags_count","source":"game/map/tile_adjacency.c","origin":"Complete typed reuse of prior C; native widths, shared scan state and x87 behavior qualified by pinned Ghidra and joint original/compiled-C replay.","mapping_evidence":"evidence/map-surface-entry-20261122.json"},
     {"address":"0x0040F860","name":"pharaoh_memory_copy_forward_words64","source":"game/core/memory_strings.c","origin":"Complete prior C reused; source-first copy and forward DWORD overlap order verified by original/compiled-C Unicorn replay.","mapping_evidence":"evidence/map-surface-entry-20261122.json"},
-    {"address":"0x005405B0","name":"pharaoh_scenario_start_mission","source":"game/scenario/scenario_start_mission.c","origin":"Complete prior C reused; resolved custom-map path preserved, pinned Ghidra call-site and480-scenario native/C controller replay. Actual scene loading/UI endpoints still require host binding.","mapping_evidence":"evidence/mission-entry-controller-20261122.json"},
+    {"address":"0x005405B0","name":"pharaoh_scenario_start_mission","source":"game/scenario/scenario_start_mission.c","origin":"Complete prior C reused; resolved custom-map path preserved, pinned Ghidra call-site and480-scenario native/C controller replay. Actual scene loading/UI endpoints still require host binding.","mapping_evidence":"evidence/mission-entry-controller-20261122.json","native_callers":["0x0041A180"],"native_call_sites_without_function":["0x00418618"],"native_callees":["0x004DE140","0x005409D0","0x00540A10","0x004D58B0","0x004CDE40","0x0041B9D0","0x00404350","0x004051A0","0x004E1770","0x00418BF0","0x00489B40"],"reachable_from":["0x00417DD0","0x00418220","0x004181E0","0x0041A180"],"call_graph_evidence":"evidence/scenario-entry-native-links-20261126.json"},
     {"address":"0x004746D0","name":"pharaoh_map_refresh_surrounding_empty","source":"game/map/surface_placement.c","origin":"Complete typed reuse of prior C; native storage/call contracts qualified in pinned Ghidra and joint original/compiled-C replay of full real child graph.","mapping_evidence":"evidence/surface-refresh-20261122.json"},
     {"address":"0x0047BF50","name":"pharaoh_map_place_surface_square","source":"game/map/surface_placement.c","origin":"Complete typed reuse of prior C; native storage/call contracts qualified in pinned Ghidra and joint original/compiled-C replay of full real child graph.","mapping_evidence":"evidence/surface-refresh-20261122.json"},
     {"address":"0x00476530","name":"pharaoh_map_refresh_gardens","source":"game/map/surface_packing.c","origin":"Complete typed reuse of prior C; native storage/call contracts qualified in pinned Ghidra and joint original/compiled-C replay of full real child graph.","mapping_evidence":"evidence/surface-refresh-20261122.json"},

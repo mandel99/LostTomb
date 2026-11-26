@@ -1,0 +1,599 @@
+{
+  "evidence_id": "scenario-entry-native-links-20261126",
+  "authority": "live Ghidra analysis of the pinned Pharaoh.exe",
+  "executable_sha256": "FDE7CD6542AB00E3952D0366C0C5C52DDE59A70160280F172E24D41406D33C8D",
+  "native_functions": {
+    "0x005405B0": {
+      "info": {
+        "name": "ScenarioStartMission",
+        "address": "005405b0",
+        "signature": "void ScenarioStartMission(char * name, char force_campaign)",
+        "namespace": "Global",
+        "body_start": "005405b0",
+        "body_end": "005409c1",
+        "body_size": 1042,
+        "calling_convention": "unknown",
+        "is_thunk": false,
+        "is_external": false
+      },
+      "decompilation": {
+        "function": {
+          "name": "ScenarioStartMission",
+          "address": "005405b0"
+        },
+        "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nvoid ScenarioStartMission(char *name,char force_campaign)\r\n\r\n{\r\n  char cVar1;\r\n  char cVar2;\r\n  char cVar3;\r\n  undefined1 uVar4;\r\n  uint uVar5;\r\n  undefined1 uVar6;\r\n  char cVar7;\r\n  int *piVar8;\r\n  uint uVar9;\r\n  uint uVar10;\r\n  int iVar11;\r\n  int iVar12;\r\n  int *piVar13;\r\n  char *pcVar14;\r\n  int iVar15;\r\n  char *pcVar16;\r\n  char *pcVar17;\r\n  undefined4 *puVar18;\r\n  bool bVar19;\r\n  char local_64 [100];\r\n  \r\n  uVar5 = _DAT_00e38eb8;\r\n  iVar15 = _DAT_00e38eb4;\r\n  cVar7 = DAT_00e38eab;\r\n  uVar6 = DAT_00e38eaa;\r\n  uVar4 = DAT_00e38ea9;\r\n  cVar3 = tombRobberWarningTextId;\r\n  cVar2 = DAT_007027b4;\r\n  uVar9 = 0xffffffff;\r\n  pcVar14 = &DAT_0057626c;\r\n  do {\r\n    pcVar17 = pcVar14;\r\n    if (uVar9 == 0) break;\r\n    uVar9 = uVar9 - 1;\r\n    pcVar17 = pcVar14 + 1;\r\n    cVar1 = *pcVar14;\r\n    pcVar14 = pcVar17;\r\n  } while (cVar1 != '\\0');\r\n  uVar9 = ~uVar9;\r\n  pcVar14 = pcVar17 + -uVar9;\r\n  pcVar17 = local_64;\r\n  for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {\r\n    *(undefined4 *)pcVar17 = *(undefined4 *)pcVar14;\r\n    pcVar14 = pcVar14 + 4;\r\n    pcVar17 = pcVar17 + 4;\r\n  }\r\n  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {\r\n    *pcVar17 = *pcVar14;\r\n    pcVar14 = pcVar14 + 1;\r\n    pcVar17 = pcVar17 + 1;\r\n  }\r\n  uVar9 = 0xffffffff;\r\n  do {\r\n    pcVar14 = name;\r\n    if (uVar9 == 0) break;\r\n    uVar9 = uVar9 - 1;\r\n    pcVar14 = name + 1;\r\n    cVar1 = *name;\r\n    name = pcVar14;\r\n  } while (cVar1 != '\\0');\r\n  uVar9 = ~uVar9;\r\n  iVar11 = -1;\r\n  pcVar17 = local_64;\r\n  do {\r\n    pcVar16 = pcVar17;\r\n    if (iVar11 == 0) break;\r\n    iVar11 = iVar11 + -1;\r\n    pcVar16 = pcVar17 + 1;\r\n    cVar1 = *pcVar17;\r\n    pcVar17 = pcVar16;\r\n  } while (cVar1 != '\\0');\r\n  pcVar14 = pcVar14 + -uVar9;\r\n  pcVar17 = pcVar16 + -1;\r\n  for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {\r\n    *(undefined4 *)pcVar17 = *(undefined4 *)pcVar14;\r\n    pcVar14 = pcVar14 + 4;\r\n    pcVar17 = pcVar17 + 4;\r\n  }\r\n  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {\r\n    *pcVar17 = *pcVar14;\r\n    pcVar14 = pcVar14 + 1;\r\n    pcVar17 = pcVar17 + 1;\r\n  }\r\n  DAT_006fdcb4 = 1;\r\n  FUN_004de140();\r\n  if ((_DAT_00e38ebc == 0) || (force_campaign != '\\0')) {\r\n    uVar9 = 0xffffffff;\r\n    pcVar14 = &playerNameBuffer;\r\n    do {\r\n      pcVar17 = pcVar14;\r\n      if (uVar9 == 0) break;\r\n      uVar9 = uVar9 - 1;\r\n      pcVar17 = pcVar14 + 1;\r\n      cVar1 = *pcVar14;\r\n      pcVar14 = pcVar17;\r\n    } while (cVar1 != '\\0');\r\n    uVar9 = ~uVar9;\r\n    pcVar14 = pcVar17 + -uVar9;\r\n    pcVar17 = (char *)&DAT_00ea184c;\r\n    for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {\r\n      *(undefined4 *)pcVar17 = *(undefined4 *)pcVar14;\r\n      pcVar14 = pcVar14 + 4;\r\n      pcVar17 = pcVar17 + 4;\r\n    }\r\n    for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {\r\n      *pcVar17 = *pcVar14;\r\n      pcVar14 = pcVar14 + 1;\r\n      pcVar17 = pcVar17 + 1;\r\n    }\r\n    iVar11 = FUN_004d58b0(0,0);\r\n    if (iVar11 == 0) {\r\n      return;\r\n    }\r\n    _DAT_00e38ebc = 0;\r\n    iVar11 = FUN_004cde40(cityPlayers[cityCurrentPlayer].treasury,\r\n                          *(undefined4 *)(&DAT_005d1960 + _DAT_00e39080 * 4));\r\n    cityPlayers[cityCurrentPlayer].treasury = iVar11;\r\n    uVar9 = 0xffffffff;\r\n    pcVar14 = &playerNameBuffer;\r\n    do {\r\n      pcVar17 = pcVar14;\r\n      if (uVar9 == 0) break;\r\n      uVar9 = uVar9 - 1;\r\n      pcVar17 = pcVar14 + 1;\r\n      cVar1 = *pcVar14;\r\n      pcVar14 = pcVar17;\r\n    } while (cVar1 != '\\0');\r\n    uVar9 = ~uVar9;\r\n    pcVar14 = pcVar17 + -uVar9;\r\n    pcVar17 = (char *)&DAT_00ea184c;\r\n    for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {\r\n      *(undefined4 *)pcVar17 = *(undefined4 *)pcVar14;\r\n      pcVar14 = pcVar14 + 4;\r\n      pcVar17 = pcVar17 + 4;\r\n    }\r\n    for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {\r\n      *pcVar17 = *pcVar14;\r\n      pcVar14 = pcVar14 + 1;\r\n      pcVar17 = pcVar17 + 1;\r\n    }\r\n  }\r\n  else {\r\n    iVar11 = FUN_005409d0(local_64);\r\n    if (iVar11 == 0) {\r\n      currentWindowId = 1;\r\n      windowRedrawRequest = 1;\r\n      return;\r\n    }\r\n    ScenarioNewGameSetup(local_64);\r\n  }\r\n  _DAT_00e38eb8 = uVar5 & 0xff;\r\n  DAT_007027b4 = cVar2;\r\n  tombRobberWarningTextId = cVar3;\r\n  DAT_00e38ea9 = uVar4;\r\n  _DAT_00e38eb4 = iVar15;\r\n  if (cVar2 == '\\x03') {\r\n    DAT_00e38eab = FUN_0041b9d0((int)cVar3);\r\n    if (DAT_00e38eab < '\\0') {\r\n      DAT_00e38eab = '\\0';\r\n    }\r\n    DAT_00e38eaa = 0xff;\r\n    uVar6 = DAT_00e38eaa;\r\n    cVar7 = DAT_00e38eab;\r\n  }\r\n  DAT_00e38eab = cVar7;\r\n  DAT_00e38eaa = uVar6;\r\n  iVar11 = cityCurrentPlayer;\r\n  iVar15 = _DAT_00e38ebc;\r\n  cVar2 = tombRobberWarningTextId;\r\n  _DAT_00e38eb0 = *(undefined4 *)(&DAT_005d1988 + _DAT_00e39080 * 4);\r\n  bVar19 = _DAT_00e38ebc != 0;\r\n  *(undefined4 *)&cityPlayers[cityCurrentPlayer].field_0x42d8 = _DAT_00e38eb0;\r\n  cityPlayers[iVar11].personalSavings = _DAT_00e38eb4;\r\n  if (bVar19) {\r\n    cityPlayers[iVar11].personalSavings = 0;\r\n  }\r\n  iVar12 = (int)DAT_00784b62;\r\n  *(int *)&cityPlayers[iVar11].field_0x444c = iVar12;\r\n  *(int *)&cityPlayers[iVar11].field_0x2c9c = iVar12;\r\n  if (10 < iVar12) {\r\n    *(undefined4 *)&cityPlayers[iVar11].field_0x2c9c = 10;\r\n  }\r\n  _DAT_0078d830 = 0;\r\n  DAT_0078d828 = 0;\r\n  *(undefined4 *)&cityPlayers[iVar11].field_0x2c98 =\r\n       (&DAT_005d0320)[*(int *)&cityPlayers[iVar11].field_0x2c9c];\r\n  *(undefined4 *)&cityPlayers[iVar11].field_0x4720 = 1;\r\n  _DAT_0078d824 = 1;\r\n  _DAT_0078d82c = 1;\r\n  _DAT_0078d820 = 1;\r\n  _DAT_0078d818 = 1;\r\n  _DAT_0078d81c = 1;\r\n  _DAT_0078d814 = 1;\r\n  _DAT_0078d810 = 1;\r\n  *(undefined4 *)&cityPlayers[iVar11].field_0x4724 = 1;\r\n  if (iVar15 == 0) {\r\n    if (cVar2 == '\\0') {\r\n      _DAT_0078d830 = 1;\r\n    }\r\n    else if ('\\x04' < cVar2) goto LAB_00540899;\r\n    DAT_0078d828 = 1;\r\n  }\r\nLAB_00540899:\r\n  if ((cVar2 < '\\v') && (iVar15 == 0)) {\r\n    iVar15 = 0;\r\n    _DAT_006fdc88 = (undefined *)0x0;\r\n    _DAT_006fdc8c = (undefined *)0x0;\r\n    _DAT_006fdc90 = (undefined *)0x0;\r\n    _DAT_006fdc94 = 0;\r\n    DAT_006fdc96 = 0;\r\n    piVar8 = &DAT_005794bc;\r\n    do {\r\n      if (piVar8[-3] < (int)cVar2) {\r\n        iVar11 = *piVar8;\r\n        (&DAT_007027b8)[iVar15] = 1;\r\n        if (0 < iVar11) {\r\n          piVar13 = (int *)piVar8[1];\r\n          do {\r\n            iVar12 = *piVar13;\r\n            piVar13 = piVar13 + 1;\r\n            iVar11 = iVar11 + -1;\r\n            (&DAT_006fdc88)[iVar12] = 1;\r\n          } while (iVar11 != 0);\r\n        }\r\n      }\r\n      else {\r\n        iVar11 = *piVar8;\r\n        (&DAT_007027b8)[iVar15] = 0;\r\n        if (0 < iVar11) {\r\n          piVar13 = (int *)piVar8[1];\r\n          do {\r\n            iVar12 = *piVar13;\r\n            piVar13 = piVar13 + 1;\r\n            iVar11 = iVar11 + -1;\r\n            (&DAT_006fdc88)[iVar12] = 0;\r\n          } while (iVar11 != 0);\r\n        }\r\n      }\r\n      piVar8 = piVar8 + 7;\r\n      iVar15 = iVar15 + 1;\r\n    } while ((int)piVar8 < 0x579794);\r\n  }\r\n  else {\r\n    puVar18 = (undefined4 *)&DAT_007027b8;\r\n    for (iVar15 = 6; iVar15 != 0; iVar15 = iVar15 + -1) {\r\n      *puVar18 = &DAT_01010101;\r\n      puVar18 = puVar18 + 1;\r\n    }\r\n    _DAT_006fdc88 = &DAT_01010101;\r\n    _DAT_006fdc8c = &DAT_01010101;\r\n    _DAT_006fdc90 = &DAT_01010101;\r\n    _DAT_006fdc94 = 0x101;\r\n    *(undefined2 *)puVar18 = 0x101;\r\n    DAT_006fdc96 = 1;\r\n  }\r\n  FUN_00404350();\r\n  FUN_004051a0();\r\n  FUN_004e1770();\r\n  FUN_00418bf0();\r\n  iVar15 = cityCurrentPlayer;\r\n  if (_DAT_00e38ebc == 0) {\r\n    *(undefined4 *)&cityPlayers[cityCurrentPlayer].field_0x42d8 = _DAT_00e38eb0;\r\n    cityPlayers[iVar15].personalSavings = _DAT_00e38eb4;\r\n  }\r\n  *(int *)&cityPlayers[iVar15].field_0x47a8 = _DAT_00e39080;\r\n  DAT_00784cbc._1_1_ = DAT_00784cbc._1_1_ == '\\x01';\r\n  FUN_00489b40();\r\n  return;\r\n}\r\n\r\n",
+        "truncated": false
+      },
+      "calls": {
+        "function": {
+          "name": "ScenarioStartMission",
+          "address": "005405b0"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "0041a19d",
+              "caller": {
+                "name": "BriefingDraw",
+                "address": "0041a180"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "00418618",
+              "caller": null,
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 2,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "00540655",
+              "target": "004de140",
+              "name": "FUN_004de140",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540673",
+              "target": "005409d0",
+              "name": "FUN_005409d0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "0054069a",
+              "target": "00540a10",
+              "name": "ScenarioNewGameSetup",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "005406ce",
+              "target": "004d58b0",
+              "name": "FUN_004d58b0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540708",
+              "target": "004cde40",
+              "name": "FUN_004cde40",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "0054078a",
+              "target": "0041b9d0",
+              "name": "FUN_0041b9d0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540951",
+              "target": "00404350",
+              "name": "FUN_00404350",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540956",
+              "target": "004051a0",
+              "name": "FUN_004051a0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "0054095b",
+              "target": "004e1770",
+              "name": "FUN_004e1770",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540960",
+              "target": "00418bf0",
+              "name": "FUN_00418bf0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "005409b5",
+              "target": "00489b40",
+              "name": "FUN_00489b40",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 11,
+          "has_more": false
+        }
+      }
+    },
+    "0x00540A10": {
+      "info": {
+        "name": "ScenarioNewGameSetup",
+        "address": "00540a10",
+        "signature": "void ScenarioNewGameSetup(char * scenario_path)",
+        "namespace": "Global",
+        "body_start": "00540a10",
+        "body_end": "00540b4b",
+        "body_size": 316,
+        "calling_convention": "unknown",
+        "is_thunk": false,
+        "is_external": false
+      },
+      "decompilation": {
+        "function": {
+          "name": "ScenarioNewGameSetup",
+          "address": "00540a10"
+        },
+        "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nvoid ScenarioNewGameSetup(char *scenario_path)\r\n\r\n{\r\n  char cVar1;\r\n  int iVar2;\r\n  int iVar3;\r\n  uint uVar4;\r\n  uint uVar5;\r\n  char *pcVar6;\r\n  char *pcVar7;\r\n  \r\n  DAT_00e38dd9 = 0;\r\n  DAT_00e38dd8 = 0;\r\n  DAT_00e38dd7 = 0;\r\n  editorConstructionTool = 0;\r\n  FUN_004e7d10();\r\n  FUN_004e7e10();\r\n  cityCurrentPlayer = 1;\r\n  cityPlayers[1]._3_1_ = 1;\r\n  cityPlayers[1]._2_1_ = 1;\r\n  FUN_004e1770();\r\n  GameStateInitialize();\r\n  FUN_0040f250();\r\n  FUN_0041d730();\r\n  FUN_0041df60();\r\n  FUN_00404330();\r\n  FUN_0046a230();\r\n  FUN_0046b0e0();\r\n  FUN_0046efb0();\r\n  FUN_0046f120();\r\n  FUN_0046a260();\r\n  FUN_004b4760();\r\n  FUN_004b8c90();\r\n  FUN_004b58d0();\r\n  FUN_004b8290();\r\n  FUN_004b32a0();\r\n  FUN_00451be0();\r\n  if (Event54SuppressFlood == 1) {\r\n    DAT_00784f10 = 0;\r\n    FUN_004de430(3);\r\n    FUN_00443ea0(1);\r\n    FUN_00444720();\r\n    FUN_00444b10();\r\n    FUN_004bb090();\r\n  }\r\n  FUN_004de820(scenario_path);\r\n  iVar3 = _DAT_00e39080;\r\n  uVar4 = 0xffffffff;\r\n  cityCurrentPlayer = 1;\r\n  pcVar6 = &playerNameBuffer;\r\n  do {\r\n    pcVar7 = pcVar6;\r\n    if (uVar4 == 0) break;\r\n    uVar4 = uVar4 - 1;\r\n    pcVar7 = pcVar6 + 1;\r\n    cVar1 = *pcVar6;\r\n    pcVar6 = pcVar7;\r\n  } while (cVar1 != '\\0');\r\n  uVar4 = ~uVar4;\r\n  cityPlayers[1]._3_1_ = 1;\r\n  pcVar6 = pcVar7 + -uVar4;\r\n  pcVar7 = (char *)&DAT_00ea184c;\r\n  for (uVar5 = uVar4 >> 2; iVar2 = cityPlayers[1].treasury, uVar5 != 0; uVar5 = uVar5 - 1) {\r\n    *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;\r\n    pcVar6 = pcVar6 + 4;\r\n    pcVar7 = pcVar7 + 4;\r\n  }\r\n  cityPlayers[1]._2_1_ = 1;\r\n  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {\r\n    *pcVar7 = *pcVar6;\r\n    pcVar6 = pcVar6 + 1;\r\n    pcVar7 = pcVar7 + 1;\r\n  }\r\n  DAT_00ea186d = 1;\r\n  iVar3 = FUN_004cde40(iVar2,*(undefined4 *)(&DAT_005d1960 + iVar3 * 4));\r\n  cityPlayers[cityCurrentPlayer].treasury = iVar3;\r\n  return;\r\n}\r\n\r\n",
+        "truncated": false
+      },
+      "calls": {
+        "function": {
+          "name": "ScenarioNewGameSetup",
+          "address": "00540a10"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "0054069a",
+              "caller": {
+                "name": "ScenarioStartMission",
+                "address": "005405b0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 1,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "00540a30",
+              "target": "004e7d10",
+              "name": "FUN_004e7d10",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a35",
+              "target": "004e7e10",
+              "name": "FUN_004e7e10",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a51",
+              "target": "004e1770",
+              "name": "FUN_004e1770",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a56",
+              "target": "00540b50",
+              "name": "GameStateInitialize",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a5b",
+              "target": "0040f250",
+              "name": "FUN_0040f250",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a60",
+              "target": "0041d730",
+              "name": "FUN_0041d730",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a65",
+              "target": "0041df60",
+              "name": "FUN_0041df60",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a6a",
+              "target": "00404330",
+              "name": "FUN_00404330",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a6f",
+              "target": "0046a230",
+              "name": "FUN_0046a230",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a74",
+              "target": "0046b0e0",
+              "name": "FUN_0046b0e0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a79",
+              "target": "0046efb0",
+              "name": "FUN_0046efb0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a7e",
+              "target": "0046f120",
+              "name": "FUN_0046f120",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a83",
+              "target": "0046a260",
+              "name": "FUN_0046a260",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a88",
+              "target": "004b4760",
+              "name": "FUN_004b4760",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a8d",
+              "target": "004b8c90",
+              "name": "FUN_004b8c90",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a92",
+              "target": "004b58d0",
+              "name": "FUN_004b58d0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a97",
+              "target": "004b8290",
+              "name": "FUN_004b8290",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540a9c",
+              "target": "004b32a0",
+              "name": "FUN_004b32a0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540aa1",
+              "target": "00451be0",
+              "name": "FUN_00451be0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540ab6",
+              "target": "004de430",
+              "name": "FUN_004de430",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540abc",
+              "target": "00443ea0",
+              "name": "FUN_00443ea0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540ac4",
+              "target": "00444720",
+              "name": "FUN_00444720",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540ac9",
+              "target": "00444b10",
+              "name": "FUN_00444b10",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540ace",
+              "target": "004bb090",
+              "name": "FUN_004bb090",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540ad8",
+              "target": "004de820",
+              "name": "FUN_004de820",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540b2e",
+              "target": "004cde40",
+              "name": "FUN_004cde40",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 26,
+          "has_more": false
+        }
+      }
+    },
+    "0x00540B50": {
+      "info": {
+        "name": "GameStateInitialize",
+        "address": "00540b50",
+        "signature": "void GameStateInitialize(void)",
+        "namespace": "Global",
+        "body_start": "00540b50",
+        "body_end": "00540c84",
+        "body_size": 309,
+        "calling_convention": "unknown",
+        "is_thunk": false,
+        "is_external": false
+      },
+      "decompilation": {
+        "function": {
+          "name": "GameStateInitialize",
+          "address": "00540b50"
+        },
+        "code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n/* WARNING: Unknown calling convention -- yet parameter storage is locked */\r\n\r\nvoid GameStateInitialize(void)\r\n\r\n{\r\n  DAT_00e38dd9 = 0;\r\n  _DAT_00e38e50 = 0;\r\n  DAT_00e38e54 = 0;\r\n  DAT_0078d7dc = 0;\r\n  DAT_0078d7d8 = 0;\r\n  DAT_0078d7d4 = 0;\r\n  FUN_00481f20();\r\n  DAT_00e94e04 = 0;\r\n  FUN_00430530(0,1);\r\n  if (DAT_00f53f78 == 1) {\r\n    FUN_004ddec0();\r\n  }\r\n  else {\r\n    FUN_004ddf20();\r\n  }\r\n  DAT_00bca2bc = 0x6d;\r\n  DAT_00bca2c0 = 0xda;\r\n  mapViewOrientation = 0;\r\n  FUN_004ddf90();\r\n  FUN_004de080();\r\n  FUN_004cdd60();\r\n  DAT_00e20990 = 0;\r\n  FUN_004cc560(1,&playerNameBuffer,0x1f,0x68,1,DAT_00f56f84);\r\n  FUN_004cc560(2,&DAT_00e37100,0x20,0x118,1,DAT_00f56f9c);\r\n  FUN_004cc560(4,&DAT_00e37078,0x20,0x118,1,DAT_00f56f9c);\r\n  FUN_004cc560(5,&DAT_00784914,0x18,0x118,0,DAT_00f56f84);\r\n  FUN_004cc560(6,&DAT_00784954,500,400,0,DAT_00f56f84);\r\n  FUN_004cc560(7,&DAT_007027ec,0x100,0x118,0,DAT_00f56f84);\r\n  FUN_004e2ab0();\r\n  return;\r\n}\r\n\r\n",
+        "truncated": false
+      },
+      "calls": {
+        "function": {
+          "name": "GameStateInitialize",
+          "address": "00540b50"
+        },
+        "callers": {
+          "items": [
+            {
+              "call_site": "004141ce",
+              "caller": {
+                "name": "FUN_00413ed0",
+                "address": "00413ed0"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            },
+            {
+              "call_site": "00540a56",
+              "caller": {
+                "name": "ScenarioNewGameSetup",
+                "address": "00540a10"
+              },
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 2,
+          "has_more": false
+        },
+        "callees": {
+          "items": [
+            {
+              "call_site": "00540b77",
+              "target": "00481f20",
+              "name": "FUN_00481f20",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540b85",
+              "target": "00430530",
+              "name": "FUN_00430530",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540b97",
+              "target": "004ddec0",
+              "name": "FUN_004ddec0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540b9e",
+              "target": "004ddf20",
+              "name": "FUN_004ddf20",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540bbd",
+              "target": "004ddf90",
+              "name": "FUN_004ddf90",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540bc2",
+              "target": "004de080",
+              "name": "FUN_004de080",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540bc7",
+              "target": "004cdd60",
+              "name": "FUN_004cdd60",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540be5",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c01",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c1d",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c3a",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c58",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c76",
+              "target": "004cc560",
+              "name": "FUN_004cc560",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            },
+            {
+              "call_site": "00540c7e",
+              "target": "004e2ab0",
+              "name": "FUN_004e2ab0",
+              "ref_type": "UNCONDITIONAL_CALL",
+              "direct": true,
+              "external": false
+            }
+          ],
+          "offset": 0,
+          "limit": 80,
+          "total": 14,
+          "has_more": false
+        }
+      }
+    }
+  },
+  "clean_source_sha256": {
+    "game/scenario/scenario_start_mission.c": "1573025974113ca92e410f867522a939e64291aa7381ae346b947a72b6234b78",
+    "game/include/pharaoh/scenario/scenario_start_mission.h": "08f965484fa1bb64efe09074c332024e46aeb45e76a45c03fb3730e696854403",
+    "game/scenario/scenario_new_game_setup.c": "f3ff0b7934e4737ea6fdaebcc533c08cad250e585e71f13fa296f6612ac66a25",
+    "game/scenario/mission_scene.c": "685bbd33e8c9e6f76b7b7ee718d1b878d6593db9140733f037a383f92c73ed37",
+    "game/platform/windows_mission_runtime.c": "92c3f891b097192c17b347278ac36c03277f8456b7f4aba2fc961f00e5c1a903"
+  },
+  "flow_finding": "0x005405B0 calls 0x00540A10 only on is_custom_scenario != 0 and force_campaign == 0 after a successful map-exists check. The standard-campaign path loads package 0 through 0x004D58B0. 0x00540A10 calls 0x00540B50.",
+  "host_gap": "The clean mission-scene reader rejects custom scenarios; the Windows mission runtime does not bind setup_new_game to the typed new-game setup owner. 0x00540B50 also has a native caller at 0x00413ED0 whose outer startup/message-loop owner remains unmapped. The custom branch therefore remains incomplete; it must not be wired as a standard-campaign step.",
+  "verification": "Release bootstrap build succeeded with the prescribed CMake command; no tests were run."
+}
