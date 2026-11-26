@@ -1,7 +1,48 @@
 #include "pharaoh/runtime/crt_lowio.h"
+#include "pharaoh/runtime/crt_error_translation.h"
 
 #include <stdint.h>
 #include <windows.h>
+
+int32_t pharaoh_crt_close_descriptor(PharaohCrtLowioState *state,
+    uint32_t descriptor)
+{
+    uint32_t win32_error = 0;
+
+    if (descriptor >= state->capacity ||
+        (state->blocks[descriptor >> 5][descriptor & 31u].flags & 1u) == 0u) {
+        *state->dos_error = 0;
+        *state->error_number = 9;
+        return -1;
+    }
+
+    if (pharaoh_crt_get_os_handle(state, descriptor) != UINT32_MAX) {
+        uint32_t shared = 0;
+        if (descriptor == 1u || descriptor == 2u) {
+            const uint32_t stderr_handle = pharaoh_crt_get_os_handle(state, 2u);
+            const uint32_t stdout_handle = pharaoh_crt_get_os_handle(state, 1u);
+            shared = stderr_handle == stdout_handle;
+        }
+        if (shared == 0u) {
+            const uint32_t handle = pharaoh_crt_get_os_handle(state, descriptor);
+            if (!CloseHandle((HANDLE)(uintptr_t)handle))
+                win32_error = GetLastError();
+        }
+    }
+
+    (void)pharaoh_crt_free_os_handle(state, descriptor);
+    state->blocks[descriptor >> 5][descriptor & 31u].flags = 0;
+    if (win32_error != 0u) {
+        PharaohCrtErrorState error_state = {
+            *state->dos_error, *state->error_number
+        };
+        pharaoh_crt_error_from_win32(&error_state, win32_error);
+        *state->dos_error = error_state.dos_error;
+        *state->error_number = error_state.errno_value;
+        return -1;
+    }
+    return 0;
+}
 
 uint32_t pharaoh_crt_get_os_handle(
     PharaohCrtLowioState *state, uint32_t descriptor)

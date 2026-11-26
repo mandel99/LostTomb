@@ -1,0 +1,47 @@
+{
+  "schema": "pharaoh-crt-close-descriptor-live-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_procedure": {
+    "address": "0x005647EB",
+    "name": "CRT close",
+    "caller_count": 27,
+    "unique_callers": 20,
+    "callee_call_sites": [
+      "0x0056481D -> 0x005669C6",
+      "0x00564834 -> 0x005669C6",
+      "0x0056483D -> 0x005669C6",
+      "0x00564849 -> 0x005669C6",
+      "0x00564850 -> KERNEL32.CloseHandle (indirect)",
+      "0x0056485A -> KERNEL32.GetLastError (indirect)",
+      "0x00564867 -> 0x0056694C",
+      "0x00564879 -> 0x005672C8"
+    ]
+  },
+  "observed_behavior": [
+    "Rejects descriptor >= lowio capacity or a slot with flags bit 0 clear; writes DOS error 0 and errno 9, returns -1.",
+    "For valid descriptors, reads the OS handle. For descriptors 1 or 2, compares stderr and stdout and skips CloseHandle when shared.",
+    "Calls CloseHandle for a non-shared handle and captures GetLastError on failure.",
+    "Calls 0x0056694C, clears the descriptor flags byte, then maps a captured Win32 error through 0x005672C8 and returns -1; otherwise returns 0.",
+    "CloseHandle and GetLastError are Ghidra-computed external calls; the function has no other listed indirect calls."
+  ],
+  "reuse": {
+    "old_source": "reused/restore/game/functions/CrtClose.c",
+    "old_source_sha256": "EDA83D3B74E91FF3FEC6D8D8E9004AB27D6FF4DE131EC6F9EDE2EA7F801D8BCF",
+    "finding": "Complete typed C was present, but it called Original wrappers for 0x005669C6, 0x0056694C, and 0x005672C8. The clean port binds those behaviors to typed C owners."
+  },
+  "clean_c": {
+    "source": "game/runtime/crt_lowio.c",
+    "header": "game/include/pharaoh/runtime/crt_lowio.h",
+    "cmake_integration": "Existing game/runtime/crt_lowio.c entry in restore/clean/CMakeLists.txt",
+    "native_address_wrappers": false
+  },
+  "verification": {
+    "release_build": "passed",
+    "command": "cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m",
+    "native_behavioral_test": "not run"
+  },
+  "limitations": [
+    "Requires PharaohCrtLowioState to bind the same lowio records and error cells as adjacent CRT owners.",
+    "Live REA connector is unavailable; evidence is from Ghidra on the SHA-pinned executable and the saved typed old-project implementation."
+  ]
+}
