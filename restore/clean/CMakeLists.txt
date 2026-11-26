@@ -365,6 +365,7 @@ add_library(pharaoh_game STATIC
     game/ui/bitmap_font.c
     game/ui/generic_button_focus.c
     game/ui/menu_dropdown_draw.c
+    game/ui/menu_dropdown_input.c
     game/ui/image_button_input.c
     game/ui/generic_button_input.c
     game/ui/button_layout.c
