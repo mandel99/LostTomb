@@ -23,6 +23,34 @@ static int32_t piece_part(int32_t index, int32_t blocks)
     return index == blocks - 1 ? 2 : 1;
 }
 
+void pharaoh_label_draw_animated(const PharaohLabelRenderer *r,
+    int32_t id, int32_t x, int32_t y, int32_t width_blocks,
+    int32_t force, int32_t type)
+{
+    if (force != 1) {
+        const int32_t animation = r->animations[id];
+        if (animation < 20) return;
+        const int32_t visible_blocks =
+            (int32_t)((uint32_t)animation - UINT32_C(18));
+        if (visible_blocks <= width_blocks) {
+            const int32_t offset = (int32_t)(
+                ((uint32_t)width_blocks - (uint32_t)visible_blocks) *
+                UINT32_C(16));
+            x = (int32_t)((uint32_t)x + (uint32_t)(offset / 2));
+            width_blocks = visible_blocks;
+        }
+    }
+
+    for (int32_t column = 0; column < width_blocks; ++column) {
+        const uint32_t image = (uint32_t)r->panel_button_images +
+            (uint32_t)type * UINT32_C(3) +
+            (uint32_t)piece_part(column, width_blocks);
+        const int32_t draw_x = (int32_t)((uint32_t)x +
+            (uint32_t)column * UINT32_C(16));
+        r->draw_image(r->user_data, (int32_t)image, draw_x, y);
+    }
+}
+
 void pharaoh_large_label_draw_animated(const PharaohLabelRenderer *r,
     int32_t id, int32_t x, int32_t y, int32_t width_blocks, int32_t type)
 {

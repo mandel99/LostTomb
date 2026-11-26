@@ -1,0 +1,39 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native": {
+    "address": "0x00537000",
+    "provider": "live Ghidra",
+    "function": "FUN_00537000(int,int,int,int,int,int)",
+    "callers": [
+      {
+        "address": "0x0041A180",
+        "call_sites": [
+          "0x0041A42D",
+          "0x0041A4CD",
+          "0x0041A58A",
+          "0x0041A647"
+        ]
+      }
+    ],
+    "callees": [
+      "0x0053E590"
+    ],
+    "contract": "Unless force equals 1, read the animation slot, return below 20, and draw animation-18 blocks centered when they fit. Draw 16-pixel columns using image base plus type*3 plus first/middle/last part."
+  },
+  "reuse": {
+    "source": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore/game/UI/Labels/AnimatedLabel.c",
+    "sha256": "e75d465df7111283881057ed6ef48369dd39fd56b210dd4e28ce21c1f740cf94",
+    "kind": "typed C implementation; no IL/runtime wrapper"
+  },
+  "translation": {
+    "source": "game/ui/label_text.c",
+    "sha256": "2523d14b0840be56effbd43a9f566b984593b40fd0243b20e032d498e28ef9f4",
+    "header": "game/include/pharaoh/ui/label_text.h",
+    "header_sha256": "19a5f602ba46e40f4840e573f7e2fcc016af92ffe7a505c48eb2fc920de27489",
+    "working_tree_host_owner": "game/platform/windows_startup_host.c:briefing_label; host adapter change is not included in the leaf commit"
+  },
+  "limitations": [
+    "Animation slot and image base are typed context inputs; pixel replay is pending.",
+    "The working-tree briefing callback calls this function, but this leaf commit does not include that host adapter hunk."
+  ]
+}

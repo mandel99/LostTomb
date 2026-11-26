@@ -2286,6 +2286,17 @@
       "mapping_evidence": "metadata/GameCurrentReferenceBindings.json"
     },
     {
+      "address": "0x00537000",
+      "name": "pharaoh_label_draw_animated",
+      "source": "game/ui/label_text.c",
+      "origin": "Complete typed translation reused from old game/UI/Labels/AnimatedLabel.c and matched to live pinned Ghidra pseudocode.",
+      "mapping_evidence": "evidence/animated-label-briefing-20261126.json",
+      "native_callers": ["0x0041A180"],
+      "native_callees": ["0x0053E590"],
+      "reachable_from": ["0x0041A180"],
+      "known_limitations": "Animation slot and image base are typed context inputs; host binding exists in the working tree, but native/C pixel replay remains pending."
+    },
+    {
       "address": "0x005394F0",
       "name": "pharaoh_sound_initialize",
       "source": "game/runtime/sound_initialization.c",

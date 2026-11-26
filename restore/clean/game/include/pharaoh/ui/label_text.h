@@ -26,6 +26,10 @@ void pharaoh_text_draw_language_rect(const PharaohLabelRenderer *renderer,
     int32_t group, int32_t index, const int16_t rect[4], int32_t font,
     int32_t color, int32_t dx, int32_t dy, int32_t offset_x,
     int32_t offset_y);
+/* Complete typed translation of native animated label strip 0x00537000. */
+void pharaoh_label_draw_animated(const PharaohLabelRenderer *renderer,
+    int32_t id, int32_t x, int32_t y, int32_t width_blocks,
+    int32_t force, int32_t type);
 void pharaoh_large_label_draw_animated(const PharaohLabelRenderer *renderer,
     int32_t id, int32_t x, int32_t y, int32_t width_blocks, int32_t type);
 
