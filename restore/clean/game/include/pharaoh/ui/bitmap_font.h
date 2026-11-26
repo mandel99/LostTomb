@@ -52,6 +52,16 @@ int32_t pharaoh_bitmap_font_draw_glyph(const PharaohBitmapFont *font,
 void pharaoh_bitmap_text_draw_native(const PharaohBitmapFont *font,
     PharaohBitmapTextDrawState *state, const uint8_t *text,
     int32_t x, int32_t y, uint16_t color);
+/* Native wrappers 0x004CCBB0 and 0x004CCE00 around the shared renderer. */
+void pharaoh_bitmap_text_draw_selection_native(
+    const PharaohBitmapFont *font, PharaohBitmapTextDrawState *state,
+    PharaohTextSelection *selection, int32_t group, int32_t entry,
+    int32_t x, int32_t y, int32_t font_id, uint16_t color);
+void pharaoh_bitmap_text_draw_number_native(
+    const PharaohBitmapFont *font, PharaohBitmapTextDrawState *state,
+    char scratch_text[256], int32_t value, char prefix,
+    const char *suffix, int32_t x, int32_t y, int32_t font_id,
+    uint16_t color);
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color);
 void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,

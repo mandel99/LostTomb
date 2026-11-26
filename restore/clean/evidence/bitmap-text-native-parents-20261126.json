@@ -1,0 +1,79 @@
+{
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native_functions": [
+    {
+      "address": "0x004CCBB0",
+      "name": "FUN_004ccbb0",
+      "c_owner": "pharaoh_bitmap_text_draw_selection_native",
+      "callers": [
+        "0x004138D0",
+        "0x004192B0",
+        "0x0041BE10",
+        "0x0041D210",
+        "0x00425330",
+        "0x00425430",
+        "0x0044AAF0",
+        "0x004C54C0",
+        "0x004C5660",
+        "0x004C5E60",
+        "0x004C7340",
+        "0x004CB0B0",
+        "0x004CB300",
+        "0x004CCC30",
+        "0x004CCCB0",
+        "0x004CD1F0",
+        "0x004D62F0",
+        "0x004E1A50"
+      ],
+      "callees": [
+        "0x004CC770"
+      ]
+    },
+    {
+      "address": "0x004CCE00",
+      "name": "FUN_004cce00",
+      "c_owner": "pharaoh_bitmap_text_draw_number_native",
+      "callers": [
+        "0x004194C0",
+        "0x0041A180",
+        "0x0041E5C0",
+        "0x00438E50",
+        "0x0043E1A0",
+        "0x0043E420",
+        "0x0044AAF0",
+        "0x004C54C0",
+        "0x004C5E60",
+        "0x004C6C70",
+        "0x004CB0B0",
+        "0x004CCC30",
+        "0x004CCCB0",
+        "0x004CD290",
+        "0x004D6860"
+      ],
+      "callees": [
+        "0x004CC5C0",
+        "0x004CC770"
+      ]
+    }
+  ],
+  "native_contracts": {
+    "0x004CCBB0": "Selects group/entry with the E34C38/E36C70 table cursor, advances over entry NUL separators then leading bytes below 0x20, calls 0x004CC770, and clears D3B504. This traversal matches mapped 0x004CC110 pharaoh_text_select.",
+    "0x004CCE00": "Calls 0x004CC5C0 for numeric text at output offset 1, optionally writes prefix at byte 0, scans the text through its NUL, appends the suffix, terminates, calls 0x004CC770, and clears D3B504."
+  },
+  "reuse_review": {
+    "old_project": "generated/decompiled/src/Unit01696.c and Unit01700.c are wrappers back into Original004CC770/Original004CC5C0, so not complete C. Reused clean pharaoh_text_select (0x004CC110) and pharaoh_status_log_integer_to_text (0x004CC5C0) instead.",
+    "renderer": "Both functions route through pharaoh_bitmap_text_draw_native (0x004CC770)."
+  },
+  "ghidra_types": [
+    "void FUN_004ccbb0(int group,int entry,int x,int y,uint font_id,uint color)",
+    "void FUN_004cce00(int value,char prefix,char *suffix,int x,int y,uint font_id,uint color)"
+  ],
+  "source_sha256": "c22cac468e6ca973b8d480109c6165c67e14cea1ccd36705e57eff6dd968ac3e",
+  "header_sha256": "70aacc5bfbb25480acf3a5c64fc412c9ce97ecc8b828da7afa2a6a5865163413",
+  "verification": {
+    "release_build": "passed",
+    "release_library_sha256": "5f4640f6caba7bd44e2563c508c3785f6f324ff9145d0316d6be5f536c158a45",
+    "migration_workflow": "pending",
+    "limitations": "The Windows briefing host still lacks the full native text-draw state provider; these owners are mapped and callable through typed state."
+  }
+}

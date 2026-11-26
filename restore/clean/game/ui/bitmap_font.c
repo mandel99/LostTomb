@@ -2,6 +2,7 @@
 
 #include "pharaoh/runtime/text_loading.h"
 #include "pharaoh/runtime/text_input_state.h"
+#include "pharaoh/runtime/status_log_format.h"
 
 #include <string.h>
 
@@ -239,6 +240,54 @@ positioned:
             x -= advance;
         }
     }
+}
+
+/* Complete typed C translation of native 0x004CCBB0. Its inline catalog
+   traversal is the already mapped 0x004CC110 selector. */
+void pharaoh_bitmap_text_draw_selection_native(
+    const PharaohBitmapFont *font, PharaohBitmapTextDrawState *state,
+    PharaohTextSelection *selection, int32_t group, int32_t entry,
+    int32_t x, int32_t y, int32_t font_id, uint16_t color)
+{
+    pharaoh_text_select(selection, group, entry);
+    state->font_id = (uint32_t)font_id;
+    pharaoh_bitmap_text_draw_native(font, state,
+        (const uint8_t *)selection->current, x, y, color);
+    state->reset_flag = 0;
+}
+
+/* Complete typed C translation of native 0x004CCE00. The 256-byte scratch
+   buffer and formatter are the same explicit storage/owner used by 0x004CC5C0. */
+void pharaoh_bitmap_text_draw_number_native(
+    const PharaohBitmapFont *font, PharaohBitmapTextDrawState *state,
+    char scratch_text[256], int32_t value, char prefix,
+    const char *suffix, int32_t x, int32_t y, int32_t font_id,
+    uint16_t color)
+{
+    int32_t index = 0;
+    (void)pharaoh_status_log_integer_to_text(scratch_text, value, 1, 0);
+
+    char current = scratch_text[0];
+    if (prefix != 0) {
+        scratch_text[0] = prefix;
+        current = prefix;
+    }
+    while (current != 0) {
+        current = scratch_text[index + 1];
+        ++index;
+    }
+    current = *suffix;
+    while (current != 0) {
+        scratch_text[index] = current;
+        ++index;
+        ++suffix;
+        current = *suffix;
+    }
+    scratch_text[index] = 0;
+    state->font_id = (uint32_t)font_id;
+    pharaoh_bitmap_text_draw_native(font, state,
+        (const uint8_t *)scratch_text, x, y, color);
+    state->reset_flag = 0;
 }
 
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
