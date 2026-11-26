@@ -8,6 +8,7 @@
 #include "pharaoh/assets/sprite_pixel_conversion.h"
 #include "pharaoh/ui/main_menu.h"
 #include "pharaoh/ui/bitmap_font.h"
+#include "pharaoh/rendering/image_draw.h"
 #include "pharaoh/ui/panel_frame.h"
 #include "pharaoh/ui/menu_button_frame.h"
 #include "pharaoh/ui/load_save_dialog.h"
@@ -640,7 +641,15 @@ static void draw_menu_image(void *data, int32_t image, int32_t x, int32_t y)
 
 static void draw_font_glyph(void *data, uint32_t image, int32_t x,
     int32_t y, uint16_t color)
-{ draw_sprite_pixels(data, image, x, y, color); }
+{
+    PharaohWindowsStartupHost *const host=data;
+    if(host->game_image_draw!=NULL) {
+        host->text_input.drawing.color=color;
+        (void)pharaoh_image_draw(host->game_image_draw,(int32_t)image,x,y);
+        return;
+    }
+    draw_sprite_pixels(data,image,x,y,color);
+}
 
 static uint32_t menu_group_image(const PharaohWindowsStartupHost *host,
     uint32_t native_group)
@@ -2031,6 +2040,7 @@ void pharaoh_windows_startup_host_end_game_frame(
     host->game_frame_locked = 0;
     host->game_frame_pixels = NULL;
     host->game_frame_pitch_bytes = 0;
+    host->game_image_draw = NULL;
 }
 
 int32_t pharaoh_windows_startup_host_capture_frame(

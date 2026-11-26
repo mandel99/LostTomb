@@ -1,4 +1,5 @@
 #include "pharaoh/rendering/image_draw.h"
+#include "pharaoh/ui/bitmap_font.h"
 #include "pharaoh/assets/sprite_pixel_conversion.h"
 #include "pharaoh/rendering/sprite_raw_blit.h"
 #include "pharaoh/rendering/sprite_rle_blit.h"
@@ -14,6 +15,18 @@ _Static_assert(offsetof(PharaohSpriteImageRecord, linked_image_offset)==0x10 &&
     "native linked image metadata");
 
 static int32_t add(int32_t a,int32_t b) {return (int32_t)((uint32_t)a+(uint32_t)b);}
+static void draw_bitmap_glyph(void *data,uint32_t image,int32_t x,int32_t y,uint16_t color)
+{
+    PharaohImageGlyphDrawBinding *const binding=data;
+    *binding->color=color;
+    (void)pharaoh_image_draw(binding->drawing,(int32_t)image,x,y);
+}
+void pharaoh_image_bind_bitmap_font(PharaohBitmapFont *font,PharaohImageGlyphDrawBinding *binding)
+{
+    binding->drawing->solid_color=binding->color;
+    font->user_data=binding;
+    font->draw_glyph=draw_bitmap_glyph;
+}
 static int32_t lookup(const PharaohImageDrawContext *c,int32_t image)
 {return image>=*c->image_count?0:image;}
 static uint32_t skip_bytes(const PharaohSpriteClipState *s)

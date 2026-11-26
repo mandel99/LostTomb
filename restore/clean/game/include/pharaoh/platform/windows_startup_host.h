@@ -103,6 +103,7 @@ typedef struct PharaohWindowsStartupHost {
     uint8_t game_frame_locked;
     uint8_t *game_frame_pixels;
     int32_t game_frame_pitch_bytes;
+    struct PharaohImageDrawContext *game_image_draw;
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];
     PharaohSettingsFile settings;

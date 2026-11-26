@@ -35,6 +35,14 @@ typedef struct PharaohImageDrawContext {
     char *bitmap_name_scratch; /* native persistent filename scratch */
 } PharaohImageDrawContext;
 
+struct PharaohBitmapFont;
+typedef struct PharaohImageGlyphDrawBinding {
+    PharaohImageDrawContext *drawing;
+    uint16_t *color; /* actual native D3B51C, shared with text drawing */
+} PharaohImageGlyphDrawBinding;
+/* Concrete0053E590 endpoint for004CCA60; uses the already locked target. */
+void pharaoh_image_bind_bitmap_font(struct PharaohBitmapFont *,PharaohImageGlyphDrawBinding *);
+
 /* Complete native0053E590 behavior with explicit assets, pixels and IO state.
  * Metadata links, image buffers and bitmap indices must be valid native data. */
 int32_t pharaoh_image_draw(PharaohImageDrawContext *context,

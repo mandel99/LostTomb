@@ -96,6 +96,15 @@ void pharaoh_bitmap_text_draw_number_native(
     char scratch_text[256], int32_t value, char prefix,
     const char *suffix, int32_t x, int32_t y, int32_t font_id,
     uint16_t color);
+/* Complete native004CCCB0/004CCE90; all text/scratch/glyph state is shared. */
+void pharaoh_bitmap_text_draw_year_native(const PharaohBitmapFont *font,
+    PharaohBitmapTextDrawState *state, PharaohTextSelection *selection,
+    char scratch_text[256], int32_t mode, int32_t year,
+    int32_t x, int32_t y, int32_t font_id, uint16_t color);
+void pharaoh_bitmap_text_draw_number_centered_native(
+    const PharaohBitmapTextCenteredNativeContext *context,
+    char scratch_text[256], int32_t value, char prefix, const char *suffix,
+    int32_t x, int32_t y, int32_t width, int32_t font_id, uint16_t color);
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color);
 void pharaoh_bitmap_text_draw_centered(const PharaohBitmapFont *font,

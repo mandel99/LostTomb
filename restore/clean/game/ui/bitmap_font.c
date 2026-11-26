@@ -297,6 +297,59 @@ void pharaoh_bitmap_text_draw_number_native(
     state->reset_flag = 0;
 }
 
+/* Complete native004CCCB0. NEG of INT_MIN and coordinate arithmetic wrap32. */
+void pharaoh_bitmap_text_draw_year_native(const PharaohBitmapFont *font,
+    PharaohBitmapTextDrawState *state, PharaohTextSelection *selection,
+    char scratch_text[256], int32_t mode, int32_t year,
+    int32_t x, int32_t y, int32_t font_id, uint16_t color)
+{
+    state->cursor_x = 0;
+    if (year < 0) {
+        pharaoh_bitmap_text_draw_number_native(font,state,scratch_text,
+            (int32_t)(0u-(uint32_t)year),' '," ",x,y,font_id,color);
+        if (mode == 1) state->cursor_x=(int32_t)((uint32_t)state->cursor_x-8u);
+        else if (mode == 2) state->cursor_x=(int32_t)((uint32_t)state->cursor_x-11u);
+        pharaoh_bitmap_text_draw_selection_native(font,state,selection,20,0,
+            (int32_t)((uint32_t)state->cursor_x+(uint32_t)x),y,font_id,color);
+    } else {
+        pharaoh_bitmap_text_draw_selection_native(font,state,selection,20,1,
+            x,y,font_id,color);
+        pharaoh_bitmap_text_draw_number_native(font,state,scratch_text,year,' '," ",
+            (int32_t)((uint32_t)state->cursor_x+(uint32_t)x),y,font_id,color);
+    }
+}
+
+/* Complete native004CCE90, reusing the existing native formatter algorithm. */
+void pharaoh_bitmap_text_draw_number_centered_native(
+    const PharaohBitmapTextCenteredNativeContext *context,
+    char scratch_text[256], int32_t value, char prefix, const char *suffix,
+    int32_t x, int32_t y, int32_t width, int32_t font_id, uint16_t color)
+{
+    int32_t index = 0;
+    (void)pharaoh_status_log_integer_to_text(scratch_text, value, 1, 0);
+
+    char current = scratch_text[0];
+    if (prefix != 0) {
+        scratch_text[0] = prefix;
+        current = prefix;
+    }
+    while (current != 0) {
+        current = scratch_text[index + 1];
+        ++index;
+    }
+    current = *suffix;
+    while (current != 0) {
+        scratch_text[index] = current;
+        ++index;
+        ++suffix;
+        current = *suffix;
+    }
+    scratch_text[index] = 0;
+    pharaoh_bitmap_text_draw_centered_native(context,
+        (const uint8_t *)scratch_text,x,y,width,font_id,color);
+    context->draw_state->reset_flag=0;
+}
+
 void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
     const uint8_t *text, int32_t x, int32_t y, uint16_t color)
 {

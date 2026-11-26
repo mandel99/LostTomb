@@ -382,6 +382,7 @@ add_library(pharaoh_game STATIC
     game/ui/sidebar_background.c
     game/ui/sidebar_content.c
     game/ui/city_topbar.c
+    game/ui/city_chrome_draw.c
     game/rendering/minimap.c
     game/rendering/minimap_walkers.c
     game/rendering/minimap_image.c
