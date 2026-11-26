@@ -1,0 +1,81 @@
+{
+  "executable_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source": {
+    "c": "game/scenario/campaign_profile_load.c",
+    "c_sha256": "936942060b23ccfe5ab40e06ad24e714da0221353d12c2a11948f468101eafed",
+    "header": "game/include/pharaoh/scenario/campaign_profile_load.h",
+    "header_sha256": "d25af32b9d3e5b35366c18e6f9bdf20bce455b64149b4b9a28acb0ea6fe2b1de"
+  },
+  "functions": [
+    {
+      "address": "0x0041B680",
+      "ghidra": {
+        "name": "CampaignProfileLoad",
+        "range": [
+          "0x0041B680",
+          "0x0041B897"
+        ],
+        "body_size": 536,
+        "decompiler_sha256": "c5178b5535d7d9fe50ff530d5018f0e994c34313c388f3ad58f28e15e5c26afb"
+      },
+      "caller": {
+        "address": "0x00516AB0",
+        "call_site": "0x00516B35",
+        "abi_evidence": "call site pushes the path returned by 0x00516A20 and loads profile pointer 0x006FDD08 into ECX"
+      },
+      "callees": [
+        "0x00561F30",
+        "0x0041AC50",
+        "0x00561A0A",
+        "0x00561CA1",
+        "0x00561EA4",
+        "0x00561994"
+      ],
+      "mode": {
+        "address": "0x005763BC",
+        "ascii": "rb"
+      },
+      "behavior": "Initializes profile state and twelve suffix words; reads one 0x4a9c-byte object, seeks to zero and retries 0x4a6c bytes after a failed full read; closes; on success copies saved path/state and updates mission completion flags.",
+      "logical_result": "Only AL is a meaningful success byte; the sole native caller ignores the result. Clean C exposes uint8_t.",
+      "known_limitations": "Clean C adds count and NUL-termination guards; malformed-profile behavior differs from the native unchecked path.",
+      "read_file_binding": {
+        "source": "game/platform/windows_startup_files.c",
+        "sha256": "e68a6492c579544b2dae56119305481f7d0225af220fbcb13fc13d4ddbc0c3e5",
+        "open_mode": "rb"
+      }
+    },
+    {
+      "address": "0x0041B8A0",
+      "ghidra": {
+        "name": "CampaignProfileSave",
+        "signature": "bool __thiscall CampaignProfileSave(void *this, char *path)",
+        "range": [
+          "0x0041B8A0",
+          "0x0041B8E6"
+        ],
+        "body_size": 71,
+        "decompiler_sha256": "17c823059c9d0da67275dc2392d8fdfa908d7d9e613561f4c97c7073d05ea3a8"
+      },
+      "callers": [
+        "0x004D5C30",
+        "0x00402720",
+        "0x00418640",
+        "0x004188F0",
+        "0x0041C600",
+        "0x00516C80",
+        "0x0041D110"
+      ],
+      "call_site_without_function": "0x00415FCE",
+      "callees": [
+        "0x00561A0A",
+        "0x00561F5F",
+        "0x00561994"
+      ],
+      "mode": {
+        "address": "0x0057C280",
+        "ascii": "wb"
+      },
+      "behavior": "Opens the supplied path, writes one 0x4a9c-byte profile, closes the file, and returns whether one item was written. Ghidra ECX auto-parameter is the profile pointer; the stack path variable is typed char *."
+    }
+  ]
+}

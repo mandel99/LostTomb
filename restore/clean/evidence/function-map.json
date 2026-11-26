@@ -3036,6 +3036,54 @@
             "0x004D8310"
       ],
       "known_limitations": "Native profile-save and mission-record helpers at 0x0041B8A0 and 0x004188F0 remain operation boundaries; end-to-end gameplay host binding is incomplete."
+},
+{
+      "address": "0x0041B680",
+      "name": "pharaoh_campaign_profile_load",
+      "source": "game/scenario/campaign_profile_load.c",
+      "origin": "Reused typed profile loader compared against pinned live Ghidra path/open/read/fallback/copy sequence; returns a logical byte.",
+      "mapping_evidence": "evidence/campaign-profile-io-20261126.json",
+      "native_callers": [
+            "0x00516AB0"
+      ],
+      "native_callees": [
+            "0x00561F30",
+            "0x0041AC50",
+            "0x00561A0A",
+            "0x00561CA1",
+            "0x00561EA4",
+            "0x00561994"
+      ],
+      "reachable_from": [
+            "0x00516AB0"
+      ],
+      "known_limitations": "C rejects malformed profile images with out-of-range mission counts or unterminated paths; native uses unchecked count/strlen access. Its only direct caller ignores the return."
+},
+{
+      "address": "0x0041B8A0",
+      "name": "pharaoh_campaign_profile_save",
+      "source": "game/scenario/campaign_profile_load.c",
+      "origin": "Complete typed C implementation matches live Ghidra open in wb mode, 0x4a9c-byte one-item write, close, and logical boolean result.",
+      "mapping_evidence": "evidence/campaign-profile-io-20261126.json",
+      "native_callers": [
+            "0x004D5C30",
+            "0x00402720",
+            "0x00418640",
+            "0x004188F0",
+            "0x0041C600",
+            "0x00516C80",
+            "0x0041D110"
+      ],
+      "native_callees": [
+            "0x00561A0A",
+            "0x00561F5F",
+            "0x00561994"
+      ],
+      "reachable_from": [
+            "0x00418640",
+            "0x004188F0"
+      ],
+      "known_limitations": "One additional direct call site at 0x00415FCE has no containing function in the current Ghidra database."
 }
 ]
 }

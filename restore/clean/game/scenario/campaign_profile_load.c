@@ -34,7 +34,7 @@ _Static_assert(sizeof(((PharaohCampaign *)0)->mission_records[0]) ==
     offsetof(PharaohCampaignMissionRecord, used) == PROFILE_RECORD_USED_OFFSET,
     "campaign profile completion field offset");
 
-int32_t pharaoh_campaign_profile_load(const PharaohFileReadContext *files,
+uint8_t pharaoh_campaign_profile_load(const PharaohFileReadContext *files,
     PharaohCampaign *campaign,
     uint16_t suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS],
     const char *path)
@@ -80,7 +80,7 @@ int32_t pharaoh_campaign_profile_load(const PharaohFileReadContext *files,
     return 1;
 }
 
-int32_t pharaoh_campaign_profile_save(const PharaohCampaign *campaign,
+uint8_t pharaoh_campaign_profile_save(const PharaohCampaign *campaign,
     const uint16_t suffix[PHARAOH_CAMPAIGN_PROFILE_SUFFIX_WORDS],
     const char *path)
 {
