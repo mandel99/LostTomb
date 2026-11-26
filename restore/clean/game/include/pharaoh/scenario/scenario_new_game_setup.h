@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "pharaoh/events/event_queries.h"
+#include "pharaoh/core/crt_random.h"
 
 typedef void (*PharaohScenarioSetupStep)(void *user_data);
 
@@ -29,6 +30,16 @@ typedef struct PharaohScenarioInvasionResetContext {
 void pharaoh_scenario_invasion_amounts_clear(
     PharaohScenarioInvasionResetContext *context);
 
+typedef struct PharaohScenarioWalkerNameInitContext {
+    /* Native DWORD range 0x00D05640–0x00D056E0, written high to low. */
+    uint32_t (*name_ids)[41];
+    /* Native CRT seed at 0x00604950. */
+    PharaohCrtRandom *random;
+} PharaohScenarioWalkerNameInitContext;
+
+void pharaoh_scenario_walker_name_init(
+    PharaohScenarioWalkerNameInitContext *context);
+
 typedef struct PharaohScenarioRuntimeStateResetContext {
     uint32_t (*words_78d7a0)[17];
     uint32_t (*words_78d5c0)[12];
@@ -52,7 +63,8 @@ typedef struct PharaohScenarioNewGameSetupContext {
     uint8_t *player_flag_3;
     PharaohScenarioSetupStep reset_steps_before_invasion[12];
     PharaohScenarioInvasionResetContext *invasion_reset;
-    PharaohScenarioSetupStep reset_steps_after_invasion[3];
+    PharaohScenarioWalkerNameInitContext *walker_name_init;
+    PharaohScenarioSetupStep reset_steps_after_walker_names[2];
     PharaohScenarioRuntimeStateResetContext *runtime_reset;
     const uint32_t *editor_mode;
     int32_t *current_climate;

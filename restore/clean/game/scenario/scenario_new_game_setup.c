@@ -92,6 +92,18 @@ void pharaoh_scenario_invasion_amounts_clear(
         context->invasion_amounts[index] = 0;
 }
 
+/* Complete typed translation of Pharaoh.exe 0x004B58D0. */
+void pharaoh_scenario_walker_name_init(
+    PharaohScenarioWalkerNameInitContext *context)
+{
+    uint32_t index;
+
+    for (index = 0; index < 41; ++index) {
+        (*context->name_ids)[40 - index] =
+            pharaoh_crt_random_next(context->random) & UINT32_C(0x0f);
+    }
+}
+
 static uint32_t terminated_size(const char *text)
 {
     uint32_t size = 0;
@@ -152,8 +164,9 @@ void pharaoh_scenario_new_game_setup(
     for (index = 0; index < 12; ++index)
         context->reset_steps_before_invasion[index](context->user_data);
     pharaoh_scenario_invasion_amounts_clear(context->invasion_reset);
-    for (index = 0; index < 3; ++index)
-        context->reset_steps_after_invasion[index](context->user_data);
+    pharaoh_scenario_walker_name_init(context->walker_name_init);
+    for (index = 0; index < 2; ++index)
+        context->reset_steps_after_walker_names[index](context->user_data);
     pharaoh_scenario_runtime_state_reset(context->runtime_reset);
 
     if (*context->editor_mode == 1) {

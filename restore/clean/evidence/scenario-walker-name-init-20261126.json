@@ -1,0 +1,22 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "live Ghidra analysis of Pharaoh.exe",
+  "reuse_review": {
+    "old_project_match": "generated/mixed/runtime/MissionSetup.c",
+    "result": "Contains the exact 41-value loop but calls Original00562348 and absolute U(address); reused its range/order, not its wrappers."
+  },
+  "functions": {
+    "0x004B58D0": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_walker_name_init",
+      "caller": {"address": "0x00540A10", "site": "0x00540A92", "reset_step_index": 13},
+      "callee": {"address": "0x00562348", "direct_call_count": 41},
+      "random_seed_dword": "0x00604950",
+      "random_algorithm": {"multiply": 214013, "add": 2531011, "result": "(seed >> 16) & 0x7FFF"},
+      "stores": {"first_address": "0x00D056E0", "last_address": "0x00D05640", "stride_bytes": -4, "count": 41, "value": "CrtRandNative() & 0x0F"}
+    }
+  },
+  "limitations": [
+    "The clean host still lacks the custom-scenario setup-context constructor.",
+    "No gameplay replay was performed in this checkpoint."
+  ]
+}
