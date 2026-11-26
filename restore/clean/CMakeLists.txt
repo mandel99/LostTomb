@@ -302,6 +302,7 @@ add_library(pharaoh_game STATIC
     game/scenario/scenario_start_bindings.c
     game/scenario/saved_game_state_read.c
     game/scenario/saved_game_initialize.c
+    game/scenario/scenario_new_game_setup.c
     game/scenario/mission_schema.c
     game/scenario/scenario_state_read.c
     game/simulation/flood_settings.c

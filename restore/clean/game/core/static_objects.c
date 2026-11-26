@@ -227,3 +227,10 @@ uint32_t pharaoh_native_type_is_supported_005013a0(uint32_t type)
         return 0;
     }
 }
+
+/* Complete C translation of Pharaoh.exe 0x0046A080. */
+void pharaoh_native_ten_dwords_clear_0046a080(uint32_t values[10])
+{
+    int32_t index;
+    for (index = 0; index < 10; ++index) values[index] = 0;
+}

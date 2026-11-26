@@ -1,0 +1,83 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "live Ghidra analysis of Pharaoh.exe",
+  "functions": {
+    "0x00451BE0": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_runtime_state_reset",
+      "callers": [{"address": "0x00540A10", "site": "0x00540AA1"}],
+      "callees": [{"address": "0x0046A080", "site": "0x00451C29"}],
+      "dword_stores": [
+        ["0x0078D7E0", 0], ["0x0078D7CC", 0], ["0x0078D7C8", 0],
+        ["0x0078D7C4", 0], ["0x0078D7C0", 0], ["0x0078D7BC", 2098],
+        ["0x0078D7B0", 0], ["0x0078D7A8", 0], ["0x0078D7A4", 0],
+        ["0x0078D7A0", 0], ["0x0078D5C4", 0], ["0x0078D5C0", 0],
+        ["0x0078D78C", 0]
+      ],
+      "bulk_clears": [
+        {"start": "0x0078D3EC", "count_dwords": 51},
+        {"start": "0x0078D4B8", "count_dwords": 51}
+      ],
+      "named_native_fields": {
+        "0x0078D7CC": "gameTimeTick",
+        "0x0078D7C4": "gameTimeDay",
+        "0x0078D7C0": "currentMonth",
+        "0x0078D7BC": "currentYear",
+        "0x0078D7B0": "mapSweepCountdown"
+      }
+    },
+    "0x0046A080": {
+      "owner": "game/core/static_objects.c:pharaoh_native_ten_dwords_clear_0046a080",
+      "callers": [{"address": "0x00451BE0", "site": "0x00451C29"}],
+      "callees": [],
+      "dword_stores": [
+        "0x0078D5EC", "0x0078D5E8", "0x0078D5E4", "0x0078D5E0",
+        "0x0078D5DC", "0x0078D5D8", "0x0078D5D4", "0x0078D5D0",
+        "0x0078D5CC", "0x0078D5C8"
+      ]
+    },
+    "0x00540A10": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_new_game_setup",
+      "callers": [{"address": "0x005405B0", "site": "0x0054069A"}],
+      "callees": [
+        {"site": "0x00540A30", "address": "0x004E7D10"},
+        {"site": "0x00540A35", "address": "0x004E7E10"},
+        {"site": "0x00540A51", "address": "0x004E1770"},
+        {"site": "0x00540A56", "address": "0x00540B50"},
+        {"site": "0x00540A5B", "address": "0x0040F250"},
+        {"site": "0x00540A60", "address": "0x0041D730"},
+        {"site": "0x00540A65", "address": "0x0041DF60"},
+        {"site": "0x00540A6A", "address": "0x00404330"},
+        {"site": "0x00540A6F", "address": "0x0046A230"},
+        {"site": "0x00540A74", "address": "0x0046B0E0"},
+        {"site": "0x00540A79", "address": "0x0046EFB0"},
+        {"site": "0x00540A7E", "address": "0x0046F120"},
+        {"site": "0x00540A83", "address": "0x0046A260"},
+        {"site": "0x00540A88", "address": "0x004B4760"},
+        {"site": "0x00540A8D", "address": "0x004B8C90"},
+        {"site": "0x00540A92", "address": "0x004B58D0"},
+        {"site": "0x00540A97", "address": "0x004B8290"},
+        {"site": "0x00540A9C", "address": "0x004B32A0"},
+        {"site": "0x00540AA1", "address": "0x00451BE0"},
+        {"site": "0x00540AB6", "address": "0x004DE430"},
+        {"site": "0x00540ABC", "address": "0x00443EA0"},
+        {"site": "0x00540AC4", "address": "0x00444720"},
+        {"site": "0x00540AC9", "address": "0x00444B10"},
+        {"site": "0x00540ACE", "address": "0x004BB090"},
+        {"site": "0x00540AD8", "address": "0x004DE820"},
+        {"site": "0x00540B2E", "address": "0x004CDE40"}
+      ],
+      "selected_child_order": [
+        {"site": "0x00540AA1", "callee": "0x00451BE0", "position": 17}
+      ]
+    }
+  },
+  "typed_source_reuse": {
+    "path": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore/generated/mixed/runtime/MissionSetup.c",
+    "function": "Original00451BE0",
+    "status": "Complete typed C body; reused and replaced absolute-memory operations with a typed state view."
+  },
+  "limitations": [
+    "The clean Windows host still lacks a constructor/binding for the custom-scenario new-game setup context; this does not claim that custom campaigns now run end to end.",
+    "No native-versus-restored gameplay replay was performed in this checkpoint."
+  ]
+}

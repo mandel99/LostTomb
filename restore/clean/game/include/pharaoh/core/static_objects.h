@@ -99,4 +99,6 @@ void pharaoh_native_noop_00489500(void);
 int32_t pharaoh_native_undo_contains_004851b0(int32_t id,int32_t ready,int32_t mode,int32_t count,const int16_t values[525]);
 uint32_t pharaoh_native_return_zero_0047d350(void);
 uint32_t pharaoh_native_type_is_supported_005013a0(uint32_t type);
+void pharaoh_native_ten_dwords_clear_0046a080(uint32_t values[10]);
+
 #endif
