@@ -41,7 +41,7 @@ typedef struct PharaohPlayerSelectionDrawOperations {
 int32_t pharaoh_player_selection_load_profiles(
     PharaohPlayerSelectionState *state, int32_t previous_profile);
 
-/* Native 0x00516AB0 and 0x00516890. */
+/* Stateful selection helpers; native 0x00516890 scrolls the profile list. */
 int32_t pharaoh_player_selection_select_visible(
     PharaohPlayerSelectionState *state, int32_t visible_row);
 int32_t pharaoh_player_selection_scroll(

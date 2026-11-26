@@ -1,0 +1,48 @@
+{
+  "executable_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "native": {
+    "address": "0x00516AB0",
+    "name": "PlayerProfileSelectLoad",
+    "signature": "void PlayerProfileSelectLoad(void)",
+    "range": ["0x00516AB0", "0x00516B43"],
+    "body_size": 148,
+    "decompiler_sha256": "a2ee8f834f7f360eb8edca9559645d01275b4618b012ea79a122ff8d2371bfb0"
+  },
+  "native_callers": [
+    {"address": "0x00516BB0", "call_site": "0x00516BEE"}
+  ],
+  "native_callees": [
+    {"address": "0x004CE3A0", "name": "FUN_004ce3a0", "call_site": "0x00516B22"},
+    {"address": "0x00516A20", "name": "FUN_00516a20", "call_site": "0x00516B2A"},
+    {"address": "0x0041B680", "name": "CampaignProfileLoad", "call_site": "0x00516B35"}
+  ],
+  "typed_owner": {
+    "name": "load_clicked_player_profile",
+    "source": "game/platform/windows_startup_dispatch.c",
+    "sha256": "48abaabb846696847ad8eb025cc28639c9a30c96f99b76ab38a4e140c846e3b8",
+    "header": "game/include/pharaoh/ui/player_selection.h",
+    "header_sha256": "e01442b43d23e4c6f4886a24ab547662a1a272dded3fe7c44d3adb2901e15f70"
+  },
+  "reused_typed_components": [
+    "pharaoh_player_selection_select_visible and pharaoh_file_list_name",
+    "pharaoh_file_remove_extension at 0x004CE3A0",
+    "pharaoh_player_record_path at 0x00516A20",
+    "pharaoh_campaign_profile_load at 0x0041B680"
+  ],
+  "comparison": [
+    "Native computes selected index as buttonParameter plus first-visible offset; it checks list bounds and a non-null name, copies the name, removes its extension, builds the profile path, loads the campaign profile, and requests window redraw. The clean mouse dispatcher supplies visible row 0 through 11; the extracted typed helper performs those same state and profile operations.",
+    "The helper is called from the existing startup dispatch branch for focused profile rows 1 through 12; it reuses the clean list, path, extension-removal, and profile-load implementations."
+  ],
+  "known_limitations": [
+    "The fixed-address list globals and buttonParameter are represented by the clean profile-list state and focused visible row; equivalence is established for valid profile-list UI input, not arbitrary corrupted global values.",
+    "The native copies the name without a bound; the typed state caps names at 31 bytes. Long-name overflow behavior is not reproduced."
+  ],
+  "verification": {
+    "provider": "live Ghidra headless session",
+    "program_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "function_renamed": "PlayerProfileSelectLoad",
+    "prototype_set": "void PlayerProfileSelectLoad(void)",
+    "call_graph_coverage": "1 direct caller and 3 direct callees; no indirect calls reported",
+    "release_build": "pharaoh_clean_bootstrap passed"
+  }
+}

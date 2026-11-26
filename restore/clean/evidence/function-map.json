@@ -3105,6 +3105,27 @@
         "0x00418640"
       ],
       "known_limitations": "Native global-state host binding, mission-id storage equivalence, fixed loop bounds, text selection, and profile-save operations remain unconnected to a clean C entrypoint."
+    },
+    {
+      "address": "0x00516AB0",
+      "name": "load_clicked_player_profile",
+      "source": "game/platform/windows_startup_dispatch.c",
+      "origin": "Complete typed owner extracted from the existing profile-row branch and compared with live Ghidra; reuses typed list, path, extension-removal, and profile-load functions.",
+      "mapping_evidence": "evidence/campaign-profile-select-load-20261126.json",
+      "native_callers": [
+        "0x00516BB0"
+      ],
+      "native_callees": [
+        "0x004CE3A0",
+        "0x00516A20",
+        "0x0041B680"
+      ],
+      "reachable_from": [
+        "0x00516BB0",
+        "0x00516C80",
+        "0x00418220"
+      ],
+      "known_limitations": "Global menu state is bound through the clean focused row and profile-list context; name copies over 31 bytes are truncated rather than overflowing."
     }
 ]
 }

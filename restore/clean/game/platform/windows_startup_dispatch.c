@@ -4,6 +4,7 @@
 #include "pharaoh/ui/main_menu.h"
 #include "pharaoh/ui/map_selection_invasions.h"
 #include "pharaoh/ui/load_save_dialog.h"
+#include "pharaoh/runtime/file_extension_operations.h"
 
 #include <windowsx.h>
 #include <shellapi.h>
@@ -810,6 +811,32 @@ void pharaoh_windows_startup_dispatch_close(
     pharaoh_windows_smacker_close_library(&dispatch->smacker);
 }
 
+/* Native 0x00516AB0 selects a profile and loads its campaign profile. */
+static void load_clicked_player_profile(
+    PharaohWindowsStartupDispatch *dispatch, int32_t visible_row)
+{
+    PharaohPlayerSelectionState *const selection =
+        &dispatch->player_selection;
+    const int32_t selected = selection->first_visible_profile + visible_row;
+    char profile_path[64];
+
+    if (visible_row < 0 ||
+        visible_row >= PHARAOH_PLAYER_SELECTION_VISIBLE_ROWS ||
+        selected < 0 || selected >= selection->profiles->count ||
+        pharaoh_file_list_name(selection->profiles, selected) == NULL) {
+        return;
+    }
+    if (pharaoh_player_selection_select_visible(selection, visible_row) == 0)
+        return;
+
+    pharaoh_file_remove_extension(selection->player_name);
+    pharaoh_player_record_path(profile_path, selection->player_name);
+    (void)pharaoh_campaign_profile_load(&dispatch->host->files,
+        &dispatch->host->campaign, dispatch->host->campaign_profile_suffix,
+        profile_path);
+    dispatch->host->graphics.redraw_requested = 1;
+}
+
 void pharaoh_windows_startup_dispatch_mouse(
     PharaohWindowsStartupDispatch *dispatch, UINT message, LPARAM lparam)
 {
@@ -1408,19 +1435,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
                     dispatch->host->graphics.redraw_requested = 1;
                 }
             } else if (focused >= 1 && focused <= 12) {
-                if (pharaoh_player_selection_select_visible(
-                        &dispatch->player_selection, focused - 1) != 0) {
-                    char profile_path[64];
-                    (void)snprintf(profile_path, sizeof(profile_path),
-                        "save\\%s.dat",
-                        dispatch->player_selection.player_name);
-                    (void)pharaoh_campaign_profile_load(
-                        &dispatch->host->files, &dispatch->host->campaign,
-                        dispatch->host->campaign_profile_suffix, profile_path);
-                    /* Native 0x00516AB0 selects and loads this profile but
-                       leaves the player-selection window active. */
-                    dispatch->host->graphics.redraw_requested = 1;
-                }
+                load_clicked_player_profile(dispatch, focused - 1);
             } else if (focused == 13) {
                 begin_new_family(dispatch);
             } else if (focused == 14) {
