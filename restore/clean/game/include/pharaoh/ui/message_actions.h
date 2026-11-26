@@ -9,7 +9,7 @@ typedef struct PharaohMenuMessageRecord {
     uint32_t second;
     int16_t kind;
     int16_t message;
-    uint8_t reserved_0c[2];
+    union { uint8_t reserved_0c[2]; int16_t sequence; };
     uint8_t read;
     uint8_t source;
     int16_t template_id;

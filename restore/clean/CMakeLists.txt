@@ -132,6 +132,9 @@ add_library(pharaoh_game STATIC
     game/rendering/building_animations.c
     game/ui/placement_cost.c
     game/ui/panel_blocks.c
+    game/ui/debug_info.c
+    game/ui/city_message_queue.c
+    game/ui/window_state_actions.c
     game/rendering/sprite_cycle.c
     game/rendering/debug_sprite.c
     game/rendering/image_draw.c

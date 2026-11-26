@@ -112,4 +112,13 @@ void pharaoh_city_view_tile_to_pixel(
     const PharaohCityMapBounds *bounds,int32_t x,int32_t y,
     int32_t *pixel_x,int32_t *pixel_y); /* 004F0BA0 */
 
+typedef struct PharaohCityPixelHit {
+    int32_t grid_offset;
+    int32_t vertical_edge;
+    int32_t horizontal_edge;
+    int32_t projected_row;
+    int32_t projected_column;
+} PharaohCityPixelHit;
+int32_t pharaoh_city_view_pixels_to_grid_offset(const PharaohCityViewState *, const PharaohCityProjectionLookup *, PharaohCityPixelHit *, int32_t, int32_t);
+int32_t pharaoh_city_view_mouse_to_grid_offset(const PharaohCityViewState *, const PharaohCityProjectionLookup *, PharaohCityPixelHit *, int32_t, int32_t);
 #endif

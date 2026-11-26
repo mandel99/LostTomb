@@ -105,6 +105,8 @@ void pharaoh_city_view_set_viewport(PharaohCityViewState *state,
     viewport->tile_half_height = tile_height / 2;
     viewport->tile_height_and_half = tile_height + tile_height / 2;
     viewport->tile_double_height = tile_height * 2;
+    state->camera_x = map_width / 2;
+    state->camera_y = map_height;
 }
 
 void pharaoh_city_view_projection_reset(PharaohCityViewContext *context)
@@ -391,4 +393,83 @@ void pharaoh_city_view_grid_offset_to_xy_view(
             }
         }
     }
+}
+
+static int32_t city_view_pixels_to_grid_offset(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    PharaohCityPixelHit *hit, int32_t x, int32_t y)
+{
+    const PharaohCityViewportGeometry *viewport = &state->viewport;
+    uint32_t wide_column;
+    uint32_t row_parity;
+    uint32_t combined_parity;
+    int32_t y_remainder;
+    int32_t x_half_remainder;
+    if (x < viewport->screen_x ||
+        x >= (viewport->tile_width + 2) * viewport->width_tiles +
+            viewport->screen_x ||
+        y < viewport->screen_y ||
+        y >= viewport->tile_half_height * viewport->height_tiles +
+            viewport->screen_y) return 0;
+
+    hit->projected_row =
+        (y - viewport->screen_y) / viewport->tile_half_height;
+    wide_column = (uint32_t)((x - viewport->screen_x) /
+        (viewport->tile_half_width + 1));
+    row_parity = (uint32_t)hit->projected_row & 1u;
+    combined_parity = ((uint32_t)hit->projected_row + wide_column) & 1u;
+    y_remainder = (y - viewport->screen_y) % viewport->tile_half_height;
+    x_half_remainder = ((x - viewport->screen_x) %
+        (viewport->tile_half_width + 1)) / 2;
+    hit->projected_column = (int32_t)wide_column / 2;
+
+    if (combined_parity == 0u) {
+        if (x_half_remainder < y_remainder) {
+            ++hit->projected_row;
+        } else if ((wide_column & 1u) != 0u && row_parity != 0u) {
+            ++hit->projected_column;
+        }
+    } else if (y_remainder + x_half_remainder >=
+        viewport->tile_half_height - 1) {
+        ++hit->projected_row;
+        if ((wide_column & 1u) != 0u && row_parity == 0u)
+            ++hit->projected_column;
+    }
+
+    hit->grid_offset = projection->cells[projection_index(
+        state->camera_y + hit->projected_row,
+        state->camera_x + hit->projected_column)];
+    if (hit->grid_offset >= INT32_C(0x0fff0000)) return 0;
+
+    hit->vertical_edge = 0;
+    hit->horizontal_edge = 0;
+    if (hit->projected_row == 0) hit->vertical_edge = 2;
+    else if (viewport->height_tiles <= hit->projected_row)
+        hit->vertical_edge = 1;
+    if ((hit->projected_row & 1) != 0) {
+        if (hit->projected_column == 0) hit->horizontal_edge = 2;
+        else if (viewport->width_tiles <= hit->projected_column)
+            hit->horizontal_edge = 1;
+    }
+    return hit->grid_offset;
+}
+
+/* Complete C translation of Pharaoh.exe 0x00430960. */
+int32_t pharaoh_city_view_pixels_to_grid_offset(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    PharaohCityPixelHit *hit, int32_t x, int32_t y)
+{
+    return city_view_pixels_to_grid_offset(state, projection, hit, x, y);
+}
+
+/* Complete C translation of Pharaoh.exe 0x00430790. */
+int32_t pharaoh_city_view_mouse_to_grid_offset(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    PharaohCityPixelHit *hit, int32_t mouse_x, int32_t mouse_y)
+{
+    return city_view_pixels_to_grid_offset(
+        state, projection, hit, mouse_x, mouse_y);
 }

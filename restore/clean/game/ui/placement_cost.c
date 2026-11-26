@@ -20,12 +20,12 @@ void pharaoh_placement_cost_draw(const PharaohPlacementCostContext *c)
     const int32_t amount = *c->cost;
     const uint32_t affordable = amount <= c->players[*c->current_player].treasury;
     pharaoh_bitmap_text_draw_number_native(c->font, c->text, c->number_text,
-        amount, '@', " ", add(add(viewport->tile_double_width, 1), x),
+        amount, '@', " ", add(add(viewport->tile_width, 1), x),
         add(sub(y, viewport->tile_half_height), 1), *c->font_image, 0);
     const uint16_t color = (uint16_t)(((affordable - 1u) & UINT32_C(0xfffffd3f)) +
         UINT32_C(0xfac1));
     pharaoh_bitmap_text_draw_number_native(c->font, c->text, c->number_text,
-        amount, '@', " ", add(viewport->tile_double_width, x),
+        amount, '@', " ", add(viewport->tile_width, x),
         sub(y, viewport->tile_half_height), *c->font_image, color);
     *c->cost = 0;
     c->clip->clip_x_min = 0;
