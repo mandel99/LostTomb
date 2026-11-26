@@ -21,7 +21,7 @@
       "gap": "Factory accepts mission_id0, normal scenario mode, no active buildings and no planned/current monument IDs. Other scenes remain explicitly unsupported until deeper children are bound.",
       "source_sha256": "685bbd33e8c9e6f76b7b7ee718d1b878d6593db9140733f037a383f92c73ed37"
     },
-    {"owner":"game/platform/windows_mission_runtime.c:pharaoh_windows_mission_runtime_game_frame","gap":"Draws actual terrain/city-top and the native C topbar with real fonts/text/image callbacks and saved scene data. Full sidebar/background/foreground/input/simulation dispatch and message counts remain unbound.","source_sha256":"23a9a79cea10ed10ced163f376d757de1522d2df7fef59fe46186d9e3d05a194"}
+    {"owner":"game/platform/windows_mission_runtime.c:pharaoh_windows_mission_runtime_game_frame","gap":"Actual terrain/city-top plus normal sidebar/topbar, labels/buttons/minimap/message counts and native refresh are bound. Other overlays/editor, complete city and foreground passes, input/camera and simulation are still unbound.","source_sha256":"a32669c0aa0cb1ade8b60621ba1522d99f096bbf645ef52bcb196db9b7987c4c"}
   ],
   "native_UI_entries_still_unmapped": [],
   "text_adapter_dependencies": {
@@ -125,5 +125,6 @@
     "evidence": "evidence/city-topbar-children-native-20261126.json",
     "state": "Complete C children and concrete drawing providers; full live topbar/sidebar and native frame cache lifecycle remain pending."
   },
-  "topbar_host_binding":{"evidence":"evidence/city-topbar-live-binding-20261126.json","state":"Normal initial game-frame path invokes0051F0A0(0) on the actual locked frame; full native lifecycle and runtime pixel replay pending."}
+  "topbar_host_binding":{"evidence":"evidence/city-topbar-live-binding-20261126.json","state":"Normal initial game-frame path invokes0051F0A0(0) on the actual locked frame; full native lifecycle and runtime pixel replay pending."},
+  "sidebar_host_binding":{"evidence":"evidence/sidebar-live-binding-20261126.json","state":"Normal initial-mission background/selected foreground/minimap and real timed presentation; native/C pixels and full UI/gameplay remain unproven."}
 }

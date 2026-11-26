@@ -317,3 +317,42 @@ void pharaoh_graphics_blit_l_pixel_raw(PharaohGraphicsPrimitives *c,
     memcpy((uint8_t *)(void *)destination + c->rgb565_pitch_bytes,
         &colors[1], sizeof(uint16_t));
 }
+
+void pharaoh_graphics_and_pixel_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, uint16_t mask)
+{
+    uint16_t *pixel = raw_pixel(c, x, y);
+    *pixel = (uint16_t)(*pixel & mask);
+}
+
+void pharaoh_graphics_copy_pixel_pair_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, const uint16_t colors[2])
+{
+    memcpy(raw_pixel(c, x, y), colors, sizeof(uint32_t));
+}
+
+void pharaoh_graphics_set_pixel_pair_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, uint32_t colors)
+{
+    memcpy(raw_pixel(c, x, y), &colors, sizeof(colors));
+}
+
+void pharaoh_graphics_and_rect(PharaohGraphicsPrimitives *c, int32_t x,
+    int32_t y, int32_t width, int32_t height, uint16_t mask)
+{
+    int32_t bottom;
+    int32_t right;
+
+    if (width <= 0 || height <= 0) {
+        return;
+    }
+    clamp_rect(c, &x, &y, &width, &height);
+    bottom = add_coordinate(y, height);
+    right = add_coordinate(x, width);
+    for (; y < bottom; y = add_coordinate(y, 1)) {
+        int32_t column;
+        for (column = x; column < right; column = add_coordinate(column, 1)) {
+            pharaoh_graphics_and_pixel_raw(c, column, y, mask);
+        }
+    }
+}

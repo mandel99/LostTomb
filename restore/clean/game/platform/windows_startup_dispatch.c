@@ -735,6 +735,7 @@ int32_t pharaoh_windows_startup_dispatch_bind(
 {
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
+    host->native_force_refresh = &dispatch->refresh.force_refresh;
     /* Native 00540B50 field1 binding, using the actual loaded small-font ID. */
     pharaoh_text_input_field_initialize(&host->text_input, 1,
         dispatch->player_selection.player_name, 31, 104, 1,

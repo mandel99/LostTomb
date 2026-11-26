@@ -13,7 +13,7 @@ typedef struct PharaohSidebarContent {
     PharaohImageButtonRecord *expanded_controls,*expanded_buildings,*expanded_extra;
     PharaohImageButtonRecord *collapsed_control,*collapsed_buildings;
     const int32_t *editor_active,*editor_dirty;
-    const uint8_t *map_dirty;
+    const uint32_t *map_dirty; /* nativeE38DCC camera-scroll request DWORD */
     int32_t *minimap_dirty;
     void *user_data;
     void (*draw_buttons)(void *,int32_t x,int32_t y,PharaohImageButtonRecord *,int32_t count);

@@ -105,6 +105,8 @@ typedef struct PharaohWindowsStartupHost {
     int32_t game_frame_pitch_bytes;
     struct PharaohImageDrawContext *game_image_draw;
     struct PharaohWindowsCityUi *city_ui;
+    uint8_t *native_force_refresh; /* borrowed dispatch.refresh.force_refresh, E38DC8 */
+    uint32_t city_scroll_requested; /* E38DCC; scrolling producer still unbound */
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];
     PharaohSettingsFile settings;

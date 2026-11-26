@@ -32,7 +32,7 @@ typedef struct PharaohImageButtonDrawState {
     int32_t *draw_y;
     int32_t *active_sprite_image;
     uint8_t *ui_redraw;
-    int32_t *window_redraw_requested;
+    const uint8_t *window_redraw_requested; /* nativeE38DCA is a BYTE */
     uint8_t *force_refresh;
     void (*draw_sprite)(void *user_data, int32_t image,
         int32_t x, int32_t y);
