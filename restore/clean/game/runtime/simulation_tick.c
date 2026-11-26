@@ -5,6 +5,23 @@ enum {
     SIMULATION_OSIRIS_FARM_DESTRUCTION_PENDING = 2
 };
 
+void pharaoh_city_gods_decrease_effect_timers(
+    PharaohScenarioPlayerRuntime *players, int32_t current_player)
+{
+    PharaohScenarioPlayerRuntime *const player = &players[current_player];
+
+    if (player->ra_trade_bonus_months >= 0)
+        --player->ra_trade_bonus_months;
+    if (player->ra_trade_penalty_months >= 0)
+        --player->ra_trade_penalty_months;
+    if (player->ra_trade_minor_penalty_months >= 0)
+        --player->ra_trade_minor_penalty_months;
+    if (player->effect_timer_45cc >= 0)
+        --player->effect_timer_45cc;
+    if (player->effect_timer_47b4 >= 0)
+        --player->effect_timer_47b4;
+}
+
 void pharaoh_simulation_tick_run(const PharaohSimulationTickContext *context)
 {
     const PharaohSimulationTickOperations *const operations =

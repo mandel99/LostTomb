@@ -5,6 +5,7 @@
 #include "pharaoh/runtime/animation_tick_counters.h"
 #include "pharaoh/runtime/random_generator.h"
 #include "pharaoh/runtime/city_player_countdown.h"
+#include "pharaoh/scenario/scenario_init_custom.h"
 
 typedef struct PharaohSimulationTickOperations {
     void *user_data;
@@ -29,5 +30,9 @@ typedef struct PharaohSimulationTickContext {
 
 /* Native entry 0x004D7090. Callee operations require game-state bindings. */
 void pharaoh_simulation_tick_run(const PharaohSimulationTickContext *context);
+
+/* Native entry 0x004C51D0; advances the selected player's five timers. */
+void pharaoh_city_gods_decrease_effect_timers(
+    PharaohScenarioPlayerRuntime *players, int32_t current_player);
 
 #endif

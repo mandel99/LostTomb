@@ -65,7 +65,9 @@ typedef struct PharaohScenarioPlayerRuntime {
     uint16_t native_value_4488;
     uint8_t reserved_448a[0x44ac - 0x448a];
     uint32_t native_value_44ac;
-    uint8_t reserved_44b0[0x4630 - 0x44b0];
+    uint8_t reserved_44b0[0x45cc - 0x44b0];
+    int32_t effect_timer_45cc;
+    uint8_t reserved_45d0[0x4630 - 0x45d0];
     uint32_t native_value_4630;
     union {
         uint8_t reserved_4634[0x46ac - 0x4634];
@@ -85,7 +87,9 @@ typedef struct PharaohScenarioPlayerRuntime {
     int32_t monument_building_ids[3];
     uint8_t reserved_4748[0x47a8 - 0x4748];
     int32_t difficulty;
-    uint8_t reserved_47ac[0x4984 - 0x47ac];
+    uint8_t reserved_47ac[0x47b4 - 0x47ac];
+    int32_t effect_timer_47b4;
+    uint8_t reserved_47b8[0x4984 - 0x47b8];
     int16_t ra_trade_bonus_months;
     int16_t ra_trade_penalty_months;
     int16_t ra_trade_minor_penalty_months;
@@ -98,10 +102,12 @@ _Static_assert(offsetof(PharaohScenarioPlayerRuntime, native_value_0003) == 3 &&
     offsetof(PharaohScenarioPlayerRuntime, dock_building_ids) == 0x4460 &&
     offsetof(PharaohScenarioPlayerRuntime, native_value_4488) == 0x4488 &&
     offsetof(PharaohScenarioPlayerRuntime, native_value_44ac) == 0x44ac &&
+    offsetof(PharaohScenarioPlayerRuntime, effect_timer_45cc) == 0x45cc &&
     offsetof(PharaohScenarioPlayerRuntime, native_value_4630) == 0x4630 &&
     offsetof(PharaohScenarioPlayerRuntime, largest_road_networks) == 0x46ac &&
     offsetof(PharaohScenarioPlayerRuntime, monument_definition_ids) == 0x4730 &&
     offsetof(PharaohScenarioPlayerRuntime, monument_building_ids) == 0x473c &&
+    offsetof(PharaohScenarioPlayerRuntime, effect_timer_47b4) == 0x47b4 &&
     offsetof(PharaohScenarioPlayerRuntime, food_known) == 0x298c &&
     offsetof(PharaohScenarioPlayerRuntime, resource_known) == 0x2995 &&
     offsetof(PharaohScenarioPlayerRuntime, ra_trade_bonus_months) == 0x4984 &&

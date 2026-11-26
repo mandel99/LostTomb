@@ -1,0 +1,43 @@
+{
+  "schema": "pharaoh-city-gods-effect-timers-live-v1",
+  "original_exe_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "function": {
+    "address": "0x004C51D0",
+    "native_name": "CityGodsDecreaseEffectTimers",
+    "calling_convention": "cdecl",
+    "parameters": [],
+    "return_type": "void",
+    "caller": "0x004E9890",
+    "caller_site": "0x004E9C79",
+    "reachable_from": [
+      { "function": "0x00451C50", "call_site": "0x00451C72" },
+      { "function": "0x004E9890", "call_site": "0x004E9C79" }
+    ],
+    "direct_callees": []
+  },
+  "observed_operations": [
+    { "player_offset": "0x4984", "width_bytes": 2, "signed": true, "predicate": ">= 0", "effect": "decrement by one" },
+    { "player_offset": "0x4986", "width_bytes": 2, "signed": true, "predicate": ">= 0", "effect": "decrement by one" },
+    { "player_offset": "0x4988", "width_bytes": 2, "signed": true, "predicate": ">= 0", "effect": "decrement by one" },
+    { "player_offset": "0x45CC", "width_bytes": 4, "signed": true, "predicate": ">= 0", "effect": "decrement by one" },
+    { "player_offset": "0x47B4", "width_bytes": 4, "signed": true, "predicate": ">= 0", "effect": "decrement by one" }
+  ],
+  "reuse_search": {
+    "old_project": "PH Local Decompile/reused/restore",
+    "finding": "No complete typed owner was found. The address is present as the decompiled native-address body in generated/decompiled/src/Unit01604.c and as an Original wrapper; it uses raw global addresses and untyped compatibility macros, so it was not migrated as typed C."
+  },
+  "clean_owner": {
+    "source": "game/runtime/simulation_tick.c",
+    "header": "game/include/pharaoh/runtime/simulation_tick.h",
+    "player_layout": "game/include/pharaoh/scenario/scenario_init_custom.h",
+    "player_stride_bytes": "0x49D8",
+    "layout_offsets_asserted": ["0x45CC", "0x47B4", "0x4984", "0x4986", "0x4988"],
+    "native_address_wrapper": false
+  },
+  "verification": {
+    "release_build": "passed: cmake.exe --build restore/clean/build/bootstrap-vs2022-win32 --config Release --target pharaoh_clean_bootstrap -- /m"
+  },
+  "limitations": [
+    "The caller current-player index and player array must be bound to the native city state by the simulation dispatcher; that parent dispatcher remains unmapped."
+  ]
+}
