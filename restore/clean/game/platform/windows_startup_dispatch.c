@@ -136,9 +136,24 @@ static void front_menu_open_player_selection(void *user_data)
         &dispatch->player_selection, previous_profile);
     dispatch->refresh.current_window_id = profile_count == 0 ? 0x36 : 0x2f;
     dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+    dispatch->ui_feedback_countdown = 0;
     if (profile_count != 0 &&
         dispatch->player_selection.selected_profile >= 0) {
         load_selected_family(dispatch);
+    } else if (profile_count == 0) {
+        PharaohTextInputState *const input =
+            &dispatch->host->text_input;
+        PharaohTextInputField *const field = &input->fields[1];
+
+        /* Native 0x00516BB0 enters the new-family editor with field 1
+           bound to the 31-byte player-name buffer. */
+        field->text_buffer = dispatch->player_selection.player_name;
+        field->max_length = 0x1f;
+        input->return_pressed = 0;
+        pharaoh_text_input_activate(input, 1);
+        pharaoh_keyboard_home(input);
+        pharaoh_keyboard_end(input);
+        dispatch->player_selection_return_window = 0x2f;
     }
     dispatch->host->graphics.redraw_requested = 1;
 }
@@ -719,6 +734,10 @@ int32_t pharaoh_windows_startup_dispatch_bind(
 {
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
+    /* Native 00540B50 field1 binding, using the actual loaded small-font ID. */
+    pharaoh_text_input_field_initialize(&host->text_input, 1,
+        dispatch->player_selection.player_name, 31, 104, 1,
+        host->sprite_tags[634].image_index);
     pharaoh_file_list_initialize(&dispatch->player_profile_files);
     pharaoh_file_list_initialize(&dispatch->saved_game_files);
     dispatch->player_selection.profiles = &dispatch->player_profile_files;

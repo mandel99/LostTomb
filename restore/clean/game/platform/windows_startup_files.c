@@ -83,6 +83,25 @@ static int32_t close_file_size_handle(void *user_data, int32_t file_handle)
     return CloseHandle((HANDLE)(uintptr_t)(uint32_t)file_handle) != 0;
 }
 
+_Static_assert(FILE_BEGIN == SEEK_SET && FILE_CURRENT == SEEK_CUR &&
+    FILE_END == SEEK_END, "native seek origins must match Win32 file origins");
+
+int32_t pharaoh_windows_startup_handle_read(int32_t handle,
+    void *destination, uint32_t byte_count)
+{
+    DWORD bytes_read = 0;
+    if (ReadFile((HANDLE)(uintptr_t)(uint32_t)handle, destination,
+            byte_count, &bytes_read, NULL) == 0) return -1;
+    return (int32_t)bytes_read;
+}
+
+int32_t pharaoh_windows_startup_handle_seek(int32_t handle,
+    int32_t offset, int32_t origin)
+{
+    return (int32_t)SetFilePointer((HANDLE)(uintptr_t)(uint32_t)handle,
+        offset, NULL, (DWORD)origin);
+}
+
 static PharaohTextFile *open_text_file(void *user_data,
     const char *filename, uint32_t flags)
 {

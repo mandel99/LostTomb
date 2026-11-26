@@ -167,3 +167,18 @@ void pharaoh_memory_copy_forward(
         --count;
     }
 }
+
+/* Complete native C dependency; see evidence/shared-text-input-native-20261126.json. */
+void pharaoh_text_truncate_at_pointer(
+    unsigned char *begin, unsigned char *end)
+{
+    if (begin < end) {
+        unsigned char *source = begin + 1;
+        unsigned char *destination = begin;
+        int count = (int)(end - begin);
+        while (count-- != 0) *destination++ = *source++;
+        begin[end - begin] = 0;
+    } else {
+        *begin = 0;
+    }
+}

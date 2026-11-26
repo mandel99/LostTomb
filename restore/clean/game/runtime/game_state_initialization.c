@@ -39,7 +39,7 @@ void pharaoh_game_state_initialize(const PharaohGameStateInitContext *c)
     pharaoh_city_view_calculate_map_bounds(c->city_view);
     pharaoh_city_view_check_camera_boundaries(c->city_view);
     pharaoh_random_generator_fill_pool(c->random_generator);
-    state->keyboard_field_index = 0;
+    c->text_input_state->active_field = 0;
 
     pharaoh_text_input_field_initialize(c->text_input_state,
         PHARAOH_STARTUP_TEXT_FIELD_SCENARIO_NAME,

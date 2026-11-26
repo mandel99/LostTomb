@@ -23,6 +23,8 @@ typedef struct PharaohWindowsBink {
                                      int32_t x, int32_t y, uint32_t surface_type);
     FARPROC open_miles;
     PharaohVideoBlitOperations blit_operations;
+    void *presentation_surface; /* complete logical frame, including black margins */
+    uint32_t presentation_width, presentation_height;
 } PharaohWindowsBink;
 
 int32_t pharaoh_windows_bink_open_library(PharaohWindowsBink *backend);

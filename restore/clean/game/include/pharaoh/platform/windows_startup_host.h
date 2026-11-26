@@ -24,6 +24,7 @@
 #include "pharaoh/ui/custom_map_selection.h"
 #include "pharaoh/platform/windows_startup_files.h"
 #include "pharaoh/platform/windows_sound.h"
+#include "pharaoh/runtime/text_input_state.h"
 
 enum { PHARAOH_WINDOWS_DEFAULT_NAME_CAPACITY = 4096 };
 enum {
@@ -108,6 +109,12 @@ typedef struct PharaohWindowsStartupHost {
     PharaohSettingsMenuIndexes menu_indexes;
     PharaohTextCatalog text_catalog;
     PharaohTextSelection text_selection;
+    uint32_t bitmap_current_glyph;
+    PharaohTextInputState text_input;
+    PharaohBitmapFont bitmap_fonts[8];
+    int32_t bitmap_center_offset;
+    /* Native number[256], encoded[100], wrapped-line[200], in address order. */
+    char bitmap_text_buffers[256 + 100 + 200];
     PharaohStartupMediaDriveState media_drive;
     PharaohSettingsDefaultNameDestinations default_names;
     char default_name_1[PHARAOH_WINDOWS_DEFAULT_NAME_CAPACITY];

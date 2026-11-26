@@ -16,4 +16,7 @@ void *pharaoh_memory_move(void *destination, const void *source, size_t count);
 void pharaoh_memory_copy_forward_words64(const void *source,void *destination,int count);
 
 void pharaoh_memory_copy_forward(const unsigned char *source,unsigned char *destination,int count);
+void pharaoh_text_truncate_at_pointer(
+    unsigned char *begin, unsigned char *end);
+
 #endif

@@ -361,3 +361,18 @@ void pharaoh_player_name_choices_draw(
     operations->draw_language(operations->user_data, 18, 3,
         panel_x + 329, panel_y + 418, 71, 635, 0);
 }
+
+/* Complete native C dependency; see evidence/shared-text-input-native-20261126.json. */
+char *pharaoh_player_record_path(char *destination, const char *name)
+{
+    const char *source = "save\\";
+    char *output = destination;
+    while ((*output++ = *source++) != '\0') {}
+    --output;
+    source = name;
+    while ((*output++ = *source++) != '\0') {}
+    --output;
+    source = ".dat";
+    while ((*output++ = *source++) != '\0') {}
+    return destination;
+}

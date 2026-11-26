@@ -126,32 +126,37 @@ static int32_t present_video_surface(void *user_data, void *primary_surface,
     int32_t source_x, int32_t source_y,
     uint32_t source_width, uint32_t source_height)
 {
-    LPDIRECTDRAWSURFACE display = (LPDIRECTDRAWSURFACE)primary_surface;
-    LPDIRECTDRAWSURFACE source = (LPDIRECTDRAWSURFACE)video_surface;
-    const int32_t client_width = destination->right - destination->left;
-    const int32_t client_height = destination->bottom - destination->top;
-    const int32_t frame_left = destination->left +
-        (client_width - (int32_t)source_width) / 2;
-    const int32_t frame_top = destination->top +
-        (client_height - (int32_t)source_height) / 2;
-    RECT destination_rectangle = { frame_left, frame_top,
+    PharaohWindowsBink *const backend = user_data;
+    LPDIRECTDRAWSURFACE const display = primary_surface;
+    LPDIRECTDRAWSURFACE const source = video_surface;
+    LPDIRECTDRAWSURFACE const frame = backend->presentation_surface;
+    const int32_t frame_left =
+        ((int32_t)backend->presentation_width - (int32_t)source_width) / 2;
+    const int32_t frame_top =
+        ((int32_t)backend->presentation_height - (int32_t)source_height) / 2;
+    RECT movie_rectangle = { frame_left, frame_top,
         frame_left + (LONG)source_width, frame_top + (LONG)source_height };
     RECT source_rectangle = { source_x, source_y,
         source_x + (LONG)source_width, source_y + (LONG)source_height };
+    RECT frame_rectangle = { 0, 0,
+        (LONG)backend->presentation_width, (LONG)backend->presentation_height };
     RECT client_rectangle = { destination->left, destination->top,
         destination->right, destination->bottom };
     DDBLTFX clear = { 0 };
-    (void)user_data;
     clear.dwSize = sizeof(clear);
-    /* A moved/resized client can expose pixels from the previous loading
-       frame. Clear its complete current rectangle, including movie margins. */
-    const HRESULT clear_result = display->lpVtbl->Blt(display,
-        &client_rectangle, NULL, NULL, DDBLT_COLORFILL | DDBLT_WAIT, &clear);
-    if (clear_result != DD_OK) {
-        return (int32_t)clear_result;
-    }
-    return (int32_t)display->lpVtbl->Blt(display, &destination_rectangle,
+    HRESULT result = frame->lpVtbl->IsLost(frame);
+    if (result == DDERR_SURFACELOST) result = frame->lpVtbl->Restore(frame);
+    if (result != DD_OK) return (int32_t)result;
+    result = frame->lpVtbl->Blt(frame, &frame_rectangle,
+        NULL, NULL, DDBLT_COLORFILL | DDBLT_WAIT, &clear);
+    if (result != DD_OK) return (int32_t)result;
+    result = frame->lpVtbl->Blt(frame, &movie_rectangle,
         source, &source_rectangle, DDBLT_WAIT, NULL);
+    if (result != DD_OK) return (int32_t)result;
+    /* Native 00426F60 leaves black around the centered movie. Present the
+       complete composed frame in one operation, as other windowed scenes do. */
+    return (int32_t)display->lpVtbl->Blt(display, &client_rectangle,
+        frame, &frame_rectangle, DDBLT_WAIT, NULL);
 }
 
 static uint32_t bink_surface_type(void *user_data, void *surface)
@@ -179,7 +184,7 @@ void pharaoh_windows_bink_bind_video_operations(
     PharaohVideoLoopOperations *loop, PharaohVideoOpenOperations *open,
     PharaohVideoBlitContext *blit)
 {
-    backend->blit_operations.surface_user_data = NULL;
+    backend->blit_operations.surface_user_data = backend;
     backend->blit_operations.bink_user_data = backend;
     backend->blit_operations.lock_video_surface = lock_primary_surface;
     backend->blit_operations.restore_surface = restore_primary_surface;

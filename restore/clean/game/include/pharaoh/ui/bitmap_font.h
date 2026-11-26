@@ -17,11 +17,12 @@ typedef struct PharaohBitmapFont {
 typedef struct PharaohBitmapTextDrawState {
     int32_t cursor_x, cursor_y;
     int32_t encoded_character_index;
+    const char *encoded_text_00e34338;
     uint32_t hash_mode, character_index;
     uint32_t anchor_captured;
     int32_t anchor_advance, anchor_x, anchor_y;
     uint8_t previous_space, duplicate_space;
-    uint32_t cursor_slot;
+    const int32_t *cursor_slot; /* aliases text-input active field */
     const int32_t *cursor_limits;
     uint32_t outline, vertical_shadow, diagonal_shadow;
     uint32_t *current_glyph;
@@ -59,6 +60,9 @@ typedef struct PharaohBitmapTextCatalogWrappedNativeContext {
     const PharaohBitmapWrappedNativeContext *drawing;
     const char **current_text_00e20768;
 } PharaohBitmapTextCatalogWrappedNativeContext;
+
+/* Native raw-byte map, including the 32 bytes preceding printable glyphs. */
+const uint8_t *pharaoh_bitmap_native_glyph_map(void);
 
 /* Complete width owner 0x004CBF30 and glyph renderer 0x004CCA60. */
 int32_t pharaoh_bitmap_text_width(const PharaohBitmapFont *font, const uint8_t *text);

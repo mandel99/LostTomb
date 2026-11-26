@@ -649,6 +649,38 @@ static uint32_t menu_group_image(const PharaohWindowsStartupHost *host,
     return host->sprite_tags[native_group].image_index;
 }
 
+static const PharaohBitmapFont *native_font_view(PharaohWindowsStartupHost *host,
+    int32_t tag)
+{
+    if (tag < 634 || tag > 641) return NULL;
+    PharaohBitmapFont *const font = &host->bitmap_fonts[tag - 634];
+    font->images = host->sprite_images;
+    font->image_count = host->loaded_libraries->next_image;
+    font->first_image = menu_group_image(host, (uint32_t)tag);
+    font->measure_space = tag == 634 ? 4 : tag >= 640 ? 10 : 6;
+    font->draw_space = tag == 634 ? 4 : tag >= 640 ? 8 : 6;
+    font->measure_gap = tag == 634 || tag >= 640 ? 1 : 0;
+    font->draw_gap = tag == 634 ? 1 : 0;
+    font->baseline = tag == 634 ? 9 : tag == 640 ? 23 : tag == 641 ? 24 : 11;
+    font->user_data = host;
+    font->current_glyph = &host->bitmap_current_glyph;
+    font->draw_glyph = draw_font_glyph;
+    host->text_input.drawing.font_id_small = menu_group_image(host, 634);
+    host->text_input.drawing.font_id_large_a = menu_group_image(host, 640);
+    host->text_input.drawing.font_id_large_b = menu_group_image(host, 641);
+    return font;
+}
+
+static const PharaohBitmapFont *resolve_native_font(void *data, uint32_t image)
+{
+    PharaohWindowsStartupHost *const host = data;
+    for (int32_t tag = 634; tag <= 641; ++tag) {
+        const PharaohBitmapFont *const font = native_font_view(host, tag);
+        if (font->first_image == image) return font;
+    }
+    return NULL; /* Caller requires a loaded native font asset. */
+}
+
 static int32_t general_image(const PharaohWindowsStartupHost *host,
     int32_t image)
 {
@@ -665,30 +697,21 @@ static int32_t general_local_image(const PharaohWindowsStartupHost *host,
 }
 
 static void draw_menu_language(void *data, int32_t group, int32_t entry,
-    int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
+    int32_t x, int32_t y, int32_t width, int32_t tag, int32_t color)
 {
     PharaohWindowsStartupHost *const host = data;
-    PharaohBitmapFont bitmap_font = { 0 };
-    pharaoh_text_select(&host->text_selection, group, entry);
-    if (host->text_selection.current == NULL) return;
-    if (font < 634 || font > 641) return;
-    bitmap_font.images = host->sprite_images;
-    bitmap_font.image_count = host->loaded_libraries->next_image;
-    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
-    const int32_t is_small_font = font == 634;
-    const int32_t is_large_font = font == 640 || font == 641;
-    /* Native width (004CBF30) and drawing (004CC770) intentionally use
-       different space widths for the two large fonts. */
-    bitmap_font.measure_space = is_small_font ? 4 : is_large_font ? 10 : 6;
-    bitmap_font.draw_space = is_small_font ? 4 : is_large_font ? 8 : 6;
-    bitmap_font.measure_gap = is_small_font || is_large_font ? 1 : 0;
-    bitmap_font.draw_gap = is_small_font ? 1 : 0;
-    bitmap_font.baseline = is_small_font ? 9 : font == 640 ? 23 : font == 641 ? 24 : 11;
-    bitmap_font.user_data = host;
-    bitmap_font.draw_glyph = draw_font_glyph;
-    if (bitmap_font.first_image == 0) return;
-    pharaoh_bitmap_text_draw_centered(&bitmap_font,
-        (const uint8_t *)host->text_selection.current, x, y, width, (uint16_t)color);
+    const PharaohBitmapFont *const font = native_font_view(host, tag);
+    if (font == NULL || font->first_image == 0) return;
+    const PharaohBitmapTextCenteredNativeContext drawing = {
+        font, &host->text_input.drawing, pharaoh_bitmap_native_glyph_map(),
+        &host->bitmap_center_offset
+    };
+    const PharaohBitmapTextCatalogCenteredNativeContext catalog = {
+        &host->text_selection, &drawing, &host->text_selection.current,
+        &host->text_input.drawing.reset_flag
+    };
+    pharaoh_bitmap_text_draw_catalog_centered_native(&catalog, group, entry,
+        x, y, width, (int32_t)font->first_image, (uint16_t)color);
 }
 
 static void main_menu_draw_border(void *data, int32_t style, int32_t x,
@@ -788,84 +811,46 @@ static void high_score_draw_centered_language(void *user_data, int32_t group,
     draw_menu_language(user_data, group, entry, x, y, width, font, color);
 }
 
-static int32_t high_score_draw_language(void *user_data, int32_t group,
-    int32_t entry, int32_t x, int32_t y, int32_t font, int32_t color)
+static int32_t high_score_draw_language(void *data, int32_t group,
+    int32_t entry, int32_t x, int32_t y, int32_t tag, int32_t color)
 {
-    PharaohWindowsStartupHost *const host = user_data;
-    PharaohBitmapFont bitmap_font = { 0 };
+    PharaohWindowsStartupHost *const host = data;
+    const PharaohBitmapFont *const font = native_font_view(host, tag);
+    if (font == NULL || font->first_image == 0) return x;
     pharaoh_text_select(&host->text_selection, group, entry);
-    if (host->text_selection.current == NULL || font < 634 || font > 641) {
-        return x;
-    }
-    bitmap_font.images = host->sprite_images;
-    bitmap_font.image_count = host->loaded_libraries->next_image;
-    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
-    bitmap_font.measure_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 10 : 6;
-    bitmap_font.draw_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 8 : 6;
-    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
-    bitmap_font.draw_gap = font == 634 ? 1 : 0;
-    bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
-        font == 641 ? 24 : 11;
-    bitmap_font.user_data = host;
-    bitmap_font.draw_glyph = draw_font_glyph;
-    if (bitmap_font.first_image == 0) return x;
-    const int32_t width = pharaoh_bitmap_text_width(&bitmap_font,
-        (const uint8_t *)host->text_selection.current);
-    pharaoh_bitmap_text_draw_at(&bitmap_font,
-        (const uint8_t *)host->text_selection.current, x, y, (uint16_t)color);
-    return x + width;
+    if (host->text_selection.current == NULL) return x;
+    const int32_t width = pharaoh_bitmap_text_width_native(font,
+        (const uint8_t *)host->text_selection.current,
+        pharaoh_bitmap_native_glyph_map(), &host->bitmap_current_glyph);
+    pharaoh_bitmap_text_draw_selection_native(font, &host->text_input.drawing,
+        &host->text_selection, group, entry, x, y,
+        (int32_t)font->first_image, (uint16_t)color);
+    return (int32_t)((uint32_t)x + (uint32_t)width);
 }
 
-static void high_score_draw_text(void *user_data, const char *text,
-    int32_t x, int32_t y, int32_t font, int32_t color)
+static void high_score_draw_text(void *data, const char *text,
+    int32_t x, int32_t y, int32_t tag, int32_t color)
 {
-    PharaohWindowsStartupHost *const host = user_data;
-    PharaohBitmapFont bitmap_font = { 0 };
-    if (text == NULL || font < 634 || font > 641) return;
-    bitmap_font.images = host->sprite_images;
-    bitmap_font.image_count = host->loaded_libraries->next_image;
-    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
-    bitmap_font.measure_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 10 : 6;
-    bitmap_font.draw_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 8 : 6;
-    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
-    bitmap_font.draw_gap = font == 634 ? 1 : 0;
-    bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
-        font == 641 ? 24 : 11;
-    bitmap_font.user_data = host;
-    bitmap_font.draw_glyph = draw_font_glyph;
-    if (bitmap_font.first_image != 0) {
-        pharaoh_bitmap_text_draw_at(&bitmap_font, (const uint8_t *)text,
-            x, y, (uint16_t)color);
-    }
+    PharaohWindowsStartupHost *const host = data;
+    const PharaohBitmapFont *const font = native_font_view(host, tag);
+    if (text == NULL || font == NULL || font->first_image == 0) return;
+    host->text_input.drawing.font_id = font->first_image;
+    pharaoh_bitmap_text_draw_native(font, &host->text_input.drawing,
+        (const uint8_t *)text, x, y, (uint16_t)color);
 }
 
-static void high_score_draw_centered_text(void *user_data, const char *text,
-    int32_t x, int32_t y, int32_t width, int32_t font, int32_t color)
+static void high_score_draw_centered_text(void *data, const char *text,
+    int32_t x, int32_t y, int32_t width, int32_t tag, int32_t color)
 {
-    PharaohWindowsStartupHost *const host = user_data;
-    PharaohBitmapFont bitmap_font = { 0 };
-    if (text == NULL || font < 634 || font > 641) return;
-    bitmap_font.images = host->sprite_images;
-    bitmap_font.image_count = host->loaded_libraries->next_image;
-    bitmap_font.first_image = menu_group_image(host, (uint32_t)font);
-    bitmap_font.measure_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 10 : 6;
-    bitmap_font.draw_space = font == 634 ? 4 :
-        (font == 640 || font == 641) ? 8 : 6;
-    bitmap_font.measure_gap = font == 634 || font >= 640 ? 1 : 0;
-    bitmap_font.draw_gap = font == 634 ? 1 : 0;
-    bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
-        font == 641 ? 24 : 11;
-    bitmap_font.user_data = host;
-    bitmap_font.draw_glyph = draw_font_glyph;
-    if (bitmap_font.first_image != 0) {
-        pharaoh_bitmap_text_draw_centered(&bitmap_font,
-            (const uint8_t *)text, x, y, width, (uint16_t)color);
-    }
+    PharaohWindowsStartupHost *const host = data;
+    const PharaohBitmapFont *const font = native_font_view(host, tag);
+    if (text == NULL || font == NULL || font->first_image == 0) return;
+    const PharaohBitmapTextCenteredNativeContext drawing = {
+        font, &host->text_input.drawing, pharaoh_bitmap_native_glyph_map(),
+        &host->bitmap_center_offset
+    };
+    pharaoh_bitmap_text_draw_centered_native(&drawing, (const uint8_t *)text,
+        x, y, width, (int32_t)font->first_image, (uint16_t)color);
 }
 
 static void high_score_draw_wrapped_text(void *user_data, const char *text,
@@ -2182,6 +2167,11 @@ PharaohApplicationConfigurationResult pharaoh_windows_startup_host_load(
     PharaohWindowsStartupHost *host)
 {
     memset(host, 0, sizeof(*host));
+    pharaoh_text_input_bind_drawing(&host->text_input);
+    host->text_input.drawing.current_glyph = &host->bitmap_current_glyph;
+    host->text_input.drawing.encoded_text_00e34338 = host->bitmap_text_buffers + 256;
+    host->text_input.resolve_font = resolve_native_font;
+    host->text_input.font_user_data = host;
     pharaoh_windows_startup_file_operations_bind(
         &host->file_operations, &host->file_size_operations,
         &host->text_operations,
@@ -2463,9 +2453,20 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
         pharaoh_windows_bink_close_library(&host->bink);
         return 0;
     }
+    LPDIRECTDRAWSURFACE const presentation_surface =
+        pharaoh_graphics_offscreen_surface_create(&host->graphics,
+            &host->graphics_operations,
+            (uint32_t)host->graphics.render_width,
+            (uint32_t)host->graphics.render_height, 1);
+    if (presentation_surface == NULL) {
+        (void)movie_surface->lpVtbl->Release(movie_surface);
+        pharaoh_windows_bink_close_library(&host->bink);
+        return 0;
+    }
     if (host->graphics_operations.fill_surface(
             host->graphics_operations.user_data, movie_surface,
             DDBLT_COLORFILL | DDBLT_WAIT, 0) != DD_OK) {
+        (void)presentation_surface->lpVtbl->Release(presentation_surface);
         (void)movie_surface->lpVtbl->Release(movie_surface);
         pharaoh_windows_bink_close_library(&host->bink);
         return 0;
@@ -2499,6 +2500,9 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
     host->video_runtime.screen_width = (uint32_t)host->graphics.screen_width;
     host->video_runtime.screen_height = (uint32_t)host->graphics.screen_height;
     host->video_runtime.movie_drive_letter = host->detected_drive_letter;
+    host->bink.presentation_surface = presentation_surface;
+    host->bink.presentation_width = (uint32_t)host->graphics.render_width;
+    host->bink.presentation_height = (uint32_t)host->graphics.render_height;
     host->video_blit.primary_surface = host->graphics.primary_surface;
     /* Native 00413470 decodes into primary, leaving the cleared scene back
        buffer untouched. Use a private decode surface for the windowed blit:
@@ -2517,6 +2521,8 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
 
     const int32_t played = pharaoh_video_player_play(player,
         &host->video_runtime, filename, x, y, &host->video_open);
+    (void)presentation_surface->lpVtbl->Release(presentation_surface);
+    host->bink.presentation_surface = NULL;
     (void)movie_surface->lpVtbl->Release(movie_surface);
     host->video_blit.video_surface = NULL;
     pharaoh_windows_bink_close_library(&host->bink);

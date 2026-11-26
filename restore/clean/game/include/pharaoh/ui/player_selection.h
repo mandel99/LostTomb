@@ -82,4 +82,6 @@ void pharaoh_player_name_choices_draw(
     const PharaohPlayerSelectionDrawOperations *operations,
     int32_t origin_x, int32_t origin_y, int32_t focused_button);
 
+char *pharaoh_player_record_path(char *destination, const char *name);
+
 #endif

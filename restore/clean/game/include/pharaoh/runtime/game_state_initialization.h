@@ -27,7 +27,6 @@ typedef struct PharaohGameStateInitState {
     int32_t debug_walker_info_enabled;
     int32_t city_view_orientation;
     int32_t map_view_orientation;
-    int32_t keyboard_field_index;
 } PharaohGameStateInitState;
 
 typedef struct PharaohGameStateInitTextBuffers {

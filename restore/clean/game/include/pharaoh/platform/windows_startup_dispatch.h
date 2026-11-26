@@ -29,6 +29,8 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohMessageBoxState exit_message_box;
     PharaohFileList player_profile_files;
     PharaohPlayerSelectionState player_selection;
+    int32_t player_selection_return_window;
+    char ui_feedback_countdown;
     PharaohFileList saved_game_files;
     int32_t saved_game_first_visible, saved_game_selected_row;
     uint8_t saved_game_error_countdown;

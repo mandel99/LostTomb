@@ -6,9 +6,11 @@
 
 #include <string.h>
 
-/* Pinned EXE character-to-glyph data at 005E049C, bytes for codes 32..255.
+/* Pinned EXE raw-byte map at 005E047C; printable entries start at 005E049C.
    This is copied data, not an address used by the restored process. */
-static const uint8_t glyph_ids[224] = {
+static const uint8_t native_glyph_map[256] = {
+    0xb1, 0x01, 0x59, 0x01, 0x70, 0xb9, 0x4c, 0x00, 0x80, 0xf7, 0x51, 0x00, 0x00, 0x00, 0x00, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x73, 0x61, 0x76, 0x65, 0x5c, 0x00, 0x00, 0x00,
     0x00, 0x3f, 0x40, 0x00, 0x00, 0x41, 0x00, 0x4a, 0x43, 0x44, 0x42, 0x46, 0x4e, 0x45, 0x4f, 0x4d,
     0x3e, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x48, 0x49, 0x00, 0x47, 0x00, 0x4b,
     0x00, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29,
@@ -22,8 +24,13 @@ static const uint8_t glyph_ids[224] = {
     0x72, 0x70, 0x71, 0x71, 0x69, 0x83, 0x6d, 0x65, 0x74, 0x6a, 0x73, 0x73, 0x77, 0x75, 0x76, 0x76,
     0x00, 0x6c, 0x7a, 0x78, 0x79, 0x79, 0x7b, 0x00, 0x84, 0x7e, 0x7c, 0x7d, 0x6b, 0x33, 0x00, 0x68,
     0x53, 0x52, 0x54, 0x51, 0x51, 0x85, 0x67, 0x65, 0x57, 0x56, 0x58, 0x55, 0x5b, 0x5a, 0x5c, 0x59,
-    0x00, 0x66, 0x5f, 0x5e, 0x60, 0x60, 0x5d, 0x00, 0x86, 0x63, 0x62, 0x64, 0x61, 0x19, 0x00, 0x19
+    0x00, 0x66, 0x5f, 0x5e, 0x60, 0x60, 0x5d, 0x00, 0x86, 0x63, 0x62, 0x64, 0x61, 0x19, 0x00, 0x19,
 };
+
+const uint8_t *pharaoh_bitmap_native_glyph_map(void)
+{
+    return native_glyph_map;
+}
 
 /* Printable startup-label metrics. The full native owner below also exposes
    the live glyph write, control-byte map and image0 fallback. */
@@ -34,8 +41,8 @@ int32_t pharaoh_bitmap_text_width(const PharaohBitmapFont *font,
     for (uint32_t i = 0; i < 10000 && text[i] != 0; ++i) {
         const uint8_t c = text[i];
         if (c == ' ') width += font->measure_space;
-        else if (c >= 32 && glyph_ids[c - 32] != 0) {
-            const uint32_t image = font->first_image + glyph_ids[c - 32] - 1u;
+        else if (c >= 32 && native_glyph_map[c] != 0) {
+            const uint32_t image = font->first_image + native_glyph_map[c] - 1u;
             if (image < font->image_count)
                 width += font->images[image].width + font->measure_gap;
         }
@@ -94,7 +101,7 @@ int32_t pharaoh_bitmap_text_draw_advance(const PharaohBitmapFont *font,
         uint8_t c = text[i];
         if (c == '#' || c == '_') c = ' ';
         if (c < 32) continue;
-        const uint8_t glyph = glyph_ids[c - 32];
+        const uint8_t glyph = native_glyph_map[c];
         if (glyph == 0) {
             width += font->draw_space;
         } else {
@@ -119,11 +126,11 @@ int32_t pharaoh_bitmap_font_draw_glyph(const PharaohBitmapFont *font,
     uint32_t metric_image;
     int32_t accent;
 
-    if (character_index >= sizeof(glyph_ids)) {
+    if (character_index >= 224u) {
         *current_glyph = 0;
         return 0;
     }
-    glyph = glyph_ids[character_index];
+    glyph = native_glyph_map[(uint32_t)character_index + 32u];
     *current_glyph = glyph;
     if (glyph == 0) return 0;
 
@@ -186,14 +193,14 @@ void pharaoh_bitmap_text_draw_native(const PharaohBitmapFont *font,
         }
         if (character == '#') {
             draw_character = state->hash_mode == 1 ?
-                pharaoh_text_next_character((const char *)text,
+                pharaoh_text_next_character(state->encoded_text_00e34338,
                     &state->encoded_character_index) : (uint8_t)' ';
         }
         if (draw_character == '_') draw_character = ' ';
         if (draw_character > 31) {
             const uint8_t glyph = (uint8_t)(draw_character - 32);
             advance = space;
-            if (glyph_ids[glyph] != 0) {
+            if (native_glyph_map[(uint32_t)glyph + 32u] != 0) {
                 if (!state->outline && state->vertical_shadow) {
                     state->color = 0;
                     (void)pharaoh_bitmap_font_draw_glyph(&draw_font, glyph,
@@ -216,7 +223,7 @@ void pharaoh_bitmap_text_draw_native(const PharaohBitmapFont *font,
             }
 positioned:
             if (state->character_index ==
-                    (uint32_t)state->cursor_limits[state->cursor_slot] &&
+                    (uint32_t)state->cursor_limits[*state->cursor_slot] &&
                 !state->anchor_captured) {
                 state->anchor_x = state->cursor_x;
                 state->anchor_y = state->cursor_y;
@@ -230,7 +237,7 @@ positioned:
             ++text;
             character = *text;
         } else {
-            character = pharaoh_text_next_character((const char *)text,
+            character = pharaoh_text_next_character(state->encoded_text_00e34338,
                 &state->encoded_character_index);
         }
         ++state->character_index;
@@ -298,7 +305,7 @@ void pharaoh_bitmap_text_draw_at(const PharaohBitmapFont *font,
         /* Startup labels use native hash mode zero, where # and _ are spaces. */
         if (c == '#' || c == '_') c = ' ';
         if (c < 32) continue;
-        const uint8_t glyph = glyph_ids[c - 32];
+        const uint8_t glyph = native_glyph_map[c];
         if (glyph == 0) { x += font->draw_space; continue; }
         uint32_t unused_current_glyph;
         uint32_t *const current_glyph = font->current_glyph != NULL ?
@@ -439,7 +446,7 @@ int32_t pharaoh_bitmap_wrapped_word_width(const PharaohBitmapFont *font,
             if (has_glyph != 0) break;
             width += 4;
         } else if (c != '$' && c >= 32) {
-            const uint8_t glyph = glyph_ids[c - 32];
+            const uint8_t glyph = native_glyph_map[c];
             if (glyph != 0) {
                 const uint32_t image = font->first_image + glyph - 1u;
                 if (image < font->image_count) {
