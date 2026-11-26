@@ -157,6 +157,7 @@ add_library(pharaoh_game STATIC
     game/runtime/file_list.c
     game/runtime/file_size.c
     game/runtime/crt_error_translation.c
+    game/runtime/crt_lowio.c
     game/runtime/current_directory.c
     game/runtime/file_directory_reset.c
     game/runtime/file_exists.c

@@ -1,0 +1,74 @@
+{
+  "evidence_id": "crt-lowio-set-handle-20261126",
+  "authority": {
+    "binary": "C:/Program Files (x86)/GOG.com/Pharaoh/Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "provider": "live Ghidra headless project PharaohRewrite",
+  "native_functions": [
+    {
+      "address": "0x005668D5",
+      "name": "FUN_005668d5",
+      "prototype": "uint32_t (descriptor, handle_bits)",
+      "caller": "0x00568EC2",
+      "call_site": "0x005690B6",
+      "callees": [
+        "KERNEL32.SetStdHandle"
+      ],
+      "effects": [
+        "For descriptor below capacity, require slot handle == 0xffffffff.",
+        "If standard-handle mode is 1 and descriptor <= 2, call SetStdHandle(0xfffffff6 - descriptor, handle_bits).",
+        "Reload the slot table after SetStdHandle, store handle_bits, return 0. Otherwise set dos_error=0 and errno=9; return 0xffffffff."
+      ]
+    },
+    {
+      "address": "0x005669C6",
+      "name": "FUN_005669c6",
+      "callers": [
+        "0x00562517",
+        "0x005647EB",
+        "0x005662E3",
+        "0x0056A711"
+      ],
+      "callees": [],
+      "effects": [
+        "Return the slot handle only when descriptor is below capacity and slot flag bit 0 is set; otherwise dos_error=0, errno=9, return 0xffffffff."
+      ]
+    },
+    {
+      "address": "0x0056B22E",
+      "name": "FUN_0056b22e",
+      "callers": [
+        "0x00443EA0",
+        "0x004CBA60",
+        "0x004CEB10",
+        "0x004CEB60"
+      ],
+      "callees": [],
+      "effects": [
+        "Return the dword at stream offset 0x10."
+      ]
+    }
+  ],
+  "reuse": {
+    "old_project_source": "C:/Users/Daniel/Documents/ChatGPT/PH Local Decompile/reused/restore/game/functions/CrtSetOsHandle.c",
+    "sha256": "bfc437b4cf3e8e381d51ac7afbe3901eb256518a72f6a7c4556e9b3478dd680c",
+    "result": "Complete typed C translation found; it retains the table reload after SetStdHandle. Numeric/mixed matches are wrappers only."
+  },
+  "clean_files": {
+    "source": "game/runtime/crt_lowio.c",
+    "source_sha256": "137f948086df2079f94dbf06f4ba7dbb235d437b935bd004b73d94b012300c37",
+    "header": "game/include/pharaoh/runtime/crt_lowio.h",
+    "header_sha256": "c4f6304024cbf612de6f911e6c66bff0ac7566e99e4ee9224a15499105500ce5",
+    "cmake_sha256_after_clean_source_registration": "e03bcc7e87570da6c8e9a6bcb498cfecf3d9a4ce7cc79a154119993adb14acca"
+  },
+  "verification": {
+    "release_build": "passed with required Release target; pharaoh_game.lib and LostTomb.exe linked",
+    "tests": "not run",
+    "native_c_replay": "not performed"
+  },
+  "remaining_gaps": [
+    "The CRT open parent 0x00568EC2 and its remaining calls are not fully translated.",
+    "No native/C replay of 0x005668D5; state binding to the original lowio globals remains a host integration requirement."
+  ]
+}
