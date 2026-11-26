@@ -430,6 +430,7 @@ if(WIN32)
         game/platform/windows_startup.c
         game/platform/windows_startup_files.c
         game/platform/windows_startup_host.c
+        game/platform/windows_city_ui.c
         game/platform/windows_startup_dispatch.c
         game/platform/windows_sound.c
         game/platform/windows_bink.c

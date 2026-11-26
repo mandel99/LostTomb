@@ -1,4 +1,5 @@
 #include "pharaoh/platform/windows_startup_dispatch.h"
+#include "pharaoh/platform/windows_city_ui.h"
 #include "pharaoh/ui/campaign_menu.h"
 #include "pharaoh/ui/front_menu_action.h"
 #include "pharaoh/ui/main_menu.h"
@@ -824,6 +825,7 @@ void pharaoh_windows_startup_dispatch_close(
         pharaoh_smacker_window_video_stop(dispatch->transition.video,
             &dispatch->movie_stop);
     }
+    pharaoh_windows_city_ui_release(dispatch->host);
     pharaoh_file_list_destroy(&dispatch->player_profile_files);
     pharaoh_file_list_destroy(&dispatch->saved_game_files);
     pharaoh_file_list_destroy(&dispatch->custom_map_files);

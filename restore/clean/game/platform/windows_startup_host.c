@@ -680,6 +680,12 @@ static const PharaohBitmapFont *native_font_view(PharaohWindowsStartupHost *host
     return font;
 }
 
+const PharaohBitmapFont *pharaoh_windows_startup_host_native_font(
+    PharaohWindowsStartupHost *host,int32_t tag)
+{
+    return native_font_view(host,tag);
+}
+
 static const PharaohBitmapFont *resolve_native_font(void *data, uint32_t image)
 {
     PharaohWindowsStartupHost *const host = data;

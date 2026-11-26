@@ -104,6 +104,7 @@ typedef struct PharaohWindowsStartupHost {
     uint8_t *game_frame_pixels;
     int32_t game_frame_pitch_bytes;
     struct PharaohImageDrawContext *game_image_draw;
+    struct PharaohWindowsCityUi *city_ui;
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];
     PharaohSettingsFile settings;
@@ -165,6 +166,10 @@ void pharaoh_windows_startup_host_present_loading(
 
 void pharaoh_windows_startup_host_present_frame(
     PharaohWindowsStartupHost *host);
+
+/* Loaded native font asset view (tags634..641); glyphs share host state. */
+const PharaohBitmapFont *pharaoh_windows_startup_host_native_font(
+    PharaohWindowsStartupHost *, int32_t tag);
 
 /* Locks the existing native-format 16-bit offscreen surface once for a full
  * city frame. No menu sprite helper may run until end_game_frame. */
