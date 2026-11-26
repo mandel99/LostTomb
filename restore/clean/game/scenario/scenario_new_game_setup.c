@@ -2,6 +2,7 @@
 #include "pharaoh/core/percentage_adjust.h"
 #include "pharaoh/core/static_objects.h"
 #include "pharaoh/core/memory_fill.h"
+#include "pharaoh/editor/event_list.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -72,6 +73,25 @@ void pharaoh_scenario_player_custom_init(
     pharaoh_scenario_player_gods_init(player);
 }
 
+/* Complete typed translation of Pharaoh.exe 0x004B8C90. */
+void pharaoh_scenario_invasion_amounts_clear(
+    PharaohScenarioInvasionResetContext *context)
+{
+    PharaohScenarioEvent *event = NULL;
+    uint32_t index;
+
+    do {
+        event = pharaoh_scenario_invasion_next(context->events,
+            *context->event_count, event, true,
+            context->invasion_search_flag, context->current_event_index);
+        if (event != NULL)
+            pharaoh_editor_event_reset_invasion_data(event);
+    } while (event != NULL);
+
+    for (index = 0; index < 5; ++index)
+        context->invasion_amounts[index] = 0;
+}
+
 static uint32_t terminated_size(const char *text)
 {
     uint32_t size = 0;
@@ -129,8 +149,11 @@ void pharaoh_scenario_new_game_setup(
     *context->current_player = 1;
     *context->player_flag_3 = 1;
     *context->player_flag_2 = 1;
-    for (index = 0; index < 16; ++index)
-        context->reset_steps[index](context->user_data);
+    for (index = 0; index < 12; ++index)
+        context->reset_steps_before_invasion[index](context->user_data);
+    pharaoh_scenario_invasion_amounts_clear(context->invasion_reset);
+    for (index = 0; index < 3; ++index)
+        context->reset_steps_after_invasion[index](context->user_data);
     pharaoh_scenario_runtime_state_reset(context->runtime_reset);
 
     if (*context->editor_mode == 1) {

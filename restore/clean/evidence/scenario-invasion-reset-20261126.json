@@ -1,0 +1,35 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": "live Ghidra analysis of Pharaoh.exe",
+  "reuse_review": {
+    "old_project_match": "generated/decompiled/src/Unit01503.c",
+    "result": "LegacyBindings wrapper calling Original0044BB90 and Original00448A60; no complete typed implementation to migrate."
+  },
+  "functions": {
+    "0x004B8C90": {
+      "owner": "game/scenario/scenario_new_game_setup.c:pharaoh_scenario_invasion_amounts_clear",
+      "caller": {"address": "0x00540A10", "site": "0x00540A8D", "reset_step_index": 12},
+      "callees": [
+        {"address": "0x0044BB90", "sites": ["0x004B8C9C", "0x004B8CB6"]},
+        {"address": "0x00448A60", "site": "0x004B8CA9", "event_in_ECX": true}
+      ],
+      "iteration_contract": {
+        "event_list_header": "0x00785D70",
+        "count_dword": "0x00785D70",
+        "event_records": "0x00785D74",
+        "record_stride": 124,
+        "create_argument": 1,
+        "search_flag_byte": "0x0078A634",
+        "current_event_index_dword": "0x005D9A40"
+      },
+      "cleared_dwords": [
+        "0x00D0562C", "0x00D05630", "0x00D05634",
+        "0x00D05638", "0x00D0563C"
+      ]
+    }
+  },
+  "limitations": [
+    "The clean host still lacks the custom-scenario setup-context constructor.",
+    "No gameplay replay was performed in this checkpoint."
+  ]
+}

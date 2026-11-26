@@ -2,6 +2,7 @@
 #define PHARAOH_SCENARIO_SCENARIO_NEW_GAME_SETUP_H
 
 #include <stdint.h>
+#include "pharaoh/events/event_queries.h"
 
 typedef void (*PharaohScenarioSetupStep)(void *user_data);
 
@@ -13,6 +14,20 @@ typedef struct PharaohScenarioPlayerInitContext {
 
 void pharaoh_scenario_player_custom_init(
     PharaohScenarioPlayerInitContext *context);
+
+typedef struct PharaohScenarioInvasionResetContext {
+    /* Native bindings: events at 0x00785D74; count at 0x00785D70. */
+    PharaohScenarioEvent *events;
+    const int32_t *event_count;
+    /* Native globals: 0x0078A634 and 0x005D9A40. */
+    uint8_t *invasion_search_flag;
+    int32_t *current_event_index;
+    /* Five contiguous native DWORDs beginning at 0x00D0562C. */
+    uint32_t *invasion_amounts;
+} PharaohScenarioInvasionResetContext;
+
+void pharaoh_scenario_invasion_amounts_clear(
+    PharaohScenarioInvasionResetContext *context);
 
 typedef struct PharaohScenarioRuntimeStateResetContext {
     uint32_t (*words_78d7a0)[17];
@@ -35,7 +50,9 @@ typedef struct PharaohScenarioNewGameSetupContext {
     int32_t *current_player;
     uint8_t *player_flag_2;
     uint8_t *player_flag_3;
-    PharaohScenarioSetupStep reset_steps[16];
+    PharaohScenarioSetupStep reset_steps_before_invasion[12];
+    PharaohScenarioInvasionResetContext *invasion_reset;
+    PharaohScenarioSetupStep reset_steps_after_invasion[3];
     PharaohScenarioRuntimeStateResetContext *runtime_reset;
     const uint32_t *editor_mode;
     int32_t *current_climate;
