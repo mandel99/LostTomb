@@ -1,0 +1,39 @@
+{
+  "schema": "losttomb.native-callgraph-verification.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "authority": {
+    "provider": "Ghidra",
+    "program": "Pharaoh.exe",
+    "program_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "project": "PharaohRewrite",
+    "live_recheck": "2026-11-26"
+  },
+  "parent": {
+    "address": "0x00436B60",
+    "owner": "game/rendering/city_top.c:pharaoh_city_draw_top",
+    "callers": [
+      {"address":"0x00430D30","call_site":"0x00430DFD"},
+      {"address":"0x00430E60","call_site":"0x00430EB3"}
+    ],
+    "renderer_calls": [
+      {"address":"0x0041FFF0","call_site":"0x00437320"},
+      {"address":"0x00420050","call_site":"0x0043736F"},
+      {"address":"0x00420A30","call_site":"0x00436F94"},
+      {"address":"0x00420D60","call_site":"0x004373E9"},
+      {"address":"0x00421060","call_site":"0x00437454"}
+    ]
+  },
+  "functions": [
+    {"address":"0x0041FFF0","owner":"game/rendering/monument_spot_draw.c:pharaoh_sphinx_draw_work_spots","table_start":"0x005C2750","table_end_exclusive":"0x005C28B0","stride_bytes":16,"entry_count":22,"callers":["0x00436B60"],"callees":["0x0041F910","0x0053E590"]},
+    {"address":"0x00420050","owner":"game/rendering/monument_spot_draw.c:pharaoh_sun_temple_draw_work_spots","table_start":"0x00596088","table_end_exclusive":"0x00596158","stride_bytes":16,"entry_count":13,"callers":["0x00436B60"],"callees":["0x0041F910","0x0053E590"]},
+    {"address":"0x00420A30","owner":"game/rendering/monument_spot_draw.c:pharaoh_abu_simbel_draw_work_spots","table_start":"0x005A8148","table_end_exclusive":"0x005A84C8","stride_bytes":16,"entry_count":56,"callers":["0x00436B60"],"callees":["0x0041F910","0x0053E590"]},
+    {"address":"0x00420D60","owner":"game/rendering/monument_spot_draw.c:pharaoh_caesareum_draw_work_spots","table_start":"0x005AD218","table_end_exclusive":"0x005AD3C8","stride_bytes":16,"entry_count":27,"callers":["0x00436B60"],"callees":["0x0041F910","0x0053E590"]},
+    {"address":"0x00421060","owner":"game/rendering/monument_spot_draw.c:pharaoh_lighthouse_draw_work_spots","table_start":"0x005B0060","table_end_exclusive":"0x005B0150","stride_bytes":16,"entry_count":15,"callers":["0x00436B60"],"callees":["0x0041F910","0x0053E590"]}
+  ],
+  "translation_contract": "Each loop reads one 16-byte work-spot binding, calls 0x0041F910 for image and offsets, and calls DrawSpriteNative (0x0053E590) only when the image is nonzero, using origin plus returned offsets. The C owner shares draw_group and passes the original table count and image-draw callback.",
+  "rea": {
+    "live_provider_status": "unavailable",
+    "reason": "REA MCP returned Transport closed; saved pinned-executable Ghidra table evidence remains at evidence/monument-spot-draw-groups-20261124.json."
+  },
+  "limitations": ["This is static call-graph and table-bound verification, not a native-versus-C rendering replay.", "The full menu-to-gameplay path and complete gameplay equivalence remain unproven."]
+}
