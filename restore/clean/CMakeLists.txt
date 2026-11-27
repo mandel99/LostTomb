@@ -330,6 +330,8 @@ add_library(pharaoh_game STATIC
     game/ui/advisor_initialize.c
     game/ui/advisor_open.c
     game/ui/city_input_actions.c
+    game/ui/city_map_input.c
+    game/monuments/pyramid_preview.c
     game/ui/message_dialog_live.c
     game/city/labor.c
     game/map/ferry_routing.c

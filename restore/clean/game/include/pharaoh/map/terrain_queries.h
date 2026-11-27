@@ -48,4 +48,11 @@ int32_t pharaoh_map_has_road_access_granary(
 int32_t pharaoh_map_general_direction(
     int32_t from_x, int32_t from_y, int32_t to_x, int32_t to_y);
 
+typedef uint32_t (*PharaohMapRingVisitor)(
+    uint32_t tile, int32_t x, int32_t y, void *context);
+
+void pharaoh_map_visit_diamond_rings(
+    const PharaohMapGridGeometry *geometry, int32_t center_tile,
+    int32_t radius, PharaohMapRingVisitor visitor, void *context);
+
 #endif

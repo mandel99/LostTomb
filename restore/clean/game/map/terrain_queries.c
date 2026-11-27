@@ -222,3 +222,54 @@ int32_t pharaoh_map_general_direction(
     if (to_y == from_y) return 2;
     return 3;
 }
+
+void pharaoh_map_visit_diamond_rings(
+    const PharaohMapGridGeometry *geometry, int32_t center_tile,
+    int32_t radius, PharaohMapRingVisitor visitor, void *context)
+{
+    int32_t raw_top = center_tile / PHARAOH_MAP_GRID_WIDTH;
+    int32_t raw_bottom = raw_top;
+    const int32_t diagonal = center_tile % PHARAOH_MAP_GRID_WIDTH - raw_top;
+    int32_t ring;
+
+    for (ring = 0; ring < radius; ++ring, --raw_top, ++raw_bottom) {
+        int32_t left = diagonal + raw_top;
+        int32_t right = diagonal + raw_bottom;
+        int32_t top = raw_top;
+        int32_t bottom = raw_bottom;
+        const int32_t left_inside = left >= geometry->diamond_x_min;
+        const int32_t right_inside = right <= geometry->diamond_x_max;
+        const int32_t top_inside = top >= geometry->diamond_y_min;
+        const int32_t bottom_inside = bottom <= geometry->diamond_y_max;
+        int32_t coordinate;
+
+        if (!left_inside) left = geometry->diamond_x_min;
+        if (!right_inside) right = geometry->diamond_x_max;
+        if (!top_inside) top = geometry->diamond_y_min;
+        if (!bottom_inside) bottom = geometry->diamond_y_max;
+        if (top_inside || bottom_inside) {
+            for (coordinate = left; coordinate <= right; ++coordinate) {
+                if (top_inside &&
+                    (uint8_t)visitor((uint32_t)(coordinate +
+                        top * PHARAOH_MAP_GRID_WIDTH),
+                        coordinate, top, context) == 0u) return;
+                if (bottom_inside && top < bottom &&
+                    (uint8_t)visitor((uint32_t)(coordinate +
+                        bottom * PHARAOH_MAP_GRID_WIDTH),
+                        coordinate, bottom, context) == 0u) return;
+            }
+        }
+        if (left_inside || right_inside) {
+            for (coordinate = top + 1; coordinate <= bottom - 1; ++coordinate) {
+                if (left_inside &&
+                    (uint8_t)visitor((uint32_t)(left +
+                        coordinate * PHARAOH_MAP_GRID_WIDTH),
+                        left, coordinate, context) == 0u) return;
+                if (right_inside && left < right &&
+                    (uint8_t)visitor((uint32_t)(right +
+                        coordinate * PHARAOH_MAP_GRID_WIDTH),
+                        right, coordinate, context) == 0u) return;
+            }
+        }
+    }
+}
