@@ -5,18 +5,18 @@
   "commits": 66,
   "scope": "Current canonical map owners whose mapping or source changed in the last 48 hours; includes uncommitted changes conservatively because their edit times are not provable from Git. A source change may affect shared helpers without rewriting each entry. Native review is not implied by this inventory. Also retains explicitly reviewed unchanged dependencies of the active path.",
   "summary": {
-  "candidates": 1533,
+  "candidates": 1535,
   "reasons": {
     "mapped_since_cutoff": 1235,
     "shared_source_changed": 238,
     "body_changed": 15,
     "translated_during_audit": 12,
-    "dependency_review": 33
+    "dependency_review": 35
   },
   "states": {
-    "pending_native_review": 1263,
+    "pending_native_review": 1262,
     "definition_or_macro_unresolved": 67,
-    "native_static_compared": 203
+    "native_static_compared": 206
   },
   "changed_unmapped_sources": 12,
   "candidates_are_not_a_rewrite_count": true,
@@ -27,7 +27,7 @@
     "stale_hash": 96
   },
   "review_methods": {
-    "direct_native_static": 149,
+    "direct_native_static": 152,
     "reused_hash_bound_native_static": 54
   },
   "proof_bindings_scope": "Frozen initial inventory, before reconstruction edits and dependency reviews."
@@ -343,8 +343,8 @@
     {"address":"0x005590A0","name":"pharaoh_medium_royal_tomb_part_advance","source":"game/monuments/stages.c","reason":"shared_source_changed","status":"pending_native_review","evidence":"metadata/GameCurrentReferenceBindings.json","evidence_kind":"inline_or_unavailable","source_sha256":"4e809721962e4d4d69f673ae0934eefb31bc0d8d6d2b86c88c7beb91c8cf78c0","body_sha256":"5e1354f3960b10b6cd5bbebd7141cb9a9013e1b74a0fa7e187e84e8c82222b47"},
     {"address":"0x0040F270","name":"pharaoh_animation_frame_state_update","source":"game/runtime/animation_frame_state.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"","evidence_kind":"inline_or_unavailable","source_sha256":"5b29c820752414aaafcd60123420d9deba8686ba9e07ad57e501b9acaeeea868","body_sha256":"c0e73ada455299c491053bad4ea0ededb7df62a0a994fd5ef9acde5e490f2227"},
     {"address":"0x00414C40","name":"pharaoh_fast_forward_note_draw","source":"game/runtime/fast_forward_note.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/fast-forward-note-091.json","evidence_kind":"file","source_sha256":"06b119a31fc87a46d5b600ae300edab8e14e3acea72b64947e90281c564b0258","body_sha256":"71e324da7e9fe51109edee536f8497bed42986e3a4e60a49853d1e53e8140421","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":true,"address_literal_present":true}},
-    {"address":"0x004CDE40","name":"pharaoh_adjust_by_percentage","source":"game/core/percentage_adjust.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"","evidence_kind":"inline_or_unavailable","source_sha256":"af7061315f770681537544a88265ded0771f64ea63dff04c0dd7f572b7812ceb","body_sha256":"fb49a4cfc0b5e8bcf223a25bf48908d9764293a949e56b3e92a057574535c034"},
-    {"address":"0x004CDE60","name":"pharaoh_scale_value_to_percent","source":"game/core/percentage_scale.c","reason":"mapped_since_cutoff","status":"native_static_compared","evidence":"evidence/percentage-scale-evidence-070.json","evidence_kind":"file","source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e","body_sha256":"e09d357bfcc9dad3ea8d30a01b6c89ce58d4c0eba1f87b7019eb86029a3cec31","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true},"audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-labor-native-20261127.json","review_source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e","checkpoint_review_source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e"},
+    {"address":"0x004CDE40","name":"pharaoh_adjust_by_percentage","source":"game/core/percentage_adjust.c","reason":"mapped_since_cutoff","status":"native_static_compared","evidence":"","evidence_kind":"inline_or_unavailable","source_sha256":"af7061315f770681537544a88265ded0771f64ea63dff04c0dd7f572b7812ceb","body_sha256":"fb49a4cfc0b5e8bcf223a25bf48908d9764293a949e56b3e92a057574535c034","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-taxes-native-20261127.json","review_source_sha256":"af7061315f770681537544a88265ded0771f64ea63dff04c0dd7f572b7812ceb","checkpoint_review_source_sha256":"af7061315f770681537544a88265ded0771f64ea63dff04c0dd7f572b7812ceb"},
+    {"address":"0x004CDE60","name":"pharaoh_scale_value_to_percent","source":"game/core/percentage_scale.c","reason":"mapped_since_cutoff","status":"native_static_compared","evidence":"evidence/percentage-scale-evidence-070.json","evidence_kind":"file","source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e","body_sha256":"e09d357bfcc9dad3ea8d30a01b6c89ce58d4c0eba1f87b7019eb86029a3cec31","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true},"audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-taxes-native-20261127.json","review_source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e","checkpoint_review_source_sha256":"9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e"},
     {"address":"0x004CE860","name":"pharaoh_status_log_append","source":"game/runtime/status_log_append.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/status-log-append-095.json","evidence_kind":"file","source_sha256":"4685d6c8bb4576bae64b0c4a877c96a07a9c3fc39b019833257e55af1579224d","body_sha256":"0f510f64925de8dccc0d6fa1b8ef627ceefefa038c76cd6d1a8b580a3cb29d47","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":true,"address_literal_present":true}},
     {"address":"0x004CF1F0","name":"pharaoh_input_transient_reset","source":"game/runtime/input_transient_reset.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/input-transient-reset-093.json","evidence_kind":"file","source_sha256":"67108e21d5cc2b5d45c85e5fe6a0cb8e54aff877e4559c0e1dbfe3a1f838ac71","body_sha256":"74f730d80ed250fa7793bea815521207a0b50a82408137899c61701f23a3a652","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":true,"address_literal_present":true}},
     {"address":"0x004CF210","name":"pharaoh_mouse_update","source":"game/runtime/mouse_update.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/mouse-update-evidence-071.json","evidence_kind":"file","source_sha256":"3fc236c1d75a39f22920939e16f7ade0b743eaf27fc8f9be499b1feac1f3dece","body_sha256":"bc279e24f7c2f580e22436cb18f323bd76eac9538edea6bc378ef189e4fac8f4","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
@@ -1681,5 +1681,8 @@
     {"address":"0x00459400","name":"pharaoh_city_labor_allocate_categories","source":"game/city/labor.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-labor-native-20261127.json","review_source_sha256":"b12576b1931f6987c45913979ae328b83d2bf1f6d5ae92ae51cd491b022d39ec","checkpoint_review_source_sha256":"b12576b1931f6987c45913979ae328b83d2bf1f6d5ae92ae51cd491b022d39ec"},
     {"address":"0x004595A0","name":"pharaoh_city_labor_rebuild_building_shares","source":"game/city/labor.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-labor-native-20261127.json","review_source_sha256":"b12576b1931f6987c45913979ae328b83d2bf1f6d5ae92ae51cd491b022d39ec","checkpoint_review_source_sha256":"b12576b1931f6987c45913979ae328b83d2bf1f6d5ae92ae51cd491b022d39ec"},
     {"address":"0x00488050","name":"pharaoh_building_is_floodplain_farm","source":"game/simulation/industry_queries.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-labor-native-20261127.json","review_source_sha256":"cb4da2b5f1dba789bc420105b61dfae8fa66e7bb2eb92b7ad22587a915810d13","checkpoint_review_source_sha256":"cb4da2b5f1dba789bc420105b61dfae8fa66e7bb2eb92b7ad22587a915810d13"}
+  ,
+    {"address":"0x004599D0","name":"pharaoh_city_taxes_collect_month","source":"game/city/taxes.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-taxes-native-20261127.json","review_source_sha256":"d5052193fc84db05cbbd2f7b2ea5d9b017047255bd64140a6df8a9c95aa2596d","checkpoint_review_source_sha256":"d5052193fc84db05cbbd2f7b2ea5d9b017047255bd64140a6df8a9c95aa2596d"},
+    {"address":"0x00459D20","name":"pharaoh_city_taxes_estimate","source":"game/city/taxes.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/city-taxes-native-20261127.json","review_source_sha256":"d5052193fc84db05cbbd2f7b2ea5d9b017047255bd64140a6df8a9c95aa2596d","checkpoint_review_source_sha256":"d5052193fc84db05cbbd2f7b2ea5d9b017047255bd64140a6df8a9c95aa2596d"}
   ]
 }
