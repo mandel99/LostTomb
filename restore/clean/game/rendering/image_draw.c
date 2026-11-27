@@ -124,7 +124,7 @@ void pharaoh_city_ground_bind_sprite_draw(PharaohCityGroundOperations *ops,
 /* Reused Unit02524 algorithm. Native source pointer/temporary offset overlay
  * is a typed union; loaded image pointers are supplied separately from SG3
  * file offsets. The native metadata-linked variant is a horizontal mirror. */
-int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image_id,int32_t x,int32_t y)
+static int32_t image_draw_dispatch(PharaohImageDrawContext *c,int32_t image_id,int32_t x,int32_t y,int explicit_mirror)
 {
     PharaohImageDrawState *const d=c->state;
     PharaohSpriteClipState *const s=c->clip;
@@ -132,8 +132,8 @@ int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image_id,int32_t x
     if(image_id<1 || image_id>0x639b)return 0;
     int32_t index=lookup(c,image_id);
     const PharaohSpriteImageRecord *image=&c->images[index];
-    int mirror=0;
-    if(image->has_linked_variant!=0) {
+    int mirror=explicit_mirror;
+    if(!explicit_mirror && image->has_linked_variant!=0) {
         index=lookup(c,add(image_id,image->linked_image_offset));
         image=&c->images[index];mirror=1;
     }
@@ -211,7 +211,10 @@ int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image_id,int32_t x
     if(d->draw_type==0) {
         if(image->is_compressed==0) {d->source.pixels+=skip_bytes(s);raw(c,d->source.pixels,mirror);}
         else rle(c,d->source.pixels,mirror);
-        mask(c,d->source.pixels,image->is_compressed!=0);return s->visible_width;
+        /* Native53FA40 skips tint for raw type0; compressed tint remains. */
+        if(!explicit_mirror || image->is_compressed!=0)
+            mask(c,d->source.pixels,image->is_compressed!=0);
+        return s->visible_width;
     }
     if(d->draw_type==30) {
         if(s->image_width==26 || s->image_width==10) {
@@ -250,6 +253,11 @@ int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image_id,int32_t x
     } else raw(c,d->source.pixels,1);
     return s->visible_width;
 }
+
+int32_t pharaoh_image_draw(PharaohImageDrawContext *c,int32_t image,int32_t x,int32_t y)
+{ return image_draw_dispatch(c,image,x,y,0); }
+int32_t pharaoh_image_draw_mirrored(PharaohImageDrawContext *c,int32_t image,int32_t x,int32_t y)
+{ return image_draw_dispatch(c,image,x,y,1); }
 
 /* Complete native0053F4F0 over resident image pointers and existing mask kernels.
    The raw source remains unadjusted after clipping, exactly as native. */

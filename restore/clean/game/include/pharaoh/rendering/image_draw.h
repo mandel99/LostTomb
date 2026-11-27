@@ -55,4 +55,6 @@ void pharaoh_city_ground_bind_image_draw(struct PharaohCityGroundOperations *ope
     PharaohImageDrawContext *context);
 void pharaoh_city_ground_bind_sprite_draw(struct PharaohCityGroundOperations *operations,
     PharaohImageDrawContext *context);
+int32_t pharaoh_image_draw_mirrored(PharaohImageDrawContext *context,
+    int32_t image,int32_t x,int32_t y);
 #endif

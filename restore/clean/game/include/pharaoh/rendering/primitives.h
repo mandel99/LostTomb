@@ -88,4 +88,9 @@ void pharaoh_graphics_and_rect(PharaohGraphicsPrimitives *, int32_t x,
     int32_t y, int32_t width, int32_t height, uint16_t mask);
 void pharaoh_graphics_set_pixel_raw(PharaohGraphicsPrimitives *,
     int32_t x, int32_t y, uint16_t color);
+uint32_t pharaoh_graphics_read_pixel_masked(const uint8_t *pixels,
+    int32_t pitch_bytes, int32_t x, uint32_t y, uint32_t mask,
+    uint32_t *scratch_value);
+void pharaoh_graphics_or_pixel_raw(PharaohGraphicsPrimitives *,
+    int32_t x, int32_t y, uint16_t mask);
 #endif

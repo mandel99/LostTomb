@@ -362,3 +362,22 @@ void pharaoh_graphics_set_pixel_raw(PharaohGraphicsPrimitives *c,
 {
     *raw_pixel(c, x, y) = color;
 }
+
+uint32_t pharaoh_graphics_read_pixel_masked(const uint8_t *pixels,
+    int32_t pitch_bytes, int32_t x, uint32_t y, uint32_t mask,
+    uint32_t *scratch_value)
+{
+    uint16_t pixel;
+    const uint32_t row = y * (uint32_t)pitch_bytes;
+    uint32_t value;
+    memcpy(&pixel, pixels + (uint32_t)x * 2u + row, sizeof(pixel));
+    value = (row & UINT32_C(0xffff0000)) | pixel;
+    *scratch_value = value & mask;
+    return *scratch_value;
+}
+void pharaoh_graphics_or_pixel_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, uint16_t mask)
+{
+    uint16_t *pixel = raw_pixel(c, x, y);
+    *pixel = (uint16_t)(*pixel | mask);
+}
