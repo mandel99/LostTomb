@@ -39,6 +39,7 @@ typedef struct PharaohHouseServiceContext {
     volatile uint32_t *row,*column,*cursor;
     const volatile int32_t *water_service_blocked;
     volatile int32_t *maximum_crime,*maximum_tax_metric;
+    const struct PharaohHouseEconomyContext *market_context;
 } PharaohHouseServiceContext;
 
 int32_t pharaoh_house_service_juggler(const PharaohHouseServiceContext *c,int32_t x,int32_t y);
@@ -62,5 +63,6 @@ void pharaoh_house_service_magistrate(const PharaohHouseServiceContext *c,int32_
 uint32_t pharaoh_house_service_missionary(const PharaohHouseServiceContext *c,int32_t x,int32_t y);
 int32_t pharaoh_house_service_labor_seeker(const PharaohHouseServiceContext *c,int32_t x,int32_t y);
 int32_t pharaoh_house_service_tax(const PharaohHouseServiceContext *c,int32_t x,int32_t y);
+int32_t pharaoh_house_service_market(const PharaohHouseServiceContext *c,int32_t market,int32_t x,int32_t y);
 
 #endif

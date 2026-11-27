@@ -1,4 +1,5 @@
 #include "pharaoh/population/service_provision.h"
+#include "pharaoh/population/house_economy.h"
 #include <stddef.h>
 
 _Static_assert(sizeof(PharaohNativeHouseServiceRecord)==264,"native building stride");
@@ -14,7 +15,7 @@ _Static_assert(offsetof(PharaohNativeHouseServiceRecord,apothecary_health)==0xe8
 _Static_assert(offsetof(PharaohNativeHouseServiceRecord,physician_health)==0xfc,"physician DWORD");
 _Static_assert(sizeof(PharaohHouseServiceModel)==88,"model stride");
 
-enum ServiceEffect { STAMP,HEALTH,BAST,CRIME,MISSIONARY,TAX };
+enum ServiceEffect { STAMP,HEALTH,BAST,CRIME,MISSIONARY,TAX,MARKET };
 
 /* Whole effects reused from ActorServices/HouseServices/BuildingServiceEffects
  * and TaxCollector C. Select actual algorithms directly, without callbacks. */
@@ -22,6 +23,7 @@ static uint32_t service_cell_effect(const PharaohHouseServiceContext *c,int32_t 
     enum ServiceEffect effect,uint32_t field,uint32_t amount)
 {
     volatile PharaohNativeHouseServiceRecord *h;
+    if(effect==MARKET)return pharaoh_house_market_supply(c->market_context,id,field);
     if(effect==STAMP||effect==TAX){
         if(id<=0)return 0;
         h=&c->buildings[id];
@@ -218,4 +220,10 @@ int32_t pharaoh_house_service_tax(const PharaohHouseServiceContext *c,int32_t x,
 {
     *c->maximum_tax_metric=0;
     return service_scan(c,x,y,2,TAX,0,0,0);
+}
+
+/* Whole00483910: share the actual clipped-cell scan; fixed complete C effect. */
+int32_t pharaoh_house_service_market(const PharaohHouseServiceContext *c,int32_t market,int32_t x,int32_t y)
+{
+    return service_scan(c,x,y,2,MARKET,(uint32_t)market,0,3);
 }

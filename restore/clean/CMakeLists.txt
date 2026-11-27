@@ -148,6 +148,7 @@ add_library(pharaoh_game STATIC
     game/population/age_counts.c
     game/population/house_services.c
     game/population/service_provision.c
+    game/population/house_economy.c
     game/religion/building_types.c
     game/rendering/overlay_columns.c
     game/rendering/overlay_metrics.c
