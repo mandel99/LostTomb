@@ -1,4 +1,5 @@
 #include "pharaoh/building/construction_commit_support.h"
+#include "pharaoh/core/memory_fill.h"
 
 /* Complete MapCommitResourceGate C reuse, native004E2B10. */
 void pharaoh_construction_warning_road_access(const PharaohConstructionAccessWarnings *c,
@@ -58,4 +59,24 @@ void pharaoh_construction_ferry_landing_placed(uint32_t *ferry_state,
     uint32_t mode=*ferry_state;
     if(!mode){*ferry_state=1;pharaoh_city_warning_post(warnings,67);}
     else{*ferry_state=0;if(mode==3)(void)pharaoh_map_building_undo_capture(undo,*building);}
+}
+
+void pharaoh_map_undo_release_reservations(PharaohMapBuildingUndo *undo,
+    PharaohBuildingTypeRecord *live)
+{
+    _Static_assert(sizeof(PharaohBuildingTypeRecord)==264 &&
+        offsetof(PharaohBuildingTypeRecord,render_tint_bf)==0xbf,
+        "native reservation record fields");
+    const int32_t count = (int32_t)*undo->count;
+    for (uint32_t i = 0; (int32_t)i < count; ++i) {
+        const int32_t id = undo->ids[i];
+        if (id != 0) {
+            PharaohBuildingTypeRecord *b = &live[id];
+            if (b->state == 6) b->state = 1;
+            b->render_tint_bf = 0;
+        }
+    }
+    *undo->count = 0;
+    pharaoh_memory_fill_bytes((uint32_t *)(void *)undo->backup, 0x21d68, 0);
+    pharaoh_memory_fill_bytes((uint32_t *)(void *)undo->ids, 0x41a, 0);
 }

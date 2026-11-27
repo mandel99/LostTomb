@@ -21,4 +21,6 @@ void pharaoh_map_restore_free_tile_images(const PharaohMapSurfaceContext *surfac
     const uint32_t *backup_images);
 void pharaoh_construction_ferry_landing_placed(uint32_t *ferry_state,
     const int32_t *building,PharaohCityWarningContext *warnings,PharaohMapBuildingUndo *undo);
+void pharaoh_map_undo_release_reservations(PharaohMapBuildingUndo *undo,
+    PharaohBuildingTypeRecord *live);
 #endif

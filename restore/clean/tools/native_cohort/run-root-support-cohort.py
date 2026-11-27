@@ -2,6 +2,7 @@ import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
 entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110,42:0x4b9ee0,43:0x51ce90,44:0x457ac0,45:0x457a40,46:0x4754a0,47:0x4759e0,48:0x47f530}
+entries.update({49:0x485080,50:0x4e2fb0,51:0x4e2d80,52:0x4e2dd0,53:0x47ad20,54:0x475220,55:0x474130,56:0x47b310,57:0x47b960,58:0x51bc60,59:0x51c930,60:0x474f50,61:0x475090})
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -96,6 +97,40 @@ for op,profiles in [(46,['height0','height_negative','height4','height4_irrigate
  for profile in profiles:add('paint:'+str(op)+':'+profile,op,paint_spec={'profile':profile},x=1,y=1,size=3,extra=3)
 for label,raw in [('available0',{'available':0}),('available_negative',{'available':-1}),('length1',{'length':1}),('length_negative',{'length':-1}),('ship_min4',{'mode':1,'length':4}),('low_dir0',{}),('low_dir2',{'direction':2}),('low_dir4',{'direction':4}),('low_dir6',{'direction':6}),('view_subtract',{'view':2}),('unsupported',{'direction':1}),('unsupported_view',{'view':16,'mode':1}),('mode2_len2',{'mode':2,'length':2}),('mode_negative',{'mode':-1}),('step_negative',{'step':-1,'x':20}),('step_south',{'step':228,'y':3}),('step_north',{'step':-228,'y':20}),('step0',{'step':0})]+[('ship_length'+str(n),{'mode':1,'length':n}) for n in [5,9,11,13,15,17]]:
  spec={'direction':0,'length':5,'available':1,'step':1,'view':0,**raw};add('bridge:'+label,48,bridge_spec=spec,x=raw.get('x',3),y=raw.get('y',5),extra=raw.get('mode',0))
+
+# One connected housing/wall/route cohort; real child implementations execute.
+def hr(label,op,**kw):
+ spec=kw.pop('spec',{});add('housing-route:'+str(op)+':'+label,op,housing_route_spec=spec,x=kw.pop('x',7),y=kw.pop('y',7),**kw)
+for profile in ['empty','reserved','negative_count','last_slot']:
+ hr(profile,49,spec={'profile':profile})
+for profile in ['normal','population19','editor1','editor257','early0','early1','early3','early5','signed_mission','reason2','sum4','sum_overflow','age5','age5_tool','missing_space','busy','emigrating','emigrating_blocked','invalid_phase','zero_message']:
+ hr(profile,50,tool=0 if profile in ['age5','missing_space','busy','emigrating_blocked'] else 10,spec={'profile':profile})
+for op in [51,52]:
+ for profile in ['trigger','population299','editor1','editor257','mission0','mission1','at_threshold','negative_need','player1']:
+  hr(profile,op,spec={'profile':profile})
+for op in [53,56,57]:
+ for label,kw in [('set',{}),('clear',{'tool':0}),('clear2',{'tool':2}),('existing',{'spec':{'profile':'existing'}}),('neighbor',{'spec':{'profile':'neighbor'}}),('property80',{'spec':{'profile':'property80'}}),('clipped',{'x':0,'y':8}),('outside',{'x':-50})]:
+  hr(label,op,tool=kw.pop('tool',1),mask=0x4000,**kw)
+for profile,mask in [('upgrade1',0x404000),('upgrade2',0x804000),('same',0x404000),('negative_price',0x804000),('flood',0x4000)]:
+ hr(profile,53,tool=1,mask=mask,spec={'profile':profile})
+for op in [54,55]:
+ for label,kw in [('preview',{'tool':1}),('commit',{'tool':0}),('reversed',{'tool':1,'x':9,'y':8,'size':6,'extra':6}),('blocked',{'tool':1,'spec':{'profile':'blocked'}}),('entry',{'tool':1,'spec':{'profile':'entry'}}),('transient',{'tool':1,'spec':{'profile':'transient'}}),('transient_flood',{'tool':1,'spec':{'profile':'transient_flood'}}),('terrain',{'tool':1,'spec':{'profile':'terrain'}})]:
+  hr(label,op,size=kw.pop('size',8),extra=kw.pop('extra',7),mask=0x4000,**kw)
+for profile in ['allocation_failed','road_near','high_population','restore_reservations','empty_rectangle']:
+ hr(profile,55,tool=0,size=7,extra=7,spec={'profile':profile},**({'x':19} if profile=='empty_rectangle' else {}))
+for profile in ['clear','startFF','start2','start_mask','start_type138','north138','east138','south138','west138','north250','east252','costFE','costFA','costFC','costFB','blocked_canal','geometry_edge']:
+ for mode in ([0,1] if profile in ['clear','start_type138','north138','east138','north250','east252','costFB'] else [0]):
+  hr(profile+'-m'+str(mode),58,tool=mode,spec={'profile':profile})
+for mode in [0,2,3,9]:
+ for label,dx,dy in [('same',0,0),('north',0,-1),('east',1,0),('south',0,1),('west',-1,0)]:
+  hr(label+'-m'+str(mode),59,tool=mode,size=7+dx,extra=7+dy,spec={'profile':'walk','delta':[dx,dy]})
+for profile in ['unreachable','zero_type138','canal_filter']:
+ hr(profile,59,tool=2,size=6,extra=7,spec={'profile':profile})
+for op in [60,61]:
+ for label,kw in [('preview',{'tool':1}),('commit',{'tool':0}),('same',{'tool':0,'size':7}),('editor',{'tool':1,'spec':{'profile':'editor'}}),('blocked_start',{'tool':0,'spec':{'profile':'blocked_start'}}),('blocked_end',{'tool':0,'spec':{'profile':'blocked_end'}}),('unreachable',{'tool':1,'spec':{'profile':'unreachable'}})]:
+  hr(label,op,size=kw.pop('size',8),extra=7,**kw)
+if '--housing-route-only' in sys.argv:cases=[c for c in cases if 49<=c['op']<=61]
+
 if '--paint-bridge-only' in sys.argv:cases=[c for c in cases if 46<=c['op']<=48]
 if '--paint-only' in sys.argv:cases=[c for c in cases if c['op'] in [46,47]]
 if '--water-only' in sys.argv:cases=[c for c in cases if 43<=c['op']<=45]
@@ -106,7 +141,7 @@ if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
 if '--region-only' in sys.argv:cases=[c for c in cases if c['op']==36]
 case_label=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--case-label=')),None)
 if case_label is not None:cases=[c for c in cases if c['label']==case_label]
-output_stem='paint-bridge' if '--paint-bridge-only' in sys.argv else 'paint' if '--paint-only' in sys.argv else 'water' if '--water-only' in sys.argv else 'alert' if '--alert-only' in sys.argv else 'food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
+output_stem='housing-route' if '--housing-route-only' in sys.argv else 'paint-bridge' if '--paint-bridge-only' in sys.argv else 'paint' if '--paint-only' in sys.argv else 'water' if '--water-only' in sys.argv else 'alert' if '--alert-only' in sys.argv else 'food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
 
 
 def venue_seed(c):
@@ -194,6 +229,88 @@ def paint_seed(c):
 def bridge_seed(c):
  spec=c['bridge_spec'];return [chunk(0xbca2d0,struct.pack('<12i',24,24,1000,204,spec['view'],0,0,0,23,23,12,12)),chunk(0xbc96f4,struct.pack('<4I',spec['direction']&0xffffffff,spec['length']&0xffffffff,spec['available']&0xffffffff,spec['step']&0xffffffff)),chunk(0xaf598c,struct.pack('<I',4)*51984),chunk(0xadc36c,bytes([0xa5])*51984),chunk(0xb4e6fc,bytes(51984*2)),chunk(0x7999d8,bytes(4000*264)),chunk(0xd05720,bytes(51984*4)),chunk(0xacf85c,bytes(51984)),chunk(0xb7482c,bytes(51984*4)),chunk(0xb67d1c,bytes(51984)),chunk(0xb285cc,bytes(51984)),chunk(0xee0c50,bytes([0x33])*51984),chunk(0xec7630,bytes([0x44])*51984),chunk(0xed4140,bytes([0x55])*51984),pack(0xe94e04,0),pack(0xf535bc,0)]
 
+
+def housing_route_seed(c):
+ op=c['op'];sp=c['housing_route_spec'];profile=sp.get('profile','');origin=22900;n=51984
+ terrain=bytearray(n*4);ids=bytearray(n*2);properties=bytearray([0x10])*n;buildings=bytearray(4000*264);blocked=bytearray(n*2);pointers=bytearray(n*4)
+ costs=bytearray([255])*n;distances=bytearray(n*4);image=struct.pack('<I',1234)*n
+ cell=lambda x,y:origin+y*228+x
+ tile=cell(c['x'],c['y']);center=cell(7,7)
+ for y in range(4,12):
+  for x in range(4,12):costs[cell(x,y)]=1
+ def t(at,flags):struct.pack_into('<I',terrain,at*4,flags)
+ def building(at,kind):
+  t(at,8);struct.pack_into('<h',ids,at*2,1);buildings[264]=1;struct.pack_into('<h',buildings,264+16,kind)
+ mask=c.get('mask',0x4000);actual_mask={53:0x4000,56:0x40,57:0x100}.get(op,0)
+ if profile in ['existing','neighbor','property80']:t(tile if profile!='neighbor' else tile+1,actual_mask)
+ if profile=='property80':properties[tile]=0x90
+ if profile in ['upgrade1','upgrade2','negative_price','same']:t(tile,0x4000 if profile=='upgrade1' else 0x404000)
+ if profile=='flood':t(tile,0x14000);t(tile-228,4)
+ if profile in ['blocked','transient','transient_flood','terrain','entry']:
+  if profile=='blocked':struct.pack_into('<h',blocked,center*2,1)
+  if profile=='terrain':t(center,1)
+  if profile.startswith('transient'):struct.pack_into('<I',pointers,center*4,0x20200000)
+ if profile=='road_near':t(center-228,0x40)
+ if profile=='allocation_failed':
+  for i in range(1,4000):buildings[i*264]=3
+ if profile=='startFF':costs[tile]=255
+ if profile=='start2':costs[tile]=2
+ if profile=='start_mask':t(tile,1)
+ if profile=='start_type138':building(tile,138)
+ for direction,delta in [('north',-228),('east',1),('south',228),('west',-1)]:
+  if profile==direction+'138':building(tile+delta,138)
+  if profile==direction+'250':building(tile+delta,20);costs[tile+delta]=250
+  if profile==direction+'252':building(tile+delta,20);costs[tile+delta]=252
+ if profile.startswith('cost'):
+  costs[tile+1]=int(profile[4:],16)
+ if profile=='blocked_canal':t(tile+1,256)
+ if profile in ['blocked_start','blocked_end']:t(tile if profile=='blocked_start' else cell(c['size'],c['extra']),1)
+ if profile=='unreachable':costs[:]=bytes([255])*n;costs[tile]=1
+ if op==59:
+  struct.pack_into('<I',distances,tile*4,2)
+  if profile=='walk':struct.pack_into('<I',distances,cell(c['size'],c['extra'])*4,1)
+  if profile in ['unreachable','zero_type138']:struct.pack_into('<I',distances,tile*4,0)
+  if profile=='zero_type138':building(tile,138)
+  if profile=='canal_filter':t(tile-1,256);struct.pack_into('<I',distances,(tile-1)*4,1)
+ undo_ids=bytearray(1050);undo_backup=bytes([0xa5])*(525*264);undo_count=0
+ if profile in ['reserved','restore_reservations','last_slot']:
+  selected=[(1,6),(2,1),(3,7)];undo_count=525 if profile=='last_slot' else 4
+  for i,(ident,state) in enumerate(selected):
+   struct.pack_into('<h',undo_ids,(524 if profile=='last_slot' else i)*2,ident);buildings[ident*264]=state;buildings[ident*264+0xbf]=9
+  if profile=='last_slot':struct.pack_into('<h',undo_ids,1048,1)
+ if profile=='negative_count':undo_count=-1
+ city=bytearray(2*0x49d8);player=1 if profile=='player1' else 0;base=player*0x49d8
+ def ci(offset,value,fmt='<i'):struct.pack_into(fmt,city,base+offset,value)
+ ci(0x24,400 if op in [51,52] or profile=='high_population' else 20);ci(0x38,1);ci(0x272c,0);ci(0x2bfc,11);ci(0x45ac,21);ci(0x296c,10);ci(0x4410,2);ci(0x45dc,100)
+ if profile in ['population19','population299']:ci(0x24,19 if profile=='population19' else 299)
+ if profile.startswith('early'):ci(0x4410,int(profile[5:]))
+ if profile=='sum4':ci(0x4634,2);ci(0x4644,2)
+ if profile=='sum_overflow':ci(0x4634,0x7fffffff);ci(0x4644,1)
+ if profile.startswith('age5'):ci(0x273c,5)
+ if profile in ['missing_space','emigrating_blocked']:ci(0x38,0)
+ if profile=='busy':ci(0x272c,80)
+ if profile.startswith('emigrating'):ci(0x2740,1)
+ if profile=='invalid_phase':ci(0x2740,2)
+ if profile=='zero_message':ci(0x4410,-124)
+ if profile=='at_threshold':ci(0x2bfc,10);ci(0x296c,11)
+ if profile=='negative_need':ci(0x45ac,-3);ci(0x296c,-1)
+ mission=-1 if profile=='signed_mission' else 0 if profile in ['mission0'] or profile.startswith('early') else 1 if profile=='mission1' else 2
+ editor=1 if profile=='editor1' else 257 if profile=='editor257' else 1 if profile=='editor' else 0
+ geometry=(16,16,origin,212,0,0,100,100,115,115,108,108)
+ if profile=='geometry_edge':geometry=(16,16,origin,212,0,0,100,100,104,104,102,102)
+ w=[chunk(0xbca2d0,struct.pack('<12i',*geometry)),chunk(0xaf598c,terrain),chunk(0x9de62c,terrain),chunk(0x9d1b1c,bytes([0x55])*n),chunk(0xae8e7c,bytes([0xaa])*n),chunk(0x9b84fc,properties),chunk(0xb285cc,properties),chunk(0x9ab9ec,bytes([3])*n),chunk(0xb67d1c,bytes([3])*n),chunk(0xb7482c,image),chunk(0xa1126c,struct.pack('<I',7777)*n),chunk(0xb4e6fc,ids),chunk(0xb350dc,blocked),chunk(0x7999d8,buildings),chunk(0xd05720,pointers),chunk(0x20200000,bytes(24)+bytes([1 if profile=='transient_flood' else 0])+bytes(23)),chunk(0xac2d4c,bytes([10])*n),chunk(0xacf85c,bytes(n)),chunk(0xee0c50,costs),chunk(0xec7630,bytes([0x44])*n),chunk(0xed4140,bytes([0x33])*n),chunk(0xebab20,bytes([0x22])*n),chunk(0xeed760,distances),chunk(0xeae010,bytes([0xcc])*n),chunk(0xf203a0,bytes(n*4)),chunk(0xeae000,struct.pack('<4I',11,12,13,14)),pack(0xeadfd4,123),pack(0xbc971c,0x7fff1234),pack(0xbc9718,101),pack(0xbc9734,0),pack(0xeaaf64,0),pack(0xe94e04,0),pack(0xe38dca,0x77,'<B'),pack(0xf535bc,0),pack(0xbc95f0,undo_count),pack(0xbc968c,1),pack(0xbc9694,1),chunk(0xba746c,undo_ids),chunk(0xba7888,undo_backup),chunk(0xea1870,city),pack(0xeaac28,player),pack(0xe38ebc,0),pack(0xe38ea8,mission,'<b'),pack(0x605a3c,editor),pack(0x978d74,0),pack(0x784bbc,0),pack(0x784cb0,1,'<B'),pack(0x78d7b4,101),pack(0x78d790,0),pack(0xbca310,0),pack(0x705f94,-11 if profile=='negative_price' else 20),pack(0x7078e4,-21 if profile=='negative_price' else 40),chunk(0x70cdcc,bytes(22*88)),chunk(0xd3b364,struct.pack('<9I',1,2,3,4,5,6,7,8,9)),pack(0xd3b1c4,7),chunk(0xd3b1c8,bytes(400)),chunk(0xbc9760,struct.pack('<3I',0x111,0x222,0x333)),chunk(0xbc9740,bytes([0xa5])*12),chunk(0xbc97c0,bytes([0x33])*32),chunk(0xbc9f24,bytes(228*4)),chunk(0xbc9b94,struct.pack('<I',16)*228),chunk(0xbc9804,struct.pack('<228I',*[origin+y*228 for y in range(228)]))]
+ w.append(chunk(0xf55bb0,b''.join(struct.pack('<II',100,10000+g*64) for g in range(800))))
+ if profile=='entry':w+=[pack(0x784b64,7,'<h'),pack(0x784b6c,7,'<h')]
+ return w
+
+def housing_route_watch(c):
+ op=c['op'];regions=[(0x7999d8,4000*264),(0xba746c,1050),(0xba7888,525*264),(0xbc95f0,4),(0xea1870,2*0x49d8),(0xe94e20,608),(0xf53f34,20)]
+ if op>=53:regions += [(0xaf598c,51984*4),(0xae8e7c,51984),(0xb285cc,51984),(0xb67d1c,51984),(0xb7482c,51984*4),(0xb4e6fc,51984*2),(0xbc9718,8),(0xbc9734,4),(0xbc9740,12),(0xbc9760,12),(0xbc97c0,32),(0xd3b4e0,8),(0xe38dca,1),(0xeed760,51984*4),(0xeae010,51984),(0xf203a0,51984*4),(0xeae000,16),(0xeadfd4,4),(0xee0c50,51984),(0xec7630,51984),(0xed4140,51984),(0xebab20,51984),(0xd3b364,36),(0xd3b1c4,404),(0x78d790,4),(0x78d7b4,4),(0x5cb9d8,48*16),(0x5cbcd8,15*16),(0x5cc268,17*16),(0x5cc378,48*16),(0x5cc678,16*16),(0xf535bc,4)]
+ if op>=53:
+  for a,scale in [(0xaf598c,4),(0xb7482c,4),(0xb285cc,1),(0xb67d1c,1),(0xeed760,4),(0xee0c50,1),(0xec7630,1),(0xed4140,1),(0xebab20,1)]:
+   for y in [6,7,8]:regions.append((a+(22900+y*228+4)*scale,8*scale))
+ return regions
+
 def execute(c):
  op=c['op'];tool=c.get('tool',0);x,y,size,extra=c.get('x',111),c.get('y',113),c.get('size',1),c.get('extra',0)
  w=[chunk(0xbca2d0,struct.pack('<12i',228,228,0,0,0,0,0,0,227,227,114,114)),chunk(0x784b64,struct.pack('<8h',*([1000]*8))),chunk(0x784cc0,struct.pack('<8i',*([1000]*8))),pack(0x605a3c,0),pack(0xeaac28,0),chunk(0xea1870,bytes(2*0x49d8)),pack(0xe38ec1,0,'<B'),pack(0xe38dda,1,'<B'),chunk(0xe94e20,bytes(608)),pack(0xf53f34,0),pack(0xd3b4e0,0x12345678),pack(0xd3b4e4,0x23456789)]
@@ -219,7 +336,10 @@ def execute(c):
   w+=paint_seed(c);watch=[(0xaf598c,51984*4),(0xae8e7c,51984),(0xb285cc,51984),(0xb67d1c,51984),(0xb7482c,51984*4),(0xb4e6fc,51984*2),(0xbc971c,4),(0xbc9734,4),(0xbc9768,4),(0xeaaf64,4)]+[(0xaf598c+(100*228+100+y*228)*4,8*4) for y in range(8)]
  if op==48:
   w+=bridge_seed(c);watch=[(0xbc96f4,16),(0xaf598c,51984*4),(0xadc36c,51984),(0xee0c50,51984),(0xec7630,51984),(0xed4140,51984),(0xb7482c,51984*4),(0xb67d1c,51984),(0xb285cc,51984),(0xf535bc,4)]+[(0xadc36c+1000+y*228+x+i*c['bridge_spec']['step'],1) for i in range(max(c['bridge_spec']['length'],0))]
+ if 49<=op<=61:
+  w+=housing_route_seed(c);watch=housing_route_watch(c)
  w += c['writes']+[chunk(CASE,struct.pack('<I5i',op,tool,x,y,size,extra))]
+ if 49<=op<=61:w.append(pack(CASE+24,c.get('mask',0x4000),'<I'))
  args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else [x,y,size,extra,tool,c["required"]] if op==36 else []
  if 30<=op<=33:args=[size,0x12345678,0x87654321,x,y]
  if op==34:args=[tool]
@@ -233,6 +353,14 @@ def execute(c):
  if op in [46,47]:args=[0x1234abcd,x,y,size,extra]
  if op==48:args=[x,y,extra]
  if op==42:args=[x,y]
+ if op==50:args=[tool]
+ if op==53:args=[x,y,tool,c.get('mask',0x4000)]
+ if op==54:args=[tool,x,y,size,extra,c.get('mask',0x4000)]
+ if op in [55,60,61]:args=[tool,x,y,size,extra]
+ if op==56:args=[x,y,tool]
+ if op==57:args=[x,y,extra,tool]
+ if op==58:args=[0x12345678,x,y,tool]
+ if op==59:args=[0x12345678,size,extra,x,y,tool]
  rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 4000000 if 43<=op<=48 else 500000
  if c.get('water_spec',{}).get('full_grid'):
   rn['max_steps']=rc['max_steps']=12000000;rn['timeout_ms']=rc['timeout_ms']=60000
@@ -241,18 +369,23 @@ def execute(c):
   for q in [rn,rc]:q['registers'].update(FPUControlWord='0000037f',FPUStatusWord='00000000',FPUTagWord='0000ffff')
  if 37<=op<=41:rc['watch']=rc['watch']+[{'address':'200f0200','size':4}]
  trace=[]
+ if 49<=op<=61:
+  rn['max_steps']=rc['max_steps']=1000000
+  rn['timeout_ms']=rc['timeout_ms']=60000
+  trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  if 10<=op<=17:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  if op==24:trace=[([0x405b40,0x405b60,0x405b80][tool],symbol(['pharaoh_construction_terrain_rule_00405b40','pharaoh_construction_terrain_rule_00405b60','pharaoh_construction_terrain_rule_00405b80'][tool]),'real_rule',[4],[4])]
  if op==38:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  rn['trace']=[{'address':f'{a:x}','tag':tag,'stack_offsets':z} for a,b,tag,z,q in trace];rc['trace']=[{'address':f'{b:x}','tag':tag,'stack_offsets':q} for a,b,tag,z,q in trace]
  a=call(rn);b=call(rc);issues=[]
+ if op==55 and int(b.get('registers',{}).get('EAX','ffffffff'),16)!=0:issues.append(['C_checked_status',b.get('registers',{}).get('EAX')])
  if 37<=op<=41:
   status_memory=b['memory'].pop();b['checked_status']=int.from_bytes(bytes.fromhex(status_memory['hex']),'little')
   if b['checked_status']!=c['food_spec']['expected_C_status']:issues.append(['C_status',b['checked_status']])
   if c['food_spec']['expected_C_status']!=0:return {'case':c,'native_entry':f'{entries[op]:08x}','passed':not issues,'qualification':'C checked-IDIV status only; pcode emulator may omit hardware divide overflow','native':a,'C':b,'issues':issues}
  if not a.get('ok') or not b.get('ok'):issues.append(['execution',a.get('error'),b.get('error'),a.get('pc'),b.get('pc')])
  else:
-  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36,37,39,40,41,43,44]:
+  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36,37,39,40,41,43,44,58,59]:
    av,bv=[int(t['registers']['EAX'],16) for t in [a,b]]
    if op in [18,19,20,22,23]:av&=255;bv&=255
    if av!=bv:issues.append(['result',a['registers']['EAX'],b['registers']['EAX']])
@@ -271,5 +404,5 @@ began=time.monotonic()
 for i,c in enumerate(cases):
  r=execute(c);results.append(r)
  if not r['passed']:print(json.dumps({'failed':c['label'],'issues':r['issues']})[:1500],flush=True);break
- if i%40==0:print(f'Compared {i+1}/{len(cases)} cases in {time.monotonic()-began:.1f}s',flush=True)
+ if i%10==0:print(f'Compared {i+1}/{len(cases)} cases in {time.monotonic()-began:.1f}s',flush=True)
 (D/(output_stem+'-results.json')).write_text(json.dumps(results));summary={'cases':len(cases),'executed':len(results),'passed':sum(r['passed'] for r in results),'entries':sorted({r['native_entry'] for r in results}),'seconds':time.monotonic()-began};(D/(output_stem+'-summary.json')).write_text(json.dumps(summary));print(json.dumps(summary));assert len(results)==len(cases) and all(x['passed'] for x in results)

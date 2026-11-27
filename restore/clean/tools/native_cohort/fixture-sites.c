@@ -7,7 +7,7 @@
 #include "pharaoh/simulation/finance_calendar.h"
 #define PTR(t,a) ((t *)(uintptr_t)(uint32_t)(a))
 #define I32(a) (*PTR(const int32_t,a))
-typedef struct FixtureCase {uint32_t op;int32_t tool,x,y,size,extra;} FixtureCase;
+typedef struct FixtureCase {uint32_t op;int32_t tool,x,y,size,extra;uint32_t mask;} FixtureCase;
 typedef uint8_t (*TerrainRule)(uint32_t);
 static const TerrainRule terrain_rules[]={pharaoh_construction_terrain_rule_00405b40,
  pharaoh_construction_terrain_rule_00405b60,pharaoh_construction_terrain_rule_00405b80};
@@ -345,8 +345,117 @@ static uint32_t fixture_bridge(const FixtureCase *f)
  return 0; /* Logical native result is void. */
 }
 
+
+#include "pharaoh/building/housing_construction.h"
+#include "pharaoh/building/construction_commit_support.h"
+#include "pharaoh/map/wall_construction.h"
+#include "pharaoh/map/construction_route_actions.h"
+static uint32_t fixture_housing_routes(const FixtureCase *f)
+{
+ /* op49+ reaches the default branch after constructing the common contexts;
+  * no Native backing state is changed by that context-only phase. */
+ (void)fixture_entertainment(f);
+ PharaohMapSurfaceContext *s=PTR(PharaohMapSurfaceContext,0x20101000);
+ PharaohBuildingAllocationContext *allocation=PTR(PharaohBuildingAllocationContext,0x20102000);
+ PharaohConstructionUndoContext *backup=PTR(PharaohConstructionUndoContext,0x20104000);
+ PharaohMapGridGeometry *geometry=PTR(PharaohMapGridGeometry,0x20106000);
+ PharaohCityWarningContext *warnings=PTR(PharaohCityWarningContext,0x20108000);
+ s->editor_active=PTR(const uint32_t,0x605a3c);s->force_paved_roads=PTR(const uint32_t,0x978d74);
+ s->water_context=PTR(PharaohMapImageContextRecord,0x5ca658);s->bank_context=PTR(PharaohMapImageContextRecord,0x5cac58);
+ s->paved_road_context=PTR(PharaohMapImageContextRecord,0x5cc378);s->dirt_road_context=PTR(PharaohMapImageContextRecord,0x5cc268);
+ s->wall_context=PTR(PharaohMapImageContextRecord,0x5cb9d8);s->wall_gatehouse_context=PTR(PharaohMapImageContextRecord,0x5cbcd8);
+ s->channel_context=PTR(PharaohMapImageContextRecord,0x5cc678);
+ s->height_values=PTR(const int8_t,0xac2d4c);s->canal_water=PTR(uint8_t,0xae8e7c);
+ s->scan_x=PTR(int32_t,0xbc9764);s->scan_y=PTR(int32_t,0xbc9760);
+ s->adjacent=PTR(uint32_t,0xbc97c0);s->selection=PTR(PharaohMapImageSelection,0xbc9740);
+ /* Native482650 uses E0 for the outer row and E4 for the column. */
+ s->area_x=PTR(int32_t,0xd3b4e4);s->area_y=PTR(int32_t,0xd3b4e0);
+
+ PharaohSceneRouting *r=PTR(PharaohSceneRouting,0x2010a000);
+ *r=(PharaohSceneRouting){0};
+ r->geometry=PTR(const PharaohSavedGameGeometry,0xbca2d0);
+ r->terrain=PTR(uint32_t,0xaf598c);
+ r->building_ids=PTR(const int16_t,0xb4e6fc);
+ r->buildings=PTR(const PharaohBuildingTypeRecord,0x7999d8);
+ r->tile_direction=PTR(const uint8_t,0xadc36c);
+ r->random=PTR(const uint8_t,0xacf85c);
+ r->images=PTR(uint32_t,0xb7482c);
+ r->edges=PTR(uint8_t,0xb67d1c);
+ r->footprints=PTR(uint8_t,0xb285cc);
+ r->citizen=PTR(uint8_t,0xee0c50);
+ r->noncitizen=PTR(uint8_t,0xec7630);
+ r->water=PTR(uint8_t,0xed4140);
+ r->flood_tiles=PTR(PharaohFloodTile *const,0xd05720);
+ r->cleared_building_image=PTR(const uint32_t,0xf56b8c);
+ r->flood_image_base=PTR(const uint32_t,0xf56c34);
+ r->map_orientation=PTR(const int32_t,0xbca2e0);
+ r->city_orientation=PTR(const int32_t,0xe94e04);
+ r->buildings_without_id_cleared=PTR(uint32_t,0xf535bc);
+ /* Baseline fixture has no active ferry records. For active ferries bind an
+  * actual fully-backed PharaohFerryContext via pharaoh_ferry_bind_scene_routing,
+  * never noop callbacks. No fields required by the inactive branch are faked. */
+
+ r->walls=PTR(uint8_t,0xebab20);
+ PharaohConstructionEntryPoints points;
+ for(uint32_t i=0;i<4;++i){points.primary_x[i]=PTR(const int16_t,0x784b64)[i];points.primary_y[i]=PTR(const int16_t,0x784b6c)[i];points.secondary_x[i]=PTR(const int32_t,0x784cc0)[i];points.secondary_y[i]=PTR(const int32_t,0x784cd0)[i];}
+ PharaohHousingWarningContext *hw=PTR(PharaohHousingWarningContext,0x2010b000);
+ *hw=(PharaohHousingWarningContext){PTR(const uint32_t,0x605a3c),PTR(const uint32_t,0xe38ebc),PTR(const uint32_t,0xeaac28),PTR(const int8_t,0xe38ea8),PTR(const PharaohHousingWarningCity,0xea1870),warnings};
+
+ PharaohHouseHealthContext *health=PTR(PharaohHouseHealthContext,0x2010c000);
+ *health=(PharaohHouseHealthContext){0};health->buildings=s->buildings;health->house_models=PTR(const PharaohHouseModel,0x70cdcc);
+ health->players=allocation->players;health->current_player=allocation->current_player;health->difficulty=PTR(const uint8_t,0x784cb0);
+ health->random=(PharaohRandomGeneratorContext){PTR(PharaohRandomGeneratorValues,0xd3b364),PTR(uint32_t,0xd3b1c8),PTR(int32_t,0xd3b1c4)};
+ health->search=(PharaohMapRingActorSearch){s->map->terrain,PTR(const int16_t,0xb350dc),PTR(const PharaohWalkerQueryRecord,0xbcd5f8),s->current_tile,s->map->origin,s->map->width,s->map->height};
+ allocation->health=health;allocation->house_models=health->house_models;
+
+ PharaohOccupancyState *occupancy=PTR(PharaohOccupancyState,0x2010d000);
+ *occupancy=(PharaohOccupancyState){0};occupancy->grid_origin=(uint32_t)s->map->origin;occupancy->last_origin=*s->current_tile;
+ occupancy->offsets=PTR(const PharaohOccupancyOffset,0x5cc8c0);occupancy->terrain=s->map->terrain;occupancy->objects=PTR(const uint8_t *const,0xd05720);
+ allocation->occupancy=occupancy;
+ PharaohFoodSupplyQueryContext *food=PTR(PharaohFoodSupplyQueryContext,0x2010e000);
+ *food=(PharaohFoodSupplyQueryContext){0};food->buildings=s->buildings;food->models=PTR(const PharaohBuildingModelRecord,0x705ea4);
+ food->players=PTR(const PharaohFoodSupplyPlayer,0xea1870);food->current_player=allocation->current_player;
+ food->first_ratio_price=PTR(const uint32_t,0x78d66c);food->second_ratio_price=PTR(const uint32_t,0x78d668);
+ food->cities=PTR(const PharaohEmpireCityRecord,0x77de00);food->trade_amounts=PTR(const PharaohEmpireTradeAmounts,0x77646c);
+ food->map_origin=PTR(const int32_t,0xbca2d8);food->current_tile=s->current_tile;food->soil_values=PTR(const uint8_t,0xa5d4cc);food->footprints=s->footprints;food->occupancy=occupancy;
+ PharaohConstructionBasicWarnings basic={0};basic.editor_active=s->editor_active;basic.warnings=warnings;
+ basic.current_player=PTR(const int32_t,0xeaac28);basic.players=allocation->players;basic.native_mode_784bbc=PTR(const uint32_t,0x784bbc);basic.food_supply=food;
+ const PharaohHousingConstructionContext housing={allocation,&basic,hw,r,PTR(const uint32_t,0xf5653c),PTR(uint32_t,0xbc971c),PTR(uint8_t,0xe38dca)};
+ const PharaohWallTilePlacementContext wall_tiles={s,PTR(uint32_t,0xbc971c),PTR(uint32_t,0xbc9718),PTR(const int32_t,0x705f94),PTR(const int32_t,0x7078e4)};
+ const PharaohWallConstructionContext walls={&wall_tiles,backup,PTR(uint8_t,0xae8e7c),&points,r,PTR(uint8_t,0xe38dca)};
+
+ PharaohConstructionRouteQueries *q=PTR(PharaohConstructionRouteQueries,0x2010f000);
+ *q=(PharaohConstructionRouteQueries){0};q->terrain=s->map->terrain;q->image_ids=PTR(const int32_t,0xb7482c);q->orientation=s->orientation;
+ q->building_ids=s->building_ids;q->buildings=s->buildings;q->flood_tiles=s->flood_tiles;q->height_values=s->height_values;q->property_flags=s->property_flags;
+ q->distances=PTR(const uint32_t,0xeed760);q->road_flags=s->adjacent;
+ q->group_f56b84=PTR(const int32_t,0xf56b84);q->group_f56c34=PTR(const int32_t,0xf56c34);q->group_f56cd4=PTR(const int32_t,0xf56cd4);
+ q->group_f5695c=PTR(const int32_t,0xf5695c);q->group_f56c44=PTR(const int32_t,0xf56c44);q->group_f56c94=PTR(const int32_t,0xf56c94);
+ const PharaohConstructionRouteContext route={q,PTR(const int32_t,0xbca2d8),PTR(const uint8_t,0xee0c50),PTR(uint32_t,0xeed760),PTR(uint32_t,0xf203a0),PTR(uint8_t,0xeae010),PTR(uint32_t,0xeae004),PTR(uint32_t,0xeae00c),PTR(uint32_t,0xeae008),PTR(uint32_t,0xeadfd4)};
+ const PharaohLandRouteFillContext fill={&route,geometry,PTR(const int32_t,0xbca2e8),PTR(const int32_t,0xbca2ec)};
+ const PharaohRouteTilePlacementContext tiles={s,PTR(const int32_t,0xbca2e8),PTR(const int32_t,0xbca2ec),PTR(uint32_t,0xbc971c)};
+ const PharaohRouteWalkContext walk={&tiles,q,PTR(const int32_t,0xbca2d8),PTR(const uint32_t,0xeed760),PTR(uint32_t,0xeae000),(const int32_t (*)[4])(uintptr_t)0x5f815c,PTR(const int32_t,0x5f80fc),PTR(const PharaohRouteCoordinateDelta,0x5f811c)};
+ const PharaohConstructionRouteActionsContext actions={&fill,&walk,backup,PTR(uint8_t,0xae8e7c),r,PTR(uint8_t,0xe38dca)};
+ switch(f->op){
+ case 49:pharaoh_map_undo_release_reservations(s->undo,s->buildings);break;
+ case 50:pharaoh_housing_migration_post_message(hw,f->tool);break;
+ case 51:pharaoh_housing_warning_unemployment(hw);break;
+ case 52:pharaoh_housing_warning_labor_need(hw);break;
+ case 53:pharaoh_map_set_construction_wall_tile(&wall_tiles,f->x,f->y,(uint32_t)f->tool,f->mask);break;
+ case 54:pharaoh_construction_place_wall_strip(&walls,f->tool,f->x,f->y,f->size,f->extra,f->mask);break;
+ case 55:return pharaoh_construction_build_housing_rectangle(&housing,(uint32_t)f->tool,f->x,f->y,f->size,f->extra);
+ case 56:pharaoh_map_set_road_tile(&tiles,f->x,f->y,f->tool);break;
+ case 57:pharaoh_map_set_canal_tile(&tiles,f->x,f->y,f->extra,f->tool);break;
+ case 58:return pharaoh_map_construction_checked_distances(&fill,f->x,f->y,f->tool);
+ case 59:return pharaoh_map_place_routed_building(&walk,f->size,f->extra,f->x,f->y,f->tool);
+ case 60:pharaoh_construction_place_road_route(&actions,f->tool,f->x,f->y,f->size,f->extra);break;
+ case 61:pharaoh_construction_place_canal_route(&actions,f->tool,f->x,f->y,f->size,f->extra);break;
+ }
+ return 0; /* All other entries are logically void. */
+}
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
+ if(f->op>=49&&f->op<=61)return fixture_housing_routes(f);
  if(f->op>=37&&f->op<=41)return fixture_food_supply(f);
  if(f->op>=43&&f->op<=45)return fixture_water(f);
  if(f->op==46||f->op==47)return fixture_paint(f);

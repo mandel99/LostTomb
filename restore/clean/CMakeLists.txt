@@ -345,6 +345,11 @@ add_library(pharaoh_game STATIC
     game/editor/elevation.c
     game/map/construction_routes.c
     game/map/construction_footprint.c
+    game/map/wall_construction.c
+    game/map/route_tile_placement.c
+    game/map/land_route_fill.c
+    game/map/route_walk.c
+    game/map/construction_route_actions.c
     game/map/surface_paint.c
     game/map/bridge_placement.c
     game/monuments/placement.c
@@ -352,6 +357,8 @@ add_library(pharaoh_game STATIC
     game/building/construction_commit_support.c
     game/building/construction_site_checks.c
     game/building/construction_basic_warnings.c
+    game/building/housing_warnings.c
+    game/building/housing_construction.c
     game/building/venue_geometry.c
     game/building/entertainment_construction.c
     game/building/construction_undo.c

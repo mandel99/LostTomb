@@ -48,3 +48,20 @@ WARNING_FUNCTION(cattle, 0xc2, 1, 9, RESOURCE_NONE, 1, 9, 0x52, 0x53, 0x20, 0x1f
 WARNING_FUNCTION(carpenters, 0xb1, 20, 20, RESOURCE_NONE, 20, 20, 0x8f, 0x90, 0x20, 0x1f)
 
 #undef WARNING_FUNCTION
+
+void pharaoh_warning_unemployment(PharaohConstructionWarningState *state)
+{
+    if (state->editor_active != 1u &&
+        (state->scenario_mode != 0 || state->mission_id != 0) &&
+        state->population > 299 && state->unemployment_percentage > 10) {
+        state->show_warning(state->user_data, 0x5c, 0, 0);
+    }
+}
+
+void pharaoh_warning_labor_need(PharaohConstructionWarningState *state)
+{
+    if (state->editor_active != 1u && state->population > 299 &&
+        state->labor_available <= state->labor_needed / 2) {
+        state->show_warning(state->user_data, 0x5d, 0, 0);
+    }
+}
