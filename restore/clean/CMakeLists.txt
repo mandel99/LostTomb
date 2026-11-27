@@ -38,6 +38,7 @@ add_library(pharaoh_game STATIC
     game/walker/cross_country_setup.c
     game/walker/sound.c
     game/walker/projectile_create.c
+    game/walker/projectile_path.c
     game/monuments/base_progress.c
     game/monuments/build_requirements.c
     game/monuments/pyramid_work_queries.c
