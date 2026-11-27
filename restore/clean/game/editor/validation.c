@@ -131,3 +131,27 @@ bool pharaoh_editor_validate_and_commit(PharaohEditorValidationState *state)
     state->redraw_requested = 1;
     return true;
 }
+
+uint32_t pharaoh_editor_terrain_kind_result(
+    const PharaohEditorTerrainKindContext *context,
+    uint32_t terrain, int8_t mode)
+{
+    const uint32_t scene = context->scene & 0xffu;
+    const uint32_t index = mode != 0 ? scene :
+        (uint32_t)((int32_t)context->alternate_index + (int32_t)(scene * 2u));
+    const uint32_t allowed = mode != 0 ?
+        context->mode_allowed[index * 12u] :
+        context->default_allowed[index * 12u];
+    uint32_t masked;
+    if ((terrain & 0x3038d022u) != 0u) return terrain & 0xffffff00u;
+    masked = terrain & 0x26351277u;
+    if (allowed != 0u || masked != 0u) {
+        if (context->rule_mode == 1u)
+            return (masked & 0xffffff00u) | ((masked & allowed) != 0u);
+        if ((masked & 4u) != 0u && (allowed & 4u) == 0u)
+            return masked & 0xffffff00u;
+        if ((masked & 0x40000u) != 0u && (allowed & 0x40000u) == 0u)
+            return masked & 0xffffff00u;
+    }
+    return (masked & 0xffffff00u) | 1u;
+}

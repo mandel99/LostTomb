@@ -104,4 +104,80 @@ int32_t pharaoh_map_ferry_landing_at(
     const PharaohFerryLandingMap *map, int32_t x, int32_t y);
 int32_t pharaoh_map_is_ferry_landing_at_offset(
     const PharaohFerryLandingMap *map, int32_t grid_offset);
+typedef struct PharaohMapWaterSearch {
+    const int8_t *water;
+    const int16_t *walker_ids;
+    int32_t origin;
+    int32_t minimum_x;
+    int32_t minimum_y;
+    int32_t maximum_x;
+    int32_t maximum_y;
+} PharaohMapWaterSearch;
+typedef struct PharaohMapRandomState {
+    uint8_t pool[100];
+    int32_t pool_index;
+    uint32_t iv1;
+    uint32_t iv2;
+    uint32_t random13bit;
+    uint32_t random17bit;
+    uint32_t random115bit;
+    uint32_t random23bit;
+    uint32_t random27bit;
+    uint32_t random215bit;
+} PharaohMapRandomState;
+bool pharaoh_map_water_find_free_tile(
+    const PharaohMapWaterSearch *map, int32_t *x, int32_t *y);
+void pharaoh_map_water_supply_clear_canals(
+    const uint32_t *terrain, uint8_t *property_flags,
+    uint8_t *canal_water, uint32_t *image_ids,
+    const int16_t *building_ids,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t grid_start, int32_t grid_width, int32_t grid_height,
+    int32_t grid_border_size, int32_t first_dry_canal_image);
+void pharaoh_map_random_init(
+    uint8_t random_values[PHARAOH_MAP_GRID_WIDTH * PHARAOH_MAP_GRID_WIDTH],
+    PharaohMapRandomState *random);
+void pharaoh_map_property_init_alternate_terrain(
+    const uint8_t *random_values, uint8_t *property_flags,
+    uint32_t *image_ids, int32_t row_count,
+    const int32_t *row_x_start, const int32_t *row_x_end,
+    const int32_t *row_start_offset, int32_t first_grass_image);
+void pharaoh_editor_tile_clear(uint32_t *terrain,
+    uint8_t *overlay_values, uint8_t *property_flags,
+    int16_t *building_ids, int16_t *secondary_ids,
+    uint8_t *secondary_values, uint8_t *tile_states,
+    int32_t grid_start, int32_t x, int32_t y,
+    int32_t *selected_tile, int32_t *changed, int32_t *blocked);
+void pharaoh_editor_tile_set_floodplain(uint32_t *terrain,
+    const uint8_t *blocked_tiles, int32_t map_origin,
+    int32_t x, int32_t y, int32_t *last_tile, int32_t *terrain_changed);
+uint32_t pharaoh_editor_tile_deep_water_edge(
+    const uint32_t *terrain, int32_t grid_start, int32_t x, int32_t y);
+uint8_t pharaoh_map_cardinal_neighbor_count(
+    const uint32_t *terrain, int32_t offset, uint32_t mask);
+uint8_t pharaoh_map_diagonal_neighbor_count(
+    const uint32_t *terrain, int32_t offset, uint32_t mask);
+int32_t pharaoh_map_terrain_has_adjacent_x(
+    const uint32_t *terrain, int32_t offset, uint32_t mask);
+int32_t pharaoh_map_terrain_has_adjacent_y(
+    const uint32_t *terrain, int32_t offset, uint32_t mask);
+int32_t pharaoh_map_water_corner_at(
+    const uint32_t *terrain, int32_t offset);
+int32_t pharaoh_map_find_unmarked_tile(
+    const uint8_t *marks, int32_t origin, int32_t width, int32_t height,
+    int32_t x, int32_t y, int32_t size, int32_t radius,
+    int32_t *result_tile, int32_t *result_x, int32_t *result_y);
+void pharaoh_map_terrain_or_area(PharaohMapTerrainView *map,
+    int32_t x, int32_t y, int32_t size, int32_t radius, uint32_t mask,
+    PharaohMapAreaCursor *cursor);
+bool pharaoh_map_find_nearest_free_land_tile(
+    const PharaohMapGridGeometry *geometry, int32_t map_origin,
+    const int8_t *land_routing, const int16_t *building_ids,
+    int32_t *x, int32_t *y);
+int32_t pharaoh_map_ring_actor_state_search(
+    const PharaohMapRingActorSearch *state, int32_t x, int32_t y,
+    int32_t kind_count, const uint32_t *kinds, uint32_t flag_mask,
+    int32_t *found_x, int32_t *found_y, int32_t remaining_rings,
+    int32_t excluded_actor, uint32_t action_state,
+    int32_t *global_result_y);
 #endif

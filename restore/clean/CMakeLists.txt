@@ -114,6 +114,7 @@ add_library(pharaoh_game STATIC
     game/editor/popup_actions.c
     game/editor/route_geometry.c
     game/editor/validation.c
+    game/editor/terrain_kinds.c
     game/events/event_actions.c
     game/events/event_queries.c
     game/events/gift_buttons.c

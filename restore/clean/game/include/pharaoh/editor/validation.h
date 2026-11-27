@@ -52,4 +52,14 @@ bool pharaoh_editor_validate_second_road_points(
     const PharaohEditorValidationState *state);
 bool pharaoh_editor_validate_and_commit(PharaohEditorValidationState *state);
 
+typedef struct PharaohEditorTerrainKindContext {
+    const uint32_t *mode_allowed;
+    const uint32_t *default_allowed;
+    uint32_t scene;
+    int16_t alternate_index;
+    uint32_t rule_mode;
+} PharaohEditorTerrainKindContext;
+uint32_t pharaoh_editor_terrain_kind_result(
+    const PharaohEditorTerrainKindContext *context,
+    uint32_t terrain, int8_t mode);
 #endif

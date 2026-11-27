@@ -461,3 +461,447 @@ int32_t pharaoh_map_is_ferry_landing_at_offset(
         map, relative % PHARAOH_MAP_GRID_WIDTH,
         relative / PHARAOH_MAP_GRID_WIDTH);
 }
+
+static int32_t free_land_tile(const int8_t *land_routing,
+    const int16_t *building_ids, int32_t tile)
+{
+    const int8_t routing = land_routing[tile];
+    return routing >= 0 && routing < 5 &&
+        (((uint8_t)routing & UINT8_C(1)) == 0) && building_ids[tile] == 0;
+}
+
+static int32_t ring_search_actor_state_tile(
+    const PharaohMapRingActorSearch *state, int32_t x, int32_t y,
+    int32_t kind_count, const uint32_t *kinds, uint32_t flag_mask,
+    int32_t excluded_actor, uint32_t action_state, int32_t check_terrain)
+{
+    const uint32_t tile = *state->search_tile;
+    if (x < 0 || y < 0 || x >= state->width || y >= state->height) return 0;
+    for (int32_t kind_index = 0; kind_index < kind_count; ++kind_index) {
+        int32_t actor = state->tile_actor_ids[tile];
+        while (actor != 0) {
+            const PharaohWalkerQueryRecord *walker = &state->walkers[actor];
+            if ((uint32_t)walker->type == kinds[kind_index] &&
+                actor != excluded_actor &&
+                (uint32_t)walker->action_state == action_state) return actor;
+            actor = walker->next_walker_id_on_same_tile;
+        }
+    }
+    if (check_terrain != 0 &&
+        (state->tile_flags[tile] & 0x80000u) == 0u &&
+        (state->tile_flags[tile] & flag_mask) != 0u) return kind_count + 1;
+    return 0;
+}
+
+static int water_tile_is_free(const PharaohMapWaterSearch *map,
+                              int32_t x, int32_t y)
+{
+    const int32_t offset = y * PHARAOH_MAP_GRID_WIDTH + x;
+    return map->water[offset] >= 0 && map->walker_ids[offset] == 0;
+}
+
+static int select_free_water_tile(const PharaohMapWaterSearch *map,
+                                  int32_t tile_x, int32_t tile_y,
+                                  int32_t *x, int32_t *y)
+{
+    if (!water_tile_is_free(map, tile_x, tile_y)) return 0;
+    *x = tile_x - map->minimum_x;
+    *y = tile_y - map->minimum_y;
+    return 1;
+}
+
+static void map_random_generate_next(PharaohMapRandomState *random)
+{
+    int32_t shift;
+    random->pool[random->pool_index++] = (uint8_t)random->random17bit;
+    if (random->pool_index >= 100) random->pool_index = 0;
+    for (shift = 0; shift < 31; ++shift) {
+        const uint32_t feedback1 = ((random->iv1 >> 4) ^ random->iv1) & 1u;
+        const uint32_t feedback2 = ((random->iv2 >> 4) ^ random->iv2) & 1u;
+        random->iv1 >>= 1;
+        random->iv2 >>= 1;
+        if (feedback1 != 0) random->iv1 |= 0x40000000u;
+        if (feedback2 != 0) random->iv2 |= 0x40000000u;
+    }
+    random->random13bit = random->iv1 & 7u;
+    random->random17bit = random->iv1 & 0x7fu;
+    random->random115bit = random->iv1 & 0x7fffu;
+    random->random23bit = random->iv2 & 7u;
+    random->random27bit = random->iv2 & 0x7fu;
+    random->random215bit = random->iv2 & 0x7fffu;
+}
+
+bool pharaoh_map_water_find_free_tile(
+    const PharaohMapWaterSearch *map, int32_t *x, int32_t *y)
+{
+    if (map->water[map->origin + *y * PHARAOH_MAP_GRID_WIDTH + *x] >= 0 &&
+        map->walker_ids[map->origin + *y * PHARAOH_MAP_GRID_WIDTH + *x] == 0)
+        return true;
+
+    int32_t left = *x - 1 + map->minimum_x;
+    int32_t right = *x + 1 + map->minimum_x;
+    int32_t top = *y - 1 + map->minimum_y;
+    int32_t bottom = *y + 1 + map->minimum_y;
+    for (int32_t radius = 1; radius < PHARAOH_MAP_GRID_WIDTH;
+         ++radius, --left, ++right, --top, ++bottom) {
+        const int32_t first_x = left < map->minimum_x ? map->minimum_x : left;
+        const int32_t last_x = right > map->maximum_x ? map->maximum_x : right;
+        const int32_t first_y = top < map->minimum_y ? map->minimum_y : top;
+        const int32_t last_y = bottom > map->maximum_y ? map->maximum_y : bottom;
+
+        if (top >= map->minimum_y)
+            for (int32_t tile_x = first_x; tile_x <= last_x; ++tile_x)
+                if (select_free_water_tile(map, tile_x, first_y, x, y))
+                    return true;
+        if (bottom <= map->maximum_y)
+            for (int32_t tile_x = first_x; tile_x <= last_x; ++tile_x)
+                if (select_free_water_tile(map, tile_x, last_y, x, y))
+                    return true;
+        if (left >= map->minimum_x)
+            for (int32_t tile_y = first_y; tile_y <= last_y; ++tile_y)
+                if (select_free_water_tile(map, first_x, tile_y, x, y))
+                    return true;
+        if (right <= map->maximum_x)
+            for (int32_t tile_y = first_y; tile_y <= last_y; ++tile_y)
+                if (select_free_water_tile(map, last_x, tile_y, x, y))
+                    return true;
+    }
+    return false;
+}
+
+void pharaoh_map_water_supply_clear_canals(
+    const uint32_t *terrain, uint8_t *property_flags,
+    uint8_t *canal_water, uint32_t *image_ids,
+    const int16_t *building_ids,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t grid_start, int32_t grid_width, int32_t grid_height,
+    int32_t grid_border_size, int32_t first_dry_canal_image)
+{
+    int32_t tile = grid_start;
+    int32_t y;
+    for (y = 0; y < grid_height; ++y) {
+        int32_t x;
+        for (x = 0; x < grid_width; ++x, ++tile) {
+            const uint32_t flags = terrain[tile];
+            const int32_t building_id = building_ids[tile];
+            if ((flags & 4u) == 0 && (flags & 0x100u) != 0 &&
+                (building_id == 0 ||
+                 buildings[building_id].building_type == 138)) {
+                canal_water[tile] = 0;
+                if ((property_flags[tile] & 0x80u) == 0 &&
+                    building_id == 0 &&
+                    (int32_t)image_ids[tile] < first_dry_canal_image) {
+                    image_ids[tile] += 48u;
+                }
+            }
+        }
+        tile += grid_border_size;
+    }
+}
+
+void pharaoh_map_random_init(
+    uint8_t random_values[PHARAOH_MAP_GRID_WIDTH * PHARAOH_MAP_GRID_WIDTH],
+    PharaohMapRandomState *random)
+{
+    int32_t offset;
+    for (offset = 0;
+         offset < PHARAOH_MAP_GRID_WIDTH * PHARAOH_MAP_GRID_WIDTH; ++offset) {
+        map_random_generate_next(random);
+        random_values[offset] = (uint8_t)random->iv1;
+    }
+}
+
+void pharaoh_map_property_init_alternate_terrain(
+    const uint8_t *random_values, uint8_t *property_flags,
+    uint32_t *image_ids, int32_t row_count,
+    const int32_t *row_x_start, const int32_t *row_x_end,
+    const int32_t *row_start_offset, int32_t first_grass_image)
+{
+    int32_t row;
+    for (row = 0; row < row_count; ++row) {
+        int32_t tile = row_start_offset[row];
+        int32_t remaining = row_x_end[row] - row_x_start[row];
+        while (remaining > 0) {
+            const uint8_t random = random_values[tile];
+            image_ids[tile] = (uint32_t)((random & 7u) + first_grass_image);
+            if ((random & 1u) != 0) property_flags[tile] |= 0x20u;
+            ++tile;
+            --remaining;
+        }
+    }
+}
+
+void pharaoh_editor_tile_clear(uint32_t *terrain,
+    uint8_t *overlay_values, uint8_t *property_flags,
+    int16_t *building_ids, int16_t *secondary_ids,
+    uint8_t *secondary_values, uint8_t *tile_states,
+    int32_t grid_start, int32_t x, int32_t y,
+    int32_t *selected_tile, int32_t *changed, int32_t *blocked)
+{
+    const int32_t tile = grid_start + y * 228 + x;
+    uint32_t flags = terrain[tile];
+    uint8_t value;
+
+    *selected_tile = tile;
+    if (flags == 0) {
+        *blocked = 1;
+        return;
+    }
+    overlay_values[tile] = 0;
+    terrain[tile] = flags & 0x99caf680u;
+    value = property_flags[tile];
+    building_ids[tile] = 0;
+    property_flags[tile] = value & 0xe0u;
+    value = tile_states[tile];
+    secondary_ids[tile] = 0;
+    secondary_values[tile] = 0;
+    tile_states[tile] = (value & 0xc0u) | 0x40u;
+    *changed = 1;
+}
+
+void pharaoh_editor_tile_set_floodplain(uint32_t *terrain,
+    const uint8_t *blocked_tiles, int32_t map_origin,
+    int32_t x, int32_t y, int32_t *last_tile, int32_t *terrain_changed)
+{
+    const uint32_t tile = (uint32_t)map_origin +
+        (uint32_t)y * PHARAOH_MAP_GRID_WIDTH + (uint32_t)x;
+    *last_tile = (int32_t)tile;
+    if (blocked_tiles[tile] == 0) {
+        *terrain_changed = 1;
+        terrain[tile] = (terrain[tile] & 0x99cbf680u) | 0x10000u;
+    }
+}
+
+uint32_t pharaoh_editor_tile_deep_water_edge(
+    const uint32_t *terrain, int32_t grid_start, int32_t x, int32_t y)
+{
+    static const int32_t delta[8] = {
+        -228, -227, 1, 229, 228, 227, -1, -229
+    };
+    const int32_t tile = grid_start + y * 228 + x;
+    int32_t direction;
+    if ((terrain[tile] & 4u) == 0 ||
+        (terrain[tile] & 0x4000000u) == 0) return 0;
+    for (direction = 0; direction < 8; ++direction)
+        if ((terrain[tile + delta[direction]] & 0x4000000u) == 0) return 1;
+    return 0;
+}
+
+uint8_t pharaoh_map_cardinal_neighbor_count(
+    const uint32_t *terrain, int32_t offset, uint32_t mask)
+{
+    uint8_t count = 0;
+    count += (terrain[offset - PHARAOH_MAP_GRID_WIDTH] & mask) != 0;
+    count += (terrain[offset + 1] & mask) != 0;
+    count += (terrain[offset + PHARAOH_MAP_GRID_WIDTH] & mask) != 0;
+    count += (terrain[offset - 1] & mask) != 0;
+    return count;
+}
+
+uint8_t pharaoh_map_diagonal_neighbor_count(
+    const uint32_t *terrain, int32_t offset, uint32_t mask)
+{
+    uint8_t count = 0;
+    count += (terrain[offset - PHARAOH_MAP_GRID_WIDTH + 1] & mask) != 0;
+    count += (terrain[offset + PHARAOH_MAP_GRID_WIDTH + 1] & mask) != 0;
+    count += (terrain[offset + PHARAOH_MAP_GRID_WIDTH - 1] & mask) != 0;
+    count += (terrain[offset - PHARAOH_MAP_GRID_WIDTH - 1] & mask) != 0;
+    return count;
+}
+
+int32_t pharaoh_map_terrain_has_adjacent_x(
+    const uint32_t *terrain, int32_t offset, uint32_t mask)
+{
+    if ((terrain[offset + 1] & mask) != 0) return 1;
+    return (terrain[offset - 1] & mask) != 0;
+}
+
+int32_t pharaoh_map_terrain_has_adjacent_y(
+    const uint32_t *terrain, int32_t offset, uint32_t mask)
+{
+    if ((terrain[offset - PHARAOH_MAP_GRID_WIDTH] & mask) != 0) return 1;
+    return (terrain[offset + PHARAOH_MAP_GRID_WIDTH] & mask) != 0;
+}
+
+int32_t pharaoh_map_water_corner_at(
+    const uint32_t *terrain, int32_t offset)
+{
+    return (terrain[offset - PHARAOH_MAP_GRID_WIDTH] & 4u) != 0 &&
+        (terrain[offset + 1] & 4u) != 0 &&
+        (terrain[offset + PHARAOH_MAP_GRID_WIDTH] & 4u) != 0 &&
+        (terrain[offset - 1] & 4u) != 0;
+}
+
+int32_t pharaoh_map_find_unmarked_tile(
+    const uint8_t *marks, int32_t origin, int32_t width, int32_t height,
+    int32_t x, int32_t y, int32_t size, int32_t radius,
+    int32_t *result_tile, int32_t *result_x, int32_t *result_y)
+{
+    int32_t minimum_x = x - radius;
+    int32_t maximum_x = x + size - 1 + radius;
+    int32_t minimum_y = y - radius;
+    int32_t maximum_y = y + size - 1 + radius;
+    int32_t row;
+
+    if (minimum_x < 0) minimum_x = 0;
+    if (minimum_y < 0) minimum_y = 0;
+    if (maximum_x >= width) maximum_x = width - 1;
+    if (maximum_y >= height) maximum_y = height - 1;
+    *result_tile = origin + minimum_y * PHARAOH_MAP_GRID_WIDTH + minimum_x;
+    for (row = minimum_y; row <= maximum_y; ++row) {
+        int32_t column;
+        *result_y = row;
+        for (column = minimum_x; column <= maximum_x; ++column) {
+            *result_x = column;
+            if (marks[*result_tile] == 0) return 1;
+            ++*result_tile;
+        }
+        *result_tile += minimum_x - maximum_x + PHARAOH_MAP_GRID_WIDTH - 1;
+    }
+    return 0;
+}
+
+void pharaoh_map_terrain_or_area(PharaohMapTerrainView *map,
+    int32_t x, int32_t y, int32_t size, int32_t radius, uint32_t mask,
+    PharaohMapAreaCursor *cursor)
+{
+    map_area_apply(map, x, y, size, radius, mask, 0, cursor);
+}
+
+bool pharaoh_map_find_nearest_free_land_tile(
+    const PharaohMapGridGeometry *geometry, int32_t map_origin,
+    const int8_t *land_routing, const int16_t *building_ids,
+    int32_t *x, int32_t *y)
+{
+    const int32_t input_x = *x;
+    const int32_t input_y = *y;
+    int32_t tile = map_origin + input_y * PHARAOH_MAP_GRID_WIDTH + input_x;
+
+    if (free_land_tile(land_routing, building_ids, tile)) {
+        return true;
+    }
+
+    for (int32_t radius = 1; radius <= 227; ++radius) {
+        const int32_t raw_left = input_x - radius + geometry->diamond_x_min;
+        const int32_t raw_right = input_x + radius + geometry->diamond_x_min;
+        const int32_t raw_top = input_y - radius + geometry->diamond_y_min;
+        const int32_t raw_bottom = input_y + radius + geometry->diamond_y_min;
+        const int32_t left = raw_left < geometry->diamond_x_min ?
+            geometry->diamond_x_min : raw_left;
+        const int32_t right = raw_right > geometry->diamond_x_max ?
+            geometry->diamond_x_max : raw_right;
+        const int32_t top = raw_top < geometry->diamond_y_min ?
+            geometry->diamond_y_min : raw_top;
+        const int32_t bottom = raw_bottom > geometry->diamond_y_max ?
+            geometry->diamond_y_max : raw_bottom;
+
+        if (raw_top >= geometry->diamond_y_min && left <= right) {
+            for (int32_t candidate_x = left; candidate_x <= right;
+                 ++candidate_x) {
+                tile = candidate_x + top * PHARAOH_MAP_GRID_WIDTH;
+                if (free_land_tile(land_routing, building_ids, tile)) {
+                    *x = candidate_x - geometry->diamond_x_min;
+                    *y = top - geometry->diamond_y_min;
+                    return true;
+                }
+            }
+        }
+        if (raw_bottom <= geometry->diamond_y_max && left <= right) {
+            for (int32_t candidate_x = left; candidate_x <= right;
+                 ++candidate_x) {
+                tile = candidate_x + bottom * PHARAOH_MAP_GRID_WIDTH;
+                if (free_land_tile(land_routing, building_ids, tile)) {
+                    *x = candidate_x - geometry->diamond_x_min;
+                    *y = bottom - geometry->diamond_y_min;
+                    return true;
+                }
+            }
+        }
+        if (raw_left >= geometry->diamond_x_min && top <= bottom) {
+            for (int32_t candidate_y = top; candidate_y <= bottom;
+                 ++candidate_y) {
+                tile = left + candidate_y * PHARAOH_MAP_GRID_WIDTH;
+                if (free_land_tile(land_routing, building_ids, tile)) {
+                    *x = left - geometry->diamond_x_min;
+                    *y = candidate_y - geometry->diamond_y_min;
+                    return true;
+                }
+            }
+        }
+        if (raw_right <= geometry->diamond_x_max && top <= bottom) {
+            for (int32_t candidate_y = top; candidate_y <= bottom;
+                 ++candidate_y) {
+                tile = right + candidate_y * PHARAOH_MAP_GRID_WIDTH;
+                if (free_land_tile(land_routing, building_ids, tile)) {
+                    *x = right - geometry->diamond_x_min;
+                    *y = candidate_y - geometry->diamond_y_min;
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+int32_t pharaoh_map_ring_actor_state_search(
+    const PharaohMapRingActorSearch *state, int32_t x, int32_t y,
+    int32_t kind_count, const uint32_t *kinds, uint32_t flag_mask,
+    int32_t *found_x, int32_t *found_y, int32_t remaining_rings,
+    int32_t excluded_actor, uint32_t action_state,
+    int32_t *global_result_y)
+{
+    int32_t ring_number = 0;
+    int32_t ring_length = 1;
+    int32_t ring_origin = state->grid_start + y * PHARAOH_MAP_GRID_WIDTH + x;
+    *found_x = x;
+    *found_y = y;
+    for (;;) {
+        int32_t step, result;
+        *state->search_tile = (uint32_t)ring_origin;
+        for (step = 0; step < ring_length; ++step) {
+            result = ring_search_actor_state_tile(state, *found_x, *found_y,
+                kind_count, kinds, flag_mask, excluded_actor, action_state, 1);
+            if (result != 0) return result;
+            ++*state->search_tile;
+            ++*found_x;
+        }
+        --*state->search_tile;
+        --*found_x;
+        for (step = 0; step < ring_length; ++step) {
+            result = ring_search_actor_state_tile(state, *found_x, *found_y,
+                kind_count, kinds, flag_mask, excluded_actor, action_state, 0);
+            if (result != 0) return result;
+            *state->search_tile += PHARAOH_MAP_GRID_WIDTH;
+            ++*found_y;
+        }
+        *state->search_tile -= PHARAOH_MAP_GRID_WIDTH;
+        --*global_result_y;
+        for (step = 0; step < ring_length; ++step) {
+            result = ring_search_actor_state_tile(state, *found_x, *found_y,
+                kind_count, kinds, flag_mask, excluded_actor, action_state, 0);
+            if (result != 0) return result;
+            --*state->search_tile;
+            --*found_x;
+        }
+        ++*state->search_tile;
+        ++*found_x;
+        for (step = 0; step < ring_length; ++step) {
+            result = ring_search_actor_state_tile(state, *found_x, *found_y,
+                kind_count, kinds, flag_mask, excluded_actor, action_state, 0);
+            if (result != 0) return result;
+            *state->search_tile -= PHARAOH_MAP_GRID_WIDTH;
+            --*found_y;
+        }
+        *state->search_tile += PHARAOH_MAP_GRID_WIDTH;
+        ++*found_y;
+        if (remaining_rings == 0) return 0;
+        ++ring_number;
+        ring_length += 2;
+        ring_origin -= PHARAOH_MAP_GRID_WIDTH + 1;
+        --*found_x;
+        --*found_y;
+        --remaining_rings;
+        if (ring_number >= PHARAOH_MAP_GRID_WIDTH) return 0;
+    }
+}
