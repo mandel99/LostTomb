@@ -45,6 +45,7 @@ add_library(pharaoh_game STATIC
     game/walker/chain_callbacks.c
     game/monuments/base_progress.c
     game/monuments/build_requirements.c
+    game/monuments/laborer_jobs.c
     game/monuments/pyramid_work_queries.c
     game/monuments/pyramid_claim.c
     game/monuments/pyramid_progress.c
@@ -138,6 +139,7 @@ add_library(pharaoh_game STATIC
     game/military/enemy_queries.c
     game/military/enemy_ship_queries.c
     game/military/legion_orders.c
+    game/military/native_orders.c
     game/military/transport_boats.c
     game/military/ship_status.c
     game/monuments/stages.c
@@ -149,6 +151,7 @@ add_library(pharaoh_game STATIC
     game/population/house_services.c
     game/population/service_provision.c
     game/population/house_economy.c
+    game/population/house_consumption.c
     game/religion/building_types.c
     game/rendering/overlay_columns.c
     game/rendering/overlay_metrics.c

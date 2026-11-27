@@ -410,3 +410,10 @@ _Static_assert(sizeof(PharaohWalkerMovementRecord) == PHARAOH_WALKER_RECORD_SIZE
     offsetof(PharaohWalkerMovementRecord, height_current) == 0x70 &&
     offsetof(PharaohWalkerMovementRecord, height_target) == 0x71,
     "native walker movement overlay layout");
+
+int32_t pharaoh_walker_action_is_6_7_22_or_23(
+    const PharaohWalkerQueryRecord *walkers, int32_t walker_id)
+{
+    uint32_t action = walkers[walker_id].action_state;
+    return action == 6u || action == 7u || action == 22u || action == 23u;
+}
