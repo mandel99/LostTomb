@@ -267,9 +267,30 @@ uint32_t fixture_food_supply(const FixtureCase *f)
 
 #include "pharaoh/military/construction_alert.h"
 
+#include "pharaoh/building/dock_access.h"
+
+static uint32_t fixture_water(const FixtureCase *f)
+{
+ const PharaohWaterRoutingContext water={
+  .routing_tiles=PTR(const uint8_t,0xed4140),.distance=PTR(uint32_t,0xeed760),
+  .deferred_visits=PTR(uint8_t,0xeae010),.queue=PTR(uint32_t,0xf203a0),
+  .start=PTR(uint32_t,0xeae004),.queue_head=PTR(uint32_t,0xeae00c),
+  .queue_tail=PTR(uint32_t,0xeae008),.origin=PTR(const int32_t,0xbca2d8)};
+ if(f->op==43)return pharaoh_water_routing_build_distance(&water,f->x,f->y);
+ PharaohRoadAccessMap access={0};
+ access.terrain=PTR(const uint32_t,0xaf598c);access.routing_distance=PTR(const int32_t,0xeed760);
+ access.perimeter_offsets=(const int32_t (*)[24])PTR(const int32_t,0x5cc9e0);access.origin=I32(0xbca2d8);
+ const PharaohDockAccessContext dock={.water=&water,.access=&access,
+  .river_entry_x=PTR(const int16_t,0x784c8c),.river_entry_y=PTR(const int16_t,0x784c8e),
+  .buildings=PTR(PharaohBuildingTypeRecord,0x7999d8),.highest_building_id=PTR(const int32_t,0x78d790)};
+ if(f->op==44)return pharaoh_dock_is_connected_to_open_water(&dock,f->x,f->y);
+ pharaoh_docks_refresh_water_access(&dock);return 0;
+}
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
  if(f->op>=37&&f->op<=41)return fixture_food_supply(f);
+ if(f->op>=43&&f->op<=45)return fixture_water(f);
  if(f->op==42){
   const PharaohConstructionAlertContext alert={PTR(PharaohConstructionAlertFormation,0xbcb9c8),PTR(uint32_t,0xd3b4fc),PTR(uint32_t,0xd3b4f8)};
   pharaoh_construction_alert_formations(&alert,f->x,f->y);return 0;

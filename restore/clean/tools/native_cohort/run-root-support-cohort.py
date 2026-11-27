@@ -1,7 +1,7 @@
 import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
-entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110,42:0x4b9ee0}
+entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110,42:0x4b9ee0,43:0x51ce90,44:0x457ac0,45:0x457a40}
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -81,6 +81,15 @@ for label,records,query in [
  for bid,state,skip42,gate69,members,gx,gy in records:
   off=bid*144;b[off]=state;b[off+66]=skip42;b[off+105]=gate69;b[off+40]=members;struct.pack_into('<hh',b,off+46,gx,gy);struct.pack_into('<H',b,off+78,0xeeee);b[off+118]=0xdd
  add('alert:'+label,42,[chunk(0xbcb9c8,b),chunk(0xd3b4f8,bytes.fromhex('78563412efcdab09'))],x=query[0],y=query[1])
+for label,tiles in [('closed',[]),('blocked_start',[(100,100,0xfc)]),('isolated',[(100,100,0)]),('cross',[(100,100,0),(100,99,0),(101,100,0),(100,101,0),(99,100,0)]),('deferred_start',[(100,100,0xfe),(101,100,0)]),('deferred_neighbor',[(100,100,0),(101,100,0xfe),(102,100,0)]),('entry_FC_neighbor',[(100,100,0),(101,100,0xfc),(102,100,0)]),('FD_barrier',[(100,100,0),(101,100,0xfd),(102,100,0)])]:
+ add('water:'+label,43,water_spec={'tiles':tiles},x=100,y=100)
+for step in [-228,1,228,-1]:
+ tiles=[(100+(i if abs(step)==1 else 0)*(1 if step>0 else -1),100+(i if abs(step)==228 else 0)*(1 if step>0 else -1),0xfe if i==3 else 0) for i in range(8)]
+ add('water:corridor:'+str(step),43,water_spec={'tiles':tiles},x=100,y=100)
+for label,query,blocked,water in [('true',(100,100),False,True),('far',(110,110),False,True),('no_terrain',(100,100),False,False),('blocked_entry',(100,100),True,True)]:
+ add('dock:'+label,44,water_spec={'square':4,'blocked':blocked,'terrain_water':water},x=query[0],y=query[1],expected_eax=1 if label=='true' else 0)
+for highest in [-1,0,7]:add('dock_refresh:'+str(highest),45,water_spec={'square':4,'terrain_water':True,'highest':highest},x=100,y=100)
+if '--water-only' in sys.argv:cases=[c for c in cases if 43<=c['op']<=45]
 if '--alert-only' in sys.argv:cases=[c for c in cases if c['op']==42]
 if '--food-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']==0]
 if '--food-fault-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']!=0]
@@ -88,7 +97,7 @@ if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
 if '--region-only' in sys.argv:cases=[c for c in cases if c['op']==36]
 case_label=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--case-label=')),None)
 if case_label is not None:cases=[c for c in cases if c['label']==case_label]
-output_stem='alert' if '--alert-only' in sys.argv else 'food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
+output_stem='water' if '--water-only' in sys.argv else 'alert' if '--alert-only' in sys.argv else 'food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
 
 
 def venue_seed(c):
@@ -136,6 +145,20 @@ def food_seed(c):
   width=r['width'];w.append(chunk(int(r['address'],16),(r['value']&((1<<(8*width))-1)).to_bytes(width,'little')))
  return w
 
+def water_seed(c):
+ spec=c['water_spec'];tiles=bytearray([0xff])*51984
+ if spec.get('full_grid'):
+  for row in range(1,227):tiles[row*228+1:row*228+227]=bytes(226)
+ for x,y,v in spec.get('tiles',[]):tiles[y*228+x]=v
+ if 'square' in spec:
+  for y in range(100-spec['square'],101+spec['square']):
+   for x in range(100-spec['square'],101+spec['square']):tiles[y*228+x]=0
+  if spec.get('blocked'):tiles[100*228+100]=0xfc
+ b=bytearray(4000*264)
+ for bid,state,flag,kind,x,y in [(0,1,0,75,100,100),(1,1,0,75,100,100),(2,1,0,192,110,110),(3,1,0,76,100,100),(4,2,0,75,100,100),(5,1,1,75,100,100),(6,1,0,192,100,100),(7,1,0,75,110,110),(8,1,0,75,100,100)]:
+  off=bid*264;b[off]=state;b[off+5]=flag;struct.pack_into('<hh',b,off+6,x,y);struct.pack_into('<h',b,off+16,kind);b[off+0x35]=0x93
+ return [chunk(0xed4140,tiles),chunk(0xeed760,bytes.fromhex('a3a4a5a6')*51984),chunk(0xeae010,bytes([0x7b])*51984),chunk(0xf203a0,bytes.fromhex('c1c2c3c4')*51984),chunk(0xeae004,struct.pack('<3I',0x12345678,0x4567,0x2345)),chunk(0x784c8c,struct.pack('<hh',100,100)),pack(0x78d790,spec.get('highest',7)),chunk(0x7999d8,b),chunk(0xaf598c,struct.pack('<I',4 if spec.get('terrain_water') else 0)*51984)]
+
 def execute(c):
  op=c['op'];tool=c.get('tool',0);x,y,size,extra=c.get('x',111),c.get('y',113),c.get('size',1),c.get('extra',0)
  w=[chunk(0xbca2d0,struct.pack('<12i',228,228,0,0,0,0,0,0,227,227,114,114)),chunk(0x784b64,struct.pack('<8h',*([1000]*8))),chunk(0x784cc0,struct.pack('<8i',*([1000]*8))),pack(0x605a3c,0),pack(0xeaac28,0),chunk(0xea1870,bytes(2*0x49d8)),pack(0xe38ec1,0,'<B'),pack(0xe38dda,1,'<B'),chunk(0xe94e20,bytes(608)),pack(0xf53f34,0),pack(0xd3b4e0,0x12345678),pack(0xd3b4e4,0x23456789)]
@@ -155,6 +178,8 @@ def execute(c):
   w+=venue_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in venue_contract['watch_regions']]
  if 37<=op<=41:
   w+=food_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in food_contract['observe']['write_watch']]
+ if 43<=op<=45:
+  w+=water_seed(c);watch=[(0xeae004,12),(0xeed760,51984*4),(0xeae010,51984),(0xf203a0,51984*4),(0x7999d8,4000*264),(0xeed760+(100*228+100)*4,16),(0xeae010+100*228+100,4),(0x7999d8,9*264)]+[(0x7999d8+i*264+0x35,1) for i in range(9)]
  w += c['writes']+[chunk(CASE,struct.pack('<I5i',op,tool,x,y,size,extra))]
  args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else [x,y,size,extra,tool,c["required"]] if op==36 else []
  if 30<=op<=33:args=[size,0x12345678,0x87654321,x,y]
@@ -165,8 +190,11 @@ def execute(c):
  if op==39:args=[tool,size]
  if op==40:args=[x,y,size,extra]
  if op==41:args=[tool]
+ if op in [43,44]:args=[x,y]
  if op==42:args=[x,y]
- rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 500000
+ rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 4000000 if 43<=op<=45 else 500000
+ if c.get('water_spec',{}).get('full_grid'):
+  rn['max_steps']=rc['max_steps']=12000000;rn['timeout_ms']=rc['timeout_ms']=60000
  if 37<=op<=41:
   rn['registers']['ECX']='00bca350'
   for q in [rn,rc]:q['registers'].update(FPUControlWord='0000037f',FPUStatusWord='00000000',FPUTagWord='0000ffff')
@@ -183,7 +211,7 @@ def execute(c):
   if c['food_spec']['expected_C_status']!=0:return {'case':c,'native_entry':f'{entries[op]:08x}','passed':not issues,'qualification':'C checked-IDIV status only; pcode emulator may omit hardware divide overflow','native':a,'C':b,'issues':issues}
  if not a.get('ok') or not b.get('ok'):issues.append(['execution',a.get('error'),b.get('error'),a.get('pc'),b.get('pc')])
  else:
-  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36,37,39,40,41]:
+  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36,37,39,40,41,43,44]:
    av,bv=[int(t['registers']['EAX'],16) for t in [a,b]]
    if op in [18,19,20,22,23]:av&=255;bv&=255
    if av!=bv:issues.append(['result',a['registers']['EAX'],b['registers']['EAX']])

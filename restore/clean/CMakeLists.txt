@@ -31,6 +31,8 @@ add_library(pharaoh_game STATIC
     game/monuments/complex_progress.c
     game/commerce/export_keep.c
     game/map/road_network.c
+    game/map/water_routing.c
+    game/building/dock_access.c
     game/map/road_access.c
     game/building/linked_parts.c
     game/scenario/scene_counts.c
