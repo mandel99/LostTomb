@@ -70,4 +70,13 @@ int32_t pharaoh_map_pattern_has_mask_4000(
     const uint32_t *terrain, int32_t map_origin, int32_t x, int32_t y,
     const int32_t pattern_offsets[][24], int32_t pattern);
 
+typedef struct PharaohConstructionEntryPoints {
+    int16_t primary_x[4];
+    int16_t primary_y[4];
+    int32_t secondary_x[4];
+    int32_t secondary_y[4];
+} PharaohConstructionEntryPoints;
+uint8_t pharaoh_construction_area_has_entry_point(
+    const PharaohConstructionEntryPoints *points,
+    int32_t x1, int32_t y1, int32_t x2, int32_t y2);
 #endif

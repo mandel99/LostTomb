@@ -539,3 +539,63 @@ bool pharaoh_event_uses_trade_city(const PharaohScenarioEvent *event)
     return pharaoh_event_type_uses_city(event) &&
         !pharaoh_event_type_is_invasion(event);
 }
+
+PharaohScenarioEvent *pharaoh_scenario_invasion_next(
+    PharaohScenarioEvent *events, int32_t count,
+    const PharaohScenarioEvent *previous, bool create,
+    uint8_t *invasion_search_flag, int32_t *current_event_index)
+{
+    const int32_t first = previous != NULL ? previous->id + 1 : 0;
+    int32_t index = first;
+
+    *invasion_search_flag = 1;
+    while (index < count) {
+        PharaohScenarioEvent *event = &events[index];
+        if (event->type == PHARAOH_EVENT_INVASION) {
+            event->id = (int16_t)index;
+            *current_event_index = index;
+            return event;
+        }
+        ++index;
+    }
+    if (create && first < 140) {
+        events[index].id = (int16_t)index;
+        *current_event_index = index;
+        return &events[140];
+    }
+    --*current_event_index;
+    return NULL;
+}
+
+uint32_t pharaoh_event_is_future_result(
+    const PharaohScenarioEvent *event,
+    const PharaohEventCalendarView *calendar)
+{
+    const uint32_t event_year =
+        (uint32_t)(int32_t)event->year.value +
+        (uint32_t)(int32_t)*calendar->scenario_start_year;
+    const int32_t current_year = *calendar->current_year;
+
+    if (current_year < (int32_t)event_year) {
+        return (event_year & UINT32_C(0xFFFFFF00)) | UINT32_C(1);
+    }
+    if (current_year > (int32_t)event_year) {
+        return event_year & UINT32_C(0xFFFFFF00);
+    }
+    return (uint32_t)(*calendar->current_month < (int32_t)event->month);
+}
+
+uint8_t pharaoh_event_is_running(const PharaohScenarioEvent *event,
+    const PharaohEventCalendarView *calendar)
+{
+    uint32_t elapsed;
+    if ((event->flags & UINT32_C(0x11)) != 0u) return 0;
+    if ((uint8_t)pharaoh_event_is_future_result(event, calendar) != 0u)
+        return 0;
+    elapsed = (uint32_t)*calendar->current_year -
+        (uint32_t)(int32_t)event->year.value -
+        (uint32_t)(int32_t)*calendar->scenario_start_year;
+    elapsed = elapsed * 12u - (uint32_t)event->month +
+        (uint32_t)*calendar->current_month;
+    return (uint8_t)((int32_t)elapsed <= (int32_t)event->months_initial);
+}

@@ -30,3 +30,13 @@ ordered calls to the real post routines are compared, but text rendering and
 mutations caused by enabled posting remain outside this finite proof. The
 fixture links actual static CRT memory routines; it supplies no emulation
 endpoint replacements. Void entries do not expose incidental native EAX.
+
+The sites cohort covers10 entries in202 cases (six new complete implementations
+and four unchanged C dependency adoptions). Use -Cohort sites, then run
+run-site-cohort.py. It compares genuine rectangle/bounds/progress/post calls,
+entry-point precedence, all temple rotations, monument cursors, fixed4000-ID
+scans and their99-ID skip, invasion iteration and signed calendar results.
+The prior gatehouse C scan order was corrected to native columns before rows.
+Military text posting remains disabled; its real routing and event mutations
+are compared. Original thiscall invasion cleanup is checked separately from
+the C context ABI. No native endpoint substitutes are supplied.

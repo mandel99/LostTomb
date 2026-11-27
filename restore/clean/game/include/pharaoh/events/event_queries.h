@@ -275,4 +275,18 @@ bool pharaoh_event_type_uses_city(const PharaohScenarioEvent *event);
 bool pharaoh_event_type_is_invasion(const PharaohScenarioEvent *event);
 bool pharaoh_event_uses_trade_city(const PharaohScenarioEvent *event);
 
+typedef struct PharaohEventCalendarView {
+    const int16_t *scenario_start_year;
+    const int32_t *current_year;
+    const int32_t *current_month;
+} PharaohEventCalendarView;
+PharaohScenarioEvent *pharaoh_scenario_invasion_next(
+    PharaohScenarioEvent *events, int32_t count,
+    const PharaohScenarioEvent *previous, bool create,
+    uint8_t *invasion_search_flag, int32_t *current_event_index);
+uint32_t pharaoh_event_is_future_result(
+    const PharaohScenarioEvent *event,
+    const PharaohEventCalendarView *calendar);
+uint8_t pharaoh_event_is_running(const PharaohScenarioEvent *event,
+    const PharaohEventCalendarView *calendar);
 #endif

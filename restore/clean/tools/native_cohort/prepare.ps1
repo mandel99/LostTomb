@@ -1,5 +1,5 @@
 param([Parameter(Mandatory=$true)][int]$GhidraPid,
- [ValidateSet('placement','warnings')][string]$Cohort='placement')
+ [ValidateSet('placement','warnings','sites')][string]$Cohort='placement')
 $ErrorActionPreference='Stop'
 $clean=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $root=Split-Path (Split-Path $clean -Parent) -Parent
@@ -10,7 +10,7 @@ $lib=Join-Path $clean 'build/bootstrap-vs2022-win32/Release/pharaoh_game.lib'
 if(-not(Test-Path -LiteralPath $lib)){throw 'Build the Release pharaoh_clean_bootstrap target first'}
 $null=Get-Process -Id $GhidraPid -ErrorAction Stop
 New-Item -ItemType Directory -Path $out -Force|Out-Null
-foreach($name in @('LostTombNativeComparisonAgent.java','LostTombAttach.java','fixture-placement.c','compare-placement.py','run-placement-cohort.py','run-placement-extra.py','placement-spec.json','fixture-warnings.c','compare-warnings.py','run-warnings-cohort.py','warnings-spec.json')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $out $name) -Force}
+foreach($name in @('LostTombNativeComparisonAgent.java','LostTombAttach.java','fixture-placement.c','compare-placement.py','run-placement-cohort.py','run-placement-extra.py','placement-spec.json','fixture-warnings.c','compare-warnings.py','run-warnings-cohort.py','warnings-spec.json','fixture-sites.c','run-site-cohort.py')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $out $name) -Force}
 $live=$false
 if(Test-Path -LiteralPath "$out/ready.json"){
  try{$v=Get-Content -Raw "$out/ready.json"|ConvertFrom-Json;$r=Invoke-RestMethod -Uri ("http://127.0.0.1:"+$v.port+'/info') -Headers @{'X-LostTomb-Token'=$v.token} -TimeoutSec 5;$live=$r.ok -and $r.sha256 -eq 'fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d'}catch{$live=$false}
@@ -29,12 +29,12 @@ if($LASTEXITCODE){throw 'Diagnostic JAR creation failed'}
 }
 $vc='C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Auxiliary/Build/vcvars32.bat'
 $runtime='/MD';$linkOptions='';$runtimeLibs=''
-if($Cohort -eq 'warnings'){$runtime='/MT';$linkOptions='/NODEFAULTLIB:MSVCRT ';$runtimeLibs='libcmt.lib libvcruntime.lib libucrt.lib kernel32.lib '}
+if($Cohort -ne 'placement'){$runtime='/MT';$linkOptions='/NODEFAULTLIB:MSVCRT ';$runtimeLibs='libcmt.lib libvcruntime.lib libucrt.lib kernel32.lib ucrt.lib '}
 $lines=@('@echo off',('call "'+$vc+'" >nul'),'if errorlevel 1 exit /b %errorlevel%',('cl.exe /nologo /std:c11 /W4 /WX /O2 /Oi /Gy /GS- '+$runtime+' /I"'+$clean+'/game/include" /Fo"'+$out+'/fixture-'+$Cohort+'.obj" /c "'+$out+'/fixture-'+$Cohort+'.c"'),'if errorlevel 1 exit /b %errorlevel%',('link.exe /nologo /DLL /NOENTRY /MACHINE:X86 /BASE:0x10000000 /FIXED /DYNAMICBASE:NO /OPT:REF '+$linkOptions+'/OUT:"'+$out+'/'+$Cohort+'-fixture.dll" /MAP:"'+$out+'/'+$Cohort+'-fixture.map" "'+$out+'/fixture-'+$Cohort+'.obj" "'+$lib+'" '+$runtimeLibs+'user32.lib gdi32.lib winmm.lib ole32.lib shell32.lib comdlg32.lib advapi32.lib msimg32.lib dxguid.lib ddraw.lib'),'exit /b %errorlevel%')
 [IO.File]::WriteAllText((Join-Path $out ('build-'+$Cohort+'.cmd')),($lines -join "`r`n")+"`r`n")
 & cmd.exe /c "$out/build-$Cohort.cmd"
 if($LASTEXITCODE){throw 'Fixture DLL link failed'}
-if($Cohort -eq 'warnings'){Write-Output 'Prepared26-entry warnings cohort with actual static CRT memory routines';return}
+if($Cohort -ne 'placement'){Write-Output ('Prepared '+$Cohort+' cohort with actual static CRT memory routines');return}
 $map=Get-Content -Raw (Join-Path $out 'placement-fixture.map')
 $targets=@{}
 foreach($name in @('pharaoh_monument_no_progress','pharaoh_monument_tile_is_free','pharaoh_abu_simbel_tile_is_free','pharaoh_royal_tomb_terrain_allowed','pharaoh_lighthouse_tile_is_free')){

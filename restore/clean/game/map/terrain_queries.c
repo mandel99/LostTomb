@@ -333,3 +333,25 @@ int32_t pharaoh_map_pattern_has_mask_4000(
 {
     return pattern_has_mask(terrain, map_origin, x, y, pattern_offsets, pattern, 0x4000u);
 }
+
+uint8_t pharaoh_construction_area_has_entry_point(
+    const PharaohConstructionEntryPoints *points,
+    int32_t x1, int32_t y1, int32_t x2, int32_t y2)
+{
+    const int32_t left = x1 < x2 ? x1 : x2;
+    const int32_t right = x1 > x2 ? x1 : x2;
+    const int32_t top = y1 < y2 ? y1 : y2;
+    const int32_t bottom = y1 > y2 ? y1 : y2;
+    int32_t index;
+    for (index = 0; index < 4; ++index)
+        if (points->primary_x[index] >= left &&
+            points->primary_x[index] <= right &&
+            points->primary_y[index] >= top &&
+            points->primary_y[index] <= bottom) return 1;
+    for (index = 0; index < 4; ++index)
+        if (points->secondary_x[index] >= left &&
+            points->secondary_x[index] <= right &&
+            points->secondary_y[index] >= top &&
+            points->secondary_y[index] <= bottom) return 1;
+    return 0;
+}
