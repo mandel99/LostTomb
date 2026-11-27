@@ -12,4 +12,6 @@ typedef struct PharaohCrtErrorState {
 void pharaoh_crt_error_from_win32(PharaohCrtErrorState *state,
                                   uint32_t win32_error);
 
+uint32_t pharaoh_crt_math_hook_disabled(void);
+void pharaoh_crt_set_math_error(int32_t argument, int32_t *error_code);
 #endif

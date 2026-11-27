@@ -42,3 +42,16 @@ void pharaoh_crt_error_from_win32(PharaohCrtErrorState *state,
         state->errno_value = EINVAL;
     }
 }
+
+uint32_t pharaoh_crt_math_hook_disabled(void)
+{
+    return 0;
+}
+
+void pharaoh_crt_set_math_error(int32_t argument, int32_t *error_code)
+{
+    if (argument == 1)
+        *error_code = 0x21;
+    else if (argument > 1 && argument < 4)
+        *error_code = 0x22;
+}

@@ -15,4 +15,9 @@ void pharaoh_crt_ieee_raise(PharaohCrtIeeeRecord *record, uint32_t *control,
     uint32_t exceptions, uint32_t operation, const uint64_t *operand,
     uint64_t *result);
 
+/* Native56971F record construction. Reads arg2 only for operations10/16/1D;
+ * otherwise only the second-operand validity bit is cleared. */
+void pharaoh_crt_ieee_prepare_second_operand(PharaohCrtIeeeRecord *record,
+    uint32_t operation, const uint64_t *operand);
+
 #endif

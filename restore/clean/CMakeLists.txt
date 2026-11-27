@@ -22,6 +22,7 @@ add_library(pharaoh_game STATIC
     game/runtime/compression_buffer.c
     game/runtime/crt_x87_math.c
     game/runtime/crt_ieee_raise.c
+    game/runtime/crt_math_dispatch.c
     game/runtime/crt_numeric_bits.c
     game/core/pk_explode_data.c
     game/core/compression_io.c

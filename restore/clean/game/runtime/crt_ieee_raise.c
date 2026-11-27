@@ -102,3 +102,20 @@ void pharaoh_crt_ieee_raise(struct PharaohCrtIeeeRecord *record,uint32_t *contro
     }
     copy_binary64_live(record->bytes+64,result);
 }
+
+/* Native569791 snapshots descriptor14 before the floating transfer. Retain
+ * those owned bytes without treating unspecified reserved bits as a DWORD. */
+void pharaoh_crt_ieee_prepare_second_operand(PharaohCrtIeeeRecord *record,
+    uint32_t operation, const uint64_t *operand)
+{
+    if(operation==0x10u || operation==0x16u || operation==0x1du) {
+        uint8_t saved[4];
+        volatile uint8_t *descriptor=record->bytes+56;
+        for(uint32_t i=0;i<4u;++i)saved[i]=descriptor[i];
+        copy_binary64_live(operand,record->bytes+40);
+        descriptor[0]=(uint8_t)((saved[0]&0xe3u)|3u);
+        for(uint32_t i=1;i<4u;++i)descriptor[i]=saved[i];
+    } else {
+        ieee_word_update(record,14,0xfffffffeu,0);
+    }
+}
