@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Complete logical FP/CW implementations of567517 unary-error and56760B shared tail over the complete C math dispatcher.",
+  "complete_C_parent_owners_added": 2,
+  "reused_parent_algorithms": 2,
+  "native_instructions": 38,
+  "source_binding": [
+    {
+      "address": "0x00567517",
+      "name": "pharaoh_crt_math_one_arg_error_live",
+      "source": "game/runtime/crt_math_dispatch.c",
+      "body_sha256": "1a4805e782ce7860900aa99643c36da15347c3118de59f59bf39317b954cac11",
+      "native_instructions": 23,
+      "native_bytes_sha256": "ca8c587bce75d6431bf72092b31a99c30db58ff8d3aa60fd65e41a86852efcc7",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3008.json",
+      "native_callees": [
+        "0x0056971F"
+      ]
+    },
+    {
+      "address": "0x0056760B",
+      "name": "pharaoh_crt_math_finish_live",
+      "source": "game/runtime/crt_math_dispatch.c",
+      "body_sha256": "5c38d662ebca283b8ebd66dee909b8421a3f8550559520a879cf3acfdc70eef3",
+      "native_instructions": 15,
+      "native_bytes_sha256": "c52b11c2f87cb280a857bc4f1442e274b39ddcfb68cb9167f941f707193e58da",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3008.json",
+      "native_callees": [
+        "0x00567517"
+      ]
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/runtime/crt_math_dispatch.c": "9e7ed4acb24826941e2d90b3159edcf7d49a5684d3aef471bbd86dcc355965a6",
+    "game/include/pharaoh/runtime/crt_math_dispatch.h": "7c3d8e0a7c436dae08a4198a40412283370a24ee3e79fbae6864aacc4d4ef372"
+  },
+  "worktree_scope_hashes": {
+    "game/runtime/crt_math_dispatch.c": "9e7ed4acb24826941e2d90b3159edcf7d49a5684d3aef471bbd86dcc355965a6",
+    "game/include/pharaoh/runtime/crt_math_dispatch.h": "7c3d8e0a7c436dae08a4198a40412283370a24ee3e79fbae6864aacc4d4ef372"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinMath.c",
+      "sha256": "ae1624681aef8847aabd692e9c92b75000230938784ba4b536079a8db510f125"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinEntries.c",
+      "sha256": "80349ed4421a70ce0ee5cffc82e81f0286b9c0ca693c70a98e5c1f3958205296"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\CrtAsinMath.c",
+      "sha256": "1afa9fe4e2fc966a4d1a38a71b22596482d5bcb83465bc6b7917fa2dfd3d93d6"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\compatibility\\runtime\\CrtAsinEntries.c",
+      "sha256": "acccf27a1c563c213a423fd6be528bf5f03d21a613d54c668d1212784d6ee03e"
+    }
+  ],
+  "contracts": [
+    "Current/old C algorithms reused; Native custom entry contracts qualified from all38 complete pinned instructions and live Ghidra caller/xref observations. No original-code jump, register frame or invented callback is introduced.",
+    "567517 actual EAX type,ECX name,EDX operation and shared-stack CW/operand become typed C values/pointers. Native frame contains an intervening caller return PC; it is not exposed as an invented C API argument.",
+    "Preserve type publication then actual FSTP qword result before name/operand setup. Arg2 remains unspecified and unread on unary operation paths. Complete C56971F handles the record, then actual FLD restores live ST0 before re-reading/shared-WORD comparison and optional FLDCW.",
+    "56760B reads actual low CW WORD once for27F/mask20 gates, obtains actual waiting status only under that mask, and invokes567517 type8 for inexact; otherwise loads the current shared WORD. The final load keeps the pointer live rather than snapshotting the whole DWORD.",
+    "Raw shared-stack POP EDX/RET cleanup belongs to typed C parents. C functions expose live ST0/CW and record/error effects, without unused high-scratch or GPR results. Physical indirect/shared-entry register equivalence is unclaimed. Known game asin consumers use the FP result; unobserved register paths remain a coverage obligation.",
+    "Ghidra entries renamed/commented; no false ordinary-C parameter layout is installed for the two custom entries. Existing dispatcher C body remains byte-identical. Compiled object confirms FSTP->FLD->FLDCW and genuine C children; compiler may inline the dispatcher and supplies its own security-cookie guard."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "fc81fabe6d37746fe612e144b6745dd7ae18b546b17feba1d4639c7b29655656",
+    "canonical_exe_sha256": "586a1f4e54f2c3a21bc68c9764600542ea6a036b116f3f6f46410ae4feb78540",
+    "worktree_library_sha256": "41cdd5e2691bbdfc7858d0cb2f26c75ce52102dabc289ece4d1d25109cb7a05e",
+    "worktree_exe_sha256": "f0e4aba55b97045229dbd0a9486f380514ea3996300e28ecb7228c4c737c3738",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_crt_math_one_arg_error_live": 1,
+      "pharaoh_crt_math_finish_live": 1,
+      "pharaoh_crt_math_dispatch": 1
+    },
+    "object_sha256": "59811780de44cb11f2151cbb0b8290afd42d3cfc578ef0af6b5289b3fd4048ad"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "38 pinned Ghidra Native instructions, live annotations/callers, compiled ABI and strict Release; no new tests."
+  },
+  "archive": "build/verified-images/crt-math-finish-C-20261127-fc81fabe6d37746f",
+  "artifact_sha256": {
+    "crt_math_dispatch.obj": "59811780de44cb11f2151cbb0b8290afd42d3cfc578ef0af6b5289b3fd4048ad",
+    "losttomb-asin-result-consumers.json": "b09087dc67a57cfb020cab80e2fbb5f8420766e3414b1e73d1d5f8cb013e100d",
+    "losttomb-math-dispatch-native.json": "51262faf8a92b042aecdf99fdcc919c15b2a9cc01e892b7593a5e2871839caa1",
+    "losttomb-math-finish-callers.json": "e73c21075bdd368e17837fdb40782ce034b24d381af3bec411c1aac8485ade76",
+    "losttomb-math-finish-canonical-build.log": "5b44579271a2ab43d42f42d7cb309707ce63773487a23b234ea49732ef914831",
+    "losttomb-math-finish-compiled.txt": "baffd6d5ac9b3d4970182a9b88da54fb6c824dadd64ddba2680469cd401d41ab",
+    "losttomb-math-finish-ghidra.json": "c4acae865d3e5fc3b70a09bdbcfaed9db2e77083007568579ff939f787bd65a9",
+    "losttomb-math-finish-migration-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-math-finish-release.log": "04f120512946353ab72a14fc6967f8ad567c00055199ba11f358c5ab15d67299",
+    "LostTomb.exe": "586a1f4e54f2c3a21bc68c9764600542ea6a036b116f3f6f46410ae4feb78540",
+    "pharaoh_game.lib": "fc81fabe6d37746fe612e144b6745dd7ae18b546b17feba1d4639c7b29655656"
+  },
+  "remaining": [
+    "Asin562D00/562D1D C parents must retain the actual live FP input/classification and bind the shared-CW/real mode/error cells; reuse old C with Native producer proof.",
+    "Native5675FE setup prefix and all custom/indirect register coverage need qualification with the parent branch; no standalone function is invented for a prefix absent from the cached function inventory.",
+    "SEH563354, candidate tail48AD90, full gameplay/host equivalence remain unresolved."
+  ]
+}

@@ -37,3 +37,53 @@ void pharaoh_crt_math_dispatch(uint32_t operation,
             pharaoh_crt_math_hook_disabled()!=0)return;
     pharaoh_crt_set_math_error(record->type,error_code);
 }
+
+
+/* Whole00567517. Native writes type, pops live result, then name/operand.
+ * Unary arg2 remains the caller-owned record's unspecified bytes. */
+__declspec(noinline) void pharaoh_crt_math_one_arg_error_live(int32_t type, const char *name,
+    uint32_t operation, uint64_t operand, const uint16_t *saved_control,
+    const volatile uint32_t *math_hook_mode, int32_t *error_code)
+{
+    PharaohCrtMathExceptionRecord record;
+    uint64_t *result=&record.result;
+    record.type=type;
+    __asm {
+        mov eax,result
+        fstp qword ptr[eax]
+    }
+    record.name=name;
+    record.arg1=operand;
+    pharaoh_crt_math_dispatch(operation,&record,saved_control,
+        math_hook_mode,error_code);
+    __asm {
+        mov eax,result
+        fld qword ptr[eax]
+    }
+    if(*saved_control!=0x27fu) {
+        __asm {
+            mov eax,saved_control
+            fldcw word ptr[eax]
+        }
+    }
+}
+
+/* Whole0056760B logical FP/CW tail. Native shared-stack POP/RET is folded
+ * into its typed C callers; no scratch high bits or GPR result are invented. */
+__declspec(noinline) void pharaoh_crt_math_finish_live(const uint16_t *saved_control,
+    uint64_t operand, uint32_t operation, const char *name,
+    const volatile uint32_t *math_hook_mode, int32_t *error_code)
+{
+    const uint16_t control=*saved_control;
+    if(control==0x27fu)return;
+    if((control&0x20u)!=0 &&
+            ((uint32_t)pharaoh_crt_x87_status_wait()&0x20u)!=0) {
+        pharaoh_crt_math_one_arg_error_live(8,name,operation,operand,
+            saved_control,math_hook_mode,error_code);
+        return;
+    }
+    __asm {
+        mov eax,saved_control
+        fldcw word ptr[eax]
+    }
+}
