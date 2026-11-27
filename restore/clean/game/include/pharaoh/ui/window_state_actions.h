@@ -31,4 +31,20 @@ void pharaoh_game_undo_finish_build(uint32_t placement_cursor,
 void pharaoh_build_sidebar_hover_update(int32_t mouse_x, int32_t mouse_y,
     int32_t left, int32_t top, int32_t right, int32_t bottom,
     int32_t *hovered);
+typedef struct PharaohPopupWindowState {
+    uint8_t current_window;
+    uint8_t previous_window;
+    int32_t mouse_x;
+    int32_t mouse_y;
+    int32_t popup_x;
+    int32_t popup_y;
+    uint8_t popup_flag;
+    void (*callback)(void);
+    uint32_t key;
+    uint32_t mode;
+    uint8_t redraw_requested;
+} PharaohPopupWindowState;
+
+void pharaoh_popup_window_open(PharaohPopupWindowState *state,
+    uint32_t key, void (*callback)(void), uint32_t mode);
 #endif

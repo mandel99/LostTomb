@@ -538,4 +538,5 @@ int32_t pharaoh_building_type_is_00488080_group(
     const PharaohBuildingTypeRecord *buildings, int32_t id);
 int32_t pharaoh_building_type_is_00489880_group(
     const PharaohBuildingTypeRecord *buildings, int32_t id);
+int32_t pharaoh_building_type_is_monument(int32_t building_type);
 #endif

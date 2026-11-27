@@ -351,3 +351,15 @@ int32_t pharaoh_building_type_is_00489880_group(
     default: return 0;
     }
 }
+
+int32_t pharaoh_building_type_is_monument(int32_t type)
+{
+    switch (type) {
+        case 0xb7: case 0xcf: case 0xd0: case 0xd2: case 0xd5:
+        case 0xde: case 0xe1: case 0xe3: case 0xe4: case 0xe5:
+        case 0xe6: case 0xea: case 0xeb: case 0xec:
+            return 1;
+        default:
+            return 0;
+    }
+}

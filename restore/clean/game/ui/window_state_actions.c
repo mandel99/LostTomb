@@ -82,3 +82,17 @@ void pharaoh_game_undo_finish_build(uint32_t placement_cursor,
     *undo_cursor = placement_cursor;
     *redraw_requested = 1;
 }
+
+void pharaoh_popup_window_open(PharaohPopupWindowState *state,
+    uint32_t key, void (*callback)(void), uint32_t mode)
+{
+    state->previous_window = state->current_window;
+    state->popup_y = state->mouse_y + 0x50;
+    state->popup_x = state->mouse_x + 0x50;
+    state->current_window = 0x3f;
+    state->popup_flag = 0;
+    state->callback = callback;
+    state->key = key;
+    state->mode = mode;
+    state->redraw_requested = 1;
+}
