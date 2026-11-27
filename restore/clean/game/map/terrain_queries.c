@@ -326,3 +326,10 @@ int32_t pharaoh_map_diagonal_pair_has_mask(
         ((terrain[offset + 1] & mask) != 0 ||
          (terrain[offset - 1] & mask) != 0);
 }
+
+int32_t pharaoh_map_pattern_has_mask_4000(
+    const uint32_t *terrain, int32_t map_origin, int32_t x, int32_t y,
+    const int32_t pattern_offsets[][24], int32_t pattern)
+{
+    return pattern_has_mask(terrain, map_origin, x, y, pattern_offsets, pattern, 0x4000u);
+}

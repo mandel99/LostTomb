@@ -127,4 +127,10 @@ int32_t pharaoh_empire_route_find_for_city(
 int32_t pharaoh_empire_route_travel_months(
     const PharaohEmpireRouteRecord *route);
 
+uint32_t pharaoh_empire_object_city_sells_resource(
+    const PharaohEmpireObjectRecord *objects, int32_t object_index,
+    uint32_t resource_kind);
+uint32_t pharaoh_empire_our_city_sells_resource(
+    const PharaohEmpireObjectRecord *objects, uint32_t resource_kind);
+
 #endif

@@ -171,3 +171,29 @@ int32_t pharaoh_empire_route_travel_months(
     const int32_t months = distance / 400;
     return months < 1 ? 1 : months;
 }
+
+uint32_t pharaoh_empire_object_city_sells_resource(
+    const PharaohEmpireObjectRecord *objects, int32_t object_index,
+    uint32_t resource_kind)
+{
+    const PharaohEmpireObjectRecord *const object = &objects[object_index];
+    for (int32_t i = 0; i < PHARAOH_EMPIRE_CITY_SOLD_RESOURCE_SLOTS; ++i) {
+        if (object->sold_resources[i] == resource_kind) return 1;
+    }
+    return 0;
+}
+
+uint32_t pharaoh_empire_our_city_sells_resource(
+    const PharaohEmpireObjectRecord *objects, uint32_t resource_kind)
+{
+    for (int32_t i = 0; i < PHARAOH_EMPIRE_OBJECT_COUNT; ++i) {
+        const PharaohEmpireObjectRecord *const object = &objects[i];
+        if (object->in_use != 0 && object->kind == 1 &&
+            object->city_type == 0 &&
+            pharaoh_empire_object_city_sells_resource(
+                objects, i, resource_kind) != 0) {
+            return 1;
+        }
+    }
+    return 0;
+}

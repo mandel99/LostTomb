@@ -66,4 +66,8 @@ uint8_t pharaoh_map_tile_is_buildable_for_editor_at(
 int32_t pharaoh_map_diagonal_pair_has_mask(
     const uint32_t *terrain, int32_t offset, uint32_t mask);
 
+int32_t pharaoh_map_pattern_has_mask_4000(
+    const uint32_t *terrain, int32_t map_origin, int32_t x, int32_t y,
+    const int32_t pattern_offsets[][24], int32_t pattern);
+
 #endif
