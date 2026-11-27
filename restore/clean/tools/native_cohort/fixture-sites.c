@@ -287,10 +287,70 @@ static uint32_t fixture_water(const FixtureCase *f)
  pharaoh_docks_refresh_water_access(&dock);return 0;
 }
 
+#include "pharaoh/map/surface_paint.h"
+
+static uint32_t fixture_paint(const FixtureCase *f)
+{
+ PharaohMapTerrainView map={0};map.width=I32(0xbca2d0);map.height=I32(0xbca2d4);map.origin=I32(0xbca2d8);map.terrain=PTR(uint32_t,0xaf598c);
+ PharaohMapSurfaceContext surface={0};surface.map=&map;
+ surface.border_size=PTR(const int32_t,0xbca2dc);surface.orientation=PTR(int32_t,0xbca2e0);
+ surface.building_orientation=PTR(const uint32_t,0xe94e04);surface.height_values=PTR(const int8_t,0xac2d4c);
+ surface.flood_tiles=PTR(PharaohFloodTile *const,0xd05720);surface.building_ids=PTR(int16_t,0xb4e6fc);
+ surface.buildings=PTR(PharaohBuildingTypeRecord,0x7999d8);surface.groups=PTR(const PharaohSpriteGroupRecord,0xf55bb0);
+ surface.image_ids=PTR(uint32_t,0xb7482c);surface.property_flags=PTR(uint8_t,0xb285cc);surface.edge_flags=PTR(uint8_t,0xb67d1c);
+ surface.row_x_start=PTR(const int32_t,0xbc9f24);surface.row_x_end=PTR(const int32_t,0xbc9b94);surface.row_start_offset=PTR(const int32_t,0xbc9804);
+ surface.current_tile=PTR(uint32_t,0xbc9768);surface.random=PTR(const uint8_t,0xacf85c);
+ surface.footprints=(const PharaohMapTileAreaOffset (*)[6])PTR(const int32_t,0x5cc8c0);
+ surface.placement_failed=PTR(uint32_t,0xbc9734);surface.pyramid_queue_count=PTR(uint32_t,0xeaaf64);surface.pyramid_queue=PTR(uint32_t,0xeaac30);
+ PharaohConstructionUndoContext backup={0};backup.saved_terrain=PTR(uint32_t,0x9de62c);backup.saved_images=PTR(uint32_t,0xa1126c);
+ backup.saved_bytes[0]=PTR(uint8_t,0x9d1b1c);backup.saved_bytes[1]=PTR(uint8_t,0x9b84fc);backup.saved_bytes[2]=PTR(uint8_t,0x9ab9ec);
+ PharaohConstructionEntryPoints points;
+ for(uint32_t i=0;i<4;++i){points.primary_x[i]=PTR(const int16_t,0x784b64)[i];points.primary_y[i]=PTR(const int16_t,0x784b6c)[i];points.secondary_x[i]=PTR(const int32_t,0x784cc0)[i];points.secondary_y[i]=PTR(const int32_t,0x784cd0)[i];}
+ const PharaohSurfacePaintContext paint={&surface,&backup,PTR(uint8_t,0xae8e7c),&points,PTR(uint32_t,0xbc971c)};
+ if(f->op==46)pharaoh_construction_paint_paved_roads(&paint,f->x,f->y,f->size,f->extra);
+ else pharaoh_construction_paint_gardens(&paint,f->x,f->y,f->size,f->extra);
+ return 0;
+}
+
+#include "pharaoh/map/bridge_placement.h"
+static uint32_t fixture_bridge(const FixtureCase *f)
+{
+ PharaohSceneRouting *r=PTR(PharaohSceneRouting,0x20100000);
+ PharaohBridgePlacementContext *c=PTR(PharaohBridgePlacementContext,0x20101000);
+ *r=(PharaohSceneRouting){0};
+ r->geometry=PTR(const PharaohSavedGameGeometry,0xbca2d0);
+ r->terrain=PTR(uint32_t,0xaf598c);
+ r->building_ids=PTR(const int16_t,0xb4e6fc);
+ r->buildings=PTR(const PharaohBuildingTypeRecord,0x7999d8);
+ r->tile_direction=PTR(const uint8_t,0xadc36c);
+ r->random=PTR(const uint8_t,0xacf85c);
+ r->images=PTR(uint32_t,0xb7482c);
+ r->edges=PTR(uint8_t,0xb67d1c);
+ r->footprints=PTR(uint8_t,0xb285cc);
+ r->citizen=PTR(uint8_t,0xee0c50);
+ r->noncitizen=PTR(uint8_t,0xec7630);
+ r->water=PTR(uint8_t,0xed4140);
+ r->flood_tiles=PTR(PharaohFloodTile *const,0xd05720);
+ r->cleared_building_image=PTR(const uint32_t,0xf56b8c);
+ r->flood_image_base=PTR(const uint32_t,0xf56c34);
+ r->map_orientation=PTR(const int32_t,0xbca2e0);
+ r->city_orientation=PTR(const int32_t,0xe94e04);
+ r->buildings_without_id_cleared=PTR(uint32_t,0xf535bc);
+ /* Baseline fixture has no active ferry records. For active ferries bind an
+  * actual fully-backed PharaohFerryContext via pharaoh_ferry_bind_scene_routing,
+  * never noop callbacks. No fields required by the inactive branch are faked. */
+ c->state=PTR(PharaohBridgePlacementState,0xbc96f4);
+ c->routing=r;c->tile_direction=PTR(uint8_t,0xadc36c);
+ pharaoh_map_place_bridge(c,f->x,f->y,f->extra);
+ return 0; /* Logical native result is void. */
+}
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
  if(f->op>=37&&f->op<=41)return fixture_food_supply(f);
  if(f->op>=43&&f->op<=45)return fixture_water(f);
+ if(f->op==46||f->op==47)return fixture_paint(f);
+ if(f->op==48)return fixture_bridge(f);
  if(f->op==42){
   const PharaohConstructionAlertContext alert={PTR(PharaohConstructionAlertFormation,0xbcb9c8),PTR(uint32_t,0xd3b4fc),PTR(uint32_t,0xd3b4f8)};
   pharaoh_construction_alert_formations(&alert,f->x,f->y);return 0;

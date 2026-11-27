@@ -345,6 +345,8 @@ add_library(pharaoh_game STATIC
     game/editor/elevation.c
     game/map/construction_routes.c
     game/map/construction_footprint.c
+    game/map/surface_paint.c
+    game/map/bridge_placement.c
     game/monuments/placement.c
     game/building/construction_resource_warnings.c
     game/building/construction_commit_support.c
