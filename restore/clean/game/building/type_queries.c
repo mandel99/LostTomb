@@ -779,3 +779,438 @@ int32_t pharaoh_building_has_special_service_kind(
             return 0;
     }
 }
+
+static int32_t house_expansion_neighbour_matches(
+    const PharaohHouseExpansionRecord *buildings, int32_t tile_building_id,
+    int32_t house_id)
+{
+    const PharaohHouseExpansionRecord *house = &buildings[house_id];
+    const PharaohHouseExpansionRecord *other;
+    if (tile_building_id == house_id) return 1;
+    other = &buildings[tile_building_id];
+    return other->state == 1 && other->house_size != 0 &&
+        other->subtype <= house->subtype;
+}
+
+static int32_t building_coordinate_difference(int32_t a, int32_t b)
+{
+    if (a > b) return (int32_t)((uint32_t)a - (uint32_t)b);
+    if (a < b) return (int32_t)((uint32_t)b - (uint32_t)a);
+    return 0;
+}
+
+int32_t pharaoh_shipwright_order_rank(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    const PharaohShipwrightOrderRecord *orders)
+{
+    const PharaohBuildingTypeRecord *building = &buildings[building_id];
+    if (building->building_type != 0x4a || building->state != 1u ||
+        building->repair_queue_id == 0u) return -1;
+    return orders[building->repair_queue_id].rank;
+}
+
+void pharaoh_building_toggle_orders_view(PharaohBuildingTypeRecord *buildings,
+    int32_t building_id, uint8_t *redraw_requested)
+{
+    if (buildings[building_id].orders_view == 1)
+        buildings[building_id].orders_view = 16;
+    else if (buildings[building_id].orders_view == 16)
+        buildings[building_id].orders_view = 1;
+    *redraw_requested = 1;
+}
+
+int32_t pharaoh_shipwright_boat_destination(
+    PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    uint32_t boat_type)
+{
+    int32_t building_type;
+    int32_t id;
+
+    if (boat_type == 25u) building_type = 76;
+    else building_type = boat_type == 77u ? 181 : 182;
+
+    for (id = 1; id < PHARAOH_BUILDING_RECORD_COUNT; ++id) {
+        PharaohBuildingTypeRecord *building = &buildings[id];
+        int32_t walker_id;
+
+        if (building->state == 0u || building->building_type != building_type)
+            continue;
+        walker_id = building->shipwright_boat_id;
+        if (walker_id < 1) return id;
+        if (walkers[walker_id].state == 0u ||
+            (walkers[walker_id].type != boat_type &&
+             walkers[walker_id].type != 0u) ||
+            walkers[walker_id].building_id != id) {
+            building->shipwright_boat_id = 0;
+            return id;
+        }
+    }
+    return 0;
+}
+
+void pharaoh_entertainer_update_show_days(
+    const PharaohWalkerQueryRecord *walkers,
+    PharaohBuildingTypeRecord *buildings, int32_t walker_id)
+{
+    const PharaohWalkerQueryRecord *w = &walkers[walker_id];
+    uint8_t *b = (uint8_t *)&buildings[w->entertainment_building_id];
+    if (w->type == 0x0f) b[0xa7] = 0x20;
+    else if (w->type == 0x10) b[0xa8] = 0x20;
+    else if (w->type == 0x11) b[0xa9] = 0x20;
+}
+
+uint8_t pharaoh_building_type_is_not_monument_group_004696b0(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    switch (buildings[id].building_type) {
+    case 0xb7: case 0xcf: case 0xd2: case 0xd5: case 0xd7: case 0xda:
+    case 0xdb: case 0xdc: case 0xde: case 0xe1: case 0xe3: case 0xe4:
+    case 0xe5: case 0xe6: case 0xea: case 0xeb: case 0xec: return 0;
+    default: return 1;
+    }
+}
+
+int32_t pharaoh_building_maintenance_get_closest_burning_ruin(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const int16_t *burning_building_ids, int32_t burning_building_count,
+    int32_t x, int32_t y, PharaohFireSearchState *search)
+{
+    int32_t unassigned = 0;
+    int32_t assigned = 0;
+    int32_t assigned_distance = 10000;
+    int32_t index;
+
+    search->best_unassigned_distance = 10000;
+    search->search_remaining = 0;
+    if (burning_building_count <= 0) return 0;
+    search->search_remaining = burning_building_count;
+    for (index = 0; index < burning_building_count; ++index) {
+        const int32_t building_id = burning_building_ids[index];
+        const PharaohBuildingTypeRecord *building = &buildings[building_id];
+        int32_t dx, dy, distance;
+        if (building->state != 1 || building->building_type != 99 ||
+            building->ruin_has_plague != 0 ||
+            building->distance_from_entry == 0) continue;
+        dx = building_coordinate_difference(x, building->x);
+        dy = building_coordinate_difference(y, building->y);
+        search->distance_x = dx;
+        search->distance_y = dy;
+        distance = dx >= dy ? dx : dy;
+        if (building->walker_id4 != 0) {
+            if (distance < assigned_distance) {
+                assigned_distance = distance;
+                assigned = building_id;
+            }
+        } else if (distance < search->best_unassigned_distance) {
+            search->best_unassigned_distance = distance;
+            unassigned = building_id;
+        }
+    }
+    if (unassigned == 0 && assigned_distance < 3) return assigned;
+    return unassigned;
+}
+
+uint32_t pharaoh_building_house_can_expand(
+    PharaohHouseExpansionRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const uint32_t *terrain, const int16_t *building_ids,
+    const int32_t direction_offsets[4], const int32_t *tile_offsets,
+    const int32_t expansion_deltas[8], int32_t building_id,
+    int32_t tile_count, int32_t *expansion_x, int32_t *expansion_y)
+{
+    PharaohHouseExpansionRecord *house = &buildings[building_id];
+    int32_t pass;
+    for (pass = 0; pass < 3; ++pass) {
+        int32_t direction;
+        for (direction = 0; direction < 4; ++direction) {
+            const int32_t base = house->grid_offset + direction_offsets[direction];
+            int32_t count = 0;
+            int32_t index;
+            for (index = 0; index < tile_count; ++index) {
+                const int32_t tile = base + tile_offsets[index];
+                const uint32_t flags = terrain[tile];
+                if (pass == 0) {
+                    if ((flags & 8u) != 0 &&
+                        house_expansion_neighbour_matches(buildings,
+                            building_ids[tile], building_id)) ++count;
+                } else {
+                    const uint32_t blocked = flags & 0xeefed77fu;
+                    if (blocked == 0) ++count;
+                    if ((blocked & 8u) != 0) {
+                        if (house_expansion_neighbour_matches(buildings,
+                                building_ids[tile], building_id)) ++count;
+                    } else if (pass == 2 && (blocked & 0x20u) != 0) {
+                        ++count;
+                    }
+                }
+            }
+            if (count == tile_count) {
+                *expansion_x = house->x + expansion_deltas[direction * 2];
+                *expansion_y = house->y + expansion_deltas[direction * 2 + 1];
+                return 1;
+            }
+        }
+    }
+    house->no_space_to_expand = 1;
+    return 0;
+}
+
+void pharaoh_building_house_repair_map_position(
+    PharaohHouseExpansionRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const int16_t *building_ids, int32_t building_id,
+    int32_t grid_start, int32_t grid_width, int32_t grid_height,
+    int32_t grid_border_size, uint32_t *repair_attempts,
+    uint32_t *repair_failures)
+{
+    PharaohHouseExpansionRecord *house = &buildings[building_id];
+    int32_t tile = house->grid_offset;
+    int32_t row;
+
+    house->no_space_to_expand = 0;
+    if (tile == grid_start + house->y * 228 + house->x &&
+        building_ids[tile] == building_id) return;
+
+    ++*repair_attempts;
+    tile = grid_start;
+    for (row = 0; row < grid_height; ++row) {
+        int32_t column;
+        for (column = 0; column < grid_width; ++column, ++tile) {
+            if (building_ids[tile] == building_id) {
+                const int32_t relative = tile - grid_start;
+                house->grid_offset = tile;
+                house->x = (int16_t)(relative % 228);
+                house->y = (int16_t)(relative / 228);
+                return;
+            }
+        }
+        tile += grid_border_size;
+    }
+    house->state = 4;
+    ++*repair_failures;
+}
+
+int32_t pharaoh_building_house_collect_expansion_stock(
+    PharaohHouseExpansionRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const uint32_t *terrain, const int16_t *building_ids,
+    const int32_t *tile_offsets, int32_t map_origin,
+    int32_t expansion_x, int32_t expansion_y,
+    int32_t building_id, int32_t tile_count,
+    uint32_t stock_totals[12])
+{
+    int32_t population = 0;
+    const int32_t base = map_origin + expansion_y * 228 + expansion_x;
+    int32_t slot;
+    int32_t index;
+
+    for (slot = 0; slot < 12; ++slot) stock_totals[slot] = 0;
+    for (index = 0; index < tile_count; ++index) {
+        const int32_t tile = base + tile_offsets[index];
+        int32_t donor_id;
+        PharaohHouseExpansionRecord *donor;
+        if ((terrain[tile] & 8u) == 0) continue;
+        donor_id = building_ids[tile];
+        if (donor_id == building_id) continue;
+        donor = &buildings[donor_id];
+        if (donor->house_size == 0) continue;
+        population += donor->house_population;
+        for (slot = 0; slot < 12; ++slot)
+            stock_totals[slot] += (uint32_t)(int32_t)donor->inventory[slot];
+        donor->house_population = 0;
+        donor->state = 5;
+    }
+    return population;
+}
+
+void pharaoh_city_ratings_prosperity_cap(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t highest_id, const PharaohHouseModel *house_models,
+    int32_t *prosperity_cap)
+{
+    uint32_t weighted_total = 0;
+    int32_t population = 0;
+    int32_t id;
+
+    for (id = 1; id <= highest_id; ++id) {
+        const PharaohBuildingTypeRecord *building = &buildings[id];
+        if (building->state != 0 && building->house_size != 0) {
+            const int32_t house_population = building->house_population;
+            weighted_total += (uint32_t)house_models[building->subtype].prosperity *
+                (uint32_t)house_population;
+            population += house_population;
+        }
+    }
+    *prosperity_cap = population > 0 ?
+        (int32_t)weighted_total / population : 0;
+}
+
+int32_t pharaoh_building_house_tax_income(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    if (BUILDING_BYTE(b, 5) == 0) return 0;
+    return (BUILDING_DWORD(b, 0x8c) + 5000) / 10000;
+}
+
+int32_t pharaoh_dock_registry_index(int32_t dock_count,
+    const int16_t dock_ids[PHARAOH_DOCK_REGISTRY_CAPACITY],
+    int32_t building_id)
+{
+    int32_t index;
+    if (dock_count <= 0) return -1;
+    for (index = 0; index < PHARAOH_DOCK_REGISTRY_CAPACITY; ++index)
+        if (dock_ids[index] == building_id) return index;
+    return -1;
+}
+
+bool pharaoh_ship_is_docked(const PharaohWalkerQueryRecord *walkers,
+    const PharaohBuildingTypeRecord *buildings, int32_t walker_id)
+{
+    const int32_t building_id = walkers[walker_id].building_id;
+    return building_id != 0 &&
+        buildings[building_id].fishing_boat_id == walker_id;
+}
+
+int32_t pharaoh_formation_legion_at_building(
+    const int16_t *building_id_grid,
+    const PharaohBuildingTypeRecord *buildings, int32_t grid_offset)
+{
+    const int32_t id = building_id_grid[grid_offset];
+    const uint8_t *b;
+    if (id <= 0 || buildings[id].state != 1) return 0;
+    if (buildings[id].building_type != 0x36 && buildings[id].building_type != 0x39) return 0;
+    b = (const uint8_t *)&buildings[id];
+    return *(const int16_t *)(b + 0x50);
+}
+
+int32_t pharaoh_building_type_group_index(int32_t type)
+{
+    switch (type) {
+    case 0x3c: case 0x41: return 0;
+    case 0x3d: case 0x42: return 1;
+    case 0x3e: case 0x43: return 2;
+    case 0x3f: case 0x44: return 3;
+    case 0x40: case 0x45: return 4;
+    default: return -1;
+    }
+}
+
+void pharaoh_mausoleum_entry_tile(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    int32_t *x, int32_t *y)
+{
+    *x = buildings[building_id].origin_x + 22;
+    *y = buildings[building_id].origin_y + 4;
+}
+
+int32_t pharaoh_building_obelisk_part_number(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    const int32_t parts = b->building_type == 0xcf ? 10 : 18;
+    int32_t result = (BUILDING_BYTE(b, 0x55) - 0x21) * parts / 0x42 + 1;
+    return result < parts ? result : parts;
+}
+
+void pharaoh_building_adjust_active_rating_004e8e80(
+    PharaohBuildingTypeRecord *buildings, int8_t delta)
+{
+    int32_t id;
+    for (id = 1; id < PHARAOH_BUILDING_RECORD_COUNT; ++id) {
+        PharaohBuildingTypeRecord *b = &buildings[id];
+        if (b->state == 1 && BUILDING_BYTE(b, 5) != 0) {
+            int32_t value = (int8_t)(uint8_t)(
+                BUILDING_BYTE(b, 0xc2) + (uint8_t)delta);
+            if (value < 0) value = 0;
+            if (value > 100) value = 100;
+            *((uint8_t *)b + 0xc2) = (uint8_t)value;
+        }
+    }
+}
+
+TYPE_IN_CASES(pharaoh_building_type_is_004eada0_group,
+    case 0x19: case 0x4d: case 0x4e: case 0x5c: case 0x5d: case 100: case 0x65:)
+
+int32_t pharaoh_laborer_pyramid_set_layout_target(
+    PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t walker_id, int32_t building_id, int32_t pyramid_style,
+    const int32_t *mastaba_first_part_by_size,
+    const int32_t *pyramid_first_part_by_size)
+{
+    const int32_t root_id = building_id - buildings[building_id].subtype;
+    const uint8_t size = buildings[root_id].pyramid_size_variant;
+    const int32_t part = pyramid_style == 5 ?
+        mastaba_first_part_by_size[size] : pyramid_first_part_by_size[size];
+    const int32_t target_id = root_id + part;
+    PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+    const PharaohBuildingTypeRecord *target = &buildings[target_id];
+    walker->destination_x = target->road_access_x;
+    walker->destination_y = target->road_access_y;
+    walker->destination_grid_offset = target->grid_offset;
+    walker->roam_length = 0;
+    return target_id;
+}
+
+int32_t pharaoh_building_subtype(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    return buildings[building_id].subtype;
+}
+
+uint32_t pharaoh_building_advisor_option_category(uint32_t building_type)
+{
+    switch (building_type) {
+    case 30:
+    case 62: return 13;
+    case 31:
+    case 32:
+    case 48:
+    case 53:
+    case 54:
+    case 55:
+    case 56: return 8;
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38: return 10;
+    case 39:
+    case 40:
+    case 41:
+    case 49:
+    case 57:
+    case 59: return 6;
+    case 44:
+    case 45:
+    case 46: return 9;
+    case 50:
+    case 51:
+    case 52: return 11;
+    default: return 0;
+    }
+}
+
+uint8_t pharaoh_sun_temple_access_tile(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    const PharaohSunTemplePartDefinition *part_definitions,
+    int32_t *x, int32_t *y)
+{
+    const PharaohBuildingTypeRecord *building = &buildings[building_id];
+    const int32_t subtype = building->subtype;
+    switch (part_definitions[subtype].size) {
+        case 0: *x = building->x + 2; *y = building->y + 5; break;
+        case 1: *x = building->x + 1; *y = building->y + 2; break;
+        case 2: *x = building->x + 1; *y = building->y + 1; break;
+        case 3: *x = building->x - 1; *y = building->y + 1; break;
+        case 4: *x = building->x - 1; *y = building->y - 1; break;
+        case 5: *x = building->x + 1; *y = building->y - 1; break;
+        case 6:
+            *x = building->x + (((uint16_t)subtype & 1u) == 0u ? 1 : -1);
+            *y = building->y;
+            break;
+        case 12: *x = building->x + 1; *y = building->y + 1; break;
+        default: *x = building->x; *y = building->y; break;
+    }
+    return 1;
+}
