@@ -52,3 +52,23 @@ void pharaoh_city_ratings_store_culture_lowest(
 {
     *culture_explanation = culture_lowest;
 }
+
+void pharaoh_build_sidebar_hover_update(int32_t mouse_x, int32_t mouse_y,
+    int32_t left, int32_t top, int32_t right, int32_t bottom,
+    int32_t *hovered)
+{
+    *hovered = mouse_x >= left && mouse_x < right &&
+        mouse_y >= top && mouse_y < bottom;
+}
+
+void pharaoh_top_menu_hover_index(int32_t mouse_x, int32_t mouse_y,
+    const int32_t left_edges[3], int32_t *hovered)
+{
+    int32_t index;
+    *hovered = 0;
+    if (mouse_y <= 3 || mouse_y >= 18) return;
+    for (index = 0; index < 3; ++index) {
+        if (mouse_x > left_edges[index] && mouse_x < left_edges[index] + 128)
+            *hovered = index + 1;
+    }
+}

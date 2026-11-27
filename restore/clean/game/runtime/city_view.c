@@ -489,3 +489,54 @@ int32_t pharaoh_city_view_mouse_to_grid_offset(
     return city_view_pixels_to_grid_offset(
         state, projection, hit, mouse_x, mouse_y);
 }
+
+void pharaoh_minimap_calculate_projection_origin(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    int32_t width, int32_t height,
+    int32_t *origin_x, int32_t *origin_y)
+{
+    const int32_t room_x = wrapped_sub_i32(wrapped_sub_i32(
+        projection->projected_maximum_x,
+        projection->projected_minimum_x), width);
+    const int32_t room_y = wrapped_sub_i32(wrapped_sub_i32(
+        projection->projected_maximum_y,
+        projection->projected_minimum_y), height);
+    int32_t chosen_x = wrapped_sub_i32(
+        PHARAOH_CITY_PROJECTION_HEIGHT, width) / 2;
+    int32_t chosen_y = wrapped_sub_i32(
+        PHARAOH_CITY_PROJECTION_WIDTH, height) / 2;
+
+    if (wrapped_add_i32(room_x, 1) > 0) {
+        chosen_x = wrapped_add_i32(wrapped_sub_i32(
+            state->viewport.width_tiles / 2, width / 2),
+            state->camera_x);
+        if (chosen_x < projection->projected_minimum_x) {
+            chosen_x = projection->projected_minimum_x;
+        } else {
+            const int32_t maximum_x = wrapped_sub_i32(
+                projection->projected_maximum_x, width);
+            if (chosen_x > maximum_x) {
+                chosen_x = maximum_x;
+            }
+        }
+    }
+
+    if (wrapped_add_i32(room_y, 1) > 0) {
+        chosen_y = wrapped_add_i32(wrapped_sub_i32(
+            state->viewport.height_tiles / 2, height / 2),
+            state->camera_y);
+        if (chosen_y < projection->projected_minimum_y) {
+            chosen_y = projection->projected_minimum_y;
+        } else {
+            const int32_t maximum_y = wrapped_sub_i32(
+                projection->projected_maximum_y, height);
+            if (chosen_y > maximum_y) {
+                chosen_y = maximum_y;
+            }
+        }
+    }
+
+    *origin_x = chosen_x;
+    *origin_y = (int32_t)((uint32_t)chosen_y & 0x0000fffeu);
+}

@@ -51,3 +51,27 @@ void pharaoh_walker_recount_player_naval_types(
         }
     }
 }
+
+int32_t pharaoh_walker_find_linked_type_77(
+    const PharaohWalkerQueryRecord *walkers, const int16_t *heads,
+    int32_t head_index)
+{
+    int32_t walker_id = heads[head_index];
+    while (walker_id != 0) {
+        if (walkers[walker_id].type == 77) return walker_id;
+        walker_id = walkers[walker_id].next_walker_id_on_same_tile;
+    }
+    return 0;
+}
+
+int32_t pharaoh_walker_find_linked_type_78(
+    const PharaohWalkerQueryRecord *walkers, const int16_t *heads,
+    int32_t head_index)
+{
+    int32_t walker_id = heads[head_index];
+    while (walker_id != 0) {
+        if (walkers[walker_id].type == 78) return walker_id;
+        walker_id = walkers[walker_id].next_walker_id_on_same_tile;
+    }
+    return 0;
+}

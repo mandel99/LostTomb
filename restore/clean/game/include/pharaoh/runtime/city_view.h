@@ -121,4 +121,10 @@ typedef struct PharaohCityPixelHit {
 } PharaohCityPixelHit;
 int32_t pharaoh_city_view_pixels_to_grid_offset(const PharaohCityViewState *, const PharaohCityProjectionLookup *, PharaohCityPixelHit *, int32_t, int32_t);
 int32_t pharaoh_city_view_mouse_to_grid_offset(const PharaohCityViewState *, const PharaohCityProjectionLookup *, PharaohCityPixelHit *, int32_t, int32_t);
+void pharaoh_minimap_calculate_projection_origin(
+    const PharaohCityViewState *state,
+    const PharaohCityProjectionLookup *projection,
+    int32_t width, int32_t height,
+    int32_t *origin_x, int32_t *origin_y);
+
 #endif

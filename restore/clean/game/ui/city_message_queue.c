@@ -14,7 +14,8 @@ void pharaoh_city_message_dialog_show(const PharaohCityMessageQueueContext *c,
 {
     PharaohMessageDialogOpenState dialog=*c->dialog;
     dialog.message_record_value=&c->layouts[message].media_offset;
-    dialog.current_message_phrase_count=&c->messages[*c->shown_index].native_26;
+    dialog.current_message_phrase_count=templated!=0?
+        &c->messages[*c->shown_index].native_26:NULL;
     pharaoh_message_dialog_show(&dialog,message,0,templated);
 }
 

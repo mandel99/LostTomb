@@ -17,7 +17,9 @@ typedef union PharaohFormationCountRecord {
         uint16_t ready;
         uint8_t reserved_5c[11],flag_67,reserved_68,skip_69,reserved_6a[14];
         int16_t event_id;
-        uint8_t reserved_7a[22];
+        uint8_t reserved_7a[8];
+        int16_t native_82; /* signed selection gate, BCBA4A+id*144 */
+        uint8_t reserved_84[12];
     } fields;
 } PharaohFormationCountRecord;
 typedef struct PharaohFormationUnitModel {
