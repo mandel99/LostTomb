@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Complete live-ST0 asin562D00/562D1D branch through existing real C error/FP/CW providers, reusing current/old C.",
+  "complete_C_parent_owners_added": 2,
+  "reused_parent_algorithms": 2,
+  "native_instructions": 59,
+  "source_binding": [
+    {
+      "address": "0x00562D00",
+      "name": "pharaoh_crt_asin_live",
+      "source": "game/runtime/crt_asin.c",
+      "body_sha256": "7bcea70f46f18fa1026cef600769c0f11a49064c57b2200a89909b0595588173",
+      "native_instructions": 6,
+      "native_bytes_sha256": "deff25160d6e232b645c1e6b76bb3e07fd7e2ba70681033963a9acd846b04816",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2944.json",
+      "native_callees": [
+        "0x00562D1D",
+        "0x005675E8"
+      ]
+    },
+    {
+      "address": "0x00562D1D",
+      "name": "pharaoh_crt_asin_core_live",
+      "source": "game/runtime/crt_asin.c",
+      "body_sha256": "c273b86354e8c4cc7026bc6c930eed71e5736c9f5cc03f84d6ce81e84656a77e",
+      "native_instructions": 53,
+      "native_bytes_sha256": "6a1178e426ff30a09f6afa3f7922e633719d93ef5075750f076193f26c645b55",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2944.json",
+      "native_callees": [
+        "0x00567517",
+        "0x00567575",
+        "0x0056758C"
+      ]
+    }
+  ],
+  "support_binding": [
+    {
+      "source": "game/runtime/crt_asin.c",
+      "name": "replace_indefinite_live",
+      "body_sha256": "1220ac1db94b96df48743abf542a5057c743ee344c2cde008b5f094d00010352",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_asin.c",
+      "name": "replace_half_pi_live",
+      "body_sha256": "0f88e3be38f6d71ea1fa43c415019babda75ea5f84196a2db7fedc6a2b692707",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_asin.c",
+      "name": "asin_interior_live",
+      "body_sha256": "c008122afe3298f5ead133473e431f9b82a4a2e1bb8dbc2c812b63a626a5c2c6",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_asin.c",
+      "name": "restore_control_if_needed",
+      "body_sha256": "981e7cc7cf04d53a7fa0e61f909ae776827519dbd86d20094bb8ec61fb155c0d",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_asin.c",
+      "name": "error_or_restore_live",
+      "body_sha256": "34e3abefd333528060f51e563679d946cb8ae6269a27829ee89a52996865352f",
+      "native_owner_credit": 0
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/runtime/crt_asin.c": "f8096b3325651ff25f22af1b20e114d71688989104de92c3c23155f3727e5669",
+    "game/include/pharaoh/runtime/crt_asin.h": "944696b6736ba0c92c47ca837e80aacbca65031def84fb1d7a9aa2ba5e3cd9ab",
+    "CMakeLists.txt": "05eae1e79a828535fdcfc74ea201cc1222080cb68cb39819fc63a856e659adff"
+  },
+  "worktree_scope_hashes": {
+    "game/runtime/crt_asin.c": "f8096b3325651ff25f22af1b20e114d71688989104de92c3c23155f3727e5669",
+    "game/include/pharaoh/runtime/crt_asin.h": "944696b6736ba0c92c47ca837e80aacbca65031def84fb1d7a9aa2ba5e3cd9ab",
+    "CMakeLists.txt": "91f22efea17894ac48bce3d611cf8820651f1e1f807ecbb0d5ad42e47a3f60ad"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinMath.c",
+      "sha256": "ae1624681aef8847aabd692e9c92b75000230938784ba4b536079a8db510f125"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinEntries.c",
+      "sha256": "80349ed4421a70ce0ee5cffc82e81f0286b9c0ca693c70a98e5c1f3958205296"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\CrtAsinMath.c",
+      "sha256": "1afa9fe4e2fc966a4d1a38a71b22596482d5bcb83465bc6b7917fa2dfd3d93d6"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\compatibility\\runtime\\CrtAsinEntries.c",
+      "sha256": "acccf27a1c563c213a423fd6be528bf5f03d21a613d54c668d1212784d6ee03e"
+    }
+  ],
+  "contracts": [
+    "Current/old CrtAsinMath C reused before reconstructing. Exact20 raw constant bytes6050A0/AA and asin string604960 read from live Ghidra; no host long-double literals or host asin substitution.",
+    "562D00 performs actual non-popping FST binary64 snapshot. Original extended ST0 remains the arithmetic operand. Classification uses the existing complete C5675E8 algorithm, then the real C core; C void output retains extended ST0 without a C double result conversion.",
+    "Sole observed core producer562D00 calls5675E8 immediately before562D1D. Its CMP exponent7FF sets ZF exactly for the special class; derive the branch from actual classification instead of introducing unrelated flags. Retain full classification across the normalizer; Native EAX is preserved there.",
+    "Core reads actual waiting CW WORD into shared typed slot. Normalize only finite paths when CW!=27F. Private upper scratch is never read without definition; no unobserved incoming EDX/stack-garbage parameter or general-register result is invented.",
+    "Preserve seven x87 interior operations in original order, exact +/-one high/low test and halfpi80 sign, NaN quiet1/7 helper, infinity/out-of-range indefinite80 and real error path. No FP intermediate is spilled into a C floating type.",
+    "Both core body ranges562D1D..562DCA and5675FE..56760A are covered.5675FE is the original restore-only epilogue owned by the core, not an invented separate function. Normal/error paths read actual volatile12663C0 at their Native gates, invoking C finish/error or conditional original-CW restore.",
+    "C environment supplies real12663C0/605490/1266430 cells with no invented zero defaults. Shared Native stack cleanup becomes C caller structure. Known game51CAE0 consumers use the FP result; full/unobserved indirect/GPR paths remain unclaimed.",
+    "Live annotated Ghidra supplies typed Native physical float10 signatures/comments; C interfaces keep raw64 snapshots/live ST0 explicitly. Compiled code confirms non-popping FST, actual CW read, all7 interior instructions and raw80 loads. Build/static observations do not establish full native/C gameplay equivalence."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "63e07fb3b40281d5423770f6c9cff5b925e9e65d09095adf08f540a2d80fdaa5",
+    "canonical_exe_sha256": "b2cb6f9d1f6aa325fdba4ece65e91df740021ab16774e73bbdd37580f2000f60",
+    "worktree_library_sha256": "5f8650694a3d6b8030359f73bf40e4b3de688836b897534ae23455bfa5a10938",
+    "worktree_exe_sha256": "20b6595b5a0f925201e24cb0cc0a61e3df39993c0e655a712978726aa5491e73",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_crt_asin_live": 1,
+      "pharaoh_crt_asin_core_live": 1
+    },
+    "object_sha256": "717d0da0086e1428cce6be6b6b85de9d348775095d5c0662fc4b5b47cdec4166"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "59 pinned Native instructions plus7-instruction classification producer, live Ghidra types/data/consumers, compiled ABI and strict Release; no new tests."
+  },
+  "archive": "build/verified-images/crt-asin-C-20261127-63e07fb3b40281d5",
+  "artifact_sha256": {
+    "classification-producer.json": "4a46893f751e949bbf25a65f08b4e8021dc84108dac096d17a6c0625049dee06",
+    "crt_asin.obj": "717d0da0086e1428cce6be6b6b85de9d348775095d5c0662fc4b5b47cdec4166",
+    "losttomb-asin-canonical-build.log": "623d9e1e9056c3f2733b365ffc15880e41cd7d41bda068e16b3ca06fe8a97377",
+    "losttomb-asin-compiled.txt": "bb9bb17ca6689938d00ac806115100c18db0758ac326975439df5595e1a5a5b2",
+    "losttomb-asin-constants.json": "04ee8dbd61fe6186d5e3f148129e27dc4d38ffafd19bea2ac921f82c2ec95713",
+    "losttomb-asin-ghidra.json": "133ae71b894587c3a0fd6cb352afd4b2811aa1dae20e15198da54c4e77bb37c4",
+    "losttomb-asin-migration-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-asin-release.log": "f24e01f7c677597af4c47698e7032c4a80d1056535134726c9fa4eb21a535348",
+    "losttomb-asin-result-consumers.json": "b09087dc67a57cfb020cab80e2fbb5f8420766e3414b1e73d1d5f8cb013e100d",
+    "losttomb-math-dispatch-native.json": "51262faf8a92b042aecdf99fdcc919c15b2a9cc01e892b7593a5e2871839caa1",
+    "losttomb-math-finish-callers.json": "e73c21075bdd368e17837fdb40782ce034b24d381af3bec411c1aac8485ade76",
+    "LostTomb.exe": "b2cb6f9d1f6aa325fdba4ece65e91df740021ab16774e73bbdd37580f2000f60",
+    "pharaoh_game.lib": "63e07fb3b40281d5423770f6c9cff5b925e9e65d09095adf08f540a2d80fdaa5"
+  },
+  "remaining": [
+    "Game angle parent51CAE0 and its host/scene callers must bind the actual process-state cells and live FP contract; inspect existing current/old C before translation.",
+    "Custom indirect entry flags, full general-register/handler coverage, SEH563354 and candidate tail48AD90 remain unproved.",
+    "Complete game behavior and host Native equivalence remain incomplete."
+  ]
+}
