@@ -429,3 +429,35 @@ uint32_t pharaoh_map_region_terrain_count_reached(
     }
     return remaining==0u || (remaining&UINT32_C(0x80000000))!=0u;
 }
+
+int32_t pharaoh_map_ferry_landing_at(
+    const PharaohFerryLandingMap *map, int32_t x, int32_t y)
+{
+    int32_t tile;
+    int32_t building_id;
+
+    if (map->view_orientation == 6) --y;
+    else if (map->view_orientation == 4) { --x; --y; }
+    else if (map->view_orientation == 2) --x;
+
+    if (x < 0 || y < 0 || x + 1 >= map->width || y + 1 >= map->height)
+        return 999;
+    tile = map->origin + y * PHARAOH_MAP_GRID_WIDTH + x;
+    building_id = map->building_ids[tile];
+    if (building_id == 0 || map->buildings[building_id].building_type != 136)
+        return 0;
+    if (map->building_ids[tile + 1] != building_id ||
+        map->building_ids[tile + PHARAOH_MAP_GRID_WIDTH] != building_id ||
+        map->building_ids[tile + PHARAOH_MAP_GRID_WIDTH + 1] != building_id)
+        return 0;
+    return 1;
+}
+
+int32_t pharaoh_map_is_ferry_landing_at_offset(
+    const PharaohFerryLandingMap *map, int32_t grid_offset)
+{
+    const int32_t relative = grid_offset - map->origin;
+    return pharaoh_map_ferry_landing_at(
+        map, relative % PHARAOH_MAP_GRID_WIDTH,
+        relative / PHARAOH_MAP_GRID_WIDTH);
+}

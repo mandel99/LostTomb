@@ -539,4 +539,8 @@ int32_t pharaoh_building_type_is_00488080_group(
 int32_t pharaoh_building_type_is_00489880_group(
     const PharaohBuildingTypeRecord *buildings, int32_t id);
 int32_t pharaoh_building_type_is_monument(int32_t building_type);
+int32_t pharaoh_building_is_water_lift_footprint(
+    const int16_t *building_ids,
+    const PharaohBuildingTypeRecord *buildings,
+    const int32_t footprint_offsets[4], int32_t grid_offset);
 #endif

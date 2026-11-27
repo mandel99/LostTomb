@@ -363,3 +363,17 @@ int32_t pharaoh_building_type_is_monument(int32_t type)
             return 0;
     }
 }
+
+int32_t pharaoh_building_is_water_lift_footprint(
+    const int16_t *building_ids,
+    const PharaohBuildingTypeRecord *buildings,
+    const int32_t footprint_offsets[4], int32_t grid_offset)
+{
+    const int32_t building_id = building_ids[grid_offset];
+    int32_t index;
+    if (building_id == 0 || buildings[building_id].building_type != 0x5a) return 0;
+    for (index = 0; index < 4; ++index)
+        if (building_ids[grid_offset + footprint_offsets[index]] != building_id)
+            return 0;
+    return 1;
+}

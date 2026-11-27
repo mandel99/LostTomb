@@ -92,4 +92,16 @@ uint32_t pharaoh_map_region_terrain_count_reached(
     const PharaohMapTerrainView *map,int32_t x,int32_t y,int32_t size,
     int32_t radius,uint32_t bits,int32_t required,
     int32_t *result_x,int32_t *result_y);
+typedef struct PharaohFerryLandingMap {
+    const int16_t *building_ids;
+    const PharaohBuildingTypeRecord *buildings;
+    int32_t origin;
+    int32_t width;
+    int32_t height;
+    int32_t view_orientation;
+} PharaohFerryLandingMap;
+int32_t pharaoh_map_ferry_landing_at(
+    const PharaohFerryLandingMap *map, int32_t x, int32_t y);
+int32_t pharaoh_map_is_ferry_landing_at_offset(
+    const PharaohFerryLandingMap *map, int32_t grid_offset);
 #endif
