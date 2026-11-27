@@ -330,3 +330,18 @@ int32_t pharaoh_city_find_monument_slot(
     }
     return -1;
 }
+
+uint8_t pharaoh_monument_object_has_incomplete(
+    void *object,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_type, int32_t building_count,
+    PharaohMonumentExistingProgress progress)
+{
+    int32_t building_id;
+    for (building_id = 1; building_id < building_count; ++building_id) {
+        const PharaohBuildingTypeRecord *building = &buildings[building_id];
+        if (building->state == 1 && building->building_type == building_type)
+            return progress(object, building_id, 0) < 100;
+    }
+    return 0;
+}

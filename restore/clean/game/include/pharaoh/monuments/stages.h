@@ -142,4 +142,12 @@ void pharaoh_city_set_monument_building_id(
     int32_t *monument_building_ids, int32_t building_id, int32_t slot);
 int32_t pharaoh_city_find_monument_slot(
     const int32_t monument_building_ids[3], int32_t building_id);
+typedef int32_t (*PharaohMonumentExistingProgress)(
+    void *object, int32_t building_id, int32_t mode);
+uint8_t pharaoh_monument_object_has_incomplete(
+    void *object,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_type, int32_t building_count,
+    PharaohMonumentExistingProgress progress);
+
 #endif
