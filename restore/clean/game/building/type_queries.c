@@ -243,3 +243,14 @@ bool pharaoh_construction_cancel(PharaohConstructionCancelState *state,
     state->redraw_requested = 1;
     return changed;
 }
+
+uint32_t pharaoh_building_resource_is_permitted(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    const int16_t *resource_permissions)
+{
+    /* Native signed-WORD condition(type<106 && type>114) cannot hold;
+       BL is zero before the farm query. Both switch destinations then reach
+       the same resource flag. Preserve the real child call and flag width. */
+    (void)pharaoh_building_is_farm(buildings, building_id);
+    return resource_permissions[buildings[building_id].resource_id] != 0;
+}
