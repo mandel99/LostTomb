@@ -69,6 +69,8 @@ add_library(pharaoh_game STATIC
     game/ui/walker_portrait.c
     game/ui/unit_panel_live.c
     game/ui/city_pending_actions.c
+    game/ui/walker_phrase_live.c
+    game/ui/city_undo_live.c
     game/ui/unit_command_ui.c
     game/core/integer_round_up.c
     game/commerce/granary_supply.c

@@ -1,5 +1,6 @@
 #include "pharaoh/core/memory_fill.h"
 #include "pharaoh/walker/record_queries.h"
+#include "pharaoh/building/type_queries.h"
 
 void pharaoh_walker_save_type_78_sources(PharaohWalkerQueryRecord *walkers)
 {
@@ -416,4 +417,31 @@ int32_t pharaoh_walker_action_is_6_7_22_or_23(
 {
     uint32_t action = walkers[walker_id].action_state;
     return action == 6u || action == 7u || action == 22u || action == 23u;
+}
+
+int32_t pharaoh_trade_ship_dock_activity(
+    const PharaohWalkerQueryRecord *walkers,
+    const PharaohBuildingTypeRecord *buildings, int32_t walker_id)
+{
+    const PharaohWalkerQueryRecord *ship = &walkers[walker_id];
+    const PharaohBuildingTypeRecord *dock =
+        &buildings[ship->entertainment_building_id];
+
+    if (dock->state != 1 ||
+        (dock->building_type != 0x4b && dock->building_type != 0xc0)) {
+        return 1;
+    }
+    for (int32_t slot = 0; slot < 3; ++slot) {
+        const int32_t queued_id = dock->dock_walker_ids[slot];
+        if (queued_id == 0 || walkers[queued_id].state != 1) continue;
+        switch (walkers[queued_id].action_state) {
+            case 9: case 11: case 14: case 15:
+                return 1;
+            case 10: case 12: case 13: case 16:
+                return 2;
+            default:
+                break;
+        }
+    }
+    return 0;
 }
