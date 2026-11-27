@@ -66,3 +66,21 @@ uint8_t pharaoh_construction_terrain_rule_00405b60(uint32_t terrain)
 {return (terrain&UINT32_C(0x20300002))==2;}
 uint8_t pharaoh_construction_terrain_rule_00405b80(uint32_t terrain)
 {return (terrain&2)==2;}
+
+PharaohPercentageScaleStatus pharaoh_construction_warning_food_supply(
+    const PharaohConstructionBasicWarnings *c,int32_t tool)
+{
+    if(*c->editor_active==1||*c->warnings->redraw||tool!=10)
+        return PHARAOH_PERCENTAGE_SCALE_VALUE;
+    if(c->players[*c->current_player].population<300)
+        return PHARAOH_PERCENTAGE_SCALE_VALUE;
+    if(*c->native_mode_784bbc!=0)return PHARAOH_PERCENTAGE_SCALE_VALUE;
+    /* Native pushes this DWORD before447530; retain the cached denominator. */
+    const int32_t maximum=player_i32(c,0x45dc);
+    const PharaohFoodSupplyQueryResult supply=pharaoh_city_food_supply_query(c->food_supply);
+    if(supply.status!=PHARAOH_PERCENTAGE_SCALE_VALUE)return supply.status;
+    const PharaohPercentageScaleResult percent=pharaoh_scale_value_to_percent(supply.value,maximum);
+    if(percent.status!=PHARAOH_PERCENTAGE_SCALE_VALUE)return percent.status;
+    if(percent.value<=95)pharaoh_city_warning_post(c->warnings,94);
+    return PHARAOH_PERCENTAGE_SCALE_VALUE;
+}

@@ -36,6 +36,7 @@ add_library(pharaoh_game STATIC
     game/scenario/scene_counts.c
     game/scenario/scene_ui.c
     game/population/health_coverage.c
+    game/population/food_supply_query.c
     game/ui/build_menu.c
     game/commerce/granary_supply.c
     game/commerce/granary_repair.c

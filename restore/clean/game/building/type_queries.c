@@ -332,3 +332,22 @@ bool pharaoh_farm_has_water_access(
 {
     return buildings[building_id].farm_water_access != 0u;
 }
+
+int32_t pharaoh_building_type_is_00488080_group(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    switch (buildings[id].building_type) {
+    case 100: case 101: case 102: case 103: case 104: case 105:
+    case 196: case 224: return 1;
+    default: return 0;
+    }
+}
+
+int32_t pharaoh_building_type_is_00489880_group(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    switch (buildings[id].building_type) {
+    case 0x66: case 0x67: case 0x68: case 0x69: case 0xc4: return 1;
+    default: return 0;
+    }
+}

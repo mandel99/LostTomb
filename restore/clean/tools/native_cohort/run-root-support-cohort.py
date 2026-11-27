@@ -1,7 +1,7 @@
 import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
-entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130}
+entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110}
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -67,11 +67,16 @@ for view in [2,4,6]:
  for op,kind,extent,cross in [(30,31,2,(1,1)),(31,30,3,(1,2)),(32,33,4,(1,1)),(33,209,5,(2,2))]:
   add('venue:commit_view:'+str((op,view)),op,tool=kind,x=90,y=80,size=0,view=view,roads='cross'+str(cross)+',extent'+str(extent))
 if '--entertainment-only' in sys.argv:cases=[c for c in cases if 30<=c['op']<=35]
+food_contract=json.loads((D/'food-supply-fixture-contract.json').read_bytes())
+for raw in food_contract['priority_cases']:
+ c=dict(raw['case']);c.update(label='food:'+raw['name'],writes=[],food_spec=raw);cases.append(c)
+if '--food-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']==0]
+if '--food-fault-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']!=0]
 if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
 if '--region-only' in sys.argv:cases=[c for c in cases if c['op']==36]
 case_label=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--case-label=')),None)
 if case_label is not None:cases=[c for c in cases if c['label']==case_label]
-output_stem='entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
+output_stem='food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
 
 
 def venue_seed(c):
@@ -106,6 +111,19 @@ def venue_seed(c):
  w.append(chunk(0x200f0100,struct.pack('<2i',-77,-88)));w.append(pack(0xea6084,7,'<H'))
  return w
 
+def food_seed(c):
+ seed=food_contract['base_seed'];spec=c['food_spec'];profile=food_contract['profiles'][spec['profile']];w=[]
+ for r in seed['clear_regions']:w.append(chunk(int(r['address'],16),bytes(r['bytes'])))
+ w += [chunk(0xea1870,bytes(2*0x49d8)),chunk(0x705ea4,bytes(237*40)),chunk(0x77646c,bytes(4*36*61))]
+ for kind,fmt in [('dword','<I'),('word','<H'),('byte','<B')]:
+  for a,v in seed[kind].items():w.append(pack(int(a,16),v,fmt))
+ w.append(chunk(0xea4096,bytes(36*2)));w.append(chunk(0xe94e20,bytes(608)));w.append(chunk(0xf53f34,bytes(20)))
+ soil=spec.get('soil_override',spec.get('fill_soil',profile.get('fill_soil')))
+ if soil is not None:w.append(chunk(0xa5d4cc,bytes([soil])*51984))
+ for r in profile['patches']+spec['patches']:
+  width=r['width'];w.append(chunk(int(r['address'],16),(r['value']&((1<<(8*width))-1)).to_bytes(width,'little')))
+ return w
+
 def execute(c):
  op=c['op'];tool=c.get('tool',0);x,y,size,extra=c.get('x',111),c.get('y',113),c.get('size',1),c.get('extra',0)
  w=[chunk(0xbca2d0,struct.pack('<12i',228,228,0,0,0,0,0,0,227,227,114,114)),chunk(0x784b64,struct.pack('<8h',*([1000]*8))),chunk(0x784cc0,struct.pack('<8i',*([1000]*8))),pack(0x605a3c,0),pack(0xeaac28,0),chunk(0xea1870,bytes(2*0x49d8)),pack(0xe38ec1,0,'<B'),pack(0xe38dda,1,'<B'),chunk(0xe94e20,bytes(608)),pack(0xf53f34,0),pack(0xd3b4e0,0x12345678),pack(0xd3b4e4,0x23456789)]
@@ -122,29 +140,49 @@ def execute(c):
  if op==36:w += [chunk(0xaf598c,struct.pack("<I",c.get("fill",0))*51984)];watch=[(0xd3b4e0,8)]
  if 30<=op<=35:
   w+=venue_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in venue_contract['watch_regions']]
+ if 37<=op<=41:
+  w+=food_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in food_contract['observe']['write_watch']]
  w += c['writes']+[chunk(CASE,struct.pack('<I5i',op,tool,x,y,size,extra))]
  args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else [x,y,size,extra,tool,c["required"]] if op==36 else []
  if 30<=op<=33:args=[size,0x12345678,0x87654321,x,y]
  if op==34:args=[tool]
  if op==35:args=[x,y,0x200f0100,0x200f0104,tool,extra]
+ if op==37:args=[]
+ if op==38:args=[tool]
+ if op==39:args=[tool,size]
+ if op==40:args=[x,y,size,extra]
+ if op==41:args=[tool]
  rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 500000
+ if 37<=op<=41:
+  rn['registers']['ECX']='00bca350'
+  for q in [rn,rc]:q['registers'].update(FPUControlWord='0000037f',FPUStatusWord='00000000',FPUTagWord='0000ffff')
+ if 37<=op<=41:rc['watch']=rc['watch']+[{'address':'200f0200','size':4}]
  trace=[]
  if 10<=op<=17:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  if op==24:trace=[([0x405b40,0x405b60,0x405b80][tool],symbol(['pharaoh_construction_terrain_rule_00405b40','pharaoh_construction_terrain_rule_00405b60','pharaoh_construction_terrain_rule_00405b80'][tool]),'real_rule',[4],[4])]
+ if op==38:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  rn['trace']=[{'address':f'{a:x}','tag':tag,'stack_offsets':z} for a,b,tag,z,q in trace];rc['trace']=[{'address':f'{b:x}','tag':tag,'stack_offsets':q} for a,b,tag,z,q in trace]
  a=call(rn);b=call(rc);issues=[]
+ if 37<=op<=41:
+  status_memory=b['memory'].pop();b['checked_status']=int.from_bytes(bytes.fromhex(status_memory['hex']),'little')
+  if b['checked_status']!=c['food_spec']['expected_C_status']:issues.append(['C_status',b['checked_status']])
+  if c['food_spec']['expected_C_status']!=0:return {'case':c,'native_entry':f'{entries[op]:08x}','passed':not issues,'qualification':'C checked-IDIV status only; pcode emulator may omit hardware divide overflow','native':a,'C':b,'issues':issues}
  if not a.get('ok') or not b.get('ok'):issues.append(['execution',a.get('error'),b.get('error'),a.get('pc'),b.get('pc')])
  else:
-  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36]:
+  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36,37,39,40,41]:
    av,bv=[int(t['registers']['EAX'],16) for t in [a,b]]
    if op in [18,19,20,22,23]:av&=255;bv&=255
    if av!=bv:issues.append(['result',a['registers']['EAX'],b['registers']['EAX']])
   if 'expected_eax' in c and int(a['registers']['EAX'],16)!=c['expected_eax']:issues.append(['intended_native_result',a['registers']['EAX'],c['expected_eax']])
+  if 37<=op<=41:
+   spec=c['food_spec'];expected=spec.get('expected_normal_value')
+   if expected is not None and int(a['registers']['EAX'],16)!=(expected&0xffffffff):issues.append(['expected_food_value',a['registers']['EAX'],expected])
+   if 'expected_post94_calls' in spec and sum(t['tag']=='warning' and t['args']==[94] for t in a['trace'])!=spec['expected_post94_calls']:issues.append(['expected_post94_calls',a['trace']])
   if a['memory']!=b['memory']:issues.append(['memory',[(x['address'],x['sha256'],y['sha256']) for x,y in zip(a['memory'],b['memory']) if x!=y]])
   if [(t['tag'],t['args']) for t in a['trace']]!=[(t['tag'],t['args']) for t in b['trace']]:issues.append(['real_calls',a['trace'],b['trace']])
   for n in ['EBX','ESI','EDI','EBP']:
    if a['registers'][n]!=REG[n] or b['registers'][n]!=REG[n]:issues.append(['nonvolatile',n])
-  if int(a['registers']['ESP'],16)!=SP+4 or int(b['registers']['ESP'],16)!=SP+4:issues.append(['cleanup',a['registers']['ESP'],b['registers']['ESP']])
+  if int(a['registers']['ESP'],16)!=SP+4+({39:8,40:16,41:4}.get(op,0)) or int(b['registers']['ESP'],16)!=SP+4:issues.append(['cleanup',a['registers']['ESP'],b['registers']['ESP']])
  return {'case':c,'native_entry':f'{entries[op]:08x}','passed':not issues,'issues':issues,'native':a,'C':b}
 began=time.monotonic()
 for i,c in enumerate(cases):

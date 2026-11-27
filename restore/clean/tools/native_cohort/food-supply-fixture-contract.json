@@ -1,0 +1,903 @@
+{
+  "schema": 1,
+  "date": "2026-11-27",
+  "block": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-food-supply-fixture-block.c",
+  "block_sha256": "b633b67750f18e567277680c0a2666bd1caeeefca52b9d5bfc00d2f56f0ff731",
+  "block_built_or_executed_by_author": false,
+  "framework": "FixtureCase{uint32op;int32tool,x,y,size,extra},PTR,I32; insert helper then dispatch37..41 before other fixture setup. Originalglobal arrays mapped frompinnedexe.",
+  "operations": [
+    {
+      "op": 37,
+      "native": "0x00447530",
+      "native_args": [],
+      "native_ecx": "not consumed",
+      "native_callee_cleanup": 0,
+      "normal_result": "signed EAX; C status200F0200==0 and returned uint32 bits match",
+      "c_status": "IDIV overflow ->status1; returned value ignored"
+    },
+    {
+      "op": 38,
+      "native": "0x004E3330",
+      "native_args": [
+        "f.tool"
+      ],
+      "native_ecx": "not consumed",
+      "native_callee_cleanup": 0,
+      "normal_result": "void; C returns0 by fixture convention, ignore incidental nativeEAX",
+      "c_status": "query IDIV overflow ->status1; Native divide exception expected, no later post"
+    },
+    {
+      "op": 39,
+      "native": "0x00488140",
+      "native_args": [
+        "f.tool (building)",
+        "f.size (configured; native consumes lowBYTE only)"
+      ],
+      "native_ecx": "0x00BCA350, actual MapManager receiver forwarded into closed helpers",
+      "native_callee_cleanup": 8,
+      "normal_result": "full signedEAX, minimum1"
+    },
+    {
+      "op": 40,
+      "native": "0x00489050",
+      "native_args": [
+        "f.x",
+        "f.y",
+        "f.size (columns)",
+        "f.extra (rows)"
+      ],
+      "native_ecx": "0x00BCA350, forwarded receiver is not read by this closure",
+      "native_callee_cleanup": 16,
+      "normal_result": "full signedEAX; increment wrapsDWORD"
+    },
+    {
+      "op": 41,
+      "native": "0x00489110",
+      "native_args": [
+        "f.tool (building)"
+      ],
+      "native_ecx": "0x00BCA350, actual MapManager receiver",
+      "native_callee_cleanup": 4,
+      "normal_result": "full signedEAX, signed upper cap99"
+    }
+  ],
+  "C_fault_protocol": {
+    "status_address": "0x200F0200",
+    "normal": 0,
+    "signed_IDIV_overflow": 1,
+    "note": "This diagnostic cell is C-only and excluded from Nativeowned-state comparisons. OnCstatus1 ignore Creturnvalue; require realNativeIDIV exception and compare owned buffers/observedcall stop phase, rather than pretending the native fault returned EAX. Warningnormalvoid ignores NativeincidentalEAX; Cfixture returns0.",
+    "scope": "Initial ratios guard zero denominators. Only INTMIN/-1 can fault there. Final querydenominator is genuine20/25 and cannot be zero. The warningpercentage helper exposes its generic faultchannel, but INTMIN/-1 percentageoverflow appears unreachable with the genuine queryvalue range[-107374182,107374182]; do not substitute a queryresult to manufacture that case."
+  },
+  "derived_contexts": {
+    "query": "0x20100000",
+    "occupancy": "0x20101000",
+    "warning": "0x20102000",
+    "basic": "0x20103000"
+  },
+  "base_seed": {
+    "clear_regions": [
+      {
+        "address": "0x7999D8",
+        "bytes": 1056000,
+        "role": "actual native building records"
+      },
+      {
+        "address": "0x77DE00",
+        "bytes": 6466,
+        "role": "actual city records"
+      },
+      {
+        "address": "0xAF598C",
+        "bytes": 207936,
+        "role": "actual DWORD terrain"
+      },
+      {
+        "address": "0xD05720",
+        "bytes": 207936,
+        "role": "actual transient pointer grid"
+      },
+      {
+        "address": "0xA5D4CC",
+        "bytes": 51984,
+        "role": "actual BYTE soilgrid"
+      }
+    ],
+    "dword": {
+      "0xEAAC28": 0,
+      "0xBCA2D8": 1000,
+      "0xBC9768": 2882400001,
+      "0xEA5FDC": 0,
+      "0xEA5FE0": 0,
+      "0xEA5FE8": 0,
+      "0xEA5FEC": 0,
+      "0x78D66C": 1,
+      "0x78D668": 1,
+      "0xEA5F9C": 0,
+      "0xEA1894": 300,
+      "0xEA5E4C": 100,
+      "0x605A3C": 0,
+      "0xE94E20": 0,
+      "0x784BBC": 0
+    },
+    "word": {
+      "0xEA5CE8": 0
+    },
+    "byte": {
+      "0xE38EC1": 0,
+      "0xE38DDA": 1
+    },
+    "other": "Clear selectedplayertrade permissionsEA4096 for36WORDs, or explicitly setresource1..8. Retainpinned native5CC8C0 footprint records; if fixture initializers construct them useoffset(row,col)=row*228+col at8-byte stride, sixcolumns and48-byte rowstride, preserving+4metadata. Root sets the same realmasked x87CW (e.g037F), emptyFPstack for both runs. NoCfixture rewrites nativebuffers."
+  },
+  "profiles": {
+    "empty": {
+      "description": "No active buildings/cities; both ratio divisors0; templecount0; native currentplayer0.",
+      "patches": []
+    },
+    "farm": {
+      "description": "Only building1 active102 at90,80; real modelworkers20; actualworkers20; all soil49; no irrigation; no active occupants.",
+      "patches": [
+        {
+          "address": "0x799ae0",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0x799af0",
+          "width": 2,
+          "value": 102
+        },
+        {
+          "address": "0x799ae6",
+          "width": 2,
+          "value": 90
+        },
+        {
+          "address": "0x799ae8",
+          "width": 2,
+          "value": 80
+        },
+        {
+          "address": "0x799b20",
+          "width": 2,
+          "value": 20
+        },
+        {
+          "address": "0x799b15",
+          "width": 1,
+          "value": 0
+        },
+        {
+          "address": "0x799b89",
+          "width": 1,
+          "value": 0
+        },
+        {
+          "address": "0x706ea8",
+          "width": 4,
+          "value": 20
+        }
+      ],
+      "fill_soil": 49
+    },
+    "ratio14": {
+      "description": "(5/2)*7 =14 contribution; real food-rate25 ->56.",
+      "patches": [
+        {
+          "address": "0xea5fdc",
+          "width": 4,
+          "value": 2
+        },
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": 5
+        },
+        {
+          "address": "0x78d66c",
+          "width": 4,
+          "value": 7
+        }
+      ]
+    },
+    "ratio96": {
+      "description": "24 contribution; real rate25 ->96 for warning threshold.",
+      "patches": [
+        {
+          "address": "0xea5fdc",
+          "width": 4,
+          "value": 1
+        },
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": 24
+        },
+        {
+          "address": "0x78d66c",
+          "width": 4,
+          "value": 1
+        }
+      ]
+    },
+    "trade": {
+      "description": "Actual city0 activekind1/open/route0 sells resource1; actual permissionWORD1; price120. 120*100/12=1000; query=4000.",
+      "patches": [
+        {
+          "address": "0x77de00",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0x77de02",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0x77de04",
+          "width": 1,
+          "value": 0
+        },
+        {
+          "address": "0x77de05",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0x77de2b",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0xea4098",
+          "width": 2,
+          "value": 1
+        },
+        {
+          "address": "0x776470",
+          "width": 4,
+          "value": 120
+        }
+      ]
+    }
+  },
+  "priority_cases": [
+    {
+      "name": "query_zero",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "empty",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 0
+    },
+    {
+      "name": "query_live_ratios",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio14",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 56
+    },
+    {
+      "name": "query_trade_real_city",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "trade",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 4000
+    },
+    {
+      "name": "query_dry_farm_real_capacity",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 408,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "query_floodplain_real_occupancy",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0xb08794",
+          "width": 4,
+          "value": 65536
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 308,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "capacity_model20",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 1,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 16,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "capacity_upgraded_barley",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 1,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799b89",
+          "width": 1,
+          "value": 1
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 33,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "capacity_zero_actual_workers",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799b20",
+          "width": 2,
+          "value": 0
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 1,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "capacity_lowBYTE_config256",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 256,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799b20",
+          "width": 2,
+          "value": 0
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 1,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "area_zero_soil",
+      "case": {
+        "op": 40,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 3,
+        "extra": 3
+      },
+      "profile": "empty",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 2,
+      "soil_override": 0,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "area_BYTE255",
+      "case": {
+        "op": 40,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 3,
+        "extra": 3
+      },
+      "profile": "empty",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 257,
+      "soil_override": 255,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "farm_quality_irrigated_dry",
+      "case": {
+        "op": 41,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799b15",
+          "width": 1,
+          "value": 1
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 91,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "farm_quality_irrigated_floodplain",
+      "case": {
+        "op": 41,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799b15",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0xb08794",
+          "width": 4,
+          "value": 65536
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 71,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "farm_quality_upper_cap",
+      "case": {
+        "op": 41,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [],
+      "expected_C_status": 0,
+      "expected_normal_value": 99,
+      "soil_override": 255,
+      "expected_current_tile": 19330
+    },
+    {
+      "name": "warning95_real_post",
+      "case": {
+        "op": 38,
+        "tool": 10,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio96",
+      "patches": [
+        {
+          "address": "0xea5e4c",
+          "width": 4,
+          "value": 101
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": null,
+      "expected_post94_calls": 1,
+      "ignore_native_eax": true
+    },
+    {
+      "name": "warning96_no_post",
+      "case": {
+        "op": 38,
+        "tool": 10,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio96",
+      "patches": [
+        {
+          "address": "0xea5e4c",
+          "width": 4,
+          "value": 100
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": null,
+      "expected_post94_calls": 0,
+      "ignore_native_eax": true
+    },
+    {
+      "name": "warning_mode_DWORD_blocks",
+      "case": {
+        "op": 38,
+        "tool": 10,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio96",
+      "patches": [
+        {
+          "address": "0x784bbc",
+          "width": 4,
+          "value": 256
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": null,
+      "expected_post94_calls": 0,
+      "ignore_native_eax": true
+    },
+    {
+      "name": "query_IDIV_overflow",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "empty",
+      "patches": [
+        {
+          "address": "0xea5fdc",
+          "width": 4,
+          "value": -1
+        },
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": -2147483648
+        }
+      ],
+      "expected_C_status": 1,
+      "expected_normal_value": null,
+      "expected_native_exception": "signed integer divide overflow at447556",
+      "expected_current_tile": "unchanged sentinel",
+      "ignore_native_eax": true
+    }
+  ],
+  "optional_cases": [
+    {
+      "name": "query_negative_ratio",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio14",
+      "patches": [
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": -5
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": -56
+    },
+    {
+      "name": "query_wrapped_trade_price",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "trade",
+      "patches": [
+        {
+          "address": "0x776470",
+          "width": 4,
+          "value": 2147483647
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": -32
+    },
+    {
+      "name": "query_real_food_rate20",
+      "case": {
+        "op": 37,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "ratio14",
+      "patches": [
+        {
+          "address": "0xea5ce8",
+          "width": 2,
+          "value": 1
+        },
+        {
+          "address": "0xea5f9c",
+          "width": 4,
+          "value": 2
+        },
+        {
+          "address": "0x799be8",
+          "width": 1,
+          "value": 1
+        },
+        {
+          "address": "0x799bf8",
+          "width": 2,
+          "value": 64
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 70,
+      "real_child": "4C5340 requestedtemple group4 ->20"
+    },
+    {
+      "name": "capacity_upgraded_grain_second_selector",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 1,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799af0",
+          "width": 2,
+          "value": 100
+        },
+        {
+          "address": "0x706e58",
+          "width": 4,
+          "value": 20
+        },
+        {
+          "address": "0x799b89",
+          "width": 1,
+          "value": 1
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 32
+    },
+    {
+      "name": "capacity_upgraded_other_no_double",
+      "case": {
+        "op": 39,
+        "tool": 1,
+        "x": 90,
+        "y": 80,
+        "size": 1,
+        "extra": 0
+      },
+      "profile": "farm",
+      "patches": [
+        {
+          "address": "0x799af0",
+          "width": 2,
+          "value": 103
+        },
+        {
+          "address": "0x706ed0",
+          "width": 4,
+          "value": 20
+        },
+        {
+          "address": "0x799b89",
+          "width": 1,
+          "value": 1
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": 16
+    },
+    {
+      "name": "warning_population_gate_precedes_query_fault",
+      "case": {
+        "op": 38,
+        "tool": 10,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "empty",
+      "patches": [
+        {
+          "address": "0xea1894",
+          "width": 4,
+          "value": 299
+        },
+        {
+          "address": "0xea5fdc",
+          "width": 4,
+          "value": -1
+        },
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": -2147483648
+        }
+      ],
+      "expected_C_status": 0,
+      "expected_normal_value": null,
+      "ignore_native_eax": true,
+      "expected_post94_calls": 0
+    },
+    {
+      "name": "warning_active_query_fault",
+      "case": {
+        "op": 38,
+        "tool": 10,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 0
+      },
+      "profile": "empty",
+      "patches": [
+        {
+          "address": "0xea5fdc",
+          "width": 4,
+          "value": -1
+        },
+        {
+          "address": "0xea5fe0",
+          "width": 4,
+          "value": -2147483648
+        }
+      ],
+      "expected_C_status": 1,
+      "expected_native_exception": "signed integer divide overflow at447556",
+      "ignore_native_eax": true,
+      "expected_post94_calls": 0
+    },
+    {
+      "name": "area_empty_extent_masked_x87",
+      "case": {
+        "op": 40,
+        "tool": 0,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 3
+      },
+      "profile": "empty",
+      "expected_C_status": 0,
+      "expected_normal_value": 1,
+      "qualification": "Optional masked0/0 ->FTOLindefinite lowDWORD0 ->INC1. No FPSW/trap equivalence; skip if runner does not execute this existing FTOL domain."
+    }
+  ],
+  "observe": {
+    "write_watch": [
+      {
+        "address": "0xBC9768",
+        "bytes": 4,
+        "meaning": "only ordinary Nativeglobal written by query/farm/area closure; compare repeated stores and finaltile"
+      },
+      {
+        "address": "0xE94E20",
+        "bytes": 4,
+        "meaning": "warning redrawflag remains unchanged under realtextdisabledgate"
+      },
+      {
+        "address": "0xF53F34",
+        "bytes": 20,
+        "meaning": "warningstate5DWORDs remains unchanged"
+      },
+      {
+        "address": "0xE94E28",
+        "bytes": 600,
+        "meaning": "actual5x120-byte warningrecords remain unchanged"
+      }
+    ],
+    "read_watch": [
+      "Player EA5FDC/EA5FE0/EA5FE8/EA5FEC, EA5CE8,EA5F9C,EA4096 resourceWORDs; actualEAAC28owner and78D66C/78D668 multipliers.",
+      "Building records7999D8,model705EA4/40-byte rows; actualsoilA5D4CC,footprints5CC8C0,terrainAF598C,objectgridD05720.",
+      "Trade city77DE00/106-byte rows, routeprice77646C/36DWORDs, sellerBYTE+42+resource andWORDtrade permissions.",
+      "Warning gates605A3C,E94E20,784BBC,popEA1894,maxEA5E4C. Optionalreadgate E38EC1 proves actualpost entered."
+    ],
+    "unchanged_hash_regions": [
+      "activeplayer49D8bank",
+      "buildingrecords4000x264",
+      "models237x40",
+      "cities61x106",
+      "tradeamounts20x36DWORDs",
+      "soilCB10",
+      "terrain32C40",
+      "pointergrid32C40"
+    ],
+    "exclude": [
+      "20100000+ derivedCcontexts",
+      "200F0200 Cfaultdiagnostic"
+    ],
+    "real_post_entry_observer": {
+      "native": "004E2970, message atESP+4 must94",
+      "C": "pharaoh_city_warning_post, message atESP+8 (context atESP+4) must94",
+      "note": "An entry observer records arguments and resumes actualcode, with no return substitution. With disabledtextgates, writesalone cannot distinguish postingversusnotposting; use actualcall/readgate observation to qualify active warningbranch."
+    }
+  },
+  "precision_cases": "DefaultCW037F gives stable integer results listed. Optionalrerun finite cases atPC24/53 and alternateRC with the same inheritedNative/Ccontrolword; do not compare FPSW/traps as an establishedcontract.",
+  "limits": [
+    "Newblock notbuilt/run by author; root owns sharedcompile/native replay.",
+    "All pointers are actualnativebacking addresses; onlyCcontexts normalized. No providerreturn,algorithmcallbackorILendpoint is substituted.",
+    "Known normalreceiver/stack cleanup must be modeled at the Nativeharness boundary; Cfixture_run wrapperABI differs and is normalized separately.",
+    "Valid mappedindices, array footprints and masked x87exceptions. No whole-game equivalence claim."
+  ]
+}

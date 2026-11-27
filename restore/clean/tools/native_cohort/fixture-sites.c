@@ -171,8 +171,103 @@ uint32_t fixture_entertainment(const FixtureCase *f)
     }
 }
 
+/* Insert after FixtureCase/PTR/I32 and before fixture_run.
+ * Dispatch only op37..41 here. The runner initializes native backing data
+ * identically; this function writes only derived C contexts and diagnostics.
+ * Actual warning post is used. Its real text gates E38EC1/E38DDA must be
+ * disabled, as in the existing BasicWarnings cohort. No endpoint substitution.
+ * FOOD_SUPPLY_STATUS is C-only diagnostics, excluded from native data watches:
+ *0=normal value/void;1=native signed IDIV overflow. On1 ignore returned EAX and
+ * compare native divide exception + owned data effects up to that phase. */
+#include "pharaoh/population/food_supply_query.h"
+#include "pharaoh/building/construction_basic_warnings.h"
+#define FOOD_SUPPLY_STATUS 0x200f0200u
+
+uint32_t fixture_food_supply(const FixtureCase *f)
+{
+    PharaohFoodSupplyQueryContext *query = PTR(PharaohFoodSupplyQueryContext,0x20100000);
+    PharaohOccupancyState *occupancy = PTR(PharaohOccupancyState,0x20101000);
+    PharaohCityWarningContext *warning = PTR(PharaohCityWarningContext,0x20102000);
+    PharaohConstructionBasicWarnings *basic = PTR(PharaohConstructionBasicWarnings,0x20103000);
+    uint32_t value = 0;
+    PharaohPercentageScaleStatus status = PHARAOH_PERCENTAGE_SCALE_VALUE;
+
+    *occupancy = (PharaohOccupancyState){0};
+    occupancy->grid_origin = (uint32_t)I32(0xbca2d8);
+    occupancy->last_origin = (uint32_t)I32(0xbc9768);
+    occupancy->offsets = PTR(const PharaohOccupancyOffset,0x5cc8c0);
+    occupancy->terrain = PTR(const uint32_t,0xaf598c);
+    occupancy->objects = PTR(const uint8_t *const,0xd05720);
+    /* The real query adapter reads x/y from native264-byte building records
+     * immediately before region_has_active_occupant. Its normalized two-WORD
+     * occupancy->buildings view is unused; no incorrect native-stride cast. */
+
+    *query = (PharaohFoodSupplyQueryContext){0};
+    query->buildings = PTR(const PharaohBuildingTypeRecord,0x7999d8);
+    query->models = PTR(const PharaohBuildingModelRecord,0x705ea4);
+    query->players = PTR(const PharaohFoodSupplyPlayer,0xea1870);
+    query->current_player = PTR(const uint32_t,0xeaac28);
+    query->first_ratio_price = PTR(const uint32_t,0x78d66c);
+    query->second_ratio_price = PTR(const uint32_t,0x78d668);
+    query->cities = PTR(const PharaohEmpireCityRecord,0x77de00);
+    query->trade_amounts = PTR(const PharaohEmpireTradeAmounts,0x77646c);
+    query->map_origin = PTR(const int32_t,0xbca2d8);
+    query->current_tile = PTR(uint32_t,0xbc9768);
+    query->soil_values = PTR(const uint8_t,0xa5d4cc);
+    query->footprints = (const PharaohMapTileAreaOffset (*)[6])(uintptr_t)0x5cc8c0;
+    query->occupancy = occupancy;
+
+    *warning = (PharaohCityWarningContext){0};
+    warning->enabled = PTR(const uint8_t,0xe38ec1);
+    warning->construction_enabled = PTR(const uint8_t,0xe38dda);
+    warning->editor_active = PTR(const uint32_t,0x605a3c);
+    warning->orientation = PTR(const uint32_t,0xbca2e0);
+    warning->time = PTR(const uint32_t,0xe92e0c);
+    warning->state = PTR(uint32_t,0xf53f34);
+    warning->redraw = PTR(uint32_t,0xe94e20);
+    warning->warnings = PTR(PharaohCityWarning,0xe94e28);
+    /* Actual gate early return excludes text/font fields. They are not fake
+     * callbacks or resident substitute text objects. */
+
+    *basic = (PharaohConstructionBasicWarnings){0};
+    basic->editor_active = warning->editor_active;
+    basic->warnings = warning;
+    basic->models = query->models;
+    basic->players = PTR(const PharaohScenarioPlayerRuntime,0xea1870);
+    basic->current_player = PTR(const int32_t,0xeaac28);
+    basic->native_mode_784bbc = PTR(const uint32_t,0x784bbc);
+    basic->food_supply = query;
+
+    switch (f->op) {
+    case 37: {
+        const PharaohFoodSupplyQueryResult result = pharaoh_city_food_supply_query(query);
+        status = result.status;
+        value = (uint32_t)result.value;
+        break;
+    }
+    case 38:
+        status = pharaoh_construction_warning_food_supply(basic,f->tool);
+        value = 0; /* Normal native logical result is void, not incidentalEAX. */
+        break;
+    case 39:
+        value = (uint32_t)pharaoh_food_supply_farm_capacity(query,f->tool,(uint8_t)f->size);
+        break;
+    case 40:
+        value = (uint32_t)pharaoh_food_supply_area_quality(query,f->x,f->y,f->size,f->extra);
+        break;
+    case 41:
+        value = (uint32_t)pharaoh_food_supply_farm_quality(query,f->tool);
+        break;
+    default:
+        break; /* Dispatcher contract restricts this helper to37..41. */
+    }
+    *PTR(uint32_t,FOOD_SUPPLY_STATUS) = (uint32_t)status;
+    return value;
+}
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
+ if(f->op>=37&&f->op<=41)return fixture_food_supply(f);
  if(f->op>=30&&f->op<=35)return fixture_entertainment(f);
  if(f->op==29){
   PharaohCityViewState v={0};
