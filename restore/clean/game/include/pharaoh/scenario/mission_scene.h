@@ -80,6 +80,8 @@ PharaohCampaignMissionEntry *pharaoh_mission_scene_entry(PharaohMissionScene *sc
 const PharaohSavedSceneStorage *pharaoh_mission_scene_storage(const PharaohMissionScene *scene);
 const PharaohSavedGameGeometry *pharaoh_mission_scene_geometry(const PharaohMissionScene *scene);
 const PharaohCityViewContext *pharaoh_mission_scene_view(const PharaohMissionScene *scene);
+int32_t *pharaoh_mission_scene_previous_overlay(PharaohMissionScene *scene);
+int32_t *pharaoh_mission_scene_current_overlay(PharaohMissionScene *scene);
 const int32_t *pharaoh_mission_scene_pyramid_style(const PharaohMissionScene *scene);
 PharaohOccupancyState *pharaoh_mission_scene_occupancy(PharaohMissionScene *scene);
 PharaohMapSurfaceContext *pharaoh_mission_scene_surface(PharaohMissionScene *scene);

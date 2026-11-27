@@ -540,3 +540,9 @@ void pharaoh_mission_scene_bind_camera(PharaohMissionScene *r,PharaohCameraScrol
     camera->view=&r->view;
     camera->decay_records=(int32_t (*)[32])(void *)&r->sound_records[1][1];
 }
+
+int32_t *pharaoh_mission_scene_current_overlay(PharaohMissionScene *scene)
+{ return &scene->overlay; }
+
+int32_t *pharaoh_mission_scene_previous_overlay(PharaohMissionScene *scene)
+{ return &scene->previous_overlay; }

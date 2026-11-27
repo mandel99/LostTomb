@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_binding": [
+    {
+      "name": "pharaoh_mission_scene_current_overlay",
+      "source": "game/scenario/mission_scene.c",
+      "body_sha256": "1d36f2ad7b7236c2e547146457fd9fcc057728c68e7fb2c5c95d7e022959f82f",
+      "additional_native_entries": 0
+    },
+    {
+      "name": "pharaoh_mission_scene_previous_overlay",
+      "source": "game/scenario/mission_scene.c",
+      "body_sha256": "1d02b1a34138ba27b3b1239af7073813c77928caf1d9e397930ddc461c55cf12",
+      "additional_native_entries": 0
+    }
+  ],
+  "source_sha256": {
+    "game/scenario/mission_scene.c": "d9bafafb6f2a8ee411d25643268fdf14231ebe88b3135b002f222fc05be7ac11",
+    "game/include/pharaoh/scenario/mission_scene.h": "8683e8f46e4d79d558395083714bd65e26e3e7b389e5b8580f8a723d65eb5f46",
+    "game/platform/windows_mission_runtime.c": "6e3e8076bce65592bbaf1c83eea901d586e3551967ffbaadc3b0cfd10288575d"
+  },
+  "native_globals": {
+    "current_overlay": "E94E0C",
+    "previous_overlay": "E94E10"
+  },
+  "contracts": [
+    "Use the scene current-overlay owner for ground/UI/minimap/walker consumers and its separate previous-overlay owner for briefing continuation. Remove the independent runtime previous_overlay scalar, which had incorrectly served both meanings.",
+    "The actual scene initializer already owns both DWORD fields. Two borrowed getters add0Native entry credit. No new overlay rendering algorithm, callback or default mode introduced.",
+    "Canonical/worktree strict Release passed. No new tests/replay or complete UI/gameplay equivalence claim. Nonzero-overlay renderer/host support still pending separately."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "3f8447d42dc14b6c8e041c4501abde05bbcf0d02acb8f410b2a6527d9dbb4125",
+    "canonical_exe_sha256": "17aed51d31a66db51e6f6a94458b23510f43694f8376555698ab3179d2aa90f2",
+    "worktree_library_sha256": "16e5162ec8706cb7835f3fb2abb262baeabe9177196f330fc186f1b957d74431",
+    "worktree_exe_sha256": "830fdfbd73e5fd4076f2be52ad1f537455190129057ea609e5fff4bc3f3119b7"
+  },
+  "archive": "build/verified-images/ui-overlay-state-20261127-17aed51d31a66db5",
+  "artifact_sha256": {
+    "losttomb-ui-overlay-bind-canonical-build.log": "15c649c81cbff5f29056d1aaf8f56e65aeaad2bede117aeb2c22ef2a3ce2eeaf",
+    "losttomb-ui-overlay-bind-discover.json": "a3414c2c38894973408fc034172ce6ea6ef9501e5c881949f1d3892726043c30",
+    "losttomb-ui-overlay-bind-release.log": "8b66b207ce9ae8abddc9aa0b3a4c77af7016677562c92853dded8607e8eefe5e",
+    "losttomb-ui-overlay-binding-rules.json": "0622b8e9cad8431c17673c8a2a8cab9049bf5c105aeddef5ee64b7ef7dae422d",
+    "LostTomb.exe": "17aed51d31a66db51e6f6a94458b23510f43694f8376555698ab3179d2aa90f2"
+  }
+}

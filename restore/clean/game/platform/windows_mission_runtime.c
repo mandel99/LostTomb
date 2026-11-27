@@ -53,7 +53,7 @@ struct PharaohWindowsMissionRuntime {
     PharaohImageButtonRecord accept[1],difficulty[2],back[1],up[1],down[1];
     PharaohImageButtonInputState input;
     uint32_t selected_choice,city_word;
-    int32_t focus[4],previous_overlay,special_music,music_fade,speech_fade;
+    int32_t focus[4],special_music,music_fade,speech_fade;
     uint8_t transition_mode,io_failed;
     int32_t scroll_drag_position;
     const uint8_t **image_pixels;
@@ -365,7 +365,7 @@ static PharaohCampaignContinueState continue_state(PharaohWindowsMissionRuntime 
         .current_window_id=r->window,.transition_mode=&r->transition_mode,
         .redraw_requested=&r->host->graphics.redraw_requested,.selected_choice=&r->selected_choice,
         .focus_ids={&r->focus[0],&r->focus[1],&r->focus[2],&r->focus[3]},
-        .previous_city_overlay=&r->previous_overlay,
+        .previous_city_overlay=pharaoh_mission_scene_previous_overlay(r->scene),
         .city_state_word=(uint32_t *)(void *)((uint8_t *)p+0x471c),
         .difficulty=&p->difficulty,.maximum_difficulty=r->host->settings.difficulty,
         .special_music_playing=&r->special_music};
@@ -604,7 +604,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     h->game_image_draw=&r->image_draw;
     const PharaohCityMessageScenarioReset *const messages=pharaoh_mission_scene_messages(r->scene);
     const PharaohWindowsCityUiScene ui_scene={saved,view,
-        pharaoh_mission_scene_build_menu(r->scene),&r->previous_overlay,
+        pharaoh_mission_scene_build_menu(r->scene),pharaoh_mission_scene_current_overlay(r->scene),
         messages->messages_used,messages->count_problem,&r->tint};
     if(pharaoh_windows_city_ui_begin_frame(h,&r->image_draw,&ui_scene,
         r->window,r->image_group_first)==0) {
@@ -659,7 +659,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         .current_image=&h->bitmap_current_glyph,.ambient_scores=r->ambient_scores,
         .ambient_total=&r->ambient_total,.tint=&r->tint,.marked_tile=&r->marked_tile,
         .advance_animation=&r->advance_animation,.debug_invalid=&r->debug_invalid,
-        .overlay=(const uint32_t *)(const void *)&r->previous_overlay,
+        .overlay=(const uint32_t *)(const void *)pharaoh_mission_scene_current_overlay(r->scene),
         .marked_x=&r->marked_x,.marked_y=&r->marked_y,
         .alternate_overlay=&r->host->current_window_id,
         .water_image=&r->water_image,.water_variant_a=&r->water_variant_a,
@@ -742,7 +742,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             .anchor_orientation=(const uint32_t *)(const void *)
                 saved->view.city_orientation};
         r->walker_overlay=(PharaohWalkerOverlayContext){
-            .overlay=&r->previous_overlay,.current_player=saved->view.current_player,
+            .overlay=pharaoh_mission_scene_current_overlay(r->scene),.current_player=saved->view.current_player,
             .walkers=saved->view.walkers,.buildings=saved->view.buildings,
             .players=saved->view.players};
         r->walker_operations=(PharaohWalkerDrawOperations){
