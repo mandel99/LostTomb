@@ -29,6 +29,7 @@ typedef struct PharaohMissionSceneProgram {
     const uint32_t (*export_limits)[6]; /*four population rows*/
     const PharaohCampaignIndex *campaign_index;
     const int32_t *difficulty_percentages,*starting_favor,*salary_by_rank;
+    const int32_t *farm_progress_max,*farm_harvest_months; /*BCA34C/56F5B8*/
 } PharaohMissionSceneProgram;
 
 typedef struct PharaohMissionSceneInputs {
@@ -107,5 +108,12 @@ void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *,
 struct PharaohCityDebugGridValues;
 void pharaoh_mission_scene_bind_debug_grid_values(PharaohMissionScene *,
     struct PharaohCityDebugGridValues *);
+
+struct PharaohInfoIndustryLiveContext;
+struct PharaohFoodSupplyQueryContext;
+struct PharaohMapHouseWaterContext;
+void pharaoh_mission_scene_bind_info_industry_world(PharaohMissionScene *,
+    struct PharaohInfoIndustryLiveContext *,struct PharaohFoodSupplyQueryContext *,
+    struct PharaohMapHouseWaterContext *);
 
 #endif

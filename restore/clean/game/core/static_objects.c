@@ -281,3 +281,13 @@ void pharaoh_native_flag_zero_004e7e10(uint32_t *flag)
 {
     *flag = 0;
 }
+
+int32_t pharaoh_native_record90_has_ready_004b7590(
+    const uint8_t *records, int32_t count)
+{
+    int32_t index;
+    for (index = 0; index < count; ++index, records += 0x90)
+        if (records[0] == 1 && records[0x42] != 0 &&
+            *(const int16_t *)(records + 0x46) > 0) return 1;
+    return 0;
+}

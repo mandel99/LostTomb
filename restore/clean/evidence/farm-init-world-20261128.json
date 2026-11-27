@@ -1,0 +1,1427 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_native_owners": 2,
+  "new_native_instructions": 8,
+  "init_adapter_native_credit": 0,
+  "existing_canonical_definition_activated": "4B7590",
+  "rea_constructor_instructions": {
+    "subject": {
+      "name": "Pharaoh.exe",
+      "digest": {
+        "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+      },
+      "local_path": "C:\\Program Files (x86)\\GOG.com\\Pharaoh\\Pharaoh.exe",
+      "format": "pe",
+      "architecture": "x86"
+    },
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.4"
+    },
+    "analysis_profile": {
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "parameters": {
+        "target_kind": "executable",
+        "target_format": "pe",
+        "executable_role": "application",
+        "managed": false,
+        "native_aot_metadata": {
+          "contract_revision": "rtr-9.1-x64-pe-read-only-v5",
+          "source_bytes": 134217728,
+          "work_units": 67108864,
+          "working_memory_bytes": 67108864,
+          "report_bytes": 4194304
+        },
+        "architecture": "x86",
+        "available_architectures": [
+          "x86"
+        ],
+        "import_mode": "ephemeral-source-immutable",
+        "pdb_observations": "program-info-v5",
+        "annotation_policy": "atomic-function-entry-metadata-v1",
+        "load_image_observations": "source-mappings-entry-context-v2",
+        "function_body_evidence": "complete-inclusive-ranges-v1",
+        "function_references": "complete-body-and-entry-reference-manager-v2",
+        "call_relationship_coverage": "function-body-call-coverage-v5",
+        "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+        "string_inventory_evidence": "defined-data-coverage-v1",
+        "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+        "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+        "instruction_flow_evidence": "decoded-return-pcode-v1",
+        "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+        "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+        "no_return_repair": "disabled-windows-p0",
+        "process_launch": "official-headless-script-v1",
+        "jump_table_evidence": "typed-case-default-blocks-v1",
+        "decompiler_jump_loads": true,
+        "loader": "auto-from-header",
+        "language_id": "auto-from-header",
+        "compiler_spec_id": "auto-default",
+        "analyzer_preset": "ghidra-default"
+      },
+      "digest": "3de5374fadd78e0d56219c4afc6b4f2efac7101ff92b72faf375fb0070bbc896"
+    },
+    "authority": "shipped-artifact",
+    "confidence": "observed",
+    "entries": [
+      {
+        "evidence_id": "ev_7faab3b6398648e47aa0fa3e5f94427c0d774d188912cf332e5d9d16775e3e0b",
+        "instruction": {
+          "address": "0x489940",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "e90b000000",
+          "length": 5,
+          "mnemonic": "JMP",
+          "raw_disassembly": "JMP 0x00489950",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "0x00489950",
+              "provider_type": 8256,
+              "components": [
+                {
+                  "kind": "address",
+                  "text": "00489950",
+                  "value": "0x489950",
+                  "bit_width": null
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "jump",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [
+              "0x489950"
+            ],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "UNCONDITIONAL_JUMP"
+              }
+            ]
+          },
+          "references": [
+            {
+              "target_address": "0x489950",
+              "type": "UNCONDITIONAL_JUMP",
+              "call": false,
+              "jump": true,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x489940",
+              "data": false,
+              "read": false,
+              "write": false,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "incoming_references": [
+            {
+              "target_address": "0x489940",
+              "type": "DATA",
+              "call": false,
+              "jump": false,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x576050",
+              "data": true,
+              "read": false,
+              "write": false,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_f05df7afe684043d3049a041a37547036ef69b415f7470dde6b5f87e702a9347",
+        "instruction": {
+          "address": "0x489950",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "dd05a8f55600",
+          "length": 6,
+          "mnemonic": "FLD",
+          "raw_disassembly": "FLD double ptr [0x0056f5a8]",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "double ptr [0x0056f5a8]",
+              "provider_type": 8320,
+              "components": [
+                {
+                  "kind": "address",
+                  "text": "0056f5a8",
+                  "value": "0x56f5a8",
+                  "bit_width": null
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "fallthrough",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "FALL_THROUGH"
+              }
+            ]
+          },
+          "references": [
+            {
+              "target_address": "0x56f5a8",
+              "type": "READ",
+              "call": false,
+              "jump": false,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x489950",
+              "data": true,
+              "read": true,
+              "write": false,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "incoming_references": [
+            {
+              "target_address": "0x489950",
+              "type": "UNCONDITIONAL_JUMP",
+              "call": false,
+              "jump": true,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x489940",
+              "data": false,
+              "read": false,
+              "write": false,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_165db88ea9522f53c547d42595c3c2e0e7ec076bafa0b815b67e80032dae6e57",
+        "instruction": {
+          "address": "0x489956",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "e8e1790d00",
+          "length": 5,
+          "mnemonic": "CALL",
+          "raw_disassembly": "CALL 0x0056133c",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "0x0056133c",
+              "provider_type": 8256,
+              "components": [
+                {
+                  "kind": "address",
+                  "text": "0056133c",
+                  "value": "0x56133c",
+                  "bit_width": null
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "call",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [
+              "0x56133c"
+            ],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "UNCONDITIONAL_CALL"
+              }
+            ]
+          },
+          "references": [
+            {
+              "target_address": "0x56133c",
+              "type": "UNCONDITIONAL_CALL",
+              "call": true,
+              "jump": false,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x489956",
+              "data": false,
+              "read": false,
+              "write": false,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_61fca605b234751cb98de0015e1abfe0c2ab6eadad3ab5ca5617d996c3687297",
+        "instruction": {
+          "address": "0x48995b",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "8d0480",
+          "length": 3,
+          "mnemonic": "LEA",
+          "raw_disassembly": "LEA EAX,[EAX + EAX*0x4]",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "EAX",
+              "provider_type": 512,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            },
+            {
+              "index": 1,
+              "raw": "[EAX + EAX*0x4]",
+              "provider_type": 4194304,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                },
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                },
+                {
+                  "kind": "immediate",
+                  "text": "0x4",
+                  "value": "0x4",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "fallthrough",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "FALL_THROUGH"
+              }
+            ]
+          },
+          "references": [],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_dbb69d78e47493c70d1b32ba8450de3a5cf854e6c5d49b76f5169290f8fdc523",
+        "instruction": {
+          "address": "0x48995e",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "8d0480",
+          "length": 3,
+          "mnemonic": "LEA",
+          "raw_disassembly": "LEA EAX,[EAX + EAX*0x4]",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "EAX",
+              "provider_type": 512,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            },
+            {
+              "index": 1,
+              "raw": "[EAX + EAX*0x4]",
+              "provider_type": 4194304,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                },
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                },
+                {
+                  "kind": "immediate",
+                  "text": "0x4",
+                  "value": "0x4",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "fallthrough",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "FALL_THROUGH"
+              }
+            ]
+          },
+          "references": [],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_3d68f570a52e845a2a4d0fd7a2b17cd7683dca62a903e084f4e08aaee98b5654",
+        "instruction": {
+          "address": "0x489961",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "c1e003",
+          "length": 3,
+          "mnemonic": "SHL",
+          "raw_disassembly": "SHL EAX,0x3",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "EAX",
+              "provider_type": 512,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            },
+            {
+              "index": 1,
+              "raw": "0x3",
+              "provider_type": 16384,
+              "components": [
+                {
+                  "kind": "immediate",
+                  "text": "0x3",
+                  "value": "0x3",
+                  "bit_width": 8
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "fallthrough",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "FALL_THROUGH"
+              }
+            ]
+          },
+          "references": [],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_8b7419e1b34755870aeddc560cf55343e74e7dbd408ff3e276e277ae6bc4130c",
+        "instruction": {
+          "address": "0x489964",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "a34ca3bc00",
+          "length": 5,
+          "mnemonic": "MOV",
+          "raw_disassembly": "MOV [0x00bca34c],EAX",
+          "operands": [
+            {
+              "index": 0,
+              "raw": "[0x00bca34c]",
+              "provider_type": 8320,
+              "components": [
+                {
+                  "kind": "address",
+                  "text": "00bca34c",
+                  "value": "0xbca34c",
+                  "bit_width": null
+                }
+              ],
+              "memory_addressing": "unavailable"
+            },
+            {
+              "index": 1,
+              "raw": "EAX",
+              "provider_type": 512,
+              "components": [
+                {
+                  "kind": "register",
+                  "text": "EAX",
+                  "value": "EAX",
+                  "bit_width": 32
+                }
+              ],
+              "memory_addressing": "unavailable"
+            }
+          ],
+          "flow": {
+            "kind": "fallthrough",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "FALL_THROUGH"
+              }
+            ]
+          },
+          "references": [
+            {
+              "target_address": "0xbca34c",
+              "type": "WRITE",
+              "call": false,
+              "jump": false,
+              "indirect": false,
+              "computed": false,
+              "operand_index": 0,
+              "source_address": "0x489964",
+              "data": true,
+              "read": false,
+              "write": true,
+              "primary": true,
+              "provenance": "ghidra-reference-manager",
+              "source": "default"
+            }
+          ],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      },
+      {
+        "evidence_id": "ev_f42a84678988b57ab71a0bf0b5174439028c22962690dab34c15cc4ee1041d35",
+        "instruction": {
+          "address": "0x489969",
+          "status": "decoded",
+          "procedure": null,
+          "architecture": "x86:LE:32:default",
+          "mode": "default",
+          "bytes": "c3",
+          "length": 1,
+          "mnemonic": "RET",
+          "raw_disassembly": "RET",
+          "operands": [],
+          "flow": {
+            "kind": "return",
+            "conditional": false,
+            "computed": false,
+            "direct_destinations": [],
+            "classification_evidence": [
+              {
+                "source": "ghidra-listing-flow-type",
+                "value": "TERMINATOR"
+              },
+              {
+                "source": "ghidra-instruction-pcode",
+                "value": "RETURN"
+              }
+            ]
+          },
+          "references": [],
+          "incoming_references": [],
+          "limitations": [
+            "Operand components are Ghidra Listing decoder tokens; effective memory base/index/displacement roles and per-instruction context mode are unavailable. The mode field is the program language variant."
+          ]
+        }
+      }
+    ]
+  },
+  "constant_binary64": {
+    "address": "0056f5a8",
+    "length": 8,
+    "hex": "00 00 00 00 00 00 24 40",
+    "ascii": "......$@",
+    "gaps": []
+  },
+  "harvest_backing44DWORD": {
+    "address": "0056f5a8",
+    "length": 176,
+    "hex": "00 00 00 00 00 00 24 40 7b 14 ae 47 e1 7a c4 3f 01 00 00 00 07 00 00 00 ff ff ff ff ff ff ff ff 0b 00 00 00 ff ff ff ff ff ff ff ff ff ff ff ff 04 00 00 00 00 00 00 00 ff ff ff ff ff ff ff ff 03 00 00 00 ff ff ff ff ff ff ff ff ff ff ff ff 05 00 00 00 0a 00 00 00 ff ff ff ff ff ff ff ff 03 00 00 00 ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 08 00 00 00 ff ff ff ff ff ff ff ff ff ff ff ff 02 00 00 00 06 00 00 00 ff ff ff ff ff ff ff ff 0b 00 00 00 ff ff ff ff ff ff ff ff ff ff ff ff",
+    "ascii": "......$@{..G.z.?................................................................................................................................................................",
+    "gaps": []
+  },
+  "farm_max_xrefs": {
+    "items": [
+      {
+        "from": "004883a2",
+        "type": "READ",
+        "from_function": {
+          "name": "FUN_00488350",
+          "address": "00488350"
+        }
+      },
+      {
+        "from": "00488989",
+        "type": "READ",
+        "from_function": {
+          "name": "MapFarmTilesFloodplain",
+          "address": "00488840"
+        }
+      },
+      {
+        "from": "004883d0",
+        "type": "READ",
+        "from_function": {
+          "name": "FUN_004883d0",
+          "address": "004883d0"
+        }
+      },
+      {
+        "from": "00489964",
+        "type": "WRITE",
+        "from_function": null
+      }
+    ],
+    "offset": 0,
+    "limit": 100,
+    "total": 4,
+    "has_more": false
+  },
+  "init_binding_handoff": {
+    "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "status": "stable implementation handoff; not built/tested/runtime-bound by this agent",
+    "files": [
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_init_bindings.c",
+        "sha256": "1b5c62413aa7b65a6ee76141d792318c4d02ea3a2187c1a57ffe752901a8f696",
+        "bytes": 21931
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\building_info_init_bindings.h",
+        "sha256": "fbdcac1dfa47ca89502e5bb56e404947e843cf2f9aa468d97a32fd60aab48820",
+        "bytes": 5069
+      }
+    ],
+    "functions": [
+      {
+        "address": "0x004E2AB0",
+        "name": "pharaoh_city_warning_clear_all",
+        "native_instruction_count": 28,
+        "adapter_slot": "reset_warning",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\runtime\\city_warning_clear.c",
+        "source_sha256": "0c9f7d353ab1a55dae0e87f0d1925988e9f26af12fe34d85bf52cdeb4084c7b3",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "fba3bd89bd726e541bd0af497156276695af81a2c999cfc1cd788c4cc0372e38"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_city_warning_clear_all"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x005596D0",
+        "name": "pharaoh_city_resource_determine_available",
+        "native_instruction_count": 106,
+        "adapter_slot": "rebuild_resources",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\commerce\\resource_supply.c",
+        "source_sha256": "47815275982927b4f659dc5b7bb32ee499a506c854b647a8ca90b4115dd0066f",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "4c93b7f9ae700d981e738c383f00eb515f2cbafeb70c87604b10c64f90a6d8f0"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_city_resource_determine_available"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004F5D90",
+        "name": "pharaoh_info_pyramid_from_complex",
+        "native_instruction_count": 70,
+        "adapter_slot": "pyramid_from_complex",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_init_support.c",
+        "source_sha256": "e6c9108e8f00851c3fa3f54ff04956f680c0ee21b728f8fb592d712a39fff32a",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "b989b411a38ed3827821be6a26668a739da1590b5d079d262dd0eb7f39045d54"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_info_pyramid_from_complex"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00475B50",
+        "name": "pharaoh_building_follow_link",
+        "native_instruction_count": 14,
+        "adapter_slot": "building_main",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\building\\linked_parts.c",
+        "source_sha256": "21b74bf0c99301b350b66948fea85d8ecb4cf346d9e8ec1681d6f6f5523d8017",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "2b2816c55d878a89b73d83567b60d6e9be08c8aafc50402e5920183daf1ef0b8"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_building_follow_link"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004CDE60",
+        "name": "pharaoh_scale_value_to_percent",
+        "native_instruction_count": 12,
+        "adapter_slot": "percentage",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\core\\percentage_scale.c",
+        "source_sha256": "9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "e09d357bfcc9dad3ea8d30a01b6c89ce58d4c0eba1f87b7019eb86029a3cec31"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_scale_value_to_percent"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004B7590",
+        "name": "pharaoh_native_record90_has_ready_004b7590",
+        "native_instruction_count": 13,
+        "adapter_slot": "any_legion_with_soldiers",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\core\\static_objects.c",
+        "source_sha256": "3e6bc574b3582edf352941dc2786e89e730a033bfbc56d1cb7dac7fcab71a7f6",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "755ee547d94139269152134be671c7d4f27ba582f76c90bb6562e52137be2b77"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_native_record90_has_ready_004b7590"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x0050F0F0",
+        "name": "pharaoh_info_house_find_worst_desirability",
+        "native_instruction_count": 168,
+        "adapter_slot": "house_worst_desirability",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_content_live.c",
+        "source_sha256": "447046cc575bdd5dd452ccc1cd8982a90622e9450a5b2ee9d6bb57a8ad6b58ae",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "a579e5525dba2504410deedd8fda483112f5158de724f27961d3fae6b1f2e378"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_info_house_find_worst_desirability"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00454190",
+        "name": "pharaoh_house_update_evolve_text",
+        "native_instruction_count": 869,
+        "adapter_slot": "house_evolve_text",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\population\\house_economy.c",
+        "source_sha256": "ec2c43324fe9326d36ace6a82abd02e5593512319f091802e7cb3ab8e0feb81f",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "56a6877ac981aef182f0f18643401ba31a538f90c4ca1466ac7ab6836a3dd090"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_house_update_evolve_text"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00480180",
+        "name": "pharaoh_map_has_road_access",
+        "native_instruction_count": 93,
+        "adapter_slot": "road",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\road_access.c",
+        "source_sha256": "0e9e3de878e63bf52b2a4d9adb5ea83b681f657d1e85acc4d13dbceaf40105d2",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "855d28a349f6c220d2d98e83cd0971d5ea309891ded42ecedfb32f53852fb6c6"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_map_has_road_access"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004806A0",
+        "name": "pharaoh_map_has_road_access_granary",
+        "native_instruction_count": 8,
+        "adapter_slot": "granary_road",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\terrain_queries.c",
+        "source_sha256": "eee8821514e8ae3c7b65d25bc0a8e5d712ad3226a22c6be12f1040376fe2efcc",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "a28d16c4c2e1c98f68047833fc4dbd681a95aab607bcfc455fd89b34303331d4"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_map_has_road_access_granary"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004802C0",
+        "name": "pharaoh_map_has_road_access_nearby",
+        "native_instruction_count": 113,
+        "adapter_slot": "nearby_road",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\road_access.c",
+        "source_sha256": "0e9e3de878e63bf52b2a4d9adb5ea83b681f657d1e85acc4d13dbceaf40105d2",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "51cb72bfba1e1b0652a8f26f993abffa4344310d5b4c92c32feca012751f72fa"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_map_has_road_access_nearby"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00480460",
+        "name": "pharaoh_map_has_road_access_temple_complex",
+        "native_instruction_count": 170,
+        "adapter_slot": "temple_road",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\road_access.c",
+        "source_sha256": "0e9e3de878e63bf52b2a4d9adb5ea83b681f657d1e85acc4d13dbceaf40105d2",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "c25d219703b2174749ec8daa967a60c4793b4299df08eba19bc039fe1abeebca"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_map_has_road_access_temple_complex"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x0053C100",
+        "name": "pharaoh_walker_phrase_update",
+        "native_instruction_count": 976,
+        "adapter_slot": "walker_message",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\walker_phrase_live.c",
+        "source_sha256": "8517b636d32d52974bbcdba68ee829ead5501020f7ff8b04f323f1822113f264",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "0e9c13c791712484a3017b7987cc840ba5e2c154961a346406219a0a3ee651dd"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_walker_phrase_update"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00515130",
+        "name": "pharaoh_info_advisor_buttons",
+        "native_instruction_count": 536,
+        "adapter_slot": "advisor_buttons",
+        "native_building_type": null,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_init_support.c",
+        "source_sha256": "e6c9108e8f00851c3fa3f54ff04956f680c0ee21b728f8fb592d712a39fff32a",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "bb2872be45ebd8adca1a2842c1fc148af18c26a8fa8650cdf1ed519c6aa591d1"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_info_advisor_buttons"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004F1310",
+        "name": "pharaoh_pyramid_build_progress_report",
+        "native_instruction_count": 756,
+        "adapter_slot": "progress[0]",
+        "native_building_type": 183,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\pyramid_progress.c",
+        "source_sha256": "fbdad0d8b82fb2988dd65cc092b70a9a95fc7ea2bf84b197f09a8155308da963",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "c6dad64a22e0367fedde451d838c1153656a3512d31962bd3fe6fa221d08d115"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_pyramid_build_progress_report"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00542AD0",
+        "name": "pharaoh_sun_temple_progress",
+        "native_instruction_count": 216,
+        "adapter_slot": "progress[1]",
+        "native_building_type": 213,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\complex_progress.c",
+        "source_sha256": "d457c58f32a974e227ff396489347e76444a01b2076316177d442bf42797cc10",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "978acd257173ff3e4159750f41331a9644e5fe5323eb17f9f0c221bf6b47e2e0"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_sun_temple_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x0040D940",
+        "name": "pharaoh_library_progress",
+        "native_instruction_count": 111,
+        "adapter_slot": "progress[2]",
+        "native_building_type": 225,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "0702b0bd17abc1577af78506ed7179b4aa6ce7ad5f7399d4d8c67b09e287f5d3"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_library_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00401540",
+        "name": "pharaoh_abu_simbel_progress",
+        "native_instruction_count": 27,
+        "adapter_slot": "progress[3]",
+        "native_building_type": 230,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "fc29e81fe1e41800ab5d0e227d7be636c0396e72d5315306b1ffa1b1714e5d75"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_abu_simbel_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00417050",
+        "name": "pharaoh_caesareum_progress",
+        "native_instruction_count": 102,
+        "adapter_slot": "progress[4]",
+        "native_building_type": 227,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "7e181201f4fae737dfb10cdfa9cfcc923b299429cb2bf6b31a8e86d898005d61"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_caesareum_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004E6710",
+        "name": "pharaoh_lighthouse_progress",
+        "native_instruction_count": 101,
+        "adapter_slot": "progress[5]",
+        "native_building_type": 228,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "bdfd3b08dfa843571e31be3ec21f7cc0f96e92604ab74c4b02490dfc8565f680"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_lighthouse_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x004DF040",
+        "name": "pharaoh_mausoleum_progress",
+        "native_instruction_count": 195,
+        "adapter_slot": "progress[6]",
+        "native_building_type": 222,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\complex_progress.c",
+        "source_sha256": "d457c58f32a974e227ff396489347e76444a01b2076316177d442bf42797cc10",
+        "body": {
+          "kind": "whole_existing_C_function",
+          "normalized_body_sha256": "aa30abe42b749fb08f0bad32196162fd3be2e171720b6a7bde000b0c12fd2428"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_mausoleum_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00545740",
+        "name": "pharaoh_small_royal_tomb_progress",
+        "native_instruction_count": 7,
+        "adapter_slot": "progress[7]",
+        "native_building_type": 229,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "shared_full_C_macro",
+          "sha256": "bd342000522a743040b115cf9c635b91b41d0f3d21418903db702085eac7fbee"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_small_royal_tomb_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00558BE0",
+        "name": "pharaoh_medium_royal_tomb_progress",
+        "native_instruction_count": 7,
+        "adapter_slot": "progress[8]",
+        "native_building_type": 234,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "shared_full_C_macro",
+          "sha256": "bd342000522a743040b115cf9c635b91b41d0f3d21418903db702085eac7fbee"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_medium_royal_tomb_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x00555E80",
+        "name": "pharaoh_large_royal_tomb_progress",
+        "native_instruction_count": 7,
+        "adapter_slot": "progress[9]",
+        "native_building_type": 235,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "shared_full_C_macro",
+          "sha256": "bd342000522a743040b115cf9c635b91b41d0f3d21418903db702085eac7fbee"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_large_royal_tomb_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      },
+      {
+        "address": "0x0054F470",
+        "name": "pharaoh_grand_royal_tomb_progress",
+        "native_instruction_count": 7,
+        "adapter_slot": "progress[10]",
+        "native_building_type": 236,
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "source_sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "body": {
+          "kind": "shared_full_C_macro",
+          "sha256": "bd342000522a743040b115cf9c635b91b41d0f3d21418903db702085eac7fbee"
+        },
+        "current_cmake": true,
+        "current_map_names": [
+          "pharaoh_grand_royal_tomb_progress"
+        ],
+        "credit": "existing-whole-C-reuse; no new Native credit"
+      }
+    ],
+    "counts": {
+      "genuine_adapter_slots": 25,
+      "progress_slots": 11,
+      "new_native_functions": 0,
+      "existing_native_instructions_reused": 4712,
+      "missing_C_children_for_requested_slots": 0
+    },
+    "api": {
+      "bind": "pharaoh_building_info_init_bindings_bind(bindings, providers); shallow pointer aggregate; installs initializer->operations; keep bindings address stable",
+      "support": "pharaoh_building_info_init_bindings_support(bindings); requires full all-branches aggregate, including unselected types; read-only checks before parent",
+      "initialize": "pharaoh_building_info_init_bindings_initialize(bindings); refusal returns support/native_entry/static field label and opened=0 without invoking parent; READY returns actual 4F7E50 opened result",
+      "fault": "providers.divide_fault(user_data, native_entry, kind) is REQUIRED synchronous non-returning endpoint; _Noreturn adapter aborts only on endpoint contract violation. No dummy callback, deferred error, returned zero, or continuation after native #DE"
+    },
+    "contracts": [
+      "Borrow original allocated typed contexts and real saved/table backing. No whole pool copies or absolute-address dereferences. Availability is strict across all 25 installed branches. Readiness does not prove native array bounds, current-player range, table authenticity, RNG lifecycle, or platform binding.",
+      "Keep actual ui.window224 / buildings264 / walkers388 / formations144 / storage196, model40 and house-model88 views, player49D8 banks. All top-level and directly dereferenced nested data fields required by these providers are checked; unused MapSurface render mode1 and unused pyramid descriptor fields are not required for this call graph.",
+      "House worst must use initializer models/building grid/origin and alias actual window EADCD4/EADCD8; house evolve negative_influence aliases EADCD4. Phrase shared_result aliases window EADCDC, distance_x/y aliases house scratch D3B4FC/F8. Resource output F53E6C/E70 and F53DD8/DC lists/counts alias ui. Events/counts/current-player pointers alias across corresponding contexts.",
+      "Road results publish genuine D3B4E4/E0 DWORDs after success only, never after failure. Distinct from D3B4FC/F8. Root established these are surface.area_x/area_y and shared industry.house_water outputs; provide those same cells. Native road origin is checked against initializer origin.",
+      "Reports borrow384 bytes EADB38..EADCB8: tomb7DWORDs+untouchedDWORD; mausoleum12; lighthouse8; caesareum8; AbuSimbel4; library14; SunTemple14; pyramid28. No clearing/copying; native partial stores survive. Static ABI assertions cover all offsets.",
+      "Native progress type->slot:183 pyramid;213 sun;225 library;230 AbuSimbel;227 Caesareum;228 lighthouse;222 mausoleum;229/234/235/236 four tombs. Addresses/output immediates verified in cached4F7E50 (688instr). Typed base receiver parts DWORD+4 remains caller-owned live scalar, no invented default. Four tomb wrappers use existing full C macro counts9/10/21/31.",
+      "4B7590 begins record1 (BCBA58; kind byteBCBA9A), walks49 actual144-byte records, excludes record50; uses whole existing static_objects C with fixed native range, no copied formation pool.",
+      "4CDE60 zero denominator is native VALUE0. Native wrap32 multiplication100 and signed quotient overflow uses true #DE endpoint immediately before parent worker_percentage assignment. Phrase53C100 non-VALUE status similarly invokes fault endpoint synchronously before collection loop/parent continues, preserving child writes already made.",
+      "Fault endpoint entry labels4CDE60/53C100 identify the called native logical owner, not a fabricated precise faulting CPU instruction address. Endpoint implementation must raise native platform divide fault and leave permanently; do not resume parent via returning RaiseException.",
+      "Provider scalar snapshots (warning screen_width, road.grid_start, base.parts, occupancy.grid_origin) must be refreshed from live host state. This binder does not invent time/RNG/scenario values or advance RNG."
+    ],
+    "pending_host_providers": [
+      "Real synchronous non-returning platform divide-fault endpoint, e.g. root-owned Windows native exception boundary.",
+      "Root-owned initializer/UI saved blocks and all genuine borrowed provider contexts; reports384 backing and actual native tables, events, player bank views, RNG outputs, road ranks/rings and shared scratch.",
+      "No runtime-bound coverage is claimed by this binder alone. Root performs canonical/W integration, strict build, and later cohort behavior comparison."
+    ],
+    "provider_gaps": [
+      {
+        "address": "0x004F1310",
+        "source": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\pyramid_progress.c",
+        "function": "Pyramid54Divide",
+        "gap": "Existing whole C provider calls abort() on its own IDIV zero/overflow for prepTotal/phaseTotal/blocks; this is NOT the Windows native #DE endpoint. Left unchanged per root scope. New fault endpoint handles only explicit statuses returned by4CDE60/53C100. Do not claim exception-equivalent pyramid faults.",
+        "native_normal_domain": "Original valid tables and allocated monument pool are required by existing provider; no new guessed guard or default value is introduced."
+      }
+    ],
+    "dependencies": [
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\building\\linked_parts.c",
+        "sha256": "21b74bf0c99301b350b66948fea85d8ecb4cf346d9e8ec1681d6f6f5523d8017",
+        "bytes": 387
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\commerce\\resource_supply.c",
+        "sha256": "47815275982927b4f659dc5b7bb32ee499a506c854b647a8ca90b4115dd0066f",
+        "bytes": 8489
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\core\\percentage_scale.c",
+        "sha256": "9a1136d16c089d3c19624b1e80459372b897db7303e89904ae8b8a93c1f16a5e",
+        "bytes": 910
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\core\\static_objects.c",
+        "sha256": "3e6bc574b3582edf352941dc2786e89e730a033bfbc56d1cb7dac7fcab71a7f6",
+        "bytes": 14352
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\road_access.c",
+        "sha256": "0e9e3de878e63bf52b2a4d9adb5ea83b681f657d1e85acc4d13dbceaf40105d2",
+        "bytes": 4099
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\map\\terrain_queries.c",
+        "sha256": "eee8821514e8ae3c7b65d25bc0a8e5d712ad3226a22c6be12f1040376fe2efcc",
+        "bytes": 43527
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\base_progress.c",
+        "sha256": "c3e6c903fb81e934de2398dbcf905c2f84508be55656ace7dbbf743b8e714460",
+        "bytes": 8844
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\complex_progress.c",
+        "sha256": "d457c58f32a974e227ff396489347e76444a01b2076316177d442bf42797cc10",
+        "bytes": 6858
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\monuments\\pyramid_progress.c",
+        "sha256": "fbdad0d8b82fb2988dd65cc092b70a9a95fc7ea2bf84b197f09a8155308da963",
+        "bytes": 13224
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\population\\house_economy.c",
+        "sha256": "ec2c43324fe9326d36ace6a82abd02e5593512319f091802e7cb3ab8e0feb81f",
+        "bytes": 14528
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\runtime\\city_warning_clear.c",
+        "sha256": "0c9f7d353ab1a55dae0e87f0d1925988e9f26af12fe34d85bf52cdeb4084c7b3",
+        "bytes": 746
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_content_live.c",
+        "sha256": "447046cc575bdd5dd452ccc1cd8982a90622e9450a5b2ee9d6bb57a8ad6b58ae",
+        "bytes": 39811
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_init_support.c",
+        "sha256": "e6c9108e8f00851c3fa3f54ff04956f680c0ee21b728f8fb592d712a39fff32a",
+        "bytes": 11790
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\walker_phrase_live.c",
+        "sha256": "8517b636d32d52974bbcdba68ee829ead5501020f7ff8b04f323f1822113f264",
+        "bytes": 26412
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\building_info_live.h",
+        "sha256": "3bc5e362412673f7db39aa86db2797b1de1afb6b94cf6cc4d0207918e814ad56",
+        "bytes": 9414
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\building_info_init_support.h",
+        "sha256": "b5b39c8edecee29fd0ddb9ac5d44596a4697dc4e1510a1e3f5149e62940bdcd6",
+        "bytes": 3855
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\building_info_content_live.h",
+        "sha256": "3b34ff0b4b14d6913dea997ae9d9b5c7a18c7bc35f12d168069e5905e8e9af8b",
+        "bytes": 6171
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\walker_phrase_live.h",
+        "sha256": "46edcf507c6a7cc67c522941e49beb23b8d928c14784bc01a8a08771f5d35f86",
+        "bytes": 5893
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\core\\percentage_scale.h",
+        "sha256": "3dce1612683d398a67680bfa8267f43411066349a355b70ec3e37ca6f7b4ee10",
+        "bytes": 740
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\core\\static_objects.h",
+        "sha256": "2dc0e79a51a7f7f6f887626bce2069349e1d706f6b41356b83f35b33bbbcb67c",
+        "bytes": 5353
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\runtime\\city_warning_clear.h",
+        "sha256": "08cb36bb9d09552ed4736313e15dcc635fcbf7d0e09f5149a7c3052d4aedb2ab",
+        "bytes": 529
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\commerce\\resource_supply.h",
+        "sha256": "35628366a4f474da1a6dc0e2ba5e57f72c040b6d10ff1809d1b4b542a549c7ce",
+        "bytes": 1452
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\map\\road_access.h",
+        "sha256": "834343bf1bb40cfc6786030ee4242997b6c5d49daf55ac4cef0571d98dfd3a06",
+        "bytes": 847
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\map\\terrain_queries.h",
+        "sha256": "6e1998a26ff67456cad1a258f50260e48e907fa0421dcae922f47fd40677b8db",
+        "bytes": 10414
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\monuments\\progress_reports.h",
+        "sha256": "68d794d305fa9f9c4b6286f49e3edc7e41ea02b23921d0ac84bd1e033b72ce10",
+        "bytes": 3379
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\monuments\\base_progress.h",
+        "sha256": "e5331a6409f6dcad69091b15587f034c4279f420db899938c6abb0b520385e4d",
+        "bytes": 1496
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\monuments\\build_requirements.h",
+        "sha256": "aaff7200ccf757ea0463992ac757ced2b0f9322c089f742a28da616e68a68807",
+        "bytes": 821
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\population\\house_economy.h",
+        "sha256": "a4e7ab23f165578a37edb1d4fdfddd48fc93ce29e599b85855479e0eabae28b2",
+        "bytes": 2969
+      }
+    ],
+    "evidence_files": [
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-init-bindings-native.json",
+        "sha256": "1e3bffdca226bc43c4d5256042ce5fe3a14bc1264995ccd84563c96d1ea735fa",
+        "bytes": 798813
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-init-bindings-byte-proof.json",
+        "sha256": "811fc3ddcf7ca94a7ae86bdb79e2cdea1856415a3b521ab4fc6eb62cf7665e59",
+        "bytes": 11326
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-init-bindings-discover.json",
+        "sha256": "5bc052524b069d21b58c292957fe3507fb75a6f370a24f3207428523003dc29c",
+        "bytes": 219
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-init-bindings-plan.json",
+        "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+        "bytes": 4
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-init-support-handoff.json",
+        "sha256": "22a03ed097f880fcd194f6ec0ab1a047b65daa337fbb0a74f5b4c29396fecc00",
+        "bytes": 5969
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-building-info-content-live-handoff.json",
+        "sha256": "1437876bd6ad49301649c0dea64f6890ad0b742e9c54fdbdd62214be9e2dd19b",
+        "bytes": 57011
+      }
+    ],
+    "workflow": {
+      "discover": "saved external JSON",
+      "plan_source": "clean/game/ui/building_info_live.c",
+      "plan_result": "[] because selected provider is already typed/current, no new Native translation candidate",
+      "build": "not run, root-owned",
+      "tests": "not run, explicitly excluded",
+      "cmake_map_git": "not edited"
+    },
+    "unresolved_indirect_coverage": "None introduced: all25 InitOperations adapters call named existing whole C providers. Provider native domains and existing pyramid exception gap remain explicit."
+  },
+  "source_binding": [
+    {
+      "source": "game/simulation/farm_initialization.c",
+      "name": "pharaoh_farm_max_progress_initialize",
+      "body_sha256": "917601d078c72d90b4820d5b378fd870c02f900ea26e2d617483a1a48bab0b28"
+    },
+    {
+      "source": "game/simulation/farm_initialization.c",
+      "name": "pharaoh_farm_max_progress_construct",
+      "body_sha256": "32580c1b975e3199c7996eb58b4d3f58c9c1fa6cecd77263f83cadd5bf4439d4"
+    },
+    {
+      "source": "game/core/static_objects.c",
+      "name": "pharaoh_native_record90_has_ready_004b7590",
+      "body_sha256": "401f2bdc309c9ded81c731f35f12e61cd35a73f688f3f85a54f9b2d76af7eb6f"
+    }
+  ],
+  "source_sha256": {
+    "game/include/pharaoh/scenario/mission_scene.h": "e57e0a805d313ddbc71e16f16b088f6ee6210389e1847ec0aed3858c425794bc",
+    "game/scenario/mission_scene_program.c": "01f04921729fd934cdace8a0eb5b48e6e2940b9fe54234b57912ac280125547e",
+    "CMakeLists.txt": "878cd48554de7ce249e0451ecce43992b76f7200c2f1943905a3141e0c65fcee",
+    "game/scenario/mission_scene.c": "6285a1ddbb5452692c4d5360d258f6378918409a9919d2089ad3d2d7107cda20",
+    "game/platform/windows_city_ui.c": "2dfbaade662ab8b495daab003446e0bcb80e36b3d97d55108bc9f5b87ce09989",
+    "game/simulation/farm_initialization.c": "63cf98322161ed2be68d4a75d309f0dae18726c974f95f2c1b20062c0fb0cbf5",
+    "game/include/pharaoh/simulation/farm_initialization.h": "20c16a80253e7a7f91e45379895a40d8b59fda816371d2fff79a7fd43f7b2183",
+    "game/ui/building_info_init_bindings.c": "1b5c62413aa7b65a6ee76141d792318c4d02ea3a2187c1a57ffe752901a8f696",
+    "game/include/pharaoh/ui/building_info_init_bindings.h": "fbdcac1dfa47ca89502e5bb56e404947e843cf2f9aa468d97a32fd60aab48820",
+    "game/core/static_objects.c": "2192d757a0cee5c7fead349917021d362a07576e12ef697a85d08c53feeb78ee",
+    "game/include/pharaoh/core/static_objects.h": "c7741ae537d2836c70fdbdc99dc1c394ba858882db95ec26505f3911315f99f9"
+  },
+  "canonical_release": {
+    "library_sha256": "cc01d82cf2ab86d0cc9d01025ae0b202a05bfe08b749ba5e8fd7b9428f4530fa",
+    "definitions": 2313,
+    "references": 1088,
+    "missing": []
+  },
+  "working_release": {
+    "library_sha256": "6695c5a0cd78a9121372504be9e56b25d9b684d49fd06aaa0d95f33c2860356f",
+    "definitions": 2807,
+    "references": 1118,
+    "missing": []
+  },
+  "world_contracts": [
+    "BCA34C program-owned2000, no per-frame refill.",
+    "56F5A8 prefix preserved in44-DWORD C backing; crop-1 negative indexing stays within owned array.",
+    "Food prices Native78D66C/668 ->saved52 +8/+7 DWORDs; cities50, trade114, soil135.",
+    "Mothball EA4126 ->player bank EA1870 +28B6, stride49D8 and WORD flags.",
+    "House-water47FD30 and terrain-area482650 share D3B4E4/E0 ->scene.area_x/y; no private UI copies.",
+    "Month saved36; flood season real flood_world.season_month.",
+    "Bindings assemble actual contexts only; broad initializer/window9/input not invoked yet.",
+    "Initializer factory #DE endpoint is mandatory non-returning; older pyramid_progress abort path remains a gap."
+  ],
+  "runtime_scope": "Typed complete C and real world data assembled; full info input and drawing activation remains pending. Native constructor analysis recognized decoded CRT code without analyzed Function objects, so exact instruction/boundary/reference evidence is retained explicitly.",
+  "build": "Both strict Release; no new test framework; next paired cohort milestone remains approximately100 entries.",
+  "migration_verify": {
+    "whole_project_errors": 38,
+    "inherited_errors": 37,
+    "intentional_legacy_exclusion": "game/ui/industry_panels.c",
+    "unexpected_new_errors": [],
+    "whole_project_pass": false
+  }
+}

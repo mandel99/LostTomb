@@ -1,4 +1,5 @@
 #include "pharaoh/scenario/mission_scene_program.h"
+#include "pharaoh/simulation/farm_initialization.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -12,12 +13,29 @@ typedef struct PharaohMissionSceneProgramData {
     PharaohEmpireCityImageCatalog empire_images;
     PharaohRingOffsetTables rings;
     int16_t distance_offsets[624];
+    int32_t farm_progress_max; /*Actual unsaved BCA34C*/
 } PharaohMissionSceneProgramData;
 
 /* Relocated logical program data from pinned Pharaoh.exe SHA256
  * fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d.
  * Only fields consumed by the established C owners are retained; sidebar
  * reserved bytes and zero-count tutorial pointers are not C API inputs. */
+/* Actual56F5A8..56F657: keep four preceding DWORDs for crop-1.
+ * The first two also encode the immutable binary64 constant10.0. */
+static const int32_t farm_harvest_backing[44]={
+    0,1076101120,1202590843,1069841121,
+    1,7,-1,-1,
+    11,-1,-1,-1,
+    4,0,-1,-1,
+    3,-1,-1,-1,
+    5,10,-1,-1,
+    3,-1,-1,-1,
+    -1,-1,-1,-1,
+    8,-1,-1,-1,
+    2,6,-1,-1,
+    11,-1,-1,-1,
+};
+
 static const PharaohMapTileAreaOffset footprints[6][6]={
     {{0,0u},{1,1u},{2,2u},{3,3u},{4,4u},{5,5u}},
     {{228,8u},{229,9u},{230,10u},{231,11u},{232,12u},{233,13u}},
@@ -661,6 +679,7 @@ static void bind_program(PharaohMissionSceneProgramData *d,
     const PharaohCampaignIndex *campaign,const uint32_t (*export_limits)[6])
 {
     memset(d,0,sizeof(*d));
+    pharaoh_farm_max_progress_construct(&d->farm_progress_max);
     const PharaohMapRingInitContext rings={&d->rings,d->distance_offsets};
     pharaoh_map_ring_initialize(&rings);
     d->surface_tables.footprints=footprints;
@@ -682,7 +701,8 @@ static void bind_program(PharaohMissionSceneProgramData *d,
         .menu_tables=&d->menu_tables,.empire_images=&d->empire_images,.building_properties=building_properties,
         .default_resource_prices=default_resource_prices,.export_categories=export_categories,.export_limits=export_limits,
         .campaign_index=campaign,.difficulty_percentages=difficulty_percentages,
-        .starting_favor=starting_favor,.salary_by_rank=salary_by_rank};
+        .starting_favor=starting_favor,.salary_by_rank=salary_by_rank,
+        .farm_progress_max=&d->farm_progress_max,.farm_harvest_months=farm_harvest_backing+4};
 }
 
 PharaohMissionSceneProgramData *pharaoh_mission_scene_program_create(

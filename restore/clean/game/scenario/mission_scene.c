@@ -1,6 +1,7 @@
 #include "pharaoh/scenario/mission_scene.h"
 #include "pharaoh/ui/building_info_live.h"
 #include "pharaoh/ui/city_debug_grid.h"
+#include "pharaoh/ui/building_info_industry_live.h"
 #include "pharaoh/runtime/camera_scroll.h"
 #include "pharaoh/building/construction_load.h"
 #include "pharaoh/building/construction_support.h"
@@ -541,6 +542,38 @@ void pharaoh_mission_scene_bind_debug_grid_values(PharaohMissionScene *r,
         .water=(const int8_t *)(const void *)r->routing_cells[2],
         .walls=(const int8_t *)(const void *)r->routing_cells[3],
         .road_network=r->regions,.road_segment=r->shades};
+}
+
+/* These descriptors borrow the same saved world and D3B4E4/E0 area scratch
+ * as the actual Native482650/47FD30 consumers. No private scan substitutes. */
+void pharaoh_mission_scene_bind_info_industry_world(PharaohMissionScene *r,
+    PharaohInfoIndustryLiveContext *industry,PharaohFoodSupplyQueryContext *food,
+    PharaohMapHouseWaterContext *water)
+{
+    const PharaohSavedSceneViews *const v=&r->saved.view;
+    *food=(PharaohFoodSupplyQueryContext){
+        .buildings=v->buildings,.models=r->inputs.building_models->building_models,
+        .players=(const PharaohFoodSupplyPlayer *)(const void *)v->players,
+        .current_player=(const uint32_t *)(const void *)v->current_player,
+        .first_ratio_price=(const uint32_t *)r->saved.destinations[52]+8,
+        .second_ratio_price=(const uint32_t *)r->saved.destinations[52]+7,
+        .cities=(const PharaohEmpireCityRecord *)r->saved.destinations[50],
+        .trade_amounts=(const PharaohEmpireTradeAmounts *)r->saved.destinations[114],
+        .map_origin=&r->geometry.grid_start,.current_tile=&r->current_tile,
+        .soil_values=r->saved.destinations[135],.footprints=r->surface.footprints,
+        .occupancy=&r->occupancy};
+    *water=(PharaohMapHouseWaterContext){
+        .buildings=v->buildings,.building_ids=v->building_ids,
+        .map_width=r->map.width,.map_height=r->map.height,.map_origin=r->map.origin,
+        .result_x=&r->area_x,.result_y=&r->area_y};
+    industry->food=food;industry->house_water=water;
+    industry->mothball_banks=(const PharaohIndustryMothballBank *)(const void *)
+        ((const uint8_t *)v->players+0x28b6);
+    industry->current_player=(const uint32_t *)(const void *)v->current_player;
+    industry->farm_progress_max=r->inputs.program->farm_progress_max;
+    industry->month=r->saved.destinations[36];
+    industry->flood_season_month=&r->flood_world.season_month;
+    industry->harvest_months=r->inputs.program->farm_harvest_months;
 }
 
 const PharaohSavedSceneStorage *pharaoh_mission_scene_storage(const PharaohMissionScene *r)

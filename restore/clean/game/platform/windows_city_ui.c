@@ -1,6 +1,7 @@
 #include "pharaoh/platform/windows_city_ui.h"
 #include "pharaoh/scenario/mission_scene.h"
 #include "pharaoh/ui/building_info_live.h"
+#include "pharaoh/ui/building_info_industry_live.h"
 #include "pharaoh/platform/windows_startup_host.h"
 #include "pharaoh/ui/city_chrome_draw.h"
 #include "pharaoh/ui/button_border.h"
@@ -21,6 +22,9 @@ struct PharaohWindowsCityUi {
     PharaohBuildingInfoLiveState info_state;
     PharaohBuildingInfoLiveContext info;
     PharaohBuildingInfoLiveInitContext info_initialize;
+    PharaohInfoIndustryLiveContext industry;
+    PharaohFoodSupplyQueryContext info_food;
+    PharaohMapHouseWaterContext info_water;
     PharaohUiLayoutIo io;
     PharaohUiLayoutTextContext layout_text;
     PharaohUiLayoutContext layout_context;
@@ -192,6 +196,7 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     const int32_t *const editor=&scene->view->event_54_suppress_flood;
     u->info.window=&u->info_state;
     pharaoh_mission_scene_bind_building_info_world(scene->scene,&u->info,&u->info_initialize);
+    pharaoh_mission_scene_bind_info_industry_world(scene->scene,&u->industry,&u->info_food,&u->info_water);
     pharaoh_sidebar_init_positions((uint32_t)h->graphics.render_width,&u->sidebar_positions);
     /* Build-menu views start at enabled(+18h), not at the image record.
        Read each live value; retain the renderer's own other mutable fields. */

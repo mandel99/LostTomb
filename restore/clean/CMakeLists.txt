@@ -66,6 +66,7 @@ add_library(pharaoh_game STATIC
     game/ui/building_info_draw_live.c
     game/ui/building_info_draw_bindings.c
     game/ui/building_info_init_support.c
+    game/ui/building_info_init_bindings.c
     game/ui/building_info_content_live.c
     game/ui/walker_portrait.c
     game/ui/unit_panel_live.c
@@ -435,6 +436,7 @@ add_library(pharaoh_game STATIC
     game/city/food_supply.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
+    game/simulation/farm_initialization.c
     game/simulation/flood_simulation.c
     game/commerce/empire_queries.c
     game/ui/message_tokens.c
