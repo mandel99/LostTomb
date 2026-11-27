@@ -51,4 +51,7 @@ typedef struct PharaohFerryQueueRecord {
     int32_t building_id;
 } PharaohFerryQueueRecord;
 
+int32_t pharaoh_ring_queue_size(const PharaohRingQueue *queue);
+int32_t pharaoh_ring_queue_pop(PharaohRingQueue *queue);
+
 #endif

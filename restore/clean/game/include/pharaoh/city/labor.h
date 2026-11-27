@@ -47,4 +47,9 @@ PharaohPercentageScaleStatus pharaoh_city_labor_allocate_categories(
     const PharaohCityLaborContext *);
 void pharaoh_city_labor_rebuild_building_shares(const PharaohCityLaborContext *);
 
+typedef struct PharaohFerryContext PharaohFerryContext;
+/* Complete00459670. Shared native pools and selected-player bank required. */
+void pharaoh_city_labor_assign_buildings(const PharaohCityLaborContext *,
+    PharaohFerryContext *);
+
 #endif

@@ -1,4 +1,6 @@
 #include "pharaoh/city/labor.h"
+#include "pharaoh/map/ferry_routing.h"
+#include "pharaoh/core/percentage_adjust.h"
 
 #include <stddef.h>
 #include <string.h>
@@ -148,5 +150,91 @@ void pharaoh_city_labor_rebuild_building_shares(const PharaohCityLaborContext *c
                 pharaoh_scale_value_to_percent(covered*100,denominator);
             store_share(building,share.value);
         }
+    }
+}
+
+static void store_workers(PharaohBuildingTypeRecord *building,int32_t value)
+{
+    const uint16_t bits=(uint16_t)(uint32_t)value;
+    memcpy(&building->num_workers,&bits,sizeof(bits));
+}
+
+void pharaoh_city_labor_assign_buildings(const PharaohCityLaborContext *c,
+    PharaohFerryContext *ferry)
+{
+    int32_t left[10];
+    for(int32_t i=0;i<10;++i)
+        left[i]=c->categories[i].allocated<c->categories[i].demand;
+    int32_t bound=*c->highest_building_id;
+    if(bound>=1) for(int32_t id=1;;++id){
+        PharaohBuildingTypeRecord *const b=&c->buildings[id];
+        if(b->state!=1) goto next_first;
+        const int32_t group=c->type_categories[b->building_type].category;
+        if((group==0 || group==1) && (uint8_t)pharaoh_building_is_floodplain_farm(c->industry,id)!=0)
+            goto next_first;
+        if(group<0 || (group==3 && building_flag_38(b)!=0)) goto next_first;
+        store_workers(b,0);
+        if(group==0 || group==1){
+            if(pharaoh_building_resource_is_permitted(c->buildings,id,c->resource_flags)!=0) goto next_first;
+        }else if(group==2){
+            const int32_t type=b->building_type;
+            if((type==30 || type==31 || type==33) && building_flag_38(b)!=0) goto next_first;
+        }else if(group==8){
+            const int32_t type=b->building_type;
+            if((type==112 || type==205) && pharaoh_building_resource_is_permitted(c->buildings,id,c->resource_flags)!=0)
+                goto next_first;
+        }
+        int16_t share;
+        memcpy(&share,b->reserved_1a,sizeof(share));
+        if(share<=0) goto next_first;
+        const int32_t cached=left[group];
+        if(cached==0) store_workers(b,c->models[b->building_type].workers);
+        else{
+            int32_t amount=pharaoh_adjust_by_percentage(c->categories[group].allocated,share)/100;
+            const int32_t maximum=c->models[b->building_type].workers;
+            if(amount>=maximum) amount=maximum;
+            store_workers(b,amount);
+            left[group]=add_dword(cached,amount);
+        }
+next_first:
+        bound=*c->highest_building_id;if(id+1>bound) break;
+    }
+    for(int32_t i=0;i<10;++i) if(left[i]!=0) left[i]=subtract_dword(left[i],1);
+    for(int32_t i=0;i<10;++i){
+        const int32_t allocated=c->categories[i].allocated;
+        left[i]=left[i]<allocated?subtract_dword(allocated,left[i]):0;
+    }
+    if(bound>=1) for(int32_t id=1;;++id){
+        PharaohBuildingTypeRecord *const b=&c->buildings[id];
+        if(b->state!=1) goto next_second;
+        const int32_t group=c->type_categories[b->building_type].category;
+        if(group==0){
+            if((uint8_t)pharaoh_building_is_floodplain_farm(c->industry,id)!=0) goto next_second;
+        }else if(group<0 || group==8) goto next_second;
+        else if(group==2 && building_flag_38(b)!=0) goto next_second;
+        if((group==0 || group==1) && pharaoh_building_resource_is_permitted(c->buildings,id,c->resource_flags)!=0)
+            goto next_second;
+        int16_t share;
+        memcpy(&share,b->reserved_1a,sizeof(share));
+        if(share<=0 || left[group]==0) goto next_second;
+        const int32_t workers=b->num_workers,maximum=c->models[b->building_type].workers;
+        if(workers>=maximum) goto next_second;
+        const int32_t needed=subtract_dword(maximum,workers);
+        if(needed>left[group]){
+            store_workers(b,add_dword(workers,left[group]));left[group]=0;
+        }else{
+            store_workers(b,add_dword(workers,needed));left[group]=subtract_dword(left[group],needed);
+        }
+next_second:
+        bound=*c->highest_building_id;if(id+1>bound) break;
+    }
+    if(bound>=1) for(int32_t id=1;;++id){
+        PharaohBuildingTypeRecord *const b=&c->buildings[id];
+        if(b->state==1 && b->building_type==136){
+            if(b->num_workers!=0 && c->buildings[b->linked_ferry_building_id].num_workers>0)
+                pharaoh_ferry_update_tiles(ferry,id,1,1);
+            else{pharaoh_ferry_update_tiles(ferry,id,1,3);pharaoh_ferry_queues_release(ferry,id);}
+        }
+        bound=*c->highest_building_id;if(id+1>bound) break;
     }
 }

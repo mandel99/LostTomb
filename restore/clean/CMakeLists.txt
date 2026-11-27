@@ -326,6 +326,8 @@ add_library(pharaoh_game STATIC
     game/simulation/finance_calendar.c
     game/simulation/culture_ratings.c
     game/city/labor.c
+    game/map/ferry_routing.c
+    game/building/ferry_queues.c
     game/city/taxes.c
     game/city/prosperity.c
     game/city/food_rate.c

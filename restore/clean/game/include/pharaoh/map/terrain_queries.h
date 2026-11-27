@@ -45,4 +45,7 @@ typedef struct PharaohRoadAccessContext PharaohRoadAccessContext;
 int32_t pharaoh_map_has_road_access_granary(
     PharaohRoadAccessContext *context,int32_t x,int32_t y);
 
+int32_t pharaoh_map_general_direction(
+    int32_t from_x, int32_t from_y, int32_t to_x, int32_t to_y);
+
 #endif

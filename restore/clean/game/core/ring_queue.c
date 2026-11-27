@@ -109,3 +109,19 @@ bool pharaoh_dynamic_queue_wrap_index(
     }
     return true;
 }
+
+int32_t pharaoh_ring_queue_size(const PharaohRingQueue *queue)
+{
+    const uint32_t difference =
+        (uint32_t)queue->tail - (uint32_t)queue->head;
+
+    if ((difference & UINT32_C(0x80000000)) != 0u) {
+        return (int32_t)((uint32_t)queue->capacity + difference);
+    }
+    return (int32_t)difference;
+}
+
+int32_t pharaoh_ring_queue_pop(PharaohRingQueue *queue)
+{
+    return pharaoh_ring_queue_next(queue, &queue->head);
+}

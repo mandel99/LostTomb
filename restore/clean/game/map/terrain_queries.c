@@ -204,3 +204,21 @@ int32_t pharaoh_map_has_road_access_granary(
 {
     return pharaoh_map_has_road_access(context, x, y, 4);
 }
+
+int32_t pharaoh_map_general_direction(
+    int32_t from_x, int32_t from_y, int32_t to_x, int32_t to_y)
+{
+    if (to_x < from_x) {
+        if (to_y < from_y) return 7;
+        if (to_y == from_y) return 6;
+        return 5;
+    }
+    if (to_x == from_x) {
+        if (to_y < from_y) return 0;
+        if (to_y > from_y) return 4;
+        return 8;
+    }
+    if (to_y < from_y) return 1;
+    if (to_y == from_y) return 2;
+    return 3;
+}
