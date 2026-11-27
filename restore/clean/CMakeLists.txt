@@ -61,6 +61,10 @@ add_library(pharaoh_game STATIC
     game/population/health_coverage.c
     game/population/food_supply_query.c
     game/ui/build_menu.c
+    game/ui/city_ingame_dispatch.c
+    game/ui/building_info_live.c
+    game/ui/unit_command_ui.c
+    game/core/integer_round_up.c
     game/commerce/granary_supply.c
     game/commerce/granary_repair.c
     game/monuments/scenario_slots.c
@@ -311,6 +315,7 @@ add_library(pharaoh_game STATIC
     game/building/construction_load.c
     game/building/construction_support.c
     game/commerce/storage_queries.c
+    game/ui/storage_order_foreground.c
     game/commerce/storage_withdraw.c
     game/runtime/walker_action_profile.c
     game/building/allocation_definitions.c
@@ -531,6 +536,7 @@ if(WIN32)
         game/platform/windows_startup_host.c
         game/platform/windows_mission_runtime.c
         game/platform/windows_city_ui.c
+        game/platform/windows_game_input.c
         game/platform/windows_startup_dispatch.c
         game/platform/windows_sound.c
         game/platform/windows_bink.c

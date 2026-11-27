@@ -99,3 +99,8 @@ int32_t pharaoh_ui_layout_column_width(
 {
     return column >= 0 && column < 5 ? column_widths[column] : 10;
 }
+
+int32_t pharaoh_ui_layout_label_width(int32_t stored_width)
+{
+    return stored_width + 20;
+}

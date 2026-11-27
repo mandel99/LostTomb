@@ -7,6 +7,14 @@
 #include "pharaoh/map/water_routing.h"
 #include "pharaoh/runtime/city_warning.h"
 #include "pharaoh/walker/record_queries.h"
+#include "pharaoh/core/x87_numeric.h"
+
+/* Shared existing x87 primitives; no separate Native owner/rewrite credit. */
+void pharaoh_order_line_slopes80(int32_t delta_x,int32_t delta_y,
+    PharaohFloat80 *slope,PharaohFloat80 *inverse);
+uint32_t pharaoh_order_line_equal_max80(const PharaohFloat80 *value);
+int32_t pharaoh_order_line_intersection80(int32_t origin,int32_t delta,
+    const PharaohFloat80 *ratio);
 
 typedef struct PharaohNativeOrderRouteContext {
     PharaohRoutingSearchState *search;

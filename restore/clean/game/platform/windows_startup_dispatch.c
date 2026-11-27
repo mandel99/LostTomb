@@ -739,6 +739,7 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     memset(dispatch, 0, sizeof(*dispatch));
     dispatch->host = host;
     host->native_force_refresh = &dispatch->refresh.force_refresh;
+    host->game_input = &dispatch->game_input;
     /* Native 00540B50 field1 binding, using the actual loaded small-font ID. */
     pharaoh_text_input_field_initialize(&host->text_input, 1,
         dispatch->player_selection.player_name, 31, 104, 1,
@@ -832,6 +833,7 @@ void pharaoh_windows_startup_dispatch_close(
     pharaoh_windows_mission_runtime_destroy(dispatch->mission_runtime);
     dispatch->mission_runtime = NULL;
     pharaoh_windows_city_ui_release(dispatch->host);
+    pharaoh_windows_game_input_close(&dispatch->game_input,dispatch->host);
     pharaoh_file_list_destroy(&dispatch->player_profile_files);
     pharaoh_file_list_destroy(&dispatch->saved_game_files);
     pharaoh_file_list_destroy(&dispatch->custom_map_files);
@@ -867,6 +869,7 @@ static void load_clicked_player_profile(
 void pharaoh_windows_startup_dispatch_mouse(
     PharaohWindowsStartupDispatch *dispatch, UINT message, LPARAM lparam)
 {
+    pharaoh_windows_game_input_message(&dispatch->game_input,(uint32_t)message,(intptr_t)lparam);
     if (message == WM_MOUSEMOVE || message == WM_LBUTTONDOWN ||
         message == WM_RBUTTONDOWN || message == WM_LBUTTONUP || message == WM_RBUTTONUP) {
         dispatch->input.mouse_x = GET_X_LPARAM(lparam);
@@ -877,11 +880,7 @@ void pharaoh_windows_startup_dispatch_mouse(
         dispatch->left_press_window = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 1;
         dispatch->mouse_button_state = 0xf1;
-        if (dispatch->host != NULL &&
-            dispatch->host->settings.sound_effects_enabled != 0) {
-            pharaoh_windows_sound_button(&dispatch->host->sound,
-                dispatch->host->settings.sound_effects_volume);
-        }
+        /* Native4CF210 emits the sound once on the sampled press edge. */
     }
     if (message == WM_RBUTTONDOWN) {
         dispatch->right_press_active = 1;
@@ -956,15 +955,24 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
     PharaohSmackerWindowVideoState *const video = dispatch->transition.video;
     const uint8_t previous_window = dispatch->refresh.current_window_id;
     const int32_t previous_video_target = video->return_window_id;
+    if(video->playback_active==0&&dispatch->host->video_transition_active==0){
+        if(pharaoh_windows_game_input_update(&dispatch->game_input,dispatch->host)!=
+            PHARAOH_MOUSE_UPDATE_COMPLETE){
+            RaiseException(EXCEPTION_INT_DIVIDE_BY_ZERO,0,0,NULL);
+            return;
+        }
+        dispatch->input.mouse_x=dispatch->game_input.mouse.logical_x;
+        dispatch->input.mouse_y=dispatch->game_input.mouse.logical_y;
+    }
     if (dispatch->refresh.current_window_id == 1 &&
         dispatch->mission_runtime != NULL) {
         if(pharaoh_windows_mission_runtime_game_frame(dispatch->mission_runtime,
             dispatch->input.mouse_x,dispatch->input.mouse_y,
-            dispatch->left_press_active,(uint8_t)(dispatch->mouse_button_state==0xf3))!=0) {
+            dispatch->game_input.mouse.left_button_pressed,dispatch->game_input.mouse.right_button_pressed)!=0) {
             pharaoh_graphics_refresh_screen(&dispatch->refresh,
                 &dispatch->refresh_operations,0);
         }
-        dispatch->host->current_window_id = 1;
+        dispatch->host->current_window_id = dispatch->refresh.current_window_id;
         dispatch->left_pressed_this_frame = 0;
         dispatch->input.mouse_left_went_up = 0;
         dispatch->input.mouse_right_went_up = 0;

@@ -1214,3 +1214,70 @@ uint8_t pharaoh_sun_temple_access_tile(
     }
     return 1;
 }
+
+int32_t pharaoh_ship_find_best_dock(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    const PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    const PharaohShipwrightOrderRecord *orders, int32_t walker_id)
+{
+    int32_t best_id = 0;
+    int32_t best_rank = 200;
+    uint32_t best_distance = 100000u;
+
+    /* The native end-address comparison visits building ids 1..3998. */
+    for (int32_t id = 1; id < PHARAOH_BUILDING_RECORD_COUNT - 1; ++id) {
+        const PharaohBuildingTypeRecord *building = &buildings[id];
+        const int32_t rank = pharaoh_shipwright_order_rank(buildings, id,
+            orders);
+        uint32_t dx;
+        uint32_t dy;
+        uint32_t distance;
+
+        if (building->state != 1u || building->building_type != 0x4a ||
+            building->num_workers == 0 || rank < 0 || rank > best_rank)
+            continue;
+        dx = (uint32_t)(int32_t)building->x -
+            (uint32_t)(int32_t)walkers[walker_id].x;
+        dy = (uint32_t)(int32_t)building->y -
+            (uint32_t)(int32_t)walkers[walker_id].y;
+        distance = dx * dx + dy * dy;
+        if (rank < best_rank || (int32_t)distance < (int32_t)best_distance) {
+            best_id = id;
+            best_rank = rank;
+            best_distance = distance;
+        }
+    }
+    return best_id;
+}
+
+void pharaoh_transport_assign_dock(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    const PharaohShipwrightOrderRecord *orders, int16_t *slot_walkers,
+    int32_t selected_walker_id, int32_t walker_id,
+    PharaohBuildingTileResolver resolve_tile, void *resolve_context)
+{
+    PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+    const int32_t building_id = pharaoh_ship_find_best_dock(buildings,
+        walkers, orders, selected_walker_id);
+    int16_t destination_x;
+    int16_t destination_y;
+
+    if (building_id <= 0) {
+        if (walker->type == 77u || walker->type == 78u)
+            walker->action_state = 8;
+        return;
+    }
+    if (walker->type == 77u) walker->action_state = 11;
+    else if (walker->type == 78u) walker->action_state = 13;
+    resolve_tile(resolve_context, buildings[building_id].x,
+        buildings[building_id].y, buildings[building_id].size,
+        &destination_x, &destination_y);
+    walker->source_x = walker->x;
+    walker->source_y = walker->y;
+    walker->direction = walker->previous_direction;
+    walker->entertainment_building_id = (int16_t)building_id;
+    walker->destination_x = destination_x;
+    walker->destination_y = destination_y;
+    pharaoh_walker_detach_slot_link(walkers, slot_walkers, walker_id);
+}

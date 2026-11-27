@@ -85,7 +85,7 @@ static const uint32_t los_zero_bits=0,los_one_bits=0x3f800000u;
 static const uint32_t los_max_bits=0x7f7fffffu;
 
 /* Reused complete ActorOrderLosNumeric C, retaining the native CW. */
-static void los_slopes(int32_t delta_x,int32_t delta_y,
+void pharaoh_order_line_slopes80(int32_t delta_x,int32_t delta_y,
     PharaohFloat80 *slope,PharaohFloat80 *inverse)
 {
     if(delta_x==0){
@@ -115,7 +115,7 @@ static void los_slopes(int32_t delta_x,int32_t delta_y,
     }
 }
 
-static uint32_t los_equal_max(const PharaohFloat80 *value)
+uint32_t pharaoh_order_line_equal_max80(const PharaohFloat80 *value)
 {
     uint16_t status;
     __asm {
@@ -128,7 +128,7 @@ static uint32_t los_equal_max(const PharaohFloat80 *value)
     return (status&0x4000u)!=0;
 }
 
-static int32_t los_intersection(int32_t origin,int32_t delta,
+int32_t pharaoh_order_line_intersection80(int32_t origin,int32_t delta,
     const PharaohFloat80 *ratio)
 {
     PharaohFloat80 result;
@@ -186,13 +186,13 @@ int32_t pharaoh_legion_water_farthest_on_line(
     const int32_t dx=wrap_sub(target_x,x),dy=wrap_sub(target_y,y);
     const int32_t step_x=sign(dx),step_y=sign(dy);
     const uint32_t nx=magnitude(dx),ny=magnitude(dy);
-    los_slopes(dx,dy,&slope,&inverse);
+    pharaoh_order_line_slopes80(dx,dy,&slope,&inverse);
     uint32_t row=(uint32_t)*c->water->origin+(uint32_t)y*228u;
     working=y;
     for(int32_t remaining=(int32_t)ny;remaining>0;--remaining){
-        if(!los_equal_max(&inverse)){
+        if(!pharaoh_order_line_equal_max80(&inverse)){
             row+=(uint32_t)step_y*228u;working=wrap_add(working,step_y);
-            const int32_t candidate=los_intersection(x,wrap_sub(working,y),&inverse);
+            const int32_t candidate=pharaoh_order_line_intersection80(x,wrap_sub(working,y),&inverse);
             if(water_reachable(c,row+(uint32_t)candidate)){
                 const int32_t metric=square_sum(wrap_sub(working,y),wrap_sub(candidate,x));
                 if(metric>=best){best=metric;best_x=candidate;best_y=working;}
@@ -201,9 +201,9 @@ int32_t pharaoh_legion_water_farthest_on_line(
     }
     working=x;
     for(int32_t remaining=(int32_t)nx;remaining>0;--remaining){
-        if(!los_equal_max(&slope)){
+        if(!pharaoh_order_line_equal_max80(&slope)){
             working=wrap_add(working,step_x);
-            const int32_t candidate=los_intersection(y,wrap_sub(working,x),&slope);
+            const int32_t candidate=pharaoh_order_line_intersection80(y,wrap_sub(working,x),&slope);
             const uint32_t tile=(uint32_t)*c->water->origin+
                 (uint32_t)candidate*228u+(uint32_t)working;
             if(water_reachable(c,tile)){

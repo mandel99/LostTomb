@@ -2,6 +2,7 @@
 #define PHARAOH_PLATFORM_WINDOWS_STARTUP_DISPATCH_H
 
 #include "pharaoh/platform/windows_startup_host.h"
+#include "pharaoh/platform/windows_game_input.h"
 #include "pharaoh/platform/windows_smacker.h"
 #include "pharaoh/runtime/startup_window_transition.h"
 #include "pharaoh/ui/high_scores.h"
@@ -20,6 +21,7 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohGraphicsRefreshState refresh;
     PharaohGraphicsRefreshOperations refresh_operations;
     PharaohStartupWindowInputState input;
+    PharaohWindowsGameInput game_input;
     PharaohStartupWindowDispatcherEntryState entry;
     PharaohStartupWindowTransitionContext transition;
     PharaohTimedWindowTransitionContext timed_transition;

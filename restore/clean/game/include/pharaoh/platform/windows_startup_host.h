@@ -116,6 +116,7 @@ typedef struct PharaohWindowsStartupHost {
     uint32_t game_frame_destination_bits;
     struct PharaohImageDrawContext *game_image_draw;
     struct PharaohWindowsCityUi *city_ui;
+    struct PharaohWindowsGameInput *game_input;
     uint8_t *native_force_refresh; /* borrowed dispatch.refresh.force_refresh, E38DC8 */
     uint32_t city_scroll_requested; /* E38DCC; camera scroll request */
     PharaohCampaignIndex campaign_index;

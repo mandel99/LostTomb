@@ -99,6 +99,31 @@ typedef struct PharaohLegionOrderState {
     uint8_t redraw_requested;
 } PharaohLegionOrderState;
 
+typedef struct PharaohLegionOrderFormationFields {
+    const volatile int16_t *kind,*walkers,*leader_id;
+    volatile int16_t *order,*morale,*previous_order,*resume_order;
+    const volatile int16_t *field_126,*availability;
+    const volatile uint8_t *order_mode,*subtype,*disabled,*alternate_order;
+    volatile uint32_t *task;
+} PharaohLegionOrderFormationFields;
+
+typedef struct PharaohLegionOrderWalkerFields {
+    uint8_t *base;
+    size_t stride,state,animation_frame,x,y,action_state,route,target_x,target_y;
+} PharaohLegionOrderWalkerFields;
+
+typedef struct PharaohLegionOrderBorrowedState {
+    uint32_t formation_id;
+    PharaohLegionOrderFormationFields formation;
+    PharaohLegionOrderWalkerFields walkers;
+    const volatile uint32_t *button_parameter,*current_walker_id;
+    volatile uint32_t *active_formation_id;
+    const volatile uint8_t *command_locked;
+    volatile uint8_t *sidebar_update_code,*redraw_requested;
+} PharaohLegionOrderBorrowedState;
+
+void pharaoh_legion_order_button_borrowed(const PharaohLegionOrderBorrowedState *state);
+
 /* Shared real Native layout provider004B7B50; logical model API retained. */
 void pharaoh_formation_change_morale_native(PharaohNativeLegionRecord *formations,
     int32_t formation_id,int16_t delta);

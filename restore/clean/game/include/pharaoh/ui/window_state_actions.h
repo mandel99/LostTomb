@@ -55,4 +55,6 @@ void pharaoh_popup_window_open(PharaohPopupWindowState *state,
 void pharaoh_popup_window_open_context(PharaohPopupWindowState *,uint32_t key,
     void (*callback)(const void *),const void *context,uint32_t mode);
 void pharaoh_popup_window_invoke_callback(const PharaohPopupWindowState *);
+void pharaoh_top_menu_hover_index(int32_t mouse_x, int32_t mouse_y,
+    const int32_t left_edges[3], int32_t *hovered);
 #endif
