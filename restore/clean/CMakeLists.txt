@@ -335,6 +335,8 @@ add_library(pharaoh_game STATIC
     game/ui/city_input_actions.c
     game/ui/city_map_input.c
     game/ui/construction_input.c
+    game/editor/terrain_refresh.c
+    game/editor/elevation.c
     game/map/construction_routes.c
     game/building/construction_undo.c
     game/monuments/pyramid_preview.c

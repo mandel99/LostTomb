@@ -11,6 +11,8 @@ typedef struct PharaohSurfaceImageTables {
     PharaohMapImageContextRecord bank[192];
     PharaohMapImageContextRecord paved_road[48];
     PharaohMapImageContextRecord dirt_road[17];
+    PharaohMapImageContextRecord water_auxiliary[48]; /* 5CA958 */
+    PharaohMapImageContextRecord elevation_auxiliary[14]; /* 5CBDC8 */
 } PharaohSurfaceImageTables;
 /* Initial process-lifetime data. Use a mutable copy and retain its frame
  * bytes across updates and mission loads, as the original globals do. */
