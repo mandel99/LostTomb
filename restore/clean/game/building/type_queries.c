@@ -377,3 +377,405 @@ int32_t pharaoh_building_is_water_lift_footprint(
             return 0;
     return 1;
 }
+
+#define BUILDING_BYTE(building, offset) \
+    (*((const uint8_t *)(building) + (offset)))
+
+#define BUILDING_DWORD(building, offset) \
+    (*((const int32_t *)((const uint8_t *)(building) + (offset))))
+
+#define DEFINE_SERVICE_NEED(name, excluded, field) \
+int32_t name(const PharaohBuildingTypeRecord *buildings, int32_t id, \
+    int32_t enabled) \
+{ \
+    const PharaohBuildingTypeRecord *building = &buildings[id]; \
+    if (building->building_type == (excluded) || BUILDING_BYTE(building, 5) == 0 || \
+        enabled == 0) return 0; \
+    return 10 - BUILDING_BYTE(building, (field)) / 10; \
+}
+
+static int32_t market_food_slot(int32_t resource)
+{
+    switch (resource) {
+    case 1: return 0; case 2: return 1; case 3: return 2; case 4: return 3;
+    case 5: return 4; case 6: return 5; case 7: return 6; case 8: return 7;
+    case 15: return 8; case 13: return 9; case 17: return 10; case 19: return 11;
+    default: return -1;
+    }
+}
+
+int32_t pharaoh_building_service_status_00434060(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    int32_t first_enabled, int32_t second_enabled)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    uint8_t status;
+    if (b->building_type == 0x33 || b->building_type == 0x35 || BUILDING_BYTE(b, 5) == 0 ||
+        first_enabled + second_enabled == 0) return 0;
+    status = BUILDING_BYTE(b, 0x81);
+    if (status == 1) return 8;
+    if (status == 2) return 5;
+    if (status == 3) return 2;
+    return 0;
+}
+
+int32_t pharaoh_building_service_need_004340e0(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    int32_t first_enabled, int32_t second_enabled)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    if (b->building_type == 0x1f || b->building_type == 0x24 || BUILDING_BYTE(b, 5) == 0 ||
+        first_enabled + second_enabled == 0) return 0;
+    return 10 - BUILDING_BYTE(b, 0x6c) / 10;
+}
+
+int32_t pharaoh_building_service_need_00434150(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    int32_t first_enabled, int32_t second_enabled, int32_t third_enabled)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    if (b->building_type == 0x1e || b->building_type == 0x22 || b->building_type == 0x24 ||
+        BUILDING_BYTE(b, 5) == 0 ||
+        first_enabled + second_enabled + third_enabled == 0) return 0;
+    return 10 - BUILDING_BYTE(b, 0x6d) / 10;
+}
+
+int32_t pharaoh_building_service_need_004341d0(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    int32_t first_enabled, int32_t second_enabled, int32_t third_enabled)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    if (b->building_type == 0x21 || b->building_type == 0x22 || b->building_type == 0x23 ||
+        BUILDING_BYTE(b, 5) == 0 ||
+        first_enabled + second_enabled + third_enabled == 0) return 0;
+    return 10 - BUILDING_BYTE(b, 0x6f) / 10;
+}
+
+int32_t pharaoh_building_service_need_00434250(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    int32_t first_enabled, int32_t second_enabled)
+{
+    const PharaohBuildingTypeRecord *b = &buildings[id];
+    if (b->building_type == 0x20 || b->building_type == 0x25 || BUILDING_BYTE(b, 5) == 0 ||
+        first_enabled + second_enabled == 0) return 0;
+    return 10 - BUILDING_BYTE(b, 0x71) / 10;
+}
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_004343a0, 0xb4, 0x77)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_00434510, 0x33, 0x72)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_00434570, 0x35, 0x73)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_004345d0, 0x31, 0x75)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_00434630, 0x31, 0x6e)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_00434690, 0x2e, 0x76)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_004346f0, 0x2f, 0x78)
+
+DEFINE_SERVICE_NEED(pharaoh_building_service_need_00434750, 0xb8, 0x70)
+
+int32_t pharaoh_building_type_in_list(
+    const PharaohBuildingTypeRecord *buildings, int32_t id,
+    const int32_t *types)
+{
+    while (*types != 0) {
+        if (buildings[id].building_type == *types) return 1;
+        ++types;
+    }
+    return 0;
+}
+
+void pharaoh_game_tick_update_tomb_material_requests(
+    const PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    uint8_t request_flags[4])
+{
+    static const int16_t building_types[4] = { 0xe5, 0xea, 0xeb, 0xec };
+    uint8_t found[4] = { 0, 0, 0, 0 };
+    uint8_t previous[4];
+
+    for (int32_t i = 0; i < 4; ++i) previous[i] = request_flags[i] != 0;
+    for (int32_t i = 0; i < PHARAOH_WALKER_RECORD_COUNT; ++i) {
+        const PharaohWalkerQueryRecord *const walker = &walkers[i];
+        if (walker->type != 0x55 ||
+            (walker->action_state != 15 && walker->action_state != 16 &&
+             walker->action_state != 36)) {
+            continue;
+        }
+        const int16_t references[2] = {
+            walker->related_building_id_5c,
+            walker->entertainment_building_id
+        };
+        for (int32_t reference = 0; reference < 2; ++reference) {
+            const int16_t type = buildings[references[reference]].building_type;
+            for (int32_t material = 0; material < 4; ++material) {
+                if (type == building_types[material]) found[material] = 1;
+            }
+        }
+    }
+    for (int32_t i = 0; i < 4; ++i)
+        if (previous[i] != 0 && found[i] == 0) request_flags[i] = 0;
+}
+
+int32_t pharaoh_house_check_desirability(
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohHouseModel *house_models, int32_t id)
+{
+    const uint8_t *b = (const uint8_t *)&buildings[id];
+    const int32_t level = *(const int16_t *)(b + 0x12);
+    const int32_t desirability = (int8_t)b[0xbe];
+    const int32_t evolve = level > 0x12 ? 1000 :
+        house_models[level].evolve_desirability;
+    if (desirability <= house_models[level].devolve_desirability) return -1;
+    return evolve <= desirability;
+}
+
+void pharaoh_buildings_decay_houses_covered(
+    PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t highest_id)
+{
+    int32_t id;
+    for (id = 1; id <= highest_id; ++id) {
+        PharaohBuildingTypeRecord *building = &buildings[id];
+        if (building->state == 0u || building->building_type == 59 ||
+            building->building_type == 172 || building->building_type == 173)
+            continue;
+        if (building->houses_covered < 2) building->houses_covered = 0;
+        else --building->houses_covered;
+    }
+}
+
+void pharaoh_bazaar_update_supply(
+    PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t highest_id, const PharaohHouseModel *house_models,
+    int32_t bazaar_id, int32_t radius)
+{
+    const int32_t bazaar_x = buildings[bazaar_id].x;
+    const int32_t bazaar_y = buildings[bazaar_id].y;
+    int32_t id;
+
+    for (id = 1; id <= highest_id; ++id) {
+        const PharaohBuildingTypeRecord *house = &buildings[id];
+        int32_t dx;
+        int32_t dy;
+        int32_t level;
+        int32_t amount;
+
+        if (house->state != 1u || house->house_size == 0u ||
+            house->house_population == 0) continue;
+        dx = house->x - bazaar_x;
+        if (dx < 0) dx = -dx;
+        dy = house->y - bazaar_y;
+        if (dy < 0) dy = -dy;
+        if ((dx > dy ? dx : dy) > radius) continue;
+
+        level = house->subtype;
+        if (level < 19) ++level;
+        amount = house_models[level].beer;
+        if (house->size > 1u) amount <<= 2;
+        if (amount != 0) buildings[bazaar_id].bazaar_beer_supply = 10;
+        amount = house_models[level].pottery;
+        if (house->size > 1u) amount <<= 2;
+        if (amount != 0) buildings[bazaar_id].bazaar_pottery_supply = 10;
+        amount = house_models[level].linen;
+        if (house->size > 1u) amount <<= 2;
+        if (amount != 0) buildings[bazaar_id].bazaar_linen_supply = 10;
+        amount = house_models[level].jewelry;
+        if (house->size > 1u) amount <<= 2;
+        if (amount != 0) buildings[bazaar_id].bazaar_jewelry_supply = 10;
+    }
+}
+
+int32_t pharaoh_building_market_max_food_stock(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id,
+    const int32_t *resource_ids, int32_t resource_count)
+{
+    int32_t result = 0;
+    const uint8_t *record;
+    if (building_id < 1 ||
+        (buildings[building_id].building_type != 70 &&
+         buildings[building_id].building_type != 190)) return 0;
+    record = (const uint8_t *)&buildings[building_id];
+    for (int32_t i = 0; i < resource_count; ++i) {
+        if (resource_ids[i] != 0) {
+            const int32_t slot = market_food_slot(resource_ids[i]);
+            const int32_t value = *(const int16_t *)(record + 0x56 + slot * 2);
+            if (value > result) result = value;
+        }
+    }
+    return result;
+}
+
+int32_t pharaoh_building_market_max_goods_stock(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    int32_t result = 0;
+    const uint8_t *record;
+    if (building_id < 1 ||
+        (buildings[building_id].building_type != 70 &&
+         buildings[building_id].building_type != 190)) return 0;
+    record = (const uint8_t *)&buildings[building_id];
+    for (int32_t offset = 0x66; offset <= 0x6c; offset += 2) {
+        const int32_t value = *(const int16_t *)(record + offset);
+        if (value > result) result = value;
+    }
+    return result;
+}
+
+void pharaoh_house_population_rebuild_list(
+    const PharaohBuildingTypeRecord *buildings, int32_t highest_id,
+    int16_t *house_ids, int32_t *house_count)
+{
+    int32_t count = 0;
+    *house_count = 0;
+    for (int32_t id = 1; id <= highest_id; ++id) {
+        if (buildings[id].state == 1 && buildings[id].house_size != 0) {
+            house_ids[count++] = (int16_t)id;
+        }
+    }
+    *house_count = count;
+}
+
+int32_t pharaoh_house_population_closest_with_room(
+    const PharaohBuildingTypeRecord *buildings, int32_t highest_id,
+    int32_t x, int32_t y)
+{
+    int32_t closest_id = 0;
+    int32_t closest_distance = 1000;
+    for (int32_t id = 1; id <= highest_id; ++id) {
+        const PharaohBuildingTypeRecord *building = &buildings[id];
+        int32_t dx;
+        int32_t dy;
+        int32_t distance;
+        if (building->state != 1 || building->house_size == 0 ||
+            building->distance_from_entry <= 0 ||
+            building->house_population_room <= 0 ||
+            building->immigrant_walker_id != 0) continue;
+        dx = building->x < x ? x - building->x : building->x - x;
+        dy = building->y < y ? y - building->y : building->y - y;
+        distance = dx < dy ? dy : dx;
+        if (distance < closest_distance) {
+            closest_distance = distance;
+            closest_id = id;
+        }
+    }
+    return closest_id;
+}
+
+int32_t pharaoh_house_population_add(
+    PharaohBuildingTypeRecord *buildings,
+    const PharaohHouseModel *house_models,
+    PharaohHousePopulationPlayerMetrics *player, int32_t requested)
+{
+    int32_t added = 0;
+    int32_t id = player->last_used_house_add;
+    for (int32_t attempt = 1; attempt < 4000; ++attempt) {
+        PharaohBuildingTypeRecord *building;
+        int32_t capacity;
+        int16_t population;
+        if (requested <= added) return added;
+        if (++id > 3999) id = 1;
+        building = &buildings[id];
+        population = building->house_population;
+        if (building->state != 1 || building->house_size == 0 ||
+            building->distance_from_entry <= 0 || population <= 0) continue;
+        player->last_used_house_add = id;
+        capacity = house_models[building->subtype].max_people;
+        if (building->house_is_merged != 0) capacity *= 4;
+        if (capacity > population) {
+            ++added;
+            building->house_population = population + 1;
+            building->house_population_room =
+                (int16_t)(capacity - (population + 1));
+        }
+    }
+    return added;
+}
+
+int32_t pharaoh_house_population_remove(
+    PharaohBuildingTypeRecord *buildings,
+    PharaohHousePopulationPlayerMetrics *player, int32_t requested)
+{
+    int32_t removed = 0;
+    int32_t id = player->last_used_house_remove;
+    for (int32_t attempt = 1; attempt < 16000; ++attempt) {
+        PharaohBuildingTypeRecord *building;
+        if (requested <= removed) return removed;
+        if (++id > 3999) id = 1;
+        building = &buildings[id];
+        if (building->state != 1 || building->house_size == 0) continue;
+        player->last_used_house_remove = (int16_t)id;
+        if (building->house_population > 0) {
+            ++removed;
+            --building->house_population;
+        }
+    }
+    return removed;
+}
+
+int32_t pharaoh_house_population_calculate_types(
+    const PharaohBuildingTypeRecord *buildings, int32_t highest_id,
+    PharaohHousePopulationPlayerMetrics *player)
+{
+    int32_t total = 0;
+    player->people_in_huts_and_shanties = 0;
+    player->people_in_manors_and_up = 0;
+    player->people_in_huts = 0;
+    player->people_in_residences_and_up = 0;
+    for (int32_t id = 1; id <= highest_id; ++id) {
+        const PharaohBuildingTypeRecord *building = &buildings[id];
+        const uint8_t state = building->state;
+        const int32_t population = building->house_population;
+        const int16_t level = building->subtype;
+        if (state == 0 || state == 5 || state == 2 || state == 6 ||
+            building->house_size == 0) continue;
+        total += population;
+        if (level < 2) player->people_in_huts += population;
+        if (level < 4) player->people_in_huts_and_shanties += population;
+        if (level > 9) player->people_in_residences_and_up += population;
+        if (level > 13) player->people_in_manors_and_up += population;
+    }
+    return total;
+}
+
+void pharaoh_house_service_decay_tax_collector(
+    PharaohBuildingTypeRecord *buildings, int32_t highest_id)
+{
+    for (int32_t id = 1; id <= highest_id; ++id) {
+        if (buildings[id].state == 1 &&
+            buildings[id].tax_collector_service != 0) {
+            --buildings[id].tax_collector_service;
+        }
+    }
+}
+
+int32_t pharaoh_building_is_mansion(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    const int32_t type = buildings[building_id].building_type;
+    return type >= 0x4d && type <= 0x4f;
+}
+
+int32_t pharaoh_building_has_special_service_kind(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    switch (buildings[building_id].building_type) {
+        case 0x4d:
+        case 0x4e:
+        case 0x4f:
+        case 0x54:
+        case 0x55:
+        case 0x56:
+        case 0x57:
+        case 0xb8:
+        case 0xbb:
+        case 0xbc:
+        case 0xbd:
+            return 1;
+        default:
+            return 0;
+    }
+}
