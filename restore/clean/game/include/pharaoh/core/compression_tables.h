@@ -30,6 +30,8 @@ typedef struct PharaohPkImplodeState {
     uint16_t hash_to_index[2304];
     uint16_t hash_to_index_end;
     uint8_t output[2050];
+    uint8_t work[0x2204];
+    uint16_t hash_offsets[0x2204];
 } PharaohPkImplodeState;
 
 uint32_t pharaoh_compression_crc_update(
@@ -42,11 +44,30 @@ void pharaoh_decompression_build_decode_table(
 void pharaoh_compression_fill_bytes(
     uint32_t *destination, uint8_t value, uint32_t byte_count);
 void pharaoh_compression_build_pair_index(
-    uint8_t *state, const uint8_t *begin, const uint8_t *end);
-void pharaoh_decompression_build_symbol_tables(
-    uint8_t *state, const uint16_t symbol_codes[256]);
+    PharaohPkImplodeState *state, const uint8_t *begin, const uint8_t *end);
 int32_t pharaoh_compression_find_longest_match(
-    uint8_t *state, const uint8_t *current);
+    PharaohPkImplodeState *state, const uint8_t *current);
 void pharaoh_compression_flush_full_output(PharaohPkImplodeState *state);
+
+/* Native32-bit compression state. Pair indexing borrows a nonempty range
+ * inside work with a readable lookahead byte at end. Matching requires the
+ * genuine sorted offsets, dictionary size and Native lookahead capacity.
+ * The write procedure is an actual relocated C callback. */
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,user_data)==0x9b0,"Native PK user");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,write)==0x9b8,"Native PK writer");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,match_next)==0x9bc,"Native PK prefix");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,hash_to_index)==0xdc8,"Native PK buckets");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,output)==0x1fca,"Native PK output");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,work)==0x27cc,"Native PK work");
+_Static_assert(sizeof(void *)!=4 ||
+    offsetof(PharaohPkImplodeState,hash_offsets)==0x49d0,"Native PK offsets");
+_Static_assert(sizeof(void *)!=4 || sizeof(PharaohPkImplodeState)==0x8dd8,
+    "Native PK allocation");
 
 #endif

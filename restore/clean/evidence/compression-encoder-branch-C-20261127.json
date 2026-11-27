@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Whole exported55C130 encoder algorithm and direct C callees; actual save-buffer caller55BF10 remains a separate integration obligation.",
+  "complete_native_owners": 9,
+  "missing_clean_implementations_added": 6,
+  "existing_shared_algorithm_bindings": 1,
+  "existing_owner_corrections": 2,
+  "native_instructions": 967,
+  "source_binding": [
+    {
+      "address": "0x0055CA20",
+      "name": "pharaoh_compression_fill_bytes",
+      "source": "game/core/compression_tables.c",
+      "body_sha256": "ae64e25233286ca990d39891b30f3b774272a1f2333cb7cf36bdde8f5d48c5a6",
+      "native_instructions": 48,
+      "native_bytes_sha256": "4d685f7ab91892999cc7c1c8f6fe5a6dc7bd3ad8b93489b9789c4daf9e01a75f",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x0055CB10",
+      "name": "pharaoh_compression_build_pair_index",
+      "source": "game/core/compression_tables.c",
+      "body_sha256": "401ccc7d2aa80b825f8c7a5ea5b126c7a6192ed8bfc28bc7bd89b9d1bcf10236",
+      "native_instructions": 62,
+      "native_bytes_sha256": "1e23ddd18d14fbc62793035e621a185eba8015288e0e6c71c7a36bb46a775540",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x0055C650",
+      "name": "pharaoh_compression_find_longest_match",
+      "source": "game/core/compression_tables.c",
+      "body_sha256": "fb1d231fea563cf21c388e5d95ad209afbad7d67fe7ad973e949760bba124dd7",
+      "native_instructions": 251,
+      "native_bytes_sha256": "e7ff7eb96b1a074ec2ba8883fce1e95f62936589544d1d322c1ab44b79361022",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x0055CA90",
+      "name": "pharaoh_compression_flush_full_output",
+      "source": "game/core/compression_tables.c",
+      "body_sha256": "a0732f3ec7062a190e13a6b736546e613066ed7c38e9c0c5ff82b23be8a8432e",
+      "native_instructions": 38,
+      "native_bytes_sha256": "5d968360c39da4876db5fc27c1a1c9caa4731b0eeced65787e7b5b70ce965536",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": [
+        "0x0055CA20"
+      ]
+    },
+    {
+      "address": "0x0055C990",
+      "name": "pharaoh_pk_implode_output_bits",
+      "source": "game/core/pk_implode.c",
+      "body_sha256": "1b523ff90e09e08e42ccb52f8d290317df1e94b449c81b7d800c6b2683039790",
+      "native_instructions": 52,
+      "native_bytes_sha256": "73aac4a685cfd9e9ff936a0733deb4f9cb74e0cdec07c47fc023ab5be7cae719",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": [
+        "0x0055C990",
+        "0x0055CA90"
+      ]
+    },
+    {
+      "address": "0x0055C2D0",
+      "name": "pharaoh_pk_implode_encode",
+      "source": "game/core/pk_implode.c",
+      "body_sha256": "55b80b664b59d3f5bb798e44bf4dd8461a1424353fc6beac4fcc99f0853f53af",
+      "native_instructions": 287,
+      "native_bytes_sha256": "ead556d7c906d5a09a2147e2f2ec2f8096a9f87b94a76219d58a2f0f248baea0",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": [
+        "0x0055C650",
+        "0x0055C990",
+        "0x0055CA20",
+        "0x0055CB10",
+        "0x0055D250"
+      ]
+    },
+    {
+      "address": "0x0055C130",
+      "name": "pharaoh_pk_implode",
+      "source": "game/core/pk_implode.c",
+      "body_sha256": "eabea0cc9a9fb83ff6e98fc297bedd700f464752adeacb62d9131bb098dddc30",
+      "native_instructions": 128,
+      "native_bytes_sha256": "f85573fa2e316752cd16880e89e843dbee98b7169563d17e48f4620a27b81a24",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": [
+        "0x0055C2D0",
+        "0x0055D250"
+      ]
+    },
+    {
+      "address": "0x0055D150",
+      "name": "build_length_decode_tables",
+      "source": "game/core/pk_explode.c",
+      "body_sha256": "7f8c267569fabb401c312f7c2c8ce4691ce636995327e4f246ff973a84fdffd5",
+      "native_instructions": 73,
+      "native_bytes_sha256": "ccd0996605f51735fe2a3dbbd726974f2c3d7faa05b998e7ddfcab957d5bc418",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x0055D250",
+      "name": "pharaoh_memory_copy_dwords_then_bytes",
+      "source": "game/core/memory_strings.c",
+      "body_sha256": "21ae346f147c327bfade3a7fb8be52d6f969c018c17f4a6c0c2a65cbb0210668",
+      "native_instructions": 28,
+      "native_bytes_sha256": "1d2824dcb6e35513f47f00b44e605617b96e2e48914b1d503d1fa9b945192dd8",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2752.json",
+      "native_callees": []
+    }
+  ],
+  "support_binding": [
+    {
+      "source": "game/core/pk_implode.c",
+      "name": "emit_literal",
+      "body_sha256": "f879b5a4cf2623ffcfdd1cf028d8142a43136df7da2e1b8bde5a542f7d4840dc",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/core/pk_implode.c",
+      "name": "finish_stream",
+      "body_sha256": "aafd9e61cece3ce87a51733a456b58a18e8b53461074b32b11972ba3ba8ddd39",
+      "native_owner_credit": 0
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/core/compression_tables.c": "b933dc8269025569df42cc8c8ec66ff29b728fd3249fe533799c154c0bdd00dd",
+    "game/include/pharaoh/core/compression_tables.h": "2a6d94472bc17b6bbed169746c3265572e6e4a4b133e20b754c6371cb26fc731",
+    "game/core/pk_implode.c": "83e209a2080993b13a372671c0735e2960695685e87406702a61fa3402061da1",
+    "game/include/pharaoh/core/pk_implode.h": "23137d17b73b2b57d74a0ba7de1e2f5702fe627c8df39e1b789bdc1865c336cc",
+    "game/core/memory_strings.c": "402f6008be16013e9ccdd3cce442ff6ba77045b30e1f58dcee3731a1297f31d0",
+    "game/include/pharaoh/core/memory_strings.h": "7e6e2852642c0ad9a8b59bb174fbe6a3439874fecc01678be01eb0474ade95fe",
+    "CMakeLists.txt": "8fdcd5b6b1a60fbde2ce7ddf3c2b757f4c23e3d825bbc1f23c42a6316cf9912f"
+  },
+  "worktree_scope_hashes": {
+    "game/core/compression_tables.c": "b933dc8269025569df42cc8c8ec66ff29b728fd3249fe533799c154c0bdd00dd",
+    "game/include/pharaoh/core/compression_tables.h": "2a6d94472bc17b6bbed169746c3265572e6e4a4b133e20b754c6371cb26fc731",
+    "game/core/pk_implode.c": "83e209a2080993b13a372671c0735e2960695685e87406702a61fa3402061da1",
+    "game/include/pharaoh/core/pk_implode.h": "23137d17b73b2b57d74a0ba7de1e2f5702fe627c8df39e1b789bdc1865c336cc",
+    "game/core/memory_strings.c": "1d1f9db26579e699283b0e469ca4a4522449b720a0c04da3695fd391cfae952d",
+    "game/include/pharaoh/core/memory_strings.h": "afebb287a39ed5dc50f0d2c5395390767699a0bf6f20c42d16aae1aee2cb9d59",
+    "CMakeLists.txt": "61139be4228d38f5940fc557aefac0efef439c6f7bd458dc10b8c562451d4dd7"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02645.c",
+      "sha256": "6d6916d555a8d6ae7f7575e2fd21c8fb11169ae054402f2f2e4ade54afe892e6"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02646.c",
+      "sha256": "4e7e343808e04c81821bcb78681d6f4946fd2ed9584ce9dfc2cf1c2dc1e99a64"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02647.c",
+      "sha256": "dd2db73d494ede00b219b9c7b5b88d3cb2d551c522c09f7c2234b8acdb00c60c"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02648.c",
+      "sha256": "5884dd444d1b0f987f7c8baf6e470ea0ecbd613eb3ba6ae2930792be9b680a7b"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02649.c",
+      "sha256": "01ef9f9c35f3d2323a59b04689025f16852e068d51b5d0506b60da4db9cb654d"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02650.c",
+      "sha256": "a6c7fa95450ea10dfc80c69f68aafdb77a936ebb9673a847f36fbd700c6a14ce"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02651.c",
+      "sha256": "8cb434c9dfc632e5fa4dc0dfe04b5eb4152180b28527b6990679d3a04f4d2d53"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02658.c",
+      "sha256": "751ef951dff72c8cee805a38484890453e42f99c8ac510f94d6de2e54091da44"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\decompiled\\src\\Unit02646.c",
+      "sha256": "0442a87613c03584da56d51ad428b3bd90f9c45a72f1b0933a769b9c8288726a"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\decompiled\\src\\Unit02648.c",
+      "sha256": "2fdf9a616a10fd7aa4ccbf991aeafe3da22c1275be39c879d78177c014991cc9"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\Compression.c",
+      "sha256": "d4dab5f5bca9dce48028a1bbd7ff6fc291226e87f3b3e64dbb20233f6ec54cbe"
+    }
+  ],
+  "rea": {
+    "evidence_id": "ev_6c259473e9afccea1a07f651d56bb99cc915ac577b48420000ac8f0ce431aa0f",
+    "provider": {
+      "id": "rea-workflow",
+      "name": "REA composed investigation workflow",
+      "version": "1"
+    },
+    "parents": [
+      "0x0055C130",
+      "0x0055C2D0",
+      "0x0055C990"
+    ],
+    "succeeded": 3
+  },
+  "contracts": [
+    "Existing55D250 forward copy body also lacked its canonical map entry/prototype; it is recorded without reimplementation.",
+    "Actual active-source audit found no clean bodies for pair indexing, longest match, bit output, encoding, initialization or flush. Existing55D150 algorithm is static build_length_decode_tables in pk_explode.c; its stale raw-state declaration is removed.55CA20 shares existing complete memory-fill C instead of duplicating that algorithm.",
+    "REA batch pseudocode supplied the3 parents; prior ordinary C and complete pinned Ghidra instructions supplied the remaining helpers. All direct Native calls close over this branch and the existing55D250 C copy routine. Read/write callback slots are genuine caller-supplied C procedures, not fabricated providers.",
+    "Native state allocation8DD8, user9B0/write9B8/prefix9BC/bucketsDC8/output1FCA/work27CC/hash offsets49D0 are compile-time asserted for Win32. Whole-workspace byte views preserve Native lookahead crossing the work subarray into adjacent storage.",
+    "Pair sort retains2304 WORD buckets, prefix sums, reverse stable placement, actual lookahead reads and WORD relative offsets. Longest match retains unsigned dictionary cutoff, index publication, distance ties,516 limit and signedWORD prefix fallback; no new search bounds or deduplication.",
+    "Native flush calls writer with local2048 first, then reloads output state, preserves whole/partial bytes, clears2050 and restores only under the actual counter/bit gates. Bit output retains its single8-bit recursive split and live state after callback-driven flush.",
+    "Encoder keeps4096 read batching,516 lookahead, dictionary-sensitive0/1/2 phases, lazy match distance threshold128, EOF clipping, literal/match ordering and final symbol773. Final writer receives the actual state output-count pointer. Overlapping dictionary shifts reuse the proven forward DWORD/BYTE C copy.",
+    "Initializer preserves callback/global-input store order, live mode/dictionary reads,1024/2048/4096 cases and error1/2 exits. All7 immutable encoder tables603BA0..603F4F equal existing decoder C data; all256 code words6041E8 also match. No second table copy or original-image execution is introduced.",
+    "Callback validity, initialized workspace, Native table data and original bounded producer inputs remain required. Extreme malformed callback/data behavior and unobserved register/flag outputs are not claimed."
+  ],
+  "native_callback_sites": [
+    {
+      "owner": "0x0055CA90",
+      "site": "0055cab5",
+      "instruction": "CALL dword ptr [EDI + 0x9b8]"
+    },
+    {
+      "owner": "0x0055C2D0",
+      "site": "0055c344",
+      "instruction": "CALL dword ptr [ESI + 0x9b4]"
+    },
+    {
+      "owner": "0x0055C2D0",
+      "site": "0055c53a",
+      "instruction": "CALL dword ptr [ESI + 0x9b8]"
+    },
+    {
+      "owner": "0x0055C2D0",
+      "site": "0055c633",
+      "instruction": "CALL dword ptr [ESI + 0x9b8]"
+    }
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "2d5057b14a26d2a3724939bb3ca0978ab01c56997a6938a80f852afdd7aab826",
+    "canonical_exe_sha256": "01a1027551e0799d91b886e0bb239ef9c6962643269449cc4d1cdd5d149c2a35",
+    "worktree_library_sha256": "2b4c6e1342fe97dbcd969ac142f2ccdbc11b12c66d930428c52ba91b6669c2ad",
+    "worktree_exe_sha256": "c9f3e641b5f4b86e640f5b35b20191cff3f0a03b09e4a5c2cddb15f95bed04b1"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "REA pseudocode, cached/live Ghidra instructions/data and strict Release integration. User requests complete branches and no new tests.",
+    "deferred_comparison_entries": [
+      "0x0055CA20",
+      "0x0055CB10",
+      "0x0055C650",
+      "0x0055CA90",
+      "0x0055C990",
+      "0x0055C2D0",
+      "0x0055C130",
+      "0x0055D150",
+      "0x0055D250"
+    ]
+  },
+  "archive": "build/verified-images/compression-encoder-branch-C-20261127-2d5057b14a26d2a3",
+  "artifact_sha256": {
+    "losttomb-compression-branch-canonical-build.log": "4009b7da97772a1151405abd6bde352abc1720cdfb04f28a7c089d6b46202d46",
+    "losttomb-compression-branch-ghidra.json": "09b5f8d248026b47c4124219d46bc84e6783ec43e15307a3dbfde9c794ddde9b",
+    "losttomb-compression-branch-native.json": "dced1f507a44769b599367a358e5107b47c865d8a6117df6c60356b5eb1240f4",
+    "losttomb-compression-branch-release.log": "bcce17aaae1d62ca857c03047f8125851d8b10ee5e73b62f0b9e2f6dc156d8ca",
+    "losttomb-compression-encoder-tables.json": "e3d6f5515a68e058fd65302a0033b49fe39e064a0de6461983eb6b2f8489fca3",
+    "losttomb-compression-gap-code-table.json": "f16fc8e45d77ba1d3e8b2e1a9147e3537b6cb29333d664e3162615a6f54a29b5",
+    "losttomb-compression-gap-ghidra.json": "7ba7d8f192cdf13267181b296f4e94ff4eeb4c741288311c21df7568ab179964",
+    "losttomb-compression-gap-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-compression-parents-rea.json": "e73fecd25b0c25ca0dd4b27765e0272cf2100548fb8ad11ca285644bf2680800",
+    "LostTomb.exe": "01a1027551e0799d91b886e0bb239ef9c6962643269449cc4d1cdd5d149c2a35",
+    "pharaoh_game.lib": "2d5057b14a26d2a3724939bb3ca0978ab01c56997a6938a80f852afdd7aab826"
+  },
+  "remaining": [
+    "Actual55BF10 save-buffer wrapper/allocation/logging and its host callers need binding to the new C entry.",
+    "Current gameplay integration and full Native/C behavioral equivalence remain incomplete."
+  ]
+}

@@ -182,3 +182,20 @@ void pharaoh_text_truncate_at_pointer(
         *begin = 0;
     }
 }
+
+void pharaoh_memory_copy_dwords_then_bytes(
+    void *destination, const void *source, uint32_t length)
+{
+    uint8_t *output = (uint8_t *)destination;
+    const uint8_t *input = (const uint8_t *)source;
+    uint32_t dwords = length >> 2;
+    while (dwords-- != 0u) {
+        uint32_t value;
+        memcpy(&value, input, sizeof(value));
+        memcpy(output, &value, sizeof(value));
+        input += 4;
+        output += 4;
+    }
+    for (length &= 3u; length != 0u; --length)
+        *output++ = *input++;
+}

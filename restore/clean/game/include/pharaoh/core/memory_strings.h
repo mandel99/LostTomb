@@ -1,3 +1,4 @@
+#include <stdint.h>
 #ifndef PHARAOH_CORE_MEMORY_STRINGS_H
 #define PHARAOH_CORE_MEMORY_STRINGS_H
 
@@ -19,4 +20,6 @@ void pharaoh_memory_copy_forward(const unsigned char *source,unsigned char *dest
 void pharaoh_text_truncate_at_pointer(
     unsigned char *begin, unsigned char *end);
 
+void pharaoh_memory_copy_dwords_then_bytes(
+    void *destination, const void *source, uint32_t length);
 #endif
