@@ -14,6 +14,14 @@ typedef struct PharaohCityRenderState {
     uint32_t highlight_countdown;
 } PharaohCityRenderState;
 
+/* Borrow actual scan/clip/animation owners in a live host. Standalone state
+ * and clip records are used only without this view. */
+typedef struct PharaohCityRenderLiveBindings {
+    uint32_t *camera_x,*camera_y,*grid_origin; /*70E478/474/484*/
+    int32_t *clip_left,*clip_right,*clip_top,*clip_bottom; /*D3B55C/558/554/550*/
+    uint32_t *last_animation_tick,*advance_animation,*highlight_countdown;
+} PharaohCityRenderLiveBindings;
+
 enum PharaohCityRenderPass {
     PHARAOH_CITY_PASS_BASE, PHARAOH_CITY_PASS_OVERLAY_BASE,
     PHARAOH_CITY_PASS_TOP, PHARAOH_CITY_PASS_OVERLAY_TOP,
@@ -45,6 +53,7 @@ typedef struct PharaohCityRenderContext {
     const uint8_t *alternate_base; /* native006DE515; keep its exact byte test */
     const int32_t *screen_width, *screen_height;
     const PharaohCityRenderOperations *operations;
+    const PharaohCityRenderLiveBindings *live;
 } PharaohCityRenderContext;
 
 /* Complete native00430D30/004DDDC0 controllers. Rendering endpoints must be
@@ -52,5 +61,7 @@ typedef struct PharaohCityRenderContext {
 void pharaoh_city_render(PharaohCityRenderContext *context,
     int32_t camera_x, int32_t camera_y, int32_t grid_origin);
 void pharaoh_city_render_current_view(PharaohCityRenderContext *context);
+/* Require every genuine pass reached by the current Native branch. */
+int32_t pharaoh_city_render_bound_for_current_mode(const PharaohCityRenderContext *);
 
 #endif

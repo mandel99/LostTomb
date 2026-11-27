@@ -175,6 +175,7 @@ add_library(pharaoh_game STATIC
     game/ui/placement_cost.c
     game/ui/panel_blocks.c
     game/ui/debug_info.c
+    game/ui/city_debug_grid.c
     game/ui/city_message_queue.c
     game/ui/window_state_actions.c
     game/rendering/sprite_cycle.c
@@ -182,6 +183,7 @@ add_library(pharaoh_game STATIC
     game/rendering/image_draw.c
     game/rendering/terrain_diamond.c
     game/rendering/city_object_layers.c
+    game/rendering/city_building_ghost.c
     game/rendering/city_ground.c
     game/rendering/overlay_top.c
     game/rendering/city_top.c
@@ -331,6 +333,7 @@ add_library(pharaoh_game STATIC
     game/building/house_health.c
     game/building/vacant_lots.c
     game/runtime/city_warning.c
+    game/map/service_visit.c
     game/map/terrain_queries.c
     game/map/building_tiles.c
     game/map/house_image_data.c

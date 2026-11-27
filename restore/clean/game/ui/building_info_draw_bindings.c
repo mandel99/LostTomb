@@ -196,11 +196,7 @@ static enum PharaohBuildingInfoDrawSupport common(const PharaohBuildingInfoDrawB
 }
 static int city_ready(const PharaohCityRenderContext *c)
 {
-    if(!c||!c->state||!c->clip||!c->viewport||!c->view||!c->grid_origin||!c->current_tick||
-       !c->overlay||!c->alternate_base||!c->screen_width||!c->screen_height||!c->operations)return 0;
-    const PharaohCityRenderOperations *o=c->operations;
-    return o->draw_base&&o->draw_overlay_base&&o->draw_top&&o->draw_overlay_top&&
-        o->draw_footprint&&o->draw_high_walkers&&o->draw_grid_values;
+    return pharaoh_city_render_bound_for_current_mode(c)!=0;
 }
 static enum PharaohBuildingInfoDrawSupport content_ready(const PharaohBuildingInfoDrawBindings *b)
 {

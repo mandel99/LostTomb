@@ -13,6 +13,9 @@
 #include "pharaoh/rendering/city_ground.h"
 #include "pharaoh/rendering/city_top.h"
 #include "pharaoh/rendering/city_object_layers.h"
+#include "pharaoh/rendering/city_building_ghost.h"
+#include "pharaoh/ui/city_debug_grid.h"
+#include "pharaoh/platform/windows_game_input.h"
 #include "pharaoh/rendering/building_stock_draw.h"
 #include "pharaoh/rendering/building_animation_offset.h"
 #include "pharaoh/rendering/monument_spot_draw.h"
@@ -76,6 +79,17 @@ struct PharaohWindowsMissionRuntime {
     PharaohCityTopContext top;
     PharaohCityObjectLayerOperations high_walker_operations;
     PharaohCityObjectLayerContext high_walkers;
+    PharaohCityRenderOperations city_render_operations;
+    PharaohCityRenderLiveBindings city_render_live;
+    PharaohCityRenderContext city_render;
+    PharaohCityBuildingGhostContext building_ghost;
+    PharaohCityDebugGridValues debug_grids;
+    PharaohCityDebugGridDrawContext debug_grid_draw;
+    /* Actual775610/78D7D8/DC/D4 and6059E8/994/5A5C/6DE514 program owners.
+     * Pinned initial bytes are zero; never reset them during a frame. */
+    uint32_t highlight_countdown,debug_building_info,debug_evolve_info,debug_walker_info;
+    int32_t construction_tool,construction_place_ok,anchor_tile,anchor_x,anchor_y;
+    uint8_t selection_locked,construction_royal_tomb;
     PharaohFarmTileDrawContext farm_tiles;
     PharaohMonumentSpotDrawContext monument_spot_draw;
     PharaohMonumentSpotDrawOperations monument_spot_operations;
@@ -298,10 +312,20 @@ static void bind_ground_scan(PharaohWindowsMissionRuntime *r,
     s->tile_x[3]=(uint32_t)v->tile_half_width;
     s->visible_rows=(uint32_t)v->height_tiles;
     s->visible_columns=(uint32_t)v->width_tiles;
-    s->camera_row=(uint32_t)view->camera_y;
-    s->camera_column=(uint32_t)view->camera_x;
     s->start_y=(uint32_t)v->screen_y;
     s->start_x=(uint32_t)v->screen_x;
+}
+
+static void draw_city_footprint(void *data)
+{
+    PharaohWindowsMissionRuntime *const r=data;
+    /* Preflight below admits only the currently bound tool0 domain. */
+    (void)pharaoh_city_building_ghost(&r->building_ghost);
+}
+static void draw_city_grid_value(void *data,int32_t x,int32_t y)
+{
+    PharaohWindowsMissionRuntime *const r=data;
+    pharaoh_city_debug_draw_grid_value(&r->debug_grid_draw,x,y);
 }
 
 static int32_t read_file(void *data,int32_t file,void *out,uint32_t bytes)
@@ -588,6 +612,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     int32_t pitch;
     r->diagnostic_frame_status=-1;
     if(r->io_failed || pharaoh_mission_scene_status(r->scene)<0) return 0;
+    if(h->game_input==NULL) return 0;
     r->diagnostic_frame_status=-2;
     if(rebuild_image_pixels(r)==0) return 0;
     r->diagnostic_frame_status=-3;
@@ -631,15 +656,10 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         (void)pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down);
     }
     bind_ground_scan(r,view->state);
-    {
-        const uint32_t now=GetTickCount();
-        const uint32_t delta=now-r->last_animation_tick;
-        r->advance_animation=0;
-        if((delta&UINT32_C(0x80000000))!=0 || delta>60) {
-            r->last_animation_tick=now;r->advance_animation=1;
-        }
-        pharaoh_animation_frame_state_update(&r->animation_frames,now);
-    }
+    /* E92E0C is the actual shared timeGetTime sample already published by
+     * the Native mouse-update binding, not a second render clock. */
+    pharaoh_animation_frame_state_update(&r->animation_frames,
+        h->game_input->mouse.current_time);
     memset(&r->ground_operations,0,sizeof(r->ground_operations));
     pharaoh_city_ground_bind_sprite_draw(&r->ground_operations,&r->image_draw);
     {
@@ -674,11 +694,6 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         .sweep_countdown=saved->destinations[131],.sweep_start=saved->destinations[107],
         .building_sound_ids=r->building_sound_ids,.sound_suppressed=&r->sound_suppressed,
         .sound_views=r->sound_views,.operations=&r->ground_operations};
-    r->image_clip.clip_x_min=view->state->viewport.screen_x;
-    r->image_clip.clip_y_min=view->state->viewport.screen_y;
-    r->image_clip.clip_x_max=view->state->viewport.screen_right;
-    r->image_clip.clip_y_max=view->state->viewport.screen_bottom;
-    pharaoh_city_draw_ground(&r->ground);
     {
         const PharaohSpriteGroupRecord *const groups=
             (const PharaohSpriteGroupRecord *)(const void *)h->sprite_tags;
@@ -834,18 +849,65 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             .animations=&r->building_animations,.sprites=saved->destinations[14],
             .orientation=(const uint32_t *)(const void *)saved->view.city_orientation,
             .pass_sequence=&r->top_pass_sequence,.operations=&r->top_operations};
-        pharaoh_city_draw_top(&r->top,0);
         r->high_walker_operations=(PharaohCityObjectLayerOperations){
-            .user_data=r,.draw_walker=top_draw_walker};
+            .user_data=r,.draw_walker=top_draw_walker,.draw_grid_value=draw_city_grid_value};
         r->high_walkers=(PharaohCityObjectLayerContext){
             .ground=&r->ground,.cycle_enabled=&r->walker_layer_cycle_enabled,
             .cycle_counter=&r->walker_layer_cycle_counter,
+            .debug_grid_a=&r->debug_building_info,.debug_grid_b=&r->debug_evolve_info,
+            .debug_grid_c=&r->debug_walker_info,
             .operations=&r->high_walker_operations};
-        pharaoh_city_draw_high_walkers(&r->high_walkers,0);
+        r->building_ghost=(PharaohCityBuildingGhostContext){
+            .tool=&r->construction_tool,.native_605994=&r->construction_place_ok,
+            .native_e38dcc=(const int32_t *)(const void *)&h->city_scroll_requested,
+            .editor=&view->event_54_suppress_flood,.placement_byte=&r->selection_locked,
+            .special_tool=&r->construction_royal_tomb,.selected_tile=&r->anchor_tile,
+            .tile_x=&r->anchor_x,.tile_y=&r->anchor_y};
+        pharaoh_mission_scene_bind_debug_grid_values(r->scene,&r->debug_grids);
+        r->debug_grid_draw=(PharaohCityDebugGridDrawContext){
+            .tile=&r->ground_scan.tile,.mode=&h->settings.debug_grid_overlay,
+            .grids=&r->debug_grids,.buildings=saved->view.buildings,
+            .walkers=saved->view.walkers,
+            .font=pharaoh_windows_startup_host_native_font(h,634),
+            .text=&h->text_input.drawing,.number_text=h->bitmap_text_buffers,
+            .font_id=(const int32_t *)(const void *)&h->sprite_tags[634].image_index,
+            .suffix=" "}; /* Native57C048 */
+        const int debug_active=r->debug_building_info||r->debug_evolve_info||r->debug_walker_info;
+        if(r->construction_tool!=0||
+           pharaoh_city_building_ghost_support(&r->building_ghost).status!=PHARAOH_BUILDING_GHOST_READY||
+           (debug_active&&!pharaoh_city_debug_grid_bound_for_current_mode(&r->debug_grid_draw))) {
+            r->diagnostic_frame_status=-5;
+            pharaoh_windows_startup_host_end_game_frame(h);
+            return 0;
+        }
+        r->city_render_live=(PharaohCityRenderLiveBindings){
+            .camera_x=&r->ground_scan.camera_column,.camera_y=&r->ground_scan.camera_row,
+            .grid_origin=&r->ground_scan.reserved_44,
+            .clip_left=&r->image_clip.clip_x_min,.clip_right=&r->image_clip.clip_x_max,
+            .clip_top=&r->image_clip.clip_y_min,.clip_bottom=&r->image_clip.clip_y_max,
+            .last_animation_tick=&r->last_animation_tick,.advance_animation=&r->advance_animation,
+            .highlight_countdown=&r->highlight_countdown};
+        memset(&r->city_render_operations,0,sizeof(r->city_render_operations));
+        pharaoh_city_render_bind_ground(&r->city_render_operations,&r->ground);
+        pharaoh_city_render_bind_top(&r->city_render_operations,&r->top);
+        pharaoh_city_render_bind_object_layers(&r->city_render_operations,&r->high_walkers);
+        r->city_render_operations.draw_footprint=draw_city_footprint;
+        r->city_render_operations.pass_user_data[PHARAOH_CITY_PASS_FOOTPRINT]=r;
+        r->city_render=(PharaohCityRenderContext){
+            .viewport=&view->state->viewport,.view=view->state,
+            .grid_origin=&pharaoh_mission_scene_geometry(r->scene)->grid_start,
+            .current_tick=&h->game_input->mouse.current_time,
+            .overlay=pharaoh_mission_scene_current_overlay(r->scene),
+            .alternate_base=&r->alternate_overlay,.screen_width=&h->graphics.render_width,
+            .screen_height=&h->graphics.render_height,.operations=&r->city_render_operations,
+            .live=&r->city_render_live};
+        if(!pharaoh_city_render_bound_for_current_mode(&r->city_render)) {
+            r->diagnostic_frame_status=-6;
+            pharaoh_windows_startup_host_end_game_frame(h);
+            return 0;
+        }
+        pharaoh_city_render_current_view(&r->city_render);
     }
-    r->image_clip.clip_x_min=0;r->image_clip.clip_y_min=0;
-    r->image_clip.clip_x_max=h->graphics.render_width;
-    r->image_clip.clip_y_max=h->graphics.render_height;
     pharaoh_windows_city_ui_draw_foreground(h);
     pharaoh_windows_startup_host_end_game_frame(h);
     r->diagnostic_frame_status=1;

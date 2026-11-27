@@ -104,4 +104,8 @@ struct PharaohBuildingInfoLiveInitContext;
 void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *,
     struct PharaohBuildingInfoLiveContext *,struct PharaohBuildingInfoLiveInitContext *);
 
+struct PharaohCityDebugGridValues;
+void pharaoh_mission_scene_bind_debug_grid_values(PharaohMissionScene *,
+    struct PharaohCityDebugGridValues *);
+
 #endif

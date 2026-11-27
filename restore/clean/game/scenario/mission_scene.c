@@ -1,5 +1,6 @@
 #include "pharaoh/scenario/mission_scene.h"
 #include "pharaoh/ui/building_info_live.h"
+#include "pharaoh/ui/city_debug_grid.h"
 #include "pharaoh/runtime/camera_scroll.h"
 #include "pharaoh/building/construction_load.h"
 #include "pharaoh/building/construction_support.h"
@@ -520,6 +521,26 @@ void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *r,
     init->terrain=v->terrain;
     init->entry_flag=r->saved.destinations[132];init->exit_flag=r->saved.destinations[133];
     init->neighbours=neighbours;init->sentry_request=r->saved.destinations[116];
+}
+
+void pharaoh_mission_scene_bind_debug_grid_values(PharaohMissionScene *r,
+    PharaohCityDebugGridValues *g)
+{
+    const PharaohSavedSceneViews *const v=&r->saved.view;
+    *g=(PharaohCityDebugGridValues){
+        .building_ids=v->building_ids,.walker_ids=v->walker_ids,
+        .building_damage=r->saved.destinations[18],.terrain=v->terrain,
+        .images=v->images,.service_visits=v->service_visits,
+        .routing_distance=(const uint32_t *)(const void *)r->route_distance,
+        .bitfields=v->properties,.edges=v->edges,.canals=v->canal_water,
+        .random=v->random,.sprites=r->saved.destinations[14],
+        .elevation=r->saved.destinations[17],.desirability=r->saved.destinations[16],
+        .old_types=r->saved.destinations[168],.soldier_strength=NULL,
+        .land_citizen=(const int8_t *)(const void *)r->routing_cells[0],
+        .land_noncitizen=(const int8_t *)(const void *)r->routing_cells[1],
+        .water=(const int8_t *)(const void *)r->routing_cells[2],
+        .walls=(const int8_t *)(const void *)r->routing_cells[3],
+        .road_network=r->regions,.road_segment=r->shades};
 }
 
 const PharaohSavedSceneStorage *pharaoh_mission_scene_storage(const PharaohMissionScene *r)

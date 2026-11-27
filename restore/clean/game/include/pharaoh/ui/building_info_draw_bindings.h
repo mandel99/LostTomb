@@ -8,8 +8,9 @@
 /* Borrowed providers, not copies of saved pools or renderer state. storage is
  * also the common layout/text/font binding for the LiveOperations primitives.
  * All supplied content/unit contexts must share this UI, text cursor, layout,
- * image renderer and locked framebuffer. city requires every genuine pass,
- * including the footprint; this binder does not manufacture a missing pass.
+ * image renderer and locked framebuffer. city requires every genuine pass
+ * reached by its current Native overlay/alternate branch, including the
+ * footprint; this binder does not manufacture a missing pass.
  * Each borrowed context must be fully initialized for its existing provider;
  * readiness checks establish binding availability and the shared-state links. */
 typedef struct PharaohBuildingInfoDrawProviders {
