@@ -269,6 +269,8 @@ add_library(pharaoh_game STATIC
     game/map/map_ring.c
     game/map/surface_tiles.c
     game/map/building_access_queries.c
+    game/map/native_leaf_flags.c
+    game/map/water_targets.c
     game/map/access_routing.c
     game/building/kingdom_access.c
     game/map/moisture_queries.c
