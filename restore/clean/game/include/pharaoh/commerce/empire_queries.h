@@ -117,4 +117,14 @@ int32_t pharaoh_empire_object_city_image(
     int32_t scenario_rank,
     const PharaohEmpireCityImageCatalog *catalog);
 
+int32_t pharaoh_empire_city_for_trade_route(
+    const PharaohEmpireCityRecord *cities, uint32_t route_id);
+int32_t pharaoh_empire_route_find_for_city(
+    const PharaohEmpireObjectRecord *objects,
+    const PharaohEmpireCityRecord *cities,
+    PharaohEmpireRouteRecord *routes, int32_t city_id,
+    uint8_t *ours_first);
+int32_t pharaoh_empire_route_travel_months(
+    const PharaohEmpireRouteRecord *route);
+
 #endif

@@ -513,3 +513,29 @@ bool pharaoh_event_type_uses_resource(const PharaohScenarioEvent *event)
 {
     return event_type_uses_resource[event->type] != 0u;
 }
+
+static const uint8_t event_type_uses_city[PHARAOH_EVENT_TYPE_COUNT] = {
+    0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1,
+    0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0
+};
+
+static const uint8_t event_type_is_invasion[PHARAOH_EVENT_TYPE_COUNT] = {
+    0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
+bool pharaoh_event_type_uses_city(const PharaohScenarioEvent *event)
+{
+    return event_type_uses_city[event->type] != 0u;
+}
+
+bool pharaoh_event_type_is_invasion(const PharaohScenarioEvent *event)
+{
+    return event_type_is_invasion[event->type] != 0u;
+}
+
+bool pharaoh_event_uses_trade_city(const PharaohScenarioEvent *event)
+{
+    return pharaoh_event_type_uses_city(event) &&
+        !pharaoh_event_type_is_invasion(event);
+}

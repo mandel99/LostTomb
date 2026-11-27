@@ -123,3 +123,51 @@ int32_t pharaoh_empire_object_city_image(
         return 0;
     }
 }
+
+int32_t pharaoh_empire_city_for_trade_route(
+    const PharaohEmpireCityRecord *cities, uint32_t route_id)
+{
+    for (int32_t i = 0; i < PHARAOH_EMPIRE_CITY_COUNT; ++i) {
+        if (cities[i].in_use != 0 && cities[i].route_id == route_id) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+int32_t pharaoh_empire_route_find_for_city(
+    const PharaohEmpireObjectRecord *objects,
+    const PharaohEmpireCityRecord *cities,
+    PharaohEmpireRouteRecord *routes, int32_t city_id,
+    uint8_t *ours_first)
+{
+    int32_t ours = 0;
+    while (ours < PHARAOH_EMPIRE_OBJECT_COUNT &&
+           (objects[ours].in_use == 0 || objects[ours].kind != 1 ||
+            objects[ours].city_type != 0)) {
+        ++ours;
+    }
+    if (ours >= PHARAOH_EMPIRE_OBJECT_COUNT) return -1;
+
+    const int32_t theirs = cities[city_id].map_object;
+    for (int32_t i = 0; i < PHARAOH_EMPIRE_ROUTE_COUNT; ++i) {
+        PharaohEmpireRouteRecord *const route = &routes[i];
+        if (route->point_count < 2) route->in_use = 0;
+        if (route->in_use != 0 &&
+            (route->first_object == theirs || route->last_object == theirs) &&
+            (route->first_object == ours || route->last_object == ours)) {
+            *ours_first = route->first_object == ours;
+            return i;
+        }
+    }
+    return -1;
+}
+
+int32_t pharaoh_empire_route_travel_months(
+    const PharaohEmpireRouteRecord *route)
+{
+    const int32_t distance = (int32_t)((uint32_t)route->path_length *
+        (uint32_t)route->step);
+    const int32_t months = distance / 400;
+    return months < 1 ? 1 : months;
+}

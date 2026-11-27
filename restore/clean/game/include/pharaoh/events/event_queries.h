@@ -271,4 +271,8 @@ uint8_t pharaoh_event_record_is_enabled_0044d4c0(
 
 bool pharaoh_event_type_uses_resource(const PharaohScenarioEvent *event);
 
+bool pharaoh_event_type_uses_city(const PharaohScenarioEvent *event);
+bool pharaoh_event_type_is_invasion(const PharaohScenarioEvent *event);
+bool pharaoh_event_uses_trade_city(const PharaohScenarioEvent *event);
+
 #endif

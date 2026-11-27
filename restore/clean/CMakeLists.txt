@@ -279,6 +279,7 @@ add_library(pharaoh_game STATIC
     game/building/construction_load.c
     game/building/construction_support.c
     game/commerce/storage_queries.c
+    game/commerce/storage_withdraw.c
     game/runtime/walker_action_profile.c
     game/building/allocation_definitions.c
     game/building/house_health.c
@@ -307,6 +308,7 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
     game/scenario/scenario_start_mission.c
+    game/scenario/request_travel.c
     game/scenario/map_file_exists.c
     game/scenario/scenario_start_bindings.c
     game/scenario/saved_game_state_read.c
@@ -326,6 +328,7 @@ add_library(pharaoh_game STATIC
     game/city/labor.c
     game/city/taxes.c
     game/city/prosperity.c
+    game/city/food_rate.c
     game/military/formation_counts.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
