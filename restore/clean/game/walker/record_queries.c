@@ -29,3 +29,25 @@ int32_t pharaoh_walker_type_is_herd_animal(int32_t walker_type)
 {
     return walker_type >= 0x44 && walker_type <= 0x46;
 }
+
+void pharaoh_walker_recount_player_naval_types(
+    const PharaohWalkerQueryRecord *walkers, uint32_t current_player,
+    uint8_t *type_77_count, uint8_t *type_78_count,
+    uint8_t *flagged_type_78_count)
+{
+    int32_t walker_id;
+    *flagged_type_78_count = 0;
+    *type_78_count = 0;
+    *type_77_count = 0;
+    for (walker_id = 1; walker_id < PHARAOH_WALKER_RECORD_COUNT;
+         ++walker_id) {
+        const PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+        if (walker->state == 0 || walker->owner != current_player) continue;
+        if (walker->type == 78) {
+            ++*type_78_count;
+            if (((const uint8_t *)walker)[2] != 0) ++*flagged_type_78_count;
+        } else if (walker->type == 77) {
+            ++*type_77_count;
+        }
+    }
+}

@@ -405,7 +405,7 @@ int32_t pharaoh_walker_nth_active_player_type_78(
 void pharaoh_walker_count_active_transport_types(
     const PharaohWalkerQueryRecord *walkers, int32_t *count);
 void pharaoh_walker_recount_player_naval_types(
-    const PharaohWalkerQueryRecord *walkers, uint8_t current_player,
+    const PharaohWalkerQueryRecord *walkers, uint32_t current_player,
     uint8_t *type_77_count, uint8_t *type_78_count,
     uint8_t *flagged_type_78_count);
 void pharaoh_walker_save_type_78_sources(

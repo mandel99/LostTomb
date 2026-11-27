@@ -2,6 +2,7 @@
 #define PHARAOH_SIMULATION_FINANCE_CALENDAR_H
 
 #include <stdint.h>
+#include "pharaoh/building/type_queries.h"
 
 typedef struct PharaohFinanceLedger {
     int32_t treasury;
@@ -45,5 +46,32 @@ void pharaoh_finance_rollover_interest(PharaohFinanceLedger *ledger);
 void pharaoh_finance_rollover_salary(PharaohFinanceLedger *ledger);
 void pharaoh_finance_rollover_sundries(PharaohFinanceLedger *ledger);
 void pharaoh_finance_rollover_requests_festivals(PharaohFinanceLedger *ledger);
+
+typedef struct PharaohFinanceTotals {
+    uint32_t income_components[4];
+    uint32_t expense_components[7];
+    uint32_t income_previous_year;
+    uint32_t expense_previous_year;
+    uint32_t projection_base;
+    uint32_t income_current_year;
+    uint32_t expense_current_year;
+    uint32_t net_previous_year;
+    uint32_t net_current_year;
+    uint32_t projected_balance;
+} PharaohFinanceTotals;
+
+void pharaoh_finance_estimate_wages(
+    PharaohFinanceLedger *ledger, uint32_t month, uint32_t *projected_wages);
+
+void pharaoh_finance_estimate_interest(PharaohFinanceLedger *ledger,
+    const PharaohBuildingTypeRecord *buildings,
+    uint16_t special_building_count, int32_t special_building_id);
+
+void pharaoh_finance_estimate_salary(PharaohFinanceLedger *ledger);
+
+void pharaoh_finance_calculate_totals(PharaohFinanceTotals *totals);
+
+void pharaoh_finance_calculate_tribute(int32_t treasury, int32_t population,
+    int32_t net_current_year, volatile uint32_t *provisional_tribute);
 
 #endif

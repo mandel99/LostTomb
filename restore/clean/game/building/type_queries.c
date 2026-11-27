@@ -263,3 +263,23 @@ int32_t pharaoh_building_type_is_004ea9c0_group(int32_t type)
     default: return 0;
     }
 }
+
+int32_t pharaoh_building_count_qualifying_004ea280(
+    const PharaohBuildingTypeRecord *buildings, int32_t threshold)
+{
+    int32_t count=0;
+    for(int32_t id=1;id<PHARAOH_BUILDING_RECORD_COUNT;++id){
+        const PharaohBuildingTypeRecord *b=&buildings[id];
+        if(b->state!=0 && b->house_size!=0 && b->house_population!=0 &&
+            threshold<=(int32_t)b->building_type-10) ++count;
+    }
+    return count;
+}
+
+void pharaoh_city_victory_update_win_houses(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t threshold, int32_t *win_house_count)
+{
+    *win_house_count =
+        pharaoh_building_count_qualifying_004ea280(buildings, threshold);
+}
