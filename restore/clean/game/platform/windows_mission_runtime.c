@@ -12,6 +12,7 @@
 #include "pharaoh/runtime/animation_frame_state.h"
 #include "pharaoh/rendering/city_ground.h"
 #include "pharaoh/rendering/city_top.h"
+#include "pharaoh/rendering/city_object_layers.h"
 #include "pharaoh/rendering/building_stock_draw.h"
 #include "pharaoh/rendering/building_animation_offset.h"
 #include "pharaoh/rendering/monument_spot_draw.h"
@@ -73,6 +74,8 @@ struct PharaohWindowsMissionRuntime {
     PharaohBuildingStockDrawContext building_stock;
     PharaohCityTopOperations top_operations;
     PharaohCityTopContext top;
+    PharaohCityObjectLayerOperations high_walker_operations;
+    PharaohCityObjectLayerContext high_walkers;
     PharaohFarmTileDrawContext farm_tiles;
     PharaohMonumentSpotDrawContext monument_spot_draw;
     PharaohMonumentSpotDrawOperations monument_spot_operations;
@@ -101,6 +104,9 @@ struct PharaohWindowsMissionRuntime {
     int32_t sound_suppressed,building_sound_ids[256];
     int32_t selected_walker_x,selected_walker_y;
     uint8_t skip_walker_draw;
+    /* Native6DE515,605B3D and78D5EC have pinned zero initial values. */
+    uint8_t alternate_overlay,walker_layer_cycle_enabled;
+    uint32_t walker_layer_cycle_counter;
     PharaohCitySoundViewRecord sound_views[70];
     int32_t special_image;
 };
@@ -661,7 +667,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         .advance_animation=&r->advance_animation,.debug_invalid=&r->debug_invalid,
         .overlay=(const uint32_t *)(const void *)pharaoh_mission_scene_current_overlay(r->scene),
         .marked_x=&r->marked_x,.marked_y=&r->marked_y,
-        .alternate_overlay=&r->host->current_window_id,
+        .alternate_overlay=&r->alternate_overlay,
         .water_image=&r->water_image,.water_variant_a=&r->water_variant_a,
         .water_variant_b=&r->water_variant_b,.cleared_image=&r->cleared_image,
         .royal_tomb_image=&r->royal_tomb_image,
@@ -829,6 +835,13 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             .orientation=(const uint32_t *)(const void *)saved->view.city_orientation,
             .pass_sequence=&r->top_pass_sequence,.operations=&r->top_operations};
         pharaoh_city_draw_top(&r->top,0);
+        r->high_walker_operations=(PharaohCityObjectLayerOperations){
+            .user_data=r,.draw_walker=top_draw_walker};
+        r->high_walkers=(PharaohCityObjectLayerContext){
+            .ground=&r->ground,.cycle_enabled=&r->walker_layer_cycle_enabled,
+            .cycle_counter=&r->walker_layer_cycle_counter,
+            .operations=&r->high_walker_operations};
+        pharaoh_city_draw_high_walkers(&r->high_walkers,0);
     }
     r->image_clip.clip_x_min=0;r->image_clip.clip_y_min=0;
     r->image_clip.clip_x_max=h->graphics.render_width;
