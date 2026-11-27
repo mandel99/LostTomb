@@ -328,6 +328,8 @@ add_library(pharaoh_game STATIC
     game/city/advisor_reasons.c
     game/city/advisor_finance.c
     game/ui/advisor_initialize.c
+    game/ui/advisor_open.c
+    game/ui/message_dialog_live.c
     game/city/labor.c
     game/map/ferry_routing.c
     game/building/ferry_queues.c
