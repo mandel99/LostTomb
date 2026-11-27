@@ -1,7 +1,7 @@
 import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
-entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670}
+entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130}
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -52,7 +52,59 @@ for bounds in [(167,289,84,145),(0,456,0,230),(100,140,80,120),(1,2,1,2),(-100,5
   for width,height in [(73,111),(40,40),(0,0)]:
    lo_r,hi_r,lo_c,hi_c=bounds;cx,cy=cam
    add('origin:'+str((bounds,cam,width,height)),29,[chunk(0x70e420,struct.pack('<4i',hi_r,hi_c,lo_r,lo_c)),pack(0x70e464,14),pack(0x70e460,50),pack(0x70e478,cx),pack(0x70e474,cy)],x=width,y=height)
+for x,y in [(-2,-1),(0,0),(111,113),(227,227),(229,3)]:
+ for size,radius in [(1,0),(2,1),(0,0),(-1,0),(1,-1),(4,2)]:
+  for required in [-1,0,1,4,-2147483648]:
+   add('count:'+str((x,y,size,radius,required)),36,[pack(CASE+24,required)],x=x,y=y,size=size,extra=radius,tool=1,fill=1 if required%2 else 0,required=required)
+for dims in [(0,0),(1,1),(3,4),(228,228)]:
+ for bits,fill in [(0,1),(2,1),(0x80000000,0x80000000)]:
+  add('count_dims:'+str((dims,bits)),36,[pack(CASE+24,2),chunk(0xbca2d0,struct.pack('<2i',*dims))],x=0,y=0,size=4,extra=0,tool=bits if bits<0x80000000 else -2147483648,fill=fill,required=2)
+venue_contract=json.loads((D/'entertainment-fixture-contract.json').read_bytes())
+for group in ['preview_success_cases','rejected_cases','site_cases','slot_cases','bounded_successful_commit_cases']:
+ for i,raw in enumerate(venue_contract[group]):
+  case=dict(raw.get('case',raw));case.update({k:v for k,v in raw.items() if k!='case'});case.update(label='venue:'+group+':'+str(i),writes=[]);case.update(festival_exists=True) if group=='rejected_cases' and case['op']==33 else None;cases.append(case)
+for view in [2,4,6]:
+ for op,kind,extent,cross in [(30,31,2,(1,1)),(31,30,3,(1,2)),(32,33,4,(1,1)),(33,209,5,(2,2))]:
+  add('venue:commit_view:'+str((op,view)),op,tool=kind,x=90,y=80,size=0,view=view,roads='cross'+str(cross)+',extent'+str(extent))
+if '--entertainment-only' in sys.argv:cases=[c for c in cases if 30<=c['op']<=35]
 if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
+if '--region-only' in sys.argv:cases=[c for c in cases if c['op']==36]
+case_label=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--case-label=')),None)
+if case_label is not None:cases=[c for c in cases if c['label']==case_label]
+output_stem='entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
+
+
+def venue_seed(c):
+ w=[];seed=venue_contract['minimal_valid_seed']
+ for a,v in seed['dword'].items():w.append(pack(int(a,16),v,'<I'))
+ terrain=bytearray(51984*4);zero_byte=bytes(51984);images=bytearray(51984*4);buildings=bytearray(4000*264)
+ kind=c.get('tool',31);extent={31:2,30:3,33:4,209:5}.get(kind,5)
+ if c.get('roads','none')!='none':
+  rx,ry=(1,2) if kind==30 else (2,2) if kind==209 else (1,1)
+  for dx in range(-5,extent+5):
+   for dy in range(-5,extent+5):
+    if dx==rx or dy==ry:struct.pack_into('<I',terrain,(1000+(80+dy)*228+90+dx)*4,0x40)
+ if c.get('free_records') is not None:
+  for bid in range(c['free_records']+1,4000):buildings[bid*264]=1
+ for a,b in [(0xaf598c,terrain),(0xb4e6fc,bytes(51984*2)),(0xd05720,bytes(51984*4)),(0xacf85c,zero_byte),(0xae8e7c,zero_byte),(0xb285cc,zero_byte),(0xb67d1c,zero_byte),(0xb7482c,images),(0x7999d8,buildings),(0xba746c,bytes(0x41a)),(0xba7888,bytes(0x21d68)),(0x9de62c,terrain),(0x9d1b1c,zero_byte),(0x9b84fc,zero_byte),(0x9ab9ec,zero_byte)]:w.append(chunk(a,b))
+ backup=bytearray(51984*4)
+ for dx in range(extent):
+  for dy in range(extent):struct.pack_into('<I',backup,(1000+(80+dy)*228+90+dx)*4,0x123456)
+ w.append(chunk(0xa1126c,backup))
+ starts=[0]*228;ends=[0]*228;offset=[0]*228
+ for y in range(200):offset[y]=1000+y*228
+ for y in range(80,80+extent):starts[y]=90;ends[y]=90+extent;offset[y]=1000+y*228+90
+ for a,v in [(0xbc9f24,starts),(0xbc9b94,ends),(0xbc9804,offset)]:w.append(chunk(a,struct.pack('<228i',*v)))
+ w.append(pack(0xe38ec1,0,'<B'));w.append(pack(0xe38dda,0,'<B'))
+ w.append(pack(0xbca2e0,c.get('view',0)))
+ if c.get('festival_exists'):w += [pack(0xea6010,90),pack(0xea6014,80)]
+ for group in range(1000):w.append(pack(0xf55bb4+group*8,100000+group*16,'<I'))
+ occupancy=[0]*25
+ if c.get('occupancy','')=='all25 one':occupancy=[1]*25
+ elif 'except' in c.get('occupancy',''):occupancy=[1]*25;occupancy[0]=occupancy[5]=0
+ w.append(chunk(0x775614,struct.pack('<25I',*occupancy)));w.append(pack(0xbc971c,0x12345678))
+ w.append(chunk(0x200f0100,struct.pack('<2i',-77,-88)));w.append(pack(0xea6084,7,'<H'))
+ return w
 
 def execute(c):
  op=c['op'];tool=c.get('tool',0);x,y,size,extra=c.get('x',111),c.get('y',113),c.get('size',1),c.get('extra',0)
@@ -67,9 +119,15 @@ def execute(c):
  if op==26:watch=[(0xbcd5f8,2000*388)]
  if op==27:watch=[(0xea1870,2*0x49d8)]
  if op==29:watch=[(0x70e3d8,8)]
+ if op==36:w += [chunk(0xaf598c,struct.pack("<I",c.get("fill",0))*51984)];watch=[(0xd3b4e0,8)]
+ if 30<=op<=35:
+  w+=venue_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in venue_contract['watch_regions']]
  w += c['writes']+[chunk(CASE,struct.pack('<I5i',op,tool,x,y,size,extra))]
- args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else []
- rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=500000
+ args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else [x,y,size,extra,tool,c["required"]] if op==36 else []
+ if 30<=op<=33:args=[size,0x12345678,0x87654321,x,y]
+ if op==34:args=[tool]
+ if op==35:args=[x,y,0x200f0100,0x200f0104,tool,extra]
+ rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 500000
  trace=[]
  if 10<=op<=17:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
  if op==24:trace=[([0x405b40,0x405b60,0x405b80][tool],symbol(['pharaoh_construction_terrain_rule_00405b40','pharaoh_construction_terrain_rule_00405b60','pharaoh_construction_terrain_rule_00405b80'][tool]),'real_rule',[4],[4])]
@@ -77,10 +135,11 @@ def execute(c):
  a=call(rn);b=call(rc);issues=[]
  if not a.get('ok') or not b.get('ok'):issues.append(['execution',a.get('error'),b.get('error'),a.get('pc'),b.get('pc')])
  else:
-  if op in [18,19,20,22,23,24,26,28]:
+  if op in [18,19,20,22,23,24,26,28,30,31,32,33,34,35,36]:
    av,bv=[int(t['registers']['EAX'],16) for t in [a,b]]
    if op in [18,19,20,22,23]:av&=255;bv&=255
    if av!=bv:issues.append(['result',a['registers']['EAX'],b['registers']['EAX']])
+  if 'expected_eax' in c and int(a['registers']['EAX'],16)!=c['expected_eax']:issues.append(['intended_native_result',a['registers']['EAX'],c['expected_eax']])
   if a['memory']!=b['memory']:issues.append(['memory',[(x['address'],x['sha256'],y['sha256']) for x,y in zip(a['memory'],b['memory']) if x!=y]])
   if [(t['tag'],t['args']) for t in a['trace']]!=[(t['tag'],t['args']) for t in b['trace']]:issues.append(['real_calls',a['trace'],b['trace']])
   for n in ['EBX','ESI','EDI','EBP']:
@@ -92,4 +151,4 @@ for i,c in enumerate(cases):
  r=execute(c);results.append(r)
  if not r['passed']:print(json.dumps({'failed':c['label'],'issues':r['issues']})[:1500],flush=True);break
  if i%40==0:print(f'Compared {i+1}/{len(cases)} cases in {time.monotonic()-began:.1f}s',flush=True)
-(D/('navigation-results.json' if '--navigation-only' in sys.argv else 'root-support-results.json')).write_text(json.dumps(results));summary={'cases':len(cases),'executed':len(results),'passed':sum(r['passed'] for r in results),'entries':sorted({r['native_entry'] for r in results}),'seconds':time.monotonic()-began};(D/('navigation-summary.json' if '--navigation-only' in sys.argv else 'root-support-summary.json')).write_text(json.dumps(summary));print(json.dumps(summary));assert len(results)==len(cases) and all(x['passed'] for x in results)
+(D/(output_stem+'-results.json')).write_text(json.dumps(results));summary={'cases':len(cases),'executed':len(results),'passed':sum(r['passed'] for r in results),'entries':sorted({r['native_entry'] for r in results}),'seconds':time.monotonic()-began};(D/(output_stem+'-summary.json')).write_text(json.dumps(summary));print(json.dumps(summary));assert len(results)==len(cases) and all(x['passed'] for x in results)

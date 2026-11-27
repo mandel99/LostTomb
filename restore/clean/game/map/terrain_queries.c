@@ -388,3 +388,44 @@ int32_t pharaoh_map_region_matches_predicate(
         ++*result_y;
     }
 }
+
+uint8_t pharaoh_construction_venue_pattern(
+    int32_t x, int32_t y, int32_t size,
+    const uint8_t *const patterns_by_size[4])
+{
+    if (size < 2 || size > 5) return 1;
+    return patterns_by_size[size - 2][x * size + y];
+}
+uint32_t pharaoh_map_region_terrain_count_reached(
+    const PharaohMapTerrainView *map,int32_t x,int32_t y,int32_t size,
+    int32_t radius,uint32_t bits,int32_t required,
+    int32_t *result_x,int32_t *result_y)
+{
+    int32_t left=(int32_t)((uint32_t)x-(uint32_t)radius);
+    int32_t right=(int32_t)((uint32_t)x+(uint32_t)size+(uint32_t)radius-1u);
+    int32_t top=(int32_t)((uint32_t)y-(uint32_t)radius);
+    int32_t bottom=(int32_t)((uint32_t)y+(uint32_t)size+(uint32_t)radius-1u);
+    if(left<0)left=0;
+    if(top<0)top=0;
+    if(right>=map->width)right=(int32_t)((uint32_t)map->width-1u);
+    if(bottom>=map->height)bottom=(int32_t)((uint32_t)map->height-1u);
+    *result_y=top;
+    uint32_t index=(uint32_t)map->origin+(uint32_t)top*228u+(uint32_t)left;
+    const uint32_t stride=(uint32_t)left-(uint32_t)right+227u;
+    uint32_t remaining=(uint32_t)required;
+    if(top<=bottom){
+        uint32_t rows=(uint32_t)bottom-(uint32_t)top+1u;
+        *result_y=(int32_t)(rows+(uint32_t)top);
+        do {
+            *result_x=left;
+            if(left<=right){
+                uint32_t columns=(uint32_t)right-(uint32_t)left+1u;
+                uint32_t tile=index;index+=columns;
+                *result_x=(int32_t)(columns+(uint32_t)left);
+                do {if((map->terrain[tile]&bits)!=0u)--remaining;++tile;--columns;}while(columns!=0u);
+            }
+            index+=stride;--rows;
+        }while(rows!=0u);
+    }
+    return remaining==0u || (remaining&UINT32_C(0x80000000))!=0u;
+}

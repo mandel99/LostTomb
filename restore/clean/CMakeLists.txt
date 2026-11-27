@@ -347,6 +347,8 @@ add_library(pharaoh_game STATIC
     game/building/construction_commit_support.c
     game/building/construction_site_checks.c
     game/building/construction_basic_warnings.c
+    game/building/venue_geometry.c
+    game/building/entertainment_construction.c
     game/building/construction_undo.c
     game/monuments/pyramid_preview.c
     game/ui/message_dialog_live.c

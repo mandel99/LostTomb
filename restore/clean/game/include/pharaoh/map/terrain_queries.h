@@ -85,4 +85,11 @@ int32_t pharaoh_map_region_matches_predicate(
     const PharaohMapTerrainView *map, int32_t x, int32_t y,
     int32_t size, int32_t radius, PharaohMapTerrainPredicate predicate,
     void *user_data, int32_t *result_x, int32_t *result_y);
+uint8_t pharaoh_construction_venue_pattern(
+    int32_t x, int32_t y, int32_t size,
+    const uint8_t *const patterns_by_size[4]);
+uint32_t pharaoh_map_region_terrain_count_reached(
+    const PharaohMapTerrainView *map,int32_t x,int32_t y,int32_t size,
+    int32_t radius,uint32_t bits,int32_t required,
+    int32_t *result_x,int32_t *result_y);
 #endif

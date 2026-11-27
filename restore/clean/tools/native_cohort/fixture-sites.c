@@ -18,8 +18,162 @@ static const BasicWarning basic_warnings[]={pharaoh_construction_warning_workers
  pharaoh_construction_warning_granary,pharaoh_construction_warning_booth,
  pharaoh_construction_warning_bandstand,pharaoh_construction_warning_pavilion,
  pharaoh_construction_warning_fort,pharaoh_construction_warning_recruiter};
+/* Insert after FixtureCase/PTR/I32, before fixture_run. Do not initialize
+ * native backing data here: the runner seeds both native and C identically.
+ * Supported replay domain: preview !=0, rejected-site commit requests,
+ * direct SiteValid, and SelectSlot primary/secondary30/31/33.
+ * Successful commit is also wired for dry0/road40 terrain, zero transient
+ * pointers, no pending pyramid queue, valid even view0..6 and native venue
+ * definitions. Allocation failure requires the real warning-disabled gate
+ * (E38EC1==0 or E38DDA==0); no font/renderer is substituted. No replacement
+ * endpoint or callback is installed. See the companion contract. */
+#include "pharaoh/building/entertainment_construction.h"
+
+/* Shared native/C out arguments for op35; watch these eight bytes only,
+ * rather than derived C-context storage in20100000+. */
+#define ENTERTAINMENT_OUT_X 0x200f0100u
+#define ENTERTAINMENT_OUT_Y 0x200f0104u
+
+uint32_t fixture_entertainment(const FixtureCase *f)
+{
+    PharaohMapTerrainView *map = PTR(PharaohMapTerrainView,0x20100000);
+    PharaohMapSurfaceContext *surface = PTR(PharaohMapSurfaceContext,0x20101000);
+    PharaohBuildingAllocationContext *allocation = PTR(PharaohBuildingAllocationContext,0x20102000);
+    PharaohVenueTileContext *venue = PTR(PharaohVenueTileContext,0x20103000);
+    PharaohConstructionUndoContext *backup = PTR(PharaohConstructionUndoContext,0x20104000);
+    PharaohEntertainmentConstructionContext *c = PTR(PharaohEntertainmentConstructionContext,0x20105000);
+    PharaohMapGridGeometry *geometry = PTR(PharaohMapGridGeometry,0x20106000);
+    PharaohMapBuildingUndo *undo = PTR(PharaohMapBuildingUndo,0x20107000);
+    PharaohCityWarningContext *warnings = PTR(PharaohCityWarningContext,0x20108000);
+    PharaohBuildingAllocationDefinition *definitions = PTR(PharaohBuildingAllocationDefinition,0x20109000);
+
+    *map = (PharaohMapTerrainView){0};
+    map->terrain = PTR(uint32_t,0xaf598c);
+    map->origin = I32(0xbca2d8);
+    map->width = I32(0xbca2d0);
+    map->height = I32(0xbca2d4);
+    *geometry = (PharaohMapGridGeometry){0};
+    geometry->width = map->width;geometry->height = map->height;
+    geometry->diamond_x_min = I32(0xbca2e8);geometry->diamond_y_min = I32(0xbca2ec);
+    geometry->diamond_x_max = I32(0xbca2f0);geometry->diamond_y_max = I32(0xbca2f4);
+    geometry->diamond_x_center = I32(0xbca2f8);geometry->diamond_y_center = I32(0xbca2fc);
+
+    *surface = (PharaohMapSurfaceContext){0};
+    surface->map = map;
+    surface->geometry = geometry;
+    surface->border_size = PTR(const int32_t,0xbca2dc);
+    surface->flood_tiles = PTR(PharaohFloodTile *const,0xd05720);
+    surface->building_ids = PTR(int16_t,0xb4e6fc);
+    surface->buildings = PTR(PharaohBuildingTypeRecord,0x7999d8);
+    surface->orientation = PTR(int32_t,0xbca2e0);
+    surface->building_orientation = PTR(const uint32_t,0xe94e04);
+    surface->groups = PTR(const PharaohSpriteGroupRecord,0xf55bb0);
+    surface->image_ids = PTR(uint32_t,0xb7482c);
+    surface->property_flags = PTR(uint8_t,0xb285cc);
+    surface->edge_flags = PTR(uint8_t,0xb67d1c);
+    surface->row_x_start = PTR(const int32_t,0xbc9f24);
+    surface->row_x_end = PTR(const int32_t,0xbc9b94);
+    surface->row_start_offset = PTR(const int32_t,0xbc9804);
+    surface->current_tile = PTR(uint32_t,0xbc9768);
+    surface->random = PTR(const uint8_t,0xacf85c);
+    surface->footprints = (const PharaohMapTileAreaOffset (*)[6])(uintptr_t)0x5cc8c0;
+    surface->placement_failed = PTR(uint32_t,0xbc9734);
+    surface->blocked_grid = PTR(const int16_t,0xb350dc);
+    surface->pyramid_queue_count = PTR(uint32_t,0xeaaf64);
+    surface->pyramid_queue = PTR(uint32_t,0xeaac30);
+    surface->pyramid_style = PTR(const uint32_t,0x5e4ef4);
+    surface->pyramid_complex_offsets = PTR(const int32_t,0x5f5d08);
+
+    *undo = (PharaohMapBuildingUndo){0};
+    undo->live = surface->buildings;
+    undo->backup = PTR(PharaohBuildingTypeRecord,0xba7888);
+    undo->ids = PTR(int16_t,0xba746c);
+    undo->count = PTR(uint32_t,0xbc95f0);
+    undo->available = PTR(uint32_t,0xbc9694);
+    surface->undo = undo;
+
+    *warnings = (PharaohCityWarningContext){0};
+    warnings->enabled = PTR(const uint8_t,0xe38ec1);
+    warnings->construction_enabled = PTR(const uint8_t,0xe38dda);
+    warnings->editor_active = PTR(const uint32_t,0x605a3c);
+    warnings->orientation = PTR(const uint32_t,0xbca2e0);
+    warnings->time = PTR(const uint32_t,0xe92e0c);
+    warnings->state = PTR(uint32_t,0xf53f34);
+    warnings->redraw = PTR(uint32_t,0xe94e20);
+    warnings->warnings = PTR(PharaohCityWarning,0xe94e28);
+
+    /* Only the context is normalized. Its values come from the actual native
+     *20-byte rows, not synthetic definition tables or replacement children. */
+    for (uint32_t i=0;i<237;++i) {
+        definitions[i].size = *PTR(const uint8_t,0x5d06dc+i*20u);
+        definitions[i].native_04 = *PTR(const uint8_t,0x5d06e0+i*20u);
+    }
+
+    *allocation = (PharaohBuildingAllocationContext){0};
+    allocation->surface = surface;
+    allocation->current_player = PTR(const uint32_t,0xeaac28);
+    allocation->players = PTR(const PharaohScenarioPlayerRuntime,0xea1870);
+    allocation->definitions = definitions;
+    allocation->water_patterns = (const int32_t (*)[24])(uintptr_t)0x5cc9e0;
+    allocation->rotation = PTR(const uint32_t,0xbc9714);
+    allocation->next_serial = PTR(uint32_t,0x78d7b4);
+    allocation->highest_id = PTR(uint32_t,0x78d790);
+    allocation->ferry_state = PTR(uint32_t,0xbca310);
+    allocation->first_ferry = PTR(uint32_t,0xbc9800);
+    allocation->undo.ready = PTR(const int32_t,0xbc968c);
+    allocation->undo.mode = PTR(const int32_t,0xbc9694);
+    allocation->undo.count = PTR(const int32_t,0xbc95f0);
+    allocation->undo.ids = PTR(const int16_t,0xba746c);
+    allocation->warnings = warnings;
+
+    *venue = (PharaohVenueTileContext){0};
+    venue->cleared = PTR(uint8_t,0xae8e7c);
+    *backup = (PharaohConstructionUndoContext){0};
+    backup->saved_terrain = PTR(uint32_t,0x9de62c);
+    backup->saved_images = PTR(uint32_t,0xa1126c);
+    backup->saved_bytes[0] = PTR(uint8_t,0x9d1b1c);
+    backup->saved_bytes[1] = PTR(uint8_t,0x9b84fc);
+    backup->saved_bytes[2] = PTR(uint8_t,0x9ab9ec);
+
+    *c = (PharaohEntertainmentConstructionContext){0};
+    c->allocation = allocation;
+    c->venue_tiles = venue;
+    c->backup = backup;
+    c->players = PTR(PharaohEntertainmentPlayer,0xea1870);
+    c->selection_x = PTR(const uint32_t,0xbca304);
+    c->selection_y = PTR(const uint32_t,0xbca308);
+    c->occupancy = PTR(uint32_t,0x775614);
+    c->bandstand_ranks = PTR(const int32_t,0x5d2960);
+    c->pavilion_ranks = PTR(const int32_t,0x5d2984);
+    c->patterns_by_size[0] = PTR(const uint8_t,0x5d2924);
+    c->patterns_by_size[1] = PTR(const uint8_t,0x5d2928);
+    c->patterns_by_size[2] = PTR(const uint8_t,0x5d2934);
+    c->patterns_by_size[3] = PTR(const uint8_t,0x5d2944);
+    c->placed_count = PTR(uint32_t,0xbc971c);
+
+    switch (f->op) {
+    case 30:
+        return pharaoh_entertainment_build_booth(c,(uint32_t)f->size,f->x,f->y);
+    case 31:
+        return pharaoh_entertainment_build_bandstand(c,(uint32_t)f->size,f->x,f->y);
+    case 32:
+        return pharaoh_entertainment_build_pavilion(c,(uint32_t)f->size,f->x,f->y);
+    case 33:
+        return pharaoh_entertainment_build_festival_square(c,(uint32_t)f->size,f->x,f->y);
+    case 34:
+        return pharaoh_entertainment_site_valid(c,(PharaohEntertainmentKind)f->tool);
+    case 35:
+        return pharaoh_entertainment_select_slot(c,f->x,f->y,
+            PTR(int32_t,ENTERTAINMENT_OUT_X),PTR(int32_t,ENTERTAINMENT_OUT_Y),
+            (PharaohEntertainmentKind)f->tool,(PharaohEntertainmentKind)f->extra);
+    default:
+        return 0; /* Dispatcher contract: only operations30..35 reach here. */
+    }
+}
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
+ if(f->op>=30&&f->op<=35)return fixture_entertainment(f);
  if(f->op==29){
   PharaohCityViewState v={0};
   PharaohCityProjectionLookup *p=PTR(PharaohCityProjectionLookup,0x20100000);
@@ -28,6 +182,12 @@ __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
   v.viewport.width_tiles=I32(0x70e464);v.viewport.height_tiles=I32(0x70e460);
   v.camera_x=I32(0x70e478);v.camera_y=I32(0x70e474);
   pharaoh_minimap_calculate_projection_origin(&v,p,f->x,f->y,PTR(int32_t,0x70e3dc),PTR(int32_t,0x70e3d8));return 0;
+ }
+ if(f->op==36){
+  PharaohMapTerrainView region={0};region.terrain=PTR(uint32_t,0xaf598c);
+  region.origin=I32(0xbca2d8);region.width=I32(0xbca2d0);region.height=I32(0xbca2d4);
+  return pharaoh_map_region_terrain_count_reached(&region,f->x,f->y,f->size,f->extra,
+   (uint32_t)f->tool,I32(0x200f0018),PTR(int32_t,0xd3b4e4),PTR(int32_t,0xd3b4e0));
  }
  PharaohMapGridGeometry geo;
  PharaohMapTerrainView map;

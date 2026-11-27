@@ -1,0 +1,579 @@
+{
+  "schema": 1,
+  "date": "2026-11-27",
+  "fixture_block": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-entertainment-fixture-block.c",
+  "fixture_block_sha256": "b32727aa84c416fc6288b8c7649a2cf2e954faaf6502bdb7cda75170456bd027",
+  "build_or_replay_run_by_author": false,
+  "integration": "Insert block after FixtureCase/PTR/I32; dispatch op30..35 to fixture_entertainment(f) before other fixture setup. Shared fixture untouched by author.",
+  "case_layout": "{uint32_t op; int32_t tool,x,y,size,extra;} at200F0000; native SP30010000; zero callee cleanup for all six native entries.",
+  "operations": [
+    {
+      "op": 30,
+      "native": "0x00440700",
+      "kind": 31,
+      "name": "Booth",
+      "native_stack_args": [
+        "f.size (preview)",
+        "0x12345678 (unused)",
+        "0x87654321 (unused)",
+        "f.x",
+        "f.y"
+      ],
+      "native_return": "full EAX DWORD0/1",
+      "callee_stack_cleanup": 0
+    },
+    {
+      "op": 31,
+      "native": "0x00440850",
+      "kind": 30,
+      "name": "Bandstand",
+      "native_stack_args": [
+        "f.size (preview)",
+        "0x12345678 (unused)",
+        "0x87654321 (unused)",
+        "f.x",
+        "f.y"
+      ],
+      "native_return": "full EAX DWORD0/1",
+      "callee_stack_cleanup": 0
+    },
+    {
+      "op": 32,
+      "native": "0x00440B10",
+      "kind": 33,
+      "name": "Pavilion",
+      "native_stack_args": [
+        "f.size (preview)",
+        "0x12345678 (unused)",
+        "0x87654321 (unused)",
+        "f.x",
+        "f.y"
+      ],
+      "native_return": "full EAX DWORD0/1",
+      "callee_stack_cleanup": 0
+    },
+    {
+      "op": 33,
+      "native": "0x00440ED0",
+      "kind": 209,
+      "name": "FestivalSquare",
+      "native_stack_args": [
+        "f.size (preview)",
+        "0x12345678 (unused)",
+        "0x87654321 (unused)",
+        "f.x",
+        "f.y"
+      ],
+      "native_return": "full EAX DWORD0/1",
+      "callee_stack_cleanup": 0
+    },
+    {
+      "op": 34,
+      "native": "0x0043F410",
+      "native_stack_args": [
+        "f.tool (venue kind)"
+      ],
+      "native_return": "full EAX DWORD0/1",
+      "callee_stack_cleanup": 0
+    },
+    {
+      "op": 35,
+      "native": "0x00441130",
+      "native_stack_args": [
+        "f.x",
+        "f.y",
+        "0x200F0100 (out_x)",
+        "0x200F0104 (out_y)",
+        "f.tool (primary)",
+        "f.extra (secondary)"
+      ],
+      "native_return": "full EAX FFFFFFFF or0/1 rotation",
+      "callee_stack_cleanup": 0,
+      "precondition": "primary/secondary each30,31,33; outputs are real caller-owned mapped buffers, not private stack garbage"
+    }
+  ],
+  "backing_state": "Actual original native addresses throughout. Only derived C contexts and normalized20-byte-row allocation definitions use20100000..20109FFF. Original native const tables are read throughPTR, not copied C substitutes.",
+  "work_contexts": {
+    "map": "20100000",
+    "surface": "20101000",
+    "allocation": "20102000",
+    "venue": "20103000",
+    "backup": "20104000",
+    "entertainment": "20105000",
+    "geometry": "20106000",
+    "undo": "20107000",
+    "warning": "20108000",
+    "definitions": "20109000"
+  },
+  "watch_regions": [
+    {
+      "name": "occupancy",
+      "address": "0x00775614",
+      "bytes": 100,
+      "role": "preview/site/slot always"
+    },
+    {
+      "name": "selection_xy",
+      "address": "0x00BCA304",
+      "bytes": 8,
+      "role": "preview/site/slot always"
+    },
+    {
+      "name": "placed_count",
+      "address": "0x00BC971C",
+      "bytes": 4,
+      "role": "preview/site/slot always"
+    },
+    {
+      "name": "slot_outputs",
+      "address": "0x200F0100",
+      "bytes": 8,
+      "role": "preview/site/slot always"
+    },
+    {
+      "name": "terrain",
+      "address": "0x00AF598C",
+      "bytes": 207936,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "building_ids",
+      "address": "0x00B4E6FC",
+      "bytes": 103968,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "images",
+      "address": "0x00B7482C",
+      "bytes": 207936,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "cleared",
+      "address": "0x00AE8E7C",
+      "bytes": 51984,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "properties",
+      "address": "0x00B285CC",
+      "bytes": 51984,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "edges",
+      "address": "0x00B67D1C",
+      "bytes": 51984,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "building_records",
+      "address": "0x007999D8",
+      "bytes": 1056000,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "undo_ids",
+      "address": "0x00BA746C",
+      "bytes": 1050,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "undo_records",
+      "address": "0x00BA7888",
+      "bytes": 138600,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "undo_count",
+      "address": "0x00BC95F0",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "undo_available",
+      "address": "0x00BC9694",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "serial",
+      "address": "0x0078D7B4",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "highest_id",
+      "address": "0x0078D790",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "current_tile",
+      "address": "0x00BC9768",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "placement_failed",
+      "address": "0x00BC9734",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "pyramid_queue_count",
+      "address": "0x00EAAF64",
+      "bytes": 4,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "pyramid_queue",
+      "address": "0x00EAAC30",
+      "bytes": 16,
+      "role": "commit; otherwise verifies unchanged"
+    },
+    {
+      "name": "player_bank",
+      "address": "0x00EA1870",
+      "bytes": 75616,
+      "role": "commit; otherwise verifies unchanged"
+    }
+  ],
+  "watch_notes": [
+    "Watch only the relevant selected player49D8 record for a smaller domain, or four records as listed for owner-mutation-free cases.",
+    "Context initialization in20100000+ is C adaptation memory and is excluded. Op35 out bytes200F0100..107 are shared native/C call arguments and must be included.",
+    "Use full watched buffers/hash plus ordered writes if the harness supports them; all six expose logical full EAX.",
+    "Fields not written by preview should be seeded to markers and compared unchanged, especiallyBC971C and site-before-grid versus grid-before-site behavior."
+  ],
+  "minimal_valid_seed": {
+    "dword": {
+      "0x00BCA2D0": 200,
+      "0x00BCA2D4": 200,
+      "0x00BCA2D8": 1000,
+      "0x00BCA2DC": 28,
+      "0x00BCA304": 90,
+      "0x00BCA308": 80,
+      "0x00BCA2E0": 0,
+      "0x00E94E04": 0,
+      "0x00BC9714": 0,
+      "0x00BCA2E8": 0,
+      "0x00BCA2EC": 0,
+      "0x00BCA2F0": 200,
+      "0x00BCA2F4": 200,
+      "0x00BCA2F8": 100,
+      "0x00BCA2FC": 100,
+      "0x00EAAC28": 0,
+      "0x00BC968C": 1,
+      "0x00BC9694": 1,
+      "0x00BC95F0": 0,
+      "0x0078D7B4": 100,
+      "0x0078D790": 0,
+      "0x00EAAF64": 0,
+      "0x00EA6010": 4294967295,
+      "0x00EA6014": 4294967295
+    },
+    "clear_buffers": [
+      "terrainAF598C32C40",
+      "buildingIdsB4E6FC19620",
+      "pointerGridD0572032C40",
+      "randomACF85CCB10",
+      "clearedAE8E7CCB10",
+      "propertiesB285CCCB10",
+      "edgesB67D1CCB10",
+      "imagesB7482C32C40",
+      "buildings7999D8(4000*264)",
+      "undoIdsBA746C41A",
+      "undoRecordsBA788821D68"
+    ],
+    "native_const_tables": [
+      "BYTE venue masks5D2924/2928/2934/2944",
+      "signed DWORD rank tables5D2960/5D2984",
+      "building definitions5D06DC20-byte rows,sourcefields0/4",
+      "water offsets5CC9E0 rows24 DWORDs",
+      "footprints5CC8C036 rows8 bytes: if seeded,offset=row*228+col and preserve pinned+4 edge metadata"
+    ],
+    "road_recipe": "For selectedextent s, setterrain at origin+(80+dy)*228+90+dx to0x40 when dx==rx or dy==ry; otherwise0. Populate padded area dx,dy=-5..s+4 so real crossing rays have their native immediate neighbors. Use rx,ry=(1,1) forBooth/Pavilion,(1,2) forBandstand,(2,2) forFestival. Native pitch228 remains separate from mapwidth200.",
+    "failed_site": "No roads makes actual access false. Positive signed WORD building ID at any sitecell also rejects; terrain1 on a non-road cell rejects. Signed WORD8000/FFFF does not satisfy the native>0 test in direct SiteValid and may be used as width-focused cases.",
+    "festival": "Set actualcurrentplayer festivalDWORDx/y atEA6010/6014 +player*49D8 toFFFFFFFF for success; both finite rejects. WORDplacedEA6084+player*49D8 may start7 so commit overwrite to1 is observable.",
+    "image_banks": "For commit, initialize first_image atF55BB4+i*8 to100000+i*16 for the resident logical group bank as in the historical fixture; no image pixels/render callback is used. In particular383(F567AC),317(F5659C),361(F566FC).",
+    "row_tables": "For eachrow<200 defaultfirst==last==0 and rowStart=1000+row*228. For site rows80..80+extent-1 usefirst90,last90+extent(exclusive),rowStart=1000+row*228+90 so real485830 restores the local footprint image band.",
+    "backup_recipe": "After seeding roads/livebytes, copy terrain to9DE62C and bytegridsAE8E7C/B285CC/B67D1C to9D1B1C/9B84FC/9AB9EC. Seed backupimagesA1126C localfootprint to0x123456 to observe actual485830 free-tile restore. These copies are test input setup for BOTH runs, not endpoint substitutions.",
+    "allocator": "Allfree buildingrecords yieldIDs1..4. Currentplayer0,serial100,highest0,undoReadyBC968C1,availableBC96941,countBC95F00,IDs0. A reservedfreeID can be covered withundoIDs[0]=1,count1; real4851B0 then skips it. For failurecase make stateBYTE1 for IDs>free_records and disable actualwarning gateE38EC1=0 orE38DDA=0."
+  },
+  "preview_success_cases": [
+    {
+      "op": 30,
+      "tool": 31,
+      "x": 90,
+      "y": 80,
+      "size": 1,
+      "extra": 0,
+      "roads": "cross(1,1),extent2",
+      "expected_eax": 1
+    },
+    {
+      "op": 31,
+      "tool": 30,
+      "x": 90,
+      "y": 80,
+      "size": 1,
+      "extra": 0,
+      "roads": "cross(1,2),extent3",
+      "expected_eax": 1
+    },
+    {
+      "op": 32,
+      "tool": 33,
+      "x": 90,
+      "y": 80,
+      "size": 1,
+      "extra": 0,
+      "roads": "cross(1,1),extent4",
+      "expected_eax": 1
+    },
+    {
+      "op": 33,
+      "tool": 209,
+      "x": 90,
+      "y": 80,
+      "size": 1,
+      "extra": 0,
+      "roads": "cross(2,2),extent5",
+      "expected_eax": 1
+    }
+  ],
+  "rejected_cases": [
+    {
+      "op": 30,
+      "tool": 31,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "none",
+      "expected_eax": 0,
+      "intent": "actual commit request rejected by site before restore/allocation; occupancy marker remains unchanged"
+    },
+    {
+      "op": 31,
+      "tool": 30,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "none",
+      "expected_eax": 0,
+      "intent": "fill-road-grid first clears occupancy25, then actual site rejects"
+    },
+    {
+      "op": 32,
+      "tool": 33,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "none",
+      "expected_eax": 0,
+      "intent": "same native grid-clear-before-site order"
+    },
+    {
+      "op": 33,
+      "tool": 209,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(2,2)",
+      "patch_dword": {
+        "0x00EA6010": 12,
+        "0x00EA6014": 34
+      },
+      "expected_eax": 0,
+      "intent": "existing festival coords reject before site/grid/restore"
+    }
+  ],
+  "site_cases": [
+    {
+      "op": 34,
+      "tool": 31,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(1,1),extent2",
+      "expected_eax": 1
+    },
+    {
+      "op": 34,
+      "tool": 31,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "none",
+      "expected_eax": 0
+    }
+  ],
+  "slot_cases": [
+    {
+      "case": {
+        "op": 35,
+        "tool": 31,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 31
+      },
+      "occupancy": "all25 zero",
+      "expected_eax": 0,
+      "expected_out": [
+        90,
+        80
+      ],
+      "expected_reserved_cells": [
+        0
+      ]
+    },
+    {
+      "case": {
+        "op": 35,
+        "tool": 30,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 30
+      },
+      "occupancy": "all25 one except(0,0) and(1,0) zero; storageindex=x*5+y",
+      "expected_eax": 1,
+      "expected_out": [
+        90,
+        80
+      ],
+      "expected_reserved_cells": [
+        0,
+        5
+      ],
+      "intent": "real rotated orientation retry after first empty-slot orientation fails"
+    },
+    {
+      "case": {
+        "op": 35,
+        "tool": 30,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 30
+      },
+      "occupancy": "all25 one",
+      "expected_eax": 4294967295,
+      "expected_out": [
+        91,
+        81
+      ]
+    },
+    {
+      "case": {
+        "op": 35,
+        "tool": 33,
+        "x": 90,
+        "y": 80,
+        "size": 0,
+        "extra": 33
+      },
+      "occupancy": "all25 one",
+      "expected_eax": 4294967295,
+      "expected_out": [
+        92,
+        82
+      ]
+    }
+  ],
+  "bounded_successful_commit_cases": [
+    {
+      "op": 30,
+      "tool": 31,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(1,1),extent2",
+      "expected_eax": 1,
+      "intent": "real successful commit: restore,allocator,stamps,empty-land pass,undo,venue tile publishing"
+    },
+    {
+      "op": 31,
+      "tool": 30,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(1,2),extent3",
+      "expected_eax": 1,
+      "intent": "real successful commit: restore,allocator,stamps,empty-land pass,undo,venue tile publishing"
+    },
+    {
+      "op": 32,
+      "tool": 33,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(1,1),extent4",
+      "expected_eax": 1,
+      "intent": "real successful commit: restore,allocator,stamps,empty-land pass,undo,venue tile publishing"
+    },
+    {
+      "op": 33,
+      "tool": 209,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(2,2),extent5",
+      "expected_eax": 1,
+      "intent": "real successful commit: restore,allocator,stamps,empty-land pass,undo,venue tile publishing"
+    },
+    {
+      "op": 31,
+      "tool": 30,
+      "x": 90,
+      "y": 80,
+      "size": 0,
+      "extra": 0,
+      "roads": "cross(1,2),extent3",
+      "free_records": 1,
+      "warning_disabled": true,
+      "expected_eax": 1,
+      "intent": "first allocation succeeds; later allocator failures still execute record0 stamps/links, per original constructors"
+    }
+  ],
+  "commit_domain_proof": [
+    "Allocator for kind30/31/33/209 does not select house health, repair queue, ferry, farm occupancy, or output-debug branches. The actual is_farm child returnsfalse for venues, and actual industry && therefore skips occupancy; no substituted callback is installed.",
+    "Normalized allocation definitions are read from actual native5D06DC+i*20 and5D06E0+i*20 at fixture entry. This domain has no mutation hooks modifying those tables during a constructor.",
+    "Actual undocontains readsBC968C/BC9694/BC95F0/BA746C; actualcapture writesBC95F0 and BA746C/BA7888, notBC9684. The misleading old construction_undo header comment is not used as authority.",
+    "47BF50 reads building_orientationE94E04, not constructionrotationBC9714. Each of those real fields is bound separately.",
+    "Actual4746D0 calls4767D0 with preserve_clear1; dry0/road40 and zero transientobjects avoid floodplain redraw/foreign-monument retention. The final real4F6130 reads/writes zero pendingqueueEAaf64; its realqueueEAac30 is bound too.",
+    "Allocator randomACF85C,serial78D7B4,highest78D790,waterpatterns5CC9E0,playerEA1870/currentEAAC28 are actual inputs and all required successful-path scalar stores remain at native addresses.",
+    "Allocationfailure still invokes the actual citywarning C owner. The real disabled flag causes its normal early return, just as native; no synthetic return provider exists."
+  ],
+  "concrete_general_commit_gaps": [
+    "Enabled allocation-failure warning needs actual textselection/font/glyph owners; this block binds the real gate and warningrecord addresses only, and requiresnativewarningdisabled for failure tests.",
+    "Floodplain flags80/10000 or existing monument10000000/pendingpyramidqueue require native live image-context/fertility/pyramid template/child bindings beyond this dryvenue domain. NULL unused fields are not claimed as providers.",
+    "Mismatched or concurrently mutated geometry/native def banks and child-entry mutationhooks are not covered by this fixture snapshot adaptation.",
+    "No native/C execution of this newly prepared block has been performed by its author; root owns compile/link and replay gate."
+  ],
+  "evidence_paths": [
+    "restore/direct_c/verify_entertainment_construction.py",
+    "restore/direct_c/verify_construction_selection.py",
+    "restore/runtime/BuildingAllocator.c",
+    "restore/src/Unit01241.c",
+    "restore/runtime/BuildingReservation.c",
+    "restore/runtime/MenuDragRoadPlace.c",
+    "restore/runtime/BuildingNeighborQuery.c",
+    "restore/runtime/MenuDragQueuePublish.c",
+    "restore/clean/game/map/surface_tiles.c",
+    "restore/clean/game/building/allocation.c",
+    "restore/clean/game/scenario/mission_scene.c"
+  ],
+  "parent_shared_fixture_not_modified": true
+}

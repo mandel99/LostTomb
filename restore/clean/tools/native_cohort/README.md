@@ -48,3 +48,10 @@ query. Seven root algorithms and a treasury child reuse existing C. Finance
 uses the real editor flag (the old argument label was unrelated). Disabled
 warning text, arbitrary callback domains and whole-game equivalence remain
 outside the comparison. Original raw rule entries have no function objects.
+
+Construction closure: `run-root-support-cohort.py --region-only` selects the
+162 bounded counter scans. `--entertainment-only` selects venue preview, site,
+slot, dry commits and disabled-warning allocation failures. Add
+`--case-label=venue:rejected_cases:3` for the existing-festival rejection.
+All child algorithms are actual original/C code. General font warnings,
+floodplain and pending-pyramid commit domains remain unqualified.
