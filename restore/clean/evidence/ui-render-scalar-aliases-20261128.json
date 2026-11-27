@@ -1,0 +1,731 @@
+{
+  "handoff": {
+    "packet": "ui-render-scalar-aliases",
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "result": "Requested host aliases are Native-correct. Preserve shared image/glyph and mutable clip coordinates; retain separate image-entry ID/X/Y. No new scalar owner is indicated.",
+    "production_edits": [],
+    "scalar_groups": [
+      {
+        "native_address": "0x00D3B5C0",
+        "width_bits": 32,
+        "logical_type": "32-bit image/glyph ID",
+        "existing_C_owner": "h->bitmap_current_glyph",
+        "shared_C_fields": [
+          "PharaohBitmapFont.current_glyph",
+          "u->layout_text.current_glyph",
+          "u->highlight_drawing.panel.current_image_00d3b5c0",
+          "u->button_draw.active_sprite_image (int32_t view)",
+          "u->chrome.active_image",
+          "r->ground.current_image"
+        ],
+        "proof_instruction_addresses": {
+          "4CBF30": "4CBFBC store",
+          "4CCA60": "4CCA77 store /4CCADB read",
+          "536820": "536886 store",
+          "536A30": "536A96 store",
+          "4256A0": "4256F2 store",
+          "425730": "42577F store",
+          "430EF0": "431044 store",
+          "436B60": "436CDA store /436FCE read"
+        },
+        "decision": "Keep one shared scalar. The name current_glyph does not create a separate glyph owner."
+      },
+      {
+        "native_address": "0x00D3B5E0",
+        "width_bits": 32,
+        "logical_type": "signed32 mutable draw/tile X",
+        "existing_C_owner": "images->clip->draw_x",
+        "shared_C_fields": [
+          "u->highlight_drawing.panel.tile_x_00d3b5e0",
+          "u->highlight_drawing.border.tile_x_00d3b5e0",
+          "u->button_draw.draw_x",
+          "u->chrome.draw_x"
+        ],
+        "proof_instruction_addresses": {
+          "536820": "53686D store",
+          "536C30": "536D02 store",
+          "4256A0": "4256C3 store",
+          "53E590": "53E68A store",
+          "4CDAD0": "4CDAF8 read /4CDB1A clip-adjust store"
+        },
+        "decision": "Keep these aliases. A separate panel scratch X would split Native identity."
+      },
+      {
+        "native_address": "0x00D3B5DC",
+        "width_bits": 32,
+        "logical_type": "signed32 mutable draw/tile Y",
+        "existing_C_owner": "images->clip->draw_y",
+        "shared_C_fields": [
+          "u->highlight_drawing.panel.tile_y_00d3b5dc",
+          "u->highlight_drawing.border.tile_y_00d3b5dc",
+          "u->button_draw.draw_y",
+          "u->chrome.draw_y"
+        ],
+        "proof_instruction_addresses": {
+          "536820": "536873 store",
+          "536C30": "536D07 store",
+          "4256A0": "4256CF store",
+          "53E590": "53E698 store",
+          "4CDB80": "4CDBA6 read /4CDBBF clip-adjust store"
+        },
+        "decision": "Keep these aliases; clipping updates this same scalar."
+      },
+      {
+        "native_address": "0x00D3B580",
+        "width_bits": 32,
+        "logical_type": "signed32 image-entry ID",
+        "existing_C_owner": "images->state->image /* r->image_draw_state.image */",
+        "shared_C_fields": [],
+        "proof_instruction_addresses": {
+          "53E590": "53E5B6 store ESI"
+        },
+        "decision": "Distinct fromD3B5C0. Native captures the input before validation/early returns."
+      },
+      {
+        "native_address": "0x00D3B57C",
+        "width_bits": 32,
+        "logical_type": "signed32 image-entry input X",
+        "existing_C_owner": "images->state->x /* r->image_draw_state.x */",
+        "shared_C_fields": [],
+        "proof_instruction_addresses": {
+          "53E590": "53E5B0 store ECX"
+        },
+        "decision": "Distinct from mutable clip/tile X atD3B5E0."
+      },
+      {
+        "native_address": "0x00D3B578",
+        "width_bits": 32,
+        "logical_type": "signed32 image-entry input Y",
+        "existing_C_owner": "images->state->y /* r->image_draw_state.y */",
+        "shared_C_fields": [],
+        "proof_instruction_addresses": {
+          "53E590": "53E5BC store EDX"
+        },
+        "decision": "Distinct from mutable clip/tile Y atD3B5DC."
+      }
+    ],
+    "host_bindings": [
+      {
+        "source": "game/platform/windows_city_ui.c:103",
+        "expression": "pharaoh_ui_layout_bind_highlight(...,&h->bitmap_current_glyph,&images->clip->draw_x,&images->clip->draw_y)",
+        "decision": "Keep: D3B5C0/D3B5E0/D3B5DC."
+      },
+      {
+        "source": "game/platform/windows_city_ui.c:117",
+        "expression": "u->chrome.{active_image,draw_x,draw_y}",
+        "decision": "Keep the same shared pointers."
+      },
+      {
+        "source": "game/platform/windows_city_ui.c:207",
+        "expression": "u->button_draw.{active_sprite_image,draw_x,draw_y}",
+        "decision": "Keep signed32 image view ofh->bitmap_current_glyph and the same clip X/Y."
+      },
+      {
+        "source": "game/platform/windows_mission_runtime.c:685",
+        "expression": "r->ground.current_image=&h->bitmap_current_glyph",
+        "decision": "Keep:430EF0/436B60 useD3B5C0."
+      },
+      {
+        "source": "game/platform/windows_mission_runtime.c:628",
+        "expression": "r->image_draw.state=&r->image_draw_state; r->image_draw.clip=&r->image_clip",
+        "decision": "Keep separate image-entry ID/X/Y and mutable clip X/Y storage."
+      }
+    ],
+    "entry_correction": {
+      "requested": "0x00425760",
+      "actual_owner": "0x00425730 pharaoh_image_buttons_draw",
+      "canonical_source": "game/ui/generic_button_focus.c",
+      "native_body": "0x00425730..0x0042583E",
+      "fact": "425760 is the second byte of ADD EDI,EBP at42575F (bytes03FD), immediately before DWORD Y store425761. It is not a function entry."
+    },
+    "negative_coverage": [
+      {
+        "function": "0x0053E590",
+        "complete_cached_instructions": 1076,
+        "direct_D3B5C0_reference_count": 0,
+        "qualification": "No direct reference in the complete cached body; no unobserved transitive child-preservation claim."
+      },
+      {
+        "function": "0x00536C30",
+        "complete_cached_instructions": 159,
+        "direct_D3B5C0_reference_count": 0,
+        "qualification": "No direct reference in the complete cached body; no unobserved transitive child-preservation claim."
+      }
+    ],
+    "source_correspondence": {
+      "image_draw_dispatch": "game/rendering/image_draw.c:132 stores d->image=image_id,d->x=x,d->y=y. Later147 stores s->draw_x=x,s->draw_y=y after sprite validation. These model distinct Native addresses.",
+      "clip": "game/rendering/primitives.c horizontal4CDAD0/vertical4CDB80 update s->draw_x/y: the same scalar identities used by panel/button pointers.",
+      "direct_image_draw": "53E590 has no direct D3B5C0 reference. Sharing current_glyph with caller-managed active_image does not justify aliasing image-entry state.image to that global."
+    },
+    "evidence": {
+      "selected_native": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-render-scalar-aliases-proof.json",
+      "full_cached_targets": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-render-scalar-aliases-native.json",
+      "selected_instructions": 69,
+      "byte_mismatches": [],
+      "loaded_scalar_initial_bytes": {
+        "0x00D3B578": "00000000",
+        "0x00D3B57C": "00000000",
+        "0x00D3B580": "00000000",
+        "0x00D3B5C0": "00000000",
+        "0x00D3B5DC": "00000000",
+        "0x00D3B5E0": "00000000"
+      },
+      "source_hashes": [
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\platform\\windows_city_ui.c",
+          "sha256": "a8e14456671da2933aa2be75ef5305564a92f2b77d4850dcdd826bc72d77e899"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\platform\\windows_mission_runtime.c",
+          "sha256": "c1eba09c6b7d4e1c7cef8c99912409705ba2ca07ef81ab622da19fdb23c7a480"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\platform\\windows_startup_host.c",
+          "sha256": "261ab7a57c9fd650d6496e3eff8a3f648427cac30755b752de2eb8b5f36e943f"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\platform\\windows_startup_host.h",
+          "sha256": "8bd9775c272134b66ab2af7a163671e2f31e71f748dc3ca846a853d2169ef2e3"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\rendering\\primitives.h",
+          "sha256": "f47a48b1350725cf1f53d80b67499168fc767c2dcc9ac566c24cb94a9a01e5c2"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\rendering\\image_draw.h",
+          "sha256": "fe859a34c18e6ccdb5766b3a312cf86b23c0c8c22b95dbd5be12274b8f8fbf8c"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\bitmap_font.h",
+          "sha256": "cefe065a6fcd095c438dd8c111cb7b146a954ea2b0c20404c6096ae9152f8b1d"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\panel_frame.h",
+          "sha256": "7ca4582fd55a59dde18b4041aa156ff180c769faf6e52e7f3452bd79f63f53db"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\include\\pharaoh\\ui\\button_border.h",
+          "sha256": "ef28f668f153d51cf90b004969d0b81cd4b578df374219cd9b24b0c4788a0495"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\panel_frame.c",
+          "sha256": "903314689637baaa112cc9fd26b728d3d6a7e9c9453ef2537673f593864cd59b"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\button_border.c",
+          "sha256": "9f174eca3f815375f85c15f9264cb2dbd3ee8325722700f58d251cdf02d957bc"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\bitmap_font.c",
+          "sha256": "a51c659e6f4fb56ced73f865acc8599b9427ca8dfd0025ef2f9df4797315c350"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\rendering\\image_draw.c",
+          "sha256": "8a1be1e70067dbcca3de4aba9139b3cf8536770388b65cd13137214aa2ca0496"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\rendering\\primitives.c",
+          "sha256": "0145decacf3723893fe3fab226fd1cf38856ae8368b538cf64520d5c43159240"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\rendering\\city_ground.c",
+          "sha256": "7b22665c64e7e25bdb4ca9abdaadf1c78f90157548878d86a83952ee96b755b4"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\rendering\\city_top.c",
+          "sha256": "9f71b0e311a7af1ee344dc97d46a21d967f934b93e280cae84efba02ae5cfa61"
+        },
+        {
+          "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\game\\ui\\building_info_draw_live.c",
+          "sha256": "0e4c92a988e239408e557703d3a0de7f96d4dfdcd252ded040413bea89ec26f1"
+        }
+      ]
+    },
+    "limits": [
+      "Read-only scalar identity audit of requested owners plus directly necessary clip helpers and425730 boundary. No broader review, production edits, build, test or Git operation.",
+      "No renderer/pixel equivalence, incidental register or unobserved transitive alias claim. Root remains sole author of any change."
+    ]
+  },
+  "proof": {
+    "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "coverage": "Relevant absolute scalar loads/stores from complete unchanged cached function bodies; no fresh decompile. Full cache filenames and body bounds retained.",
+    "selected_instructions": 69,
+    "byte_mismatches": [],
+    "scalar_initial_bytes": {
+      "0x00D3B578": "00000000",
+      "0x00D3B57C": "00000000",
+      "0x00D3B580": "00000000",
+      "0x00D3B5C0": "00000000",
+      "0x00D3B5DC": "00000000",
+      "0x00D3B5E0": "00000000"
+    },
+    "functions": [
+      {
+        "address": "004256a0",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-0384.json",
+        "body_start": "004256a0",
+        "body_end": "0042572c",
+        "complete_native_instructions": 52,
+        "references": [
+          {
+            "address": "004256c3",
+            "bytes": "890de0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],ECX"
+          },
+          {
+            "address": "004256cf",
+            "bytes": "8915dcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDX"
+          },
+          {
+            "address": "004256f2",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00425702",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          }
+        ],
+        "D3B5C0_reference_count": 2
+      },
+      {
+        "address": "00430ef0",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-0448.json",
+        "body_start": "00430ef0",
+        "body_end": "0043161b",
+        "complete_native_instructions": 477,
+        "references": [
+          {
+            "address": "00431044",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "004310df",
+            "bytes": "892dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],EBP"
+          },
+          {
+            "address": "00431175",
+            "bytes": "8b2dc0b5d300",
+            "instruction": "MOV EBP,dword ptr [0x00d3b5c0]"
+          },
+          {
+            "address": "004311a9",
+            "bytes": "8b2dc0b5d300",
+            "instruction": "MOV EBP,dword ptr [0x00d3b5c0]"
+          },
+          {
+            "address": "004311c1",
+            "bytes": "892dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],EBP"
+          },
+          {
+            "address": "0043133e",
+            "bytes": "892dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],EBP"
+          },
+          {
+            "address": "00431348",
+            "bytes": "892dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],EBP"
+          },
+          {
+            "address": "00431383",
+            "bytes": "8b2dc0b5d300",
+            "instruction": "MOV EBP,dword ptr [0x00d3b5c0]"
+          }
+        ],
+        "D3B5C0_reference_count": 8
+      },
+      {
+        "address": "00436b60",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-0512.json",
+        "body_start": "00436b60",
+        "body_end": "00437f95",
+        "complete_native_instructions": 1400,
+        "references": [
+          {
+            "address": "00436cda",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00436fce",
+            "bytes": "8b0dc0b5d300",
+            "instruction": "MOV ECX,dword ptr [0x00d3b5c0]"
+          }
+        ],
+        "D3B5C0_reference_count": 2
+      },
+      {
+        "address": "004cbf30",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-1664.json",
+        "body_start": "004cbf30",
+        "body_end": "004cbff2",
+        "complete_native_instructions": 65,
+        "references": [
+          {
+            "address": "004cbfbc",
+            "bytes": "890dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],ECX"
+          }
+        ],
+        "D3B5C0_reference_count": 1
+      },
+      {
+        "address": "004cca60",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-1664.json",
+        "body_start": "004cca60",
+        "body_end": "004ccafd",
+        "complete_native_instructions": 55,
+        "references": [
+          {
+            "address": "004cca77",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "004ccadb",
+            "bytes": "a1c0b5d300",
+            "instruction": "MOV EAX,[0x00d3b5c0]"
+          }
+        ],
+        "D3B5C0_reference_count": 2
+      },
+      {
+        "address": "00536820",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-2560.json",
+        "body_start": "00536820",
+        "body_end": "0053698f",
+        "complete_native_instructions": 123,
+        "references": [
+          {
+            "address": "0053686d",
+            "bytes": "890de0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],ECX"
+          },
+          {
+            "address": "00536873",
+            "bytes": "8915dcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDX"
+          },
+          {
+            "address": "00536886",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "005368a3",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "005368b2",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "005368d7",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "005368f3",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536902",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536918",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536931",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "0053693f",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          }
+        ],
+        "D3B5C0_reference_count": 9
+      },
+      {
+        "address": "00536a30",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-2560.json",
+        "body_start": "00536a30",
+        "body_end": "00536b98",
+        "complete_native_instructions": 123,
+        "references": [
+          {
+            "address": "00536a7d",
+            "bytes": "890de0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],ECX"
+          },
+          {
+            "address": "00536a83",
+            "bytes": "8915dcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDX"
+          },
+          {
+            "address": "00536a96",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536ab3",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536ac2",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536ae5",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536aff",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536b0b",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536b21",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536b3a",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          },
+          {
+            "address": "00536b48",
+            "bytes": "a3c0b5d300",
+            "instruction": "MOV [0x00d3b5c0],EAX"
+          }
+        ],
+        "D3B5C0_reference_count": 9
+      },
+      {
+        "address": "00536c30",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-2560.json",
+        "body_start": "00536c30",
+        "body_end": "00536db1",
+        "complete_native_instructions": 159,
+        "references": [
+          {
+            "address": "00536d02",
+            "bytes": "a3e0b5d300",
+            "instruction": "MOV [0x00d3b5e0],EAX"
+          },
+          {
+            "address": "00536d07",
+            "bytes": "890ddcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],ECX"
+          }
+        ],
+        "D3B5C0_reference_count": 0
+      },
+      {
+        "address": "0053e590",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-2624.json",
+        "body_start": "0053e590",
+        "body_end": "0053f242",
+        "complete_native_instructions": 1076,
+        "references": [
+          {
+            "address": "0053e590",
+            "bytes": "81ec0c010000",
+            "instruction": "SUB ESP,0x10c"
+          },
+          {
+            "address": "0053e596",
+            "bytes": "8b942418010000",
+            "instruction": "MOV EDX,dword ptr [ESP + 0x118]"
+          },
+          {
+            "address": "0053e59d",
+            "bytes": "53",
+            "instruction": "PUSH EBX"
+          },
+          {
+            "address": "0053e59e",
+            "bytes": "55",
+            "instruction": "PUSH EBP"
+          },
+          {
+            "address": "0053e59f",
+            "bytes": "8be9",
+            "instruction": "MOV EBP,ECX"
+          },
+          {
+            "address": "0053e5a1",
+            "bytes": "8b8c241c010000",
+            "instruction": "MOV ECX,dword ptr [ESP + 0x11c]"
+          },
+          {
+            "address": "0053e5a8",
+            "bytes": "56",
+            "instruction": "PUSH ESI"
+          },
+          {
+            "address": "0053e5a9",
+            "bytes": "8bb4241c010000",
+            "instruction": "MOV ESI,dword ptr [ESP + 0x11c]"
+          },
+          {
+            "address": "0053e5b0",
+            "bytes": "890d7cb5d300",
+            "instruction": "MOV dword ptr [0x00d3b57c],ECX"
+          },
+          {
+            "address": "0053e5b6",
+            "bytes": "893580b5d300",
+            "instruction": "MOV dword ptr [0x00d3b580],ESI"
+          },
+          {
+            "address": "0053e5bc",
+            "bytes": "891578b5d300",
+            "instruction": "MOV dword ptr [0x00d3b578],EDX"
+          },
+          {
+            "address": "0053e68a",
+            "bytes": "890de0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],ECX"
+          },
+          {
+            "address": "0053e698",
+            "bytes": "8915dcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDX"
+          },
+          {
+            "address": "0053eb7a",
+            "bytes": "893ddcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDI"
+          },
+          {
+            "address": "0053eb80",
+            "bytes": "893de0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],EDI"
+          }
+        ],
+        "D3B5C0_reference_count": 0
+      },
+      {
+        "address": "00425730",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-0384.json",
+        "body_start": "00425730",
+        "body_end": "0042583e",
+        "complete_native_instructions": 89,
+        "references": [
+          {
+            "address": "00425755",
+            "bytes": "8915e0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],EDX"
+          },
+          {
+            "address": "0042575f",
+            "bytes": "03fd",
+            "instruction": "ADD EDI,EBP"
+          },
+          {
+            "address": "00425761",
+            "bytes": "893ddcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],EDI"
+          },
+          {
+            "address": "0042577f",
+            "bytes": "890dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],ECX"
+          },
+          {
+            "address": "004257d9",
+            "bytes": "a1c0b5d300",
+            "instruction": "MOV EAX,[0x00d3b5c0]"
+          },
+          {
+            "address": "004257de",
+            "bytes": "8b15e0b5d300",
+            "instruction": "MOV EDX,dword ptr [0x00d3b5e0]"
+          },
+          {
+            "address": "004257e4",
+            "bytes": "8b3ddcb5d300",
+            "instruction": "MOV EDI,dword ptr [0x00d3b5dc]"
+          },
+          {
+            "address": "004257ee",
+            "bytes": "890dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],ECX"
+          },
+          {
+            "address": "00425815",
+            "bytes": "890dc0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5c0],ECX"
+          }
+        ],
+        "D3B5C0_reference_count": 4
+      },
+      {
+        "address": "004cdad0",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-1728.json",
+        "body_start": "004cdad0",
+        "body_end": "004cdb79",
+        "complete_native_instructions": 52,
+        "references": [
+          {
+            "address": "004cdaf8",
+            "bytes": "8b0de0b5d300",
+            "instruction": "MOV ECX,dword ptr [0x00d3b5e0]"
+          },
+          {
+            "address": "004cdb1a",
+            "bytes": "8915e0b5d300",
+            "instruction": "MOV dword ptr [0x00d3b5e0],EDX"
+          }
+        ],
+        "D3B5C0_reference_count": 0
+      },
+      {
+        "address": "004cdb80",
+        "cache_source": "restore\\metadata\\native-function-audit-cache\\batch-1728.json",
+        "body_start": "004cdb80",
+        "body_end": "004cdc2d",
+        "complete_native_instructions": 53,
+        "references": [
+          {
+            "address": "004cdba6",
+            "bytes": "8b35dcb5d300",
+            "instruction": "MOV ESI,dword ptr [0x00d3b5dc]"
+          },
+          {
+            "address": "004cdbbf",
+            "bytes": "890ddcb5d300",
+            "instruction": "MOV dword ptr [0x00d3b5dc],ECX"
+          }
+        ],
+        "D3B5C0_reference_count": 0
+      }
+    ]
+  },
+  "scope": "Observed Native DWORD alias ownership; existing host bindings retained. Width observation alone does not replace existing logical signedness/types. No production algorithm change or new Native credit."
+}

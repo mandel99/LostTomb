@@ -58,6 +58,11 @@ typedef struct PharaohWindowsStartupHost {
     PharaohApplicationWindowOperations window_operations;
     PharaohApplicationWindowStartupOperations window_startup_operations;
     PharaohApplicationWindowStartupState window_startup;
+    /* Actual shared D3B364..384 values live in window_startup above. */
+    PharaohRandomGeneratorContext game_random_generator;
+    uint32_t game_random_pool[PHARAOH_RANDOM_POOL_LENGTH];
+    int32_t game_random_pool_index;
+    uint8_t game_random_ready; /* C binding readiness, not a Native global */
     PharaohGameDataLoadState game_data_state;
     PharaohGameDataLoadContext game_data;
     PharaohSpritePixelMemoryOperations sprite_memory_operations;
@@ -221,6 +226,9 @@ int32_t pharaoh_windows_startup_host_capture_frame(
 
 /* Ends loading before UpdateWindow or a video loop can process paint messages. */
 void pharaoh_windows_startup_host_finish_loading(
+    PharaohWindowsStartupHost *host);
+/* NULL until the real startup4CDD60 producer has completed. */
+const PharaohRandomGeneratorContext *pharaoh_windows_startup_host_game_random(
     PharaohWindowsStartupHost *host);
 
 /* Presents the SG3 logo/front-menu background at the logical UI origin.

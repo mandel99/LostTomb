@@ -1,0 +1,46 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_native_function_credit": 0,
+  "producer": "Native413ED0 calls540B50 after models/reasons and5394F0;540B50 contains real4CDD60 child. Host mirrors this leaf timing after windows_sound_open in finish_loading.",
+  "startup_ghidra_code_sha256": "82ac7cb171ee16ac9c801f912d4eb090978b2906476b69d0994141084c2943db",
+  "startup_ghidra_excerpt": "4;\r\n              local_20 = 0;\r\n            }\r\n            else {\r\n              local_20 = FUN_0044efa0();\r\n              local_20 = local_20 & 0xff;\r\n              if (local_20 != 0) {\r\n                FUN_005394f0();\r\n                ActorWalkingNoOperation();\r\n                FUN_004ce6e0(s_OK__Direct_sound_initialised__00578cd0,0,0);\r\n                editorActive = 0;\r\n                DAT_00605a38 = 0;\r\n                editorHerdPointNumber.brushSize = 2;\r\n                editorHerdPointNumber.toolKind = 0;\r\n                city_alternate_overlay = 0;\r\n                DAT_006de514 = 0;\r\n                DAT_00605a0c = 0;\r\n                DAT_00605a08 = 0;\r\n                DAT_00605a04 = 1;\r\n                DAT_00605a00 = 0;\r\n                DAT_006059fc = 0xffffffff;\r\n                pharaoh_game_state_initialize_native();\r\n                FUN_004013f0();\r\n                FUN_0040d7",
+  "native_rng_cache": "restore\\metadata\\native-function-audit-cache\\batch-1728.json",
+  "native_rng_instruction_count": 69,
+  "owner_contract": {
+    "values": "host.window_startup.random_generator: actual9 DWORDsD3B364..384, seeded by existing4CF960 C.",
+    "pool": "host.game_random_pool: actual100 DWORDsD3B1C8..D3B357.",
+    "index": "host.game_random_pool_index: actualDWORDD3B1C4.",
+    "readiness": "host.game_random_ready is C integration readiness only; accessor returnsNULL before producer.",
+    "lifetime": "Program owner; never replaced by separate CRT604950 scene seed, reset per frame, or advanced during render.",
+    "pending": "Full540B50/540A10 reset and4D7090 tick producers remain unbound; no whole gameplay RNG-equivalence claim."
+  },
+  "source_binding": [
+    {
+      "source": "game/platform/windows_startup_host.c",
+      "name": "pharaoh_windows_startup_host_finish_loading",
+      "body_sha256": "53ed4b1773af741ea8cd6906f6f5c1fe0384d43e5351d46d256ecba4d9d14ac3"
+    },
+    {
+      "source": "game/platform/windows_startup_host.c",
+      "name": "pharaoh_windows_startup_host_game_random",
+      "body_sha256": "bd0e12ca87d2120fca41db0fe8acc213c2c76355e7423cc287491f19c5163dd6"
+    }
+  ],
+  "source_sha256": {
+    "game/include/pharaoh/platform/windows_startup_host.h": "8bd9775c272134b66ab2af7a163671e2f31e71f748dc3ca846a853d2169ef2e3",
+    "game/platform/windows_startup_host.c": "261ab7a57c9fd650d6496e3eff8a3f648427cac30755b752de2eb8b5f36e943f"
+  },
+  "canonical_library_sha256": "147b7714bbd330532a45c3fe143291d1b17b1cbdc9851bb722f4e3c65eaaf74d",
+  "working_library_sha256": "3c8efcd168b6c12f2526b6c3158d38011d69e1c24524de05ae65472fca27284d",
+  "build": "Release pharaoh_clean_bootstrap in canonical and working trees; Native algorithms unchanged, no new test framework.",
+  "alias_evidence": "evidence/ui-render-scalar-aliases-20261128.json",
+  "migration_verify": {
+    "inherited_errors": 37,
+    "concurrent_pending_source": [
+      "game/ui/building_info_industry_live.c (implementation agent; outside this checkpoint)"
+    ],
+    "introduced_by_this_checkpoint": [],
+    "whole_project_errors": 38,
+    "whole_project_pass": false
+  }
+}

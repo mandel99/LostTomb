@@ -2174,10 +2174,25 @@ int32_t pharaoh_windows_startup_host_capture_frame(
 void pharaoh_windows_startup_host_finish_loading(
     PharaohWindowsStartupHost *host)
 {
+    /* 413ED0 enters540B50 after models/reasons and5394F0 sound setup.
+     * Bind its real4CDD60 child here before startup video. Full540B50 remains
+     * pending; remove this separate child call when that parent is bound.
+     * Never refill/advance from render or use the separate CRT604950 seed. */
+    host->game_random_generator=(PharaohRandomGeneratorContext){
+        .values=&host->window_startup.random_generator,
+        .pool=host->game_random_pool,.pool_index=&host->game_random_pool_index};
+    pharaoh_random_generator_fill_pool(&host->game_random_generator);
+    host->game_random_ready=1;
     host->startup_video_started = 1;
     /* The EXE calls 00426F60 before Bink: UpdateWindow then black-fill both
        surfaces. Disable loading paints before that potentially reentrant call. */
     clear_video_surfaces(host);
+}
+
+const PharaohRandomGeneratorContext *pharaoh_windows_startup_host_game_random(
+    PharaohWindowsStartupHost *host)
+{
+    return host->game_random_ready?&host->game_random_generator:NULL;
 }
 
 static void process_loading_updates(void *user_data, int32_t force_update)
