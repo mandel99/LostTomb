@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Complete00567F58 IEEE record/exception parent with real C status/clear children and Win32 RaiseException.",
+  "complete_C_parent_owners_added": 1,
+  "reused_parent_algorithms": 1,
+  "native_instructions": 258,
+  "source_binding": [
+    {
+      "address": "0x00567F58",
+      "name": "pharaoh_crt_ieee_raise",
+      "source": "game/runtime/crt_ieee_raise.c",
+      "body_sha256": "438856f706e1cbbce5f0734cb9f6ac5bfc1f710ef6d584b274b6d15c045fee7f",
+      "native_instructions": 258,
+      "native_bytes_sha256": "e9825525a113cae2c3e7ff293967a91e67cc5f14127c147c821be52a6f111a6c",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": [
+        "0x00568532",
+        "0x00568540"
+      ],
+      "native_imports": [
+        "KERNEL32.DLL::RaiseException"
+      ]
+    }
+  ],
+  "support_binding": [
+    {
+      "source": "game/runtime/crt_ieee_raise.c",
+      "name": "ieee_word_write",
+      "body_sha256": "6bad17634e8427b7aff6ac9df4166761baf4415704ee626234b089f8e5f5d8ae",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_ieee_raise.c",
+      "name": "ieee_word_read",
+      "body_sha256": "55a19660ac8572fb8d3c0ead73626502f6c02bd2340066e524ce2f578b40a893",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_ieee_raise.c",
+      "name": "ieee_word_update",
+      "body_sha256": "206875234988d8f6e51df29e6614ab8111d5db6df51aac0e60dad6c24a71393b",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_ieee_raise.c",
+      "name": "copy_binary64_live",
+      "body_sha256": "08a7e79f03d77326774ec81f45f92da31b32412df9abbc5eebe1622ae6447a49",
+      "native_owner_credit": 0
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/runtime/crt_ieee_raise.c": "95c34129bc72b522502f488f4079301a02769dfe543f557327c1d97a8b90246d",
+    "game/include/pharaoh/runtime/crt_ieee_raise.h": "219bc3658d8df012f82bd690ac0c3c889bf9bbdeda4e540937bace65ddddd854",
+    "CMakeLists.txt": "e87f2399e9bb0c25df31959fa7d83dc3365a25a30f2fdfee7db36eeca3eb527a"
+  },
+  "worktree_scope_hashes": {
+    "game/runtime/crt_ieee_raise.c": "95c34129bc72b522502f488f4079301a02769dfe543f557327c1d97a8b90246d",
+    "game/include/pharaoh/runtime/crt_ieee_raise.h": "219bc3658d8df012f82bd690ac0c3c889bf9bbdeda4e540937bace65ddddd854",
+    "CMakeLists.txt": "91e7202834367edfa0d59892d59a4a97a1c8260f569c031906d02879d68f1a5c"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinMath.c",
+      "sha256": "ae1624681aef8847aabd692e9c92b75000230938784ba4b536079a8db510f125"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinEntries.c",
+      "sha256": "80349ed4421a70ce0ee5cffc82e81f0286b9c0ca693c70a98e5c1f3958205296"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\CrtAsinMath.c",
+      "sha256": "1afa9fe4e2fc966a4d1a38a71b22596482d5bcb83465bc6b7917fa2dfd3d93d6"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\game\\include\\CrtAsinMath.h",
+      "sha256": "1000e992c0147830bb3b1181ff9f74258242ac881ac14f41e3ba545e526751ac"
+    }
+  ],
+  "rea": {
+    "evidence_id": "ev_4a9b11e84d2bb296df2462c16824e9acadd1112d40388182a6a64b0ab0bb8058",
+    "provider": {
+      "id": "rea-workflow",
+      "name": "REA composed investigation workflow",
+      "version": "1"
+    },
+    "succeeded": 1,
+    "context": "REA6.7 own ephemeral source-immutable Ghidra Program; does not inherit live GUI annotations."
+  },
+  "live_Ghidra": {
+    "typed_pseudocode_chars": 4690,
+    "truncated": false,
+    "context": "Separate open annotated Ghidra Program; its live typed pseudocode names all3 actual C owners. Used alongside raw REA/pinned instructions."
+  },
+  "contracts": [
+    "Complete C found in current and old CrtAsinMath before writing. Preserve the original cause-code priority10/2/1/4/8, enable/status mapping, rounding/precision encoding,12-bit operation and operand/result descriptors.",
+    "Caller owns88 raw bytes. Write only Native-defined fields and preserve actual unspecified reserved bits via existing byte operations; no whole-record zeroing or uninitialized DWORD API input is invented. Actual56971F producer supplies distinct record, control and value storage.",
+    "Real waiting status5352 and clear540 are the existing complete live C providers. Win32 RaiseException receives exactCode,flags0,count1 and a DWORD pointer to the record; no test callback or silent substitute is introduced.",
+    "Correct inherited transfer realization: all3 operand/result copies retain real FLD/FSTP qword operations at68137/68159/68201. Direct hardware buffer stores preserve conversion, widths and exception effects instead of integer publication of temporary round-trip bits.",
+    "Continuing handler changes are re-read from the actual record. Enable bits only clear corresponding control masks; RC/PC branches retain NativeFFFFF3FF behavior, including its precision/resumption quirk. Final record result is copied through x87 into the actual caller buffer.",
+    "Raw REA and live Ghidra are distinct analysis Programs. The live typed decompilation confirms the updated names/signature; raw REA independently confirms the original258-instruction behavior. GUI types must not be assumed present in REA.",
+    "Compiled object confirms3 real qword transfers and the actual RaiseException@16 import. Original valid pointer/producer/FP-stack domains remain required; this static review does not establish arbitrary handler, register or whole-game equivalence."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "7a66505be914a03c0d929724e71a36b2952c1bab09b7da37202006bc07f0cbad",
+    "canonical_exe_sha256": "45320062c6595dd0e714a0ae03dbbfd549855ee5a0a5879d3075689dd9a5ffcc",
+    "worktree_library_sha256": "f3744c63e4e15efd265520e9446463b7cce8b05f4e13b4cb8b91f84e19fe06e4",
+    "worktree_exe_sha256": "ee5403b337deaefd4e01b4f327b0a0fb6a4c051c0317fa1eb46627caf3f37533",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_crt_ieee_raise": 1,
+      "pharaoh_crt_x87_status_wait": 1,
+      "pharaoh_crt_x87_clear_status": 1
+    },
+    "object_sha256": "4cf3708170fbccc42e284215dbc7dab7ec39094e81f3216a5dac8b84a0b1ead8"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "REA pseudocode, live annotated Ghidra pseudocode/types,258 pinned Native instructions, compiled ABI and strict Release; no new tests."
+  },
+  "archive": "build/verified-images/crt-ieee-raise-C-20261127-7a66505be914a03c",
+  "artifact_sha256": {
+    "crt_ieee_raise.obj": "4cf3708170fbccc42e284215dbc7dab7ec39094e81f3216a5dac8b84a0b1ead8",
+    "losttomb-ieee-raise-canonical-build.log": "288d599d3474ad2c1a875531e5cbb4ae099368e75f8126cef418d4768da3622a",
+    "losttomb-ieee-raise-compiled.txt": "187270ac43de52a6c7d08dd7c6848410c61fc86fda1b37916c4267744ecea4f7",
+    "losttomb-ieee-raise-ghidra.json": "a94a5b2aeccee621d78853cc30e3e64fa488a73b62bf381c98113895bbc61d09",
+    "losttomb-ieee-raise-live-pseudo.json": "2e8a543479fd28c7d5a3772a8e6255ecdb418044332555858425b871a8703a0d",
+    "losttomb-ieee-raise-migration-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-ieee-raise-native.json": "b7791db98f5d7c5f2f99e3082793effd09cf836c1da47a141ea77f7f646a266c",
+    "losttomb-ieee-raise-rea.json": "0faf2ec909dada8be49d5edbe8052e5a5a64dde65d880285f5bf40198571a9bf",
+    "losttomb-ieee-raise-release.log": "8b3536318a6d2efa9e834c7c2429188d4ef4ce569d8d9d4cfcad3ffe4914859d",
+    "LostTomb.exe": "45320062c6595dd0e714a0ae03dbbfd549855ee5a0a5879d3075689dd9a5ffcc",
+    "pharaoh_game.lib": "7a66505be914a03c0d929724e71a36b2952c1bab09b7da37202006bc07f0cbad"
+  },
+  "remaining": [
+    "Upstream56971F math dispatcher,567517 one-argument error and asin parents still need clean integration; reuse their current/old C and actual mutable state.",
+    "SEH prologue00563354 and possible tail0048AD90 remain unresolved; complete Native/C gameplay and host/handler equivalence remain unproved."
+  ]
+}
