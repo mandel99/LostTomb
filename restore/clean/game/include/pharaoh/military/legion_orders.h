@@ -17,7 +17,7 @@ typedef struct PharaohNativeLegionRecord {
     uint8_t member_count;
     uint8_t maximum_walkers;
     int16_t movement_mode;
-    int16_t months_deployed;
+    union { int16_t months_deployed,morale; };
     int16_t x;
     int16_t y;
     int16_t order_x;
@@ -31,7 +31,8 @@ typedef struct PharaohNativeLegionRecord {
     uint8_t kind;
     uint8_t reserved_043[3];
     int16_t recruit_type;
-    uint8_t reserved_048[8];
+    union { uint8_t reserved_048[8];
+        struct { int16_t morale_leader_id; uint8_t reserved_04a[6]; }; };
     int16_t recent_fight;
     uint8_t reserved_052[0x0a];
     int16_t missile_fired;
@@ -97,6 +98,10 @@ typedef struct PharaohLegionOrderState {
     uint8_t sidebar_update_code;
     uint8_t redraw_requested;
 } PharaohLegionOrderState;
+
+/* Shared real Native layout provider004B7B50; logical model API retained. */
+void pharaoh_formation_change_morale_native(PharaohNativeLegionRecord *formations,
+    int32_t formation_id,int16_t delta);
 
 /* Complete C translations of Pharaoh.exe 0x004B7B50 and 0x00406720. */
 void pharaoh_formation_change_morale(PharaohLegionOrderState *state,

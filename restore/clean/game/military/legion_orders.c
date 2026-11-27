@@ -1,31 +1,33 @@
 #include "pharaoh/military/legion_orders.h"
 
-void pharaoh_formation_change_morale(PharaohLegionOrderState *state,
-    int32_t formation_id, int16_t delta)
+/* Shared original morale algorithm; retain intermediate WORD publication. */
+static void formation_morale_apply(int16_t kind,int16_t leader,uint8_t subtype,
+    volatile int16_t *value,int16_t delta)
 {
-    PharaohLegionOrderFormation *formation;
     int32_t maximum;
-    uint16_t morale;
+    if(kind==13)maximum=leader!=0?100:80;
+    else if(kind==57)maximum=100;
+    else if(kind==12||kind==11)maximum=leader!=0?80:60;
+    else maximum=subtype==13?80:70;
+    *value=(int16_t)((uint16_t)*value+(uint16_t)delta);
+    if(*value>maximum)*value=(int16_t)maximum;
+    if(*value<0)*value=0;
+}
 
-    if (formation_id == 0)
-        return;
+void pharaoh_formation_change_morale(PharaohLegionOrderState *state,
+    int32_t formation_id,int16_t delta)
+{
+    if(formation_id==0)return;
+    PharaohLegionOrderFormation *f=&state->formations[(uint32_t)formation_id];
+    formation_morale_apply(f->kind,f->leader_id,f->subtype,&f->morale,delta);
+}
 
-    formation = &state->formations[(uint32_t)formation_id];
-    if (formation->kind == 13)
-        maximum = formation->leader_id != 0 ? 100 : 80;
-    else if (formation->kind == 57)
-        maximum = 100;
-    else if (formation->kind == 12 || formation->kind == 11)
-        maximum = formation->leader_id != 0 ? 80 : 60;
-    else
-        maximum = formation->subtype == 13 ? 80 : 70;
-
-    morale = (uint16_t)((uint16_t)formation->morale + (uint16_t)delta);
-    formation->morale = (int16_t)morale;
-    if (formation->morale > maximum)
-        formation->morale = (int16_t)maximum;
-    if (formation->morale < 0)
-        formation->morale = 0;
+void pharaoh_formation_change_morale_native(PharaohNativeLegionRecord *formations,
+    int32_t formation_id,int16_t delta)
+{
+    if(formation_id==0)return;
+    PharaohNativeLegionRecord *f=&formations[formation_id];
+    formation_morale_apply(f->strength_class,f->morale_leader_id,f->enemy_type,&f->morale,delta);
 }
 
 void pharaoh_legion_order_button(PharaohLegionOrderState *state)

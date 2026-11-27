@@ -32,7 +32,8 @@ typedef struct PharaohWalkerQueryRecord {
     uint8_t reserved_013;
     int16_t x;
     int16_t y;
-    uint8_t reserved_018[4];
+    union { uint8_t reserved_018[4];
+        struct { int16_t previous_x,previous_y; }; };
     uint8_t missile_damage;
     uint8_t damage;
     uint8_t reserved_01e[2];
@@ -51,7 +52,7 @@ typedef struct PharaohWalkerQueryRecord {
     int16_t slot_link_id;
     int16_t route_progress;
     int16_t route_length;
-    uint8_t reserved_040;
+    union { uint8_t reserved_040,cross_country_terrain_timer; };
     uint8_t is_on_road;
     int16_t max_roam_length;
     int16_t roam_length;
@@ -82,7 +83,8 @@ typedef struct PharaohWalkerQueryRecord {
     uint8_t is_ghost;
     uint8_t reserved_066[2];
     int16_t leading_walker_id;
-    uint8_t reserved_06a[2];
+    union { uint8_t reserved_06a[2];
+        struct { uint8_t combat_delay,reserved_06b; }; };
     int8_t cart_offset_x;
     int8_t cart_offset_y;
     uint8_t reserved_06e[2];
@@ -124,7 +126,8 @@ typedef struct PharaohWalkerQueryRecord {
     uint8_t transport_state_130;
     uint8_t reserved_131;
     int16_t request_event_id;
-    uint8_t reserved_134[0x13c - 0x134];
+    union { uint8_t reserved_134[0x13c - 0x134];
+        struct { int32_t combat_action_counter_134; uint8_t reserved_138[4]; }; };
     int32_t movement_speed;
     uint8_t reserved_140[0x0c];
     int16_t saved_source_x;
