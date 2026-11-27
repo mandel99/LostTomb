@@ -254,3 +254,12 @@ uint32_t pharaoh_building_resource_is_permitted(
     (void)pharaoh_building_is_farm(buildings, building_id);
     return resource_permissions[buildings[building_id].resource_id] != 0;
 }
+
+/* Complete004EA9C0. Logical AL predicate; expanded existing TYPE_IN_CASES. */
+int32_t pharaoh_building_type_is_004ea9c0_group(int32_t type)
+{
+    switch(type){
+    case 0x52: case 0x53: case 0x54: case 0x66: case 0x67: case 0x68: return 1;
+    default: return 0;
+    }
+}

@@ -23,3 +23,9 @@ void pharaoh_walker_detach_slot_link(
         walkers[walker_id].slot_link_id = 0;
     }
 }
+
+/* Complete004EA9A0. Logical AL predicate. */
+int32_t pharaoh_walker_type_is_herd_animal(int32_t walker_type)
+{
+    return walker_type >= 0x44 && walker_type <= 0x46;
+}

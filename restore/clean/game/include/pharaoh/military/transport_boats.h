@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "pharaoh/walker/record_queries.h"
 
 typedef struct PharaohTransportWalker {
     int32_t type, action_state, action_before_attack, direction, wait_ticks;
@@ -64,5 +65,9 @@ void pharaoh_transport_sail_to_landing(PharaohTransportContext *, int32_t,
     int32_t *);
 void pharaoh_transport_docked(PharaohTransportContext *, int32_t);
 void pharaoh_transport_enemy_move(PharaohTransportContext *, int32_t, int32_t *);
+
+int32_t pharaoh_formation_legion_is_on_ship(
+    const int16_t formation_walkers[16],
+    const PharaohWalkerQueryRecord *walkers);
 
 #endif

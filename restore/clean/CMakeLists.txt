@@ -326,6 +326,7 @@ add_library(pharaoh_game STATIC
     game/city/labor.c
     game/city/taxes.c
     game/city/prosperity.c
+    game/military/formation_counts.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
     game/simulation/flood_simulation.c

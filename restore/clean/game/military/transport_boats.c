@@ -191,3 +191,16 @@ void pharaoh_transport_enemy_move(PharaohTransportContext *c, int32_t id,
         *moving = 0;
     }
 }
+
+int32_t pharaoh_formation_legion_is_on_ship(
+    const int16_t formation_walkers[16],
+    const PharaohWalkerQueryRecord *walkers)
+{
+    int32_t index;
+    for (index = 0; index < 16; ++index) {
+        const int32_t walker_id = formation_walkers[index];
+        if (walker_id == 0) return 0;
+        if (walkers[walker_id].action_state == 0x12) return 1;
+    }
+    return 0;
+}
