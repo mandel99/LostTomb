@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_binding": [
+    {
+      "name": "configure",
+      "source": "game/scenario/mission_scene.c",
+      "body_sha256": "20229c2187f88980b03cab4eafb24113601a94eda00907582e813d7ebce116da"
+    },
+    {
+      "name": "bind_live",
+      "source": "game/scenario/mission_scene.c",
+      "body_sha256": "fad2ddd85ba566d978e9138eaa52cdd9dccb6df7d296bf04327fae8bba3d51e5"
+    }
+  ],
+  "source_sha256": {
+    "game/scenario/mission_scene.c": "4d84d6bf6fd571fc89b407def9bb5641d7b9356f8ff351815373923330851a3b"
+  },
+  "saved_aliases": [
+    {
+      "index": 12,
+      "address": "0x00B350DC",
+      "element_bytes": 2,
+      "count": 51984
+    },
+    {
+      "index": 122,
+      "address": "0x00BCA318",
+      "element_bytes": 4,
+      "count": 1
+    },
+    {
+      "index": 123,
+      "address": "0x00BCA31C",
+      "element_bytes": 4,
+      "count": 1
+    },
+    {
+      "index": 124,
+      "address": "0x00BCA320",
+      "element_bytes": 4,
+      "count": 1
+    },
+    {
+      "index": 125,
+      "address": "0x00BCA324",
+      "element_bytes": 4,
+      "count": 1
+    },
+    {
+      "index": 132,
+      "address": "0x00BC96C4",
+      "element_bytes": 4,
+      "count": 1
+    },
+    {
+      "index": 133,
+      "address": "0x00BC96C0",
+      "element_bytes": 4,
+      "count": 1
+    }
+  ],
+  "contracts": [
+    "Map surface WORD B350DC now borrows saved walker IDs d12 instead of a separate zero51984-WORD array. Both configure and live rebinding use the actual shared owner.",
+    "Entry/exit X/Y DWORDs BCA318/31C/320/324 now borrow d122/123/124/125; tile flags BC96C4/C0 borrow d132/133. Native map writers, save/load and UI readers share the same bytes.",
+    "Removed seven duplicate private scalar/grid owners. The private factory layout is opaque; no public Native record size changed. No new Native translation credit.",
+    "Authoritative original CRT schema has181 explicit codec/destination/size/count/migrations tuples. The complete Native byte-qualified data handoff is archived.",
+    "Full UI host/input/simulation/RNG producer wiring and milestone comparison remain open; this source fix alone does not establish complete gameplay equivalence."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_Release": "PASS",
+    "canonical_library_sha256": "8d63362b0d8812a8bf6f08e3965297eb6c3dfcb1f1c455afb494a4a751b28a7e"
+  },
+  "archive": "build/verified-images/scene-surface-owner-20261127-8d63362b0d8812a8",
+  "artifact_sha256": {
+    "losttomb-scene-surface-owner-canonical-build.log": "4f327e30c0ee35632601b3904ece14249906e55252653fde5e1c6f5a04bbbb4e",
+    "losttomb-scene-surface-owner-release.log": "bef92ee3a65eed30cd18992de078e75df266a89cc547de02352ba227a14eef1f",
+    "losttomb-scene-surface-owner-rules.json": "6ea0f479c8a1d497038d9e879973c6f61dd7baa0c191dca1f9415d69ce08dd11",
+    "losttomb-ui-scene-bindings-handoff.json": "0883215d2eb385c1a7889f173ec6c0c8e822d070844ac0fc208ed778f96b1a1b"
+  },
+  "verification": {
+    "new_native_owners": 0,
+    "new_dynamic_tests": 0,
+    "behavior_equivalence_claim": false
+  }
+}

@@ -44,13 +44,11 @@ struct PharaohMissionScene {
     uint32_t current_tile,adjacent[8],channels_pending,placement_failed,snapshot_calls;
     int32_t scan_x,scan_y,area_x,area_y,preview_count;
     int32_t preview_offsets[1][2]; /*count remains0 for this mission-only owner*/
-    int16_t blocked[SCENE_TILES];
     int32_t row_x_start[SCENE_ROWS],row_x_end[SCENE_ROWS],row_start[SCENE_ROWS];
     int32_t map_orientation,current_climate,scenario_rank,scenario_mode,extra_camera_bounds,suppress_flood;
     SceneDword removal_undo;
     uint32_t editor_active,force_paved,event_popup,health_pending;
     uint8_t water_revalidation,ui_flag;
-    int32_t entry_x,entry_y,exit_x,exit_y,entry_tile,exit_tile;
     int32_t overlay,previous_overlay,custom_value,warship_wharves;
     uint32_t pyramid_queue_count,pyramid_queue[4],pyramid_stage3;
     PharaohCityViewState view_state;
@@ -177,6 +175,13 @@ static void bind_live(PharaohMissionScene *r)
     r->surface.variation_tag=v->variation_tag;r->surface.meadow_value=v->meadow_value;
     r->surface.random=v->random;r->surface.buildings=v->buildings;
     r->surface.building_ids=v->building_ids;
+    r->surface.blocked_grid=v->walker_ids;
+    r->surface.entry_x=r->saved.destinations[122];
+    r->surface.entry_y=r->saved.destinations[123];
+    r->surface.exit_x=r->saved.destinations[124];
+    r->surface.exit_y=r->saved.destinations[125];
+    r->surface.entry_tile=r->saved.destinations[132];
+    r->surface.exit_tile=r->saved.destinations[133];
     r->surface.building_orientation=(const uint32_t *)(const void *)v->city_orientation;
     r->surface.scenario_entry_x=(const int16_t *)(const void *)(metadata+0x38c);
     r->surface.scenario_entry_y=(const int16_t *)(const void *)(metadata+0x38e);
@@ -312,13 +317,14 @@ static void configure(PharaohMissionScene *r)
         .map=&r->map,.geometry=&r->grid,.border_size=&r->geometry.grid_border,
         .orientation=&r->map_orientation,.editor_active=&r->editor_active,
         .force_paved_roads=&r->force_paved,
-        .entry_x=&r->entry_x,.entry_y=&r->entry_y,.exit_x=&r->exit_x,.exit_y=&r->exit_y,
-        .entry_tile=&r->entry_tile,.exit_tile=&r->exit_tile,
+        .entry_x=r->saved.destinations[122],.entry_y=r->saved.destinations[123],
+        .exit_x=r->saved.destinations[124],.exit_y=r->saved.destinations[125],
+        .entry_tile=r->saved.destinations[132],.exit_tile=r->saved.destinations[133],
         .row_x_start=r->row_x_start,.row_x_end=r->row_x_end,.row_start_offset=r->row_start,
         .area_x=&r->area_x,.area_y=&r->area_y,.channels_refresh_pending=&r->channels_pending,
         .current_tile=&r->current_tile,.adjacent=r->adjacent,.scan_x=&r->scan_x,.scan_y=&r->scan_y,
         .climate=(const int16_t *)(const void *)&r->current_climate,
-        .water_revalidation_pending=&r->water_revalidation,.blocked_grid=r->blocked,
+        .water_revalidation_pending=&r->water_revalidation,.blocked_grid=v->walker_ids,
         .flood_tiles=r->flood_world.tiles,.groups=in->groups,.footprints=tables->footprints,
         .placement_failed=&r->placement_failed,.selection=&r->image_selection,
         .rings=tables->rings,.distance_offsets=tables->distance_offsets,
