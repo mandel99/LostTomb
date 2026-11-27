@@ -68,3 +68,10 @@ PharaohTextMediaMessage pharaoh_text_media_message(
     const char *const text=catalog->media_text;
     return (PharaohTextMediaMessage){text+offsets[0],text+offsets[1],text+offsets[2]};
 }
+
+const char *pharaoh_text_pointer_table_get(
+    const PharaohTextPointerTable *table, int32_t index)
+{
+    if (index >= 0 && index < table->count) return table->entries[index];
+    return 0;
+}

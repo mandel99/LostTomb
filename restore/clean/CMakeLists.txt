@@ -329,6 +329,9 @@ add_library(pharaoh_game STATIC
     game/city/advisor_finance.c
     game/ui/advisor_initialize.c
     game/ui/advisor_open.c
+    game/scenario/tutorial_advisors.c
+    game/scenario/tutorial_messages.c
+    game/ui/event_text_format.c
     game/ui/city_input_actions.c
     game/ui/city_map_input.c
     game/monuments/pyramid_preview.c

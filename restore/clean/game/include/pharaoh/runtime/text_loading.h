@@ -76,4 +76,12 @@ void pharaoh_text_select(PharaohTextSelection *selection, int32_t group,
                          int32_t entry);
 int32_t pharaoh_file_load_retry_prompt(PharaohTextSelection *selection);
 
+typedef struct PharaohTextPointerTable {
+    const char *const *entries;
+    int32_t count;
+} PharaohTextPointerTable;
+
+const char *pharaoh_text_pointer_table_get(
+    const PharaohTextPointerTable *table, int32_t index);
+
 #endif

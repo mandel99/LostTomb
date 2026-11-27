@@ -8,7 +8,10 @@ typedef struct PharaohAdvisorOpenContext {
     const uint32_t *tutorial_override,*requested_advisor; /*E38EBC/D3B198*/
     const uint8_t *tutorial_advisors; /*6FDC88*/
     uint8_t *current_window,*redraw; /*E38DDA/E38DCA*/
-    uint32_t *last_advisor,*shown_advisor,*animation_step; /*605A44/E38EA4/F53F48*/
+    /* Preserve historical member aliases; native active/saved roles differ. */
+    union { uint32_t *active_advisor,*last_advisor; }; /*605A44*/
+    union { uint32_t *saved_advisor,*shown_advisor; }; /*E38EA4*/
+    uint32_t *animation_step; /*F53F48*/
     uint8_t *gift_notification_banks; /*EA623C, player stride49D8*/
     const PharaohAdvisorInitializeContext *initialize;
     const PharaohMessageDialogLiveCloseContext *close_dialog;
@@ -20,5 +23,8 @@ typedef struct PharaohAdvisorOpenContext {
    the full native DWORD; its native valid-index domain is not clamped.
    Diagnostic divide status stops before redraw/animation on the allowed path. */
 PharaohPercentageScaleStatus pharaoh_advisors_show_checked(
+    const PharaohAdvisorOpenContext *);
+/* Complete0040B520. Availability mutates shown_advisor in place. */
+PharaohPercentageScaleStatus pharaoh_advisors_show_last(
     const PharaohAdvisorOpenContext *);
 #endif
