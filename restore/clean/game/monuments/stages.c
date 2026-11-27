@@ -1,3 +1,4 @@
+#include <string.h>
 #include "pharaoh/monuments/stages.h"
 
 enum {
@@ -344,4 +345,89 @@ uint8_t pharaoh_monument_object_has_incomplete(
             return progress(object, building_id, 0) < 100;
     }
     return 0;
+}
+
+void pharaoh_monument_part_coordinates(
+    const PharaohBuildingTypeRecord *building, int32_t step,
+    int32_t pyramid_style, int32_t tile_pixel_width,
+    int32_t tile_pixel_height, int32_t view_orientation,
+    const PharaohMonumentCoordinateTables *tables, int32_t *x, int32_t *y)
+{
+    const uint8_t *record = (const uint8_t *)building;
+    int32_t tier, height, index, orientation, rotation, slot;
+    if (step < 1) {
+        *x = 0;
+        *y = 15;
+        return;
+    }
+    tier = (step - 1) / 6;
+    height = pyramid_style == 1 ?
+        tables->style_one_heights[tier + building->pyramid_size_variant * 6] :
+        tier * 90;
+    *x = tile_pixel_width + 1;
+    *y = -(tile_pixel_height + height);
+
+    if (pyramid_style == 5) {
+        index = building->subtype + building->pyramid_size_variant * 36;
+        orientation = tables->style_five_orientations[index * 2];
+    } else {
+        index = building->subtype + building->pyramid_size_variant * 144;
+        orientation = tables->regular_orientations[index * 2];
+    }
+    rotation = view_orientation / 2;
+    if (orientation < 4) {
+        orientation += rotation;
+        if (orientation >= 4) orientation -= 4;
+    } else if (orientation < 8) {
+        orientation += rotation;
+        if (orientation >= 8) orientation -= 4;
+    }
+    if (orientation < 9) {
+        if (record[0x57] < record[0x58]) orientation = 8;
+        slot = (step - 1) % 6 + orientation * 6;
+        if (pyramid_style == 3) {
+            index = slot * 4;
+            if (building->origin_x == 0) {
+                *x += tables->style_three_offsets[index];
+                height = tables->style_three_offsets[index + 1];
+            } else {
+                *x += tables->style_three_offsets[index + 2];
+                height = tables->style_three_offsets[index + 3];
+            }
+            *y += height;
+            *x += 5;
+            *y += 8;
+            *x += 1;
+            *y += 19;
+            return;
+        }
+        index = slot * 2;
+        *x += tables->regular_offsets[index];
+        *y += tables->regular_offsets[index + 1];
+        if (building->origin_x != 0) {
+            *x += tables->main_part_offsets[orientation * 2];
+            *y += tables->main_part_offsets[orientation * 2 + 1];
+        }
+    }
+    *x += 1;
+    *y += 19;
+}
+
+int32_t pharaoh_library_spot_table_variant(int32_t animation_counter)
+{
+    return (animation_counter / 2) & 1;
+}
+
+void pharaoh_library_spot_table_set_variant(int32_t building_variant,
+    int32_t *active_variant, uint32_t destination[888],
+    const uint32_t standard_source[888],
+    const uint32_t alternate_source[888])
+{
+    if (building_variant != 0 && building_variant != 4) {
+        *active_variant = 2;
+        memcpy(destination, alternate_source, 888 * sizeof(uint32_t));
+    } else {
+        *active_variant = 0;
+        memcpy(destination, standard_source, 888 * sizeof(uint32_t));
+    }
 }

@@ -86,4 +86,6 @@ void pharaoh_graphics_set_pixel_pair_raw(PharaohGraphicsPrimitives *,
     int32_t x, int32_t y, uint32_t colors);
 void pharaoh_graphics_and_rect(PharaohGraphicsPrimitives *, int32_t x,
     int32_t y, int32_t width, int32_t height, uint16_t mask);
+void pharaoh_graphics_set_pixel_raw(PharaohGraphicsPrimitives *,
+    int32_t x, int32_t y, uint16_t color);
 #endif

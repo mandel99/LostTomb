@@ -2,6 +2,8 @@
 #include "pharaoh/platform/windows_startup_host.h"
 #include "pharaoh/ui/city_chrome_draw.h"
 #include "pharaoh/ui/button_border.h"
+#include "pharaoh/ui/city_input_actions.h"
+#include "pharaoh/ui/window_state_actions.h"
 #include "pharaoh/ui/sidebar_content.h"
 #include "pharaoh/ui/sidebar_layout.h"
 #include "pharaoh/rendering/minimap_image.h"
@@ -42,6 +44,7 @@ struct PharaohWindowsCityUi {
     PharaohWalkerOverlayContext walker_overlay;
     PharaohWindowsStartupHost *host;
     PharaohImageDrawContext *images;
+    const PharaohCityViewContext *view;
     int32_t collapsed,caption,previous_caption,minimap_dirty,editor_dirty,editor_view;
     int32_t command_a,command_b,previous_message_count;
     uint8_t ui_redraw,show_all;
@@ -50,6 +53,7 @@ struct PharaohWindowsCityUi {
     int32_t treasury_x,population_x,date_x,redraw_mode;
     int32_t window_seven_key;
     uint32_t selected_menu;
+    int32_t navigation_hover,navigation_x,navigation_y;
     uint8_t menu_flag_de0,menu_flag_de1;
 };
 
@@ -169,11 +173,15 @@ static void number_centered(void *p,int32_t value,int32_t prefix,int32_t x,
         (char)prefix," ",x,y,width,id,(uint16_t)color);
 }
 
+static void primitive_pixel(void *data,int32_t x,int32_t y,uint16_t color)
+{pharaoh_graphics_set_pixel_raw(data,x,y,color);}
+
 int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     PharaohImageDrawContext *images,const PharaohWindowsCityUiScene *scene,
     const uint8_t *window,const int32_t *groups)
 {
     struct PharaohWindowsCityUi *const u=bind_frame(h,images,scene,window,groups);
+    if(u!=NULL)u->view=scene->view;
     if(u==NULL) return 0;
     const PharaohSavedSceneStorage *const saved=scene->saved;
     const int32_t *const editor=&scene->view->event_54_suppress_flood;
@@ -186,7 +194,7 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     }
     u->graphics=(PharaohGraphicsPrimitives){.display_width=h->graphics.render_width,
         .screen_height=h->graphics.render_height,.rgb565_pixels=(uint16_t *)(void *)images->surface_pixels,
-        .rgb565_pitch_bytes=images->pitch_bytes};
+        .rgb565_pitch_bytes=images->pitch_bytes,.write_pixel=primitive_pixel,.user_data=&u->graphics};
     _Static_assert(sizeof(PharaohSpriteTagRecord)==8,"native tag stride");
     u->button_draw=(PharaohImageButtonDrawState){
         .sprite_group_bases=(const int32_t *)(const void *)&h->sprite_tags[0].image_index,
@@ -210,6 +218,7 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
         .small_font=(const int32_t *)(const void *)&h->sprite_tags[634].image_index,
         .previous_message_count=&u->previous_message_count,.message_button=&u->buildings[13],
         .problem_button=&u->buildings[14],.scenario_button=&u->buildings[15],.draw_number_centered=number_centered};
+    const PharaohMinimap previous_minimap=u->minimap;
     u->minimap=(PharaohMinimap){.view=scene->view->state,.projection=scene->view->projection,.clip=images->clip,
         .terrain=saved->view.terrain,.buildings=saved->view.building_ids,.walkers=saved->view.walker_ids,
         .edges=saved->view.edges,.random=saved->view.random,.extra=saved->destinations[14],
@@ -219,6 +228,12 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
         .land=&groups[410],.rock=&groups[411],.trees=&groups[412],.water=&groups[414],.road=&groups[415],
         .building=&groups[416],.overlay_image=&groups[418],.garden=&groups[420],.black=&groups[421],
         .special=&groups[492],.terrain_02000000_image=&groups[480],.user_data=u,.draw_view_rect=view_rect};
+    /* 43EF10 and406190 borrow the persistent draw scratch, just as native. */
+    u->minimap.origin_x=previous_minimap.origin_x;u->minimap.origin_y=previous_minimap.origin_y;
+    u->minimap.scan_x=previous_minimap.scan_x;u->minimap.scan_y=previous_minimap.scan_y;
+    u->minimap.left=previous_minimap.left;u->minimap.right=previous_minimap.right;
+    u->minimap.top=previous_minimap.top;u->minimap.bottom=previous_minimap.bottom;
+    u->minimap.tile=previous_minimap.tile;u->minimap.pixel_x=previous_minimap.pixel_x;u->minimap.pixel_y=previous_minimap.pixel_y;
     u->minimap_images=(PharaohMinimapImage){images->image_pixels,images->image_count,
         &images->state->source.pixels,&images->clip->draw_x,&images->clip->draw_y,&u->graphics};
     u->minimap_buildings=(PharaohMinimapBuilding){.buildings=saved->view.buildings,
@@ -276,4 +291,18 @@ void pharaoh_windows_city_ui_release(PharaohWindowsStartupHost *h)
         }
     }
     free(u);h->city_ui=NULL;
+}
+
+int32_t pharaoh_windows_city_ui_navigation(PharaohWindowsStartupHost *h,
+    int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down)
+{
+    struct PharaohWindowsCityUi *u=h->city_ui;
+    if(u==NULL||u->collapsed!=0)return 0;
+    pharaoh_build_sidebar_hover_update(mouse_x,mouse_y,u->minimap.left,u->minimap.top,
+        u->minimap.right,u->minimap.bottom,&u->navigation_hover);
+    PharaohCityViewContext view=*u->view;
+    const PharaohMinimapClickContext click={&u->minimap,&view,&mouse_x,&mouse_y,
+        &u->navigation_hover,u->content.sidebar_x,&left_down,&right_went_down,
+        (const uint32_t *)(const void *)u->minimap.editor_active,&u->navigation_x,&u->navigation_y};
+    return (int32_t)pharaoh_minimap_sidebar_click(&click);
 }

@@ -6,6 +6,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+typedef struct PharaohOverlayFoodBuilding {
+    int16_t type;
+    uint8_t house_size;
+    int16_t house_level;
+    int16_t population;
+    int16_t stored_food[8];
+} PharaohOverlayFoodBuilding;
+
 typedef bool (*PharaohOverlayBuildingPredicate)(
     void *user_data, const PharaohOverlayBuilding *building);
 typedef int32_t (*PharaohGodBuildingTypeFunction)(
@@ -42,4 +50,11 @@ int32_t pharaoh_overlay_religion_height(
     const PharaohOverlayMetricContext *context,
     const PharaohOverlayBuilding *building);
 
+int32_t pharaoh_overlay_food_stock_height(
+    const PharaohOverlayFoodBuilding *building,
+    const int32_t *model_food_type_counts, int32_t food_supply_available);
+int32_t pharaoh_overlay_damage_terrain_height(
+    const int16_t *damage_terrain, int32_t grid_offset);
+int32_t pharaoh_building_type_overlay_tile_index(
+    const int32_t *overlay_image_ids, int32_t building_type);
 #endif

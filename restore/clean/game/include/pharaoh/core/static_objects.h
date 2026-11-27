@@ -108,4 +108,5 @@ void pharaoh_native_active_counter_decrement_004ea740(
 void pharaoh_native_service_records_decay_0041d6f0(int32_t records[69][32]);
 int32_t pharaoh_native_metric_select_004d5ef0(
     int32_t key, const int32_t values[6]);
+void pharaoh_native_flag_zero_004e7e10(uint32_t *flag);
 #endif

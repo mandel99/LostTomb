@@ -39,3 +39,11 @@ uint32_t pharaoh_building_has_active_occupant(PharaohOccupancyState *state,
     return pharaoh_region_has_active_occupant(state,
         record->x, record->y, 3, 3);
 }
+
+uint32_t pharaoh_building_region_has_terrain_4(
+    PharaohOccupancyState *state, int32_t building)
+{
+    const PharaohOccupancyBuilding *record = &state->buildings[building];
+    return pharaoh_region_has_blocking_tile(state,
+        record->x, record->y, 3, 3, 4u);
+}

@@ -1,0 +1,461 @@
+{
+  "schema": "losttomb.canonical-host-checkpoint.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "first campaign mission Nubt; real briefing load/Continue -> map terrain/top/UI -> edge camera/minimap navigation",
+  "complete_C_adoptions": 19,
+  "source_binding": [
+    {
+      "address": "0x0041F910",
+      "name": "pharaoh_monument_spot_get_draw_info",
+      "source": "game/rendering/monument_spot_animation.c",
+      "header": "game/include/pharaoh/rendering/monument_spot_animation.h",
+      "body_sha256": "4e446af504214c97fd8a58f9d51935e650fd28f10ed8357823d9f119cceda5ed",
+      "prior_mapping_evidence": "evidence/monument-spot-draw-leaves-20261121.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0041FAD0",
+      "name": "pharaoh_monument_spot_get_draw_info_for_direction",
+      "source": "game/rendering/monument_spot_animation.c",
+      "header": "game/include/pharaoh/rendering/monument_spot_animation.h",
+      "body_sha256": "d8bfaf4e5cc293a8362f02bb8c34481e58c99350a781a56dfab02a00fcfb3f87",
+      "prior_mapping_evidence": "evidence/monument-spot-draw-leaves-20261121.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0043EEB0",
+      "name": "pharaoh_minimap_walker_ship_kind",
+      "source": "game/walker/record_queries.c",
+      "header": "game/include/pharaoh/walker/record_queries.h",
+      "body_sha256": "3f384bd6574131753539bc14333099b8cea77d3ecaa5d6838764e3293637f694",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-ah.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0046D0F0",
+      "name": "pharaoh_building_main_part_id",
+      "source": "game/building/type_queries.c",
+      "header": "game/include/pharaoh/building/type_queries.h",
+      "body_sha256": "efd8abdfe08a1d1c788bf55c6fe9b0cef5cc7ea1acee5e1c7aa63694334499f8",
+      "prior_mapping_evidence": "evidence/building-map-query-parents-20261121.json",
+      "C_dependencies": [
+        "pharaoh_building_follow_link"
+      ]
+    },
+    {
+      "address": "0x004890F0",
+      "name": "pharaoh_farm_has_water_access",
+      "source": "game/building/type_queries.c",
+      "header": "game/include/pharaoh/building/type_queries.h",
+      "body_sha256": "67f4c366dc050bf5a6d7a1faa353a712def9c35780fa9f21ff3abc676567ef82",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-c.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x004894D0",
+      "name": "pharaoh_building_region_has_terrain_4",
+      "source": "game/building/occupancy_query.c",
+      "header": "game/include/pharaoh/building/occupancy_query.h",
+      "body_sha256": "32479d59f06106d9ffa2efe77e77c6a6dc230aaa1a23ef51e25e8a2798e6b915",
+      "prior_mapping_evidence": "evidence/building-map-query-parents-20261121.json",
+      "C_dependencies": [
+        "pharaoh_region_has_blocking_tile"
+      ]
+    },
+    {
+      "address": "0x0040FA40",
+      "name": "pharaoh_graphics_set_pixel_raw",
+      "source": "game/rendering/primitives.c",
+      "header": "game/include/pharaoh/rendering/primitives.h",
+      "body_sha256": "65b414983365b73eed44ad2297e567735daf079c4e4a531b7fff379219c31f42",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-c.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x00406190",
+      "name": "pharaoh_build_sidebar_hover_update",
+      "source": "game/ui/window_state_actions.c",
+      "header": "game/include/pharaoh/ui/window_state_actions.h",
+      "body_sha256": "461e7ff4377faa590339bb110599f223c7f60c66bee0c54ec4fc59d3e105500c",
+      "prior_mapping_evidence": "evidence/city-input-native-20261127.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x004F08C0",
+      "name": "pharaoh_monument_part_coordinates",
+      "source": "game/monuments/stages.c",
+      "header": "game/include/pharaoh/monuments/stages.h",
+      "body_sha256": "315b16094b25290e6905eb6d39781c6d89984adfee28b71f57dcf631fb74fa8f",
+      "prior_mapping_evidence": "evidence/monument-part-coordinate-leaf-20261121.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0041F8B0",
+      "name": "pharaoh_library_spot_table_variant",
+      "source": "game/monuments/stages.c",
+      "header": "game/include/pharaoh/monuments/stages.h",
+      "body_sha256": "a05dd2ec718cf407a8b0ae05fbb9395dce977e46d2a9cf6ae8ac50be950c1a4c",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-g.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0041F8C0",
+      "name": "pharaoh_library_spot_table_set_variant",
+      "source": "game/monuments/stages.c",
+      "header": "game/include/pharaoh/monuments/stages.h",
+      "body_sha256": "c9003c4f3caf603e7be8226be2173a05073b630aaee66d1768e2daa92ae9cd05",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-af.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x00448A60",
+      "name": "pharaoh_editor_event_reset_invasion_data",
+      "source": "game/editor/event_list.c",
+      "header": "game/include/pharaoh/editor/event_list.h",
+      "body_sha256": "df8ad472fb6816fbe5dfe144c97cc4d61b063d1a4013bb8de9a6c5753c52eb3f",
+      "prior_mapping_evidence": "evidence/existing-clean-owner-leaves-20261121.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x004E7E10",
+      "name": "pharaoh_native_flag_zero_004e7e10",
+      "source": "game/core/static_objects.c",
+      "header": "game/include/pharaoh/core/static_objects.h",
+      "body_sha256": "d3b5699ed3a82a4b7adc67a1efe72d083d94095f6619f9f04ac006fbfac5c3dd",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-x.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x00448370",
+      "name": "pharaoh_event_text_expand",
+      "source": "game/ui/token_expansion.c",
+      "header": "game/include/pharaoh/ui/token_expansion.h",
+      "body_sha256": "411327a8be0ab1036851958fb1b89a47a3d3d1764e8d28c64ef6c7fa06cc3b9a",
+      "prior_mapping_evidence": "evidence/one-callee-state-wrapper-batch-20261121.json",
+      "C_dependencies": [
+        "pharaoh_token_expand"
+      ]
+    },
+    {
+      "address": "0x00430CC0",
+      "name": "pharaoh_city_view_get_viewport_width_pixels",
+      "source": "game/runtime/city_view.c",
+      "header": "game/include/pharaoh/runtime/city_view.h",
+      "body_sha256": "560e695eb116e128122c64ff067455277de1184f44959847babc63d916e597bf",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-g.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x004342C0",
+      "name": "pharaoh_overlay_food_stock_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "header": "game/include/pharaoh/rendering/overlay_metrics.h",
+      "body_sha256": "6bc260542fff30afa5aa8d68f20566b0fdc383ac096a0c76a73096991d9e5ad1",
+      "prior_mapping_evidence": "evidence/overlay-food-stock-parent-20261122.json",
+      "C_dependencies": [
+        "pharaoh_scale_value_to_percent"
+      ]
+    },
+    {
+      "address": "0x00433D30",
+      "name": "pharaoh_overlay_damage_terrain_height",
+      "source": "game/rendering/overlay_metrics.c",
+      "header": "game/include/pharaoh/rendering/overlay_metrics.h",
+      "body_sha256": "531fd003abd0166899447332306d33a6062ca1c1680dc522e3c5e1719a880afc",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-g.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0043E770",
+      "name": "pharaoh_building_type_overlay_tile_index",
+      "source": "game/rendering/overlay_metrics.c",
+      "header": "game/include/pharaoh/rendering/overlay_metrics.h",
+      "body_sha256": "5aad4d906a525eef3e6de1832f1596b344eac3419310223863e8e0eddb7a61cd",
+      "prior_mapping_evidence": "evidence/typed-leaf-imports-20261121-g.json",
+      "C_dependencies": []
+    },
+    {
+      "address": "0x0047FD30",
+      "name": "pharaoh_map_houses_water_in_radius",
+      "source": "game/map/house_water.c",
+      "header": "game/include/pharaoh/map/house_water.h",
+      "body_sha256": "f4aadc8409523013d48157d98d1ee99e1cbee091b28b312d15372cdb2e87a96e",
+      "prior_mapping_evidence": "evidence/house-water-radius-20261124.json",
+      "C_dependencies": []
+    }
+  ],
+  "prior_evidence_sha256": {
+    "evidence/monument-spot-draw-leaves-20261121.json": "234b954547d238f0e6388406fbcb2904b7e6e5c63875fe25b402fd63129f2211",
+    "evidence/typed-leaf-imports-20261121-ah.json": "98a026ec195788b880fb14c229393d0022a2fd7b4f34dc7d2ddf5e610c6fa289",
+    "evidence/building-map-query-parents-20261121.json": "8f0ebbb6fb470419ee879252e1f1f7540b5050a4a7dcdab881b33fe502a0d440",
+    "evidence/typed-leaf-imports-20261121-c.json": "bd120e7ba2597b380f8d9b13a864aecf6540fbea995d9ae3735da0704406479d",
+    "evidence/city-input-native-20261127.json": "4bb9dc37b5d26ff6b3a62432e3395d6eb777a7c05034c0ed6820423290b474ed",
+    "evidence/monument-part-coordinate-leaf-20261121.json": "6be585cf0165a1d8fdf03fe95a7013893209adcef499fbbea0ad884dfbce7254",
+    "evidence/typed-leaf-imports-20261121-g.json": "618b171445f9a088ebf7f297a1f83050c1929d8b5db4d48233d19eae328e515b",
+    "evidence/typed-leaf-imports-20261121-af.json": "3bd6516588fcd2df045f3f4c8b836fff3fd2460ac2d674186900daa0782f740a",
+    "evidence/existing-clean-owner-leaves-20261121.json": "4c52c91bc0fe4151ff7a81023b080450c470eb2ff536b97bf0c34cf9986a2123",
+    "evidence/typed-leaf-imports-20261121-x.json": "ae59fae268d02c867fc7c54a18cb98d3baa0ecb5a853ac7bfdcc56645f83494a",
+    "evidence/one-callee-state-wrapper-batch-20261121.json": "956cd9adcc804c6eb77db32b8525fabdddb168ca950f73de7c41c2e4a261a737",
+    "evidence/overlay-food-stock-parent-20261122.json": "8da99b170535dea018f82d24639f8d98f838ac6dc1edee95584b48792f4d5da8",
+    "evidence/house-water-radius-20261124.json": "027b128265cefaf727a75cbe344df2e1686ccee39a94ce5ef194c5043ac13f25",
+    "evidence/mission0-city-top-binding-20261125.json": "3af08d925a4235e7da041b885efedd576887239ac661bf7dc96ff8c9ac277d1e",
+    "evidence/mission-briefing-host-20261124.json": "7fcc85e6234045cf5dc2240aa49dcf5b5cd5298918771f1afe765a26694b3485"
+  },
+  "canonical_source_sha256": {
+    "game/map/house_water.c": "7763a7664b50d14efae9ff9eef30b75ab521a68131951839adefd08870314435",
+    "game/include/pharaoh/map/house_water.h": "1c1af91217cc654109a3bb941e1154cb05ad36cf6060740b0abd3089c99760c9",
+    "game/scenario/mission_scene.c": "89a2e8bd3ba88f0bd46bbe477241129b7d3ba29a5d5558e9c21adda975f4fd10",
+    "game/scenario/mission_scene_program.c": "691e848509fb26dd104476b64e99999acedb41011e18ce1adf0b3e23c87ae167",
+    "game/platform/windows_mission_runtime.c": "cee537029ce928ac10747953c6aeec7a9c6d5bde8f79adfe41d3d5d60c958ec4",
+    "game/include/pharaoh/scenario/mission_scene.h": "2f4013d8d78ce52fee3cc93031772703e1c830c0e004ac7e08ea6eec942af890",
+    "game/include/pharaoh/scenario/mission_scene_program.h": "793ab9b2131b0d7f36de2d664ffc04f9f3dab5ecec60071496b646706b8e8b39",
+    "game/include/pharaoh/platform/windows_mission_runtime.h": "0b715bd213d0788cfa1f0572212592f03f82e2a1332f990251bbae321e1e7f2e",
+    "game/platform/windows_bootstrap.c": "aac10e73b06124ba93262bc88441de24076bf4ba911c0c45e179d25b3bcc44ee",
+    "game/platform/windows_city_ui.c": "06e5c5cfb508cfffdcfc23f1e13ec18fa0554035c24ec9f204a7220893058ad4",
+    "game/include/pharaoh/platform/windows_city_ui.h": "69ee392d5af09d2096c46bcfdcfb4d700399134ab291bce91114634359171604",
+    "game/platform/windows_startup_host.c": "8d6368aef44e0093994724733487f8eda240430834ec9bdd8c7c25a583b0c8ae",
+    "game/include/pharaoh/platform/windows_startup_host.h": "8e7b04078b78c082398e8c79d92aabed68764bb9afdb0386bcead0da4aaa7950",
+    "game/platform/windows_startup_dispatch.c": "3a931abd824405ae1f3fd01c36ff66b16394af71d56583b663657ac473b61b60",
+    "game/include/pharaoh/platform/windows_startup_dispatch.h": "b6d2fd7c7c9b09191a30d3439732ba0a3666cf3e6ba301e4bcde2d0a87e92227",
+    "game/rendering/monument_spot_animation.c": "34a809f223aadd34198e07924b141bd8c06e8d256c6f1b3887cae61a3662ab54",
+    "game/include/pharaoh/rendering/monument_spot_animation.h": "4a5655fce35e118b18d2d1e1407fffefa18a40537c9662f4b579800aa9af1c79",
+    "game/walker/record_queries.c": "97b7956878502fbf9faebc374a4a5570005de6bc993867b6590609e1e596f607",
+    "game/include/pharaoh/walker/record_queries.h": "fb37b93e1f430d355c1a20581c3aff6c05b6d199537d3e5a17d841ebd0b05e0f",
+    "game/building/type_queries.c": "eed60f5adaa6622a4e543dba7b7f5942127bda42cc1cc79286fe2aceeaad4b23",
+    "game/include/pharaoh/building/type_queries.h": "8ffe2e68be929672673ffafc73ac9b3c92878e32c5aa2cc15f6de26136ae184f",
+    "game/building/occupancy_query.c": "c8a8cb5924759c7aad64545e2ae954ac54c2e211a4bf962c5283b06e636caf0e",
+    "game/include/pharaoh/building/occupancy_query.h": "56f7665d698c2c505a613715a7f0ff9ff9c03bb7cdb0ade2443f364f4db2b2de",
+    "game/rendering/primitives.c": "1c401a035f707437cf35b93a1e379a8786d1a044245642300f0a120cf7d5c632",
+    "game/include/pharaoh/rendering/primitives.h": "5863584b85a63b69e10b40196130f6c3875d36d1c07d790d5add9f202c1f7d9a",
+    "game/ui/window_state_actions.c": "da5c883384762bf4bbcfd1dbd7f5536b23dc08cce6ab05b5925d71f83d3d96ff",
+    "game/include/pharaoh/ui/window_state_actions.h": "9bfd375f69d383c63a374da9f4b73c74d3505f773a77b2200b299bc8b56baca4",
+    "game/monuments/stages.c": "e54b14b5abc3c190b1f61fabd8f02e8727aca37952958b9a18a2d82eaaf16fe1",
+    "game/include/pharaoh/monuments/stages.h": "de04f0453bc8f20ebb9d2035fa80911e2dd907d26990abfa3b9aac297eac201e",
+    "game/editor/event_list.c": "6a1de10109ddb4bc61bdb2ecb4ba4dc2e7264a5f0aa39d9b915acbd1bd728c1c",
+    "game/include/pharaoh/editor/event_list.h": "b5b6aa1873fe0e0d4f28248710fcfc01dbace772999fcdbd54eef671ce87d761",
+    "game/core/static_objects.c": "1c697a0d0af0a00ad8f3e0587349deb9d78a1987f01cacb6e4ed8806071ba0f0",
+    "game/include/pharaoh/core/static_objects.h": "83edd3ce59e618ee8cd986505abd9d1c60e08fa927aae876204af20ab4d4789d",
+    "game/ui/token_expansion.c": "9772cb3ecec36406c00986eeab3c9d022c3f5b62b1dfe9b358887eed75c69756",
+    "game/include/pharaoh/ui/token_expansion.h": "65180989a237479b9dc05cff1de2e47b6f5bc498f6ac966e78af95560847b2fd",
+    "game/runtime/city_view.c": "430157b354e0b17e2d7a158d749f542473c5be818ac2c2f9b982be5236d5fbd2",
+    "game/include/pharaoh/runtime/city_view.h": "e09638cc4f78c390cb0405234a1377a34f3bbb2b806c92ca514feb620417cb10",
+    "game/rendering/overlay_metrics.c": "915b6a6be897be2a56a363fa5ba7c124c0c6b301376aa19146ba0d2bacc323b6",
+    "game/include/pharaoh/rendering/overlay_metrics.h": "5ed4963ce2c593831ab4043ba3608c2206c22e64c5c6c0964d09f09b31489671",
+    "game/include/pharaoh/monuments/pyramid_images.h": "a2fceb0b60849fdbb187eb1c64d62d3eca4232b76a0bc0387b43e2c121f29fc8",
+    "game/include/pharaoh/rendering/pyramid_walker_draw.h": "aa23a0f5dc46a9f8870b306b0efc62fddddeb7417e607b74d6eee3b0670825b7",
+    "CMakeLists.txt": "b952d873b554ae87b54ffb1caa1925d051398117a064a2dc932471bd8a3d9252"
+  },
+  "build": {
+    "method": "Independent HEAD archive plus exactly these scoped source/header/CMake edits; Release Win32 pharaoh_clean_bootstrap /W4 /WX",
+    "result": "pass",
+    "non_C_warning": "MSB8029 temporary build directory only",
+    "library_sha256": "61d8687f66150c4b7d66313e07b8ea8ca394757eb08e2feba9b96c9f6e20adfd",
+    "exe_sha256": "3cf3a844c63b73de9dc37b55f91d73c5748bc4359d23323aa78b8d7021b51326",
+    "archive": "build/verified-images/canonical-briefing-city-20261127-3cf3a844c63b"
+  },
+  "host_runs": {
+    "center": {
+      "exit_code": 0,
+      "frames": 30,
+      "state": {
+        "window": 1,
+        "scene_status": 2,
+        "camera_x": 114,
+        "camera_y": 218,
+        "scroll_requested": 0,
+        "frame_status": 1,
+        "surface_bits": 32
+      },
+      "frame_sha256": "859d7c55d7eddc0e1fcd704f92e5997f67c00bc4a15ed9e82351d370d57c2629"
+    },
+    "west": {
+      "exit_code": 0,
+      "frames": 30,
+      "state": {
+        "window": 1,
+        "scene_status": 2,
+        "camera_x": 109,
+        "camera_y": 218,
+        "scroll_requested": 1,
+        "frame_status": 1,
+        "surface_bits": 32
+      },
+      "frame_sha256": "6bc295941d0211688d7d18ca3bbc8d416489bb3f261eeff2abc938439055a512"
+    },
+    "minimap": {
+      "exit_code": 0,
+      "frames": 30,
+      "state": {
+        "window": 1,
+        "scene_status": 2,
+        "camera_x": 111,
+        "camera_y": 188,
+        "scroll_requested": 0,
+        "frame_status": 1,
+        "surface_bits": 32
+      },
+      "frame_sha256": "c77c22e48daf75e1815b3644d37719e07470eed023c5fe172482facb44deaf93"
+    }
+  },
+  "runtime_repairs": [
+    "Native16-bit raster target is converted to XRGB32 using existing menu conversion formula; actual desktop observed32bit",
+    "Real0040FA40 writer bound to004CD4E0 pixel callback",
+    "Ground property_flags uses saved chunk8 B67D1C, footprint bytes use chunk13 B285CC",
+    "Camera decay binds the real sound record bank at record1+DWORD1, Native702984",
+    "Minimap retains its own mutable draw scratch between frames",
+    "Cached ImageCollection groups audit corrects five direct image fields; firstImage base F55BB4"
+  ],
+  "image_group_observations": [
+    {
+      "address": "0x00F56BD4",
+      "name": "imageCollection_groups_516_firstImage",
+      "basis": "ImageCollectionObject.groups-field"
+    },
+    {
+      "address": "0x00F56BDC",
+      "name": "imageCollection_groups_517_firstImage",
+      "basis": "ImageCollectionObject.groups-field"
+    },
+    {
+      "address": "0x00F56D24",
+      "name": "imageCollection_groups_558_firstImage",
+      "basis": "ImageCollectionObject.groups-field"
+    },
+    {
+      "address": "0x00F57224",
+      "name": "imageCollection_groups_718_firstImage",
+      "basis": "ImageCollectionObject.groups-field"
+    },
+    {
+      "address": "0x00F572EC",
+      "name": "imageCollection_groups_743_firstImage",
+      "basis": "ImageCollectionObject.groups-field"
+    }
+  ],
+  "native_ui_pixel_caller": {
+    "items": [
+      {
+        "address": "004cd4e0",
+        "bytes": "8b4c2404",
+        "instruction": "MOV ECX,dword ptr [ESP + 0x4]",
+        "comment": null
+      },
+      {
+        "address": "004cd4e4",
+        "bytes": "85c9",
+        "instruction": "TEST ECX,ECX",
+        "comment": null
+      },
+      {
+        "address": "004cd4e6",
+        "bytes": "7c27",
+        "instruction": "JL 0x004cd50f",
+        "comment": null
+      },
+      {
+        "address": "004cd4e8",
+        "bytes": "3b0d9c8de300",
+        "instruction": "CMP ECX,dword ptr [0x00e38d9c]",
+        "comment": null
+      },
+      {
+        "address": "004cd4ee",
+        "bytes": "7d1f",
+        "instruction": "JGE 0x004cd50f",
+        "comment": null
+      },
+      {
+        "address": "004cd4f0",
+        "bytes": "8b442408",
+        "instruction": "MOV EAX,dword ptr [ESP + 0x8]",
+        "comment": null
+      },
+      {
+        "address": "004cd4f4",
+        "bytes": "85c0",
+        "instruction": "TEST EAX,EAX",
+        "comment": null
+      },
+      {
+        "address": "004cd4f6",
+        "bytes": "7c17",
+        "instruction": "JL 0x004cd50f",
+        "comment": null
+      },
+      {
+        "address": "004cd4f8",
+        "bytes": "3b05988de300",
+        "instruction": "CMP EAX,dword ptr [0x00e38d98]",
+        "comment": null
+      },
+      {
+        "address": "004cd4fe",
+        "bytes": "7d0f",
+        "instruction": "JGE 0x004cd50f",
+        "comment": null
+      },
+      {
+        "address": "004cd500",
+        "bytes": "8b54240c",
+        "instruction": "MOV EDX,dword ptr [ESP + 0xc]",
+        "comment": null
+      },
+      {
+        "address": "004cd504",
+        "bytes": "52",
+        "instruction": "PUSH EDX",
+        "comment": null
+      },
+      {
+        "address": "004cd505",
+        "bytes": "50",
+        "instruction": "PUSH EAX",
+        "comment": null
+      },
+      {
+        "address": "004cd506",
+        "bytes": "51",
+        "instruction": "PUSH ECX",
+        "comment": null
+      },
+      {
+        "address": "004cd507",
+        "bytes": "e83425f4ff",
+        "instruction": "CALL 0x0040fa40",
+        "comment": null
+      },
+      {
+        "address": "004cd50c",
+        "bytes": "83c40c",
+        "instruction": "ADD ESP,0xc",
+        "comment": null
+      },
+      {
+        "address": "004cd50f",
+        "bytes": "c3",
+        "instruction": "RET",
+        "comment": null
+      }
+    ],
+    "offset": 0,
+    "limit": 50,
+    "total": 17,
+    "has_more": false
+  },
+  "native_ground_flag_excerpt": [
+    {
+      "address": "004310be",
+      "bytes": "f6871c7db60040",
+      "instruction": "TEST byte ptr [EDI + 0xb67d1c],0x40",
+      "comment": null
+    }
+  ],
+  "origin_correction_evidence": "evidence/minimap-origin-native-20261127.json",
+  "limits": [
+    "Diagnostic start deliberately chooses mission0 in memory, then calls the actual bound load and Continue; it is not a full menu/video traversal",
+    "The scene factory rejects other missions, custom maps, active initial buildings and monuments",
+    "Full city menu/button/construction dispatch and simulation/day clocks remain unbound",
+    "Historical controlled-endpoint renderer evidence does not establish all live drawing/gameplay behavior",
+    "No OS computer-control automation, generated register model, callback into original IL, or placeholder callback introduced"
+  ]
+}

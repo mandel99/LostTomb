@@ -1,3 +1,4 @@
+#include "pharaoh/platform/windows_mission_runtime.h"
 #include "pharaoh/platform/windows_startup_dispatch.h"
 #include "pharaoh/platform/windows_city_ui.h"
 #include "pharaoh/ui/campaign_menu.h"
@@ -613,10 +614,12 @@ static void campaign_menu_begin_briefing(void *user_data)
     const PharaohCampaignBriefingContext context = {
         &dispatch->host->campaign_index,
         &dispatch->host->settings,
-        dispatch->menu_campaign_mode_e38ebc,
+        (uint32_t)dispatch->host->settings.is_custom_scenario,
         transition,
         &dispatch->briefing
     };
+    pharaoh_windows_mission_runtime_destroy(dispatch->mission_runtime);
+    dispatch->mission_runtime = NULL;
     pharaoh_campaign_begin_briefing(&context);
     dispatch->host->current_window_id = dispatch->refresh.current_window_id;
 }
@@ -637,7 +640,7 @@ static PharaohCampaignMenuState campaign_menu_state(
         &dispatch->campaign_started,
         &dispatch->host->settings.mission_id,
         &dispatch->campaign_selection_kind,
-        &dispatch->menu_campaign_mode_e38ebc
+        (uint32_t *)(void *)&dispatch->host->settings.is_custom_scenario
     };
     return state;
 }
@@ -685,7 +688,7 @@ static void dispatch_main_menu_action(
     state.main_menu_field_7027ac = &dispatch->menu_field_7027ac;
     state.main_menu_field_7027b0 = &dispatch->menu_field_7027b0;
     state.campaign_mode_6fdc98 = &dispatch->menu_campaign_mode_6fdc98;
-    state.campaign_mode_e38ebc = &dispatch->menu_campaign_mode_e38ebc;
+    state.campaign_mode_e38ebc = (uint32_t *)(void *)&dispatch->host->settings.is_custom_scenario;
     state.map_mode_704dac = &dispatch->menu_map_mode_704dac;
     state.map_changed_704db0 = &dispatch->menu_map_changed_704db0;
     state.load_dialog_return_window = &dispatch->menu_load_return_window;
@@ -826,6 +829,8 @@ void pharaoh_windows_startup_dispatch_close(
         pharaoh_smacker_window_video_stop(dispatch->transition.video,
             &dispatch->movie_stop);
     }
+    pharaoh_windows_mission_runtime_destroy(dispatch->mission_runtime);
+    dispatch->mission_runtime = NULL;
     pharaoh_windows_city_ui_release(dispatch->host);
     pharaoh_file_list_destroy(&dispatch->player_profile_files);
     pharaoh_file_list_destroy(&dispatch->saved_game_files);
@@ -951,8 +956,47 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
     PharaohSmackerWindowVideoState *const video = dispatch->transition.video;
     const uint8_t previous_window = dispatch->refresh.current_window_id;
     const int32_t previous_video_target = video->return_window_id;
+    if (dispatch->refresh.current_window_id == 1 &&
+        dispatch->mission_runtime != NULL) {
+        if(pharaoh_windows_mission_runtime_game_frame(dispatch->mission_runtime,
+            dispatch->input.mouse_x,dispatch->input.mouse_y,
+            dispatch->left_press_active,(uint8_t)(dispatch->mouse_button_state==0xf3))!=0) {
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations,0);
+        }
+        dispatch->host->current_window_id = 1;
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        return;
+    }
     /* Window-zero drawing and hover; the full menu action chain remains a
        separate owner and is not replaced with invented campaign behavior. */
+    if (dispatch->refresh.current_window_id == 0x35) {
+        if (dispatch->mission_runtime == NULL) {
+            dispatch->mission_runtime = pharaoh_windows_mission_runtime_create(
+                dispatch->host, &dispatch->briefing,
+                &dispatch->refresh.current_window_id);
+        }
+        if (dispatch->mission_runtime != NULL) {
+            pharaoh_windows_mission_runtime_briefing(dispatch->mission_runtime,
+                dispatch->input.mouse_x, dispatch->input.mouse_y,
+                dispatch->left_press_window == 0x35 ? dispatch->left_pressed_this_frame : 0,
+                dispatch->mouse_button_state == 0xf3,
+                dispatch->left_press_active);
+        }
+        dispatch->host->current_window_id = dispatch->refresh.current_window_id;
+        dispatch->left_pressed_this_frame = 0;
+        dispatch->input.mouse_left_went_up = 0;
+        dispatch->input.mouse_right_went_up = 0;
+        dispatch->input.video_input_flag_a = 0;
+        dispatch->input.video_input_flag_b = 0;
+        if (dispatch->refresh.current_window_id == 0x35) {
+            pharaoh_graphics_refresh_screen(&dispatch->refresh,
+                &dispatch->refresh_operations, 0);
+        }
+        return;
+    }
     if (dispatch->refresh.current_window_id == 0) {
         pharaoh_windows_sound_menu_music(&dispatch->host->sound,
             dispatch->host->settings.sound_music_enabled,

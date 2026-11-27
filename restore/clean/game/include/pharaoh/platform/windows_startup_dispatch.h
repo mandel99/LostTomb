@@ -56,6 +56,7 @@ typedef struct PharaohWindowsStartupDispatch {
     uint32_t campaign_started;
     uint8_t campaign_selection_kind;
     PharaohBriefingState briefing;
+    struct PharaohWindowsMissionRuntime *mission_runtime;
     uint8_t timed_transition_next_window;
     int32_t menu_focused_button;
     int32_t main_menu_focused_button;

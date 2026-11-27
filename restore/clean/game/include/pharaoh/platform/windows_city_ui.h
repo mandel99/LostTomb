@@ -21,4 +21,6 @@ int32_t pharaoh_windows_city_ui_begin_frame(struct PharaohWindowsStartupHost *,
     const uint8_t *window_id,const int32_t *image_group_first);
 void pharaoh_windows_city_ui_draw_foreground(struct PharaohWindowsStartupHost *);
 void pharaoh_windows_city_ui_release(struct PharaohWindowsStartupHost *);
+int32_t pharaoh_windows_city_ui_navigation(struct PharaohWindowsStartupHost *,
+    int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down);
 #endif

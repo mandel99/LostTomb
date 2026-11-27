@@ -12,6 +12,7 @@
 #include "pharaoh/ui/panel_frame.h"
 #include "pharaoh/ui/menu_button_frame.h"
 #include "pharaoh/ui/load_save_dialog.h"
+#include "pharaoh/ui/campaign_menu.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -542,22 +543,26 @@ static void draw_sprite_pixels(void *user_data, uint32_t image_id,
         source = external_pixels;
     }
 
-    if (destination_x < 0) {
-        source_x = -destination_x;
-        destination_x = 0;
+    const int32_t clip_left = host->sprite_clip_enabled ? host->sprite_clip_left : 0;
+    const int32_t clip_top = host->sprite_clip_enabled ? host->sprite_clip_top : 0;
+    const int32_t clip_right = host->sprite_clip_enabled ?
+        host->sprite_clip_right : host->graphics.render_width;
+    const int32_t clip_bottom = host->sprite_clip_enabled ?
+        host->sprite_clip_bottom : host->graphics.render_height;
+    if (destination_x < clip_left) {
+        source_x = clip_left - destination_x;
+        destination_x = clip_left;
     }
-    if (destination_y < 0) {
-        source_y = -destination_y;
-        destination_y = 0;
+    if (destination_y < clip_top) {
+        source_y = clip_top - destination_y;
+        destination_y = clip_top;
     }
     copy_width = image->width - source_x;
     copy_height = image->height - source_y;
-    if (copy_width > host->graphics.render_width - destination_x) {
-        copy_width = host->graphics.render_width - destination_x;
-    }
-    if (copy_height > host->graphics.render_height - destination_y) {
-        copy_height = host->graphics.render_height - destination_y;
-    }
+    if (copy_width > clip_right - destination_x)
+        copy_width = clip_right - destination_x;
+    if (copy_height > clip_bottom - destination_y)
+        copy_height = clip_bottom - destination_y;
     if (copy_width <= 0 || copy_height <= 0) {
         host->sprite_memory_operations.release(host, external_pixels);
         return;
@@ -886,6 +891,7 @@ static void high_score_draw_wrapped_text(void *user_data, const char *text,
     bitmap_font.baseline = font == 634 ? 9 : font == 640 ? 23 :
         font == 641 ? 24 : 11;
     bitmap_font.user_data = host;
+    bitmap_font.current_glyph = &host->bitmap_current_glyph;
     bitmap_font.draw_glyph = draw_font_glyph;
     if (bitmap_font.first_image != 0) {
         pharaoh_bitmap_text_draw_wrapped(&bitmap_font,
@@ -1737,6 +1743,7 @@ static int32_t message_box_measure_text(void *user_data, const char *text,
     bitmap_font.draw_gap = is_small_font ? 1 : 0;
     bitmap_font.baseline = is_small_font ? 9 : font == 640 ? 23 : font == 641 ? 24 : 11;
     bitmap_font.user_data = host;
+    bitmap_font.current_glyph = &host->bitmap_current_glyph;
     bitmap_font.draw_glyph = draw_font_glyph;
     return bitmap_font.first_image == 0 ? 0 :
         pharaoh_bitmap_text_width(&bitmap_font, (const uint8_t *)text);
@@ -1781,6 +1788,7 @@ static void message_box_draw_centered_text(void *user_data, const char *text,
     bitmap_font.draw_gap = is_small_font ? 1 : 0;
     bitmap_font.baseline = is_small_font ? 9 : font == 640 ? 23 : font == 641 ? 24 : 11;
     bitmap_font.user_data = host;
+    bitmap_font.current_glyph = &host->bitmap_current_glyph;
     bitmap_font.draw_glyph = draw_font_glyph;
     if (bitmap_font.first_image != 0) {
         pharaoh_bitmap_text_draw_centered(&bitmap_font,
@@ -2025,12 +2033,34 @@ int32_t pharaoh_windows_startup_host_begin_game_frame(
     description.dwSize = sizeof(description);
     if (surface->lpVtbl->Lock(surface, NULL, &description,
             DDLOCK_WAIT, NULL) != DD_OK) return 0;
-    if (description.ddpfPixelFormat.dwRGBBitCount != 16) {
-        (void)surface->lpVtbl->Unlock(surface, NULL);
-        return 0;
+    const uint32_t bits=description.ddpfPixelFormat.dwRGBBitCount;
+    host->game_frame_destination_bits=bits;
+    if(bits!=16 && (bits!=32 ||
+        description.ddpfPixelFormat.dwRBitMask!=0x00ff0000u ||
+        description.ddpfPixelFormat.dwGBitMask!=0x0000ff00u ||
+        description.ddpfPixelFormat.dwBBitMask!=0x000000ffu)) {
+        (void)surface->lpVtbl->Unlock(surface,NULL);return 0;
     }
-    host->game_frame_pixels = description.lpSurface;
-    host->game_frame_pitch_bytes = description.lPitch;
+    host->game_frame_destination_pixels=description.lpSurface;
+    host->game_frame_destination_pitch_bytes=description.lPitch;
+    if(bits==32) {
+        /* The native rasterizers consume 16-bit pixels. Use the same 555/565
+         * to desktop XRGB conversion as the menu sprite adapter. */
+        const size_t bytes=(size_t)host->graphics.render_width*
+            (size_t)host->graphics.render_height*2u;
+        if(host->game_frame_staging_capacity<bytes) {
+            uint8_t *const staging=calloc(1,bytes);
+            if(staging==NULL) {(void)surface->lpVtbl->Unlock(surface,NULL);return 0;}
+            free(host->game_frame_staging_pixels);
+            host->game_frame_staging_pixels=staging;
+            host->game_frame_staging_capacity=bytes;
+        }
+        host->game_frame_pixels=host->game_frame_staging_pixels;
+        host->game_frame_pitch_bytes=host->graphics.render_width*2;
+    } else {
+        host->game_frame_pixels=description.lpSurface;
+        host->game_frame_pitch_bytes=description.lPitch;
+    }
     host->game_frame_locked = 1;
     *pixels = host->game_frame_pixels;
     *pitch_bytes = host->game_frame_pitch_bytes;
@@ -2041,6 +2071,24 @@ void pharaoh_windows_startup_host_end_game_frame(
     PharaohWindowsStartupHost *host)
 {
     if (host == NULL || host->game_frame_locked == 0) return;
+    if(host->game_frame_destination_bits==32) {
+        const int32_t rgb565=host->sprite_pixels.pixel_mode==PHARAOH_SPRITE_PIXEL_MODE_RGB565;
+        for(int32_t y=0;y<host->graphics.render_height;++y) {
+            const uint8_t *const source=host->game_frame_pixels+y*host->game_frame_pitch_bytes;
+            uint8_t *const destination=host->game_frame_destination_pixels+y*host->game_frame_destination_pitch_bytes;
+            for(int32_t x=0;x<host->graphics.render_width;++x) {
+                uint16_t pixel;memcpy(&pixel,source+(size_t)x*2u,2);
+                const uint32_t red=(pixel>>(rgb565?11:10))&31u;
+                const uint32_t green=(pixel>>5)&(rgb565?63u:31u);
+                const uint32_t blue=pixel&31u;
+                const uint32_t red8=(red<<3)|(red>>2);
+                const uint32_t green8=rgb565?(green<<2)|(green>>4):(green<<3)|(green>>2);
+                const uint32_t blue8=(blue<<3)|(blue>>2);
+                const uint32_t output=(red8<<16)|(green8<<8)|blue8;
+                memcpy(destination+(size_t)x*4u,&output,4);
+            }
+        }
+    }
     (void)((LPDIRECTDRAWSURFACE)host->graphics.back_buffer_surface)->lpVtbl->Unlock(
         host->graphics.back_buffer_surface, NULL);
     host->game_frame_locked = 0;
@@ -2560,4 +2608,146 @@ int32_t pharaoh_windows_startup_host_play_intro(
     const int32_t x = (host->graphics.screen_width - 0x1e0) / 2;
     const int32_t y = (host->graphics.screen_height - 0x11e) / 2;
     return play_movie(host, filename, x, y, 1);
+}
+
+static PharaohWindowsStartupHost *briefing_host(void *data)
+{return ((PharaohWindowsBriefingRenderer *)data)->host;}
+
+static int32_t briefing_message_id(void *data)
+{
+    const PharaohWindowsBriefingRenderer *const r=data;
+    return pharaoh_campaign_briefing_message_id(&r->host->campaign_index,
+        &r->host->settings,*r->campaign_mode);
+}
+static const PharaohBriefingMessage *briefing_message(void *data,int32_t id)
+{
+    PharaohWindowsBriefingRenderer *const r=data;
+    const PharaohTextMediaMessage text=pharaoh_text_media_message(&r->host->text_catalog,id);
+    r->message=(PharaohBriefingMessage){text.title,text.subtitle,text.body};
+    return &r->message;
+}
+static uint8_t briefing_has_choices(void *data)
+{
+    const PharaohWindowsStartupHost *const host=briefing_host(data);
+    return pharaoh_campaign_has_choices(&host->campaign_index,host->settings.campaign_link);
+}
+static void briefing_background(void *data,int32_t group,int32_t offset,int32_t x,int32_t y)
+{draw_sprite_pixels(briefing_host(data),menu_group_image(briefing_host(data),(uint32_t)group)+(uint32_t)offset,x,y,0);}
+static void briefing_panel(void *data,int32_t x,int32_t y,int32_t w,int32_t h)
+{high_score_draw_panel(briefing_host(data),x,y,w,h);}
+static void briefing_inner_panel(void *data,int32_t x,int32_t y,int32_t w,int32_t h)
+{high_score_draw_inner_panel(briefing_host(data),x,y,w,h);}
+static void briefing_label(void *data,int32_t style,int32_t x,int32_t y,
+    int32_t width,int32_t immediate,int32_t variant)
+{
+    PharaohWindowsBriefingRenderer *const r=data;
+    int32_t animations[7]={0};
+    animations[6]=immediate?100:r->state->label_progress;
+    PharaohLabelRenderer labels={.block_size=16,.opening_animation=5,
+        .growing_animation=15,.blocks_offset=13,.pieces_per_style=3,
+        .panel_button_images=(int32_t)menu_group_image(r->host,284),
+        .animations=animations,.draw_image=draw_menu_image,.user_data=r->host};
+    pharaoh_label_draw_animated(&labels,style,x,y,width,immediate,variant);
+}
+static PharaohBitmapFont briefing_font(PharaohWindowsStartupHost *host,int32_t group)
+{
+    return (PharaohBitmapFont){.images=host->sprite_images,
+        .first_image=menu_group_image(host,(uint32_t)group),
+        .image_count=host->loaded_libraries->next_image,
+        .measure_space=group==634?4:group>=640?10:6,
+        .draw_space=group==634?4:group>=640?8:6,
+        .measure_gap=group==634||group>=640?1:0,
+        .draw_gap=group==634?1:0,
+        .baseline=group==634?9:group==640?23:group==641?24:11,
+        .user_data=host,.current_glyph=&host->bitmap_current_glyph,
+        .draw_glyph=draw_font_glyph};
+}
+static int32_t briefing_language(void *data,int32_t group,int32_t entry,
+    int32_t x,int32_t y,int32_t font,int32_t color)
+{
+    PharaohWindowsStartupHost *const host=briefing_host(data);
+    pharaoh_text_select(&host->text_selection,group,entry);
+    const PharaohBitmapFont f=briefing_font(host,font);
+    pharaoh_bitmap_text_draw_at(&f,(const uint8_t *)host->text_selection.current,x,y,(uint16_t)color);
+    /* Native004CCBB0 uses004CC770's drawing cursor, including the
+       terminator's space; the measurement-only width is a different result. */
+    return x+pharaoh_bitmap_text_draw_advance(&f,
+        (const uint8_t *)host->text_selection.current)+f.draw_space;
+}
+static int32_t briefing_number(void *data,int32_t value,int32_t prefix,
+    int32_t x,int32_t y,int32_t font,int32_t color)
+{return high_score_draw_number_end(briefing_host(data),value,prefix,x,y,font,color);}
+static void briefing_text(void *data,const char *text,int32_t x,int32_t y,int32_t font,int32_t color)
+{high_score_draw_text(briefing_host(data),text,x,y,font,color);}
+static const char *briefing_tutorial_hint(void *data)
+{
+    const PharaohWindowsBriefingRenderer *const r=data;
+    return r->hint!=NULL && pharaoh_briefing_select_tutorial_hint(r->hint)?r->hint->selection->current:NULL;
+}
+static int32_t briefing_draw_rich_text(void *data,const char *text,int32_t x,int32_t y,
+    int32_t width,int32_t calculate,int32_t flags,int32_t scroll,int32_t lines,
+    const PharaohBriefingState *layout)
+{
+    PharaohWindowsBriefingRenderer *const r=data;
+    PharaohWindowsStartupHost *const host=r->host;
+    PharaohRichTextState *const rich=&r->text;
+    rich->images=host->sprite_images;
+    rich->image_count=host->loaded_libraries->next_image;
+    rich->normal_font=menu_group_image(host,(uint32_t)layout->normal_font);
+    rich->link_font=menu_group_image(host,(uint32_t)layout->link_font);
+    /* The native special-font comparison is F56F84 (group634), despite
+       this legacy context field's large_font name. Inline baseF55C04=group10. */
+    rich->large_font=menu_group_image(host,634);
+    rich->inline_image_first=menu_group_image(host,10);
+    rich->text_width_blocks=layout->text_width_blocks;
+    rich->scroll_position=scroll;rich->viewport_lines=lines;
+    rich->decimal_tail=r->decimal_tail;
+    rich->color=0;
+    rich->color_variant=host->sprite_pixels.pixel_mode==PHARAOH_SPRITE_PIXEL_MODE_RGB565?2:1;
+    const PharaohRichTextOperations draw={host,draw_loading_sprite,draw_font_glyph};
+    const uint8_t previous_clip=host->sprite_clip_enabled;
+    const int32_t previous[4]={host->sprite_clip_left,host->sprite_clip_top,
+        host->sprite_clip_right,host->sprite_clip_bottom};
+    if(calculate==0) {
+        host->sprite_clip_left=layout->clip_x_min;host->sprite_clip_top=layout->clip_y_min;
+        host->sprite_clip_right=layout->clip_x_max;host->sprite_clip_bottom=layout->clip_y_max;
+        host->sprite_clip_enabled=1;
+    }
+    pharaoh_rich_text_draw(rich,&draw,(const uint8_t *)text,x,y,width,calculate,flags);
+    host->sprite_clip_enabled=previous_clip;
+    host->sprite_clip_left=previous[0];host->sprite_clip_top=previous[1];
+    host->sprite_clip_right=previous[2];host->sprite_clip_bottom=previous[3];
+    return rich->line_count;
+}
+void pharaoh_windows_startup_host_bind_briefing_renderer(
+    PharaohWindowsBriefingRenderer *r,PharaohWindowsStartupHost *host,
+    PharaohBriefingState *state,const uint32_t *campaign_mode,
+    const PharaohBriefingHintContext *hint,const uint8_t *decimal_tail,
+    PharaohBriefingOperations *ops)
+{
+    memset(r,0,sizeof(*r));r->host=host;r->state=state;
+    r->campaign_mode=campaign_mode;r->hint=hint;r->decimal_tail=decimal_tail;
+    ops->user_data=r;ops->get_message_id=briefing_message_id;
+    ops->message_at=briefing_message;ops->campaign_has_choices=briefing_has_choices;
+    ops->draw_background=briefing_background;ops->draw_panel=briefing_panel;
+    ops->draw_inner_panel=briefing_inner_panel;ops->draw_label_frame=briefing_label;
+    ops->draw_language=briefing_language;ops->draw_number=briefing_number;
+    ops->draw_text=briefing_text;ops->draw_rich_text=briefing_draw_rich_text;
+    ops->tutorial_hint=briefing_tutorial_hint;
+}
+
+static void draw_button_sprite(void *data,int32_t image,int32_t x,int32_t y)
+{draw_sprite_pixels(data,(uint32_t)image,x,y,0);}
+
+void pharaoh_windows_startup_host_draw_image_buttons(
+    PharaohWindowsStartupHost *host,int32_t x,int32_t y,
+    PharaohImageButtonRecord *buttons,int32_t count)
+{
+    int32_t draw_x,draw_y,image;
+    uint8_t ui_redraw=1;
+    PharaohImageButtonDrawState state={
+        (const int32_t *)(const void *)&host->sprite_tags[0].image_index,
+        &draw_x,&draw_y,&image,&ui_redraw,&host->graphics.redraw_requested,
+        host->native_force_refresh,draw_button_sprite,host};
+    pharaoh_image_buttons_draw(x,y,buttons,count,&state);
 }

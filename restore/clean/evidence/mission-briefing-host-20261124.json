@@ -1,0 +1,21 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "status": "worktree integration; not a completed menu-to-game checkpoint",
+  "owners": ["game/scenario/mission_scene.c", "game/scenario/mission_scene_program.c", "game/platform/windows_mission_runtime.c", "game/ui/image_button_input.c"],
+  "native_evidence": ["briefing-menu-entry-20261122.json", "menu-mission-entry-20261123.json", "ghidra-typed-pseudocode-20261116-after-java-types.c"],
+  "route": "campaign video -> timed window35 -> full181-chunk reader ->45 initialization providers -> briefing render/input -> native00418220 accept",
+  "diagnostic": {
+    "harness": "build/mission-scene-runtime/main.c",
+    "scope": "actual Nubt package, models and SG3 loading; controlled platform clocks/files; no host launch",
+    "result": "status3;210 reads;302705 bytes;geometry84,84,16488,144;player1;active buildings0;errors0;SG3warnings0;models4",
+    "release": "scene848/848 allocations/frees;reader5/5;zero live allocations",
+    "harness_correction": "model text_length receives a filename and returns file size, not filename strlen",
+    "build": "Win32 Release pharaoh_clean_bootstrap passed with /W4 /WX"
+  },
+  "limits": [
+    "Only mission0 with no active buildings or monument goals is admitted by the current owned scene factory.",
+    "Host state01 map and game UI rendering remain unattached. Accept must not be reported as a working game entry.",
+    "New image-button input reuse is compilation-qualified; complete native/C replay and Ghidra completion annotation remain pending.",
+    "No visual comparison or whole-game equivalence claim. No deployment or verified Git checkpoint for this incomplete integration."
+  ]
+}

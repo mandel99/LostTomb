@@ -24,6 +24,10 @@
 #include "pharaoh/ui/custom_map_selection.h"
 #include "pharaoh/platform/windows_startup_files.h"
 #include "pharaoh/platform/windows_sound.h"
+#include "pharaoh/ui/briefing.h"
+#include "pharaoh/ui/generic_button_focus.h"
+#include "pharaoh/ui/briefing_hint.h"
+#include "pharaoh/ui/rich_text.h"
 #include "pharaoh/runtime/text_input_state.h"
 
 enum { PHARAOH_WINDOWS_DEFAULT_NAME_CAPACITY = 4096 };
@@ -96,6 +100,8 @@ typedef struct PharaohWindowsStartupHost {
     PharaohGraphicsWindowRect video_screen_bounds;
     PharaohVideoRuntimeState video_runtime;
     uint32_t video_transition_active;
+    int32_t sprite_clip_left, sprite_clip_top, sprite_clip_right, sprite_clip_bottom;
+    uint8_t sprite_clip_enabled;
     uint8_t shutdown_requested;
     uint8_t startup_video_started;
     uint8_t current_window_id;
@@ -103,10 +109,15 @@ typedef struct PharaohWindowsStartupHost {
     uint8_t game_frame_locked;
     uint8_t *game_frame_pixels;
     int32_t game_frame_pitch_bytes;
+    uint8_t *game_frame_staging_pixels;
+    size_t game_frame_staging_capacity;
+    uint8_t *game_frame_destination_pixels;
+    int32_t game_frame_destination_pitch_bytes;
+    uint32_t game_frame_destination_bits;
     struct PharaohImageDrawContext *game_image_draw;
     struct PharaohWindowsCityUi *city_ui;
     uint8_t *native_force_refresh; /* borrowed dispatch.refresh.force_refresh, E38DC8 */
-    uint32_t city_scroll_requested; /* E38DCC; scrolling producer still unbound */
+    uint32_t city_scroll_requested; /* E38DCC; camera scroll request */
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];
     PharaohSettingsFile settings;
@@ -129,6 +140,28 @@ typedef struct PharaohWindowsStartupHost {
     uint8_t startup_finalization_flag;
     uint8_t detected_drive_letter;
 } PharaohWindowsStartupHost;
+
+typedef struct PharaohWindowsBriefingRenderer {
+    PharaohWindowsStartupHost *host;
+    PharaohBriefingState *state;
+    const uint32_t *campaign_mode;
+    const PharaohBriefingHintContext *hint;
+    const uint8_t *decimal_tail;
+    PharaohBriefingMessage message;
+    PharaohRichTextState text;
+} PharaohWindowsBriefingRenderer;
+
+/* Drawing endpoints only. Bind the real mission-entry load callback separately
+ * before the first draw; renderer/contexts and text allocations remain live. */
+void pharaoh_windows_startup_host_draw_image_buttons(
+    PharaohWindowsStartupHost *host,int32_t x,int32_t y,
+    PharaohImageButtonRecord *buttons,int32_t count);
+
+void pharaoh_windows_startup_host_bind_briefing_renderer(
+    PharaohWindowsBriefingRenderer *renderer,PharaohWindowsStartupHost *host,
+    PharaohBriefingState *state,const uint32_t *campaign_mode,
+    const PharaohBriefingHintContext *hint,const uint8_t *decimal_tail,
+    PharaohBriefingOperations *operations);
 
 /* Binds real Win32/CRT adapters to the native settings and text startup. */
 PharaohApplicationConfigurationResult pharaoh_windows_startup_host_load(

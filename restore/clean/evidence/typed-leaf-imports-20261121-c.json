@@ -1,0 +1,27 @@
+{
+  "schema": "losttomb.typed-leaf-imports.v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "verification": "Live Ghidra decompilation/disassembly against the pinned executable; old C was accepted only where its body matched native behavior and contained no Restore/Original bridge.",
+  "functions": [
+    {"address":"0x0041BA00","owner":"pharaoh_campaign_menu_period_valid","fact":"signed period range 0..8"},
+    {"address":"0x0041BAD0","owner":"pharaoh_campaign_menu_period_lock_mask","fact":"returns input masked with 0xffffff00"},
+    {"address":"0x0041BB30","owner":"pharaoh_campaign_menu_image_button_count","fact":"mode-dependent count 0, 1, or 2"},
+    {"address":"0x0041C6D0","owner":"pharaoh_file_list_initialize","fact":"28-byte file-list initialization and base vtable"},
+    {"address":"0x0041C710","owner":"pharaoh_file_list_destroy","fact":"frees string and offset storage"},
+    {"address":"0x0041E0A0","owner":"pharaoh_mission_file_list_initialize","fact":"base initialization followed by mission-list vtable"},
+    {"address":"0x0044C960","owner":"pharaoh_scenario_value_choice_count","fact":"choice count from signed fixed/min/max words"},
+    {"address":"0x0045B490","owner":"pharaoh_storage_image_level","fact":"amount thresholds 200, 300, and exact 400"},
+    {"address":"0x0045BB30","owner":"pharaoh_storage_count_wanted","fact":"full EAX count of two nonzero inputs"},
+    {"address":"0x00462140","owner":"pharaoh_walker_count_assigned_to_building","fact":"walker IDs 1..1999, state/type/building filters"},
+    {"address":"0x004890F0","owner":"pharaoh_farm_has_water_access","fact":"building byte 0x35 predicate"},
+    {"address":"0x00492360","owner":"pharaoh_caravan_leader_of_donkey","fact":"leader chain for walker types 0x13 and 0x15"},
+    {"address":"0x004B7920","owner":"pharaoh_legion_decrease_walker_damage","fact":"damage decay for active walker types 11..13 in action 8"},
+    {"address":"0x00502780","owner":"pharaoh_storage_orders_visible_rows","fact":"display modes map to 15, 21, 24, default 10"},
+    {"address":"0x0040FA40","owner":"pharaoh_graphics_set_pixel_raw","fact":"direct RGB565 pixel assignment"},
+    {"address":"0x0040FA70","owner":"pharaoh_graphics_and_pixel_raw","fact":"direct RGB565 pixel AND"},
+    {"address":"0x0040FAE0","owner":"pharaoh_graphics_or_pixel_raw","fact":"direct RGB565 pixel OR"},
+    {"address":"0x0040FBE0","owner":"pharaoh_graphics_copy_pixel_pair_raw","fact":"unaligned-safe four-byte copy from caller storage"},
+    {"address":"0x0040FC10","owner":"pharaoh_graphics_set_pixel_pair_raw","fact":"unaligned-safe four-byte immediate pixel-pair store"},
+    {"address":"0x00410F70","owner":"pharaoh_graphics_blit_l_pixel_raw","fact":"two horizontal RGB565 pixels plus lower-row copy of the second"}
+  ]
+}

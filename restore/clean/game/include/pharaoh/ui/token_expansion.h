@@ -28,4 +28,8 @@ int32_t pharaoh_token_expand(
     const PharaohTokenExpansionOperations *operations,
     const char *source, char *destination, int32_t capacity);
 
+void pharaoh_event_text_expand(
+    const PharaohTokenExpansionEntry *entries,
+    const PharaohTokenExpansionOperations *operations,
+    const char *source, char *destination, int32_t capacity);
 #endif

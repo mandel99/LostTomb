@@ -320,3 +320,15 @@ int32_t name(int32_t type) { switch (type) { cases return 1; default: return 0; 
 TYPE_IN_CASES(pharaoh_building_type_is_0046fde0_group,
     case 5: case 8: case 9: case 0x5a: case 100: case 101: case 102:
     case 103: case 104: case 105: case 196: case 224:)
+
+int32_t pharaoh_building_main_part_id(
+    const PharaohBuildingTypeRecord *buildings, int32_t id)
+{
+    return pharaoh_building_follow_link(buildings, id);
+}
+
+bool pharaoh_farm_has_water_access(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    return buildings[building_id].farm_water_access != 0u;
+}

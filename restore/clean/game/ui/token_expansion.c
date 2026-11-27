@@ -47,3 +47,13 @@ int32_t pharaoh_token_expand(
         ++source_index;
     }
 }
+
+void pharaoh_event_text_expand(
+    const PharaohTokenExpansionEntry *entries,
+    const PharaohTokenExpansionOperations *operations,
+    const char *source, char *destination, int32_t capacity)
+{
+    destination[0] = '\0';
+    (void)pharaoh_token_expand(
+        entries, operations, source, destination, capacity);
+}

@@ -29,4 +29,6 @@ uint32_t pharaoh_region_has_active_occupant(PharaohOccupancyState *state,
 uint32_t pharaoh_building_has_active_occupant(PharaohOccupancyState *state,
     int32_t building);
 
+uint32_t pharaoh_building_region_has_terrain_4(
+    PharaohOccupancyState *state, int32_t building);
 #endif

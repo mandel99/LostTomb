@@ -193,3 +193,15 @@ void pharaoh_editor_event_delete_selected(PharaohEditorEventList *list)
 {
     (void)pharaoh_editor_event_erase(list, list->selected);
 }
+
+void pharaoh_editor_event_reset_invasion_data(PharaohScenarioEvent *event)
+{
+    write_i16(event, 0x3a, 0);
+    write_i16(event, 0x3c, 0);
+    write_i16(event, 0x3e, 0);
+    write_i16(event, 0x40, 0);
+    write_i16(event, 0x42, 0);
+    write_i16(event, 0x44, 0);
+    write_i16(event, 0x46, 0);
+    write_i16(event, 0x4a, 0);
+}

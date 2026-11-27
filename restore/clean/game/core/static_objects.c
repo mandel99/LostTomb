@@ -276,3 +276,8 @@ int32_t pharaoh_native_metric_select_004d5ef0(
     default: return 10;
     }
 }
+
+void pharaoh_native_flag_zero_004e7e10(uint32_t *flag)
+{
+    *flag = 0;
+}

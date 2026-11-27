@@ -36,4 +36,5 @@ void pharaoh_editor_event_select_visible(PharaohEditorEventList *list);
 void pharaoh_editor_event_create(PharaohEditorEventList *list);
 void pharaoh_editor_event_delete_selected(PharaohEditorEventList *list);
 
+void pharaoh_editor_event_reset_invasion_data(PharaohScenarioEvent *event);
 #endif

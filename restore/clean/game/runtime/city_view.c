@@ -540,3 +540,10 @@ void pharaoh_minimap_calculate_projection_origin(
     *origin_x = chosen_x;
     *origin_y = (int32_t)((uint32_t)chosen_y & 0x0000fffeu);
 }
+
+int32_t pharaoh_city_view_get_viewport_width_pixels(
+    const PharaohCityViewState *state)
+{
+    return (state->viewport.tile_double_width + 2) *
+        state->viewport.width_tiles;
+}

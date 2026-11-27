@@ -356,3 +356,9 @@ void pharaoh_graphics_and_rect(PharaohGraphicsPrimitives *c, int32_t x,
         }
     }
 }
+
+void pharaoh_graphics_set_pixel_raw(PharaohGraphicsPrimitives *c,
+    int32_t x, int32_t y, uint16_t color)
+{
+    *raw_pixel(c, x, y) = color;
+}

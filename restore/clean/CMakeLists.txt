@@ -307,6 +307,9 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_continue.c
     game/scenario/campaign_records.c
     game/scenario/campaign_mission_load.c
+    game/map/house_water.c
+    game/scenario/mission_scene.c
+    game/scenario/mission_scene_program.c
     game/scenario/scenario_start_mission.c
     game/scenario/request_travel.c
     game/scenario/map_file_exists.c
@@ -474,6 +477,7 @@ if(WIN32)
         game/platform/windows_startup.c
         game/platform/windows_startup_files.c
         game/platform/windows_startup_host.c
+        game/platform/windows_mission_runtime.c
         game/platform/windows_city_ui.c
         game/platform/windows_startup_dispatch.c
         game/platform/windows_sound.c

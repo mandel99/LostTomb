@@ -6,6 +6,15 @@
 #include <stdint.h>
 #include "pharaoh/building/type_queries.h"
 
+typedef struct PharaohMonumentCoordinateTables {
+    const int32_t *style_one_heights;
+    const int32_t *regular_orientations;
+    const int32_t *style_five_orientations;
+    const int32_t *regular_offsets;
+    const int32_t *style_three_offsets;
+    const int32_t *main_part_offsets;
+} PharaohMonumentCoordinateTables;
+
 typedef struct PharaohMonumentBuilding {
     int32_t x;
     int32_t y;
@@ -150,4 +159,14 @@ uint8_t pharaoh_monument_object_has_incomplete(
     int32_t building_type, int32_t building_count,
     PharaohMonumentExistingProgress progress);
 
+void pharaoh_monument_part_coordinates(
+    const PharaohBuildingTypeRecord *building, int32_t step,
+    int32_t pyramid_style, int32_t tile_pixel_width,
+    int32_t tile_pixel_height, int32_t view_orientation,
+    const PharaohMonumentCoordinateTables *tables, int32_t *x, int32_t *y);
+int32_t pharaoh_library_spot_table_variant(int32_t animation_counter);
+void pharaoh_library_spot_table_set_variant(int32_t building_variant,
+    int32_t *active_variant, uint32_t destination[888],
+    const uint32_t standard_source[888],
+    const uint32_t alternate_source[888]);
 #endif

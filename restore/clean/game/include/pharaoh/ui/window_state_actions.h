@@ -28,4 +28,7 @@ void pharaoh_city_ratings_store_culture_lowest(
 void pharaoh_game_undo_finish_build(uint32_t placement_cursor,
     uint32_t *undo_cursor, int32_t *undo_ticks,
     int32_t *undo_ready, uint8_t *redraw_requested);
+void pharaoh_build_sidebar_hover_update(int32_t mouse_x, int32_t mouse_y,
+    int32_t left, int32_t top, int32_t right, int32_t bottom,
+    int32_t *hovered);
 #endif

@@ -1,4 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
+#include "pharaoh/platform/windows_mission_runtime.h"
+#include <stdio.h>
 #include <windows.h>
 #include "pharaoh/platform/windows_startup_host.h"
 #include "pharaoh/platform/windows_startup_dispatch.h"
@@ -18,6 +20,8 @@ static int32_t message_loop_active = 1;
 static int32_t paused;
 static int32_t diagnostic_capture_countdown;
 static char diagnostic_capture_path[MAX_PATH];
+static int32_t diagnostic_game_navigation;
+static int32_t diagnostic_game_frames;
 
 static void *set_game_cursor(void *context, void *cursor)
 {
@@ -35,11 +39,35 @@ static void report_paused(void *user_data)
 static void dispatch_boot_frame(void *user_data)
 {
     PharaohWindowsStartupDispatch *const dispatch = user_data;
+    if(diagnostic_game_navigation!=0&&dispatch->refresh.current_window_id==1){
+        ++diagnostic_game_frames;
+        dispatch->input.mouse_x=diagnostic_game_navigation==2?0:
+            diagnostic_game_navigation==3?startup_host.graphics.render_width-100:startup_host.graphics.render_width/2;
+        dispatch->input.mouse_y=diagnostic_game_navigation==3?100:startup_host.graphics.render_height/2;
+        if(diagnostic_game_navigation==3) dispatch->left_press_active=(uint8_t)(diagnostic_game_frames==10);
+    }
     pharaoh_windows_startup_dispatch_frame(dispatch);
     if (diagnostic_capture_countdown > 0 &&
         --diagnostic_capture_countdown == 0) {
         (void)pharaoh_windows_startup_host_capture_frame(&startup_host,
             diagnostic_capture_path);
+        if(diagnostic_game_navigation!=0){
+            char state_path[MAX_PATH];
+            if(GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_STATE",state_path,sizeof(state_path))>0){
+                const PharaohMissionScene *scene=pharaoh_windows_mission_runtime_scene(dispatch->mission_runtime);
+                const PharaohCityViewState *view=pharaoh_mission_scene_view(scene)->state;
+                FILE *out=fopen(state_path,"wb");
+                if(out!=NULL){
+                    fprintf(out,"{\"window\":%u,\"scene_status\":%d,\"camera_x\":%d,\"camera_y\":%d,\"scroll_requested\":%u,\"frame_status\":%d,\"surface_bits\":%u}\n",
+                        (unsigned)dispatch->refresh.current_window_id,
+                        pharaoh_mission_scene_status(scene),view->camera_x,view->camera_y,
+                        (unsigned)startup_host.city_scroll_requested,
+                        pharaoh_windows_mission_runtime_diagnostic_frame_status(dispatch->mission_runtime),
+                        (unsigned)startup_host.game_frame_destination_bits);
+                    fclose(out);
+                }
+            }
+        }
         (void)PostMessageA((HWND)startup_host.window_startup.window.window,
             WM_CLOSE, 0, 0);
     }
@@ -181,6 +209,20 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
         if (window_length > 0 && window_length < sizeof(diagnostic_window)) {
             const unsigned long window_id = strtoul(diagnostic_window,
                 NULL, 0);
+            if(window_id==1){
+                startup_dispatch.refresh.current_window_id=0x35;
+                startup_host.current_window_id=0x35;
+                startup_dispatch.mission_runtime=pharaoh_windows_mission_runtime_create(&startup_host,
+                    &startup_dispatch.briefing,&startup_dispatch.refresh.current_window_id);
+                if(startup_dispatch.mission_runtime!=NULL&&
+                    pharaoh_windows_mission_runtime_diagnostic_begin_game(startup_dispatch.mission_runtime)){
+                    char navigation[16];
+                    const DWORD n=GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_NAVIGATION",navigation,sizeof(navigation));
+                    diagnostic_game_navigation=n>0&&strcmp(navigation,"west")==0?2:n>0&&strcmp(navigation,"minimap")==0?3:1;
+                    startup_host.current_window_id=1;
+                    if(capture_length>0&&capture_length<sizeof(diagnostic_capture_path))diagnostic_capture_countdown=30;
+                }
+            }
             if (window_id == 0x2f || window_id == 0x30 ||
                 window_id == 0x36) {
                 if (window_id == 0x2f) {
@@ -232,5 +274,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
     dispatcher_bound = 0;
     pharaoh_windows_startup_dispatch_close(&startup_dispatch);
     pharaoh_windows_sound_close(&startup_host.sound);
+    free(startup_host.game_frame_staging_pixels);
     return (int)exit_code;
 }

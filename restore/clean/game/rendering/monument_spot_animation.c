@@ -146,3 +146,94 @@ void pharaoh_obelisk_reset_work_spots(int16_t building_type,
     reset_work_spots(bindings, building_type == 207 ? 10 : 18,
         scripts, script_count, random);
 }
+
+static int32_t wrapped_add3(int32_t a, int32_t b, int32_t c)
+{
+    return (int32_t)((uint32_t)a + (uint32_t)b + (uint32_t)c);
+}
+
+static int32_t scaled_difference(int32_t difference, int32_t frame,
+    int32_t last_frame)
+{
+    return (int32_t)((uint32_t)difference * (uint32_t)frame) / last_frame;
+}
+
+static void get_draw_info_for_view(
+    const PharaohMonumentSpotDrawContext *context,
+    const PharaohMonumentSpotAnimation *spot,
+    int32_t *x, int32_t *y, int32_t *image, int32_t view)
+{
+    const PharaohMonumentAnimScript *script;
+    const PharaohMonumentAnimSequence *sequence;
+    const PharaohMonumentAnimImages *images;
+    const PharaohMonumentAnimPosition *position_from;
+    const PharaohMonumentAnimPosition *position_to;
+    int32_t image_add;
+    int32_t known_image;
+    int32_t difference;
+
+    /* Native write order is observable if output pointers alias. */
+    *x = 0;
+    *y = 0;
+    *image = 0;
+    if (spot->mode == PHARAOH_MONUMENT_SPOT_IDLE || spot->script < 0 ||
+        spot->script >= context->script_count) return;
+
+    script = &context->scripts[spot->script];
+    if (spot->sequence < 0 || spot->sequence >= script->sequence_count) return;
+    sequence = &script->sequences[spot->sequence];
+    image_add = spot->reverse != 0 ? sequence->image_add_reverse[view] :
+        sequence->image_add[view];
+    if (image_add < 0 || sequence->images < 0 ||
+        sequence->images >= script->image_count) return;
+    if (sequence->position_from < 0 ||
+        sequence->position_from >= script->position_count ||
+        sequence->position_to < 0 ||
+        sequence->position_to >= script->position_count) return;
+    if (spot->frame < 0 || spot->frame > sequence->last_frame) return;
+
+    images = &script->images[sequence->images];
+    position_from = &script->positions[
+        sequence->position_from * PHARAOH_MONUMENT_ANIMATION_VIEWS + view];
+    position_to = &script->positions[
+        sequence->position_to * PHARAOH_MONUMENT_ANIMATION_VIEWS + view];
+
+    *image = (int32_t)((uint32_t)(spot->frame % images->frames) *
+        (uint32_t)images->frame_step +
+        (uint32_t)context->image_group_first[images->image_group] +
+        (uint32_t)images->image_offset + (uint32_t)image_add);
+    difference = (int32_t)((uint32_t)position_to->x -
+        (uint32_t)position_from->x);
+    *x = wrapped_add3(scaled_difference(difference, spot->frame,
+        sequence->last_frame), script->x_offset, position_from->x);
+    difference = (int32_t)((uint32_t)position_to->y -
+        (uint32_t)position_from->y);
+    *y = wrapped_add3(scaled_difference(difference, spot->frame,
+        sequence->last_frame), script->y_offset, position_from->y);
+
+    known_image = context->image_record_count <= *image ? 0 : *image;
+    *x = (int32_t)((uint32_t)*x -
+        (uint32_t)(int32_t)context->sprite_offset_x[known_image]);
+    known_image = context->image_record_count <= *image ? 0 : *image;
+    *y = (int32_t)((uint32_t)*y -
+        (uint32_t)(int32_t)context->sprite_offset_y[known_image]);
+}
+
+void pharaoh_monument_spot_get_draw_info(
+    const PharaohMonumentSpotDrawContext *context,
+    const PharaohMonumentSpotAnimation *spot,
+    int32_t *x, int32_t *y, int32_t *image)
+{
+    get_draw_info_for_view(context, spot, x, y, image,
+        context->map_orientation / 2);
+}
+
+void pharaoh_monument_spot_get_draw_info_for_direction(
+    const PharaohMonumentSpotDrawContext *context,
+    const PharaohMonumentSpotAnimation *spot,
+    int32_t *x, int32_t *y, int32_t *image, int32_t direction)
+{
+    int32_t view = direction - context->map_orientation / 2;
+    if (view < 0) view += PHARAOH_MONUMENT_ANIMATION_VIEWS;
+    get_draw_info_for_view(context, spot, x, y, image, view);
+}

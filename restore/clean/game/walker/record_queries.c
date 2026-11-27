@@ -97,3 +97,16 @@ int32_t pharaoh_walker_enemy_near_building_site(
     }
     return 0;
 }
+
+int32_t pharaoh_minimap_walker_ship_kind(
+    const PharaohWalkerQueryRecord *walkers, int32_t walker_id)
+{
+    while (walker_id != 0) {
+        const uint8_t type = walkers[walker_id].type;
+        if (type == 78 || type == 77 || type == 25 ||
+            type == 76 || type == 20) return 1;
+        if (type == 93 || type == 92 || type == 100 || type == 101) return 2;
+        walker_id = walkers[walker_id].next_walker_id_on_same_tile;
+    }
+    return 0;
+}
