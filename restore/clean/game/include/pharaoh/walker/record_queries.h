@@ -58,12 +58,20 @@ typedef struct PharaohWalkerQueryRecord {
     uint8_t reserved_046[4];
     union { int16_t monument_from_building, cross_country_x; };
     union { int16_t monument_from_position, cross_country_y; };
-    int16_t monument_to_building;
-    int16_t monument_to_position;
-    int16_t monument_travel_progress;
-    int16_t monument_travel_length;
-    uint8_t reserved_056[0x5a - 0x56];
-    int16_t building_id;
+    union {
+        struct {
+            int16_t monument_to_building;
+            int16_t monument_to_position;
+            int16_t monument_travel_progress;
+            int16_t monument_travel_length;
+            uint8_t reserved_056[0x5a - 0x56];
+        };
+        struct {
+            int16_t target_x, target_y, delta_x, delta_y, error;
+            uint8_t axis, reserved_059;
+        } cross_country_setup;
+    };
+    union { int16_t building_id, owner_walker_id; };
     int16_t related_building_id_5c;
     int16_t entertainment_building_id;
     union { int16_t herd_target_id_60, formation_id_60; };
