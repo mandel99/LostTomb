@@ -90,3 +90,29 @@ uint32_t pharaoh_compressed_chunk_read(PharaohCompressedChunkState *state,
     }
     return 1;
 }
+
+/* Whole0055BC50, reused from src/Unit02639.c and the old mixed/src unit. */
+uint32_t pharaoh_compressed_chunk_write(PharaohCompressedChunkState *state,
+    uint32_t file, const void *input, int32_t byte_count)
+{
+    state->scratch = state->scratch_input;
+    if (byte_count > 1200000) return 0;
+    state->requested_bytes = (uint32_t)byte_count;
+    if (pharaoh_pk_compress(&state->checksum,
+            (uint32_t *)(void *)&state->chunk_header, input,
+            state->scratch_input, (uint32_t)byte_count,
+            state->compression_mode, state->compression_dictionary,
+            state->crc_table, state->report_error, state->error_user_data)) {
+        (void)state->write(state->write_user_data, file,
+            &state->chunk_header, sizeof(state->chunk_header));
+        (void)state->write(state->write_user_data, file, state->scratch,
+            (uint32_t)state->chunk_header);
+    } else {
+        state->chunk_header = INT32_MIN;
+        (void)state->write(state->write_user_data, file,
+            &state->chunk_header, sizeof(state->chunk_header));
+        (void)state->write(state->write_user_data, file, input,
+            (uint32_t)byte_count);
+    }
+    return 1;
+}

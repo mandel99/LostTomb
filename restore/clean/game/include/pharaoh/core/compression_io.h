@@ -34,6 +34,9 @@ void pharaoh_codec_write(const void *data, const uint32_t *length,
 typedef int32_t (*PharaohCompressedChunkRead)(void *user_data,
     uint32_t file, void *destination, uint32_t byte_count);
 
+typedef int32_t (*PharaohCompressedChunkWrite)(void *user_data,
+    uint32_t file, const void *source, uint32_t byte_count);
+
 typedef struct PharaohCompressedChunkState {
     uint8_t *scratch_input;
     uint8_t *scratch;
@@ -46,9 +49,27 @@ typedef struct PharaohCompressedChunkState {
     const uint32_t *crc_table;
     PharaohPkExplodeError report_error;
     void *error_user_data;
+    PharaohCompressedChunkWrite write;
+    void *write_user_data;
+    const uint32_t *compression_mode;
+    const uint32_t *compression_dictionary;
 } PharaohCompressedChunkState;
 
 uint32_t pharaoh_compressed_chunk_read(PharaohCompressedChunkState *state,
     uint32_t file, void *output, uint32_t byte_count);
+
+/* Whole0055BF10. Output capacity equals input size, as in Native.
+ * Mode/dictionary are the live0126519C/00603650 inputs; CRC and logger
+ * are the same real C dependencies used by the decoder callbacks. */
+uint32_t pharaoh_pk_compress(uint32_t *checksum, uint32_t *encoded_size,
+    const void *input, void *output, uint32_t size,
+    const uint32_t *mode, const uint32_t *dictionary,
+    const uint32_t crc_table[256], PharaohCodecError report_error,
+    void *error_user_data);
+
+/* Whole0055BC50. Signed upper limit, raw fallback and ignored write results
+ * are intentional. Scratch/header/checksum retain the shared Native state. */
+uint32_t pharaoh_compressed_chunk_write(PharaohCompressedChunkState *state,
+    uint32_t file, const void *input, int32_t byte_count);
 
 #endif
