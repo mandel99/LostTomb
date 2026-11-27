@@ -55,4 +55,15 @@ void pharaoh_map_visit_diamond_rings(
     const PharaohMapGridGeometry *geometry, int32_t center_tile,
     int32_t radius, PharaohMapRingVisitor visitor, void *context);
 
+int32_t pharaoh_map_can_place_road_under_canal(
+    const uint32_t *terrain, const int32_t *image_ids,
+    int32_t canal_group_first_image, int32_t view_orientation,
+    int32_t tile);
+
+uint8_t pharaoh_map_tile_is_buildable_for_editor_at(
+    const uint32_t *terrain, const int8_t *height_values, int32_t offset);
+
+int32_t pharaoh_map_diagonal_pair_has_mask(
+    const uint32_t *terrain, int32_t offset, uint32_t mask);
+
 #endif

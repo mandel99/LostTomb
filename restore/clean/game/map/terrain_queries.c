@@ -273,3 +273,56 @@ void pharaoh_map_visit_diamond_rings(
         }
     }
 }
+
+int32_t pharaoh_map_can_place_road_under_canal(
+    const uint32_t *terrain, const int32_t *image_ids,
+    int32_t canal_group_first_image, int32_t view_orientation,
+    int32_t tile)
+{
+    int32_t image_offset = image_ids[tile] - canal_group_first_image;
+    int32_t east_west;
+
+    if (image_offset > 47) image_offset -= 48;
+    switch (image_offset) {
+        case 0: case 7: case 9: case 15: case 17:
+        case 19: case 21: case 28: case 30: case 36:
+        case 38: case 40: case 42: case 44: case 46:
+            east_west = 1;
+            break;
+        case 1: case 6: case 8: case 16: case 18:
+        case 20: case 22: case 27: case 29: case 37:
+        case 39: case 41: case 43: case 45: case 47:
+            east_west = 0;
+            break;
+        default:
+            return 0;
+    }
+    if (view_orientation == 2 || view_orientation == 6)
+        east_west ^= 1;
+    if (east_west != 0) {
+        if ((terrain[tile + 1] & 0x40u) != 0) return 0;
+        if ((terrain[tile - 1] & 0x40u) != 0) return 0;
+    } else {
+        if ((terrain[tile - PHARAOH_MAP_GRID_WIDTH] & 0x40u) != 0) return 0;
+        if ((terrain[tile + PHARAOH_MAP_GRID_WIDTH] & 0x40u) != 0) return 0;
+    }
+    return 1;
+}
+
+uint8_t pharaoh_map_tile_is_buildable_for_editor_at(
+    const uint32_t *terrain, const int8_t *height_values, int32_t offset)
+{
+    if ((terrain[offset] & 0x10000u) != 0) return 0;
+    if (height_values[offset] > 4) return 1;
+    if (height_values[offset] < 1) return 0;
+    return (uint8_t)((terrain[offset] >> 13) & 1u);
+}
+
+int32_t pharaoh_map_diagonal_pair_has_mask(
+    const uint32_t *terrain, int32_t offset, uint32_t mask)
+{
+    return ((terrain[offset - PHARAOH_MAP_GRID_WIDTH] & mask) != 0 ||
+            (terrain[offset + PHARAOH_MAP_GRID_WIDTH] & mask) != 0) &&
+        ((terrain[offset + 1] & mask) != 0 ||
+         (terrain[offset - 1] & mask) != 0);
+}
