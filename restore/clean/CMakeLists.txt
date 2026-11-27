@@ -360,6 +360,7 @@ add_library(pharaoh_game STATIC
     game/city/prosperity.c
     game/city/food_rate.c
     game/military/formation_counts.c
+    game/military/construction_alert.c
     game/military/legion_requests.c
     game/military/request_dispatch.c
     game/scenario/request_dispatch.c

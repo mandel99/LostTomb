@@ -1,7 +1,7 @@
 import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
-entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110}
+entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670,36:0x4829b0,30:0x440700,31:0x440850,32:0x440b10,33:0x440ed0,34:0x43f410,35:0x441130,37:0x447530,38:0x4e3330,39:0x488140,40:0x489050,41:0x489110,42:0x4b9ee0}
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -70,13 +70,25 @@ if '--entertainment-only' in sys.argv:cases=[c for c in cases if 30<=c['op']<=35
 food_contract=json.loads((D/'food-supply-fixture-contract.json').read_bytes())
 for raw in food_contract['priority_cases']:
  c=dict(raw['case']);c.update(label='food:'+raw['name'],writes=[],food_spec=raw);cases.append(c)
+for label,records,query in [
+ ('empty',[],(100,100)),('first',[(1,1,0,1,1,100,100)],(100,100)),('last',[(49,1,0,1,1,106,94)],(100,100)),
+ ('state2',[(1,2,0,1,1,100,100)],(100,100)),('skip42',[(1,1,1,1,1,100,100)],(100,100)),('gate69',[(1,1,0,0,1,100,100)],(100,100)),('members0',[(1,1,0,1,0,100,100)],(100,100)),
+ ('far7',[(1,1,0,1,1,107,100)],(100,100)),('negativeXY',[(1,1,0,1,1,-6,6)],(0,0)),('two_live_scratch',[(1,1,0,1,1,101,99),(2,1,0,1,1,120,113)],(100,100)),
+ ('boundary50',[(50,1,0,1,1,100,100)],(100,100)),('INTMIN',[(1,1,0,1,1,32767,-32768)],(-2147483648,-2147483648)),('INTMAX',[(1,1,0,1,1,-32768,32767)],(2147483647,2147483647))
+ ]+[(str((dx,dy)),[(1,1,0,1,1,100+dx,100+dy)],(100,100)) for dx in [-6,0,6] for dy in [-6,0,6]]:
+ b=bytearray(51*144);b[:144]=bytes([0xa5])*144
+ b[0]=1;b[66]=0;b[105]=1;b[40]=1;struct.pack_into('<hh',b,46,query[0] if -32768<=query[0]<=32767 else 100,query[1] if -32768<=query[1]<=32767 else 100);struct.pack_into('<H',b,78,0xbcbc);b[118]=0xbc
+ for bid,state,skip42,gate69,members,gx,gy in records:
+  off=bid*144;b[off]=state;b[off+66]=skip42;b[off+105]=gate69;b[off+40]=members;struct.pack_into('<hh',b,off+46,gx,gy);struct.pack_into('<H',b,off+78,0xeeee);b[off+118]=0xdd
+ add('alert:'+label,42,[chunk(0xbcb9c8,b),chunk(0xd3b4f8,bytes.fromhex('78563412efcdab09'))],x=query[0],y=query[1])
+if '--alert-only' in sys.argv:cases=[c for c in cases if c['op']==42]
 if '--food-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']==0]
 if '--food-fault-only' in sys.argv:cases=[c for c in cases if 37<=c['op']<=41 and c['food_spec']['expected_C_status']!=0]
 if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
 if '--region-only' in sys.argv:cases=[c for c in cases if c['op']==36]
 case_label=next((v.split('=',1)[1] for v in sys.argv if v.startswith('--case-label=')),None)
 if case_label is not None:cases=[c for c in cases if c['label']==case_label]
-output_stem='food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
+output_stem='alert' if '--alert-only' in sys.argv else 'food-fault' if '--food-fault-only' in sys.argv else 'food' if '--food-only' in sys.argv else 'entertainment-extra' if case_label is not None else 'entertainment' if '--entertainment-only' in sys.argv else 'region' if '--region-only' in sys.argv else 'navigation' if '--navigation-only' in sys.argv else 'root-support'
 
 
 def venue_seed(c):
@@ -137,6 +149,7 @@ def execute(c):
  if op==26:watch=[(0xbcd5f8,2000*388)]
  if op==27:watch=[(0xea1870,2*0x49d8)]
  if op==29:watch=[(0x70e3d8,8)]
+ if op==42:watch=[(0xbcb9c8,51*144),(0xd3b4f8,8)]+[(0xbcb9c8+i*144+78,2) for i in [0,1,49,50]]+[(0xbcb9c8+i*144+118,1) for i in [0,1,49,50]]
  if op==36:w += [chunk(0xaf598c,struct.pack("<I",c.get("fill",0))*51984)];watch=[(0xd3b4e0,8)]
  if 30<=op<=35:
   w+=venue_seed(c);watch=[(int(v['address'],16),v['bytes']) for v in venue_contract['watch_regions']]
@@ -152,6 +165,7 @@ def execute(c):
  if op==39:args=[tool,size]
  if op==40:args=[x,y,size,extra]
  if op==41:args=[tool]
+ if op==42:args=[x,y]
  rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=2000000 if 30<=op<=35 else 500000
  if 37<=op<=41:
   rn['registers']['ECX']='00bca350'

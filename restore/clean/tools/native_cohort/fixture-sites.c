@@ -265,9 +265,15 @@ uint32_t fixture_food_supply(const FixtureCase *f)
     return value;
 }
 
+#include "pharaoh/military/construction_alert.h"
+
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
  if(f->op>=37&&f->op<=41)return fixture_food_supply(f);
+ if(f->op==42){
+  const PharaohConstructionAlertContext alert={PTR(PharaohConstructionAlertFormation,0xbcb9c8),PTR(uint32_t,0xd3b4fc),PTR(uint32_t,0xd3b4f8)};
+  pharaoh_construction_alert_formations(&alert,f->x,f->y);return 0;
+ }
  if(f->op>=30&&f->op<=35)return fixture_entertainment(f);
  if(f->op==29){
   PharaohCityViewState v={0};
