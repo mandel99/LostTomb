@@ -322,6 +322,7 @@ add_library(pharaoh_game STATIC
     game/scenario/campaign_availability.c
     game/scenario/campaign_file.c
     game/simulation/finance_calendar.c
+    game/simulation/culture_ratings.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
     game/simulation/flood_simulation.c

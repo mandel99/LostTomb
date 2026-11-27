@@ -22,4 +22,7 @@ int32_t pharaoh_menu_bar_select(const PharaohMenuBarState *,
 void pharaoh_menu_bar_close(const PharaohMenuBarState *);
 void pharaoh_menu_bar_clear(const PharaohMenuBarState *);
 
+void pharaoh_city_ratings_store_culture_lowest(
+    int32_t *culture_explanation, int32_t culture_lowest);
+
 #endif

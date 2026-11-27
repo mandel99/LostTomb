@@ -46,3 +46,9 @@ int32_t pharaoh_menu_bar_select(const PharaohMenuBarState *c,
     *c->redraw_requested=1;
     return 1;
 }
+
+void pharaoh_city_ratings_store_culture_lowest(
+    int32_t *culture_explanation, int32_t culture_lowest)
+{
+    *culture_explanation = culture_lowest;
+}
