@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Whole51CAE0 projectile angle over full C asin/error tree and canonical Native-derived truncation.",
+  "complete_C_parent_owners_added": 1,
+  "reused_outer_algorithms": 1,
+  "native_instructions": 54,
+  "source_binding": [
+    {
+      "address": "0x0051CAE0",
+      "name": "pharaoh_projectile_angle",
+      "source": "game/core/projectile_angle.c",
+      "body_sha256": "3e3c27a7134381f369b1721f39d207a04ba0a3fdb3ea57302a40618bd3bbe133",
+      "native_instructions": 54,
+      "native_bytes_sha256": "cc110bc980f83815a25469c9e4d7f6e841537f6b61a70e10b48b813b70e690ef",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-2432.json",
+      "native_callees": [
+        "0x0056133C",
+        "0x00562D00"
+      ]
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/core/projectile_angle.c": "4b199548f7a647656f12fd53bee9108e4701cea99f829076929bbdff31ee1b92",
+    "game/include/pharaoh/core/projectile_angle.h": "6dce40428947137497773f3d991eedf8eee4fc817d80f680710154254385caab",
+    "CMakeLists.txt": "dd03963bf4c2fded4e2453c3d0c6f62d7e068d5feafa0f9f0e44b40813b36a6f"
+  },
+  "worktree_scope_hashes": {
+    "game/core/projectile_angle.c": "4b199548f7a647656f12fd53bee9108e4701cea99f829076929bbdff31ee1b92",
+    "game/include/pharaoh/core/projectile_angle.h": "6dce40428947137497773f3d991eedf8eee4fc817d80f680710154254385caab",
+    "CMakeLists.txt": "bd03c33124f49570834afe216cb076ac66291f8c0e88f326416571c328461464"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit02331.c",
+      "sha256": "4d3d3f2a45987a04590181b1a803a29eeae3c919fa0d5bd95161cc0ab8972b23"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\compatibility\\src\\Unit02331.c",
+      "sha256": "1feab5384ae647b9bb26e3f7d3e8b3f18ff91b71815b86b223947eabd86d742e"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\game\\Walkers\\Combat\\Targeting.c",
+      "sha256": "b2ffdab19a577ade15312d36e5c9f2a5c0b72e5736034056d7f9da1a6fca0642"
+    }
+  ],
+  "contracts": [
+    "Current and old compatibility Unit02331 contain typed outer angle C. Reuse it; remove restricted private AngleAsin and its WORD-coordinate/finite-only lowering in favor of complete actual C562D00 with real process-state/error/CW dependencies. No second asin algorithm or original IL route remains.",
+    "Native SUB-derived coordinate deltas wrap32 bits before signed FILD. Preserve actual x87 operation order, binary64 vertical/radius spills, zero/unordered result gate, quadrant status test, bias subtraction, negative-angle loop, turn-minus-angle and scale.",
+    "All4 binary64 constants at570130..57014F match exact live Ghidra bytes. They are retained as raw bits, without substituting mathematical pi/tau approximations. Native zero56F5A0 is already established as binary64 +zero.",
+    "Reuse canonical56133C C conversion via exact10-byte extended memory transfer. It preserves the extended value rather than narrowing through C double. Both source/destination FP-stack operations remain real Win32 x87; valid original producer/stack domains required.",
+    "Logical return is AL only: Native zero path XOR AL,AL does not define full EAX; sole direct4B45C0 caller stores AL through[ESI+BCD609]. C uint8 API does not invent upper EAX/flags. Indirect/full-register coverage remains unclaimed.",
+    "Live Ghidra prototype uses byte result and real4 signed coordinate arguments. C adds actual math environment dependencies, with no zero defaults or placeholder callback. Compiled object confirms2 full C asin calls and canonical truncation; compiler security guards are its own runtime support."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "527740aa7be7ae357ebdc481ecee8d0f15917971d209583b503cff0fe54f1d15",
+    "canonical_exe_sha256": "86d68f74ce759658827d273203372778aaf88ae1dd564ad9435e76c753d7a005",
+    "worktree_library_sha256": "01e5a3496f74e145c06491858b0f8cff730071e1e350eca622ab1db88ee75394",
+    "worktree_exe_sha256": "8f0562ba2f7ca04f9fdadadd74411706d449e88469ba6b095c5899af730c799a",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_projectile_angle": 1,
+      "pharaoh_crt_asin_live": 1,
+      "pharaoh_x87_truncate80": 1
+    },
+    "object_sha256": "6d03c9fa098b9bf863058fed14d06e8b28594943583bc9554f0c30c33af2d6f7"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "54 complete pinned Ghidra instructions, live data/types/AL consumer and compiled ABI, strict Release; no new tests."
+  },
+  "archive": "build/verified-images/projectile-angle-C-20261127-527740aa7be7ae35",
+  "artifact_sha256": {
+    "losttomb-angle-canonical-build.log": "9e5b7d2d81503e0c4e10acc47d379e2aa12e8dd9860f685308909b5dd8f18d1b",
+    "losttomb-angle-compiled.txt": "df9b5d62f1e38014ffadf2dc15b666c139a8d72fb889a24be65d082cebdf29b0",
+    "losttomb-angle-ghidra-inputs.json": "870c4e608bf0dc4fb89643a6ef24925cbd89b9fb5e03f31805bc3623ff12ac2c",
+    "losttomb-angle-ghidra.json": "4ceb092640ed4d1a76539857420829f9b346dee80237f02e8b608725e1238bea",
+    "losttomb-angle-migration-plan.json": "bf1357b8aee9ffc5adff982d26d4329e8e3089a87ed5ea5c042d419dee099114",
+    "losttomb-angle-release.log": "a0b10196ac23e0e8e9ad5585972a90a01205d2edcf48632c67c6fafbecd8e46e",
+    "losttomb-asin-result-consumers.json": "b09087dc67a57cfb020cab80e2fbb5f8420766e3414b1e73d1d5f8cb013e100d",
+    "losttomb-projectile-create-native.json": "8904aaa0c45f215eae77fd4af5a8ec7e44ad43eb0a89da2a05a47c229a79080e",
+    "LostTomb.exe": "86d68f74ce759658827d273203372778aaf88ae1dd564ad9435e76c753d7a005",
+    "pharaoh_game.lib": "527740aa7be7ae357ebdc481ecee8d0f15917971d209583b503cff0fe54f1d15",
+    "projectile_angle.obj": "6d03c9fa098b9bf863058fed14d06e8b28594943583bc9554f0c30c33af2d6f7"
+  },
+  "remaining": [
+    "Native projectile creator4B45C0 requires4B4220 cross-country setup and4B5210 owner refresh before full typed parent integration; locate current/old C first.",
+    "Actual game/host process-state cells must be bound. Full native/C gameplay, handler and indirect-register equivalence remain incomplete."
+  ]
+}

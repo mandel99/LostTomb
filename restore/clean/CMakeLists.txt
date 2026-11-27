@@ -33,6 +33,7 @@ add_library(pharaoh_game STATIC
     game/scenario/saved_event_upgrade.c
     game/scenario/saved_game_schema.c
     game/core/x87_numeric.c
+    game/core/projectile_angle.c
     game/monuments/base_progress.c
     game/monuments/build_requirements.c
     game/monuments/pyramid_work_queries.c
