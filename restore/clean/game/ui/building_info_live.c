@@ -7,6 +7,8 @@
 
 _Static_assert(sizeof(PharaohBuildingInfoLiveState)==224,"native info state");
 _Static_assert(offsetof(PharaohBuildingInfoLiveState,advisor_buttons)==48,"advisor DWORDs");
+_Static_assert(offsetof(PharaohBuildingInfoLiveState,worst_desirability_score)==32,"native score EADCD8");
+_Static_assert(offsetof(PharaohBuildingInfoLiveState,selected_walker_index)==44,"native selected walker EADCE4");
 _Static_assert(offsetof(PharaohBuildingInfoLiveState,walker_ids)==108,"walker DWORDs");
 _Static_assert(offsetof(PharaohBuildingInfoLiveState,mode)==152,"mode DWORD");
 _Static_assert(offsetof(PharaohBuildingInfoLiveState,building_id)==180,"building DWORD");
@@ -424,7 +426,7 @@ static void collect_walkers(const PharaohBuildingInfoLiveInitContext *c,int32_t 
 {
     PharaohBuildingInfoLiveContext *ui=c->ui;
     int32_t count=0;
-    ui->window->walker_list_offset=0;ui->window->walker_count=0;
+    ui->window->selected_walker_index=0;ui->window->walker_count=0;
     for(int32_t i=0;i<7;++i)ui->window->walker_ids[i]=0;
     for(int32_t neighbour=0;neighbour<9;++neighbour) {
         int32_t id=c->walker_ids[add32(grid,c->neighbours[neighbour])];
@@ -586,7 +588,7 @@ static void walker_list_input(PharaohBuildingInfoLiveContext *c)
 {
     if(generic_row(c,PHARAOH_INFO_ROW_WALKERS,0,c->window->walker_count,c->focus_primary))return;
     if(generic_row(c,PHARAOH_INFO_ROW_PHRASE,0,1,c->focus_secondary))return;
-    const int32_t id=c->window->walker_ids[c->window->walker_index];
+    const int32_t id=c->window->walker_ids[c->window->selected_walker_index];
     const uint8_t group=c->walkers[id].reserved_131;
     if(c->tutorial_flags[group]) {
         image_tooltip(c,c->window->x+40,bottom_buttons(c),c->tutorial_buttons[group].buttons,1,group+40);
@@ -658,7 +660,7 @@ static int walker_speaks(uint8_t type)
 static void phrase_button(PharaohBuildingInfoLiveContext *c)
 {
     if(!c->window->selection)return;
-    const int32_t id=c->window->walker_ids[c->window->walker_index];
+    const int32_t id=c->window->walker_ids[c->window->selected_walker_index];
     if(!walker_speaks(c->walkers[id].type))return;
     for(int32_t i=0;i<8;++i) {
         if(i!=c->window->walker_phrase&&c->phrase_counts[i]>1) {

@@ -14,8 +14,10 @@
 typedef struct PharaohBuildingInfoLiveState {
     int32_t storage_state,reserved_bc,orders_shown;
     int32_t warship_id,transport_id,formation_id,has_academy;
-    int32_t worst_desirability_building,walker_index,walker_phrase,reserved_e0;
-    int32_t walker_list_offset;
+    int32_t worst_desirability_building;
+    union { int32_t worst_desirability_score,walker_index; }; /* EADCD8 */
+    int32_t walker_phrase,reserved_e0;
+    union { int32_t selected_walker_index,walker_list_offset; }; /* EADCE4 */
     uint32_t advisor_buttons[15];
     int32_t walker_ids[7],walker_count,details_shown,selection,terrain_kind;
     int32_t mode,help_id;
@@ -128,7 +130,7 @@ typedef struct PharaohBuildingInfoLiveInitOperations {
     void (*reset_warning)(void *); /* 4E2AB0 */
     void (*rebuild_resources)(void *); /* 5596D0 */
     int32_t (*pyramid_from_complex)(void *,int32_t); /* 4F5D90 */
-    int32_t (*building_main)(void *,int32_t); /* 4E6710 */
+    int32_t (*building_main)(void *,int32_t); /* 475B50 */
     int32_t (*percentage)(void *,int32_t,int32_t); /* 4CDE60 */
     int32_t (*any_legion_with_soldiers)(void *);
     void (*house_worst_desirability)(void *);

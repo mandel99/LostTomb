@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_binding": [
+    {
+      "name": "collect_walkers",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "c8568811720e1fdbbc94e00e412c46957e668d785ba26206fc318c58aa6b8830"
+    },
+    {
+      "name": "walker_list_input",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "8a3c21f234c990e99c6ab01c36ddbb1dd9a6e8edba2893dbf2d8d29910c844e4"
+    },
+    {
+      "name": "phrase_button",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "d8222cca0c3e4d86c45d3a9916a651d08e6c6b4c5ea41ca04d28b8a83b28d61d"
+    },
+    {
+      "name": "pharaoh_building_info_live_initialize",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "f408b4d2ee3ef0f294f4326d130c1683d0acfc35b2adca234706bd5d328244ef"
+    },
+    {
+      "name": "pharaoh_building_info_live_draw_foreground",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "096cf56b563bcf9739b2c90110f9e256dfaf555dc4f1d5869a7c8f35a4b55016"
+    },
+    {
+      "name": "pharaoh_building_info_live_handle_input",
+      "source": "game/ui/building_info_live.c",
+      "body_sha256": "0c071ab3d23a0b6371ec6be0f4d1d5fe9ff82f5a8aa8749d6a266c6323517ece"
+    }
+  ],
+  "source_sha256": {
+    "game/ui/building_info_live.c": "43517f0a03e6f155661e3aa03a9fb71e020f9c9f7cf22f20e5509e44356c2998",
+    "game/include/pharaoh/ui/building_info_live.h": "3bc5e362412673f7db39aa86db2797b1de1afb6b94cf6cc4d0207918e814ad56"
+  },
+  "contracts": [
+    "Native4F94C7 and4F9D17 load DWORD EADCE4 before reading EADD24[index]. EADCD8 is the unrelated signed minimum desirability score written by50F0F0. Fix both phrase-button and walker-list input reads.",
+    "Union aliases retain224-byte native state and prior C field access. Static assertions pin score offset32 and selected index offset44. Initializer clears the actual selected index. No new Native owner credit.",
+    "InitOperations building_main comment corrected to actual475B50 at4F84CF.4E6710 remains lighthouse progress.",
+    "Full static Native evidence reused. No new tests or dynamic behavior-equivalence claim; actual host binding and other broad UI providers remain open."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "library_sha256": "8490a48ab27753323905a72b5aaf837d758802facdc504ddcc1d1dee731e4a3f"
+  },
+  "archive": "build/verified-images/info-walker-index-20261127-8490a48ab2775332",
+  "artifact_sha256": {
+    "losttomb-info-walker-index-canonical-build.log": "6015adaaa215ac083a0d243c7b9e14f78fcef000346ec420c86d6a0a125e9886",
+    "losttomb-info-walker-index-ghidra.json": "d12edf822312f2903eb04e9e6fd9f6c83156cc2a6a96e5d674f51ef59430cdd7",
+    "losttomb-info-walker-index-native-proof.json": "a225aad01a0925388d755a49fdc8d68223c2eaaca4b47c1cad0d4e81118aa2ea",
+    "losttomb-info-walker-index-release.log": "0a2195f3f71e850fa69bae9af7f00d3128eca89e0e94195171783f53b107d705"
+  },
+  "verification": {
+    "new_native_owners": 0,
+    "behavior_equivalence_claim": false
+  }
+}
