@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Four remaining typed CRT leaf owners with real inherited x87 state, reused before considering parents.",
+  "complete_C_owners_added": 4,
+  "unchanged_algorithms_reused": 3,
+  "corrected_reused_algorithms": 1,
+  "native_instructions": 67,
+  "source_binding": [
+    {
+      "address": "0x0056758C",
+      "name": "pharaoh_crt_x87_quiet_nan_live",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "950afbff763c5669cbc9c6324246a3a4af1795447ab970ed45488236fb18d4ae",
+      "native_instructions": 7,
+      "native_bytes_sha256": "405c820b8de01641567b0c6bae7890e8d841b561e7f93dce8ac0fd1930202371",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3008.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x00568448",
+      "name": "pharaoh_crt_x87_set_exponent_live",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "1817649b11dd20edb79b54fa796bdaacdd89951179b8026990b0ffb489c211d3",
+      "native_instructions": 16,
+      "native_bytes_sha256": "a55b0007bf7a535a9b8bd0ffe43ac8b8d02afcd978055a29207c09f2a0c6bc1d",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x00568540",
+      "name": "pharaoh_crt_x87_clear_status",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "8618613ae06d029aa85a60f73d5b5f8d91177bd4be406f00bc7ce53c82be0582",
+      "native_instructions": 8,
+      "native_bytes_sha256": "c0a83fcece4fd3c4558b705fa545326c97ce36193c3dea69335c7882ebf36c1c",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": []
+    },
+    {
+      "address": "0x00568572",
+      "name": "pharaoh_crt_x87_generate_exceptions",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "9241cfc54a085bc115cc961ece302bb3cefb97c39bbc85edcc7b6e6809916dd3",
+      "native_instructions": 36,
+      "native_bytes_sha256": "918e4a1c1c60ef8dfc07320dc66d7dbc084a91d3cbf850d837b026e89611d192",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": []
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/runtime/crt_x87_math.c": "bdb1bd541f1b400686cf598033754ee5f6122ed493e75b88cd43fc9a005825f6",
+    "game/include/pharaoh/runtime/crt_x87_math.h": "44fa3e3f9ae7754ce568e362f945edcf282d0e86ea66f9a8766195d288f98073",
+    "CMakeLists.txt": "bf83b46f2ca807c2a2b9e599cf5f9153eb6bdb7679f1e3b87ab6a6fc04b57c85"
+  },
+  "worktree_scope_hashes": {
+    "game/runtime/crt_x87_math.c": "bdb1bd541f1b400686cf598033754ee5f6122ed493e75b88cd43fc9a005825f6",
+    "game/include/pharaoh/runtime/crt_x87_math.h": "44fa3e3f9ae7754ce568e362f945edcf282d0e86ea66f9a8766195d288f98073",
+    "CMakeLists.txt": "ed7d3e4d27a92204a492c2e2214f73b273d5eb162a5a6a80e8104186b205be7b"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinMath.c",
+      "sha256": "ae1624681aef8847aabd692e9c92b75000230938784ba4b536079a8db510f125"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinEntries.c",
+      "sha256": "80349ed4421a70ce0ee5cffc82e81f0286b9c0ca693c70a98e5c1f3958205296"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\CrtAsinMath.c",
+      "sha256": "1afa9fe4e2fc966a4d1a38a71b22596482d5bcb83465bc6b7917fa2dfd3d93d6"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\compatibility\\runtime\\CrtAsinEntries.c",
+      "sha256": "acccf27a1c563c213a423fd6be528bf5f03d21a613d54c668d1212784d6ee03e"
+    }
+  ],
+  "contracts": [
+    "Native instruction cache is pinned to the unchanged original SHA. Live Ghidra confirms all4 zero-callee functions, all9 direct consumer sites and the exact3 numeric constants. Current and old project C searched before migration.",
+    "C uses hardware x87 primitives only where the inherited ST0, exception masks, status and rounding require them. It has no instruction-model frame, simulated FPU, fabricated callback or original-image execution. MSVC Win32 is required.",
+    "0056758C reuses EAX classification bit80000: return7 preserves live ST0; otherwise FADD binary64 ONE and return1. The C API makes classification explicit; Ghidra retains no stack parameters and records the unresolved custom EAX parameter storage in its comment.",
+    "00568448 corrects the inherited algorithm: snapshot original source upper WORD before FLD/FSTP, mask800F, replace the rounded local top WORD with wrapped((exponent+3FE)<<4)|original. Reading the rounded upper WORD, as both inherited projects did, can retain a changed signaling-NaN fraction bit. Final FLD leaves the real extended ST0 result.",
+    "00568448 C accepts uint64 Native bits and leaves ST0 through a void C ABI; it does not round/pop a floating C return. Native Ghidra float10 return describes the physical extended result. Both direct568471 consumers use ST0.",
+    "00568540 uses FNSTSW then FNCLEX without WAIT and returns the sign-extended saved WORD. Its direct567F58 consumer overwrites EAX immediately.",
+    "00568572 preserves low-byte gates1/8/10/4/20, exact80-bit huge/tiny constants, integer/real stores, divide-by-zero sequence, pi store and WAIT/status ordering. All5 direct56820B call sites ignore EAX before replacement or final scalar construction; no general-register result is invented.",
+    "Compiled object confirms4 unique public owners, no CALL instructions and real x87 output/status operations. This is a static ABI check, not a native/C behavior replay."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "f4748512c718845de2c6a5c98c2875a3f672bdc6e5968a3a795cb9d72fce4d2b",
+    "canonical_exe_sha256": "bbd2e999e56eb7800af673f61f2351915b39fe4c2e19e1bf1e7fd0d55180f0c8",
+    "worktree_library_sha256": "8d4dfca37e3764df7466690de8ec3784e1d998d4445c582414fe9e30ae84b562",
+    "worktree_exe_sha256": "5149800737d9886a34d73782aa8537f56e90cdf62a4623a120efea748a17ed77",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_crt_x87_quiet_nan_live": 1,
+      "pharaoh_crt_x87_set_exponent_live": 1,
+      "pharaoh_crt_x87_clear_status": 1,
+      "pharaoh_crt_x87_generate_exceptions": 1
+    },
+    "object_sha256": "5f02aa2221acb7a170d92f17c5c26bdebe925cfb4121b253d480ca8647357ffa"
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "Complete67 cached Native instructions, live Ghidra data/types/consumers, strict Release and compiled ABI inspection; no new tests."
+  },
+  "archive": "build/verified-images/crt-x87-leaves-C-20261127-f4748512c718845d",
+  "artifact_sha256": {
+    "crt_x87_math.obj": "5f02aa2221acb7a170d92f17c5c26bdebe925cfb4121b253d480ca8647357ffa",
+    "losttomb-ad90-fragment-xrefs.json": "69749f78d0dec494703142ae3a02157c308e76948571f9e27afdb7bd127b874c",
+    "losttomb-x87-leaf-callers.json": "4bc12cf6e12d9a84ce438b7473c732de055dceae53324b1ee61e432dec55db62",
+    "losttomb-x87-leaf-canonical-build.log": "a8297db82036d7ff0f4125a74b1529bc816229020fffc49c17c229af706f6d34",
+    "losttomb-x87-leaf-compiled.txt": "f4edd3d23e9fe59ed42f9ec99e7a2266f569352f3ccea1d3aa7d37350ffb292a",
+    "losttomb-x87-leaf-consumers.json": "052a5af21ea7973ab1b394f2051167240bfb0974f8d8289f9ad8ebe6546365fc",
+    "losttomb-x87-leaf-data.json": "9a413c88045694c54bd090bdf26c197b4e754afb4c1398612c3bc988a77048f9",
+    "losttomb-x87-leaf-ghidra.json": "99e3df111a27481dbc5997d3fea4b66e118ffd40c2696799fb2fdd00d48c6b22",
+    "losttomb-x87-leaf-migration-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-x87-leaf-release.log": "de17db0fa6ee68c03207c47c125249c4f86a8650fd258ed3df3d97ff1b4644e6",
+    "LostTomb.exe": "bbd2e999e56eb7800af673f61f2351915b39fe4c2e19e1bf1e7fd0d55180f0c8",
+    "native-leaves.json": "7c547673bf6b708640cce1db9770243f37c63bbb85fc169ce94f1ce78a2a9a0b",
+    "pharaoh_game.lib": "f4748512c718845de2c6a5c98c2875a3f672bdc6e5968a3a795cb9d72fce4d2b"
+  },
+  "remaining": [
+    "00563354 is a live SEH frame/prologue entry requiring frame-level ABI reconstruction, not an ordinary scalar C leaf.",
+    "0048AD90 starts with POP ESI and ends in restored-register RET; no live Ghidra xrefs. It needs boundary/producer qualification and is not credited as a translated standalone function.",
+    "Leaf discovery covers4527 cached Ghidra-defined functions and excludes CALL/nonlocal unconditional JMP. Mapped addresses are orientation, not proof that all original behavior is complete. Existing compiled-only owners, parent branches and full gameplay/host equivalence remain outstanding."
+  ]
+}

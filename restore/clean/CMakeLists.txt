@@ -20,6 +20,7 @@ add_library(pharaoh_game STATIC
     game/core/pk_explode.c
     game/core/pk_implode.c
     game/runtime/compression_buffer.c
+    game/runtime/crt_x87_math.c
     game/core/pk_explode_data.c
     game/core/compression_io.c
     game/core/compression_tables.c
