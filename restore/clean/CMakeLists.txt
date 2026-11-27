@@ -206,6 +206,7 @@ add_library(pharaoh_game STATIC
     game/runtime/animation_tick_counters.c
     game/runtime/random_generator.c
     game/runtime/simulation_tick.c
+    game/runtime/native_leaf_queries.c
     game/runtime/pending_ui_state.c
     game/runtime/autosave_dispatch.c
     game/runtime/city_player_countdown.c
