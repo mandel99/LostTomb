@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Whole0056820B masked-error branch through00568471 frexp to the actual00568448/00568572 C leaves; existing C algorithms reused.",
+  "complete_C_parent_owners_added": 2,
+  "reused_parent_algorithms": 2,
+  "native_instructions": 261,
+  "source_binding": [
+    {
+      "address": "0x00568471",
+      "name": "pharaoh_crt_x87_frexp_live",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "14f1114792482cee6e9f0c9275ab44c10a2797ff78a98308ba3cc0aa46f3cf19",
+      "native_instructions": 72,
+      "native_bytes_sha256": "f44b8b86b704e05dfd7259048ed15334487dbc45b59467a3b167bf3fbb477874",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": [
+        "0x00568448"
+      ]
+    },
+    {
+      "address": "0x0056820B",
+      "name": "pharaoh_crt_x87_handle_masked_error",
+      "source": "game/runtime/crt_x87_math.c",
+      "body_sha256": "8719e0799335f580fb92c06470711800d7e1e43fc4b3dbbffbf2a68cb624e8b6",
+      "native_instructions": 189,
+      "native_bytes_sha256": "fca17a8e9a39b86741992e9a8e15b49c25aa8a9e8c79b4cf3633d5fd010cc63b",
+      "cache": "restore\\metadata\\native-function-audit-cache\\batch-3072.json",
+      "native_callees": [
+        "0x00568471",
+        "0x00568572"
+      ]
+    }
+  ],
+  "support_binding": [
+    {
+      "source": "game/runtime/crt_x87_math.c",
+      "name": "x87_roundtrip64",
+      "body_sha256": "e7aa982af65ee4bd99e641a52b6b493dd28662cb5f0dc7ca8a726d3d862c993d",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_x87_math.c",
+      "name": "x87_compare_zero64",
+      "body_sha256": "8037e3c4c15db570b4dceacd24aa9458c8884724c6a048e85dbd4c0d71e1fa95",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_x87_math.c",
+      "name": "x87_load64",
+      "body_sha256": "a8c881c63294f7f370e77f79fe13e1a5d12d925b59e17cb08c47bb56ada592a1",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_x87_math.c",
+      "name": "x87_pop64",
+      "body_sha256": "a7da6c25ba32d970ffa2ee51203e8eb8b97e167ec1630583964d40fcd59cc368",
+      "native_owner_credit": 0
+    },
+    {
+      "source": "game/runtime/crt_x87_math.c",
+      "name": "x87_store64",
+      "body_sha256": "462668eceb87206ba3bccaacfc11bd90b80561878369ec7f2de9c3c50ff8510f",
+      "native_owner_credit": 0
+    }
+  ],
+  "canonical_scope_hashes": {
+    "game/runtime/crt_x87_math.c": "85af3ea85e1b7670846241963c49d41a34efa808ad83158add282a612dc03a62",
+    "game/include/pharaoh/runtime/crt_x87_math.h": "c7a02312bbb57224adcdfce0a0be7037af9ac76188d1ea72039e963936ffa6c2"
+  },
+  "worktree_scope_hashes": {
+    "game/runtime/crt_x87_math.c": "85af3ea85e1b7670846241963c49d41a34efa808ad83158add282a612dc03a62",
+    "game/include/pharaoh/runtime/crt_x87_math.h": "c7a02312bbb57224adcdfce0a0be7037af9ac76188d1ea72039e963936ffa6c2"
+  },
+  "provenance": [
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CrtAsinMath.c",
+      "sha256": "ae1624681aef8847aabd692e9c92b75000230938784ba4b536079a8db510f125"
+    },
+    {
+      "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\CrtAsinMath.c",
+      "sha256": "1afa9fe4e2fc966a4d1a38a71b22596482d5bcb83465bc6b7917fa2dfd3d93d6"
+    }
+  ],
+  "contracts": [
+    "Current and old CrtAsinMath contain complete C algorithms. They are reused with explicit real C children; no duplicate codec/math algorithm, original IL jump, simulated FPU or fabricated callback is introduced.",
+    "00568471 preserves Native FCOMP-zero unordered/equal handling, +zero output, signed subnormal left shifts, exponent bias, binary64 call-argument materialization and live extended ST0. Both branches invoke real00568448; final ST0 is loaded before exponent publication, correcting inherited C ordering to Native568527..56852D.",
+    "0056820B retains remaining=exceptions&1F, Native invalid/divide/overflow/underflow priority and independent inexact tail. Overflow rounding0/400/800/C00 uses ordered-positive comparison, actual signed infinity/maxfinite values and real x87 exception generation.",
+    "Underflow preserves local binary64 round trips, unordered/zero inexact path, frexp scaling by600, threshold-432, mantissa/sign handling, lost-bit right shifts and original result-store gates. No guard, fallback or C API input is invented.",
+    "Result stores use real FSTP qword to the caller buffer, preserving the original floating store width/effects. Overflow retains its local round trip before final store; underflow stores its actual local value. Exceptions follow original underflow/inexact gates.",
+    "Only genuine inherited x87 operations implement live precision, masks, rounding and sticky/trapping behavior. C signatures use uint64 bit containers and void live-ST0 outputs to avoid a C double return pop/round. Native Ghidra float10 frexp result describes the physical return.",
+    "Native full EAX0/1 is proved by XOR EAX,EAX; TEST EDI,EDI; SETZ AL. Other register/flag values are not exposed as invented C results. Original valid pointers and available x87 stack capacity remain required.",
+    "Compiled object call targets close over8 real C/public/private symbols. It confirms FSTP qword result publication and load-ST0 before exponent store. Previous4 leaf bodies are byte-identical; all6 public owners occur once in the canonical library. This is a static ABI check, not native/C runtime replay."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_required_Release": "PASS",
+    "canonical_library_sha256": "42347eede54ad10d7b3ee6d45daad838aedde07e9a1c57bc4b239632e5416dc6",
+    "canonical_exe_sha256": "3ba3d50ec127c0d6a42dbb4236c6857104c122a99a1b226134b4563d34105025",
+    "worktree_library_sha256": "309553ad020b31d7a9d205776c3eade87c408c2cfc02f7e25fa268aed74e0cf5",
+    "worktree_exe_sha256": "a60f1763be0b6db0fa393061a4c0bcacaade08d4da6354122c8c171f81d26c13",
+    "canonical_public_symbol_occurrences": {
+      "pharaoh_crt_x87_frexp_live": 1,
+      "pharaoh_crt_x87_handle_masked_error": 1,
+      "pharaoh_crt_x87_quiet_nan_live": 1,
+      "pharaoh_crt_x87_set_exponent_live": 1,
+      "pharaoh_crt_x87_clear_status": 1,
+      "pharaoh_crt_x87_generate_exceptions": 1
+    },
+    "object_sha256": "2bb66d032c72d9a93b901525d5d1b636f71ff5c90a34fbb1fbe92d769bfc1496",
+    "compiled_call_targets": [
+      "_pharaoh_crt_x87_frexp_live",
+      "_pharaoh_crt_x87_generate_exceptions",
+      "_pharaoh_crt_x87_set_exponent_live",
+      "_x87_compare_zero64",
+      "_x87_load64",
+      "_x87_pop64",
+      "_x87_roundtrip64",
+      "_x87_store64"
+    ]
+  },
+  "verification": {
+    "dynamic_tests_run": 0,
+    "behavior_equivalence_claim": false,
+    "scope": "Complete261 pinned Ghidra Native instructions, live data/types/call graph, strict Release and compiled ABI; no new tests."
+  },
+  "archive": "build/verified-images/crt-x87-parents-C-20261127-42347eede54ad10d",
+  "artifact_sha256": {
+    "crt_x87_math.obj": "2bb66d032c72d9a93b901525d5d1b636f71ff5c90a34fbb1fbe92d769bfc1496",
+    "losttomb-x87-parent-canonical-build.log": "48c797c8abede67d332a437ce8fda08542c90a4b4a2ade1db158e80c2c93b5cb",
+    "losttomb-x87-parent-compiled.txt": "2b23ce53bb9345b32edbb84aac63d47bb70eaa0e63778f02c206cafb39ad445f",
+    "losttomb-x87-parent-data.json": "eaaed71b6b6d0b868dcbc5e33542cbfabe11e724058a4bd2c8999c3ff0ffd496",
+    "losttomb-x87-parent-ghidra.json": "456c64e6b48aa25450d1844a7c8188c01520ca7b480d08d5667954c439664b20",
+    "losttomb-x87-parent-migration-plan.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "losttomb-x87-parent-native.json": "e2ff653e8ee462280ddae44c993d0d935d33e3ef891f055f483f0c9ec02326cc",
+    "losttomb-x87-parent-release.log": "212b77bbbf1ccadd656405052164b3bd1a955da185b69cd38df0c02227128450",
+    "LostTomb.exe": "3ba3d50ec127c0d6a42dbb4236c6857104c122a99a1b226134b4563d34105025",
+    "pharaoh_game.lib": "42347eede54ad10d7b3ee6d45daad838aedde07e9a1c57bc4b239632e5416dc6"
+  },
+  "remaining": [
+    "Upstream CRT math dispatch/IEEE/asin parents and host integration remain outside this checkpoint.",
+    "Existing logical mappings00568532/00567575/0056854F still need their live hardware read/load and shared-stack-slot contracts bound in C parents before complete physical coverage can be claimed. Reuse their solved logic rather than translate it again.",
+    "SEH prologue00563354 and candidate tail0048AD90 need frame/boundary qualification. Complete gameplay and full Native/C equivalence remain unproved."
+  ]
+}
