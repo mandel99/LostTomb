@@ -74,7 +74,7 @@ typedef struct PharaohWalkerQueryRecord {
     };
     union { int16_t building_id, owner_walker_id; };
     int16_t related_building_id_5c;
-    int16_t entertainment_building_id;
+    union { int16_t entertainment_building_id,hunter_prey_id; };
     union { int16_t herd_target_id_60, formation_id_60; };
     union {
         uint8_t reserved_062[0x65 - 0x62];
@@ -94,7 +94,7 @@ typedef struct PharaohWalkerQueryRecord {
     uint16_t destination_payload_074;
     union { uint8_t reserved_076[0x7b - 0x76];
         struct { uint8_t is_boat, high_layer_077, current_height,
-            target_height, reserved_07a; };
+            target_height; union { uint8_t reserved_07a,carrier_stock_index; }; };
     };
     uint8_t dock_wait_ticks;
     uint8_t reserved_07c[0x7f - 0x7c];
@@ -143,9 +143,9 @@ typedef struct PharaohWalkerQueryRecord {
 typedef struct PharaohWalkerMovementRecord {
     uint8_t reserved_000[9];
     uint8_t direction;
-    uint8_t reserved_00a[0x39 - 0x0a];
+    uint8_t reserved_00a[0x31 - 0x0a];
     uint8_t movement_tick;
-    uint8_t reserved_03a[0x42 - 0x3a];
+    uint8_t reserved_032[0x42 - 0x32];
     int16_t movement_x;
     int16_t movement_y;
     uint8_t reserved_046[0x5d - 0x46];

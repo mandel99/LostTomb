@@ -289,3 +289,124 @@ void pharaoh_walker_init_scenario(
     *highest_id = 0;
     *created_sequence = 0;
 }
+
+
+void pharaoh_tower_sentry_movement_ticks(
+    PharaohWalkerMovementRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    int32_t walker_id, int32_t ticks)
+{
+    PharaohWalkerMovementRecord *walker = &walkers[walker_id];
+    while (ticks > 0) {
+        const uint8_t next = (uint8_t)(walker->movement_tick + 1u);
+        walker->movement_tick = next;
+        if ((int8_t)next < 15)
+            pharaoh_walker_movement_advance_tick(walkers, walker_id);
+        else
+            walker->movement_tick = 15;
+        --ticks;
+    }
+}
+
+
+void pharaoh_walker_movement_advance_tick(
+    PharaohWalkerMovementRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    int32_t walker_id)
+{
+    PharaohWalkerMovementRecord *walker = &walkers[walker_id];
+    switch ((int8_t)walker->direction) {
+        case 0:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y - 1u);
+            break;
+        case 1:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y - 1u);
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x + 1u);
+            break;
+        case 2:
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x + 1u);
+            break;
+        case 3:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y + 1u);
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x + 1u);
+            break;
+        case 4:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y + 1u);
+            break;
+        case 5:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y + 1u);
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x - 1u);
+            break;
+        case 6:
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x - 1u);
+            break;
+        case 7:
+            walker->movement_y = (int16_t)((uint16_t)walker->movement_y - 1u);
+            walker->movement_x = (int16_t)((uint16_t)walker->movement_x - 1u);
+            break;
+        default: break;
+    }
+    if (walker->height_adjusted_ticks != 0u) {
+        --walker->height_adjusted_ticks;
+        if (walker->height_adjusted_ticks == 0u) {
+            walker->ghost_visible = 0;
+            return;
+        }
+        walker->ghost_visible = 1;
+        if (walker->height_current < walker->height_target)
+            ++walker->height_current;
+        if (walker->height_current > walker->height_target)
+            --walker->height_current;
+    } else if (walker->height_current != 0u) {
+        --walker->height_current;
+    }
+}
+
+
+int32_t pharaoh_direction_is_same_or_adjacent(int32_t first, int32_t second)
+{
+    int32_t previous, next;
+    if (first == second) return 1;
+    previous = (int32_t)((uint32_t)second - 1u);
+    if (previous < 0) previous = 7;
+    if (first == previous) return 1;
+    next = (int32_t)((uint32_t)second + 1u);
+    if (next > 7) next = 0;
+    return first == next;
+}
+
+
+void pharaoh_walker_combat_resume_activity_after_attack(
+    PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    int16_t *slot_walkers, int32_t walker_id)
+{
+    PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+    walker->combat_flag_08b = 0;
+    walker->action_state = walker->action_state_before_6_7;
+    walker->combat_value_090 = 0;
+    walker->combat_value_08c = 0;
+    walker->combat_value_08e = 0;
+    pharaoh_walker_detach_slot_link(walkers, slot_walkers, walker_id);
+}
+
+
+int32_t pharaoh_delivery_boy_find_buyer(
+    const PharaohWalkerQueryRecord *walkers, int32_t walker_id)
+{
+    int32_t depth;
+    int32_t current = walkers[walker_id].leading_walker_id;
+    for (depth = 0; depth < 8; ++depth) {
+        if (walkers[current].type == 39) return current;
+        current = walkers[current].leading_walker_id;
+    }
+    return 0;
+}
+
+_Static_assert(sizeof(PharaohWalkerMovementRecord) == PHARAOH_WALKER_RECORD_SIZE &&
+    offsetof(PharaohWalkerMovementRecord, direction) == 9 &&
+    offsetof(PharaohWalkerMovementRecord, movement_tick) == 0x31 &&
+    offsetof(PharaohWalkerMovementRecord, movement_x) == 0x42 &&
+    offsetof(PharaohWalkerMovementRecord, movement_y) == 0x44 &&
+    offsetof(PharaohWalkerMovementRecord, ghost_visible) == 0x5d &&
+    offsetof(PharaohWalkerMovementRecord, height_adjusted_ticks) == 0x6f &&
+    offsetof(PharaohWalkerMovementRecord, height_current) == 0x70 &&
+    offsetof(PharaohWalkerMovementRecord, height_target) == 0x71,
+    "native walker movement overlay layout");
