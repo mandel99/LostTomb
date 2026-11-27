@@ -1,7 +1,7 @@
-import os,pathlib,json,struct,re,time
+import os,pathlib,json,struct,re,time,sys
 D=pathlib.Path(os.environ['TEMP'])/'losttomb-ghidra-native-comparison';ns={'__name__':'root_common'};p=D/'compare-placement.py';exec(compile(p.read_text().replace('placement-fixture.dll','sites-fixture.dll'),str(p),'exec'),ns)
 call,chunk,request,DLL,EXPORT,REG=[ns[n] for n in ['call','chunk','request','DLL','EXPORT','REG']];CASE=0x200f0000;SP=0x30010000
-entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0}
+entries={10:0x4e2d30,11:0x4e3100,12:0x4e3140,13:0x4e3180,14:0x4e31c0,15:0x4e3200,16:0x4e3240,17:0x4e32e0,18:0x405b40,19:0x405b60,20:0x405b80,21:0x40f920,22:0x459fa0,23:0x46fde0,24:0x482720,25:0x485200,26:0x4b5830,27:0x4e9680,28:0x459ef0,29:0x43e670}
 maptext=(D/'sites-fixture.map').read_text()
 def symbol(n):
  m=re.search(r'\s_'+re.escape(n)+r'\s+([0-9A-Fa-f]{8})\s',maptext);assert m,n;return int(m[1],16)
@@ -46,6 +46,14 @@ for player in [0,1]:
  for active,editor,amount in [(1,0,100),(1,1,100),(1,2,-100),(2,0,100),(0,0,100),(1,0,-0x80000000)]:
   base=0xea1870+player*0x49d8;add(f'finance:{player}:{active}:{editor}:{amount}',27,[pack(base+2,active,'<B'),pack(base+12,0x7ffffff0),pack(base+0x2c8c,0xfffffff0,'<I'),pack(0x605a3c,editor)],tool=player,x=amount)
 
+# Projection x indexes rows; y indexes columns in the native lookup owner.
+for bounds in [(167,289,84,145),(0,456,0,230),(100,140,80,120),(1,2,1,2),(-100,500,-30,240)]:
+ for cam in [(114,218),(1,1),(220,450),(-3,-7)]:
+  for width,height in [(73,111),(40,40),(0,0)]:
+   lo_r,hi_r,lo_c,hi_c=bounds;cx,cy=cam
+   add('origin:'+str((bounds,cam,width,height)),29,[chunk(0x70e420,struct.pack('<4i',hi_r,hi_c,lo_r,lo_c)),pack(0x70e464,14),pack(0x70e460,50),pack(0x70e478,cx),pack(0x70e474,cy)],x=width,y=height)
+if '--navigation-only' in sys.argv:cases=[c for c in cases if c['op']==29]
+
 def execute(c):
  op=c['op'];tool=c.get('tool',0);x,y,size,extra=c.get('x',111),c.get('y',113),c.get('size',1),c.get('extra',0)
  w=[chunk(0xbca2d0,struct.pack('<12i',228,228,0,0,0,0,0,0,227,227,114,114)),chunk(0x784b64,struct.pack('<8h',*([1000]*8))),chunk(0x784cc0,struct.pack('<8i',*([1000]*8))),pack(0x605a3c,0),pack(0xeaac28,0),chunk(0xea1870,bytes(2*0x49d8)),pack(0xe38ec1,0,'<B'),pack(0xe38dda,1,'<B'),chunk(0xe94e20,bytes(608)),pack(0xf53f34,0),pack(0xd3b4e0,0x12345678),pack(0xd3b4e4,0x23456789)]
@@ -58,8 +66,9 @@ def execute(c):
  if op==25:w += [chunk(0xbc9684,struct.pack('<3i',13,17,19)),pack(0xe38dca,0,'<B')];watch=[(0xbc9684,12),(0xe38dca,1)]
  if op==26:watch=[(0xbcd5f8,2000*388)]
  if op==27:watch=[(0xea1870,2*0x49d8)]
+ if op==29:watch=[(0x70e3d8,8)]
  w += c['writes']+[chunk(CASE,struct.pack('<I5i',op,tool,x,y,size,extra))]
- args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else []
+ args=[tool] if op in list(range(10,17))+[18,19,20,23] else [tool,x,y] if op==17 else [0x20000000+y,x,tool] if op==21 else [x,y,size,extra,[0x405b40,0x405b60,0x405b80][tool]] if op==24 else [x,y,size,extra] if op==26 else [tool,x] if op==27 else [x] if op==28 else [x,y] if op==29 else []
  rn=request(entries[op],w,args);rc=request(EXPORT['fixture_run'],DLL+w,[CASE]);rn['watch']=rc['watch']=[{'address':f'{a:x}','size':n} for a,n in watch];rn['max_steps']=rc['max_steps']=500000
  trace=[]
  if 10<=op<=17:trace=[(0x4e2970,symbol('pharaoh_city_warning_post'),'warning',[4],[8])]
@@ -83,4 +92,4 @@ for i,c in enumerate(cases):
  r=execute(c);results.append(r)
  if not r['passed']:print(json.dumps({'failed':c['label'],'issues':r['issues']})[:1500],flush=True);break
  if i%40==0:print(f'Compared {i+1}/{len(cases)} cases in {time.monotonic()-began:.1f}s',flush=True)
-(D/'root-support-results.json').write_text(json.dumps(results));summary={'cases':len(cases),'executed':len(results),'passed':sum(r['passed'] for r in results),'entries':sorted({r['native_entry'] for r in results}),'seconds':time.monotonic()-began};(D/'root-support-summary.json').write_text(json.dumps(summary));print(json.dumps(summary));assert len(results)==len(cases) and all(x['passed'] for x in results)
+(D/('navigation-results.json' if '--navigation-only' in sys.argv else 'root-support-results.json')).write_text(json.dumps(results));summary={'cases':len(cases),'executed':len(results),'passed':sum(r['passed'] for r in results),'entries':sorted({r['native_entry'] for r in results}),'seconds':time.monotonic()-began};(D/('navigation-summary.json' if '--navigation-only' in sys.argv else 'root-support-summary.json')).write_text(json.dumps(summary));print(json.dumps(summary));assert len(results)==len(cases) and all(x['passed'] for x in results)

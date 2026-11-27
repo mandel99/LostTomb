@@ -497,11 +497,11 @@ void pharaoh_minimap_calculate_projection_origin(
     int32_t *origin_x, int32_t *origin_y)
 {
     const int32_t room_x = wrapped_sub_i32(wrapped_sub_i32(
-        projection->projected_maximum_x,
-        projection->projected_minimum_x), width);
-    const int32_t room_y = wrapped_sub_i32(wrapped_sub_i32(
         projection->projected_maximum_y,
-        projection->projected_minimum_y), height);
+        projection->projected_minimum_y), width);
+    const int32_t room_y = wrapped_sub_i32(wrapped_sub_i32(
+        projection->projected_maximum_x,
+        projection->projected_minimum_x), height);
     int32_t chosen_x = wrapped_sub_i32(
         PHARAOH_CITY_PROJECTION_HEIGHT, width) / 2;
     int32_t chosen_y = wrapped_sub_i32(
@@ -511,11 +511,11 @@ void pharaoh_minimap_calculate_projection_origin(
         chosen_x = wrapped_add_i32(wrapped_sub_i32(
             state->viewport.width_tiles / 2, width / 2),
             state->camera_x);
-        if (chosen_x < projection->projected_minimum_x) {
-            chosen_x = projection->projected_minimum_x;
+        if (chosen_x < projection->projected_minimum_y) {
+            chosen_x = projection->projected_minimum_y;
         } else {
             const int32_t maximum_x = wrapped_sub_i32(
-                projection->projected_maximum_x, width);
+                projection->projected_maximum_y, width);
             if (chosen_x > maximum_x) {
                 chosen_x = maximum_x;
             }
@@ -526,11 +526,11 @@ void pharaoh_minimap_calculate_projection_origin(
         chosen_y = wrapped_add_i32(wrapped_sub_i32(
             state->viewport.height_tiles / 2, height / 2),
             state->camera_y);
-        if (chosen_y < projection->projected_minimum_y) {
-            chosen_y = projection->projected_minimum_y;
+        if (chosen_y < projection->projected_minimum_x) {
+            chosen_y = projection->projected_minimum_x;
         } else {
             const int32_t maximum_y = wrapped_sub_i32(
-                projection->projected_maximum_y, height);
+                projection->projected_maximum_x, height);
             if (chosen_y > maximum_y) {
                 chosen_y = maximum_y;
             }

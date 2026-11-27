@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "pharaoh/runtime/city_view.h"
 #include "pharaoh/building/construction_site_checks.h"
 #include "pharaoh/building/construction_basic_warnings.h"
 #include "pharaoh/rendering/sprite_raw_blit.h"
@@ -19,6 +20,15 @@ static const BasicWarning basic_warnings[]={pharaoh_construction_warning_workers
  pharaoh_construction_warning_fort,pharaoh_construction_warning_recruiter};
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
+ if(f->op==29){
+  PharaohCityViewState v={0};
+  PharaohCityProjectionLookup *p=PTR(PharaohCityProjectionLookup,0x20100000);
+  p->projected_minimum_x=I32(0x70e428);p->projected_maximum_x=I32(0x70e420);
+  p->projected_minimum_y=I32(0x70e42c);p->projected_maximum_y=I32(0x70e424);
+  v.viewport.width_tiles=I32(0x70e464);v.viewport.height_tiles=I32(0x70e460);
+  v.camera_x=I32(0x70e478);v.camera_y=I32(0x70e474);
+  pharaoh_minimap_calculate_projection_origin(&v,p,f->x,f->y,PTR(int32_t,0x70e3dc),PTR(int32_t,0x70e3d8));return 0;
+ }
  PharaohMapGridGeometry geo;
  PharaohMapTerrainView map;
  PharaohMonumentPlacementContext placement;
