@@ -87,3 +87,24 @@ int32_t pharaoh_digital_sound_stream_play(
     }
     return 1;
 }
+
+static void set_stored_stream_volume(PharaohDigitalSoundDeviceState *state,
+    int32_t *stored_volume, uint32_t stream_index, int32_t volume,
+    const PharaohDigitalSoundStreamCloseOperations *operations)
+{
+    *stored_volume = volume;
+    if (state->sound_disabled == 0 && state->stream_handles[stream_index] != 0 &&
+        operations->ail_stream_status(operations->user_data,
+            state->stream_handles[stream_index]) == 4) {
+        operations->ail_set_stream_volume(operations->user_data,
+            state->stream_handles[stream_index], volume);
+    }
+}
+
+void pharaoh_digital_sound_set_speech_volume(
+    PharaohDigitalSoundDeviceState *state, int32_t volume,
+    const PharaohDigitalSoundStreamCloseOperations *operations)
+{
+    set_stored_stream_volume(state, &state->stream_speech_volume, 1, volume,
+        operations);
+}

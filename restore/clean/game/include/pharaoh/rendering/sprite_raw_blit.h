@@ -47,4 +47,8 @@ const uint8_t *pharaoh_graphics_rle_skip_rows(
 
 void pharaoh_graphics_and_bytes(
     uint32_t *data, int32_t byte_count, uint8_t mask);
+void pharaoh_graphics_draw_from_buffer(
+    const PharaohSpriteRawBlitTarget *target, const uint32_t *source);
+void pharaoh_graphics_save_to_buffer(
+    const PharaohSpriteRawBlitTarget *target, uint32_t *destination);
 #endif

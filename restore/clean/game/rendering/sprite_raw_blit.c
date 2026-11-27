@@ -287,3 +287,33 @@ void pharaoh_graphics_and_bytes(
         --byte_count;
     }
 }
+
+void pharaoh_graphics_draw_from_buffer(
+    const PharaohSpriteRawBlitTarget *target, const uint32_t *source)
+{
+    uint8_t *destination = destination_start(target);
+    int32_t rows = target->height;
+    const size_t row_bytes = (size_t)target->width * 2u * sizeof(uint32_t);
+    do {
+        memcpy(destination, source, row_bytes);
+        destination += row_bytes + target->destination_row_skip_bytes;
+        source = (const uint32_t *)((const uint8_t *)source +
+            row_bytes + target->source_row_skip_bytes);
+        --rows;
+    } while (rows > 0);
+}
+
+void pharaoh_graphics_save_to_buffer(
+    const PharaohSpriteRawBlitTarget *target, uint32_t *destination)
+{
+    const uint8_t *source = destination_start(target);
+    int32_t rows = target->height;
+    const size_t row_bytes = (size_t)target->width * 2u * sizeof(uint32_t);
+    do {
+        memcpy(destination, source, row_bytes);
+        source += row_bytes + target->destination_row_skip_bytes;
+        destination = (uint32_t *)((uint8_t *)destination +
+            row_bytes + target->source_row_skip_bytes);
+        --rows;
+    } while (rows > 0);
+}

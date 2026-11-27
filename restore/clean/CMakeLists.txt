@@ -64,6 +64,9 @@ add_library(pharaoh_game STATIC
     game/ui/city_ingame_dispatch.c
     game/ui/building_info_live.c
     game/ui/building_info_draw_live.c
+    game/ui/building_info_init_support.c
+    game/ui/building_info_content_live.c
+    game/ui/walker_portrait.c
     game/ui/unit_panel_live.c
     game/ui/city_pending_actions.c
     game/ui/unit_command_ui.c

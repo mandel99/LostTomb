@@ -38,4 +38,7 @@ int32_t pharaoh_digital_sound_stream_play(
     uint32_t stream_index, uint32_t loops,
     const PharaohDigitalSoundStreamCloseOperations *operations);
 
+void pharaoh_digital_sound_set_speech_volume(
+    PharaohDigitalSoundDeviceState *state, int32_t volume,
+    const PharaohDigitalSoundStreamCloseOperations *operations);
 #endif
