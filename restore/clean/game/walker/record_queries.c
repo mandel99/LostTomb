@@ -445,3 +445,17 @@ int32_t pharaoh_trade_ship_dock_activity(
     }
     return 0;
 }
+
+/* Native004B54F0 reads the signed walker-grid head before traversing. */
+int32_t pharaoh_walker_chain_count(
+    const PharaohWalkerQueryRecord *walkers, const int16_t *walker_ids,
+    int32_t grid_offset)
+{
+    int32_t count = 0;
+    int32_t walker_id = walker_ids[grid_offset];
+    while (walker_id != 0) {
+        ++count;
+        walker_id = walkers[walker_id].next_walker_id_on_same_tile;
+    }
+    return count;
+}

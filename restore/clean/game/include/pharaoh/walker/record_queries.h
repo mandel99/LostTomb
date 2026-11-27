@@ -412,7 +412,8 @@ int32_t pharaoh_walker_find_chain_type_55(
     const PharaohWalkerQueryRecord *walkers, int32_t walker_id,
     int32_t *depth);
 int32_t pharaoh_walker_chain_count(
-    const PharaohWalkerQueryRecord *walkers, int32_t first_walker_id);
+    const PharaohWalkerQueryRecord *walkers, const int16_t *walker_ids,
+    int32_t grid_offset);
 int32_t pharaoh_walker_nth_active_player_type_78(
     const PharaohWalkerQueryRecord *walkers, int32_t ordinal,
     uint8_t current_player);
