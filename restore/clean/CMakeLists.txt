@@ -338,6 +338,7 @@ add_library(pharaoh_game STATIC
     game/editor/terrain_refresh.c
     game/editor/elevation.c
     game/map/construction_routes.c
+    game/map/construction_footprint.c
     game/building/construction_undo.c
     game/monuments/pyramid_preview.c
     game/ui/message_dialog_live.c
