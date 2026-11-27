@@ -1,4 +1,5 @@
 #include "pharaoh/scenario/mission_scene.h"
+#include "pharaoh/ui/building_info_live.h"
 #include "pharaoh/runtime/camera_scroll.h"
 #include "pharaoh/building/construction_load.h"
 #include "pharaoh/building/construction_support.h"
@@ -496,6 +497,31 @@ int32_t pharaoh_mission_scene_status(const PharaohMissionScene *r)
 {return r!=NULL?r->status:PHARAOH_MISSION_SCENE_IO_FAILED;}
 PharaohCampaignMissionEntry *pharaoh_mission_scene_entry(PharaohMissionScene *r)
 {return &r->entry;}
+
+/* Borrow the actual Native world owners. Platform UI, cursor/font/layout and
+ * complete operations remain with the caller; no shadow world or callbacks. */
+void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *r,
+    PharaohBuildingInfoLiveContext *ui,PharaohBuildingInfoLiveInitContext *init)
+{
+    static const int32_t neighbours[9]={0,-228,228,1,-1,-229,-227,227,229};
+    PharaohSavedSceneViews *v=&r->saved.view;
+    ui->buildings=v->buildings;ui->walkers=v->walkers;
+    ui->formations=r->saved.destinations[24];
+    ui->storage=(PharaohBuildingStorageRecord *)(void *)v->storages;
+    ui->food_count=&r->food_count;ui->foods=r->food_ids;
+    ui->resource_count=&r->resource_count;ui->resources=r->resource_ids;
+    ui->current_window=r->inputs.window_id;ui->redraw_requested=r->inputs.redraw_requested;
+    init->ui=ui;init->models=r->inputs.building_models->building_models;
+    init->editor_active=(const int32_t *)(const void *)&r->editor_active;
+    init->grid_start=&r->geometry.grid_start;
+    init->building_ids=v->building_ids;init->walker_ids=v->walker_ids;
+    init->rubble_types=r->saved.destinations[168];init->canals=v->canal_water;
+    init->bitfields=v->properties;init->sprites=r->saved.destinations[18];
+    init->terrain=v->terrain;
+    init->entry_flag=r->saved.destinations[132];init->exit_flag=r->saved.destinations[133];
+    init->neighbours=neighbours;init->sentry_request=r->saved.destinations[116];
+}
+
 const PharaohSavedSceneStorage *pharaoh_mission_scene_storage(const PharaohMissionScene *r)
 {return &r->saved;}
 const PharaohSavedGameGeometry *pharaoh_mission_scene_geometry(const PharaohMissionScene *r)

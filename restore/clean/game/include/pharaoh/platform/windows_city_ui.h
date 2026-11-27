@@ -7,12 +7,14 @@
 
 struct PharaohWindowsStartupHost;
 struct PharaohWindowsCityUi;
+struct PharaohMissionScene;
 typedef struct PharaohWindowsCityUiScene {
     const PharaohSavedSceneStorage *saved;
     const PharaohCityViewContext *view;
     const PharaohBuildMenuContext *build_menu;
     const int32_t *overlay,*message_count,*problem_count;
     uint16_t *tint; /* actual mutable70E120, distinct from font color */
+    struct PharaohMissionScene *scene;
 } PharaohWindowsCityUiScene;
 /* Actual locked frame and live scene inputs. The current scene adapter
  * supports the normal initial mission with overlay0; unsupported modes fail. */

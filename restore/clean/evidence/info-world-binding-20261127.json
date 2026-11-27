@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_binding": [
+    {
+      "name": "pharaoh_mission_scene_bind_building_info_world",
+      "source": "game/scenario/mission_scene.c",
+      "body_sha256": "45102c4828de13c95ab33020ab16fa6b97b0bbda0aea4fd3817ed05ea5017996"
+    },
+    {
+      "name": "pharaoh_windows_city_ui_begin_frame",
+      "source": "game/platform/windows_city_ui.c",
+      "body_sha256": "7306b9c11b942163d5155f6b02155346ae9282d0945077703bfb2e0e61e70546"
+    },
+    {
+      "name": "pharaoh_windows_mission_runtime_game_frame",
+      "source": "game/platform/windows_mission_runtime.c",
+      "body_sha256": "650eb482caa9c1d91c80a0f669ab052f8cbb68bc1b17ae429913f9a160c6f4a8"
+    }
+  ],
+  "source_sha256": {
+    "game/scenario/mission_scene.c": "da550ac451fd86ac940d2409b120bd4eea0cbbe0bcc65a883a9c0d2ca31c7e5b",
+    "game/include/pharaoh/scenario/mission_scene.h": "6a57809ad89cfd6b32f9b107347e613dcf9a52eace2855d2eeffe122999da507",
+    "game/platform/windows_city_ui.c": "a8e14456671da2933aa2be75ef5305564a92f2b77d4850dcdd826bc72d77e899",
+    "game/include/pharaoh/platform/windows_city_ui.h": "8f426a993184f9c89eaf796adfef35df80d6f1da6c4ccc8809ed7d5c46cb7cea",
+    "game/platform/windows_mission_runtime.c": "fc38ea2fdb19cd6e8e75d8e6df43aad0193cfe41b43c2ae09ba7571a869ba436"
+  },
+  "contracts": [
+    "The actual Windows city UI owner now holds the224-byte info state and context. Each real locked game frame borrows its Native scene pools through pharaoh_mission_scene_bind_building_info_world; no second world copy.",
+    "Actual264-byte buildings,388-byte walkers,144-byte formations,196-byte storage and live resource/food lists are shared with save/load and map rendering. Window/redraw fields borrow the same scene-input owners.",
+    "Initializer world fields borrow true model tables, editor flag, geometry origin, building/walker grids, rubble d168, canals d11, properties d13, WORD sprites d18, terrain d10, entry/exit d132/d133 and sentry-request d116. Immutable9 DWORD neighbour table exactly matches5F76C4.",
+    "This is world ownership plumbing only. Platform cursor/warning/layout/font/button/action providers, complete scene renderer and input dispatch must be attached before calling the broad initializer/renderers. No incomplete context is invoked.",
+    "Simulation and game-state RNG producers still need actual host integration; no zero replacement seed or extra render-time generator advance added. Full UI/gameplay remains incomplete."
+  ],
+  "build": {
+    "canonical_Release": "PASS",
+    "worktree_Release": "PASS",
+    "canonical_library_sha256": "b445a156b61f63092243de21c77df0867c8b8dd8f7247fb11b0dfdd79c95349b",
+    "canonical_exe_sha256": "0a63d80accccf89caa91e7eafc60110cf1e8768beeeb0227920a86c225095cf0"
+  },
+  "archive": "build/verified-images/info-world-binding-20261127-b445a156b61f6309",
+  "artifact_sha256": {
+    "losttomb-info-world-binding-canonical-build.log": "3930254e2796367e152ab988078c943de46c328ab8752326f64fe474b776db9b",
+    "losttomb-info-world-binding-release.log": "8d771b681a325a88676344df79f784cec2b003024a3fdd23e253e056df528daf",
+    "losttomb-info-world-binding-rules.json": "a526dca77c1281b793e2463100912e5c54f1c5d0a9c7e4f23b6f772f69190648",
+    "losttomb-ui-scene-bindings-handoff.json": "0883215d2eb385c1a7889f173ec6c0c8e822d070844ac0fc208ed778f96b1a1b"
+  },
+  "verification": {
+    "new_native_owners": 0,
+    "new_dynamic_tests": 0,
+    "behavior_equivalence_claim": false
+  }
+}

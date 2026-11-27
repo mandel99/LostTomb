@@ -611,7 +611,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     const PharaohCityMessageScenarioReset *const messages=pharaoh_mission_scene_messages(r->scene);
     const PharaohWindowsCityUiScene ui_scene={saved,view,
         pharaoh_mission_scene_build_menu(r->scene),pharaoh_mission_scene_current_overlay(r->scene),
-        messages->messages_used,messages->count_problem,&r->tint};
+        messages->messages_used,messages->count_problem,&r->tint,r->scene};
     if(pharaoh_windows_city_ui_begin_frame(h,&r->image_draw,&ui_scene,
         r->window,r->image_group_first)==0) {
         pharaoh_windows_startup_host_end_game_frame(h);

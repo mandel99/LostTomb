@@ -97,4 +97,11 @@ const PharaohCityMessageScenarioReset *pharaoh_mission_scene_messages(const Phar
 /* Actual initialized702900 record bank; camera uses its702984 view. */
 struct PharaohCameraScrollContext;
 void pharaoh_mission_scene_bind_camera(PharaohMissionScene *,struct PharaohCameraScrollContext *);
+/* Data ownership only: caller owns the actual224-byte UI state and supplies
+ * platform input/drawing/operation providers before invoking any dispatcher. */
+struct PharaohBuildingInfoLiveContext;
+struct PharaohBuildingInfoLiveInitContext;
+void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *,
+    struct PharaohBuildingInfoLiveContext *,struct PharaohBuildingInfoLiveInitContext *);
+
 #endif
