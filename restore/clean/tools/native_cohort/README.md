@@ -21,3 +21,12 @@ records are saved there. Source/binary hashes are bound in the receipt.
 Only the diagnostic agent's /stop endpoint disposes its own transient program;
 it never closes the main MCP analysis. The local token is read from ready.json
 and is neither printed nor committed. All compiled outputs stay outside Git.
+
+The warnings cohort covers26 entries in632 cases. Use -Cohort warnings with
+prepare.ps1, then run run-warnings-cohort.py in the same temporary directory.
+It checks resource/venue/access routing, actual empire queries, free image
+restoration and ferry/undo state. The original warning-enabled byte is zero:
+ordered calls to the real post routines are compared, but text rendering and
+mutations caused by enabled posting remain outside this finite proof. The
+fixture links actual static CRT memory routines; it supplies no emulation
+endpoint replacements. Void entries do not expose incidental native EAX.
