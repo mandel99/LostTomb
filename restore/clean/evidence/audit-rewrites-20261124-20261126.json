@@ -5,18 +5,18 @@
   "commits": 66,
   "scope": "Current canonical map owners whose mapping or source changed in the last 48 hours; includes uncommitted changes conservatively because their edit times are not provable from Git. A source change may affect shared helpers without rewriting each entry. Native review is not implied by this inventory. Also retains explicitly reviewed unchanged dependencies of the active path.",
   "summary": {
-  "candidates": 1518,
+  "candidates": 1525,
   "reasons": {
     "mapped_since_cutoff": 1235,
     "shared_source_changed": 238,
     "body_changed": 15,
     "translated_during_audit": 12,
-    "dependency_review": 18
+    "dependency_review": 25
   },
   "states": {
-    "pending_native_review": 1273,
+    "pending_native_review": 1272,
     "definition_or_macro_unresolved": 67,
-    "native_static_compared": 178
+    "native_static_compared": 186
   },
   "changed_unmapped_sources": 12,
   "candidates_are_not_a_rewrite_count": true,
@@ -27,7 +27,7 @@
     "stale_hash": 96
   },
   "review_methods": {
-    "direct_native_static": 124,
+    "direct_native_static": 132,
     "reused_hash_bound_native_static": 54
   },
   "proof_bindings_scope": "Frozen initial inventory, before reconstruction edits and dependency reviews."
@@ -1014,7 +1014,7 @@
     {"address":"0x004EAA60","name":"pharaoh_herd_animals_count_action_for_building","source":"game/walker/record_queries.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/herd-animal-count-parents-20261121.json","evidence_kind":"file","source_sha256":"80a7238adcd1dd645d263ddb248df96c82bddb55020ebcd0b40ee95ebb09c746","body_sha256":"2420443ddb09023d14d23692933f9b7d8165c4953a05c8e6083a5c0614494da3","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
     {"address":"0x004F6620","name":"pharaoh_ring_queue_pop","source":"game/core/ring_queue.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/ring-queue-pop-parent-20261121.json","evidence_kind":"file","source_sha256":"7f9ba4334a7ed898d5fd5cc7febed99b3f47035de8fd865b5aebd1e833e8ee20","body_sha256":"b6b65a483410ab09956a428e1ee9aa8fd93b90316492e1d3eac88081f2918a21","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
     {"address":"0x004A35E0","name":"pharaoh_walker_is_queued_for_ferry","source":"game/walker/record_queries.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/walker-ferry-queue-parent-20261121.json","evidence_kind":"file","source_sha256":"80a7238adcd1dd645d263ddb248df96c82bddb55020ebcd0b40ee95ebb09c746","body_sha256":"74336452a89cc63e1210a2ac092e6d7bf38c6dee62d09e468bfe1561df8fc793","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
-    {"address":"0x005169C0","name":"pharaoh_player_directory_path","source":"game/ui/player_selection.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/player-path-leaves-20261121.json","evidence_kind":"file","source_sha256":"210de31532e4d45d19a7ac7b8a9867a7f52ee5f75577a0332992a1c26ded7a2a","body_sha256":"0f40bceb7a083964848020f107095088832c78d947b6793dcac0b8cb997da5c8","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
+    {"address":"0x005169C0","name":"pharaoh_player_directory_path","source":"game/ui/player_selection.c","reason":"mapped_since_cutoff","status":"native_static_compared","evidence":"evidence/player-path-leaves-20261121.json","evidence_kind":"file","source_sha256":"210de31532e4d45d19a7ac7b8a9867a7f52ee5f75577a0332992a1c26ded7a2a","body_sha256":"0f40bceb7a083964848020f107095088832c78d947b6793dcac0b8cb997da5c8","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true},"audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"210de31532e4d45d19a7ac7b8a9867a7f52ee5f75577a0332992a1c26ded7a2a","checkpoint_review_source_sha256":"094a77400bea38b66ccf819f7776e56c911c859c753a17bcc8ae49c0e6e7487c"},
     {"address":"0x00516A20","name":"pharaoh_player_record_path","source":"game/ui/player_selection.c","reason":"mapped_since_cutoff","status":"native_static_compared","evidence":"evidence/player-path-leaves-20261121.json","evidence_kind":"file","source_sha256":"210de31532e4d45d19a7ac7b8a9867a7f52ee5f75577a0332992a1c26ded7a2a","body_sha256":"9cce4af68c216d673bd637c4de3b8574bf88fb6200493a91372ee68dd4a4cc0a","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true},"audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/shared-text-input-native-20261126.json","review_source_sha256":"210de31532e4d45d19a7ac7b8a9867a7f52ee5f75577a0332992a1c26ded7a2a","checkpoint_review_source_sha256":"0e1967496415d82d0c062de4a73f4c66462ed0ad39a2b997f92bd17e6a81e3aa"},
     {"address":"0x004EA8D0","name":"pharaoh_defeat_options","source":"game/ui/victory_dialog.c","reason":"mapped_since_cutoff","status":"pending_native_review","evidence":"evidence/defeat-button-table-leaf-20261121.json","evidence_kind":"file","source_sha256":"eba22b6600af8a8179feb6c2d03554e2675f57995c4a3584c667fc620f660a09","body_sha256":"813dd8d0df8d37a308170092c554d4c530edd770382604230cfe070187de74fb","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":null,"address_literal_present":true}},
     {"address":"0x004D3F60","name":"pharaoh_buildings_reset_runtime_fields","source":"game/building/type_queries.c","reason":"shared_source_changed","status":"pending_native_review","evidence":"evidence/save-upgrades-bindings-20261123.json","evidence_kind":"file","source_sha256":"3cdf90ae3309d06d5597078deaf7e61107dd333c93b45e47f374c49247df84d7","body_sha256":"3d2ba2f29f33b8a72f77cd8baa7ce07e838150f20ef67c12b6aec1128dd76856","proof_binding":{"pinned_sha_present":true,"current_source_hash_bound":false,"address_literal_present":true}},
@@ -1663,5 +1663,13 @@
     {"address":"0x00536990","name":"pharaoh_panel_pattern_fill_native","source":"game/ui/panel_frame.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-input-dropdown-native-20261127.json","review_source_sha256":"903314689637baaa112cc9fd26b728d3d6a7e9c9453ef2537673f593864cd59b","checkpoint_review_source_sha256":"eec303d0087d2cfcfbae1b077ee814be9c741c1a9af70ddb41b113d836f54e69"}
   ,
     {"address":"0x00425F20","name":"pharaoh_menu_dropdown_handle_input","source":"game/ui/menu_dropdown_input.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-dropdown-input-native-20261127.json","review_source_sha256":"2d3ee1f7c7e368258649fbd4bf5375e6561a58054223d64aadd87bd57e4d18ae","checkpoint_review_source_sha256":"2d3ee1f7c7e368258649fbd4bf5375e6561a58054223d64aadd87bd57e4d18ae"}
+  ,
+    {"address":"0x00402450","name":"pharaoh_load_save_enter_load","source":"game/ui/load_save_actions.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2","checkpoint_review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2"},
+    {"address":"0x00402540","name":"pharaoh_load_save_enter_save","source":"game/ui/load_save_actions.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2","checkpoint_review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2"},
+    {"address":"0x00402630","name":"pharaoh_load_save_enter_delete","source":"game/ui/load_save_actions.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2","checkpoint_review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2"},
+    {"address":"0x00402A80","name":"pharaoh_load_save_select_row","source":"game/ui/load_save_actions.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2","checkpoint_review_source_sha256":"d5a10113326f4f8480a83b6d1cfa59ca4c70f816a8b1826bfd2f8a7bb0a74cb2"},
+    {"address":"0x004CDFF0","name":"pharaoh_file_selector_initialize","source":"game/ui/file_selector.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"0ce905d567a9f2f04a3dce35d3735f4f8f2eef19ac6d06e525b6c63f731147ba","checkpoint_review_source_sha256":"0ce905d567a9f2f04a3dce35d3735f4f8f2eef19ac6d06e525b6c63f731147ba"},
+    {"address":"0x00406070","name":"pharaoh_dropdown_reset_four_dword_pairs","source":"game/ui/menu_option_reset.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"e000c67fa7dcac37c7fbabbb001fe854986c2c59463af803e6aaa9dbde72ec63","checkpoint_review_source_sha256":"e000c67fa7dcac37c7fbabbb001fe854986c2c59463af803e6aaa9dbde72ec63"},
+    {"address":"0x004060E0","name":"pharaoh_dropdown_reset_two_dword_pairs","source":"game/ui/menu_option_reset.c","reason":"dependency_review","status":"native_static_compared","audit_method":"live_Ghidra_connected_path","audit_evidence":"evidence/menu-file-actions-native-20261127.json","review_source_sha256":"e000c67fa7dcac37c7fbabbb001fe854986c2c59463af803e6aaa9dbde72ec63","checkpoint_review_source_sha256":"e000c67fa7dcac37c7fbabbb001fe854986c2c59463af803e6aaa9dbde72ec63"}
   ]
 }

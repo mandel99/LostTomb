@@ -376,3 +376,14 @@ char *pharaoh_player_record_path(char *destination, const char *name)
     while ((*output++ = *source++) != '\0') {}
     return destination;
 }
+
+char *pharaoh_player_directory_path(char *destination, const char *name)
+{
+    const char *source = "save\\";
+    char *output = destination;
+    while ((*output++ = *source++) != '\0') {}
+    --output;
+    source = name;
+    while ((*output++ = *source++) != '\0') {}
+    return destination;
+}

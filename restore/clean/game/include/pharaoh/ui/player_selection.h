@@ -84,4 +84,6 @@ void pharaoh_player_name_choices_draw(
 
 char *pharaoh_player_record_path(char *destination, const char *name);
 
+char *pharaoh_player_directory_path(char *destination, const char *name);
+
 #endif

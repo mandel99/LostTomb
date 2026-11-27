@@ -1,37 +1,27 @@
 #ifndef PHARAOH_UI_LOAD_SAVE_ACTIONS_H
 #define PHARAOH_UI_LOAD_SAVE_ACTIONS_H
 
-#include <stdint.h>
+#include "pharaoh/ui/file_selector.h"
+#include "pharaoh/runtime/text_input_state.h"
 
 typedef struct PharaohLoadSaveActionsState {
-    uint8_t current_screen;
-    uint8_t redraw_requested;
-    uint8_t dialog_mode;
-    uint8_t selection_active;
-    uint32_t text_edit_state;
-    uint32_t return_screen;
-    int32_t selected_row;
-    int32_t file_count;
-    uint32_t selected_file;
-    uint32_t first_visible_file;
-    char load_name[64];
-    char alternate_name[64];
-    char default_name[64];
-    const char *family_path;
-    const char *save_suffix;
-    void (*scan_save_files)(void *user_data, const char *pattern,
-        uint8_t mode);
-    void (*clear_text)(void *user_data, char *target, int32_t capacity,
-        int32_t value);
-    void (*prepare_text_editor)(void *user_data, int32_t mode);
-    void (*prepare_text_cursor)(void *user_data);
-    void (*prepare_text_selection)(void *user_data);
-    const char *(*file_name)(void *user_data, int32_t index);
-    void *user_data;
+    uint8_t *current_screen,*redraw_requested; /* E38DDA/E38DCA */
+    uint8_t *dialog_mode; /* D3B1C0: save0, load1, delete2 */
+    uint32_t *return_screen; /* D3B1BC */
+    uint32_t *load_latch; /* 6059E8, cleared only by00402450 */
+    const uint32_t *button_parameter; /* D3B198 */
+    /* Native aligned64-byte buffers, with character views for text input. */
+    uint32_t *load_name,*alternate_name; /* E37100/E37078 */
+    const char *default_name; /* E370BC */
+    PharaohFileSelectorState *selector;
+    /* Actual shared return_pressed(E20998), active field and cursor state.
+       Fields2/4 must refer to the corresponding actual name buffers. */
+    PharaohTextInputState *text_input;
 } PharaohLoadSaveActionsState;
 
 void pharaoh_load_save_enter_load(PharaohLoadSaveActionsState *state);
-void pharaoh_load_save_enter_alternate(PharaohLoadSaveActionsState *state);
+void pharaoh_load_save_enter_save(PharaohLoadSaveActionsState *state);
+void pharaoh_load_save_enter_delete(PharaohLoadSaveActionsState *state);
 void pharaoh_load_save_select_row(PharaohLoadSaveActionsState *state);
 
 #endif

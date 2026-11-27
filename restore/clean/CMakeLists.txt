@@ -345,6 +345,8 @@ add_library(pharaoh_game STATIC
     game/ui/family_menu_actions.c
     game/ui/family_options.c
     game/ui/load_save_actions.c
+    game/ui/file_selector.c
+    game/ui/menu_option_reset.c
     game/ui/load_save_dialog.c
     game/ui/menu_modal_buttons.c
     game/ui/menu_tail_actions.c
