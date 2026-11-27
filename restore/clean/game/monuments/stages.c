@@ -431,3 +431,370 @@ void pharaoh_library_spot_table_set_variant(int32_t building_variant,
         memcpy(destination, standard_source, 888 * sizeof(uint32_t));
     }
 }
+
+static uint8_t monument_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment *assignments, int32_t count,
+    int32_t current_monument_id, int32_t worker_type)
+{
+    int32_t index;
+    for (index = 0; index < count; ++index) {
+        const PharaohMonumentWorkAssignment *a = &assignments[index];
+        if (*(const int16_t *)(a->building + 0x12) == 0 &&
+            a->monument_id == current_monument_id &&
+            a->worker_type == worker_type &&
+            *(const int32_t *)(a->building + 0x0c) > 0) return 1;
+    }
+    return 0;
+}
+
+static int32_t monument_find_work_for_walker(
+    const PharaohMonumentWorkAssignment *assignments, int32_t count,
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    const int32_t phase = buildings[building_id].monument_stage;
+    for (int32_t index = 0; index < count; ++index) {
+        const PharaohMonumentWorkAssignment *a = &assignments[index];
+        const uint8_t *spot = a->building;
+        if (*(const int16_t *)(spot + 0x12) != 0 ||
+            a->monument_id != phase) continue;
+        /* Native reads the actor BYTE only after both descriptor gates. */
+        const uint8_t worker_type =
+            *(const volatile uint8_t *)&walkers[walker_id].type;
+        if (a->worker_type != worker_type) continue;
+        if (*(const int32_t *)(spot + 0x0c) > 0) return building_id;
+    }
+    return 0;
+}
+
+uint8_t pharaoh_monument_entrance_offset_6_minus_8(
+    const PharaohMonumentEntranceBuilding *buildings, int32_t building_id,
+    int32_t *x, int32_t *y)
+{
+    const PharaohMonumentEntranceBuilding *root =
+        &buildings[building_id - buildings[building_id].main_part_delta];
+    *x = root->x + 6;
+    *y = root->y - 8;
+    return 1;
+}
+
+uint8_t pharaoh_monument_menu_option_allowed(
+    uint32_t phase, PharaohMonumentMenuOption option)
+{
+    const uint16_t kind = (uint16_t)option.words[0];
+    const uint16_t subtype = (uint16_t)(option.words[0] >> 16);
+    if (phase == 0u) return 0;
+    if (kind == 2u &&
+        (subtype == 1u || subtype == 4u || subtype == 2u || subtype == 3u))
+        return 1;
+    if (phase == 3u)
+        return kind != 1u &&
+            (subtype == 6u || subtype == 7u || subtype == 5u);
+    if (phase == 2u)
+        return kind != 1u &&
+            (subtype == 10u || subtype == 11u ||
+             subtype == 12u || subtype == 13u);
+    if (phase == 4u) return kind != 1u && subtype == 14u;
+    if (phase == 1u && kind != 1u) return 0;
+    return 1;
+}
+
+uint8_t pharaoh_library_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    const PharaohLibraryEntranceDefinition *definitions,
+    int32_t building_id, int32_t *x, int32_t *y)
+{
+    const PharaohMonumentEntranceBuilding *building = &buildings[building_id];
+    if (building->stage < 3) {
+        const int32_t half =
+            definitions[building->main_part_delta].width / 2;
+        *x = building->x + half;
+        *y = building->y + half;
+    } else {
+        building = &buildings[building_id - building->main_part_delta];
+        *x = building->x + 3;
+        *y = building->y + 11;
+    }
+    return 1;
+}
+
+uint8_t pharaoh_caesareum_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    int32_t map_view_orientation, int32_t building_id,
+    int32_t *x, int32_t *y)
+{
+    const PharaohMonumentEntranceBuilding *root =
+        &buildings[building_id - buildings[building_id].main_part_delta];
+    switch (map_view_orientation / 2) {
+    case 0: *x = root->x + 8;  *y = root->y + 15; break;
+    case 1: *x = root->x - 1;  *y = root->y + 8;  break;
+    case 2: *x = root->x + 6;  *y = root->y - 1;  break;
+    case 3: *x = root->x + 15; *y = root->y + 6;  break;
+    }
+    return 1;
+}
+
+void pharaoh_monument_spot_attach_figure(
+    PharaohMonumentSpotAssignment *spot,
+    const PharaohWalkerQueryRecord *walkers, int32_t walker_id)
+{
+    spot->walker_id = (int16_t)walker_id;
+    if (walker_id != 0)
+        spot->action_state = (uint8_t)walkers[walker_id].action_state;
+}
+
+int32_t pharaoh_sun_temple_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[13],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    return monument_find_work_for_walker(
+        assignments, 13, buildings, walkers, building_id, walker_id);
+}
+
+void pharaoh_sphinx_count_assigned(
+    const PharaohSphinxAssignment assignments[22], int32_t worker_type,
+    int32_t *count)
+{
+    int32_t index;
+    *count = 0;
+    for (index = 0; index < 22; ++index)
+        if (*(const int16_t *)(assignments[index].building + 0x12) != 0 &&
+            assignments[index].worker_type == worker_type) ++*count;
+}
+
+uint8_t pharaoh_sphinx_has_free_spot_for_type(
+    const PharaohSphinxAssignment assignments[22],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    int32_t index;
+    for (index = 0; index < 22; ++index) {
+        const PharaohSphinxAssignment *a = &assignments[index];
+        if (*(const int16_t *)(a->building + 0x12) == 0 &&
+            a->monument_id == current_monument_id &&
+            a->worker_type == worker_type &&
+            *(const int32_t *)(a->building + 0x0c) > 0) return 1;
+    }
+    return 0;
+}
+
+uint8_t pharaoh_sun_temple_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[13],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    return monument_has_free_spot_for_type(
+        assignments, 13, current_monument_id, worker_type);
+}
+
+int32_t pharaoh_library_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[27],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    return monument_find_work_for_walker(
+        assignments, 27, buildings, walkers, building_id, walker_id);
+}
+
+uint8_t pharaoh_library_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[27],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    return monument_has_free_spot_for_type(
+        assignments, 27, current_monument_id, worker_type);
+}
+
+int32_t pharaoh_abu_simbel_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[56],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    return monument_find_work_for_walker(
+        assignments, 56, buildings, walkers, building_id, walker_id);
+}
+
+uint8_t pharaoh_abu_simbel_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[56],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    return monument_has_free_spot_for_type(
+        assignments, 56, current_monument_id, worker_type);
+}
+
+int32_t pharaoh_caesareum_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[27],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    return monument_find_work_for_walker(
+        assignments, 27, buildings, walkers, building_id, walker_id);
+}
+
+uint8_t pharaoh_caesareum_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[27],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    return monument_has_free_spot_for_type(
+        assignments, 27, current_monument_id, worker_type);
+}
+
+int32_t pharaoh_lighthouse_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[15],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id)
+{
+    return monument_find_work_for_walker(
+        assignments, 15, buildings, walkers, building_id, walker_id);
+}
+
+uint8_t pharaoh_lighthouse_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[15],
+    int32_t current_monument_id, int32_t worker_type)
+{
+    return monument_has_free_spot_for_type(
+        assignments, 15, current_monument_id, worker_type);
+}
+
+void pharaoh_obelisk_count_assigned_walkers(int32_t walker_type,
+    int32_t *count, int32_t building_id, const int16_t *building_types,
+    const PharaohObeliskWorkSpot *small_spots,
+    const PharaohObeliskWorkSpot *large_spots)
+{
+    const int32_t small_obelisk = 0xcf;
+    const int32_t spot_count = building_types[building_id] == small_obelisk ?
+        10 : 18;
+    const PharaohObeliskWorkSpot *spots =
+        building_types[building_id] == small_obelisk ? small_spots : large_spots;
+    int32_t index;
+    *count = 0;
+    for (index = 0; index < spot_count; ++index) {
+        if (spots[index].assignment->walker_id != 0 &&
+            spots[index].walker_type == walker_type) {
+            ++*count;
+        }
+    }
+}
+
+uint8_t pharaoh_lighthouse_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    int32_t building_id, int32_t *x, int32_t *y)
+{
+    *x = buildings[building_id].x + 2;
+    *y = buildings[building_id].y + 6;
+    return 1;
+}
+
+int32_t pharaoh_pyramid_next_work_piece(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, const PharaohPyramidWorkSegment segments[6])
+{
+    const int32_t part = buildings[building_id].subtype;
+    const int32_t root = building_id - part;
+    int32_t index;
+    for (index = 0; index < 6; ++index) {
+        const PharaohPyramidWorkSegment *segment = &segments[index];
+        if (part < segment->low || part > segment->high) continue;
+        if (part >= segment->low && part <= segment->descending_end) {
+            if (part == segment->low)
+                return root + segment->descending_end + 1;
+            return building_id - 1;
+        }
+        if (part >= segment->ascending_start && part <= segment->high) {
+            if (part == segment->high)
+                return root + segment->ascending_start - 1;
+            return building_id + 1;
+        }
+        return building_id + ((part & 1) != 0 ? -2 : 2);
+    }
+    return building_id;
+}
+
+int32_t pharaoh_monument_find_layout_pair(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, uint32_t pyramid_style,
+    const PharaohMonumentLayoutPair *regular_pairs,
+    const PharaohMonumentLayoutPair *style_five_pairs)
+{
+    const PharaohBuildingTypeRecord *building = &buildings[building_id];
+    const uint32_t variant = building->pyramid_size_variant;
+    const int32_t part = building->subtype;
+    const int32_t root = building_id - part;
+    const PharaohMonumentLayoutPair *pair = pyramid_style == 5u ?
+        &style_five_pairs[variant * 20u] :
+        &regular_pairs[variant * 78u];
+    while (pair->left_part >= 0) {
+        if (pair->right_part == part) return root + pair->left_part;
+        if (pair->left_part == part) return root + pair->right_part;
+        ++pair;
+    }
+    return -1;
+}
+
+int32_t pharaoh_pyramid_find_paired_work_piece(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, uint32_t pyramid_style,
+    const PharaohMonumentLayoutPair *regular_pairs,
+    const PharaohMonumentLayoutPair *style_five_pairs,
+    const int32_t *frontier_parts, int32_t frontier_count,
+    uint8_t *second_side)
+{
+    const PharaohBuildingTypeRecord *building = &buildings[building_id];
+    const uint32_t variant = building->pyramid_size_variant;
+    const int32_t part = building->subtype;
+    const PharaohMonumentLayoutPair *pair = pyramid_style == 5u ?
+        &style_five_pairs[variant * 20u] :
+        &regular_pairs[variant * 78u];
+    int32_t target = 0;
+    uint8_t side = 0;
+    int32_t index;
+    *second_side = 0;
+    while (pair->left_part >= 0) {
+        if (part == pair->right_part) {
+            target = pair->left_part;
+            side = 1;
+            break;
+        }
+        if (part == pair->left_part) {
+            target = pair->right_part;
+            side = 0;
+            break;
+        }
+        ++pair;
+    }
+    if (pair->left_part < 0) return -1;
+    for (index = 0; index < frontier_count; ++index) {
+        const int32_t candidate = frontier_parts[index];
+        if (buildings[candidate].subtype == target) {
+            *second_side = side;
+            return candidate;
+        }
+    }
+    return -1;
+}
+
+int32_t pharaoh_pyramid_level_stage_next(int32_t stage)
+{
+    ++stage;
+    return stage == 3 ? 4 : stage;
+}
+
+void pharaoh_city_clear_monument_building_id(
+    int32_t *monument_building_ids, int32_t ignored_building_id, int32_t slot)
+{
+    (void)ignored_building_id;
+    monument_building_ids[slot] = 0;
+}
+
+uint8_t pharaoh_monument_resource_unavailable(
+    const int32_t *available_amounts, const int32_t *blocked_resources,
+    int32_t resource, int32_t required_amount)
+{
+    if (required_amount <= available_amounts[resource] &&
+        (required_amount < 1 || blocked_resources[resource] == 0)) return 0;
+    return 1;
+}

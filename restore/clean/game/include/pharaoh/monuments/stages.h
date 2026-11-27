@@ -169,4 +169,137 @@ void pharaoh_library_spot_table_set_variant(int32_t building_variant,
     int32_t *active_variant, uint32_t destination[888],
     const uint32_t standard_source[888],
     const uint32_t alternate_source[888]);
+typedef struct PharaohMonumentLayoutPair {
+    int32_t left_part;
+    int32_t right_part;
+} PharaohMonumentLayoutPair;
+typedef struct PharaohPyramidWorkSegment {
+    int32_t low;
+    int32_t descending_end;
+    int32_t ascending_start;
+    int32_t high;
+} PharaohPyramidWorkSegment;
+typedef struct PharaohMonumentMenuOption {
+    uint32_t words[4];
+} PharaohMonumentMenuOption;
+typedef struct PharaohMonumentSpotAssignment {
+    uint8_t reserved_00[0x12];
+    int16_t walker_id;
+    uint8_t action_state;
+} PharaohMonumentSpotAssignment;
+typedef struct PharaohObeliskWorkSpot {
+    int32_t walker_type;
+    const PharaohMonumentSpotAssignment *assignment;
+} PharaohObeliskWorkSpot;
+typedef struct PharaohMonumentEntranceBuilding {
+    int16_t x;
+    int16_t y;
+    int16_t main_part_delta;
+    int32_t stage;
+} PharaohMonumentEntranceBuilding;
+typedef struct PharaohLibraryEntranceDefinition {
+    int32_t width;
+} PharaohLibraryEntranceDefinition;
+typedef struct PharaohSphinxAssignment {
+    int32_t monument_id;
+    int32_t worker_type;
+    const uint8_t *building;
+    int32_t reserved;
+} PharaohSphinxAssignment;
+typedef struct PharaohMonumentWorkAssignment {
+    int32_t monument_id;
+    int32_t worker_type;
+    const uint8_t *building;
+    int32_t reserved;
+} PharaohMonumentWorkAssignment;
+uint8_t pharaoh_monument_entrance_offset_6_minus_8(
+    const PharaohMonumentEntranceBuilding *buildings, int32_t building_id,
+    int32_t *x, int32_t *y);
+uint8_t pharaoh_monument_menu_option_allowed(
+    uint32_t phase, PharaohMonumentMenuOption option);
+uint8_t pharaoh_library_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    const PharaohLibraryEntranceDefinition *definitions,
+    int32_t building_id, int32_t *x, int32_t *y);
+uint8_t pharaoh_caesareum_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    int32_t map_view_orientation, int32_t building_id,
+    int32_t *x, int32_t *y);
+void pharaoh_monument_spot_attach_figure(
+    PharaohMonumentSpotAssignment *spot,
+    const PharaohWalkerQueryRecord *walkers, int32_t walker_id);
+int32_t pharaoh_sun_temple_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[13],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id);
+void pharaoh_sphinx_count_assigned(
+    const PharaohSphinxAssignment assignments[22], int32_t worker_type,
+    int32_t *count);
+uint8_t pharaoh_sphinx_has_free_spot_for_type(
+    const PharaohSphinxAssignment assignments[22],
+    int32_t current_monument_id, int32_t worker_type);
+uint8_t pharaoh_sun_temple_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[13],
+    int32_t current_monument_id, int32_t worker_type);
+int32_t pharaoh_library_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[27],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id);
+uint8_t pharaoh_library_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[27],
+    int32_t current_monument_id, int32_t worker_type);
+int32_t pharaoh_abu_simbel_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[56],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id);
+uint8_t pharaoh_abu_simbel_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[56],
+    int32_t current_monument_id, int32_t worker_type);
+int32_t pharaoh_caesareum_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[27],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id);
+uint8_t pharaoh_caesareum_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[27],
+    int32_t current_monument_id, int32_t worker_type);
+int32_t pharaoh_lighthouse_find_work_for_walker(
+    const PharaohMonumentWorkAssignment assignments[15],
+    const PharaohBuildingTypeRecord *buildings,
+    const PharaohWalkerQueryRecord *walkers, int32_t building_id,
+    int32_t walker_id);
+uint8_t pharaoh_lighthouse_has_free_spot_for_type(
+    const PharaohMonumentWorkAssignment assignments[15],
+    int32_t current_monument_id, int32_t worker_type);
+void pharaoh_obelisk_count_assigned_walkers(int32_t walker_type,
+    int32_t *count, int32_t building_id, const int16_t *building_types,
+    const PharaohObeliskWorkSpot *small_spots,
+    const PharaohObeliskWorkSpot *large_spots);
+uint8_t pharaoh_lighthouse_work_tile(
+    const PharaohMonumentEntranceBuilding *buildings,
+    int32_t building_id, int32_t *x, int32_t *y);
+int32_t pharaoh_pyramid_next_work_piece(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, const PharaohPyramidWorkSegment segments[6]);
+int32_t pharaoh_monument_find_layout_pair(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, uint32_t pyramid_style,
+    const PharaohMonumentLayoutPair *regular_pairs,
+    const PharaohMonumentLayoutPair *style_five_pairs);
+int32_t pharaoh_pyramid_find_paired_work_piece(
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int32_t building_id, uint32_t pyramid_style,
+    const PharaohMonumentLayoutPair *regular_pairs,
+    const PharaohMonumentLayoutPair *style_five_pairs,
+    const int32_t *frontier_parts, int32_t frontier_count,
+    uint8_t *second_side);
+int32_t pharaoh_pyramid_level_stage_next(int32_t stage);
+void pharaoh_city_clear_monument_building_id(
+    int32_t *monument_building_ids, int32_t ignored_building_id, int32_t slot);
+uint8_t pharaoh_monument_resource_unavailable(
+    const int32_t *available_amounts, const int32_t *blocked_resources,
+    int32_t resource, int32_t required_amount);
 #endif
