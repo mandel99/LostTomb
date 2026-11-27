@@ -57,4 +57,6 @@ int32_t pharaoh_overlay_damage_terrain_height(
     const int16_t *damage_terrain, int32_t grid_offset);
 int32_t pharaoh_building_type_overlay_tile_index(
     const int32_t *overlay_image_ids, int32_t building_type);
+int32_t pharaoh_overlay_farm_progress_percent(
+    int16_t progress, int32_t maximum_progress);
 #endif

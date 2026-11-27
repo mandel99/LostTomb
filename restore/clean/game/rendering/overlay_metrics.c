@@ -116,3 +116,10 @@ int32_t pharaoh_building_type_overlay_tile_index(
     }
     return -1;
 }
+
+int32_t pharaoh_overlay_farm_progress_percent(
+    int16_t progress, int32_t maximum_progress)
+{
+    return pharaoh_scale_value_to_percent(
+        progress, maximum_progress).value;
+}

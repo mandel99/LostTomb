@@ -3,6 +3,7 @@
 
 #include "pharaoh/ui/building_info_content_live.h"
 #include "pharaoh/ui/unit_panel_live.h"
+#include "pharaoh/ui/building_info_industry_live.h"
 #include "pharaoh/runtime/digital_sound_device.h"
 
 /* Borrowed providers, not copies of saved pools or renderer state. storage is
@@ -25,6 +26,7 @@ typedef struct PharaohBuildingInfoDrawProviders {
     const PharaohImageButtonDrawState *image_buttons;
     PharaohCityRenderContext *city;
     const PharaohDigitalSoundDeviceContext *sample_sound;
+    const PharaohInfoIndustryLiveContext *industry;
 } PharaohBuildingInfoDrawProviders;
 
 enum PharaohBuildingInfoDrawTypeSupport {

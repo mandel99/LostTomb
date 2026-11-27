@@ -26,11 +26,24 @@ static int temple_type(int32_t type)
 { return (type>=60&&type<=69)||(type>=140&&type<=144); }
 static int quarry_type(int32_t type)
 { return type==107||type==216||type==221; }
+/* Exact4F93B0 selector/4F920C targets and their proved tail blocks. */
+static int industry_type(int32_t type)
+{
+    switch(type) {
+    case 7:case 90:case 92:case 100:case 101:case 102:case 103:case 106:case 107:
+    case 109:case 110:case 111:case 112:case 115:case 161:case 162:case 177:
+    case 178:case 179:case 180:case 194:case 195:case 199:case 216:case 217:
+    case 221:case 224:case 231:return 1;
+    default:return 0;
+    }
+}
+static int industry_farm(int32_t type)
+{ return type==100||type==101||type==102||type==103||type==224; }
 
 enum PharaohBuildingInfoDrawTypeSupport pharaoh_building_info_draw_type_support(int32_t type)
 {
     if((uint32_t)type>=237)return PHARAOH_INFO_DRAW_OUTSIDE_TYPE_CATALOG;
-    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type))
+    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type)||industry_type(type))
         return PHARAOH_INFO_DRAW_CONNECTED_TYPE;
     if(native_catalog_present[type]||temple_type(type)||quarry_type(type))
         return PHARAOH_INFO_DRAW_MISSING_TYPE_PROVIDER;
@@ -123,11 +136,47 @@ static void warship(void *p,int32_t formation)
 static void legion_foreground(void *p,int32_t formation)
 { pharaoh_unit_panel_draw_legion_foreground(((PharaohBuildingInfoDrawBindings *)p)->providers.units,formation); }
 
+static const PharaohInfoIndustryLiveContext *industry(void *p)
+{ return ((PharaohBuildingInfoDrawBindings *)p)->providers.industry; }
+static void industry_water_lift(void *p) { pharaoh_info_industry_draw_water_lift(industry(p)); }
+static void industry_water_supply(void *p) { pharaoh_info_industry_draw_water_supply(industry(p)); }
+static void industry_well(void *p) { pharaoh_info_industry_draw_well(industry(p)); }
+static void industry_work_camp(void *p) { pharaoh_info_industry_draw_work_camp(industry(p)); }
+static void industry_barley(void *p) { pharaoh_info_industry_draw_barley_farm(industry(p)); }
+static void industry_flax(void *p) { pharaoh_info_industry_draw_flax_farm(industry(p)); }
+static void industry_grain(void *p) { pharaoh_info_industry_draw_grain_farm(industry(p)); }
+static void industry_lettuce(void *p) { pharaoh_info_industry_draw_lettuce_farm(industry(p)); }
+static void industry_henna(void *p) { pharaoh_info_industry_draw_henna_farm(industry(p)); }
+static void industry_reeds(void *p) { pharaoh_info_industry_draw_reed_gatherer(industry(p)); }
+static void industry_cattle(void *p) { pharaoh_info_industry_draw_cattle_ranch(industry(p)); }
+static void industry_stone(void *p) { pharaoh_info_industry_draw_stone_quarry(industry(p)); }
+static void industry_gold(void *p) { pharaoh_info_industry_draw_gold_mine(industry(p)); }
+static void industry_copper(void *p) { pharaoh_info_industry_draw_copper_mine(industry(p)); }
+static void industry_gems(void *p) { pharaoh_info_industry_draw_gemstone_mine(industry(p)); }
+static void industry_clay(void *p) { pharaoh_info_industry_draw_clay_pit(industry(p)); }
+static void industry_brewery(void *p) { pharaoh_info_industry_draw_brewery(industry(p)); }
+static void industry_weaver(void *p) { pharaoh_info_industry_draw_weaver(industry(p)); }
+static void industry_weapons(void *p) { pharaoh_info_industry_draw_weaponsmith(industry(p)); }
+static void industry_carpenters(void *p) { pharaoh_info_industry_draw_carpenters_guild(industry(p)); }
+static void industry_bricklayers(void *p) { pharaoh_info_industry_draw_bricklayers_guild(industry(p)); }
+static void industry_stonemasons(void *p) { pharaoh_info_industry_draw_stonemasons_guild(industry(p)); }
+static void industry_artisans(void *p) { pharaoh_info_industry_draw_artisans_guild(industry(p)); }
+static void industry_hunting(void *p) { pharaoh_info_industry_draw_hunting_lodge(industry(p)); }
+static void industry_quarry(void *p,int32_t resource)
+{ pharaoh_info_industry_draw_quarry(industry(p),resource); }
+
 static void (*const connected_catalog[237])(void *)={
     [10]=house,[11]=house,[12]=house,[13]=house,[14]=house,[15]=house,[16]=house,
     [17]=house,[18]=house,[19]=house,[20]=house,[21]=house,[22]=house,[23]=house,
     [24]=house,[25]=house,[26]=house,[27]=house,[28]=house,[29]=house,
-    [41]=statue,[42]=statue,[43]=statue,[56]=arch,[99]=burning
+    [41]=statue,[42]=statue,[43]=statue,[56]=arch,[99]=burning,
+    [7]=industry_water_lift,[90]=industry_water_lift,[92]=industry_well,
+    [100]=industry_barley,[101]=industry_flax,[102]=industry_grain,[103]=industry_lettuce,
+    [106]=industry_stone,[109]=industry_clay,[110]=industry_brewery,[111]=industry_weaver,
+    [112]=industry_weapons,[115]=industry_hunting,[161]=industry_gold,[162]=industry_gems,
+    [177]=industry_carpenters,[178]=industry_bricklayers,[179]=industry_stonemasons,
+    [180]=industry_water_supply,[194]=industry_cattle,[195]=industry_reeds,[199]=industry_work_camp,
+    [217]=industry_copper,[224]=industry_henna,[231]=industry_artisans
 };
 
 void pharaoh_building_info_draw_bindings_initialize(PharaohBuildingInfoDrawBindings *b,
@@ -149,6 +198,7 @@ void pharaoh_building_info_draw_bindings_initialize(PharaohBuildingInfoDrawBindi
     if(providers->units) {
         o->legion=legion;o->transport=transport;o->warship=warship;o->legion_foreground=legion_foreground;
     }
+    if(providers->industry)o->quarry=industry_quarry;
     o->building_background=connected_catalog;
     if(providers->ui)providers->ui->operations=o;
 }
@@ -251,12 +301,91 @@ static enum PharaohBuildingInfoDrawSupport unit_ready(const PharaohBuildingInfoD
         return PHARAOH_INFO_DRAW_STATE_MISMATCH;
     return PHARAOH_INFO_DRAW_READY;
 }
+static int industry_percentage(int32_t type)
+{
+    return industry_farm(type)||quarry_type(type)||type==106||type==109||type==110||
+        type==111||type==112||type==161||type==162||type==177||type==194||type==217;
+}
+static int industry_mothball(int32_t type)
+{
+    switch(type) {
+    case 100:case 101:case 102:case 103:case 106:case 107:case 109:case 110:
+    case 111:case 112:case 115:case 161:case 162:case 194:case 195:case 216:
+    case 217:case 221:case 224:return 1;
+    default:return 0;
+    }
+}
+static enum PharaohBuildingInfoDrawSupport industry_employment_ready(const PharaohBuildingInfoDrawBindings *b)
+{
+    const PharaohStorageInfoDrawContext *d=b->providers.storage;
+    const PharaohBuildingInfoLiveContext *u=b->providers.ui;
+    const PharaohBuildingTypeRecord *selected=&u->buildings[u->window->building_id];
+    if(!d->models||!d->context_icons||!d->number_suffix||!d->employee_suffix)
+        return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(selected->num_workers<d->models[selected->building_type].laborers) {
+        if(!d->city_population)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        if(*d->city_population>0&&selected->houses_covered>=40&&!d->labor)
+            return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    }
+    return PHARAOH_INFO_DRAW_READY;
+}
+static enum PharaohBuildingInfoDrawSupport industry_ready(const PharaohBuildingInfoDrawBindings *b,int32_t type)
+{
+    enum PharaohBuildingInfoDrawSupport s=content_ready(b);if(s!=PHARAOH_INFO_DRAW_READY)return s;
+    const PharaohBuildingInfoDrawProviders *p=&b->providers;
+    const PharaohInfoIndustryLiveContext *i=p->industry;
+    if(!i)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(i->content!=p->content)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(quarry_type(type)) {
+        if(!b->operations.quarry)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    } else if(!b->operations.building_background||!b->operations.building_background[type])
+        return PHARAOH_INFO_DRAW_UNSUPPORTED_TYPE;
+    const PharaohBuildingInfoLiveContext *u=p->ui;
+    const PharaohBuildingTypeRecord *selected=&u->buildings[u->window->building_id];
+    if(type==92) {
+        const PharaohMapHouseWaterContext *water=i->house_water;
+        if(!water||!water->building_ids||!water->result_x||!water->result_y)
+            return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        return water->buildings==u->buildings?PHARAOH_INFO_DRAW_READY:PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    }
+    if(industry_percentage(type)&&!i->percent_suffix)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(u->window->details.road_access>0&&industry_mothball(type)&&(!i->mothball_banks||!i->current_player))
+        return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    /* The quarry adapter captures these actual calendar scalars when forming
+     * its unchanged508E00 query context; it does not consume harvest rows. */
+    if(quarry_type(type)&&(!i->month||!i->flood_season_month))return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(industry_farm(type)) {
+        const PharaohOccupancyState *o=p->content->occupancy;
+        if(!o||!o->offsets||!o->terrain||!o->objects||!o->buildings||
+           !i->farm_progress_max||!i->month||!i->flood_season_month||!i->food)
+            return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        /* The existing query writes only last_origin. A small descriptor
+         * probe keeps that write local; its grids and objects remain borrowed.
+         * Readiness must not advance the actual Native occupancy scratch. */
+        PharaohOccupancyState probe=*o;
+        const uint8_t active=(uint8_t)pharaoh_building_has_active_occupant(&probe,u->window->building_id);
+        if(!active&&!i->harvest_months)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        const PharaohFoodSupplyQueryContext *food=i->food;
+        if(!food->map_origin||!food->current_tile||!food->soil_values||!food->footprints)
+            return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        if(food->buildings!=u->buildings)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+        if(selected->farm_water_access!=0&&
+           (uint8_t)pharaoh_building_type_is_00488080_group(u->buildings,u->window->building_id)&&food->occupancy!=o)
+            return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+        if(active) {
+            /*4FC4F0 draws its actual occupant branch instead of employment. */
+            return p->storage->context_icons?PHARAOH_INFO_DRAW_READY:PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        }
+    }
+    return industry_employment_ready(b);
+}
 static enum PharaohBuildingInfoDrawSupport building_ready(const PharaohBuildingInfoDrawBindings *b,int32_t type)
 {
     const enum PharaohBuildingInfoDrawTypeSupport type_support=pharaoh_building_info_draw_type_support(type);
     if(type_support==PHARAOH_INFO_DRAW_MISSING_TYPE_PROVIDER||type_support==PHARAOH_INFO_DRAW_OUTSIDE_TYPE_CATALOG)
         return PHARAOH_INFO_DRAW_UNSUPPORTED_TYPE;
     if(type_support==PHARAOH_INFO_DRAW_NATIVE_DEFAULT)return PHARAOH_INFO_DRAW_READY;
+    if(industry_type(type))return industry_ready(b,type);
     if(storage_type(type)) {
         const PharaohBuildingInfoLiveContext *u=b->providers.ui;
         const PharaohStorageInfoDrawContext *d=b->providers.storage;
