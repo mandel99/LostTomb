@@ -9,6 +9,15 @@ _Static_assert(sizeof(PharaohCityMessageMediaLayout) == 80 &&
     offsetof(PharaohMenuMessageRecord, sequence) == 12,
     "native queued message layouts");
 
+void pharaoh_city_message_dialog_show(const PharaohCityMessageQueueContext *c,
+    int32_t message,uint8_t templated)
+{
+    PharaohMessageDialogOpenState dialog=*c->dialog;
+    dialog.message_record_value=&c->layouts[message].media_offset;
+    dialog.current_message_phrase_count=&c->messages[*c->shown_index].native_26;
+    pharaoh_message_dialog_show(&dialog,message,0,templated);
+}
+
 void pharaoh_city_message_queue_process(const PharaohCityMessageQueueContext *c)
 {
     if (*c->window_id != 1) return;
@@ -49,7 +58,7 @@ void pharaoh_city_message_queue_process(const PharaohCityMessageQueueContext *c)
         (void)pharaoh_native_return_zero_0047d350();
     else *c->show_video = 1;
     *c->popup = 1;
-    pharaoh_message_dialog_show(c->dialog, *c->current_message, 0,
+    pharaoh_city_message_dialog_show(c, *c->current_message,
         event->template_id >= 0);
     *c->popup = 0;
     *c->redraw = 1;

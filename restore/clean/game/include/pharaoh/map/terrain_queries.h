@@ -40,4 +40,9 @@ typedef struct PharaohWaterOrientationMap {
 } PharaohWaterOrientationMap;
 void pharaoh_map_terrain_and_area(PharaohMapTerrainView *map,int32_t x,int32_t y,int32_t size,int32_t radius,uint32_t mask,PharaohMapAreaCursor *cursor);
 int32_t pharaoh_map_water_determine_orientation_size3(PharaohWaterOrientationMap *map,int32_t x,int32_t y,uint8_t rotate_with_view);
+typedef struct PharaohRoadAccessContext PharaohRoadAccessContext;
+
+int32_t pharaoh_map_has_road_access_granary(
+    PharaohRoadAccessContext *context,int32_t x,int32_t y);
+
 #endif

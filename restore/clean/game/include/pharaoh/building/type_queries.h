@@ -84,6 +84,8 @@ typedef struct PharaohBuildingTypeRecord {
     int16_t formation_id;
     uint8_t reserved_52[2];
     union {
+        int16_t house_food_54[8];
+        struct { int16_t food_reserved_54; int16_t granary_food_56[9]; };
         int32_t abu_simbel_stage;
         int32_t sun_temple_variant; /* native DWORD54 */
         struct {

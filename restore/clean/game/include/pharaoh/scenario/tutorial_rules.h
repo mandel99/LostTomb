@@ -9,7 +9,8 @@ typedef struct PharaohTutorialRule {
     const int32_t *building_types;
     int32_t item_count;
     const int32_t *items;
-    uint8_t reserved_14[8];
+    union { uint8_t reserved_14[8];
+        struct { int32_t message; uint8_t reserved_18[4]; }; };
 } PharaohTutorialRule;
 
 _Static_assert(sizeof(void *)!=4 || sizeof(PharaohTutorialRule)==28,

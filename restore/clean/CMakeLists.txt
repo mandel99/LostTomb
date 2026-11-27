@@ -334,6 +334,9 @@ add_library(pharaoh_game STATIC
     game/military/request_dispatch.c
     game/scenario/request_dispatch.c
     game/ui/city_message_policy.c
+    game/ui/city_message_publish.c
+    game/scenario/tutorial_complete.c
+    game/city/food_supply.c
     game/simulation/industry_production.c
     game/simulation/industry_queries.c
     game/simulation/flood_simulation.c

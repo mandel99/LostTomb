@@ -1,3 +1,4 @@
+#include "pharaoh/map/road_access.h"
 #include "pharaoh/map/terrain_queries.h"
 
 static int32_t ring_search_tile(const PharaohMapRingActorSearch *state,
@@ -196,4 +197,10 @@ int32_t pharaoh_map_water_determine_orientation_size3(
         *map->adjusted_orientation = candidate + 1;
     }
     return 999;
+}
+
+int32_t pharaoh_map_has_road_access_granary(
+    PharaohRoadAccessContext *context, int32_t x, int32_t y)
+{
+    return pharaoh_map_has_road_access(context, x, y, 4);
 }

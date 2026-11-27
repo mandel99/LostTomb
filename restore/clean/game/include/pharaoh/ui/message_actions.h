@@ -13,7 +13,9 @@ typedef struct PharaohMenuMessageRecord {
     uint8_t read;
     uint8_t source;
     int16_t template_id;
-    uint8_t reserved_12[30];
+    union { uint8_t reserved_12[30];
+        struct { uint8_t native_12[20]; uint16_t native_26;
+            uint8_t native_28[8]; }; };
 } PharaohMenuMessageRecord;
 
 typedef struct PharaohMenuMessageState {
