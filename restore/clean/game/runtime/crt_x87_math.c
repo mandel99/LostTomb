@@ -1,4 +1,7 @@
 #include "pharaoh/runtime/crt_x87_math.h"
+#include "pharaoh/runtime/crt_numeric_bits.h"
+
+#include <stddef.h>
 
 #if !defined(_MSC_VER) || !defined(_M_IX86)
 #error These live x87 owners require the configured MSVC Win32 target.
@@ -230,4 +233,42 @@ __declspec(noinline) uint32_t pharaoh_crt_x87_handle_masked_error(uint32_t excep
         pharaoh_crt_x87_generate_exceptions(0x20u);remaining&=~0x10u;
     }
     return remaining==0;
+}
+
+
+_Static_assert(sizeof(PharaohCrtX87ControlSlot)==4 &&
+    offsetof(PharaohCrtX87ControlSlot,upper)==2,"Native shared CW slot");
+
+/* Whole00567575. Reuse the solved bits; perform the real partial store/load. */
+__declspec(noinline) uint32_t pharaoh_crt_x87_normalize_control_live(
+    PharaohCrtX87ControlSlot *slot)
+{
+    const uint16_t normalized=pharaoh_crt_default_x87_control_word(slot->original);
+    slot->upper=normalized;
+    __asm {
+        mov eax,slot
+        fldcw word ptr[eax+2]
+    }
+    return normalized;
+}
+
+/* Whole00568532. Waiting hardware read and solved signed result conversion. */
+__declspec(noinline) int32_t pharaoh_crt_x87_status_wait(void)
+{
+    uint16_t status;
+    __asm { fstsw status }
+    return pharaoh_crt_x87_status_word((int16_t)status);
+}
+
+/* Whole0056854F. Always execute both waiting read and control load. Native's
+ * high scratch/mask-slot bits are discarded by its sole direct consumer. */
+__declspec(noinline) int32_t pharaoh_crt_x87_control_word(
+    uint32_t value,uint32_t mask)
+{
+    uint16_t original,updated;
+    int32_t result;
+    __asm { fstcw original }
+    result=pharaoh_crt_update_x87_control_word((int16_t)original,value,mask,&updated);
+    __asm { fldcw updated }
+    return result;
 }

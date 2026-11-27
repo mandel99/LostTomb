@@ -16,4 +16,17 @@ void pharaoh_crt_x87_frexp_live(uint64_t value, int32_t *exponent);
 uint32_t pharaoh_crt_x87_handle_masked_error(uint32_t exceptions,
     uint64_t *result, uint32_t control);
 
+/* Native shared DWORD: FSTCW saves the low WORD; normalization writes
+ * the upper WORD. No incoming upper garbage becomes a C API input. */
+typedef struct PharaohCrtX87ControlSlot {
+    uint16_t original;
+    uint16_t upper;
+} PharaohCrtX87ControlSlot;
+
+/* The scalar normalization result represents Native EDX. C parents retain
+ * their actual classification across this call, as Native preserves EAX. */
+uint32_t pharaoh_crt_x87_normalize_control_live(PharaohCrtX87ControlSlot *slot);
+int32_t pharaoh_crt_x87_status_wait(void);
+int32_t pharaoh_crt_x87_control_word(uint32_t value, uint32_t mask);
+
 #endif
