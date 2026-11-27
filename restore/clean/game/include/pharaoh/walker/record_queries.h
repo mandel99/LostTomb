@@ -97,7 +97,8 @@ typedef struct PharaohWalkerQueryRecord {
     int16_t combat_value_08c;
     int16_t combat_value_08e;
     int16_t combat_value_090;
-    uint8_t reserved_092[0x98 - 0x92];
+    union { uint8_t reserved_092[0x98 - 0x92];
+        struct { uint8_t ship_formation_id_092, reserved_093[5]; }; };
     int32_t name_group;
     int32_t carried_goods[4];
     uint8_t reserved_0ac[0xbc - 0xac];
