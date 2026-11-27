@@ -83,4 +83,5 @@ void pharaoh_windows_startup_dispatch_character(
 void pharaoh_windows_startup_dispatch_escape(
     PharaohWindowsStartupDispatch *dispatch);
 
+int32_t pharaoh_windows_startup_dispatch_diagnostic_begin_period(PharaohWindowsStartupDispatch *dispatch);
 #endif

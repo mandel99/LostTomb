@@ -22,6 +22,8 @@ static int32_t diagnostic_capture_countdown;
 static char diagnostic_capture_path[MAX_PATH];
 static int32_t diagnostic_game_navigation;
 static int32_t diagnostic_game_frames;
+static int32_t diagnostic_period_path;
+static uint8_t diagnostic_previous_window=255;
 
 static void *set_game_cursor(void *context, void *cursor)
 {
@@ -47,6 +49,22 @@ static void dispatch_boot_frame(void *user_data)
         if(diagnostic_game_navigation==3) dispatch->left_press_active=(uint8_t)(diagnostic_game_frames==10);
     }
     pharaoh_windows_startup_dispatch_frame(dispatch);
+    if(diagnostic_period_path!=0){
+        const uint8_t window=dispatch->refresh.current_window_id;
+        if(window!=diagnostic_previous_window){
+            diagnostic_previous_window=window;
+            char path[MAX_PATH];DWORD n=GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_TRANSITIONS",path,sizeof(path));
+            if(n>0&&n<sizeof(path)){FILE *out=fopen(path,"ab");if(out!=NULL){fprintf(out,"%u\n",(unsigned)window);fclose(out);}}
+        }
+        if(window==0x35&&dispatch->mission_runtime!=NULL){
+            char briefing[MAX_PATH];DWORD n=GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_BRIEFING_CAPTURE",briefing,sizeof(briefing));
+            if(n>0&&n<sizeof(briefing))(void)pharaoh_windows_startup_host_capture_frame(&startup_host,briefing);
+            if(pharaoh_windows_mission_runtime_diagnostic_begin_game(dispatch->mission_runtime)){
+                diagnostic_period_path=0;diagnostic_game_navigation=1;startup_host.current_window_id=1;
+                if(diagnostic_capture_path[0]!=0)diagnostic_capture_countdown=30;
+            }
+        }
+    }
     if (diagnostic_capture_countdown > 0 &&
         --diagnostic_capture_countdown == 0) {
         (void)pharaoh_windows_startup_host_capture_frame(&startup_host,
@@ -209,6 +227,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous, LPSTR command_line,
         if (window_length > 0 && window_length < sizeof(diagnostic_window)) {
             const unsigned long window_id = strtoul(diagnostic_window,
                 NULL, 0);
+            if(window_id==0x17){
+                if(pharaoh_windows_startup_dispatch_diagnostic_begin_period(&startup_dispatch))
+                    diagnostic_period_path=1;
+            }
             if(window_id==1){
                 startup_dispatch.refresh.current_window_id=0x35;
                 startup_host.current_window_id=0x35;

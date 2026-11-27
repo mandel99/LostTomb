@@ -1771,3 +1771,14 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
     pharaoh_graphics_refresh_screen(&dispatch->refresh,
         &dispatch->refresh_operations, 0);
 }
+
+int32_t pharaoh_windows_startup_dispatch_diagnostic_begin_period(PharaohWindowsStartupDispatch *d)
+{
+    d->refresh.current_window_id=0x17;d->host->current_window_id=0x17;
+    d->menu_field_7027ac=0;d->menu_field_7027b0=0;d->menu_campaign_mode_6fdc98=0;
+    pharaoh_windows_startup_dispatch_frame(d); /* Real period menu before movie. */
+    PharaohCampaignMenuState state=campaign_menu_state(d);
+    const PharaohCampaignMenuOperations operations={d,main_menu_open_map_selection,
+        campaign_menu_play_period_intro,campaign_menu_start_campaign,campaign_menu_begin_briefing};
+    return pharaoh_campaign_menu_start_selected(&state,&operations);
+}

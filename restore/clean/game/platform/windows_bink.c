@@ -155,8 +155,30 @@ static int32_t present_video_surface(void *user_data, void *primary_surface,
     if (result != DD_OK) return (int32_t)result;
     /* Native 00426F60 leaves black around the centered movie. Present the
        complete composed frame in one operation, as other windowed scenes do. */
-    return (int32_t)display->lpVtbl->Blt(display, &client_rectangle,
-        frame, &frame_rectangle, DDBLT_WAIT, NULL);
+    result=display->lpVtbl->Blt(display,&client_rectangle,frame,&frame_rectangle,DDBLT_WAIT,NULL);
+    if(result==DD_OK && backend->diagnostic_frame_limit!=0){
+        ++backend->diagnostic_presented;
+        DDSURFACEDESC d={0};d.dwSize=sizeof(d);
+        if(frame->lpVtbl->Lock(frame,NULL,&d,DDLOCK_WAIT|DDLOCK_READONLY,NULL)==DD_OK){
+            if(d.ddpfPixelFormat.dwRGBBitCount==32){
+                ++backend->diagnostic_pixels_checked;
+                for(uint32_t y=0;y<backend->presentation_height;++y){
+                    const uint8_t *row=(const uint8_t *)d.lpSurface+(ptrdiff_t)y*d.lPitch;
+                    for(uint32_t x=0;x<backend->presentation_width;++x){
+                        uint32_t color;memcpy(&color,row+x*4u,4);
+                        if((color&0x00ffffffu)!=0){
+                            if((int32_t)x<frame_left||(int32_t)x>=movie_rectangle.right||
+                               (int32_t)y<frame_top||(int32_t)y>=movie_rectangle.bottom)
+                                ++backend->diagnostic_margin_nonblack;
+                            else ++backend->diagnostic_movie_nonblack;
+                        }
+                    }
+                }
+            }
+            (void)frame->lpVtbl->Unlock(frame,NULL);
+        }
+    }
+    return (int32_t)result;
 }
 
 static uint32_t bink_surface_type(void *user_data, void *surface)

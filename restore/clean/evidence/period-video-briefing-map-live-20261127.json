@@ -1,0 +1,88 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "scope": "Real selected first-period menu -> Bink -> actual key-stop branch -> timed window4 -> briefing53 with actual loading/rendering -> actual Continue00418220 -> map/UI1",
+  "source_binding": [],
+  "source_sha256": {
+    "game/platform/windows_bink.c": "e210faa1246b9c721b9fde35693b26fffe0f1295edabf79ecd62a450278279d9",
+    "game/include/pharaoh/platform/windows_bink.h": "d679adc0823d389fb3c5553ff2c271483b8cb17b9dec8092ec6a6fbda5bf7af7",
+    "game/platform/windows_video_io.c": "a1ab330e1a9faef849453bea5a140890ce991dcc18f781952361ea3072ae2b68",
+    "game/platform/windows_startup_host.c": "1b998634269863fc74c0f0239d8dc29064c1c6de578e2c003a669b1b20a7e11d",
+    "game/platform/windows_bootstrap.c": "85a01562924d1ceb9930c74585fbcb3a3f07c146b83c35b8bd5daa7f997b9f5d",
+    "game/platform/windows_startup_dispatch.c": "c45123525cbd8415e1404ab8f7da801fcf43a432521f79e19f9f30bdb1b2b58d",
+    "game/include/pharaoh/platform/windows_startup_dispatch.h": "c336b85c1341aae8ac744c22b67125f9b451365123065917a70f7c8544a87297"
+  },
+  "diagnostics": "Opt-in process/environment hooks only; no OS computer-control automation. Native message handler receives a diagnostic KEYDOWN from its real input provider after actual presented frames. Normal startup has no diagnostic frame limit.",
+  "isolated_data": "Separate temporary working directory; Save tree and settings copied, assets read through hard links/junctions. Original executable and real Save tree left untouched.",
+  "build": {
+    "method": "Full clean Release Win32 build of HEAD plus only these scoped files, /W4 /WX",
+    "result": "pass",
+    "exe_sha256": "c33a82ab61eb8c938cc5d6c9c7952567d8829694733c7c9041ea981a980f4de3",
+    "library_sha256": "95226682b0709cd778a330100ac3c61fec62c63225f7064ccad86c1d51351973",
+    "archive": "build/verified-images/period-video-briefing-map-20261127-c33a82ab61eb"
+  },
+  "runs": [
+    {
+      "skip_after_presented_frames": 1,
+      "exit_code": 0,
+      "observed_windows": [
+        4,
+        53,
+        1
+      ],
+      "video_pixels": {
+        "frames": 1,
+        "pixels_checked": 1,
+        "margin_nonblack": 0,
+        "movie_nonblack": 0
+      },
+      "game_state": {
+        "window": 1,
+        "scene_status": 2,
+        "camera_x": 114,
+        "camera_y": 218,
+        "scroll_requested": 0,
+        "frame_status": 1,
+        "surface_bits": 32
+      },
+      "capture_sha256": {
+        "briefing": "2a23bfde578e1b6620f80e0968ee9d7bed1a08f140c5124c01af9c4460bf26db",
+        "game": "160eb42f80dfa7ec77ff824dae9210340f0b960f52682bcdc375f2bb91539193"
+      }
+    },
+    {
+      "skip_after_presented_frames": 20,
+      "exit_code": 0,
+      "observed_windows": [
+        4,
+        53,
+        1
+      ],
+      "video_pixels": {
+        "frames": 20,
+        "pixels_checked": 20,
+        "margin_nonblack": 0,
+        "movie_nonblack": 3355995
+      },
+      "game_state": {
+        "window": 1,
+        "scene_status": 2,
+        "camera_x": 114,
+        "camera_y": 218,
+        "scroll_requested": 0,
+        "frame_status": 1,
+        "surface_bits": 32
+      },
+      "capture_sha256": {
+        "briefing": "2a23bfde578e1b6620f80e0968ee9d7bed1a08f140c5124c01af9c4460bf26db",
+        "game": "160eb42f80dfa7ec77ff824dae9210340f0b960f52682bcdc375f2bb91539193"
+      }
+    }
+  ],
+  "visual_inspection": "Briefing capture contains Nubt title, goals, text, difficulty and Continue; map capture has actual terrain, UI and minimap. Composed-video margin pixels tested before presentation on actual32-bit surfaces.",
+  "incremental_candidate_observation": "An earlier incremental temporary build crashed; a full clean rebuild of the same final source passed both scenarios. Temporary trace instrumentation removed before the clean build.",
+  "limitations": [
+    "Profile chooser/Begin Family History window0/47/48 not driven in these process probes; test starts from actual period-menu state23",
+    "First campaign mission only; other missions/custom scenes and full gameplay equivalence not established",
+    "City menu/build input and simulation clocks remain unbound; no placeholder callbacks added"
+  ]
+}

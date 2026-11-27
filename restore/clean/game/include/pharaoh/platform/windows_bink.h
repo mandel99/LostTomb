@@ -25,6 +25,8 @@ typedef struct PharaohWindowsBink {
     PharaohVideoBlitOperations blit_operations;
     void *presentation_surface; /* complete logical frame, including black margins */
     uint32_t presentation_width, presentation_height;
+    uint32_t diagnostic_frame_limit,diagnostic_presented,diagnostic_skip_sent;
+    uint32_t diagnostic_margin_nonblack,diagnostic_movie_nonblack,diagnostic_pixels_checked;
 } PharaohWindowsBink;
 
 int32_t pharaoh_windows_bink_open_library(PharaohWindowsBink *backend);

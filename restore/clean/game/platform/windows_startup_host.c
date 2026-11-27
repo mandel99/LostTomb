@@ -2583,6 +2583,10 @@ static int32_t play_movie(PharaohWindowsStartupHost *host,
     host->video_blit.status_state = &host->log_format_state;
     host->video_blit.status_operations = &host->log_format_operations;
 
+    {
+        char frames[16];const DWORD n=GetEnvironmentVariableA("LOSTTOMB_DIAGNOSTIC_VIDEO_FRAMES",frames,sizeof(frames));
+        if(n>0&&n<sizeof(frames))host->bink.diagnostic_frame_limit=(uint32_t)strtoul(frames,NULL,10);
+    }
     const int32_t played = pharaoh_video_player_play(player,
         &host->video_runtime, filename, x, y, &host->video_open);
     (void)presentation_surface->lpVtbl->Release(presentation_surface);
