@@ -107,22 +107,14 @@ void pharaoh_windows_sound_menu_music(PharaohWindowsSound *sound,
     pharaoh_front_menu_update_music(sound->ready, enabled, &menu_sound);
 }
 
-static void dispatch_effect(void *data,
-    const PharaohSoundEffectPlayRequest *request)
-{
-    PharaohWindowsSound *sound=data;
-    const PharaohDigitalSoundRequest actual={
-        request->sample_match_tag,request->sound_file_id,request->volume,
-        request->pan,request->loop_count};
-    (void)pharaoh_digital_sound_play_sample(
-        &sound->state,&sound->device_operations,&actual);
-}
+
 
 void pharaoh_windows_sound_effect(PharaohWindowsSound *sound,
     PharaohSoundEffectRequestState *request_state, int32_t effect_slot)
 {
-    const PharaohSoundEffectRequestOperations operations={sound,dispatch_effect};
-    pharaoh_sound_effect_request(request_state,&operations,effect_slot);
+    const PharaohDigitalSoundDeviceContext player={
+        &sound->state,&sound->device_operations};
+    pharaoh_sound_effect_request_play(request_state,&player,effect_slot);
 }
 
 int32_t pharaoh_windows_sound_open(PharaohWindowsSound *sound)

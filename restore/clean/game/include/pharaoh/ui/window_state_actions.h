@@ -39,12 +39,20 @@ typedef struct PharaohPopupWindowState {
     int32_t popup_x;
     int32_t popup_y;
     uint8_t popup_flag;
-    void (*callback)(void);
+    union {
+        void (*callback)(void);
+        void (*context_callback)(const void *);
+    };
     uint32_t key;
     uint32_t mode;
     uint8_t redraw_requested;
+    uint8_t callback_uses_context;
+    const void *callback_context;
 } PharaohPopupWindowState;
 
 void pharaoh_popup_window_open(PharaohPopupWindowState *state,
     uint32_t key, void (*callback)(void), uint32_t mode);
+void pharaoh_popup_window_open_context(PharaohPopupWindowState *,uint32_t key,
+    void (*callback)(const void *),const void *context,uint32_t mode);
+void pharaoh_popup_window_invoke_callback(const PharaohPopupWindowState *);
 #endif

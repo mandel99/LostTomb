@@ -364,6 +364,8 @@ add_library(pharaoh_game STATIC
     game/building/construction_basic_warnings.c
     game/building/housing_warnings.c
     game/building/housing_construction.c
+    game/building/demolition.c
+    game/runtime/sound_effect_player.c
     game/building/venue_geometry.c
     game/building/entertainment_construction.c
     game/building/construction_undo.c

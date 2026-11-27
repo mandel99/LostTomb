@@ -2,6 +2,7 @@
 #define PHARAOH_RUNTIME_SOUND_EFFECT_REQUEST_H
 
 #include <stdint.h>
+#include "pharaoh/runtime/digital_sound_device.h"
 
 enum {
     PHARAOH_SOUND_EFFECT_REQUEST_SLOT_COUNT = 19,
@@ -41,4 +42,6 @@ void pharaoh_sound_effect_request(
     const PharaohSoundEffectRequestOperations *operations,
     int32_t effect_slot);
 
+void pharaoh_sound_effect_request_play(PharaohSoundEffectRequestState *,
+    const PharaohDigitalSoundDeviceContext *,int32_t effect_slot);
 #endif

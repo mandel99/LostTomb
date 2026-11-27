@@ -92,7 +92,24 @@ void pharaoh_popup_window_open(PharaohPopupWindowState *state,
     state->current_window = 0x3f;
     state->popup_flag = 0;
     state->callback = callback;
+    state->callback_uses_context = 0;
+    state->callback_context = 0;
     state->key = key;
     state->mode = mode;
     state->redraw_requested = 1;
+}
+
+void pharaoh_popup_window_open_context(PharaohPopupWindowState *state,
+    uint32_t key,void (*callback)(const void *),const void *context,uint32_t mode)
+{
+    pharaoh_popup_window_open(state,key,0,mode);
+    state->context_callback=callback;
+    state->callback_context=context;
+    state->callback_uses_context=1;
+}
+void pharaoh_popup_window_invoke_callback(const PharaohPopupWindowState *state)
+{
+    if (state->callback_uses_context)
+        state->context_callback(state->callback_context);
+    else state->callback();
 }
