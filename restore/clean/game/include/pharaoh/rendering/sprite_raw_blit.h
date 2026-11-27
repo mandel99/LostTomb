@@ -45,4 +45,6 @@ void pharaoh_sprite_raw_blit_square32(
 const uint8_t *pharaoh_graphics_rle_skip_rows(
     const uint8_t *source, int32_t row_count, int32_t row_width);
 
+void pharaoh_graphics_and_bytes(
+    uint32_t *data, int32_t byte_count, uint8_t mask);
 #endif

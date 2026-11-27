@@ -74,4 +74,6 @@ void pharaoh_finance_calculate_totals(PharaohFinanceTotals *totals);
 void pharaoh_finance_calculate_tribute(int32_t treasury, int32_t population,
     int32_t net_current_year, volatile uint32_t *provisional_tribute);
 
+void pharaoh_finance_process_construction(PharaohFinanceLedger *ledger,
+    uint8_t player_active, int32_t editor_active, int32_t amount);
 #endif

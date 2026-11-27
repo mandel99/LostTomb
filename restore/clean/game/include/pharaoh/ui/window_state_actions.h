@@ -25,4 +25,7 @@ void pharaoh_menu_bar_clear(const PharaohMenuBarState *);
 void pharaoh_city_ratings_store_culture_lowest(
     int32_t *culture_explanation, int32_t culture_lowest);
 
+void pharaoh_game_undo_finish_build(uint32_t placement_cursor,
+    uint32_t *undo_cursor, int32_t *undo_ticks,
+    int32_t *undo_ready, uint8_t *redraw_requested);
 #endif

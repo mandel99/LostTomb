@@ -40,3 +40,11 @@ The prior gatehouse C scan order was corrected to native columns before rows.
 Military text posting remains disabled; its real routing and event mutations
 are compared. Original thiscall invasion cleanup is checked separately from
 the C context ABI. No native endpoint substitutes are supplied.
+
+run-root-support-cohort.py uses the same sites fixture for19 construction
+root dependencies in259 cases. Eight warnings call the real post routine
+through live state; three actual terrain rules serve the indirect region
+query. Seven root algorithms and a treasury child reuse existing C. Finance
+uses the real editor flag (the old argument label was unrelated). Disabled
+warning text, arbitrary callback domains and whole-game equivalence remain
+outside the comparison. Original raw rule entries have no function objects.

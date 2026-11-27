@@ -72,3 +72,13 @@ void pharaoh_top_menu_hover_index(int32_t mouse_x, int32_t mouse_y,
             *hovered = index + 1;
     }
 }
+
+void pharaoh_game_undo_finish_build(uint32_t placement_cursor,
+    uint32_t *undo_cursor, int32_t *undo_ticks,
+    int32_t *undo_ready, uint8_t *redraw_requested)
+{
+    *undo_ready = 1;
+    *undo_ticks = 500;
+    *undo_cursor = placement_cursor;
+    *redraw_requested = 1;
+}

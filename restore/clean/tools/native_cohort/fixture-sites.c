@@ -1,8 +1,22 @@
 #include <stdint.h>
 #include "pharaoh/building/construction_site_checks.h"
+#include "pharaoh/building/construction_basic_warnings.h"
+#include "pharaoh/rendering/sprite_raw_blit.h"
+#include "pharaoh/ui/window_state_actions.h"
+#include "pharaoh/simulation/finance_calendar.h"
 #define PTR(t,a) ((t *)(uintptr_t)(uint32_t)(a))
 #define I32(a) (*PTR(const int32_t,a))
 typedef struct FixtureCase {uint32_t op;int32_t tool,x,y,size,extra;} FixtureCase;
+typedef uint8_t (*TerrainRule)(uint32_t);
+static const TerrainRule terrain_rules[]={pharaoh_construction_terrain_rule_00405b40,
+ pharaoh_construction_terrain_rule_00405b60,pharaoh_construction_terrain_rule_00405b80};
+static uint32_t actual_region_rule(uint32_t terrain,void *selector)
+{return terrain_rules[(uint32_t)(uintptr_t)selector](terrain);}
+typedef void (*BasicWarning)(const PharaohConstructionBasicWarnings *,int32_t);
+static const BasicWarning basic_warnings[]={pharaoh_construction_warning_workers,
+ pharaoh_construction_warning_granary,pharaoh_construction_warning_booth,
+ pharaoh_construction_warning_bandstand,pharaoh_construction_warning_pavilion,
+ pharaoh_construction_warning_fort,pharaoh_construction_warning_recruiter};
 __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
 {
  PharaohMapGridGeometry geo;
@@ -54,6 +68,23 @@ __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
   progress.reference_ids=ids;progress.reference_targets=targets;
   return pharaoh_sun_temple_has_completed(&progress);
  }
+ if(f->op>=18&&f->op<=20)return terrain_rules[f->op-18]((uint32_t)f->tool);
+ if(f->op==21){pharaoh_graphics_and_bytes(PTR(uint32_t,0x20000000u+(uint32_t)f->y),f->x,(uint8_t)f->tool);return 0;}
+ if(f->op==22)return (uint32_t)pharaoh_city_buildings_has_treasury(PTR(const PharaohBuildingTypeRecord,0x7999d8),I32(0x78d790));
+ if(f->op==23)return (uint32_t)pharaoh_building_type_is_0046fde0_group(f->tool);
+ if(f->op==24)return (uint32_t)pharaoh_map_region_matches_predicate(&map,f->x,f->y,f->size,f->extra,
+     actual_region_rule,(void *)(uintptr_t)(uint32_t)f->tool,PTR(int32_t,0xd3b4e4),PTR(int32_t,0xd3b4e0));
+ if(f->op==25){pharaoh_game_undo_finish_build((uint32_t)I32(0xbc9728),PTR(uint32_t,0xbc9684),PTR(int32_t,0xbc9688),PTR(int32_t,0xbc968c),PTR(uint8_t,0xe38dca));return 0;}
+ if(f->op==26)return (uint32_t)pharaoh_walker_enemy_near_building_site(PTR(const PharaohWalkerQueryRecord,0xbcd5f8),f->x,f->y,f->size,f->extra);
+ if(f->op==27){
+  uint32_t base=0xea1870u+(uint32_t)f->tool*0x49d8u;
+  uint8_t active=*PTR(const uint8_t,base+2);int32_t editor=I32(0x605a3c);
+  PharaohFinanceLedger ledger;ledger.treasury=I32(base+12);ledger.construction_current_year=(uint32_t)I32(base+0x2c8c);
+  pharaoh_finance_process_construction(&ledger,active,editor,f->x);
+  if(active==1&&editor!=1){*PTR(int32_t,base+12)=ledger.treasury;*PTR(uint32_t,base+0x2c8c)=ledger.construction_current_year;}
+  return 0;
+ }
+ if(f->op==28)return (uint32_t)pharaoh_building_stores_treasury_funds(PTR(const PharaohBuildingTypeRecord,0x7999d8),f->x);
  calendar.scenario_start_year=PTR(const int16_t,0x7848d8);calendar.current_year=PTR(const int32_t,0x78d7bc);calendar.current_month=PTR(const int32_t,0x78d7c0);
  if(f->op==6)return pharaoh_construction_area_has_entry_point(&points,f->x,f->y,f->size,f->extra);
  if(f->op==7){
@@ -62,12 +93,23 @@ __declspec(dllexport) uint32_t __cdecl fixture_run(const FixtureCase *f)
  }
  if(f->op==8)return pharaoh_event_is_future_result(&PTR(PharaohScenarioEvent,0x785d74)[f->x],&calendar);
  if(f->op==9)return pharaoh_event_is_running(&PTR(PharaohScenarioEvent,0x785d74)[f->x],&calendar);
- if(f->op!=5){__debugbreak();return 0;}
+ if(f->op!=5&&(f->op<10||f->op>17)){__debugbreak();return 0;}
  warning.enabled=PTR(const uint8_t,0xe38ec1);warning.construction_enabled=PTR(const uint8_t,0xe38dda);
  warning.editor_active=PTR(const uint32_t,0x605a3c);warning.orientation=PTR(const uint32_t,0xbca2e0);
  warning.time=PTR(const uint32_t,0xe92e0c);warning.state=PTR(uint32_t,0xf53f34);warning.redraw=PTR(uint32_t,0xe94e20);
  warning.warnings=PTR(PharaohCityWarning,0xe94e28);warning.selection=(PharaohTextSelection *)0;
  warning.font=(const PharaohBitmapFont *)0;warning.glyph_map=(const uint8_t *)0;warning.current_glyph=(uint32_t *)0;
+ if(f->op>=10&&f->op<=17){
+  PharaohConstructionBasicWarnings basic;
+  basic.editor_active=warning.editor_active;basic.warnings=&warning;basic.map=&map;
+  basic.models=PTR(const PharaohBuildingModelRecord,0x705ea4);basic.players=PTR(const PharaohScenarioPlayerRuntime,0xea1870);
+  basic.current_player=PTR(const int32_t,0xeaac28);basic.granary_count=PTR(const int32_t,0x705854);
+  basic.booth_count=PTR(const int32_t,0x7057cc);basic.bandstand_count=PTR(const int32_t,0x7057c4);
+  basic.pavilion_count=PTR(const int32_t,0x7057c8);basic.fort_count=PTR(const int32_t,0x7058b8);
+  if(f->op==17)pharaoh_construction_warning_well(&basic,f->tool,f->x,f->y);
+  else basic_warnings[f->op-10](&basic,f->tool);
+  return 0;
+ }
  military.editor_active=warning.editor_active;military.invasion_warning_shown=PTR(const uint32_t,0xbcb9b4);
  military.events=PTR(PharaohScenarioEvent,0x785d74);military.event_count=PTR(const int32_t,0x785d70);
  military.current_player=PTR(const int32_t,0xeaac28);military.invasion_search_flag=PTR(uint8_t,0x78a634);

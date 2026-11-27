@@ -355,3 +355,36 @@ uint8_t pharaoh_construction_area_has_entry_point(
             points->secondary_y[index] <= bottom) return 1;
     return 0;
 }
+
+int32_t pharaoh_map_region_matches_predicate(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, int32_t radius, PharaohMapTerrainPredicate predicate,
+    void *user_data, int32_t *result_x, int32_t *result_y)
+{
+    int32_t left = x - radius;
+    int32_t right = x + size - 1 + radius;
+    int32_t bottom = y + size - 1 + radius;
+    uint32_t tile;
+
+    *result_y = y - radius;
+    if (left < 0) left = 0;
+    if (*result_y < 0) *result_y = 0;
+    if (right >= map->width) right = map->width - 1;
+    if (bottom >= map->height) bottom = map->height - 1;
+    tile = (uint32_t)map->origin +
+        (uint32_t)*result_y * PHARAOH_MAP_GRID_WIDTH + (uint32_t)left;
+    for (;;) {
+        if (*result_y > bottom) return 0;
+        *result_x = left;
+        if (left <= right) {
+            do {
+                if ((uint8_t)predicate(map->terrain[tile], user_data) != 0u)
+                    return 1;
+                ++tile;
+                ++*result_x;
+            } while (*result_x <= right);
+        }
+        tile += (uint32_t)(left - right + PHARAOH_MAP_GRID_WIDTH - 1);
+        ++*result_y;
+    }
+}

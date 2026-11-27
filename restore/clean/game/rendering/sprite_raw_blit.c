@@ -269,3 +269,21 @@ const uint8_t *pharaoh_graphics_rle_skip_rows(
     }
     return source;
 }
+
+void pharaoh_graphics_and_bytes(
+    uint32_t *data, int32_t byte_count, uint8_t mask)
+{
+    const uint32_t repeated = (uint32_t)mask * UINT32_C(0x01010101);
+    uint8_t *bytes;
+    while (byte_count > 63) {
+        int32_t index;
+        for (index = 0; index < 16; ++index) data[index] &= repeated;
+        data += 16;
+        byte_count -= 64;
+    }
+    bytes = (uint8_t *)data;
+    while (byte_count > 0) {
+        *bytes++ &= mask;
+        --byte_count;
+    }
+}

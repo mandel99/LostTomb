@@ -79,4 +79,10 @@ typedef struct PharaohConstructionEntryPoints {
 uint8_t pharaoh_construction_area_has_entry_point(
     const PharaohConstructionEntryPoints *points,
     int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+typedef uint32_t (*PharaohMapTerrainPredicate)(
+    uint32_t terrain, void *user_data);
+int32_t pharaoh_map_region_matches_predicate(
+    const PharaohMapTerrainView *map, int32_t x, int32_t y,
+    int32_t size, int32_t radius, PharaohMapTerrainPredicate predicate,
+    void *user_data, int32_t *result_x, int32_t *result_y);
 #endif

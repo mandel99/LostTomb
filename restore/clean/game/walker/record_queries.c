@@ -75,3 +75,25 @@ int32_t pharaoh_walker_find_linked_type_78(
     }
     return 0;
 }
+
+int32_t pharaoh_walker_enemy_near_building_site(
+    const PharaohWalkerQueryRecord *walkers,
+    int32_t first_x, int32_t first_y, int32_t second_x, int32_t second_y)
+{
+    int32_t walker_id;
+    for (walker_id = 1; walker_id < PHARAOH_WALKER_RECORD_COUNT;
+         ++walker_id) {
+        const PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+        int32_t dx, dy;
+        if (walker->state != 1 ||
+            !((walker->type >= 0x2b && walker->type <= 0x39) ||
+              walker->type == 99)) continue;
+        dx = walker->x < first_x ? first_x - walker->x : walker->x - first_x;
+        dy = walker->y < first_y ? first_y - walker->y : walker->y - first_y;
+        if (dx <= 12 && dy <= 12) return 1;
+        dx = walker->x < second_x ? second_x - walker->x : walker->x - second_x;
+        dy = walker->y < second_y ? second_y - walker->y : walker->y - second_y;
+        if (dx <= 12 && dy <= 12) return 1;
+    }
+    return 0;
+}

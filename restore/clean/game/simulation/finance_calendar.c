@@ -159,3 +159,13 @@ void pharaoh_finance_calculate_tribute(int32_t treasury, int32_t population,
     }
     *provisional_tribute = 0;
 }
+
+void pharaoh_finance_process_construction(PharaohFinanceLedger *ledger,
+    uint8_t player_active, int32_t editor_active, int32_t amount)
+{
+    if (player_active == 1u && editor_active != 1) {
+        ledger->treasury =
+            (int32_t)((uint32_t)ledger->treasury - (uint32_t)amount);
+        ledger->construction_current_year += (uint32_t)amount;
+    }
+}

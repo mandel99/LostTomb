@@ -10,7 +10,7 @@ $lib=Join-Path $clean 'build/bootstrap-vs2022-win32/Release/pharaoh_game.lib'
 if(-not(Test-Path -LiteralPath $lib)){throw 'Build the Release pharaoh_clean_bootstrap target first'}
 $null=Get-Process -Id $GhidraPid -ErrorAction Stop
 New-Item -ItemType Directory -Path $out -Force|Out-Null
-foreach($name in @('LostTombNativeComparisonAgent.java','LostTombAttach.java','fixture-placement.c','compare-placement.py','run-placement-cohort.py','run-placement-extra.py','placement-spec.json','fixture-warnings.c','compare-warnings.py','run-warnings-cohort.py','warnings-spec.json','fixture-sites.c','run-site-cohort.py')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $out $name) -Force}
+foreach($name in @('LostTombNativeComparisonAgent.java','LostTombAttach.java','fixture-placement.c','compare-placement.py','run-placement-cohort.py','run-placement-extra.py','placement-spec.json','fixture-warnings.c','compare-warnings.py','run-warnings-cohort.py','warnings-spec.json','fixture-sites.c','run-site-cohort.py','run-root-support-cohort.py')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination (Join-Path $out $name) -Force}
 $live=$false
 if(Test-Path -LiteralPath "$out/ready.json"){
  try{$v=Get-Content -Raw "$out/ready.json"|ConvertFrom-Json;$r=Invoke-RestMethod -Uri ("http://127.0.0.1:"+$v.port+'/info') -Headers @{'X-LostTomb-Token'=$v.token} -TimeoutSec 5;$live=$r.ok -and $r.sha256 -eq 'fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d'}catch{$live=$false}

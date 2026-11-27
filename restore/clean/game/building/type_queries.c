@@ -283,3 +283,40 @@ void pharaoh_city_victory_update_win_houses(
     *win_house_count =
         pharaoh_building_count_qualifying_004ea280(buildings, threshold);
 }
+
+int32_t pharaoh_building_stores_treasury_funds(
+    const PharaohBuildingTypeRecord *buildings, int32_t building_id)
+{
+    switch (buildings[building_id].building_type) {
+        case 0x54:
+        case 0x55:
+        case 0x56:
+        case 0x57:
+        case 0xb8:
+        case 0xbb:
+        case 0xbc:
+        case 0xbd:
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+int32_t pharaoh_city_buildings_has_treasury(
+    const PharaohBuildingTypeRecord *buildings, int32_t highest_id)
+{
+    int32_t id;
+    for (id = 1; id <= highest_id; ++id) {
+        if (buildings[id].state == 1u &&
+            pharaoh_building_stores_treasury_funds(buildings, id) != 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+#define TYPE_IN_CASES(name, cases) \
+int32_t name(int32_t type) { switch (type) { cases return 1; default: return 0; } }
+TYPE_IN_CASES(pharaoh_building_type_is_0046fde0_group,
+    case 5: case 8: case 9: case 0x5a: case 100: case 101: case 102:
+    case 103: case 104: case 105: case 196: case 224:)
