@@ -1,3 +1,4 @@
+#include "pharaoh/core/memory_fill.h"
 #include "pharaoh/walker/record_queries.h"
 
 void pharaoh_walker_save_type_78_sources(PharaohWalkerQueryRecord *walkers)
@@ -109,4 +110,182 @@ int32_t pharaoh_minimap_walker_ship_kind(
         walker_id = walkers[walker_id].next_walker_id_on_same_tile;
     }
     return 0;
+}
+
+enum PharaohWalkerTextNameGroup {
+    PHARAOH_NAME_CITIZEN = 254,
+    PHARAOH_NAME_HOMELESS = 255,
+    PHARAOH_NAME_LABORER = 256,
+    PHARAOH_NAME_PATRICIAN = 257,
+    PHARAOH_NAME_HUNTER = 258,
+    PHARAOH_NAME_MARKET = 259,
+    PHARAOH_NAME_DELIVERY_BOY = 260,
+    PHARAOH_NAME_TRADE_SHIP = 261,
+    PHARAOH_NAME_TRADE_CARAVAN = 262,
+    PHARAOH_NAME_ENTERTAINER = 263,
+    PHARAOH_NAME_MUSICIAN = 264,
+    PHARAOH_NAME_DANCER = 265,
+    PHARAOH_NAME_TEACHER = 271,
+    PHARAOH_NAME_HEALTH_WORKER = 272,
+    PHARAOH_NAME_EMBALMER = 273,
+    PHARAOH_NAME_FIREMAN = 274,
+    PHARAOH_NAME_ARCHITECT = 275,
+    PHARAOH_NAME_CONSTABLE = 276,
+    PHARAOH_NAME_TAX_COLLECTOR = 277,
+    PHARAOH_NAME_MAGISTRATE = 278,
+    PHARAOH_NAME_FERRY_BOAT = 279,
+    PHARAOH_NAME_TOWER_SENTRY = 280,
+    PHARAOH_NAME_ENEMY_TYPE_7 = 281,
+    PHARAOH_NAME_ENEMY_TYPE_6 = 282,
+    PHARAOH_NAME_ENEMY_TYPE_5 = 283,
+    PHARAOH_NAME_ENEMY_TYPE_4 = 284,
+    PHARAOH_NAME_ENEMY_TYPE_0 = 285,
+    PHARAOH_NAME_ENEMY_TYPE_2 = 286,
+    PHARAOH_NAME_ENEMY_TYPE_1 = 287,
+    PHARAOH_NAME_ENEMY_TYPE_3 = 288,
+    PHARAOH_NAME_ENEMY_SHIP = 289,
+    PHARAOH_NAME_BEDOUIN = 290,
+    PHARAOH_NAME_ENEMY_EXTRA_FIRST = 300,
+    PHARAOH_NAME_ENEMY_EXTRA_LAST = 303
+};
+
+static int32_t *walker_name_counter(
+    PharaohWalkerNameCounters *counters, int32_t group)
+{
+    if (group >= PHARAOH_NAME_ENEMY_EXTRA_FIRST)
+        return &counters->by_slot[PHARAOH_NAME_ENEMY_EXTRA_LAST - group];
+    return &counters->by_slot[294 - group];
+}
+
+static void walker_assign_name(PharaohWalkerQueryRecord *walker,
+    PharaohWalkerNameCounters *counters, int32_t group, int32_t count)
+{
+    int32_t *counter = walker_name_counter(counters, group);
+    walker->name_id = (int16_t)*counter;
+    walker->name_group = group;
+    ++*counter;
+    if (*counter >= count) *counter = 0;
+}
+
+/* Complete zero-callee C translation of Pharaoh.exe 0x004B5AF0. */
+
+void pharaoh_walker_name_set(
+    PharaohWalkerQueryRecord *walkers,
+    const PharaohFormationTotalsRecord formations[50],
+    PharaohWalkerNameCounters *counters, int32_t walker_id)
+{
+    PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+    switch (walker->type) {
+        case 6: case 14: case 63: case 65: case 72: case 95: case 97:
+            return;
+
+        case 1: case 2: case 4: case 5: case 9: case 35: case 38:
+        case 54: case 55: case 56: case 75: case 79: case 80: case 81:
+        case 85: case 87: case 90: case 96: case 98: case 108:
+            walker_assign_name(walker, counters, PHARAOH_NAME_CITIZEN, 128);
+            return;
+        case 3:
+            walker_assign_name(walker, counters, PHARAOH_NAME_HOMELESS, 32);
+            return;
+        case 7:
+            walker_assign_name(walker, counters, PHARAOH_NAME_TAX_COLLECTOR, 16);
+            return;
+        case 8:
+            walker_assign_name(walker, counters, PHARAOH_NAME_ARCHITECT, 16);
+            return;
+        case 10:
+            walker_assign_name(walker, counters, PHARAOH_NAME_FIREMAN, 16);
+            return;
+        case 15: case 18: case 105:
+            walker_assign_name(walker, counters, PHARAOH_NAME_ENTERTAINER, 32);
+            return;
+        case 16:
+            walker_assign_name(walker, counters, PHARAOH_NAME_MUSICIAN, 32);
+            return;
+        case 17:
+            walker_assign_name(walker, counters, PHARAOH_NAME_DANCER, 16);
+            return;
+        case 19: case 21:
+            walker_assign_name(walker, counters, PHARAOH_NAME_TRADE_CARAVAN, 16);
+            return;
+        case 20:
+            walker_assign_name(walker, counters, PHARAOH_NAME_TRADE_SHIP, 16);
+            return;
+        case 22: case 23:
+            walker_assign_name(walker, counters, PHARAOH_NAME_LABORER, 16);
+            return;
+        case 26: case 39:
+            walker_assign_name(walker, counters, PHARAOH_NAME_MARKET, 32);
+            return;
+        case 29: case 30:
+            walker_assign_name(walker, counters, PHARAOH_NAME_TEACHER, 32);
+            return;
+        case 31: case 32: case 33:
+            walker_assign_name(walker, counters, PHARAOH_NAME_HEALTH_WORKER, 32);
+            return;
+        case 34:
+            walker_assign_name(walker, counters, PHARAOH_NAME_EMBALMER, 16);
+            return;
+        case 40:
+            walker_assign_name(walker, counters, PHARAOH_NAME_PATRICIAN, 32);
+            return;
+        case 42:
+            walker_assign_name(walker, counters, PHARAOH_NAME_TOWER_SENTRY, 32);
+            return;
+        case 43: case 44: case 45: {
+            static const int16_t groups[12] = {
+                PHARAOH_NAME_ENEMY_TYPE_0, PHARAOH_NAME_ENEMY_TYPE_1,
+                PHARAOH_NAME_ENEMY_TYPE_2, PHARAOH_NAME_ENEMY_TYPE_3,
+                PHARAOH_NAME_ENEMY_TYPE_4, PHARAOH_NAME_ENEMY_TYPE_5,
+                PHARAOH_NAME_ENEMY_TYPE_6, PHARAOH_NAME_ENEMY_TYPE_7,
+                300, 301, 302, 303
+            };
+            const int32_t enemy_type =
+                formations[walker->herd_target_id_60].enemy_type;
+            if (enemy_type < 0 || enemy_type >= 12) {
+                walker->name_id = -1;
+                walker->name_group = -1;
+            } else {
+                walker_assign_name(walker, counters, groups[enemy_type],
+                    enemy_type == 3 ? 17 : 16);
+            }
+            return;
+        }
+        case 66:
+            walker_assign_name(walker, counters, PHARAOH_NAME_DELIVERY_BOY, 16);
+            return;
+        case 73:
+            walker_assign_name(walker, counters, PHARAOH_NAME_HUNTER, 16);
+            return;
+        case 76:
+            walker_assign_name(walker, counters, PHARAOH_NAME_FERRY_BOAT, 16);
+            return;
+        case 88:
+            walker_assign_name(walker, counters, PHARAOH_NAME_CONSTABLE, 16);
+            return;
+        case 89:
+            walker_assign_name(walker, counters, PHARAOH_NAME_MAGISTRATE, 16);
+            return;
+        case 92: case 93: case 100: case 101:
+            walker_assign_name(walker, counters, PHARAOH_NAME_ENEMY_SHIP, 16);
+            return;
+        case 99:
+            walker_assign_name(walker, counters, PHARAOH_NAME_BEDOUIN, 16);
+            return;
+        default:
+            walker->name_group = -2;
+            return;
+    }
+}
+
+void pharaoh_walker_init_scenario(
+    PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    int32_t *highest_id, int32_t *created_sequence)
+{
+    int32_t walker_id;
+    for (walker_id = 0; walker_id < PHARAOH_WALKER_RECORD_COUNT; ++walker_id)
+        pharaoh_memory_fill_bytes((uint32_t *)(void *)&walkers[walker_id],
+            sizeof(walkers[walker_id]), 0);
+    *highest_id = 0;
+    *created_sequence = 0;
 }

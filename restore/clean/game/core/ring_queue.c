@@ -125,3 +125,24 @@ int32_t pharaoh_ring_queue_pop(PharaohRingQueue *queue)
 {
     return pharaoh_ring_queue_next(queue, &queue->head);
 }
+
+uint32_t pharaoh_walker_id_is_reserved(
+    const PharaohFerryQueueRecord ferry_queues[PHARAOH_FERRY_QUEUE_COUNT],
+    const PharaohGroupChildrenRecord groups[PHARAOH_GROUP_CHILDREN_COUNT],
+    int32_t walker_id)
+{
+    int32_t index;
+    for (index = 0; index < PHARAOH_FERRY_QUEUE_COUNT; ++index) {
+        if (ferry_queues[index].queue.state != 0 &&
+            pharaoh_ring_queue_contains(&ferry_queues[index].queue,
+                walker_id)) return 1;
+    }
+    for (index = 0; index < PHARAOH_GROUP_CHILDREN_COUNT; ++index) {
+        int32_t child;
+        if (groups[index].active == 0u) continue;
+        for (child = 0; child < 4; ++child) {
+            if (groups[index].children[child] == walker_id) return 1;
+        }
+    }
+    return 0;
+}

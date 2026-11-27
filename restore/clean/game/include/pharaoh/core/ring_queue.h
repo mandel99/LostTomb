@@ -54,4 +54,16 @@ typedef struct PharaohFerryQueueRecord {
 int32_t pharaoh_ring_queue_size(const PharaohRingQueue *queue);
 int32_t pharaoh_ring_queue_pop(PharaohRingQueue *queue);
 
+enum { PHARAOH_GROUP_CHILDREN_COUNT = 50 };
+typedef struct PharaohGroupChildrenRecord {
+    uint8_t active;
+    uint8_t reserved_01[3];
+    int32_t children[4];
+    uint8_t reserved_14[0x18];
+} PharaohGroupChildrenRecord;
+_Static_assert(sizeof(PharaohGroupChildrenRecord)==0x2c,"native group child stride");
+uint32_t pharaoh_walker_id_is_reserved(
+    const PharaohFerryQueueRecord ferry_queues[PHARAOH_FERRY_QUEUE_COUNT],
+    const PharaohGroupChildrenRecord groups[PHARAOH_GROUP_CHILDREN_COUNT],
+    int32_t walker_id);
 #endif

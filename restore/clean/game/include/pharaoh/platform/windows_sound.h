@@ -28,6 +28,10 @@ typedef struct PharaohWindowsSound {
     void (WINAPI *sample_start)(uint32_t);
     uint32_t (WINAPI *sample_status)(uint32_t);
     void (WINAPI *sample_end)(uint32_t);
+    void (WINAPI *spatial_sample_end)(uint32_t);
+    void *(WINAPI *file_read)(const char *, int32_t);
+    void (WINAPI *memory_free_locked)(void *);
+    void (WINAPI *sample_reverb)(uint32_t, uint32_t, uint32_t, uint32_t);
     void (WINAPI *stream_close)(uint32_t);
     uint32_t (WINAPI *stream_open)(uint32_t, const char *, int32_t);
     int32_t (WINAPI *stream_status)(uint32_t);
@@ -42,4 +46,6 @@ void pharaoh_windows_sound_close(PharaohWindowsSound *sound);
 void pharaoh_windows_sound_button(PharaohWindowsSound *sound, int32_t volume);
 void pharaoh_windows_sound_menu_music(PharaohWindowsSound *sound,
     int32_t enabled, int32_t volume);
+void pharaoh_windows_sound_effect(PharaohWindowsSound *sound,
+    PharaohSoundEffectRequestState *request_state, int32_t effect_slot);
 #endif

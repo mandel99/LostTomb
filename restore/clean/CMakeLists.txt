@@ -13,6 +13,9 @@ add_library(pharaoh_game STATIC
     game/scenario/saved_game_upgrades.c
     game/walker/record_queries.c
     game/walker/tile_chain.c
+    game/walker/create.c
+    game/population/displaced.c
+    game/commerce/trader_records.c
     game/building/type_queries.c
     game/core/pk_explode.c
     game/core/pk_explode_data.c

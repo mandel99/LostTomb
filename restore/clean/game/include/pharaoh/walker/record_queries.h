@@ -67,7 +67,10 @@ typedef struct PharaohWalkerQueryRecord {
     int16_t related_building_id_5c;
     int16_t entertainment_building_id;
     union { int16_t herd_target_id_60, formation_id_60; };
-    uint8_t reserved_062[0x65 - 0x62];
+    union {
+        uint8_t reserved_062[0x65 - 0x62];
+        struct { uint8_t displaced_reserved_062[2], displaced_people; };
+    };
     uint8_t is_ghost;
     uint8_t reserved_066[2];
     int16_t leading_walker_id;
@@ -467,4 +470,11 @@ void pharaoh_walker_name_set(
     const PharaohFormationTotalsRecord formations[50],
     PharaohWalkerNameCounters *counters, int32_t walker_id);
 
+void pharaoh_walker_name_set(
+    PharaohWalkerQueryRecord *walkers,
+    const PharaohFormationTotalsRecord formations[50],
+    PharaohWalkerNameCounters *counters, int32_t walker_id);
+void pharaoh_walker_init_scenario(
+    PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
+    int32_t *highest_id, int32_t *created_sequence);
 #endif

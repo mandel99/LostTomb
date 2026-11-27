@@ -36,9 +36,39 @@ static uint32_t sample_allocate(void *data, uint32_t driver)
 { return ((PharaohWindowsSound *)data)->sample_allocate(driver); }
 static void sample_release(void *data, uint32_t sample)
 { if (sample != 0) ((PharaohWindowsSound *)data)->sample_release(sample); }
-static void stop_sample(void *data, PharaohDigitalSoundDeviceState *state, int32_t index)
-{ if (state->sample_handles[index] != 0)
-    ((PharaohWindowsSound *)data)->sample_end(state->sample_handles[index]); }
+
+static void end_sample(void *data, uint32_t sample)
+{ ((PharaohWindowsSound *)data)->sample_end(sample); }
+static void end_spatial_sample(void *data, uint32_t sample)
+{ ((PharaohWindowsSound *)data)->spatial_sample_end(sample); }
+static void free_locked_memory(void *data, uint32_t memory)
+{ ((PharaohWindowsSound *)data)->memory_free_locked((void *)(uintptr_t)memory); }
+static int32_t sample_status(void *data, uint32_t sample)
+{ return (int32_t)((PharaohWindowsSound *)data)->sample_status(sample); }
+static uint32_t read_sample_file(void *data, const char *name, uint32_t flags)
+{
+    return (uint32_t)(uintptr_t)((PharaohWindowsSound *)data)->file_read(
+        name,(int32_t)flags);
+}
+static void initialize_sample(void *data, uint32_t sample)
+{ ((PharaohWindowsSound *)data)->sample_init(sample); }
+static void set_sample_file(void *data, uint32_t sample,
+    uint32_t memory, uint32_t flags)
+{
+    (void)((PharaohWindowsSound *)data)->sample_file(
+        sample,(const void *)(uintptr_t)memory,(int32_t)flags);
+}
+static void set_sample_loops(void *data, uint32_t sample, uint32_t loops)
+{ ((PharaohWindowsSound *)data)->sample_loops(sample,(int32_t)loops); }
+static void set_sample_pan(void *data, uint32_t sample, uint32_t pan)
+{ ((PharaohWindowsSound *)data)->sample_pan(sample,(int32_t)pan); }
+static void set_sample_volume(void *data, uint32_t sample, uint32_t volume)
+{ ((PharaohWindowsSound *)data)->sample_volume(sample,(int32_t)volume); }
+static void set_sample_reverb(void *data, uint32_t sample,
+    uint32_t level, uint32_t reflect, uint32_t decay)
+{ ((PharaohWindowsSound *)data)->sample_reverb(sample,level,reflect,decay); }
+static void start_sample(void *data, uint32_t sample)
+{ ((PharaohWindowsSound *)data)->sample_start(sample); }
 static void close_stream(void *data, uint32_t stream)
 { if (stream != 0) ((PharaohWindowsSound *)data)->stream_close(stream); }
 static uint32_t open_stream(void *data, uint32_t driver, const char *file, int32_t flags)
@@ -77,6 +107,24 @@ void pharaoh_windows_sound_menu_music(PharaohWindowsSound *sound,
     pharaoh_front_menu_update_music(sound->ready, enabled, &menu_sound);
 }
 
+static void dispatch_effect(void *data,
+    const PharaohSoundEffectPlayRequest *request)
+{
+    PharaohWindowsSound *sound=data;
+    const PharaohDigitalSoundRequest actual={
+        request->sample_match_tag,request->sound_file_id,request->volume,
+        request->pan,request->loop_count};
+    (void)pharaoh_digital_sound_play_sample(
+        &sound->state,&sound->device_operations,&actual);
+}
+
+void pharaoh_windows_sound_effect(PharaohWindowsSound *sound,
+    PharaohSoundEffectRequestState *request_state, int32_t effect_slot)
+{
+    const PharaohSoundEffectRequestOperations operations={sound,dispatch_effect};
+    pharaoh_sound_effect_request(request_state,&operations,effect_slot);
+}
+
 int32_t pharaoh_windows_sound_open(PharaohWindowsSound *sound)
 {
     memset(sound, 0, sizeof(*sound));
@@ -102,6 +150,10 @@ int32_t pharaoh_windows_sound_open(PharaohWindowsSound *sound)
     BIND(sample_start, "_AIL_start_sample@4");
     BIND(sample_status, "_AIL_sample_status@4");
     BIND(sample_end, "_AIL_end_sample@4");
+    BIND(spatial_sample_end, "_AIL_end_3D_sample@4");
+    BIND(file_read, "_AIL_file_read@8");
+    BIND(memory_free_locked, "_AIL_mem_free_lock@4");
+    BIND(sample_reverb, "_AIL_set_sample_reverb@16");
     BIND(stream_close, "_AIL_close_stream@4");
     BIND(stream_open, "_AIL_open_stream@12");
     BIND(stream_status, "_AIL_stream_status@4");
@@ -120,12 +172,23 @@ int32_t pharaoh_windows_sound_open(PharaohWindowsSound *sound)
     sound->device_operations.deallocate_bytes = deallocate;
     sound->device_operations.allocate_sample_handle = sample_allocate;
     sound->device_operations.release_sample_handle = sample_release;
-    sound->device_operations.stop_sample = stop_sample;
+    sound->device_operations.end_sample = end_sample;
+    sound->device_operations.end_spatial_sample = end_spatial_sample;
+    sound->device_operations.free_locked_memory = free_locked_memory;
+    sound->device_operations.sample_status = sample_status;
+    sound->device_operations.file_read = read_sample_file;
+    sound->device_operations.initialize_sample = initialize_sample;
+    sound->device_operations.set_sample_file = set_sample_file;
+    sound->device_operations.set_sample_loop_count = set_sample_loops;
+    sound->device_operations.set_sample_pan = set_sample_pan;
+    sound->device_operations.set_sample_volume = set_sample_volume;
+    sound->device_operations.set_sample_reverb = set_sample_reverb;
+    sound->device_operations.start_sample = start_sample;
     sound->state.sample_rate = 22050;
     sound->state.bits_per_sample_source = 16;
     sound->state.channels = 2;
     sound->state.stream_music_volume = 100;
-    sound->state.volume_other = 100;
+    sound->state.sample_volume = 100;
     sound->state.stream_speech_volume = 100;
     sound->state.stream_city_volume = 100;
     const PharaohDigitalSoundDeviceContext device = {
@@ -197,6 +260,12 @@ void pharaoh_windows_sound_close(PharaohWindowsSound *sound)
                 sound->sample_end(sample);
                 sound->sample_release(sample);
             }
+        }
+    }
+    if (sound->state.cache_entries != NULL && sound->memory_free_locked != NULL) {
+        for (int32_t i=0;i<sound->state.sample_count;++i) {
+            const uint32_t memory=sound->state.cache_entries[i].locked_data;
+            if (memory!=0) sound->memory_free_locked((void *)(uintptr_t)memory);
         }
     }
     if (sound->state.wave_device != 0) sound->wave_close(sound->state.wave_device);

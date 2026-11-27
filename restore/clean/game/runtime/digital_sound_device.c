@@ -32,6 +32,8 @@ _Static_assert(sizeof(PharaohDigitalSoundSample) == 0x28,
     "Native sound sample stride is 0x28 bytes");
 _Static_assert(sizeof(PharaohDigitalSoundCacheEntry) == 0x0c,
     "Native sound cache stride is 0x0c bytes");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState, sample_volume) == 0x150,
+    "Native sample volume offset");
 _Static_assert(offsetof(PharaohDigitalSoundDeviceState, wave_device) == 0x178,
     "Native wave device offset");
 _Static_assert(offsetof(PharaohDigitalSoundDeviceState, wave_format) == 0x17c,
@@ -49,6 +51,18 @@ _Static_assert(offsetof(PharaohDigitalSoundDeviceState, cache_entries) == 0x1ac,
 _Static_assert(offsetof(PharaohDigitalSoundDeviceState,
     spatial_sample_count) == 0x1e4,
     "Native spatial sample count offset");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState,
+    spatial_sample_handles) == 0x1f0,
+    "Native spatial sample handle array offset");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState,
+    spatial_samples) == 0x1f4,
+    "Native spatial sample array offset");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState,
+    spatial_cache_entries) == 0x1f8,
+    "Native spatial sound cache array offset");
+_Static_assert(offsetof(PharaohDigitalSoundDeviceState,
+    eax_environment) == 0x1fc,
+    "Native EAX environment offset");
 _Static_assert(offsetof(PharaohDigitalSoundDeviceState, sound_disabled) == 0x200,
     "Native sound-disabled offset");
 _Static_assert(sizeof(PharaohDigitalSoundDeviceState) == 0x204,
@@ -77,6 +91,56 @@ void pharaoh_digital_sound_sample_reset(
     sample->native_word_24 = UINT32_C(0);
 }
 
+/* Complete C translation of Pharaoh.exe 0x0055F67E. */
+void pharaoh_digital_sound_set_sample_volume(
+    PharaohDigitalSoundDeviceState *state, int32_t volume)
+{
+    state->sample_volume = volume;
+}
+
+/* Complete C translation of Pharaoh.exe 0x0055EB99. */
+int32_t pharaoh_digital_sound_stop_sample(
+    PharaohDigitalSoundDeviceState *state, int32_t sample_index,
+    const PharaohDigitalSoundDeviceOperations *operations)
+{
+    if (state->sound_disabled == 0) {
+        operations->end_sample(operations->user_data,
+            state->sample_handles[sample_index]);
+    }
+    return 1;
+}
+
+/* Complete C translation of Pharaoh.exe 0x0055EBD4. */
+int32_t pharaoh_digital_sound_stop_spatial_sample(
+    PharaohDigitalSoundDeviceState *state, int32_t sample_index,
+    const PharaohDigitalSoundDeviceOperations *operations)
+{
+    if (state->sound_disabled == 0) {
+        operations->end_spatial_sample(operations->user_data,
+            state->spatial_sample_handles[sample_index]);
+    }
+    return 1;
+}
+
+/* Complete one-callee plus Miles-boundary C translation of 0x0055EC0F. */
+int32_t pharaoh_digital_sound_stop_looping_samples(
+    PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations,
+    int32_t (*sample_loop_count)(void *user_data, uint32_t sample_handle),
+    void *loop_count_user_data)
+{
+    int32_t index;
+    if (state->sound_disabled != 0)
+        return 1;
+    for (index = 0; index < state->sample_count; ++index) {
+        if (sample_loop_count(loop_count_user_data,
+            state->sample_handles[index]) == 0) {
+            (void)pharaoh_digital_sound_stop_sample(state, index, operations);
+        }
+    }
+    return 1;
+}
+
 void pharaoh_digital_sound_stop_all(
     PharaohDigitalSoundDeviceState *state,
     const PharaohDigitalSoundDeviceOperations *operations)
@@ -86,10 +150,11 @@ void pharaoh_digital_sound_stop_all(
     }
 
     for (int32_t index = 0; index < state->sample_count; ++index) {
-        operations->stop_sample(operations->user_data, state, index);
+        (void)pharaoh_digital_sound_stop_sample(state, index, operations);
     }
     for (int32_t index = 0; index < state->spatial_sample_count; ++index) {
-        operations->stop_spatial_sample(operations->user_data, state, index);
+        (void)pharaoh_digital_sound_stop_spatial_sample(
+            state, index, operations);
     }
 }
 
@@ -280,6 +345,49 @@ int32_t pharaoh_digital_sound_find_cached_sample(
     for (index = 0; index < state->sample_count; ++index) {
         if (state->cache_entries[index].file_id == request->file_id &&
             state->cache_entries[index].locked_data != 0)
+            return index;
+    }
+    return -1;
+}
+
+/* Complete C translation of Pharaoh.exe 0x0055EFDC. */
+int32_t pharaoh_digital_sound_find_channel_by_file_id(
+    const PharaohDigitalSoundDeviceState *state, int32_t file_id)
+{
+    for (int32_t index = 0; index < state->sample_count; ++index) {
+        if ((int32_t)state->samples[index].native_word_04 == file_id)
+            return index;
+    }
+    return -1;
+}
+
+/* Complete C translation of Pharaoh.exe 0x0055FA1C. Word 0x18 is
+   deliberately retained, matching the native nine-write reset. */
+void pharaoh_digital_sound_spatial_sample_reset(
+    PharaohDigitalSoundDeviceState *state, int32_t sample_index)
+{
+    PharaohDigitalSoundSample *const sample =
+        &state->spatial_samples[sample_index];
+
+    sample->native_word_00 = UINT32_MAX;
+    sample->native_word_04 = UINT32_MAX;
+    sample->native_word_08 = UINT32_C(100);
+    sample->native_word_0c = UINT32_C(0x40);
+    sample->native_word_10 = UINT32_C(1);
+    sample->native_word_14 = UINT32_C(0);
+    sample->native_word_1c = UINT32_C(0);
+    sample->native_word_20 = UINT32_C(0);
+    sample->native_word_24 = UINT32_C(0);
+}
+
+/* Complete C translation of Pharaoh.exe 0x0055FB6F. */
+int32_t pharaoh_digital_sound_find_cached_spatial_sample(
+    const PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundRequest *request)
+{
+    for (int32_t index = 0; index < state->spatial_sample_count; ++index) {
+        if (state->spatial_cache_entries[index].file_id == request->file_id &&
+            state->spatial_cache_entries[index].locked_data != 0)
             return index;
     }
     return -1;

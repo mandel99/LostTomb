@@ -54,7 +54,7 @@ typedef struct PharaohDigitalSoundDeviceState {
     PharaohDigitalSoundFileEntry *sound_files;
     uint8_t opaque_00c_to_14b[0x140];
     int32_t stream_music_volume;
-    int32_t volume_other;
+    int32_t sample_volume;
     int32_t stream_speech_volume;
     int32_t stream_city_volume;
     uint8_t opaque_15c_to_167[0x0c];
@@ -76,7 +76,12 @@ typedef struct PharaohDigitalSoundDeviceState {
     uint8_t opaque_1b0_to_1d7[0x28];
     uint32_t stream_handles[3];
     int32_t spatial_sample_count;
-    uint8_t opaque_1e8_to_1ff[0x18];
+    uint32_t spatial_device;
+    uint32_t eax_supported;
+    uint32_t *spatial_sample_handles;
+    PharaohDigitalSoundSample *spatial_samples;
+    PharaohDigitalSoundCacheEntry *spatial_cache_entries;
+    uint32_t eax_environment;
     uint32_t sound_disabled;
 } PharaohDigitalSoundDeviceState;
 
@@ -91,10 +96,8 @@ typedef struct PharaohDigitalSoundDeviceOperations {
         uint32_t device_id, uint32_t flags,
         const PharaohDigitalSoundWaveFormat *format);
     void (*output_debug_string)(void *user_data, const char *message);
-    void (*stop_sample)(void *user_data,
-        PharaohDigitalSoundDeviceState *state, int32_t sample_index);
-    void (*stop_spatial_sample)(void *user_data,
-        PharaohDigitalSoundDeviceState *state, int32_t sample_index);
+    void (*end_sample)(void *user_data, uint32_t sample_handle);
+    void (*end_spatial_sample)(void *user_data, uint32_t sample_handle);
     void *(*allocate_bytes)(void *user_data, uint32_t byte_count);
     void (*deallocate_bytes)(void *user_data, void *allocation);
     uint32_t (*allocate_sample_handle)(void *user_data,
@@ -125,12 +128,25 @@ typedef struct PharaohDigitalSoundDeviceContext {
 /* Native entry 0x0055E5D2: resets one ten-dword sample record. */
 void pharaoh_digital_sound_sample_reset(
     PharaohDigitalSoundDeviceState *state, int32_t sample_index);
+void pharaoh_digital_sound_set_sample_volume(
+    PharaohDigitalSoundDeviceState *state, int32_t volume);
 
 /* Native entry 0x0055EC7C: stop sample and spatial-sample ranges unless the
    native sound-disabled field is set. */
 void pharaoh_digital_sound_stop_all(
     PharaohDigitalSoundDeviceState *state,
     const PharaohDigitalSoundDeviceOperations *operations);
+int32_t pharaoh_digital_sound_stop_sample(
+    PharaohDigitalSoundDeviceState *state, int32_t sample_index,
+    const PharaohDigitalSoundDeviceOperations *operations); /* 0x0055EB99 */
+int32_t pharaoh_digital_sound_stop_spatial_sample(
+    PharaohDigitalSoundDeviceState *state, int32_t sample_index,
+    const PharaohDigitalSoundDeviceOperations *operations); /* 0x0055EBD4 */
+int32_t pharaoh_digital_sound_stop_looping_samples(
+    PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundDeviceOperations *operations,
+    int32_t (*sample_loop_count)(void *user_data, uint32_t sample_handle),
+    void *loop_count_user_data); /* 0x0055EC0F */
 
 /* Native entry 0x0055DEA2: replace the device's four sample-pool arrays. */
 int32_t pharaoh_digital_sound_pool_resize(
@@ -152,6 +168,15 @@ int32_t pharaoh_digital_sound_find_available_channel(
 int32_t pharaoh_digital_sound_find_cached_sample(
     const PharaohDigitalSoundDeviceState *state,
     const PharaohDigitalSoundRequest *request); /* 0x0055F07F */
+int32_t pharaoh_digital_sound_find_channel_by_file_id(
+    const PharaohDigitalSoundDeviceState *state,
+    int32_t file_id); /* 0x0055EFDC */
+void pharaoh_digital_sound_spatial_sample_reset(
+    PharaohDigitalSoundDeviceState *state,
+    int32_t sample_index); /* 0x0055FA1C */
+int32_t pharaoh_digital_sound_find_cached_spatial_sample(
+    const PharaohDigitalSoundDeviceState *state,
+    const PharaohDigitalSoundRequest *request); /* 0x0055FB6F */
 int32_t pharaoh_digital_sound_load_sample_cache(
     PharaohDigitalSoundDeviceState *state,
     const PharaohDigitalSoundDeviceOperations *operations,
