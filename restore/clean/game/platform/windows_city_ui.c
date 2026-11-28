@@ -106,6 +106,8 @@ struct PharaohWindowsCityUi {
     uint32_t selected_menu;
     int32_t navigation_hover,navigation_x,navigation_y;
     int32_t sidebar_slide_step;
+    int32_t keyboard_field,image_focus,arrow_focus,menu_focus;
+    int32_t ui_mouse_x,ui_mouse_y,mouse_drag_state;
     uint32_t modal_active,modal_return_window;
     uint8_t *current_window;
     uint8_t menu_flag_de0,menu_flag_de1;
@@ -510,6 +512,27 @@ uint8_t pharaoh_windows_city_ui_sidebar_slide(PharaohWindowsStartupHost *h,
         .button_draw=&u->button_draw,.content=&u->content,.graphics=&u->graphics,
         .buttons=&u->input_tables,.background=&background};
     return pharaoh_city_sidebar_slide(&slide);
+}
+
+void pharaoh_windows_city_ui_sidebar_slide_input(PharaohWindowsStartupHost *h,
+    int32_t mouse_x,int32_t mouse_y,const PharaohCameraScrollInput *scroll_input,
+    const PharaohCameraScrollContext *scroll)
+{
+    struct PharaohWindowsCityUi *const u=h->city_ui;
+    if(u==NULL||u->current_window==NULL||h->game_input==NULL)return;
+    const PharaohMouseUpdateState *const mouse=&h->game_input->mouse;
+    const PharaohCityIngameFrame frame={&mouse_x,&mouse_y,
+        &mouse->left_button_pressed,&mouse->left_button_down,
+        &mouse->left_button_released,&mouse->right_button_pressed,
+        &mouse->right_button_released};
+    const PharaohCityIngameDispatchContext context={.frame=&frame,
+        .current_window=u->current_window,.redraw=&h->graphics.redraw_requested,
+        .ui_redraw=&u->ui_redraw,.keyboard_field=&u->keyboard_field,
+        .image_focus=&u->image_focus,.arrow_focus=&u->arrow_focus,
+        .menu_focus=&u->menu_focus,.ui_mouse_x=&u->ui_mouse_x,
+        .ui_mouse_y=&u->ui_mouse_y,.mouse_drag_state=&u->mouse_drag_state,
+        .scroll_input=scroll_input,.scroll=scroll};
+    pharaoh_city_sidebar_slide_input(&context);
 }
 
 int32_t pharaoh_windows_city_ui_open_empty_terrain(PharaohWindowsStartupHost *h,

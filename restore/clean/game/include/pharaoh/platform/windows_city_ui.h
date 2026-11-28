@@ -4,6 +4,7 @@
 #include "pharaoh/scenario/saved_scene_storage.h"
 #include "pharaoh/ui/build_menu.h"
 #include "pharaoh/runtime/city_view.h"
+#include "pharaoh/runtime/camera_scroll.h"
 
 struct PharaohWindowsStartupHost;
 struct PharaohWindowsCityUi;
@@ -29,6 +30,9 @@ void pharaoh_windows_city_ui_draw_foreground(struct PharaohWindowsStartupHost *)
  * sidebar, image tables, viewport and startup-measured E39104 duration. */
 uint8_t pharaoh_windows_city_ui_sidebar_slide(
     struct PharaohWindowsStartupHost *,struct PharaohCityRenderContext *);
+void pharaoh_windows_city_ui_sidebar_slide_input(
+    struct PharaohWindowsStartupHost *,int32_t mouse_x,int32_t mouse_y,
+    const PharaohCameraScrollInput *,const PharaohCameraScrollContext *);
 void pharaoh_windows_city_ui_release(struct PharaohWindowsStartupHost *);
 int32_t pharaoh_windows_city_ui_navigation(struct PharaohWindowsStartupHost *,
     int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down);

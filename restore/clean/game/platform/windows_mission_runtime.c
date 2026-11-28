@@ -648,7 +648,9 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             &r->navigation_tick,&h->settings.scroll_speed,&clock};
         PharaohCameraScrollContext camera;
         pharaoh_mission_scene_bind_camera(r->scene,&camera);
-        pharaoh_camera_scroll_apply(&camera,pharaoh_camera_scroll_direction(&scroll));
+        if(entry_window==2)
+            pharaoh_windows_city_ui_sidebar_slide_input(h,mouse_x,mouse_y,&scroll,&camera);
+        else pharaoh_camera_scroll_apply(&camera,pharaoh_camera_scroll_direction(&scroll));
         const int32_t navigation=entry_window==1?
             pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down):1;
         if(!navigation&&r->construction_tool==0) {
