@@ -1,0 +1,51 @@
+{
+  "schema": "city-editor-tool-actions-complete-C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {
+      "address": "0x00409AC0",
+      "name": "pharaoh_editor_city_tool_select",
+      "native_instruction_count": 95,
+      "native_body_bytes": 487,
+      "native_body_sha256": "b2bc3dbc29b86db8f5361a9e1200e649e0f8c5a18c6d032a917bfe3a52876f6f",
+      "owner_body_sha256": "99c7df3282544eeb098586636bda12a51214d5672522080ad7f94ac3ef2c82a5",
+      "children": ["0x00405BA0", "0x00404120", "0x00517370"]
+    },
+    {
+      "address": "0x00409CF0",
+      "name": "pharaoh_editor_city_preview_select",
+      "native_instruction_count": 5,
+      "native_body_bytes": 28,
+      "native_body_sha256": "fc6c2cfacc9ca7f59e9d71e3d07f4a795f4d8100f8088e5a4758c59106a193e2",
+      "owner_body_sha256": "6e56e8f42bcc48a18ab5e0c2d7bfaf4c8d5d507461ea5d7b5d5ac0ccf55d1b1f",
+      "children": []
+    }
+  ],
+  "origin": "Whole typed C recovered from the current/old MenuRemainingActions owner and rewritten over explicit live contexts; no Original or IL forwarding remains.",
+  "native_observations": [
+    "GUI Ghidra read_memory returned complete bytes at both entries; its FunctionManager has no function objects at these addresses, so boundaries were qualified from the two table entrypoints, terminal RETs and pinned x86 decoding.",
+    "0x409AC0 has an early popup RET at 0x409B14 and a final RET at 0x409CA6; the jump table and 27 remap bytes after the final RET are data, not instructions.",
+    "0x409CF0 ends at RET 0x409D0B."
+  ],
+  "contracts": [
+    "Popup categories 8,2,14,13,32,7,17,20,24,5 publish the exact submenu and return before clearing drag state.",
+    "Action13's tool 0x7E mapping is retained in the typed mapping but remains dominated by the popup return.",
+    "Action10 selects road tool5 and calls the genuine citizen-routing initializer only after clearing all five drag fields.",
+    "Preview selection stores tool0, the full selected DWORD and redraw BYTE1."
+  ],
+  "source_sha256": {
+    "game/ui/editor_city_tools.c": "255622507a4186c6e2e767578ebe8363cd9ab99e1beab20d2f2acec9492bdc3e",
+    "game/include/pharaoh/ui/editor_city_tools.h": "a46ca8560261b1fa6e0b6280d2d82c2b83bfc996ad55ae561c709481d810c9e7"
+  },
+  "verification": {
+    "release_target": "pharaoh_clean_bootstrap",
+    "release_result": "pass",
+    "strict_flags": "/std:c11 /O2 /W4 /WX",
+    "strict_result": "pass",
+    "native_C_replay": "deferred to next approximately100-entry cohort milestone"
+  },
+  "remaining": [
+    "Live editor construction/menu/routing context is not yet assembled by the Windows host.",
+    "The common city dispatcher still requires complete normal-game action and construction providers before activation."
+  ]
+}

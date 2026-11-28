@@ -8,6 +8,7 @@
 #include "pharaoh/ui/editor_city_route_actions_live.h"
 #include "pharaoh/ui/small_button_callbacks.h"
 #include "pharaoh/runtime/city_rotation.h"
+#include "pharaoh/ui/editor_city_tools.h"
 
 typedef enum PharaohCityInputActionSupport {
     PHARAOH_CITY_INPUT_ACTION_READY,
@@ -23,6 +24,7 @@ typedef struct PharaohCityInputActionProviders {
     const PharaohCityMessageQueueContext *message_help;
     const PharaohAdvisorOpenContext *advisor;
     const PharaohEditorCityRouteLiveContext *editor_route;
+    const PharaohEditorCityToolsContext *editor_tools;
     PharaohCityRotationContext *rotation;
     PharaohSmallButtonState *timer;
     uint32_t *button_parameter,*button_secondary_parameter;

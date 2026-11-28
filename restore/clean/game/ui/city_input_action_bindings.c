@@ -16,6 +16,7 @@ static PharaohCityInputActionSupport support(
     case 0x00407320u:NEED(b->providers.message_help&&b->providers.pending_messages);
     case 0x00409d10u:case 0x00409d40u:NEED(b->providers.sidebar);
     case 0x00409eb0u:NEED(b->providers.rotation);
+    case 0x00409ac0u:case 0x00409cf0u:NEED(b->providers.editor_tools);
     case 0x0040b520u:NEED(b->providers.advisor);
     case 0x0040b590u:NEED(b->providers.editor_route);
     case 0x00418390u:NEED(b->providers.timer&&b->providers.timer->start_timer);
@@ -38,6 +39,8 @@ static void run(PharaohCityInputActionBindings *b,uint32_t token)
     case 0x00409d10u:pharaoh_city_sidebar_collapse(p->sidebar);break;
     case 0x00409d40u:pharaoh_city_overlay_menu_open(p->sidebar);break;
     case 0x00409eb0u:pharaoh_city_rotate_command(p->rotation);break;
+    case 0x00409ac0u:pharaoh_editor_city_tool_select(p->editor_tools);break;
+    case 0x00409cf0u:pharaoh_editor_city_preview_select(p->editor_tools);break;
     case 0x0040b520u:(void)pharaoh_advisors_show_last(p->advisor);break;
     case 0x0040b590u:pharaoh_editor_city_return(p->editor_route);break;
     case 0x00418390u:pharaoh_small_button_start_timer(p->timer);break;
@@ -70,6 +73,7 @@ ACTION(a403d70,0x00403d70u) ACTION(a406010,0x00406010u)
 ACTION(a406020,0x00406020u) ACTION(a406030,0x00406030u)
 ACTION(a407320,0x00407320u) ACTION(a409d10,0x00409d10u)
 ACTION(a409d40,0x00409d40u) ACTION(a409eb0,0x00409eb0u)
+ACTION(a409ac0,0x00409ac0u) ACTION(a409cf0,0x00409cf0u)
 ACTION(a40b520,0x0040b520u) ACTION(a40b590,0x0040b590u)
 ACTION(a418390,0x00418390u) ACTION(a51f780,0x0051f780u)
 #undef ACTION
@@ -84,6 +88,7 @@ PharaohGenericButtonAction pharaoh_city_input_action_bindings_resolve_compiled(
     RESOLVE(0x00406020u,a406020);RESOLVE(0x00406030u,a406030);
     RESOLVE(0x00407320u,a407320);RESOLVE(0x00409d10u,a409d10);
     RESOLVE(0x00409d40u,a409d40);RESOLVE(0x00409eb0u,a409eb0);
+    RESOLVE(0x00409ac0u,a409ac0);RESOLVE(0x00409cf0u,a409cf0);
     RESOLVE(0x0040b520u,a40b520);RESOLVE(0x0040b590u,a40b590);
     RESOLVE(0x00418390u,a418390);RESOLVE(0x0051f780u,a51f780);
 #undef RESOLVE

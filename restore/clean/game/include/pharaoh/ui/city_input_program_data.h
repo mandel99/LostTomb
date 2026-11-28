@@ -18,10 +18,12 @@ typedef struct PharaohCityInputProgramData {
     PharaohImageButtonRecord expanded_build[16];
     PharaohImageButtonRecord collapsed_build[12];
     PharaohImageButtonRecord expanded_top[2];
+    PharaohImageButtonRecord editor_full[15];
     PharaohGenericButton problem[1];
     int16_t expanded_extra_trailing,collapsed_expand_trailing;
     int16_t expanded_build_trailing,collapsed_build_trailing;
     int16_t expanded_top_trailing;
+    int16_t editor_full_trailing,editor_preview_trailing;
     uint8_t initialized;
 } PharaohCityInputProgramData;
 

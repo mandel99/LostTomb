@@ -2,7 +2,7 @@
   "schema": "city-input-program-data-and-action-binding",
   "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
   "native_data": {
-    "image_button_rows": 34,
+    "image_button_rows": 49,
     "generic_button_rows": 1,
     "ranges": [
       "0x005C6CB8..0x005C6CD3",
@@ -14,13 +14,15 @@
       "expanded_build": {"address": "0x005C7370", "count": 16, "trailing_trigger": 0},
       "collapsed_build": {"address": "0x005C75B0", "count": 12, "trailing_trigger": 0},
       "expanded_top": {"address": "0x005C7980", "count": 2, "trailing_trigger": 0},
+      "editor_full": {"address": "0x005C7760", "count": 15, "trailing_trigger": 60},
+      "editor_preview": {"address": "0x005C7760", "count": 3, "trailing_trigger": 2},
       "compass": {"address": "0x005C79C8", "count": 1},
       "problem": {"address": "0x005C6CB8", "count": 1}
     }
   },
   "callback_tokens": [
     "0x00403D70", "0x00406010", "0x00406020", "0x00406030",
-    "0x00407320", "0x00409D10", "0x00409D40", "0x00409EB0",
+    "0x00407320", "0x00409AC0", "0x00409CF0", "0x00409D10", "0x00409D40", "0x00409EB0",
     "0x0040B520", "0x0040B590", "0x00418390", "0x0051F780"
   ],
   "contracts": [
@@ -28,27 +30,26 @@
     "Image and generic adapters publish the selected Native primary and secondary DWORDs before invoking their complete C owner.",
     "The collapsed-expand table retains Native's post-table trigger value 405; the other normal-game tables retain zero.",
     "The actual Native no-operation token 0x0051F780 is used only where present in the pinned rows; it is not a substitute for a missing callback.",
-    "Normal-game renderer tables now have one mutable owner. Editor-only image tables and complete live host action contexts remain explicitly unbound."
+    "Normal-game and editor image tables now have one mutable owner. Complete live host action contexts remain explicitly unbound."
   ],
   "translation_credit": {"new_whole_native_functions": 0, "new_native_instructions": 0},
   "source_sha256": {
-    "game/ui/city_input_program_data.c": "0e7243a1b962bb29defcf5622cdb260ba8891c4dbccc7d3ba354a29dab70eddd",
-    "game/include/pharaoh/ui/city_input_program_data.h": "481def68548414566a9975622534c69451f6f054e90f3bd5470b0d804ad4e02f",
-    "game/ui/city_input_action_bindings.c": "6999c9b5ffe74aa90e2dc1fc1a188d2d13a0b6c213ec17500a475c0caf1fa1e6",
-    "game/include/pharaoh/ui/city_input_action_bindings.h": "e82d493af1cb0410b1e2a84f17c24fa34e7ecf2f38d12f608c2d9b2465494f13",
+    "game/ui/city_input_program_data.c": "570f50a7ddc356be1bb6b04e58a5466d98b2098aac271aaebe305ef6473f715f",
+    "game/include/pharaoh/ui/city_input_program_data.h": "eba6ead5bb0d314d5140ffc74290a67b428003388a3e12e66206436eba00820c",
+    "game/ui/city_input_action_bindings.c": "efe98180941c6c640effd071a16e9b672867dc3599c97a90a8d68b713458e7e2",
+    "game/include/pharaoh/ui/city_input_action_bindings.h": "d036af89f684ebc2348c494ff671b4d6d5ab9668e90c5411231d5be15b9633e3",
     "game/platform/windows_city_ui.c": "ea4c43fb16a445b7dacdfee39afa7d2cdf00701a952a80999b39f862b41ddd54",
     "game/platform/windows_city_ui_defaults.inc": "7b7581976800d06a40c19abd5b47711df2a3a71e158422558a51d80aca3c88e0"
   },
   "verification": {
     "release_target": "pharaoh_clean_bootstrap",
     "release_result": "pass",
-    "strict_units": ["city_input_program_data.c", "city_input_action_bindings.c"],
+    "strict_units": ["city_input_program_data.c", "city_input_action_bindings.c", "editor_city_tools.c"],
     "strict_flags": "/std:c11 /O2 /W4 /WX",
     "strict_result": "pass"
   },
   "remaining": [
     "Bind the complete live build, undo, message, advisor, editor-return and rotation contexts before enabling the common city dispatcher.",
-    "Recover and bind the editor-only full and preview image-button tables.",
     "Connect windows 3, 6 and 18 plus the normal window-1 construction path in the host runtime."
   ]
 }

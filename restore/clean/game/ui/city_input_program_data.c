@@ -57,6 +57,23 @@ static const PharaohImageButtonRecord initial_expanded_top[2]={
     ROW(16,143,60,36,4,387,0,32,181,32,115),
     ROW(90,143,62,36,4,387,4,144,181,32,115)
 };
+static const PharaohImageButtonRecord initial_editor_full[15]={
+    ROW(7,123,71,23,4,406,45,0,0,0,0),
+    ROW(84,123,71,23,4,406,45,0,0,0,0),
+    ROW(13,267,39,26,2,406,0,0,0,0,0),
+    ROW(63,267,39,26,2,406,3,0,0,0,0),
+    ROW(113,267,39,26,2,406,6,0,0,0,0),
+    ROW(13,303,39,26,2,406,18,0,0,0,0),
+    ROW(63,303,39,26,2,406,30,0,0,0,0),
+    ROW(113,303,39,26,2,406,15,0,0,0,0),
+    ROW(13,339,39,26,2,406,33,0,0,0,0),
+    ROW(63,339,39,26,2,406,39,0,0,0,0),
+    ROW(113,339,39,26,2,406,42,0,0,0,0),
+    ROW(13,375,39,26,2,406,27,0,0,0,0),
+    ROW(63,375,39,26,4,406,24,0,0,0,0),
+    ROW(113,375,39,26,2,712,0,0,0,0,0),
+    {0}
+};
 #undef ROW
 
 /* The compact ROW initializer above preserves the already-qualified bytes,
@@ -65,6 +82,7 @@ static const PharaohImageButtonRecord initial_expanded_top[2]={
 static void install_parameters(PharaohCityInputProgramData *d)
 {
     static const uint32_t categories[12]={1,3,2,4,10,12,8,6,7,5,9,11};
+    static const uint32_t editor[13]={1,0,1,2,6,10,5,17,13,14,24,8,32};
     for(int32_t i=0;i<12;++i){
         memcpy(d->expanded_build[i].reserved_1c,&categories[i],4);
         memcpy(d->expanded_build[i].reserved_1c+4,&(uint32_t){110},4);
@@ -74,6 +92,8 @@ static void install_parameters(PharaohCityInputProgramData *d)
     memcpy(d->expanded_build[13].reserved_1c+4,&(uint32_t){34},4);
     memcpy(d->expanded_top[0].reserved_1c+4,&(uint32_t){14},4);
     memcpy(d->expanded_top[1].reserved_1c+4,&(uint32_t){32},4);
+    for(int32_t i=1;i<14;++i)
+        memcpy(d->editor_full[i].reserved_1c,&editor[i-1],4);
 }
 
 static void install_exact_tokens(PharaohCityInputProgramData *d)
@@ -90,6 +110,9 @@ static void install_exact_tokens(PharaohCityInputProgramData *d)
     TOKEN(d->expanded_build[15],0x00418390u,0x0051f780u);
     TOKEN(d->expanded_top[0],0x0040b520u,0x00407320u);
     TOKEN(d->expanded_top[1],0x0040b590u,0x00407320u);
+    TOKEN(d->editor_full[0],0x0040b590u,0x0051f780u);
+    TOKEN(d->editor_full[1],0x00409cf0u,0x0051f780u);
+    for(int32_t i=2;i<14;++i)TOKEN(d->editor_full[i],0x00409ac0u,0x0051f780u);
 #undef TOKEN
 }
 
@@ -106,12 +129,14 @@ PharaohCityInputProgramStatus pharaoh_city_input_program_data_initialize_once(
     memcpy(d->expanded_build,initial_expanded_build,sizeof(d->expanded_build));
     memcpy(d->collapsed_build,initial_collapsed_build,sizeof(d->collapsed_build));
     memcpy(d->expanded_top,initial_expanded_top,sizeof(d->expanded_top));
+    memcpy(d->editor_full,initial_editor_full,sizeof(d->editor_full));
     install_exact_tokens(d);install_parameters(d);
     d->problem[0]=(PharaohGenericButton){{86,404,114,449},left,right,0,
         PHARAOH_GENERIC_BUTTON_TRIGGER_LEFT_PRESS,1,0};
     d->expanded_extra_trailing=0;d->collapsed_expand_trailing=405;
     d->expanded_build_trailing=0;d->collapsed_build_trailing=0;
     d->expanded_top_trailing=0;
+    d->editor_full_trailing=60;d->editor_preview_trailing=2;
     d->initialized=1;
     return PHARAOH_CITY_INPUT_PROGRAM_READY;
 }
@@ -125,6 +150,6 @@ void pharaoh_city_input_program_data_bind_tables(PharaohCityInputProgramData *d,
     t->collapsed_build=(PharaohCityInputImageTable){d->collapsed_build,&d->collapsed_build_trailing};
     t->expanded_top=(PharaohCityInputImageTable){d->expanded_top,&d->expanded_top_trailing};
     t->problem=d->problem;
-    t->editor_full=(PharaohCityInputImageTable){NULL,NULL};
-    t->editor_preview=(PharaohCityInputImageTable){NULL,NULL};
+    t->editor_full=(PharaohCityInputImageTable){d->editor_full,&d->editor_full_trailing};
+    t->editor_preview=(PharaohCityInputImageTable){d->editor_full,&d->editor_preview_trailing};
 }
