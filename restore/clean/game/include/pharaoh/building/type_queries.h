@@ -514,7 +514,8 @@ void pharaoh_house_population_rebuild_list(
     const PharaohBuildingTypeRecord *buildings, int32_t highest_id,
     int16_t *house_ids, int32_t *house_count);
 void pharaoh_building_refresh_money_values(
-    PharaohBuildingTypeRecord *buildings, int32_t highest_id,
+    PharaohBuildingTypeRecord *buildings,
+    const volatile int32_t *highest_id,
     uint32_t (*money_value_for_building)(void *user_data, int32_t building_id),
     void *user_data);
 int32_t pharaoh_house_population_closest_with_room(

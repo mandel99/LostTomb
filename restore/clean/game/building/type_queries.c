@@ -1281,3 +1281,25 @@ void pharaoh_transport_assign_dock(
     walker->destination_y = destination_y;
     pharaoh_walker_detach_slot_link(walkers, slot_walkers, walker_id);
 }
+
+/* Complete one-callee C translation of Pharaoh.exe 0x004684E0. */
+void pharaoh_building_refresh_money_values(
+    PharaohBuildingTypeRecord *buildings,
+    const volatile int32_t *highest_id,
+    uint32_t (*money_value_for_building)(void *user_data, int32_t building_id),
+    void *user_data)
+{
+    int32_t building_id = 1;
+    if (*highest_id < 1) return;
+    do {
+        PharaohBuildingTypeRecord *const building = &buildings[building_id];
+        if (building->state == 1) {
+            building->money_value = 0;
+            if (building->house_size == 0) {
+                building->money_value =
+                    money_value_for_building(user_data, building_id);
+            }
+        }
+        ++building_id;
+    } while (building_id <= *highest_id);
+}

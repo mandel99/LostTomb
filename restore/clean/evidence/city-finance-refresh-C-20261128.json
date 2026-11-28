@@ -1,0 +1,43 @@
+{
+  "schema": "pharaoh-complete-c-translation-v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "address": "0x004684E0",
+  "name": "pharaoh_building_refresh_money_values",
+  "source_reuse": [
+    {
+      "path": "restore/Source/Buildings/Building/State.c",
+      "sha256": "d1887d53504a250eb78147ff30e66d1ffbdd7b3642e3f8820e435f85aac18d72"
+    },
+    {
+      "path": "restore/src/Unit00935.c",
+      "contract": "The highest building id is reloaded after every callback."
+    }
+  ],
+  "native": {
+    "instruction_count": 25,
+    "body_bytes": 76,
+    "instruction_bytes_sha256": "63018f4c6ebe1a5e7d4b9ccc5a6f4ed3f7737559db89401b58ff49d484a8c1c0",
+    "callers": ["0x00451C50", "0x00469140", "0x00492770"],
+    "callee": "0x0045A140",
+    "callee_call_site": "0x0046850F"
+  },
+  "clean": {
+    "source": "game/building/type_queries.c",
+    "source_sha256": "1bbf2978338d4c9c1f8814515815cfc452d77ff3aec6caec9898bba677604ba3",
+    "header_sha256": "81aeb50733b3b3254acb7b9f87aae3c7438dceb8cd12e0c0a5512ddc06cb311a",
+    "body_sha256": "b2b7a58acc840fcdf03cd0fc2a6a19f9398d775724807b4ece27a44dade86bc7"
+  },
+  "typed_contract": "The 264-byte building array, live volatile highest-id pointer and real money-value provider are explicit. Active records clear DWORD +0xB8; only records with BYTE +0x05 equal to zero call the provider. The highest id is reloaded after the provider before every loop continuation.",
+  "ghidra": {
+    "prototype": "void pharaoh_building_refresh_money_values(void)",
+    "session": "live pinned program retained"
+  },
+  "verification": {
+    "strict_compile": "MSVC Win32 /Zs /std:c11 /O2 /W4 /WX passed for type_queries.c, finance_money.c and x87_numeric.c",
+    "release_target": "pharaoh_clean_bootstrap passed",
+    "release_library_sha256": "be4d95b8c6831e7223c658dee84b0243a9ce84f90163e01203132b32108386b9",
+    "release_exe_sha256": "ceed0204740e7cd3a8968f9d11fcdbd114956a40d7960f8fe1ea690efc9d3202",
+    "native_c_replay": "deferred to joint cohort milestone"
+  },
+  "remaining_gap": "The three native callers and actual Windows-host assembly of the live finance provider context remain separate. Invalid pointer/fault domains and incidental registers/flags are not qualified."
+}
