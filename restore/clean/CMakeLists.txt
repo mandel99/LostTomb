@@ -62,6 +62,7 @@ add_library(pharaoh_game STATIC
     game/population/food_supply_query.c
     game/ui/build_menu.c
     game/ui/city_ingame_dispatch.c
+    game/ui/editor_city_route_actions_live.c
     game/ui/building_info_live.c
     game/ui/building_info_program_data.c
     game/ui/building_info_actions_live.c
@@ -290,6 +291,7 @@ add_library(pharaoh_game STATIC
     game/runtime/figure_model_loading.c
     game/runtime/game_state_initialization.c
     game/runtime/city_view.c
+    game/runtime/city_rotation.c
     game/runtime/city_warning_clear.c
     game/map/map_ring.c
     game/map/surface_tiles.c

@@ -133,4 +133,34 @@ uint32_t pharaoh_empire_object_city_sells_resource(
 uint32_t pharaoh_empire_our_city_sells_resource(
     const PharaohEmpireObjectRecord *objects, uint32_t resource_kind);
 
+typedef struct PharaohEmpireScrollBounds {
+    int32_t x;
+    int32_t y;
+    int32_t content_width;
+    int32_t content_height;
+    int32_t horizontal_inset;
+    int32_t top_inset;
+    int32_t bottom_inset;
+    int32_t window_width;
+    int32_t window_height;
+} PharaohEmpireScrollBounds;
+
+void pharaoh_empire_check_scroll_boundaries(PharaohEmpireScrollBounds *);
+
+/* Actual442800 scalar view. Each pointer borrows its Native DWORD cell;
+ * x/y stores publish immediately, rather than through a copied bounds owner.
+ * Fields have their actual distinct Native storage and remain game-thread
+ * stable between the original loads. Native arithmetic wraps32 bits before
+ * each signed comparison. */
+typedef struct PharaohEmpireScrollBorrowedBounds {
+    int32_t *x,*y;                     /*775910/77590C*/
+    const int32_t *content_width,*content_height; /*5D2A10/5D2A14*/
+    const int32_t *horizontal_inset;    /*5D2A18*/
+    const int32_t *top_inset,*bottom_inset; /*5D2A1C/5D2A20*/
+    const int32_t *window_width,*window_height; /*E38D9C/E38D98*/
+} PharaohEmpireScrollBorrowedBounds;
+
+void pharaoh_empire_check_scroll_boundaries_borrowed(
+    const PharaohEmpireScrollBorrowedBounds *);
+
 #endif

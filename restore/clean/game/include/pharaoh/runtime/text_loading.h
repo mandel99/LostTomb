@@ -84,4 +84,7 @@ typedef struct PharaohTextPointerTable {
 const char *pharaoh_text_pointer_table_get(
     const PharaohTextPointerTable *table, int32_t index);
 
+void pharaoh_text_select_secondary(
+    PharaohTextSelection *selection, int32_t group, int32_t entry);
+
 #endif

@@ -1,0 +1,1751 @@
+{
+  "schema": "connected-city-rotation-and-empire-action-C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "written_utc": "2026-11-28T02:48:36.910285+00:00",
+  "checkpoint_parent": "e590b5d17ee80300f91a10423e01c5289f913888",
+  "new_whole_Native_functions": 7,
+  "new_whole_Native_instructions": 357,
+  "mapped_or_updated_addresses": 13,
+  "new_canonical_map_addresses": [
+    "0x00430B20",
+    "0x00430BE0",
+    "0x00497B90",
+    "0x0047D6E0",
+    "0x00409EB0",
+    "0x00480060",
+    "0x00409FA0",
+    "0x0040B590",
+    "0x00442800",
+    "0x004CC160",
+    "0x0040A090",
+    "0x00409520",
+    "0x00538CD0"
+  ],
+  "existing_canonical_C_adoptions": [
+    "0x00480060",
+    "0x00442800",
+    "0x004CC160"
+  ],
+  "existing_compiled_map_adoption": "0x00538CD0",
+  "source_sha256": {
+    "CMakeLists.txt": "c5595e719ff46298611e7cc469ef0cb1ee5c89ddc8f24570fe6df58dedefffa1",
+    "game/ui/editor_city_route_actions_live.c": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+    "game/include/pharaoh/ui/editor_city_route_actions_live.h": "0e78dd50fed80afc9bdb7ed944647e822a8e5f14f32edd7afa7a69bf63b17f79",
+    "game/commerce/empire_queries.c": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+    "game/include/pharaoh/commerce/empire_queries.h": "9426fcea6c61b831adb2deb1f4eeefa752954e4f8fe98b0972333ff97f997719",
+    "game/ui/small_button_callbacks.c": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+    "game/include/pharaoh/ui/small_button_callbacks.h": "616a09d3da09f9fc96572306e5de5dc7e165752d71503ef4ae02e48bbca7a3ab",
+    "game/runtime/text_catalog.c": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+    "game/include/pharaoh/runtime/text_loading.h": "2ccd2cfcf5ea0d4b0f33fa03567e33d372bc8ff4a9129f3f6fe7ff9ac35618dc",
+    "game/runtime/city_rotation.c": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+    "game/include/pharaoh/runtime/city_rotation.h": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+    "game/map/terrain_queries.c": "098d4eb39f7aca66928dc42c5b6b5890b5f55ee95bbec236a1d1d6bc97bbf461",
+    "game/include/pharaoh/map/terrain_queries.h": "2e7090a712d48b5d8d5c2a6d82687a1f5efc7df7f307880c394e6bd4cf8011a5"
+  },
+  "source_binding": [
+    {
+      "address": "0x00430B20",
+      "name": "pharaoh_city_view_rotate_left",
+      "source": "game/runtime/city_rotation.c",
+      "body_sha256": "a18080335739d8685ff6a68ab859f24cbbfe9ab24e3a980cf89d675cf4797a14",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00430BE0",
+      "name": "pharaoh_city_view_rotate_right",
+      "source": "game/runtime/city_rotation.c",
+      "body_sha256": "6f8aba4b59c4f6dad8ab7b23617a77e3f1ce31d19c26678dd5206c5ed6add760",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00497B90",
+      "name": "pharaoh_city_rotation_repair_sentries",
+      "source": "game/runtime/city_rotation.c",
+      "body_sha256": "bc8ba1a3f702e8b8878cad120e5e92489865ee952f2844b34dce48a544e2e51c",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x0047D6E0",
+      "name": "pharaoh_city_rotation_rebuild",
+      "source": "game/runtime/city_rotation.c",
+      "body_sha256": "ad8d37f00f8d53a5541da1c1463b6803b356ef4c46c13d3158842bdece0e5948",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00409EB0",
+      "name": "pharaoh_city_rotate_command",
+      "source": "game/runtime/city_rotation.c",
+      "body_sha256": "50abd9008b05558fd63045a4f1437218f1f0f5d31c0445a2c7c50914f62bf5aa",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00480060",
+      "name": "pharaoh_map_find_unmarked_tile_within_radius",
+      "source": "game/map/terrain_queries.c",
+      "body_sha256": "9d43445ebd597c0fd9bf44464a63772dde313387197bdb271edc0a22eac6f7bc",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00409FA0",
+      "name": "pharaoh_editor_city_enter",
+      "source": "game/ui/editor_city_route_actions_live.c",
+      "body_sha256": "551412e8a813d2c5a3b2518fde734f3cde795de28f8c7c471153058582391cb8",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x0040B590",
+      "name": "pharaoh_editor_city_return",
+      "source": "game/ui/editor_city_route_actions_live.c",
+      "body_sha256": "6ff98b573ddf39ecb75cc157e0bd79c4e1e63ae906242dd0d9adeaef09739f5e",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00442800",
+      "name": "pharaoh_empire_check_scroll_boundaries_borrowed",
+      "source": "game/commerce/empire_queries.c",
+      "body_sha256": "ee256a9a7768fc43644150f3dadb4b0eeef7deee7db45aed370ff2208066cf95",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x004CC160",
+      "name": "pharaoh_text_select_secondary",
+      "source": "game/runtime/text_catalog.c",
+      "body_sha256": "925956c6c58919cf47f93cbd07a9e225c584c86ce1dd26229edc2e78ef5c873d",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x0040A090",
+      "name": "pharaoh_small_button_commit_map_view_borrowed",
+      "source": "game/ui/small_button_callbacks.c",
+      "body_sha256": "fde9ac3bfb218466abfbfa97880b164a3f83f0ee52ffe49d656086b2d6954de8",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00409520",
+      "name": "pharaoh_small_button_commit_map_view_borrowed",
+      "source": "game/ui/small_button_callbacks.c",
+      "body_sha256": "fde9ac3bfb218466abfbfa97880b164a3f83f0ee52ffe49d656086b2d6954de8",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    },
+    {
+      "address": "0x00538CD0",
+      "name": "pharaoh_message_box_show",
+      "source": "game/ui/message_box.c",
+      "body_sha256": "716831ecebdb7b7f917c30b881ebc98013d9b91417386803c9ed46909df9ccc1",
+      "body_hash_format": "UTF-8 exact definition including signature, root body parser"
+    }
+  ],
+  "editor_handoff": {
+    "packet": "editor-city return/enter whole typed C closure",
+    "baseline_main": "e590b5d1",
+    "status": "stable; strict staged canonical compile/link PASS; root integration and shared milestone replay pending",
+    "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+    "functions": [
+      {
+        "address": "0x00409FA0",
+        "name": "pharaoh_editor_city_enter",
+        "native_instruction_count": 57,
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "header": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "body_binding": {
+          "source": "game/ui/editor_city_route_actions_live.c",
+          "name": "pharaoh_editor_city_enter",
+          "line": 27,
+          "signature": "void pharaoh_editor_city_enter(const PharaohEditorCityRouteLiveContext *c)",
+          "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+          "definition_sha256": "551412e8a813d2c5a3b2518fde734f3cde795de28f8c7c471153058582391cb8",
+          "body_sha256": "83430542ea85b8a2649605da53672aad6470fca84cfd02d166df9a42496349bf",
+          "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+        },
+        "origin": "Whole existing runtime/EditorCityRouteActions.c algorithm retyped to actual borrowed owners. No Original/IL/live register frame."
+      },
+      {
+        "address": "0x0040B590",
+        "name": "pharaoh_editor_city_return",
+        "native_instruction_count": 20,
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "header": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "body_binding": {
+          "source": "game/ui/editor_city_route_actions_live.c",
+          "name": "pharaoh_editor_city_return",
+          "line": 65,
+          "signature": "void pharaoh_editor_city_return(const PharaohEditorCityRouteLiveContext *c)",
+          "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+          "definition_sha256": "6ff98b573ddf39ecb75cc157e0bd79c4e1e63ae906242dd0d9adeaef09739f5e",
+          "body_sha256": "f8cc4add48c69c4b2b410b8afbbeb0611d75770d509300ca8074956fd45c66c3",
+          "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+        },
+        "origin": "Whole existing runtime/EditorCityRouteActions.c algorithm retyped to actual borrowed owners. No Original/IL/live register frame."
+      }
+    ],
+    "counts": {
+      "new_typed_parent_owners": 2,
+      "parent_native_instructions": 77,
+      "shared_algorithm_forms": 4,
+      "shared_forms_new_Native_credit": 0,
+      "existing_whole_C_child_adoptions": 2,
+      "cached_bodies_audited": 10,
+      "cached_instructions_audited": 366,
+      "native_byte_mismatches": 0
+    },
+    "files": [
+      {
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "rule": "new wholly owned module",
+        "after_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\ui\\editor_city_route_actions_live.c",
+        "copy_working_whole_file": true
+      },
+      {
+        "source": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "rule": "new wholly owned module",
+        "after_sha256": "0e78dd50fed80afc9bdb7ed944647e822a8e5f14f32edd7afa7a69bf63b17f79",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\ui\\editor_city_route_actions_live.h",
+        "copy_working_whole_file": true
+      }
+    ],
+    "narrow_canonical_deltas": [
+      {
+        "source": "game/commerce/empire_queries.c",
+        "rule": "scoped shared algorithm/borrowed field adoption",
+        "before_sha256": "33ee787fcd449e001675982bf27d8f8afb66fff565d8b7b3d10be2dbe5d67ea3",
+        "after_sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__commerce__empire_queries.c.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\commerce\\empire_queries.c",
+        "working_after_sha256": "b083c43be71c06f3558948558943ad9d5c9b55423c256b0a6312c931e521ffd7",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\commerce\\empire_queries.c"
+      },
+      {
+        "source": "game/include/pharaoh/commerce/empire_queries.h",
+        "rule": "scoped shared algorithm/borrowed field adoption",
+        "before_sha256": "bfb9c3c2a117fba30fef69ee5d3873138cdde2ab7ed94e6e36cff40ee02162e8",
+        "after_sha256": "9426fcea6c61b831adb2deb1f4eeefa752954e4f8fe98b0972333ff97f997719",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__commerce__empire_queries.h.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\commerce\\empire_queries.h",
+        "working_after_sha256": "c5778f404c92a59384bb170c8d8be9b69754eaa759f9958dfd003a3ff51b82c8",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\commerce\\empire_queries.h"
+      },
+      {
+        "source": "game/ui/small_button_callbacks.c",
+        "rule": "scoped shared algorithm/borrowed field adoption",
+        "before_sha256": "74f9a573a1c314abd4d6390c3e288ab4988d964714b077f4c2411a07ee0b1d51",
+        "after_sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__ui__small_button_callbacks.c.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\ui\\small_button_callbacks.c",
+        "working_after_sha256": "b6be377d29000eda769cc030614e163e04a7f28317994554d08b3f1f7c0d95a3",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\ui\\small_button_callbacks.c"
+      },
+      {
+        "source": "game/include/pharaoh/ui/small_button_callbacks.h",
+        "rule": "scoped shared algorithm/borrowed field adoption",
+        "before_sha256": "3406649b39af464b374e6731cd63446831153e9797ba178aae3172da94a05a67",
+        "after_sha256": "616a09d3da09f9fc96572306e5de5dc7e165752d71503ef4ae02e48bbca7a3ab",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__ui__small_button_callbacks.h.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\ui\\small_button_callbacks.h",
+        "working_after_sha256": "5ab9c677ef3662b6cd805e5e32d188b7be3a832e0e396ccc367c36f6f18ff08e",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\ui\\small_button_callbacks.h"
+      },
+      {
+        "source": "game/runtime/text_catalog.c",
+        "rule": "adopt existing complete4CC160 C/declaration only; no W edit",
+        "before_sha256": "6f7852c1043f19080c1f7aee5aebddf98c738d38b7e461b7cd633fb488880558",
+        "after_sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__runtime__text_catalog.c.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\runtime\\text_catalog.c",
+        "working_after_sha256": "91baa18e3a67d7ad1f2c60378b11ddeef9a19bad27cf1df80973adeca917b85b",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\runtime\\text_catalog.c"
+      },
+      {
+        "source": "game/include/pharaoh/runtime/text_loading.h",
+        "rule": "adopt existing complete4CC160 C/declaration only; no W edit",
+        "before_sha256": "a16701dce3063203b126c2025ea294836517c78c88cec122ee763d05c7ea98ba",
+        "after_sha256": "2ccd2cfcf5ea0d4b0f33fa03567e33d372bc8ff4a9129f3f6fe7ff9ac35618dc",
+        "patch": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__runtime__text_loading.h.patch",
+        "canonical_after": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\runtime\\text_loading.h",
+        "working_after_sha256": "9c7ffd1a307b7aa6bf0a60674bef6a9a8d9d945614bc604d96b170cc58a3d0aa",
+        "copy_working_whole_file": false,
+        "before_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\runtime\\text_loading.h"
+      }
+    ],
+    "whole_working_shared_file_copy_forbidden": true,
+    "shared_edit_rules": "Only the4 authorized W files edited. Before W/canonical snapshots and exact6 canonical patches retained. The canonical tree, CMake, map, host, Git and tests were not edited. Existing W-only *_duplicate wrapper was preserved but excluded from canonical adoption.",
+    "children": [
+      {
+        "source": "game/runtime/text_catalog.c",
+        "name": "pharaoh_text_select",
+        "line": 5,
+        "signature": "void pharaoh_text_select(PharaohTextSelection *selection, int32_t group,\n                         int32_t entry)",
+        "source_sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "definition_sha256": "5b62108486b7ce1b81ef08be2a76c721eb0f32620085d1359139677de1a0a528",
+        "body_sha256": "6c5892e630cb24fae4cf7c412ccecd3cf6156dfb1de5736630bc0229d0d93722",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004CC110",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/runtime/text_catalog.c",
+        "name": "pharaoh_text_select_secondary",
+        "line": 29,
+        "signature": "void pharaoh_text_select_secondary(\n    PharaohTextSelection *selection, int32_t group, int32_t entry)",
+        "source_sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "definition_sha256": "925956c6c58919cf47f93cbd07a9e225c584c86ce1dd26229edc2e78ef5c873d",
+        "body_sha256": "2618e7fdeb2532696cd9a4041901e9213960648e3ecf22f9b7b7ac1b001066be",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004CC160",
+        "canonical_adoption_required": true,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/ui/message_box.c",
+        "name": "pharaoh_message_box_show",
+        "line": 86,
+        "signature": "int32_t pharaoh_message_box_show(PharaohMessageBoxModalState *state,\n    const PharaohMessageBoxModalOperations *operations,\n    const char *title, const char *body, uint32_t type)",
+        "source_sha256": "19ccad4d30f312c0db6043d18aa81858e17d5dc44f206fd8b2e998d3ea8fc703",
+        "definition_sha256": "716831ecebdb7b7f917c30b881ebc98013d9b91417386803c9ed46909df9ccc1",
+        "body_sha256": "2891a4d3c14eff4469384d6aaefd8439ef90206f2c6941e0abdc8e40ebcb29f3",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x00538CD0",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/runtime/city_warning.c",
+        "name": "pharaoh_city_warning_post",
+        "line": 7,
+        "signature": "void pharaoh_city_warning_post(PharaohCityWarningContext *c,int32_t message)",
+        "source_sha256": "48e8d482889614cc7d88efd7520e421efb04a6a1479c97a04f26350a9fa8fc8c",
+        "definition_sha256": "7f3803283e828843ab2d74a5638ffd0934dd5a19a93c0e8b2c4a3d5dedafd5c4",
+        "body_sha256": "e48bb6420abc975fb306753be1cda38b78018b7c9123d4caaf1628f77fe22a71",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004E2970",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/scenario/tutorial_complete.c",
+        "name": "pharaoh_tutorial_set_flag",
+        "line": 7,
+        "signature": "void pharaoh_tutorial_set_flag(const PharaohTutorialCompletionContext *c,\n    int32_t tutorial)",
+        "source_sha256": "8c592de0a82d38383f6c55494b3ddcc54bb15b0f37547587e088c0036406439f",
+        "definition_sha256": "bee946056e513d7bd64f9e19588416567172fca20d0b0fe762595fe409826df4",
+        "body_sha256": "9913e398b9187ca70f81a0338266bb7dc66c9aa50055294c7d940075e2d909c2",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x00417AE0",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      }
+    ],
+    "shared_algorithms": [
+      {
+        "source": "game/commerce/empire_queries.c",
+        "name": "pharaoh_empire_check_scroll_boundaries_borrowed",
+        "line": 202,
+        "signature": "void pharaoh_empire_check_scroll_boundaries_borrowed(\n    const PharaohEmpireScrollBorrowedBounds *b)",
+        "source_sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "definition_sha256": "ee256a9a7768fc43644150f3dadb4b0eeef7deee7db45aed370ff2208066cf95",
+        "body_sha256": "f8f17076327158743eb5f27e9ee628df98e6a34331d83d75776679108eb1a32f",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "00442800",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/commerce/empire_queries.c",
+        "name": "pharaoh_empire_check_scroll_boundaries",
+        "line": 221,
+        "signature": "void pharaoh_empire_check_scroll_boundaries(PharaohEmpireScrollBounds *b)",
+        "source_sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "definition_sha256": "a9c7d5767d6240213b305c7664a8029970056387345a2f01931b82e2464e2c5a",
+        "body_sha256": "43469af521445f036281ff2bc9aa215516f464efeef1d8ff0eca25a52067d62a",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "00442800",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/ui/small_button_callbacks.c",
+        "name": "pharaoh_small_button_commit_map_view_borrowed",
+        "line": 48,
+        "signature": "void pharaoh_small_button_commit_map_view_borrowed(\n    const PharaohSmallButtonMapViewBorrowedState *state)",
+        "source_sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "definition_sha256": "fde9ac3bfb218466abfbfa97880b164a3f83f0ee52ffe49d656086b2d6954de8",
+        "body_sha256": "b9353ddcce8a3f637cc23fbeef6f5c670b74676eff5263c6e630c8d200c7fc1e",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "0040A090/00409520",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/ui/small_button_callbacks.c",
+        "name": "pharaoh_small_button_commit_map_view",
+        "line": 66,
+        "signature": "void pharaoh_small_button_commit_map_view(PharaohSmallButtonState *state)",
+        "source_sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "definition_sha256": "bcbb848cdc958486af523fe265be651a25e59e80245dc4ed9549f811ae737bdd",
+        "body_sha256": "b54dc5e33779489ba0ded64a72ee2e4a3001d2ef8d2a265b796b126a39070ee9",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "0040A090/00409520",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      }
+    ],
+    "contracts_file": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\contracts.json",
+    "root_integration": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\root-integration.json",
+    "build": {
+      "strict_compile": "PASS4 staged canonical C translation units /std:c11 /W4 /WX /O2 Win32",
+      "link": "PASS genuine canonical child closure in validation DLL; not executed",
+      "compiler_invocations": 1,
+      "link_config_fixes": "TEMP-only export-name decoration and missing ucrt import library corrected; no C implementation edit after strict compile",
+      "post_compile_comment_only_fix": {
+        "source": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "change": "original32-byte -> original 32-byte in comment only",
+        "reason": "PowerShell case-insensitive source-policy regex mistakenly matches Original3",
+        "C_tokens_changed": false,
+        "code_body_hashes_changed": false,
+        "behavior_replay_required": false,
+        "compiled_header_snapshot": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\compiled-header-input.h",
+        "compiled_header_sha256": "7f7f10cba223a9f6f037bc30c7f822ff9bd8d3f4ed9ff2139a9d3f699615f6be",
+        "final_header_sha256": "0e78dd50fed80afc9bdb7ed944647e822a8e5f14f32edd7afa7a69bf63b17f79",
+        "comment_stripped_bytes_identical": true
+      },
+      "dll": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\editor-city-enter.dll",
+      "dll_sha256": "41ef6fa2e5bac3b45353d455c1d62ae2676f012e94e9e48b2def779db1c88ef3",
+      "base_canonical_library": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\build\\bootstrap-vs2022-win32\\Release\\pharaoh_game.lib",
+      "base_canonical_library_sha256": "54861eb0b4e4cbb2cae12f41d105f7b989c2a4d3ed8fa2487169e577f5c2c80b",
+      "root_full_CMake_build": "not run; root owns integration",
+      "behavior_replay": "not run; deferred to shared cohort milestone",
+      "workflow_verify": {
+        "ok": false,
+        "errors": 42,
+        "task_owned_errors": [
+          "Production C file is absent from CMake: game/ui/editor_city_route_actions_live.c"
+        ],
+        "explanation": "New owned source deliberately not added to CMake by this agent; unrelated/parallel W diagnostics retained verbatim. No claim that current whole W verifier passes."
+      }
+    },
+    "native_evidence": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\native-byte-proof.json",
+    "body_bindings": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\body-bindings.json",
+    "provenance": [
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\EditorCityRouteActions.c",
+        "sha256": "b5137d6116dc65562c113a3aba37cb19f4f61eabc01bda610ab54ae56caf07c6",
+        "role": "Prior whole C reuse or numbered/mixed ownership check; not linked by clean project"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\runtime\\EditorCityRouteActions.c",
+        "sha256": "b65ce1c7f091176a8d22bc6ee3fcc36c56bab41b52992bd169b66bc5876c0a9e",
+        "role": "Prior whole C reuse or numbered/mixed ownership check; not linked by clean project"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\src\\Unit00079.c",
+        "sha256": "299515bf82d24138008580393a94dc57a78f55c6a7bb322619f4a9b66baf6c87",
+        "role": "Prior whole C reuse or numbered/mixed ownership check; not linked by clean project"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\src\\Unit00076.c",
+        "sha256": "fb140fc02b5fb313c04fee2477eb35c93955a0ab758ef8cd81a605adff255c7f",
+        "role": "Prior whole C reuse or numbered/mixed ownership check; not linked by clean project"
+      }
+    ],
+    "open_C_children": [],
+    "runtime_binding_pending": [
+      "Borrow actual scene/settings/scalar owners and coherent text selections. No live platform/host action binding is claimed by this packet.",
+      "Supply genuine existing modal message-pump/draw operations and complete warning/tutorial/menu/sidebar/message/world contexts for reached arms. Bare Native algorithms have their original valid-context preconditions; they do not fabricate NULL defaults or readiness success.",
+      "Original point-bank index domain/backing is required; no made-up allocated-count input or Native clamp was added.",
+      "No new behavioral replay or gameplay equivalence claim. Strict compile/link proves C symbol/type closure only."
+    ],
+    "evidence_files": [
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\commerce\\empire_queries.c",
+        "sha256": "33ee787fcd449e001675982bf27d8f8afb66fff565d8b7b3d10be2dbe5d67ea3",
+        "bytes": 7270
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\commerce\\empire_queries.h",
+        "sha256": "bfb9c3c2a117fba30fef69ee5d3873138cdde2ab7ed94e6e36cff40ee02162e8",
+        "bytes": 4495
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\runtime\\text_loading.h",
+        "sha256": "a16701dce3063203b126c2025ea294836517c78c88cec122ee763d05c7ea98ba",
+        "bytes": 3179
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\include\\pharaoh\\ui\\small_button_callbacks.h",
+        "sha256": "3406649b39af464b374e6731cd63446831153e9797ba178aae3172da94a05a67",
+        "bytes": 1485
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\runtime\\text_catalog.c",
+        "sha256": "6f7852c1043f19080c1f7aee5aebddf98c738d38b7e461b7cd633fb488880558",
+        "bytes": 1281
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\canonical\\game\\ui\\small_button_callbacks.c",
+        "sha256": "74f9a573a1c314abd4d6390c3e288ab4988d964714b077f4c2411a07ee0b1d51",
+        "bytes": 1787
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\W\\game\\commerce\\empire_queries.c",
+        "sha256": "e89d332bfdcb1f303614b43e24f59c84764e3fa45917094374d189ccee61bc0b",
+        "bytes": 16588
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\W\\game\\include\\pharaoh\\commerce\\empire_queries.h",
+        "sha256": "88d269ce6c9ca3d2503ab65473517eb5ffaf91160855220f2e56301e0ee62b80",
+        "bytes": 6682
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\W\\game\\include\\pharaoh\\ui\\small_button_callbacks.h",
+        "sha256": "00d147bda798f991b82e89bd13eb17f8f27c40e756e581996f48fe46d8e6bada",
+        "bytes": 1627
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before\\W\\game\\ui\\small_button_callbacks.c",
+        "sha256": "6c8286c92d83b79c9799cf936a1c8eda0d1b6d3d4b96fd6d89c9e1ad0c899d70",
+        "bytes": 2397
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\before-sha256.json",
+        "sha256": "242eb7dbd0a4c0694ad093ab3d40b1cc8d883988398473fbffe95c978bcce567",
+        "bytes": 1387
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\body-bindings.json",
+        "sha256": "c5087853f10ce99942a4364a85e67874421a94285e17875707a9ba4377877c8b",
+        "bytes": 10629
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\editor-city-enter.dll",
+        "sha256": "41ef6fa2e5bac3b45353d455c1d62ae2676f012e94e9e48b2def779db1c88ef3",
+        "bytes": 33792
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\editor-city-enter.exp",
+        "sha256": "69adb1560f60c71632de6d7084c1654b43b6e95e9b68e3a3514756e6fb4e0cc6",
+        "bytes": 1006
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\editor-city-enter.lib",
+        "sha256": "5794215bc8a7441c5bf6bd7ace53701a8585d1ee5d3f5abf307a11418d42cf8b",
+        "bytes": 2256
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\editor-city-enter.map",
+        "sha256": "d82ea0f2125767856eb260559434edea724df3aecb141546e5d8ce23eea55e3e",
+        "bytes": 30739
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\obj\\editor_city_route_actions_live.obj",
+        "sha256": "ed5d4284e34c4f199aac514cb667633473a14ed2e029c171f74b7157be93dc41",
+        "bytes": 2801
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\obj\\empire_queries.obj",
+        "sha256": "9ae9e9a6954ad2d669fb1dcf81bd69d5618e9005c5eef591753d8a640be651c7",
+        "bytes": 5812
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\obj\\small_button_callbacks.obj",
+        "sha256": "ba9bfd11aa50cda4e1cb59f4e3c766da0e5d56049011aaa8d37d646ab19e0dd2",
+        "bytes": 2653
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build\\obj\\text_catalog.obj",
+        "sha256": "1814980493669d843effffa0b7fc149c527945e6fe668762c7f4be3f945f3c6e",
+        "bytes": 1674
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build-link-export-alias-error.log",
+        "sha256": "8207c55673c8ea7b94f894ed259eb49cb12956059d934a26d9025f9ee368dbd5",
+        "bytes": 435
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build-receipt.json",
+        "sha256": "7f39f731b405af7401c380ee7f1c2de0516b23a51ce9386bd57c8e1cfa6b51aa",
+        "bytes": 2119
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build.cmd",
+        "sha256": "a8650d7386f364bc111182a08e072b0af645dea94a3df529389a2e874d4c0d96",
+        "bytes": 2000
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\build.log",
+        "sha256": "8207c55673c8ea7b94f894ed259eb49cb12956059d934a26d9025f9ee368dbd5",
+        "bytes": 435
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\commerce\\empire_queries.c",
+        "sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "bytes": 8421
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\commerce\\empire_queries.h",
+        "sha256": "9426fcea6c61b831adb2deb1f4eeefa752954e4f8fe98b0972333ff97f997719",
+        "bytes": 5688
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\runtime\\text_loading.h",
+        "sha256": "2ccd2cfcf5ea0d4b0f33fa03567e33d372bc8ff4a9129f3f6fe7ff9ac35618dc",
+        "bytes": 3284
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\ui\\editor_city_route_actions_live.h",
+        "sha256": "0e78dd50fed80afc9bdb7ed944647e822a8e5f14f32edd7afa7a69bf63b17f79",
+        "bytes": 3410
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\include\\pharaoh\\ui\\small_button_callbacks.h",
+        "sha256": "616a09d3da09f9fc96572306e5de5dc7e165752d71503ef4ae02e48bbca7a3ab",
+        "bytes": 2355
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\runtime\\text_catalog.c",
+        "sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "bytes": 1834
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\ui\\editor_city_route_actions_live.c",
+        "sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+        "bytes": 2636
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical\\game\\ui\\small_button_callbacks.c",
+        "sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "bytes": 2454
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\canonical-deltas.json",
+        "sha256": "fee34455d6476084e21e7e08ca8ffe5e708cf8009c5a0636b04c760134a80555",
+        "bytes": 5255
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\compiled-header-input.h",
+        "sha256": "7f7f10cba223a9f6f037bc30c7f822ff9bd8d3f4ed9ff2139a9d3f699615f6be",
+        "bytes": 3409
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\contracts.json",
+        "sha256": "02d187e5a5a04d0acfa34b289119d1754d6188583186330c317512819bb1a8cd",
+        "bytes": 2634
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\discover.json",
+        "sha256": "4cce0bcdc8df4d7749571b4857e9db57011e87193973f58b17ef2d9b457df89e",
+        "bytes": 742
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\edit-shared.py",
+        "sha256": "48981ee6a8c45cb2708aab9988a465d6d112310fb631b644733c4bb2f0f608a0",
+        "bytes": 8987
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\finalize.py",
+        "sha256": "1645db7757a13080a21bfd1551df1811736628a5e95dddc80b5e68c97b4b82a1",
+        "bytes": 14240
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\link-crt-import-error.log",
+        "sha256": "8194ab1343539bf22908ba35b8bc87ce2e149ad1307d1bf903a2c029b65f3661",
+        "bytes": 675
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\link-only.cmd",
+        "sha256": "5c4bb4dca479e868bc2bb58bb50113b9aa6fd6f122acd1a053aa05aa757de53f",
+        "bytes": 1168
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\link.log",
+        "sha256": "7761b10cb47dd1430c0f6c56620783ee7c30247063f6b3b89f1fd4b916124ab9",
+        "bytes": 217
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\native-byte-proof.json",
+        "sha256": "ac27e8215a9ac5ccd3fe4333a5120ca1fa470261b1ddfce3b50a24533b24e963",
+        "bytes": 6420
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\native.json",
+        "sha256": "a792d82bea0b7b66c2d5bfad8bb0092689ee521d0b216173c1d8a8db432c6bd2",
+        "bytes": 32416
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__commerce__empire_queries.c.patch",
+        "sha256": "0d27f6b94d7e0a366855ee837e9fbb8735fb08c417bb60445404a9d0acd4f91b",
+        "bytes": 1335
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__commerce__empire_queries.h.patch",
+        "sha256": "12ed7fcbed2ec5bf3968dac52110193138b18d918df10324f71f395208989755",
+        "bytes": 1519
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__runtime__text_loading.h.patch",
+        "sha256": "07dc7f8d2c0af4c06c09db5348a62c8f30206f5481f9a53e542863da546d6951",
+        "bytes": 350
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__include__pharaoh__ui__small_button_callbacks.h.patch",
+        "sha256": "117dd63d4555a1963c6d675f3639320bdf3968b9e59d747235d2e67614d63fb6",
+        "bytes": 1188
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__runtime__text_catalog.c.patch",
+        "sha256": "74fccb4286c78117f1bf0792dc7ad9d356cd2b895a35f0082af4ca248bf8e90a",
+        "bytes": 822
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\patches\\game__ui__small_button_callbacks.c.patch",
+        "sha256": "537d39305409536bfc52fd0b259e82e16f56b8071305a09ebcc25a29e811da20",
+        "bytes": 1953
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\postcompile-comment-fix.json",
+        "sha256": "37aa694c8e888c800cb9c3d6d24339ad1b99eb549e21b531462dffd021beac46",
+        "bytes": 706
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\root-integration.json",
+        "sha256": "e85f43f9733956e87e2def89157cf10d4bc8b366e24362c9adc9c87f44c92fb8",
+        "bytes": 8826
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\strict-compile.log",
+        "sha256": "d87eb2de654b2d28264d8203588bb9fd12030113d889f8de9a6c4a06d7eaa8e5",
+        "bytes": 117
+      },
+      {
+        "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-editor-city-enter\\workflow-verify.json",
+        "sha256": "dc31be2862a8a4b71639ab253485907eb2942d7b05be53b846dd1edb307f0bdf",
+        "bytes": 4031
+      }
+    ]
+  },
+  "editor_handoff_sha256": "7c2020606c6b264b56182b729e2a7de7327b4763938011387b1f64208450629b",
+  "editor_contracts": {
+    "Native_widths": [
+      "605A3C editor is a full DWORD and compares exactly1. E38EBC custom-scenario and78D828 gate are full DWORD zero tests. E38DDA/E38DCA window/redraw are BYTE cells.",
+      "5D2E88=-1 andF53FDC=0 occur on every409FA0 invocation before any branch child. The warning arm of40B590 skips those409FA0 stores.",
+      "Mission E38EA8 is sign-extended BYTE compared with rules[14].mission_threshold DWORD579638 in the real28-byte rule bank5794B0.7027C6 is the actual shared tutorial_flags[14].",
+      "40A090 reads selected point DWORD784F10 and low WORDs775910/77590C; committed index7848DC and point x/y are WORD stores. Point bank7843D8 has Native stride32.",
+      "442800 borrows actual DWORDs x775910,y77590C,contentWidth5D2A10,contentHeight5D2A14,horizontal5D2A18,top5D2A1C,bottom5D2A20,widthE38D9C,heightE38D98. Unsigned32 wrap precedes signed clamps, and negative then upper-bound stores remain ordered."
+    ],
+    "tail_calls": [
+      "40B590 CALL4E2970(13,0,0) OR JMP409FA0/40A090; no tail child is left opaque.409520 is a real1-instruction JMP40A090 alias, not a separate required duplicate C wrapper.",
+      "No full EAX/flags API is invented: parents are void;4CC110/4CC160 selections are consumed from the two live pointer cells;538CD0 result is ignored."
+    ],
+    "alias_rules": [
+      "primary_text.current is actualE20768 and secondary_text.current actualE20764; distinct selections share the same loaded catalog. No private copied catalog.",
+      "warnings.editor_active aliases editor_active; warnings.selection aliases primary_text; warnings.construction_enabled aliases current_window(E38DDA). Warning DWORD redrawE94E20 remains distinct from window BYTE redrawE38DCA.",
+      "message_box.current_window_id and redraw_request alias current_window/redraw. Real modal message-pump/draw operations are required; none are supplied as dummy callbacks.",
+      "tutorial.flags aliases tutorial_flags, tutorial.rules aliases tutorial_rules, tutorial.mission_id aliases selected_mission, tutorial.advisor_override aliases custom_scenario; its message/queue/sidebar/build-menu contexts share the live window, flags, world and genuine draw providers.",
+      "scroll borrows actual cells. The small-button refresh callback is statically implemented as the genuine complete442800 child, not a passthrough for an untranslated parent.",
+      "When editor!=1 in the40A090 arm, unused scroll/point inputs need not be dereferenceable; the genuine algorithm skips them. When editor==1, selected index and bank backing satisfy the original allocated-domain contract. No invented clamp/guard/default-success."
+    ]
+  },
+  "editor_body_bindings": {
+    "functions": [
+      {
+        "address": "0x00409FA0",
+        "name": "pharaoh_editor_city_enter",
+        "native_instruction_count": 57,
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "header": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "body_binding": {
+          "source": "game/ui/editor_city_route_actions_live.c",
+          "name": "pharaoh_editor_city_enter",
+          "line": 27,
+          "signature": "void pharaoh_editor_city_enter(const PharaohEditorCityRouteLiveContext *c)",
+          "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+          "definition_sha256": "551412e8a813d2c5a3b2518fde734f3cde795de28f8c7c471153058582391cb8",
+          "body_sha256": "83430542ea85b8a2649605da53672aad6470fca84cfd02d166df9a42496349bf",
+          "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+        },
+        "origin": "Whole existing runtime/EditorCityRouteActions.c algorithm retyped to actual borrowed owners. No Original/IL/live register frame."
+      },
+      {
+        "address": "0x0040B590",
+        "name": "pharaoh_editor_city_return",
+        "native_instruction_count": 20,
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "header": "game/include/pharaoh/ui/editor_city_route_actions_live.h",
+        "body_binding": {
+          "source": "game/ui/editor_city_route_actions_live.c",
+          "name": "pharaoh_editor_city_return",
+          "line": 65,
+          "signature": "void pharaoh_editor_city_return(const PharaohEditorCityRouteLiveContext *c)",
+          "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+          "definition_sha256": "6ff98b573ddf39ecb75cc157e0bd79c4e1e63ae906242dd0d9adeaef09739f5e",
+          "body_sha256": "f8cc4add48c69c4b2b410b8afbbeb0611d75770d509300ca8074956fd45c66c3",
+          "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+        },
+        "origin": "Whole existing runtime/EditorCityRouteActions.c algorithm retyped to actual borrowed owners. No Original/IL/live register frame."
+      }
+    ],
+    "shared": [
+      {
+        "source": "game/commerce/empire_queries.c",
+        "name": "pharaoh_empire_check_scroll_boundaries_borrowed",
+        "line": 202,
+        "signature": "void pharaoh_empire_check_scroll_boundaries_borrowed(\n    const PharaohEmpireScrollBorrowedBounds *b)",
+        "source_sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "definition_sha256": "ee256a9a7768fc43644150f3dadb4b0eeef7deee7db45aed370ff2208066cf95",
+        "body_sha256": "f8f17076327158743eb5f27e9ee628df98e6a34331d83d75776679108eb1a32f",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "00442800",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/commerce/empire_queries.c",
+        "name": "pharaoh_empire_check_scroll_boundaries",
+        "line": 221,
+        "signature": "void pharaoh_empire_check_scroll_boundaries(PharaohEmpireScrollBounds *b)",
+        "source_sha256": "8c1b4f7a83473a268519ddc3db7074a1858787e6b3dc8024d7e5f8d653895733",
+        "definition_sha256": "a9c7d5767d6240213b305c7664a8029970056387345a2f01931b82e2464e2c5a",
+        "body_sha256": "43469af521445f036281ff2bc9aa215516f464efeef1d8ff0eca25a52067d62a",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "00442800",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/ui/small_button_callbacks.c",
+        "name": "pharaoh_small_button_commit_map_view_borrowed",
+        "line": 48,
+        "signature": "void pharaoh_small_button_commit_map_view_borrowed(\n    const PharaohSmallButtonMapViewBorrowedState *state)",
+        "source_sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "definition_sha256": "fde9ac3bfb218466abfbfa97880b164a3f83f0ee52ffe49d656086b2d6954de8",
+        "body_sha256": "b9353ddcce8a3f637cc23fbeef6f5c670b74676eff5263c6e630c8d200c7fc1e",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "0040A090/00409520",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      },
+      {
+        "source": "game/ui/small_button_callbacks.c",
+        "name": "pharaoh_small_button_commit_map_view",
+        "line": 66,
+        "signature": "void pharaoh_small_button_commit_map_view(PharaohSmallButtonState *state)",
+        "source_sha256": "68c0c7a30546035a214afe90a9aca007dcd4d69ff9b6fc35faa7e0da3d145f44",
+        "definition_sha256": "bcbb848cdc958486af523fe265be651a25e59e80245dc4ed9549f811ae737bdd",
+        "body_sha256": "b54dc5e33779489ba0ded64a72ee2e4a3001d2ef8d2a265b796b126a39070ee9",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "Native_semantic_alias": "0040A090/00409520",
+        "new_Native_credit": 0,
+        "rule": "One complete algorithm, borrowed and normalized forms share it; no whole owner/pool copy"
+      }
+    ],
+    "real_children": [
+      {
+        "source": "game/runtime/text_catalog.c",
+        "name": "pharaoh_text_select",
+        "line": 5,
+        "signature": "void pharaoh_text_select(PharaohTextSelection *selection, int32_t group,\n                         int32_t entry)",
+        "source_sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "definition_sha256": "5b62108486b7ce1b81ef08be2a76c721eb0f32620085d1359139677de1a0a528",
+        "body_sha256": "6c5892e630cb24fae4cf7c412ccecd3cf6156dfb1de5736630bc0229d0d93722",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004CC110",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/runtime/text_catalog.c",
+        "name": "pharaoh_text_select_secondary",
+        "line": 29,
+        "signature": "void pharaoh_text_select_secondary(\n    PharaohTextSelection *selection, int32_t group, int32_t entry)",
+        "source_sha256": "fa58f978426d1e40beba9067d1f0fdd3d25512f2fb124f62351e0d72b8195731",
+        "definition_sha256": "925956c6c58919cf47f93cbd07a9e225c584c86ce1dd26229edc2e78ef5c873d",
+        "body_sha256": "2618e7fdeb2532696cd9a4041901e9213960648e3ecf22f9b7b7ac1b001066be",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004CC160",
+        "canonical_adoption_required": true,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/ui/message_box.c",
+        "name": "pharaoh_message_box_show",
+        "line": 86,
+        "signature": "int32_t pharaoh_message_box_show(PharaohMessageBoxModalState *state,\n    const PharaohMessageBoxModalOperations *operations,\n    const char *title, const char *body, uint32_t type)",
+        "source_sha256": "19ccad4d30f312c0db6043d18aa81858e17d5dc44f206fd8b2e998d3ea8fc703",
+        "definition_sha256": "716831ecebdb7b7f917c30b881ebc98013d9b91417386803c9ed46909df9ccc1",
+        "body_sha256": "2891a4d3c14eff4469384d6aaefd8439ef90206f2c6941e0abdc8e40ebcb29f3",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x00538CD0",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/runtime/city_warning.c",
+        "name": "pharaoh_city_warning_post",
+        "line": 7,
+        "signature": "void pharaoh_city_warning_post(PharaohCityWarningContext *c,int32_t message)",
+        "source_sha256": "48e8d482889614cc7d88efd7520e421efb04a6a1479c97a04f26350a9fa8fc8c",
+        "definition_sha256": "7f3803283e828843ab2d74a5638ffd0934dd5a19a93c0e8b2c4a3d5dedafd5c4",
+        "body_sha256": "e48bb6420abc975fb306753be1cda38b78018b7c9123d4caaf1628f77fe22a71",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x004E2970",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      },
+      {
+        "source": "game/scenario/tutorial_complete.c",
+        "name": "pharaoh_tutorial_set_flag",
+        "line": 7,
+        "signature": "void pharaoh_tutorial_set_flag(const PharaohTutorialCompletionContext *c,\n    int32_t tutorial)",
+        "source_sha256": "8c592de0a82d38383f6c55494b3ddcc54bb15b0f37547587e088c0036406439f",
+        "definition_sha256": "bee946056e513d7bd64f9e19588416567172fca20d0b0fe762595fe409826df4",
+        "body_sha256": "9913e398b9187ca70f81a0338266bb7dc66c9aa50055294c7d940075e2d909c2",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings",
+        "address": "0x00417AE0",
+        "canonical_adoption_required": false,
+        "new_Native_credit": 0
+      }
+    ],
+    "local_adapters": [
+      {
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "name": "refresh_map_point",
+        "line": 7,
+        "signature": "static void refresh_map_point(void *user_data)",
+        "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+        "definition_sha256": "28e8709e43aad8fc8478ec21bd7b14d23b2d7599726414e8e266117dadb263fb",
+        "body_sha256": "e668ea74af6cd1d489b5f8de5c0e507690d8d6a6f2000c4bb35dc8893ea19130",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+      },
+      {
+        "source": "game/ui/editor_city_route_actions_live.c",
+        "name": "commit_map_view",
+        "line": 13,
+        "signature": "static void commit_map_view(const PharaohEditorCityRouteLiveContext *c)",
+        "source_sha256": "ef9987024b665601428477e6c9dad75e7671574a267aff84461e91ce1e25d7e8",
+        "definition_sha256": "8d8b2ad58f4e9fd4481982ba7199e75da0d7c931b471f859657ccc07b18f7553",
+        "body_sha256": "107010ca32aaff008d3dfa78a2cfe7a93d855da9d0d112e649a8be44ab3891a7",
+        "hash_convention": "UTF-8 LF body includes braces; exact source hash retains original bytes/line endings"
+      }
+    ]
+  },
+  "rotation_handoff": {
+    "task": "Whole connected city rotation C closure",
+    "baseline_main": "e590b5d17ee80300f91a10423e01c5289f913888",
+    "complete_native_owners": 6,
+    "native_instruction_count": 315,
+    "new_main_mapping_addresses": 5,
+    "existing_main_mapping_canonical_adoptions": 1,
+    "owners": [
+      {
+        "address": "0x00430B20",
+        "name": "pharaoh_city_view_rotate_left",
+        "source": "game/runtime/city_rotation.c",
+        "header": "game/include/pharaoh/runtime/city_rotation.h",
+        "source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "body": {
+          "body_sha256": "cc7662911a31d5593904e601fa8b92342405ad2c20720a0f7e27fa19ab9e61b0",
+          "function_sha256": "a18080335739d8685ff6a68ab859f24cbbfe9ab24e3a980cf89d675cf4797a14",
+          "first_line": 67
+        },
+        "native_instruction_count": 58,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-0448.json",
+        "native_callees": [
+          "0x00430530",
+          "0x004304c0"
+        ],
+        "logical_return": "void side-effect action",
+        "repository_address_credit": 1,
+        "classification": "new main Native mapping"
+      },
+      {
+        "address": "0x00430BE0",
+        "name": "pharaoh_city_view_rotate_right",
+        "source": "game/runtime/city_rotation.c",
+        "header": "game/include/pharaoh/runtime/city_rotation.h",
+        "source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "body": {
+          "body_sha256": "2368564a5681d20400cce61f77b73e3ebac701114fe200dde50eacd85aae4663",
+          "function_sha256": "6f8aba4b59c4f6dad8ab7b23617a77e3f1ce31d19c26678dd5206c5ed6add760",
+          "first_line": 69
+        },
+        "native_instruction_count": 58,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-0448.json",
+        "native_callees": [
+          "0x00430530",
+          "0x004304c0"
+        ],
+        "logical_return": "void side-effect action",
+        "repository_address_credit": 1,
+        "classification": "new main Native mapping"
+      },
+      {
+        "address": "0x00497B90",
+        "name": "pharaoh_city_rotation_repair_sentries",
+        "source": "game/runtime/city_rotation.c",
+        "header": "game/include/pharaoh/runtime/city_rotation.h",
+        "source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "body": {
+          "body_sha256": "60b9c37cc27a0ae58614d18feabae0944dff862fe7ed3ceea6e141741d431eda",
+          "function_sha256": "bc8ba1a3f702e8b8878cad120e5e92489865ee952f2844b34dce48a544e2e51c",
+          "first_line": 74
+        },
+        "native_instruction_count": 98,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-1344.json",
+        "native_callees": [
+          "0x00480060",
+          "0x004b5420",
+          "0x004b52f0",
+          "0x004b3250",
+          "0x004b3250",
+          "0x004b5420",
+          "0x004b52f0"
+        ],
+        "logical_return": "void side-effect action",
+        "repository_address_credit": 1,
+        "classification": "new main Native mapping"
+      },
+      {
+        "address": "0x0047D6E0",
+        "name": "pharaoh_city_rotation_rebuild",
+        "source": "game/runtime/city_rotation.c",
+        "header": "game/include/pharaoh/runtime/city_rotation.h",
+        "source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "body": {
+          "body_sha256": "7935f1a7a2aa32a65481c01d79e80f786856fa4a615686656ef479ac8df9cc73",
+          "function_sha256": "ad8d37f00f8d53a5541da1c1463b6803b356ef4c46c13d3158842bdece0e5948",
+          "first_line": 114
+        },
+        "native_instruction_count": 11,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-1088.json",
+        "native_callees": [
+          "0x0047d870",
+          "0x0047d720",
+          "0x004dea50",
+          "0x0046d840",
+          "0x0047fb70",
+          "0x005178e0",
+          "0x00497b90"
+        ],
+        "logical_return": "void side-effect action",
+        "repository_address_credit": 1,
+        "classification": "new main Native mapping",
+        "native_tail_callees": [
+          "0x004DDF90"
+        ]
+      },
+      {
+        "address": "0x00409EB0",
+        "name": "pharaoh_city_rotate_command",
+        "source": "game/runtime/city_rotation.c",
+        "header": "game/include/pharaoh/runtime/city_rotation.h",
+        "source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "body": {
+          "body_sha256": "0327d5dd28f5e0a82c892b197f92e65158334bbb38feff49bac8c93993b654ee",
+          "function_sha256": "50abd9008b05558fd63045a4f1437218f1f0f5d31c0445a2c7c50914f62bf5aa",
+          "first_line": 138
+        },
+        "native_instruction_count": 55,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-0064.json",
+        "native_callees": [
+          "0x00430b20",
+          "0x00430be0",
+          "0x0047d6e0",
+          "0x004de080",
+          "0x004e2970",
+          "0x00430be0",
+          "0x00430b20",
+          "0x00430b20",
+          "0x00430b20",
+          "0x0047d6e0",
+          "0x0047d6e0",
+          "0x004de080",
+          "0x004e2970"
+        ],
+        "logical_return": "void side-effect action",
+        "repository_address_credit": 1,
+        "classification": "new main Native mapping"
+      },
+      {
+        "address": "0x00480060",
+        "name": "pharaoh_map_find_unmarked_tile_within_radius",
+        "source": "game/map/terrain_queries.c",
+        "header": "game/include/pharaoh/map/terrain_queries.h",
+        "source_sha256": "098d4eb39f7aca66928dc42c5b6b5890b5f55ee95bbec236a1d1d6bc97bbf461",
+        "header_sha256": "2e7090a712d48b5d8d5c2a6d82687a1f5efc7df7f307880c394e6bd4cf8011a5",
+        "body": {
+          "body_sha256": "ecf2bc4507a9575b6c4570d8c2e963e7a43218778060e1ce2a05b01a195dd209",
+          "function_sha256": "9d43445ebd597c0fd9bf44464a63772dde313387197bdb271edc0a22eac6f7bc",
+          "first_line": 765
+        },
+        "native_instruction_count": 35,
+        "cache": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\metadata\\native-function-audit-cache\\batch-1152.json",
+        "native_callees": [
+          "0x004800b0"
+        ],
+        "logical_return": "exact int32_t0/1",
+        "repository_address_credit": 0,
+        "classification": "existing mapped main C adopted into canonical"
+      }
+    ],
+    "shared_helpers": [
+      {
+        "name": "add32",
+        "native_credit": 0,
+        "body": {
+          "body_sha256": "8917f4e31cf95e6d4507c953238eab9e7e62afcfa85843918d7948c41019976c",
+          "function_sha256": "a537668c9cfc3ea58351eea66f36d14e51733b7298679fb34c9de464d43a8bfd",
+          "first_line": 24
+        }
+      },
+      {
+        "name": "sub32",
+        "native_credit": 0,
+        "body": {
+          "body_sha256": "fc01bd872a613601778ae34f4d928a98936c383fea40c2420fbe9e22ece31136",
+          "function_sha256": "311cc42885d9416811ba7ecce2b890e679bbefe9b152b02f87d6d8e5731ef8b5",
+          "first_line": 26
+        }
+      },
+      {
+        "name": "rotate_view",
+        "native_credit": 0,
+        "body": {
+          "body_sha256": "6376222aa48ee3acc58191a342458edf45acb583bd8845c3b2c31de36fb516fe",
+          "function_sha256": "de520db31f53888bb677cdcf5d31c9cfc8ea1efa34cf1beefae4e07a8d3d30f0",
+          "first_line": 32
+        }
+      },
+      {
+        "name": "finish_rotation",
+        "native_credit": 0,
+        "body": {
+          "body_sha256": "0d0c7080b158f638496ddc71a3a616fc6a8b3bc071cabbf8b2efee433280800a",
+          "function_sha256": "ed535e469dcfeb166291025d7c942ce21327b976b0234eaade9427e40c76a546",
+          "first_line": 127
+        }
+      }
+    ],
+    "reused_canonical_C": [
+      {
+        "address": "0x0047D870",
+        "name": "pharaoh_map_update_entry_exit_flags",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\entry_exit_flags.c",
+        "source_sha256": "b98a9f0411eeda7a3e698e6501141ddc6f140423359bf91053e2b926addff1e7",
+        "canonical_function_body": {
+          "body_sha256": "2d883e530832c9ce450fdd0d8431003b655f852e8248947305d68db0ab277374",
+          "function_sha256": "ae6236d807e627059910e6efef033c4eac26be005c96e9e71c004f2969690244",
+          "first_line": 31
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/map-water-initialization-20261122.json",
+        "header": null
+      },
+      {
+        "address": "0x0047D720",
+        "name": "pharaoh_map_update_orientation_corners",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\native_leaf_flags.c",
+        "source_sha256": "64739dbeca3d1974b70d02b6358081bacd6932942faa6e7b2471f93a1d0f62ca",
+        "canonical_function_body": {
+          "body_sha256": "eb9dd61f90981a96a9bd5213097fbc9d049c0628180186dc6dbb6083a5972e38",
+          "function_sha256": "4712d8af88986de8b6a66255e566770c71522a84d1f725ec613b398eab4aa0d5",
+          "first_line": 8
+        },
+        "mapping_record_source": "main existing mapping; actual canonical C definition and linked symbol reused",
+        "mapping_evidence": "evidence/map-water-leaves-C-20261127.json",
+        "header": "game/include/pharaoh/map/native_leaf_queries.h"
+      },
+      {
+        "address": "0x004DEA50",
+        "name": "pharaoh_map_refresh_all_tiles",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\surface_refresh_all.c",
+        "source_sha256": "40f8dbd6b28f3003300084c65b1da621da39acb350a24e1678019c22f88f7bf5",
+        "canonical_function_body": {
+          "body_sha256": "3361cb0913cc288ba77ce3e35b01472c31d2aee515f45d31ffd482664bab5c81",
+          "function_sha256": "07823355390d3481bc8a27a93236c449eb1e971bd265af8d8003bbcc9a000a40",
+          "first_line": 6
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/map-water-initialization-20261122.json",
+        "header": null
+      },
+      {
+        "address": "0x0046D840",
+        "name": "pharaoh_map_refresh_rotated_building_images",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\rotated_buildings.c",
+        "source_sha256": "93da2cd90f5dd427dc62bf7e364837e761dcc87ec238392e34bccb78c78609b4",
+        "canonical_function_body": {
+          "body_sha256": "ad5163c752b1d99f756d212f3fe47e5bba4f8a0367081e357a732a79c53671a1",
+          "function_sha256": "bf210effa40dd81f4f4292757c5199421572db62142b6e8440eff933a795703b",
+          "first_line": 120
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/rotation-scene-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x0047FB70",
+        "name": "pharaoh_map_rotate_bridge_sprites",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\native_leaf_flags.c",
+        "source_sha256": "64739dbeca3d1974b70d02b6358081bacd6932942faa6e7b2471f93a1d0f62ca",
+        "canonical_function_body": {
+          "body_sha256": "d631f4868321f125cd8d2f468cd53adf6d1903e9ff8815651c73d83f1a447461",
+          "function_sha256": "5f85e0679350345867f712f1e7be5b0717437f1de699e0fbde8b8e107ca5074a",
+          "first_line": 40
+        },
+        "mapping_record_source": "main existing mapping; actual canonical C definition and linked symbol reused",
+        "mapping_evidence": "evidence/map-water-leaves-C-20261127.json",
+        "header": "game/include/pharaoh/map/native_leaf_queries.h"
+      },
+      {
+        "address": "0x005178E0",
+        "name": "pharaoh_map_routing_initialize_walls",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\scenario\\scene_routing.c",
+        "source_sha256": "31c62f6a39b58fe14160ef2b52ab1cd8ee2c4ba7f4bffc6a476599b0f05165a1",
+        "canonical_function_body": {
+          "body_sha256": "ba36f9e70c5e603140785ed1bf390abd88525da6036da92a20376b4f4928dd97",
+          "function_sha256": "e06e2ff8d318198b405c4b24c3c65857783e4f72f0cbded7b69bc3533a081bfe",
+          "first_line": 211
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/scene-routing-entry-20261122.json",
+        "header": null
+      },
+      {
+        "address": "0x004DDF90",
+        "name": "pharaoh_city_view_calculate_map_bounds",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\runtime\\city_view.c",
+        "source_sha256": "430157b354e0b17e2d7a158d749f542473c5be818ac2c2f9b982be5236d5fbd2",
+        "canonical_function_body": {
+          "body_sha256": "acf23da8457af3d1d9798c4fbe3dea18e3d3245fae73b3ad519d9a9d82efa1ca",
+          "function_sha256": "82f4fca6bccc09542b57d169a94c75649bae1732983ae555df336a9800480a3e",
+          "first_line": 295
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/city-view-startup-126.json",
+        "header": "game/include/pharaoh/runtime/city_view.h"
+      },
+      {
+        "address": "0x004DE080",
+        "name": "pharaoh_city_view_check_camera_boundaries",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\runtime\\city_view.c",
+        "source_sha256": "430157b354e0b17e2d7a158d749f542473c5be818ac2c2f9b982be5236d5fbd2",
+        "canonical_function_body": {
+          "body_sha256": "cad6953e344f77c152deb29d0dcc65808b6ec92ff86c129e86cc2d326c328b65",
+          "function_sha256": "5801b5fbf2e3267c202bc76c1bda987a1e2417b17038ae37af07a4e2ff49ec1e",
+          "first_line": 347
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/camera-scroll-native-20261126.json",
+        "header": "game/include/pharaoh/runtime/city_view.h"
+      },
+      {
+        "address": "0x004E2970",
+        "name": "pharaoh_city_warning_post",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\runtime\\city_warning.c",
+        "source_sha256": "48e8d482889614cc7d88efd7520e421efb04a6a1479c97a04f26350a9fa8fc8c",
+        "canonical_function_body": {
+          "body_sha256": "e48bb6420abc975fb306753be1cda38b78018b7c9123d4caaf1628f77fe22a71",
+          "function_sha256": "7f3803283e828843ab2d74a5638ffd0934dd5a19a93c0e8b2c4a3d5dedafd5c4",
+          "first_line": 7
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/player-walker-views-native-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x00430530",
+        "name": "pharaoh_city_view_calculate_lookup",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\runtime\\city_view.c",
+        "source_sha256": "430157b354e0b17e2d7a158d749f542473c5be818ac2c2f9b982be5236d5fbd2",
+        "canonical_function_body": {
+          "body_sha256": "83ad92292bb3d8167b25b7dff6f08efc5fc4248658c8bb4c469359718ac55dd1",
+          "function_sha256": "14cd96ef76ee216e04020fef6e84cf4818c4a4b5f7454fd6e682954e3ca3c5a2",
+          "first_line": 126
+        },
+        "mapping_record_source": "main existing mapping; actual canonical C definition and linked symbol reused",
+        "mapping_evidence": "evidence/city-view-startup-126.json",
+        "header": "game/include/pharaoh/runtime/city_view.h"
+      },
+      {
+        "address": "0x004304C0",
+        "name": "pharaoh_city_view_grid_offset_to_xy_view",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\runtime\\city_view.c",
+        "source_sha256": "430157b354e0b17e2d7a158d749f542473c5be818ac2c2f9b982be5236d5fbd2",
+        "canonical_function_body": {
+          "body_sha256": "61d76dc3cafd5d9cae0dd6d7f0dc851801c56b7a64a99d1f6d5b3d944632d9c5",
+          "function_sha256": "f46609879494b1f35a4b9a47f47a733e6fe095e403e40cda2493d98928ac60b9",
+          "first_line": 391
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/kingdom-access-20261122.json",
+        "header": null
+      },
+      {
+        "address": "0x004800B0",
+        "name": "pharaoh_map_find_unmarked_tile",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\terrain_queries.c",
+        "source_sha256": "c12ed32155cc7d3b22b7b1f259db326a1be462825e56cdfa338220bae57ee8e9",
+        "canonical_function_body": {
+          "body_sha256": "650187c9e53875c840f1d1b4cb30dd47b618e944a9f4ec004f37c947a3270fa7",
+          "function_sha256": "4540cc421875e6eb49e9ae23918d4073d6870f590f059c10dc3db88297d50ccf",
+          "first_line": 735
+        },
+        "mapping_record_source": "main existing mapping; actual canonical C definition and linked symbol reused",
+        "mapping_evidence": "evidence/map-editor-leaf-C-20261127.json",
+        "header": "game/include/pharaoh/map/terrain_queries.h"
+      },
+      {
+        "address": "0x004B5420",
+        "name": "pharaoh_walker_detach_from_tile",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\walker\\tile_chain.c",
+        "source_sha256": "696c35fbf40adf0ac6a1646405c518a81e0cc58f14b2812665c16f120afd76bb",
+        "canonical_function_body": {
+          "body_sha256": "defd4b2e17d88ef67f0a5ee879054c2ba4220f65785648f69d87cb86a2edff00",
+          "function_sha256": "d6242f3168a75d063c6e03db7b9cda81d6a1407c3674e6f9f1efdbca3bb576fd",
+          "first_line": 42
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/mausoleum-query-tile-chains-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004B52F0",
+        "name": "pharaoh_walker_attach_to_tile",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\walker\\tile_chain.c",
+        "source_sha256": "696c35fbf40adf0ac6a1646405c518a81e0cc58f14b2812665c16f120afd76bb",
+        "canonical_function_body": {
+          "body_sha256": "5c178031a7eebbf99b7ab34d52a3464a93a7e029062d8c10c5389f308dcdba9a",
+          "function_sha256": "e0f3b0ee268366a94b718e0fc50ddf9ae20f6ffc4e62fdae67b70f1e524f453c",
+          "first_line": 13
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/mausoleum-query-tile-chains-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004B3250",
+        "name": "pharaoh_walker_detach_slot_link",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\walker\\record_queries.c",
+        "source_sha256": "f0a50398c7239183757b15c7de4a7fd77f32e30506a37ed411d8be0a407b679c",
+        "canonical_function_body": {
+          "body_sha256": "b2dca7b9ac3686f71412b1487f1b9c4550f12bbd81d7da1dae3acc81a20fec90",
+          "function_sha256": "b6b7d40ff967267d2d3d4a4c237e377c42890d8c628142490a47b2af1938bd5d",
+          "first_line": 18
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/request-dispatch-native-20261127.json",
+        "header": "game/include/pharaoh/walker/record_queries.h"
+      },
+      {
+        "address": "0x004BFB30",
+        "name": "pharaoh_gatehouse_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\building\\temple_images.c",
+        "source_sha256": "edbca5c79a20bdf5f78b498dfd4da5d6ab429282f03dcb82788b2cd4f17f6a9b",
+        "canonical_function_body": {
+          "body_sha256": "d2f60592e4b6f5dc10ab365f80cac65a65f2458125c703452bdea7601418576d",
+          "function_sha256": "2866b69929bd8e0290015e750f31bc823906104901d5c57d95b2c53bcb6e3f8b",
+          "first_line": 20
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/temple-images-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004C0D50",
+        "name": "pharaoh_temple_complex_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\building\\temple_images.c",
+        "source_sha256": "edbca5c79a20bdf5f78b498dfd4da5d6ab429282f03dcb82788b2cd4f17f6a9b",
+        "canonical_function_body": {
+          "body_sha256": "e6a0b5d08a704578214921cbf362af449bbb8c89d3dc32e4339b69d60a398dc5",
+          "function_sha256": "9d9ff08cc5956c2e9986a072aa55edb8f64b9641de4b8bcb8ed63dc894892d5c",
+          "first_line": 87
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/temple-images-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x00541920",
+        "name": "pharaoh_sun_temple_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\image_updates.c",
+        "source_sha256": "9c0207c43d38f91bd1457c82fae2220e2ec361918cf7a91237b1f7366847b623",
+        "canonical_function_body": {
+          "body_sha256": "7cf491b6f5470dc455b2d981c5c855c0c7090c5aaf6f563850246f62588c985e",
+          "function_sha256": "04a48628910467f8c687befffd2f92c0e303ab389dad4c2d531235d0fad177e6",
+          "first_line": 91
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/monument-map-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004DFD90",
+        "name": "pharaoh_mausoleum_reposition_part",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\mausoleum_images.c",
+        "source_sha256": "a3cc16068cd816ce40b24a3f2bd400eb8d47e3fc154c9c688f8be12cd89906f4",
+        "canonical_function_body": {
+          "body_sha256": "093578a01451087fd3994837ca98d595cf6dc088f822993663373708bf483dc4",
+          "function_sha256": "5eeabc296051f0087d4c8927c9bf696a430f334aa44f2c4d239e96dede64ccd7",
+          "first_line": 132
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/mausoleum-images-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x0040DCA0",
+        "name": "pharaoh_library_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\image_updates.c",
+        "source_sha256": "9c0207c43d38f91bd1457c82fae2220e2ec361918cf7a91237b1f7366847b623",
+        "canonical_function_body": {
+          "body_sha256": "1a0d5ea2f0bce807b6d03846119f592b919b01734f6cafae4ba8829ae4755927",
+          "function_sha256": "9b2e86734a29faa857d25995b0e281a65a65bdb4234ef311b1ef60a80230a0b7",
+          "first_line": 63
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/monument-map-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004017A0",
+        "name": "pharaoh_monument_update_image_parts",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\image_updates.c",
+        "source_sha256": "9c0207c43d38f91bd1457c82fae2220e2ec361918cf7a91237b1f7366847b623",
+        "canonical_function_body": {
+          "body_sha256": "e5dfb108f109ae09a4aad95b8b1bec30a5020e201934293979aa936276a28a5a",
+          "function_sha256": "921ef584b6e8424ca6a04a217f0f8161d87f62b35906f191839aa05b10977896",
+          "first_line": 29
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/monument-map-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004E69C0",
+        "name": "pharaoh_lighthouse_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\image_updates.c",
+        "source_sha256": "9c0207c43d38f91bd1457c82fae2220e2ec361918cf7a91237b1f7366847b623",
+        "canonical_function_body": {
+          "body_sha256": "73c80dbc096a3ff93fb60e85db61c2cf2362189307a72685d27f6f53765e0b7a",
+          "function_sha256": "e70b962ade734f4bef80468a41d07b8a5f3af1f0a550ac5bd3493b8dc2016851",
+          "first_line": 38
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/monument-map-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x005468D0",
+        "name": "pharaoh_royal_tomb_update_map",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\monuments\\image_updates.c",
+        "source_sha256": "9c0207c43d38f91bd1457c82fae2220e2ec361918cf7a91237b1f7366847b623",
+        "canonical_function_body": {
+          "body_sha256": "9c8e8fa3bef00bce06c8095c146fc88df5dc17719622ba7f0dda570a87c59908",
+          "function_sha256": "de5df56480fdf1ad4f6c7932a2a37782e84ed18b5ae2a5691af4b26a80deaed5",
+          "first_line": 132
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/monument-map-20261123.json",
+        "header": null
+      },
+      {
+        "address": "0x004EE560",
+        "name": "pharaoh_pyramids_update_all_images",
+        "canonical_source": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\game\\map\\rotated_buildings.c",
+        "source_sha256": "93da2cd90f5dd427dc62bf7e364837e761dcc87ec238392e34bccb78c78609b4",
+        "canonical_function_body": {
+          "body_sha256": "acd3db49c6b39f764e044eea3e5357ff8331cd98f8a73ddbe10bd61848559104",
+          "function_sha256": "0aad51d952fe4d10f437760dcc96b07e710fda05bdb2f1e3ea4542e7081ba638",
+          "first_line": 103
+        },
+        "mapping_record_source": "canonical",
+        "mapping_evidence": "evidence/rotation-scene-20261123.json",
+        "header": null
+      }
+    ],
+    "provenance": [
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\runtime\\CityViewManagerRotation.c",
+        "size": 1908,
+        "sha256": "8decae215e3665c62ad0b95a0cb09d3db5c8d626a027bfb593dea91acba63eaf"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit00074.c",
+        "size": 1538,
+        "sha256": "a83493ef0ff373d74105e6d41103c8339b4dfbfbc98f3d314d7db5b938d481ab"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit00462.c",
+        "size": 171,
+        "sha256": "08aa8735d055b18f0dbe0a78a3eb0d79ffd8d7bf5e171edd8cdb919b97b60a5c"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit00463.c",
+        "size": 173,
+        "sha256": "cbd862f28532a8e79ac6bfc1bf71e07ba9c39adf29a0cb0646814dd21062a020"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit01134.c",
+        "size": 684,
+        "sha256": "e42a418e02034c63427aed22ae1d99f3ccbf26ee793854a91ef9ae662052c378"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\src\\Unit01345.c",
+        "size": 3425,
+        "sha256": "c9a73eecdde6d3c5d1f7c075f83c925fffd3d5b9a3225ea94d6eac76edf3887c"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\src\\Unit01134.c",
+        "size": 732,
+        "sha256": "04cdbb01ef003c5f1050193ca6b574e59d91bdd79a6df277bff6e271eb96743a"
+      },
+      {
+        "path": "C:\\Users\\Daniel\\Documents\\ChatGPT\\PH Local Decompile\\reused\\restore\\generated\\mixed\\src\\Unit01345.c",
+        "size": 3316,
+        "sha256": "bf00c67bbba48b2f961dc7aced88ed2cd952e53a0a9949fe8824f35adc06e711"
+      }
+    ],
+    "contracts": {
+      "city_orientation": "actual saved signed DWORD NativeE94E04/chunk33, shared with map_leaf.corner_rotation and routing.city_orientation. Projection.orientation is an existing computed cache, not this cell owner.",
+      "map_orientation": "actual signed DWORD BCA2E0 shared by surface.orientation, routing.map_orientation and warning.orientation (corresponding uint32_t view).",
+      "globals": {
+        "button_parameter": "full DWORDD3B198;2 left,1 right,0 return North; other nonzero bits still use the common rebuild path",
+        "bridge_turn": "DWORDBC96C8, same as map_leaf.bridge_turn",
+        "undo_available": "DWORDBC9694, cleared after entry_exit_flags(1)",
+        "redraw_requested": "BYTEE38DCA, written1 after warning1",
+        "result_x": "DWORDD3B4E4",
+        "result_y": "DWORDD3B4E0",
+        "search_tile": "DWORDBC9768, actual4800B0 output",
+        "current_walker": "DWORDD056F8, actual global loaded before first slot unlink and again after tile attach; never replaced with scan ID",
+        "marked_tiles": "BYTE grid EBAB20; bind its actual owner, not a generated DAT pointer unit"
+      },
+      "projection": "Existing457x231 lookup, camera_x BCA2BC and camera_y BCA2C0.70E464 is width_tiles,70E460 is height_tiles (430CA0/430CB0 cached proof). center index=231*(camera_y+height/2)+camera_x+width/2, wrapped32 additions, signed half division, signed sentinel compare0x0FFF0000. Left only wraps signed result>6; right only result<0.",
+      "walker_pool": "Actual388-byte records; scan1..1999 inclusive, type BYTE+A exactly42 and marks[DWORD grid+20]!=0, no added state check. Actual264B buildings, signed building WORD+5A; building coordinates WORD6/8.",
+      "failed_search": "action BYTE38=8; detach tile; copy buildingWORD6/8 to walker14/16 and source2C/2E; DWORD20=origin+signedx+228*signedy; attach; action8; unlink slot(scanID).",
+      "found_search": "unlink slot(actual currentWalker); BYTE39=0; detach tile(scanID); full result DWORDs become WORD14/16 and previous18/1A; WORD4A/4C=low16(coord*15); DWORD20 uses full results; attach(scanID); reload currentWalker; its action BYTE38=11, destinationWORD24/26=sourceWORD2C/2E.",
+      "alias_contract": "Both result cells shared by rotate leaves, map/terrain helpers and walker_repair. tile_chain.walkers and building pools are the actual scene pools; slot_walkers is the actual B3250 slot bank. Surface/rotated/routing/view contexts use the same live map and image state.",
+      "rebuild_order": [
+        "entry_exit_flags(1)",
+        "undo DWORD=0",
+        "orientation corners",
+        "refresh all terrain tiles",
+        "refresh rotated building images",
+        "rotate bridge sprites",
+        "initialize wall routing",
+        "repair sentries",
+        "calculate map bounds (Native tail-JMP)"
+      ],
+      "command_order": "Mode0/map0 returns. Mode0/map2:right once with bridge1. Mode0/map6:left once with bridge0. Other mode0 orientation:left twice,copy city->map,rebuild,rebuild,camera clamp,warning1,redraw BYTE1. Other nonzero modes copy the parameter DWORD; modes1/2 reload it after leaf. Preserve duplicate rebuilds.",
+      "real_provider_APIs": [
+        "pharaoh_rotated_bind_monument_images",
+        "pharaoh_rotated_bind_sun_temple_image",
+        "pharaoh_rotated_bind_mausoleum_image",
+        "pharaoh_rotated_bind_royal_tomb_images",
+        "pharaoh_rotated_bind_temple_images",
+        "pharaoh_rotated_bind_venue_adjacent_images",
+        "pharaoh_rotated_bind_pyramid_image"
+      ],
+      "provider_rule": "Borrow these already complete C algorithms with actual initialized assets/scene records. No new callbacks, substitutes or missing-provider skips are introduced."
+    },
+    "files": [
+      {
+        "path": "restore/clean/game/runtime/city_rotation.c",
+        "before_sha256": null,
+        "after_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+        "before_bytes": 0,
+        "after_bytes": 7530,
+        "working_tree_edited": true
+      },
+      {
+        "path": "restore/clean/game/include/pharaoh/runtime/city_rotation.h",
+        "before_sha256": null,
+        "after_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+        "before_bytes": 0,
+        "after_bytes": 2668,
+        "working_tree_edited": true
+      },
+      {
+        "path": "restore/clean/game/map/terrain_queries.c",
+        "before_sha256": "c12ed32155cc7d3b22b7b1f259db326a1be462825e56cdfa338220bae57ee8e9",
+        "after_sha256": "098d4eb39f7aca66928dc42c5b6b5890b5f55ee95bbec236a1d1d6bc97bbf461",
+        "before_bytes": 35094,
+        "after_bytes": 35662,
+        "working_tree_edited": false
+      },
+      {
+        "path": "restore/clean/game/include/pharaoh/map/terrain_queries.h",
+        "before_sha256": "d4354e42cba86206e4f38ff3131313ba6cbb483d9146c2d48c147ecc8c7fd065",
+        "after_sha256": "2e7090a712d48b5d8d5c2a6d82687a1f5efc7df7f307880c394e6bd4cf8011a5",
+        "before_bytes": 7814,
+        "after_bytes": 8070,
+        "working_tree_edited": false
+      },
+      {
+        "path": "restore/clean/CMakeLists.txt",
+        "before_sha256": "03f255e0f30c5b056fec7789a80b73a1713b94ef49a3d0c5d497ae8d30ad2ec4",
+        "after_sha256": "c5595e719ff46298611e7cc469ef0cb1ee5c89ddc8f24570fe6df58dedefffa1",
+        "before_bytes": 29868,
+        "after_bytes": 29902,
+        "working_tree_edited": false
+      },
+      {
+        "path": "restore/clean/evidence/function-map.json",
+        "before_sha256": "5bdd3174ef94971fee4ce6544e2b63be3c87cfbebd6b234167a22993f4017688",
+        "after_sha256": "d96869437b62be807b0c80750f62c05d67b8c7f0c4a16792d5698cd7021b7e14",
+        "before_bytes": 791143,
+        "after_bytes": 799941,
+        "working_tree_edited": false
+      },
+      {
+        "path": "restore/clean/evidence/city-rotation-C-20261128.json",
+        "before_sha256": null,
+        "after_sha256": "d2ffd045ce814daacd49f325740dc09871983d0a308de7c67883a16b828cd99f",
+        "before_bytes": 0,
+        "after_bytes": 32794,
+        "working_tree_edited": false
+      }
+    ],
+    "canonical_baseline": {
+      "root": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean",
+      "library_sha256": "54861eb0b4e4cbb2cae12f41d105f7b989c2a4d3ed8fa2487169e577f5c2c80b",
+      "note": "Canonical metadata map omits some already compiled main-mapped leaf entries; actual C bodies and link symbols were checked/reused, not duplicated.",
+      "cmake_sha256": "03f255e0f30c5b056fec7789a80b73a1713b94ef49a3d0c5d497ae8d30ad2ec4",
+      "function_map_sha256": "5bdd3174ef94971fee4ce6544e2b63be3c87cfbebd6b234167a22993f4017688",
+      "metadata_rebase": "Rebased only CMake/map hunks over root editor integration. No terrain/rotation production changes; compile library remains54861eb0..."
+    },
+    "patch": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\canonical-integration.patch",
+      "sha256": "5cbca3aaca6e32673f6e96c5497b7235f9a646325757a2564d112e1f98abd2b5",
+      "size": 61979,
+      "unified_hunks": 7,
+      "entry_fragment": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\function-map-entries.json",
+      "baseline_snapshots": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\canonical-before",
+      "candidate_tree": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\tree",
+      "integration": "Only two new owned C/H edited in W. Root adopts CMake/map/evidence and exact shared canonical terrainC/H delta. Main already has480060 full C/header/map; do not duplicate it there."
+    },
+    "evidence": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\city-rotation-C-20261128.json",
+      "sha256": "d2ffd045ce814daacd49f325740dc09871983d0a308de7c67883a16b828cd99f",
+      "native_full": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\native-full.json",
+      "native_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+      "new_REA_queries": 0,
+      "cached_native_instructions": 315,
+      "direct_consumer_windows": 11
+    },
+    "validation": {
+      "strict_compile": "PASS MSVC Win32 Release /std:c11 /O2 /DNDEBUG /MD /W4 /WX on new five-owner translation unit plus exact canonical terrain unit with adopted480060",
+      "link": "PASS six-owner group with actual canonical library and genuine kernel32/user32/ucrt/vcruntime; zero unresolved symbols, DLL not executed",
+      "full_builds": 0,
+      "behavior_tests": 0,
+      "Native_C_replay": "deferred to joint cohort milestone",
+      "logs": [
+        "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\strict-build-0.log",
+        "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\strict-build-1.log",
+        "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\strict-link.log",
+        "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-rotation\\strict-final.log"
+      ],
+      "initial_fix": "Canonical480060 wrapper/prototype absent. Exact existing whole C/header adopted. Initial group link needed CRT/Win32 import libraries.",
+      "final_source_hash_bound_compile_link": "PASS strict-final.log; final source recompiled, adopted terrain object reused, six-owner DLL linked; not executed",
+      "compiled_source_sha256": "4257b3064a748eeaac2b56183add33f3fff720c0b25ee08f78935385f1b37e7a",
+      "compiled_header_sha256": "645f1d3e8de39f8a728ac67b5d35361262b760d9e426ad5bb19f6fd49392ca5e",
+      "canonical_library_current_sha256": "54861eb0b4e4cbb2cae12f41d105f7b989c2a4d3ed8fa2487169e577f5c2c80b",
+      "closure_dll_sha256": "27b34f9269342e4f24f064675d7f041856047490728b6488ff475678f7c4189b",
+      "object_sha256": "e7ac49005556d3af86bb940b4fb85d5548188ceab826355b08ff63a40f757458",
+      "adopted_terrain_object_sha256": "0e9f2b0ddaf5ad457668496b094ae081b22103dd2512619c665390ed6b604f2f"
+    },
+    "gaps": [
+      {
+        "kind": "host",
+        "details": "Root must bind all listed actual globals/pools/initialized real provider data before UI409EB0 wiring. No parallel state/fake current-walker value created."
+      },
+      {
+        "kind": "result coverage",
+        "details": "Logical void UI/action contracts. No direct409EB0 caller in cache; indirect return usage/incidental EAX/flags remain unqualified and no invented incoming EAX API is exposed."
+      },
+      {
+        "kind": "behavior",
+        "details": "Valid original pool/map/asset domains. Compile/link do not prove Native/C or whole-game equivalence. No readiness guard or provider availability is loosened."
+      }
+    ],
+    "shared_working_edits": 0,
+    "root_platform_edits": 0,
+    "git_mutations": 0,
+    "new_subagents": 0,
+    "integrity": {
+      "canonical_inputs_still_match_snapshots": true,
+      "new_owned_working_files_match_candidate": true,
+      "candidate_file_hashes_match": true,
+      "library_matches_compiled_baseline": true
+    }
+  },
+  "rotation_handoff_sha256": "5726ea33e355407b6ab1adf12a9fe2b895796c849c7dbfc1c8a6192fada690c9",
+  "builds": [
+    {
+      "tree": "W",
+      "library": "C:\\Users\\Daniel\\Documents\\ChatGPT\\game decompile and rewrite\\restore\\clean\\build\\bootstrap-vs2022-win32\\Release\\pharaoh_game.lib",
+      "sha256": "9ebecf0e093707a750b89eda753ddf548c6a9c5530b95febd3a511f19a1cf7b3",
+      "definitions": 2920,
+      "references": 1246,
+      "missing": [],
+      "owners": {
+        "pharaoh_city_view_rotate_left": 1,
+        "pharaoh_city_view_rotate_right": 1,
+        "pharaoh_city_rotation_repair_sentries": 1,
+        "pharaoh_city_rotation_rebuild": 1,
+        "pharaoh_city_rotate_command": 1,
+        "pharaoh_editor_city_enter": 1,
+        "pharaoh_editor_city_return": 1,
+        "pharaoh_map_find_unmarked_tile_within_radius": 1,
+        "pharaoh_empire_check_scroll_boundaries_borrowed": 1,
+        "pharaoh_text_select_secondary": 1,
+        "pharaoh_small_button_commit_map_view_borrowed": 1,
+        "pharaoh_message_box_show": 1
+      },
+      "preexisting_W_duplicate_named_symbol": 1
+    },
+    {
+      "tree": "canonical",
+      "library": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-canonical-gameplay-20261127\\restore\\clean\\build\\bootstrap-vs2022-win32\\Release\\pharaoh_game.lib",
+      "sha256": "ffd64d0c3794a80fac4563665682ab0aaa5402101ddb61b340e2cde7be3712c2",
+      "definitions": 2445,
+      "references": 1216,
+      "missing": [],
+      "owners": {
+        "pharaoh_city_view_rotate_left": 1,
+        "pharaoh_city_view_rotate_right": 1,
+        "pharaoh_city_rotation_repair_sentries": 1,
+        "pharaoh_city_rotation_rebuild": 1,
+        "pharaoh_city_rotate_command": 1,
+        "pharaoh_editor_city_enter": 1,
+        "pharaoh_editor_city_return": 1,
+        "pharaoh_map_find_unmarked_tile_within_radius": 1,
+        "pharaoh_empire_check_scroll_boundaries_borrowed": 1,
+        "pharaoh_text_select_secondary": 1,
+        "pharaoh_small_button_commit_map_view_borrowed": 1,
+        "pharaoh_message_box_show": 1
+      },
+      "preexisting_W_duplicate_named_symbol": 0
+    }
+  ],
+  "build_logs": {
+    "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-ui-controls-build-W.log": "a1a10e74c7ebb505c6e519ea168fa0efe929f3bdf2c537ae9305fa13b86cc37f",
+    "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-city-ui-controls-build-canonical.log": "2ed5498da6b8b70d4072790f71730eecf3ff50f5bf5227dd3cec488f8e4a5364"
+  },
+  "remaining": [
+    "Full host action/context bindings and popup/empire drawing/input routes incomplete. Whole C algorithm does not imply connected gameplay.",
+    "Saved city orientationE94E04/chunk33 differs from normalized lookup cache.orientation. Real BCA2E0 and repair scratch remain shared.",
+    "Full building/walker info provider factory needs actual warning/house/phrase/advisor/monument receiver owners.",
+    "New Native/C replay deferred to next cohort milestone. No per-function framework or fake child used.",
+    "Preexisting duplicate-named W symbol is foreign work; canonical map uses one actual shared algorithm."
+  ]
+}

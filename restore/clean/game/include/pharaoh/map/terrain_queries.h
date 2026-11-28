@@ -167,6 +167,10 @@ int32_t pharaoh_map_find_unmarked_tile(
     const uint8_t *marks, int32_t origin, int32_t width, int32_t height,
     int32_t x, int32_t y, int32_t size, int32_t radius,
     int32_t *result_tile, int32_t *result_x, int32_t *result_y);
+int32_t pharaoh_map_find_unmarked_tile_within_radius(
+    const uint8_t *marks, int32_t origin, int32_t width, int32_t height,
+    int32_t x, int32_t y, int32_t size, int32_t maximum_radius,
+    int32_t *result_tile, int32_t *result_x, int32_t *result_y);
 void pharaoh_map_terrain_or_area(PharaohMapTerrainView *map,
     int32_t x, int32_t y, int32_t size, int32_t radius, uint32_t mask,
     PharaohMapAreaCursor *cursor);

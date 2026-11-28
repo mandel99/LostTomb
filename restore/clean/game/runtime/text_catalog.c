@@ -25,6 +25,22 @@ void pharaoh_text_select(PharaohTextSelection *selection, int32_t group,
     }
 }
 
+/* Complete existing C owner004CC160. */
+void pharaoh_text_select_secondary(
+    PharaohTextSelection *selection, int32_t group, int32_t entry)
+{
+    const PharaohTextGroupIndex *group_index =
+        &selection->catalog->primary_index[group];
+    const uint8_t *text = (const uint8_t *)selection->catalog->primary_text +
+        group_index->text_offset;
+    while (entry > 0) {
+        if (text[0] == 0 && (text[-1] >= 32 || text[-1] == 0)) --entry;
+        ++text;
+    }
+    while (*text < 32) ++text;
+    selection->current = (const char *)text;
+}
+
 int32_t pharaoh_file_load_retry_prompt(PharaohTextSelection *selection)
 {
     const char *previous_text = selection->current;

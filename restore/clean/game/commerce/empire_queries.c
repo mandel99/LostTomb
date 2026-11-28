@@ -197,3 +197,32 @@ uint32_t pharaoh_empire_our_city_sells_resource(
     }
     return 0;
 }
+
+/* Complete prior C owner442800, reused with actual scalar borrowing. */
+void pharaoh_empire_check_scroll_boundaries_borrowed(
+    const PharaohEmpireScrollBorrowedBounds *b)
+{
+    int32_t x=*b->x;
+    if(x<0){x=0;*b->x=0;}
+    uint32_t extent=(uint32_t)*b->horizontal_inset*2u;
+    extent-=(uint32_t)*b->window_width;
+    int32_t bound=(int32_t)((uint32_t)*b->content_width+extent);
+    if(bound<=x)*b->x=(int32_t)((uint32_t)bound-1u);
+    int32_t y=*b->y;
+    if(y<0){y=0;*b->y=0;}
+    extent=(uint32_t)*b->bottom_inset;
+    extent-=(uint32_t)*b->window_height;
+    extent+=(uint32_t)*b->top_inset;
+    bound=(int32_t)((uint32_t)*b->content_height+extent);
+    if(bound<=y)*b->y=(int32_t)((uint32_t)bound-1u);
+}
+
+/* Existing normalized API delegates to the same complete442800 algorithm. */
+void pharaoh_empire_check_scroll_boundaries(PharaohEmpireScrollBounds *b)
+{
+    const PharaohEmpireScrollBorrowedBounds borrowed={
+        &b->x,&b->y,&b->content_width,&b->content_height,&b->horizontal_inset,
+        &b->top_inset,&b->bottom_inset,&b->window_width,&b->window_height
+    };
+    pharaoh_empire_check_scroll_boundaries_borrowed(&borrowed);
+}
