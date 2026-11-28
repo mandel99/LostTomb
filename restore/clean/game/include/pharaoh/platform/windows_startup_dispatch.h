@@ -10,6 +10,7 @@
 #include "pharaoh/ui/message_box.h"
 #include "pharaoh/ui/briefing.h"
 #include "pharaoh/runtime/file_list.h"
+#include "pharaoh/runtime/platform_measure_speed.h"
 
 typedef struct PharaohWindowsStartupDispatch {
     PharaohWindowsStartupHost *host;
@@ -20,6 +21,8 @@ typedef struct PharaohWindowsStartupDispatch {
     PharaohSmackerWindowVideoState video;
     PharaohGraphicsRefreshState refresh;
     PharaohGraphicsRefreshOperations refresh_operations;
+    PharaohPlatformMeasurementState platform_measurement;
+    PharaohPlatformMeasurementOperations platform_measurement_operations;
     PharaohStartupWindowInputState input;
     PharaohWindowsGameInput game_input;
     PharaohStartupWindowDispatcherEntryState entry;

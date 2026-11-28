@@ -1,0 +1,57 @@
+{
+  "schema": "city-sidebar-slide-host-complete-C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "completed_branch": "normal nonmodal city window1 collapse/expand -> window2 slide -> window1",
+  "native_owners": [
+    {
+      "address": "0x00409D10",
+      "name": "pharaoh_city_sidebar_collapse",
+      "status": "complete C and live host-bound"
+    },
+    {
+      "address": "0x0051FD60",
+      "name": "pharaoh_city_sidebar_slide",
+      "native_instruction_count": 173,
+      "native_body_bytes": 621,
+      "native_body_sha256": "51ab86701004c048e216af160df2bc57114c11f6d1b2e3ad4c3e30bbe520defd",
+      "owner_body_sha256": "5c9156666f911e482d67d0b4d7d91e5eb41e984073e53c50227e9022129b6170",
+      "status": "complete C and live host-bound"
+    },
+    {
+      "address": "0x004CF8E0",
+      "name": "pharaoh_platform_measure_speed",
+      "owner_body_sha256": "2e6c842b35c526c0e32da2528d72c028591540beddf7bd584f8a221b02807755",
+      "status": "complete C and live host-bound"
+    }
+  ],
+  "native_data": {
+    "address": "0x005F8260",
+    "type": "48 DWORD sidebar offsets",
+    "values": [1,2,3,4,5,6,7,8,10,12,14,16,18,21,24,27,30,33,37,41,45,49,54,59,64,70,76,83,91,99,106,113,119,125,130,135,139,143,146,149,152,154,156,158,160,162,165,0]
+  },
+  "host_contract": [
+    "Only the exact 0x00409D10 collapse/expand button row is activated; adjacent overlay and build actions remain outside this route.",
+    "Window2 remains inside the mission frame dispatcher, applies camera scrolling, and invokes 0x0051FD60 over the live city renderer and sidebar state.",
+    "The duration input is the actual 0x004CF8E0 combined elapsed measurement, not an invented frame constant.",
+    "The terminal background dispatch is restricted to the normal nonmodal Window1 result; no modal or popup callback is synthesized."
+  ],
+  "source_sha256": {
+    "game/platform/windows_city_ui.c": "56343086f5863a711a229888650222390c1bf6f3d84bf8170f5d4684df69087f",
+    "game/include/pharaoh/platform/windows_city_ui.h": "a5df90621b009bfdc0ea751b81c04f9ef8baffdaa66e29f3e0509a01ae2c4b79",
+    "game/platform/windows_mission_runtime.c": "1c2eb77fb72ddedca9a1d4a5f8e17a0a4223bd7ad8fcaf59bbb1de574719b719",
+    "game/platform/windows_startup_dispatch.c": "2e486c8571c6a04e377578ae8e0ce341da41e6c03b779264710a822d904fd6a0",
+    "game/include/pharaoh/platform/windows_startup_dispatch.h": "f262edffcc20df79a5e5c4af531b656399efcd4b74c306903c8f4c4ce26006f3",
+    "game/include/pharaoh/platform/windows_startup_host.h": "3ed85d3f1bd9dda029c9244298d1bd7990c49e5f30ab3c701c762f74ed7452b5"
+  },
+  "verification": {
+    "ghidra_session": "live GUI session; function 0x0051FD60 body 0x0051FD60..0x0051FFCC",
+    "strict_compile": "/std:c11 /O2 /W4 /WX pass",
+    "release_target": "pharaoh_clean_bootstrap pass",
+    "native_C_replay": "deferred to approximately100-entry cohort milestone"
+  },
+  "remaining": [
+    "The full 0x004D8310 input dispatcher is still partial and is not counted as a complete function.",
+    "Overlay, build, advisor, undo, message and rotation buttons still require their complete live provider assemblies.",
+    "Modal-selected terminal backgrounds and Window6 popup drawing are not enabled by this normal Window2 route."
+  ]
+}

@@ -640,7 +640,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     }
     /* Native city branch orders camera scrolling before sidebar navigation.
        Full menu/construction dispatch is a separate pending owner. */
-    if(entry_window==1) {
+    if(entry_window==1 || entry_window==2) {
         const PharaohGameTickGateOperations clock={r,navigation_clock};
         const PharaohCameraScrollInput scroll={&mouse_x,&mouse_y,&h->graphics.render_width,
             &h->graphics.render_height,&h->city_scroll_requested,&r->navigation_west,
@@ -649,7 +649,8 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         PharaohCameraScrollContext camera;
         pharaoh_mission_scene_bind_camera(r->scene,&camera);
         pharaoh_camera_scroll_apply(&camera,pharaoh_camera_scroll_direction(&scroll));
-        const int32_t navigation=pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down);
+        const int32_t navigation=entry_window==1?
+            pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down):1;
         if(!navigation&&r->construction_tool==0) {
             /*430790 uses last-rendered70E474/478, not the independently
              * scrollable camera70E3D4/3D8. This is a scalar view descriptor. */
@@ -936,6 +937,10 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     if(*r->window==9) {
         if(!pharaoh_windows_city_ui_draw_empty_info(h,&r->city_render)) {
             r->diagnostic_frame_status=-8;pharaoh_windows_startup_host_end_game_frame(h);return 0;
+        }
+    } else if(*r->window==2) {
+        if(!pharaoh_windows_city_ui_sidebar_slide(h,&r->city_render)) {
+            r->diagnostic_frame_status=-10;pharaoh_windows_startup_host_end_game_frame(h);return 0;
         }
     } else pharaoh_windows_city_ui_draw_foreground(h);
     pharaoh_windows_startup_host_end_game_frame(h);

@@ -76,6 +76,12 @@ struct PharaohWindowsCityUi {
     PharaohCityInputProgramData input_program;
     PharaohCityIngameButtonTables input_tables;
     PharaohCityInputActionBindings input_actions;
+    PharaohImageButtonInputState city_image_input;
+    PharaohGenericButtonInputState city_generic_input;
+    PharaohCitySidebarActionContext sidebar_action;
+    PharaohSoundEffectRequestState sidebar_sound;
+    PharaohDigitalSoundDeviceContext sidebar_sound_device;
+    PharaohCityViewContext sidebar_view;
     PharaohSidebarClipPositions sidebar_positions;
     PharaohSidebarContent content;
     PharaohSidebarBackgroundState sidebar;
@@ -99,8 +105,17 @@ struct PharaohWindowsCityUi {
     int32_t window_seven_key;
     uint32_t selected_menu;
     int32_t navigation_hover,navigation_x,navigation_y;
+    int32_t sidebar_slide_step;
+    uint32_t modal_active,modal_return_window;
+    uint8_t *current_window;
     uint8_t menu_flag_de0,menu_flag_de1;
 };
+
+/* Pinned DWORD table at5F8260, including its final zero sentinel. */
+static const int32_t sidebar_slide_offsets[48]={
+    1,2,3,4,5,6,7,8,10,12,14,16,18,21,24,27,30,33,37,41,45,49,
+    54,59,64,70,76,83,91,99,106,113,119,125,130,135,139,143,146,
+    149,152,154,156,158,160,162,165,0};
 
 static struct PharaohWindowsCityUi *open_ui(PharaohWindowsStartupHost *h)
 {
@@ -125,7 +140,7 @@ static struct PharaohWindowsCityUi *open_ui(PharaohWindowsStartupHost *h)
 
 static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
     PharaohImageDrawContext *images,const PharaohWindowsCityUiScene *scene,
-    const uint8_t *window,const int32_t *groups)
+    uint8_t *window,const int32_t *groups)
 {
     const PharaohSavedSceneStorage *const saved=scene->saved;
     const int32_t *const editor_active=&scene->view->event_54_suppress_flood;
@@ -170,7 +185,8 @@ static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
         .previous_month=&u->previous_month,.redraw_mode=&u->redraw_mode,
         .treasury_x=&u->treasury_x,.population_x=&u->population_x,.date_x=&u->date_x};
     pharaoh_city_topbar_bind_drawing(&u->topbar,&u->chrome);
-    u->host=h;u->images=images;
+    u->host=h;u->images=images;u->current_window=window;
+    u->sidebar_view=*scene->view;u->view=&u->sidebar_view;
     return u;
 }
 
@@ -352,7 +368,7 @@ static void primitive_pixel(void *data,int32_t x,int32_t y,uint16_t color)
 
 int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     PharaohImageDrawContext *images,const PharaohWindowsCityUiScene *scene,
-    const uint8_t *window,const int32_t *groups)
+    uint8_t *window,const int32_t *groups)
 {
     struct PharaohWindowsCityUi *const u=bind_frame(h,images,scene,window,groups);
     if(u!=NULL)u->view=scene->view;
@@ -441,6 +457,20 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     u->sidebar_ops=(PharaohSidebarBackgroundOperations){.user_data=u,.draw_sprite=sprite,.fill_bottom=fill,.fill_editor=mask};
     pharaoh_sidebar_bind_content(&u->sidebar_ops,&u->content);
     pharaoh_sidebar_bind_topbar(&u->sidebar_ops,&u->topbar);
+    pharaoh_windows_game_input_bind_sound(h->game_input,h,&u->sidebar_sound,
+        &u->sidebar_sound_device);
+    u->sidebar_action=(PharaohCitySidebarActionContext){.current_window=window,
+        .redraw=&h->graphics.redraw_requested,.slide_step=&u->sidebar_slide_step,
+        .view=&u->sidebar_view,.sound=&u->sidebar_sound,
+        .sound_device=&u->sidebar_sound_device};
+    {
+        const PharaohCityInputActionProviders providers={.sidebar=&u->sidebar_action,
+            .button_parameter=(uint32_t *)(void *)&h->button_parameter,
+            .button_secondary_parameter=(uint32_t *)(void *)&h->button_secondary_parameter,
+            .image_input=&u->city_image_input,.generic_input=&u->city_generic_input};
+        if(pharaoh_city_input_action_bindings_bind(&u->input_actions,&providers)!=
+            PHARAOH_CITY_INPUT_ACTION_READY)return 0;
+    }
     if(h->graphics.redraw_requested!=0) {
         pharaoh_sidebar_draw_background(&u->sidebar,&u->sidebar_ops);
         h->graphics.redraw_requested=0; /* native004D71C0 state1 */
@@ -457,6 +487,29 @@ void pharaoh_windows_city_ui_draw_foreground(PharaohWindowsStartupHost *h)
     u->ui_redraw=0; /* native004D75D0 finish, after the selected foreground children */
     pharaoh_city_draw_topbar(&u->topbar,0);
     pharaoh_sidebar_draw_message_count(&u->content,1);
+}
+
+uint8_t pharaoh_windows_city_ui_sidebar_slide(PharaohWindowsStartupHost *h,
+    PharaohCityRenderContext *city)
+{
+    struct PharaohWindowsCityUi *const u=h->city_ui;
+    if(u==NULL||u->current_window==NULL||h->platform_combined_elapsed_ms==NULL)
+        return 0;
+    const PharaohCityPendingBackgroundContext background={.sidebar=&u->sidebar,
+        .sidebar_operations=&u->sidebar_ops,.city=city,.popup=NULL,
+        .current_window=u->current_window,.redraw=&h->graphics.redraw_requested,
+        .modal_active=&u->modal_active,.modal_return_window=&u->modal_return_window};
+    const PharaohCitySidebarSlideContext slide={
+        .frame_duration=(const int32_t *)(const void *)h->platform_combined_elapsed_ms,
+        .screen_width=&h->graphics.render_width,
+        .step=(uint32_t *)(void *)&u->sidebar_slide_step,.collapsed=&u->collapsed,
+        .offsets=sidebar_slide_offsets,.collapsed_x=u->content.collapsed_x,
+        .expanded_x=u->content.sidebar_x,.game_image_base=u->sidebar.game_image_base,
+        .current_window=u->current_window,.ui_redraw=&u->ui_redraw,
+        .view=&u->sidebar_view,.city=city,.images=u->images,
+        .button_draw=&u->button_draw,.content=&u->content,.graphics=&u->graphics,
+        .buttons=&u->input_tables,.background=&background};
+    return pharaoh_city_sidebar_slide(&slide);
 }
 
 int32_t pharaoh_windows_city_ui_open_empty_terrain(PharaohWindowsStartupHost *h,
@@ -538,12 +591,30 @@ int32_t pharaoh_windows_city_ui_navigation(PharaohWindowsStartupHost *h,
     int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down)
 {
     struct PharaohWindowsCityUi *u=h->city_ui;
-    if(u==NULL||u->collapsed!=0)return 0;
-    pharaoh_build_sidebar_hover_update(mouse_x,mouse_y,u->minimap.left,u->minimap.top,
-        u->minimap.right,u->minimap.bottom,&u->navigation_hover);
-    PharaohCityViewContext view=*u->view;
-    const PharaohMinimapClickContext click={&u->minimap,&view,&mouse_x,&mouse_y,
-        &u->navigation_hover,u->content.sidebar_x,&left_down,&right_went_down,
-        (const uint32_t *)(const void *)u->minimap.editor_active,&u->navigation_x,&u->navigation_y};
-    return (int32_t)pharaoh_minimap_sidebar_click(&click);
+    if(u==NULL)return 0;
+    if(u->collapsed==0) {
+        pharaoh_build_sidebar_hover_update(mouse_x,mouse_y,u->minimap.left,u->minimap.top,
+            u->minimap.right,u->minimap.bottom,&u->navigation_hover);
+        PharaohCityViewContext view=*u->view;
+        const PharaohMinimapClickContext click={&u->minimap,&view,&mouse_x,&mouse_y,
+            &u->navigation_hover,u->content.sidebar_x,&left_down,&right_went_down,
+            (const uint32_t *)(const void *)u->minimap.editor_active,&u->navigation_x,&u->navigation_y};
+        if(pharaoh_minimap_sidebar_click(&click)!=0)return 1;
+    }
+    PharaohImageButtonInputState *const input=&u->city_image_input;
+    const PharaohMouseUpdateState *const mouse=&h->game_input->mouse;
+    input->cursor_x=mouse_x;input->cursor_y=mouse_y;
+    input->left_pressed=mouse->left_button_pressed;
+    input->right_pressed=mouse->right_button_released;
+    input->left_down=mouse->left_button_down;input->redraw_requested=0;
+    const PharaohCityInputImageTable *const table=u->collapsed==0?
+        &u->input_tables.expanded_extra:&u->input_tables.collapsed_expand;
+    const int32_t x=u->collapsed==0?*u->content.sidebar_x:*u->content.collapsed_x;
+    const int32_t y=u->collapsed==0?30:24;
+    /* Only the complete409D10 row is activated here. The adjacent overlay
+       row keeps its exact data but remains outside this partial host route. */
+    const int32_t handled=pharaoh_image_buttons_handle_mouse(x,y,table->records,
+        1,*table->trailing_trigger,input);
+    if(input->redraw_requested!=0)u->ui_redraw=1;
+    return handled;
 }

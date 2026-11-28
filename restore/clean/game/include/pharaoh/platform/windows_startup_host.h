@@ -123,6 +123,7 @@ typedef struct PharaohWindowsStartupHost {
     struct PharaohWindowsCityUi *city_ui;
     struct PharaohWindowsGameInput *game_input;
     uint8_t *native_force_refresh; /* borrowed dispatch.refresh.force_refresh, E38DC8 */
+    const uint32_t *platform_combined_elapsed_ms; /* E39104 */
     uint32_t city_scroll_requested; /* E38DCC; camera scroll request */
     PharaohCampaignIndex campaign_index;
     uint32_t city_state_words[PHARAOH_CAMPAIGN_CITY_STATE_STRIDE_WORDS];

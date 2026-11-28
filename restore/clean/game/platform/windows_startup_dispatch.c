@@ -768,6 +768,13 @@ int32_t pharaoh_windows_startup_dispatch_bind(
     dispatch->refresh_operations.user_data = dispatch;
     dispatch->refresh_operations.time_get_time = frame_clock;
     dispatch->refresh_operations.present_graphics = present_frame;
+    dispatch->platform_measurement.display_mode = host->settings.display_mode;
+    dispatch->platform_measurement_operations = (PharaohPlatformMeasurementOperations){
+        dispatch, frame_clock, &dispatch->refresh, &dispatch->refresh_operations};
+    pharaoh_platform_measure_speed(&dispatch->platform_measurement,
+        &dispatch->platform_measurement_operations);
+    host->platform_combined_elapsed_ms =
+        &dispatch->platform_measurement.combined_elapsed_ms;
     dispatch->entry.entry_result_slot_0 = &dispatch->entry_results[0];
     dispatch->entry.entry_result_slot_1 = &dispatch->entry_results[1];
     dispatch->entry.entry_result_slot_2 = &dispatch->entry_results[2];
@@ -964,7 +971,9 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         dispatch->input.mouse_x=dispatch->game_input.mouse.logical_x;
         dispatch->input.mouse_y=dispatch->game_input.mouse.logical_y;
     }
-    if ((dispatch->refresh.current_window_id == 1 || dispatch->refresh.current_window_id == 9) &&
+    if ((dispatch->refresh.current_window_id == 1 ||
+        dispatch->refresh.current_window_id == 2 ||
+        dispatch->refresh.current_window_id == 9) &&
         dispatch->mission_runtime != NULL) {
         if(pharaoh_windows_mission_runtime_game_frame(dispatch->mission_runtime,
             dispatch->input.mouse_x,dispatch->input.mouse_y,

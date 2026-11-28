@@ -9,6 +9,7 @@ struct PharaohWindowsStartupHost;
 struct PharaohWindowsCityUi;
 struct PharaohMissionScene;
 struct PharaohRichTextState;
+struct PharaohCityRenderContext;
 typedef struct PharaohWindowsCityUiScene {
     const PharaohSavedSceneStorage *saved;
     const PharaohCityViewContext *view;
@@ -22,12 +23,15 @@ typedef struct PharaohWindowsCityUiScene {
  * supports the normal initial mission with overlay0; unsupported modes fail. */
 int32_t pharaoh_windows_city_ui_begin_frame(struct PharaohWindowsStartupHost *,
     PharaohImageDrawContext *,const PharaohWindowsCityUiScene *,
-    const uint8_t *window_id,const int32_t *image_group_first);
+    uint8_t *window_id,const int32_t *image_group_first);
 void pharaoh_windows_city_ui_draw_foreground(struct PharaohWindowsStartupHost *);
+/* Complete normal, nonmodal Window2 owner: Native51FD60 over the live city,
+ * sidebar, image tables, viewport and startup-measured E39104 duration. */
+uint8_t pharaoh_windows_city_ui_sidebar_slide(
+    struct PharaohWindowsStartupHost *,struct PharaohCityRenderContext *);
 void pharaoh_windows_city_ui_release(struct PharaohWindowsStartupHost *);
 int32_t pharaoh_windows_city_ui_navigation(struct PharaohWindowsStartupHost *,
     int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down);
-struct PharaohCityRenderContext;
 /* Actual Native empty-terrain path; unsupported building/walker/action
  * providers are reported as unavailable, never replaced by success callbacks.
  * open returns-1 for an unavailable domain;0/1 are the actual initializer result. */
