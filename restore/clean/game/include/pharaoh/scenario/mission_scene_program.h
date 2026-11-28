@@ -10,8 +10,9 @@ typedef struct PharaohMissionSceneProgramData PharaohMissionSceneProgramData;
 
 /* Call once after real model/SG3 loading and retain this owner. Trade limits
  * come from the actual loaded trade_recommends model, never its BSS zeros.
- * Active monument scene tables remain explicitly absent: mission_scene only
- * admits Nubt's no-active-building/no-monument-goal path. */
+ * Monument constants/projections and the adjacent bent BYTE backing are
+ * initialized once here. The selected-size cell must be shared with live
+ * city input/preview. Mission readiness guards are unchanged. */
 PharaohMissionSceneProgramData *pharaoh_mission_scene_program_create(
     const PharaohCampaignIndex *campaign,const uint32_t (*export_limits)[6]);
 const PharaohMissionSceneProgram *pharaoh_mission_scene_program_data(

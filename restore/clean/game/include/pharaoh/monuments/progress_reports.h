@@ -25,7 +25,8 @@ typedef struct PharaohComplexProgressContext {
     const PharaohWalkerQueryRecord *walkers;
     const PharaohComplexPartDefinition *mausoleum_parts, *sun_temple_parts;
     const int32_t *reference_ids;
-    const int16_t *const *reference_targets;
+    const int16_t *const *reference_targets; /*legacy twelve-WORD records, walker at[9]*/
+    const int16_t *const *reference_walker_ids; /*optional actual walker_id WORD fields,13 pointers*/
 } PharaohComplexProgressContext;
 
 typedef struct PharaohPyramidPartLayoutEntry {

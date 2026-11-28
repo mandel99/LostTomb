@@ -60,6 +60,11 @@ void pharaoh_native_dwords_set_minus_one_00517a20(
 void pharaoh_native_state_pair_reset_0041df60(
     uint32_t *first, uint32_t *second);
 
+/* Same004204A0 loop with actual borrowed walker_id WORD field pointers. */
+int32_t pharaoh_monument_reference_count_fields(
+    int32_t id, const int32_t record_ids[13],
+    const int16_t *const walker_id_fields[13]);
+
 int32_t pharaoh_native_reference_count_004204a0(
     int32_t id, const int32_t record_ids[13],
     const int16_t *const targets[13]);

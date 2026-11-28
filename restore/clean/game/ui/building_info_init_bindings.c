@@ -193,8 +193,13 @@ static PharaohBuildingInfoInitResult complex_ready(const PharaohComplexProgressC
 {
     CONTEXT(c,0x004df040u);NEED(c->buildings,0x004df040u);NEED(c->walkers,0x004df040u);
     NEED(c->mausoleum_parts,0x004df040u);NEED(c->sun_temple_parts,0x00542ad0u);
-    NEED(c->reference_ids,0x00542ad0u);NEED(c->reference_targets,0x00542ad0u);
-    for(int32_t i=0;i<13;++i)NEED(c->reference_targets[i],0x00542ad0u);
+    NEED(c->reference_ids,0x00542ad0u);
+    if(c->reference_walker_ids!=NULL) {
+        for(int32_t i=0;i<13;++i)NEED(c->reference_walker_ids[i],0x00542ad0u);
+    } else {
+        NEED(c->reference_targets,0x00542ad0u);
+        for(int32_t i=0;i<13;++i)NEED(c->reference_targets[i],0x00542ad0u);
+    }
     ALIAS(c->buildings,ui->buildings,0x004df040u);ALIAS(c->walkers,ui->walkers,0x004df040u);
     return result(PHARAOH_INFO_INIT_READY,0,NULL);
 }

@@ -1,14 +1,35 @@
 #include "pharaoh/monuments/progress_reports.h"
 #include "pharaoh/core/static_objects.h"
+#include <stddef.h>
+
+/* Native004204A0 has one count algorithm. These fields are the real
+ * signed WORDs at target+0x12; only their zero/nonzero value is observed. */
+int32_t pharaoh_monument_reference_count_fields(
+    int32_t id, const int32_t record_ids[13],
+    const int16_t *const walker_id_fields[13])
+{
+    int32_t index, count = 0;
+    for (index = 0; index < 13; ++index)
+        if (*walker_id_fields[index] != 0 && record_ids[index] == id) ++count;
+    return count;
+}
 
 int32_t pharaoh_native_reference_count_004204a0(
     int32_t id, const int32_t record_ids[13],
     const int16_t *const targets[13])
 {
-    int32_t index, count = 0;
-    for (index = 0; index < 13; ++index)
-        if (targets[index][9] != 0 && record_ids[index] == id) ++count;
-    return count;
+    const int16_t *walker_id_fields[13];
+    for (int32_t index = 0; index < 13; ++index)
+        walker_id_fields[index] = &targets[index][9];
+    return pharaoh_monument_reference_count_fields(id,record_ids,walker_id_fields);
+}
+
+static int32_t complex_reference_count(const PharaohComplexProgressContext *c,
+    int32_t id)
+{
+    if (c->reference_walker_ids != NULL)
+        return pharaoh_monument_reference_count_fields(id,c->reference_ids,c->reference_walker_ids);
+    return pharaoh_native_reference_count_004204a0(id,c->reference_ids,c->reference_targets);
 }
 
 _Static_assert(sizeof(PharaohComplexPartDefinition) == 52 &&
@@ -152,8 +173,8 @@ int32_t pharaoh_sun_temple_progress(PharaohComplexProgressContext *c,
             } break;
         }
     }
-    global_o=pharaoh_native_reference_count_004204a0(79,c->reference_ids,c->reference_targets);
-    global_q=pharaoh_native_reference_count_004204a0(81,c->reference_ids,c->reference_targets);
+    global_o=complex_reference_count(c,79);
+    global_q=complex_reference_count(c,81);
     percent=(int32_t)((213u-special-kind8-kind47-stages-missing)*100u)/213;
     if (output) {
         uint32_t *out=(uint32_t *)output;

@@ -658,6 +658,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             rendered.camera_y=(int32_t)r->ground_scan.camera_row;
             PharaohMapSurfaceContext *const map_surface=pharaoh_mission_scene_surface(r->scene);
             const PharaohPyramidPreviewContext preview={.surface=map_surface,
+                .tool=pharaoh_mission_scene_pyramid_size_selector(r->scene),
                 .selected_tile=map_surface->current_tile,.anchor_tile=(uint32_t *)(void *)&r->anchor_tile,
                 .anchor_x=&r->anchor_x,.anchor_y=&r->anchor_y};
             const PharaohCityMapInputContext select={&rendered,view->projection,&r->mouse_hit,

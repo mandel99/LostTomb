@@ -104,6 +104,7 @@ struct PharaohMissionScene {
     int32_t export_amounts[36];
     PharaohMonumentResourceDemand demand;
     PharaohComplexProgressContext complex;
+    const int16_t *complex_reference_walker_ids[13];
     PharaohPyramidSummaryContext pyramid;
     int32_t frontier_count,frontier[144];
     PharaohBaseMonumentProgress base_progress[4];
@@ -240,6 +241,9 @@ static void bind_live(PharaohMissionScene *r)
     r->demand.players=v->players;r->demand.current_player=v->current_player;
     r->demand.planned_kinds=r->monument_assets.goal_definition_ids;
     r->complex.buildings=v->buildings;r->complex.walkers=v->walkers;
+    for(int32_t i=0;i<13;++i)
+        r->complex_reference_walker_ids[i]=&r->saved.monument_data.sun_temple[i].spot->walker_id;
+    r->complex.reference_walker_ids=r->complex_reference_walker_ids;
     r->pyramid.buildings=v->buildings;r->pyramid.walkers=v->walkers;
     r->pyramid.tile_building_ids=v->building_ids;
     for(int32_t i=0;i<4;++i) {
@@ -597,6 +601,8 @@ const PharaohCityViewContext *pharaoh_mission_scene_view(const PharaohMissionSce
 {return &r->view;}
 const int32_t *pharaoh_mission_scene_pyramid_style(const PharaohMissionScene *r)
 {return &r->pyramid_style;}
+int32_t *pharaoh_mission_scene_pyramid_size_selector(PharaohMissionScene *r)
+{return r->inputs.program->pyramid_size_selector;}
 PharaohOccupancyState *pharaoh_mission_scene_occupancy(PharaohMissionScene *r)
 {return &r->occupancy;}
 PharaohMapSurfaceContext *pharaoh_mission_scene_surface(PharaohMissionScene *r)

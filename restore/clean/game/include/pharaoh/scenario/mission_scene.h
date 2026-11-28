@@ -19,8 +19,8 @@ typedef struct PharaohMissionSceneProgram {
     const PharaohRoadAccessContext *road_tables; /*ring_offsets/ring_xy*/
     const PharaohRoadAccessMap *access_tables; /*perimeter/coordinate offsets*/
     const PharaohSpecialEntryMap *entrance_tables; /*optional: inactive mission0 never queries entrances*/
-    const PharaohComplexProgressContext *complex_tables; /*optional: active monument scenes unsupported*/
-    const PharaohPyramidSummaryContext *pyramid_tables; /*optional: active monument scenes unsupported*/
+    const PharaohComplexProgressContext *complex_tables; /*constant data; scene supplies live pools/targets*/
+    const PharaohPyramidSummaryContext *pyramid_tables; /*constant data; scene supplies live pools/work fields*/
     const PharaohBuildMenuContext *menu_tables; /*types/tutorial_rules/sidebar initial rows/final mission*/
     const PharaohEmpireCityImageCatalog *empire_images;
     const PharaohBuildingImageProperty *building_properties; /*237 five-DWORD rows*/
@@ -30,6 +30,7 @@ typedef struct PharaohMissionSceneProgram {
     const PharaohCampaignIndex *campaign_index;
     const int32_t *difficulty_percentages,*starting_favor,*salary_by_rank;
     const int32_t *farm_progress_max,*farm_harvest_months; /*BCA34C/56F5B8*/
+    int32_t *pyramid_size_selector; /*Native5E6970; same cell for city input and preview*/
 } PharaohMissionSceneProgram;
 
 typedef struct PharaohMissionSceneInputs {
@@ -84,6 +85,8 @@ const PharaohCityViewContext *pharaoh_mission_scene_view(const PharaohMissionSce
 int32_t *pharaoh_mission_scene_previous_overlay(PharaohMissionScene *scene);
 int32_t *pharaoh_mission_scene_current_overlay(PharaohMissionScene *scene);
 const int32_t *pharaoh_mission_scene_pyramid_style(const PharaohMissionScene *scene);
+/* Borrowed Native5E6970 cell; bind city-input obelisk_size and preview tool to this same pointer. */
+int32_t *pharaoh_mission_scene_pyramid_size_selector(PharaohMissionScene *scene);
 PharaohOccupancyState *pharaoh_mission_scene_occupancy(PharaohMissionScene *scene);
 PharaohMapSurfaceContext *pharaoh_mission_scene_surface(PharaohMissionScene *scene);
 int32_t pharaoh_mission_scene_flood_state(const PharaohMissionScene *scene);
