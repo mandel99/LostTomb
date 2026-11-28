@@ -220,7 +220,7 @@ void pharaoh_info_services_draw_pavilion(const PharaohInfoServicesLiveContext *c
     show_days(c,74,13,14,building(c)->runtime_value_a8,197);
     show_days(c,74,15,16,building(c)->temple_upgrade,212);
 }
-static void performer_school(const PharaohInfoServicesLiveContext *c,int32_t group)
+void pharaoh_info_services_draw_performer_school(const PharaohInfoServicesLiveContext *c,int32_t group)
 {
     start(c,75,group,0);
     if(ui(c)->window->details.road_access<1)no_road(c,ui(c)->window->y+56);
@@ -229,11 +229,11 @@ static void performer_school(const PharaohInfoServicesLiveContext *c,int32_t gro
 }
 /* 004FDA00 /004FDC40 /004FDE80. */
 void pharaoh_info_services_draw_conservatory(const PharaohInfoServicesLiveContext *c)
-{ performer_school(c,75); }
+{ pharaoh_info_services_draw_performer_school(c,75); }
 void pharaoh_info_services_draw_dance_school(const PharaohInfoServicesLiveContext *c)
-{ performer_school(c,76); }
+{ pharaoh_info_services_draw_performer_school(c,76); }
 void pharaoh_info_services_draw_juggler_school(const PharaohInfoServicesLiveContext *c)
-{ performer_school(c,77); }
+{ pharaoh_info_services_draw_performer_school(c,77); }
 static void school(const PharaohInfoServicesLiveContext *c,int32_t help,int32_t group)
 { start(c,help,group,0);stock(c,23);service_state(c,group,3);workers(c); }
 /* 004FF000 /004FF200. */

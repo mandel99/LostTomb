@@ -302,4 +302,9 @@ void pharaoh_city_clear_monument_building_id(
 uint8_t pharaoh_monument_resource_unavailable(
     const int32_t *available_amounts, const int32_t *blocked_resources,
     int32_t resource, int32_t required_amount);
+/* Shared4E6070 loop accepts the actual selected building type WORD. */
+void pharaoh_obelisk_count_assigned_for_type(int32_t walker_type,
+    int32_t *count,int32_t building_type,
+    const PharaohObeliskWorkSpot *small_spots,const PharaohObeliskWorkSpot *large_spots);
+
 #endif

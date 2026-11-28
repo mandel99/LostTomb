@@ -660,16 +660,16 @@ uint8_t pharaoh_lighthouse_has_free_spot_for_type(
         assignments, 15, current_monument_id, worker_type);
 }
 
-void pharaoh_obelisk_count_assigned_walkers(int32_t walker_type,
-    int32_t *count, int32_t building_id, const int16_t *building_types,
+void pharaoh_obelisk_count_assigned_for_type(int32_t walker_type,
+    int32_t *count, int32_t building_type,
     const PharaohObeliskWorkSpot *small_spots,
     const PharaohObeliskWorkSpot *large_spots)
 {
     const int32_t small_obelisk = 0xcf;
-    const int32_t spot_count = building_types[building_id] == small_obelisk ?
+    const int32_t spot_count = building_type == small_obelisk ?
         10 : 18;
     const PharaohObeliskWorkSpot *spots =
-        building_types[building_id] == small_obelisk ? small_spots : large_spots;
+        building_type == small_obelisk ? small_spots : large_spots;
     int32_t index;
     *count = 0;
     for (index = 0; index < spot_count; ++index) {
@@ -678,6 +678,13 @@ void pharaoh_obelisk_count_assigned_walkers(int32_t walker_type,
             ++*count;
         }
     }
+}
+
+void pharaoh_obelisk_count_assigned_walkers(int32_t walker_type,
+    int32_t *count,int32_t building_id,const int16_t *building_types,
+    const PharaohObeliskWorkSpot *small_spots,const PharaohObeliskWorkSpot *large_spots)
+{
+    pharaoh_obelisk_count_assigned_for_type(walker_type,count,building_types[building_id],small_spots,large_spots);
 }
 
 uint8_t pharaoh_lighthouse_work_tile(

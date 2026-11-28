@@ -49,10 +49,18 @@ static int services_type(int32_t type)
     }
 }
 
+static int monuments_type(int32_t type)
+{
+    switch(type){
+    case 37:case 57:case 58:case 59:case 74:case 75:case 76:case 94:case 95:case 104:case 105:case 108:case 113:case 114:case 136:case 138:case 170:case 171:case 172:case 173:case 181:case 182:case 183:case 185:case 186:case 192:case 196:case 200:case 201:case 202:case 203:case 204:case 205:case 207:case 208:case 210:case 213:case 222:case 225:case 227:case 228:case 229:case 230:case 232:case 233:case 234:case 235:case 236:return 1;
+    default:return 0;
+    }
+}
+
 enum PharaohBuildingInfoDrawTypeSupport pharaoh_building_info_draw_type_support(int32_t type)
 {
     if((uint32_t)type>=237)return PHARAOH_INFO_DRAW_OUTSIDE_TYPE_CATALOG;
-    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type)||industry_type(type)||services_type(type))
+    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type)||industry_type(type)||services_type(type)||monuments_type(type))
         return PHARAOH_INFO_DRAW_CONNECTED_TYPE;
     if(native_catalog_present[type]||temple_type(type)||quarry_type(type))
         return PHARAOH_INFO_DRAW_MISSING_TYPE_PROVIDER;
@@ -235,7 +243,135 @@ static void services_temple(void *p,int32_t god)
 static void services_mansion_foreground(void *p)
 { pharaoh_info_services_draw_mansion_foreground(services(p)); }
 
+static const PharaohInfoMonumentsLiveContext *monuments(void *p)
+{return ((PharaohBuildingInfoDrawBindings *)p)->providers.monuments;}
+static void monuments_bullfight_school(void *p)
+{pharaoh_info_monuments_draw_bullfight_school(monuments(p));}
+static void monuments_fort(void *p)
+{pharaoh_info_monuments_draw_fort(monuments(p));}
+static void monuments_mud_gatehouse(void *p)
+{pharaoh_info_monuments_draw_mud_gatehouse(monuments(p));}
+static void monuments_mud_tower(void *p)
+{pharaoh_info_monuments_draw_mud_tower(monuments(p));}
+static void monuments_shipwright(void *p)
+{pharaoh_info_monuments_draw_shipwright(monuments(p));}
+static void monuments_dock(void *p)
+{pharaoh_info_monuments_draw_dock(monuments(p));}
+static void monuments_fishing_wharf(void *p)
+{pharaoh_info_monuments_draw_fishing_wharf(monuments(p));}
+static void monuments_military_academy(void *p)
+{pharaoh_info_monuments_draw_military_academy(monuments(p));}
+static void monuments_recruiter(void *p)
+{pharaoh_info_monuments_draw_recruiter(monuments(p));}
+static void monuments_pomegranate_farm(void *p)
+{pharaoh_info_monuments_draw_pomegranate_farm(monuments(p));}
+static void monuments_chickpea_farm(void *p)
+{pharaoh_info_monuments_draw_chickpea_farm(monuments(p));}
+static void monuments_wood_cutter(void *p)
+{pharaoh_info_monuments_draw_wood_cutter(monuments(p));}
+static void monuments_jeweler(void *p)
+{pharaoh_info_monuments_draw_jeweler(monuments(p));}
+static void monuments_potter(void *p)
+{pharaoh_info_monuments_draw_potter(monuments(p));}
+static void monuments_ferry(void *p)
+{pharaoh_info_monuments_draw_ferry(monuments(p));}
+static void monuments_roadblock(void *p)
+{pharaoh_info_monuments_draw_roadblock(monuments(p));}
+static void monuments_brick_gatehouse(void *p)
+{pharaoh_info_monuments_draw_brick_gatehouse(monuments(p));}
+static void monuments_clay_gatehouse(void *p)
+{pharaoh_info_monuments_draw_clay_gatehouse(monuments(p));}
+static void monuments_brick_tower(void *p)
+{pharaoh_info_monuments_draw_brick_tower(monuments(p));}
+static void monuments_clay_tower(void *p)
+{pharaoh_info_monuments_draw_clay_tower(monuments(p));}
+static void monuments_transport_wharf(void *p)
+{pharaoh_info_monuments_draw_transport_wharf(monuments(p));}
+static void monuments_warship_wharf(void *p)
+{pharaoh_info_monuments_draw_warship_wharf(monuments(p));}
+static void monuments_pyramid(void *p)
+{pharaoh_info_monuments_draw_pyramid(monuments(p));}
+static void monuments_fig_farm(void *p)
+{pharaoh_info_monuments_draw_fig_farm(monuments(p));}
+static void monuments_papyrus_maker(void *p)
+{pharaoh_info_monuments_draw_papyrus_maker(monuments(p));}
+static void monuments_brickworks(void *p)
+{pharaoh_info_monuments_draw_brickworks(monuments(p));}
+static void monuments_chariot_maker(void *p)
+{pharaoh_info_monuments_draw_chariot_maker(monuments(p));}
+static void monuments_obelisk(void *p)
+{pharaoh_info_monuments_draw_obelisk(monuments(p));}
+static void monuments_sphinx(void *p)
+{pharaoh_info_monuments_draw_sphinx(monuments(p));}
+static void monuments_sun_temple(void *p)
+{pharaoh_info_monuments_draw_sun_temple(monuments(p));}
+static void monuments_mausoleum(void *p)
+{pharaoh_info_monuments_draw_mausoleum(monuments(p));}
+static void monuments_great_library(void *p)
+{pharaoh_info_monuments_draw_great_library(monuments(p));}
+static void monuments_caesareum(void *p)
+{pharaoh_info_monuments_draw_caesareum(monuments(p));}
+static void monuments_lighthouse(void *p)
+{pharaoh_info_monuments_draw_lighthouse(monuments(p));}
+static void monuments_royal_tomb(void *p)
+{pharaoh_info_monuments_draw_royal_tomb(monuments(p));}
+static void monuments_abu_simbel(void *p)
+{pharaoh_info_monuments_draw_abu_simbel(monuments(p));}
+static void monuments_lamp_maker(void *p)
+{pharaoh_info_monuments_draw_lamp_maker(monuments(p));}
+static void monuments_paint_maker(void *p)
+{pharaoh_info_monuments_draw_paint_maker(monuments(p));}
+
 static void (*const connected_catalog[237])(void *)={
+    [37]=monuments_bullfight_school,
+    [57]=monuments_fort,
+    [58]=monuments_mud_gatehouse,
+    [59]=monuments_mud_tower,
+    [74]=monuments_shipwright,
+    [75]=monuments_dock,
+    [76]=monuments_fishing_wharf,
+    [94]=monuments_military_academy,
+    [95]=monuments_recruiter,
+    [104]=monuments_pomegranate_farm,
+    [105]=monuments_chickpea_farm,
+    [108]=monuments_wood_cutter,
+    [113]=monuments_jeweler,
+    [114]=monuments_potter,
+    [136]=monuments_ferry,
+    [138]=monuments_roadblock,
+    [170]=monuments_brick_gatehouse,
+    [171]=monuments_clay_gatehouse,
+    [172]=monuments_brick_tower,
+    [173]=monuments_clay_tower,
+    [181]=monuments_transport_wharf,
+    [182]=monuments_warship_wharf,
+    [183]=monuments_pyramid,
+    [185]=monuments_military_academy,
+    [186]=monuments_military_academy,
+    [192]=monuments_dock,
+    [196]=monuments_fig_farm,
+    [200]=monuments_mud_gatehouse,
+    [201]=monuments_brick_gatehouse,
+    [202]=monuments_clay_gatehouse,
+    [203]=monuments_papyrus_maker,
+    [204]=monuments_brickworks,
+    [205]=monuments_chariot_maker,
+    [207]=monuments_obelisk,
+    [208]=monuments_obelisk,
+    [210]=monuments_sphinx,
+    [213]=monuments_sun_temple,
+    [222]=monuments_mausoleum,
+    [225]=monuments_great_library,
+    [227]=monuments_caesareum,
+    [228]=monuments_lighthouse,
+    [229]=monuments_royal_tomb,
+    [230]=monuments_abu_simbel,
+    [232]=monuments_lamp_maker,
+    [233]=monuments_paint_maker,
+    [234]=monuments_royal_tomb,
+    [235]=monuments_royal_tomb,
+    [236]=monuments_royal_tomb,
+
     [30]=services_bandstand,
     [31]=services_booth,
     [32]=services_senet_house,
@@ -497,6 +633,108 @@ static enum PharaohBuildingInfoDrawSupport services_ready(const PharaohBuildingI
     return industry_employment_ready(b);
 }
 
+static const uint64_t monuments_required[237]={
+    [37]=UINT64_C(0x1000000),
+    [57]=UINT64_C(0x100),
+    [58]=UINT64_C(0x100),
+    [59]=UINT64_C(0x100),
+    [74]=UINT64_C(0x900),
+    [75]=UINT64_C(0x100),
+    [76]=UINT64_C(0x80900),
+    [94]=UINT64_C(0x100),
+    [95]=UINT64_C(0x100),
+    [104]=UINT64_C(0x800),
+    [105]=UINT64_C(0x800),
+    [108]=UINT64_C(0x800),
+    [113]=UINT64_C(0x800),
+    [114]=UINT64_C(0x800),
+    [136]=UINT64_C(0x800100),
+    [138]=UINT64_C(0x100),
+    [170]=UINT64_C(0x100),
+    [171]=UINT64_C(0x100),
+    [172]=UINT64_C(0x100),
+    [173]=UINT64_C(0x100),
+    [181]=UINT64_C(0x800100),
+    [182]=UINT64_C(0x800100),
+    [183]=UINT64_C(0x300702ff6),
+    [185]=UINT64_C(0x100),
+    [186]=UINT64_C(0x100),
+    [192]=UINT64_C(0x100),
+    [196]=UINT64_C(0x800),
+    [200]=UINT64_C(0x100),
+    [201]=UINT64_C(0x100),
+    [202]=UINT64_C(0x100),
+    [203]=UINT64_C(0x800),
+    [204]=UINT64_C(0x800),
+    [205]=UINT64_C(0x800),
+    [207]=UINT64_C(0x38600c184),
+    [208]=UINT64_C(0x38600c184),
+    [210]=UINT64_C(0x981029a4),
+    [213]=UINT64_C(0x3601003b6),
+    [222]=UINT64_C(0x3001003b6),
+    [225]=UINT64_C(0x3001331a6),
+    [227]=UINT64_C(0x3001031ae),
+    [228]=UINT64_C(0x3001431a6),
+    [229]=UINT64_C(0x1f00003186),
+    [230]=UINT64_C(0x300003187),
+    [232]=UINT64_C(0x800),
+    [233]=UINT64_C(0x800),
+    [234]=UINT64_C(0x1f00003186),
+    [235]=UINT64_C(0x1f00003186),
+    [236]=UINT64_C(0x1f00003186),
+};
+static enum PharaohBuildingInfoDrawSupport monuments_ready(const PharaohBuildingInfoDrawBindings *b,int32_t type)
+{
+    const PharaohInfoMonumentsLiveContext *c=b->providers.monuments;
+    if(!c)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    uint64_t available=0;
+    if(c->abu_simbel_spots)available|=UINT64_C(1)<<0;
+    if(c->building_count_active)available|=UINT64_C(1)<<1;
+    if(c->building_count_total)available|=UINT64_C(1)<<2;
+    if(c->caesareum_spots)available|=UINT64_C(1)<<3;
+    if(c->complex)available|=UINT64_C(1)<<4;
+    if(c->current_player)available|=UINT64_C(1)<<5;
+    if(c->definitions)available|=UINT64_C(1)<<6;
+    if(c->draw_y_accum)available|=UINT64_C(1)<<7;
+    if(c->drawing)available|=UINT64_C(1)<<8;
+    if(c->flood_state)available|=UINT64_C(1)<<9;
+    if(c->goal_definition_ids)available|=UINT64_C(1)<<10;
+    if(c->industry)available|=UINT64_C(1)<<11;
+    if(c->kingdom_access)available|=UINT64_C(1)<<12;
+    if(c->land_citizen)available|=UINT64_C(1)<<13;
+    if(c->large_obelisk_counts)available|=UINT64_C(1)<<14;
+    if(c->large_obelisk_spots)available|=UINT64_C(1)<<15;
+    if(c->library_progress)available|=UINT64_C(1)<<16;
+    if(c->library_spots)available|=UINT64_C(1)<<17;
+    if(c->lighthouse_spots)available|=UINT64_C(1)<<18;
+    if(c->map_sweep_countdown)available|=UINT64_C(1)<<19;
+    if(c->players)available|=UINT64_C(1)<<20;
+    if(c->pyramid)available|=UINT64_C(1)<<21;
+    if(c->pyramid_report)available|=UINT64_C(1)<<22;
+    if(c->road_access)available|=UINT64_C(1)<<23;
+    if(c->services)available|=UINT64_C(1)<<24;
+    if(c->small_obelisk_counts)available|=UINT64_C(1)<<25;
+    if(c->small_obelisk_spots)available|=UINT64_C(1)<<26;
+    if(c->sphinx_assignments)available|=UINT64_C(1)<<27;
+    if(c->sphinx_percent_spots)available|=UINT64_C(1)<<28;
+    if(c->sun_temple_report)available|=UINT64_C(1)<<29;
+    if(c->sun_temple_spots)available|=UINT64_C(1)<<30;
+    if(c->tile_building_ids)available|=UINT64_C(1)<<31;
+    if(c->token_entries)available|=UINT64_C(1)<<32;
+    if(c->token_operations)available|=UINT64_C(1)<<33;
+    if(c->tomb_report)available|=UINT64_C(1)<<34;
+    if(c->victory_required)available|=UINT64_C(1)<<35;
+    if(c->victory_stored)available|=UINT64_C(1)<<36;
+    if((available&monuments_required[type])!=monuments_required[type])return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(c->drawing!=b->providers.storage)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(c->industry&&(c->industry!=b->providers.industry||c->industry->content!=b->providers.content))return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(c->services&&(c->services!=b->providers.services||c->services->drawing!=b->providers.storage))return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(c->current_player&&c->industry&&c->industry->current_player!=c->current_player)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(c->current_player&&c->services&&c->services->current_player!=c->current_player)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    if(c->draw_y_accum&&c->draw_y_accum!=&c->drawing->text->drawing->cursor_y)return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    return PHARAOH_INFO_DRAW_READY;
+}
+
 static enum PharaohBuildingInfoDrawSupport building_ready(const PharaohBuildingInfoDrawBindings *b,int32_t type)
 {
     const enum PharaohBuildingInfoDrawTypeSupport type_support=pharaoh_building_info_draw_type_support(type);
@@ -504,6 +742,7 @@ static enum PharaohBuildingInfoDrawSupport building_ready(const PharaohBuildingI
         return PHARAOH_INFO_DRAW_UNSUPPORTED_TYPE;
     if(type_support==PHARAOH_INFO_DRAW_NATIVE_DEFAULT)return PHARAOH_INFO_DRAW_READY;
     if(industry_type(type))return industry_ready(b,type);
+    if(monuments_type(type))return monuments_ready(b,type);
     if(services_type(type)) {
         if(temple_type(type)&&!b->operations.temple)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
         return services_ready(b);

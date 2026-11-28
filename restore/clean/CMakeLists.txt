@@ -449,6 +449,9 @@ add_library(pharaoh_game STATIC
     game/ui/economy_actions.c
     game/ui/building_info_industry_live.c
     game/ui/building_info_services_live.c
+    game/ui/building_info_monuments_live.c
+    game/military/shipwright_demand.c
+    game/building/sphinx_queries.c
     game/ui/label_text.c
     game/ui/main_menu.c
     game/ui/menu_button_frame.c
@@ -500,7 +503,6 @@ add_library(pharaoh_game STATIC
     game/ui/title_menu_background.c
     game/ui/monument_tokens.c
     game/ui/political_actions.c
-    game/ui/ship_panels.c
     game/ui/sidebar_layout.c
     game/ui/sidebar_background.c
     game/ui/sidebar_content.c

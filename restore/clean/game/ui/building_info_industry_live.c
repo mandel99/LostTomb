@@ -168,7 +168,7 @@ void pharaoh_info_industry_draw_farm_crop(const PharaohInfoIndustryLiveContext *
         line(c,177,entry,u->window->height_blocks*16-143);
     }
 }
-static void farm(const PharaohInfoIndustryLiveContext *c,int32_t help,int32_t resource,int32_t group)
+void pharaoh_info_industry_draw_farm(const PharaohInfoIndustryLiveContext *c,int32_t help,int32_t resource,int32_t group)
 {
     title(c,help,group,resource);production(c,group,progress(c,*c->farm_progress_max),44);
     line(c,112,12,44);
@@ -187,7 +187,7 @@ void pharaoh_info_industry_draw_raw_producer(const PharaohInfoIndustryLiveContex
     else production(c,group,progress(c,200),44);
     producer_state(c,group,resource,0,ui(c)->window->y+70);workers(c);description(c,group);
 }
-static void workshop(const PharaohInfoIndustryLiveContext *c,int32_t help,int32_t product,
+void pharaoh_info_industry_draw_workshop(const PharaohInfoIndustryLiveContext *c,int32_t help,int32_t product,
     int32_t group,int32_t raw,int32_t raw2,int32_t halt_resource)
 {
     title(c,help,group,product);production(c,group,progress(c,400),40);
@@ -211,11 +211,11 @@ void pharaoh_info_industry_draw_work_camp(const PharaohInfoIndustryLiveContext *
     inner(c,136,6);pharaoh_info_draw_employment(draw(c),ui(c)->window->y+138);
     multiline(c,179,1,ui(c)->window->y+ui(c)->window->height_blocks*16-105);
 }
-void pharaoh_info_industry_draw_barley_farm(const PharaohInfoIndustryLiveContext *c) { farm(c,89,14,181); }
-void pharaoh_info_industry_draw_grain_farm(const PharaohInfoIndustryLiveContext *c) { farm(c,89,1,112); }
-void pharaoh_info_industry_draw_lettuce_farm(const PharaohInfoIndustryLiveContext *c) { farm(c,90,3,113); }
-void pharaoh_info_industry_draw_flax_farm(const PharaohInfoIndustryLiveContext *c) { farm(c,91,16,115); }
-void pharaoh_info_industry_draw_henna_farm(const PharaohInfoIndustryLiveContext *c) { farm(c,91,32,306); }
+void pharaoh_info_industry_draw_barley_farm(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_farm(c,89,14,181); }
+void pharaoh_info_industry_draw_grain_farm(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_farm(c,89,1,112); }
+void pharaoh_info_industry_draw_lettuce_farm(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_farm(c,90,3,113); }
+void pharaoh_info_industry_draw_flax_farm(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_farm(c,91,16,115); }
+void pharaoh_info_industry_draw_henna_farm(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_farm(c,91,32,306); }
 void pharaoh_info_industry_draw_reed_gatherer(const PharaohInfoIndustryLiveContext *c)
 {
     title(c,94,116,22);stock(c,22,116,2,32,60,54,building(c)->storage_link_amount);
@@ -232,10 +232,10 @@ void pharaoh_info_industry_draw_gold_mine(const PharaohInfoIndustryLiveContext *
 void pharaoh_info_industry_draw_copper_mine(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_raw_producer(c,93,29,193,0); }
 void pharaoh_info_industry_draw_gemstone_mine(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_raw_producer(c,361,18,163,0); }
 void pharaoh_info_industry_draw_clay_pit(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_raw_producer(c,92,11,121,0); }
-void pharaoh_info_industry_draw_brewery(const PharaohInfoIndustryLiveContext *c) { workshop(c,96,15,122,14,0,15); }
-void pharaoh_info_industry_draw_weaver(const PharaohInfoIndustryLiveContext *c) { workshop(c,60,17,123,16,0,17); }
-void pharaoh_info_industry_draw_weaponsmith(const PharaohInfoIndustryLiveContext *c) { workshop(c,98,10,124,29,0,10); }
-void pharaoh_info_industry_draw_carpenters_guild(const PharaohInfoIndustryLiveContext *c) { workshop(c,363,20,171,20,0,0); }
+void pharaoh_info_industry_draw_brewery(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_workshop(c,96,15,122,14,0,15); }
+void pharaoh_info_industry_draw_weaver(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_workshop(c,60,17,123,16,0,17); }
+void pharaoh_info_industry_draw_weaponsmith(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_workshop(c,98,10,124,29,0,10); }
+void pharaoh_info_industry_draw_carpenters_guild(const PharaohInfoIndustryLiveContext *c) { pharaoh_info_industry_draw_workshop(c,363,20,171,20,0,0); }
 void pharaoh_info_industry_draw_bricklayers_guild(const PharaohInfoIndustryLiveContext *c) { guild(c,172,12,-1); }
 void pharaoh_info_industry_draw_stonemasons_guild(const PharaohInfoIndustryLiveContext *c) { guild(c,173,24,11); }
 void pharaoh_info_industry_draw_artisans_guild(const PharaohInfoIndustryLiveContext *c)

@@ -459,3 +459,53 @@ int32_t pharaoh_walker_chain_count(
     }
     return count;
 }
+
+/* Scoped complete420500/4E60F0 adoption; actual/normalized views share one algorithm. */
+static int16_t monument_type_field(const int16_t *first,size_t stride,uint32_t id)
+{ return *(const int16_t *)((const uint8_t *)first+(size_t)id*stride); }
+
+uint8_t pharaoh_sphinx_walker_is_working_on_borrowed(
+    const PharaohWalkerQueryRecord *walkers, const int16_t *building_id_grid,
+    const int16_t *building_types,size_t building_type_stride,uint32_t walker_type)
+{
+    int32_t walker_id;
+    for (walker_id = 1; walker_id < PHARAOH_WALKER_RECORD_COUNT; ++walker_id) {
+        const PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+        if (walker->state == 1u && walker->type == walker_type &&
+            monument_type_field(building_types,building_type_stride,(uint16_t)building_id_grid[
+                walker->destination_grid_offset]) == 0xd2) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+uint8_t pharaoh_obelisk_walker_is_working_on_borrowed(
+    const PharaohWalkerQueryRecord *walkers, const int16_t *building_id_grid,
+    const int16_t *building_types,size_t building_type_stride,uint32_t walker_type,
+    int32_t building_id)
+{
+    int32_t walker_id;
+    if (monument_type_field(building_types,building_type_stride,(uint32_t)building_id) != 0xcf &&
+        monument_type_field(building_types,building_type_stride,(uint32_t)building_id) != 0xd0) {
+        return 0;
+    }
+    for (walker_id = 1; walker_id < PHARAOH_WALKER_RECORD_COUNT; ++walker_id) {
+        const PharaohWalkerQueryRecord *walker = &walkers[walker_id];
+        if (walker->state == 1u && walker->type == walker_type &&
+            building_id_grid[walker->destination_grid_offset] == building_id) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+uint8_t pharaoh_sphinx_walker_is_working_on(
+    const PharaohWalkerQueryRecord *walkers,const int16_t *grid,
+    const int16_t *types,uint32_t walker_type)
+{ return pharaoh_sphinx_walker_is_working_on_borrowed(walkers,grid,types,sizeof(*types),walker_type); }
+
+uint8_t pharaoh_obelisk_walker_is_working_on(
+    const PharaohWalkerQueryRecord *walkers,const int16_t *grid,
+    const int16_t *types,uint32_t walker_type,int32_t building_id)
+{ return pharaoh_obelisk_walker_is_working_on_borrowed(walkers,grid,types,sizeof(*types),walker_type,building_id); }

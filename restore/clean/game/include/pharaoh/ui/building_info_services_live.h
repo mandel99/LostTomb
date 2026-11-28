@@ -75,4 +75,7 @@ void pharaoh_info_services_draw_oracle(const PharaohInfoServicesLiveContext *);
 void pharaoh_info_services_draw_temple(const PharaohInfoServicesLiveContext *,int32_t god);
 void pharaoh_info_services_draw_festival_square(const PharaohInfoServicesLiveContext *);
 
+/* Shared whole performer-school algorithm; no new Native owner. */
+void pharaoh_info_services_draw_performer_school(const PharaohInfoServicesLiveContext *,int32_t group);
+
 #endif

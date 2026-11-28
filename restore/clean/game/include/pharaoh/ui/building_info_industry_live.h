@@ -66,4 +66,10 @@ void pharaoh_info_industry_draw_quarry(const PharaohInfoIndustryLiveContext *,in
 void pharaoh_info_industry_draw_raw_producer(const PharaohInfoIndustryLiveContext *,
     int32_t help,int32_t resource,int32_t group,int32_t shows_stock);
 
+/* Shared whole C algorithms; linkage adoption adds no Native owner. */
+void pharaoh_info_industry_draw_farm(const PharaohInfoIndustryLiveContext *,
+    int32_t help,int32_t resource,int32_t group);
+void pharaoh_info_industry_draw_workshop(const PharaohInfoIndustryLiveContext *,
+    int32_t help,int32_t product,int32_t group,int32_t raw,int32_t raw2,int32_t halt_resource);
+
 #endif

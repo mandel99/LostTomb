@@ -489,4 +489,12 @@ void pharaoh_walker_name_set(
 void pharaoh_walker_init_scenario(
     PharaohWalkerQueryRecord walkers[PHARAOH_WALKER_RECORD_COUNT],
     int32_t *highest_id, int32_t *created_sequence);
+/* Scoped borrowed type-WORD/stride query interfaces. */
+uint8_t pharaoh_sphinx_walker_is_working_on_borrowed(
+    const PharaohWalkerQueryRecord *,const int16_t *building_id_grid,
+    const int16_t *building_type_first,size_t building_type_stride,uint32_t walker_type);
+uint8_t pharaoh_obelisk_walker_is_working_on_borrowed(
+    const PharaohWalkerQueryRecord *,const int16_t *building_id_grid,
+    const int16_t *building_type_first,size_t building_type_stride,uint32_t walker_type,int32_t building_id);
+
 #endif
