@@ -1,0 +1,51 @@
+{
+  "schema": "pharaoh-complete-c-translation-v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source_reuse": {
+    "path": "restore/Source/Commerce/TreasuryData/Finance.c",
+    "sha256": "ca66605df8308fe108c5ea53d87e8ff4dbe38e400608d629e7de0cfd1d3c6687",
+    "provider_hash_matches": true,
+    "reference_body_sha256": {
+      "0x0045A0A0": "e6e916823682c0073ad7413c29d0cee37014885d615f22f109ba292f0470b9d5",
+      "0x0045A140": "40d1336c71fc2f0d219c80ac367f2116c437204a69a945b951f364eeb87ac753"
+    }
+  },
+  "functions": [
+    {
+      "address": "0x0045A0A0",
+      "name": "pharaoh_city_finance_money_share",
+      "native_instruction_count": 58,
+      "native_body_bytes": 157,
+      "native_instruction_bytes_sha256": "0a29236c8631d03d182868037524612265991809f2b2a197cfce836a15e1db8e",
+      "native_callees": ["0x0056133C"],
+      "body_sha256": "5d2c104002feeeeceb0b7b1e8b06677a35042915af5ba59dad99f56449e8e835"
+    },
+    {
+      "address": "0x0045A140",
+      "name": "pharaoh_city_finance_building_money_value",
+      "native_instruction_count": 70,
+      "native_body_bytes": 272,
+      "native_instruction_bytes_sha256": "5fa47741445ec9c376463b799127b2af002e09114896274ceed40e2fa72d0513",
+      "native_callers": ["0x004684E0"],
+      "native_callees": ["0x0045A0A0"],
+      "native_call_sites": ["0x0045A197", "0x0045A1BA", "0x0045A1DC", "0x0045A1FF", "0x0045A222", "0x0045A244"],
+      "body_sha256": "d3fd77700701dec0c44dd0e499195b06f6e6e498bb1ec7f62f366a8a8a5603a8"
+    }
+  ],
+  "typed_contract": "The clean leaf exposes the implicit 0x00705AF0 building-count table and preserves signed row counts, 28-byte rows, uint32 wrap in the three weighted products, signed FIDIV/FIMUL operands and inherited x87 truncation. The parent exposes the current player's two money values and both native share tables while using the actual 264-byte building record.",
+  "ghidra": {
+    "session": "live pinned program retained",
+    "prototypes": [
+      "int pharaoh_city_finance_money_share(int money, uint index, int * table)",
+      "int pharaoh_city_finance_building_money_value(int building_id)"
+    ]
+  },
+  "verification": {
+    "strict_compile": "MSVC Win32 /Zs /std:c11 /O2 /W4 /WX passed for finance_money.c and x87_numeric.c",
+    "release_target": "pharaoh_clean_bootstrap passed",
+    "release_library_sha256": "a87d751c9b7fe7b21f3bc2927ebf9e7c0c0c3b934719c3a3c8340ad5fca2ada3",
+    "release_exe_sha256": "319e89570adc68c2e379ea538e8e855d4a79640b9a4cb520ab85666220f9b7e1",
+    "native_c_replay": "deferred to the joint cohort milestone"
+  },
+  "remaining_gap": "The sole native parent 0x004684E0 and its live building refresh route are not yet migrated or bound by this checkpoint. Invalid pointer/index/fault domains and inherited incidental registers/flags remain outside the typed C contract."
+}

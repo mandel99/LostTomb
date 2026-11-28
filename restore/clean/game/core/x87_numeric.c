@@ -155,6 +155,21 @@ __declspec(noinline) int32_t pharaoh_x87_scaled_integer_ratio(
     return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
 }
 
+/* Native 0045A127..0045A133: all three operands are signed integers and
+ * remain in inherited x87 precision until the shared truncating conversion. */
+__declspec(noinline) int32_t pharaoh_x87_i32_ratio_multiply(
+    int32_t numerator,int32_t denominator,int32_t multiplier)
+{
+    PharaohFloat80 value;
+    __asm {
+        fild numerator
+        fidiv denominator
+        fimul multiplier
+        fstp tbyte ptr value
+    }
+    return (int32_t)(uint32_t)pharaoh_x87_truncate80(&value);
+}
+
 /* Reused route numeric primitives; inherited native x87 precision/rounding. */
 uint32_t pharaoh_x87_route_length(int32_t deltaX,int32_t deltaY)
 {

@@ -390,6 +390,7 @@ add_library(pharaoh_game STATIC
     game/simulation/culture_ratings.c
     game/city/advisor_reasons.c
     game/city/advisor_finance.c
+    game/city/finance_money.c
     game/ui/advisor_initialize.c
     game/ui/advisor_open.c
     game/scenario/tutorial_advisors.c
