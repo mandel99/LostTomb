@@ -1,0 +1,75 @@
+{
+  "schema": "pharaoh-complete-c-translation-v1",
+  "original_executable": {
+    "path": "C:\\Program Files (x86)\\GOG.com\\Pharaoh\\Pharaoh.exe",
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "reused_sources": [
+    {
+      "path": "Source/UI/Tooltip/TradeGoods.c",
+      "sha256": "72f5e89c1da76d9a4b0d2c6462ad5f3b6e1fa006800e486243b623f326883064",
+      "reference_body_sha256": {
+        "0x004CA9A0": "1b33658c313125960d8b1d00a4eca432da4aa0c158601ebf261d68f47a7c9a40",
+        "0x004CB300": "b0e258b96fcdc3d378036ab4bd5e0119db7e73b4337439d0c4da7530c1097017"
+      }
+    },
+    {
+      "path": "runtime/TradeAdvisorRender.c",
+      "sha256": "caeea21567f723ff7ea170858b6014f42c870e7b7fc278777482ad01f2598394",
+      "reference_function": "Original00559FC0",
+      "reference_body_sha256": "63a23d08ffc4981e5e76bd8466b58f8c3bf91e9d7e194e84e1a1838006d8e03c"
+    }
+  ],
+  "functions": [
+    {
+      "address": "0x004CA9A0",
+      "name": "pharaoh_tooltip_draw_walker_goods",
+      "native_instruction_count": 175,
+      "native_body_bytes": 553,
+      "native_instruction_bytes_sha256": "590690a21e8e980a45f06baa27b9baeb16cd20d900378e18ac285298b05344f3",
+      "body_sha256": "c92c58f1f5183b40bd202a40ea176db12a8a3ff290c63420f2d6605dea4fbab2",
+      "native_callers": ["0x004CABD0"],
+      "native_callees": ["0x004CC110", "0x004CBF30", "0x004CD680", "0x004CD9D0", "0x004CC770"]
+    },
+    {
+      "address": "0x004CB300",
+      "name": "pharaoh_tooltip_draw_luxury_goods",
+      "native_instruction_count": 137,
+      "native_body_bytes": 463,
+      "native_instruction_bytes_sha256": "fa9d8fc359fc1a99db4e9d14599491d8e96b29ff621e20e574beae927bfe65f3",
+      "body_sha256": "15fe5f67745fc6de7420d5196d9a424470aea28ead0d5b9997a4bb4b35bbf7af",
+      "native_callers": ["0x004CABD0"],
+      "native_callees": ["0x00559FC0", "0x004CD680", "0x004CD9D0", "0x004CC770", "0x004CCBB0"]
+    },
+    {
+      "address": "0x00559FC0",
+      "name": "pharaoh_empire_count_luxury_goods_kinds",
+      "native_instruction_count": 54,
+      "native_body_bytes": 151,
+      "native_instruction_bytes_sha256": "20430a8bad21d4ba6c3f0b23b9644a59590800fb8b4bb648014e23e48372717f",
+      "body_sha256": "54334ed08529ce1405d0e0f6d1e840d7482b9967d8bab65c46235b7f17287b85",
+      "native_callers": ["0x004CB300", "0x00444C20", "0x0055A0E0", "0x0055A0E0"],
+      "native_callees": ["0x00447790"]
+    }
+  ],
+  "comparison": {
+    "source": "Live pinned Ghidra decompilation and full instruction listings.",
+    "result": "All three bodies preserve native iteration order, resource-to-label ranges, linked-walker traversal, RGB555/RGB565 colors, box placement, cursor advancement and 16-bin accumulation. The only callbacks are genuine native child boundaries already visible in the call graph.",
+    "prototypes_applied": [
+      "void pharaoh_tooltip_draw_walker_goods(void)",
+      "void pharaoh_tooltip_draw_luxury_goods(void)",
+      "int pharaoh_empire_count_luxury_goods_kinds(int * counts)"
+    ]
+  },
+  "build": {
+    "configuration": "Release Win32",
+    "strict_compile": "MSVC /Zs /std:c11 /O2 /W4 /WX passed",
+    "library_sha256": "f5a093554a31b3c416cb47e958c411275012913ec65384d12483ce44fc0a7e26",
+    "executable_sha256": "9eac316699bdd5732a2682a9fe9881d5d60f21886077718ca239adcf15abde9d"
+  },
+  "qualification": {
+    "status": "static-qualified-compiled",
+    "native_c_replay": "Deferred to the approximately-100-entry cohort milestone.",
+    "known_gaps": "The live tooltip parent 0x004CABD0 and Windows host context assembly are not yet bound. Invalid native pointer/index domains and incidental flags/registers are not claimed."
+  }
+}

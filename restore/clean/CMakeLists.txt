@@ -51,6 +51,7 @@ add_library(pharaoh_game STATIC
     game/monuments/pyramid_progress.c
     game/monuments/complex_progress.c
     game/commerce/export_keep.c
+    game/commerce/luxury_goods.c
     game/map/road_network.c
     game/map/water_routing.c
     game/building/dock_access.c
@@ -468,6 +469,7 @@ add_library(pharaoh_game STATIC
     game/ui/victory_dialog.c
     game/ui/briefing.c
     game/ui/briefing_hint.c
+    game/ui/tooltip_goods.c
     game/ui/rich_text.c
     game/ui/custom_map_selection.c
     game/ui/family_menu_actions.c
