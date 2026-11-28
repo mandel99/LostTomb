@@ -1,4 +1,5 @@
 #include "pharaoh/rendering/city_render.h"
+#include "pharaoh/rendering/city_ground.h"
 #include "pharaoh/runtime/platform_measure_speed.h"
 
 /* Reused viewport-controller C, qualified against native00430D30. */
@@ -6,6 +7,27 @@ static void *pass_data(const PharaohCityRenderOperations *ops,
     enum PharaohCityRenderPass pass)
 {
     return ops->pass_user_data[pass]!=0?ops->pass_user_data[pass]:ops->user_data;
+}
+
+/* Publish actual viewport changes to the normalized scan descriptor. Native
+ *70E440..464/48C/490 are the same geometry used by ordinary/editor viewports;
+ *camera70E474/478 and rendered origin70E484 remain separate pass snapshots. */
+void pharaoh_city_render_sync_viewport(const PharaohCityRenderContext *c)
+{
+    if(c->live==NULL||c->live->scan==NULL)return;
+    PharaohCityGroundScan *const s=c->live->scan;
+    const PharaohCityViewportGeometry *const v=c->viewport;
+    s->tile_y[0]=(uint32_t)v->tile_double_height;
+    s->tile_y[1]=(uint32_t)v->tile_height_and_half;
+    s->tile_y[2]=(uint32_t)v->tile_height;
+    s->tile_y[3]=(uint32_t)v->tile_half_height;
+    s->tile_x[0]=(uint32_t)v->tile_double_width;
+    s->tile_x[1]=(uint32_t)v->tile_width_and_half;
+    s->tile_x[2]=(uint32_t)v->tile_width;
+    s->tile_x[3]=(uint32_t)v->tile_half_width;
+    s->visible_rows=(uint32_t)v->height_tiles;
+    s->visible_columns=(uint32_t)v->width_tiles;
+    s->start_y=(uint32_t)v->screen_y;s->start_x=(uint32_t)v->screen_x;
 }
 
 void pharaoh_city_render(PharaohCityRenderContext *c,
@@ -24,6 +46,7 @@ void pharaoh_city_render(PharaohCityRenderContext *c,
     int32_t *const right=live?live->clip_right:&c->clip->right;
     int32_t *const top=live?live->clip_top:&c->clip->top;
     int32_t *const bottom=live?live->clip_bottom:&c->clip->bottom;
+    pharaoh_city_render_sync_viewport(c);
     *target_x = (uint32_t)camera_x;
     *target_y = (uint32_t)camera_y;
     *target_origin = (uint32_t)grid_origin;

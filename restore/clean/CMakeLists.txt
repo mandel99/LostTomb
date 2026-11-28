@@ -63,6 +63,7 @@ add_library(pharaoh_game STATIC
     game/ui/build_menu.c
     game/ui/city_ingame_dispatch.c
     game/ui/building_info_live.c
+    game/ui/building_info_program_data.c
     game/ui/building_info_draw_live.c
     game/ui/building_info_draw_bindings.c
     game/ui/building_info_init_support.c
@@ -264,6 +265,7 @@ add_library(pharaoh_game STATIC
     game/runtime/sound_file_id_load.c
     game/runtime/sound_effect_files.c
     game/runtime/sound_effect_initialization.c
+    game/runtime/building_sound_files.c
     game/runtime/sound_effect_request.c
     game/runtime/sound_initialization.c
     game/runtime/digital_sound_device.c

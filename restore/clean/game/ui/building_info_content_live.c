@@ -19,15 +19,23 @@ static void *pass_data(const PharaohCityRenderOperations *ops,enum PharaohCityRe
 void pharaoh_info_render_selected_scene(PharaohCityRenderContext *c,
     int32_t x,int32_t y,int32_t grid_origin,int32_t actor)
 {
-    c->state->camera_x=x;c->state->camera_y=y;c->state->grid_origin=grid_origin;
-    c->clip->left=c->viewport->screen_x;c->clip->right=c->viewport->screen_right;
-    c->clip->top=c->viewport->screen_y;c->clip->bottom=c->viewport->screen_bottom;
+    const PharaohCityRenderLiveBindings *const l=c->live;
+    uint32_t *const camera_x=l?l->camera_x:(uint32_t *)(void *)&c->state->camera_x;
+    uint32_t *const camera_y=l?l->camera_y:(uint32_t *)(void *)&c->state->camera_y;
+    uint32_t *const origin=l?l->grid_origin:(uint32_t *)(void *)&c->state->grid_origin;
+    int32_t *const left=l?l->clip_left:&c->clip->left;
+    int32_t *const right=l?l->clip_right:&c->clip->right;
+    int32_t *const top=l?l->clip_top:&c->clip->top;
+    int32_t *const bottom=l?l->clip_bottom:&c->clip->bottom;
+    pharaoh_city_render_sync_viewport(c);
+    *camera_x=(uint32_t)x;*camera_y=(uint32_t)y;*origin=(uint32_t)grid_origin;
+    *left=c->viewport->screen_x;*right=c->viewport->screen_right;
+    *top=c->viewport->screen_y;*bottom=c->viewport->screen_bottom;
     const PharaohCityRenderOperations *ops=c->operations;
     ops->draw_base(pass_data(ops,PHARAOH_CITY_PASS_BASE));
     ops->draw_top(pass_data(ops,PHARAOH_CITY_PASS_TOP),actor);
     ops->draw_high_walkers(pass_data(ops,PHARAOH_CITY_PASS_HIGH_WALKERS),0);
-    c->clip->left=0;c->clip->right=*c->screen_width;
-    c->clip->top=0;c->clip->bottom=*c->screen_height;
+    *left=0;*right=*c->screen_width;*top=0;*bottom=*c->screen_height;
 }
 /* Whole4FA330. The three renderer endpoints above are their genuine full
  * city C providers, drawing into the same framebuffer as the normal view. */
@@ -44,6 +52,7 @@ void pharaoh_info_prepare_walker_preview(const PharaohInfoPreviewContext *c,int3
     c->view->state->camera_y=saved_y;c->view->state->camera_x=saved_x;
     if(*c->panel_position_mode==1)pharaoh_city_view_set_viewport_without_sidebar(c->view);
     else pharaoh_city_view_set_viewport_with_sidebar(c->view);
+    pharaoh_city_render_sync_viewport(c->render);
 }
 _Static_assert(sizeof(PharaohSpriteImageRecord)==64&&
     offsetof(PharaohSpriteImageRecord,height)==0x16,"native preview image metadata");

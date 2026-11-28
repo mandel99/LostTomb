@@ -297,24 +297,7 @@ static int32_t rebuild_image_pixels(PharaohWindowsMissionRuntime *r)
     return 1;
 }
 
-static void bind_ground_scan(PharaohWindowsMissionRuntime *r,
-    const PharaohCityViewState *view)
-{
-    const PharaohCityViewportGeometry *const v=&view->viewport;
-    PharaohCityGroundScan *const s=&r->ground_scan;
-    s->tile_y[0]=(uint32_t)v->tile_double_height;
-    s->tile_y[1]=(uint32_t)v->tile_height_and_half;
-    s->tile_y[2]=(uint32_t)v->tile_height;
-    s->tile_y[3]=(uint32_t)v->tile_half_height;
-    s->tile_x[0]=(uint32_t)v->tile_double_width;
-    s->tile_x[1]=(uint32_t)v->tile_width_and_half;
-    s->tile_x[2]=(uint32_t)v->tile_width;
-    s->tile_x[3]=(uint32_t)v->tile_half_width;
-    s->visible_rows=(uint32_t)v->height_tiles;
-    s->visible_columns=(uint32_t)v->width_tiles;
-    s->start_y=(uint32_t)v->screen_y;
-    s->start_x=(uint32_t)v->screen_x;
-}
+
 
 static void draw_city_footprint(void *data)
 {
@@ -655,7 +638,6 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         pharaoh_camera_scroll_apply(&camera,pharaoh_camera_scroll_direction(&scroll));
         (void)pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down);
     }
-    bind_ground_scan(r,view->state);
     /* E92E0C is the actual shared timeGetTime sample already published by
      * the Native mouse-update binding, not a second render clock. */
     pharaoh_animation_frame_state_update(&r->animation_frames,
@@ -886,7 +868,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             .clip_left=&r->image_clip.clip_x_min,.clip_right=&r->image_clip.clip_x_max,
             .clip_top=&r->image_clip.clip_y_min,.clip_bottom=&r->image_clip.clip_y_max,
             .last_animation_tick=&r->last_animation_tick,.advance_animation=&r->advance_animation,
-            .highlight_countdown=&r->highlight_countdown};
+            .highlight_countdown=&r->highlight_countdown,.scan=&r->ground_scan};
         memset(&r->city_render_operations,0,sizeof(r->city_render_operations));
         pharaoh_city_render_bind_ground(&r->city_render_operations,&r->ground);
         pharaoh_city_render_bind_top(&r->city_render_operations,&r->top);

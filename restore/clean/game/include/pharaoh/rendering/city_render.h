@@ -20,6 +20,7 @@ typedef struct PharaohCityRenderLiveBindings {
     uint32_t *camera_x,*camera_y,*grid_origin; /*70E478/474/484*/
     int32_t *clip_left,*clip_right,*clip_top,*clip_bottom; /*D3B55C/558/554/550*/
     uint32_t *last_animation_tick,*advance_animation,*highlight_countdown;
+    struct PharaohCityGroundScan *scan; /*normalized view of live viewport scalars*/
 } PharaohCityRenderLiveBindings;
 
 enum PharaohCityRenderPass {
@@ -63,5 +64,6 @@ void pharaoh_city_render(PharaohCityRenderContext *context,
 void pharaoh_city_render_current_view(PharaohCityRenderContext *context);
 /* Require every genuine pass reached by the current Native branch. */
 int32_t pharaoh_city_render_bound_for_current_mode(const PharaohCityRenderContext *);
+void pharaoh_city_render_sync_viewport(const PharaohCityRenderContext *);
 
 #endif

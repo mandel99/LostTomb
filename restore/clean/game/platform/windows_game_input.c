@@ -50,6 +50,8 @@ static void input_bind_sound_files(PharaohWindowsGameInput *input,
         pharaoh_sound_file_table_construct(&input->files,&input->table_bytes);
         (void)pharaoh_sound_file_table_resize(&input->files,
             PHARAOH_SOUND_INITIALIZATION_FILE_CAPACITY,&input_file_memory);
+        const PharaohBuildingSoundFileContext buildings={input->building_sounds,&load};
+        pharaoh_building_sound_files_initialize(&buildings);
         pharaoh_sound_effect_files_initialize(&input->effects,&load);
         input->files_initialized=1;
     }

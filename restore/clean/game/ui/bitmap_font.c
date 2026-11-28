@@ -441,6 +441,20 @@ int32_t pharaoh_bitmap_wrapped_word_width_native(PharaohRichTextState *metrics,
     return width;
 }
 
+/* Native D3B5C0 is shared by the rich-text measuring record and bitmap
+ * drawing. Bridge only this scalar around the real whole word scanner. */
+static int32_t wrapped_word_width_bound_native(
+    const PharaohBitmapWrappedNativeContext *c,const uint8_t *text)
+{
+    uint32_t *const glyph=c->font->current_glyph!=NULL?
+        c->font->current_glyph:c->draw_state->current_glyph;
+    if(glyph!=NULL)c->word_metrics->current_glyph=*glyph;
+    const int32_t width=pharaoh_bitmap_wrapped_word_width_native(
+        c->word_metrics,text,c->font_id);
+    if(glyph!=NULL)*glyph=c->word_metrics->current_glyph;
+    return width;
+}
+
 void pharaoh_bitmap_text_draw_wrapped_native(
     const PharaohBitmapWrappedNativeContext *context, const uint8_t *text,
     int32_t x, int32_t y, int32_t width, uint16_t color)
@@ -454,8 +468,7 @@ void pharaoh_bitmap_text_draw_wrapped_native(
         if (has_more) {
             for (;;) {
                 if (line_width >= width) break;
-                line_width += pharaoh_bitmap_wrapped_word_width_native(
-                    context->word_metrics, text, context->font_id);
+                line_width += wrapped_word_width_bound_native(context,text);
                 if (line_width >= width) {
                     if (line_width == 0) has_more = 0;
                     break;
@@ -476,6 +489,11 @@ void pharaoh_bitmap_text_draw_wrapped_native(
         state->font_id = context->font_id;
         pharaoh_bitmap_text_draw_native(context->font, state,
             context->line_buffer_00e3439c, x, y, color);
+        /* E20778 is the same live cursor in both normalized APIs. */
+        context->word_metrics->current_line_width=state->cursor_x;
+        uint32_t *const glyph=context->font->current_glyph!=NULL?
+            context->font->current_glyph:state->current_glyph;
+        if(glyph!=NULL)context->word_metrics->current_glyph=*glyph;
         if (*context->maximum_width_00e2076c < state->cursor_x) {
             *context->maximum_width_00e2076c = state->cursor_x;
         }
