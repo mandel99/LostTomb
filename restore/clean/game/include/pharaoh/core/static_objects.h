@@ -116,4 +116,5 @@ int32_t pharaoh_native_metric_select_004d5ef0(
 void pharaoh_native_flag_zero_004e7e10(uint32_t *flag);
 int32_t pharaoh_native_record90_has_ready_004b7590(
     const uint8_t *records, int32_t count);
+int32_t pharaoh_native_empire_free_slot_00407340(uint8_t *records);
 #endif

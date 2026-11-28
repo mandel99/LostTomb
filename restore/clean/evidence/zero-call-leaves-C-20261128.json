@@ -1,0 +1,23 @@
+{
+  "schema": "zero-call-leaves-complete-C",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "functions": [
+    {"address":"0x00407340","name":"pharaoh_native_empire_free_slot_00407340","native_instructions":14,"native_bytes":44,"native_sha256":"e04e660b21f964c2d108a68fcd84a51323da35536276acbf1d4ae37937bfa888","body_sha256":"6ecfbb42e12c61b863e39deb6f6ac7b631eeaaf4442a969d77845786c5049d68"},
+    {"address":"0x0040B5E0","name":"pharaoh_formation_legion_is_on_ship","native_instructions":25,"native_bytes":67,"native_sha256":"cfa9deb6d77ac2aa578652cc59957f0f6a50ce6edaef0bcf7d4fd0d34ea96e08","body_sha256":"8bc3dcf2040a7faeed81a3b8b8c38fc4b912fc886579b1fe59930933ab51c621"},
+    {"address":"0x0040CB40","name":"pharaoh_monument_menu_option_allowed","native_instructions":59,"native_bytes":157,"native_sha256":"28fb6e47bbbaef50d02dc6467e266ecfcaeb9fbf1242444e48b952ed479d1ce5","body_sha256":"7eb12600e6b04b7d34c79a9f820c2f3f8fced7751375ecaf514cb0ee6e00337d"},
+    {"address":"0x0040CC40","name":"pharaoh_monument_count_provision_kinds","native_instructions":27,"native_bytes":60,"native_sha256":"c0583a3dc6cb6b9812c424e9e14a7573491a0317b5f1978f0a0cef4ee938a2a1","body_sha256":"b460f45c128ffad4d1353a77c0f01f45fded4101760503b404bba8a0b7770fd8"}
+  ],
+  "qualification": "Live pinned Ghidra disassembly and pseudocode; every owner has zero CALL instructions. Existing typed C matches loop bounds, signed tests, field widths and return domains.",
+  "ghidra_types": "Names and native prototypes applied to all four live functions.",
+  "canonical_source_sha256": {
+    "game/core/static_objects.c":"687d65efb9744fb5b3231ce1b7503077944e49ce4b13a7eb635586632cbdd796",
+    "game/include/pharaoh/core/static_objects.h":"70d76a7e8ee49cf277de8215690d150a8ad6eb1b16e173acd98f7838dbd46029",
+    "game/military/transport_boats.c":"c353ce460960594994eac5c1951bc83bc49bf0e8e27886e10d0ac7d218f7c4d8",
+    "game/include/pharaoh/military/transport_boats.h":"85d13e7dd06080aef8b659a498a15b8168ac55d34a16b80b43bd8f62c08d5914",
+    "game/monuments/stages.c":"1af4fd2d5083ae45592fe4aab82a5393871de69c150502e4e45661348ef140e3",
+    "game/include/pharaoh/monuments/stages.h":"61f9a8d1da14a1f12652f4a145db938d68a36b96912ab92ebd82ecb6d8616e07",
+    "game/monuments/provision_kinds.c":"7b7248b0ebbf1676aa6c439e26e17570f3f262966dd5271c3c6cbeeaa80c9982",
+    "game/include/pharaoh/monuments/provision_kinds.h":"89b5ae434577ff8b52d50169842e124b8962a02de6232341fced9fe0a52e3e0e"
+  },
+  "remaining": "Native global arrays are explicit C inputs. Parent host/context binding and cohort Native/C replay remain separate milestones."
+}

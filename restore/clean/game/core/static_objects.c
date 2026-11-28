@@ -291,3 +291,13 @@ int32_t pharaoh_native_record90_has_ready_004b7590(
             *(const int16_t *)(records + 0x46) > 0) return 1;
     return 0;
 }
+
+int32_t pharaoh_native_empire_free_slot_00407340(uint8_t *records)
+{
+    int32_t index;
+    for (index = 1; index <= 19; ++index, records += 0x144) {
+        if (records[0] < 2) records[1] = 0;
+        if (records[1] == 0) return index;
+    }
+    return -1;
+}

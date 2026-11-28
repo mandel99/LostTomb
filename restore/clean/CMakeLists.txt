@@ -164,6 +164,7 @@ add_library(pharaoh_game STATIC
     game/military/transport_boats.c
     game/military/ship_status.c
     game/monuments/stages.c
+    game/monuments/provision_kinds.c
     game/monuments/tile_removal.c
     game/monuments/startup_geometry.c
     game/monuments/mausoleum_projection.c
