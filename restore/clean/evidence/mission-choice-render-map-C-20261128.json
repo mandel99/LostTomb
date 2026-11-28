@@ -1,0 +1,51 @@
+{
+  "schema": "pharaoh-complete-c-map-audit-v1",
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "source": "game/ui/mission_intermezzo.c",
+  "source_sha256": "31bca8a6e3a43204cf6840219be20215f2308a3d8b4eee63c3758ae3e2d7ed62",
+  "header_sha256": "80da8e0cbcbd8762f662db3964946fea3e75d348c3b025f241448be8920fa7da",
+  "functions": [
+    {
+      "address": "0x004181A0",
+      "name": "pharaoh_mission_transition_text_id",
+      "native_instruction_count": 16,
+      "native_body_bytes": 50,
+      "native_instruction_bytes_sha256": "7b3017b60d36be319b672425bfda7562b31ea91d8ed98cb36b1f34a4afcb9291",
+      "body_sha256": "61d64ed117f504baf1d1f982c858cd6176fe68057ac222e89224c089787d0e2b",
+      "native_callers": ["0x004194C0"],
+      "native_callees": []
+    },
+    {
+      "address": "0x00419140",
+      "name": "pharaoh_mission_choice_draw_markers",
+      "native_instruction_count": 62,
+      "native_body_bytes": 169,
+      "native_instruction_bytes_sha256": "67cd917819536cbee1637dc5047329d92d66e370d842071b8643a13782a478dc",
+      "body_sha256": "c830f37146afe8589bded06137dbdeca10fe67331b9a454f6c47955eb3bb9384",
+      "native_callers": ["0x004D75D0"],
+      "native_callees": ["0x004CF620", "0x0053E590"]
+    },
+    {
+      "address": "0x0041AAA0",
+      "name": "pharaoh_mission_choice_draw",
+      "native_instruction_count": 95,
+      "native_body_bytes": 338,
+      "native_instruction_bytes_sha256": "3e36259ca1288411c49cd97d7ed62372b8587d49c28f8189e1b5a7f46e247d03",
+      "body_sha256": "be751fb4b70739fee8b505a39e83aa9a29b4603ca8ee9674231756592e216b66",
+      "native_callers": ["0x004D71C0"],
+      "native_callees": ["0x0053E590", "0x004CCBB0", "0x004CCFD0"]
+    }
+  ],
+  "comparison": "Live Ghidra confirms the campaign-index bounds/default-37 leaf, marker hover/selected image choice and the mission-choice background, panel, title and selected-description draw order. Existing typed C exposes all native global inputs and genuine draw/hit-test children.",
+  "ghidra_prototypes": [
+    "int pharaoh_mission_transition_text_id(void)",
+    "void pharaoh_mission_choice_draw_markers(void)",
+    "void pharaoh_mission_choice_draw(void)"
+  ],
+  "verification": {
+    "source_change": "none; this checkpoint repairs omitted canonical map ownership",
+    "last_canonical_release_exe_sha256": "ceed0204740e7cd3a8968f9d11fcdbd114956a40d7960f8fe1ea690efc9d3202",
+    "native_c_replay": "deferred to joint cohort milestone"
+  },
+  "remaining_gap": "The native draw callers and live campaign/screen/render operation assembly remain separate; invalid index/pointer/fault domains and incidental registers/flags are not qualified."
+}
