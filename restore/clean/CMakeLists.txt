@@ -470,6 +470,7 @@ add_library(pharaoh_game STATIC
     game/ui/briefing.c
     game/ui/briefing_hint.c
     game/ui/tooltip_goods.c
+    game/ui/tooltip_text_panels.c
     game/ui/rich_text.c
     game/ui/custom_map_selection.c
     game/ui/family_menu_actions.c

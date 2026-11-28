@@ -1,0 +1,55 @@
+{
+  "schema": "pharaoh-complete-c-translation-v1",
+  "original_executable": {
+    "sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d"
+  },
+  "reused_source": {
+    "path": "Source/UI/Tooltip/Tooltip.c",
+    "sha256": "92da7809090050e8b949ba4e199d9bce9055d428408a621dfe4042580d914ff3",
+    "reference_body_sha256": {
+      "0x004CAF10": "6942332fa19f574ef0dee79b4cf0e45fe5df3128c1577c7c2a0ed8664641a9be",
+      "0x004CB0B0": "3b6188863e5f159f2745bbf803160b58fa576119853df6dff926e48000904532"
+    }
+  },
+  "functions": [
+    {
+      "address": "0x004CAF10",
+      "name": "pharaoh_tooltip_draw_composed_text_box",
+      "native_instruction_count": 121,
+      "native_body_bytes": 410,
+      "native_instruction_bytes_sha256": "bf23a06bce4a5f8e19b93dcd052e478f8fccf21c1632e85a7c7f198354589f9b",
+      "body_sha256": "fde5b1df47271dd8cf9b1270621d551136bd6829cb6c1fdeaab3ea7dd1e5ea40",
+      "native_callers": ["0x004CABD0", "0x004D75D0", "0x004D71C0"],
+      "native_callees": ["0x004C8070", "0x004C8070", "0x004CD680", "0x004CD9D0", "0x004C8070"]
+    },
+    {
+      "address": "0x004CB0B0",
+      "name": "pharaoh_tooltip_draw_senate",
+      "native_instruction_count": 162,
+      "native_body_bytes": 592,
+      "native_instruction_bytes_sha256": "eaa7d69e4dee96ca8728c87a5019dca3597d7105b11a281fe63f90885a34b2f0",
+      "body_sha256": "5db96c0d483d82850b3105821fd09026a5e5870e6a0632be226f87eee7bce7e7",
+      "native_callers": ["0x004CABD0"],
+      "native_callees": ["0x004CD680", "0x004CD9D0", "0x004CCBB0", "0x004CCBB0", "0x004CCE00", "0x004CCE00"]
+    }
+  ],
+  "comparison": {
+    "source": "Live pinned Ghidra decompilation and full instruction listings.",
+    "result": "The C owners preserve both rich-text measurement passes, narrow/wide cutoff, final draw geometry, senate label/value order, two-pass shadow text, RGB555/RGB565 colors and shared cursor/scratch state. Every call is a genuine already-translated graphics, rich-text or bitmap-text child.",
+    "prototypes_applied": [
+      "void pharaoh_tooltip_draw_composed_text_box(void)",
+      "void pharaoh_tooltip_draw_senate(void)"
+    ]
+  },
+  "build": {
+    "configuration": "Release Win32",
+    "strict_compile": "MSVC /Zs /std:c11 /O2 /W4 /WX passed",
+    "library_sha256": "2f5739228421a1f2f51e8b8568f3d6f08690dadd9eb88956427e4ee331cb83f7",
+    "executable_sha256": "806655b53a0082088f6f2c53a7daac3f9c808cd71b243c3aca820a1c12b6dd25"
+  },
+  "qualification": {
+    "status": "static-qualified-compiled",
+    "native_c_replay": "Deferred to the approximately-100-entry cohort milestone.",
+    "known_gaps": "The live tooltip parent 0x004CABD0 and Windows host context assembly remain pending. Invalid native pointer/text domains and incidental flags/registers are not claimed."
+  }
+}
