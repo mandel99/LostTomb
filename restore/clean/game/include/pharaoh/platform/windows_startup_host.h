@@ -131,6 +131,7 @@ typedef struct PharaohWindowsStartupHost {
     PharaohTextCatalog text_catalog;
     PharaohTextSelection text_selection;
     uint32_t bitmap_current_glyph;
+    int32_t button_parameter,button_secondary_parameter; /* D3B198/D3B194 */
     PharaohTextInputState text_input;
     PharaohBitmapFont bitmap_fonts[8];
     int32_t bitmap_center_offset;

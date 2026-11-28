@@ -1,3 +1,4 @@
+#include "pharaoh/core/percentage_scale.h"
 #include "pharaoh/ui/window_state_actions.h"
 #include "pharaoh/ui/generic_button_focus.h"
 #include <stddef.h>
@@ -112,4 +113,102 @@ void pharaoh_popup_window_invoke_callback(const PharaohPopupWindowState *state)
     if (state->callback_uses_context)
         state->context_callback(state->callback_context);
     else state->callback();
+}
+
+void pharaoh_building_info_show_orders(
+    int32_t *orders_active, uint8_t *redraw_requested)
+{
+    *orders_active = 1;
+    *redraw_requested = 1;
+}
+
+void pharaoh_transport_ship_button(PharaohTransportShipButtonState *state)
+{
+    PharaohWalkerQueryRecord *walker;
+    int32_t percentage;
+
+    state->selected_transport_id = state->transport_id;
+    if (state->transport_id <= 0 || state->input_locked != 0u) return;
+    walker = &state->walkers[state->transport_id];
+    percentage = pharaoh_scale_value_to_percent(walker->hit_points,
+        walker->maximum_hit_points).value;
+    if ((walker->action_state == 11u || walker->action_state == 15u) &&
+        percentage <= 15) return;
+    if (state->button_parameter == 3u &&
+        (walker->action_state == 11u || walker->action_state == 15u ||
+         percentage == 100)) return;
+    switch (state->button_parameter) {
+        case 0:
+            walker->action_state = 20;
+            state->selected_transport_active = 1;
+            state->current_window = 31;
+            state->redraw_requested = 1;
+            break;
+        case 1:
+            walker->action_state = 10;
+            walker->wait_ticks = 75;
+            walker->transport_order_15c = 16;
+            state->selected_transport_active = 0;
+            state->current_window = 1;
+            state->redraw_requested = 1;
+            break;
+        case 2:
+            walker->action_state = (uint8_t)(12u +
+                (walker->transport_state_130 != 0u));
+            state->selected_transport_active = 1;
+            state->current_window = 31;
+            state->redraw_requested = 1;
+            break;
+        case 3:
+            state->selected_transport_active = 0;
+            state->assign_building(state->callback_context,
+                state->transport_id);
+            state->current_window = 31;
+            state->redraw_requested = 1;
+            break;
+        default:
+            break;
+    }
+}
+
+void pharaoh_transport_ship_return_button(
+    PharaohTransportShipButtonState *state,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int16_t *slot_walkers, int32_t selected_walker_id,
+    PharaohBuildingTileResolver resolve_tile, void *resolve_context)
+{
+    PharaohWalkerQueryRecord *walker;
+    int32_t percentage;
+
+    state->selected_transport_id = state->transport_id;
+    if (state->transport_id <= 0) return;
+    walker = &state->walkers[state->transport_id];
+    percentage = pharaoh_scale_value_to_percent(walker->hit_points,
+        walker->maximum_hit_points).value;
+    if ((walker->action_state == 11u || walker->action_state == 15u) &&
+        percentage <= 15) return;
+    if (state->button_parameter == 4u) {
+        int16_t destination_x;
+        int16_t destination_y;
+        const int32_t building_id = walker->building_id;
+
+        if (pharaoh_ship_is_docked(state->walkers, buildings,
+            state->transport_id)) return;
+        /* The native callback reloads buttonParameter after the query. */
+        if (state->button_parameter == 4u) {
+            walker->action_state = 9;
+            state->selected_transport_active = 0;
+            resolve_tile(resolve_context, buildings[building_id].x,
+                buildings[building_id].y, buildings[building_id].size,
+                &destination_x, &destination_y);
+            walker->source_x = walker->x;
+            walker->source_y = walker->y;
+            walker->destination_x = destination_x;
+            walker->destination_y = destination_y;
+            pharaoh_walker_detach_slot_link(state->walkers, slot_walkers,
+                selected_walker_id);
+        }
+    }
+    state->current_window = 1;
+    state->redraw_requested = 1;
 }

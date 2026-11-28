@@ -57,4 +57,29 @@ void pharaoh_popup_window_open_context(PharaohPopupWindowState *,uint32_t key,
 void pharaoh_popup_window_invoke_callback(const PharaohPopupWindowState *);
 void pharaoh_top_menu_hover_index(int32_t mouse_x, int32_t mouse_y,
     const int32_t left_edges[3], int32_t *hovered);
+#include "pharaoh/walker/record_queries.h"
+#include "pharaoh/building/type_queries.h"
+
+typedef struct PharaohTransportShipButtonState {
+    PharaohWalkerQueryRecord *walkers;
+    int32_t transport_id;
+    uint8_t input_locked;
+    uint32_t button_parameter;
+    int32_t selected_transport_id;
+    int32_t selected_transport_active;
+    uint8_t current_window;
+    uint8_t redraw_requested;
+    void *callback_context;
+    void (*assign_building)(void *context, int32_t walker_id);
+} PharaohTransportShipButtonState;
+
+void pharaoh_building_info_show_orders(
+    int32_t *orders_active, uint8_t *redraw_requested);
+void pharaoh_transport_ship_button(PharaohTransportShipButtonState *state);
+void pharaoh_transport_ship_return_button(
+    PharaohTransportShipButtonState *state,
+    const PharaohBuildingTypeRecord buildings[PHARAOH_BUILDING_RECORD_COUNT],
+    int16_t *slot_walkers, int32_t selected_walker_id,
+    PharaohBuildingTileResolver resolve_tile, void *resolve_context);
+
 #endif

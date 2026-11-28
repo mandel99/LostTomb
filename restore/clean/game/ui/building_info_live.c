@@ -533,7 +533,7 @@ static int32_t generic_row(PharaohBuildingInfoLiveContext *c,
     PharaohBuildingInfoLiveButtonRow *buttons=&c->rows[row];
     int32_t x,y;
     row_position(c,row,fixed_y,&x,&y,&count);
-    int32_t hit=pharaoh_generic_buttons_get_focus(x,y,buttons->rectangles,count,
+    int32_t hit=pharaoh_generic_buttons_get_focus_from_buttons(x,y,buttons->buttons,count,
         c->generic_input->cursor_x,c->generic_input->cursor_y,c->generic_focus);
     row_position(c,row,fixed_y,&x,&y,&count);
     *focus=pharaoh_ui_layout_buttons(c->button_layout,c->button_layout_operations,

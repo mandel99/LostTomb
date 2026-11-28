@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "pharaoh/ui/main_menu.h"
+#include "pharaoh/ui/generic_button_input.h"
 
 typedef struct PharaohGenericButtonFocusState {
     int32_t hit_mouse_y;
@@ -113,6 +114,9 @@ int32_t pharaoh_generic_buttons_get_focus(
     const PharaohMenuRect *rectangles, int32_t rectangle_count,
     int32_t cursor_x, int32_t cursor_y,
     PharaohGenericButtonFocusState *focus_state);
+int32_t pharaoh_generic_buttons_get_focus_from_buttons(int32_t origin_x,int32_t origin_y,
+    const PharaohGenericButton *buttons,int32_t count,int32_t cursor_x,int32_t cursor_y,
+    PharaohGenericButtonFocusState *state);
 void pharaoh_image_buttons_clear_radio(
     PharaohImageButtonRecord *buttons, int32_t button_count,
     uint8_t *redraw_requested);

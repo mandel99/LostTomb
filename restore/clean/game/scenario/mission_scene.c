@@ -2,6 +2,7 @@
 #include "pharaoh/ui/building_info_live.h"
 #include "pharaoh/ui/city_debug_grid.h"
 #include "pharaoh/ui/building_info_industry_live.h"
+#include "pharaoh/ui/building_info_actions_live.h"
 #include "pharaoh/runtime/camera_scroll.h"
 #include "pharaoh/building/construction_load.h"
 #include "pharaoh/building/construction_support.h"
@@ -60,7 +61,8 @@ struct PharaohMissionScene {
     PharaohSceneAssetBindings assets;
     PharaohSceneMonumentAssets monument_assets;
     PharaohSceneEnemyAssets enemy_assets;
-    int32_t pyramid_style,extra_monument,mausoleum_size;
+    int32_t pyramid_style,mausoleum_size;
+    PharaohBuildingInfoPhraseWeightBank phrase_bank;
     PharaohCitySoundInitializeContext sound;
     int32_t sound_records[70][32];
     uint32_t sound_tick;
@@ -350,7 +352,7 @@ static void configure(PharaohMissionScene *r)
         .ui_flag=&r->ui_flag,.health_recompute_distances=&r->health_pending,.warship_wharf_count=&r->warship_wharves,
         .scenario_mode=&r->scenario_mode,.custom_value_78d828=&r->custom_value};
     r->monument_assets=(PharaohSceneMonumentAssets){.libraries=in->libraries,.mission_id=&in->settings->mission_id,
-        .scenario_name="Nubt",.pyramid_style=&r->pyramid_style,.extra_script_monument=&r->extra_monument,.mausoleum_size=&r->mausoleum_size};
+        .scenario_name="Nubt",.pyramid_style=&r->pyramid_style,.extra_script_monument=(int32_t *)(void *)&r->phrase_bank.extra_script_monument,.mausoleum_size=&r->mausoleum_size};
     r->enemy_assets=(PharaohSceneEnemyAssets){.libraries=in->libraries,.enemy_models=in->figure_models->enemy_models,.figure_models=in->figure_models->figure_models};
     r->sound=(PharaohCitySoundInitializeContext){r->sound_records,&r->sound_tick,in->clock_user_data,in->get_time};
     r->assets=(PharaohSceneAssetBindings){in->settings,in->building_models,in->figure_models,in->tax_model,&r->monument_assets,&r->enemy_assets,&r->sound};
@@ -512,6 +514,7 @@ void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *r,
     ui->storage=(PharaohBuildingStorageRecord *)(void *)v->storages;
     ui->food_count=&r->food_count;ui->foods=r->food_ids;
     ui->resource_count=&r->resource_count;ui->resources=r->resource_ids;
+    ui->phrase_counts=r->phrase_bank.weights;ui->tutorial_flags=r->tutorial_b;
     ui->current_window=r->inputs.window_id;ui->redraw_requested=r->inputs.redraw_requested;
     init->ui=ui;init->models=r->inputs.building_models->building_models;
     init->editor_active=(const int32_t *)(const void *)&r->editor_active;
@@ -575,6 +578,9 @@ void pharaoh_mission_scene_bind_info_industry_world(PharaohMissionScene *r,
     industry->flood_season_month=&r->flood_world.season_month;
     industry->harvest_months=r->inputs.program->farm_harvest_months;
 }
+
+PharaohBuildingInfoPhraseWeightBank *pharaoh_mission_scene_info_phrase_bank(PharaohMissionScene *r)
+{return &r->phrase_bank;}
 
 const PharaohSavedSceneStorage *pharaoh_mission_scene_storage(const PharaohMissionScene *r)
 {return &r->saved;}

@@ -41,13 +41,16 @@ typedef struct PharaohButtonLayoutState {
     int32_t selected_height;
     int32_t highlighted_button_index;
     int32_t highlight_auxiliary_state;
+
+    /* Optional borrowed E94618 table: lists[1] and buttons_initialized are
+       used in place. NULL preserves the normalized slots_by_key path. */
+    PharaohUiLayoutEntry *actual_entries_by_key;
 } PharaohButtonLayoutState;
 
 typedef struct PharaohButtonLayoutOperations {
     void *context;
     void (*set_clip_rectangle)(void *context,
         int32_t left, int32_t top, int32_t width, int32_t height);
-    void (*highlight_actor_panel)(void *context, int32_t x);
     void (*draw_highlight_rectangle)(void *context, int32_t style,
         int32_t x, int32_t y, int32_t width, int32_t height,
         uint32_t color);

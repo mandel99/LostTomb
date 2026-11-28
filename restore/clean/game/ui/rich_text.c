@@ -194,12 +194,13 @@ void pharaoh_rich_text_draw(PharaohRichTextState *state,
     int32_t x,int32_t y,int32_t width,int32_t calculate,int32_t flags)
 {
     const uint8_t *p=(const uint8_t *)text;int32_t remaining=0,image=0,delay=0,line=0,iterations=0;
+    uint8_t *const line_buffer=state->borrowed_line_buffer?state->borrowed_line_buffer:state->line_buffer;
     uint8_t more=1,indent=0;
     if(calculate==1)state->line_count=0;
     for(;;) {
         int32_t used,xIndent,length=0;uint8_t trim=1,skip=0;
         if((!more&&!remaining)||(iterations=add32(iterations,1))>=1000)return;
-        memset(state->line_buffer,0,sizeof(state->line_buffer));used=xIndent=indent?50:0;indent=0;
+        memset(line_buffer,0,200);used=xIndent=indent?50:0;indent=0;
         while((more||remaining)&&used<width) {
             int32_t consumed,n;
             if(remaining){remaining=sub32(remaining,1);break;}
@@ -220,17 +221,17 @@ void pharaoh_rich_text_draw(PharaohRichTextState *state,
                         remaining=add32(image_record(state,(uint32_t)image)->height/16,2);used=width;if(line>0)delay=1;break;
                     }
                 }
-                if(!trim||c!=' '){trim=0;state->line_buffer[(uint32_t)length]=c;length=add32(length,1);}
+                if(!trim||c!=' '){trim=0;line_buffer[(uint32_t)length]=c;length=add32(length,1);}
             }
             if(!*p)more=0;
         }
         state->draw_mode=1;state->current_line_width=0;state->draw_active=1;
         if(!calculate)skip=line<state->scroll_position||line>=add32(state->viewport_lines,state->scroll_position);
         if(calculate||!skip) {
-            pharaoh_rich_text_draw_line(state,operations,state->line_buffer,add32(x,xIndent),y,calculate,flags);
+            pharaoh_rich_text_draw_line(state,operations,line_buffer,add32(x,xIndent),y,calculate,flags);
             if(state->normal_font==state->large_font) {
                 uint16_t Color=state->color;state->color=state->color_variant==2?0xff3a:0x7f9a;
-                pharaoh_rich_text_draw_line(state,operations,state->line_buffer,sub32(add32(x,xIndent),1),sub32(y,1),calculate,flags);
+                pharaoh_rich_text_draw_line(state,operations,line_buffer,sub32(add32(x,xIndent),1),sub32(y,1),calculate,flags);
                 state->color=Color;
             }
         }

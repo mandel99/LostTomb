@@ -2710,6 +2710,7 @@ static int32_t briefing_draw_rich_text(void *data,const char *text,int32_t x,int
     PharaohWindowsBriefingRenderer *const r=data;
     PharaohWindowsStartupHost *const host=r->host;
     PharaohRichTextState *const rich=&r->text;
+    rich->borrowed_line_buffer=(uint8_t *)(void *)(host->bitmap_text_buffers+356);
     rich->images=host->sprite_images;
     rich->image_count=host->loaded_libraries->next_image;
     rich->normal_font=menu_group_image(host,(uint32_t)layout->normal_font);

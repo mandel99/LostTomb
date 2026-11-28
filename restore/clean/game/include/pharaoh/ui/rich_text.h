@@ -47,7 +47,8 @@ typedef struct PharaohRichTextState {
     uint32_t draw_mode; /* native DWORDE20780 */
     uint8_t draw_active; /* native BYTEE20799 */
     const uint8_t *decimal_tail; /* borrowed file_read_part.media_prefixed_path */
-    uint8_t line_buffer[200]; /* native E3439C; original valid lines fit */
+    uint8_t line_buffer[200]; /* standalone normalized owner */
+    uint8_t *borrowed_line_buffer; /* actual shared E3439C when host-bound */
 } PharaohRichTextState;
 
 typedef struct PharaohRichTextScrollbarState {

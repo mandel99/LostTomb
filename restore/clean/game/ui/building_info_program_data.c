@@ -425,7 +425,6 @@ static PharaohInfoProgramResult borrowed_support(const PharaohInfoProgramBorrowe
     BORROW(p->generic_input);BORROW(p->generic_focus);BORROW(p->button_layout);
     BORROW(p->button_layout_operations);
     BORROW(p->button_layout_operations->set_clip_rectangle);
-    BORROW(p->button_layout_operations->highlight_actor_panel);
     BORROW(p->button_layout_operations->draw_highlight_rectangle);
     return program_result(PHARAOH_INFO_PROGRAM_READY,0,NULL);
 }

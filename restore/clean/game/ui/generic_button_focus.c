@@ -31,29 +31,34 @@ static int32_t wrap_add(int32_t left, int32_t right)
     return signed_dword_from_bits((uint32_t)left + (uint32_t)right);
 }
 
-int32_t pharaoh_generic_buttons_get_focus(
-    int32_t origin_x, int32_t origin_y,
-    const PharaohMenuRect *rectangles, int32_t rectangle_count,
-    int32_t cursor_x, int32_t cursor_y,
-    PharaohGenericButtonFocusState *focus_state)
+static int32_t focus_rectangle(const PharaohMenuRect *r,int32_t origin_x,
+    int32_t origin_y,int32_t cursor_x,int32_t cursor_y,PharaohGenericButtonFocusState *s)
 {
-    int32_t index;
-
-    for (index = 0; index < rectangle_count; ++index) {
-        const PharaohMenuRect *const rectangle = &rectangles[index];
-        const int32_t left = wrap_add(origin_x, rectangle->left);
-        const int32_t right = wrap_add(origin_x, rectangle->right);
-        const int32_t top = wrap_add(origin_y, rectangle->top);
-        const int32_t bottom = wrap_add(origin_y, rectangle->bottom);
-
-        if (left <= cursor_x && cursor_x < right &&
-            top <= cursor_y && cursor_y < bottom) {
-            focus_state->hit_mouse_y = cursor_y;
-            focus_state->hit_mouse_x = cursor_x;
-            return index + 1;
-        }
+    if(wrap_add(origin_x,r->left)<=cursor_x&&cursor_x<wrap_add(origin_x,r->right)&&
+       wrap_add(origin_y,r->top)<=cursor_y&&cursor_y<wrap_add(origin_y,r->bottom)) {
+        s->hit_mouse_y=cursor_y;s->hit_mouse_x=cursor_x;return 1;
     }
+    return 0;
+}
 
+int32_t pharaoh_generic_buttons_get_focus(int32_t origin_x,int32_t origin_y,
+    const PharaohMenuRect *rectangles,int32_t count,int32_t cursor_x,int32_t cursor_y,
+    PharaohGenericButtonFocusState *state)
+{
+    for(int32_t i=0;i<count;++i)
+        if(focus_rectangle(&rectangles[i],origin_x,origin_y,cursor_x,cursor_y,state))return i+1;
+    return 0;
+}
+
+/* Same native focus algorithm over the mutable typed button owner. Its
+ * bounds can be changed by real4D66F0 layout initialization after first focus;
+ * immutable PE geometry must not replace those later native reads. */
+int32_t pharaoh_generic_buttons_get_focus_from_buttons(int32_t origin_x,int32_t origin_y,
+    const PharaohGenericButton *buttons,int32_t count,int32_t cursor_x,int32_t cursor_y,
+    PharaohGenericButtonFocusState *state)
+{
+    for(int32_t i=0;i<count;++i)
+        if(focus_rectangle(&buttons[i].bounds,origin_x,origin_y,cursor_x,cursor_y,state))return i+1;
     return 0;
 }
 

@@ -40,10 +40,19 @@ static int industry_type(int32_t type)
 static int industry_farm(int32_t type)
 { return type==100||type==101||type==102||type==103||type==224; }
 
+static int services_type(int32_t type)
+{
+    if(temple_type(type))return 1;
+    switch(type) {
+    case 30:case 31:case 32:case 33:case 34:case 35:case 36:case 46:case 47:case 49:case 51:case 53:case 55:case 77:case 78:case 79:case 80:case 81:case 84:case 85:case 86:case 87:case 88:case 89:case 93:case 98:case 167:case 184:case 187:case 188:case 189:case 206:case 209:case 226:return 1;
+    default:return 0;
+    }
+}
+
 enum PharaohBuildingInfoDrawTypeSupport pharaoh_building_info_draw_type_support(int32_t type)
 {
     if((uint32_t)type>=237)return PHARAOH_INFO_DRAW_OUTSIDE_TYPE_CATALOG;
-    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type)||industry_type(type))
+    if((type>=10&&type<=29)||(type>=41&&type<=43)||type==56||type==99||storage_type(type)||industry_type(type)||services_type(type))
         return PHARAOH_INFO_DRAW_CONNECTED_TYPE;
     if(native_catalog_present[type]||temple_type(type)||quarry_type(type))
         return PHARAOH_INFO_DRAW_MISSING_TYPE_PROVIDER;
@@ -165,7 +174,103 @@ static void industry_hunting(void *p) { pharaoh_info_industry_draw_hunting_lodge
 static void industry_quarry(void *p,int32_t resource)
 { pharaoh_info_industry_draw_quarry(industry(p),resource); }
 
+static const PharaohInfoServicesLiveContext *services(void *p)
+{ return ((PharaohBuildingInfoDrawBindings *)p)->providers.services; }
+static void services_bandstand(void *p)
+{ pharaoh_info_services_draw_bandstand(services(p)); }
+static void services_booth(void *p)
+{ pharaoh_info_services_draw_booth(services(p)); }
+static void services_senet_house(void *p)
+{ pharaoh_info_services_draw_senet_house(services(p)); }
+static void services_pavilion(void *p)
+{ pharaoh_info_services_draw_pavilion(services(p)); }
+static void services_conservatory(void *p)
+{ pharaoh_info_services_draw_conservatory(services(p)); }
+static void services_dance_school(void *p)
+{ pharaoh_info_services_draw_dance_school(services(p)); }
+static void services_juggler_school(void *p)
+{ pharaoh_info_services_draw_juggler_school(services(p)); }
+static void services_apothecary(void *p)
+{ pharaoh_info_services_draw_apothecary(services(p)); }
+static void services_mortuary(void *p)
+{ pharaoh_info_services_draw_mortuary(services(p)); }
+static void services_dentist(void *p)
+{ pharaoh_info_services_draw_dentist(services(p)); }
+static void services_scribal_school(void *p)
+{ pharaoh_info_services_draw_scribal_school(services(p)); }
+static void services_library(void *p)
+{ pharaoh_info_services_draw_library(services(p)); }
+static void services_police_station(void *p)
+{ pharaoh_info_services_draw_police_station(services(p)); }
+static void services_mansion(void *p)
+{ pharaoh_info_services_draw_mansion(services(p)); }
+static void services_mission_post(void *p)
+{ pharaoh_info_services_draw_mission_post(services(p)); }
+static void services_architect_post(void *p)
+{ pharaoh_info_services_draw_architect_post(services(p)); }
+static void services_palace(void *p)
+{ pharaoh_info_services_draw_palace(services(p)); }
+static void services_tax_collector(void *p)
+{ pharaoh_info_services_draw_tax_collector(services(p)); }
+static void services_native_hut(void *p)
+{ pharaoh_info_services_draw_native_hut(services(p)); }
+static void services_native_meeting(void *p)
+{ pharaoh_info_services_draw_native_meeting(services(p)); }
+static void services_native_crops(void *p)
+{ pharaoh_info_services_draw_native_crops(services(p)); }
+static void services_oracle(void *p)
+{ pharaoh_info_services_draw_oracle(services(p)); }
+static void services_firehouse(void *p)
+{ pharaoh_info_services_draw_firehouse(services(p)); }
+static void services_courthouse(void *p)
+{ pharaoh_info_services_draw_courthouse(services(p)); }
+static void services_physician(void *p)
+{ pharaoh_info_services_draw_physician(services(p)); }
+static void services_festival_square(void *p)
+{ pharaoh_info_services_draw_festival_square(services(p)); }
+static void services_zoo(void *p)
+{ pharaoh_info_services_draw_zoo(services(p)); }
+static void services_temple(void *p,int32_t god)
+{ pharaoh_info_services_draw_temple(services(p),god); }
+static void services_mansion_foreground(void *p)
+{ pharaoh_info_services_draw_mansion_foreground(services(p)); }
+
 static void (*const connected_catalog[237])(void *)={
+    [30]=services_bandstand,
+    [31]=services_booth,
+    [32]=services_senet_house,
+    [33]=services_pavilion,
+    [34]=services_conservatory,
+    [35]=services_dance_school,
+    [36]=services_juggler_school,
+    [46]=services_apothecary,
+    [47]=services_mortuary,
+    [49]=services_dentist,
+    [51]=services_scribal_school,
+    [53]=services_library,
+    [55]=services_police_station,
+    [77]=services_mansion,
+    [78]=services_mansion,
+    [79]=services_mansion,
+    [80]=services_mission_post,
+    [81]=services_architect_post,
+    [84]=services_palace,
+    [85]=services_palace,
+    [86]=services_tax_collector,
+    [87]=services_tax_collector,
+    [88]=services_native_hut,
+    [89]=services_native_meeting,
+    [93]=services_native_crops,
+    [98]=services_oracle,
+    [167]=services_firehouse,
+    [184]=services_courthouse,
+    [187]=services_palace,
+    [188]=services_palace,
+    [189]=services_palace,
+    [206]=services_physician,
+    [209]=services_festival_square,
+    [226]=services_zoo,
+
     [10]=house,[11]=house,[12]=house,[13]=house,[14]=house,[15]=house,[16]=house,
     [17]=house,[18]=house,[19]=house,[20]=house,[21]=house,[22]=house,[23]=house,
     [24]=house,[25]=house,[26]=house,[27]=house,[28]=house,[29]=house,
@@ -199,6 +304,7 @@ void pharaoh_building_info_draw_bindings_initialize(PharaohBuildingInfoDrawBindi
         o->legion=legion;o->transport=transport;o->warship=warship;o->legion_foreground=legion_foreground;
     }
     if(providers->industry)o->quarry=industry_quarry;
+    if(providers->services){o->temple=services_temple;o->mansion_foreground=services_mansion_foreground;}
     o->building_background=connected_catalog;
     if(providers->ui)providers->ui->operations=o;
 }
@@ -379,6 +485,18 @@ static enum PharaohBuildingInfoDrawSupport industry_ready(const PharaohBuildingI
     }
     return industry_employment_ready(b);
 }
+static enum PharaohBuildingInfoDrawSupport services_ready(const PharaohBuildingInfoDrawBindings *b)
+{
+    const PharaohInfoServicesLiveContext *s=b->providers.services;
+    const PharaohStorageInfoDrawContext *d=b->providers.storage;
+    if(!s||!s->drawing||!s->players||!s->current_player||!s->month||!s->space_suffix||!s->percent_suffix||
+       !s->square_buttons||!s->tax_arrows||!d->labor||!d->city_population||!d->models)
+        return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    if(s->drawing!=d||s->square_buttons!=b->providers.square_buttons)
+        return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+    return industry_employment_ready(b);
+}
+
 static enum PharaohBuildingInfoDrawSupport building_ready(const PharaohBuildingInfoDrawBindings *b,int32_t type)
 {
     const enum PharaohBuildingInfoDrawTypeSupport type_support=pharaoh_building_info_draw_type_support(type);
@@ -386,6 +504,10 @@ static enum PharaohBuildingInfoDrawSupport building_ready(const PharaohBuildingI
         return PHARAOH_INFO_DRAW_UNSUPPORTED_TYPE;
     if(type_support==PHARAOH_INFO_DRAW_NATIVE_DEFAULT)return PHARAOH_INFO_DRAW_READY;
     if(industry_type(type))return industry_ready(b,type);
+    if(services_type(type)) {
+        if(temple_type(type)&&!b->operations.temple)return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+        return services_ready(b);
+    }
     if(storage_type(type)) {
         const PharaohBuildingInfoLiveContext *u=b->providers.ui;
         const PharaohStorageInfoDrawContext *d=b->providers.storage;
@@ -462,7 +584,11 @@ enum PharaohBuildingInfoDrawSupport pharaoh_building_info_draw_foreground_suppor
     if(u->window->mode==1&&(!u->phrase_counts||!u->focus_secondary))return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
     if(u->window->mode!=2)return PHARAOH_INFO_DRAW_READY;
     const int32_t type=u->buildings[u->window->building_id].building_type;
-    if(type==187||type==188||type==189||type==86||type==87||type==77||type==78)
+    if(type==77||type==78)
+        return b->operations.mansion_foreground?services_ready(b):PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+    /* Actual504630 is square-button input as well as focus. Its40A260 tax
+     * action remains unbound; retain an explicit gap before any stores. */
+    if(type==187||type==188||type==189||type==86||type==87)
         return PHARAOH_INFO_DRAW_UNSUPPORTED_TYPE;
     if(storage_type(type)&&(!u->focus_primary||!u->display_mode||!u->resource_count||!u->food_count))
         return PHARAOH_INFO_DRAW_MISSING_CONTEXT;

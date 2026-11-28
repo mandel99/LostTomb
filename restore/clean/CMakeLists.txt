@@ -64,6 +64,8 @@ add_library(pharaoh_game STATIC
     game/ui/city_ingame_dispatch.c
     game/ui/building_info_live.c
     game/ui/building_info_program_data.c
+    game/ui/building_info_actions_live.c
+    game/ui/building_info_action_bindings.c
     game/ui/building_info_draw_live.c
     game/ui/building_info_draw_bindings.c
     game/ui/building_info_init_support.c
@@ -446,6 +448,7 @@ add_library(pharaoh_game STATIC
     game/ui/cheat_actions.c
     game/ui/economy_actions.c
     game/ui/building_info_industry_live.c
+    game/ui/building_info_services_live.c
     game/ui/label_text.c
     game/ui/main_menu.c
     game/ui/menu_button_frame.c

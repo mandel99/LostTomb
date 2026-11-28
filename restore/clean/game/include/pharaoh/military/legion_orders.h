@@ -94,6 +94,7 @@ typedef struct PharaohLegionOrderState {
     uint32_t button_parameter;
     uint32_t current_walker_id;
     uint32_t active_formation_id;
+    uint32_t secondary_button_parameter;
     uint8_t command_locked;
     uint8_t sidebar_update_code;
     uint8_t redraw_requested;
@@ -123,6 +124,25 @@ typedef struct PharaohLegionOrderBorrowedState {
 } PharaohLegionOrderBorrowedState;
 
 void pharaoh_legion_order_button_borrowed(const PharaohLegionOrderBorrowedState *state);
+
+/* Concrete field references for the one407110 algorithm. chosen_order and
+ * alternate_order belong to the selected formation; previous_button borrows
+ * the formation identified by the actual entry BCB9C0 DWORD. It is required
+ * only when secondary_button_parameter is1. No formation/walker pool copies. */
+typedef struct PharaohLegionToggleBorrowedState {
+    uint32_t previous_formation_id;
+    const volatile uint8_t *command_locked;
+    volatile uint8_t *alternate_order;
+    const volatile int16_t *chosen_order;
+    volatile uint32_t *button_parameter,*selected_formation_id;
+    const volatile uint32_t *secondary_button_parameter;
+    const PharaohLegionOrderBorrowedState *previous_button;
+} PharaohLegionToggleBorrowedState;
+
+void pharaoh_legion_order_toggle_borrowed(const PharaohLegionToggleBorrowedState *state);
+
+void pharaoh_legion_order_toggle(PharaohLegionOrderState *state);
+
 
 /* Shared real Native layout provider004B7B50; logical model API retained. */
 void pharaoh_formation_change_morale_native(PharaohNativeLegionRecord *formations,

@@ -88,11 +88,12 @@ void pharaoh_legion_order_button_borrowed(const PharaohLegionOrderBorrowedState 
     else *s->sidebar_update_code=0x1e;
     *s->redraw_requested=1;*f->task=UINT32_MAX;
 }
-void pharaoh_legion_order_button(PharaohLegionOrderState *state)
+static PharaohLegionOrderBorrowedState normalized_order_state(
+    PharaohLegionOrderState *state,uint32_t formation)
 {
-    PharaohLegionOrderFormation *const f=&state->formations[state->selected_formation_id];
+    PharaohLegionOrderFormation *const f=&state->formations[formation];
     const PharaohLegionOrderBorrowedState borrowed={
-        state->selected_formation_id,
+        formation,
         {&f->kind,f->walkers,&f->leader_id,&f->order,&f->morale,&f->previous_order,
             &f->resume_order,&f->field_126,&f->availability,&f->order_mode,&f->subtype,
             &f->disabled,&f->alternate_order,&f->task},
@@ -103,5 +104,55 @@ void pharaoh_legion_order_button(PharaohLegionOrderState *state)
             offsetof(PharaohLegionOrderWalker,target_x),offsetof(PharaohLegionOrderWalker,target_y)},
         &state->button_parameter,&state->current_walker_id,&state->active_formation_id,
         &state->command_locked,&state->sidebar_update_code,&state->redraw_requested};
+    return borrowed;
+}
+
+void pharaoh_legion_order_button(PharaohLegionOrderState *state)
+{
+    const PharaohLegionOrderBorrowedState borrowed=
+        normalized_order_state(state,state->selected_formation_id);
     pharaoh_legion_order_button_borrowed(&borrowed);
+}
+
+void pharaoh_legion_order_toggle_borrowed(const PharaohLegionToggleBorrowedState *state)
+{
+    if (*state->command_locked != 0u) return;
+    *state->alternate_order = (uint8_t)(1u - *state->alternate_order);
+    switch (*state->chosen_order) {
+        case 1:
+        case 2:
+            *state->button_parameter = 0;
+            break;
+        case 3:
+        case 4:
+            *state->button_parameter = 1;
+            break;
+        case 15:
+            *state->button_parameter = 2;
+            break;
+        default:
+            break;
+    }
+    if (*state->secondary_button_parameter == 1u) {
+        *state->selected_formation_id = state->previous_formation_id;
+        pharaoh_legion_order_button_borrowed(state->previous_button);
+    }
+}
+
+void pharaoh_legion_order_toggle(PharaohLegionOrderState *state)
+{
+    const uint32_t previous=state->active_formation_id,current=state->selected_formation_id;
+    const uint32_t chosen=previous==0u||previous!=current?current:previous;
+    if(state->command_locked!=0u)return;
+    PharaohLegionOrderFormation *const f=&state->formations[chosen];
+    PharaohLegionOrderBorrowedState previous_button;
+    const PharaohLegionOrderBorrowedState *previous_fields=NULL;
+    if(state->command_locked==0u&&state->secondary_button_parameter==1u) {
+        previous_button=normalized_order_state(state,previous);
+        previous_fields=&previous_button;
+    }
+    const PharaohLegionToggleBorrowedState borrowed={previous,&state->command_locked,
+        &f->alternate_order,&f->order,&state->button_parameter,&state->selected_formation_id,
+        &state->secondary_button_parameter,previous_fields};
+    pharaoh_legion_order_toggle_borrowed(&borrowed);
 }

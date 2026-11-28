@@ -2,7 +2,12 @@
 
 #include "pharaoh/ui/window_layout_key.h"
 
+#include <stddef.h>
 #include <stdint.h>
+
+_Static_assert(offsetof(PharaohUiLayoutEntry, lists) == 0 &&
+    offsetof(PharaohUiLayoutEntry, buttons_initialized) == 0x0c,
+    "native 004D6740 entry list/flag offsets");
 
 enum {
     PHARAOH_BUTTON_LAYOUT_CLIP_SIZE = 6,
@@ -52,14 +57,22 @@ int32_t pharaoh_ui_layout_buttons(PharaohButtonLayoutState *state,
 {
     const int32_t layout_key = pharaoh_ui_layout_window_key(
         state->window_key, state->window_seven_layout_base);
-    PharaohMenuLayoutSlot *const slot = &state->slots_by_key[layout_key];
-
     (void)button_count;
-    if (slot->initialized == 0) {
-        pharaoh_menu_buttons_initialize((PharaohGenericButton *)buttons,
-            slot->node);
-        slot->initialized = 1;
-        return 0;
+    if (state->actual_entries_by_key != 0) {
+        PharaohUiLayoutEntry *const entry =
+            &state->actual_entries_by_key[layout_key];
+        if (entry->buttons_initialized == 0) {
+            pharaoh_menu_buttons_initialize_actual(buttons, entry->lists[1]);
+            entry->buttons_initialized = 1;
+            return 0;
+        }
+    } else {
+        PharaohMenuLayoutSlot *const slot = &state->slots_by_key[layout_key];
+        if (slot->initialized == 0) {
+            pharaoh_menu_buttons_initialize(buttons, slot->node);
+            slot->initialized = 1;
+            return 0;
+        }
     }
     if (button_index == 0) {
         return 0;
@@ -88,7 +101,6 @@ int32_t pharaoh_ui_layout_buttons(PharaohButtonLayoutState *state,
         state->highlighted_button_index = button_index;
         state->highlight_auxiliary_state = 0;
 
-        operations->highlight_actor_panel(operations->context, highlight_x);
         operations->draw_highlight_rectangle(operations->context,
             PHARAOH_BUTTON_LAYOUT_STYLE, highlight_x, highlight_y,
             width, height, PHARAOH_BUTTON_LAYOUT_COLOR);

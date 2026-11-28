@@ -2,6 +2,9 @@
 #include "pharaoh/scenario/mission_scene.h"
 #include "pharaoh/ui/building_info_live.h"
 #include "pharaoh/ui/building_info_industry_live.h"
+#include "pharaoh/ui/building_info_program_data.h"
+#include "pharaoh/ui/building_info_services_live.h"
+#include "pharaoh/platform/windows_game_input.h"
 #include "pharaoh/platform/windows_startup_host.h"
 #include "pharaoh/ui/city_chrome_draw.h"
 #include "pharaoh/ui/button_border.h"
@@ -23,6 +26,25 @@ struct PharaohWindowsCityUi {
     PharaohBuildingInfoLiveContext info;
     PharaohBuildingInfoLiveInitContext info_initialize;
     PharaohInfoIndustryLiveContext industry;
+    PharaohInfoServicesLiveContext services;
+    PharaohSquareButtonRecord info_tax_arrows[2];
+    PharaohBuildingInfoProgramData info_program;
+    PharaohInfoProgramBorrowed info_borrowed;
+    PharaohStorageInfoDrawContext info_drawing;
+    PharaohInfoLayoutDrawContext info_layout;
+    PharaohPanelFrameNativeContext info_inner,info_outer;
+    PharaohBitmapWrappedNativeContext info_wrapped;
+    PharaohBitmapTextCatalogWrappedNativeContext info_catalog;
+    PharaohInfoContentDrawContext info_content;
+    PharaohInfoSquareDrawContext info_square_drawing;
+    PharaohSquareButtonInputState info_square_input;
+    PharaohImageButtonInputState info_image_input;
+    PharaohButtonHitState info_image_focus;
+    PharaohGenericButtonInputState info_generic_input;
+    PharaohGenericButtonFocusState info_generic_focus;
+    PharaohButtonLayoutState info_button_layout;
+    PharaohButtonLayoutOperations info_button_layout_operations;
+    int32_t info_focus_primary,info_focus_secondary,info_focus_building;
     PharaohFoodSupplyQueryContext info_food;
     PharaohMapHouseWaterContext info_water;
     PharaohUiLayoutIo io;
@@ -73,6 +95,11 @@ static struct PharaohWindowsCityUi *open_ui(PharaohWindowsStartupHost *h)
     if(u==NULL) return NULL;
     memcpy(u->game_menu,native_game_menu,sizeof(u->game_menu));
     memcpy(u->editor_menu,native_editor_menu,sizeof(u->editor_menu));
+    /* Pinned5C8D38 two mutable tax-arrow rows; tokens are never executed
+     * as process addresses.40A260 is an explicit pending input binding. */
+    const PharaohSquareButtonRecord tax[2]={{180,70,18,24,0x0040a260,0,0,0,4,1,0},
+        {204,70,16,24,0x0040a260,0,0,0,4,0,0}};
+    memcpy(u->info_tax_arrows,tax,sizeof(tax));
     u->menu_button=native_menu_button;
     memcpy(u->controls,native_sidebar_controls,sizeof(u->controls));
     memcpy(u->buildings,native_sidebar_buildings,sizeof(u->buildings));
@@ -92,7 +119,7 @@ static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
     const int32_t *const editor_active=&scene->view->event_54_suppress_flood;
     if(h->game_frame_locked==0 || h->native_force_refresh==NULL || *scene->overlay!=0 || *editor_active!=0) return NULL;
     struct PharaohWindowsCityUi *const u=open_ui(h);
-    if(u==NULL) return NULL;
+    if(u==NULL || scene->text_metrics==NULL) return NULL;
     for(int32_t i=0;i<8;++i) {
         const PharaohBitmapFont *const f=pharaoh_windows_startup_host_native_font(h,634+i);
         if(f==NULL || f->first_image==0) return NULL;
@@ -182,6 +209,90 @@ static void number_centered(void *p,int32_t value,int32_t prefix,int32_t x,
         (char)prefix," ",x,y,width,id,(uint16_t)color);
 }
 
+static void info_layout_panel(void *data,int32_t x,int32_t y,int32_t width,int32_t height)
+{
+    struct PharaohWindowsCityUi *const u=data;
+    pharaoh_panel_frame_draw_native(&u->info_outer,x,y,width,height);
+}
+static void info_layout_border(void *data,int32_t style,int32_t x,int32_t y,
+    int32_t width,int32_t height,uint32_t color)
+{
+    struct PharaohWindowsCityUi *const u=data;
+    pharaoh_button_border_draw(&u->highlight_drawing.border,style,x,y,width,height,color);
+}
+
+/* Genuine shared layout/text/image owners for4F9BE0/4F9F30 children.
+ * Program callbacks and full window dispatch are installed separately only
+ * after every reached provider has its real world/platform context. */
+static void bind_info_drawing(struct PharaohWindowsCityUi *u,
+    const PharaohWindowsCityUiScene *scene,const int32_t *groups)
+{
+    PharaohWindowsStartupHost *const h=u->host;
+    PharaohImageDrawContext *const im=u->images;
+    PharaohBuildingInfoLiveContext *const info=&u->info;
+    info->display_mode=&h->settings.display_mode;
+    info->text_width=&h->text_input.drawing.cursor_x;
+    info->button_parameter=&h->button_parameter;
+    info->focus_primary=&u->info_focus_primary;
+    info->focus_secondary=&u->info_focus_secondary;
+    info->focus_building=&u->info_focus_building;
+    /* Native tag baseF55BB4,stride8. These are loaded SG3 values. */
+    info->resource_images=&groups[713];info->panel_button_images=&groups[284];
+    info->font_black=&groups[635];info->font_green=&groups[636];
+    info->font_white=&groups[637];info->font_red=&groups[638];info->font_title=&groups[640];
+    if(h->game_input!=NULL) {
+        info->right_released=&h->game_input->mouse.right_button_released;
+        if(h->game_input->files_initialized)
+            info->sound_channels=(const int32_t *)(const void *)&h->game_input->building_sounds[0].roam;
+    }
+    info->sound_enabled=&h->settings.sound_effects_enabled;
+    info->sound_volume=&h->settings.sound_effects_volume;
+    u->info_inner=(PharaohPanelFrameNativeContext){im,&groups[402],&h->bitmap_current_glyph,&im->clip->draw_x,&im->clip->draw_y};
+    u->info_outer=(PharaohPanelFrameNativeContext){im,&groups[401],&h->bitmap_current_glyph,&im->clip->draw_x,&im->clip->draw_y};
+    u->info_layout=(PharaohInfoLayoutDrawContext){&u->layout_context,u->text.window_id,
+        &u->window_seven_key,&u->highlight,&u->highlight_drawing.border,&u->info_inner,&u->info_outer};
+    u->info_wrapped=(PharaohBitmapWrappedNativeContext){&u->fonts[1],&h->text_input.drawing,
+        scene->text_metrics,(uint8_t *)(void *)(h->bitmap_text_buffers+356),
+        &scene->text_metrics->maximum_line_width,(uint32_t)*info->font_black};
+    u->info_catalog=(PharaohBitmapTextCatalogWrappedNativeContext){&h->text_selection,
+        &u->info_wrapped,&h->text_selection.current};
+    const uint8_t *const player=(const uint8_t *)scene->saved->view.players+
+        (uint32_t)*scene->saved->view.current_player*0x49d8u;
+    u->info_drawing=(PharaohStorageInfoDrawContext){.ui=info,.layout=&u->info_layout,
+        .text=&u->text,.wrapped=&u->info_catalog,.font_black=&u->fonts[1],
+        .font_green=&u->fonts[2],.font_white=&u->fonts[3],.font_red=&u->fonts[4],.font_title=&u->fonts[6],
+        .models=u->info_initialize.models,.labor=(const PharaohLaborCategory *)(const void *)(player+0x2b2c),
+        .city_population=(const int32_t *)(const void *)(player+0x24),
+        .kingdom_supplies_grain=u->info_initialize.editor_active,.context_icons=&groups[403],
+        .number_suffix="",.employee_suffix=" "}; /* pinned7027D4/57C048 */
+    u->info_content=(PharaohInfoContentDrawContext){&u->info_drawing,
+        pharaoh_mission_scene_occupancy(scene->scene),NULL};
+    u->industry.content=&u->info_content;u->industry.percent_suffix="%";
+    u->info_square_drawing=(PharaohInfoSquareDrawContext){im,&h->bitmap_current_glyph,
+        &im->clip->draw_x,&im->clip->draw_y,&u->ui_redraw};
+    u->services=(PharaohInfoServicesLiveContext){.drawing=&u->info_drawing,
+        .players=(const PharaohInfoServicesPlayerRecord *)(const void *)scene->saved->view.players,
+        .current_player=(const uint32_t *)(const void *)scene->saved->view.current_player,
+        .month=scene->saved->destinations[36],.square_buttons=&u->info_square_drawing,
+        .tax_arrows=u->info_tax_arrows,.space_suffix=" ",.percent_suffix="%"};
+    u->info_button_layout.actual_entries_by_key=u->layout.entries;
+    u->info_button_layout.window_key=*info->current_window;
+    u->info_button_layout.window_seven_layout_base=u->window_seven_key;
+    u->info_button_layout.highlight_mode=u->highlight.edit_mode;
+    u->info_button_layout_operations=(PharaohButtonLayoutOperations){u,info_layout_panel,info_layout_border};
+    u->info_borrowed=(PharaohInfoProgramBorrowed){.display_mode=info->display_mode,
+        .focus_primary=info->focus_primary,.focus_secondary=info->focus_secondary,.focus_building=info->focus_building,
+        .button_parameter=info->button_parameter,.button_secondary_parameter=&h->button_secondary_parameter,
+        .text_width=info->text_width,.resource_images=info->resource_images,.panel_button_images=info->panel_button_images,
+        .font_black=info->font_black,.font_green=info->font_green,.font_white=info->font_white,
+        .font_red=info->font_red,.font_title=info->font_title,.tutorial_flags=info->tutorial_flags,
+        .phrase_counts=info->phrase_counts,.sound_channels=info->sound_channels,
+        .sound_volume=info->sound_volume,.sound_enabled=info->sound_enabled,.square_input=&u->info_square_input,
+        .image_input=&u->info_image_input,.image_focus=&u->info_image_focus,.generic_input=&u->info_generic_input,
+        .generic_focus=&u->info_generic_focus,.button_layout=&u->info_button_layout,
+        .button_layout_operations=&u->info_button_layout_operations};
+}
+
 static void primitive_pixel(void *data,int32_t x,int32_t y,uint16_t color)
 {pharaoh_graphics_set_pixel_raw(data,x,y,color);}
 
@@ -197,6 +308,7 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     u->info.window=&u->info_state;
     pharaoh_mission_scene_bind_building_info_world(scene->scene,&u->info,&u->info_initialize);
     pharaoh_mission_scene_bind_info_industry_world(scene->scene,&u->industry,&u->info_food,&u->info_water);
+    bind_info_drawing(u,scene,groups);
     pharaoh_sidebar_init_positions((uint32_t)h->graphics.render_width,&u->sidebar_positions);
     /* Build-menu views start at enabled(+18h), not at the image record.
        Read each live value; retain the renderer's own other mutable fields. */

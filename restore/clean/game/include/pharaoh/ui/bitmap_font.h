@@ -125,8 +125,8 @@ void pharaoh_bitmap_text_draw_catalog_wrapped_native(
     const PharaohBitmapTextCatalogWrappedNativeContext *context,
     int32_t group, int32_t entry, int32_t x, int32_t y, int32_t width,
     uint16_t color);
-/* Complete native 0x004CD120 and 0x004CD010. The shared glyph pointer in
-   draw_state must point to word_metrics->current_glyph. */
+/* Complete native 0x004CD120 and 0x004CD010. The wrapper bridges the actual
+   shared glyph around measuring/drawing; E20778 is published to word metrics. */
 int32_t pharaoh_bitmap_wrapped_word_width_native(PharaohRichTextState *metrics,
     const uint8_t *text, uint32_t font_id);
 void pharaoh_bitmap_text_draw_wrapped_native(
