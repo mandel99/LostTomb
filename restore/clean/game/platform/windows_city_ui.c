@@ -12,6 +12,8 @@
 #include "pharaoh/ui/city_chrome_draw.h"
 #include "pharaoh/ui/button_border.h"
 #include "pharaoh/ui/city_input_actions.h"
+#include "pharaoh/ui/city_input_program_data.h"
+#include "pharaoh/ui/city_input_action_bindings.h"
 #include "pharaoh/ui/window_state_actions.h"
 #include "pharaoh/ui/sidebar_content.h"
 #include "pharaoh/ui/sidebar_layout.h"
@@ -71,9 +73,9 @@ struct PharaohWindowsCityUi {
     PharaohCityChromeDrawContext chrome;
     PharaohCityTopbar topbar;
     PharaohMenuBarFocusRecord game_menu[4],editor_menu[4];
-    PharaohImageButtonRecord menu_button;
-    PharaohImageButtonRecord controls[2],buildings[16],extra_buttons[2];
-    PharaohImageButtonRecord collapsed_control[1],collapsed_buildings[12];
+    PharaohCityInputProgramData input_program;
+    PharaohCityIngameButtonTables input_tables;
+    PharaohCityInputActionBindings input_actions;
     PharaohSidebarClipPositions sidebar_positions;
     PharaohSidebarContent content;
     PharaohSidebarBackgroundState sidebar;
@@ -112,12 +114,10 @@ static struct PharaohWindowsCityUi *open_ui(PharaohWindowsStartupHost *h)
     const PharaohSquareButtonRecord tax[2]={{180,70,18,24,0x0040a260,0,0,0,4,1,0},
         {204,70,16,24,0x0040a260,0,0,0,4,0,0}};
     memcpy(u->info_tax_arrows,tax,sizeof(tax));
-    u->menu_button=native_menu_button;
-    memcpy(u->controls,native_sidebar_controls,sizeof(u->controls));
-    memcpy(u->buildings,native_sidebar_buildings,sizeof(u->buildings));
-    memcpy(u->extra_buttons,native_sidebar_extra,sizeof(u->extra_buttons));
-    memcpy(u->collapsed_control,native_sidebar_collapsed_control,sizeof(u->collapsed_control));
-    memcpy(u->collapsed_buildings,native_sidebar_collapsed_buildings,sizeof(u->collapsed_buildings));
+    if(pharaoh_city_input_program_data_initialize_once(&u->input_program,
+        pharaoh_city_input_action_bindings_resolve_compiled,&u->input_actions)!=
+        PHARAOH_CITY_INPUT_PROGRAM_READY){free(u);return NULL;}
+    pharaoh_city_input_program_data_bind_tables(&u->input_program,&u->input_tables);
     pharaoh_ui_layout_bind_stdio(&u->io);
     h->city_ui=u;
     return u;
@@ -156,7 +156,7 @@ static struct PharaohWindowsCityUi *bind_frame(PharaohWindowsStartupHost *h,
         .sprite_group_bases=groups,.game_menu=u->game_menu,.editor_menu=u->editor_menu,
         .selected_menu=&u->selected_menu,.menu_flag_de0=&u->menu_flag_de0,
         .menu_flag_de1=&u->menu_flag_de1,.force_refresh=h->native_force_refresh,
-        .menu_button=&u->menu_button,.draw_x=&images->clip->draw_x,
+        .menu_button=u->input_program.compass,.draw_x=&images->clip->draw_x,
         .draw_y=&images->clip->draw_y,.active_image=&h->bitmap_current_glyph};
     u->topbar=(PharaohCityTopbar){
         .window_id=window,.editor_active=editor_active,.screen_width=&h->graphics.render_width,
@@ -367,8 +367,8 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
     /* Build-menu views start at enabled(+18h), not at the image record.
        Read each live value; retain the renderer's own other mutable fields. */
     for(int32_t i=0;i<12;++i) {
-        u->buildings[i].enabled=scene->build_menu->sidebar_buttons[0][i].enabled;
-        u->collapsed_buildings[i].enabled=scene->build_menu->sidebar_buttons[1][i].enabled;
+        u->input_program.expanded_build[i].enabled=scene->build_menu->sidebar_buttons[0][i].enabled;
+        u->input_program.collapsed_build[i].enabled=scene->build_menu->sidebar_buttons[1][i].enabled;
     }
     u->graphics=(PharaohGraphicsPrimitives){.display_width=h->graphics.render_width,
         .screen_height=h->graphics.render_height,.rgb565_pixels=(uint16_t *)(void *)images->surface_pixels,
@@ -387,16 +387,18 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
         .category=scene->build_menu->selected_category,.category_image_base=&groups[386],
         .caption=&u->caption,.body_font=u->topbar.body_font,.origin_x=u->topbar.origin_x,.origin_y=u->topbar.origin_y,
         .previous_caption=&u->previous_caption,.ui_redraw=&u->ui_redraw,
-        .command_a=&u->command_a,.command_b=&u->command_b,.command_button=&u->buildings[12],
-        .expanded_controls=u->controls,.expanded_buildings=u->buildings,.expanded_extra=u->extra_buttons,
-        .collapsed_control=u->collapsed_control,.collapsed_buildings=u->collapsed_buildings,
+        .command_a=&u->command_a,.command_b=&u->command_b,.command_button=&u->input_program.expanded_build[12],
+        .expanded_controls=u->input_program.expanded_extra,.expanded_buildings=u->input_program.expanded_build,
+        .expanded_extra=u->input_program.expanded_top,.collapsed_control=u->input_program.collapsed_expand,
+        .collapsed_buildings=u->input_program.collapsed_build,
         .editor_active=editor,.editor_dirty=&u->editor_dirty,.map_dirty=&h->city_scroll_requested,
         .minimap_dirty=&u->minimap_dirty,.user_data=u,.draw_buttons=image_buttons,.draw_sprite=sprite,
         .draw_centered_language=centered,.draw_line=line,.window_id=window,.message_count=scene->message_count,
         .problem_count=scene->problem_count,.scenario_mode=&scene->build_menu->settings->is_custom_scenario,
         .small_font=(const int32_t *)(const void *)&h->sprite_tags[634].image_index,
-        .previous_message_count=&u->previous_message_count,.message_button=&u->buildings[13],
-        .problem_button=&u->buildings[14],.scenario_button=&u->buildings[15],.draw_number_centered=number_centered};
+        .previous_message_count=&u->previous_message_count,.message_button=&u->input_program.expanded_build[13],
+        .problem_button=&u->input_program.expanded_build[14],.scenario_button=&u->input_program.expanded_build[15],
+        .draw_number_centered=number_centered};
     const PharaohMinimap previous_minimap=u->minimap;
     u->minimap=(PharaohMinimap){.view=scene->view->state,.projection=scene->view->projection,.clip=images->clip,
         .terrain=saved->view.terrain,.buildings=saved->view.building_ids,.walkers=saved->view.walker_ids,
