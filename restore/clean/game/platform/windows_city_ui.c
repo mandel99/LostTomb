@@ -3,9 +3,12 @@
 #include "pharaoh/ui/building_info_live.h"
 #include "pharaoh/ui/building_info_industry_live.h"
 #include "pharaoh/ui/building_info_program_data.h"
+#include "pharaoh/ui/building_info_action_bindings.h"
+#include "pharaoh/ui/building_info_draw_bindings.h"
 #include "pharaoh/ui/building_info_services_live.h"
 #include "pharaoh/platform/windows_game_input.h"
 #include "pharaoh/platform/windows_startup_host.h"
+#include <mmsystem.h>
 #include "pharaoh/ui/city_chrome_draw.h"
 #include "pharaoh/ui/button_border.h"
 #include "pharaoh/ui/city_input_actions.h"
@@ -29,6 +32,15 @@ struct PharaohWindowsCityUi {
     PharaohInfoServicesLiveContext services;
     PharaohSquareButtonRecord info_tax_arrows[2];
     PharaohBuildingInfoProgramData info_program;
+    PharaohBuildingInfoActionBindings info_actions;
+    PharaohBuildingInfoActionsLiveContext info_action_world;
+    PharaohUnitCommandUiContext info_units;
+    PharaohNativeLegionOrderContext info_orders;
+    PharaohBuildingInfoInitBindings info_init_bindings;
+    PharaohBuildingInfoDrawBindings info_draw_bindings;
+    PharaohInfoPreviewContext info_previews;
+    PharaohInfoWalkerContentContext info_walkers;
+    PharaohInfoTerrainContentContext info_terrain;
     PharaohInfoProgramBorrowed info_borrowed;
     PharaohStorageInfoDrawContext info_drawing;
     PharaohInfoLayoutDrawContext info_layout;
@@ -209,6 +221,12 @@ static void number_centered(void *p,int32_t value,int32_t prefix,int32_t x,
         (char)prefix," ",x,y,width,id,(uint16_t)color);
 }
 
+static uint32_t info_clock(void *data)
+{(void)data;return timeGetTime();}
+/* Byte window actually indexed at5C9268+repeat8..47, not a guessed DWORD
+ * global type. Leading8 bytes are retained from pinned Ghidra, not used. */
+static const uint8_t info_repeat_schedule[48]={144,145,92,0,6,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1,1,0};
+
 static void info_layout_panel(void *data,int32_t x,int32_t y,int32_t width,int32_t height)
 {
     struct PharaohWindowsCityUi *const u=data;
@@ -221,7 +239,7 @@ static void info_layout_border(void *data,int32_t style,int32_t x,int32_t y,
     pharaoh_button_border_draw(&u->highlight_drawing.border,style,x,y,width,height,color);
 }
 
-/* Genuine shared layout/text/image owners for4F9BE0/4F9F30 children.
+/* Genuine shared layout/text/image owners for4F8E60/4F94A0 children.
  * Program callbacks and full window dispatch are installed separately only
  * after every reached provider has its real world/platform context. */
 static void bind_info_drawing(struct PharaohWindowsCityUi *u,
@@ -251,6 +269,12 @@ static void bind_info_drawing(struct PharaohWindowsCityUi *u,
     u->info_outer=(PharaohPanelFrameNativeContext){im,&groups[401],&h->bitmap_current_glyph,&im->clip->draw_x,&im->clip->draw_y};
     u->info_layout=(PharaohInfoLayoutDrawContext){&u->layout_context,u->text.window_id,
         &u->window_seven_key,&u->highlight,&u->highlight_drawing.border,&u->info_inner,&u->info_outer};
+    /* These are actual SG3 globals, also required when a diagnostic or a
+     * previous zero-line briefing did not invoke rich-text drawing. */
+    scene->text_metrics->images=h->sprite_images;
+    scene->text_metrics->image_count=h->loaded_libraries->next_image;
+    scene->text_metrics->large_font=(uint32_t)groups[634]; /* nativeF56F84 */
+    scene->text_metrics->borrowed_line_buffer=(uint8_t *)(void *)(h->bitmap_text_buffers+356);
     u->info_wrapped=(PharaohBitmapWrappedNativeContext){&u->fonts[1],&h->text_input.drawing,
         scene->text_metrics,(uint8_t *)(void *)(h->bitmap_text_buffers+356),
         &scene->text_metrics->maximum_line_width,(uint32_t)*info->font_black};
@@ -265,8 +289,11 @@ static void bind_info_drawing(struct PharaohWindowsCityUi *u,
         .city_population=(const int32_t *)(const void *)(player+0x24),
         .kingdom_supplies_grain=u->info_initialize.editor_active,.context_icons=&groups[403],
         .number_suffix="",.employee_suffix=" "}; /* pinned7027D4/57C048 */
+    u->info_previews.ui=info;
     u->info_content=(PharaohInfoContentDrawContext){&u->info_drawing,
-        pharaoh_mission_scene_occupancy(scene->scene),NULL};
+        pharaoh_mission_scene_occupancy(scene->scene),&u->info_previews};
+    u->info_walkers=(PharaohInfoWalkerContentContext){.content=&u->info_content,.image_buttons=&u->button_draw};
+    u->info_terrain=(PharaohInfoTerrainContentContext){&u->info_walkers,NULL};
     u->industry.content=&u->info_content;u->industry.percent_suffix="%";
     u->info_square_drawing=(PharaohInfoSquareDrawContext){im,&h->bitmap_current_glyph,
         &im->clip->draw_x,&im->clip->draw_y,&u->ui_redraw};
@@ -291,6 +318,33 @@ static void bind_info_drawing(struct PharaohWindowsCityUi *u,
         .image_input=&u->info_image_input,.image_focus=&u->info_image_focus,.generic_input=&u->info_generic_input,
         .generic_focus=&u->info_generic_focus,.button_layout=&u->info_button_layout,
         .button_layout_operations=&u->info_button_layout_operations};
+}
+
+static int32_t bind_info_inputs(struct PharaohWindowsCityUi *u,const PharaohWindowsCityUiScene *scene)
+{
+    PharaohBuildingInfoLiveContext *const i=&u->info;
+    PharaohWindowsStartupHost *const h=u->host;
+    if(h->game_input==NULL)return 0;
+    if(u->info_square_input.clock==NULL)u->info_square_input.clock=info_clock;
+    u->info_square_input.repeat_schedule=info_repeat_schedule;
+    u->info_orders.redraw_units=i->current_window;u->info_orders.redraw_city=i->redraw_requested;
+    u->info_units.orders=&u->info_orders;u->info_units.orders_open=(uint32_t *)(void *)&i->window->orders_shown;
+    u->info_units.panel_mode=(const uint32_t *)(const void *)&i->window->mode;
+    u->info_action_world=(PharaohBuildingInfoActionsLiveContext){.window=i->window,.walkers=i->walkers,
+        .players=(const PharaohBuildingInfoActionPlayer *)(const void *)scene->saved->view.players,
+        .current_player=(const uint32_t *)(const void *)scene->saved->view.current_player,
+        .button_parameter=(const uint32_t *)(const void *)i->button_parameter,
+        .current_window=i->current_window,.redraw=i->redraw_requested,
+        .phrase_bank=pharaoh_mission_scene_info_phrase_bank(scene->scene)};
+    const PharaohBuildingInfoActionProviders p={.ui=i,.live=&u->info_borrowed,
+        .actions=&u->info_action_world,.units=&u->info_units,
+        .current_player=u->info_action_world.current_player,
+        .selected_buildings=(PharaohInfoSelectedBuildingPlayer *)(void *)
+            ((uint8_t *)scene->saved->view.players+0x4674)};
+    if(pharaoh_building_info_action_bindings_bind(&u->info_actions,&p).support!=PHARAOH_INFO_ACTION_READY)return 0;
+    if(u->info_program.initialized==0&&pharaoh_building_info_program_data_initialize_once(&u->info_program,
+        pharaoh_building_info_action_bindings_resolve_compiled,NULL).support!=PHARAOH_INFO_PROGRAM_READY)return 0;
+    return pharaoh_building_info_program_data_bind(&u->info_program,i,&u->info_borrowed).support==PHARAOH_INFO_PROGRAM_READY;
 }
 
 static void primitive_pixel(void *data,int32_t x,int32_t y,uint16_t color)
@@ -326,6 +380,7 @@ int32_t pharaoh_windows_city_ui_begin_frame(PharaohWindowsStartupHost *h,
         .active_sprite_image=(int32_t *)(void *)&h->bitmap_current_glyph,
         .ui_redraw=&u->ui_redraw,.window_redraw_requested=&h->graphics.redraw_requested,
         .force_refresh=h->native_force_refresh,.draw_sprite=sprite,.user_data=u};
+    if(!bind_info_inputs(u,scene))return 0;
     u->content=(PharaohSidebarContent){
         .collapsed=&u->collapsed,.sidebar_x=(const int32_t *)(const void *)&u->sidebar_positions.selector_other_right_edge,
         .collapsed_x=(const int32_t *)(const void *)&u->sidebar_positions.selector_one_right_edge,
@@ -400,6 +455,66 @@ void pharaoh_windows_city_ui_draw_foreground(PharaohWindowsStartupHost *h)
     u->ui_redraw=0; /* native004D75D0 finish, after the selected foreground children */
     pharaoh_city_draw_topbar(&u->topbar,0);
     pharaoh_sidebar_draw_message_count(&u->content,1);
+}
+
+int32_t pharaoh_windows_city_ui_open_empty_terrain(PharaohWindowsStartupHost *h,
+    PharaohMissionScene *scene,const int32_t *tile_x,const int32_t *tile_y)
+{
+    struct PharaohWindowsCityUi *const u=h->city_ui;
+    if(!u||!h->game_input)return -1;
+    u->info_initialize.cursor_tile_x=tile_x;u->info_initialize.cursor_tile_y=tile_y;
+    u->info_initialize.display_height=&h->graphics.screen_height; /*actualE38DAC, distinct from E38D98*/
+    u->info_initialize.mouse_y=&h->game_input->mouse.logical_y;
+    u->info_initialize.panel_position_mode=&u->collapsed;
+    PharaohBuildingInfoInitProviders p={.initializer=&u->info_initialize};
+    pharaoh_mission_scene_bind_info_init_resources(scene,&p);
+    pharaoh_building_info_init_bindings_bind(&u->info_init_bindings,&p);
+    PharaohMapSurfaceContext *const surface=pharaoh_mission_scene_surface(scene);
+    const PharaohBuildingInfoEmptyTerrainInitDomain d={surface->map,surface->geometry};
+    const PharaohBuildingInfoInitResult r=pharaoh_building_info_init_bindings_initialize_empty_terrain(&u->info_init_bindings,&d);
+    return r.support==PHARAOH_INFO_INIT_READY?r.opened:-1;
+}
+
+int32_t pharaoh_windows_city_ui_empty_info_input(PharaohWindowsStartupHost *h)
+{
+    struct PharaohWindowsCityUi *const u=h->city_ui;
+    if(!u||!h->game_input||u->info_state.mode!=1||u->info_state.walker_count!=0)return 0;
+    const PharaohMouseUpdateState *const m=&h->game_input->mouse;
+    PharaohGenericButtonInputState *const g=&u->info_generic_input;
+    g->cursor_x=m->logical_x;g->cursor_y=m->logical_y;
+    g->left_down=m->left_button_down;g->left_pressed=m->left_button_pressed;g->left_released=m->left_button_released;
+    g->right_down=m->right_button_down;g->right_pressed=m->right_button_pressed;g->right_released=m->right_button_released;
+    PharaohImageButtonInputState *const i=&u->info_image_input;
+    i->cursor_x=m->logical_x;i->cursor_y=m->logical_y;i->left_pressed=m->left_button_pressed;
+    i->right_pressed=m->right_button_pressed;i->left_down=m->left_button_down;
+    PharaohSquareButtonInputState *const s=&u->info_square_input;
+    s->cursor_x=m->logical_x;s->cursor_y=m->logical_y;s->current_window_id=*u->info.current_window;
+    s->left_went_down=m->left_button_pressed;s->left_clicked=m->left_button_released;s->left_down=m->left_button_down;
+    i->redraw_requested=0;
+    u->info_image_focus.focused_id=u->info_focus_building;
+    u->info_button_layout.window_key=*u->info.current_window;
+    pharaoh_building_info_live_handle_input(&u->info);
+    if(i->redraw_requested)*u->info.redraw_requested=1;
+    u->info_focus_building=u->info_image_focus.focused_id;
+    if(u->info_actions.last_result.support!=PHARAOH_INFO_ACTION_READY) {
+        OutputDebugStringA("LostTomb: information action has an unbound real provider\n");
+        return 0;
+    }
+    return 1;
+}
+
+int32_t pharaoh_windows_city_ui_draw_empty_info(PharaohWindowsStartupHost *h,
+    PharaohCityRenderContext *city)
+{
+    struct PharaohWindowsCityUi *const u=h->city_ui;
+    if(!u||u->info_state.mode!=1||u->info_state.walker_count!=0)return 0;
+    const PharaohBuildingInfoDrawProviders p={.ui=&u->info,.storage=&u->info_drawing,
+        .content=&u->info_content,.walkers=&u->info_walkers,.terrain=&u->info_terrain,
+        .square_buttons=&u->info_square_drawing,.image_buttons=&u->button_draw,.city=city,
+        .industry=&u->industry,.services=&u->services};
+    pharaoh_building_info_draw_bindings_initialize(&u->info_draw_bindings,&p);
+    if(pharaoh_building_info_draw_bindings_background(&u->info_draw_bindings).support!=PHARAOH_INFO_DRAW_READY)return 0;
+    return pharaoh_building_info_draw_bindings_foreground(&u->info_draw_bindings).support==PHARAOH_INFO_DRAW_READY;
 }
 
 void pharaoh_windows_city_ui_release(PharaohWindowsStartupHost *h)

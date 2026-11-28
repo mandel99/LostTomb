@@ -964,7 +964,7 @@ void pharaoh_windows_startup_dispatch_frame(void *user_data)
         dispatch->input.mouse_x=dispatch->game_input.mouse.logical_x;
         dispatch->input.mouse_y=dispatch->game_input.mouse.logical_y;
     }
-    if (dispatch->refresh.current_window_id == 1 &&
+    if ((dispatch->refresh.current_window_id == 1 || dispatch->refresh.current_window_id == 9) &&
         dispatch->mission_runtime != NULL) {
         if(pharaoh_windows_mission_runtime_game_frame(dispatch->mission_runtime,
             dispatch->input.mouse_x,dispatch->input.mouse_y,

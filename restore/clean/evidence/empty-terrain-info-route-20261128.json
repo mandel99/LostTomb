@@ -1,0 +1,193 @@
+{
+  "original_sha256": "fde7cd6542ab00e3952d0366c0c5c52dde59a70160280f172e24d41406d33c8d",
+  "new_native_credit": 0,
+  "scoped_domain": [
+    "editor_active actual signedDWORD !=1, pending_warning_count actual signedDWORD <=0. Native editor early-return and warning/reset arms are explicitly outside this scope; no warning/noop provider is fabricated.",
+    "Actual cursor pointers are initializer.cursor_tile_x/y. map.origin equals *initializer.grid_start; map.terrain aliases initializer.terrain; map.width/height equal geometry.width/height.",
+    "Actual map width/height are1..228. Geometry min/max/center values are the actual physical228-grid diamond: min>=0, max<228, min<=max, centers0..227. Cursor localx/y lie in map rectangle.",
+    "Pure int64 grid=origin+x+228*y must be0..51983; only then query existing pure46F930 using physical grid%228/grid/228. No signed32 wrap occurs in accepted arithmetic. The query must accept the actual diamond.",
+    "Actual building_ids[grid] signedWORD is0; actual building record0 type signedWORD is0. Only the type sentinel is required; no record is zeroed or substituted.",
+    "For all9 actual Native neighbour offsets5F76C4..5F76E8, grid+offset lies in allocated0..51983 and actual signedWORD walker headB350DC is<=0. Positive heads are refused, including positive heads whose walkers might otherwise be unselectable; this is an explicit checked subset.",
+    "Genuine resources5596D0 provider is fully initialized. Its36-DWORD resources/foods and count outputs alias ui.resources/resource_count/foods/food_count exactly. Actual resource/profile known-flag writes do not alias cursor, arrays/heads, record0, geometry, warning/editor or info control fields.",
+    "Actual arrays have original51984-cell/sentinel backing; actual9-entry offset table exists. Game-thread guarded fields remain stable over synchronous preflight+Native call. Resource producer writes only its documented output/profile fields."
+  ],
+  "native_child_proof": [
+    {
+      "entry": "0x004F7E50",
+      "instructions": 688,
+      "fact": "Full existing initializer is called once; no dispatcher/terrain/military/position algorithm is copied."
+    },
+    {
+      "callsite": "0x004F7F9D",
+      "child": "0x005596D0",
+      "instructions": 106,
+      "fact": "Sole reached InitOperations child. Adapter identity is checked against genuine rebuild_resources; data/context alias requirements are shared with old strict support."
+    },
+    {
+      "callsite": "0x004F87DC",
+      "child": "0x004F8960",
+      "instructions": 417,
+      "fact": "Existing whole height-class C runs in mode1. It uses current Native terrain kind and no farm/building child; position_window remains original."
+    },
+    {
+      "guard_child": "0x0046F930",
+      "instructions": 40,
+      "fact": "Existing pure canonical geometry predicate reused only for checked input domain. Not an added Native gameplay-function credit."
+    },
+    {
+      "excluded": "0x004E2AB0",
+      "fact": "pendingwarnings>0 refused before Native call."
+    },
+    {
+      "excluded": "0x004F5D90 / 0x004F6000 / all11 progress providers",
+      "fact": "GridID0 and real record0 type0 exclude all special/progress types."
+    },
+    {
+      "excluded": "building_details percentage/linked/house/legion-query/all4road children",
+      "fact": "Native4F833B JZ4F864B on zero buildingID excludes mode2/store4F8345. Every terrain classifier return forID0 is a terrain kind or retain-old-kind, never building arm-2."
+    },
+    {
+      "excluded": "0x0053C100 and military selection reads",
+      "fact": "4F8655..866F clears count/index/seven slots; nine heads<=0 take4F8689 JLE. No walker traversal or selection_voice. Military scan starts those cleared slots and skips every record read."
+    },
+    {
+      "excluded": "0x00515130 and #DE endpoint",
+      "fact": "Mode remains1, so final mode2 advisor call4F88EA and all percentage/phrase-fault parents are not reached."
+    }
+  ],
+  "native_query_checks": "1251 cached instructions across4 scoped initializer bodies,0 byte mismatches in handoff; 174 live Ghidra430790 instructions; actual4D8A44..4D8AEB caller path saved.",
+  "contracts": [
+    "No inactive callback replacements: existing25 real initializer adapters remain; scoped preflight requires only the one reached5596D0 provider. Whole4F7E50 executes once, preserving classifier and position/military code.",
+    "State1 samples actual last-rendered camera70E474/478 in a small scalar descriptor, distinct from scrolling camera70E3D4/3D8. Pixel-hit owner70E3F8..408 is distinct from scan.tile70E488.",
+    "Actual selected BCA2C4 aliases scene.surface.current_tile; cursor BCA2C8/CC differs from locked anchors BCA304/308.",
+    "Native left-press/down/release priority precedes right-release. Real405BA0 is called even attool0, preserving drag/rect/window/redraw stores; only unchanged return0 proceeds to initializer.",
+    "Genuine Native BSS0 ferry BCA310/BC9800 and warningE950D8 owners; no warning/reset substitute. Positive warnings or neighbour heads fail scoped readiness.",
+    "NativeE38DAC screen_height is used for panel positioning, distinct from E38D98 render_height.",
+    "Code relocation resolves23 actual compiled C action adapters once; runtime availability remains checked by every invoked adapter. No Original/IL execution or empty success callback.",
+    "4071C0 at orders_open!=0 or panel_mode!=4 requires only its actual reached fields; original whole C close algorithm is unchanged.",
+    "All147 mutable program records retain lifetime/state. Actual5C9268 byte window is recovered from Ghidra; prefix layout/type not asserted, only Native repeat indices8..47 observed. Real timeGetTime clock forwarded.",
+    "Native4FA3C0 at zero walkers returns before capture fields; 4FA780 still draws inner/no-walkers text and sets selection1. Full genuine terrain draw code runs.",
+    "SG3 image metadata/count and font634 comparator are bound directly, independent of prior briefing rich-text drawing. Glyph/cursor/line-buffer aliases remain shared.",
+    "Image-input redraw and focused7056B8 result are published to actual host/UI owners.",
+    "Minimap retains Native left-pressedE38E03, not heldE38E00; misleading normalized name left_down was not used to change behavior."
+  ],
+  "source_binding": [
+    {
+      "source": "game/ui/building_info_action_bindings.c",
+      "name": "pharaoh_building_info_action_bindings_resolve_compiled",
+      "body_sha256": "9016b949174cc39612f152268a86e780e5641f2df96393124506844263fdaba5"
+    },
+    {
+      "source": "game/ui/building_info_action_bindings.c",
+      "name": "units_support",
+      "body_sha256": "4602447f9b284f1f66f67d60098ad40cc1614227d7d19a4f7ecd7571978b64f8"
+    },
+    {
+      "source": "game/ui/building_info_init_bindings.c",
+      "name": "pharaoh_building_info_init_bindings_initialize_empty_terrain",
+      "body_sha256": "dd0980c457c49e562aac299ef59c24d3da0a702570efb0eebaaf9a7e6e43e612"
+    },
+    {
+      "source": "game/ui/building_info_init_bindings.c",
+      "name": "pharaoh_building_info_init_bindings_empty_terrain_support",
+      "body_sha256": "f983e2f92fbae7f168c02f80949e491efec259b6f4e2eb91a0d11d5fea2b267b"
+    },
+    {
+      "source": "game/platform/windows_city_ui.c",
+      "name": "bind_info_inputs",
+      "body_sha256": "8c39c105f8de059e9381ce22f696e4c797e0a68f4ff8a484258a77dd32cd640f"
+    },
+    {
+      "source": "game/platform/windows_city_ui.c",
+      "name": "bind_info_drawing",
+      "body_sha256": "4bf824cba04a58f6a48b10dd17f8f0c0f4fe54cd630d759e7b8c3b12a5a9f0c7"
+    },
+    {
+      "source": "game/platform/windows_city_ui.c",
+      "name": "pharaoh_windows_city_ui_open_empty_terrain",
+      "body_sha256": "624c36adccc4aaaf2d8fb8c4236c89180356f724e8960d2a0e2aea81b2ffdb95"
+    },
+    {
+      "source": "game/platform/windows_city_ui.c",
+      "name": "pharaoh_windows_city_ui_empty_info_input",
+      "body_sha256": "cf5ebfa37b684bc6964882bb721191212fc4277412fe0cbbdb05d80a2ada5773"
+    },
+    {
+      "source": "game/platform/windows_city_ui.c",
+      "name": "pharaoh_windows_city_ui_draw_empty_info",
+      "body_sha256": "a8e1dfe3c76b14a4ee6a8cd5227e65edc196ea68634dfaa0da091289cad90eff"
+    },
+    {
+      "source": "game/platform/windows_mission_runtime.c",
+      "name": "pharaoh_windows_mission_runtime_game_frame",
+      "body_sha256": "259f63e7682bbf89f3aadd04520d2ced6e895235e23007b27105da386d7fc047"
+    },
+    {
+      "source": "game/scenario/mission_scene.c",
+      "name": "pharaoh_mission_scene_bind_info_init_resources",
+      "body_sha256": "d6e25fe9b3bb19792c6845389b9a995021eeec62e9345e51fcd3d9f35561af2f"
+    }
+  ],
+  "source_sha256": {
+    "game/ui/building_info_action_bindings.c": "42294c176fd324f09a2b98351df36398c2f917b81dcddf456169ee141666954a",
+    "game/include/pharaoh/ui/building_info_action_bindings.h": "4c12454df8ba2dcb9be6fb471ae0160dfed801f186fa16b1207a4ec30ba05051",
+    "game/scenario/mission_scene.c": "7887d464be5e39f04a16e3a4c7a4cdcae14990240a6cbc609c9e4fe44501be39",
+    "game/include/pharaoh/scenario/mission_scene.h": "f08d4e5367d043c41685e4386bc92205ecaef85d70ad3b6e0e32216f67c05b70",
+    "game/ui/building_info_draw_bindings.c": "f6f3df4b85f72610413c6341a1d786410eda7e827c04e3ee23a84ad716312e1b",
+    "game/platform/windows_city_ui.c": "98f6e88a18e478e73e2075d4fb8c0754211ef6aed5915d9b2ac5f3701936e9ef",
+    "game/include/pharaoh/platform/windows_city_ui.h": "f63502dcad2d9c6bb045a9cbb25865e5a2299ca3c29451040053a48ec9ac5ff1",
+    "game/platform/windows_mission_runtime.c": "7535025924a9a2b9b2890969ad0191338ac6043c309ce61f620df969dca2d376",
+    "game/platform/windows_startup_dispatch.c": "8f9b7a9bcaeab3c74b202aa77f77a343479c7cc2d6bcb621a46eb60851c95464",
+    "game/ui/building_info_init_bindings.c": "f02a030f84dd780b1aaf7edfc520821f3f22bb9014474c6ec4c1a1a58204bbe1",
+    "game/include/pharaoh/ui/building_info_init_bindings.h": "9133bfd19481b6a3ac2b90e03912e8171acd9675df7e1dcc66897cb4048799a9"
+  },
+  "canonical_release": {
+    "library_sha256": "1bccd0fbc1d499d154dc5af3a8140ff05a26a09b68766a98b19771085a195be7",
+    "definitions": 2382,
+    "references": 1145,
+    "missing": 0,
+    "owners_checked_once": 13
+  },
+  "working_release": {
+    "library_sha256": "8fd2644be85ee60bef4cc46be7d2186cde29445299e110c5e21fe2da3a35b53a",
+    "definitions": 2879,
+    "references": 1175,
+    "missing": 0,
+    "owners_checked_once": 13
+  },
+  "evidence_records": {
+    "losttomb-info-empty-terrain-init-handoff.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-info-empty-terrain-init-handoff.json",
+      "sha256": "47d5d9e01d137a3928a373d0e8ebfd4eb55afb879cf63e9d51765fa69cc42655"
+    },
+    "losttomb-ui-empty-terrain-caller-native.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-empty-terrain-caller-native.json",
+      "sha256": "3ef98c8585788f5d3712cf7c7c5b31dfb643e3a18e76a317b83a7fa46fb27ead"
+    },
+    "losttomb-ui-mouse-pixel-bridge-ghidra.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-mouse-pixel-bridge-ghidra.json",
+      "sha256": "a4171de26bcd4c7b9ba1f2cf84794c3742abd8a2766d6d558f57296ac889c9ff"
+    },
+    "losttomb-ui-mouse-select-callers-ghidra.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-mouse-select-callers-ghidra.json",
+      "sha256": "51b753027c01eb4e5af578f4aca27719bca57e61a0bf2b6ccffd314632acbf95"
+    },
+    "losttomb-ui-square-repeat-ghidra.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-square-repeat-ghidra.json",
+      "sha256": "6945b3392fee807a67b9638763c2c4588d0248f16ab68d9f3f1bffc4a51b4328"
+    },
+    "losttomb-ui-square-repeat-table-ghidra.json": {
+      "path": "C:\\Users\\Daniel\\AppData\\Local\\Temp\\losttomb-ui-square-repeat-table-ghidra.json",
+      "sha256": "36156acc9717253b79bae29e94a34f061febb510f2f728e2cc2e3fd7929a4050"
+    }
+  },
+  "remaining_gaps": [
+    "Runtime launch/visual verification of this new route deferred to joint Native/C milestone; builds/static evidence are not behavior equivalence.",
+    "Building/walker info initialization still requires full warning/house/road/phrase/advisor/monument context assembly.",
+    "Message/help, advisor and military actions beyond the scoped close retain real unbound providers; failure is reported, never replaced with Native success.",
+    "Full4D8310 city input, left-click construction/undo/drag, simulation tick and comprehensive gameplay remain unbound; no whole-game equivalence.",
+    "38 remaining draw+5query packet has been authored in separate files but not part of this checkpoint; next joint cohort milestone follows its integration."
+  ],
+  "verification_diagnostics": "39 historical/source-revision diagnostics inherited; additional absent-CMake monument unit is an active separate uncommitted packet, not a missing source in this focused canonical tree.",
+  "verification": "Both strict Release builds and13 single-owner checks plus whole-library pharaoh symbol closure. No new test framework or UI automation. Native/C milestone must include these compiled-only integration definitions."
+}

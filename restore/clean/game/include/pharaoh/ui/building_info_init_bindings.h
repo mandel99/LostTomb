@@ -4,6 +4,7 @@
 #include "pharaoh/ui/building_info_content_live.h"
 #include "pharaoh/ui/walker_phrase_live.h"
 #include "pharaoh/map/road_access.h"
+#include "pharaoh/map/grid_geometry.h"
 #include "pharaoh/runtime/city_warning_clear.h"
 
 /* Actual EADB38..EADCB8 storage immediately before the 224-byte info state.
@@ -68,7 +69,8 @@ enum PharaohBuildingInfoInitSupport {
     PHARAOH_INFO_INIT_MISSING_CONTEXT,
     PHARAOH_INFO_INIT_MISSING_DATA,
     PHARAOH_INFO_INIT_STATE_MISMATCH,
-    PHARAOH_INFO_INIT_MISSING_FAULT_ENDPOINT
+    PHARAOH_INFO_INIT_MISSING_FAULT_ENDPOINT,
+    PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN
 };
 
 typedef struct PharaohBuildingInfoInitResult {
@@ -95,5 +97,41 @@ PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_support(
     const PharaohBuildingInfoInitBindings *);
 PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_initialize(
     const PharaohBuildingInfoInitBindings *);
+
+/* Checked subset of the SAME complete4F7E50 initializer. These are actual
+ * scene map/geometry owners, not caller-invented bounds or a copied UI state.
+ * Cursor coordinates come from initializer.cursor_tile_x/y. Their Native
+ * grid_start must match map.origin, and map.terrain must be the same grid.
+ *
+ * Exact supported domain: editor_active!=1; pending_warning_count<=0;
+ * cursor inside the actual map rectangle/diamond and the228x228 allocation;
+ * selected building grid WORD==0; real record0.building_type==0; all nine
+ * actual signedWORD neighbour heads<=0, with every index in that allocation.
+ * This proves no special building/progress/details/road/house/phrase/advisor
+ * child or military walker selection is reached. No sentinel fields are
+ * changed. The native terrain classifier, including its retain-old-kind arm,
+ * and positioning still execute in the whole initializer, not in a dry-run.
+ *
+ * Only genuine5596D0 resources and the existing pure4F8960 mode1 positioning
+ * path are reached. Missing unrelated provider contexts and #DE endpoint do
+ * not block this subset. Resources must be the actual scene producer: output
+ * counts/lists alias ui; profile flags/outputs do not alias cursor/grid heads,
+ * record0, geometry, warning/editor fields or info control state. Supplied
+ * arrays have their original allocated/sentinel backing. Game-thread inputs
+ * stay stable during the synchronous support+initialize call; resource child
+ * writes only its documented counts/lists and profile known flags.
+ *
+ * Refusal is read-only. initialize_empty_terrain repeats the pure guard and
+ * invokes4F7E50 once. Editor/warning reset arms are explicitly refused rather
+ * than replaced. The original all-branches APIs above remain unchanged. */
+typedef struct PharaohBuildingInfoEmptyTerrainInitDomain {
+    const PharaohMapTerrainView *map;
+    const PharaohMapGridGeometry *geometry;
+} PharaohBuildingInfoEmptyTerrainInitDomain;
+
+PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_empty_terrain_support(
+    const PharaohBuildingInfoInitBindings *,const PharaohBuildingInfoEmptyTerrainInitDomain *);
+PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_initialize_empty_terrain(
+    const PharaohBuildingInfoInitBindings *,const PharaohBuildingInfoEmptyTerrainInitDomain *);
 
 #endif

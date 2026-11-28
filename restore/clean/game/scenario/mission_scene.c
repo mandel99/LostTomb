@@ -3,6 +3,7 @@
 #include "pharaoh/ui/city_debug_grid.h"
 #include "pharaoh/ui/building_info_industry_live.h"
 #include "pharaoh/ui/building_info_actions_live.h"
+#include "pharaoh/ui/building_info_init_bindings.h"
 #include "pharaoh/runtime/camera_scroll.h"
 #include "pharaoh/building/construction_load.h"
 #include "pharaoh/building/construction_support.h"
@@ -63,6 +64,7 @@ struct PharaohMissionScene {
     PharaohSceneEnemyAssets enemy_assets;
     int32_t pyramid_style,mausoleum_size;
     PharaohBuildingInfoPhraseWeightBank phrase_bank;
+    int32_t info_warning_state; /* actualE950D8, PE/reset initial0 */
     PharaohCitySoundInitializeContext sound;
     int32_t sound_records[70][32];
     uint32_t sound_tick;
@@ -518,6 +520,7 @@ void pharaoh_mission_scene_bind_building_info_world(PharaohMissionScene *r,
     ui->current_window=r->inputs.window_id;ui->redraw_requested=r->inputs.redraw_requested;
     init->ui=ui;init->models=r->inputs.building_models->building_models;
     init->editor_active=(const int32_t *)(const void *)&r->editor_active;
+    init->pending_warning_count=&r->info_warning_state;
     init->grid_start=&r->geometry.grid_start;
     init->building_ids=v->building_ids;init->walker_ids=v->walker_ids;
     init->rubble_types=r->saved.destinations[168];init->canals=v->canal_water;
@@ -578,6 +581,10 @@ void pharaoh_mission_scene_bind_info_industry_world(PharaohMissionScene *r,
     industry->flood_season_month=&r->flood_world.season_month;
     industry->harvest_months=r->inputs.program->farm_harvest_months;
 }
+
+void pharaoh_mission_scene_bind_info_init_resources(PharaohMissionScene *r,
+    PharaohBuildingInfoInitProviders *p)
+{p->resources=&r->resources;}
 
 PharaohBuildingInfoPhraseWeightBank *pharaoh_mission_scene_info_phrase_bank(PharaohMissionScene *r)
 {return &r->phrase_bank;}

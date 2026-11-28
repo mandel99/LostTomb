@@ -314,6 +314,14 @@ static PharaohBuildingInfoActionResult units_support(
     const PharaohBuildingInfoActionProviders *p,uint32_t token)
 {
     CONTEXT(p->units);CONTEXT(p->units->orders);
+    /*4071C0 has a real short close path with no formation/order children. */
+    if(token==0x004071c0u) {
+        const PharaohUnitCommandUiContext *c=p->units;
+        NEED(c->orders_open);NEED(c->panel_mode);NEED(c->orders->redraw_city);NEED(c->orders->redraw_units);
+        ALIAS(c->orders_open,&p->ui->window->orders_shown);ALIAS(c->panel_mode,&p->ui->window->mode);
+        ALIAS(c->orders->redraw_city,p->ui->redraw_requested);ALIAS(c->orders->redraw_units,p->ui->current_window);
+        if(*c->orders_open!=0||*c->panel_mode!=4)return action_result(PHARAOH_INFO_ACTION_READY,token,NULL);
+    }
     const PharaohUnitCommandUiContext *u=p->units;
     const PharaohNativeLegionOrderContext *o=u->orders;
     NEED(o->formations);NEED(o->walkers);NEED(o->slot_walkers);NEED(o->command_locked);
@@ -457,12 +465,9 @@ ACTION(action_511c50,0x00511c50u) ACTION(action_51f780,0x0051f780u)
 ACTION(action_53d730,0x0053d730u)
 #undef ACTION
 
-PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve(void *user,uint32_t token)
+PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve_compiled(void *user,uint32_t token)
 {
-    PharaohBuildingInfoActionBindings *b=user;
-    if(!b)return NULL;
-    b->last_result=pharaoh_building_info_action_bindings_support(b,token);
-    if(b->last_result.support!=PHARAOH_INFO_ACTION_READY)return NULL;
+    (void)user; /*code lookup only; every adapter still checks runtime support*/
     switch(token) {
 #define RESOLVE(token,name) case token:return name;
     RESOLVE(0x004062d0u,action_4062d0) RESOLVE(0x004062f0u,action_4062f0)
@@ -480,6 +485,15 @@ PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve(void *u
 #undef RESOLVE
     default:return NULL;
     }
+}
+
+PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve(void *user,uint32_t token)
+{
+    PharaohBuildingInfoActionBindings *b=user;
+    if(!b)return NULL;
+    b->last_result=pharaoh_building_info_action_bindings_support(b,token);
+    return b->last_result.support==PHARAOH_INFO_ACTION_READY?
+        pharaoh_building_info_action_bindings_resolve_compiled(user,token):NULL;
 }
 void pharaoh_building_info_action_bindings_image_dispatch(void *b,uint32_t token)
 { invoke(b,token,INPUT_IMAGE); }

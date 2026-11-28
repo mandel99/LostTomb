@@ -27,4 +27,13 @@ void pharaoh_windows_city_ui_draw_foreground(struct PharaohWindowsStartupHost *)
 void pharaoh_windows_city_ui_release(struct PharaohWindowsStartupHost *);
 int32_t pharaoh_windows_city_ui_navigation(struct PharaohWindowsStartupHost *,
     int32_t mouse_x,int32_t mouse_y,uint8_t left_down,uint8_t right_went_down);
+struct PharaohCityRenderContext;
+/* Actual Native empty-terrain path; unsupported building/walker/action
+ * providers are reported as unavailable, never replaced by success callbacks.
+ * open returns-1 for an unavailable domain;0/1 are the actual initializer result. */
+int32_t pharaoh_windows_city_ui_open_empty_terrain(struct PharaohWindowsStartupHost *,
+    struct PharaohMissionScene *,const int32_t *tile_x,const int32_t *tile_y);
+int32_t pharaoh_windows_city_ui_empty_info_input(struct PharaohWindowsStartupHost *);
+int32_t pharaoh_windows_city_ui_draw_empty_info(struct PharaohWindowsStartupHost *,
+    struct PharaohCityRenderContext *);
 #endif

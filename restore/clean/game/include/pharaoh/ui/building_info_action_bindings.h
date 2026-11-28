@@ -72,6 +72,11 @@ PharaohBuildingInfoActionResult pharaoh_building_info_action_bindings_support(
     const PharaohBuildingInfoActionBindings *,uint32_t native_token);
 PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve(
     void *bindings,uint32_t native_token);
+/* Returns only genuine compiled C entrypoints for persistent table relocation.
+ * Availability is checked again by each invoked adapter. The host must
+ * propagate last_result failures; code lookup does not assert runtime support. */
+PharaohGenericButtonAction pharaoh_building_info_action_bindings_resolve_compiled(
+    void *unused,uint32_t native_token);
 void pharaoh_building_info_action_bindings_image_dispatch(void *,uint32_t native_token);
 void pharaoh_building_info_action_bindings_square_dispatch(void *,uint32_t native_token);
 

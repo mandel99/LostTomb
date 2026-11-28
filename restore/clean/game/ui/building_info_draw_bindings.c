@@ -556,6 +556,16 @@ enum PharaohBuildingInfoDrawSupport pharaoh_building_info_draw_background_suppor
     switch(u->window->mode) {
     case 0:return b->operations.no_info?content_ready(b):PHARAOH_INFO_DRAW_MISSING_CONTEXT;
     case 1: {
+        if(u->window->walker_count==0) {
+            if(!b->operations.terrain||!p->terrain||!p->walkers||!p->content||!p->content->previews)
+                return PHARAOH_INFO_DRAW_MISSING_CONTEXT;
+            if(p->terrain->walkers!=p->walkers||p->walkers->content!=p->content||
+               p->content->drawing!=p->storage||p->content->previews->ui!=u)
+                return PHARAOH_INFO_DRAW_STATE_MISMATCH;
+            /*4FA3C0 returns before capture reads.4FA780 still draws its real
+             * inner panel/no-walkers text and sets selection1; do not skip it. */
+            return PHARAOH_INFO_DRAW_READY;
+        }
         s=walkers_ready(b);if(s!=PHARAOH_INFO_DRAW_READY)return s;
         if(!b->operations.terrain||!p->terrain||!p->terrain->selection_voice)
             return PHARAOH_INFO_DRAW_MISSING_CONTEXT;

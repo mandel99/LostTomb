@@ -109,6 +109,10 @@ struct PharaohCityDebugGridValues;
 void pharaoh_mission_scene_bind_debug_grid_values(PharaohMissionScene *,
     struct PharaohCityDebugGridValues *);
 
+struct PharaohBuildingInfoInitProviders;
+void pharaoh_mission_scene_bind_info_init_resources(PharaohMissionScene *,
+    struct PharaohBuildingInfoInitProviders *);
+
 struct PharaohBuildingInfoPhraseWeightBank;
 struct PharaohBuildingInfoPhraseWeightBank *pharaoh_mission_scene_info_phrase_bank(PharaohMissionScene *);
 

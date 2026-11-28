@@ -206,6 +206,23 @@ static PharaohBuildingInfoInitResult base_ready(const PharaohBaseMonumentProgres
     return result(PHARAOH_INFO_INIT_READY,0,NULL);
 }
 
+static PharaohBuildingInfoInitResult resources_ready(
+    const PharaohBuildingInfoInitProviders *p,const PharaohBuildingInfoLiveContext *ui)
+{
+    CONTEXT(p->resources,0x005596d0u);
+    const PharaohResourceAvailabilityContext *r=p->resources;
+    CONTEXT(r->supply,0x005596d0u);NEED(r->supply->cities,0x005596d0u);
+    NEED(r->supply->route_limits,0x005596d0u);NEED(r->supply->allowed_buildings,0x005596d0u);
+    NEED(r->supply->players,0x005596d0u);NEED(r->supply->current_player,0x005596d0u);
+    NEED(r->events,0x005596d0u);NEED(r->event_count,0x005596d0u);
+    NEED(r->resource_count,0x005596d0u);NEED(r->resources,0x005596d0u);
+    NEED(r->food_count,0x005596d0u);NEED(r->foods,0x005596d0u);
+    ALIAS(r->resource_count,ui->resource_count,0x005596d0u);
+    ALIAS(r->resources,ui->resources,0x005596d0u);
+    ALIAS(r->food_count,ui->food_count,0x005596d0u);ALIAS(r->foods,ui->foods,0x005596d0u);
+    return result(PHARAOH_INFO_INIT_READY,0,NULL);
+}
+
 PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_support(
     const PharaohBuildingInfoInitBindings *b)
 {
@@ -238,17 +255,9 @@ PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_support(
 
     CONTEXT(p->warnings,0x004e2ab0u);NEED(p->warnings->warning_state,0x004e2ab0u);
     NEED(p->warnings->warning_positions,0x004e2ab0u);NEED(p->warnings->warnings,0x004e2ab0u);
-    CONTEXT(p->resources,0x005596d0u);
+    const PharaohBuildingInfoInitResult resource_status=resources_ready(p,ui);
+    if(resource_status.support!=PHARAOH_INFO_INIT_READY)return resource_status;
     const PharaohResourceAvailabilityContext *r=p->resources;
-    CONTEXT(r->supply,0x005596d0u);NEED(r->supply->cities,0x005596d0u);
-    NEED(r->supply->route_limits,0x005596d0u);NEED(r->supply->allowed_buildings,0x005596d0u);
-    NEED(r->supply->players,0x005596d0u);NEED(r->supply->current_player,0x005596d0u);
-    NEED(r->events,0x005596d0u);NEED(r->event_count,0x005596d0u);
-    NEED(r->resource_count,0x005596d0u);NEED(r->resources,0x005596d0u);
-    NEED(r->food_count,0x005596d0u);NEED(r->foods,0x005596d0u);
-    ALIAS(r->resource_count,ui->resource_count,0x005596d0u);
-    ALIAS(r->resources,ui->resources,0x005596d0u);
-    ALIAS(r->food_count,ui->food_count,0x005596d0u);ALIAS(r->foods,ui->foods,0x005596d0u);
 
     CONTEXT(p->pyramid_selection,0x004f5d90u);
     const PharaohInfoPyramidSelectionContext *selection=p->pyramid_selection;
@@ -376,6 +385,86 @@ PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_initialize(
     const PharaohBuildingInfoInitBindings *b)
 {
     PharaohBuildingInfoInitResult r=pharaoh_building_info_init_bindings_support(b);
+    if(r.support==PHARAOH_INFO_INIT_READY)
+        r.opened=pharaoh_building_info_live_initialize(b->providers.initializer);
+    return r;
+}
+
+PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_empty_terrain_support(
+    const PharaohBuildingInfoInitBindings *b,const PharaohBuildingInfoEmptyTerrainInitDomain *domain)
+{
+    CONTEXT(b,0x004f7e50u);
+    const PharaohBuildingInfoInitProviders *p=&b->providers;
+    const PharaohBuildingInfoLiveInitContext *c=p->initializer;
+    CONTEXT(c,0x004f7e50u);CONTEXT(c->ui,0x004f7e50u);
+    NEED(c->editor_active,0x004f7e50u);NEED(c->pending_warning_count,0x004f7e50u);
+    if(*c->editor_active==1)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: editor arm");
+    if(*c->pending_warning_count>0)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: warning/reset arm");
+    const PharaohBuildingInfoLiveContext *ui=c->ui;
+    NEED(ui->window,0x004f7e50u);NEED(ui->buildings,0x004f7e50u);
+    NEED(ui->focus_primary,0x004f7e50u);NEED(ui->focus_secondary,0x004f7e50u);
+    NEED(ui->focus_building,0x004f7e50u);NEED(ui->current_window,0x004f7e50u);
+    NEED(ui->redraw_requested,0x004f7e50u);
+    NEED(c->cursor_tile_x,0x004f7e50u);NEED(c->cursor_tile_y,0x004f7e50u);
+    NEED(c->grid_start,0x004f7e50u);NEED(c->building_ids,0x004f7e50u);
+    NEED(c->walker_ids,0x004f7e50u);NEED(c->neighbours,0x004f7e50u);
+    NEED(c->rubble_types,0x004f7e50u);NEED(c->canals,0x004f7e50u);
+    NEED(c->terrain,0x004f7e50u);NEED(c->sprites,0x004f7e50u);
+    NEED(c->bitfields,0x004f7e50u);NEED(c->entry_flag,0x004f7e50u);NEED(c->exit_flag,0x004f7e50u);
+    NEED(c->display_height,0x004f7e50u);NEED(c->mouse_y,0x004f7e50u);
+    NEED(c->panel_position_mode,0x004f7e50u);
+    ALIAS(c->operations,&b->operations,0x004f7e50u);ALIAS(b->operations.user_data,b,0x004f7e50u);
+    if(b->operations.rebuild_resources!=rebuild_resources)
+        return result(PHARAOH_INFO_INIT_STATE_MISMATCH,0x005596d0u,"genuine resources adapter");
+
+    CONTEXT(domain,0x004f7e50u);CONTEXT(domain->map,0x004f7e50u);
+    CONTEXT(domain->geometry,0x004f7e50u);
+    const PharaohMapTerrainView *map=domain->map;
+    const PharaohMapGridGeometry *g=domain->geometry;
+    ALIAS(map->terrain,c->terrain,0x004f7e50u);
+    if(map->origin!=*c->grid_start || map->width!=g->width || map->height!=g->height)
+        return result(PHARAOH_INFO_INIT_STATE_MISMATCH,0x004f7e50u,"empty terrain: actual map origin/dimensions");
+    if(map->width<=0||map->width>PHARAOH_MAP_GRID_WIDTH ||
+        map->height<=0||map->height>PHARAOH_MAP_GRID_WIDTH ||
+        g->diamond_x_min<0||g->diamond_y_min<0 ||
+        g->diamond_x_max>=PHARAOH_MAP_GRID_WIDTH||g->diamond_y_max>=PHARAOH_MAP_GRID_WIDTH ||
+        g->diamond_x_min>g->diamond_x_max||g->diamond_y_min>g->diamond_y_max ||
+        g->diamond_x_center<0||g->diamond_x_center>=PHARAOH_MAP_GRID_WIDTH ||
+        g->diamond_y_center<0||g->diamond_y_center>=PHARAOH_MAP_GRID_WIDTH)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: allocated map geometry");
+    const int32_t x=*c->cursor_tile_x,y=*c->cursor_tile_y;
+    if(x<0||y<0||x>=map->width||y>=map->height)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: actual cursor rectangle");
+    /* Accepted arithmetic cannot wrap32: every resulting index lies in the
+     * real51984-cell backing. Bounds use actual physical grid coordinates. */
+    const int64_t grid=(int64_t)*c->grid_start+x+(int64_t)y*PHARAOH_MAP_GRID_WIDTH;
+    if(grid<0||grid>=PHARAOH_MAP_GRID_WIDTH*PHARAOH_MAP_GRID_WIDTH)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: actual cursor grid index");
+    const int32_t index=(int32_t)grid;
+    if(!pharaoh_map_grid_is_inside(g,index%PHARAOH_MAP_GRID_WIDTH,index/PHARAOH_MAP_GRID_WIDTH))
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: actual cursor diamond");
+    if(c->building_ids[index]!=0 || ui->buildings[0].building_type!=0)
+        return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: grid building0 / record0 sentinel");
+    for(int32_t i=0;i<9;++i) {
+        const int64_t neighbour=grid+c->neighbours[i];
+        if(neighbour<0||neighbour>=PHARAOH_MAP_GRID_WIDTH*PHARAOH_MAP_GRID_WIDTH)
+            return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: neighbour allocation index");
+        if(c->walker_ids[(int32_t)neighbour]>0)
+            return result(PHARAOH_INFO_INIT_OUTSIDE_EMPTY_TERRAIN_DOMAIN,0x004f7e50u,"empty terrain: positive neighbour walker head");
+    }
+    /* With buildingID0 every terrain_kind return is a terrain value or-1,
+     * never the-2 building arm. The whole native classifier remains single.
+     * Nine nonpositive heads skip all walker record/phrase reads; the whole
+     * initializer clears seven slots, so military selection also stays mode1. */
+    return resources_ready(p,ui);
+}
+
+PharaohBuildingInfoInitResult pharaoh_building_info_init_bindings_initialize_empty_terrain(
+    const PharaohBuildingInfoInitBindings *b,const PharaohBuildingInfoEmptyTerrainInitDomain *domain)
+{
+    PharaohBuildingInfoInitResult r=pharaoh_building_info_init_bindings_empty_terrain_support(b,domain);
     if(r.support==PHARAOH_INFO_INIT_READY)
         r.opened=pharaoh_building_info_live_initialize(b->providers.initializer);
     return r;

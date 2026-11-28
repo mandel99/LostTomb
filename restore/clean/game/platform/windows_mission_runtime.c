@@ -15,6 +15,8 @@
 #include "pharaoh/rendering/city_object_layers.h"
 #include "pharaoh/rendering/city_building_ghost.h"
 #include "pharaoh/ui/city_debug_grid.h"
+#include "pharaoh/ui/city_map_input.h"
+#include "pharaoh/ui/construction_input.h"
 #include "pharaoh/platform/windows_game_input.h"
 #include "pharaoh/rendering/building_stock_draw.h"
 #include "pharaoh/rendering/building_animation_offset.h"
@@ -90,6 +92,11 @@ struct PharaohWindowsMissionRuntime {
     uint32_t highlight_countdown,debug_building_info,debug_evolve_info,debug_walker_info;
     int32_t construction_tool,construction_place_ok,anchor_tile,anchor_x,anchor_y;
     uint8_t selection_locked,construction_royal_tomb;
+    PharaohCityPixelHit mouse_hit; /* actual70E3F8..408, distinct from scan.tile70E488 */
+    int32_t mouse_tile_x,mouse_tile_y; /* BCA2C8/CC, distinct from BCA304/308 anchors */
+    uint32_t construction_drag_started;
+    int32_t construction_start_x,construction_end_x,construction_start_y,construction_end_y;
+    int32_t ferry_state,ferry_first_building; /* genuine BSS0 BCA310/BC9800 owners */
     PharaohFarmTileDrawContext farm_tiles;
     PharaohMonumentSpotDrawContext monument_spot_draw;
     PharaohMonumentSpotDrawOperations monument_spot_operations;
@@ -589,6 +596,7 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
     uint8_t left_down,uint8_t right_went_down)
 {
     PharaohWindowsStartupHost *const h=r->host;
+    const uint8_t entry_window=*r->window;
     const PharaohSavedSceneStorage *const saved=pharaoh_mission_scene_storage(r->scene);
     const PharaohCityViewContext *const view=pharaoh_mission_scene_view(r->scene);
     uint8_t *surface;
@@ -625,9 +633,14 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         pharaoh_windows_startup_host_end_game_frame(h);
         return 0;
     }
+    if(entry_window==9) {
+        if(!pharaoh_windows_city_ui_empty_info_input(h)) {
+            r->diagnostic_frame_status=-7;pharaoh_windows_startup_host_end_game_frame(h);return 0;
+        }
+    }
     /* Native city branch orders camera scrolling before sidebar navigation.
        Full menu/construction dispatch is a separate pending owner. */
-    {
+    if(entry_window==1) {
         const PharaohGameTickGateOperations clock={r,navigation_clock};
         const PharaohCameraScrollInput scroll={&mouse_x,&mouse_y,&h->graphics.render_width,
             &h->graphics.render_height,&h->city_scroll_requested,&r->navigation_west,
@@ -636,7 +649,36 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
         PharaohCameraScrollContext camera;
         pharaoh_mission_scene_bind_camera(r->scene,&camera);
         pharaoh_camera_scroll_apply(&camera,pharaoh_camera_scroll_direction(&scroll));
-        (void)pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down);
+        const int32_t navigation=pharaoh_windows_city_ui_navigation(h,mouse_x,mouse_y,left_down,right_went_down);
+        if(!navigation&&r->construction_tool==0) {
+            /*430790 uses last-rendered70E474/478, not the independently
+             * scrollable camera70E3D4/3D8. This is a scalar view descriptor. */
+            PharaohCityViewState rendered=*view->state;
+            rendered.camera_x=(int32_t)r->ground_scan.camera_column;
+            rendered.camera_y=(int32_t)r->ground_scan.camera_row;
+            PharaohMapSurfaceContext *const map_surface=pharaoh_mission_scene_surface(r->scene);
+            const PharaohPyramidPreviewContext preview={.surface=map_surface,
+                .selected_tile=map_surface->current_tile,.anchor_tile=(uint32_t *)(void *)&r->anchor_tile,
+                .anchor_x=&r->anchor_x,.anchor_y=&r->anchor_y};
+            const PharaohCityMapInputContext select={&rendered,view->projection,&r->mouse_hit,
+                &mouse_x,&mouse_y,&r->mouse_tile_x,&r->mouse_tile_y,&r->selection_locked,&r->construction_tool,&preview};
+            pharaoh_city_view_mouse_select(&select);r->construction_place_ok=0;
+            if(*map_surface->current_tile!=0&&h->game_input->mouse.right_button_released&&
+               !h->game_input->mouse.left_button_pressed&&!h->game_input->mouse.left_button_down&&
+               !h->game_input->mouse.left_button_released) {
+                const PharaohConstructionInputContext cancel={.current_window=r->window,
+                    .redraw=&h->graphics.redraw_requested,.tool=&r->construction_tool,
+                    .drag_started=&r->construction_drag_started,.start_x=&r->construction_start_x,
+                    .end_x=&r->construction_end_x,.start_y=&r->construction_start_y,.end_y=&r->construction_end_y,
+                    .ferry_state=&r->ferry_state,.ferry_first_building=&r->ferry_first_building,
+                    .buildings=saved->view.buildings};
+                if(pharaoh_construction_cancel_live(&cancel)==0&&
+                   pharaoh_windows_city_ui_open_empty_terrain(h,r->scene,&r->mouse_tile_x,&r->mouse_tile_y)<0) {
+                    OutputDebugStringA("LostTomb: selected information tile needs unbound providers\n");
+                    r->diagnostic_frame_status=-9;pharaoh_windows_startup_host_end_game_frame(h);return 0;
+                }
+            }
+        }
     }
     /* E92E0C is the actual shared timeGetTime sample already published by
      * the Native mouse-update binding, not a second render clock. */
@@ -888,9 +930,13 @@ int32_t pharaoh_windows_mission_runtime_game_frame(
             pharaoh_windows_startup_host_end_game_frame(h);
             return 0;
         }
-        pharaoh_city_render_current_view(&r->city_render);
+        if(*r->window==1)pharaoh_city_render_current_view(&r->city_render);
     }
-    pharaoh_windows_city_ui_draw_foreground(h);
+    if(*r->window==9) {
+        if(!pharaoh_windows_city_ui_draw_empty_info(h,&r->city_render)) {
+            r->diagnostic_frame_status=-8;pharaoh_windows_startup_host_end_game_frame(h);return 0;
+        }
+    } else pharaoh_windows_city_ui_draw_foreground(h);
     pharaoh_windows_startup_host_end_game_frame(h);
     r->diagnostic_frame_status=1;
     return 1;
